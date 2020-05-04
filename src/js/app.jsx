@@ -43,7 +43,8 @@ import {
     faShareAlt,
     faEnvelope,
     faLink,
-    faExclamationCircle
+    faExclamationCircle,
+    faDownload
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -96,7 +97,8 @@ library.add(
     faShareAlt,
     faEnvelope,
     faLink,
-    faExclamationCircle
+    faExclamationCircle,
+    faDownload
 );
 
 const appDiv = document.getElementById('app');
