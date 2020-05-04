@@ -12,7 +12,9 @@ import {
     removeStagedTasFilter,
     autoCheckTasAfterExpand,
     expandTasNodeAndAllDescendantParents,
-    getTasNodeFromTree
+    getTasNodeFromTree,
+    getAncestryPathOfNodes,
+    shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
