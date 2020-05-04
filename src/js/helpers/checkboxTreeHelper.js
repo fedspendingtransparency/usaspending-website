@@ -564,6 +564,7 @@ export const populateBranchOrLeafLevelNodes = (
                     ? node.children
                         .map((child) => {
                             if (child.value === key) {
+                                debugger;
                                 const isPopulated = (
                                     child.children.length === child.count &&
                                     !child.children.some((grandChild) => grandChild.isPlaceHolder)
