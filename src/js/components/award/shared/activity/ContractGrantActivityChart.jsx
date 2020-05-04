@@ -87,17 +87,15 @@ const ContractGrantsActivityChart = ({
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort(
             (a, b) => a.running_obligation_total - b.running_obligation_total);
-        let yZero = 0;
+        const yZero = 0;
         let yOne = 0;
         if (clonedTransactions.length > 1) { // multiple transactions
-            yZero = 0;
             // if the total obligation if bigger than any running obligation total, use total obligation
             yOne = totalObligation > clonedTransactions[clonedTransactions.length - 1].running_obligation_total
                 ? totalObligation
                 : clonedTransactions[clonedTransactions.length - 1].running_obligation_total;
         }
         else { // one transaction
-            yZero = 0;
             yOne = totalObligation || clonedTransactions[0];
         }
         setYDomain([yZero, yOne]);
