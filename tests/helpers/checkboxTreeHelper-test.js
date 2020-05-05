@@ -174,6 +174,31 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             // node also has the new child
             expect(grandChildWasAdded).toEqual(true);
         });
+        it('at PSC Depth, children are not overwritten with placeholders when real data is present', () => {
+            // Should be node 1111
+            const newNode = mockData.reallyBigTree
+                .find((node) => node.value === '11')
+                .children
+                .find((node) => node.value === '1111');
+
+            const result = populateBranchOrLeafLevelNodes(
+                mockData.treeWithPlaceholdersAndRealDataPSCDepth,
+                '1111',
+                [newNode],
+                getHighestAncestorNaicsCode,
+                getNaicsNodeFromTree
+            );
+
+            const node = getNaicsNodeFromTree(result, '11');
+
+            const greatGrandChildWasNotOverwritten = node.children
+                .find((child) => child.value === '1111')
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .find((greatGrand) => greatGrand.value === 'dont-overwrite-me');
+            expect(greatGrandChildWasNotOverwritten.naics_description).toEqual('real');
+        });
     });
     describe('cleanTreeData', () => {
         it('object property mapping: (A) naics_description --> label & (B) naics --> value', () => {

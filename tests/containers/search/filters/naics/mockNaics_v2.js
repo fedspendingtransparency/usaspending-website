@@ -115,6 +115,90 @@ export const treeWithPlaceholdersAndRealData = [
     }
 ];
 
+export const treeWithPlaceholdersAndRealDataPSCDepth = [
+    {
+        value: '11',
+        naics: '11',
+        naics_description: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 64,
+        children: [
+            {
+                value: "1111",
+                naics: "1111",
+                naics_description: "Oilseed and Grain Farming",
+                count: 8,
+                children: [
+                    {
+                        naics: "111110",
+                        value: "111110",
+                        naics_description: "Soybean Farming",
+                        count: 0
+                    },
+                    {
+                        value: "111120",
+                        naics: "111120",
+                        naics_description: "Oilseed (except Soybean) Farming",
+                        count: 20,
+                        children: [
+                            {
+                                value: 'dont-overwrite-me',
+                                naics_description: 'real'
+                            },
+                            {
+                                value: 'children_of_111120',
+                                naics_description: 'psc-depth not realistic naics data',
+                                isPlaceHolder: true
+                            }
+                        ]
+                    },
+                    {
+                        naics: "111130",
+                        value: "111130",
+                        naics_description: "Dry Pea and Bean Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111140",
+                        value: "111140",
+                        naics_description: "Wheat Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111150",
+                        value: "111150",
+                        naics_description: "Corn Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111160",
+                        value: "111160",
+                        naics_description: "Rice Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111191",
+                        value: "111191",
+                        naics_description: "Oilseed and Grain Combination Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111199",
+                        value: "111199",
+                        naics_description: "All Other Grain Farming",
+                        count: 0
+                    }
+                ]
+            },
+            {
+                value: "children_of_11",
+                naics: "children_of_11",
+                isPlaceHolder: true,
+                count: 0
+            }
+        ]
+    }
+];
+
 export const reallyBigTree = [
     {
         naics: "11",
@@ -180,7 +264,6 @@ export const reallyBigTree = [
                         naics_description: "All Other Grain Farming",
                         count: 0
                     }
-     
                 ]
             },
             {
