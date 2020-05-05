@@ -39,7 +39,7 @@ const mockSearchResults = [{
 describe('checkboxTree Helpers (using NAICS data)', () => {
     describe('getAllDescendants', () => {
         it('returns an array of lowest descendants in tree', () => {
-            const mock = mockData.reallyBigTree[0].children[0];
+            const mock = mockData.reallyBigTreePSCDepth[0].children[0];
             const result = getAllDescendants(mock);
             expect(result).toEqual([
                 "111110",
@@ -62,7 +62,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
         it('adds the hide class to nodes not in search results', () => {
-            const existingNodes = mockData.reallyBigTree;
+            const existingNodes = mockData.reallyBigTreePSCDepth;
             const searchResult = addSearchResultsToTree(existingNodes, mockData.searchResults, getNaicsNodeFromTree);
             const existingGrandChildren = existingNodes[0].children[0].children;
             const grandChildrenWithSearch = searchResult
@@ -176,7 +176,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         });
         it('at PSC Depth, children are not overwritten with placeholders when real data is present', () => {
             // Should be node 1111
-            const newNode = mockData.reallyBigTree
+            const newNode = mockData.reallyBigTreePSCDepth
                 .find((node) => node.value === '11')
                 .children
                 .find((node) => node.value === '1111');
