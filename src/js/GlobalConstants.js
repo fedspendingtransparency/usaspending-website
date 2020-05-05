@@ -8,7 +8,7 @@ const globalConstants = {
     LOCAL_ROOT: "",
     GITHUB: "",
     LOCAL: false,
-    DEV: (process.env.ENV === 'dev'),
+    DEV: (process.env.ENV === 'dev' || process.env.ENV === 'sandbox'),
     KEYWORD_AVAILABLE: true,
     PERF_LOG: false,
     OVERRIDE_FISCAL_YEAR: false,
