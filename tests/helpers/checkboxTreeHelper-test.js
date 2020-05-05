@@ -61,7 +61,26 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const existingGrandChildren = existingNodes[0].children[0].children;
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
-        it('adds the hide class to nodes not in search results', () => {
+        it('does NOT overwrite existing great-grand-children (PSC Depth)', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealDataPSCDepth;
+            const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
+            const preExistingGreatGrandChild = newChildren
+                .children
+                .find((node) => node.value === '1111')
+                .children
+                .find((node) => node.value === '111120')
+                .children
+                .find((node) => node.value === 'dont-overwrite-me');
+            const newGrandChild = newChildren
+                .children
+                .find((node) => node.value === '1111')
+                .children
+                .find((node) => node.value === 'pretend');
+
+            expect(preExistingGreatGrandChild.naics_description).toEqual('real');
+            expect(newGrandChild.value).toEqual('pretend');
+        });
+        it('adds the hide class to nodes not in search results (PSC Depth)', () => {
             const existingNodes = mockData.reallyBigTreePSCDepth;
             const searchResult = addSearchResultsToTree(existingNodes, mockData.searchResults, getNaicsNodeFromTree);
             const existingGrandChildren = existingNodes[0].children[0].children;
@@ -114,6 +133,35 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(grandPlaceHolderExists).toEqual(true);
             expect(childPlaceHolderExists).toEqual(true);
         });
+        it('keeps placeholder children/grandchildren for nodes without all children (PSC Depth)', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealDataPSCDepth;
+            const [searchResults] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
+            const childFromSearch = searchResults.children[0];
+            const childPlaceHolderExists = searchResults
+                .children
+                .some((child) => child.isPlaceHolder);
+
+            const grandPlaceHolderExists = childFromSearch
+                .children
+                .some((grand) => grand.isPlaceHolder);
+            
+            const greatGrandNotOverwritten = childFromSearch
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .some((greatGrand) => greatGrand.value === 'dont-overwrite-me');
+
+            const greatGrandPlaceholderNotOverwritten = childFromSearch
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .some((greatGrand) => greatGrand.isPlaceHolder === true);
+
+            expect(grandPlaceHolderExists).toEqual(true);
+            expect(childPlaceHolderExists).toEqual(true);
+            expect(greatGrandNotOverwritten).toEqual(true);
+            expect(greatGrandPlaceholderNotOverwritten).toEqual(true);
+        });
     });
     describe('expandNodeAndAllDescendantParents', () => {
         it('returns an array containing all values from tree', () => {
@@ -126,10 +174,10 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(result).toEqual(["11", "1111"]);
         });
     });
-    describe('showAllNodes', () => {
+    describe('showAllNodes (PSC Depth)', () => {
         it('removes the hide class from all nodes', () => {
-            const result = showAllNodes(mockData.reallyBigTree);
-            const nodeWithHideClass = getNaicsNodeFromTree(result, '115310', 'naics');
+            const result = showAllNodes(mockData.reallyBigTreePSCDepth);
+            const nodeWithHideClass = getNaicsNodeFromTree(result, '111120', 'naics').children[0];
             expect(nodeWithHideClass.className).toEqual('');
         });
     });
@@ -174,7 +222,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             // node also has the new child
             expect(grandChildWasAdded).toEqual(true);
         });
-        it('at PSC Depth, children are not overwritten with placeholders when real data is present', () => {
+        it('keeps children when real data is present (PCS Depth)', () => {
             // Should be node 1111
             const newNode = mockData.reallyBigTreePSCDepth
                 .find((node) => node.value === '11')

@@ -154,39 +154,9 @@ export const treeWithPlaceholdersAndRealDataPSCDepth = [
                         ]
                     },
                     {
-                        naics: "111130",
-                        value: "111130",
-                        naics_description: "Dry Pea and Bean Farming",
-                        count: 0
-                    },
-                    {
-                        naics: "111140",
-                        value: "111140",
-                        naics_description: "Wheat Farming",
-                        count: 0
-                    },
-                    {
-                        naics: "111150",
-                        value: "111150",
-                        naics_description: "Corn Farming",
-                        count: 0
-                    },
-                    {
-                        naics: "111160",
-                        value: "111160",
-                        naics_description: "Rice Farming",
-                        count: 0
-                    },
-                    {
-                        naics: "111191",
-                        value: "111191",
-                        naics_description: "Oilseed and Grain Combination Farming",
-                        count: 0
-                    },
-                    {
-                        naics: "111199",
-                        value: "111199",
-                        naics_description: "All Other Grain Farming",
+                        value: "children_of_1111",
+                        naics: "children_of_1111",
+                        isPlaceHolder: true,
                         count: 0
                     }
                 ]
@@ -528,7 +498,8 @@ export const reallyBigTreePSCDepth = [
                         children: [{
                             naics: 'great grandchild',
                             value: 'great grandchild',
-                            naics_description: 'This will never happen with NAICS; its a test for PSC'
+                            naics_description: 'This will never happen with NAICS; its a test for PSC',
+                            className: 'hide'
                         }]
                     },
                     {
