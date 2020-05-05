@@ -197,19 +197,24 @@ export class NAICSContainer extends React.Component {
     }
 
     onUncheck = (newChecked, uncheckedNode) => {
-        const [stagedNaicsFilters, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
-            uncheckedNode,
-            this.props.unchecked,
-            this.props.checked,
-            this.state.stagedNaicsFilters,
-            this.props.nodes
-        );
+        if (uncheckedNode.checked) {
+            this.onCheck(newChecked);
+        }
+        else {
+            const [stagedNaicsFilters, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
+                uncheckedNode,
+                this.props.unchecked,
+                this.props.checked,
+                this.state.stagedNaicsFilters,
+                this.props.nodes
+            );
 
-        this.props.setUncheckedNaics(newUnchecked);
-        this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
-        this.props.setCheckedNaics(newChecked);
+            this.props.setUncheckedNaics(newUnchecked);
+            this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
+            this.props.setCheckedNaics(newChecked);
 
-        this.setState({ stagedNaicsFilters });
+            this.setState({ stagedNaicsFilters });
+        }
     }
 
     onExpand = (value, expanded, fetch) => {
