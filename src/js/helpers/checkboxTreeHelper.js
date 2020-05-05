@@ -695,7 +695,7 @@ export const showAllNodes = (tree) => tree
                 .map((child) => ({
                     ...child,
                     className: '',
-                    children: Object.keys(child).includes('children') ? showAllNodes(child.children) : []
+                    children: child?.children?.length > 0 ? showAllNodes(child.children) : []
                 }))
                 .sort(sortNodesByValue)
             : []
