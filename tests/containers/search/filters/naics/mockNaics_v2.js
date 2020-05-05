@@ -141,10 +141,12 @@ export const treeWithPlaceholdersAndRealDataPSCDepth = [
                         count: 20,
                         children: [
                             {
+                                naics: 'dont-overwrite-me',
                                 value: 'dont-overwrite-me',
                                 naics_description: 'real'
                             },
                             {
+                                naics: 'children_of_111120',
                                 value: 'children_of_111120',
                                 naics_description: 'psc-depth not realistic naics data',
                                 isPlaceHolder: true
@@ -224,6 +226,7 @@ export const reallyBigTree = [
                         naics_description: "Oilseed (except Soybean) Farming",
                         count: 1,
                         children: [{
+                            naics: 'great grandchild',
                             value: 'great grandchild',
                             naics_description: 'This will never happen with NAICS; its a test for PSC'
                         }]
