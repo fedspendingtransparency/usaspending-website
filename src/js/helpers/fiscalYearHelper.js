@@ -165,3 +165,12 @@ export const getTrailingTwelveMonths = () => {
     const oneYearAgo = moment().subtract(1, 'year');
     return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
 };
+
+export const allFiscalYears = (earliestYear = earliestFiscalYear) => {
+    const years = [...new Array(defaultFiscalYear() - earliestYear)];
+    return years
+        .reduce((listOfYears, _, i) => {
+            listOfYears.push(earliestYear + i + 1);
+            return listOfYears;
+        }, [earliestYear]);
+};

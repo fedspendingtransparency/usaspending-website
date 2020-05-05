@@ -1,7 +1,3 @@
-// height of sticky header (66px) + sankey (200) + 20px margin
-$verticalOffsetExpandedSankey: 286;
-$verticalOffsetCollapsedSankey: 141;
-
 .usa-da-agency-page-v2 {
     @import "all";
     @import "layouts/default/default";
@@ -25,112 +21,143 @@ $verticalOffsetCollapsedSankey: 141;
     
     @import "../../explorer/detail/sidebar/fyPicker";
 
-    .sticky-header .sticky-header__container .sticky-header__header .sticky-header__title {
-        display: flex;
-        justify-content: flex-start;
-        h1 {
-            margin-right: rem(62);
-        }
-        .fy-picker {
-            .fy-picker__dropdown-container {
-                display: flex;
-            }
-            .fy-picker__icon,
-            .fy-picker__button-text,
-            .fy-picker__button-icon {
-                font-size: rem(24);
-            }
-            .fy-picker__icon {
-                margin-right: $global-mrg / 2;
-            }
-            .fy-picker__list {
-                z-index: 12;
-                background-color: 
-                #4A4A4A;
-                .fy-picker__list-item {
-                    .fy-picker__item {
-                        font-size: rem(24);
-                        color: white;
-                        &.active {
-                            color: 
-                            #4A4A4A;
-                            background: white;
-                        }
-                    } 
-                } 
-            }
-        }
-    }
-
-    .sankey {
+    .sticky-header .sticky-header__container .sticky-header__header {
         @include display(flex);
-        width: 100%;
-        background: #fff;
-        box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
-        z-index: 8;
-        @include flex-direction(column);
-        &.expanded-sankey {
-            height: rem(200);
-        }
-        &.collapsed-sankey {
-            height: rem(55);
-        }
-        &.sticky-icky-icky {
-            @include media($medium-screen) {
-                position: fixed;
-                // height of sticky header
-                top: 66px;
-                left: 0px;
-            }
-        }
-        .sankey__header {
+        @include justify-content(flex-start);
+        @include align-items(center);
+        @include flex-wrap(nowrap);
+        .sticky-header__toolbar {
             @include display(flex);
-            @include flex-wrap(wrap);
-            @include flex(1 1 100%);
-            @include display(flex);
-            @include align-items(center);
-            margin: rem(5) rem(40);
-            @include media($large-screen) {
-                @include align-self(center);
-                max-width: 160rem;
-                width: 100%;
+            .fy-picker-label {
+                font-size: rem(21);
+                @include align-self(flex-start);
             }
-            button {
-                background-color: transparent;
-                padding: 0 rem(10);
+            .fiscal-year-container {
+                @include display(flex);
+                @include flex-direction(column);
+                @include justify-content(center);
+                @include align-items(center);
+                padding-left: rem(12);
+                .usa-dt-picker { 
+                    background-color: #385C88;
+                    height: rem(25);
+                    width: 100%;
+                    .usa-dt-picker__dropdown-container {
+                        background-color: #385C88;
+                        margin: auto;
+                    }
+                    .usa-dt-picker__button-text,
+                    .usa-dt-picker__button-icon svg {
+                        color: white;
+                    }
+                    .usa-dt-picker__icon svg {
+                        width: rem(14);
+                        margin-left: rem(10);
+                    }
+                    .usa-dt-picker__button {
+                        padding: 0 rem(10);
+                        margin: 0;
+                    }
+                    .usa-dt-picker__button-text {
+                        height: rem(23);
+                        width: rem(37);
+                        font-size: rem(18);
+                        font-weight: 600;
+                        letter-spacing: 0;
+                        line-height: rem(23);
+                        margin: 0;
+                    }
+                    .usa-dt-picker__button-icon {
+                        padding-left: rem(10);
+                    }
+                }
             }
-            .agency-v2-tt {
-                margin-right: auto;
+            hr {
+                box-sizing: content-box;
+                height: 45px;
+                width: 1px;
+                margin: 0 10px;
+                border: none;
+                background: #6C6C6C;
             }
-            svg {
-                margin-right: rem(10);
+            .sticky-header__toolbar-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: rem(0) rem(10);
+                .usa-dt-picker {
+                    background: #4a4a4a;
+                    .usa-dt-picker__list {
+                        width: rem(140);
+                        span {
+                            margin-left: rem(10);
+                        }
+                    }
+                }
+                .sticky-header__button,
+                .usa-dt-picker__button {
+                    border-radius: rem(1.8);
+                    color: #0074BE;
+                    background-color: #D6D7D9;
+                    padding: 0;
+                    margin: 0;
+                    width: rem(40);
+                    height: rem(25);
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
+                }
+                &:nth-of-type(1) {
+                    margin-left: 0;
+                }
             }
-            h2, h3 {
-                padding: 0px;
-                margin: 0px;
-                line-height: $base-line-height;
-                font-size: rem(18);
+            .usa-dt-picker__list {
+                width: rem(141);
+                box-shadow: 0 rem(2) rem(2) 0 rgba(0,0,0,0.5);
+                border-radius: rem(3);
+                .usa-dt-picker__list-item {
+                    border: none;
+                    border-radius: rem(3);
+                    height: rem(39);
+                }
+                .usa-dt-picker__item,
+                .usa-dt-picker__item .active {
+                    @include display(flex);
+                    @include justify-content(flex-start);
+                    @include align-items(center);
+                    background: #FFF;
+                    font-size: rem(14);
+                    line-height: rem(16);
+                    color: #555555;
+                    &:hover {
+                        background: #EEEEEE;
+                        border: rem(1) solid #EEEEEE;
+                        cursor: pointer;
+                    }
+                    svg {
+                        margin-right: rem(12);
+                        font-size: rem(14);
+                    }
+                }
+            }
+            .copy-confirmation {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                height: 3.9rem;
+                width: rem(140);
+                background: #EEEEEE;
+                border: 0.1rem solid #EEEEEE;
+                border-radius: 0.3rem;
                 color: #555555;
-                font-weight: $font-semibold;
-            }
-            h3 {
-                width: 100%;
-                font-weight: normal;
-            }
-        }
-        .coming-soon-section {
-            margin: rem(5);
-            @include display(flex);
-            @include justify-content(center);
-            @include align-items(center);
-            @include flex-direction(column);
-            background: #f1f1f1;
-            height: 100%;
-            h4 {
-                margin: 0;
-                padding: 0;
-                padding-top: rem(10);
-                margin-top: rem(5);
+                margin-right: 1.5rem;
+                top: rem(36);
+                right: rem(83);
+                svg {
+                    margin: 0 rem(10);
+                }
             }
         }
     }
@@ -166,21 +193,8 @@ $verticalOffsetCollapsedSankey: 141;
             }
             .agency-v2-sidebar-reference {
                 display: none;
-            
                 &.float-sidebar {
                     display: block;
-                }
-            }
-            &.expanded-sankey .agency-v2-sidebar-content {
-                &.float-sidebar {
-                    position: fixed;
-                    top: rem($verticalOffsetExpandedSankey);
-                }
-            }
-            &.collapsed-sankey .agency-v2-sidebar-content {
-                &.float-sidebar {
-                    position: fixed;
-                    top: rem($verticalOffsetCollapsedSankey);
                 }
             }
 
@@ -192,7 +206,10 @@ $verticalOffsetCollapsedSankey: 141;
                 border-right: 1px solid $color-gray-border;
                 border-bottom: 1px solid $color-gray-border;
                 border-radius: rem(5);
-            
+                &.float-sidebar {
+                    position: fixed;
+                    top: rem(96);
+                }
                 ul {
                     @include unstyled-list;
                     padding: rem(30);

@@ -1,6 +1,6 @@
 import {
     addSearchResultsToTree,
-    expandAllNodes,
+    expandNodeAndAllDescendantParents,
     populateBranchOrLeafLevelNodes,
     cleanTreeData,
     removePlaceholderString,
@@ -38,12 +38,12 @@ const mockSearchResults = [{
 
 describe('checkboxTree Helpers (using NAICS data)', () => {
     describe('getAllDescendants', () => {
-        it('returns an array of all nested values', () => {
-            const mock = mockData.reallyBigTree[0].children[0];
+        it('returns an array of lowest descendants in tree', () => {
+            const mock = mockData.reallyBigTreePSCDepth[0].children[0];
             const result = getAllDescendants(mock);
             expect(result).toEqual([
                 "111110",
-                "111120",
+                "great grandchild",
                 "111130",
                 "111140",
                 "111150",
@@ -53,7 +53,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ]);
         });
     });
-    describe('addSearchResultsToTree & mergeChildren & ', () => {
+    describe('addSearchResultsToTree & mergeChildren', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
             const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
@@ -61,8 +61,27 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const existingGrandChildren = existingNodes[0].children[0].children;
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
-        it('adds a the hide class to nodes not in search results', () => {
-            const existingNodes = mockData.reallyBigTree;
+        it('does NOT overwrite existing great-grand-children (PSC Depth)', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealDataPSCDepth;
+            const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
+            const preExistingGreatGrandChild = newChildren
+                .children
+                .find((node) => node.value === '1111')
+                .children
+                .find((node) => node.value === '111120')
+                .children
+                .find((node) => node.value === 'dont-overwrite-me');
+            const newGrandChild = newChildren
+                .children
+                .find((node) => node.value === '1111')
+                .children
+                .find((node) => node.value === 'pretend');
+
+            expect(preExistingGreatGrandChild.naics_description).toEqual('real');
+            expect(newGrandChild.value).toEqual('pretend');
+        });
+        it('adds the hide class to nodes not in search results (PSC Depth)', () => {
+            const existingNodes = mockData.reallyBigTreePSCDepth;
             const searchResult = addSearchResultsToTree(existingNodes, mockData.searchResults, getNaicsNodeFromTree);
             const existingGrandChildren = existingNodes[0].children[0].children;
             const grandChildrenWithSearch = searchResult
@@ -76,6 +95,13 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(hiddenNodes.length).toEqual(7);
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
+            const greatGrandChild = hiddenNodes.find((node) => {
+                if (node.children) {
+                    return node.children.some((child) => child.value === 'great grandchild');
+                }
+                return false;
+            });
+            expect(greatGrandChild.className).toEqual('hide');
         });
         it('removes placeholder grandchildren for nodes with all grandchildren', () => {
             const existingNodes = mockData.placeholderNodes;
@@ -107,18 +133,51 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(grandPlaceHolderExists).toEqual(true);
             expect(childPlaceHolderExists).toEqual(true);
         });
+        it('keeps placeholder children/grandchildren for nodes without all children (PSC Depth)', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealDataPSCDepth;
+            const [searchResults] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
+            const childFromSearch = searchResults.children[0];
+            const childPlaceHolderExists = searchResults
+                .children
+                .some((child) => child.isPlaceHolder);
+
+            const grandPlaceHolderExists = childFromSearch
+                .children
+                .some((grand) => grand.isPlaceHolder);
+            
+            const greatGrandNotOverwritten = childFromSearch
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .some((greatGrand) => greatGrand.value === 'dont-overwrite-me');
+
+            const greatGrandPlaceholderNotOverwritten = childFromSearch
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .some((greatGrand) => greatGrand.isPlaceHolder === true);
+
+            expect(grandPlaceHolderExists).toEqual(true);
+            expect(childPlaceHolderExists).toEqual(true);
+            expect(greatGrandNotOverwritten).toEqual(true);
+            expect(greatGrandPlaceholderNotOverwritten).toEqual(true);
+        });
     });
-    describe('expandAllNodes', () => {
+    describe('expandNodeAndAllDescendantParents', () => {
         it('returns an array containing all values from tree', () => {
-            const result = expandAllNodes(mockData.searchResults);
+            const result = expandNodeAndAllDescendantParents(
+                mockData.searchResults,
+                'value',
+                shouldNaicsNodeHaveChildren
+            );
             // does not expand grand children as they have no children.
             expect(result).toEqual(["11", "1111"]);
         });
     });
-    describe('showAllNodes', () => {
+    describe('showAllNodes (PSC Depth)', () => {
         it('removes the hide class from all nodes', () => {
-            const result = showAllNodes(mockData.reallyBigTree);
-            const nodeWithHideClass = getNaicsNodeFromTree(result, '115310', 'naics');
+            const result = showAllNodes(mockData.reallyBigTreePSCDepth);
+            const nodeWithHideClass = getNaicsNodeFromTree(result, '111120', 'naics').children[0];
             expect(nodeWithHideClass.className).toEqual('');
         });
     });
@@ -162,6 +221,31 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             // node also has the new child
             expect(grandChildWasAdded).toEqual(true);
+        });
+        it('keeps children when real data is present (PCS Depth)', () => {
+            // Should be node 1111
+            const newNode = mockData.reallyBigTreePSCDepth
+                .find((node) => node.value === '11')
+                .children
+                .find((node) => node.value === '1111');
+
+            const result = populateBranchOrLeafLevelNodes(
+                mockData.treeWithPlaceholdersAndRealDataPSCDepth,
+                '1111',
+                [newNode],
+                getHighestAncestorNaicsCode,
+                getNaicsNodeFromTree
+            );
+
+            const node = getNaicsNodeFromTree(result, '11');
+
+            const greatGrandChildWasNotOverwritten = node.children
+                .find((child) => child.value === '1111')
+                .children
+                .find((grand) => grand.value === '111120')
+                .children
+                .find((greatGrand) => greatGrand.value === 'dont-overwrite-me');
+            expect(greatGrandChildWasNotOverwritten.naics_description).toEqual('real');
         });
     });
     describe('cleanTreeData', () => {
