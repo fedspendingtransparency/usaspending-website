@@ -38,12 +38,12 @@ const mockSearchResults = [{
 
 describe('checkboxTree Helpers (using NAICS data)', () => {
     describe('getAllDescendants', () => {
-        it('returns an array of all nested values', () => {
+        it('returns an array of lowest descendants in tree', () => {
             const mock = mockData.reallyBigTree[0].children[0];
             const result = getAllDescendants(mock);
             expect(result).toEqual([
                 "111110",
-                "111120",
+                "great grandchild",
                 "111130",
                 "111140",
                 "111150",
@@ -53,7 +53,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ]);
         });
     });
-    describe('addSearchResultsToTree & mergeChildren & ', () => {
+    describe('addSearchResultsToTree & mergeChildren', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
             const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
@@ -61,7 +61,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const existingGrandChildren = existingNodes[0].children[0].children;
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
-        it('adds a the hide class to nodes not in search results', () => {
+        it('adds the hide class to nodes not in search results', () => {
             const existingNodes = mockData.reallyBigTree;
             const searchResult = addSearchResultsToTree(existingNodes, mockData.searchResults, getNaicsNodeFromTree);
             const existingGrandChildren = existingNodes[0].children[0].children;
@@ -76,6 +76,13 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(hiddenNodes.length).toEqual(7);
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
+            const greatGrandChild = hiddenNodes.find((node) => {
+                if (node.children) {
+                    return node.children.some((child) => child.value === 'great grandchild');
+                }
+                return false;
+            });
+            expect(greatGrandChild.className).toEqual('hide');
         });
         it('removes placeholder grandchildren for nodes with all grandchildren', () => {
             const existingNodes = mockData.placeholderNodes;

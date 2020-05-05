@@ -106,8 +106,8 @@ export const treeWithPlaceholdersAndRealData = [
                 ]
             },
             {
-                value: "children_of_1112",
-                naics: "children_of_1112",
+                value: "children_of_11",
+                naics: "children_of_11",
                 isPlaceHolder: true,
                 count: 0
             }
@@ -138,7 +138,11 @@ export const reallyBigTree = [
                         naics: "111120",
                         value: "111120",
                         naics_description: "Oilseed (except Soybean) Farming",
-                        count: 0
+                        count: 1,
+                        children: [{
+                            value: 'great grandchild',
+                            naics_description: 'This will never happen with NAICS; its a test for PSC'
+                        }]
                     },
                     {
                         naics: "111130",
