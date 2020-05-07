@@ -2,11 +2,11 @@ FROM node:10
 
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
-COPY package-lock.json /node-workspace 
+COPY package-lock.json /node-workspace --no-cache
 
 WORKDIR /node-workspace
 
-RUN npm ci
+RUN npm ci --no-cache
 
 COPY . /node-workspace
 
