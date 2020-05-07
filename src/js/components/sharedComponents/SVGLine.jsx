@@ -203,22 +203,20 @@ export default class SVGLine extends Component {
         if (!lineIsDisplayed || !text) return null;
         const textArray = Array.isArray(text) ? text : [text];
         const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
-        return textArray.map((data, i) => {
-            return (
-                <text
-                    key={data}
-                    tabIndex="0"
-                    className={classname}
-                    x={this.state[`${data}TextX`]}
-                    y={this.state[`${data}TextY`] || this.props.textY}
-                    ref={this[`setTextDiv${data}`]}
-                    data-wordindex={i}
-                    onMouseMove={this.onMouseMoveText}
-                    onMouseLeave={this.onMouseLeaveText}>
-                    {data}
-                </text>
-            );
-        });
+        return textArray.map((data, i) => (
+            <text
+                key={data}
+                tabIndex="0"
+                className={classname}
+                x={this.state[`${data}TextX`]}
+                y={this.state[`${data}TextY`] || this.props.textY}
+                ref={this[`setTextDiv${data}`]}
+                data-wordindex={i}
+                onMouseMove={this.onMouseMoveText}
+                onMouseLeave={this.onMouseLeaveText}>
+                {data}
+            </text>
+        ));
     }
 
     description = () => (this.props.description ||
