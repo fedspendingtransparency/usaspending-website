@@ -5,7 +5,7 @@
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
     "scripts": {
-        "start": "webpack-dev-server --open --progress --config ./webpack/webpack.dev.config.js",
+        "start": "webpack-dev-server --open --progress --config ./webpack/webpack.prod.config.js",
         "sass": "webpack-dev-server --open --progress --config ./webpack/webpack.sass.config.js",
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
@@ -100,7 +100,7 @@
         "react": "^16.8.6",
         "react-addons-perf": "15.4.2",
         "react-aria-modal": "^2.7.0",
-        "react-checkbox-tree": "github:maxwellkendall/react-checkbox-tree#bugfix/v1",
+        "react-checkbox-tree": "^1.5.0",
         "react-copy-to-clipboard": "^5.0.1",
         "react-custom-scrollbars": "^4.1.2",
         "react-day-picker": "^7.0.2",
