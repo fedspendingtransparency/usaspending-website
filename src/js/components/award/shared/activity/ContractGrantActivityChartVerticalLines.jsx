@@ -45,10 +45,6 @@ const ContractGrantActivityChartVerticalLines = ({
     potentialEndLineHeight,
     todayLineHeight
 }) => {
-    // console.log(' Start Line', startLineHeight);
-    // console.log(' End Line', endLineHeight);
-    // console.log(' P Line', potentialEndLineHeight);
-    // console.log(' Today Line', todayLineHeight);
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : 'Current End';
     // class name for end line and text
