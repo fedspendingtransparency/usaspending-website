@@ -62,12 +62,19 @@ const ContractGrantsActivityChart = ({
     const [yTicks, setYTicks] = useState([]);
     // start line
     const [startLineValue, setStartLineValue] = useState(null);
+    const [startLineHeight, setStartLineHeight] = useState(0);
     // end line
     const [endLineValue, setEndLineValue] = useState(null);
+    const [endLineHeight, setEndLineHeight] = useState(0);
     // potential end line
     const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
+    const [potentialEndLineHeight, setPotentialEndLineHeight] = useState(0);
+    // today line
+    const [todayLineHeight, setTodayLineHeight] = useState(0);
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
+    const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
+    const [totalVerticalLineTextHeight, setTotalVerticalLineTextHeight] = useState(0);
     /**
      * createXSeries
      * - creates the x domain and updates state
@@ -118,7 +125,7 @@ const ContractGrantsActivityChart = ({
      * @param {Number[]} - an array of numbers.
      * @returns {Number[]} - an array of numbers.
      */
-    const addTicksForSpacing = (ticks, first) => {
+    const addTicksForSpacing = (ticks, scale) => {
         if (!ticks.length) return [];
         const updatedTicks = cloneDeep(ticks);
         const differences = compact(ticks.reverse().map((tick, i) => {
@@ -130,10 +137,27 @@ const ContractGrantsActivityChart = ({
         // average difference
         const averageDifference = differences
             .reduce((acc, data) => acc + data, 0) / differences.length;
-        // subtracts the average difference from the first tick and updates the tick array
-        if (first) updatedTicks.splice(0, 0, updatedTicks[0] - averageDifference);
         // adds the average difference to the last tick and updates the tick array
         updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference);
+        /**
+         * Since we are adding fake spacing to the top of the chart so the vertical line text
+         * never overlaps with the chart, and the lines will be descending in height to make
+         * sure the text never overlaps with other text. We must make sure the average difference
+         * is greater than the total height of the vertical line text. If it is not we will add
+         * another tick.
+         */
+        if (totalVerticalLineTextHeight > scale(averageDifference)) {
+            /**
+             * Now the question is how much space do we need to add? To determine this,
+             * we will get the difference from the total text height and then divide that
+             * by the average difference. If it is greater than 1, then we will add how ever
+             * many extra tick we need. :)
+             */
+            const difference = totalVerticalLineTextHeight - averageDifference;
+            const howManyTicksToAdd = [];
+            howManyTicksToAdd.length = Math.ceil(difference / averageDifference);
+            howManyTicksToAdd.forEach(() => updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference));
+        }
         return updatedTicks;
     };
     /**
@@ -256,7 +280,7 @@ const ContractGrantsActivityChart = ({
         // determine the ticks from D3
         const ticks = scale.ticks(6);
         // add last tick for spacing
-        const updatedTicksWithSpacing = addTicksForSpacing(ticks);
+        const updatedTicksWithSpacing = addTicksForSpacing(ticks, scale);
         // create new scale since we have new data
         const updatedScale = scaleLinear()
             .domain([yDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
@@ -264,12 +288,12 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height]);
+    }, [yDomain, height, totalVerticalLineTextHeight]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
-            createXScaleAndTicks(xDomain);
-            createYScaleAndTicks(yDomain);
+            createXScaleAndTicks();
+            createYScaleAndTicks();
         }
     }, [
         transactions,
@@ -285,6 +309,43 @@ const ContractGrantsActivityChart = ({
         setEndLineValue(lineHelper(dates._endDate));
         setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
     }, [dates]);
+    const setVerticalLineHeight = (i, lineHeight) => {
+        if (i === 0) return setStartLineHeight(lineHeight);
+        if (i === 1) return setEndLineHeight(lineHeight);
+        if (i === 2) return setPotentialEndLineHeight(lineHeight);
+        return setTodayLineHeight(lineHeight);
+    };
+    const allVerticalLinesExceptToday = () => (
+        [startLineValue, endLineValue, potentialEndLineValue].filter((data) => data)
+    );
+    const setVerticalLineHeights = (textHeight) => {
+        let heightHasBeenInitialized = false;
+        let currentHeight = 0;
+        [startLineValue, endLineValue, potentialEndLineValue, 'fakeTextToIncludeTodayLine']
+            .forEach((data, i) => {
+                if (data) {
+                    if (!heightHasBeenInitialized) { // set line to height of chart
+                        heightHasBeenInitialized = true;
+                        setVerticalLineHeight(i, currentHeight);
+                        currentHeight += textHeight;
+                    }
+                    else {
+                        setVerticalLineHeight(i, currentHeight);
+                        currentHeight += textHeight;
+                    }
+                }
+            });
+    };
+    const adjustYDomainBasedOnTextHeight = (textHeight) => {
+        if (!totalVerticalLineTextHeight || verticalLineTextHeight !== textHeight) {
+            setVerticalLineTextHeight(textHeight);
+            setTotalVerticalLineTextHeight((allVerticalLinesExceptToday().length + 1) * textHeight);
+            setVerticalLineHeights(textHeight);
+        }
+    };
+    useEffect(() => {
+        createYScaleAndTicks();
+    }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
@@ -345,7 +406,12 @@ const ContractGrantsActivityChart = ({
                     potentialEndLineValue={potentialEndLineValue}
                     awardType={awardType}
                     showHideTooltip={showHideTooltipLine}
-                    thisLineOrTextIsHovered={thisLineOrTextIsHovered} />}
+                    thisLineOrTextIsHovered={thisLineOrTextIsHovered}
+                    verticalLineTextHeight={adjustYDomainBasedOnTextHeight}
+                    startLineHeight={startLineHeight}
+                    endLineHeight={endLineHeight}
+                    potentialEndLineHeight={potentialEndLineHeight}
+                    todayLineHeight={todayLineHeight} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"

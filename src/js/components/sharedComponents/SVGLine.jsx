@@ -32,7 +32,8 @@ const propTypes = {
     onMouseMoveLine: PropTypes.func,
     onMouseLeaveLine: PropTypes.func,
     onMouseMoveText: PropTypes.func,
-    onMouseLeaveText: PropTypes.func
+    onMouseLeaveText: PropTypes.func,
+    verticalLineTextHeight: PropTypes.func
 };
 
 export default class SVGLine extends Component {
@@ -142,14 +143,12 @@ export default class SVGLine extends Component {
             showTextPosition,
             textY,
             adjustmentX,
-            noText
+            noText,
+            verticalLineTextHeight
         } = this.props;
         if (noText) return null;
         let positionX = scale(position || Date.now()) + (adjustmentX || 0);
         let modifiedTextY = textY;
-        // the text div starts null since React only calls the callback ref function
-        // when the DOM draws the element, without this you will get an error since
-        // we will be call properties on null
         const textDiv = this[`textDiv${text}`];
         if (textDiv) {
             const wordIndex = textDiv.getAttribute('data-wordindex');
@@ -164,6 +163,7 @@ export default class SVGLine extends Component {
             if (wordIndex !== '0') {
                 modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
+            if (verticalLineTextHeight) verticalLineTextHeight(textDivDimensions.height);
         }
         return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }
@@ -203,20 +203,22 @@ export default class SVGLine extends Component {
         if (!lineIsDisplayed || !text) return null;
         const textArray = Array.isArray(text) ? text : [text];
         const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
-        return textArray.map((data, i) => (
-            <text
-                key={data}
-                tabIndex="0"
-                className={classname}
-                x={this.state[`${data}TextX`]}
-                y={this.state[`${data}TextY`]}
-                ref={this[`setTextDiv${data}`]}
-                data-wordindex={i}
-                onMouseMove={this.onMouseMoveText}
-                onMouseLeave={this.onMouseLeaveText}>
-                {data}
-            </text>
-        ));
+        return textArray.map((data, i) => {
+            return (
+                <text
+                    key={data}
+                    tabIndex="0"
+                    className={classname}
+                    x={this.state[`${data}TextX`]}
+                    y={this.state[`${data}TextY`] || this.props.textY}
+                    ref={this[`setTextDiv${data}`]}
+                    data-wordindex={i}
+                    onMouseMove={this.onMouseMoveText}
+                    onMouseLeave={this.onMouseLeaveText}>
+                    {data}
+                </text>
+            );
+        });
     }
 
     description = () => (this.props.description ||
