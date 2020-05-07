@@ -6,7 +6,7 @@
 import { List } from 'immutable';
 
 import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
-import { getHighestAncestorNaicsCode, getNaicsNodeFromTree } from 'helpers/naicsHelper';
+import { getHighestAncestorNaicsCode, getNaicsNodeFromTree, getImmediateAncestorNaicsCode } from 'helpers/naicsHelper';
 
 export const initialState = {
     naics: new List(),
@@ -21,6 +21,7 @@ const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateBranchO
     key,
     newNodes,
     getHighestAncestorNaicsCode,
+    getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree
 );
 

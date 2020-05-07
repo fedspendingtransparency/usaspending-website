@@ -4,6 +4,7 @@ import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } 
 import {
     getTasNodeFromTree,
     getHighestTasAncestorCode,
+    getImmediateTasAncestorCode,
     tasSortFn
 } from 'helpers/tasHelper';
 
@@ -13,6 +14,7 @@ const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateBran
     key,
     newNodes,
     getHighestTasAncestorCode,
+    getImmediateTasAncestorCode,
     getTasNodeFromTree
 );
 
