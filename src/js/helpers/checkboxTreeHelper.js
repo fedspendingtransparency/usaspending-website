@@ -370,8 +370,7 @@ const removePlaceHolders = (children) => children.filter((child) => !child.isPla
 
 const areChildrenPartial = (count, children) => {
     if (!children) return false;
-    const sumOfAllChildren = children
-        .filter((child) => !child.isPlaceHolder)
+    const sumOfAllChildren = removePlaceHolders(children)
         .reduce((acc, child) => {
             const childCount = child.count || 1;
             return acc + childCount;
