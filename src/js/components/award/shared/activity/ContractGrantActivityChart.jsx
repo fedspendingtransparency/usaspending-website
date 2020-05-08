@@ -155,7 +155,9 @@ const ContractGrantsActivityChart = ({
              */
             const difference = totalVerticalLineTextHeight - averageDifference;
             const howManyTicksToAdd = [];
-            howManyTicksToAdd.length = Math.ceil(difference / averageDifference);
+            for (let i = 0; i < Math.ceil(difference / averageDifference); i++) {
+                howManyTicksToAdd.push(i);
+            }
             howManyTicksToAdd.forEach(() => updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference));
         }
         return updatedTicks;
