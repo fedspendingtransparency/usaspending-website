@@ -6,6 +6,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import CountTab from '../CountTab';
+
 const propTypes = {
     fy: PropTypes.string,
     agencyId: PropTypes.string
@@ -42,12 +44,23 @@ const AccountSpending = ({ agencyId, fy }) => {
     const [activeTab, setActiveTab] = useState('budget_function');
     return (
         <div className="body__content">
-            <div className="tabs">
-                <div className="tabs__questions">
+            <div className="count-tabs">
+                <div className="count-tabs__questions">
                     {tabs.map((tab) => (
                         <div key={tab.id}>
                             {tab.description}
                         </div>
+                    ))}
+                </div>
+                <div className="count-tabs__buttons">
+                    {tabs.map((tab) => (
+                        <CountTab
+                            key={tab.id}
+                            agencyId={agencyId}
+                            fy={fy}
+                            {...tab}
+                            setActiveTab={setActiveTab}
+                            active={activeTab === tab.id} />
                     ))}
                 </div>
             </div>
