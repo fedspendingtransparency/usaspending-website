@@ -529,7 +529,7 @@ export const addSearchResultsToTree = (
  * @param traverseTreeByCodeFn a fn used to get any node in the tree by the code/value/id of the node
  * @returns a new array of objects with the newNodes appended to the right place
 */
-export const populateBranchOrLeafLevelNodes = (
+export const populateChildNodes = (
     tree,
     key = '',
     newNodes = [],
@@ -537,9 +537,8 @@ export const populateBranchOrLeafLevelNodes = (
     getImmediateAncestorCode,
     traverseTreeByCodeFn
 ) => {
-    // debugger;
-    // 1. add nodes to either branch or leaf level of tree
-    // 2. when adding nodes, don't remove placeholders if we're adding a partial child and don't remove any existing children
+    // 1. add nodes to either branch (recursive) or leaf level of tree
+    // 2. when adding nodes, don't remove any existing children that aren't placeholders as they are assumed to have and likely do have children of their own from search.
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
     const immediateAncestorCode = nodeWithNewChildren
         ? getImmediateAncestorCode(nodeWithNewChildren)
@@ -596,7 +595,7 @@ export const populateBranchOrLeafLevelNodes = (
             return {
                 ...node,
                 className: '',
-                children: populateBranchOrLeafLevelNodes(
+                children: populateChildNodes(
                     node.children,
                     key,
                     newNodes,
