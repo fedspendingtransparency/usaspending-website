@@ -250,7 +250,7 @@ export class TASCheckboxTree extends React.Component {
         if (this.props.nodes.length > 0) {
             const [counts, unchecked] = incrementTasCountAndUpdateUnchecked(
                 newChecked,
-                this.props.checked,
+                [],
                 this.props.unchecked,
                 this.props.nodes,
                 this.props.counts

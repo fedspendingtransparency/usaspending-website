@@ -128,7 +128,7 @@ export class NAICSContainer extends React.Component {
                                 }, []);
                             const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
                                 newChecked,
-                                this.props.checked,
+                                [],
                                 uncheckedFromHash,
                                 this.props.nodes,
                                 this.state.stagedNaicsFilters
