@@ -255,6 +255,7 @@
                 width: 70%;
             }
             .body__section {
+                @import './tabs';
                 @include display(flex);
                 @include flex-wrap(wrap);
                 margin-bottom: $global-mrg;

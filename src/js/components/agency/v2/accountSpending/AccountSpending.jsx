@@ -42,8 +42,15 @@ const AccountSpending = ({ agencyId, fy }) => {
     const [activeTab, setActiveTab] = useState('budget_function');
     return (
         <div className="body__content">
-            <p>{agencyId}</p>
-            <p>{fy}</p>
+            <div className="tabs">
+                <div className="tabs__questions">
+                    {tabs.map((tab) => (
+                        <div key={tab.id}>
+                            {tab.description}
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
