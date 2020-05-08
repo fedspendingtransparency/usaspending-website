@@ -154,6 +154,9 @@ export class TASCheckboxTree extends React.Component {
                     return Promise.resolve();
                 });
         }
+        if (this.props.nodes.length > 0) {
+            this.props.showTasTree();
+        }
         return Promise.resolve();
     }
 

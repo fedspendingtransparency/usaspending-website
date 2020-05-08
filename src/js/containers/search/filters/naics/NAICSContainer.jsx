@@ -146,6 +146,9 @@ export class NAICSContainer extends React.Component {
                             });
                         });
                 }
+                if (this.props.nodes.length > 0) {
+                    this.props.showNaicsTree();
+                }
                 // consistent return.
                 return Promise.resolve();
             })
