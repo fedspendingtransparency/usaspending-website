@@ -1,7 +1,7 @@
 import {
     addSearchResultsToTree,
     expandNodeAndAllDescendantParents,
-    populateBranchOrLeafLevelNodes,
+    populateChildNodes,
     cleanTreeData,
     removePlaceholderString,
     removeStagedFilter,
@@ -181,13 +181,14 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(nodeWithHideClass.className).toEqual('');
         });
     });
-    describe('populateBranchOrLeafLevelNodes', () => {
+    describe('populateChildNodes', () => {
         it('adds new children and removes the loading placeholder if we have all the nodes', () => {
-            const result = populateBranchOrLeafLevelNodes(
+            const result = populateChildNodes(
                 mockData.placeholderNodes,
                 '11',
                 [mockData.reallyBigTree[0]],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
             const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
@@ -201,11 +202,12 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 .children
                 .find((node) => node.value === '1111');
 
-            const result = populateBranchOrLeafLevelNodes(
+            const result = populateChildNodes(
                 mockData.treeWithPlaceholdersAndRealData,
                 '1111',
                 [newNode],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
 
@@ -229,11 +231,12 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 .children
                 .find((node) => node.value === '1111');
 
-            const result = populateBranchOrLeafLevelNodes(
+            const result = populateChildNodes(
                 mockData.treeWithPlaceholdersAndRealDataPSCDepth,
                 '1111',
                 [newNode],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
 
