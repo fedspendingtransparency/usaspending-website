@@ -541,8 +541,12 @@ export const populateBranchOrLeafLevelNodes = (
     // 1. add nodes to either branch or leaf level of tree
     // 2. when adding nodes, don't remove placeholders if we're adding a partial child and don't remove any existing children
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
-    const immediateAncestorCode = getImmediateAncestorCode(nodeWithNewChildren);
-    const highestAncestorCode = getHighestAncestorCode(nodeWithNewChildren);
+    const immediateAncestorCode = nodeWithNewChildren
+        ? getImmediateAncestorCode(nodeWithNewChildren)
+        : getImmediateAncestorCode(key);
+    const highestAncestorCode = nodeWithNewChildren
+        ? getHighestAncestorCode(nodeWithNewChildren)
+        : getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
         const shouldPopulateChildren = node.value === key;
@@ -569,8 +573,10 @@ export const populateBranchOrLeafLevelNodes = (
                             return {
                                 ...child,
                                 children: existingChild.children
-                                    .map((grand) => ({ ...grand, className: '' }))
-                                    .sort(sortNodesByValue)
+                                    ? existingChild.children
+                                        .map((grand) => ({ ...grand, className: '' }))
+                                        .sort(sortNodesByValue)
+                                    : []
                             };
                         }
                         if (weHaveAtLeastOneGrandChild) {

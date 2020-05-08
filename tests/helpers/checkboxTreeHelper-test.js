@@ -188,6 +188,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 '11',
                 [mockData.reallyBigTree[0]],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
             const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
@@ -206,6 +207,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 '1111',
                 [newNode],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
 
@@ -234,6 +236,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 '1111',
                 [newNode],
                 getHighestAncestorNaicsCode,
+                getImmediateAncestorNaicsCode,
                 getNaicsNodeFromTree
             );
 
