@@ -5,8 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
-import CountTab from '../CountTab';
+import CountTabContainer from 'containers/agency/v2/accountSpending/CountTabContainer';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -15,28 +14,32 @@ const propTypes = {
 
 const tabs = [
     {
-        id: 'budget_function',
+        type: 'budget_function',
         label: 'Total Budget Functions',
         description: 'What were the major categories of spending?',
-        subHeading: 'Budget Sub-Functions'
+        subHeading: 'Budget Sub-Functions',
+        countField: 'budget_function_count',
+        subCountField: 'budget_sub_function_count'
     },
     {
-        id: 'program_activity',
+        type: 'program_activity',
         label: 'Total Program Activities',
         description: 'What were the purposes of this agency’s spending?',
-        subHeading: ''
+        countField: 'program_activity_count'
     },
     {
-        id: 'object_class',
+        type: 'object_class',
         label: 'Total Object Classes',
         description: 'What types of things did this agency purchase?',
-        subHeading: ''
+        countField: 'object_class_count'
     },
     {
-        id: 'federal_account',
+        type: 'federal_account',
         label: 'Total Federal Accounts',
         description: 'What accounts funded this agency’s spending?',
-        subHeading: 'Treasury Accounts'
+        subHeading: 'Treasury Accounts',
+        countField: 'federal_account_count',
+        subCountField: 'treasury_account_count'
     }
 ];
 
@@ -47,20 +50,20 @@ const AccountSpending = ({ agencyId, fy }) => {
             <div className="count-tabs">
                 <div className="count-tabs__questions">
                     {tabs.map((tab) => (
-                        <div key={tab.id}>
+                        <div key={tab.type}>
                             {tab.description}
                         </div>
                     ))}
                 </div>
                 <div className="count-tabs__buttons">
                     {tabs.map((tab) => (
-                        <CountTab
-                            key={tab.id}
+                        <CountTabContainer
+                            key={tab.type}
                             agencyId={agencyId}
                             fy={fy}
                             {...tab}
                             setActiveTab={setActiveTab}
-                            active={activeTab === tab.id} />
+                            active={activeTab === tab.type} />
                     ))}
                 </div>
             </div>
