@@ -83,9 +83,7 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const [showConfirmationText, setConfirmationText] = useState(false);
-    const [selectedFy, setSelectedFy] = useState(
-        `${FiscalYearHelper.defaultFiscalYear()}`
-    );
+    const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
 
     useEffect(() => () => {
         if (timeout && showConfirmationText) {
@@ -138,7 +136,7 @@ export const AgencyProfileV2 = ({
                 onClick: onClickHandler
             };
         })
-        .sort(defaultSortFy);
+        .sort((a, b) => defaultSortFy(a.value, b.value));
 
     const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
     const slug = `agency_v2/${params.agencyId}`;
