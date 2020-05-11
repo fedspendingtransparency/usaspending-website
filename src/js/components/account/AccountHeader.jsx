@@ -7,12 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
+
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
     account: PropTypes.object
 };
-
 export default class AccountHeader extends React.Component {
     render() {
         const accountSymbol =
@@ -33,6 +34,15 @@ export default class AccountHeader extends React.Component {
                                 value={accountSymbol} />
                         </ul>
                     </div>
+                </div>
+                <div className="sticky-header__toolbar">
+                    <ShareIcon
+                        slug={'slug'}
+                        url={'url'}
+                        email={{
+                            subject: `Check out Agency  on USAspending.gov!`,
+                            body: `Here is the url: `
+                        }} />
                 </div>
             </StickyHeader>
         );

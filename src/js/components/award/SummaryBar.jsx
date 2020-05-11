@@ -5,9 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { startCase } from 'lodash';
+
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import DownloadButton from '../search/header/DownloadButton';
+
 
 const propTypes = {
     category: PropTypes.string,
@@ -38,15 +40,26 @@ const SummaryBar = ({
         : startCase(category);
 
     return (
-        <div className="sticky-header__title">
-            <h1 tabIndex={-1} id="main-focus">
-                {isLoading ? `--` : `${title} Summary`}
-            </h1>
-            <DownloadButton
-                downloadAvailable
-                downloadInFlight={isDownloadPending}
-                onClick={downloadData} />
-        </div>
+        <>
+            <div className="sticky-header__title">
+                <h1 tabIndex={-1} id="main-focus">
+                    {isLoading ? `--` : `${title} Summary`}
+                </h1>
+                <DownloadButton
+                    downloadAvailable
+                    downloadInFlight={isDownloadPending}
+                    onClick={downloadData} />
+            </div>
+            <div className="sticky-header__toolbar">
+                <ShareIcon
+                    slug={'slug'}
+                    url={'url'}
+                    email={{
+                        subject: `Check out Agency  on USAspending.gov!`,
+                        body: `Here is the url: `
+                    }} />
+            </div>
+        </>
     );
 };
 

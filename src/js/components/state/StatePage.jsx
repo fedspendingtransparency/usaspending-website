@@ -11,6 +11,7 @@ import { statePageMetaTags } from 'helpers/metaTagHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
@@ -46,6 +47,15 @@ export default class StatePage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             {capitalize(this.props.stateProfile.overview.type)} Profile
                         </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={'slug'}
+                            url={'url'}
+                            email={{
+                                subject: `Check out Agency  on USAspending.gov!`,
+                                body: `Here is the url: `
+                            }} />
                     </div>
                 </StickyHeader>
                 <main
