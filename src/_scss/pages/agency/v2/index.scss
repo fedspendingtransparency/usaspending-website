@@ -178,6 +178,9 @@
         width: 100%;
         .usda__flex-col {
             @include flex(1 1 auto);
+            .body__content {
+                width: 100%; // Fixes an IE Flexbox bug
+            }
         }
     }
 

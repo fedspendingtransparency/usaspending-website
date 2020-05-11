@@ -25,6 +25,9 @@ const CountTabContainer = (props) => {
     const [subCount, setSubCount] = useState(null);
 
     useEffect(() => {
+        // Reset any existing results
+        setCount(null);
+        setSubCount(null);
         const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
         countRequest.promise
             .then((res) => {
