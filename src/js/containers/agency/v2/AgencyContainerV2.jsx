@@ -28,6 +28,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
+import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
 
@@ -79,9 +80,7 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const [showConfirmationText, setConfirmationText] = useState(false);
-    const [selectedFy, setSelectedFy] = useState(
-        `${FiscalYearHelper.defaultFiscalYear()}`
-    );
+    const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
 
     useEffect(() => () => {
         if (timeout && showConfirmationText) {
@@ -142,7 +141,8 @@ export const AgencyProfileV2 = ({
                 value: year,
                 onClick: onClickHandler
             };
-        });
+        })
+        .sort((a, b) => defaultSortFy(a.value, b.value));
 
     const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
     const slug = `agency_v2/${params.agencyId}`;
@@ -186,6 +186,7 @@ export const AgencyProfileV2 = ({
                         <span className="fy-picker-label">Filter</span>
                         <div className="fiscal-year-container">
                             <Picker
+                                sortFn={defaultSortFy}
                                 icon={<FontAwesomeIcon icon="calendar-alt" />}
                                 selectedOption={`${selectedFy}`}
                                 options={fyOptions} />

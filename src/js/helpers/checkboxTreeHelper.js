@@ -370,8 +370,7 @@ const removePlaceHolders = (children) => children.filter((child) => !child.isPla
 
 const areChildrenPartial = (count, children) => {
     if (!children) return false;
-    const sumOfAllChildren = children
-        .filter((child) => !child.isPlaceHolder)
+    const sumOfAllChildren = removePlaceHolders(children)
         .reduce((acc, child) => {
             const childCount = child.count || 1;
             return acc + childCount;
@@ -395,7 +394,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
             .children
             .map((node) => ({ ...node, className: 'hide' }));
 
-        const nodes = parentFromSearch.children
+        return parentFromSearch.children
             .reduce((acc, searchChild) => {
                 const existingChildIndex = acc
                     .findIndex((existingChild) => existingChild.value === searchChild.value);
@@ -474,8 +473,6 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
 
                 return acc;
             }, existingChildArray);
-
-        return nodes;
     }
     else if (existingParent.children && !parentFromSearch.children) {
         return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
@@ -511,7 +508,6 @@ export const addSearchResultsToTree = (
     const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
     return tree
         .map((existingNode) => {
-            // nodeKey is naicsCode!
             const nodeKey = existingNode.value;
             if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
@@ -533,24 +529,31 @@ export const addSearchResultsToTree = (
  * @param traverseTreeByCodeFn a fn used to get any node in the tree by the code/value/id of the node
  * @returns a new array of objects with the newNodes appended to the right place
 */
-export const populateBranchOrLeafLevelNodes = (
+export const populateChildNodes = (
     tree,
     key = '',
     newNodes = [],
     getHighestAncestorCode,
+    getImmediateAncestorCode,
     traverseTreeByCodeFn
 ) => {
-    // 1. add nodes to either branch or leaf level of tree
-    // 2. when adding nodes, don't remove placeholders if we're adding a partial child and don't remove any existing children
+    // 1. add nodes to either branch (recursive) or leaf level of tree
+    // 2. when adding nodes, don't remove any existing children that aren't placeholders as they are assumed to have and likely do have children of their own from search.
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
+    const immediateAncestorCode = nodeWithNewChildren
+        ? getImmediateAncestorCode(nodeWithNewChildren)
+        : getImmediateAncestorCode(key);
     const highestAncestorCode = nodeWithNewChildren
         ? getHighestAncestorCode(nodeWithNewChildren)
         : getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
-        const shouldPopulateBranch = node.value === key;
-        const shouldPopulateLeaves = node.value === highestAncestorCode;
-        if (shouldPopulateBranch) {
+        const shouldPopulateChildren = node.value === key;
+        const shouldPopulateGrandChildren = (
+            node.value === immediateAncestorCode ||
+            node.value === highestAncestorCode
+        );
+        if (shouldPopulateChildren) {
             // we're populating an immediate descendant of the top-tier parent; AKA a "branch".
             return {
                 ...node,
@@ -559,19 +562,20 @@ export const populateBranchOrLeafLevelNodes = (
                         const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
                         const weHaveTheGrandChildren = (
                             existingChild &&
-                            existingChild?.children.length === child.count &&
-                            !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
+                            !areChildrenPartial(existingChild?.count, existingChild?.children)
                         );
                         const weHaveAtLeastOneGrandChild = (
                             existingChild &&
-                            existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
+                            existingChild?.children?.filter((grand) => !grand.isPlaceHolder)?.length > 0
                         );
                         if (weHaveTheGrandChildren) {
                             return {
                                 ...child,
                                 children: existingChild.children
-                                    .map((grand) => ({ ...grand, className: '' }))
-                                    .sort(sortNodesByValue)
+                                    ? existingChild.children
+                                        .map((grand) => ({ ...grand, className: '' }))
+                                        .sort(sortNodesByValue)
+                                    : []
                             };
                         }
                         if (weHaveAtLeastOneGrandChild) {
@@ -587,46 +591,18 @@ export const populateBranchOrLeafLevelNodes = (
                     }).sort(sortNodesByValue)
             };
         }
-        if (shouldPopulateLeaves) {
-            // we're adding grandchildren to an existing branch.
+        if (shouldPopulateGrandChildren) {
             return {
                 ...node,
                 className: '',
-                children: node.children
-                    ? node.children
-                        .map((child) => {
-                            if (child.value === key) {
-                                if (areChildrenPartial(child.count, child.children)) {
-                                    return {
-                                        ...child,
-                                        children: data.children
-                                    };
-                                }
-                                // we already have the data for this child, don't overwrite it w/ a node that has placeholder children.
-                                return {
-                                    ...child,
-                                    children: removePlaceHolders(child.children)
-                                };
-                            }
-                            const isParent = Object.keys(child).includes('children');
-                            if (isParent) {
-                                return {
-                                    ...child,
-                                    children: child.children.map((grand) => {
-                                        if (grand.value === key) {
-                                            return {
-                                                // populating great grand children; only happens w/ PSC
-                                                ...grand,
-                                                children: data.children
-                                            };
-                                        }
-                                        return grand;
-                                    })
-                                };
-                            }
-                            return child;
-                        })
-                    : []
+                children: populateChildNodes(
+                    node.children,
+                    key,
+                    newNodes,
+                    getHighestAncestorCode,
+                    getImmediateAncestorCode,
+                    traverseTreeByCodeFn
+                )
             };
         }
         const shouldAddNewBranchToTree = (

@@ -24,7 +24,7 @@ const pickerRef = createRef();
 const listOfFy = [];
 const currentFY = FiscalYearHelper.defaultFiscalYear();
 
-const defaultSortFy = (a, b) => {
+export const defaultSortFy = (a, b) => {
     if (a > b) return -1;
     if (b > a) return 1;
     return 0;
