@@ -29,6 +29,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Footer from 'containers/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 require('pages/agency/v2/index.scss');
 
@@ -72,8 +73,6 @@ const componentByAgencySection = {
     top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
-let timeout;
-
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
@@ -82,23 +81,7 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
-    const [showConfirmationText, setConfirmationText] = useState(false);
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
-
-    useEffect(() => () => {
-        if (timeout && showConfirmationText) {
-            window.clearTimeout(timeout);
-        }
-    });
-
-    const getCopyFn = () => {
-        document.getElementById('slug').select();
-        document.execCommand("copy");
-        setConfirmationText(true);
-        timeout = window.setTimeout(() => {
-            setConfirmationText(false);
-        }, 1750);
-    };
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -141,29 +124,6 @@ export const AgencyProfileV2 = ({
     const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
     const slug = `agency_v2/${params.agencyId}`;
 
-    const socialSharePickerOptions = socialShareOptions.map((option) => {
-        if (option.name === 'copy') {
-            return {
-                ...option,
-                onClick: getCopyFn
-            };
-        }
-        if (option.name === 'email') {
-            const onClick = getSocialShareFn(slug, option.name).bind(null, {
-                subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
-                body: `Here is the url: ${url}`
-            });
-            return {
-                ...option,
-                onClick
-            };
-        }
-        return {
-            ...option,
-            onClick: getSocialShareFn(slug, option.name)
-        };
-    });
-
     return (
         <div className="usa-da-agency-page-v2">
             <MetaTags {...agencyPageMetaTags} />
@@ -176,7 +136,6 @@ export const AgencyProfileV2 = ({
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
-                        <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={url} />
                         <span className="fy-picker-label">Filter</span>
                         <div className="fiscal-year-container">
                             <Picker
@@ -187,22 +146,13 @@ export const AgencyProfileV2 = ({
                             <span>Fiscal Year</span>
                         </div>
                         <hr />
-                        <div className="sticky-header__toolbar-item">
-                            <Picker
-                                dropdownDirection="left"
-                                options={socialSharePickerOptions}
-                                selectedOption="copy"
-                                backgroundColor="#4A4A4A"
-                                sortFn={() => 1}>
-                                <FontAwesomeIcon icon="share-alt" size="lg" />
-                            </Picker>
-                            <span>Share</span>
-                            {showConfirmationText && (
-                                <span className="copy-confirmation">
-                                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied!
-                                </span>
-                            )}
-                        </div>
+                        <ShareIcon
+                            slug={slug}
+                            url={url}
+                            email={{
+                                subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
+                                body: `Here is the url: ${url}`
+                            }} />
                         <div className="sticky-header__toolbar-item">
                             <button className="sticky-header__button">
                                 <FontAwesomeIcon icon="download" />
