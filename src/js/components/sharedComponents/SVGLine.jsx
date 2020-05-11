@@ -33,7 +33,7 @@ const propTypes = {
     onMouseLeaveLine: PropTypes.func,
     onMouseMoveText: PropTypes.func,
     onMouseLeaveText: PropTypes.func,
-    verticalLineTextHeight: PropTypes.func
+    verticalLineTextData: PropTypes.func
 };
 
 export default class SVGLine extends Component {
@@ -144,7 +144,7 @@ export default class SVGLine extends Component {
             textY,
             adjustmentX,
             noText,
-            verticalLineTextHeight
+            verticalLineTextData
         } = this.props;
         if (noText) return null;
         let positionX = scale(position || Date.now()) + (adjustmentX || 0);
@@ -163,7 +163,7 @@ export default class SVGLine extends Component {
             if (wordIndex !== '0') {
                 modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
-            if (verticalLineTextHeight) verticalLineTextHeight(textDivDimensions.height);
+            if (verticalLineTextData) verticalLineTextData({ textDivDimensions, positionX, modifiedTextY, text });
         }
         return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }

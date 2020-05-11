@@ -20,7 +20,7 @@ const propTypes = {
     awardType: PropTypes.string,
     showHideTooltip: PropTypes.func,
     thisLineOrTextIsHovered: PropTypes.string,
-    verticalLineTextHeight: PropTypes.func,
+    verticalLineTextData: PropTypes.func,
     startLineHeight: PropTypes.number,
     endLineHeight: PropTypes.number,
     potentialEndLineHeight: PropTypes.number,
@@ -39,7 +39,7 @@ const ContractGrantActivityChartVerticalLines = ({
     awardType,
     showHideTooltip,
     thisLineOrTextIsHovered,
-    verticalLineTextHeight,
+    verticalLineTextData,
     startLineHeight,
     endLineHeight,
     potentialEndLineHeight,
@@ -93,7 +93,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextHeight={verticalLineTextHeight} />}
+                verticalLineTextData={verticalLineTextData} />}
             {/* today line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -109,7 +109,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 adjustmentX={padding.left}
                 textClassname="today"
                 lineClassname="today"
-                verticalLineTextHeight={verticalLineTextHeight} />}
+                verticalLineTextData={verticalLineTextData} />}
             {/* end line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -129,7 +129,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextHeight={verticalLineTextHeight} />}
+                verticalLineTextData={verticalLineTextData} />}
             {/* potential end line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -149,7 +149,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextHeight={verticalLineTextHeight} />}
+                verticalLineTextData={verticalLineTextData} />}
         </g>
     );
 };

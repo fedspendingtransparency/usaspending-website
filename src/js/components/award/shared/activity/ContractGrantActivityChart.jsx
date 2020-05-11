@@ -33,7 +33,16 @@ const propTypes = {
 };
 
 const xAxisSpacingPercentage = 0.05;
-const todayLineValue = Date.now();
+
+// const verticalLineTextToStateFunctionMapping = (text) => switch (expr) {
+//   case 'Start':
+    
+//   case 'Today':
+//   case 'End':
+//   case 'Current End':
+//   default:
+//     'setPotentialEndLineData'
+// };
 
 const ContractGrantsActivityChart = ({
     height,
@@ -61,16 +70,13 @@ const ContractGrantsActivityChart = ({
     // y ticks
     const [yTicks, setYTicks] = useState([]);
     // start line
-    const [startLineValue, setStartLineValue] = useState(null);
-    const [startLineHeight, setStartLineHeight] = useState(0);
-    // end line
-    const [endLineValue, setEndLineValue] = useState(null);
-    const [endLineHeight, setEndLineHeight] = useState(0);
-    // potential end line
-    const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
-    const [potentialEndLineHeight, setPotentialEndLineHeight] = useState(0);
+    const [startLineData, setStartLineData] = useState({ value: 0, height: 0, textData: {} });
     // today line
-    const [todayLineHeight, setTodayLineHeight] = useState(0);
+    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0, textData: {} });
+    // end line
+    const [endLineData, setEndLineData] = useState({ value: 0, height: 0, textData: {} });
+    // potential end line
+    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0, textData: {} });
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
@@ -307,47 +313,93 @@ const ContractGrantsActivityChart = ({
     ]);
     // sets the line values - hook - runs on mount and dates change
     useEffect(() => {
-        setStartLineValue(lineHelper(dates._startDate));
-        setEndLineValue(lineHelper(dates._endDate));
-        setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
-    }, [dates]);
+        setStartLineData(Object.assign({}, startLineData, { value: lineHelper(dates._startDate) }));
+        setEndLineData(Object.assign({}, endLineData, { value: lineHelper(dates._endDate) }));
+        setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: lineHelper(dates._potentialEndDate) }));
+    }, [dates, endLineData, startLineData, potentialEndLineData]);
     const setVerticalLineHeight = (i, lineHeight) => {
-        if (i === 0) return setStartLineHeight(lineHeight);
-        if (i === 1) return setEndLineHeight(lineHeight);
-        if (i === 2) return setPotentialEndLineHeight(lineHeight);
-        return setTodayLineHeight(lineHeight);
+        if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
+        if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
+        if (i === 2) return setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: lineHeight }));
+        return setTodayLineData(Object.assign({}, todayLineData, { height: lineHeight }));
     };
-    const allVerticalLinesExceptToday = () => (
-        [startLineValue, endLineValue, potentialEndLineValue].filter((data) => data)
-    );
-    const setVerticalLineHeights = (textHeight) => {
+    const allVerticalLinesExceptToday = useCallback(() => (
+        [startLineData, endLineData, potentialEndLineData].map((data) => data.value).filter((data) => data)
+    ), [
+        startLineData,
+        endLineData,
+        potentialEndLineData
+    ]);
+    const setVerticalLineHeights = useCallback(() => {
         let heightHasBeenInitialized = false;
         let currentHeight = 0;
-        [startLineValue, endLineValue, potentialEndLineValue, 'fakeTextToIncludeTodayLine']
+        [startLineData.value, endLineData.value, potentialEndLineData.value, 'fakeTextToIncludeTodayLine']
             .forEach((data, i) => {
                 if (data) {
                     if (!heightHasBeenInitialized) { // set line to height of chart
                         heightHasBeenInitialized = true;
-                        setVerticalLineHeight(i, currentHeight);
-                        currentHeight += textHeight;
+                        // if (i === 0) setStartLineData(Object.assign({}, startLineData, { height: currentHeight }));
+                        // if (i === 1) setEndLineData(Object.assign({}, endLineData, { height: currentHeight }));
+                        // if (i === 2) setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: currentHeight }));
+                        // setTodayLineData(Object.assign({}, todayLineData, { height: currentHeight }));
+                        // setVerticalLineHeight(i, currentHeight);
+                        currentHeight += verticalLineTextHeight;
+                        return null;
                     }
-                    else {
-                        setVerticalLineHeight(i, currentHeight);
-                        currentHeight += textHeight;
-                    }
+                    // if (i === 0) setStartLineData(Object.assign({}, startLineData, { height: currentHeight }));
+                    // if (i === 1) setEndLineData(Object.assign({}, endLineData, { height: currentHeight }));
+                    // if (i === 2) setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: currentHeight }));
+                    // setTodayLineData(Object.assign({}, todayLineData, { height: currentHeight }));
+                    setVerticalLineHeight(i, currentHeight);
+                    currentHeight += verticalLineTextHeight;
+                    return null;
                 }
+                return null;
             });
+    }, [
+        verticalLineTextHeight,
+        startLineData,
+        endLineData,
+        todayLineData,
+        potentialEndLineData
+    ]);
+    const updateVerticalLineTextData = (data) => {
+        console.log(' Data : ', data);
+        if (data.textDivDimensions.height !== verticalLineTextHeight) setVerticalLineTextHeight(data.textDivDimensions.height);
     };
-    const adjustYDomainBasedOnTextHeight = (textHeight) => {
-        if (!totalVerticalLineTextHeight || verticalLineTextHeight !== textHeight) {
-            setVerticalLineTextHeight(textHeight);
-            setTotalVerticalLineTextHeight((allVerticalLinesExceptToday().length + 1) * textHeight);
-            setVerticalLineHeights(textHeight);
+    const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
+        if (!totalVerticalLineTextHeight) {
+            setTotalVerticalLineTextHeight((allVerticalLinesExceptToday().length + 1) * verticalLineTextHeight);
+            setVerticalLineHeights(verticalLineTextHeight);
         }
-    };
+    }, [
+        verticalLineTextHeight,
+        setVerticalLineHeights,
+        allVerticalLinesExceptToday,
+        totalVerticalLineTextHeight
+    ]);
+    // update the total text height and vertical line heights
+    useEffect(() => {
+        updateTotalTextHeightAndVerticalLineHeights();
+    }, [verticalLineTextHeight, updateTotalTextHeightAndVerticalLineHeights]);
+    // updates the y axis if the total text height changes
     useEffect(() => {
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
+    // check for vertical line text overlapping lines
+    // useEffect(() => {
+        // [
+        //     startLineValue,
+        //     todayLineData.value,
+        //     endLineValue,
+        //     potentialEndLineData.value
+        // ]
+    // }, [
+    //     startLineData,
+    //     todayLineData,
+    //     endLineData,
+    //     potentialEndLineData
+    // ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
@@ -380,9 +432,9 @@ const ContractGrantsActivityChart = ({
                     transactions={transactions}
                     height={height}
                     padding={padding}
-                    todayLineValue={todayLineValue}
-                    endLineValue={endLineValue}
-                    potentialEndLineValue={potentialEndLineValue}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
                     dates={dates}
                     xDomain={xDomain}
                     xAxisSpacing={xAxisSpacing} />}
@@ -402,18 +454,18 @@ const ContractGrantsActivityChart = ({
                     height={height}
                     xDomain={xDomain}
                     padding={padding}
-                    startLineValue={startLineValue}
-                    todayLineValue={todayLineValue}
-                    endLineValue={endLineValue}
-                    potentialEndLineValue={potentialEndLineValue}
+                    startLineValue={startLineData.value}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
                     awardType={awardType}
                     showHideTooltip={showHideTooltipLine}
                     thisLineOrTextIsHovered={thisLineOrTextIsHovered}
-                    verticalLineTextHeight={adjustYDomainBasedOnTextHeight}
-                    startLineHeight={startLineHeight}
-                    endLineHeight={endLineHeight}
-                    potentialEndLineHeight={potentialEndLineHeight}
-                    todayLineHeight={todayLineHeight} />}
+                    verticalLineTextData={updateVerticalLineTextData}
+                    startLineHeight={startLineData.height}
+                    endLineHeight={endLineData.height}
+                    potentialEndLineHeight={potentialEndLineData.height}
+                    todayLineHeight={todayLineData.height} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"

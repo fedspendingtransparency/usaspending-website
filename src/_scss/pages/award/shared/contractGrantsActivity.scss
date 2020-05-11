@@ -138,6 +138,7 @@
       opacity: 0.3;
     }
     .svg-line {
+      stroke-width: 2;
       &.start {
         stroke: $color-green-lighter;
       }
