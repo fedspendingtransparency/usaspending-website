@@ -163,7 +163,20 @@ export default class SVGLine extends Component {
             if (wordIndex !== '0') {
                 modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
-            if (verticalLineTextData) verticalLineTextData({ textDivDimensions, positionX, modifiedTextY, text });
+            if (verticalLineTextData) {
+                const textData = {
+                    positionX,
+                    modifiedTextY,
+                    text
+                };
+                for (const key in textDivDimensions) {
+                    if (textDivDimensions[key]) {
+                        textData[key] = textDivDimensions[key];
+                    }
+                }
+                if (textData.toJSON) delete textData.toJSON;
+                verticalLineTextData(textData);
+            }
         }
         return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }
