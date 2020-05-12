@@ -1,25 +1,25 @@
 /**
- * RecipientModalContainer-test.jsx
+ * ChildRecipientModalContainer-test.jsx
  * Created by Lizzie Salita 6/26/18
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 // mock the state helper
 jest.mock('helpers/recipientHelper', () => require('../mockRecipientHelper'));
 
-import { RecipientModalContainer } from 'containers/recipient/modal/RecipientModalContainer';
+import { ChildRecipientModalContainer } from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { mockModalActions, mockModalRedux } from '../mockData';
 import { mockChildRecipients } from '../../../models/recipient/mockRecipientApi';
 import BaseChildRecipient from 'models/v2/recipient/BaseChildRecipient';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/recipient/modal/RecipientModal', () => jest.fn(() => null));
+jest.mock('components/recipient/modal/ChildRecipientModal', () => jest.fn(() => null));
 
-describe('RecipientModalContainer', () => {
+describe('ChildRecipientModalContainer', () => {
     it('should make an API call when the modal mounts', () => {
-        const container = shallow(<RecipientModalContainer
+        const container = shallow(<ChildRecipientModalContainer
             {...mockModalRedux}
             {...mockModalActions} />);
 
@@ -35,7 +35,7 @@ describe('RecipientModalContainer', () => {
         expect(loadChildRecipients).toHaveBeenCalledTimes(1);
     });
     it('should call updateSort with the default params when recipient.children changes', () => {
-        const container = shallow(<RecipientModalContainer
+        const container = shallow(<ChildRecipientModalContainer
             {...mockModalRedux}
             {...mockModalActions} />);
 
@@ -66,7 +66,7 @@ describe('RecipientModalContainer', () => {
     });
     describe('parseChildren', () => {
         it('should update the Redux state with a new BaseChildRecipient', () => {
-            const container = shallow(<RecipientModalContainer
+            const container = shallow(<ChildRecipientModalContainer
                 {...mockModalRedux}
                 {...mockModalActions} />);
 
@@ -87,7 +87,7 @@ describe('RecipientModalContainer', () => {
     });
     describe('updateSort', () => {
         it('should update the state and store child recipients in the given order', () => {
-            const container = shallow(<RecipientModalContainer
+            const container = shallow(<ChildRecipientModalContainer
                 {...mockModalRedux}
                 {...mockModalActions} />);
 

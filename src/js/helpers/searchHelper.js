@@ -74,7 +74,7 @@ export const performSpendingOverTimeSearch = (params) => apiRequest({
 
 // Spending By Category Visualization Endpoint
 export const performSpendingByCategorySearch = (params) => apiRequest({
-    url: 'v2/search/spending_by_category/',
+    url: `v2/search/spending_by_category/${params.category}`,
     method: 'post',
     headers: {
         'Content-Type': 'application/json'
