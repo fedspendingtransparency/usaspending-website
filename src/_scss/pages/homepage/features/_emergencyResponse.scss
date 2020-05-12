@@ -57,6 +57,18 @@
             }
           }
         }
+        .feature-emergency-response__link-button {
+          @include button-unstyled;
+          font-size: 1.6rem;
+          line-height: normal;
+          color: $color-link;
+          &:hover, &:focus {
+              color: $color-visited;
+              svg {
+                  fill: $color-visited;
+              }
+          }
+        }
         .feature-emergency-response__body-content {
           width: 100%;
           flex-direction: column;
