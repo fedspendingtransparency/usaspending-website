@@ -285,7 +285,6 @@ export const incrementCountAndUpdateUnchecked = (
 
             const indexInArray = newState.findIndex((node) => node.value === parentKey);
             const isParentInArray = indexInArray > -1;
-            debugger;
             const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
                 ? 1
@@ -360,9 +359,29 @@ export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', 
         .reduce(getValue, []);
 };
 
+const doesNodeHaveGenuineChildren = (node) => (
+    node?.children &&
+    node?.children?.length > 0 &&
+    node.children.some((child) => !child.isPlaceHolder)
+);
+
 const addPlaceholder = (children, parentValue, hide = true) => {
+    const shouldAddGrandChildPlaceHolder = children.some((node) => doesNodeHaveGenuineChildren(node));
     const placeHolderExists = children.some((child) => child.isPlaceHolder);
-    if (placeHolderExists) return children;
+    if (placeHolderExists && shouldAddGrandChildPlaceHolder) {
+        return children
+            .map((child) => ({ ...child, children: addPlaceholder(child.children, child.value, hide) }));
+    }
+    if (shouldAddGrandChildPlaceHolder) {
+        return children
+            .map((child) => ({ ...child, children: addPlaceholder(child.children, child.value, hide) }))
+            .concat([{
+                isPlaceHolder: true,
+                label: 'Child Placeholder',
+                value: `children_of_${parentValue}`,
+                className: hide ? 'hide' : ''
+            }]);
+    }
     return children.concat([{
         isPlaceHolder: true,
         label: 'Child Placeholder',
@@ -392,103 +411,103 @@ const areChildrenPartial = (count, children) => {
  * (b) the pre-existing nodes not apart of search results that are hidden via the className obj property w/ the value "hide"
  * (c) placeholder nodes to represent the presence of partial children
 */
-export const mergeChildren = (parentFromSearch, existingParent) => {
-    if (existingParent.children && parentFromSearch.children) {
-        // Hide all existing children by default.
-        const existingChildArray = existingParent
-            .children
-            .map((node) => ({ ...node, className: 'hide' }));
-
+export const appendChildrenFromSearchResults = (parentFromSearch, existingParent) => {
+    if (doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
         return parentFromSearch.children
             .reduce((acc, searchChild) => {
-                const existingChildIndex = acc
-                    .findIndex((existingChild) => existingChild.value === searchChild.value);
-
-                if (existingChildIndex !== -1) {
+                const existingChildIndex = acc.findIndex((existingChild) => existingChild.value === searchChild.value);
+                const childAlreadyExists = existingChildIndex !== -1;
+                if (childAlreadyExists) {
                     const existingChild = acc[existingChildIndex];
-                    // Show existingChildren if they are in the search results.
-                    existingChild.className = '';
-                    if (existingChild.children) {
-                        // Hide this node's children.
-                        existingChild.children = existingChild.children.map((grand) => ({ ...grand, className: 'hide' }));
+                    // Show child if they are in the search results.
+                    const existingChildHasRealChildren = doesNodeHaveGenuineChildren(existingChild);
+
+                    if (existingChildHasRealChildren) {
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...existingChild,
+                                    className: '',
+                                    children: appendChildrenFromSearchResults(searchChild, existingChild)
+                                };
+                            }
+                            return node;
+                        });
                     }
-
-                    if (existingChild.children && searchChild.children) {
-                        searchChild.children
-                            .forEach((searchGrandChild) => {
-                                const existingGrandChildIndex = existingChild.children
-                                    .findIndex((existingGC) => existingGC.value === searchGrandChild.value);
-
-                                if (existingGrandChildIndex !== -1) {
-                                    const existingGrandChild = existingChild.children[existingGrandChildIndex];
-                                    // Show the existingGrandChildren if they are also in the search array.
-                                    existingGrandChild.className = '';
-                                    const isParent = (
-                                        Object.keys(existingGrandChild).includes('children') &&
-                                        existingGrandChild?.children?.length > 0
-                                    );
-
-                                    if (isParent) {
-                                        existingGrandChild.children = existingGrandChild.children
-                                            .filter((grand) => !searchGrandChild.children.some((search) => search.value === grand.value))
-                                            .map((greatGrand) => ({ ...greatGrand, className: 'hide' }))
-                                            .concat(searchGrandChild.children);
-                                        const needsPlaceholder = areChildrenPartial(
-                                            existingGrandChild.count,
-                                            existingGrandChild.children
-                                        );
-                                        if (needsPlaceholder) {
-                                            existingGrandChild.children = addPlaceholder(existingGrandChild.children, existingGrandChild.value, true);
-                                        }
-                                    }
-                                }
-                                else {
-                                    // No existingChild to hide, just add it.
-                                    acc[existingChildIndex].children.push(searchGrandChild);
-                                }
-                            });
+                    else if (!existingChildHasRealChildren) {
+                        // No existingChild to hide, just add it.
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...node,
+                                    className: '',
+                                    children: areChildrenPartial(searchChild.count, searchChild.children)
+                                        ? addPlaceholder(searchChild.children, searchChild.value, true)
+                                        : searchChild.children
+                                };
+                            }
+                            return node;
+                        });
                     }
                     return acc;
                 }
-                // searchChild is completely new, add it w/ a placeholder.
+
+                // child from search is completely new, but not fully populated, add it w/ a placeholder.
                 if (areChildrenPartial(searchChild.count, searchChild.children)) {
-                    acc.push({
+                    return acc.concat([{
                         ...searchChild,
-                        children: [
-                            ...mergeChildren(searchChild, { value: searchChild.value, children: [] }),
-                            {
-                                isPlaceHolder: true,
-                                label: "Child Placeholder",
-                                value: `children_of_${searchChild.value}`,
-                                className: 'hide'
-                            }
-                        ]
-                    });
-                }
-                // searchChild is completely new and fully populated with children, add it w/o a placeholder.
-                else {
-                    acc.push({
-                        ...searchChild,
-                        children: [...mergeChildren(searchChild, { value: searchChild.value, children: [] })]
-                    });
+                        children: addPlaceholder(searchChild.children, searchChild.value, true)
+                    }]);
                 }
 
-                return acc;
-            }, existingChildArray);
+                // child from search is completely new and fully populated, so add it w/o a placeholder
+                if (areChildrenPartial(searchChild.count, searchChild.children)) {
+                    return acc.concat([
+                        {
+                            ...searchChild,
+                            children: addPlaceholder(searchChild.children, searchChild.value, true)
+                        }
+                    ]);
+                }
+                return acc.concat([searchChild]);
+            }, existingParent
+                .children
+                .map((node) => ({ ...node, className: 'hide' })));
     }
-    else if (existingParent.children && !parentFromSearch.children) {
-        return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
-    }
-    else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
-        return [
-            ...parentFromSearch.children,
-            {
+    else if (doesNodeHaveGenuineChildren(existingParent) && !doesNodeHaveGenuineChildren(parentFromSearch)) {
+        if (areChildrenPartial(existingParent.count, existingParent.children)) {
+            return {
+                ...existingParent,
                 className: 'hide',
-                isPlaceHolder: true,
-                label: 'Placeholder Child',
-                value: `children_of_${parentFromSearch.value}`
-            }
-        ];
+                children: addPlaceholder(
+                    existingParent.children.map((child) => ({ ...child, className: 'hide' })),
+                    existingParent.value,
+                    true
+                )
+            };
+        }
+        return {
+            ...existingParent,
+            className: 'hide',
+            children: existingParent.children.map((child) => ({ ...child, className: 'hide' }))
+        };
+    }
+    else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
+        if (areChildrenPartial(parentFromSearch.count, parentFromSearch.children)) {
+            return [
+                ...addPlaceholder(parentFromSearch.children, parentFromSearch.value, true)
+            ];
+        }
+        return parentFromSearch.children
+            .map((child) => {
+                if (doesNodeHaveGenuineChildren(child) && areChildrenPartial(child?.count, child?.children)) {
+                    return {
+                        ...child,
+                        children: addPlaceholder(child.children, child.value, true)
+                    };
+                }
+                return child;
+            });
     }
     return [];
 };
@@ -515,7 +534,7 @@ export const addSearchResultsToTree = (
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 return {
                     ...nodeFromSearch,
-                    children: [...mergeChildren(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
+                    children: [...appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
                 };
             }
             return { ...existingNode, className: 'hide' };

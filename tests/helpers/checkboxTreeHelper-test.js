@@ -23,7 +23,8 @@ import {
 import {
     getPscNodeFromTree,
     getHighestPscAncestor,
-    getImmediatePscAncestor
+    getImmediatePscAncestor,
+    cleanPscData
 } from 'helpers/pscHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
@@ -60,7 +61,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ]);
         });
     });
-    describe('addSearchResultsToTree & mergeChildren', () => {
+    describe('addSearchResultsToTree & appendChildrenFromSearchResults', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
             const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
@@ -99,9 +100,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             // adding class to all nodes not in search result
             const hiddenNodes = grandChildrenWithSearch.filter((node) => node.className === 'hide');
             const visibleNodes = grandChildrenWithSearch.filter((node) => node.className === '');
+
             expect(hiddenNodes.length).toEqual(7);
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
+
             const greatGrandChild = hiddenNodes.find((node) => {
                 if (node.children) {
                     return node.children.some((child) => child.value === 'great grandchild');
@@ -139,7 +142,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             // removes the hide class from the node...
             const searchResults = addSearchResultsToTree(existingNodes, secondSearchResult, getPscNodeFromTree);
             const previouslyHiddenNode = getPscNodeFromTree(searchResults, 'AC24');
-            expect(Object.keys(previouslyHiddenNode).includes('className')).toEqual(false);
+            expect(previouslyHiddenNode.className).toEqual('');
 
             // when updating the tree, don't add duplicate nodes
             const parent = getPscNodeFromTree(searchResults, 'AC2');
@@ -204,6 +207,17 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(childPlaceHolderExists).toEqual(true);
             expect(greatGrandNotOverwritten).toEqual(true);
             expect(greatGrandPlaceholderNotOverwritten).toEqual(true);
+        });
+        it('adds a placeholder for nodes without all children if they dont have it (PSC Depth)', () => {
+            const existingNodes = cleanPscData(pscMockData.topTierResponse.results);
+            const searchResults = addSearchResultsToTree(existingNodes, [pscMockData.reallyBigTree[0]], getPscNodeFromTree);
+            const secondTierWithPlaceholder = getPscNodeFromTree(searchResults, 'AA');
+            const secondTierWithPartialChildrenAndPlaceholder = getPscNodeFromTree(searchResults, 'AC');
+            const thirdTierWithPartialResultsAndPlaceholder = getPscNodeFromTree(searchResults, 'AC2');
+
+            expect(secondTierWithPlaceholder.children[0].isPlaceHolder).toEqual(true);
+            expect(secondTierWithPartialChildrenAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
+            expect(thirdTierWithPartialResultsAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
         });
     });
     describe('expandNodeAndAllDescendantParents', () => {
