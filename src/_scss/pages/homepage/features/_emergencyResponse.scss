@@ -1,7 +1,10 @@
 .homepage-features__content {
-  .feature-covid-container {
+  .feature-emergency-response-container {
     padding-top: 3rem;
-    .feature-covid__title {
+    .feature-emergency-response__underline {
+      text-decoration: underline;
+    }
+    .feature-emergency-response__title {
       display: flex;
       justify-content: center;
       text-align: center;
@@ -28,12 +31,13 @@
           margin-left: 15px;
       }
     }
-    .feature-covid {
+    .feature-emergency-response {
       display: flex;
       @media(min-width: $medium-screen) {
         padding: 0 20rem;
       }
-      .feature-covid__body {
+      .feature-emergency-response__body {
+        width: 100%;
         padding-top: 4.15rem;
         border: 3px solid $color-primary-alt-dark;
         background-color: $color-primary-alt-lightest;
@@ -42,7 +46,7 @@
         @media(min-width: $medium-screen) {
           flex-wrap: nowrap;
         }
-        .feature-covid__body-icon {
+        .feature-emergency-response__body-icon {
           flex-direction: column;
           font-size: 5.8rem;
           padding: 0 3rem;
@@ -53,33 +57,34 @@
             }
           }
         }
-        .feature-covid__body-content {
+        .feature-emergency-response__body-content {
+          width: 100%;
           flex-direction: column;
           padding-right: 3.35rem;
           padding-left: 3.35rem;
           @media(min-width: $medium-screen) {
             padding-left: 0;
           }
-          .feature-covid__body-title {
+          .feature-emergency-response__body-title {
               margin: 0;
               font-size: 3.2rem;
               font-weight: $font-semibold;
               line-height: 4rem;
           }
-          .feature-covid__body-section {
-            .feature-covid__body-section__title {
+          .feature-emergency-response__body-section {
+            .feature-emergency-response__body-section__title {
               font-size: 2.4rem;
               line-height: 2.5rem;
               font-weight: $font-semibold;
             }
-            .feature-covid__body-section__sub-section {
-              .feature-covid__body-section__sub-title {
+            .feature-emergency-response__body-section__sub-section {
+              .feature-emergency-response__body-section__sub-title {
                 font-size: 1.8rem;
                 font-weight: $font-semibold;
                 line-height: 2.6rem;
                 margin-bottom: 0;
               }
-              .feature-covid__body-section__paragraph {
+              .feature-emergency-response__body-section__paragraph {
                 margin-top: 0;
               }
             }

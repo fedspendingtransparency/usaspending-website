@@ -9,7 +9,7 @@ import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
 import ProfileFeature from './ProfileFeature';
-import CovidFeature from './CovidFeature';
+import EmergencyResponseFeature from './EmergencyResponseFeature';
 
 const Features = () => (
     <section
@@ -17,7 +17,7 @@ const Features = () => (
         className="homepage-features"
         aria-label="Web site features">
         <div className="homepage-features__content">
-            <CovidFeature />
+            <EmergencyResponseFeature />
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />

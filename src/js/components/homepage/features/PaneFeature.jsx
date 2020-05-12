@@ -12,10 +12,17 @@ const PaneFeature = () => (
             <h2 className="feature-pane__title">Featured Content</h2>
             <div className="feature-pane__content-wrapper">
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
-                    <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
+                    <h3 className="feature-pane__content-title">COVID-19 Contract Spending</h3>
+                    <p className="feature-pane_content-text">Explore the small fraction of COVID-19 related spending that involves Federal Contracts through a General Service Administration tool.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/agency" role="button" className="feature-pane__button">Explore Budget Justifications</a>
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
+                            role="button"
+                            className="feature-pane__button">
+                            COVID-19 Contract Spending
+                        </a>
                     </div>
                 </div>
                 <div className="feature-pane__content-divider" />
@@ -48,17 +55,10 @@ const PaneFeature = () => (
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">COVID-19 Contract Spending</h3>
-                    <p className="feature-pane_content-text">Explore the small fraction of COVID-19 related spending that involves Federal Contracts through a General Service Administration tool.</p>
+                    <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
+                    <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                            role="button"
-                            className="feature-pane__button">
-                            COVID-19 Contract Spending
-                        </a>
+                        <a href="/#/agency" role="button" className="feature-pane__button">Explore Budget Justifications</a>
                     </div>
                 </div>
             </div>
