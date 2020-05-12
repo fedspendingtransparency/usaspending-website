@@ -29,24 +29,29 @@ const getChildren = (node, keyMap) => {
     }
     return {};
 };
+/**
+ * @param {string} key
+ * @param {Array.Object} codesWithCheckedAncestor
+ * @param {Array.Object} nodes
+ * @param {function} traverseTreeByCodeFn
+ * @returns {number} the sum count of the given node's (represented by its key or node.value) descendants
+ */
+const getCountOfCheckedDescendants = (key, codesWithCheckedAncestor, nodes, traverseTreeByCodeFn) => {
+    const hasCheckedDescendants = codesWithCheckedAncestor.some((obj) => obj.checkedAncestor === key);
 
-const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes, traverseTreeByCodeFn) => {
-    // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
-    const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
-
-    if (hasSelectedButNotCounted) {
-        const nodesUnderPlaceholder = codesUnderPlaceholder
-            .filter((code) => code.placeholder === key);
-        const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
+    if (hasCheckedDescendants) {
+        const nodesUnderPlaceholder = codesWithCheckedAncestor
+            .filter((code) => code.checkedAncestor === key);
+        const sumOfCheckedDescendants = nodesUnderPlaceholder
             .map((obj) => traverseTreeByCodeFn(nodes, obj.code))
-            .reduce((agg, nodeTobeCounted) => {
-                if (nodeTobeCounted.count === 0) {
+            .reduce((agg, descendantToBeCounted) => {
+                if (descendantToBeCounted.count === 0) {
                     return agg + 1;
                 }
-                return agg + nodeTobeCounted.count;
+                return agg + descendantToBeCounted.count;
             }, 0);
 
-        return aggregateOffsetOfNodesUnderPlaceholder;
+        return sumOfCheckedDescendants;
     }
     return 0;
 };
@@ -224,42 +229,42 @@ export const incrementCountAndUpdateUnchecked = (
 ) => {
     const newlyChecked = difference(newChecked, oldChecked);
     const nodeTree = cloneDeep(nodes);
-
-    // child place holders reflect the count of their immediate ancestor
-    const placeHoldersToBeCounted = newChecked
-        .filter((node) => node.includes('children_of_'));
-
-    const codesUnderPlaceholder = [];
-    const codesWithoutPlaceholder = [];
+    const codesWithCheckedAncestor = [];
     const codesToBeRemovedFromUnchecked = [];
 
     newChecked
-        .filter((code) => !code.includes('children_of_'))
-        .forEach((code) => {
+        .map((code) => removePlaceholderString(code))
+        .forEach((code, i, arr) => {
             const node = traverseTreeByCodeFn(nodeTree, code);
             const immediateAncestorCode = getImmediateAncestorFn(node);
             const highestAncestorCode = getHighestAncestorFn(node);
-            if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: immediateAncestorCode });
+            const isImmediateAncestorChecked = (
+                immediateAncestorCode !== code &&
+                arr.includes(immediateAncestorCode)
+            );
+
+            const isHighestAncestorChecked = (
+                highestAncestorCode !== code &&
+                arr.includes(highestAncestorCode)
+            );
+            if (node?.ancestors) {
+                const checkedAncestors = node.ancestors.filter((ancestor) => arr.includes(ancestor));
+                if (checkedAncestors.length > 0) {
+                    // always use the nearest ancestor.
+                    codesWithCheckedAncestor.push({ code, checkedAncestor: checkedAncestors.pop() });
+                }
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: highestAncestorCode });
+            else if (isImmediateAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: immediateAncestorCode });
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${code}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: code });
-            }
-            else {
-                codesWithoutPlaceholder.push(code);
+            else if (isHighestAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: highestAncestorCode });
             }
         });
 
     const newCounts = [...new Set([...newlyChecked])]
         .reduce((newState, code) => {
-            const isPlaceholder = code.includes('children_of_');
-            const key = isPlaceholder
-                ? code.split('children_of_')[1]
-                : code;
-
+            const key = removePlaceholderString(code);
             const currentNode = traverseTreeByCodeFn(nodeTree, key);
             const parentKey = getHighestAncestorFn(currentNode);
             const parentNode = traverseTreeByCodeFn(nodeTree, parentKey);
@@ -280,12 +285,12 @@ export const incrementCountAndUpdateUnchecked = (
 
             const indexInArray = newState.findIndex((node) => node.value === parentKey);
             const isParentInArray = indexInArray > -1;
-
-            const offsetCount = getCountWithPlaceholderOffset(key, codesUnderPlaceholder, nodeTree, traverseTreeByCodeFn);
+            debugger;
+            const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
                 ? 1
                 : currentNode.count;
-            const amountToIncrement = originalCount - offsetCount;
+            const amountToIncrement = originalCount - countOfCheckedDescendants;
 
             if (!isParentInArray) {
                 newState.push({
