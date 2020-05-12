@@ -20,7 +20,14 @@ import {
     shouldNaicsNodeHaveChildren
 } from 'helpers/naicsHelper';
 
+import {
+    getPscNodeFromTree,
+    getHighestPscAncestor,
+    getImmediatePscAncestor
+} from 'helpers/pscHelper';
+
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
+import * as pscMockData from '../containers/search/filters/psc/mockPSC';
 
 // overwriting this because it makes life easier
 const mockSearchResults = [{
@@ -381,6 +388,19 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             );
             expect(counts[0].count).toEqual(64);
         });
+        it('PSC Depth: when both parent and child placeholders are checked, only count the value of the parent', () => {
+            const [counts] = incrementCountAndUpdateUnchecked(
+                ["children_of_AC", "AC21", "children_of_AC2"],
+                [''],
+                [],
+                pscMockData.reallyBigTree,
+                [],
+                getPscNodeFromTree,
+                getImmediatePscAncestor,
+                getHighestPscAncestor
+            );
+            expect(counts[0].count).toEqual(57);
+        });
         it('checked place holders increment with an offset count when a descendent is also checked', async () => {
             const [counts] = incrementCountAndUpdateUnchecked(
                 ["111110", "111120", 'children_of_1111'],
@@ -395,6 +415,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             expect(counts[0].count).toEqual(8);
         });
+
         it('removes items from unchecked array when all immediate children are checked', async () => {
             // ie, 1111 is unchecked, then all grand children underneath are checked.
             const allGrandchildrenOf1111 = mockData.reallyBigTree[0]
