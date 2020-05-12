@@ -427,21 +427,18 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
                                         Object.keys(existingGrandChild).includes('children') &&
                                         existingGrandChild?.children?.length > 0
                                     );
+
                                     if (isParent) {
                                         existingGrandChild.children = existingGrandChild.children
-                                            .map((greatGrand) => {
-                                                const greatGrandIsInSearchResults = searchGrandChild.children
-                                                    .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
-                                                if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
-                                                // Hide the greatGrandChildren if they are not in the search results array.
-                                                return { ...greatGrand, className: 'hide' };
-                                            });
+                                            .filter((grand) => !searchGrandChild.children.some((search) => search.value === grand.value))
+                                            .map((greatGrand) => ({ ...greatGrand, className: 'hide' }))
+                                            .concat(searchGrandChild.children);
                                         const needsPlaceholder = areChildrenPartial(
                                             existingGrandChild.count,
-                                            existingGrandChild.children.concat(searchGrandChild.children)
+                                            existingGrandChild.children
                                         );
                                         if (needsPlaceholder) {
-                                            existingGrandChild.children = addPlaceholder(existingGrandChild.children, existingGrandChild.value);
+                                            existingGrandChild.children = addPlaceholder(existingGrandChild.children, existingGrandChild.value, true);
                                         }
                                     }
                                 }

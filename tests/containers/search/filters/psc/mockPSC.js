@@ -40,6 +40,7 @@ export const topTierResponse = {
     "results": [
         {
             "id": "Research and Development",
+            "value": "Research and Development",
             "ancestors": [],
             "description": "",
             "count": 815,
@@ -2300,5 +2301,4 @@ export const reallyBigTree = cleanPscData([
                 ]
             }
         ]
-    }]
-);
+    }]);

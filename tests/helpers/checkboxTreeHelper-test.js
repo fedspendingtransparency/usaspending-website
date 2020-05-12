@@ -110,6 +110,42 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             });
             expect(greatGrandChild.className).toEqual('hide');
         });
+        it('(PSC DATA) -- removes the hide class based on search results and does not add the same node twice', () => {
+            const matchingNode = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            const firstSearchResult = [{
+                ...pscMockData.topTierResponse.results[0],
+                children: [{
+                    ...matchingNode,
+                    children: [
+                        {
+                            ...matchingNode.children[0],
+                            // the rest of the children will be hidden w/ the hide class
+                            children: [matchingNode.children[0].children[0]]
+                        }
+                    ]
+                }]
+            }];
+
+            // applies the hide class to the node...
+            const existingNodes = addSearchResultsToTree(pscMockData.reallyBigTree, firstSearchResult, getPscNodeFromTree);
+            const hiddenNode = getPscNodeFromTree(existingNodes, 'AC24');
+            expect(hiddenNode.className).toEqual('hide');
+
+            const secondSearchResult = [{
+                ...pscMockData.topTierResponse.results[0],
+                children: [matchingNode]
+            }];
+
+            // removes the hide class from the node...
+            const searchResults = addSearchResultsToTree(existingNodes, secondSearchResult, getPscNodeFromTree);
+            const previouslyHiddenNode = getPscNodeFromTree(searchResults, 'AC24');
+            expect(Object.keys(previouslyHiddenNode).includes('className')).toEqual(false);
+
+            // when updating the tree, don't add duplicate nodes
+            const parent = getPscNodeFromTree(searchResults, 'AC2');
+            const childrenNamedAC24 = parent.children.filter((node) => node.value === 'AC24');
+            expect(childrenNamedAC24.length).toEqual(1);
+        });
         it('removes placeholder grandchildren for nodes with all grandchildren', () => {
             const existingNodes = mockData.placeholderNodes;
             const searchResult = addSearchResultsToTree(existingNodes, [mockData.reallyBigTree[0]], getNaicsNodeFromTree);
@@ -399,7 +435,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 getImmediatePscAncestor,
                 getHighestPscAncestor
             );
-            expect(counts[0].count).toEqual(57);
+            expect(counts[0].count).toEqual(56);
         });
         it('checked place holders increment with an offset count when a descendent is also checked', async () => {
             const [counts] = incrementCountAndUpdateUnchecked(
