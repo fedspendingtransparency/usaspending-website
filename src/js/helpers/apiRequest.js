@@ -12,7 +12,8 @@ const localUrl = `http://localhost:8000/api/`;
 const getBaseUrl = (params) => {
     if (params.isMocked) return mockUrl;
     if (params.isLocal) return localUrl;
-    return kGlobalConstants.API;
+    // return kGlobalConstants.API;
+    return `https://dev-api.usaspending.gov/api/`;
 };
 
 // eslint-disable-next-line import/prefer-default-export
