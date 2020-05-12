@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 import { cleanPscData } from "../../../../../src/js/helpers/pscHelper";
 
 export const mockPSC = {
@@ -853,7 +854,96 @@ export const reallyBigTree = cleanPscData([
                 ],
                 "description": "DEFENSE SYSTEMS R&D",
                 "count": 56,
-                "children": null
+                "children": [
+                    {
+                        "id": "AC2",
+                        "ancestors": [
+                            "Research and Development",
+                            "AC"
+                        ],
+                        "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS",
+                        "count": 8,
+                        "children": [
+                            {
+                                "id": "AC21",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (BASIC RESEARCH)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC23",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (ADVANCED DEVELOPMENT)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC24",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (ENGINEERING DEVELOPMENT)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC25",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (OPERATIONAL SYSTEMS DEVELOPMENT)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC26",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (MANAGEMENT/SUPPORT)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC27",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D- DEFENSE SYSTEM: MISSILE/SPACE SYSTEMS (COMMERCIALIZED)",
+                                "count": 0,
+                                "children": []
+                            },
+                            {
+                                "id": "AC20",
+                                "ancestors": [
+                                    "Research and Development",
+                                    "AC",
+                                    "AC2"
+                                ],
+                                "description": "R&D-MISSILE & SPACE SYS",
+                                "count": 0,
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 "id": "AD",
