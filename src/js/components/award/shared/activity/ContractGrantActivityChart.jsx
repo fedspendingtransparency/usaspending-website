@@ -16,6 +16,7 @@ import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 
 const propTypes = {
@@ -70,13 +71,13 @@ const ContractGrantsActivityChart = ({
     // y ticks
     const [yTicks, setYTicks] = useState([]);
     // start line
-    const [startLineData, setStartLineData] = useState({ value: 0, height: 0, textData: {} });
+    const [startLineData, setStartLineData] = useState({ value: 0, height: 0, textData: null });
     // today line
-    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0, textData: {} });
+    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0, textData: null });
     // end line
-    const [endLineData, setEndLineData] = useState({ value: 0, height: 0, textData: {} });
+    const [endLineData, setEndLineData] = useState({ value: 0, height: 0, textData: null });
     // potential end line
-    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0, textData: {} });
+    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0, textData: null });
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
@@ -316,40 +317,33 @@ const ContractGrantsActivityChart = ({
         setStartLineData(Object.assign({}, startLineData, { value: lineHelper(dates._startDate) }));
         setEndLineData(Object.assign({}, endLineData, { value: lineHelper(dates._endDate) }));
         setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: lineHelper(dates._potentialEndDate) }));
-    }, [dates, endLineData, startLineData, potentialEndLineData]);
+    }, [dates]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
         if (i === 2) return setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: lineHeight }));
         return setTodayLineData(Object.assign({}, todayLineData, { height: lineHeight }));
     };
-    const allVerticalLinesExceptToday = useCallback(() => (
-        [startLineData, endLineData, potentialEndLineData].map((data) => data.value).filter((data) => data)
+    const allVerticalLines = useCallback(() => (
+        [startLineData, endLineData, potentialEndLineData, todayLineData]
     ), [
         startLineData,
         endLineData,
-        potentialEndLineData
+        potentialEndLineData,
+        todayLineData
     ]);
     const setVerticalLineHeights = useCallback(() => {
         let heightHasBeenInitialized = false;
         let currentHeight = 0;
-        [startLineData.value, endLineData.value, potentialEndLineData.value, 'fakeTextToIncludeTodayLine']
+        allVerticalLines().map((data) => data.value)
             .forEach((data, i) => {
                 if (data) {
                     if (!heightHasBeenInitialized) { // set line to height of chart
                         heightHasBeenInitialized = true;
-                        // if (i === 0) setStartLineData(Object.assign({}, startLineData, { height: currentHeight }));
-                        // if (i === 1) setEndLineData(Object.assign({}, endLineData, { height: currentHeight }));
-                        // if (i === 2) setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: currentHeight }));
-                        // setTodayLineData(Object.assign({}, todayLineData, { height: currentHeight }));
-                        // setVerticalLineHeight(i, currentHeight);
+                        setVerticalLineHeight(i, currentHeight);
                         currentHeight += verticalLineTextHeight;
                         return null;
                     }
-                    // if (i === 0) setStartLineData(Object.assign({}, startLineData, { height: currentHeight }));
-                    // if (i === 1) setEndLineData(Object.assign({}, endLineData, { height: currentHeight }));
-                    // if (i === 2) setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: currentHeight }));
-                    // setTodayLineData(Object.assign({}, todayLineData, { height: currentHeight }));
                     setVerticalLineHeight(i, currentHeight);
                     currentHeight += verticalLineTextHeight;
                     return null;
@@ -363,19 +357,16 @@ const ContractGrantsActivityChart = ({
         todayLineData,
         potentialEndLineData
     ]);
-    const updateVerticalLineTextData = (data) => {
-        console.log(' Data : ', data);
-        if (data.textDivDimensions.height !== verticalLineTextHeight) setVerticalLineTextHeight(data.textDivDimensions.height);
-    };
+
     const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
         if (!totalVerticalLineTextHeight) {
-            setTotalVerticalLineTextHeight((allVerticalLinesExceptToday().length + 1) * verticalLineTextHeight);
+            setTotalVerticalLineTextHeight((allVerticalLines().map((data) => data.value).filter((data) => data).length) * verticalLineTextHeight);
             setVerticalLineHeights(verticalLineTextHeight);
         }
     }, [
         verticalLineTextHeight,
         setVerticalLineHeights,
-        allVerticalLinesExceptToday,
+        allVerticalLines,
         totalVerticalLineTextHeight
     ]);
     // update the total text height and vertical line heights
@@ -387,19 +378,60 @@ const ContractGrantsActivityChart = ({
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
     // check for vertical line text overlapping lines
-    // useEffect(() => {
-        // [
-        //     startLineValue,
-        //     todayLineData.value,
-        //     endLineValue,
-        //     potentialEndLineData.value
-        // ]
-    // }, [
-    //     startLineData,
-    //     todayLineData,
-    //     endLineData,
-    //     potentialEndLineData
-    // ]);
+    const overlappingLinesTextData = () => {
+        if (!xScale) return;
+        // if a line exists, meaning it has a value property, run through every text to see if it overlaps
+        // if it does,
+        const jimbo = allVerticalLines().reduce((acc, lineData, i) => { // loop throught lines
+            // console.log(' ******************************************************* ');
+            console.log(' Line : ', lineData.textData);
+            if (lineData.value) { // if a line exists
+                allVerticalLines().forEach((data, z) => { // loop through all text
+                    if (i === z) return acc; // ignore text associated with the same line
+                    const { textData } = data;
+                    if (!textData) return acc; 
+                    const { value } = lineData;
+                    const linePosition = xScale(value) + padding.left;
+                    // console.log(' --------------------------------------------- ');
+                    // console.log(' Text : ', textData);
+                    // console.log(' Line Position : ', textData.positionX);
+                    if (textData.positionX < linePosition && linePosition < textData.positionX + textData.textDivDimensions.width) { // text is overlapping line
+                        if (acc[textData.text]) {
+                            acc[textData.text].push(textData.textDivDimensions.y);
+                        }
+                        acc[textData.text] = [textData.textDivDimensions.y];
+                    }
+                    return acc; // text is not overlapping
+                });
+            }
+            return acc; // line does not exits
+        }, {});
+        console.log(' Jimbo : ', jimbo);
+    };
+    const setVerticalLineTextData = (textInfo) => {
+        console.log(' Text === : ', { truthy: textInfo.text === 'Start', textInfo });
+        console.log(' F U : ', Object.entries(textInfo.textDivDimensions));
+        if (textInfo.text === 'Start') setStartLineData(Object.assign({}, startLineData, { textData: textInfo }));
+        if (textInfo.text === 'Today') setTodayLineData(Object.assign({}, todayLineData, { textData: textInfo }));
+        if (textInfo.text === 'End' || textInfo.text === 'Current End') setEndLineData(Object.assign({}, endLineData, { textData: textInfo }));
+        if (textInfo.text === 'Potential End') setPotentialEndLineData(Object.assign({}, potentialEndLineData, { textData: textInfo }));
+    };
+    const updateVerticalLineTextData = (data) => {
+        setVerticalLineTextData(data);
+        overlappingLinesTextData();
+        if (data.textDivDimensions.height !== verticalLineTextHeight) setVerticalLineTextHeight(data.textDivDimensions.height);
+    };
+    useEffect(() => {
+        
+    }, [
+        startLineData,
+        todayLineData,
+        endLineData,
+        potentialEndLineData,
+        allVerticalLines,
+        padding.left,
+        xScale
+    ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
