@@ -10,7 +10,10 @@ import {
     incrementCountAndUpdateUnchecked,
     autoCheckImmediateChildrenAfterDynamicExpand,
     showAllNodes,
-    getAllDescendants
+    getAllDescendants,
+    doesNodeHaveGenuineChildren,
+    addPlaceholder,
+    areChildrenPartial
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -552,6 +555,80 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 "111191",
                 "111199"
             ]);
+        });
+    });
+    describe('doesNodeHaveGenuineChildren', () => {
+        const nodeWithOnlyPlaceholderChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AA');
+        const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+        it('GENUINE: nodes w/ both genuine and placeholder children', () => {
+            expect(doesNodeHaveGenuineChildren(nodeWithMixedChildren)).toEqual(true);
+        });
+        it('NOT GENUINE: nodes w/ only placeholder', () => {
+            expect(doesNodeHaveGenuineChildren(nodeWithOnlyPlaceholderChildren)).toEqual(false);
+        });
+        it('NOT GENUINE: nodes w/ no children property', () => {
+            expect(doesNodeHaveGenuineChildren({ test: 'this node doesnt even have a children property at all' })).toEqual(false);
+        });
+        it('NOT GENUINE: nodes w/ an empty children array', () => {
+            expect(doesNodeHaveGenuineChildren({
+                children: [],
+                test: 'this node doesnt even have a children property at all'
+            })).toEqual(false);
+        });
+    });
+    describe('areChildrenPartial', () => {
+        it('FULL CHILDREN: ', () => {
+            const fullyPopulatedNode = {
+                count: 7,
+                children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
+            };
+            const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            
+            expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
+            expect(areChildrenPartial(fullyPopulatedNode.count, fullyPopulatedNode.children)).toEqual(false);
+        });
+        it('PARTIAL CHILDREN: ', () => {
+            const nodeWithOnlyPlaceholderChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AA');
+            const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            expect(areChildrenPartial(nodeWithOnlyPlaceholderChildren.count, nodeWithOnlyPlaceholderChildren.children)).toEqual(true);
+            expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
+        });
+    });
+    describe('addPlaceholder', () => {
+        it('recursively adds placeholders to partial children and partial grandchildren', () => {
+            const nodeWithPartialChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+
+            const result = {
+                ...nodeWithPartialChildren,
+                children: addPlaceholder(nodeWithPartialChildren.children, nodeWithPartialChildren.value)
+            };
+
+            expect(result.children.length).toEqual(2);
+            expect(result.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+
+            const childWithPartialChildren = result.children.find((child) => child.value === 'AC2');
+            expect(childWithPartialChildren.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+        });
+        it('does not add placeholders to grandchildren if they are fully populated', () => {
+            const fullyPopulatedNode = {
+                count: 7,
+                value: '999',
+                children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
+            };
+            const testNode = {
+                count: 100,
+                value: 'test',
+                children: [
+                    fullyPopulatedNode,
+                    getPscNodeFromTree(pscMockData.reallyBigTree, 'AC21')
+                ]
+            };
+            const result = addPlaceholder(testNode.children, testNode.value);
+
+            expect(result.filter((child) => child.isPlaceHolder).length).toEqual(1);
+
+            const grandChild = result.find((child) => child.value === '999');
+            expect(grandChild.children.filter((grand) => grand.isPlaceHolder).length).toEqual(0);
         });
     });
 });
