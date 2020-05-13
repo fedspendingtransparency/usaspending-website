@@ -485,16 +485,7 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
         };
     }
     else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
-        return parentFromSearch.children
-            .map((child) => {
-                if (doesNodeHaveGenuineChildren(child)) {
-                    return {
-                        ...child,
-                        children: addChildrenAndPossiblyPlaceholder(child.children, child, true)
-                    };
-                }
-                return child;
-            });
+        return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
     }
     return [];
 };
