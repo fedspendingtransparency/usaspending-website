@@ -12,7 +12,7 @@ import {
     showAllNodes,
     getAllDescendants,
     doesNodeHaveGenuineChildren,
-    addPlaceholder,
+    addChildrenAndPossiblyPlaceholder,
     areChildrenPartial
 } from 'helpers/checkboxTreeHelper';
 import {
@@ -594,13 +594,13 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
         });
     });
-    describe('addPlaceholder', () => {
-        it('recursively adds placeholders to partial children and partial grandchildren', () => {
+    describe('addChildrenAndPossiblyPlaceholder', () => {
+        it('recursively adds placeholders to both partial children and partial grandchildren', () => {
             const nodeWithPartialChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
 
             const result = {
                 ...nodeWithPartialChildren,
-                children: addPlaceholder(nodeWithPartialChildren.children, nodeWithPartialChildren.value)
+                children: addChildrenAndPossiblyPlaceholder(nodeWithPartialChildren.children, nodeWithPartialChildren)
             };
 
             expect(result.children.length).toEqual(2);
@@ -609,26 +609,30 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const childWithPartialChildren = result.children.find((child) => child.value === 'AC2');
             expect(childWithPartialChildren.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
         });
-        it('does not add placeholders to grandchildren if they are fully populated', () => {
+        it('but does not add placeholders to fully populated children or grandchildren', () => {
             const fullyPopulatedNode = {
                 count: 7,
                 value: '999',
                 children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
             };
-            const testNode = {
-                count: 100,
+            const partiallyPopulatedNode = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            const nodeWithFullyPopulatedGrandChild = {
+                count: 1000000,
                 value: 'test',
                 children: [
                     fullyPopulatedNode,
-                    getPscNodeFromTree(pscMockData.reallyBigTree, 'AC21')
+                    partiallyPopulatedNode
                 ]
             };
-            const result = addPlaceholder(testNode.children, testNode.value);
-
+            const result = addChildrenAndPossiblyPlaceholder(nodeWithFullyPopulatedGrandChild.children, nodeWithFullyPopulatedGrandChild);
+            // Not really part of the test, but this node I just created is partial so it has a placeholder.
             expect(result.filter((child) => child.isPlaceHolder).length).toEqual(1);
 
-            const grandChild = result.find((child) => child.value === '999');
-            expect(grandChild.children.filter((grand) => grand.isPlaceHolder).length).toEqual(0);
+            const popoulatedChild = result.find((child) => child.value === '999');
+            const partialChild = result.find((child) => child.value === 'AC');
+
+            expect(popoulatedChild.children.filter((child) => child.isPlaceHolder).length).toEqual(0);
+            expect(partialChild.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
         });
     });
 });

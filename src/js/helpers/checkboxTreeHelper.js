@@ -377,39 +377,43 @@ export const areChildrenPartial = (count, children) => {
     return sumOfAllChildren < count;
 };
 
-export const addPlaceholder = (children, parentValue, hide = true) => {
+export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true) => {
+    if (!children || !parent) return [];
     const hasGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
-    const placeHolderExists = children.some((child) => child.isPlaceHolder);
-    if (placeHolderExists && hasGrandChildren) {
+    const placeHolderAlreadyExists = children.some((child) => child.isPlaceHolder);
+    const isPlaceHolderNeeded = (
+        areChildrenPartial(parent.count, children) &&
+        !placeHolderAlreadyExists
+    );
+    if (isPlaceHolderNeeded && hasGrandChildren) {
         return children
             .map((child) => ({
                 ...child,
-                children: areChildrenPartial(child.count, child.children)
-                    ? addPlaceholder(child.children, child.value, hide)
-                    : child.children
-            }));
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }))
+            .concat([{
+                isPlaceHolder: true,
+                label: 'Child Placeholder',
+                value: `children_of_${parent.value}`,
+                className: hide ? 'hide' : ''
+            }]);
     }
     if (hasGrandChildren) {
         return children
             .map((child) => ({
                 ...child,
-                children: areChildrenPartial(child.count, child.children)
-                    ? addPlaceholder(child.children, child.value, hide)
-                    : child.children
-            }))
-            .concat([{
-                isPlaceHolder: true,
-                label: 'Child Placeholder',
-                value: `children_of_${parentValue}`,
-                className: hide ? 'hide' : ''
-            }]);
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }));
     }
-    return children.concat([{
-        isPlaceHolder: true,
-        label: 'Child Placeholder',
-        value: `children_of_${parentValue}`,
-        className: hide ? 'hide' : ''
-    }]);
+    if (isPlaceHolderNeeded) {
+        return children.concat([{
+            isPlaceHolder: true,
+            label: 'Child Placeholder',
+            value: `children_of_${parent.value}`,
+            className: hide ? 'hide' : ''
+        }]);
+    }
+    return children;
 };
 
 /**
@@ -451,9 +455,7 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
                                 return {
                                     ...node,
                                     className: '',
-                                    children: areChildrenPartial(searchChild.count, searchChild.children)
-                                        ? addPlaceholder(searchChild.children, searchChild.value, true)
-                                        : searchChild.children
+                                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
                                 };
                             }
                             return node;
@@ -463,48 +465,32 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
                 }
 
                 // child from search is completely new, but not fully populated, add it w/ a placeholder.
-                if (areChildrenPartial(searchChild.count, searchChild.children)) {
-                    return acc.concat([{
-                        ...searchChild,
-                        children: addPlaceholder(searchChild.children, searchChild.value, true)
-                    }]);
-                }
-
-                return acc.concat([searchChild]);
+                return acc.concat([{
+                    ...searchChild,
+                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
+                }]);
             }, existingParent
                 .children
                 .map((node) => ({ ...node, className: 'hide' })));
     }
     else if (doesNodeHaveGenuineChildren(existingParent) && !doesNodeHaveGenuineChildren(parentFromSearch)) {
-        if (areChildrenPartial(existingParent.count, existingParent.children)) {
-            return {
-                ...existingParent,
-                className: 'hide',
-                children: addPlaceholder(
-                    existingParent.children.map((child) => ({ ...child, className: 'hide' })),
-                    existingParent.value,
-                    true
-                )
-            };
-        }
         return {
             ...existingParent,
             className: 'hide',
-            children: existingParent.children.map((child) => ({ ...child, className: 'hide' }))
+            children: addChildrenAndPossiblyPlaceholder(
+                existingParent.children.map((child) => ({ ...child, className: 'hide' })),
+                existingParent,
+                true
+            )
         };
     }
     else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
-        if (areChildrenPartial(parentFromSearch.count, parentFromSearch.children)) {
-            return [
-                ...addPlaceholder(parentFromSearch.children, parentFromSearch.value, true)
-            ];
-        }
         return parentFromSearch.children
             .map((child) => {
-                if (doesNodeHaveGenuineChildren(child) && areChildrenPartial(child?.count, child?.children)) {
+                if (doesNodeHaveGenuineChildren(child)) {
                     return {
                         ...child,
-                        children: addPlaceholder(child.children, child.value, true)
+                        children: addChildrenAndPossiblyPlaceholder(child.children, child, true)
                     };
                 }
                 return child;
