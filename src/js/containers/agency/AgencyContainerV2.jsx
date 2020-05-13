@@ -20,7 +20,7 @@ import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActio
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import { socialShareOptions, getSocialShareFn } from 'helpers/socialShare';
+import { getBaseUrl } from 'helpers/socialShare';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -148,10 +148,9 @@ export const AgencyProfileV2 = ({
                         <hr />
                         <ShareIcon
                             slug={slug}
-                            url={url}
                             email={{
                                 subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
-                                body: `Here is the url: ${url}`
+                                body: `Here is the url: ${getBaseUrl(slug)}`
                             }} />
                         <div className="sticky-header__toolbar-item">
                             <button className="sticky-header__button">

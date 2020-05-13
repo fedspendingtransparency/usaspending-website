@@ -16,6 +16,7 @@ import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
+import { getBaseUrl } from "helpers/socialShare";
 
 import StateContent from './StateContent';
 
@@ -29,6 +30,9 @@ const propTypes = {
 
 export default class StatePage extends React.Component {
     render() {
+        const { id, stateProfile } = this.props;
+        const slug = `state/${id}/${stateProfile.fy}`;
+
         let content = <StateContent {...this.props} />;
         if (this.props.error) {
             content = (
@@ -37,7 +41,6 @@ export default class StatePage extends React.Component {
                     message="The state ID provided is invalid. Please check the ID and try again." />
             );
         }
-
         return (
             <div className="usa-da-state-page">
                 <MetaTags {...statePageMetaTags} />
@@ -50,11 +53,10 @@ export default class StatePage extends React.Component {
                     </div>
                     <div className="sticky-header__toolbar">
                         <ShareIcon
-                            slug={'slug'}
-                            url={'url'}
+                            slug={slug}
                             email={{
-                                subject: `Check out Agency  on USAspending.gov!`,
-                                body: `Here is the url: `
+                                subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
+                                body: `View the spending activity of this state on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                     </div>
                 </StickyHeader>
