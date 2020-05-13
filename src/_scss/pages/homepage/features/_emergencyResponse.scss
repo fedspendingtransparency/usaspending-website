@@ -69,6 +69,16 @@
               }
           }
         }
+        .feature-emergency__external-link-icon {
+          svg {
+            fill: $color-link;
+          }
+          &:hover, &:focus {
+            svg {
+                fill: $color-visited;
+            }
+          }
+        }
         .feature-emergency-response__body-content {
           width: 100%;
           flex-direction: column;

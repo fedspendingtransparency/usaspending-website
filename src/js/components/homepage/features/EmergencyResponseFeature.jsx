@@ -105,7 +105,7 @@ const EmergencyResponseFeature = () => {
                                         className="feature-emergency-response__link-button"
                                         onClick={onRedirectModalClick}
                                         value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard">
-                                        here.
+                                        here. <span className="feature-emergency-response__link-button feature-emergency__external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                                     </button>
                                 </p>
                             </div>
@@ -121,23 +121,25 @@ const EmergencyResponseFeature = () => {
                                     role="button"
                                     rel="noopener noreferrer"
                                     href="https://www.usaspending.gov/#/">
-                                    USAspending.gov
+                                    USAspending.gov <span className="feature-emergency-response__link-button feature-emergency__external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                                 </a>
                                 &nbsp;to get a sense of how we will be capturing COVID-19 supplemental
                             spending data, check out&nbsp;
-                                <button
-                                    className="feature-emergency-response__link-button"
-                                    onClick={onRedirectModalClick}
-                                    value="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
-                                    OMB M-20-21
-                                </button>
+                                <a
+                                    target="_blank"
+                                    role="button"
+                                    rel="noopener noreferrer"
+                                    href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
+                                    OMB M-20-21 <span className="feature-emergency-response__link-button feature-emergency__external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                </a>
                                 &nbsp;and the&nbsp;
-                                <button
-                                    className="feature-emergency-response__link-button"
-                                    onClick={onRedirectModalClick}
-                                    value="https://fiscal.treasury.gov/data-transparency/DAIMS-v2.0.html">
-                                    DATA Act Information Model Schema (DAIMS) 2.0.
-                                </button>
+                                <a
+                                    target="_blank"
+                                    role="button"
+                                    rel="noopener noreferrer"
+                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-v2.0.html">
+                                    DATA Act Information Model Schema (DAIMS) 2.0. <span className="feature-emergency-response__link-button feature-emergency__external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                </a>
                             </p>
                         </div>
                     </div>

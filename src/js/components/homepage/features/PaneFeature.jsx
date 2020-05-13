@@ -33,7 +33,7 @@ const PaneFeature = () => {
                                 className="feature-pane__button"
                                 onClick={onRedirectModalClick}
                                 value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard">
-                                COVID-19 Contract Spending
+                                COVID-19 Contract Spending <span className="feature-external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </button>
                         </div>
                     </div>
@@ -53,14 +53,14 @@ const PaneFeature = () => {
                                 Click below to visit our partner site.
                             </p>
                         </div>
-                        <div className="feature-pane__button-wrapper">
+                        <div className="feature-pane__link-wrapper">
                             <a
                                 href="https://datalab.usaspending.gov/americas-finance-guide/"
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button">
-                                Explore the Guide <span id="middle-pane-feature-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                className="feature-pane__link">
+                                Explore the Guide <span className="feature-external-link-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
                     </div>
@@ -69,8 +69,8 @@ const PaneFeature = () => {
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
                         <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
-                        <div className="feature-pane__button-wrapper">
-                            <a href="/#/agency" role="button" className="feature-pane__button">Explore Budget Justifications</a>
+                        <div className="feature-pane__link-wrapper">
+                            <a href="/#/agency" role="button" className="feature-pane__link">Explore Budget Justifications</a>
                         </div>
                     </div>
                 </div>
