@@ -12,14 +12,17 @@ import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import Footer from 'containers/Footer';
 
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'components/sharedComponents/header/Header';
+import Error from 'components/sharedComponents/Error';
+import { LoadingWrapper } from 'components/sharedComponents/Loading';
+import { getBaseUrl } from 'helpers/socialShare';
+
 import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';
 import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
-import Error from '../sharedComponents/Error';
-import { LoadingWrapper } from '../sharedComponents/Loading';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -143,6 +146,8 @@ export default class Award extends React.Component {
         const { overview } = this.props.award;
         const { awardId, isLoading } = this.props;
         const content = this.renderContent(overview, awardId);
+        const slug = `award/${awardId}`;
+        const emailSubject = `${overview?.awardingAgency?.formattedToptier} to ${overview?.recipient?._name}`;
         return (
             <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
@@ -154,6 +159,14 @@ export default class Award extends React.Component {
                         isInvalidId={this.props.noAward}
                         isLoading={isLoading}
                         category={overview ? overview.category : ''} />
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: `USAspending.gov Award Summary: ${emailSubject}`,
+                                body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
+                    </div>
                 </StickyHeader>
                 <LoadingWrapper isLoading={isLoading}>
                     <main className={!this.props.noAward ? 'award-content' : ''}>

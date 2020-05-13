@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import DownloadButton from '../search/header/DownloadButton';
 
 
@@ -49,15 +48,6 @@ const SummaryBar = ({
                     downloadAvailable
                     downloadInFlight={isDownloadPending}
                     onClick={downloadData} />
-            </div>
-            <div className="sticky-header__toolbar">
-                <ShareIcon
-                    slug={'slug'}
-                    url={'url'}
-                    email={{
-                        subject: `Check out Agency  on USAspending.gov!`,
-                        body: `Here is the url: `
-                    }} />
             </div>
         </>
     );
