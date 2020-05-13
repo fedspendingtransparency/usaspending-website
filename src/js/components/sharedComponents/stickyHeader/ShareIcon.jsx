@@ -4,11 +4,10 @@ import { Picker } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { debounce } from "lodash";
 
-import { socialShareOptions, getSocialShareFn } from 'helpers/socialShare';
+import { socialShareOptions, getSocialShareFn, getBaseUrl } from 'helpers/socialShare';
 
 const propTypes = {
     slug: PropTypes.string,
-    url: PropTypes.string,
     email: PropTypes.shape({
         subject: PropTypes.string,
         body: PropTypes.string
@@ -17,7 +16,6 @@ const propTypes = {
 
 const ShareIcon = ({
     slug,
-    url,
     email: { subject, body }
 }) => {
     const [showConfirmationText, setConfirmationText] = useState(false);
@@ -61,7 +59,7 @@ const ShareIcon = ({
 
     return (
         <div className="sticky-header__toolbar-item">
-            <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={url} />
+            <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={getBaseUrl(slug)} />
             <Picker
                 dropdownDirection="left"
                 options={socialSharePickerOptions}

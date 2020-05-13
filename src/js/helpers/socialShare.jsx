@@ -46,7 +46,7 @@ const handlersBySocialMedium = {
     linkedin: (url) => handleShareClickLinkedin(url)
 };
 
-const baseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
+export const getBaseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
 
 export const getSocialShareFn = (slug, socialMedium) => (
     (args) => {
@@ -54,7 +54,7 @@ export const getSocialShareFn = (slug, socialMedium) => (
             handlersBySocialMedium[socialMedium](args);
         }
         else {
-            handlersBySocialMedium[socialMedium](baseUrl(slug));
+            handlersBySocialMedium[socialMedium](getBaseUrl(slug));
         }
     }
 );
