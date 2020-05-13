@@ -25,13 +25,13 @@ const CountTab = (props) => (
                 {props.label}
             </div>
             <div className="count-button__count">
-                {props.count || '--'}
+                {(props.count || props.count === 0) ? `${props.count}` : '--'}
             </div>
             {props.subHeading ? (
                 <div className="count-button__sub-heading">
-                    With {props.subCount || '--'} {props.subHeading}
+                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
                 </div>
-            ) : ''}
+            ) : <>&nbsp;</>}
         </div>
     </button>
 );
