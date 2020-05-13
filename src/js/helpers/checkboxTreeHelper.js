@@ -359,22 +359,44 @@ export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', 
         .reduce(getValue, []);
 };
 
-const doesNodeHaveGenuineChildren = (node) => (
-    node?.children &&
+export const doesNodeHaveGenuineChildren = (node) => (
+    Object.keys(node).includes('children') &&
     node?.children?.length > 0 &&
     node.children.some((child) => !child.isPlaceHolder)
 );
 
-const addPlaceholder = (children, parentValue, hide = true) => {
-    const shouldAddGrandChildPlaceHolder = children.some((node) => doesNodeHaveGenuineChildren(node));
+const removePlaceHolders = (children) => children.filter((child) => !child.isPlaceHolder);
+
+export const areChildrenPartial = (count, children) => {
+    if (!children) return false;
+    const sumOfAllChildren = removePlaceHolders(children)
+        .reduce((acc, child) => {
+            const childCount = child.count || 1;
+            return acc + childCount;
+        }, 0);
+    return sumOfAllChildren < count;
+};
+
+export const addPlaceholder = (children, parentValue, hide = true) => {
+    const hasGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
     const placeHolderExists = children.some((child) => child.isPlaceHolder);
-    if (placeHolderExists && shouldAddGrandChildPlaceHolder) {
+    if (placeHolderExists && hasGrandChildren) {
         return children
-            .map((child) => ({ ...child, children: addPlaceholder(child.children, child.value, hide) }));
+            .map((child) => ({
+                ...child,
+                children: areChildrenPartial(child.count, child.children)
+                    ? addPlaceholder(child.children, child.value, hide)
+                    : child.children
+            }));
     }
-    if (shouldAddGrandChildPlaceHolder) {
+    if (hasGrandChildren) {
         return children
-            .map((child) => ({ ...child, children: addPlaceholder(child.children, child.value, hide) }))
+            .map((child) => ({
+                ...child,
+                children: areChildrenPartial(child.count, child.children)
+                    ? addPlaceholder(child.children, child.value, hide)
+                    : child.children
+            }))
             .concat([{
                 isPlaceHolder: true,
                 label: 'Child Placeholder',
@@ -388,18 +410,6 @@ const addPlaceholder = (children, parentValue, hide = true) => {
         value: `children_of_${parentValue}`,
         className: hide ? 'hide' : ''
     }]);
-};
-
-const removePlaceHolders = (children) => children.filter((child) => !child.isPlaceHolder);
-
-const areChildrenPartial = (count, children) => {
-    if (!children) return false;
-    const sumOfAllChildren = removePlaceHolders(children)
-        .reduce((acc, child) => {
-            const childCount = child.count || 1;
-            return acc + childCount;
-        }, 0);
-    return sumOfAllChildren < count;
 };
 
 /**
