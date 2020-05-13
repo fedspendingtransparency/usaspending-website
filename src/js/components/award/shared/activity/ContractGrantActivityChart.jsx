@@ -16,7 +16,6 @@ import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 
 const propTypes = {
@@ -34,16 +33,6 @@ const propTypes = {
 };
 
 const xAxisSpacingPercentage = 0.05;
-
-// const verticalLineTextToStateFunctionMapping = (text) => switch (expr) {
-//   case 'Start':
-    
-//   case 'Today':
-//   case 'End':
-//   case 'Current End':
-//   default:
-//     'setPotentialEndLineData'
-// };
 
 const ContractGrantsActivityChart = ({
     height,
@@ -71,29 +60,17 @@ const ContractGrantsActivityChart = ({
     // y ticks
     const [yTicks, setYTicks] = useState([]);
     // start line
-    const [startLineData, setStartLineData] = useState({
-        value: 0,
-        height: 0,
-        textData: {
-            bottom: 0,
-            height: 0,
-            left: 0,
-            modifiedTextY: 0,
-            positionX: 0,
-            right: 0,
-            text: "",
-            top: 0,
-            width: 0,
-            x: 0,
-            y: 0
-        }
-    });
+    const [startLineData, setStartLineData] = useState({ value: 0, height: 0 });
+    const [startLineTextData, setStartLineTextData] = useState({});
     // today line
-    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0, textData: {} });
+    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0 });
+    const [todayLineTextData, setTodayLineTextData] = useState({});
     // end line
-    const [endLineData, setEndLineData] = useState({ value: 0, height: 0, textData: {} });
+    const [endLineData, setEndLineData] = useState({ value: 0, height: 0 });
+    const [endLineTextData, setEndLineTextData] = useState({});
     // potential end line
-    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0, textData: {} });
+    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0 });
+    const [potentialEndLineTextData, setPotentialEndLineTextData] = useState({});
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
@@ -348,6 +325,14 @@ const ContractGrantsActivityChart = ({
         potentialEndLineData,
         todayLineData
     ]);
+    const allVerticalLineTextData = useCallback(() => (
+        [startLineTextData, todayLineTextData, endLineTextData, potentialEndLineTextData]
+    ), [
+        todayLineTextData,
+        startLineTextData,
+        endLineTextData,
+        potentialEndLineTextData
+    ]);
     const setVerticalLineHeights = useCallback(() => {
         let heightHasBeenInitialized = false;
         let currentHeight = 0;
@@ -394,28 +379,31 @@ const ContractGrantsActivityChart = ({
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
     // check for vertical line text overlapping lines
-    const overlappingLinesTextData = () => {
+    const overlappingLinesTextData = useCallback(() => {
         if (!xScale) return;
         // if a line exists, meaning it has a value property, run through every text to see if it overlaps
-        // if it does,
         const jimbo = allVerticalLines().reduce((acc, lineData, i) => { // loop throught lines
-            // console.log(' ******************************************************* ');
-            console.log(' Line : ', lineData);
             if (lineData.value) { // if a line exists
-                allVerticalLines().forEach((data, z) => { // loop through all text
+                allVerticalLineTextData().forEach((textData, z) => { // loop through all text
                     if (i === z) return acc; // ignore text associated with the same line
-                    const { textData } = data;
                     if (!Object.keys(textData).length) return acc;
                     const { value } = lineData;
                     const linePosition = xScale(value) + padding.left;
-                    // console.log(' --------------------------------------------- ');
-                    // console.log(' Text : ', textData);
-                    // console.log(' Line Position : ', textData.positionX);
-                    if (textData.positionX < linePosition && linePosition < textData.positionX + textData.width) { // text is overlapping line
-                        if (acc[textData.text]) {
-                            acc[textData.text].push(textData.y);
+                    if (i === 0) {
+                        if (textData.text === 'Today') {
+                            console.log(' Line Data & Text Data : ', lineData, textData);
                         }
-                        acc[textData.text] = [textData.y];
+                    }
+                    const isTextOverLappingVerticalLine = (
+                        (textData.positionX < linePosition) // line is after start of text
+                        && linePosition < textData.positionX + textData.width // line is before end of text
+                        && lineData.height > textData.textY // line height is greater than text line height
+                    );
+                    if (isTextOverLappingVerticalLine) { // text is overlapping line
+                        if (acc[textData.text]) {
+                            acc[textData.text].push(textData.textY);
+                        }
+                        acc[textData.text] = [textData.textY];
                     }
                     return acc; // text is not overlapping
                 });
@@ -423,30 +411,30 @@ const ContractGrantsActivityChart = ({
             return acc; // line does not exits
         }, {});
         console.log(' Jimbo : ', jimbo);
-    };
+    }, [
+        allVerticalLines,
+        allVerticalLineTextData,
+        xScale,
+        padding
+    ]);
     const setVerticalLineTextData = (textInfo) => {
-        console.log(' It works : ', { ...startLineData, textData: textInfo });
-        const sInfo = Object.assign({}, startLineData, { textData: textInfo });
-        if (textInfo.text === 'Start') setStartLineData(sInfo);
-        if (textInfo.text === 'Today') setTodayLineData({ ...todayLineData, textData: textInfo });
-        if (textInfo.text === 'End' || textInfo.text === 'Current End') setEndLineData({ ...endLineData, textData: textInfo });
-        if (textInfo.text === 'Potential End') setPotentialEndLineData({ ...potentialEndLineData, textData: textInfo });
+        if (textInfo.text === 'Start') setStartLineTextData(textInfo);
+        if (textInfo.text === 'Today') setTodayLineTextData(textInfo);
+        if (textInfo.text === 'End' || textInfo.text === 'Current End') setEndLineTextData(textInfo);
+        if (textInfo.text === 'Potential End') setPotentialEndLineTextData(textInfo);
     };
     const updateVerticalLineTextData = (data) => {
         setVerticalLineTextData(data);
-        overlappingLinesTextData();
         if (data.height !== verticalLineTextHeight) setVerticalLineTextHeight(data.height);
     };
     useEffect(() => {
-        
+        overlappingLinesTextData();
     }, [
-        startLineData,
-        todayLineData,
-        endLineData,
-        potentialEndLineData,
-        allVerticalLines,
-        padding.left,
-        xScale
+        todayLineTextData,
+        startLineTextData,
+        endLineTextData,
+        potentialEndLineTextData,
+        overlappingLinesTextData
     ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;

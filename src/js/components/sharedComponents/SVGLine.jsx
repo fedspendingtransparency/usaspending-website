@@ -167,14 +167,15 @@ export default class SVGLine extends Component {
                 const textData = {
                     positionX,
                     modifiedTextY,
-                    text
+                    text,
+                    textY
                 };
+                console.log(' Shipping : ', textY);
                 for (const key in textDivDimensions) {
                     if (textDivDimensions[key]) {
                         textData[key] = textDivDimensions[key];
                     }
                 }
-                if (textData.toJSON) delete textData.toJSON;
                 verticalLineTextData(textData);
             }
         }
