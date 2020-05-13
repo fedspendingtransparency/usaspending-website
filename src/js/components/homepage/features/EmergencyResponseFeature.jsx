@@ -24,7 +24,7 @@ const EmergencyResponseFeature = () => {
 
     return (
         <div className="feature-emergency-response-container">
-            <h3 className="feature-emergency-response__title">AN IMPORTANT MESSAGE ABOUT COVID-19</h3>
+            <h2 className="feature-emergency-response__title">AN IMPORTANT MESSAGE ABOUT COVID-19</h2>
             <div className="feature-emergency-response">
                 <div className="feature-emergency-response__body">
                     <div className="feature-emergency-response__body-icon">
@@ -36,9 +36,9 @@ const EmergencyResponseFeature = () => {
                             coronavirus (COVID-19):
                         </h3>
                         <div className="feature-emergency-response__body-section">
-                            <h3 className="feature-emergency-response__body-section__title">
+                            <h4 className="feature-emergency-response__body-section__title">
                                 COVID-19 spending data will soon be available on USAspending.gov
-                            </h3>
+                            </h4>
                             <p className="feature-emergency-response__body-section__paragraph">
                                 The team at USAspending.gov has been working with Federal agencies
                                 to finalize a plan to <span className="feature-emergency-response__underline">collect and display</span> data capturing how the
@@ -60,9 +60,9 @@ const EmergencyResponseFeature = () => {
                             </p>
                         </div>
                         <div className="feature-emergency-response__body-section">
-                            <h3 className="feature-emergency-response__body-section__title">
+                            <h4 className="feature-emergency-response__body-section__title">
                                 Expect the new data at the end of July
-                            </h3>
+                            </h4>
                             <p className="feature-emergency-response__body-section__paragraph">
                                 In late July, we will integrate the new data into USAspending.gov
                                 showing COVID-19 supplemental loans, grants, and other awards made
@@ -74,13 +74,13 @@ const EmergencyResponseFeature = () => {
                             </p>
                         </div>
                         <div className="feature-emergency-response__body-section">
-                            <h3 className="feature-emergency-response__body-section__title">
+                            <h4 className="feature-emergency-response__body-section__title">
                                 Obtaining information on COVID-19 spending before July
-                            </h3>
+                            </h4>
                             <div className="feature-emergency-response__body-section__sub-section">
-                                <h4 className="feature-emergency-response__body-section__sub-title">
+                                <h5 className="feature-emergency-response__body-section__sub-title">
                                     Searching by Keyword
-                                </h4>
+                                </h5>
                                 <p className="feature-emergency-response__body-section__paragraph">
                                     You can use the &#34;keyword search&#34; or the keyword
                                     feature in &#34;advanced search&#34; to search for awards
@@ -90,9 +90,9 @@ const EmergencyResponseFeature = () => {
                                 </p>
                             </div>
                             <div className="feature-emergency-response__body-section__sub-section">
-                                <h4 className="feature-emergency-response__body-section__sub-title">
+                                <h5 className="feature-emergency-response__body-section__sub-title">
                                     Contract Analysis from GSA and OMB
-                                </h4>
+                                </h5>
                                 <p className="feature-emergency-response__body-section__paragraph">
                                     While contracts are just a small part of
                                     COVID-19 supplemental spending, we wanted to make you
@@ -111,9 +111,9 @@ const EmergencyResponseFeature = () => {
                             </div>
                         </div>
                         <div className="feature-emergency-response__body-section">
-                            <h3 className="feature-emergency-response__body-section__title">
+                            <h4 className="feature-emergency-response__body-section__title">
                                 For more information on our data model changes
-                            </h3>
+                            </h4>
                             <p className="feature-emergency-response__body-section__paragraph">
                             If you&#8217;re interested in checking out the changes to our data model on&nbsp;
                                 <a
