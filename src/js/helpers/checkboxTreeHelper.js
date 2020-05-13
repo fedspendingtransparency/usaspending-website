@@ -460,15 +460,6 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
                     }]);
                 }
 
-                // child from search is completely new and fully populated, so add it w/o a placeholder
-                if (areChildrenPartial(searchChild.count, searchChild.children)) {
-                    return acc.concat([
-                        {
-                            ...searchChild,
-                            children: addPlaceholder(searchChild.children, searchChild.value, true)
-                        }
-                    ]);
-                }
                 return acc.concat([searchChild]);
             }, existingParent
                 .children
