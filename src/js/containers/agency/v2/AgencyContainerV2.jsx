@@ -99,7 +99,7 @@ export const AgencyProfileV2 = ({
 
     const componentByAgencySection = {
         overview: <ComingSoon />,
-        account_spending: <AccountSpending fy={selectedFy} agencyId={params.agencyId} />,
+        account_spending: <AccountSpending fy={`${selectedFy}`} agencyId={params.agencyId} />,
         award_spending: <ComingSoon />,
         sub_agency_spending: <ComingSoon />,
         award_recipients: <ComingSoon />,

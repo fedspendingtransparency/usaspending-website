@@ -3,7 +3,7 @@
         @include display(flex);
         font-size: rem(21);
         font-weight: $font-light;
-        letter-spacing: -0.44px;
+        letter-spacing: rem(-0.44);
         line-height: rem(27);
         text-align: center;
         > div {
