@@ -17,7 +17,6 @@ import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
@@ -113,15 +112,6 @@ export default class BulkDownloadPage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             Download Center
                         </h1>
-                    </div>
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={'slug'}
-                            url={'url'}
-                            email={{
-                                subject: `Check out Agency  on USAspending.gov!`,
-                                body: `Here is the url: `
-                            }} />
                     </div>
                 </StickyHeader>
                 <main

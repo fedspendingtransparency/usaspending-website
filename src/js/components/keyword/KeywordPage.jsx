@@ -20,7 +20,6 @@ import DownloadButton from 'components/search/header/DownloadButton';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 
 import KeywordSearchBar from './KeywordSearchBar';
@@ -145,15 +144,6 @@ export default class KeywordPage extends React.Component {
                             <h1>Keyword Search</h1>
                         </div>
                         {searchSummary}
-                        <div className="sticky-header__toolbar">
-                            <ShareIcon
-                                slug={'slug'}
-                                url={'url'}
-                                email={{
-                                    subject: `Check out Agency  on USAspending.gov!`,
-                                    body: `Here is the url: `
-                                }} />
-                        </div>
                         <div className="keyword-header__options">
                             <DownloadButton
                                 disableHover={!this.props.keyword}
