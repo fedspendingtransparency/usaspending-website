@@ -672,6 +672,17 @@ export class TopFilterBarContainer extends React.Component {
             selected = true;
             filter.values = props.selectedPSC.toArray();
         }
+        else if (props.pscCodes.require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.pscCodes.counts.map((psc) => ({
+                    ...psc,
+                    isV2: true,
+                    psc_description: `${psc.value} (${psc.count})`
+                }))
+            ];
+        }
 
         if (selected) {
             filter.code = 'selectedPSC';
