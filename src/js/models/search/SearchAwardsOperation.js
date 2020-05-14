@@ -41,7 +41,7 @@ class SearchAwardsOperation {
         this.selectedNAICS = [];
         this.naicsCodes = { require: [], exclude: [] };
         this.selectedPSC = [];
-
+        this.pscCheckbox = { require: [], exclude: [] };
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -64,7 +64,10 @@ class SearchAwardsOperation {
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
 
         this.tasSources = state.treasuryAccounts.toArray();
-        this.tasCheckbox = { require: state.tasCodes.require, exclude: state.tasCodes.exclude };
+        this.tasCheckbox = {
+            require: state.tasCodes.require,
+            exclude: state.tasCodes.exclude
+        };
         this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
@@ -81,7 +84,14 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
-        this.naicsCodes = { require: state.naicsCodes.require, exclude: state.naicsCodes.exclude };
+        this.naicsCodes = {
+            require: state.naicsCodes.require,
+            exclude: state.naicsCodes.exclude
+        };
+        this.pscCheckbox = {
+            require: state.pscCodes.require,
+            exclude: state.pscCodes.exclude
+        };
         this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
@@ -305,6 +315,14 @@ class SearchAwardsOperation {
         // Add PSC
         if (this.selectedPSC.length > 0) {
             filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
+        }
+        if (this.pscCheckbox.require.length > 0) {
+            if (this.pscCheckbox.exclude.length > 0) {
+                filters[rootKeys.psc] = { require: this.pscCheckbox.require, exclude: this.pscCheckbox.exclude };
+            }
+            else {
+                filters[rootKeys.psc] = { require: this.pscCheckbox.require };
+            }
         }
 
         // Add Contract Pricing

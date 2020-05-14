@@ -65,6 +65,9 @@ export const filterHasSelections = (reduxFilters, filter) => {
             if (reduxFilters.selectedPSC.toArray().length > 0) {
                 return true;
             }
+            else if (reduxFilters.pscCodes.require.length > 0) {
+                return true;
+            }
             return false;
         case 'Type of Contract Pricing':
             if (reduxFilters.pricingType.toArray().length > 0) {
