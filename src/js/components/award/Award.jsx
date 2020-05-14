@@ -12,12 +12,10 @@ import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import Footer from 'containers/Footer';
 
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import { getBaseUrl } from 'helpers/socialShare';
 
 import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
@@ -154,19 +152,13 @@ export default class Award extends React.Component {
                 <Header />
                 <StickyHeader>
                     <SummaryBar
+                        slug={slug}
+                        emailSubject={emailSubject}
                         downloadData={this.props.downloadData}
                         isDownloadPending={this.props.isDownloadPending}
                         isInvalidId={this.props.noAward}
                         isLoading={isLoading}
                         category={overview ? overview.category : ''} />
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={slug}
-                            email={{
-                                subject: `USAspending.gov Award Summary: ${emailSubject}`,
-                                body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
-                            }} />
-                    </div>
                 </StickyHeader>
                 <LoadingWrapper isLoading={isLoading}>
                     <main className={!this.props.noAward ? 'award-content' : ''}>

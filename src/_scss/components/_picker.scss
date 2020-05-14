@@ -29,9 +29,9 @@
 }
 
 .copy-confirmation {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
     position: absolute;
     height: rem(39);
     width: rem(140);

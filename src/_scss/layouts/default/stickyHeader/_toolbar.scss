@@ -9,6 +9,7 @@
             background: #4a4a4a;
             .usa-dt-picker__list {
                 width: rem(140);
+                z-index: 1;
                 span {
                     margin-left: rem(10);
                 }
