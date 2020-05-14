@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get } from 'lodash';
+import { debounce, get, groupBy } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -32,7 +32,6 @@ import {
     setPscCounts
 } from 'redux/actions/search/pscActions';
 import { updatePSCV2 } from 'redux/actions/search/searchFilterActions';
-
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -71,10 +70,100 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.nodes.length === 0) {
-            return this.fetchPsc('');
+        const { nodes, uncheckedFromHash, checkedFromHash } = this.props;
+        if (
+            nodes.length !== 0 &&
+            !checkedFromHash &&
+            !uncheckedFromHash
+        ) {
+            showPscTree();
+            return Promise.resolve();
         }
-        return Promise.resolve();
+        return this.fetchPsc('')
+            .then(() => {
+                if (checkedFromHash.length > 0) {
+                    const uniqueAncestorsOfChecked = checkedFromHash
+                        .reduce((listOfUniqueAncestors, ancestryPath) => {
+                            const numberOfAncestors = ancestryPath.length - 1;
+                            const uniqueAncestors = [...new Array(numberOfAncestors)]
+                                .reduce((ancestors, _, i) => {
+                                    const currentAncestor = ancestryPath[i];
+                                    // already have this ancestor, move to the next.
+                                    if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                                        return ancestors;
+                                    }
+                                    // top level ancestor does not exist, add it and move to the next.
+                                    if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                                        return ancestors.concat([currentAncestor]);
+                                    }
+                                    
+                                    // ancestor string like parentX/parentY/parentZ
+                                    const ancestorString = [...new Array(i + 1)]
+                                        .reduce((str, __, index) => `${str}${ancestryPath[index]}/`, '');
+
+                                    if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+
+                                    return ancestors.concat([ancestorString]);
+                                }, []);
+
+                            return listOfUniqueAncestors.concat(uniqueAncestors);
+                        }, []);
+
+                    return uniqueAncestorsOfChecked
+                        .sort((param1, param2) => {
+                            const a = param1.split('/').length;
+                            const b = param2.split('/').length;
+                            // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+                            if (b > a) return -1;
+                            if (a > b) return 1;
+                            return 0;
+                        })
+                        .reduce((prevPromise, param) => prevPromise
+                            // fetch the all the ancestors of the checked nodes
+                            .then(() => this.fetchPsc(param)), Promise.resolve([])
+                        )
+                        .then(() => {
+                            // TODO: Add to checked/unchecked array and register counts.
+                            // the tree is now guaranteed to be populated adequately such that we can register counts and full/half check the tree.
+                            // const selectedNodesByTreeLevel = groupBy(checkedFromHash, (ancestryPath) => {
+                            //     if (ancestryPath.length === 2) return 'branch';
+                            //     return 'leaf';
+                            // });
+                            // const newChecked = Object.entries(selectedNodesByTreeLevel)
+                            //     .reduce((acc, [location, array]) => {
+                            //         if (location === 'branch') {
+                            //             return [
+                            //                 ...acc,
+                            //                 ...array
+                            //                     .map((ancestryPath) => ancestryPath[1])
+                            //                     .reduce((grandChildren, node) => {
+                            //                         if (this.props.nodes.length === 0) return grandChildren;
+                            //                         const newGrandChildren = getPscNodeFromTree(this.props.nodes, node)
+                            //                             .children
+                            //                             .map((child) => child.value);
+                            //                         return [...grandChildren, ...newGrandChildren];
+                            //                     }, acc)
+                            //             ];
+                            //         }
+                            //         return [
+                            //             ...acc,
+                            //             ...array
+                            //                 .map((ancestryPath) => ancestryPath[2])
+                            //         ];
+                            //     }, [])
+                            //     .filter((checked) => {
+                            //         const inUncheckedArray = uncheckedFromHash.some((arr) => arr[arr.length - 1] === checked);
+                            //         if (inUncheckedArray) return false;
+                            //         return true;
+                            //     });
+
+                            // this.setCheckedStateFromUrlHash(newChecked);
+                            this.props.setExpandedPsc(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
+                        });
+                }
+                // just do this for consistent return.
+                return Promise.resolve();
+            });
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
@@ -252,7 +341,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 if (!isCancel(e)) {
                     this.setState({
                         isError: true,
-                        errorMessage: get(e, 'message', 'Error fetching TAS.')
+                        errorMessage: get(e, 'message', 'Error fetching PSC.')
                     });
                 }
             });
@@ -346,9 +435,9 @@ const mapStateToProps = (state) => ({
     searchExpanded: state.psc.searchExpanded.toJS(),
     checked: state.psc.checked.toJS(),
     unchecked: state.psc.unchecked.toJS(),
-    counts: state.psc.counts.toJS()
-    // checkedFromHash: state.appliedFilters.filters.tasCodes.require,
-    // uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
+    counts: state.psc.counts.toJS(),
+    checkedFromHash: state.appliedFilters.filters.pscCodes.require,
+    uncheckedFromHash: state.appliedFilters.filters.pscCodes.exclude,
     // filters: state.appliedFilters.filters
 });
 
