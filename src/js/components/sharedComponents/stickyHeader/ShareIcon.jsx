@@ -42,7 +42,7 @@ const ShareIcon = ({
             };
         }
         if (option.name === 'email') {
-            const onClick = getSocialShareFn(slug, option.name).bind(null, {
+            const onClick = getSocialShareFn(option.name).bind(null, {
                 subject,
                 body
             });
@@ -53,7 +53,7 @@ const ShareIcon = ({
         }
         return {
             ...option,
-            onClick: getSocialShareFn(slug, option.name)
+            onClick: getSocialShareFn(option.name).bind(null, slug)
         };
     });
 
