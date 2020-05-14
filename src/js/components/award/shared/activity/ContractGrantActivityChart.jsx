@@ -97,7 +97,6 @@ const ContractGrantsActivityChart = ({
         }
         else { // one transaction
             yOne = totalObligation || clonedTransactions[0].running_obligation_total;
-
         }
         setYDomain([yZero, yOne]);
     }, [transactions, totalObligation]);
