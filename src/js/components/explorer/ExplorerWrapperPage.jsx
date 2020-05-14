@@ -7,9 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
+import { getBaseUrl } from 'helpers/socialShare';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
@@ -20,6 +22,9 @@ const propTypes = {
 
 require('pages/explorer/explorerPage.scss');
 
+const slug = 'explorer';
+const emailSubject = 'USAspending.gov Federal Spending Explorer';
+
 const ExplorerWrapperPage = (props) => (
     <div className="usa-da-explorer-page">
         <MetaTags {...explorerPageMetaTags} />
@@ -29,6 +34,14 @@ const ExplorerWrapperPage = (props) => (
                 <h1 tabIndex={-1} id="main-focus">
                     Spending Explorer
                 </h1>
+            </div>
+            <div className="sticky-header__toolbar">
+                <ShareIcon
+                    slug={slug}
+                    email={{
+                        subject: emailSubject,
+                        body: `Explore Federal Spending on USAspending.gov: ${getBaseUrl(slug)}`
+                    }} />
             </div>
         </StickyHeader>
         <main
