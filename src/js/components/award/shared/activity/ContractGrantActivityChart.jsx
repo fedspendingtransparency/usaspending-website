@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact, sum } from 'lodash';
+import { cloneDeep, compact, sum, uniqueId } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
 
@@ -62,15 +62,23 @@ const ContractGrantsActivityChart = ({
     // start line
     const [startLineData, setStartLineData] = useState({ value: 0, height: 0 });
     const [startLineTextData, setStartLineTextData] = useState({});
+    // const [startLineGradient, setStartLineGradient] = useState(null);
+    const [multipleStartLines, setMultipleStartLines] = useState(null);
     // today line
     const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0 });
     const [todayLineTextData, setTodayLineTextData] = useState({});
+    // const [TodayLineGradient, setTodayLineGradient] = useState(null);
+    const [multipleTodayLines, setMultipleTodayLines] = useState(null);
     // end line
     const [endLineData, setEndLineData] = useState({ value: 0, height: 0 });
     const [endLineTextData, setEndLineTextData] = useState({});
+    // const [endLineGradient, setEndLineGradient] = useState(null);
+    const [multipleEndLines, setMultipleEndLines] = useState(null);
     // potential end line
     const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0 });
     const [potentialEndLineTextData, setPotentialEndLineTextData] = useState({});
+    // const [potentialEndLineGradient, setPotentialEndLineGradient] = useState(null);
+    const [multiplePotentialEndLines, setMultiplePotentialEndLines] = useState(null);
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
@@ -326,7 +334,7 @@ const ContractGrantsActivityChart = ({
         todayLineData
     ]);
     const allVerticalLineTextData = useCallback(() => (
-        [startLineTextData, todayLineTextData, endLineTextData, potentialEndLineTextData]
+        [startLineTextData, endLineTextData, potentialEndLineTextData, todayLineTextData]
     ), [
         todayLineTextData,
         startLineTextData,
@@ -378,44 +386,102 @@ const ContractGrantsActivityChart = ({
     useEffect(() => {
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
-    // check for vertical line text overlapping lines
-    const overlappingLinesTextData = useCallback(() => {
-        if (!xScale) return;
+    // check for vertical line text overlapping lines, and create linear gradients
+    const theOverlappingTextData = () => {
         // if a line exists, meaning it has a value property, run through every text to see if it overlaps
-        const jimbo = allVerticalLines().reduce((acc, lineData, i) => { // loop throught lines
+        return allVerticalLines().reduce((acc, lineData, i, lineDataArray) => { // loop throught lines
             if (lineData.value) { // if a line exists
-                allVerticalLineTextData().forEach((textData, z) => { // loop through all text
+                allVerticalLineTextData().forEach((textData, z, textDataArray) => { // loop through all text
                     if (i === z) return acc; // ignore text associated with the same line
-                    if (!Object.keys(textData).length) return acc;
+                    if (!Object.keys(textData).length) return acc; // no text data, we cannot do anything
                     const { value } = lineData;
                     const linePosition = xScale(value) + padding.left;
-                    if (i === 0) {
-                        if (textData.text === 'Today') {
-                            console.log(' Line Data & Text Data : ', lineData, textData);
-                        }
-                    }
                     const isTextOverLappingVerticalLine = (
                         (textData.positionX < linePosition) // line is after start of text
-                        && linePosition < textData.positionX + textData.width // line is before end of text
-                        && lineData.height > textData.textY // line height is greater than text line height
+                        && (linePosition < textData.positionX + textData.width) // line is before end of text
+                        && lineData.height < lineDataArray[z].height // line height is greater than text line height
                     );
                     if (isTextOverLappingVerticalLine) { // text is overlapping line
-                        if (acc[textData.text]) {
-                            acc[textData.text].push(textData.textY);
+                        if (acc[textDataArray[i].text]) {
+                            acc[textDataArray[i].text].push(lineDataArray[z].height);
+                            return acc;
                         }
-                        acc[textData.text] = [textData.textY];
+                        acc[textDataArray[i].text] = [lineDataArray[z].height];
+                        return acc;
                     }
                     return acc; // text is not overlapping
                 });
             }
             return acc; // line does not exits
         }, {});
-        console.log(' Jimbo : ', jimbo);
+    };
+    // const getLineDataByTextName = (text) => {
+    //     if (text === 'Start') return { ...startLineData, color: '#94bfa2' };
+    //     if (text === 'Today') return { ...todayLineData, color: 'black' };
+    //     if (text === 'End' || text === 'Current End') return { ...endLineData, color: '#fad980' };
+    //     return { ...potentialEndLineData, color: '#cd2026' };
+    // };
+    const updateMultipleVerticalLines = (text, multipleLinesData) => {
+        console.log(' Multiple Lines Data : ', multipleLinesData);
+        if (text === 'Start') setMultipleStartLines(multipleLinesData);
+        if (text === 'Today') setMultipleTodayLines(multipleLinesData);
+        if (text === 'End' || text === 'Current End') setMultipleEndLines(multipleLinesData);
+        setMultiplePotentialEndLines(multipleLinesData);
+    };
+    // const verticalLineGradient = (text, textIntersections) => (
+    //     <linearGradient
+    //         id={`${text.split('').join('').toLowerCase()}LineGradient`}
+    //         x1="0%"
+    //         y1="100%"
+    //         x2="0%"
+    //         y2="0%"
+    //         gradientUnits="userSpaceOnUse">
+    //         <stop
+    //             offset="0%"
+    //             stopColor={getLineDataByTextName(text).color} />
+    //         {
+    //             textIntersections.map((textIntersection) => (
+    //               <>
+    //                   <stop
+    //                       key={uniqueId()}
+    //                       offset={`${(100 - ((textIntersection - verticalLineTextHeight) / height)) * 100}%`}
+    //                       stopColor="white" />
+    //                   <stop
+    //                       key={uniqueId()}
+    //                       offset={`${(((textIntersection - verticalLineTextHeight) / height)) * 100}%`}
+    //                       stopColor="white" />
+    //               </>
+    //             ))
+    //         }
+    //     </linearGradient>
+    // );
+    const getVerticalLineData = (text) => {
+        if (text === 'Start') return startLineData;
+        if (text === 'Today') return todayLineData;
+        if (text === 'End' || text === 'Current End') return endLineData;
+        return potentialEndLineData;
+    };
+    const createMultipleLines = (text, intersections) => {
+        const originalLineData = getVerticalLineData(text);
+        const lines = [{ y1: originalLineData.height - 10, y2: height }];
+        let position = potentialEndLineData.value;
+        if (text === 'Start') position = startLineData.value;
+        if (text === 'End' || 'Current End') position = endLineData.value;
+        return intersections.forEach((intersection) => lines.push({ y1: intersection, y2: intersection - verticalLineTextHeight, position }));
+    };
+    const createMultipleVerticalLines = (data) => {
+        console.log(' Create Multiple Lines From : ', data);
+        console.log(' Keys : ', Object.keys(data));
+        if (!Object.keys(data)) return;
+        Object.keys(data).forEach((lineText) => {
+            updateMultipleVerticalLines(lineText, createMultipleLines(lineText, data[lineText]));
+        });
+    };
+    const overlappingLinesTextData = useCallback(() => {
+        if (!xScale) return;
+        createMultipleVerticalLines(theOverlappingTextData());
     }, [
-        allVerticalLines,
-        allVerticalLineTextData,
-        xScale,
-        padding
+        xScale
     ]);
     const setVerticalLineTextData = (textInfo) => {
         if (textInfo.text === 'Start') setStartLineTextData(textInfo);
@@ -425,15 +491,18 @@ const ContractGrantsActivityChart = ({
     };
     const updateVerticalLineTextData = (data) => {
         setVerticalLineTextData(data);
-        if (data.height !== verticalLineTextHeight) setVerticalLineTextHeight(data.height);
+        if (data.height !== verticalLineTextHeight) {
+            setVerticalLineTextHeight(data.height);
+        }
     };
     useEffect(() => {
         overlappingLinesTextData();
     }, [
-        todayLineTextData,
-        startLineTextData,
-        endLineTextData,
-        potentialEndLineTextData,
+        // startLineData,
+        // endLineData,
+        // todayLineData,
+        // potentialEndLineData,
+        // totalVerticalLineTextHeight,
         overlappingLinesTextData
     ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
@@ -490,10 +559,10 @@ const ContractGrantsActivityChart = ({
                     height={height}
                     xDomain={xDomain}
                     padding={padding}
-                    startLineValue={startLineData.value}
-                    todayLineValue={todayLineData.value}
-                    endLineValue={endLineData.value}
-                    potentialEndLineValue={potentialEndLineData.value}
+                    startLineValue={multipleStartLines || startLineData.value}
+                    todayLineValue={multipleTodayLines || todayLineData.value}
+                    endLineValue={multipleEndLines || endLineData.value}
+                    potentialEndLineValue={multiplePotentialEndLines || potentialEndLineData.value}
                     awardType={awardType}
                     showHideTooltip={showHideTooltipLine}
                     thisLineOrTextIsHovered={thisLineOrTextIsHovered}

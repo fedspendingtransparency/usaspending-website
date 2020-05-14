@@ -33,7 +33,8 @@ const propTypes = {
     onMouseLeaveLine: PropTypes.func,
     onMouseMoveText: PropTypes.func,
     onMouseLeaveText: PropTypes.func,
-    verticalLineTextData: PropTypes.func
+    verticalLineTextData: PropTypes.func,
+    key: PropTypes.number
 };
 
 export default class SVGLine extends Component {
@@ -170,7 +171,6 @@ export default class SVGLine extends Component {
                     text,
                     textY
                 };
-                console.log(' Shipping : ', textY);
                 for (const key in textDivDimensions) {
                     if (textDivDimensions[key]) {
                         textData[key] = textDivDimensions[key];
@@ -202,6 +202,7 @@ export default class SVGLine extends Component {
         const classname = lineClassname ? `svg-line ${lineClassname}` : 'svg-line';
         return (
             <line
+                key={this.props.key}
                 className={classname}
                 x1={isHorizontal ? x1 : linePosition}
                 x2={isHorizontal ? x2 : linePosition}
