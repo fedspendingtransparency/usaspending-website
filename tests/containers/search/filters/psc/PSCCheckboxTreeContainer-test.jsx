@@ -185,4 +185,55 @@ describe('PscCheckboxTreeContainer', () => {
             expect(newChecked).toEqual([]);
         });
     });
+    describe('componentDidMount', () => {
+        it('does not replace nodes if they are already there', async () => {
+            const container = shallow(
+                <PSCCheckboxTreeContainer
+                    {...defaultProps}
+                    nodes={[1, 2]} />);
+            const mockFn = jest.fn();
+            container.instance().fetchPsc = mockFn;
+            await container.instance().componentDidMount();
+            expect(mockFn).not.toHaveBeenCalled();
+        });
+        it('loading tree from hash, (A) fetches all the ancestors of checked nodes exactly once and (B) adds their descendants to the checked array', async () => {
+            const mockFetchPsc = jest.fn(() => Promise.resolve());
+            const mockCheckPsc = jest.fn();
+            const mockExpandPsc = jest.fn();
+            const container = shallow(
+                <PSCCheckboxTreeContainer
+                    {...defaultProps}
+                    setExpandedPsc={mockExpandPsc}
+                    checkedFromHash={[
+                        ['Service', 'B', 'B5', 'B516'],
+                        ['Service', 'B', 'B5', 'B513'],
+                        ['Service', 'B', 'B5', 'B502'],
+                        ['Service', 'B', 'B5', 'B502'],
+                        ['Service', 'B', 'B5', 'B503'],
+                        ['Service', 'B', 'B5', 'B504'],
+                        ['Service', 'B', 'B5', 'B505']
+                    ]} />);
+            container.instance().fetchPsc = mockFetchPsc;
+            container.instance().setCheckedStateFromUrlHash = mockCheckPsc;
+            await container.instance().componentDidMount();
+            // (A)
+            expect(mockFetchPsc).toHaveBeenCalledWith('', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledWith('Service', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledWith('Service/B', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledWith('Service/B/B5', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledTimes(4);
+
+            // (B)
+            expect(mockCheckPsc).toHaveBeenLastCalledWith([
+                'B516',
+                'B513',
+                'B502',
+                'B502',
+                'B503',
+                'B504',
+                'B505'
+            ]);
+            expect(mockExpandPsc).toHaveBeenLastCalledWith(['Service'])
+        });
+    });
 });

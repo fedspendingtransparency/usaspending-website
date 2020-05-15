@@ -74,8 +74,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
         const { nodes, uncheckedFromHash, checkedFromHash } = this.props;
         if (
             nodes.length !== 0 &&
-            !checkedFromHash &&
-            !uncheckedFromHash
+            checkedFromHash.length === 0 &&
+            uncheckedFromHash.length === 0
         ) {
             showPscTree();
             return Promise.resolve();
@@ -130,7 +130,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         )
                         .then(() => {
                             this.setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
-                            this.props.setExpandedPsc(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
+                            this.props.setExpandedPsc([
+                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
+                            ]);
                         })
                         .catch((e) => {
                             this.setState({
