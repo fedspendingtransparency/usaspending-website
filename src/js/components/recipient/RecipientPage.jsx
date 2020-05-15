@@ -78,7 +78,7 @@ export default class RecipientPage extends React.Component {
                             slug={slug}
                             email={{
                                 subject: `USAspending.gov Recipient Profile: ${recipient.overview.name}`,
-                                body: `View the spending activity of this recipient on USAspending.gov: ${getBaseUrl(slug)}`
+                                body: `View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                     </div>
                 </StickyHeader>

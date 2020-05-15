@@ -56,7 +56,7 @@ export default class StatePage extends React.Component {
                             slug={slug}
                             email={{
                                 subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
-                                body: `View the spending activity of this state on USAspending.gov: ${getBaseUrl(slug)}`
+                                body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                     </div>
                 </StickyHeader>
