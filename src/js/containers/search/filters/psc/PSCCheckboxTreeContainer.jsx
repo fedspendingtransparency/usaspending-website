@@ -65,7 +65,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
             isSearch: false,
             searchString: '',
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         };
         this.request = null;
     }
@@ -227,7 +228,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
             searchString: '',
             isLoading: false,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         });
     }
 
@@ -296,6 +298,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
         if (id === '') {
             this.setState({ isLoading: true });
         }
+        if (this.state.showNoResults) {
+            this.setState({ showNoResults: false });
+        }
         const queryParam = this.state.isSearch
             ? `?depth=-1&filter=${searchStr}`
             : id;
@@ -333,6 +338,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             this.props.nodes
                         );
                         this.props.setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
+                        if (nodes.length === 0) {
+                            this.setState({ showNoResults: true });
+                        }
                     }
                     else {
                         this.props.setPscNodes(key, nodes);
@@ -353,6 +361,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 if (!isCancel(e)) {
                     this.setState({
                         isError: true,
+                        isLoading: false,
                         errorMessage: get(e, 'message', 'Error fetching PSC.')
                     });
                 }
@@ -404,6 +413,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     data={nodes}
                     checked={checked}
                     searchText={searchString}
+                    noResults={this.state.showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}

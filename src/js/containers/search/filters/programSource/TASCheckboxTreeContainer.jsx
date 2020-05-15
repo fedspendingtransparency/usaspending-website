@@ -77,7 +77,8 @@ export class TASCheckboxTree extends React.Component {
             isLoading: false,
             searchString: '',
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         };
         this.request = null;
     }
@@ -190,7 +191,8 @@ export class TASCheckboxTree extends React.Component {
             searchString: '',
             isLoading: false,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         });
     }
 
@@ -301,6 +303,9 @@ export class TASCheckboxTree extends React.Component {
         if (id === '') {
             this.setState({ isLoading: true });
         }
+        if (this.state.showNoResults) {
+            this.setState({ showNoResults: false });
+        }
         const queryParam = this.state.isSearch
             ? `?depth=2&filter=${searchStr}`
             : id;
@@ -336,6 +341,9 @@ export class TASCheckboxTree extends React.Component {
                             nodes
                         );
                         this.props.setCheckedTas(nodesCheckedByPlaceholderOrAncestor);
+                        if (nodes.length === 0) {
+                            this.setState({ showNoResults: true });
+                        }
                     }
                     else {
                         this.props.setTasNodes(key, nodes);
@@ -354,6 +362,7 @@ export class TASCheckboxTree extends React.Component {
                 if (!isCancel(e)) {
                     this.setState({
                         isError: true,
+                        isLoading: false,
                         errorMessage: get(e, 'message', 'Error fetching TAS.')
                     });
                 }
@@ -385,7 +394,8 @@ export class TASCheckboxTree extends React.Component {
             searchString,
             isError,
             errorMessage,
-            isSearch
+            isSearch,
+            showNoResults
         } = this.state;
         return (
             <div className="tas-checkbox">
@@ -412,6 +422,7 @@ export class TASCheckboxTree extends React.Component {
                     checked={checked}
                     searchText={searchString}
                     countLabel="TAS"
+                    noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}
