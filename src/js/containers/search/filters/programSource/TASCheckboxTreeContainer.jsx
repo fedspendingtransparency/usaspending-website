@@ -87,74 +87,75 @@ export class TASCheckboxTree extends React.Component {
             checkedFromHash,
             uncheckedFromHash
         } = this.props;
-        if (this.props.nodes.length === 0) {
-            return this.fetchTas('')
-                .then(() => {
-                    if (checkedFromHash.length > 0) {
-                        const checkedNodesByAgencyId = groupBy(checkedFromHash, (ancestryPath) => ancestryPath[0]);
-                        return Object.keys(checkedNodesByAgencyId)
-                            .reduce((prevPromise, agency) => prevPromise
-                                // fetch the agency
-                                .then(() => this.fetchTas(agency)), Promise.resolve([])
-                            )
-                            .then(() => Object.entries(checkedNodesByAgencyId)
-                                .reduce((prevPromise, [, selectedTwoDArray]) => prevPromise
-                                    .then(() => {
-                                        const selectedTasUnderAgency = selectedTwoDArray.filter((selectedArray) => selectedArray.length === 3);
-                                        if (selectedTasUnderAgency.length !== 0) {
-                                            // fetch the federal account for the TAS, if any
-                                            return Promise.all([
-                                                // no duplicate federal accounts in this array, we only need to fetch each federal account once.
-                                                ...Object.keys(groupBy(selectedTasUnderAgency, (arr) => `${arr[0]}/${arr[1]}`))
-                                                    .map((uniqueFederalAccount) => this.fetchTas(uniqueFederalAccount))
-                                            ]);
-                                        }
-                                        return Promise.resolve();
-                                    }), Promise.resolve())
-                            )
-                            .then(() => {
-                                // the tree is now guaranteed to be populated adequately such that we can register counts and full/half check the tree.
-                                const selectedNodesByTreeLevel = groupBy(checkedFromHash, (ancestryPath) => {
-                                    if (ancestryPath.length === 2) return 'branch';
-                                    return 'leaf';
-                                });
-                                const newChecked = Object.entries(selectedNodesByTreeLevel)
-                                    .reduce((acc, [location, array]) => {
-                                        if (location === 'branch') {
-                                            return [
-                                                ...acc,
-                                                ...array
-                                                    .map((ancestryPath) => ancestryPath[1])
-                                                    .reduce((grandChildren, node) => {
-                                                        if (this.props.nodes.length === 0) return grandChildren;
-                                                        const newGrandChildren = getTasNodeFromTree(this.props.nodes, node)
-                                                            .children
-                                                            .map((child) => child.value);
-                                                        return [...grandChildren, ...newGrandChildren];
-                                                    }, acc)
-                                            ];
-                                        }
+        if (this.props.nodes.length !== 0 && !checkedFromHash && !uncheckedFromHash) {
+            this.props.showTasTree();
+            return Promise.resolve();
+        }
+        return this.fetchTas('')
+            .then(() => {
+                if (checkedFromHash.length > 0) {
+                    const checkedNodesByAgencyId = groupBy(checkedFromHash, (ancestryPath) => ancestryPath[0]);
+                    return Object.keys(checkedNodesByAgencyId)
+                        .reduce((prevPromise, agency) => prevPromise
+                            // fetch the agency
+                            .then(() => this.fetchTas(agency)), Promise.resolve([])
+                        )
+                        .then(() => Object.entries(checkedNodesByAgencyId)
+                            .reduce((prevPromise, [, selectedTwoDArray]) => prevPromise
+                                .then(() => {
+                                    const selectedTasUnderAgency = selectedTwoDArray.filter((selectedArray) => selectedArray.length === 3);
+                                    if (selectedTasUnderAgency.length !== 0) {
+                                        // fetch the federal account for the TAS, if any
+                                        return Promise.all([
+                                            // no duplicate federal accounts in this array, we only need to fetch each federal account once.
+                                            ...Object.keys(groupBy(selectedTasUnderAgency, (arr) => `${arr[0]}/${arr[1]}`))
+                                                .map((uniqueFederalAccount) => this.fetchTas(uniqueFederalAccount))
+                                        ]);
+                                    }
+                                    return Promise.resolve();
+                                }), Promise.resolve())
+                        )
+                        .then(() => {
+                            // the tree is now guaranteed to be populated adequately such that we can register counts and full/half check the tree.
+                            const selectedNodesByTreeLevel = groupBy(checkedFromHash, (ancestryPath) => {
+                                if (ancestryPath.length === 2) return 'branch';
+                                return 'leaf';
+                            });
+                            const newChecked = Object.entries(selectedNodesByTreeLevel)
+                                .reduce((acc, [location, array]) => {
+                                    if (location === 'branch') {
                                         return [
                                             ...acc,
                                             ...array
-                                                .map((ancestryPath) => ancestryPath[2])
+                                                .map((ancestryPath) => ancestryPath[1])
+                                                .reduce((grandChildren, node) => {
+                                                    if (this.props.nodes.length === 0) return grandChildren;
+                                                    const newGrandChildren = getTasNodeFromTree(this.props.nodes, node)
+                                                        .children
+                                                        .map((child) => child.value);
+                                                    return [...grandChildren, ...newGrandChildren];
+                                                }, acc)
                                         ];
-                                    }, [])
-                                    .filter((checked) => {
-                                        const inUncheckedArray = uncheckedFromHash.some((arr) => arr[arr.length - 1] === checked);
-                                        if (inUncheckedArray) return false;
-                                        return true;
-                                    });
+                                    }
+                                    return [
+                                        ...acc,
+                                        ...array
+                                            .map((ancestryPath) => ancestryPath[2])
+                                    ];
+                                }, [])
+                                .filter((checked) => {
+                                    const inUncheckedArray = uncheckedFromHash.some((arr) => arr[arr.length - 1] === checked);
+                                    if (inUncheckedArray) return false;
+                                    return true;
+                                });
 
-                                this.setCheckedStateFromUrlHash(newChecked);
-                                this.props.setExpandedTas(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
-                            });
-                    }
-                    // just do this for consistent return.
-                    return Promise.resolve();
-                });
-        }
-        return Promise.resolve();
+                            this.setCheckedStateFromUrlHash(newChecked);
+                            this.props.setExpandedTas(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
+                        });
+                }
+                // just do this for consistent return.
+                return Promise.resolve();
+            });
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
@@ -250,7 +251,7 @@ export class TASCheckboxTree extends React.Component {
         if (this.props.nodes.length > 0) {
             const [counts, unchecked] = incrementTasCountAndUpdateUnchecked(
                 newChecked,
-                this.props.checked,
+                [],
                 this.props.unchecked,
                 this.props.nodes,
                 this.props.counts

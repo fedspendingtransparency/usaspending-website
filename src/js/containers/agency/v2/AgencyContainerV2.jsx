@@ -31,6 +31,8 @@ import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
+import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
+
 require('pages/agency/v2/index.scss');
 
 // document.querySelector('.site-navigation').offsetHeight + document.querySelector('.site-navigation').offsetTop
@@ -44,7 +46,7 @@ const TooltipComponent = () => (
 );
 
 // eslint-disable-next-line react/prop-types
-const ComingSoonSection = ({ section, icon = "chart-area" }) => (
+const AgencySection = ({ section, icon = "chart-area", children }) => (
     <section id={`agency-v2-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
         <div className="body__header">
             <div className="body__header-icon">
@@ -57,21 +59,16 @@ const ComingSoonSection = ({ section, icon = "chart-area" }) => (
                 tooltipComponent={<TooltipComponent />} />
         </div>
         <hr />
-        <div className="coming-soon-section">
-            <h4>Coming Soon</h4>
-            <p>This feature is currently under development.</p>
-        </div>
+        {children}
     </section>
 );
 
-const componentByAgencySection = {
-    overview: <ComingSoonSection section="overview" />,
-    account_spending: <ComingSoonSection section="account_spending" />,
-    award_spending: <ComingSoonSection section="award_spending" />,
-    sub_agency_spending: <ComingSoonSection section="sub-agency_spending" />,
-    award_recipients: <ComingSoonSection section="award_recipients" />,
-    top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
-};
+const ComingSoon = () => (
+    <div className="coming-soon-section">
+        <h4>Coming Soon</h4>
+        <p>This feature is currently under development.</p>
+    </div>
+);
 
 export const AgencyProfileV2 = ({
     agencyOverview,
@@ -82,6 +79,15 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
+
+    const componentByAgencySection = {
+        overview: <ComingSoon />,
+        account_spending: <AccountSpending fy={`${selectedFy}`} agencyId={params.agencyId} />,
+        award_spending: <ComingSoon />,
+        sub_agency_spending: <ComingSoon />,
+        award_recipients: <ComingSoon />,
+        top_5_award_dimensions: <ComingSoon />
+    };
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -114,14 +120,13 @@ export const AgencyProfileV2 = ({
         .map((year) => {
             const onClickHandler = () => setSelectedFy(year);
             return {
-                name: year,
+                name: `${year}`,
                 value: year,
                 onClick: onClickHandler
             };
         })
         .sort((a, b) => defaultSortFy(a.value, b.value));
 
-    const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
     const slug = `agency_v2/${params.agencyId}`;
 
     return (
@@ -141,7 +146,7 @@ export const AgencyProfileV2 = ({
                             <Picker
                                 sortFn={defaultSortFy}
                                 icon={<FontAwesomeIcon icon="calendar-alt" />}
-                                selectedOption={selectedFy}
+                                selectedOption={`${selectedFy}`}
                                 options={fyOptions} />
                             <span>Fiscal Year</span>
                         </div>
@@ -177,7 +182,9 @@ export const AgencyProfileV2 = ({
                     </div>
                     <div className="body usda__flex-col">
                         {Object.keys(componentByAgencySection).map((section) => (
-                            componentByAgencySection[section]
+                            <AgencySection key={section} section={section} >
+                                {componentByAgencySection[section]}
+                            </AgencySection>
                         ))}
                     </div>
                 </main>

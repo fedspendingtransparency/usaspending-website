@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { AgencyProfileV2 } from 'containers/agency/AgencyContainerV2';
+import { AgencyProfileV2 } from 'containers/agency/v2/AgencyContainerV2';
 
 describe('AgencyContainer', () => {
     it('should make an API call for the selected agency on mount', () => {
