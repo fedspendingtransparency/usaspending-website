@@ -83,7 +83,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         return this.fetchPsc('', null, false)
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    const uniqueAncestorsOfChecked = checkedFromHash
+                    const uniqueAncestorsOfChecked = checkedFromHash.concat(uncheckedFromHash)
                         .reduce((listOfUniqueAncestors, ancestryPath) => {
                             const numberOfAncestors = ancestryPath.length - 1;
                             const uniqueAncestors = [...new Array(numberOfAncestors)]

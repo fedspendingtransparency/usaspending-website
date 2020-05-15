@@ -196,7 +196,7 @@ describe('PscCheckboxTreeContainer', () => {
             await container.instance().componentDidMount();
             expect(mockFn).not.toHaveBeenCalled();
         });
-        it('loading tree from hash, (A) fetches all the ancestors of checked nodes exactly once and (B) adds their descendants to the checked array', async () => {
+        it('loading tree from hash, (A) fetches all the ancestors of checked/unchecked nodes exactly once and (B) adds their descendants to the checked array', async () => {
             const mockFetchPsc = jest.fn(() => Promise.resolve());
             const mockCheckPsc = jest.fn();
             const mockExpandPsc = jest.fn();
@@ -204,7 +204,11 @@ describe('PscCheckboxTreeContainer', () => {
                 <PSCCheckboxTreeContainer
                     {...defaultProps}
                     setExpandedPsc={mockExpandPsc}
+                    uncheckedFromHash={[
+                        ['Product', '10', '1000']
+                    ]}
                     checkedFromHash={[
+                        ['Product', '10'],
                         ['Service', 'B', 'B5', 'B516'],
                         ['Service', 'B', 'B5', 'B513'],
                         ['Service', 'B', 'B5', 'B502'],
@@ -221,10 +225,13 @@ describe('PscCheckboxTreeContainer', () => {
             expect(mockFetchPsc).toHaveBeenCalledWith('Service', null, false);
             expect(mockFetchPsc).toHaveBeenCalledWith('Service/B', null, false);
             expect(mockFetchPsc).toHaveBeenCalledWith('Service/B/B5', null, false);
-            expect(mockFetchPsc).toHaveBeenCalledTimes(4);
+            expect(mockFetchPsc).toHaveBeenCalledWith('Product', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledWith('Product/10', null, false);
+            expect(mockFetchPsc).toHaveBeenCalledTimes(6);
 
             // (B)
             expect(mockCheckPsc).toHaveBeenLastCalledWith([
+                '10',
                 'B516',
                 'B513',
                 'B502',
@@ -233,7 +240,7 @@ describe('PscCheckboxTreeContainer', () => {
                 'B504',
                 'B505'
             ]);
-            expect(mockExpandPsc).toHaveBeenLastCalledWith(['Service'])
+            expect(mockExpandPsc).toHaveBeenCalledWith(['Product', 'Service']);
         });
     });
 });
