@@ -95,6 +95,20 @@ const heading = (type, title, id) => {
             </h2>
         );
     }
+    else if (type === 'Recipient') {
+        return (
+            <h2 className="detail-header__title">
+                <a
+                    href={`/#/recipient/${id}/latest`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="detail-header__title-link"
+                    onClick={exitExplorer.bind(null, `/recipient/${id}/latest`)}>
+                    {title}
+                </a>
+            </h2>
+        );
+    }
     return (
         <h2 className="detail-header__title">
             {title}
