@@ -10,7 +10,10 @@ import {
     incrementCountAndUpdateUnchecked,
     autoCheckImmediateChildrenAfterDynamicExpand,
     showAllNodes,
-    getAllDescendants
+    getAllDescendants,
+    doesNodeHaveGenuineChildren,
+    addChildrenAndPossiblyPlaceholder,
+    areChildrenPartial
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -20,7 +23,15 @@ import {
     shouldNaicsNodeHaveChildren
 } from 'helpers/naicsHelper';
 
+import {
+    getPscNodeFromTree,
+    getHighestPscAncestor,
+    getImmediatePscAncestor,
+    cleanPscData
+} from 'helpers/pscHelper';
+
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
+import * as pscMockData from '../containers/search/filters/psc/mockPSC';
 
 // overwriting this because it makes life easier
 const mockSearchResults = [{
@@ -53,7 +64,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ]);
         });
     });
-    describe('addSearchResultsToTree & mergeChildren', () => {
+    describe('addSearchResultsToTree & appendChildrenFromSearchResults', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
             const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults, getNaicsNodeFromTree);
@@ -92,9 +103,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             // adding class to all nodes not in search result
             const hiddenNodes = grandChildrenWithSearch.filter((node) => node.className === 'hide');
             const visibleNodes = grandChildrenWithSearch.filter((node) => node.className === '');
+
             expect(hiddenNodes.length).toEqual(7);
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
+
             const greatGrandChild = hiddenNodes.find((node) => {
                 if (node.children) {
                     return node.children.some((child) => child.value === 'great grandchild');
@@ -102,6 +115,42 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 return false;
             });
             expect(greatGrandChild.className).toEqual('hide');
+        });
+        it('(PSC DATA) -- removes the hide class based on search results and does not add the same node twice', () => {
+            const matchingNode = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            const firstSearchResult = [{
+                ...pscMockData.topTierResponse.results[0],
+                children: [{
+                    ...matchingNode,
+                    children: [
+                        {
+                            ...matchingNode.children[0],
+                            // the rest of the children will be hidden w/ the hide class
+                            children: [matchingNode.children[0].children[0]]
+                        }
+                    ]
+                }]
+            }];
+
+            // applies the hide class to the node...
+            const existingNodes = addSearchResultsToTree(pscMockData.reallyBigTree, firstSearchResult, getPscNodeFromTree);
+            const hiddenNode = getPscNodeFromTree(existingNodes, 'AC24');
+            expect(hiddenNode.className).toEqual('hide');
+
+            const secondSearchResult = [{
+                ...pscMockData.topTierResponse.results[0],
+                children: [matchingNode]
+            }];
+
+            // removes the hide class from the node...
+            const searchResults = addSearchResultsToTree(existingNodes, secondSearchResult, getPscNodeFromTree);
+            const previouslyHiddenNode = getPscNodeFromTree(searchResults, 'AC24');
+            expect(previouslyHiddenNode.className).toEqual('');
+
+            // when updating the tree, don't add duplicate nodes
+            const parent = getPscNodeFromTree(searchResults, 'AC2');
+            const childrenNamedAC24 = parent.children.filter((node) => node.value === 'AC24');
+            expect(childrenNamedAC24.length).toEqual(1);
         });
         it('removes placeholder grandchildren for nodes with all grandchildren', () => {
             const existingNodes = mockData.placeholderNodes;
@@ -161,6 +210,17 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(childPlaceHolderExists).toEqual(true);
             expect(greatGrandNotOverwritten).toEqual(true);
             expect(greatGrandPlaceholderNotOverwritten).toEqual(true);
+        });
+        it('adds a placeholder for nodes without all children if they dont have it (PSC Depth)', () => {
+            const existingNodes = cleanPscData(pscMockData.topTierResponse.results);
+            const searchResults = addSearchResultsToTree(existingNodes, [pscMockData.reallyBigTree[0]], getPscNodeFromTree);
+            const secondTierWithPlaceholder = getPscNodeFromTree(searchResults, 'AA');
+            const secondTierWithPartialChildrenAndPlaceholder = getPscNodeFromTree(searchResults, 'AC');
+            const thirdTierWithPartialResultsAndPlaceholder = getPscNodeFromTree(searchResults, 'AC2');
+
+            expect(secondTierWithPlaceholder.children[0].isPlaceHolder).toEqual(true);
+            expect(secondTierWithPartialChildrenAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
+            expect(thirdTierWithPartialResultsAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
         });
     });
     describe('expandNodeAndAllDescendantParents', () => {
@@ -381,6 +441,19 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             );
             expect(counts[0].count).toEqual(64);
         });
+        it('PSC Depth: when both parent and child placeholders are checked, only count the value of the parent', () => {
+            const [counts] = incrementCountAndUpdateUnchecked(
+                ["children_of_AC", "AC21", "children_of_AC2"],
+                [''],
+                [],
+                pscMockData.reallyBigTree,
+                [],
+                getPscNodeFromTree,
+                getImmediatePscAncestor,
+                getHighestPscAncestor
+            );
+            expect(counts[0].count).toEqual(56);
+        });
         it('checked place holders increment with an offset count when a descendent is also checked', async () => {
             const [counts] = incrementCountAndUpdateUnchecked(
                 ["111110", "111120", 'children_of_1111'],
@@ -395,6 +468,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             expect(counts[0].count).toEqual(8);
         });
+
         it('removes items from unchecked array when all immediate children are checked', async () => {
             // ie, 1111 is unchecked, then all grand children underneath are checked.
             const allGrandchildrenOf1111 = mockData.reallyBigTree[0]
@@ -481,6 +555,84 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 "111191",
                 "111199"
             ]);
+        });
+    });
+    describe('doesNodeHaveGenuineChildren', () => {
+        const nodeWithOnlyPlaceholderChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AA');
+        const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+        it('GENUINE: nodes w/ both genuine and placeholder children', () => {
+            expect(doesNodeHaveGenuineChildren(nodeWithMixedChildren)).toEqual(true);
+        });
+        it('NOT GENUINE: nodes w/ only placeholder', () => {
+            expect(doesNodeHaveGenuineChildren(nodeWithOnlyPlaceholderChildren)).toEqual(false);
+        });
+        it('NOT GENUINE: nodes w/ no children property', () => {
+            expect(doesNodeHaveGenuineChildren({ test: 'this node doesnt even have a children property at all' })).toEqual(false);
+        });
+        it('NOT GENUINE: nodes w/ an empty children array', () => {
+            expect(doesNodeHaveGenuineChildren({
+                children: [],
+                test: 'this node doesnt even have a children property at all'
+            })).toEqual(false);
+        });
+    });
+    describe('areChildrenPartial', () => {
+        it('FULL CHILDREN: ', () => {
+            const fullyPopulatedNode = {
+                count: 7,
+                children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
+            };
+            const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            
+            expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
+            expect(areChildrenPartial(fullyPopulatedNode.count, fullyPopulatedNode.children)).toEqual(false);
+        });
+        it('PARTIAL CHILDREN: ', () => {
+            const nodeWithOnlyPlaceholderChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AA');
+            const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            expect(areChildrenPartial(nodeWithOnlyPlaceholderChildren.count, nodeWithOnlyPlaceholderChildren.children)).toEqual(true);
+            expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
+        });
+    });
+    describe('addChildrenAndPossiblyPlaceholder', () => {
+        it('recursively adds placeholders to both partial children and partial grandchildren', () => {
+            const nodeWithPartialChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+
+            const result = {
+                ...nodeWithPartialChildren,
+                children: addChildrenAndPossiblyPlaceholder(nodeWithPartialChildren.children, nodeWithPartialChildren)
+            };
+
+            expect(result.children.length).toEqual(2);
+            expect(result.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+
+            const childWithPartialChildren = result.children.find((child) => child.value === 'AC2');
+            expect(childWithPartialChildren.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+        });
+        it('but does not add placeholders to fully populated children or grandchildren', () => {
+            const fullyPopulatedNode = {
+                count: 7,
+                value: '999',
+                children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
+            };
+            const partiallyPopulatedNode = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
+            const nodeWithFullyPopulatedGrandChild = {
+                count: 1000000,
+                value: 'test',
+                children: [
+                    fullyPopulatedNode,
+                    partiallyPopulatedNode
+                ]
+            };
+            const result = addChildrenAndPossiblyPlaceholder(nodeWithFullyPopulatedGrandChild.children, nodeWithFullyPopulatedGrandChild);
+            // Not really part of the test, but this node I just created is partial so it has a placeholder.
+            expect(result.filter((child) => child.isPlaceHolder).length).toEqual(1);
+
+            const popoulatedChild = result.find((child) => child.value === '999');
+            const partialChild = result.find((child) => child.value === 'AC');
+
+            expect(popoulatedChild.children.filter((child) => child.isPlaceHolder).length).toEqual(0);
+            expect(partialChild.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
         });
     });
 });

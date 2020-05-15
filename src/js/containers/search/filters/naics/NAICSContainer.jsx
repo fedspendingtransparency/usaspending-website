@@ -275,15 +275,21 @@ export class NAICSContainer extends React.Component {
                 const node = getNaicsNodeFromTree(nodes, expandedNode);
                 if (node.children) {
                     node.children.forEach((child) => {
-                        if (!child.children) this.props.addCheckedNaics(child.value);
+                        if (!child.children) {
+                            if (!this.props.unchecked.includes(child.value)) {
+                                this.props.addCheckedNaics(child.value);
+                            }
+                        }
                         if (child.children) {
                             child.children.forEach((grandChild) => {
-                                this.props.addCheckedNaics(grandChild.value);
+                                if (!this.props.unchecked.includes(grandChild.value)) {
+                                    this.props.addCheckedNaics(grandChild.value);
+                                }
                             });
                         }
                     });
                 }
-                else if (expandedNode.length === 6) {
+                else if (expandedNode.length === 6 && !this.props.unchecked.includes(expandedNode)) {
                     this.props.addCheckedNaics(node.value);
                 }
             });
