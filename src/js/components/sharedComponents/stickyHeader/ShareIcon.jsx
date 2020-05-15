@@ -59,7 +59,7 @@ const ShareIcon = ({
 
     return (
         <div className="sticky-header__toolbar-item">
-            <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={getBaseUrl(slug)} />
+            <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={getBaseUrl(slug)} readOnly />
             <Picker
                 dropdownDirection="left"
                 options={socialSharePickerOptions}
