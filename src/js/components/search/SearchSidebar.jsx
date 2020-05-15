@@ -57,7 +57,7 @@ const filters = {
         'Award ID',
         'CFDA Program',
         naicsTitle,
-        'Product/Service Code (PSC)',
+        'Product or Service Codes (PSC)',
         'Type of Contract Pricing',
         'Type of Set Aside',
         'Extent Competed'
