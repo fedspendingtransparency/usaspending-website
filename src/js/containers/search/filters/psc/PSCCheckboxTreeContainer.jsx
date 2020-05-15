@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, groupBy } from 'lodash';
+import { debounce, get, flattenDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -239,18 +239,25 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     setCheckedStateFromUrlHash = (newChecked) => {
-        if (this.props.nodes.length > 0) {
-            const [counts, unchecked] = incrementPscCountAndUpdateUnchecked(
-                newChecked,
+        const { nodes, uncheckedFromHash, counts } = this.props;
+        if (nodes.length > 0) {
+            const newCheckedWithPlaceholders = flattenDeep(newChecked
+                .map((checked) => {
+                    const node = getPscNodeFromTree(nodes, checked);
+                    return getAllDescendants(node)
+                        .filter((descendant) => !uncheckedFromHash.includes(descendant));
+                }));
+            const [newCounts, unchecked] = incrementPscCountAndUpdateUnchecked(
+                newCheckedWithPlaceholders,
                 [],
-                this.props.uncheckedFromHash,
-                this.props.nodes,
-                this.props.counts
+                uncheckedFromHash,
+                nodes,
+                counts
             );
 
-            this.props.setPscCounts(counts);
+            this.props.setPscCounts(newCounts);
             this.props.setUncheckedPsc(unchecked);
-            this.props.setCheckedPsc(newChecked);
+            this.props.setCheckedPsc(newCheckedWithPlaceholders);
             this.setState({ isLoading: false });
         }
     }
