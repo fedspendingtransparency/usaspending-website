@@ -142,6 +142,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             });
                         });
                 }
+                this.setState({ isLoading: false });
+
                 // just do this for consistent return.
                 return Promise.resolve();
             });
@@ -239,7 +241,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     setCheckedStateFromUrlHash = (newChecked) => {
-        const { nodes, uncheckedFromHash, counts } = this.props;
+        const { nodes, counts } = this.props;
+        const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
         if (nodes.length > 0) {
             const newCheckedWithPlaceholders = flattenDeep(newChecked
                 .map((checked) => {

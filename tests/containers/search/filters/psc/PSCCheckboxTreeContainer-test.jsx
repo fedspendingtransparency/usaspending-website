@@ -6,7 +6,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { fetchPsc } from "helpers/searchHelper";
-import { cleanPscData } from "helpers/pscHelper";
+import { cleanPscData, getPscNodeFromTree } from "helpers/pscHelper";
+import { getAllDescendants } from "helpers/checkboxTreeHelper";
 import { PSCCheckboxTreeContainer } from "../../../../../src/js/containers/search/filters/psc/PSCCheckboxTreeContainer";
 
 import {
@@ -14,6 +15,7 @@ import {
     secondTierResponse,
     thirdTierResponse,
     fourthTierResponse,
+    reallyBigTree,
     defaultProps
 } from './mockPSC';
 
@@ -241,6 +243,31 @@ describe('PscCheckboxTreeContainer', () => {
                 'B505'
             ]);
             expect(mockExpandPsc).toHaveBeenCalledWith(['Product', 'Service']);
+        });
+    });
+    describe('setCheckedStateFromUrlHash', () => {
+        it('adds correct nodes to checked array when there are unchecked nodes', async () => {
+            const unchecked = [
+                ['Research and Development', 'AC', 'AC2', 'AC21']
+            ];
+            const checked = ['AC2']; // mock data here has seven children even though in reality it has 8.
+            const mockSetCounts = jest.fn();
+            // const mockSetUncheckedPsc = jest.fn();
+            const mockSetCheckedPsc = jest.fn();
+            const container = shallow(
+                <PSCCheckboxTreeContainer
+                    {...defaultProps}
+                    setPscCounts={mockSetCounts}
+                    setCheckedPsc={mockSetCheckedPsc}
+                    nodes={reallyBigTree}
+                    uncheckedFromHash={unchecked}
+                    checkedFromHash={checked} />);
+            await container.instance().setCheckedStateFromUrlHash(checked);
+            expect(mockSetCounts).toHaveBeenLastCalledWith([{ label: '', value: 'Research and Development', count: 6 }]);
+            const nodeFromChecked = getPscNodeFromTree(reallyBigTree, 'AC2');
+            const checkedNodes = getAllDescendants(nodeFromChecked)
+                .filter((node) => node !== 'AC21');
+            expect(mockSetCheckedPsc).toHaveBeenCalledWith(checkedNodes);
         });
     });
 });
