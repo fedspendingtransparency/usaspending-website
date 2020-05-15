@@ -154,8 +154,8 @@ export const AgencyProfileV2 = ({
                         <ShareIcon
                             slug={slug}
                             email={{
-                                subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
-                                body: `Here is the url: ${getBaseUrl(slug)}`
+                                subject: `USAspending.gov Agency Profile: ${agencyOverview.name}`,
+                                body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                         <div className="sticky-header__toolbar-item">
                             <button className="sticky-header__button">
