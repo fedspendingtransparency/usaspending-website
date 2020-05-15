@@ -18,7 +18,7 @@
     .footer-container {
         width: 100%;
     }
-    
+
     @import "../../explorer/detail/sidebar/fyPicker";
 
     .sticky-header .sticky-header__container .sticky-header__header {
@@ -38,7 +38,7 @@
                 @include justify-content(center);
                 @include align-items(center);
                 padding-left: rem(12);
-                .usa-dt-picker { 
+                .usa-dt-picker {
                     background-color: #385C88;
                     height: rem(25);
                     width: 100%;
@@ -178,9 +178,12 @@
         width: 100%;
         .usda__flex-col {
             @include flex(1 1 auto);
+            .body__content {
+                width: 100%; // Fixes an IE Flexbox bug
+            }
         }
     }
-    
+
     .main-content {
         @include display(flex);
         width: 100%;
@@ -199,7 +202,7 @@
                 @include display(flex);
                 @include flex-direction(column);
                 width: 22%;
-                margin: rem(20) rem(20) rem(20) 0;
+                margin: rem(20);
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -223,29 +226,29 @@
                 ul {
                     @include unstyled-list;
                     padding: rem(30);
-            
+
                     li {
                         margin-bottom: rem(24);
-            
+
                         &:last-child {
                             margin-bottom: rem(0);
                         }
                     }
-            
+
                     a.sidebar-link {
                         color: $color-base;
                         font-size: rem(19);
                         line-height: rem(20);
                         padding-bottom: rem(5);
-            
+
                         text-decoration: none;
                         border-bottom: 5px solid transparent;
                         @include transition(all 0.15s ease-in-out);
-            
+
                         &:hover {
                             border-bottom: 5px solid $color-primary;
                         }
-            
+
                         &.active {
                             font-weight: $font-bold;
                             border-bottom: 5px solid $color-primary;
@@ -265,6 +268,7 @@
                 width: 70%;
             }
             .body__section {
+                @import './tabs';
                 @include display(flex);
                 @include flex-wrap(wrap);
                 margin-bottom: $global-mrg;
