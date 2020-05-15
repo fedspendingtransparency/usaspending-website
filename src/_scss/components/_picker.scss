@@ -12,13 +12,13 @@
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
-        background: #FFF;
+        background: $color-white;
         font-size: rem(14);
         line-height: rem(16);
-        color: #555555;
+        color: $color-gray;
         &:hover {
-            background: #EEEEEE;
-            border: rem(1) solid #EEEEEE;
+            background: $color-gray-lightest;
+            border: rem(1) solid $color-gray-lightest;
             cursor: pointer;
         }
         svg {
@@ -35,10 +35,10 @@
     position: absolute;
     height: rem(39);
     width: rem(140);
-    background: #EEEEEE;
-    border: rem(1) solid #EEEEEE;
+    background: $color-gray-lightest;
+    border: rem(1) solid $color-gray-lightest;
     border-radius: rem(3);
-    color: #555555;
+    color: $color-gray;
     margin-right: rem(15);
     top: rem(36);
     right: rem(-7);
