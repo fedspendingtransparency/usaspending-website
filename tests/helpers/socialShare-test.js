@@ -35,12 +35,4 @@ describe('socialShare helper', () => {
             );
         });
     });
-    describe('getSocialShareFn for email', () => {
-        it('updates window.location.href w/ the right value', () => {
-            const fn = getSocialShareFn('email');
-            fn({ subject: 'test', body: 'this is a test' });
-            const value = `mailto:?subject=test&body=this is a test`;
-            expect(window.location.href).toEqual(value);
-        });
-    });
 });

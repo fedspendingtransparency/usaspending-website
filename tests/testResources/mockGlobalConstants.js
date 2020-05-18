@@ -29,9 +29,3 @@ Object.defineProperty(window, 'open', {
     }))
 });
 
-Object.defineProperty(window, 'location', {
-    writable: true,
-    value: {
-        href: ''
-    }
-});
