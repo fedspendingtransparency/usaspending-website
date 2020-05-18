@@ -186,7 +186,6 @@ const ContractGrantActivity = ({
     const hideTooltipTransaction = () => setTimeout(() => setShowTooltipTransaction(false), 500);
 
     const showHideTooltipLine = (data, text) => {
-        // hide tooltip
         if (!data && showTooltipLine) {
             setShowTooltipLine(false);
             setThisLineOrTextIsHovered('');

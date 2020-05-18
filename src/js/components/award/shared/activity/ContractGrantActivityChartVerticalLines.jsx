@@ -46,7 +46,6 @@ const ContractGrantActivityChartVerticalLines = ({
     potentialEndLineHeight,
     todayLineHeight
 }) => {
-    console.log(' Start Lines : ', startLineValue);
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : 'Current End';
     // class name for end line and text
@@ -74,118 +73,11 @@ const ContractGrantActivityChartVerticalLines = ({
     ];
     const descriptions = [startLineValue, todayLineValue, endLineValue, potentialEndLineValue]
         .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${moment(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
-    const getLineData = (text) => {
-        if (text === 'Start') {
-            if (Array.isArray(startLineValue)) {
-                return startLineValue.map((data) => {
-                    const newData = data;
-                    newData.textY = startLineHeight;
-                    newData.text = 'Start';
-                    newData.description = descriptions[0];
-                    newData.lineClassname = lineData[0].classname;
-                    newData.textClassname = 'start';
-                    return newData;
-                });
-            }
-            return [
-                {
-                    y1: startLineHeight - 10,
-                    y2: height,
-                    text: 'Start',
-                    position: startLineValue,
-                    textY: startLineHeight,
-                    description: descriptions[0],
-                    lineClassname: lineData[0].classname,
-                    textClassname: 'start'
-                }
-            ];
-        }
-        if (text === 'End') {
-            if (Array.isArray(endLineValue)) {
-                return endLineValue.map((data) => {
-                    const newData = data;
-                    newData.text = endLineText;
-                    newData.textY = endLineHeight;
-                    newData.description = descriptions[2];
-                    newData.lineClassname = lineData[2].classname;
-                    newData.textClassname = endLineClassName;
-                    return newData;
-                });
-            }
-            return [{
-                y1: endLineHeight - 10,
-                y2: height,
-                position: endLineValue,
-                text: endLineText,
-                textY: endLineHeight,
-                description: descriptions[2],
-                lineClassname: lineData[2].classname,
-                textClassname: endLineClassName
-            }];
-        }
-        if (Array.isArray(potentialEndLineValue)) {
-            return potentialEndLineValue.map((data) => {
-                const newData = data;
-                newData.text = 'Potential End';
-                newData.textY = potentialEndLineHeight;
-                newData.description = descriptions[3];
-                newData.lineClassname = lineData[3].classname;
-                newData.textClassname = 'potential-end';
-                return newData;
-            });
-        }
-        return [{
-            y1: potentialEndLineHeight - 10,
-            y2: height,
-            position: potentialEndLineValue,
-            text: 'Potential End',
-            textY: potentialEndLineHeight,
-            description: descriptions[3],
-            lineClassname: lineData[3].classname,
-            textClassname: 'potential-end'
-        }];
-    };
-    const createLine = (data) => (
-        <SVGLine
-            key={uniqueId()}
-            scale={xScale}
-            y1={data.y1}
-            y2={data.y2}
-            textY={data.textY}
-            text={data.text}
-            description={data.description}
-            max={xDomain[1]}
-            min={xDomain[0]}
-            position={data.position}
-            showTextPosition="right"
-            adjustmentX={padding.left}
-            textClassname={data.textClassname}
-            lineClassname={data.lineClassname}
-            onMouseMoveLine={showHideTooltip}
-            onMouseLeaveLine={showHideTooltip}
-            onMouseMoveText={showHideTooltip}
-            onMouseLeaveText={showHideTooltip}
-            verticalLineTextData={verticalLineTextData} />
-    );
-    const getLines = (text) => {
-        if (text === 'Start') {
-            const lines = getLineData('Start');
-            return lines.map((data) => createLine(data));
-        }
-        if (text === 'End') {
-            const lines = getLineData('End');
-            return lines.map((data) => createLine(data));
-        }
-        const lines = getLineData('Potential');
-        return lines.map((data) => createLine(data));
-    };
     return (
         <g className="contract-grant-activity-chart__vertical-lines">
-            {getLines('Start')}
-            {getLines('End')}
-            {getLines('Potential')}
+            {/* {createAllTheLines()} */}
             {/* start line */}
-            {/* {xScale && <SVGLine
+            {xScale && <SVGLine
                 scale={xScale}
                 y1={startLineHeight - 10}
                 y2={height}
@@ -203,7 +95,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextData={verticalLineTextData} />} */}
+                verticalLineTextData={verticalLineTextData} />}
             {/* today line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -221,7 +113,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 lineClassname="today"
                 verticalLineTextData={verticalLineTextData} />}
             {/* end line */}
-            {/* {xScale && <SVGLine
+            {xScale && <SVGLine
                 scale={xScale}
                 y1={endLineHeight - 10}
                 y2={height}
@@ -239,9 +131,9 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextData={verticalLineTextData} />} */}
+                verticalLineTextData={verticalLineTextData} />}
             {/* potential end line */}
-            {/* {xScale && <SVGLine
+            {xScale && <SVGLine
                 scale={xScale}
                 y1={potentialEndLineHeight - 10}
                 y2={height}
@@ -259,7 +151,7 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
                 onMouseLeaveText={showHideTooltip}
-                verticalLineTextData={verticalLineTextData} />} */}
+                verticalLineTextData={verticalLineTextData} />}
         </g>
     );
 };

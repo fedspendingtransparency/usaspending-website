@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, uniqueId } from 'lodash';
 
 const propTypes = {
     scale: PropTypes.func, // function to set line position
@@ -33,8 +33,7 @@ const propTypes = {
     onMouseLeaveLine: PropTypes.func,
     onMouseMoveText: PropTypes.func,
     onMouseLeaveText: PropTypes.func,
-    verticalLineTextData: PropTypes.func,
-    key: PropTypes.number
+    verticalLineTextData: PropTypes.func
 };
 
 export default class SVGLine extends Component {
@@ -46,13 +45,16 @@ export default class SVGLine extends Component {
         };
         // React will call this function when the DOM draws it ( React Callback Refs )
         const textArray = Array.isArray(props.text) ? props.text : [props.text];
-        textArray.forEach((text) => {
-            this[`textDiv${text}`] = null;
-            this[`setTextDiv${text}`] = (element) => {
-                this[`textDiv${text}`] = element;
-                this.positionText(text);
-            };
-        });
+        if (!props.noText) {
+            textArray.forEach((text) => {
+                const stateName = text.replace(/\s/g, '').toLowerCase();
+                this[`textDiv${stateName}`] = null;
+                this[`setTextDiv${stateName}`] = (element) => {
+                    this[`textDiv${stateName}`] = element;
+                    this.positionText(stateName);
+                };
+            });
+        }
     }
 
     componentDidMount() {
@@ -89,8 +91,10 @@ export default class SVGLine extends Component {
         if (onMouseLeaveLine) this.props.onMouseLeaveLine();
     })
     onMouseMoveText = throttle(() => {
+        console.log(' Mouse move text ');
         const { onMouseMoveText, text, position } = this.props;
-        const textDiv = this[`textDiv${text}`];
+        const stateName = text.replace(/\s/g, '').toLowerCase()
+        const textDiv = this[`textDiv${stateName}`];
         if (textDiv) {
             const data = textDiv.getBoundingClientRect();
             data.position = this.getLinePosition();
@@ -150,11 +154,13 @@ export default class SVGLine extends Component {
         if (noText) return null;
         let positionX = scale(position || Date.now()) + (adjustmentX || 0);
         let modifiedTextY = textY;
-        const textDiv = this[`textDiv${text}`];
+        let width = 0;
+        const stateName = text.replace(/\s/g, '').toLowerCase();
+        const textDiv = this[`textDiv${stateName}`];
         if (textDiv) {
             const wordIndex = textDiv.getAttribute('data-wordindex');
             const textDivDimensions = textDiv.getBoundingClientRect();
-            const width = textDivDimensions.width;
+            width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
             if (showTextPosition === 'right') positionX += 4;
             if (showTextPosition === 'top') {
@@ -179,7 +185,11 @@ export default class SVGLine extends Component {
                 verticalLineTextData(textData);
             }
         }
-        return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
+        return this.setState({
+            [`${stateName}TextX`]: positionX,
+            [`${stateName}TextY`]: modifiedTextY,
+            [`${stateName}Width`]: width || 0
+        });
     }
 
     line = () => {
@@ -202,7 +212,6 @@ export default class SVGLine extends Component {
         const classname = lineClassname ? `svg-line ${lineClassname}` : 'svg-line';
         return (
             <line
-                key={this.props.key}
                 className={classname}
                 x1={isHorizontal ? x1 : linePosition}
                 x2={isHorizontal ? x2 : linePosition}
@@ -214,24 +223,36 @@ export default class SVGLine extends Component {
     }
 
     text = (lineIsDisplayed) => {
-        const { text, textClassname } = this.props;
-        if (!lineIsDisplayed || !text) return null;
+        const { text, textClassname, noText } = this.props;
+        if (!lineIsDisplayed || noText) return null;
         const textArray = Array.isArray(text) ? text : [text];
         const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
-        return textArray.map((data, i) => (
-            <text
-                key={data}
-                tabIndex="0"
-                className={classname}
-                x={this.state[`${data}TextX`]}
-                y={this.state[`${data}TextY`] || this.props.textY}
-                ref={this[`setTextDiv${data}`]}
-                data-wordindex={i}
-                onMouseMove={this.onMouseMoveText}
-                onMouseLeave={this.onMouseLeaveText}>
-                {data}
-            </text>
-        ));
+        return textArray.map((data, i) => {
+            const stateName = data.replace(/\s/g, '').toLowerCase();
+            return (
+                <g
+                    key={`containerForText${i}`}>
+                    <rect
+                        className="rectangle-background"
+                        width={this.state[`${stateName}Width`]}
+                        height={15.5}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.props.textY - 11} />
+                    <text
+                        // key={data}
+                        tabIndex="0"
+                        className={classname}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.state[`${stateName}TextY`] || this.props.textY}
+                        ref={this[`setTextDiv${stateName}`]}
+                        data-wordindex={i}
+                        onMouseMove={this.onMouseMoveText}
+                        onMouseLeave={this.onMouseLeaveText}>
+                        {data}
+                    </text>
+                </g>
+            )
+        });
     }
 
     description = () => (this.props.description ||

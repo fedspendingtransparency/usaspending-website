@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
@@ -82,7 +83,8 @@ const ContractGrantActivityContainer = ({
                  * We will create the all transactions property and add itself to it
                  * then add it to the acc
                  */
-                updatedData.allTransactionsOnTheSameDate = [updatedData];
+                const originalData = cloneDeep(updatedData);
+                updatedData.allTransactionsOnTheSameDate = [originalData];
                 acc.push(updatedData);
                 return acc;
             }, []);
