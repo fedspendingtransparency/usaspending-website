@@ -149,7 +149,7 @@ const ContractGrantsActivityChart = ({
              * by the average difference. If it is greater than 1, then we will add how ever
              * many extra tick we need. :)
              */
-            const difference = totalVerticalLineTextHeight - averageDifference;
+            const difference = totalVerticalLineTextHeight - scale(averageDifference);
             const howManyTicksToAdd = [];
             for (let i = 0; i < Math.ceil(difference / averageDifference); i++) {
                 howManyTicksToAdd.push(i);
