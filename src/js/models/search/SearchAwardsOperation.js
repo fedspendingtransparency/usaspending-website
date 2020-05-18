@@ -23,6 +23,7 @@ class SearchAwardsOperation {
 
         this.tasSources = [];
         this.accountSources = [];
+        this.tasCheckbox = { require: [], exclude: [] };
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -63,6 +64,7 @@ class SearchAwardsOperation {
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
 
         this.tasSources = state.treasuryAccounts.toArray();
+        this.tasCheckbox = { require: state.tasCodes.require, exclude: state.tasCodes.exclude };
         this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
@@ -197,6 +199,15 @@ class SearchAwardsOperation {
             });
 
             filters[rootKeys.tasSources] = tasCodes;
+        }
+
+        if (this.tasCheckbox.require.length > 0) {
+            if (this.tasCheckbox.exclude.length > 0) {
+                filters[rootKeys.tasCheckbox] = this.tasCheckbox;
+            }
+            else {
+                filters[rootKeys.tasCheckbox] = { require: this.tasCheckbox.require };
+            }
         }
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types

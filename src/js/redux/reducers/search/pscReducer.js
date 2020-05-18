@@ -1,94 +1,103 @@
 /**
- * naicsReducer.js
+ * pscReducer.js
  * Created by Jonathan Hill 12/30/19
  */
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
-import { getHighestAncestorNaicsCode, getNaicsNodeFromTree } from 'helpers/naicsHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
+import { getHighestPscAncestor, getImmediatePscAncestor, getPscNodeFromTree } from 'helpers/pscHelper';
 
 export const initialState = {
-    naics: new List(),
+    psc: new List(),
     expanded: new List(),
     searchExpanded: new List(),
     checked: new List(),
-    unchecked: new List()
+    unchecked: new List(),
+    counts: new List()
 };
 
-const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
+const populatePscBranchOrLeafNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
     key,
     newNodes,
-    getHighestAncestorNaicsCode,
-    getNaicsNodeFromTree
+    getHighestPscAncestor,
+    getImmediatePscAncestor,
+    getPscNodeFromTree
 );
 
-const addNaicsSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
+const addPscSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
     tree,
     searchResults,
-    getNaicsNodeFromTree
+    getPscNodeFromTree
 );
 
 /* eslint-disable import/prefer-default-export */
-export const naicsReducer = (state = initialState, action) => {
+export const pscReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_NAICS_NODES': {
+        case 'SET_PSC_NODES': {
             const { payload, key } = action;
             // initial top-tier data only
-            if (!key) return { ...state, naics: new List(payload) };
+            if (!key) return { ...state, psc: new List(payload) };
 
-            const newState = populateNaicsBranchOrLeafNodes(state.naics.toJS(), key, payload);
+            // need to do this non-sense to match the response object of NAICS :smh:
+            const newState = populatePscBranchOrLeafNodes(state.psc.toJS(), key, [{ value: key, children: payload }]);
 
             return {
                 ...state,
-                naics: new List(newState)
+                psc: new List(newState)
             };
         }
-        case 'SHOW_NAICS_TREE': {
+        case 'SHOW_PSC_TREE': {
             // removes className 'hide' added to nodes from search results
             return {
                 ...state,
-                naics: new List(showAllNodes(state.naics.toJS()))
+                psc: new List(showAllNodes(state.psc.toJS()))
             };
         }
-        case 'SET_SEARCHED_NAICS': {
+        case 'SET_SEARCHED_PSC': {
             const visibleNodes = action.payload;
-            const newState = addNaicsSearchResultsToTree(state.naics.toJS(), visibleNodes);
+            const newState = addPscSearchResultsToTree(state.psc.toJS(), visibleNodes);
             return {
                 ...state,
-                naics: new List(newState)
+                psc: new List(newState)
             };
         }
-        case 'SET_SEARCHED_EXPANDED_NAICS': {
+        case 'SET_SEARCHED_EXPANDED_PSC': {
             return {
                 ...state,
                 searchExpanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_EXPANDED_NAICS': {
+        case 'SET_EXPANDED_PSC': {
             return {
                 ...state,
                 expanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_CHECKED_NAICS': {
+        case 'SET_CHECKED_PSC': {
             return {
                 ...state,
                 checked: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_UNCHECKED_NAICS': {
+        case 'SET_UNCHECKED_PSC': {
             return {
                 ...state,
                 unchecked: new List([...new Set([...action.payload])])
             };
         }
-        case 'ADD_CHECKED_NAICS': {
+        case 'ADD_CHECKED_PSC': {
             return {
                 ...state,
                 // new Set to eliminate any duplicate values
                 checked: new List([...new Set([...state.checked, action.payload])])
+            };
+        }
+        case 'SET_PSC_COUNTS': {
+            return {
+                ...state,
+                counts: new List(action.payload)
             };
         }
         default:
@@ -96,4 +105,4 @@ export const naicsReducer = (state = initialState, action) => {
     }
 };
 
-export default naicsReducer;
+export default pscReducer;

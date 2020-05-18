@@ -1,6 +1,6 @@
 .contract-grant-activity {
   width: 100%;
-  @import '../../../components/verticalLine';
+  @import '../../../components/SVGLine';
     .award__col__content {
       @import '../../search/results/table/tableMessages';
       .results-table-message-container {
@@ -49,6 +49,57 @@
         }
       }
       .contract-grant-activity-visualization {
+        @import '../shared/awardAmountsSection/charts';
+        .tooltip-wrapper {
+          z-index: 214748364;
+          pointer-events: visible;
+          .tooltip__content {
+            .tooltip__message {
+              .tooltip__text {
+                  padding: 2rem 2rem 0 2rem;
+              }
+              .tooltip__text:last-child {
+                padding: 2rem;
+              }
+            } 
+          }
+          .tooltip-pagination-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-around;
+            .pagination-text {
+              font-style: italic;
+            }
+            .tooltip-pagination-button {
+              background-color: transparent;
+              font-size: 2rem;
+              svg {
+                path {
+                  fill: $color-primary;
+                }
+              }
+              &.previous-page-button {
+                margin-right: 0;
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+              &.next-page-button {
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
         width: 100%;
         .activity-x-label {
           width: 100%;
@@ -86,21 +137,39 @@
       fill: $color-gray-lighter;
       opacity: 0.3;
     }
-    .vertical-line {
+    .svg-line {
       &.start {
         stroke: $color-green-lighter;
+      }
+      &.noOpacity {
+        opacity: 1;
       }
       &.contract-end {
         stroke: $color-gold-light;
       }
+      &.noOpacity {
+        opacity: 1;
+      }
       &.grant-end {
         stroke: $color-secondary-dark;
+      }
+      &.noOpacity {
+        opacity: 1;
       }
       &.potential-end {
         stroke: $color-secondary-dark;
       }
+      &.noOpacity {
+        opacity: 1;
+      }
+      &.potential-award-amount-line {
+        stroke: $color-primary-darker;
+      }
+      &.potential-award-amount-line:hover {
+        opacity: 1;
+      }
     }
-    .vertical-line__text {
+    .svg-line__text {
       font-weight: $font-semibold;
       &.start {
         fill: $color-green-lighter;

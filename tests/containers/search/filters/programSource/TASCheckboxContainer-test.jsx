@@ -14,7 +14,9 @@ import {
     federalAccountLevel,
     tasLevel,
     defaultProps,
-    treePopulatedToFederalAccountLevel
+    treePopulatedToFederalAccountLevel,
+    hashUrlWithFederalAccountSelected,
+    hashUrlWithTasSelected
 } from '../programSource/mockTas';
 
 jest.mock("helpers/searchHelper", () => ({
@@ -22,6 +24,36 @@ jest.mock("helpers/searchHelper", () => ({
 }));
 
 describe('TASCheckboxContainer', () => {
+    describe('loading tree from url hash', () => {
+        it('fetches federal account nodes', async () => {
+            const mockFn = jest.fn(() => Promise.resolve());
+            const container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                checkedFromHash={hashUrlWithFederalAccountSelected} />);
+
+            container.instance().fetchTas = mockFn;
+            await container.instance().componentDidMount();
+            // second call to fetchTas is for the agency
+            expect(mockFn).toHaveBeenLastCalledWith('012');
+            // only calls for agency 12 once
+            expect(mockFn).toHaveBeenCalledTimes(2);
+        });
+        it('fetches tas nodes', async () => {
+            const mockFn = jest.fn(() => Promise.resolve());
+            const container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                checkedFromHash={hashUrlWithTasSelected} />);
+
+            container.instance().fetchTas = mockFn;
+
+            await container.instance().componentDidMount();
+
+            expect(mockFn).toHaveBeenLastCalledWith('012/012-8226');
+            // only calls for federal account 012-8226 once
+            expect(mockFn).toHaveBeenCalledTimes(3);
+        });
+        // Can't really test the setCheckedStateFromUrlHash fn b/c the parameter, newChecked, requires this.props.nodes to be defined, and this sequence is only kicked off when componentDidMount is fired w/o any nodes in props. This points to an improvement we could use w/ our test configuration to include a test-redux store that updates our components props as we go along w/ the test. IE, redux-mock-store npm package, cited here: https://redux.js.org/recipes/writing-tests.
+    });
     describe('fetchTAS', () => {
         const mockFn = jest.fn();
         const container = shallow(<TASCheckboxTree {...defaultProps} setTasNodes={mockFn} />);

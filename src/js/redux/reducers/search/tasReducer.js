@@ -1,18 +1,20 @@
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
 import {
     getTasNodeFromTree,
     getHighestTasAncestorCode,
+    getImmediateTasAncestorCode,
     tasSortFn
 } from 'helpers/tasHelper';
 
 
-const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
+const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
     key,
     newNodes,
     getHighestTasAncestorCode,
+    getImmediateTasAncestorCode,
     getTasNodeFromTree
 );
 
@@ -103,6 +105,13 @@ export const tasReducer = (state = initialState, action) => {
             return {
                 ...state,
                 counts: new List(action.payload)
+            };
+        }
+
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return {
+                ...initialState,
+                tas: state.tas
             };
         }
 
