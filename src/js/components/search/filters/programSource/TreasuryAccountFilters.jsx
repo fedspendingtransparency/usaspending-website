@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import EntityWarning from 'components/search/filters/location/EntityWarning';
-import kGlobalConstants from 'GlobalConstants';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
 import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
 import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
@@ -20,8 +19,6 @@ const propTypes = {
     clearSelection: PropTypes.func,
     activeTab: PropTypes.number
 };
-
-const isDev = kGlobalConstants.DEV;
 
 export default class TreasuryAccountFilters extends React.Component {
     constructor(props) {
@@ -49,33 +46,11 @@ export default class TreasuryAccountFilters extends React.Component {
 
     generateFilters() {
         if (this.props.activeTab === 1) {
-            if (isDev) {
-                return (
-                    <TASCheckboxTree />
-                );
-            }
-            return treasuryAccountComponents.map((option) => (
-                <ProgramSourceAutocompleteContainer
-                    dirtyFilters={this.props.dirtyFilters}
-                    key={option.code}
-                    component={option}
-                    selectedSources={this.props.components}
-                    updateComponent={this.props.updateComponent}
-                    clearSelection={this.props.clearSelection} />
-            ));
+            return (
+                <TASCheckboxTree />
+            );
         }
-        if (isDev) {
-            return treasuryAccountComponents.map((option) => (
-                <ProgramSourceAutocompleteContainer
-                    dirtyFilters={this.props.dirtyFilters}
-                    key={option.code}
-                    component={option}
-                    selectedSources={this.props.components}
-                    updateComponent={this.props.updateComponent}
-                    clearSelection={this.props.clearSelection} />
-            ));
-        }
-        return federalAccountComponents.map((option) => (
+        return treasuryAccountComponents.map((option) => (
             <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
@@ -98,21 +73,12 @@ export default class TreasuryAccountFilters extends React.Component {
             message = "Enter value for AID";
         }
 
-        const heading = activeTab === 1
-            ? 'Treasury'
-            : 'Federal';
-
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">
-                    {isDev && activeTab === 2 && (
+                    {activeTab === 2 && (
                         <div className="program-source-components__heading">
                             Treasury Account Components
-                        </div>
-                    )}
-                    {!isDev && (
-                        <div className="program-source-components__heading">
-                            {heading} Account Components
                         </div>
                     )}
                     {this.generateFilters()}
@@ -122,7 +88,7 @@ export default class TreasuryAccountFilters extends React.Component {
                         onMouseEnter={this.showWarning}
                         onBlur={this.hideWarning}
                         onMouseLeave={this.hideWarning}>
-                        {(!isDev || (isDev && activeTab === 2)) && (
+                        {activeTab === 2 && (
                             <button
                                 disabled={!enabled}
                                 onClick={this.props.applyFilter}
