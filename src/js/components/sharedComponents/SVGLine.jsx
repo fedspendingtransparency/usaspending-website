@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, uniqueId } from 'lodash';
+import { throttle } from 'lodash';
 
 const propTypes = {
     scale: PropTypes.func, // function to set line position
@@ -91,9 +91,8 @@ export default class SVGLine extends Component {
         if (onMouseLeaveLine) this.props.onMouseLeaveLine();
     })
     onMouseMoveText = throttle(() => {
-        console.log(' Mouse move text ');
         const { onMouseMoveText, text, position } = this.props;
-        const stateName = text.replace(/\s/g, '').toLowerCase()
+        const stateName = text.replace(/\s/g, '').toLowerCase();
         const textDiv = this[`textDiv${stateName}`];
         if (textDiv) {
             const data = textDiv.getBoundingClientRect();
@@ -239,7 +238,6 @@ export default class SVGLine extends Component {
                         x={this.state[`${stateName}TextX`]}
                         y={this.props.textY - 11} />
                     <text
-                        // key={data}
                         tabIndex="0"
                         className={classname}
                         x={this.state[`${stateName}TextX`]}
@@ -251,7 +249,7 @@ export default class SVGLine extends Component {
                         {data}
                     </text>
                 </g>
-            )
+            );
         });
     }
 

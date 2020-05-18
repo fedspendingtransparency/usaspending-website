@@ -4,8 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes, { array } from 'prop-types';
-import { uniqueId } from 'lodash';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import SVGLine from 'components/sharedComponents/SVGLine';
 

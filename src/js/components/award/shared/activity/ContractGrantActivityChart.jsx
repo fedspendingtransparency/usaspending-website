@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact, sum, uniqueId } from 'lodash';
+import { cloneDeep, compact, sum } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
 
@@ -61,16 +61,12 @@ const ContractGrantsActivityChart = ({
     const [yTicks, setYTicks] = useState([]);
     // start line
     const [startLineData, setStartLineData] = useState({ value: 0, height: 0 });
-    const [startLineTextData, setStartLineTextData] = useState({});
     // today line
     const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0 });
-    const [todayLineTextData, setTodayLineTextData] = useState({});
     // end line
     const [endLineData, setEndLineData] = useState({ value: 0, height: 0 });
-    const [endLineTextData, setEndLineTextData] = useState({});
     // potential end line
     const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0 });
-    const [potentialEndLineTextData, setPotentialEndLineTextData] = useState({});
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
@@ -370,25 +366,7 @@ const ContractGrantsActivityChart = ({
     useEffect(() => {
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
-    const setVerticalLineTextData = (textInfo) => {
-        // console.log(' Setting Text Data : ', textInfo.text);
-        if (textInfo.text === 'Start') {
-            // console.log(' Setting Start Line Text Data : ', textInfo);
-            return setStartLineTextData(textInfo);
-        }
-        if (textInfo.text === 'Today') {
-            return setTodayLineTextData(textInfo);
-        }
-        if (textInfo.text === 'End' || textInfo.text === 'Current End') {
-            return setEndLineTextData(textInfo);
-        }
-        if (textInfo.text === 'Potential End') {
-            return setPotentialEndLineTextData(textInfo);
-        }
-        return null;
-    };
     const updateVerticalLineTextData = (data) => {
-        setVerticalLineTextData(data);
         if (data.height !== verticalLineTextHeight) {
             setVerticalLineTextHeight(data.height);
         }
