@@ -20,7 +20,7 @@ import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActio
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import { socialShareOptions, getSocialShareFn } from 'helpers/socialShare';
+import { getBaseUrl } from 'helpers/socialShare';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -29,6 +29,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Footer from 'containers/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
 
@@ -69,8 +70,6 @@ const ComingSoon = () => (
     </div>
 );
 
-let timeout;
-
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
@@ -79,23 +78,7 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
-    const [showConfirmationText, setConfirmationText] = useState(false);
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
-
-    useEffect(() => () => {
-        if (timeout && showConfirmationText) {
-            window.clearTimeout(timeout);
-        }
-    });
-
-    const getCopyFn = () => {
-        document.getElementById('slug').select();
-        document.execCommand("copy");
-        setConfirmationText(true);
-        timeout = window.setTimeout(() => {
-            setConfirmationText(false);
-        }, 1750);
-    };
 
     const componentByAgencySection = {
         overview: <ComingSoon />,
@@ -144,31 +127,7 @@ export const AgencyProfileV2 = ({
         })
         .sort((a, b) => defaultSortFy(a.value, b.value));
 
-    const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
     const slug = `agency_v2/${params.agencyId}`;
-
-    const socialSharePickerOptions = socialShareOptions.map((option) => {
-        if (option.name === 'copy') {
-            return {
-                ...option,
-                onClick: getCopyFn
-            };
-        }
-        if (option.name === 'email') {
-            const onClick = getSocialShareFn(slug, option.name).bind(null, {
-                subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
-                body: `Here is the url: ${url}`
-            });
-            return {
-                ...option,
-                onClick
-            };
-        }
-        return {
-            ...option,
-            onClick: getSocialShareFn(slug, option.name)
-        };
-    });
 
     return (
         <div className="usa-da-agency-page-v2">
@@ -182,7 +141,6 @@ export const AgencyProfileV2 = ({
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
-                        <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={url} />
                         <span className="fy-picker-label">Filter</span>
                         <div className="fiscal-year-container">
                             <Picker
@@ -193,22 +151,12 @@ export const AgencyProfileV2 = ({
                             <span>Fiscal Year</span>
                         </div>
                         <hr />
-                        <div className="sticky-header__toolbar-item">
-                            <Picker
-                                dropdownDirection="left"
-                                options={socialSharePickerOptions}
-                                selectedOption="copy"
-                                backgroundColor="#4A4A4A"
-                                sortFn={() => 1}>
-                                <FontAwesomeIcon icon="share-alt" size="lg" />
-                            </Picker>
-                            <span>Share</span>
-                            {showConfirmationText && (
-                                <span className="copy-confirmation">
-                                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied!
-                                </span>
-                            )}
-                        </div>
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: `USAspending.gov Agency Profile: ${agencyOverview.name}`,
+                                body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
                         <div className="sticky-header__toolbar-item">
                             <button className="sticky-header__button">
                                 <FontAwesomeIcon icon="download" />
