@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import EntityWarning from 'components/search/filters/location/EntityWarning';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
 import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
-import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
+// import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
+import { treasuryAccountComponents } from 'dataMapping/search/programSourceComponents';
 
 const propTypes = {
     updateComponent: PropTypes.func,
