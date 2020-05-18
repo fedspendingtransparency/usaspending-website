@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import kGlobalConstants from 'GlobalConstants';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
@@ -19,8 +18,6 @@ const propTypes = {
     updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
-
-const isDev = kGlobalConstants.DEV;
 
 export default class ProgramSourceSection extends React.Component {
     constructor(props) {
@@ -158,17 +155,7 @@ export default class ProgramSourceSection extends React.Component {
         );
 
         let selectedSources = null;
-        if (!isDev && activeTab === 2 && this.props.selectedFederalComponents) {
-            selectedSources = (
-                <SelectedSources
-                    removeSource={this.removeFilter}
-                    label="FA #"
-                    selectedSources={this.props.selectedFederalComponents} />);
-        }
-        else if (
-            (isDev && activeTab === 2 && this.props.selectedFederalComponents) ||
-            (!isDev && activeTab === 1 && this.props.selectedTreasuryComponents)
-        ) {
+        if (activeTab === 2 && this.props.selectedFederalComponents) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
@@ -196,7 +183,7 @@ export default class ProgramSourceSection extends React.Component {
             </React.Fragment>
         );
 
-        const tab2Title = isDev ? 'TAS Components' : 'Federal Account';
+        const tab2Title = 'TAS Components';
 
         return (
             <div className="program-source-filter search-filter">
