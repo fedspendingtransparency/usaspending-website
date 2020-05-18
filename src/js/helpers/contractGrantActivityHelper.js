@@ -206,7 +206,7 @@ export const getXDomain = (dates, awardType, transactions) => {
         }
         if (!badStart && (!badCurrent || !badEnd)) {
             const date = !badEnd ? potentialEndDate : currentEndDate;
-            return [transactions[0].action_date.valueOf(), date.valueOf()];
+            return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, date).valueOf()];
         }
         return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, potentialEndDate).valueOf()];
     }
