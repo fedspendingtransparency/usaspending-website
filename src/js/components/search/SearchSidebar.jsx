@@ -20,7 +20,6 @@ import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSea
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
-import NAICSSearchContainer from 'containers/search/filters/naics/NAICSSearchContainer';
 import NAICSContainer from 'containers/search/filters/naics/NAICSContainer';
 import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
 import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
@@ -36,12 +35,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 import kGlobalConstants from 'GlobalConstants';
 
-const NaicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContainer;
-const naicsTitle = kGlobalConstants.DEV ?
-    'North American Industry Classification System (NAICS)' :
-    'NAICS Code';
 const PscComponent = kGlobalConstants.DEV ? PSCCheckboxTreeContainer : PSCSearchContainer;
-const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Program Source (TAS)';
 
 const filters = {
     options: [
@@ -49,14 +43,14 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
-        tasTitle,
+        'Treasury Account Symbol (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
         'Award Amount',
         'Award ID',
         'CFDA Program',
-        naicsTitle,
+        'North American Industry Classification System (NAICS)',
         'Product/Service Code (PSC)',
         'Type of Contract Pricing',
         'Type of Set Aside',
@@ -74,7 +68,7 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,
-        NaicsComponent,
+        NAICSContainer,
         PscComponent,
         PricingTypeContainer,
         SetAsideContainer,
