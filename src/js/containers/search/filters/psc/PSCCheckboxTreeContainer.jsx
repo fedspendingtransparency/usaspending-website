@@ -98,7 +98,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                                     if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
                                         return ancestors.concat([currentAncestor]);
                                     }
-                                    
+
                                     // ancestor string like parentX/parentY/parentZ
                                     const ancestorString = [...new Array(i + 1)]
                                         .reduce((str, __, index) => {
