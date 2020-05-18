@@ -36,6 +36,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import kGlobalConstants from 'GlobalConstants';
 
 const PscComponent = kGlobalConstants.DEV ? PSCCheckboxTreeContainer : PSCSearchContainer;
+const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Program Source (TAS)';
 
 const filters = {
     options: [
@@ -43,7 +44,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
-        'Treasury Account Symbol (TAS)',
+        tasTitle,
         'Location',
         'Recipient',
         'Recipient Type',
