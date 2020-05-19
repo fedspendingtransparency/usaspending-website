@@ -128,7 +128,7 @@ export class NAICSContainer extends React.Component {
                                 }, []);
                             const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
                                 newChecked,
-                                this.props.checked,
+                                [],
                                 uncheckedFromHash,
                                 this.props.nodes,
                                 this.state.stagedNaicsFilters
@@ -145,6 +145,9 @@ export class NAICSContainer extends React.Component {
                                 }
                             });
                         });
+                }
+                if (this.props.nodes.length > 0) {
+                    this.props.showNaicsTree();
                 }
                 // consistent return.
                 return Promise.resolve();
