@@ -21,6 +21,7 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 
+
 import KeywordSearchBar from './KeywordSearchBar';
 
 const propTypes = {

@@ -11,10 +11,12 @@ import { statePageMetaTags } from 'helpers/metaTagHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
+import { getBaseUrl } from "helpers/socialShare";
 
 import StateContent from './StateContent';
 
@@ -28,6 +30,9 @@ const propTypes = {
 
 export default class StatePage extends React.Component {
     render() {
+        const { id, stateProfile } = this.props;
+        const slug = `state/${id}/${stateProfile.fy}`;
+
         let content = <StateContent {...this.props} />;
         if (this.props.error) {
             content = (
@@ -36,7 +41,6 @@ export default class StatePage extends React.Component {
                     message="The state ID provided is invalid. Please check the ID and try again." />
             );
         }
-
         return (
             <div className="usa-da-state-page">
                 <MetaTags {...statePageMetaTags} />
@@ -46,6 +50,14 @@ export default class StatePage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             {capitalize(this.props.stateProfile.overview.type)} Profile
                         </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
+                                body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
                     </div>
                 </StickyHeader>
                 <main

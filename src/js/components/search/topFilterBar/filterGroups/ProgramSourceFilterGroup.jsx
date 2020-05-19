@@ -47,9 +47,9 @@ export default class ProgramSourceFilterGroup extends React.Component {
         return this.props.filter.values.map((tas) => {
             const title = tas.isV2
                 ? tas.tas_description
-                : `${label} | ${tas.value}`;
+                : `${label} | ${tas}`;
             return {
-                value: tas.value,
+                value: tas,
                 title,
                 isSpecial: false,
                 removeFilter: this.removeFilter

@@ -19,7 +19,7 @@ const accountsTableFields = {
     ],
     accountNumber: 'Account Number',
     accountName: 'Account Name',
-    managingAgency: 'Managing Agency',
+    managingAgency: 'Owning Agency',
     budgetaryResources: 'Budgetary Resources'
 };
 

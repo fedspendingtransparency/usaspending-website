@@ -29,24 +29,29 @@ const getChildren = (node, keyMap) => {
     }
     return {};
 };
+/**
+ * @param {string} key
+ * @param {Array.Object} codesWithCheckedAncestor
+ * @param {Array.Object} nodes
+ * @param {function} traverseTreeByCodeFn
+ * @returns {number} the sum count of the given node's (represented by its key or node.value) descendants
+ */
+const getCountOfCheckedDescendants = (key, codesWithCheckedAncestor, nodes, traverseTreeByCodeFn) => {
+    const hasCheckedDescendants = codesWithCheckedAncestor.some((obj) => obj.checkedAncestor === key);
 
-const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes, traverseTreeByCodeFn) => {
-    // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
-    const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
-
-    if (hasSelectedButNotCounted) {
-        const nodesUnderPlaceholder = codesUnderPlaceholder
-            .filter((code) => code.placeholder === key);
-        const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
+    if (hasCheckedDescendants) {
+        const nodesUnderPlaceholder = codesWithCheckedAncestor
+            .filter((code) => code.checkedAncestor === key);
+        const sumOfCheckedDescendants = nodesUnderPlaceholder
             .map((obj) => traverseTreeByCodeFn(nodes, obj.code))
-            .reduce((agg, nodeTobeCounted) => {
-                if (nodeTobeCounted.count === 0) {
+            .reduce((agg, descendantToBeCounted) => {
+                if (descendantToBeCounted.count === 0) {
                     return agg + 1;
                 }
-                return agg + nodeTobeCounted.count;
+                return agg + descendantToBeCounted.count;
             }, 0);
 
-        return aggregateOffsetOfNodesUnderPlaceholder;
+        return sumOfCheckedDescendants;
     }
     return 0;
 };
@@ -224,42 +229,42 @@ export const incrementCountAndUpdateUnchecked = (
 ) => {
     const newlyChecked = difference(newChecked, oldChecked);
     const nodeTree = cloneDeep(nodes);
-
-    // child place holders reflect the count of their immediate ancestor
-    const placeHoldersToBeCounted = newChecked
-        .filter((node) => node.includes('children_of_'));
-
-    const codesUnderPlaceholder = [];
-    const codesWithoutPlaceholder = [];
+    const codesWithCheckedAncestor = [];
     const codesToBeRemovedFromUnchecked = [];
 
     newChecked
-        .filter((code) => !code.includes('children_of_'))
-        .forEach((code) => {
+        .map((code) => removePlaceholderString(code))
+        .forEach((code, i, arr) => {
             const node = traverseTreeByCodeFn(nodeTree, code);
             const immediateAncestorCode = getImmediateAncestorFn(node);
             const highestAncestorCode = getHighestAncestorFn(node);
-            if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: immediateAncestorCode });
+            const isImmediateAncestorChecked = (
+                immediateAncestorCode !== code &&
+                arr.includes(immediateAncestorCode)
+            );
+
+            const isHighestAncestorChecked = (
+                highestAncestorCode !== code &&
+                arr.includes(highestAncestorCode)
+            );
+            if (node?.ancestors) {
+                const checkedAncestors = node.ancestors.filter((ancestor) => arr.includes(ancestor));
+                if (checkedAncestors.length > 0) {
+                    // always use the nearest ancestor.
+                    codesWithCheckedAncestor.push({ code, checkedAncestor: checkedAncestors.pop() });
+                }
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: highestAncestorCode });
+            else if (isImmediateAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: immediateAncestorCode });
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${code}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: code });
-            }
-            else {
-                codesWithoutPlaceholder.push(code);
+            else if (isHighestAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: highestAncestorCode });
             }
         });
 
     const newCounts = [...new Set([...newlyChecked])]
         .reduce((newState, code) => {
-            const isPlaceholder = code.includes('children_of_');
-            const key = isPlaceholder
-                ? code.split('children_of_')[1]
-                : code;
-
+            const key = removePlaceholderString(code);
             const currentNode = traverseTreeByCodeFn(nodeTree, key);
             const parentKey = getHighestAncestorFn(currentNode);
             const parentNode = traverseTreeByCodeFn(nodeTree, parentKey);
@@ -280,12 +285,11 @@ export const incrementCountAndUpdateUnchecked = (
 
             const indexInArray = newState.findIndex((node) => node.value === parentKey);
             const isParentInArray = indexInArray > -1;
-
-            const offsetCount = getCountWithPlaceholderOffset(key, codesUnderPlaceholder, nodeTree, traverseTreeByCodeFn);
+            const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
                 ? 1
                 : currentNode.count;
-            const amountToIncrement = originalCount - offsetCount;
+            const amountToIncrement = originalCount - countOfCheckedDescendants;
 
             if (!isParentInArray) {
                 newState.push({
@@ -355,28 +359,61 @@ export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', 
         .reduce(getValue, []);
 };
 
-const addPlaceholder = (children, parentValue, hide = true) => {
-    const placeHolderExists = children.some((child) => child.isPlaceHolder);
-    if (placeHolderExists) return children;
-    return children.concat([{
-        isPlaceHolder: true,
-        label: 'Child Placeholder',
-        value: `children_of_${parentValue}`,
-        className: hide ? 'hide' : ''
-    }]);
-};
+export const doesNodeHaveGenuineChildren = (node) => (
+    Object.keys(node).includes('children') &&
+    node?.children?.length > 0 &&
+    node.children.some((child) => !child.isPlaceHolder)
+);
 
 const removePlaceHolders = (children) => children.filter((child) => !child.isPlaceHolder);
 
-const areChildrenPartial = (count, children) => {
+export const areChildrenPartial = (count, children) => {
     if (!children) return false;
-    const sumOfAllChildren = children
-        .filter((child) => !child.isPlaceHolder)
+    const sumOfAllChildren = removePlaceHolders(children)
         .reduce((acc, child) => {
             const childCount = child.count || 1;
             return acc + childCount;
         }, 0);
     return sumOfAllChildren < count;
+};
+
+export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true) => {
+    if (!children || !parent) return [];
+    const hasGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
+    const placeHolderAlreadyExists = children.some((child) => child.isPlaceHolder);
+    const isPlaceHolderNeeded = (
+        areChildrenPartial(parent.count, children) &&
+        !placeHolderAlreadyExists
+    );
+    if (isPlaceHolderNeeded && hasGrandChildren) {
+        return children
+            .map((child) => ({
+                ...child,
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }))
+            .concat([{
+                isPlaceHolder: true,
+                label: 'Child Placeholder',
+                value: `children_of_${parent.value}`,
+                className: hide ? 'hide' : ''
+            }]);
+    }
+    if (hasGrandChildren) {
+        return children
+            .map((child) => ({
+                ...child,
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }));
+    }
+    if (isPlaceHolderNeeded) {
+        return children.concat([{
+            isPlaceHolder: true,
+            label: 'Child Placeholder',
+            value: `children_of_${parent.value}`,
+            className: hide ? 'hide' : ''
+        }]);
+    }
+    return children;
 };
 
 /**
@@ -388,108 +425,67 @@ const areChildrenPartial = (count, children) => {
  * (b) the pre-existing nodes not apart of search results that are hidden via the className obj property w/ the value "hide"
  * (c) placeholder nodes to represent the presence of partial children
 */
-export const mergeChildren = (parentFromSearch, existingParent) => {
-    if (existingParent.children && parentFromSearch.children) {
-        // Hide all existing children by default.
-        const existingChildArray = existingParent
-            .children
-            .map((node) => ({ ...node, className: 'hide' }));
-
-        const nodes = parentFromSearch.children
+export const appendChildrenFromSearchResults = (parentFromSearch, existingParent) => {
+    if (doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
+        return parentFromSearch.children
             .reduce((acc, searchChild) => {
-                const existingChildIndex = acc
-                    .findIndex((existingChild) => existingChild.value === searchChild.value);
-
-                if (existingChildIndex !== -1) {
+                const existingChildIndex = acc.findIndex((existingChild) => existingChild.value === searchChild.value);
+                const childAlreadyExists = existingChildIndex !== -1;
+                if (childAlreadyExists) {
                     const existingChild = acc[existingChildIndex];
-                    // Show existingChildren if they are in the search results.
-                    existingChild.className = '';
-                    if (existingChild.children) {
-                        // Hide this node's children.
-                        existingChild.children = existingChild.children.map((grand) => ({ ...grand, className: 'hide' }));
+                    // Show child if they are in the search results.
+                    const existingChildHasRealChildren = doesNodeHaveGenuineChildren(existingChild);
+
+                    if (existingChildHasRealChildren) {
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...existingChild,
+                                    className: '',
+                                    children: appendChildrenFromSearchResults(searchChild, existingChild)
+                                };
+                            }
+                            return node;
+                        });
                     }
-
-                    if (existingChild.children && searchChild.children) {
-                        searchChild.children
-                            .forEach((searchGrandChild) => {
-                                const existingGrandChildIndex = existingChild.children
-                                    .findIndex((existingGC) => existingGC.value === searchGrandChild.value);
-
-                                if (existingGrandChildIndex !== -1) {
-                                    const existingGrandChild = existingChild.children[existingGrandChildIndex];
-                                    // Show the existingGrandChildren if they are also in the search array.
-                                    existingGrandChild.className = '';
-                                    const isParent = (
-                                        Object.keys(existingGrandChild).includes('children') &&
-                                        existingGrandChild?.children?.length > 0
-                                    );
-                                    if (isParent) {
-                                        existingGrandChild.children = existingGrandChild.children
-                                            .map((greatGrand) => {
-                                                const greatGrandIsInSearchResults = searchGrandChild.children
-                                                    .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
-                                                if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
-                                                // Hide the greatGrandChildren if they are not in the search results array.
-                                                return { ...greatGrand, className: 'hide' };
-                                            });
-                                        const needsPlaceholder = areChildrenPartial(
-                                            existingGrandChild.count,
-                                            existingGrandChild.children.concat(searchGrandChild.children)
-                                        );
-                                        if (needsPlaceholder) {
-                                            existingGrandChild.children = addPlaceholder(existingGrandChild.children, existingGrandChild.value);
-                                        }
-                                    }
-                                }
-                                else {
-                                    // No existingChild to hide, just add it.
-                                    acc[existingChildIndex].children.push(searchGrandChild);
-                                }
-                            });
+                    else if (!existingChildHasRealChildren) {
+                        // No existingChild to hide, just add it.
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...node,
+                                    className: '',
+                                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
+                                };
+                            }
+                            return node;
+                        });
                     }
                     return acc;
                 }
-                // searchChild is completely new, add it w/ a placeholder.
-                if (areChildrenPartial(searchChild.count, searchChild.children)) {
-                    acc.push({
-                        ...searchChild,
-                        children: [
-                            ...mergeChildren(searchChild, { value: searchChild.value, children: [] }),
-                            {
-                                isPlaceHolder: true,
-                                label: "Child Placeholder",
-                                value: `children_of_${searchChild.value}`,
-                                className: 'hide'
-                            }
-                        ]
-                    });
-                }
-                // searchChild is completely new and fully populated with children, add it w/o a placeholder.
-                else {
-                    acc.push({
-                        ...searchChild,
-                        children: [...mergeChildren(searchChild, { value: searchChild.value, children: [] })]
-                    });
-                }
 
-                return acc;
-            }, existingChildArray);
-
-        return nodes;
+                // child from search is completely new, but not fully populated, add it w/ a placeholder.
+                return acc.concat([{
+                    ...searchChild,
+                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
+                }]);
+            }, existingParent
+                .children
+                .map((node) => ({ ...node, className: 'hide' })));
     }
-    else if (existingParent.children && !parentFromSearch.children) {
-        return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
+    else if (doesNodeHaveGenuineChildren(existingParent) && !doesNodeHaveGenuineChildren(parentFromSearch)) {
+        return {
+            ...existingParent,
+            className: 'hide',
+            children: addChildrenAndPossiblyPlaceholder(
+                existingParent.children.map((child) => ({ ...child, className: 'hide' })),
+                existingParent,
+                true
+            )
+        };
     }
-    else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
-        return [
-            ...parentFromSearch.children,
-            {
-                className: 'hide',
-                isPlaceHolder: true,
-                label: 'Placeholder Child',
-                value: `children_of_${parentFromSearch.value}`
-            }
-        ];
+    else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
+        return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
     }
     return [];
 };
@@ -511,13 +507,12 @@ export const addSearchResultsToTree = (
     const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
     return tree
         .map((existingNode) => {
-            // nodeKey is naicsCode!
             const nodeKey = existingNode.value;
             if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 return {
                     ...nodeFromSearch,
-                    children: [...mergeChildren(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
+                    children: [...appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
                 };
             }
             return { ...existingNode, className: 'hide' };
@@ -533,24 +528,31 @@ export const addSearchResultsToTree = (
  * @param traverseTreeByCodeFn a fn used to get any node in the tree by the code/value/id of the node
  * @returns a new array of objects with the newNodes appended to the right place
 */
-export const populateBranchOrLeafLevelNodes = (
+export const populateChildNodes = (
     tree,
     key = '',
     newNodes = [],
     getHighestAncestorCode,
+    getImmediateAncestorCode,
     traverseTreeByCodeFn
 ) => {
-    // 1. add nodes to either branch or leaf level of tree
-    // 2. when adding nodes, don't remove placeholders if we're adding a partial child and don't remove any existing children
+    // 1. add nodes to either branch (recursive) or leaf level of tree
+    // 2. when adding nodes, don't remove any existing children that aren't placeholders as they are assumed to have and likely do have children of their own from search.
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
+    const immediateAncestorCode = nodeWithNewChildren
+        ? getImmediateAncestorCode(nodeWithNewChildren)
+        : getImmediateAncestorCode(key);
     const highestAncestorCode = nodeWithNewChildren
         ? getHighestAncestorCode(nodeWithNewChildren)
         : getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
-        const shouldPopulateBranch = node.value === key;
-        const shouldPopulateLeaves = node.value === highestAncestorCode;
-        if (shouldPopulateBranch) {
+        const shouldPopulateChildren = node.value === key;
+        const shouldPopulateGrandChildren = (
+            node.value === immediateAncestorCode ||
+            node.value === highestAncestorCode
+        );
+        if (shouldPopulateChildren) {
             // we're populating an immediate descendant of the top-tier parent; AKA a "branch".
             return {
                 ...node,
@@ -559,19 +561,20 @@ export const populateBranchOrLeafLevelNodes = (
                         const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
                         const weHaveTheGrandChildren = (
                             existingChild &&
-                            existingChild?.children.length === child.count &&
-                            !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
+                            !areChildrenPartial(existingChild?.count, existingChild?.children)
                         );
                         const weHaveAtLeastOneGrandChild = (
                             existingChild &&
-                            existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
+                            existingChild?.children?.filter((grand) => !grand.isPlaceHolder)?.length > 0
                         );
                         if (weHaveTheGrandChildren) {
                             return {
                                 ...child,
                                 children: existingChild.children
-                                    .map((grand) => ({ ...grand, className: '' }))
-                                    .sort(sortNodesByValue)
+                                    ? existingChild.children
+                                        .map((grand) => ({ ...grand, className: '' }))
+                                        .sort(sortNodesByValue)
+                                    : []
                             };
                         }
                         if (weHaveAtLeastOneGrandChild) {
@@ -587,46 +590,18 @@ export const populateBranchOrLeafLevelNodes = (
                     }).sort(sortNodesByValue)
             };
         }
-        if (shouldPopulateLeaves) {
-            // we're adding grandchildren to an existing branch.
+        if (shouldPopulateGrandChildren) {
             return {
                 ...node,
                 className: '',
-                children: node.children
-                    ? node.children
-                        .map((child) => {
-                            if (child.value === key) {
-                                if (areChildrenPartial(child.count, child.children)) {
-                                    return {
-                                        ...child,
-                                        children: data.children
-                                    };
-                                }
-                                // we already have the data for this child, don't overwrite it w/ a node that has placeholder children.
-                                return {
-                                    ...child,
-                                    children: removePlaceHolders(child.children)
-                                };
-                            }
-                            const isParent = Object.keys(child).includes('children');
-                            if (isParent) {
-                                return {
-                                    ...child,
-                                    children: child.children.map((grand) => {
-                                        if (grand.value === key) {
-                                            return {
-                                                // populating great grand children; only happens w/ PSC
-                                                ...grand,
-                                                children: data.children
-                                            };
-                                        }
-                                        return grand;
-                                    })
-                                };
-                            }
-                            return child;
-                        })
-                    : []
+                children: populateChildNodes(
+                    node.children,
+                    key,
+                    newNodes,
+                    getHighestAncestorCode,
+                    getImmediateAncestorCode,
+                    traverseTreeByCodeFn
+                )
             };
         }
         const shouldAddNewBranchToTree = (

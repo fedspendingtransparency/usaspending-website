@@ -101,7 +101,7 @@ export default class GlossaryDefinition extends React.Component {
                 };
             }
             if (option.name === 'email') {
-                const onClick = getSocialShareFn(slug, option.name).bind(null, {
+                const onClick = getSocialShareFn(option.name).bind(null, {
                     subject: getGlossaryEmailSubject(url),
                     body: getGlossaryEmailBody(url)
                 });
@@ -112,7 +112,7 @@ export default class GlossaryDefinition extends React.Component {
             }
             return {
                 ...option,
-                onClick: getSocialShareFn(slug, option.name)
+                onClick: getSocialShareFn(option.name).bind(null, slug)
             };
         });
         return (

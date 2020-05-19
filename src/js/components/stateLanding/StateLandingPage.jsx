@@ -6,15 +6,20 @@
 import React from 'react';
 
 import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
+import { getBaseUrl } from 'helpers/socialShare';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
 
 require('pages/stateLanding/stateLandingPage.scss');
+
+const slug = 'state';
+const emailSubject = 'USAspending.gov State Profiles';
 
 export default class StateLandingPage extends React.Component {
     render() {
@@ -27,6 +32,14 @@ export default class StateLandingPage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             State Profiles
                         </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: emailSubject,
+                                body: `Search for different State profiles on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
                     </div>
                 </StickyHeader>
                 <main

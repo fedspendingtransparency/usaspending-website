@@ -7,27 +7,34 @@ import {
     faRedditSquare
 } from "@fortawesome/free-brands-svg-icons";
 
+export const socialUrls = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
+    twitter: `https://twitter.com/intent/tweet?url=`,
+    reddit: `http://www.reddit.com/submit?url=`,
+    linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
+};
+
 const openShareWindow = (url) => {
     window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
 };
 
 const handleShareClickFacebook = (url) => {
-    const finalUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    const finalUrl = `${socialUrls.facebook}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
 const handleShareClickTwitter = (url) => {
-    const finalUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
 const handleShareClickLinkedin = (url) => {
-    const finalUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}`;
+    const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
 const handleShareClickReddit = (url) => {
-    const finalUrl = `http://www.reddit.com/submit?url=${encodeURIComponent(url)}`;
+    const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
@@ -46,18 +53,15 @@ const handlersBySocialMedium = {
     linkedin: (url) => handleShareClickLinkedin(url)
 };
 
-const baseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
+export const getBaseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
 
-export const getSocialShareFn = (slug, socialMedium) => (
-    (args) => {
-        if (args) {
-            handlersBySocialMedium[socialMedium](args);
-        }
-        else {
-            handlersBySocialMedium[socialMedium](baseUrl(slug));
-        }
+export const getSocialShareFn = (socialMedium) => {
+    const fn = handlersBySocialMedium[socialMedium];
+    if (socialMedium === 'email') {
+        return (args) => fn(args);
     }
-);
+    return (slg) => fn(getBaseUrl(slg));
+};
 
 const GlossaryDropdownOption = ({ icon, title }) => (
     <>

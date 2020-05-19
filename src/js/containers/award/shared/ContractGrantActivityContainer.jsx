@@ -15,19 +15,22 @@ import {
     contractActivityGrants,
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
+import JumpToSectionButton from 'components/award/shared/awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     awardId: PropTypes.string,
     awardType: PropTypes.string,
     dates: PropTypes.object,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    jumpToTransactionHistoryTable: PropTypes.func
 };
 
 const ContractGrantActivityContainer = ({
     awardId,
     awardType,
     dates,
-    totalObligation
+    totalObligation,
+    jumpToTransactionHistoryTable
 }) => {
     // bad dates
     const [badDates, setBadDates] = useState(false);
@@ -263,6 +266,10 @@ const ContractGrantActivityContainer = ({
                     {message()}
                 </div>
                 {content()}
+                <JumpToSectionButton
+                    linkText="View transactions table"
+                    icon="table"
+                    onClick={jumpToTransactionHistoryTable} />
             </div>
         </div>
     );

@@ -5,8 +5,8 @@
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
-import { getHighestPscAncestor, getPscNodeFromTree } from 'helpers/pscHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
+import { getHighestPscAncestor, getImmediatePscAncestor, getPscNodeFromTree } from 'helpers/pscHelper';
 
 export const initialState = {
     psc: new List(),
@@ -17,11 +17,12 @@ export const initialState = {
     counts: new List()
 };
 
-const populatePscBranchOrLeafNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
+const populatePscBranchOrLeafNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
     key,
     newNodes,
     getHighestPscAncestor,
+    getImmediatePscAncestor,
     getPscNodeFromTree
 );
 
