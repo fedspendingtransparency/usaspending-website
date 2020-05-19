@@ -19,7 +19,12 @@ const propTypes = {
     potentialEndLineValue: PropTypes.number,
     awardType: PropTypes.string,
     showHideTooltip: PropTypes.func,
-    thisLineOrTextIsHovered: PropTypes.string
+    thisLineOrTextIsHovered: PropTypes.string,
+    verticalLineTextData: PropTypes.func,
+    startLineHeight: PropTypes.number,
+    endLineHeight: PropTypes.number,
+    potentialEndLineHeight: PropTypes.number,
+    todayLineHeight: PropTypes.number
 };
 
 const ContractGrantActivityChartVerticalLines = ({
@@ -33,7 +38,12 @@ const ContractGrantActivityChartVerticalLines = ({
     potentialEndLineValue,
     awardType,
     showHideTooltip,
-    thisLineOrTextIsHovered
+    thisLineOrTextIsHovered,
+    verticalLineTextData,
+    startLineHeight,
+    endLineHeight,
+    potentialEndLineHeight,
+    todayLineHeight
 }) => {
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : 'Current End';
@@ -64,12 +74,13 @@ const ContractGrantActivityChartVerticalLines = ({
         .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${moment(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
     return (
         <g className="contract-grant-activity-chart__vertical-lines">
+            {/* {createAllTheLines()} */}
             {/* start line */}
             {xScale && <SVGLine
                 scale={xScale}
-                y1={-10}
+                y1={startLineHeight - 10}
                 y2={height}
-                textY={0}
+                textY={startLineHeight}
                 text="Start"
                 description={descriptions[0]}
                 max={xDomain[1]}
@@ -82,13 +93,14 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseMoveLine={showHideTooltip}
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
-                onMouseLeaveText={showHideTooltip} />}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
             {/* today line */}
             {xScale && <SVGLine
                 scale={xScale}
-                y1={-10}
+                y1={todayLineHeight - 10}
                 y2={height}
-                textY={0}
+                textY={todayLineHeight}
                 text="Today"
                 description={descriptions[1]}
                 max={xDomain[1]}
@@ -97,13 +109,14 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="left"
                 adjustmentX={padding.left}
                 textClassname="today"
-                lineClassname="today" />}
+                lineClassname="today"
+                verticalLineTextData={verticalLineTextData} />}
             {/* end line */}
             {xScale && <SVGLine
                 scale={xScale}
-                y1={-10}
+                y1={endLineHeight - 10}
                 y2={height}
-                textY={0}
+                textY={endLineHeight}
                 text={endLineText}
                 description={descriptions[2]}
                 max={xDomain[1]}
@@ -116,13 +129,14 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseMoveLine={showHideTooltip}
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
-                onMouseLeaveText={showHideTooltip} />}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
             {/* potential end line */}
             {xScale && <SVGLine
                 scale={xScale}
-                y1={-10}
+                y1={potentialEndLineHeight - 10}
                 y2={height}
-                textY={0}
+                textY={potentialEndLineHeight}
                 text="Potential End"
                 description={descriptions[3]}
                 max={xDomain[1]}
@@ -135,7 +149,8 @@ const ContractGrantActivityChartVerticalLines = ({
                 onMouseMoveLine={showHideTooltip}
                 onMouseLeaveLine={showHideTooltip}
                 onMouseMoveText={showHideTooltip}
-                onMouseLeaveText={showHideTooltip} />}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
         </g>
     );
 };

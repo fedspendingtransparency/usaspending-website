@@ -196,4 +196,20 @@
       @import "./idv/awardIdv";
       @import "layouts/search/header/downloadButton";
   }
+  .sticky-header {
+    .sticky-header__toolbar {
+      height: rem(34);
+      @include display(flex);
+      .sticky-header__toolbar-item:nth-of-type(1) {
+        @include align-self(flex-start);
+        .copy-confirmation {
+          top: rem(46);
+          right: rem(127);
+        }
+      }
+      .download-button {
+        margin-top: 0;
+      }
+    }
+  }
 }
