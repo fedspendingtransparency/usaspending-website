@@ -45,6 +45,9 @@ export default class SVGLine extends Component {
         };
         // React will call this function when the DOM draws it ( React Callback Refs )
         const textArray = Array.isArray(props.text) ? props.text : [props.text];
+        /**
+         * TODO - Do not use Variable Class Properties state, methods, refs?
+         */
         if (!props.noText) {
             textArray.forEach((text) => {
                 const stateName = text.replace(/\s/g, '').toLowerCase();
@@ -232,6 +235,9 @@ export default class SVGLine extends Component {
         if (!lineIsDisplayed || noText) return null;
         const textArray = Array.isArray(text) ? text : [text];
         const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
+        /**
+         * TODO - Do not use Variable Class Properties state, methods, refs?
+         */
         return textArray.map((data, i) => {
             const stateName = data.replace(/\s/g, '').toLowerCase();
             return (
