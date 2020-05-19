@@ -19,7 +19,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2020-05-15';
+export const filterStoreVersion = '2020-05-20';
 
 export function CheckboxTreeSelections(data = { require: [], exclude: [], counts: [] }) {
     this.require = data.require;
