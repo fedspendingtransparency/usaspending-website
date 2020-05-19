@@ -62,6 +62,12 @@ export default class SVGLine extends Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
+    componentDidUpdate(prevProps) {
+        if ((prevProps.textY !== this.props.textY) && !this.props.noText) {
+            this.positionText(this.props.text);
+        }
+    }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     }
@@ -241,7 +247,7 @@ export default class SVGLine extends Component {
                         tabIndex="0"
                         className={classname}
                         x={this.state[`${stateName}TextX`]}
-                        y={this.state[`${stateName}TextY`] || this.props.textY}
+                        y={this.state[`${stateName}TextY`]}
                         ref={this[`setTextDiv${stateName}`]}
                         data-wordindex={i}
                         onMouseMove={this.onMouseMoveText}
