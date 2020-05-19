@@ -138,8 +138,9 @@
       opacity: 0.3;
     }
     .svg-line {
+      stroke-width: 2;
       &.start {
-        stroke: $color-green-lighter;
+        stroke: $color-green-light;
       }
       &.noOpacity {
         opacity: 1;
@@ -172,7 +173,7 @@
     .svg-line__text {
       font-weight: $font-semibold;
       &.start {
-        fill: $color-green-lighter;
+        fill: $color-green-light;
       }
       &.contract-end {
         fill: $color-gold-light;
