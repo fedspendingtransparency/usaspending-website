@@ -2,11 +2,15 @@
  * SearchAwardsOperation.js
  * Created by michaelbray on 8/7/17.
  */
-
-import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
-    from 'dataMapping/search/awardsOperationKeys';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { pickBy } from 'lodash';
+import {
+    rootKeys,
+    timePeriodKeys,
+    agencyKeys,
+    awardAmountKeys,
+    checkboxTreeKeys
+} from 'dataMapping/search/awardsOperationKeys';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 class SearchAwardsOperation {
     constructor() {
@@ -23,7 +27,7 @@ class SearchAwardsOperation {
 
         this.tasSources = [];
         this.accountSources = [];
-        this.tasCheckbox = { require: [], exclude: [] };
+        this.tasCheckbox = checkboxTreeKeys;
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -39,9 +43,9 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = [];
         this.selectedNAICS = [];
-        this.naicsCodes = { require: [], exclude: [] };
+        this.naicsCodes = checkboxTreeKeys;
         this.selectedPSC = [];
-        this.pscCheckbox = { require: [], exclude: [] };
+        this.pscCheckbox = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
