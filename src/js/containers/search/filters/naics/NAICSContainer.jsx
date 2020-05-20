@@ -33,7 +33,8 @@ import {
     setSearchedNaics,
     addCheckedNaics,
     showNaicsTree,
-    setUncheckedNaics
+    setUncheckedNaics,
+    setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
@@ -52,12 +53,19 @@ const propTypes = {
     addCheckedNaics: PropTypes.func,
     showNaicsTree: PropTypes.func,
     setUncheckedNaics: PropTypes.func,
+    setNaicsCounts: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
     checkedFromHash: PropTypes.arrayOf(PropTypes.string),
     uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
+    countsFromHash: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string,
+        count: PropTypes.string,
+        value: PropTypes.string
+    })),
     nodes: PropTypes.arrayOf(PropTypes.object),
+    counts: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     filters: PropTypes.object
 };
@@ -71,18 +79,19 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             isSearch: false,
             searchString: '',
-            requestType: 'initial',
-            stagedNaicsFilters: []
+            requestType: 'initial'
         };
         this.request = null;
     }
 
     componentDidMount() {
-        const { checkedFromHash, uncheckedFromHash } = this.props;
+        const { checkedFromHash, uncheckedFromHash, countsFromHash } = this.props;
         if (this.props.nodes.length !== 0 && !checkedFromHash && !uncheckedFromHash) return Promise.resolve();
         return this.fetchNAICS()
             .then(() => {
                 if (checkedFromHash.length > 0) {
+                    // counts should live in redux.
+                    this.props.setNaicsCounts(countsFromHash);
                     // Loading the checkbox tree from a url hash...
                     const uniqueAncestorsByTreeLocation = [
                         ...checkedFromHash,
@@ -126,24 +135,15 @@ export class NAICSContainer extends React.Component {
                                             .filter((naicsCode) => !uncheckedFromHash.includes(naicsCode))
                                     ];
                                 }, []);
-                            const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
+                            const [_, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
                                 newChecked,
                                 [],
                                 uncheckedFromHash,
                                 this.props.nodes,
-                                this.state.stagedNaicsFilters
+                                this.props.counts
                             );
-                            // counts should live in redux.
-                            this.setState({ stagedNaicsFilters: newCounts });
                             this.props.setUncheckedNaics(newUnchecked);
                             this.props.setCheckedNaics(newChecked);
-                            this.props.restoreHashedFilters({
-                                ...this.props.filters,
-                                naicsCodes: {
-                                    ...this.props.filters.naicsCodes,
-                                    counts: newCounts
-                                }
-                            });
                         });
                 }
                 if (this.props.nodes.length > 0) {
@@ -158,9 +158,9 @@ export class NAICSContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.checked.length === 0 && prevProps.checked.length !== 0 && this.state.stagedNaicsFilters.length !== 0) {
+        if (this.props.checked.length === 0 && prevProps.checked.length !== 0 && this.props.counts.length !== 0) {
             // eslint-disable-next-line react/no-did-update-set-state
-            this.setState({ stagedNaicsFilters: [] });
+            this.props.setNaicsCounts([]);
         }
     }
 
@@ -181,18 +181,18 @@ export class NAICSContainer extends React.Component {
     }
 
     onCheck = (newChecked) => {
-        const [stagedNaicsFilters, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
+        const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
             newChecked,
             this.props.checked,
             this.props.unchecked,
             this.props.nodes,
-            this.state.stagedNaicsFilters
+            this.props.counts
         );
 
-        this.setState({ stagedNaicsFilters });
+        this.props.setNaicsCounts(newCounts);
         this.props.setCheckedNaics(newChecked);
         this.props.setUncheckedNaics(newUnchecked);
-        this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
+        this.props.stageNaics(newChecked, newUnchecked, newCounts);
 
         if (this.hint) {
             this.hint.showHint();
@@ -204,19 +204,19 @@ export class NAICSContainer extends React.Component {
             this.onCheck(newChecked);
         }
         else {
-            const [stagedNaicsFilters, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
+            const [newCounts, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
                 uncheckedNode,
                 this.props.unchecked,
                 this.props.checked,
-                this.state.stagedNaicsFilters,
+                this.props.counts,
                 this.props.nodes
             );
 
             this.props.setUncheckedNaics(newUnchecked);
-            this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
+            this.props.stageNaics(newChecked, newUnchecked, newCounts);
             this.props.setCheckedNaics(newChecked);
 
-            this.setState({ stagedNaicsFilters });
+            this.props.setNaicsCounts(newCounts);
         }
     }
 
@@ -398,7 +398,8 @@ export class NAICSContainer extends React.Component {
 
     render() {
         const showNoResults = this.showNoResults();
-        const { searchString, stagedNaicsFilters } = this.state;
+        const { searchString } = this.state;
+        const { counts } = this.props;
         return (
             <div>
                 <div className="naics-search-container">
@@ -412,12 +413,12 @@ export class NAICSContainer extends React.Component {
                         isClearable
                         onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}
-                    {this.props.checked.length !== 0 && stagedNaicsFilters.length !== 0 && (
+                    {counts.length !== 0 && (
                         <div
                             id="award-search-selected-locations"
                             className="selected-filters"
                             role="status">
-                            {stagedNaicsFilters.map((node) => {
+                            {counts.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
                                     <button
@@ -453,8 +454,10 @@ export default connect(
         searchExpanded: state.naics.searchExpanded.toJS(),
         checked: state.naics.checked.toJS(),
         unchecked: state.naics.unchecked.toJS(),
+        counts: state.naics.counts.toJS(),
         checkedFromHash: state.appliedFilters.filters.naicsCodes.require,
         uncheckedFromHash: state.appliedFilters.filters.naicsCodes.exclude,
+        countsFromHash: state.appliedFilters.filters.naicsCodes.counts,
         filters: state.appliedFilters.filters
     }),
     (dispatch) => ({
@@ -466,5 +469,6 @@ export default connect(
         setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes)),
         showNaicsTree: () => dispatch(showNaicsTree()),
         setUncheckedNaics: (unchecked) => dispatch(setUncheckedNaics(unchecked)),
-        restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters))
+        restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters)),
+        setNaicsCounts: (newCounts) => dispatch(setNaicsCounts(newCounts))
     }))(NAICSContainer);
