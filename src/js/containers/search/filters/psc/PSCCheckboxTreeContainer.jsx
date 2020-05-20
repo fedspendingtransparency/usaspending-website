@@ -52,6 +52,7 @@ const propTypes = {
     unchecked: PropTypes.arrayOf(PropTypes.string),
     checkedFromHash: PropTypes.arrayOf(PropTypes.string),
     uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
+    countsFropmHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
@@ -72,7 +73,12 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     async componentDidMount() {
-        const { nodes, uncheckedFromHash, checkedFromHash } = this.props;
+        const {
+            nodes,
+            uncheckedFromHash,
+            checkedFromHash,
+            countsFromHash
+        } = this.props;
         if (
             nodes.length !== 0 &&
             checkedFromHash.length === 0 &&
@@ -84,6 +90,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         return this.fetchPsc('', null, false)
             .then(() => {
                 if (checkedFromHash.length > 0) {
+                    this.props.setPscCounts(countsFromHash);
                     const uniqueAncestorsOfChecked = checkedFromHash.concat(uncheckedFromHash)
                         .reduce((listOfUniqueAncestors, ancestryPath) => {
                             const numberOfAncestors = ancestryPath.length - 1;
@@ -243,7 +250,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     setCheckedStateFromUrlHash = (newChecked) => {
-        const { nodes, counts } = this.props;
+        const { nodes } = this.props;
         const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
         if (nodes.length > 0) {
             const newCheckedWithPlaceholders = flattenDeep(newChecked
@@ -252,17 +259,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     return getAllDescendants(node)
                         .filter((descendant) => !uncheckedFromHash.includes(descendant));
                 }));
-            const [newCounts, unchecked] = incrementPscCountAndUpdateUnchecked(
-                newCheckedWithPlaceholders,
-                [],
-                uncheckedFromHash,
-                nodes,
-                counts
-            );
-
-            this.props.setPscCounts(newCounts);
-            this.props.setUncheckedPsc(unchecked);
             this.props.setCheckedPsc(newCheckedWithPlaceholders);
+            this.props.setUncheckedPsc(uncheckedFromHash);
             this.setState({ isLoading: false });
         }
     }
@@ -459,7 +457,8 @@ const mapStateToProps = (state) => ({
     unchecked: state.psc.unchecked.toJS(),
     counts: state.psc.counts.toJS(),
     checkedFromHash: state.appliedFilters.filters.pscCodes.require,
-    uncheckedFromHash: state.appliedFilters.filters.pscCodes.exclude
+    uncheckedFromHash: state.appliedFilters.filters.pscCodes.exclude,
+    countsFromHash: state.appliedFilters.filters.pscCodes.counts
 });
 
 const mapDispatchToProps = (dispatch) => ({

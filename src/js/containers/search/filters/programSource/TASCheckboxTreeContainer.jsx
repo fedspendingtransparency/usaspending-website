@@ -86,7 +86,8 @@ export class TASCheckboxTree extends React.Component {
     async componentDidMount() {
         const {
             checkedFromHash,
-            uncheckedFromHash
+            uncheckedFromHash,
+            countsFromHash
         } = this.props;
         if (this.props.nodes.length !== 0 && !checkedFromHash && !uncheckedFromHash) {
             this.props.showTasTree();
@@ -95,63 +96,67 @@ export class TASCheckboxTree extends React.Component {
         return this.fetchTas('')
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    const checkedNodesByAgencyId = groupBy(checkedFromHash, (ancestryPath) => ancestryPath[0]);
-                    return Object.keys(checkedNodesByAgencyId)
-                        .reduce((prevPromise, agency) => prevPromise
-                            // fetch the agency
-                            .then(() => this.fetchTas(agency)), Promise.resolve([])
-                        )
-                        .then(() => Object.entries(checkedNodesByAgencyId)
-                            .reduce((prevPromise, [, selectedTwoDArray]) => prevPromise
-                                .then(() => {
-                                    const selectedTasUnderAgency = selectedTwoDArray.filter((selectedArray) => selectedArray.length === 3);
-                                    if (selectedTasUnderAgency.length !== 0) {
-                                        // fetch the federal account for the TAS, if any
-                                        return Promise.all([
-                                            // no duplicate federal accounts in this array, we only need to fetch each federal account once.
-                                            ...Object.keys(groupBy(selectedTasUnderAgency, (arr) => `${arr[0]}/${arr[1]}`))
-                                                .map((uniqueFederalAccount) => this.fetchTas(uniqueFederalAccount))
-                                        ]);
+                    this.props.setTasCounts(countsFromHash);
+                    const uniqueAncestorsOfChecked = checkedFromHash.concat(uncheckedFromHash)
+                        .reduce((listOfUniqueAncestors, ancestryPath) => {
+                            const numberOfAncestors = ancestryPath.length - 1;
+                            const uniqueAncestors = [...new Array(numberOfAncestors)]
+                                .reduce((ancestors, _, i) => {
+                                    const currentAncestor = ancestryPath[i];
+                                    // already have this ancestor, move to the next.
+                                    if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                                        return ancestors;
                                     }
-                                    return Promise.resolve();
-                                }), Promise.resolve())
+                                    // top level ancestor does not exist, add it and move to the next.
+                                    if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                                        return ancestors.concat([currentAncestor]);
+                                    }
+
+                                    // ancestor string like parentX/parentY/parentZ
+                                    const ancestorString = [...new Array(i + 1)]
+                                        .reduce((str, __, index) => {
+                                            if (index === 0) {
+                                                return `${ancestryPath[index]}`;
+                                            }
+                                            return `${str}/${ancestryPath[index]}`;
+                                        }, '');
+
+                                    if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+
+                                    return ancestors.concat([ancestorString]);
+                                }, []);
+
+                            return listOfUniqueAncestors.concat(uniqueAncestors);
+                        }, []);
+                    return uniqueAncestorsOfChecked
+                        .sort((param1, param2) => {
+                            const a = param1.split('/').length;
+                            const b = param2.split('/').length;
+                            // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+                            if (b > a) return -1;
+                            if (a > b) return 1;
+                            return 0;
+                        })
+                        .reduce((prevPromise, param) => prevPromise
+                            // fetch the all the ancestors of the checked nodes
+                            .then(() => this.fetchTas(param, null, false)), Promise.resolve([])
                         )
                         .then(() => {
-                            // the tree is now guaranteed to be populated adequately such that we can register counts and full/half check the tree.
-                            const selectedNodesByTreeLevel = groupBy(checkedFromHash, (ancestryPath) => {
-                                if (ancestryPath.length === 2) return 'branch';
-                                return 'leaf';
+                            this.setCheckedStateFromUrlHash(
+                                checkedFromHash
+                                    .map((ancestryPath) => ancestryPath.pop())
+                                    .filter((ancestor) => !uncheckedFromHash.includes(ancestor))
+                            );
+                            this.props.setExpandedTas([
+                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
+                            ]);
+                        })
+                        .catch((e) => {
+                            this.setState({
+                                isLoading: false,
+                                isError: true,
+                                errorMessage: get(e, 'message', 'Error fetching TAS.')
                             });
-                            const newChecked = Object.entries(selectedNodesByTreeLevel)
-                                .reduce((acc, [location, array]) => {
-                                    if (location === 'branch') {
-                                        return [
-                                            ...acc,
-                                            ...array
-                                                .map((ancestryPath) => ancestryPath[1])
-                                                .reduce((grandChildren, node) => {
-                                                    if (this.props.nodes.length === 0) return grandChildren;
-                                                    const newGrandChildren = getTasNodeFromTree(this.props.nodes, node)
-                                                        .children
-                                                        .map((child) => child.value);
-                                                    return [...grandChildren, ...newGrandChildren];
-                                                }, acc)
-                                        ];
-                                    }
-                                    return [
-                                        ...acc,
-                                        ...array
-                                            .map((ancestryPath) => ancestryPath[2])
-                                    ];
-                                }, [])
-                                .filter((checked) => {
-                                    const inUncheckedArray = uncheckedFromHash.some((arr) => arr[arr.length - 1] === checked);
-                                    if (inUncheckedArray) return false;
-                                    return true;
-                                });
-
-                            this.setCheckedStateFromUrlHash(newChecked);
-                            this.props.setExpandedTas(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
                         });
                 }
                 // just do this for consistent return.
@@ -251,24 +256,9 @@ export class TASCheckboxTree extends React.Component {
 
     setCheckedStateFromUrlHash = (newChecked) => {
         if (this.props.nodes.length > 0) {
-            const [counts, unchecked] = incrementTasCountAndUpdateUnchecked(
-                newChecked,
-                [],
-                this.props.unchecked,
-                this.props.nodes,
-                this.props.counts
-            );
-
-            this.props.setTasCounts(counts);
-            this.props.setUncheckedTas(unchecked);
+            const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
+            this.props.setUncheckedTas(uncheckedFromHash);
             this.props.setCheckedTas(newChecked);
-            this.props.restoreHashedFilters({
-                ...this.props.filters,
-                tasCodes: {
-                    ...this.props.filters.tasCodes,
-                    counts
-                }
-            });
         }
     }
 
@@ -299,7 +289,7 @@ export class TASCheckboxTree extends React.Component {
         return new Set([...checked, ...newChecked]);
     }
 
-    fetchTas = (id = '', searchStr = '') => {
+    fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (this.request) this.request.cancel();
         if (id === '') {
             this.setState({ isLoading: true });
@@ -324,7 +314,9 @@ export class TASCheckboxTree extends React.Component {
                     const key = id.includes('/')
                         ? id.split('/')[1]
                         : id;
-                    this.setState({ isLoading: false });
+                    if (resolveLoadingIndicator) {
+                        this.setState({ isLoading: false });
+                    }
                     const newChecked = this.props.checked.includes(`children_of_${key}`)
                         ? autoCheckTasAfterExpand(
                             { children: nodes, value: key },
@@ -470,6 +462,7 @@ const mapStateToProps = (state) => ({
     counts: state.tas.counts.toJS(),
     checkedFromHash: state.appliedFilters.filters.tasCodes.require,
     uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
+    countsFromHash: state.appliedFilters.filters.tasCodes.counts,
     filters: state.appliedFilters.filters
 });
 
