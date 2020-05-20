@@ -37,7 +37,6 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
-import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
@@ -90,38 +89,41 @@ export class NAICSContainer extends React.Component {
         return this.fetchNAICS()
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    // counts should live in redux.
                     this.props.setNaicsCounts(countsFromHash);
+                    this.props.setUncheckedNaics(uncheckedFromHash);
                     // Loading the checkbox tree from a url hash...
-                    const uniqueAncestorsByTreeLocation = [
+                    const allUniqueAncestors = [
                         ...checkedFromHash,
                         ...uncheckedFromHash
-                    ]
-                        .reduce((acc, checked) => {
-                            const ancestorNode = getImmediateAncestorNaicsCode(checked);
-                            const highestAncestorNode = getHighestAncestorNaicsCode(checked);
-                            if (ancestorNode === highestAncestorNode) {
-                                return {
-                                    ...acc,
-                                    trunk: acc.trunk.add(highestAncestorNode)
-                                };
+                    ].reduce((uniqueAncestors, code) => {
+                        const highestAncestor = getHighestAncestorNaicsCode(code);
+                        const immediateAncestor = getImmediateAncestorNaicsCode(code);
+                        if (uniqueAncestors.includes(highestAncestor)) {
+                            if (!uniqueAncestors.includes(immediateAncestor)) {
+                                return uniqueAncestors.concat([immediateAncestor]);
                             }
-                            return {
-                                ...acc,
-                                trunk: acc.trunk.add(highestAncestorNode),
-                                branch: acc.branch.add(ancestorNode)
-                            };
-                        }, { trunk: new Set(), branch: new Set() });
+                            return uniqueAncestors;
+                        }
+                        return uniqueAncestors.concat(
+                            [highestAncestor, immediateAncestor]
+                                .filter((ancestor) => {
+                                    if (uniqueAncestors.includes(ancestor)) {
+                                        return false;
+                                    }
+                                    return true;
+                                })
+                        );
+                    }, []).sort((a, b) => {
+                        if (b.length > a.length) return -1;
+                        if (a.length > b.length) return 1;
+                        return 0;
+                    });
 
                     // Sequentially populate tree.
-                    return [...uniqueAncestorsByTreeLocation.trunk]
-                        .reduce((prevPromise, trunkLevelAncestor) => prevPromise
-                            .then(() => this.fetchNAICS(trunkLevelAncestor)), Promise.resolve())
-                        .then(() => [...uniqueAncestorsByTreeLocation.branch]
-                            .reduce((prevPromise, branchLevelAncestor) => prevPromise
-                                .then(() => this.fetchNAICS(branchLevelAncestor)), Promise.resolve())
-                        )
-                        // Then populate the checked & unchecked arrays, along with their corresponding counts.
+                    return allUniqueAncestors
+                        .reduce((prevPromise, ancestor) => prevPromise
+                            .then(() => this.fetchNAICS(ancestor)), Promise.resolve())
+                        // Then populate the checked array w/ the real checked-nodes descendants
                         .then(() => {
                             const newChecked = checkedFromHash
                                 .reduce((acc, checked) => {
@@ -135,14 +137,6 @@ export class NAICSContainer extends React.Component {
                                             .filter((naicsCode) => !uncheckedFromHash.includes(naicsCode))
                                     ];
                                 }, []);
-                            const [_, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
-                                newChecked,
-                                [],
-                                uncheckedFromHash,
-                                this.props.nodes,
-                                this.props.counts
-                            );
-                            this.props.setUncheckedNaics(newUnchecked);
                             this.props.setCheckedNaics(newChecked);
                         });
                 }
@@ -469,6 +463,5 @@ export default connect(
         setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes)),
         showNaicsTree: () => dispatch(showNaicsTree()),
         setUncheckedNaics: (unchecked) => dispatch(setUncheckedNaics(unchecked)),
-        restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters)),
         setNaicsCounts: (newCounts) => dispatch(setNaicsCounts(newCounts))
     }))(NAICSContainer);
