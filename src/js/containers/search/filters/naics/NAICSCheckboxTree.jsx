@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /**
   * NAICSSearchContainer.jsx => NAICSCheckboxTree.jsx
   * Created by Emily Gullo 07/10/2017
@@ -122,9 +121,10 @@ export class NAICSCheckboxTree extends React.Component {
                     // Sequentially populate tree.
                     return allUniqueAncestors
                         .reduce((prevPromise, ancestor) => prevPromise
-                            .then(() => this.fetchNAICS(ancestor)), Promise.resolve())
+                            .then(() => this.fetchNAICS(ancestor, false)), Promise.resolve())
                         // Then populate the checked array w/ the real checked-nodes descendants
                         .then(() => {
+                            this.setState({ isLoading: false });
                             const newChecked = checkedFromHash
                                 .reduce((acc, checked) => {
                                     if (checked.length === 6 && !uncheckedFromHash.includes(checked)) {
@@ -153,7 +153,6 @@ export class NAICSCheckboxTree extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.checked.length === 0 && prevProps.checked.length !== 0 && this.props.counts.length !== 0) {
-            // eslint-disable-next-line react/no-did-update-set-state
             this.props.setNaicsCounts([]);
         }
     }
@@ -293,7 +292,7 @@ export class NAICSCheckboxTree extends React.Component {
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
-    fetchNAICS = (param = '') => {
+    fetchNAICS = (param = '', resolveLoading = true) => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
         const { checked } = this.props;
@@ -328,7 +327,7 @@ export class NAICSCheckboxTree extends React.Component {
                 }
 
                 this.setState({
-                    isLoading: false,
+                    isLoading: resolveLoading ? false : this.state.isLoading,
                     isError: false,
                     errorMessage: '',
                     requestType: ''

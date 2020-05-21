@@ -18,7 +18,7 @@ jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 
 describe('NAICS Search Filter Container', () => {
     describe('Loading a stateful tree from url hash', () => {
-        it('fetches the immediate ancestor when only a grandchild is in checked', async () => {
+        it('fetches the ancestors when only a grandchild is in checked', async () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
             const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
@@ -26,6 +26,7 @@ describe('NAICS Search Filter Container', () => {
                 checkedFromHash={["111110"]} />);
             container.instance().fetchNAICS = mockFetchNaics;
             await container.instance().componentDidMount();
+            expect(mockFetchNaics).toHaveBeenCalledWith('11');
             expect(mockFetchNaics).toHaveBeenCalledWith('1111');
         });
         it('fetches the children of the checked nodes from the hash and adds their placeholder children to checked array', () => {
