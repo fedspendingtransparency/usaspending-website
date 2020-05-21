@@ -6,7 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
+import { debounce, uniqueId } from 'lodash';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -414,6 +414,7 @@ export class NAICSCheckboxTree extends React.Component {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
                                     <button
+                                        key={uniqueId()}
                                         className="shown-filter-button"
                                         value={label}
                                         onClick={() => this.removeStagedNaics(node)}
