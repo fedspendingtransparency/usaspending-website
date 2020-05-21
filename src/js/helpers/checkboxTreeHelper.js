@@ -2,7 +2,7 @@
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
 **/
-import { difference, cloneDeep } from 'lodash';
+import { difference, cloneDeep, isEqual } from 'lodash';
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
@@ -736,6 +736,21 @@ export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => 
     )]
     .map((code) => traverseTreeByCodeFn(nodes, code))
     .map((node) => ([...node.ancestors, node.value]));
+
+export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths
+    .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
+        const ancestorsForCheckedDescendant = ancestryPath.slice(0, ancestryPath.length - 1);
+        const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
+            .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
+                isEqual(arr, [ancestor]) ||
+                isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
+                isEqual(arr, listOfAncestors)
+            )));
+        if (isSomeAncestorAlreadyChecked) {
+            return leanArrayOfAncestryPaths;
+        }
+        return leanArrayOfAncestryPaths.concat([ancestryPath]);
+    }, []);
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,

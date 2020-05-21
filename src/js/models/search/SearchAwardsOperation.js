@@ -11,6 +11,7 @@ import {
     checkboxTreeKeys
 } from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { trimCheckedToCommonAncestors } from 'helpers/checkboxTreeHelper';
 
 class SearchAwardsOperation {
     constructor() {
@@ -217,10 +218,13 @@ class SearchAwardsOperation {
 
         if (this.tasCheckbox.require.length > 0) {
             if (this.tasCheckbox.exclude.length > 0) {
-                filters[rootKeys.tasCheckbox] = this.tasCheckbox;
+                filters[rootKeys.tasCheckbox] = {
+                    require: trimCheckedToCommonAncestors(this.tasCheckbox.require),
+                    exclude: this.tasCheckbox.exclude
+                };
             }
             else {
-                filters[rootKeys.tasCheckbox] = { require: this.tasCheckbox.require };
+                filters[rootKeys.tasCheckbox] = { require: trimCheckedToCommonAncestors(this.tasCheckbox.require) };
             }
         }
 
@@ -322,10 +326,13 @@ class SearchAwardsOperation {
         }
         if (this.pscCheckbox.require.length > 0) {
             if (this.pscCheckbox.exclude.length > 0) {
-                filters[rootKeys.psc] = { require: this.pscCheckbox.require, exclude: this.pscCheckbox.exclude };
+                filters[rootKeys.psc] = {
+                    require: trimCheckedToCommonAncestors(this.pscCheckbox.require),
+                    exclude: this.pscCheckbox.exclude
+                };
             }
             else {
-                filters[rootKeys.psc] = { require: this.pscCheckbox.require };
+                filters[rootKeys.psc] = { require: trimCheckedToCommonAncestors(this.pscCheckbox.require) };
             }
         }
 

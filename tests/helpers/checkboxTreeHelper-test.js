@@ -14,7 +14,8 @@ import {
     doesNodeHaveGenuineChildren,
     addChildrenAndPossiblyPlaceholder,
     areChildrenPartial,
-    getUniqueAncestorPaths
+    getUniqueAncestorPaths,
+    trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -744,6 +745,72 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 ['Product'],
                 ['Product', '10'],
                 ['Service', 'D', 'D3', 'D316']
+            ]);
+        });
+    });
+    describe('trimCheckedToCommonAncestors', () => {
+        it('removes items that share a common ancestor', () => {
+            const initialArray = [
+                ['Product'],
+                ['Product', '10'],
+                ['Product', '11'],
+                ['Product', '12'],
+                ['Product', '13'],
+                ['Product', '14'],
+                ['Product', '15'],
+                ['Product', '16'],
+                ['Product', '17'],
+                ['Service', 'D', 'D3'],
+                ['Service', 'D', 'D3', 'D316'],
+                ['Service', 'D', 'D3', 'D317'],
+                ['Service', 'D', 'D3', 'D318'],
+                ['Service', 'D', 'D3', 'D319'],
+                ['Service', 'D', 'D3', 'D320'],
+                ['Service', 'D', 'D3', 'D330'],
+                ['Service', 'D', 'D3', 'D340']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(2);
+            expect(leanArray).toEqual([['Product'], ['Service', 'D', 'D3']]);
+        });
+        it('keeps items with no common ancestor', () => {
+            const initialArray = [
+                ['Product'],
+                ['Product', '10'],
+                ['Product', '11'],
+                ['Product', '12'],
+                ['Product', '13'],
+                ['Product', '14'],
+                ['Product', '15'],
+                ['Product', '16'],
+                ['Product', '17'],
+                ['Service', 'D', 'D3'],
+                ['Service', 'D', 'D3', 'D316'],
+                ['Service', 'D', 'D3', 'D317'],
+                ['Service', 'D', 'D3', 'D318'],
+                ['Service', 'D', 'D3', 'D319'],
+                ['Service', 'D', 'D3', 'D320'],
+                ['Service', 'D', 'D3', 'D330'],
+                ['Service', 'D', 'D3', 'D340'],
+                ['Service', 'B', 'B5'],
+                ['Service', 'B', 'B5', 'B503'],
+                ['Service', 'B', 'B5', 'B504'],
+                ['Research and Development', 'AA'],
+                ['Research and Development', 'AA', 'AA09'],
+                ['Research and Development', 'AA', 'AA10'],
+                ['Research and Development', 'AB', 'AB05'],
+                ['Research and Development', 'AB', 'AB06']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(6);
+            expect(leanArray).toEqual([
+                ['Product'],
+                ['Service', 'D', 'D3'],
+                ['Service', 'B', 'B5'],
+                ['Research and Development', 'AA'],
+                // "AB" ancestor not included, so it includes the partial list of 'AB's descendants.
+                ['Research and Development', 'AB', 'AB05'],
+                ['Research and Development', 'AB', 'AB06']
             ]);
         });
     });
