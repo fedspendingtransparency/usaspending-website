@@ -26,8 +26,8 @@ describe('NAICS Search Filter Container', () => {
                 checkedFromHash={["111110"]} />);
             container.instance().fetchNAICS = mockFetchNaics;
             await container.instance().componentDidMount();
-            expect(mockFetchNaics).toHaveBeenCalledWith('11');
-            expect(mockFetchNaics).toHaveBeenCalledWith('1111');
+            expect(mockFetchNaics).toHaveBeenCalledWith('11', false);
+            expect(mockFetchNaics).toHaveBeenCalledWith('1111', false);
         });
         it('fetches the children of the checked nodes from the hash and adds their placeholder children to checked array', () => {
             const fetchNaics = jest.fn(() => Promise.resolve());
@@ -42,7 +42,7 @@ describe('NAICS Search Filter Container', () => {
                     // once for regular mount, once for the checked node.
                     expect(fetchNaics).toHaveBeenCalledTimes(2);
                     // second time it was called, it was called with the checked node from the hash
-                    expect(fetchNaics).toHaveBeenLastCalledWith('11');
+                    expect(fetchNaics).toHaveBeenLastCalledWith('11', false);
                     expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenCalledWith(['children_of_11']);
                 });
         });
@@ -93,8 +93,8 @@ describe('NAICS Search Filter Container', () => {
                 checkedFromHash={["111110", "111120", "111199", "111140", "111150", "111160", "111191"]} />);
             container.instance().fetchNAICS = mockFetchNaics;
             await container.instance().componentDidMount();
-            expect(mockFetchNaics).toHaveBeenCalledWith('11');
-            expect(mockFetchNaics).toHaveBeenLastCalledWith('1111');
+            expect(mockFetchNaics).toHaveBeenCalledWith('11', false);
+            expect(mockFetchNaics).toHaveBeenLastCalledWith('1111', false);
             expect(mockFetchNaics).toHaveBeenCalledTimes(3);
         });
     });
