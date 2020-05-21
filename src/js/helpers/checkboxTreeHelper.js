@@ -201,12 +201,18 @@ export const decrementCountAndUpdateUnchecked = (
             return nodeFromCounts;
         });
     }
-    // we only update the unchecked array if an ancestor of the unchecked node is checked
+    // only update the unchecked array if...
     const shouldUpdateUnchecked = (
-        checked.includes(parentKey) ||
-        checked.includes(`children_of_${parentKey}`) ||
-        checked.includes(ancestorKey) ||
-        checked.includes(`children_of_${ancestorKey}`)
+        (
+            // (a): an ancestor of the unchecked node is checked
+            checked.includes(parentKey) ||
+            checked.includes(`children_of_${parentKey}`) ||
+            checked.includes(ancestorKey) ||
+            checked.includes(`children_of_${ancestorKey}`)
+        ) && (
+            // and (b): the unchecked node is not one of the highest ancestors.
+            parentKey !== value
+        )
     );
 
     const newUnchecked = shouldUpdateUnchecked

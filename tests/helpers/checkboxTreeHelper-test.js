@@ -413,6 +413,21 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(counts[0].count).toEqual(7);
             expect(newUnchecked[0]).toEqual("111110");
         });
+        it('does not add to the unchecked array when the unchecked node is one of the highest ancestors', async () => {
+            const [counts, newUnchecked] = decrementCountAndUpdateUnchecked(
+                { checked: false, value: "11" },
+                [],
+                ["children_of_11"],
+                [{ value: '11', count: 64 }],
+                mockData.treeWithPlaceholdersAndRealData,
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+
+            expect(counts.length).toEqual(0);
+            expect(newUnchecked.length).toEqual(0);
+        });
     });
     describe('incrementCountAndUpdateUnchecked', () => {
         it('increments the count and updates the unchecked array when appropriate', () => {
