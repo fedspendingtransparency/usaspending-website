@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash';
+import { debounce, get, flattenDeep, uniqueId } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -386,6 +386,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
                                 <button
+                                    key={uniqueId()}
                                     className="shown-filter-button"
                                     value={label}
                                     onClick={(e) => this.removeSelectedFilter(e, node)}
