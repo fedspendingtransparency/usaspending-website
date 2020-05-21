@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, groupBy } from 'lodash';
+import { debounce, get } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -17,8 +17,10 @@ import {
     shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
-import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
-
+import {
+    removePlaceholderString,
+    getUniqueAncestorPaths
+} from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
     showTasTree,
@@ -97,46 +99,7 @@ export class TASCheckboxTree extends React.Component {
             .then(() => {
                 if (checkedFromHash.length > 0) {
                     this.props.setTasCounts(countsFromHash);
-                    const uniqueAncestorsOfChecked = checkedFromHash.concat(uncheckedFromHash)
-                        .reduce((listOfUniqueAncestors, ancestryPath) => {
-                            const numberOfAncestors = ancestryPath.length - 1;
-                            const uniqueAncestors = [...new Array(numberOfAncestors)]
-                                .reduce((ancestors, _, i) => {
-                                    const currentAncestor = ancestryPath[i];
-                                    // already have this ancestor, move to the next.
-                                    if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
-                                        return ancestors;
-                                    }
-                                    // top level ancestor does not exist, add it and move to the next.
-                                    if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
-                                        return ancestors.concat([currentAncestor]);
-                                    }
-
-                                    // ancestor string like parentX/parentY/parentZ
-                                    const ancestorString = [...new Array(i + 1)]
-                                        .reduce((str, __, index) => {
-                                            if (index === 0) {
-                                                return `${ancestryPath[index]}`;
-                                            }
-                                            return `${str}/${ancestryPath[index]}`;
-                                        }, '');
-
-                                    if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
-
-                                    return ancestors.concat([ancestorString]);
-                                }, []);
-
-                            return listOfUniqueAncestors.concat(uniqueAncestors);
-                        }, []);
-                    return uniqueAncestorsOfChecked
-                        .sort((param1, param2) => {
-                            const a = param1.split('/').length;
-                            const b = param2.split('/').length;
-                            // smaller the length, the higher up on the tree. Fetch the highest nodes first.
-                            if (b > a) return -1;
-                            if (a > b) return 1;
-                            return 0;
-                        })
+                    return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
                         .reduce((prevPromise, param) => prevPromise
                             // fetch the all the ancestors of the checked nodes
                             .then(() => this.fetchTas(param, null, false)), Promise.resolve([])

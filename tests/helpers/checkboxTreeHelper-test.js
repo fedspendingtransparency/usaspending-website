@@ -13,7 +13,8 @@ import {
     getAllDescendants,
     doesNodeHaveGenuineChildren,
     addChildrenAndPossiblyPlaceholder,
-    areChildrenPartial
+    areChildrenPartial,
+    getUniqueAncestorPaths
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -633,6 +634,29 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             expect(popoulatedChild.children.filter((child) => child.isPlaceHolder).length).toEqual(0);
             expect(partialChild.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+        });
+    });
+    describe('getUniqueAncestorPaths', () => {
+        it('returns each ancestor path only once', () => {
+            const result = getUniqueAncestorPaths([
+                ['Products', '10', '1000'],
+                ['Products', '10', '1001'],
+                ['Products', '10', '1002'],
+                ['Products', '10', '1003'],
+                ['Products', '10', '1004']
+            ]);
+            expect(result).toEqual(['Products', 'Products/10']);
+        });
+        it('returns an array of sorted paths, the highest tier coming first', () => {
+            const result = getUniqueAncestorPaths([
+                ['Products', '10', '1000'],
+                ['Products', '10', '1001'],
+                ['Products', '10', '1002'],
+                ['Products', '10', '1003'],
+                ['Products', '10', '1004'],
+                ['Services']
+            ]);
+            expect(result).toEqual(['Products', 'Services', 'Products/10']);
         });
     });
 });

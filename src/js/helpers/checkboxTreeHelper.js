@@ -675,6 +675,53 @@ export const showAllNodes = (tree) => tree
                 .sort(sortNodesByValue)
             : []
     }));
+/**
+ * @param checkedAncestorPaths 2d array, each item an ancestryPath with the last item in the array representing a checkedNode; ie, [[11, 1111, 111110]] to represented checked state for 111110
+ * @param uncheckedAncestorPaths same as @param checkedAncestorPaths except for unchecked nodes
+ * @returns a sorted list of unique ancestor paths delimited by a '/' to be used in an API call
+ */
+export const getUniqueAncestorPaths = (
+    checkedAncestorPaths,
+    uncheckedAncestorPaths = []
+) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
+    .reduce((listOfUniqueAncestors, ancestryPath) => {
+        const numberOfAncestors = ancestryPath.length - 1;
+        const uniqueAncestors = [...new Array(numberOfAncestors)]
+            .reduce((ancestors, _, i) => {
+                const currentAncestor = ancestryPath[i];
+                // already have this ancestor, move to the next.
+                if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors;
+                }
+                // top level ancestor does not exist, add it and move to the next.
+                if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors.concat([currentAncestor]);
+                }
+
+                // ancestor string like parentX/parentY/parentZ
+                const ancestorString = [...new Array(i + 1)]
+                    .reduce((str, __, index) => {
+                        if (index === 0) {
+                            return `${ancestryPath[index]}`;
+                        }
+                        return `${str}/${ancestryPath[index]}`;
+                    }, '');
+
+                if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+
+                return ancestors.concat([ancestorString]);
+            }, []);
+
+        return listOfUniqueAncestors.concat(uniqueAncestors);
+    }, [])
+    .sort((param1, param2) => {
+        const a = param1.split('/').length;
+        const b = param2.split('/').length;
+        // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+        if (b > a) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,
