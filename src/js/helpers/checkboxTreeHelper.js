@@ -685,6 +685,7 @@ export const getUniqueAncestorPaths = (
     uncheckedAncestorPaths = []
 ) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
     .reduce((listOfUniqueAncestors, ancestryPath) => {
+        // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
         const numberOfAncestors = ancestryPath.length - 1;
         const uniqueAncestors = [...new Array(numberOfAncestors)]
             .reduce((ancestors, _, i) => {
