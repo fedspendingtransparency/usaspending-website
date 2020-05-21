@@ -198,13 +198,19 @@ describe('PscCheckboxTreeContainer', () => {
             await container.instance().componentDidMount();
             expect(mockFn).not.toHaveBeenCalled();
         });
-        it('loading tree from hash, (A) fetches all the ancestors of checked/unchecked nodes exactly once and (B) adds their descendants to the checked array', async () => {
+        it('loading tree from hash, (A) fetches all the ancestors of checked/unchecked nodes exactly once and (B) adds their descendants to the checked array (c) updates the count, and (d) expands the top level ancestors', async () => {
             const mockFetchPsc = jest.fn(() => Promise.resolve());
             const mockCheckPsc = jest.fn();
             const mockExpandPsc = jest.fn();
+            const mockSetCounts = jest.fn();
+            const countsFromHash = [
+                { label: 'Product', value: 'Product', count: 1 },
+                { label: 'Service', value: 'Service', count: 7 }
+            ];
             const container = shallow(
                 <PSCCheckboxTreeContainer
                     {...defaultProps}
+                    setPscCounts={mockSetCounts}
                     setExpandedPsc={mockExpandPsc}
                     uncheckedFromHash={[
                         ['Product', '10', '1000']
@@ -218,7 +224,8 @@ describe('PscCheckboxTreeContainer', () => {
                         ['Service', 'B', 'B5', 'B503'],
                         ['Service', 'B', 'B5', 'B504'],
                         ['Service', 'B', 'B5', 'B505']
-                    ]} />);
+                    ]}
+                    countsFromHash={countsFromHash} />);
             container.instance().fetchPsc = mockFetchPsc;
             container.instance().setCheckedStateFromUrlHash = mockCheckPsc;
             await container.instance().componentDidMount();
@@ -242,6 +249,11 @@ describe('PscCheckboxTreeContainer', () => {
                 'B504',
                 'B505'
             ]);
+
+            // (C)
+            expect(mockSetCounts).toHaveBeenLastCalledWith(countsFromHash);
+
+            // (D)
             expect(mockExpandPsc).toHaveBeenCalledWith(['Product', 'Service']);
         });
     });
@@ -251,19 +263,16 @@ describe('PscCheckboxTreeContainer', () => {
                 ['Research and Development', 'AC', 'AC2', 'AC21']
             ];
             const checked = ['AC2']; // mock data here has seven children even though in reality it has 8.
-            const mockSetCounts = jest.fn();
             // const mockSetUncheckedPsc = jest.fn();
             const mockSetCheckedPsc = jest.fn();
             const container = shallow(
                 <PSCCheckboxTreeContainer
                     {...defaultProps}
-                    setPscCounts={mockSetCounts}
                     setCheckedPsc={mockSetCheckedPsc}
                     nodes={reallyBigTree}
                     uncheckedFromHash={unchecked}
                     checkedFromHash={checked} />);
             await container.instance().setCheckedStateFromUrlHash(checked);
-            expect(mockSetCounts).toHaveBeenLastCalledWith([{ label: '', value: 'Research and Development', count: 6 }]);
             const nodeFromChecked = getPscNodeFromTree(reallyBigTree, 'AC2');
             const checkedNodes = getAllDescendants(nodeFromChecked)
                 .filter((node) => node !== 'AC21');
