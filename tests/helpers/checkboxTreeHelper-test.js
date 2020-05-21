@@ -649,14 +649,47 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         });
         it('returns an array of sorted paths, the highest tier coming first', () => {
             const result = getUniqueAncestorPaths([
+                ['Products'],
                 ['Products', '10', '1000'],
                 ['Products', '10', '1001'],
                 ['Products', '10', '1002'],
                 ['Products', '10', '1003'],
                 ['Products', '10', '1004'],
-                ['Services']
+                ['Service', 'B'],
+                ['Service', 'B', 'B5'],
+                ['Service', 'B', 'B5', 'B516']
             ]);
-            expect(result).toEqual(['Products', 'Services', 'Products/10']);
+            expect(result).toEqual(['Products', 'Service', 'Products/10', 'Service/B', 'Service/B/B5']);
+        });
+        it('also returns the ancestor path required for the unchecked array', () => {
+            const result = getUniqueAncestorPaths(
+                [
+                    ['Products'],
+                    ['Products', '10', '1000'],
+                    ['Products', '10', '1001'],
+                    ['Products', '10', '1002'],
+                    ['Products', '10', '1003'],
+                    ['Products', '10', '1004'],
+                    ['Service', 'B'],
+                    ['Service', 'B', 'B5'],
+                    ['Service', 'B', 'B5', 'B516']
+                ],
+                [
+                    ['Research and Development', 'AA', 'AA9', 'AA91']
+                ]
+            );
+            expect(result).toEqual(
+                [
+                    'Products',
+                    'Service',
+                    'Research and Development',
+                    'Products/10',
+                    'Service/B',
+                    'Research and Development/AA',
+                    'Service/B/B5',
+                    'Research and Development/AA/AA9'
+                ]
+            );
         });
     });
 });
