@@ -1,11 +1,11 @@
 /**
- * NAICSSearchContainer-test.jsx => NAICSContainer-test.jsx
+ * NAICSSearchContainer-test.jsx => NAICSCheckboxTree-test.jsx
  * Created by Emily Gullo 07/26/2017
  */
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
+import { NAICSCheckboxTree } from 'containers/search/filters/naics/NAICSCheckboxTree';
 import { cleanNaicsData } from 'helpers/naicsHelper';
 
 import {
@@ -20,7 +20,7 @@ describe('NAICS Search Filter Container', () => {
     describe('Loading a stateful tree from url hash', () => {
         it('fetches the immediate ancestor when only a grandchild is in checked', async () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 nodes={reallyBigTree}
                 checkedFromHash={["111110"]} />);
@@ -31,7 +31,7 @@ describe('NAICS Search Filter Container', () => {
         it('fetches the children of the checked nodes from the hash and adds their placeholder children to checked array', () => {
             const fetchNaics = jest.fn(() => Promise.resolve());
             const updateCountOfSelectedTopTierNaicsCodes = jest.fn();
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 checkedFromHash={["11"]} />);
             container.instance().fetchNAICS = fetchNaics;
@@ -47,7 +47,7 @@ describe('NAICS Search Filter Container', () => {
         });
         it('does not add nodes to checked which are in the unchecked array', async () => {
             const mockFn = jest.fn();
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 setCheckedNaics={mockFn}
                 nodes={reallyBigTree}
@@ -74,7 +74,7 @@ describe('NAICS Search Filter Container', () => {
             ];
             const mockFn = jest.fn();
             const countsFromHash = [{ label: '11', description: 'test', count: 63 }];
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 nodes={naicsWithPlaceholders}
                 setNaicsCounts={mockFn}
@@ -86,7 +86,7 @@ describe('NAICS Search Filter Container', () => {
         });
         it('only fetches each code once', async () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 nodes={reallyBigTree}
                 checkedFromHash={["111110", "111120", "111199", "111140", "111150", "111160", "111191"]} />);
@@ -100,7 +100,7 @@ describe('NAICS Search Filter Container', () => {
     describe('autoCheckSearchedResultDescendants fn', () => {
         it('auto checks unchecked descendants of selected parent', async () => {
             const addCheckedNaics = jest.fn();
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 nodes={searchResults}
                 addCheckedNaics={addCheckedNaics} />);
@@ -118,7 +118,7 @@ describe('NAICS Search Filter Container', () => {
             [8, { value: '111110', count: 1, label: 'test' }, [{ value: '11', count: 7, label: 'test' }]]
         ])('when count is %i and unchecked node is %o the new count is correct', async (initialCount, uncheckedNode, expectedParam) => {
             const mockFn = jest.fn();
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 nodes={reallyBigTree}
                 counts={[{ value: '11', label: 'test', count: initialCount }]}
@@ -132,7 +132,7 @@ describe('NAICS Search Filter Container', () => {
             // In the expand/collapse view, when you check a parent and expand to its children
             // the checkbox tree removes the parent from checked, and adds all the immediate children of the expanded node
             const setUnchecked = jest.fn();
-            const container = shallow(<NAICSContainer
+            const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
                 setUncheckedNaics={setUnchecked}
                 checked={["children_of_11"]}

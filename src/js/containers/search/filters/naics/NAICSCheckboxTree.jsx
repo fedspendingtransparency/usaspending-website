@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /**
-  * NAICSSearchContainer.jsx => NAICSContainer.jsx
+  * NAICSSearchContainer.jsx => NAICSCheckboxTree.jsx
   * Created by Emily Gullo 07/10/2017
   **/
 
@@ -69,7 +69,7 @@ const propTypes = {
     filters: PropTypes.object
 };
 
-export class NAICSContainer extends React.Component {
+export class NAICSCheckboxTree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -438,7 +438,7 @@ export class NAICSContainer extends React.Component {
     }
 }
 
-NAICSContainer.propTypes = propTypes;
+NAICSCheckboxTree.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -463,4 +463,4 @@ export default connect(
         showNaicsTree: () => dispatch(showNaicsTree()),
         setUncheckedNaics: (unchecked) => dispatch(setUncheckedNaics(unchecked)),
         setNaicsCounts: (newCounts) => dispatch(setNaicsCounts(newCounts))
-    }))(NAICSContainer);
+    }))(NAICSCheckboxTree);

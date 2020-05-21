@@ -20,7 +20,7 @@ import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSea
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
-import NAICSContainer from 'containers/search/filters/naics/NAICSContainer';
+import NAICSCheckboxTree from 'containers/search/filters/naics/NAICSCheckboxTree';
 import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
 import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
@@ -69,7 +69,7 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,
-        NAICSContainer,
+        NAICSCheckboxTree,
         PscComponent,
         PricingTypeContainer,
         SetAsideContainer,
