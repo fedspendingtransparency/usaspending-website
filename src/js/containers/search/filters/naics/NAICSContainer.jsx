@@ -209,7 +209,6 @@ export class NAICSContainer extends React.Component {
             this.props.setUncheckedNaics(newUnchecked);
             this.props.stageNaics(newChecked, newUnchecked, newCounts);
             this.props.setCheckedNaics(newChecked);
-
             this.props.setNaicsCounts(newCounts);
         }
     }

@@ -63,7 +63,7 @@ describe('NAICS Search Filter Container', () => {
                 .filter((child) => child !== '111110');
             expect(mockFn).toHaveBeenLastCalledWith(allGrandChildrenExceptUnchecked);
         });
-        it('decrements the count for unchecked grandchildren', async () => {
+        it('updates the count from hash', async () => {
             const testNode = reallyBigTree.find((node) => node.value === '11');
             const naicsWithPlaceholders = [
                 ...reallyBigTree.filter((node) => node.value !== '11'),
@@ -72,13 +72,17 @@ describe('NAICS Search Filter Container', () => {
                     children: cleanNaicsData(testNode.children)
                 }
             ];
+            const mockFn = jest.fn();
+            const countsFromHash = [{ label: '11', description: 'test', count: 63 }];
             const container = shallow(<NAICSContainer
                 {...defaultProps}
                 nodes={naicsWithPlaceholders}
+                setNaicsCounts={mockFn}
+                countsFromHash={countsFromHash}
                 checkedFromHash={["11"]}
                 uncheckedFromHash={["111110"]} />);
             await container.instance().componentDidMount();
-            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(63);
+            expect(mockFn).toHaveBeenCalledWith(countsFromHash);
         });
         it('only fetches each code once', async () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
@@ -108,52 +112,19 @@ describe('NAICS Search Filter Container', () => {
         });
     });
     describe('onUncheck fn', () => {
-        it('removes stagedFilter when parent is unchecked', async () => {
-            const container = shallow(<NAICSContainer {...defaultProps} />);
-
-            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '64', label: 'test' }] });
-            // confirm state was successfully mocked as validity of test depends on this being removed...
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
-
-            const uncheckedNode = { value: '11', count: 64, label: 'test' };
-
+        it.each([
+            [64, { value: '11', count: 64, label: 'test' }, []],
+            [8, { value: '1111', count: 8, label: 'test' }, []],
+            [8, { value: '111110', count: 1, label: 'test' }, [{ value: '11', count: 7, label: 'test' }]]
+        ])('when count is %i and unchecked node is %o the new count is correct', async (initialCount, uncheckedNode, expectedParam) => {
+            const mockFn = jest.fn();
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={reallyBigTree}
+                counts={[{ value: '11', label: 'test', count: initialCount }]}
+                setNaicsCounts={mockFn} />);
             await container.instance().onUncheck([], uncheckedNode);
-
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
-        });
-        it('removes stagedFilter when only child of parent is unchecked', async () => {
-            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
-
-            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
-            // confirm state was successfully mocked as validity of test depends on this being empty...
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
-
-            const uncheckedNode = { value: '1111', count: 8, label: 'test' };
-
-            await container.instance().onUncheck([], uncheckedNode);
-
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
-        });
-        it('removes stagedFilter when only grand child of parent is unchecked', async () => {
-            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
-
-            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
-            // confirm state was successfully mocked as validity of test depends on this being empty...
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
-
-            const uncheckedNode = { value: '1111', count: 8, label: 'test' };
-            await container.instance().onUncheck([], uncheckedNode);
-
-            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
-        });
-        it('decrements count of stagedFilter one of many children/grandchildren is unchecked', async () => {
-            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
-            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
-
-            const uncheckedNode = { value: '111110', count: 1, label: 'test' };
-            await container.instance().onUncheck([], uncheckedNode);
-
-            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(7);
+            expect(mockFn).toHaveBeenCalledWith(expectedParam);
         });
         it('updates the unchecked array when ancestor is checked and descendant is unchecked', async () => {
             // currently, this only happens in search.
