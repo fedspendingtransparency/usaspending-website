@@ -13,7 +13,7 @@ import {
     autoCheckPscAfterExpand,
     expandPscNodeAndAllDescendantParents,
     getPscNodeFromTree,
-    getAncestryPathOfNodes
+    getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
 import { fetchPsc } from 'helpers/searchHelper';
 import {
@@ -154,8 +154,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
         this.props.setPscCounts(newCounts);
         this.props.setUncheckedPsc(newUnchecked);
         this.props.stagePsc(
-            getAncestryPathOfNodes(newChecked, this.props.nodes),
-            getAncestryPathOfNodes(newUnchecked, this.props.nodes),
+            getPscAncestryPathForChecked(newChecked, this.props.nodes),
+            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
 
@@ -177,8 +177,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
         this.props.setPscCounts(newCounts);
         this.props.setUncheckedPsc(newUnchecked);
         this.props.stagePsc(
-            getAncestryPathOfNodes(newChecked, this.props.nodes),
-            getAncestryPathOfNodes(newUnchecked, this.props.nodes),
+            getPscAncestryPathForChecked(newChecked, this.props.nodes),
+            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
     }

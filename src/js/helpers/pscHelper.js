@@ -5,7 +5,7 @@ import {
     removeStagedFilter,
     autoCheckImmediateChildrenAfterDynamicExpand,
     expandNodeAndAllDescendantParents,
-    removePlaceholderString
+    getAncestryPathOfNodes
 } from "./checkboxTreeHelper";
 
 export const emptyHierarchy = {
@@ -143,7 +143,8 @@ export const expandPscNodeAndAllDescendantParents = (
     shouldPscNodeHaveChildren
 );
 
-export const getAncestryPathOfNodes = (checked, nodes) => checked
-    .map((code) => removePlaceholderString(code))
-    .map((code) => getPscNodeFromTree(nodes, code))
-    .map((node) => ([...node.ancestors, node.value]));
+export const getPscAncestryPathForChecked = (checked, nodes) => getAncestryPathOfNodes(
+    checked,
+    nodes,
+    getPscNodeFromTree
+);

@@ -28,7 +28,8 @@ import {
     getPscNodeFromTree,
     getHighestPscAncestor,
     getImmediatePscAncestor,
-    cleanPscData
+    cleanPscData,
+    getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
@@ -705,6 +706,45 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                     'Research and Development/AA/AA9'
                 ]
             );
+        });
+    });
+    describe('getAncestryPathOfNodes', () => {
+        it('gives you a 2d array representing the ancestry path each node in the source array', () => {
+            const result = getPscAncestryPathForChecked([
+                'Research and Development',
+                'AA',
+                'Product',
+                '10',
+                'D316'
+            ], pscMockData.reallyBigTree);
+
+            expect(result).toEqual([
+                ['Research and Development'],
+                ['Research and Development', 'AA'],
+                ['Product'],
+                ['Product', '10'],
+                ['Service', 'D', 'D3', 'D316']
+            ]);
+        });
+        it('removes duplicates and placeholder strings', () => {
+            const result = getPscAncestryPathForChecked([
+                'Research and Development',
+                'children_of_Research and Development',
+                'AA',
+                'AA',
+                'Product',
+                'children_of_Product',
+                '10',
+                'D316'
+            ], pscMockData.reallyBigTree);
+
+            expect(result).toEqual([
+                ['Research and Development'],
+                ['Research and Development', 'AA'],
+                ['Product'],
+                ['Product', '10'],
+                ['Service', 'D', 'D3', 'D316']
+            ]);
         });
     });
 });
