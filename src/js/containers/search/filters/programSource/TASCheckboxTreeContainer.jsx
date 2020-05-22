@@ -33,7 +33,6 @@ import {
     setSearchedTas,
     setTasCounts
 } from 'redux/actions/search/tasActions';
-import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -47,7 +46,6 @@ const propTypes = {
     setCheckedTas: PropTypes.func,
     setSearchedTas: PropTypes.func,
     setTasCounts: PropTypes.func,
-    restoreHashedFilters: PropTypes.func,
     addCheckedTas: PropTypes.func,
     showTasTree: PropTypes.func,
     setUncheckedTas: PropTypes.func,
@@ -441,8 +439,7 @@ const mapDispatchToProps = (dispatch) => ({
     setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
     setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),
     setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts)),
-    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts)),
-    restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters))
+    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TASCheckboxTree);

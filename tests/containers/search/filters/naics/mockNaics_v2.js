@@ -794,7 +794,6 @@ export const defaultProps = {
     addCheckedNaics: () => {},
     showNaicsTree: () => {},
     setUncheckedNaics: () => {},
-    restoreHashedFilters: () => {},
     uncheckedFromHash: [],
     checkedFromHash: [],
     countsFromHash: [],

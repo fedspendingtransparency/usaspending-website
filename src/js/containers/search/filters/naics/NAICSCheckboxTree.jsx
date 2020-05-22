@@ -47,7 +47,6 @@ const propTypes = {
     setExpandedNaics: PropTypes.func,
     setCheckedNaics: PropTypes.func,
     setSearchedNaics: PropTypes.func,
-    restoreHashedFilters: PropTypes.func,
     addCheckedNaics: PropTypes.func,
     showNaicsTree: PropTypes.func,
     setUncheckedNaics: PropTypes.func,
