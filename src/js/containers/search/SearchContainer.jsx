@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { is } from 'immutable';
@@ -70,23 +71,18 @@ export class SearchContainer extends React.Component {
         this.requestDownloadAvailability(this.props.appliedFilters.filters);
     }
 
-    componentWillReceiveProps(nextProps) {
-        let nextHash = nextProps.params.hash;
-        if (!nextHash) {
-            // set null hash URL params (because the user went to /search) to an empty string
-            // for purposes of state comparison
-            nextHash = '';
-        }
-
+    componentDidUpdate(prevProps) {
+        const nextHash = this.props.params.hash || '';
+        // TODO: use either props or state, not both.
         if (nextHash !== this.state.hash) {
             this.receiveHash(nextHash);
         }
-        else if (nextProps.appliedFilters.filters !== this.props.appliedFilters.filters) {
+        else if (!isEqual(prevProps.appliedFilters.filters, this.props.appliedFilters.filters)) {
             if (this.state.hashState === 'ready') {
                 // the filters changed and it's not because of an inbound/outbound URL hash change
-                this.generateHash(nextProps.appliedFilters.filters);
+                this.generateHash(this.props.appliedFilters.filters);
             }
-            this.requestDownloadAvailability(nextProps.appliedFilters.filters);
+            this.requestDownloadAvailability(this.props.appliedFilters.filters);
         }
     }
 
