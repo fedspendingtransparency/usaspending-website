@@ -70,8 +70,8 @@ class SearchAwardsOperation {
 
         this.tasSources = state.treasuryAccounts.toArray();
         this.tasCheckbox = {
-            require: state.tasCodes.require,
-            exclude: state.tasCodes.exclude
+            require: state.tasCodes.toObject().require,
+            exclude: state.tasCodes.toObject().exclude
         };
         this.accountSources = state.federalAccounts.toArray();
 
@@ -90,12 +90,12 @@ class SearchAwardsOperation {
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.naicsCodes = {
-            require: state.naicsCodes.require,
-            exclude: state.naicsCodes.exclude
+            require: state.naicsCodes.toObject().require,
+            exclude: state.naicsCodes.toObject().exclude
         };
         this.pscCheckbox = {
-            require: state.pscCodes.require,
-            exclude: state.pscCodes.exclude
+            require: state.pscCodes.toObject().require,
+            exclude: state.pscCodes.toObject().exclude
         };
         this.selectedPSC = state.selectedPSC.toArray();
 

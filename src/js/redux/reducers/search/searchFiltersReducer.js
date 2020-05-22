@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap } from 'immutable';
+import { Set, OrderedMap, Record } from 'immutable';
 
 import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
@@ -21,11 +21,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 
 export const filterStoreVersion = '2020-05-20';
 
-export function CheckboxTreeSelections(data = { require: [], exclude: [], counts: [] }) {
-    this.require = data.require;
-    this.exclude = data.exclude;
-    this.counts = data.counts || [];
-}
+export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -232,8 +228,9 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // NAICS_V2 Filter
         case 'UPDATE_NAICS_V2': {
+            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
             return Object.assign({}, state, {
-                naicsCodes: OtherFilterFunctions.updateNAICSV2(action.payload)
+                naicsCodes
             });
         }
 
