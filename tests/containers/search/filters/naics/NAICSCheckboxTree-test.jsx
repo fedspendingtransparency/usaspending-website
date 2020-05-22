@@ -22,7 +22,7 @@ describe('NAICS Search Filter Container', () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
             const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
-                nodes={reallyBigTree}
+                nodes={[]}
                 checkedFromHash={["111110"]} />);
             container.instance().fetchNAICS = mockFetchNaics;
             await container.instance().componentDidMount();
@@ -33,6 +33,7 @@ describe('NAICS Search Filter Container', () => {
             const fetchNaics = jest.fn(() => Promise.resolve());
             const updateCountOfSelectedTopTierNaicsCodes = jest.fn();
             const container = shallow(<NAICSCheckboxTree
+                nodes={[]}
                 {...defaultProps}
                 checkedFromHash={["11"]} />);
             container.instance().fetchNAICS = fetchNaics;
@@ -46,38 +47,12 @@ describe('NAICS Search Filter Container', () => {
                     expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenCalledWith(['children_of_11']);
                 });
         });
-        it('does not add nodes to checked which are in the unchecked array', async () => {
-            const mockFn = jest.fn();
-            const container = shallow(<NAICSCheckboxTree
-                {...defaultProps}
-                setCheckedNaics={mockFn}
-                nodes={reallyBigTree}
-                checkedFromHash={["1111"]}
-                uncheckedFromHash={["111110"]} />);
-            await container.instance().componentDidMount();
-            const allGrandChildrenExceptUnchecked = reallyBigTree
-                .find((node) => node.value === '11')
-                .children
-                .find((node) => node.value === '1111')
-                .children
-                .map((child) => child.value)
-                .filter((child) => child !== '111110');
-            expect(mockFn).toHaveBeenLastCalledWith(allGrandChildrenExceptUnchecked);
-        });
         it('updates the count from hash', async () => {
-            const testNode = reallyBigTree.find((node) => node.value === '11');
-            const naicsWithPlaceholders = [
-                ...reallyBigTree.filter((node) => node.value !== '11'),
-                {
-                    ...testNode,
-                    children: cleanNaicsData(testNode.children)
-                }
-            ];
             const mockFn = jest.fn();
             const countsFromHash = [{ label: '11', description: 'test', count: 63 }];
             const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
-                nodes={naicsWithPlaceholders}
+                nodes={[]}
                 setNaicsCounts={mockFn}
                 countsFromHash={countsFromHash}
                 checkedFromHash={["11"]}
@@ -89,7 +64,7 @@ describe('NAICS Search Filter Container', () => {
             const mockFetchNaics = jest.fn(() => Promise.resolve());
             const container = shallow(<NAICSCheckboxTree
                 {...defaultProps}
-                nodes={reallyBigTree}
+                nodes={[]}
                 checkedFromHash={["111110", "111120", "111199", "111140", "111150", "111160", "111191"]} />);
             container.instance().fetchNAICS = mockFetchNaics;
             await container.instance().componentDidMount();

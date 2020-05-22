@@ -135,8 +135,7 @@ export class NAICSCheckboxTree extends React.Component {
                                     const node = getNaicsNodeFromTree(this.props.nodes, checked);
                                     return [
                                         ...acc,
-                                        ...getAllDescendants(node)
-                                            .filter((naicsCode) => !uncheckedFromHash.includes(naicsCode))
+                                        ...getAllDescendants(node, uncheckedFromHash)
                                     ];
                                 }, []);
                             this.props.setCheckedNaics(newChecked);
