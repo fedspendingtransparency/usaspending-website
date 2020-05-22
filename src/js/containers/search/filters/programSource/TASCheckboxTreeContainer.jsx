@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, uniqueId } from 'lodash';
+import { debounce, get, uniqueId, flattenDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,8 @@ import {
 import { fetchTas } from 'helpers/searchHelper';
 import {
     removePlaceholderString,
-    getUniqueAncestorPaths
+    getUniqueAncestorPaths,
+    getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
@@ -105,11 +106,7 @@ export class TASCheckboxTree extends React.Component {
                             .then(() => this.fetchTas(param, null, false)), Promise.resolve([])
                         )
                         .then(() => {
-                            this.setCheckedStateFromUrlHash(
-                                checkedFromHash
-                                    .map((ancestryPath) => ancestryPath.pop())
-                                    .filter((ancestor) => !uncheckedFromHash.includes(ancestor))
-                            );
+                            this.setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
                             this.props.setExpandedTas([
                                 ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
                             ]);
@@ -221,7 +218,11 @@ export class TASCheckboxTree extends React.Component {
         if (this.props.nodes.length > 0) {
             const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
             this.props.setUncheckedTas(uncheckedFromHash);
-            this.props.setCheckedTas(newChecked);
+            const realCheckedWithPlaceholders = flattenDeep(newChecked
+                .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
+            );
+            this.props.setCheckedTas(realCheckedWithPlaceholders);
+            this.setState({ isLoading: false, isError: false });
         }
     }
 

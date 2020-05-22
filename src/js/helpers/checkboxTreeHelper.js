@@ -1,7 +1,8 @@
-/**
+/*
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
-**/
+*/
+
 import { difference, cloneDeep, isEqual } from 'lodash';
 
 const getChildren = (node, keyMap) => {
@@ -35,7 +36,7 @@ const getChildren = (node, keyMap) => {
  * @param {Array.Object} nodes
  * @param {function} traverseTreeByCodeFn
  * @returns {number} the sum count of the given node's (represented by its key or node.value) descendants
- */
+*/
 const getCountOfCheckedDescendants = (key, codesWithCheckedAncestor, nodes, traverseTreeByCodeFn) => {
     const hasCheckedDescendants = codesWithCheckedAncestor.some((obj) => obj.checkedAncestor === key);
 
@@ -61,11 +62,13 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
-export const getAllDescendants = (node) => {
+export const getAllDescendants = (node, blackList = []) => {
+    if (blackList.includes(node.value)) return [];
     if (!node.children || node?.children?.length === 0) return [node.value];
     return [
         ...node.children
-            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant)]), [])
+            .filter((child) => !blackList.includes(child.value))
+            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant, blackList)]), [])
     ];
 };
 

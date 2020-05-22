@@ -66,6 +66,32 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 "111199"
             ]);
         });
+        it('respects the blacklist', () => {
+            const mock = getPscNodeFromTree(pscMockData.reallyBigTree, 'Research and Development');
+            const result = getAllDescendants(mock, ['AC']);
+            expect(result).toEqual([
+                "children_of_AA",
+                "children_of_AB",
+                "children_of_AD",
+                "children_of_AE",
+                "children_of_AF",
+                "children_of_AG",
+                "children_of_AH",
+                "children_of_AJ",
+                "children_of_AK",
+                "children_of_AL",
+                "children_of_AM",
+                "children_of_AN",
+                "children_of_AP",
+                "children_of_AQ",
+                "children_of_AR",
+                "children_of_AS",
+                "children_of_AT",
+                "children_of_AU",
+                "children_of_AV",
+                "children_of_AZ"
+            ]);
+        });
     });
     describe('addSearchResultsToTree & appendChildrenFromSearchResults', () => {
         it('does NOT overwrite existing grand-children', () => {

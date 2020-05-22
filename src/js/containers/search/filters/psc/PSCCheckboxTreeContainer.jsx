@@ -215,11 +215,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
         const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
         if (nodes.length > 0) {
             const newCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((checked) => {
-                    const node = getPscNodeFromTree(nodes, checked);
-                    return getAllDescendants(node)
-                        .filter((descendant) => !uncheckedFromHash.includes(descendant));
-                }));
+                .map((checked) => getAllDescendants(getPscNodeFromTree(nodes, checked), uncheckedFromHash))
+            );
             this.props.setCheckedPsc(newCheckedWithPlaceholders);
             this.props.setUncheckedPsc(uncheckedFromHash);
             this.setState({ isLoading: false });
