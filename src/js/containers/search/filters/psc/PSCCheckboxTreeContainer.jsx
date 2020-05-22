@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get } from 'lodash';
+import { debounce, get, flattenDeep, uniqueId } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -12,12 +12,15 @@ import {
     removeStagedPscFilter,
     autoCheckPscAfterExpand,
     expandPscNodeAndAllDescendantParents,
-    getPscNodeFromTree
+    getPscNodeFromTree,
+    getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
 import { fetchPsc } from 'helpers/searchHelper';
 import {
     getAllDescendants,
-    removePlaceholderString
+    removePlaceholderString,
+    getUniqueAncestorPaths,
+    trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 
 import {
@@ -30,11 +33,11 @@ import {
     setSearchedPsc,
     setPscCounts
 } from 'redux/actions/search/pscActions';
+import { updatePSCV2 } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-// import ProgramSourceInfoTooltip from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -42,15 +45,16 @@ const propTypes = {
     setCheckedPsc: PropTypes.func,
     setSearchedPsc: PropTypes.func,
     setPscCounts: PropTypes.func,
-    // restoreHashedFilters: PropTypes.func,
+    stagePsc: PropTypes.func,
     addCheckedPsc: PropTypes.func,
     showPscTree: PropTypes.func,
     setUncheckedPsc: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
-    checkedFromHash: PropTypes.arrayOf(PropTypes.string),
-    uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
+    checkedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    uncheckedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    countsFropmHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
@@ -61,18 +65,56 @@ export class PSCCheckboxTreeContainer extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
+            isSearch: false,
             searchString: '',
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         };
         this.request = null;
     }
 
     async componentDidMount() {
-        if (this.props.nodes.length === 0) {
-            return this.fetchPsc('');
+        const {
+            nodes,
+            uncheckedFromHash,
+            checkedFromHash,
+            countsFromHash
+        } = this.props;
+        if (nodes.length !== 0) {
+            showPscTree();
+            return Promise.resolve();
         }
-        return Promise.resolve();
+        return this.fetchPsc('', null, false)
+            .then(() => {
+                if (checkedFromHash.length > 0) {
+                    this.props.setPscCounts(countsFromHash);
+                    return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
+                        .reduce((prevPromise, param) => prevPromise
+                            // fetch the all the ancestors of the checked nodes
+                            .then(() => this.fetchPsc(param, null, false)), Promise.resolve([])
+                        )
+                        .then(() => {
+                            this.setCheckedStateFromUrlHash(
+                                checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
+                            );
+                            this.props.setExpandedPsc([
+                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
+                            ]);
+                        })
+                        .catch((e) => {
+                            this.setState({
+                                isLoading: false,
+                                isError: true,
+                                errorMessage: get(e, 'message', 'Error fetching PSC.')
+                            });
+                        });
+                }
+                this.setState({ isLoading: false });
+
+                // just do this for consistent return.
+                return Promise.resolve();
+            });
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
@@ -110,6 +152,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
         this.props.setCheckedPsc(newChecked);
         this.props.setPscCounts(newCounts);
         this.props.setUncheckedPsc(newUnchecked);
+        this.props.stagePsc(
+            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, this.props.nodes)),
+            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
+            newCounts
+        );
 
         if (this.hint) {
             this.hint.showHint();
@@ -128,6 +175,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
         this.props.setCheckedPsc(newChecked);
         this.props.setPscCounts(newCounts);
         this.props.setUncheckedPsc(newUnchecked);
+        this.props.stagePsc(
+            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, this.props.nodes)),
+            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
+            newCounts
+        );
     }
 
     onSearchChange = debounce(() => {
@@ -143,7 +195,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
             searchString: '',
             isLoading: false,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
+            showNoResults: false
         });
     }
 
@@ -153,6 +206,19 @@ export class PSCCheckboxTreeContainer extends React.Component {
         }
         else {
             this.props.setExpandedPsc(newExpandedArray);
+        }
+    }
+
+    setCheckedStateFromUrlHash = (newChecked) => {
+        const { nodes } = this.props;
+        const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
+        if (nodes.length > 0) {
+            const newCheckedWithPlaceholders = flattenDeep(newChecked
+                .map((checked) => getAllDescendants(getPscNodeFromTree(nodes, checked), uncheckedFromHash))
+            );
+            this.props.setCheckedPsc(newCheckedWithPlaceholders);
+            this.props.setUncheckedPsc(uncheckedFromHash);
+            this.setState({ isLoading: false });
         }
     }
 
@@ -182,10 +248,13 @@ export class PSCCheckboxTreeContainer extends React.Component {
         return new Set([...checked, ...newChecked]);
     }
 
-    fetchPsc = (id = '', searchStr = '') => {
+    fetchPsc = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (this.request) this.request.cancel();
         if (id === '') {
             this.setState({ isLoading: true });
+        }
+        if (this.state.showNoResults) {
+            this.setState({ showNoResults: false });
         }
         const queryParam = this.state.isSearch
             ? `?depth=-1&filter=${searchStr}`
@@ -204,7 +273,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     const key = id.includes('/')
                         ? id.split('/').pop()
                         : id;
-                    this.setState({ isLoading: false });
+                    if (resolveLoadingIndicator) {
+                        this.setState({ isLoading: false });
+                    }
                     const newChecked = this.props.checked.includes(`children_of_${key}`)
                         ? autoCheckPscAfterExpand(
                             { children: nodes, value: key },
@@ -222,6 +293,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             this.props.nodes
                         );
                         this.props.setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
+                        if (nodes.length === 0) {
+                            this.setState({ showNoResults: true });
+                        }
                     }
                     else {
                         this.props.setPscNodes(key, nodes);
@@ -231,7 +305,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 else {
                     // populating tree trunk
                     this.props.setPscNodes('', nodes);
-                    this.setState({ isLoading: false });
+                    if (resolveLoadingIndicator) {
+                        this.setState({ isLoading: false });
+                    }
                 }
                 this.request = null;
             })
@@ -240,7 +316,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 if (!isCancel(e)) {
                     this.setState({
                         isError: true,
-                        errorMessage: get(e, 'message', 'Error fetching TAS.')
+                        isLoading: false,
+                        errorMessage: get(e, 'message', 'Error fetching PSC.')
                     });
                 }
             });
@@ -275,12 +352,6 @@ export class PSCCheckboxTreeContainer extends React.Component {
         } = this.state;
         return (
             <div className="psc-checkbox">
-                {/* <span className="tas-checkbox__header">
-                    Search by Federal Account, TAS, or Agency Owner
-                    <ProgramSourceInfoTooltip
-                        definition={<SearchNote />}
-                        heading="Find a Treasury Account" />
-                </span> */}
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
@@ -297,6 +368,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     data={nodes}
                     checked={checked}
                     searchText={searchString}
+                    noResults={this.state.showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}
@@ -310,6 +382,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
                                 <button
+                                    key={uniqueId()}
                                     className="shown-filter-button"
                                     value={label}
                                     onClick={(e) => this.removeSelectedFilter(e, node)}
@@ -340,10 +413,10 @@ const mapStateToProps = (state) => ({
     searchExpanded: state.psc.searchExpanded.toJS(),
     checked: state.psc.checked.toJS(),
     unchecked: state.psc.unchecked.toJS(),
-    counts: state.psc.counts.toJS()
-    // checkedFromHash: state.appliedFilters.filters.tasCodes.require,
-    // uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
-    // filters: state.appliedFilters.filters
+    counts: state.psc.counts.toJS(),
+    checkedFromHash: state.appliedFilters.filters.pscCodes.require,
+    uncheckedFromHash: state.appliedFilters.filters.pscCodes.exclude,
+    countsFromHash: state.appliedFilters.filters.pscCodes.counts
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -354,7 +427,8 @@ const mapDispatchToProps = (dispatch) => ({
     setCheckedPsc: (nodes) => dispatch(setCheckedPsc(nodes)),
     setUncheckedPsc: (nodes) => dispatch(setUncheckedPsc(nodes)),
     setSearchedPsc: (nodes) => dispatch(setSearchedPsc(nodes)),
-    setPscCounts: (newCounts) => dispatch(setPscCounts(newCounts))
+    setPscCounts: (newCounts) => dispatch(setPscCounts(newCounts)),
+    stagePsc: (require, exclude, counts) => dispatch(updatePSCV2(require, exclude, counts))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PSCCheckboxTreeContainer);

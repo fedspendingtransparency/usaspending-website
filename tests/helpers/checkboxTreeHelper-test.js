@@ -13,7 +13,9 @@ import {
     getAllDescendants,
     doesNodeHaveGenuineChildren,
     addChildrenAndPossiblyPlaceholder,
-    areChildrenPartial
+    areChildrenPartial,
+    getUniqueAncestorPaths,
+    trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -27,7 +29,8 @@ import {
     getPscNodeFromTree,
     getHighestPscAncestor,
     getImmediatePscAncestor,
-    cleanPscData
+    cleanPscData,
+    getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
@@ -61,6 +64,32 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 "111160",
                 "111191",
                 "111199"
+            ]);
+        });
+        it('respects the blacklist', () => {
+            const mock = getPscNodeFromTree(pscMockData.reallyBigTree, 'Research and Development');
+            const result = getAllDescendants(mock, ['AC']);
+            expect(result).toEqual([
+                "children_of_AA",
+                "children_of_AB",
+                "children_of_AD",
+                "children_of_AE",
+                "children_of_AF",
+                "children_of_AG",
+                "children_of_AH",
+                "children_of_AJ",
+                "children_of_AK",
+                "children_of_AL",
+                "children_of_AM",
+                "children_of_AN",
+                "children_of_AP",
+                "children_of_AQ",
+                "children_of_AR",
+                "children_of_AS",
+                "children_of_AT",
+                "children_of_AU",
+                "children_of_AV",
+                "children_of_AZ"
             ]);
         });
     });
@@ -412,6 +441,21 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(counts[0].count).toEqual(7);
             expect(newUnchecked[0]).toEqual("111110");
         });
+        it('does not add to the unchecked array when the unchecked node is one of the highest ancestors', async () => {
+            const [counts, newUnchecked] = decrementCountAndUpdateUnchecked(
+                { checked: false, value: "11" },
+                [],
+                ["children_of_11"],
+                [{ value: '11', count: 64 }],
+                mockData.treeWithPlaceholdersAndRealData,
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+
+            expect(counts.length).toEqual(0);
+            expect(newUnchecked.length).toEqual(0);
+        });
     });
     describe('incrementCountAndUpdateUnchecked', () => {
         it('increments the count and updates the unchecked array when appropriate', () => {
@@ -633,6 +677,191 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             expect(popoulatedChild.children.filter((child) => child.isPlaceHolder).length).toEqual(0);
             expect(partialChild.children.find((child) => child.isPlaceHolder).isPlaceHolder).toEqual(true);
+        });
+    });
+    describe('getUniqueAncestorPaths', () => {
+        it('returns each ancestor path only once', () => {
+            const result = getUniqueAncestorPaths([
+                ['Products', '10', '1000'],
+                ['Products', '10', '1001'],
+                ['Products', '10', '1002'],
+                ['Products', '10', '1003'],
+                ['Products', '10', '1004']
+            ]);
+            expect(result).toEqual(['Products', 'Products/10']);
+        });
+        it('returns an array of sorted paths, the highest tier coming first', () => {
+            const result = getUniqueAncestorPaths([
+                ['Products'],
+                ['Products', '10', '1000'],
+                ['Products', '10', '1001'],
+                ['Products', '10', '1002'],
+                ['Products', '10', '1003'],
+                ['Products', '10', '1004'],
+                ['Service', 'B'],
+                ['Service', 'B', 'B5'],
+                ['Service', 'B', 'B5', 'B516']
+            ]);
+            expect(result).toEqual(['Products', 'Service', 'Products/10', 'Service/B', 'Service/B/B5']);
+        });
+        it('also returns the ancestor path required for the unchecked array', () => {
+            const result = getUniqueAncestorPaths(
+                [
+                    ['Products'],
+                    ['Products', '10', '1000'],
+                    ['Products', '10', '1001'],
+                    ['Products', '10', '1002'],
+                    ['Products', '10', '1003'],
+                    ['Products', '10', '1004'],
+                    ['Service', 'B'],
+                    ['Service', 'B', 'B5'],
+                    ['Service', 'B', 'B5', 'B516']
+                ],
+                [
+                    ['Research and Development', 'AA', 'AA9', 'AA91']
+                ]
+            );
+            expect(result).toEqual(
+                [
+                    'Products',
+                    'Service',
+                    'Research and Development',
+                    'Products/10',
+                    'Service/B',
+                    'Research and Development/AA',
+                    'Service/B/B5',
+                    'Research and Development/AA/AA9'
+                ]
+            );
+        });
+        it('if the path has only one item, return it', () => {
+            const result = getUniqueAncestorPaths(
+                [
+                    ['Products'],
+                    ['Research and Development'],
+                    ['Service']
+                ]
+            );
+            expect(result).toEqual(
+                [
+                    'Products',
+                    'Research and Development',
+                    'Service'
+                ]
+            );
+        });
+    });
+    describe('getAncestryPathOfNodes', () => {
+        it('gives you a 2d array representing the ancestry path each node in the source array', () => {
+            const result = getPscAncestryPathForChecked([
+                'Research and Development',
+                'AA',
+                'Product',
+                '10',
+                'D316'
+            ], pscMockData.reallyBigTree);
+
+            expect(result).toEqual([
+                ['Research and Development'],
+                ['Research and Development', 'AA'],
+                ['Product'],
+                ['Product', '10'],
+                ['Service', 'D', 'D3', 'D316']
+            ]);
+        });
+        it('removes duplicates and placeholder strings', () => {
+            const result = getPscAncestryPathForChecked([
+                'Research and Development',
+                'children_of_Research and Development',
+                'AA',
+                'AA',
+                'Product',
+                'children_of_Product',
+                '10',
+                'D316'
+            ], pscMockData.reallyBigTree);
+
+            expect(result).toEqual([
+                ['Research and Development'],
+                ['Research and Development', 'AA'],
+                ['Product'],
+                ['Product', '10'],
+                ['Service', 'D', 'D3', 'D316']
+            ]);
+        });
+    });
+    describe('trimCheckedToCommonAncestors', () => {
+        it('removes items that share a common ancestor', () => {
+            const initialArray = [
+                ['Product', '10'],
+                ['Product', '11'],
+                ['Product', '12'],
+                ['Product', '13'],
+                ['Product', '14'],
+                ['Product', '15'],
+                ['Product', '16'],
+                ['Product', '17'],
+                ['Product'],
+                ['Service', 'D', 'D3', 'D316'],
+                ['Service', 'D', 'D3', 'D317'],
+                ['Service', 'D', 'D3', 'D318'],
+                ['Service', 'D', 'D3', 'D319'],
+                ['Service', 'D', 'D3', 'D320'],
+                ['Service', 'D', 'D3', 'D330'],
+                ['Service', 'D', 'D3', 'D340'],
+                ['Service', 'D', 'D3']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(2);
+            expect(leanArray).toEqual([['Product'], ['Service', 'D', 'D3']]);
+        });
+        it('keeps items with no common ancestor', () => {
+            const initialArray = [
+                ['Product', '10'],
+                ['Product', '11'],
+                ['Product', '12'],
+                ['Product', '13'],
+                ['Product', '14'],
+                ['Product', '15'],
+                ['Product', '16'],
+                ['Product', '17'],
+                ['Product'],
+                ['Service', 'D', 'D3', 'D316'],
+                ['Service', 'D', 'D3', 'D317'],
+                ['Service', 'D', 'D3', 'D318'],
+                ['Service', 'D', 'D3', 'D319'],
+                ['Service', 'D', 'D3', 'D320'],
+                ['Service', 'D', 'D3', 'D330'],
+                ['Service', 'D', 'D3'],
+                ['Service', 'D', 'D3', 'D340'],
+                ['Service', 'B', 'B5', 'B503'],
+                ['Service', 'B', 'B5', 'B504'],
+                ['Service', 'B', 'B5'],
+                ['Research and Development', 'AA', 'AA09'],
+                ['Research and Development', 'AA', 'AA10'],
+                ['Research and Development', 'AA'],
+                ['Research and Development', 'AB', 'AB05'],
+                ['Research and Development', 'AB', 'AB06']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(6);
+            expect(leanArray).toEqual([
+                ['Product'],
+                ['Research and Development', 'AA'],
+                // "AB" ancestor not included, so it includes the partial list of 'AB's descendants.
+                ['Research and Development', 'AB', 'AB06'],
+                ['Research and Development', 'AB', 'AB05'],
+                ['Service', 'B', 'B5'],
+                ['Service', 'D', 'D3']
+            ]);
+        });
+        it('handles arrays with a length of one', () => {
+            const initialArray = [
+                ['Research and Development']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(1);
+            expect(leanArray).toEqual([['Research and Development']]);
         });
     });
 });
