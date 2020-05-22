@@ -845,7 +845,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ];
             const leanArray = trimCheckedToCommonAncestors(initialArray);
             expect(leanArray.length).toEqual(1);
-            expect(leanArray).toEqual([]);
+            expect(leanArray).toEqual(['Research and Development']);
         });
     });
 });
