@@ -734,6 +734,22 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 ]
             );
         });
+        it('if the path has only one item, return it', () => {
+            const result = getUniqueAncestorPaths(
+                [
+                    ['Products'],
+                    ['Research and Development'],
+                    ['Service']
+                ]
+            );
+            expect(result).toEqual(
+                [
+                    'Products',
+                    'Research and Development',
+                    'Service'
+                ]
+            );
+        });
     });
     describe('getAncestryPathOfNodes', () => {
         it('gives you a 2d array representing the ancestry path each node in the source array', () => {
