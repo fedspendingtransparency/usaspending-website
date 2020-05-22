@@ -20,7 +20,8 @@ import { fetchTas } from 'helpers/searchHelper';
 import {
     removePlaceholderString,
     getUniqueAncestorPaths,
-    getAllDescendants
+    getAllDescendants,
+    trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
@@ -175,7 +176,7 @@ export class TASCheckboxTree extends React.Component {
         this.props.setTasCounts(newCounts);
         this.props.setUncheckedTas(newUnchecked);
         this.props.stageTas(
-            getTasAncestryPathForChecked(newChecked, this.props.nodes),
+            trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, this.props.nodes)),
             getTasAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
@@ -195,7 +196,7 @@ export class TASCheckboxTree extends React.Component {
         this.props.setUncheckedTas(newUnchecked);
 
         this.props.stageTas(
-            getTasAncestryPathForChecked(newChecked, this.props.nodes),
+            trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, this.props.nodes)),
             getTasAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
