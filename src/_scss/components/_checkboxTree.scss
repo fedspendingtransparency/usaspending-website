@@ -29,6 +29,11 @@
       .rct-icon-half-check {
         color: $color-primary-darker;
       }
+      svg {
+        &:focus {
+          outline: none;
+        }
+      }
     }
     ol {
       padding-left: 0;
