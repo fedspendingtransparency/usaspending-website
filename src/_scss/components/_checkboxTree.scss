@@ -200,6 +200,9 @@
       padding: 0;
       svg {
         opacity: 1;
+        &:focus {
+          outline: none;
+        }
       }
     }
   }
