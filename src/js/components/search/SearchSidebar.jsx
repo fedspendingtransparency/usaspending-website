@@ -21,7 +21,6 @@ import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
 import NAICSContainer from 'containers/search/filters/naics/NAICSContainer';
-import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
 import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
@@ -32,10 +31,6 @@ import KeywordHover from 'components/search/filters/keyword/KeywordHover';
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
-
-import kGlobalConstants from 'GlobalConstants';
-
-const PscComponent = kGlobalConstants.DEV ? PSCCheckboxTreeContainer : PSCSearchContainer;
 
 const filters = {
     options: [
@@ -69,7 +64,7 @@ const filters = {
         AwardIDSearchContainer,
         CFDASearchContainer,
         NAICSContainer,
-        PscComponent,
+        PSCCheckboxTreeContainer,
         PricingTypeContainer,
         SetAsideContainer,
         ExtentCompetedContainer
