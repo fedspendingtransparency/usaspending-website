@@ -839,5 +839,13 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 ['Service', 'D', 'D3']
             ]);
         });
+        it('handles arrays with a length of one', () => {
+            const initialArray = [
+                ['Research and Development']
+            ];
+            const leanArray = trimCheckedToCommonAncestors(initialArray);
+            expect(leanArray.length).toEqual(1);
+            expect(leanArray).toEqual([]);
+        });
     });
 });
