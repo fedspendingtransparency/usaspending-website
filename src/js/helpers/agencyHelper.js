@@ -46,9 +46,7 @@ export const fetchSpendingCount = (agencyId, fy, type) => apiRequest({
     }
 });
 
-export const fetchSpendingByCategory = (agencyId, fy, type) => apiRequest({
+export const fetchSpendingByCategory = (agencyId, type, params) => apiRequest({
     url: `v2/agency/${agencyId}/${type}/`,
-    params: {
-        fiscal_year: parseInt(fy, 10)
-    }
+    params
 });

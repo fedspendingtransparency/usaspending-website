@@ -18,30 +18,69 @@ const propTypes = {
 };
 
 const TableContainer = (props) => {
-    const [page, changePage] = useState(1);
-    const [limit, changeLimit] = useState(10);
-    const [currentSort, updateSort] = useState({
-        field: 'obligated_amount',
-        direction: 'desc'
-    });
+    const [currentPage, changePage] = useState(1);
+    const [pageSize, changeLimit] = useState(10);
+    const [totalItems, setTotalItems] = useState(0);
+    const [sort, setSort] = useState('obligated_amount');
+    const [order, setOrder] = useState('desc');
+    const updateSort = (field, direction) => {
+        setSort(field);
+        setOrder(direction);
+    };
     const [results, setResults] = useState([]);
     useEffect(() => {
         // Reset to the first page
         changePage(1);
-        const request = fetchSpendingByCategory(props.agencyId, props.fy, props.type);
+        const params = {
+            fiscal_year: props.fy,
+            limit: pageSize,
+            sort,
+            order
+        };
+        const request = fetchSpendingByCategory(props.agencyId, props.type, params);
         request.promise
             .then((res) => {
+                // TODO - parse results via a data model
+                setResults(res.data.results);
+                setTotalItems(res.data.page_metadata.total);
+            });
+    }, [props.type, props.fy, props.agencyId, pageSize, sort, order]);
+
+    useEffect(() => {
+        // Make a request with the new page number
+        const params = {
+            fiscal_year: props.fy,
+            limit: pageSize,
+            page: currentPage,
+            sort,
+            order
+        };
+        const request = fetchSpendingByCategory(props.agencyId, props.type, params);
+        request.promise
+            .then((res) => {
+                // TODO - parse results via a data model
                 setResults(res.data.results);
             });
-    }, [props.type, props.fy, props.agencyId, limit, currentSort]);
+    }, [currentPage]);
+
     return (
-        <Table
-            expandable
-            rows={results}
-            columns={accountColumns[props.type]}
-            divider={props.subHeading}
-            currentSort={currentSort}
-            updateSort={updateSort} />
+        <>
+            <Table
+                expandable
+                rows={results}
+                columns={accountColumns[props.type]}
+                divider={props.subHeading}
+                currentSort={{ field: sort, direction: order }}
+                updateSort={updateSort} />
+            <Pagination
+                currentPage={currentPage}
+                changePage={changePage}
+                changeLimit={changeLimit}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+        </>
     );
 };
 
