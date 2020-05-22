@@ -6,8 +6,11 @@
     shape-rendering: auto;
     pointer-events: visible;
   }
-  
   .svg-line__text {
     font-size: rem(12);
+  }
+  .rectangle-background {
+     fill: white;
+     pointer-events: visible;
   }
 }

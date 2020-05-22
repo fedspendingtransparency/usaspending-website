@@ -162,10 +162,9 @@ describe('Contract Grant Activity Helper', () => {
                 });
                 it('should return dates as domain when good dates', () => {
                     const theDates = cloneDeep(goodDates);
-                    theDates._potentialEndDate = moment('05/25/2020', 'MM/DD/YYYY');
                     const domain = getXDomain(goodDates, 'contract', oneTransaction);
-                    expect(domain[0]).toBe(goodDates._startDate.valueOf());
-                    expect(domain[1]).toBe(goodDates._potentialEndDate.valueOf());
+                    expect(domain[0]).toBe(theDates._startDate.valueOf());
+                    expect(domain[1]).toBe(theDates._potentialEndDate.valueOf());
                 });
             });
         });
