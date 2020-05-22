@@ -96,7 +96,7 @@ describe('SearchContainer', () => {
             timePeriodFY: new Set(['1987'])
         });
 
-        const nextProps = Object.assign({}, mockRedux, mockActions, {
+        const prevProps = Object.assign({}, mockRedux, mockActions, {
             appliedFilters: Object.assign({}, initialApplied, {
                 filters: nextFilters
             })
@@ -105,7 +105,7 @@ describe('SearchContainer', () => {
         const generateHash = jest.fn();
         container.instance().generateHash = generateHash;
 
-        container.instance().componentDidUpdate(nextProps);
+        container.instance().componentDidUpdate(prevProps);
 
         expect(generateHash).toHaveBeenCalledTimes(1);
     });
