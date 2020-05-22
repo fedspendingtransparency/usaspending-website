@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap } from 'immutable';
+import { Set, OrderedMap, Record } from 'immutable';
 
 import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
@@ -19,13 +19,9 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2020-04-15';
+export const filterStoreVersion = '2020-05-20';
 
-export function CheckboxTreeSelections(data = { require: [], exclude: [], counts: [] }) {
-    this.require = data.require;
-    this.exclude = data.exclude;
-    this.counts = data.counts || [];
-}
+export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -43,6 +39,7 @@ export const requiredTypes = {
     selectedNAICS: OrderedMap,
     naicsCodes: CheckboxTreeSelections,
     tasCodes: CheckboxTreeSelections,
+    pscCodes: CheckboxTreeSelections,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -72,6 +69,7 @@ export const initialState = {
     selectedNAICS: new OrderedMap(),
     naicsCodes: new CheckboxTreeSelections(),
     selectedPSC: new OrderedMap(),
+    pscCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
@@ -230,8 +228,9 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // NAICS_V2 Filter
         case 'UPDATE_NAICS_V2': {
+            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
             return Object.assign({}, state, {
-                naicsCodes: OtherFilterFunctions.updateNAICSV2(action.payload)
+                naicsCodes
             });
         }
 
@@ -240,6 +239,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedPSC: OtherFilterFunctions.updateSelectedPSC(
                     state.selectedPSC, action.psc)
+            });
+        }
+
+        // PSC_V2 Filter
+        case 'UPDATE_PSC_V2': {
+            return Object.assign({}, state, {
+                pscCodes: action.payload
             });
         }
 

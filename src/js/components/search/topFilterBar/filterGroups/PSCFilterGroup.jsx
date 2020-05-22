@@ -36,23 +36,23 @@ export default class PSCFilterGroup extends React.Component {
     }
 
     generateTags() {
-        const tags = [];
-
         // check to see if a PSC code is provided
-        const PSC = this.props.filter.values;
-
-        PSC.forEach((value) => {
-            const tag = {
+        return this.props.filter.values.map((value) => {
+            if (value.isV2) {
+                return {
+                    value: `${value.value}`,
+                    title: `${value.psc_description}`,
+                    isSpecial: false,
+                    removeFilter: this.removeFilter
+                };
+            }
+            return {
                 value: `${value.identifier}`,
                 title: `${value.product_or_service_code} - ${value.psc_description}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
-
-            tags.push(tag);
         });
-
-        return tags;
     }
 
     render() {

@@ -34,7 +34,7 @@ describe('TASCheckboxContainer', () => {
             container.instance().fetchTas = mockFn;
             await container.instance().componentDidMount();
             // second call to fetchTas is for the agency
-            expect(mockFn).toHaveBeenLastCalledWith('012');
+            expect(mockFn).toHaveBeenLastCalledWith('012', null, false);
             // only calls for agency 12 once
             expect(mockFn).toHaveBeenCalledTimes(2);
         });
@@ -48,7 +48,7 @@ describe('TASCheckboxContainer', () => {
 
             await container.instance().componentDidMount();
 
-            expect(mockFn).toHaveBeenLastCalledWith('012/012-8226');
+            expect(mockFn).toHaveBeenLastCalledWith('012/012-8226', null, false);
             // only calls for federal account 012-8226 once
             expect(mockFn).toHaveBeenCalledTimes(3);
         });
