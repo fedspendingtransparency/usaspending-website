@@ -1,5 +1,8 @@
 $grants-line-color: #47AAA7;
 $loans-line-color: #F5A623;
+$covid-obligated: #0A2F5A;
+$covid-current: #558EC6;
+$covid-potential: #AAC6E2;
 
 %award-amounts-viz__line-indicator {
     content: "";
@@ -90,6 +93,9 @@ $loans-line-color: #F5A623;
 
     .award-amounts-viz__line-up {
         border-bottom: 1px solid $color-cool-blue-light;
+        &.covid {
+            border-bottom: 1px solid $covid-obligated;
+        }
     }
 
     .award-amounts-viz__line-up--loans {
@@ -102,6 +108,12 @@ $loans-line-color: #F5A623;
         position: relative;
         width: 99.5%;
         height: rem(1);
+        &.covid.current {
+            border-bottom: 1px solid $covid-current;
+        }
+        &.covid.potential {
+            border-bottom: 1px solid $covid-potential;
+        }
     }
 
     .award-amounts-viz__line--non-federal-funding {
@@ -127,19 +139,25 @@ $loans-line-color: #F5A623;
         border-left: 1px solid $grants-line-color; 
     }
 
-    .award-amounts-viz__line-up::after {
-        @extend %award-amounts-viz__line-indicator;
-        border-left: 1px solid $color-cool-blue-light;
-        top: 0px;
-        right: -1px;
+    .award-amounts-viz__line-up {
+        &::after {
+            @extend %award-amounts-viz__line-indicator;
+            border-left: 1px solid $color-cool-blue-light;
+            top: 0px;
+            right: -1px;
+        }
+        &::before {
+            @extend %award-amounts-viz__line-indicator;
+            border-left: 1px solid $color-cool-blue-light;
+            top: 0px;
+            left: -1px;
+        }
+        &.covid::before,
+        &.covid::after {
+            border-left: 1px solid $covid-obligated;
+        }
     }
 
-    .award-amounts-viz__line-up::before {
-        @extend %award-amounts-viz__line-indicator;
-        border-left: 1px solid $color-cool-blue-light;
-        top: 0px;
-        left: -1px;
-    }
     .award-amounts-viz__line-up--loans::before {
         @extend %award-amounts-viz__line-indicator;
         top: 0px;
@@ -153,18 +171,25 @@ $loans-line-color: #F5A623;
         border-left: 1px solid $loans-line-color;
     }
 
-    .award-amounts-viz__line::after {
-        @extend %award-amounts-viz__line-indicator;
-        border-left: 1px solid $color-gray-lighter;
-        top: -9px;
-        right: -1px;
-    }
-
-    .award-amounts-viz__line::before {
-        @extend %award-amounts-viz__line-indicator;
-        border-left: 1px solid $color-gray-lighter;
-        top: -9px;
-        left: -1px;
+    .award-amounts-viz__line {
+        &::after,
+        &::before {
+            @extend %award-amounts-viz__line-indicator;
+            border-left: 1px solid $color-gray-lighter;
+            top: -9px;
+            right: -1px;
+        }
+        &::before {
+            left: -1px;
+        }
+        &.covid.current::after,
+        &.covid.current::before {
+            border-left: 1px solid $covid-current;
+        }
+        &.covid.potential::after,
+        &.covid.potential::before {
+            border-left: 1px solid $covid-potential;
+        }
     }
 
     .award-amounts-viz__desc-top-wrapper {

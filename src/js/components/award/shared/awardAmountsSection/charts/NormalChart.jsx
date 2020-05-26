@@ -22,6 +22,8 @@ const propTypes = {
     potentialTooltipProps: TOOLTIP_PROPS
 };
 
+const isCovid = true;
+
 const NormalChart = ({ awardType, awardAmounts }) => {
     // Rename properties to improve readability of the calculations
     const [
@@ -49,27 +51,37 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const current = awardAmounts._baseExercisedOptions;
     const potential = awardAmounts._baseAndAllOptions;
 
+    const obligatedWidth = {
+        width: generatePercentage(obligation / potential)
+    };
+    const currentWidth = {
+        width: generatePercentage((current - obligation) / potential)
+    };
+
+    const currentLabelWidth = {
+        width: generatePercentage(current / potential)
+    };
+
     const obligatedBarStyle = {
-        width: generatePercentage(obligation / potential),
-        backgroundColor: '#4773aa'
+        backgroundColor: isCovid ? '#0A2F5A' : '#4773aa',
+        border: isCovid ? 'solid 0.4rem #558EC6' : 'solid 0.4rem #d6d7d9'
     };
 
     const currentBarStyle = {
-        width: generatePercentage((current - obligation) / potential),
-        backgroundColor: '#d8d8d8'
+        backgroundColor: isCovid ? '#558EC6' : '#d8d8d8',
+        border: 'none'
     };
 
-    const obligatedLabelStyle = {
-        width: generatePercentage(obligation / potential)
-    };
-
-    const currentLabelStyle = {
-        width: generatePercentage(current / potential)
+    const potentialBarStyle = {
+        backgroundColor: isCovid ? '#AAC6E2' : '#fff',
+        border: 'none'
     };
 
     const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
     const propsForCurrentTooltip = buildTooltipProps("current", (activeTooltip === "current"), showCurrentTooltip);
     const propsForPotentialTooltip = buildTooltipProps("potential", (activeTooltip === "potential"), showPotentialTooltip);
+
+    const classNameForCovid = isCovid ? ' covid' : '';
 
     return (
         <div className="award-amounts-viz">
@@ -85,23 +97,23 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 onClick={showObligatedTooltip}>
                 <strong>{awardAmounts.totalObligationAbbreviated}</strong><br />{isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
             </div>
-            <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
-                <div className="award-amounts-viz__line-up" />
+            <div className="award-amounts-viz__label obligated" style={obligatedWidth}>
+                <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
             </div>
             <div className="award-amounts-viz__bar-wrapper">
                 <TooltipWrapper {...propsForPotentialTooltip}>
-                    <div className="award-amounts-viz__bar">
-                        <TooltipWrapper {...propsForObligatedTooltip} styles={{ width: obligatedBarStyle.width }}>
-                            <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
+                    <div className="award-amounts-viz__bar" style={potentialBarStyle}>
+                        <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedWidth}>
+                            <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), ...obligatedBarStyle }} />
                         </TooltipWrapper>
-                        <TooltipWrapper {...propsForCurrentTooltip} styles={{ width: currentBarStyle.width }}>
-                            <div className="award-amounts-viz__excerised" style={{ backgroundColor: currentBarStyle.backgroundColor }} />
+                        <TooltipWrapper {...propsForCurrentTooltip} styles={currentWidth}>
+                            <div className="award-amounts-viz__excerised" style={currentBarStyle} />
                         </TooltipWrapper>
                     </div>
                 </TooltipWrapper>
             </div>
-            <div className="award-amounts-viz__label" style={currentLabelStyle}>
-                <div className="award-amounts-viz__line" />
+            <div className="award-amounts-viz__label" style={currentLabelWidth}>
+                <div className={`award-amounts-viz__line current${classNameForCovid}`} style={{ backgroundColor: currentBarStyle.backgroundColor }} />
                 <div className="award-amounts-viz__desc">
                     <div
                         className="award-amounts-viz__desc-text"
@@ -115,11 +127,11 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                         onClick={showCurrentTooltip}>
                         <strong>{awardAmounts.baseExercisedOptionsAbbreviated}</strong><br />{isIdv ? "Combined Current Award Amounts" : "Current Award Amount"}
                     </div>
-                    <div className="award-amounts-viz__legend-line" />
+                    <div className="award-amounts-viz__legend-line" style={currentBarStyle} />
                 </div>
             </div>
             <div className="award-amounts-viz__label">
-                <div className="award-amounts-viz__line" />
+                <div className={`award-amounts-viz__line potential${classNameForCovid}`} />
                 <div className="award-amounts-viz__desc">
                     <div
                         className="award-amounts-viz__desc-text"
@@ -133,7 +145,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                         onClick={showPotentialTooltip}>
                         <strong>{awardAmounts.baseAndAllOptionsAbbreviated}</strong><br />{isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"}
                     </div>
-                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
+                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={potentialBarStyle} />
                 </div>
             </div>
         </div>
