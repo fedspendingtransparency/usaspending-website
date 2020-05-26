@@ -11,7 +11,8 @@ import {
     addChecked,
     setChecked,
     setUnchecked,
-    setSearchedNodes
+    setSearchedNodes,
+    setCounts
 } from "helpers/checkboxTreeHelper";
 
 const treeName = 'NAICS';
@@ -23,3 +24,5 @@ export const addCheckedNaics = (nodeValue) => addChecked(nodeValue, treeName);
 export const setCheckedNaics = (nodes) => setChecked(nodes, treeName);
 export const setUncheckedNaics = (nodes) => setUnchecked(nodes, treeName);
 export const setSearchedNaics = (nodes) => setSearchedNodes(nodes, treeName, cleanNaicsData);
+export const setNaicsCounts = (newCounts) => setCounts(newCounts, treeName);
+
