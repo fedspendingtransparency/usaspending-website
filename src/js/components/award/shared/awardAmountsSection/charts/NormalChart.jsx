@@ -3,7 +3,7 @@
  * Created by David Trinh 2/15/19
  **/
 
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
@@ -25,7 +25,6 @@ const propTypes = {
 const isCovid = true;
 
 const NormalChart = ({ awardType, awardAmounts }) => {
-    const obligationsContainer = useRef();
     // Rename properties to improve readability of the calculations
     const [
         activeTooltip,
@@ -131,7 +130,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 <TooltipWrapper {...propsForPotentialTooltip}>
                     <div className="award-amounts-viz__bar" style={potentialBarStyle}>
                         <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedWidth}>
-                            <div className="award-amounts-viz__obligated" ref={obligationsContainer} style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
+                            <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
                                 <div className="nested-obligations">
                                     <TooltipWrapper {...propsForFileCObligatedTooltip} styles={fileCObligatedWidth}>
                                         <div className="award-amounts-viz__file-c-obligated" style={{ width: generatePercentage(1), ...fileCObligatedBarStyle }} />
