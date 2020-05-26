@@ -183,8 +183,6 @@ export default class ProgramSourceSection extends React.Component {
             </React.Fragment>
         );
 
-        const tab2Title = 'TAS Components';
-
         return (
             <div className="program-source-filter search-filter">
                 <ul
@@ -211,7 +209,7 @@ export default class ProgramSourceSection extends React.Component {
                             title="Federal Account"
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
-                            {tab2Title}
+                            TAS Components
                         </button>
                     </li>
                 </ul>
