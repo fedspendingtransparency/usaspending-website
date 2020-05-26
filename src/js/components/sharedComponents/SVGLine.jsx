@@ -135,7 +135,7 @@ export default class SVGLine extends Component {
             max,
             adjustmentX
         } = this.props;
-        if (isHorizontal) return graphHeight - scale(max);
+        if (isHorizontal) return graphHeight;
         return scale(max) + (adjustmentX || 0);
     }
     // since we set the position of the text we need to update it on window resize
