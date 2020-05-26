@@ -5,9 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { accountColumns } from 'dataMapping/agency/tableColumns';
-import { fetchSpendingByCategory } from 'helpers/agencyHelper';
+import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
 
 const propTypes = {
     // TODO - when the overview section is complete, get agency ID and FY from Redux
@@ -28,6 +29,8 @@ const TableContainer = (props) => {
         setOrder(direction);
     };
     const [results, setResults] = useState([]);
+    // TODO - use totalObligation to calculate '% of Total Obligations' column value
+    const totalObligation = useSelector((state) => state.agencyV2.budgetaryResources._agencyTotalObligated);
     useEffect(() => {
         // Reset to the first page
         changePage(1);

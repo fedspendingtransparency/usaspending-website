@@ -7,7 +7,7 @@
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
 import {
@@ -15,7 +15,9 @@ import {
     Picker
 } from 'data-transparency-ui';
 
-import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActions';
+import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
+import { fetchBudgetaryResources } from 'helpers/agencyV2Helper';
+import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -71,14 +73,27 @@ const ComingSoon = () => (
 );
 
 export const AgencyProfileV2 = ({
-    agencyOverview,
-    agencyId,
-    params,
-    clearAgency,
-    setOverview
+    params
 }) => {
+    const dispatch = useDispatch();
     const [activeSection, setActiveSection] = useState('overview');
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(true);
+        // request budgetary resources data for this agency
+        const budgetaryResourcesRequest = fetchBudgetaryResources(params.agencyId);
+        budgetaryResourcesRequest.promise
+            .then((res) => {
+                // parse the response using our data model
+                setLoading(false);
+                const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
+                budgetaryResources.populate(res.data);
+                // store the data model object in Redux
+                dispatch(setBudgetaryResources(budgetaryResources));
+            });
+    }, [params.agencyId]);
 
     const componentByAgencySection = {
         overview: <ComingSoon />,
@@ -154,7 +169,8 @@ export const AgencyProfileV2 = ({
                         <ShareIcon
                             slug={slug}
                             email={{
-                                subject: `USAspending.gov Agency Profile: ${agencyOverview.name}`,
+                                // TODO - add agency name when the data is available
+                                subject: 'USAspending.gov Agency Profile: ',
                                 body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                         <div className="sticky-header__toolbar-item">
@@ -166,7 +182,7 @@ export const AgencyProfileV2 = ({
                     </div>
                 </>
             </StickyHeader>
-            <LoadingWrapper isLoading={false} >
+            <LoadingWrapper isLoading={loading} >
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
                         <Sidebar
@@ -194,14 +210,4 @@ export const AgencyProfileV2 = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    agencyOverview: state.agency.overview,
-    agencyId: state.agency.id
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    clearAgency: () => dispatch(resetAgency()),
-    setOverview: (agency) => dispatch(setAgencyOverview(agency))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AgencyProfileV2);
+export default AgencyProfileV2;
