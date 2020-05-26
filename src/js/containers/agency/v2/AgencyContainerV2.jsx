@@ -3,10 +3,8 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
@@ -37,7 +35,6 @@ import AccountSpending from 'components/agency/v2/accountSpending/AccountSpendin
 
 require('pages/agency/v2/index.scss');
 
-// document.querySelector('.site-navigation').offsetHeight + document.querySelector('.site-navigation').offsetTop
 const scrollPositionOfSiteHeader = 96;
 
 const TooltipComponent = () => (
@@ -71,6 +68,12 @@ const ComingSoon = () => (
         <p>This feature is currently under development.</p>
     </div>
 );
+
+const propTypes = {
+    params: PropTypes.shape({
+        agencyId: PropTypes.string
+    })
+};
 
 export const AgencyProfileV2 = ({
     params
@@ -209,5 +212,7 @@ export const AgencyProfileV2 = ({
         </div>
     );
 };
+
+AgencyProfileV2.propTypes = propTypes;
 
 export default AgencyProfileV2;

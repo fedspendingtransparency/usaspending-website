@@ -11,10 +11,10 @@ const BaseAgencyBudgetaryResources = {
     },
     get agencyTotalObligated() {
         if (this._agencyTotalObligated >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalAmount);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._agencyTotalObligated);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._agencyTotalObligated / units.unit, 1)} ${units.longLabel}`;
         }
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalAmount, 0);
+        return MoneyFormatter.formatMoneyWithPrecision(this._agencyTotalObligated, 0);
     }
 };
 
