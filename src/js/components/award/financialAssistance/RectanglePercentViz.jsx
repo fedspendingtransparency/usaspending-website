@@ -96,7 +96,7 @@ const RectanglePercentViz = ({
                     </div>
                 </TooltipWrapper>
             }
-            <div className="award-amounts-viz__bar-wrapper">
+            <div className="award-amounts-viz__bar-wrapper" style={{ height: '4rem' }}>
                 <TooltipWrapper
                     {...denominatorTooltipProps}
                     styles={{ backgroundColor: faceValueColor }}>

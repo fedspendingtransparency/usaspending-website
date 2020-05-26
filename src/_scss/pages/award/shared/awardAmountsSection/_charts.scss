@@ -20,20 +20,31 @@ $covid-potential: #AAC6E2;
         .potential {
             height: rem(40);
         }
+        .award-amounts-tt__wrapper {
+            height: rem(40);
+        }
         .award-amounts-viz__bar {
             height: 100%;
             background-color: #ececec;
             @include display(flex);
             &.obligated {
-                border: solid rem(4) $color-gray-lighter;
+                border: rem(4) solid $color-gray-lighter;
                 .nested-obligations {
                     padding: rem(2);
                     width: 100%;
                     @include display(flex);
                 }
             }
+            &.current,
+            .award-amounts-viz__current {
+                border: solid rem(4) $color-gray-lighter;
+            }
             .award-amounts-viz__obligated--grants {
                 border: none;
+            }
+            .award-amounts-viz__potential {
+                border-top: solid 0.4rem #fff;
+                border-bottom: solid 0.4rem #fff;
             }
             .award-amounts-viz__non-federal-funding {
                 position: relative;
