@@ -17,14 +17,19 @@ $covid-potential: #AAC6E2;
         background-color: $color-white;
         margin: rem(16) 0 rem(7) 0;
         padding: rem(3);
-        .award-amounts-viz__bar {
+        .potential {
             height: rem(40);
+        }
+        .award-amounts-viz__bar {
+            height: 100%;
             background-color: #ececec;
             @include display(flex);
-            .award-amounts-viz__obligated {
+            &.obligated {
                 border: solid rem(4) $color-gray-lighter;
                 .nested-obligations {
                     padding: rem(2);
+                    width: 100%;
+                    @include display(flex);
                 }
             }
             .award-amounts-viz__obligated--grants {
@@ -59,12 +64,14 @@ $covid-potential: #AAC6E2;
                     border: rem(2) solid $color-gray;
                     padding: rem(2);
                     background-color: $color-white;
-                    .award-amounts-viz__current {
-                        border: solid rem(4) $color-gray-lighter;
-                    }
-                    .award-amounts-viz__potential {
-                        border-top: solid rem(4) $color-white;
-                        border-bottom: solid rem(4) $color-white;
+                    .award-amounts-viz__bar {
+                        &.potential {
+                            border-top: solid rem(4) $color-white;
+                            border-bottom: solid rem(4) $color-white;
+                        }
+                        &.current {
+                            border: solid rem(4) $color-gray-lighter;
+                        }
                     }
                 }
                 .award-amounts-viz__exceeded-potential {

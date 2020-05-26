@@ -3,7 +3,7 @@
  * Created by David Trinh 2/15/19
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
@@ -11,8 +11,6 @@ import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
-
-import { useTooltips } from './AwardAmountsChart';
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -24,30 +22,27 @@ const propTypes = {
 
 const isCovid = true;
 
-const NormalChart = ({ awardType, awardAmounts }) => {
-    // Rename properties to improve readability of the calculations
-    const [
-        activeTooltip,
-        closeTooltip,
-        showFileCOutlayTooltip,
-        showFileCObligatedTooltip,
-        showObligatedTooltip,
-        showCurrentTooltip,
-        showPotentialTooltip
-    ] = useTooltips(["fileCObligated", "fileCOutlay", "obligated", "current", "potential"]);
+const emptyTooltipProps = {
+    styles: {},
+    tooltipComponent: <p>Placeholder</p>
+};
 
+const NormalChart = ({ awardType, awardAmounts }) => {
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+    const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const isIdv = (awardType === 'idv');
 
-    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType, data = awardAmounts) => ({
-        ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
-        wide: isIdv,
-        controlledProps: {
-            isControlled: true,
-            isVisible,
-            showTooltip,
-            closeTooltip
-        }
-    });
+    const showTooltip = (spendingCategory, type = awardType, data = awardAmounts) => {
+        setActiveTooltipProps({
+            ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
+            wide: isIdv
+        });
+        setIsTooltipVisible(true);
+    };
+
+    const closeTooltip = () => {
+        setIsTooltipVisible(false);
+    };
 
     const obligation = awardAmounts._totalObligation;
     const current = awardAmounts._baseExercisedOptions;
@@ -101,16 +96,40 @@ const NormalChart = ({ awardType, awardAmounts }) => {
         border: 'none'
     };
 
-    const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
-    const propsForCurrentTooltip = buildTooltipProps("current", (activeTooltip === "current"), showCurrentTooltip);
-    const propsForPotentialTooltip = buildTooltipProps("potential", (activeTooltip === "potential"), showPotentialTooltip);
-    const propsForFileCOutlayTooltip = buildTooltipProps("fileCOutlay", (activeTooltip === "fileCOutlay"), showFileCOutlayTooltip);
-    const propsForFileCObligatedTooltip = buildTooltipProps("fileCObligated", (activeTooltip === "fileCObligated"), showFileCObligatedTooltip);
+    const showObligatedTooltip = (e) => {
+        e.stopPropagation();
+        showTooltip("obligated");
+    };
+    const showCurrentTooltip = (e) => {
+        e.stopPropagation();
+        showTooltip("current");
+    };
+    const showPotentialTooltip = (e) => {
+        e.stopPropagation();
+        showTooltip("potential");
+    };
+    const showFileCOutlayTooltip = (e) => {
+        e.stopPropagation();
+        showTooltip("fileCOutlay");
+    };
+    const showFileCObligatedTooltip = (e) => {
+        e.stopPropagation();
+        showTooltip("fileCObligated");
+    };
 
     const classNameForCovid = isCovid ? ' covid' : '';
 
     return (
         <div className="award-amounts-viz">
+            <TooltipWrapper
+                className="award-section-tt"
+                onMouseMoveTooltip={setIsTooltipVisible.bind(null, true)}
+                onMouseLeaveTooltip={setIsTooltipVisible.bind(null, false)}
+                controlledProps={{
+                    isControlled: true,
+                    isVisible: isTooltipVisible
+                }}
+                {...activeTooltipProps} />
             <div
                 className="award-amounts-viz__desc-top"
                 role="button"
@@ -127,28 +146,85 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
             </div>
             <div className="award-amounts-viz__bar-wrapper">
-                <TooltipWrapper {...propsForPotentialTooltip}>
-                    <div className="award-amounts-viz__bar" style={potentialBarStyle}>
-                        <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedWidth}>
-                            <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
+                <div
+                    className="potential"
+                    role="button"
+                    tabIndex="0"
+                    onBlur={closeTooltip}
+                    onFocus={showPotentialTooltip}
+                    onKeyPress={showPotentialTooltip}
+                    onMouseEnter={showPotentialTooltip}
+                    onMouseLeave={closeTooltip}
+                    onClick={showPotentialTooltip}>
+                    <div className="award-amounts-viz__bar potential" style={potentialBarStyle}>
+                        <div
+                            className="obligated"
+                            style={obligatedWidth}
+                            role="button"
+                            tabIndex="0"
+                            onBlur={closeTooltip}
+                            onFocus={showObligatedTooltip}
+                            onKeyPress={showObligatedTooltip}
+                            onMouseEnter={showObligatedTooltip}
+                            onMouseLeave={closeTooltip}
+                            onClick={showObligatedTooltip}>
+                            <div
+                                className="award-amounts-viz__bar obligated"
+                                style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
                                 <div className="nested-obligations">
-                                    <TooltipWrapper {...propsForFileCObligatedTooltip} styles={fileCObligatedWidth}>
-                                        <div className="award-amounts-viz__file-c-obligated" style={{ width: generatePercentage(1), ...fileCObligatedBarStyle }} />
-                                    </TooltipWrapper>
-                                    <TooltipWrapper {...propsForFileCOutlayTooltip} styles={{ ...fileCOutlayWidth, ...fileCOutlayPositioning }}>
-                                        <div className="award-amounts-viz__file-c-outlay" style={{ width: generatePercentage(1), ...fileCOutlayBarStyle }} />
-                                    </TooltipWrapper>
+                                    <div
+                                        className="file-c-obligated"
+                                        style={fileCObligatedWidth}
+                                        role="button"
+                                        tabIndex="0"
+                                        onBlur={closeTooltip}
+                                        onFocus={showFileCObligatedTooltip}
+                                        onKeyPress={showFileCObligatedTooltip}
+                                        onMouseEnter={showFileCObligatedTooltip}
+                                        onMouseLeave={closeTooltip}
+                                        onClick={showFileCObligatedTooltip}>
+                                        <div
+                                            className="award-amounts-viz__bar file-c-obligated"
+                                            style={{ width: generatePercentage(1), ...fileCObligatedBarStyle }} />
+                                    </div>
+                                    <div
+                                        className="file-c-outlay"
+                                        style={{ ...fileCOutlayWidth, ...fileCOutlayPositioning }}
+                                        role="button"
+                                        tabIndex="0"
+                                        onBlur={closeTooltip}
+                                        onFocus={showFileCOutlayTooltip}
+                                        onKeyPress={showFileCOutlayTooltip}
+                                        onMouseEnter={showFileCOutlayTooltip}
+                                        onMouseLeave={closeTooltip}
+                                        onClick={showFileCOutlayTooltip}>
+                                        <div
+                                            className="award-amounts-viz__bar file-c-outlay"
+                                            style={{ width: generatePercentage(1), ...fileCOutlayBarStyle }} />
+                                    </div>
                                 </div>
                             </div>
-                        </TooltipWrapper>
-                        <TooltipWrapper {...propsForCurrentTooltip} styles={currentWidth}>
-                            <div className="award-amounts-viz__exercised" style={currentBarStyle} />
-                        </TooltipWrapper>
+                        </div>
+                        <div
+                            className="current"
+                            style={currentWidth}
+                            role="button"
+                            tabIndex="0"
+                            onBlur={closeTooltip}
+                            onFocus={showCurrentTooltip}
+                            onKeyPress={showCurrentTooltip}
+                            onMouseEnter={showCurrentTooltip}
+                            onMouseLeave={closeTooltip}
+                            onClick={showCurrentTooltip}>
+                            <div className="award-amounts-viz__bar current" style={currentBarStyle} />
+                        </div>
                     </div>
-                </TooltipWrapper>
+                </div>
             </div>
             <div className="award-amounts-viz__label" style={currentLabelWidth}>
-                <div className={`award-amounts-viz__line current${classNameForCovid}`} style={{ backgroundColor: currentBarStyle.backgroundColor }} />
+                <div
+                    className={`award-amounts-viz__line current${classNameForCovid}`}
+                    style={{ backgroundColor: currentBarStyle.backgroundColor }} />
                 <div className="award-amounts-viz__desc">
                     <div
                         className="award-amounts-viz__desc-text"
