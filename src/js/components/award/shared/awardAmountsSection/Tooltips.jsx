@@ -10,6 +10,30 @@ const totalPropTypes = {
     total: PropTypes.string
 };
 
+export const FileCOutlayTooltip = ({ total }) => (
+    <div className="award-amounts-tt">
+        <h4 className="tooltip__title">Outlay Amount for COVID-19</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
+        <div className="tooltip__text">
+            <p>Placeholder for tooltip content</p>
+        </div>
+    </div>
+);
+
+FileCOutlayTooltip.propTypes = totalPropTypes;
+
+export const FileCObligatedTooltip = ({ total }) => (
+    <div className="award-amounts-tt">
+        <h4 className="tooltip__title">Obligations for COVID-19</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
+        <div className="tooltip__text">
+            <p>Placeholder for tooltip content</p>
+        </div>
+    </div>
+);
+
+FileCObligatedTooltip.propTypes = totalPropTypes;
+
 export const ObligatedAmountTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Obligated Amount</h4>
@@ -270,6 +294,14 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             }
         },
         contract: {
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+            },
             obligated: {
                 offsetAdjustments: { top: 0 },
                 tooltipComponent: <ObligatedAmountTooltip total={data.totalObligationFormatted} />

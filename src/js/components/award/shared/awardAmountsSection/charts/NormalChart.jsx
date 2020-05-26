@@ -3,7 +3,7 @@
  * Created by David Trinh 2/15/19
  **/
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
@@ -25,14 +25,17 @@ const propTypes = {
 const isCovid = true;
 
 const NormalChart = ({ awardType, awardAmounts }) => {
+    const obligationsContainer = useRef();
     // Rename properties to improve readability of the calculations
     const [
         activeTooltip,
         closeTooltip,
+        showFileCOutlayTooltip,
+        showFileCObligatedTooltip,
         showObligatedTooltip,
         showCurrentTooltip,
         showPotentialTooltip
-    ] = useTooltips(["obligated", "current", "potential"]);
+    ] = useTooltips(["fileCObligated", "fileCOutlay", "obligated", "current", "potential"]);
 
     const isIdv = (awardType === 'idv');
 
@@ -50,7 +53,15 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const obligation = awardAmounts._totalObligation;
     const current = awardAmounts._baseExercisedOptions;
     const potential = awardAmounts._baseAndAllOptions;
+    const fileCOutlay = awardAmounts._fileCOutlay;
+    const fileCObligated = awardAmounts._fileCObligated;
 
+    const fileCOutlayWidth = {
+        width: generatePercentage(fileCOutlay / potential)
+    };
+    const fileCObligatedWidth = {
+        width: generatePercentage((fileCObligated + fileCOutlay) / potential)
+    };
     const obligatedWidth = {
         width: generatePercentage(obligation / potential)
     };
@@ -62,9 +73,23 @@ const NormalChart = ({ awardType, awardAmounts }) => {
         width: generatePercentage(current / potential)
     };
 
+    const fileCOutlayBarStyle = {
+        backgroundColor: '#6E338E'
+    };
+
+    const fileCOutlayPositioning = {
+        position: 'relative',
+        right: fileCObligatedWidth.width,
+        padding: '0.2rem'
+    };
+
+    const fileCObligatedBarStyle = {
+        backgroundColor: '#B699C6'
+    };
+
     const obligatedBarStyle = {
         backgroundColor: isCovid ? '#0A2F5A' : '#4773aa',
-        border: isCovid ? 'solid 0.4rem #558EC6' : 'solid 0.4rem #d6d7d9'
+        border: isCovid ? 'solid 0.2rem #558EC6' : 'solid 0.4rem #d6d7d9'
     };
 
     const currentBarStyle = {
@@ -80,6 +105,8 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
     const propsForCurrentTooltip = buildTooltipProps("current", (activeTooltip === "current"), showCurrentTooltip);
     const propsForPotentialTooltip = buildTooltipProps("potential", (activeTooltip === "potential"), showPotentialTooltip);
+    const propsForFileCOutlayTooltip = buildTooltipProps("fileCOutlay", (activeTooltip === "fileCOutlay"), showFileCOutlayTooltip);
+    const propsForFileCObligatedTooltip = buildTooltipProps("fileCObligated", (activeTooltip === "fileCObligated"), showFileCObligatedTooltip);
 
     const classNameForCovid = isCovid ? ' covid' : '';
 
@@ -104,10 +131,19 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 <TooltipWrapper {...propsForPotentialTooltip}>
                     <div className="award-amounts-viz__bar" style={potentialBarStyle}>
                         <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedWidth}>
-                            <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), ...obligatedBarStyle }} />
+                            <div className="award-amounts-viz__obligated" ref={obligationsContainer} style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
+                                <div className="nested-obligations">
+                                    <TooltipWrapper {...propsForFileCObligatedTooltip} styles={fileCObligatedWidth}>
+                                        <div className="award-amounts-viz__file-c-obligated" style={{ width: generatePercentage(1), ...fileCObligatedBarStyle }} />
+                                    </TooltipWrapper>
+                                    <TooltipWrapper {...propsForFileCOutlayTooltip} styles={{ ...fileCOutlayWidth, ...fileCOutlayPositioning }}>
+                                        <div className="award-amounts-viz__file-c-outlay" style={{ width: generatePercentage(1), ...fileCOutlayBarStyle }} />
+                                    </TooltipWrapper>
+                                </div>
+                            </div>
                         </TooltipWrapper>
                         <TooltipWrapper {...propsForCurrentTooltip} styles={currentWidth}>
-                            <div className="award-amounts-viz__excerised" style={currentBarStyle} />
+                            <div className="award-amounts-viz__exercised" style={currentBarStyle} />
                         </TooltipWrapper>
                     </div>
                 </TooltipWrapper>

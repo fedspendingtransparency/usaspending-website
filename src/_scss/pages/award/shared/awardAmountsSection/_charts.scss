@@ -23,6 +23,9 @@ $covid-potential: #AAC6E2;
             @include display(flex);
             .award-amounts-viz__obligated {
                 border: solid rem(4) $color-gray-lighter;
+                .nested-obligations {
+                    padding: rem(2);
+                }
             }
             .award-amounts-viz__obligated--grants {
                 border: none;
