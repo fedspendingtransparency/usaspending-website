@@ -11,7 +11,7 @@ details.populate(mockContractApi.latest_transaction.contract_data);
 
 describe('BaseContractAdditionalDetails', () => {
     it('should format psc code', () => {
-        expect(details.pscCode).toEqual('psc: product/service description');
+        expect(details.pscCode).toEqual('psc: product or service description');
     });
     it('should format naics code', () => {
         expect(details.naicsCode).toEqual('naics');
