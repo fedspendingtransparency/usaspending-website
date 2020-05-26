@@ -21,7 +21,6 @@ import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
 import NAICSCheckboxTree from 'containers/search/filters/naics/NAICSCheckboxTree';
-import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
 import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
@@ -33,18 +32,13 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
-import kGlobalConstants from 'GlobalConstants';
-
-const PscComponent = kGlobalConstants.DEV ? PSCCheckboxTreeContainer : PSCSearchContainer;
-const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Program Source (TAS)';
-
 const filters = {
     options: [
         'Keyword',
         'Time Period',
         'Award Type',
         'Agency',
-        tasTitle,
+        'Treasury Account Symbol (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
@@ -70,7 +64,7 @@ const filters = {
         AwardIDSearchContainer,
         CFDASearchContainer,
         NAICSCheckboxTree,
-        PscComponent,
+        PSCCheckboxTreeContainer,
         PricingTypeContainer,
         SetAsideContainer,
         ExtentCompetedContainer
