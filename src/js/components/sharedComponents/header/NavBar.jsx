@@ -113,13 +113,13 @@ export default class NavBar extends React.Component {
                         <div className="site-logo__wrapper" id="logo">
                             <a
                                 className="site-logo__link"
-                                href="#/"
+                                href="/"
                                 title="USAspending.gov Home"
                                 aria-label="USAspending.gov Home"
                                 onClick={clickedHeaderLink.bind(null, '/')}>
                                 <img
                                     className="site-logo__image"
-                                    src="img/logo.png"
+                                    src="img/logo.png" 
                                     srcSet="img/logo.png 1x, img/logo@2x.png 2x"
                                     alt="USAspending.gov" />
                             </a>
@@ -162,7 +162,7 @@ export default class NavBar extends React.Component {
                                 role="menuitem">
                                 <a
                                     className="full-menu__link"
-                                    href="#/explorer"
+                                    href="/explorer"
                                     title="Spending Explorer: Navigate the levels of government spending from top to bottom"
                                     onClick={clickedHeaderLink.bind(null, '/explorer')}>
                                     <span>Spending Explorer</span>
