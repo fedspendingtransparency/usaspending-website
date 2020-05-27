@@ -25,7 +25,6 @@ const propTypes = {
     download: PropTypes.object,
     clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
-    lastUpdate: PropTypes.string,
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
@@ -166,7 +165,6 @@ export default class SearchPage extends React.Component {
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
-                            lastUpdate={this.props.lastUpdate}
                             requestsComplete={this.props.requestsComplete}
                             noFiltersApplied={this.props.noFiltersApplied} />
                     </div>

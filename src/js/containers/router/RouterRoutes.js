@@ -4,7 +4,7 @@
  **/
 
 import Homepage from 'components/homepage/Homepage';
-import { SearchContainer } from 'containers/search/SearchContainer';
+import SearchContainer from 'containers/search/SearchContainer';
 import ExplorerLanding from 'components/explorer/landing/ExplorerLanding';
 import { ExplorerDetailPageContainer } from 'containers/explorer/detail/ExplorerDetailPageContainer';
 import { AwardContainer } from 'containers/award/AwardContainer';
@@ -38,7 +38,7 @@ export const routes = [
         component: SearchContainer
     },
     {
-        path: '/search/:hash',
+        path: '/search/:urlHash',
         addToSitemap: false,
         component: SearchContainer
     },
