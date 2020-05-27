@@ -1,0 +1,189 @@
+.contract-grant-activity {
+  width: 100%;
+  @import '../../../components/SVGLine';
+    .award__col__content {
+      @import '../../search/results/table/tableMessages';
+      .results-table-message-container {
+        position: relative;
+        background-color: rgb(246, 246, 246);
+        .results-table-loading {
+          margin-bottom: rem(100);
+        }
+        .no-results-container {
+          text-align: center;
+          margin-top: rem(100);
+          margin-bottom: rem(100);
+          .no-results-title {
+            h4 {
+              margin-bottom: 0;
+              vertical-align: bottom;
+            }
+          }
+          .no-results-message {
+            p {
+              margin-top: 0;
+              vertical-align: top;
+            }
+          }
+        }
+        .loading-animation {
+            @import "../../search/results/screens/loading";
+        }
+        .results-table-error {
+          .icon {
+            width: rem(36);
+            height: rem(36);
+            svg {
+              width: rem(36);
+              height: rem(36);
+            }
+          }
+          .title {
+            font-size: rem(20);
+            line-height: rem(45);
+          }
+          .description {
+            font-size: rem(16);
+            line-height: rem(10);
+          }
+        }
+      }
+      .contract-grant-activity-visualization {
+        @import '../shared/awardAmountsSection/charts';
+        .tooltip-wrapper {
+          z-index: 214748364;
+          pointer-events: visible;
+          .tooltip__content {
+            .tooltip__message {
+              .tooltip__text {
+                  padding: 2rem 2rem 0 2rem;
+              }
+              .tooltip__text:last-child {
+                padding: 2rem;
+              }
+            } 
+          }
+          .tooltip-pagination-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-around;
+            .pagination-text {
+              font-style: italic;
+            }
+            .tooltip-pagination-button {
+              background-color: transparent;
+              font-size: 2rem;
+              svg {
+                path {
+                  fill: $color-primary;
+                }
+              }
+              &.previous-page-button {
+                margin-right: 0;
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+              &.next-page-button {
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        width: 100%;
+        .activity-x-label {
+          width: 100%;
+          font-size: rem(12);
+          font-weight: $font-semibold;
+          text-align: center;
+        }
+        .contract-grant-activity-chart {
+          overflow: visible;
+          .contract-grant-activity-chart__body {
+            .bar-axis {
+              width: 100%;
+            }
+            .axis {
+              stroke: rgb(0,0,0);
+              stroke-width: 0.6;
+            }
+            .y-axis__text {
+              font-size: rem(12rem);
+            }
+            .x-axis__text {
+              font-size: rem(12rem);
+            }
+          }
+        }
+    }
+    .transaction-date-circle {
+      fill: $color-primary;
+    }
+    .area-path {
+      fill: $color-primary;
+      opacity: 0.2;
+    }
+    .area-path__past-end-line {
+      fill: $color-gray-lighter;
+      opacity: 0.3;
+    }
+    .svg-line {
+      stroke-width: 2;
+      &.start {
+        stroke: $color-green-light;
+      }
+      &.noOpacity {
+        opacity: 1;
+      }
+      &.contract-end {
+        stroke: $color-gold-light;
+      }
+      &.noOpacity {
+        opacity: 1;
+      }
+      &.grant-end {
+        stroke: $color-secondary-dark;
+      }
+      &.noOpacity {
+        opacity: 1;
+      }
+      &.potential-end {
+        stroke: $color-secondary-dark;
+      }
+      &.noOpacity {
+        opacity: 1;
+      }
+      &.potential-award-amount-line {
+        stroke: $color-primary-darker;
+      }
+      &.potential-award-amount-line:hover {
+        opacity: 1;
+      }
+    }
+    .svg-line__text {
+      font-weight: $font-semibold;
+      &.start {
+        fill: $color-green-light;
+      }
+      &.contract-end {
+        fill: $color-gold-light;
+      }
+      &.grant-end {
+        fill: $color-secondary-dark;
+      }
+      &.potential-end {
+        fill: $color-secondary-dark;
+      }
+    }
+  }
+}

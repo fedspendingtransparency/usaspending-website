@@ -6,13 +6,15 @@
 const tableSearchFields = {
     columnWidths: {
         modificationNumber: 0,
+        cfdaNumber: 0,
         actionDate: 0,
         federalActionObligation: 0,
-        actionTypeDescription: 380,
+        actionTypeDescription: 0,
         description: 380
     },
     defaultSortDirection: {
         modificationNumber: 'desc',
+        cfdaNumber: 'desc',
         actionDate: 'desc',
         federalActionObligation: 'desc',
         action_type: 'asc',
@@ -21,6 +23,7 @@ const tableSearchFields = {
     table: {
         _order: [
             'modificationNumber',
+            'cfdaNumber',
             'actionDate',
             'federalActionObligation',
             'actionTypeDescription',
@@ -28,12 +31,14 @@ const tableSearchFields = {
         ],
         _mapping: {
             modificationNumber: 'modification_number',
+            cfdaNumber: 'cfda_number',
             actionDate: 'action_date',
             federalActionObligation: 'federal_action_obligation',
             actionTypeDescription: 'action_type',
             description: 'description'
         },
         modificationNumber: 'Modification Number',
+        cfdaNumber: 'CFDA Number',
         actionDate: 'Action Date',
         federalActionObligation: 'Amount',
         actionTypeDescription: 'Action Type',

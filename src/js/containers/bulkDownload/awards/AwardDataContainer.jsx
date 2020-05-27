@@ -20,7 +20,9 @@ const propTypes = {
     clearDownloadFilters: PropTypes.func,
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
-    clickedDownload: PropTypes.func
+    clickedDownload: PropTypes.func,
+    bulkAwardTypeChange: PropTypes.func,
+    toggleAwardTypeChange: PropTypes.func
 };
 
 export class AwardDataContainer extends React.Component {
@@ -47,6 +49,8 @@ export class AwardDataContainer extends React.Component {
         this.setAgencyList = this.setAgencyList.bind(this);
         this.setSubAgencyList = this.setSubAgencyList.bind(this);
         this.loadStates = this.loadStates.bind(this);
+        this.bulkAwardTypeChange = this.bulkAwardTypeChange.bind(this);
+        this.toggleAwardTypeChange = this.toggleAwardTypeChange.bind(this);
     }
 
     componentDidMount() {
@@ -65,6 +69,7 @@ export class AwardDataContainer extends React.Component {
 
         // perform the API request
         this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+            type: "award_agencies",
             agency: 0
         });
 
@@ -97,6 +102,7 @@ export class AwardDataContainer extends React.Component {
 
             // perform the API request
             this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+                type: "award_agencies",
                 agency: parseInt(id, 10)
             });
 
@@ -181,6 +187,14 @@ export class AwardDataContainer extends React.Component {
         this.props.clearDownloadFilters('awards');
     }
 
+    bulkAwardTypeChange(selection) {
+        this.props.bulkAwardTypeChange(selection);
+    }
+
+    toggleAwardTypeChange(selection) {
+        this.props.toggleAwardTypeChange(selection);
+    }
+
     render() {
         return (
             <AwardDataContent
@@ -194,7 +208,9 @@ export class AwardDataContainer extends React.Component {
                 subAgencies={this.state.subAgencies}
                 setSubAgencyList={this.setSubAgencyList}
                 states={this.state.states}
-                clickedDownload={this.props.clickedDownload} />
+                clickedDownload={this.props.clickedDownload}
+                bulkAwardTypeChange={this.bulkAwardTypeChange}
+                toggleAwardTypeChange={this.toggleAwardTypeChange} />
         );
     }
 }

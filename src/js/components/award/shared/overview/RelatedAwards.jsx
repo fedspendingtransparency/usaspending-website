@@ -132,7 +132,7 @@ export default class RelatedAwards extends React.Component {
     render() {
         const { overview } = this.props;
         const tooltipInfo = this.tooltipInfo();
-        const awardTitle = overview.category === 'idv' ? 'Parent Award' : 'Parent IDV';
+        const awardTitle = 'Parent Award';
         let parentLink = 'N/A';
         if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
@@ -148,7 +148,11 @@ export default class RelatedAwards extends React.Component {
             <div className="award-viz related-awards award-overview-column award-overview-column__spacing first">
                 <h6 className="award-overview-title related-awards__title">
                     Related Awards
-                    <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+                    <TooltipWrapper
+                        className="award-section-tt"
+                        icon="info"
+                        tooltipPosition="left"
+                        tooltipComponent={tooltipInfo} />
                 </h6>
                 <div className="related-awards__parent">
                     <div className="related-awards__label">

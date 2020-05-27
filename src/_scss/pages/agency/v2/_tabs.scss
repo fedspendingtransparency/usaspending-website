@@ -1,0 +1,71 @@
+.count-tabs {
+    .count-tabs__questions {
+        @include display(flex);
+        font-size: rem(21);
+        font-weight: $font-light;
+        letter-spacing: rem(-0.44);
+        line-height: rem(27);
+        text-align: center;
+        > div {
+            padding: 0 rem(21) rem(30);
+        }
+    }
+    .count-tabs__buttons {
+        @include display(flex);
+        border-bottom: solid 1px $color-gray-light;
+        button.count-tabs__button {
+            @include display(flex);
+            @include flex(1 1 25%);
+            @include justify-content(center);
+            @include align-items(stretch);
+            @include button-unstyled;
+            border: 1px solid transparent;
+            border-top-left-radius: rem(8);
+            border-top-right-radius: rem(8);
+            margin-right: rem(10);
+            background-color: $color-gray-lightest;
+            color: $color-gray;
+            text-align: center;
+
+            &:hover{
+                @include transition(all 0.3s ease-in-out);
+                background-color: darken($color-gray-lightest, 5%);
+            }
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+
+            &.count-tabs__button_active {
+                border-top: 1px solid $color-gray-light;
+                border-right: 1px solid $color-gray-light;
+                border-bottom: 1px solid $color-white;
+                border-left: 1px solid $color-gray-light;
+                background-color: $color-white;
+                margin-bottom: -0.1rem;
+            }
+
+            .count-button {
+                display: block;
+                width: 100%;
+                @include media($large-screen) {
+                    padding: rem(20);
+                }
+                .count-button__label {
+                    font-weight: $font-semibold;
+                    font-size: rem(21);
+                    line-height: rem(27);
+                }
+                .count-button__count {
+                    font-weight: $font-semibold;
+                    font-size: rem(36);
+                    line-height: rem(45);
+                }
+                .count-button__sub-heading {
+                    font-size: rem(16);
+                    line-height: rem(20);
+                }
+            }
+        }
+    }
+}

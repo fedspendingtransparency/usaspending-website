@@ -26,7 +26,6 @@ export default class SelectedNAICS extends React.Component {
                 removeValue={this.props.removeNAICS.bind(null, entry[1])} />);
             shownNAICS.push(value);
         });
-
         return (
             <div
                 className="selected-filters"

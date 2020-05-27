@@ -3,25 +3,20 @@
  * Created by Lizzie Salita 10/31/17
  **/
 
+import { Set } from 'immutable';
+
 import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
 
+import * as AwardFilterFunctions from '../search/filters/awardFilterFunctions';
 
 const initialQuarters = defaultQuarters();
 
 export const initialState = {
     dataType: '',
     awards: {
-        awardLevels: {
-            primeAwards: false,
-            subAwards: false
-        },
         awardTypes: {
-            contracts: false,
-            grants: false,
-            directPayments: false,
-            loans: false,
-            otherFinancialAssistance: false,
-            idvs: false
+            primeAwards: new Set(),
+            subAwards: new Set()
         },
         agency: {
             id: '',
@@ -31,6 +26,7 @@ export const initialState = {
             id: '',
             name: 'Select a Sub-Agency'
         },
+        locationType: 'recipient_location',
         location: {
             country: {
                 code: '',
@@ -67,7 +63,7 @@ export const initialState = {
             id: '',
             name: 'Select a Federal Account'
         },
-        submissionType: 'accountBalances',
+        submissionTypes: ['accountBalances'],
         fy: `${initialQuarters.year}`,
         quarter: `${Math.max(...initialQuarters.quarters)}`,
         fileFormat: 'csv'
@@ -101,12 +97,31 @@ const bulkDownloadReducer = (state = initialState, action) => {
             });
         }
         case 'UPDATE_DOWNLOAD_FILTER': {
-            const dataType = Object.assign({}, state[action.dataType], {
-                [action.name]: action.value
-            });
-
+            const { dataType, name, value } = action;
+            if (name === 'submissionTypes') {
+                // toggle; checkbox is unchecked
+                if (state[dataType][name].includes(value)) {
+                    return {
+                        ...state,
+                        [dataType]: {
+                            ...state[dataType],
+                            [name]: state[dataType][name].filter((submissionType) => submissionType !== value)
+                        }
+                    };
+                }
+                // insert; checkbox is checked, persist existing values and add new value
+                return {
+                    ...state,
+                    [dataType]: {
+                        ...state[dataType],
+                        [name]: [...state[dataType][name], value]
+                    }
+                };
+            }
             return Object.assign({}, state, {
-                [action.dataType]: dataType
+                [dataType]: Object.assign({}, state[dataType], {
+                    [name]: value
+                })
             });
         }
         case 'UPDATE_AWARD_DATE_RANGE': {
@@ -167,6 +182,25 @@ const bulkDownloadReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 download
             });
+        }
+        case 'BULK_AWARD_TYPE_CHANGE': {
+            const awardTypes = Object.assign({}, state.awards.awardTypes, {
+                [action.lookupName]: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.awards.awardTypes[action.lookupName], action.awardTypes, action.direction
+                )
+            });
+            const awards = Object.assign({}, state.awards, { awardTypes });
+
+            return Object.assign({}, state, { awards });
+        }
+        case 'TOGGLE_AWARD_TYPE_CHANGE': {
+            const awardTypes = Object.assign({}, state.awards.awardTypes, {
+                [action.lookupName]: AwardFilterFunctions.immutableSetToggle(
+                    state.awards.awardTypes[action.lookupName], action.awardType)
+            });
+            const awards = Object.assign({}, state.awards, { awardTypes });
+
+            return Object.assign({}, state, { awards });
         }
         default:
             return state;

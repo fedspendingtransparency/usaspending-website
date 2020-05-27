@@ -2,6 +2,9 @@
     padding: 20px;
 
     @import "./_definitionTabs";
+    .glossary-share-icon:hover {
+        color: #FFF;
+    }
 
     h2.term {
         font-size: 24px;
@@ -9,9 +12,40 @@
         font-weight: 600;
 
         margin: 0;
-        margin-top: 20px;
     }
 
+    .copy-confirmation {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        height: rem(39);
+        width: 45%;
+        margin-left: 37%;
+        background: #EEEEEE;
+        border: rem(1) solid #EEEEEE;
+        border-radius: rem(3);
+        color: #555555;
+        margin-right: rem(15);
+        svg {
+            margin: 0 rem(10);
+        }
+    }
+
+    .usa-dt-picker {
+        justify-content: flex-end;
+        width: 50%;
+        margin-left: 50%;
+        background: #215493;
+        .usa-dt-picker__dropdown-container {
+            .usa-dt-picker__button {
+                padding: rem(13) 0 rem(3) 0;
+            }
+        }
+        .usa-dt-picker__dropdown-container {
+            @import "../../components/_picker";
+        }
+    }
     .definition-content {
         a {
             color: $color-white;

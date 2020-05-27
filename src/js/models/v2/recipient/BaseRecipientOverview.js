@@ -13,6 +13,7 @@ const BaseRecipientOverview = {
     populate(data) {
         this.id = data.recipient_id || null;
         this.name = data.name || 'Name not provided';
+        this.alternateNames = data.alternate_names || [];
         this.duns = data.duns || 'DUNS not provided';
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';

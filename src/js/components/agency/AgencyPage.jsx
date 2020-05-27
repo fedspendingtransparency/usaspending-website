@@ -8,10 +8,12 @@ import PropTypes from 'prop-types';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 
+import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Footer from 'components/sharedComponents/Footer';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
+import { getBaseUrl } from 'helpers/socialShare';
 
 import AgencyLoading from './AgencyLoading';
 import AgencyError from './AgencyError';
@@ -26,8 +28,11 @@ const propTypes = {
     lastUpdate: PropTypes.string
 };
 
+
 export default class AgencyPage extends React.Component {
     render() {
+        const { id, overview } = this.props.agency;
+        const slug = `agency/${id}`;
         let content = <AgencyContent {...this.props} />;
         if (this.props.loading) {
             content = (<AgencyLoading />);
@@ -45,6 +50,14 @@ export default class AgencyPage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             Agency Profile
                         </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: `USAspending.gov Agency Profile: ${overview.name}`,
+                                body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
                     </div>
                 </StickyHeader>
                 <main

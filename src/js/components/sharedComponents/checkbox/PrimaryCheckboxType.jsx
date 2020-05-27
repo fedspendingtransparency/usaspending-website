@@ -17,6 +17,7 @@ import SingleCheckboxType from './SingleCheckboxType';
 const propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
+    lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
     value: PropTypes.string,
@@ -24,18 +25,21 @@ const propTypes = {
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
-    restrictChildren: PropTypes.bool
+    restrictChildren: PropTypes.bool,
+    isCollapsable: PropTypes.bool
 };
 
 const defaultProps = {
     name: '',
+    lookupName: '',
     filters: [],
     value: '',
     filterType: '',
     types: {},
     selectedCheckboxes: new Set(),
     enableAnalytics: false,
-    restrictChildren: false
+    restrictChildren: false,
+    isCollapsable: true
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
@@ -126,6 +130,7 @@ export default class PrimaryCheckboxType extends React.Component {
         if (this.state.allChildren) {
             // all the children are selected, deselect them
             this.props.bulkTypeChange({
+                lookupName: this.props.lookupName,
                 types: this.props.filters,
                 direction: 'remove'
             });
@@ -138,6 +143,7 @@ export default class PrimaryCheckboxType extends React.Component {
         else {
             // not all the children are selected, select them all
             this.props.bulkTypeChange({
+                lookupName: this.props.lookupName,
                 types: this.props.filters,
                 direction: 'add'
             });
@@ -159,11 +165,12 @@ export default class PrimaryCheckboxType extends React.Component {
             arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems}
             toggleChildren={this.toggleChildren}
-            hideArrow={this.state.selectedChildren || this.props.restrictChildren} />);
+            hideArrow={this.state.selectedChildren || this.props.restrictChildren}
+            isCollapsable={this.props.isCollapsable} />);
 
         let secondaryTypes = null;
 
-        if (this.state.showSubItems) {
+        if (this.state.showSubItems || !this.props.isCollapsable) {
             secondaryTypes = this.props.filters
                 .filter((subFilter) => !excludedSubFilters.includes(subFilter))
                 .map((code) => (

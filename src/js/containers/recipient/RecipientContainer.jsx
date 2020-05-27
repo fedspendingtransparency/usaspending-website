@@ -47,13 +47,15 @@ export class RecipientContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (!Object.keys(this.props.params).includes('fy')) {
+            Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
+        }
         if (this.props.params.recipientId !== prevProps.params.recipientId) {
             // Reset the FY
             this.props.setRecipientFiscalYear(this.props.params.fy);
             this.loadRecipientOverview(this.props.params.recipientId, 'latest');
         }
-        if (!prevProps.params.fy && this.props.params.fy) {
-            // we just redirected the user to the new url which includes the fy selection
+        if (prevProps.params.fy !== this.props.params.fy) {
             this.props.setRecipientFiscalYear(this.props.params.fy);
         }
         if (this.props.recipient.fy !== prevProps.recipient.fy) {

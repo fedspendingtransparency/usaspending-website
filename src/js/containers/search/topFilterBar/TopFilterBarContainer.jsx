@@ -344,6 +344,18 @@ export class TopFilterBarContainer extends React.Component {
             filter.values = identifiers;
         }
 
+        if (props.tasCodes.require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.tasCodes.counts.map((tas) => ({
+                    ...tas,
+                    isV2: true,
+                    tas_description: `${tas.label} (${tas.count})`
+                }))
+            ];
+        }
+
         if (selected) {
             filter.code = 'treasuryAccounts';
             filter.name = 'Treasury Account';
@@ -629,6 +641,19 @@ export class TopFilterBarContainer extends React.Component {
             return filter;
         }
 
+        else if (props.naicsCodes.require.length > 0) {
+            return {
+                code: 'selectedNAICS',
+                name: 'NAICS',
+                values: props.naicsCodes.counts.map((naics) => ({
+                    ...naics,
+                    isV2: true,
+                    identifier: naics.value,
+                    naics_description: `${naics.label} (${naics.count})`
+                }))
+            };
+        }
+
         return null;
     }
 
@@ -646,6 +671,17 @@ export class TopFilterBarContainer extends React.Component {
             // PSC have been selected
             selected = true;
             filter.values = props.selectedPSC.toArray();
+        }
+        else if (props.pscCodes.require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.pscCodes.counts.map((psc) => ({
+                    ...psc,
+                    isV2: true,
+                    psc_description: `${psc.value} (${psc.count})`
+                }))
+            ];
         }
 
         if (selected) {

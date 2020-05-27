@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer'
@@ -164,6 +164,20 @@ describe('SearchSidebarSubmitContainer', () => {
             
             container.instance().resetFilters();
             expect(actions.resetAppliedFilters).toHaveBeenCalledTimes(1);
+        });
+        it('should reset all naics redux namespace, checked and unchecked', () => {
+            const actions = Object.assign({}, mockActions, {
+                resetNaicsTree: jest.fn()
+            });
+
+            const container = shallow(
+                <SearchSidebarSubmitContainer
+                    {...mockRedux}
+                    {...actions} />
+            );
+            
+            container.instance().resetFilters();
+            expect(actions.resetNaicsTree).toHaveBeenCalledTimes(1);
         });
     });
 });

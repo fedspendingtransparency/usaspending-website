@@ -10,16 +10,17 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
+import Footer from 'containers/Footer';
+
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'components/sharedComponents/header/Header';
+import Error from 'components/sharedComponents/Error';
+import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
 import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';
 import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
-import Error from '../sharedComponents/Error';
-import { LoadingWrapper } from '../sharedComponents/Loading';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -52,6 +53,10 @@ const awardSections = [
     {
         section: 'award-history',
         label: 'Award History'
+    },
+    {
+        section: 'cfda',
+        label: 'CFDA Program / Assistance Listing Information'
     }
 ];
 
@@ -139,12 +144,16 @@ export default class Award extends React.Component {
         const { overview } = this.props.award;
         const { awardId, isLoading } = this.props;
         const content = this.renderContent(overview, awardId);
+        const slug = `award/${awardId}`;
+        const emailSubject = `${overview?.awardingAgency?.formattedToptier} to ${overview?.recipient?._name}`;
         return (
             <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
                 <Header />
                 <StickyHeader>
                     <SummaryBar
+                        slug={slug}
+                        emailSubject={emailSubject}
                         downloadData={this.props.downloadData}
                         isDownloadPending={this.props.isDownloadPending}
                         isInvalidId={this.props.noAward}

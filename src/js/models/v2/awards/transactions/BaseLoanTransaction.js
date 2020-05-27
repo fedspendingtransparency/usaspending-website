@@ -18,7 +18,8 @@ BaseLoanTransaction.populate = function populate(data) {
         actionType: data.action_type,
         actionTypeDescription: (data.action_type && actionTypes[data.action_type].toUpperCase()),
         modificationNumber: data.modification_number,
-        description: data.description
+        description: data.description,
+        cfda_number: data.cfda_number
     };
     this.populateCore(coreData);
 

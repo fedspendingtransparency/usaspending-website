@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap } from 'immutable';
+import { Set, OrderedMap, Record } from 'immutable';
 
 import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
@@ -19,7 +19,9 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2019-07-26';
+export const filterStoreVersion = '2020-05-20';
+
+export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -35,6 +37,9 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
+    naicsCodes: CheckboxTreeSelections,
+    tasCodes: CheckboxTreeSelections,
+    pscCodes: CheckboxTreeSelections,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -62,12 +67,15 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
+    naicsCodes: new CheckboxTreeSelections(),
     selectedPSC: new OrderedMap(),
+    pscCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
     federalAccounts: new OrderedMap(),
-    treasuryAccounts: new OrderedMap()
+    treasuryAccounts: new OrderedMap(),
+    tasCodes: new CheckboxTreeSelections()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -218,11 +226,33 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        // NAICS_V2 Filter
+        case 'UPDATE_NAICS_V2': {
+            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
+            return Object.assign({}, state, {
+                naicsCodes
+            });
+        }
+
         // PSC Filter
         case 'UPDATE_SELECTED_PSC': {
             return Object.assign({}, state, {
                 selectedPSC: OtherFilterFunctions.updateSelectedPSC(
                     state.selectedPSC, action.psc)
+            });
+        }
+
+        // PSC_V2 Filter
+        case 'UPDATE_PSC_V2': {
+            return Object.assign({}, state, {
+                pscCodes: action.payload
+            });
+        }
+
+        // TAS_V2 Filter
+        case 'UPDATE_TAS_V2': {
+            return Object.assign({}, state, {
+                tasCodes: action.payload
             });
         }
 

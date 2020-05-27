@@ -145,7 +145,11 @@ export default class AwardDates extends Component {
                 <div className="award-dates__heading">
                     <h6 className="award-overview-title award-dates__title">
                         Dates
-                        <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+                        <TooltipWrapper
+                            className="award-section-tt"
+                            icon="info"
+                            pointerPostion="left"
+                            tooltipComponent={tooltipInfo} />
                     </h6>
                 </div>
                 <ProgressBar

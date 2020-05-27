@@ -1,4 +1,5 @@
 import bulkDownloadReducer, { initialState } from 'redux/reducers/bulkDownload/bulkDownloadReducer';
+import { Set } from 'immutable';
 
 describe('bulkDownloadReducer', () => {
     describe('SET_DATA_TYPE', () => {
@@ -24,20 +25,20 @@ describe('bulkDownloadReducer', () => {
             const state = bulkDownloadReducer(undefined, action);
             expect(state.awards.fileFormat).toEqual('mockFormat');
         });
-    });
-
-    describe('UPDATE_CHECKBOX', () => {
-        it('should update the specified checkbox value', () => {
+        it('should update the submissionTypes array', () => {
             const action = {
-                type: 'UPDATE_CHECKBOX',
-                filter: 'awardLevels',
-                name: 'primeAwards',
-                value: true,
-                dataType: 'awards'
+                type: 'UPDATE_DOWNLOAD_FILTER',
+                dataType: 'accounts',
+                name: 'submissionTypes',
+                value: 'accountBreakdown'
             };
 
-            const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.awardLevels.primeAwards).toEqual(true);
+            let state = bulkDownloadReducer(initialState, action);
+            // inserting new...
+            expect(state.accounts.submissionTypes).toEqual(['accountBalances', 'accountBreakdown']);
+            // toggle when value is already present in the array
+            state = bulkDownloadReducer(initialState, { ...action, value: 'accountBalances'});
+            expect(state.accounts.submissionTypes).toEqual([]);
         });
     });
 
@@ -69,17 +70,9 @@ describe('bulkDownloadReducer', () => {
             const state = {
                 dataType: 'awards',
                 awards: {
-                    awardLevels: {
-                        primeAwards: true,
-                        subAwards: true
-                    },
                     awardTypes: {
-                        contracts: false,
-                        grants: true,
-                        directPayments: true,
-                        loans: false,
-                        otherFinancialAssistance: false,
-                        idvs: false
+                        primeAwards: new Set(['grants', 'direct_payments']),
+                        subAwards: new Set(['sub_grants', 'sub_contracts'])
                     },
                     agency: {
                         id: '123',
@@ -146,5 +139,101 @@ describe('bulkDownloadReducer', () => {
             // the value should be equal
             expect(state.download.showCollapsedProgress).toEqual(true);
         });
+    });
+    describe('BULK_AWARD_TYPE_CHANGE', () => {
+        it('should add to the prime award type set', () => {
+            const action = {
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
+                awardTypes: [
+                    'contracts',
+                    'direct_payments',
+                    'grants',
+                    'idvs',
+                    'loans',
+                    'other'
+                ],
+                direction: 'add'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.primeAwards).toEqual(new Set([
+                'contracts',
+                'direct_payments',
+                'grants',
+                'idvs',
+                'loans',
+                'other'
+            ]));
+        });
+
+        it('should remove from the prime award type set', () => {
+            const action = {
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
+                awardTypes: [],
+                direction: 'remove'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.primeAwards).toEqual(new Set([]));
+        });
+
+        it('should add to the sub award type set', () => {
+            const action = {
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
+                awardTypes: [
+                    'sub_grants',
+                    'sub_contracts'
+                ],
+                direction: 'add'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.subAwards).toEqual(new Set([
+                'sub_grants',
+                'sub_contracts'
+            ]));
+        });
+
+        it('should remove from the sub award type set', () => {
+            const action = {
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
+                awardTypes: [],
+                direction: 'remove'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.subAwards).toEqual(new Set([]));
+        });
+    });
+
+    describe('TOGGLE_AWARD_TYPE_CHANGE', () => {
+        it('should add to the prime award type set', () => {
+            const action = {
+                type: 'TOGGLE_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
+                awardType: 'contracts'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.primeAwards).toEqual(
+                new Set(['contracts']));
+        });
+
+        it('should add to the sub award type set', () => {
+            const action = {
+                type: 'TOGGLE_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
+                awardType: 'sub_grants'
+            };
+
+            const state = bulkDownloadReducer(undefined, action);
+            expect(state.awards.awardTypes.subAwards).toEqual(
+                new Set(['sub_grants']));
+        });
+
     });
 });

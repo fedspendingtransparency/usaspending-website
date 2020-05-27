@@ -1,0 +1,37 @@
+.radio,
+.checkbox {
+    padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
+    }
+
+    input {
+        margin-right: rem(5);
+    }
+    .radio-label,
+    .checkbox-label {
+        color: #4A4A4A;
+        font-size: rem(18);
+        line-height: rem(23);
+        &.disabled {
+            color: $color-gray-light;
+        }
+        .radio-label__subtext {
+            padding-left: rem(15);
+            color: $color-gray-light;
+            font-style: italic;
+            font-weight: 300;
+            line-height: rem(23);
+            white-space: nowrap;
+        }
+    }
+    .radio-description {
+        color: #5B616B;
+        font-size: rem(14);
+        font-style: italic;
+        font-weight: 300;
+        line-height: rem(18);
+        margin-top: rem(5);
+        margin-left: rem(20);
+    }
+}

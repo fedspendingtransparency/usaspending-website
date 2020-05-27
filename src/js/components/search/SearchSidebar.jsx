@@ -20,9 +20,8 @@ import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSea
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
-import NAICSSearchContainer from 'containers/search/filters/naics/NAICSSearchContainer';
-import NAICSContainer from 'containers/search/filters/naics/NAICSContainer';
-import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
+import NAICSCheckboxTree from 'containers/search/filters/naics/NAICSCheckboxTree';
+import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
@@ -33,27 +32,20 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
-import kGlobalConstants from 'GlobalConstants';
-
-const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContainer;
-const naicsTitle = kGlobalConstants.DEV ?
-    'North American Industry Classification System (NAICS)' :
-    'NAICS Code';
-
 const filters = {
     options: [
         'Keyword',
         'Time Period',
         'Award Type',
         'Agency',
-        'Program Source (TAS)',
+        'Treasury Account Symbol (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
         'Award Amount',
         'Award ID',
         'CFDA Program',
-        naicsTitle,
+        'North American Industry Classification System (NAICS)',
         'Product/Service Code (PSC)',
         'Type of Contract Pricing',
         'Type of Set Aside',
@@ -71,8 +63,8 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,
-        naicsComponent,
-        PSCSearchContainer,
+        NAICSCheckboxTree,
+        PSCCheckboxTreeContainer,
         PricingTypeContainer,
         SetAsideContainer,
         ExtentCompetedContainer
@@ -107,7 +99,7 @@ const filters = {
         null,
         null,
         null,
-        null,
+        'productservice-code-psc',
         null,
         null
     ]

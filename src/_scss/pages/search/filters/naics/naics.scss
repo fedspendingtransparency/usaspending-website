@@ -2,14 +2,7 @@
   @import '../../../../components/_checkboxTree';
   .naics-search-container {
     padding: 0 rem(12);
-    .naics-filter-message-container {
-      font-size: rem(30);
-      text-align: center;
-      .naics-filter-message-container__text {
-        font-size: 2rem;
-        padding-bottom: 2rem;
-      }
-    }
+    margin-bottom: rem(12);
     .children-are-loading {
       font-size: rem(15);
       text-align: center;
@@ -36,6 +29,34 @@
         top: rem(15);
         svg {
             // color: $color-gray;
+        }
+      }
+    }
+    @import '../../../../elements/filters/selectedFilterBtn';
+    .selected-filters {
+      background: #E4E4E4;
+      padding: rem(10);
+      margin-bottom: rem(10);
+      .shown-filter-button {
+        line-height: rem(15);
+        font-size: rem(12);
+        color: #5B616B;
+        .close {
+          color: #5B616B;
+        }
+        &:hover {
+          outline: none;
+          border: rem(1) solid $color-gray-lighter;
+          & .close {
+            color: #5B616B;
+            outline: none;
+          }
+        }
+        &:focus {
+          outline: none;
+          & .close {
+            outline: none;
+          }
         }
       }
     }

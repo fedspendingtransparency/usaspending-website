@@ -5,8 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Picker } from 'data-transparency-ui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { startCase } from "lodash";
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
+import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -16,6 +20,9 @@ const propTypes = {
     clearGlossaryTerm: PropTypes.func
 };
 
+const getGlossaryEmailSubject = (url) => `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
+const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
+
 export default class GlossaryDefinition extends React.Component {
     constructor(props) {
         super(props);
@@ -23,11 +30,14 @@ export default class GlossaryDefinition extends React.Component {
         this.state = {
             tab: 'plain',
             hasPlain: true,
-            hasOfficial: true
+            hasOfficial: true,
+            showCopiedConfirmation: false
         };
 
         this.clickedTab = this.clickedTab.bind(this);
         this.clickedBack = this.clickedBack.bind(this);
+        this.getCopyFn = this.getCopyFn.bind(this);
+        this.showCopiedConfirmation = null;
     }
 
     componentDidMount() {
@@ -36,6 +46,21 @@ export default class GlossaryDefinition extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.checkDefinitions(nextProps);
+    }
+
+    componentWillUnmount() {
+        if (this.showCopiedConfirmation) {
+            window.clearTimeout(this.showCopiedConfirmation);
+        }
+    }
+
+    getCopyFn() {
+        document.getElementById('slug').select();
+        document.execCommand("copy");
+        this.setState({ showCopiedConfirmation: true });
+        this.showCopiedConfirmation = window.setTimeout(() => {
+            this.setState({ showCopiedConfirmation: false });
+        }, 1750);
     }
 
     checkDefinitions(props) {
@@ -66,13 +91,47 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     render() {
+        const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
+        const url = `https://www.usaspending.gov/#/${slug}`;
+        const options = socialShareOptions.map((option) => {
+            if (option.name === 'copy') {
+                return {
+                    ...option,
+                    onClick: this.getCopyFn
+                };
+            }
+            if (option.name === 'email') {
+                const onClick = getSocialShareFn(option.name).bind(null, {
+                    subject: getGlossaryEmailSubject(url),
+                    body: getGlossaryEmailBody(url)
+                });
+                return {
+                    ...option,
+                    onClick
+                };
+            }
+            return {
+                ...option,
+                onClick: getSocialShareFn(option.name).bind(null, slug)
+            };
+        });
         return (
             <div className="glossary-definition">
+                <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
                 <DefinitionTabs
                     hasPlain={this.state.hasPlain}
                     hasOfficial={this.state.hasOfficial}
                     activeTab={this.state.tab}
                     clickedTab={this.clickedTab} />
+                <Picker
+                    options={options}
+                    dropdownDirection="left"
+                    backgroundColor="#215493"
+                    selectedOption="copy"
+                    sortFn={() => 1}>
+                    <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
+                </Picker>
+                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />

@@ -24,7 +24,7 @@ export default class ProgramSourceSection extends React.Component {
         super(props);
 
         this.state = {
-            activeTab: 'treasury',
+            activeTab: 1,
             components: {
                 ata: '',
                 aid: '',
@@ -78,7 +78,7 @@ export default class ProgramSourceSection extends React.Component {
         // switch to the federal account tab if it has a filter applied and TAS does not
         if (this.props.selectedFederalComponents.size > 0 && this.props.selectedTreasuryComponents.size === 0) {
             this.setState({
-                activeTab: 'federal'
+                activeTab: 1
             });
         }
     }
@@ -87,7 +87,7 @@ export default class ProgramSourceSection extends React.Component {
         const type = e.target.value;
 
         this.setState({
-            activeTab: type
+            activeTab: parseInt(type, 10)
         });
     }
 
@@ -141,10 +141,9 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     render() {
-        const activeTab = this.state.activeTab;
-        const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
-        const activeFederal = activeTab === 'federal' ? '' : 'inactive';
-        const components = this.state.components;
+        const { activeTab, components } = this.state;
+        const activeTreasury = activeTab === 1 ? '' : 'inactive';
+        const activeFederal = activeTab === 2 ? '' : 'inactive';
         const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
@@ -156,14 +155,7 @@ export default class ProgramSourceSection extends React.Component {
         );
 
         let selectedSources = null;
-        if (activeTab === 'federal' && this.props.selectedFederalComponents) {
-            selectedSources = (
-                <SelectedSources
-                    removeSource={this.removeFilter}
-                    label="FA #"
-                    selectedSources={this.props.selectedFederalComponents} />);
-        }
-        else if (activeTab === 'treasury' && this.props.selectedTreasuryComponents) {
+        if (activeTab === 2 && this.props.selectedFederalComponents) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
@@ -199,9 +191,9 @@ export default class ProgramSourceSection extends React.Component {
                     <li>
                         <button
                             className={`tab-toggle ${activeTreasury}`}
-                            value="treasury"
+                            value="1"
                             role="menuitemradio"
-                            aria-checked={this.state.activeTab === 'treasury'}
+                            aria-checked={this.state.activeTab === 1}
                             title="Treasury Account"
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
@@ -211,13 +203,13 @@ export default class ProgramSourceSection extends React.Component {
                     <li>
                         <button
                             className={`tab-toggle ${activeFederal}`}
-                            value="federal"
+                            value="2"
                             role="menuitemradio"
-                            aria-checked={this.state.activeTab === 'federal'}
+                            aria-checked={this.state.activeTab === 2}
                             title="Federal Account"
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
-                            Federal Account
+                            TAS Components
                         </button>
                     </li>
                 </ul>

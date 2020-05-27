@@ -18,6 +18,21 @@ export const fetchFundingAgencies = (req) => apiRequest({
     data: req
 });
 
+// TAS search
+export const fetchTas = (idString = '') => apiRequest({
+    // str contains depth, prepended with agency & federal account delimited by a '/', if any.
+    url: idString.length === 0
+        ? `/v2/references/filter_tree/tas/`
+        : `/v2/references/filter_tree/tas/${idString}`
+});
+
+// PSC search
+export const fetchPsc = (paramString = '') => apiRequest({
+    url: paramString === ''
+        ? `/v2/references/filter_tree/psc/`
+        : `/v2/references/filter_tree/psc/${paramString}`
+});
+
 // CFDA search for autocomplete
 export const fetchCFDA = (req) => apiRequest({
     url: 'v2/autocomplete/cfda/',
@@ -31,6 +46,12 @@ export const fetchNAICS = (req) => apiRequest({
     url: 'v2/autocomplete/naics/',
     method: 'post',
     data: req
+});
+
+// perform search is a cancellable promise
+// eslint-disable-next-line import/prefer-default-export
+export const naicsRequest = (param) => apiRequest({
+    url: `v2/references/naics/${param || ''}`
 });
 
 // PSC search for autocomplete
@@ -60,7 +81,7 @@ export const performSpendingOverTimeSearch = (params) => apiRequest({
 
 // Spending By Category Visualization Endpoint
 export const performSpendingByCategorySearch = (params) => apiRequest({
-    url: 'v2/search/spending_by_category/',
+    url: `v2/search/spending_by_category/${params.category}`,
     method: 'post',
     headers: {
         'Content-Type': 'application/json'

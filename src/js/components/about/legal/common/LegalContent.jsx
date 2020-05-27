@@ -42,7 +42,7 @@ export default class LegalContent extends React.Component {
                         active={this.props.activePage}
                         pageName="about"
                         sections={legalSections}
-                        stickyHeaderHeight={stickyHeaderHeight} />
+                        fixedStickyBreakPoint={stickyHeaderHeight} />
                 </div>
                 <div className="about-content">
                     <div className="about-padded-content">

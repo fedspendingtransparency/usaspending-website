@@ -10,10 +10,10 @@ import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
 import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
-import VerticalLine from 'components/sharedComponents/VerticalLine';
+import SVGLine from 'components/sharedComponents/SVGLine';
+import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
+import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
-import ActivityXAxis from './ActivityXAxis';
-import ActivityYAxis from './ActivityYAxis';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -339,9 +339,8 @@ export default class ActivityChart extends React.Component {
                     <ActivityYAxis
                         height={height - padding.bottom}
                         width={width - padding.left}
-                        barHeight={this.props.barHeight}
+                        extendLine={this.props.barHeight}
                         padding={padding}
-                        data={this.props.ySeries}
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
@@ -349,20 +348,21 @@ export default class ActivityChart extends React.Component {
                         width={graphWidth}
                         padding={padding}
                         ticks={this.state.xTicks}
-                        scale={xScale} />
+                        scale={xScale}
+                        line />
                     <g
                         className="activity-chart-data">
                         {bars}
                         {/* Today Line */}
-                        {xScale && <VerticalLine
-                            xScale={xScale}
+                        {xScale && <SVGLine
+                            scale={xScale}
                             y1={-10}
                             y2={height - padding.bottom}
                             textY={0}
                             text="Today"
-                            xMax={xRange[1]}
-                            xMin={xRange[0]}
-                            xValue={currentDate}
+                            max={xRange[1]}
+                            min={xRange[0]}
+                            position={currentDate}
                             showTextPosition="top"
                             adjustmentX={padding.left} />}
                     </g>

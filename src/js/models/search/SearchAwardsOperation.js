@@ -2,11 +2,16 @@
  * SearchAwardsOperation.js
  * Created by michaelbray on 8/7/17.
  */
-
-import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
-    from 'dataMapping/search/awardsOperationKeys';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { pickBy } from 'lodash';
+import {
+    rootKeys,
+    timePeriodKeys,
+    agencyKeys,
+    awardAmountKeys,
+    checkboxTreeKeys
+} from 'dataMapping/search/awardsOperationKeys';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { trimCheckedToCommonAncestors } from 'helpers/checkboxTreeHelper';
 
 class SearchAwardsOperation {
     constructor() {
@@ -23,6 +28,7 @@ class SearchAwardsOperation {
 
         this.tasSources = [];
         this.accountSources = [];
+        this.tasCheckbox = checkboxTreeKeys;
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -38,8 +44,9 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = [];
         this.selectedNAICS = [];
+        this.naicsCodes = checkboxTreeKeys;
         this.selectedPSC = [];
-
+        this.pscCheckbox = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -62,6 +69,10 @@ class SearchAwardsOperation {
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
 
         this.tasSources = state.treasuryAccounts.toArray();
+        this.tasCheckbox = {
+            require: state.tasCodes.toObject().require,
+            exclude: state.tasCodes.toObject().exclude
+        };
         this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
@@ -78,6 +89,14 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
+        this.naicsCodes = {
+            require: state.naicsCodes.toObject().require,
+            exclude: state.naicsCodes.toObject().exclude
+        };
+        this.pscCheckbox = {
+            require: state.pscCodes.toObject().require,
+            exclude: state.pscCodes.toObject().exclude
+        };
         this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
@@ -153,26 +172,30 @@ class SearchAwardsOperation {
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             const agencies = [];
 
-            // Funding Agencies are toptier-only
             this.fundingAgencies.forEach((agencyArray) => {
                 const fundingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'funding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: fundingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
-            // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
                 const awardingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'awarding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: awardingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
             filters[rootKeys.agencies] = agencies;
@@ -193,18 +216,32 @@ class SearchAwardsOperation {
             filters[rootKeys.tasSources] = tasCodes;
         }
 
+        if (this.tasCheckbox.require.length > 0) {
+            if (this.tasCheckbox.exclude.length > 0) {
+                filters[rootKeys.tasCheckbox] = {
+                    require: trimCheckedToCommonAncestors(this.tasCheckbox.require),
+                    exclude: this.tasCheckbox.exclude
+                };
+            }
+            else {
+                filters[rootKeys.tasCheckbox] = { require: trimCheckedToCommonAncestors(this.tasCheckbox.require) };
+            }
+        }
+
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
             filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = this.selectedRecipientLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.recipientLocation] = locationSet;
@@ -217,12 +254,14 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            const locationSet = this.selectedLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.placeOfPerformance] = locationSet;
@@ -271,9 +310,30 @@ class SearchAwardsOperation {
             filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
         }
 
+        // NAICS v2
+        if (this.naicsCodes.require.length > 0) {
+            if (this.naicsCodes.exclude.length > 0) {
+                filters[rootKeys.naics_v2] = this.naicsCodes;
+            }
+            else {
+                filters[rootKeys.naics_v2] = this.naicsCodes.require;
+            }
+        }
+
         // Add PSC
         if (this.selectedPSC.length > 0) {
             filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
+        }
+        if (this.pscCheckbox.require.length > 0) {
+            if (this.pscCheckbox.exclude.length > 0) {
+                filters[rootKeys.psc] = {
+                    require: trimCheckedToCommonAncestors(this.pscCheckbox.require),
+                    exclude: this.pscCheckbox.exclude
+                };
+            }
+            else {
+                filters[rootKeys.psc] = { require: trimCheckedToCommonAncestors(this.pscCheckbox.require) };
+            }
         }
 
         // Add Contract Pricing

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import tableMapping from 'dataMapping/contracts/transactionTable';
+import assistanceTableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 
 const propTypes = {
     label: PropTypes.string,
@@ -30,7 +31,8 @@ export default class TransactionTableHeaderCell extends React.Component {
 
     clickedHeader() {
         // check if this is the field that is currently being used to sort
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._mapping[this.props.column] == null ?
+            assistanceTableMapping.table._mapping[this.props.column] : tableMapping.table._mapping[this.props.column];
         if (apiFieldName === this.props.order.field) {
             // it's the same field, just toggle the direction
             let direction = 'asc';
@@ -57,7 +59,8 @@ export default class TransactionTableHeaderCell extends React.Component {
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._mapping[this.props.column] == null ?
+            assistanceTableMapping.table._mapping[this.props.column] : tableMapping.table._mapping[this.props.column];
         this.props.setTransactionSort({
             direction,
             field: apiFieldName
@@ -73,7 +76,8 @@ export default class TransactionTableHeaderCell extends React.Component {
 
     render() {
         // highlight the active arrows
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._mapping[this.props.column] == null ?
+            assistanceTableMapping.table._mapping[this.props.column] : tableMapping.table._mapping[this.props.column];
         let activeAsc = '';
         let activeDesc = '';
         if (apiFieldName === this.props.order.field) {

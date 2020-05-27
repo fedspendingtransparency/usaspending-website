@@ -16,13 +16,14 @@ import PrivacyPage from 'components/about/legal/PrivacyPage';
 import FOIAPage from 'components/about/legal/FOIAPage';
 import DBInfo from 'components/about/DBInfo';
 import AgencyLandingPage from 'components/agencyLanding/AgencyLandingPage';
-import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer'
+import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
 import { KeywordContainer } from 'containers/keyword/KeywordContainer';
 import AccountLandingPage from 'components/accountLanding/AccountLandingPage';
 import StateLandingPage from 'components/stateLanding/StateLandingPage';
 import { StateContainer } from 'containers/state/StateContainer';
 import RecipientLandingPage from 'components/recipientLanding/RecipientLandingPage';
 import { RecipientContainer } from 'containers/recipient/RecipientContainer';
+import AgencyProfileV2 from 'containers/agency/v2/AgencyContainerV2';
 
 /* eslint-disable import/prefer-default-export */
 export const routes = [
@@ -151,6 +152,11 @@ export const routes = [
         path: '/recipient',
         addToSitemap: true,
         component: RecipientLandingPage
+    },
+    {
+        path: '/agency_v2/:agencyId',
+        addToSitemap: false,
+        component: AgencyProfileV2
     }
 ];
 /* eslint-enable import/prefer-default-export */

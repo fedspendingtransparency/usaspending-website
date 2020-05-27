@@ -1,8 +1,8 @@
 // Vendor -------------- //
+@import '~data-transparency-ui/styles/dist';
 @import 'lib/bourbon/bourbon';
 @import 'lib/neat/neat';
 @import 'lib/normalize';
-@import '~data-transparency-ui/dist/data-transparency-ui.css';
 
 // Core -------------- //
 @import 'core/defaults';
@@ -36,6 +36,7 @@
 @import 'components/skipnav';
 @import 'components/viewTypeButton';
 @import 'components/tooltips/index';
+@import 'components/baseModal';
 
 // Mixins ------------------ //
 @import 'mixins/background';
@@ -44,5 +45,3 @@
 
 // Selectors --------------- //
 @import 'selectors/idv';
-
-@import '~data-transparency-ui/dist/data-transparency-ui.css';

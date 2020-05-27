@@ -5,9 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import EntityWarning from 'components/search/filters/location/EntityWarning';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
-import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
+import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
+import { treasuryAccountComponents } from 'dataMapping/search/programSourceComponents';
 
 const propTypes = {
     updateComponent: PropTypes.func,
@@ -15,7 +17,7 @@ const propTypes = {
     applyFilter: PropTypes.func,
     dirtyFilters: PropTypes.symbol,
     clearSelection: PropTypes.func,
-    activeTab: PropTypes.string
+    activeTab: PropTypes.number
 };
 
 export default class TreasuryAccountFilters extends React.Component {
@@ -43,18 +45,12 @@ export default class TreasuryAccountFilters extends React.Component {
     }
 
     generateFilters() {
-        if (this.props.activeTab === 'treasury') {
-            return treasuryAccountComponents.map((option) => (
-                <ProgramSourceAutocompleteContainer
-                    dirtyFilters={this.props.dirtyFilters}
-                    key={option.code}
-                    component={option}
-                    selectedSources={this.props.components}
-                    updateComponent={this.props.updateComponent}
-                    clearSelection={this.props.clearSelection} />
-            ));
+        if (this.props.activeTab === 1) {
+            return (
+                <TASCheckboxTree />
+            );
         }
-        return federalAccountComponents.map((option) => (
+        return treasuryAccountComponents.map((option) => (
             <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
@@ -66,7 +62,7 @@ export default class TreasuryAccountFilters extends React.Component {
     }
 
     render() {
-        const components = this.props.components;
+        const { components, activeTab } = this.props;
         const enabled = components.aid && components.main;
 
         let message = "Enter values for AID and MAIN";
@@ -77,14 +73,14 @@ export default class TreasuryAccountFilters extends React.Component {
             message = "Enter value for AID";
         }
 
-        const heading = this.props.activeTab === 'treasury' ? 'Treasury' : 'Federal';
-
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">
-                    <div className="program-source-components__heading">
-                        {heading} Account Components
-                    </div>
+                    {activeTab === 2 && (
+                        <div className="program-source-components__heading">
+                            Treasury Account Components
+                        </div>
+                    )}
                     {this.generateFilters()}
                     <div
                         className="program-source-components__button-wrapper"
@@ -92,12 +88,14 @@ export default class TreasuryAccountFilters extends React.Component {
                         onMouseEnter={this.showWarning}
                         onBlur={this.hideWarning}
                         onMouseLeave={this.hideWarning}>
-                        <button
-                            disabled={!enabled}
-                            onClick={this.props.applyFilter}
-                            className="program-source-components__button">
-                            Add Filter
-                        </button>
+                        {activeTab === 2 && (
+                            <button
+                                disabled={!enabled}
+                                onClick={this.props.applyFilter}
+                                className="program-source-components__button">
+                                Add Filter
+                            </button>
+                        )}
                         <div
                             className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
                             aria-hidden={enabled}>

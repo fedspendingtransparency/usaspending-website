@@ -1,0 +1,54 @@
+.cfda-section-table {
+  border: none;
+  margin-top: 0;
+  margin-bottom: rem(7);
+  font-size: rem(12);
+  .cfda-section-table__head-row {
+      border-bottom: solid 1px $color-gray-lighter;
+  }
+  .cfda-section-table__head {
+      .cfda-section-table__head-cell {
+          @import '../../recipientLanding/header';
+          @import '../../stateLanding/sorter';
+          background-color: $color-white;
+          border: 0;
+          padding: rem(15) rem(2);
+          .header-sorter {
+            .header-sorter__button {
+              svg {
+                fill: $color-gray-warm-light;
+              }
+            }
+          }
+          .header-cell {
+            .header-cell__text {
+              margin-right: rem(10);
+              .header-cell__title {
+                  font-weight: 600;
+                  font-size: $small-font-size;
+                  white-space: nowrap;
+              }
+            }
+          }
+      }
+  }
+
+  .cfda-section-table__body-cell {
+      background-color: transparent;
+      border: none;
+      padding: rem(7) rem(2);
+      white-space: nowrap;
+
+      &.right {
+          text-align: right;
+      }
+
+      &.offset-right-money {
+        padding-left: 2.7rem;
+      }
+
+      &.offset-right-percent {
+        padding-left: 8rem;
+      }
+  }
+}

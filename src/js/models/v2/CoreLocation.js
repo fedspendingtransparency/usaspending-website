@@ -14,7 +14,8 @@ const CoreLocation = {
         this._county = data.county || '';
         this._countyCode = data.countyCode || '';
         this._stateCode = data.stateCode || '';
-        this._zip = data.zip5 || (data.zip4 && data.zip4.slice(0, 5)) || data.foreignPostalCode || '';
+        this._zip = (data.zip5 && data.zip4 && `${data.zip5}-${data.zip4}`) || data.zip5 || (data.zip4 && data.zip4.slice(0, 5)) || data.foreignPostalCode || '';
+        this._zip4 = data.zip4 || '';
         this._country = data.country || '';
         this._countryCode = data.countryCode || '';
         this._state = data.state || data.stateCode || '';
@@ -85,12 +86,12 @@ const CoreLocation = {
             const zip = this._zip || '--';
             return `${city}, ${state} ${zip}`;
         }
-        const fState = this._state || '';
-        const fZip = this._zip || '';
+        const fState = this._stateName || '--';
+        const fZip = this._zip4 || '--';
+        // if neither state nor zip exist show nothing
+        if (fState === '--' && fZip === '--') return city;
         // if province or foreign zip exist show comma
-        if (fState || fZip) return `${city}, ${state} ${fZip}`;
-        // if neither province or foreign zip exist do not show comma;
-        return city;
+        return `${city}, ${fState} ${fZip}`;
     },
     get countyAndState() {
         const county = this._county ? `${this._county} County` : '--';

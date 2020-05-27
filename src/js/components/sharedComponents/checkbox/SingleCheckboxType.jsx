@@ -63,7 +63,7 @@ export default class SingleCheckboxType extends React.Component {
         }
 
         // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType(this.props.code);
+        this.props.toggleCheckboxType({ value: this.props.code });
     }
 
     render() {

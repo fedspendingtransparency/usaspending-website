@@ -17,7 +17,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgency.id ? `/#/agency/${awardingAgency.id}` : null,
+                    path: (awardingAgency.id && awardingAgency.hasAgencyPage) ? `/#/agency/${awardingAgency.id}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -38,7 +38,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: fundingAgency.id ? `/#/agency/${fundingAgency.id}` : null,
+                    path: (fundingAgency.id && fundingAgency.hasAgencyPage) ? `/#/agency/${fundingAgency.id}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
@@ -75,7 +75,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             Recipient: {
                 type: 'link',
                 data: {
-                    path: recipient.internalId ? `/#/recipient/${recipient.internalId}` : null,
+                    path: recipient.internalId ? `/#/recipient/${recipient.internalId}/latest` : null,
                     title: recipient._name
                 }
             },
@@ -84,7 +84,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 type: 'link',
                 data: {
                     path: recipient.parentInternalId ?
-                        `/#/recipient/${recipient.parentInternalId}` : null,
+                        `/#/recipient/${recipient.parentInternalId}/latest` : null,
                     title: recipient.parentName
                 }
             },

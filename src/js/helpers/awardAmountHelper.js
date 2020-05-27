@@ -13,7 +13,7 @@ export const formatAwardAmountRange = (range, options = 2) => {
     const maxLabel = formatMoneyWithPrecision(range[1], options);
     let label = `${minLabel} - ${maxLabel}`;
     if (!range[0] && (range[0] !== 0)) {
-        label = `Under ${maxLabel}`;
+        label = `${maxLabel} & Under`;
     }
     if (!range[1] && (range[1] !== 0)) {
         label = `${minLabel} & Above`;
@@ -98,4 +98,3 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) 
 };
 
 export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
-

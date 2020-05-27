@@ -3,6 +3,9 @@
   * Created by Kevin Li 11/1/16
   **/
 
+import { removePlaceholderString } from "helpers/checkboxTreeHelper";
+import { CheckboxTreeSelections } from "redux/reducers/search/searchFiltersReducer";
+
 // Keyword Filter
 export const updateTextSearchInput = (textInput) => ({
     type: 'UPDATE_TEXT_SEARCH',
@@ -38,7 +41,6 @@ export const clearAllFilters = () => ({
 });
 
 // Location Filter
-
 export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
@@ -60,7 +62,6 @@ export const addRecipientLocationObject = (state) => ({
 });
 
 // Agency Filter
-
 export const updateSelectedAwardingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
     agency: state.agency
@@ -72,7 +73,6 @@ export const updateSelectedFundingAgencies = (state) => ({
 });
 
 // Recipient Filter
-
 export const updateSelectedRecipients = (state) => ({
     type: 'UPDATE_SELECTED_RECIPIENTS',
     recipient: state
@@ -83,9 +83,9 @@ export const updateRecipientDomesticForeignSelection = (state) => ({
     selection: state
 });
 
-export const toggleRecipientType = (state) => ({
+export const toggleRecipientType = ({ value }) => ({
     type: 'TOGGLE_SEARCH_FILTER_RECIPIENT_TYPE',
-    recipientType: state
+    recipientType: value
 });
 
 export const bulkRecipientTypeChange = (state) => ({
@@ -111,9 +111,9 @@ export const updateTreasuryAccountComponents = (source) => ({
 });
 
 // Award Type Filter
-export const toggleAwardType = (state) => ({
+export const toggleAwardType = ({ value }) => ({
     type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
-    awardType: state
+    awardType: value
 });
 
 export const bulkAwardTypeChange = (state) => ({
@@ -124,20 +124,35 @@ export const bulkAwardTypeChange = (state) => ({
 
 // Award Amount Filter
 
-export const updateAwardAmounts = (state) => ({
+export const updateAwardAmounts = ({ value }) => ({
     type: 'UPDATE_AWARD_AMOUNTS',
-    awardAmounts: state
+    awardAmounts: value
 });
 
-
 // CFDA Filter
-
 export const updateSelectedCFDA = (state) => ({
     type: 'UPDATE_SELECTED_CFDA',
     cfda: state.cfda
 });
 
 // NAICS Filter
+export const updateNaicsV2 = (require, exclude, counts) => ({
+    type: 'UPDATE_NAICS_V2',
+    payload: {
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    }
+});
+
+export const updateTASV2 = (require, exclude, counts) => ({
+    type: 'UPDATE_TAS_V2',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    })
+});
 
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
@@ -145,36 +160,41 @@ export const updateSelectedNAICS = (state) => ({
 });
 
 // PSC Filter
-
 export const updateSelectedPSC = (state) => ({
     type: 'UPDATE_SELECTED_PSC',
     psc: state.psc
 });
 
-// Contract Pricing Type Filter
+export const updatePSCV2 = (require, exclude, counts) => ({
+    type: 'UPDATE_PSC_V2',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    })
+});
 
-export const updatePricingType = (state) => ({
+// Contract Pricing Type Filter
+export const updatePricingType = ({ value }) => ({
     type: 'UPDATE_PRICING_TYPE',
-    pricingType: state
+    pricingType: value
 });
 
 // Contract Set-Aside Filter
 
-export const updateSetAside = (state) => ({
+export const updateSetAside = ({ value }) => ({
     type: 'UPDATE_SET_ASIDE',
-    setAside: state
+    setAside: value
 });
 
 // Contract Extent Competed Filter
 
-export const updateExtentCompeted = (state) => ({
+export const updateExtentCompeted = ({ value }) => ({
     type: 'UPDATE_EXTENT_COMPETED',
-    extentCompeted: state
+    extentCompeted: value
 });
 
-
 // Generic
-
 export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',
     field: state.field,
