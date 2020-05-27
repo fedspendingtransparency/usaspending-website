@@ -331,6 +331,14 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             faceValue: {
                 offsetAdjustments: { top: -7 },
                 tooltipComponent: <FaceValueTooltip total={data.faceValueFormatted} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
             }
         },
         asst: {
@@ -345,6 +353,14 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             totalFunding: {
                 offsetAdjustments: { top: 0 },
                 tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
             }
         }
     };

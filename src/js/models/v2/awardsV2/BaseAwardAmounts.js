@@ -36,11 +36,15 @@ const BaseAwardAmounts = {
     populateLoan(data) {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
+        this._fileCOutlay = data._subsidy * 0.25;
+        this._fileCObligated = data._subsidy * 0.50;
     },
     populateAsst(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
+        this._fileCOutlay = data._totalObligation * 0.25;
+        this._fileCObligated = data._totalObligation * 0.50;
     },
     populateContract(data) {
         this._totalObligation = data._totalObligation;

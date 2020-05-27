@@ -178,7 +178,6 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                             onMouseLeave={closeTooltip}
                             onClick={showObligatedTooltip}>
                             <div
-                                // ref={obligatedBarRef}
                                 className="award-amounts-viz__bar obligated"
                                 style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
                                 <div className="nested-obligations">
