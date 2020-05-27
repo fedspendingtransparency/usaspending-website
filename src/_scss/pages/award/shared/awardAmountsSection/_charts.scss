@@ -18,7 +18,8 @@ $covid-potential: #AAC6E2;
         margin: rem(16) 0 rem(7) 0;
         padding: rem(3);
         .potential,
-        .total-funding {
+        .total-funding,
+        .denominator {
             height: rem(40);
         }
         .award-amounts-tt__wrapper {
