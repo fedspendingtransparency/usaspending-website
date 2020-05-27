@@ -43,24 +43,24 @@ const emptyTooltipProps = {
 
 const RectanglePercentViz = ({
     numerator,
-    // numerator2 = null,
+    numerator2 = null,
     numerator3 = null,
     denominator,
     percentage,
     numeratorTooltipData,
     denominatorTooltipData,
-    // numerator2TooltipData = null,
-    // numerator3TooltipData = null,
+    numerator2TooltipData = null,
+    numerator3TooltipData = null,
     numeratorColor,
-    denominatorColor = '#FFF'
-    // numerator2Color = null,
-    // numerator3Color = null
+    denominatorColor = `#FFF`,
+    numerator2Color = null,
+    numerator3Color = null
 }) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const numeratorIsZero = (numerator.rawValue === 0);
 
-    const widths = {
+    const absoluteWidths = {
         denominator: {
             width: generatePercentage(1)
         },
@@ -68,8 +68,8 @@ const RectanglePercentViz = ({
             width: percentage || generatePercentage(numerator.rawValue / denominator.rawValue)
         },
         numerator2: {
-            width: numerator3
-                ? generatePercentage(numerator3.rawValue / denominator.rawValue)
+            width: numerator2
+                ? generatePercentage(numerator2.rawValue / denominator.rawValue)
                 : null
         },
         numerator3: {
@@ -79,19 +79,33 @@ const RectanglePercentViz = ({
         }
     };
 
+    const relativeWidths = {
+        ...absoluteWidths,
+        numerator2: {
+            width: numerator2
+                ? generatePercentage(numerator2.rawValue / numerator.rawValue)
+                : null
+        },
+        numerator3: {
+            width: numerator3
+                ? generatePercentage(numerator3.rawValue / numerator.rawValue)
+                : null
+        }
+    };
+
     const showTooltip = (tooltipData, category) => {
         setActiveTooltipProps({
             ...tooltipData,
             wide: false,
             styles: {
-                transform: `translate(calc(${widths[category].width} + 15px), 90px)`
+                transform: `translate(calc(${absoluteWidths[category].width} + 15px), 90px)`
             }
         });
         setIsTooltipVisible(true);
     };
 
     const numeratorBarAndLabelStyles = {
-        ...widths.numerator,
+        ...absoluteWidths.numerator,
         backgroundColor: numeratorColor
     };
 
@@ -109,15 +123,21 @@ const RectanglePercentViz = ({
         e.stopPropagation();
         showTooltip(denominatorTooltipData, "denominator");
     };
-    // const showNumerator2Tooltip = (e) => {
-    //     e.stopPropagation();
-    //     showTooltip("numerator2");
-    // };
+    const showNumerator2Tooltip = (e) => {
+        e.stopPropagation();
+        showTooltip(numerator2TooltipData, "numerator2");
+    };
 
-    // const showNumerator3Tooltip = (e) => {
-    //     e.stopPropagation();
-    //     showTooltip("numerator3");
-    // };
+    const showNumerator3Tooltip = (e) => {
+        e.stopPropagation();
+        showTooltip(numerator3TooltipData, "numerator3");
+    };
+
+    const numerator3Positioning = {
+        position: 'relative',
+        right: relativeWidths.numerator2.width,
+        padding: '0.2rem'
+    };
 
     return (
         <div className="award-amounts-viz">
@@ -194,11 +214,43 @@ const RectanglePercentViz = ({
                                 onClick={showNumeratorTooltip}>
                                 <div
                                     className="award-amounts-viz__bar numerator"
-                                    // className="award-amounts-viz__obligated--grants"
                                     style={{
                                         width: '100%',
                                         backgroundColor: numeratorBarAndLabelStyles.backgroundColor
-                                    }} />
+                                    }}>
+                                    <div className="nested-obligations">
+                                        <div
+                                            className="file-c-obligated"
+                                            style={relativeWidths.numerator2}
+                                            role="button"
+                                            tabIndex="0"
+                                            onBlur={closeTooltip}
+                                            onFocus={showNumerator2Tooltip}
+                                            onKeyPress={showNumerator2Tooltip}
+                                            onMouseEnter={showNumerator2Tooltip}
+                                            onMouseLeave={closeTooltip}
+                                            onClick={showNumerator2Tooltip}>
+                                            <div
+                                                className="award-amounts-viz__bar file-c-obligated"
+                                                style={{ width: generatePercentage(1), backgroundColor: numerator2Color }} />
+                                        </div>
+                                        <div
+                                            className="file-c-outlay"
+                                            style={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
+                                            role="button"
+                                            tabIndex="0"
+                                            onBlur={closeTooltip}
+                                            onFocus={showNumerator3Tooltip}
+                                            onKeyPress={showNumerator3Tooltip}
+                                            onMouseEnter={showNumerator3Tooltip}
+                                            onMouseLeave={closeTooltip}
+                                            onClick={showNumerator3Tooltip}>
+                                            <div
+                                                className="award-amounts-viz__bar file-c-outlay"
+                                                style={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )}
                         {numeratorIsZero && (

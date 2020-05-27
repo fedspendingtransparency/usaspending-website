@@ -65,13 +65,27 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     value: awardAmounts.subsidyAbbreviated,
                     text: 'Original Subsidy Cost'
                 }}
+                numerator2={{
+                    rawValue: awardAmounts._fileCObligated,
+                    value: awardAmounts.fileCObligatedAbbreviated,
+                    text: 'COVID-19 Obligated'
+                }}
+                numerator3={{
+                    rawValue: awardAmounts._fileCOutlay,
+                    value: awardAmounts.fileCOutlayAbbreviated,
+                    text: 'COVID-19 Outlay'
+                }}
                 denominator={{
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
                     text: 'Face Value of Direct Loan'
                 }}
                 numeratorColor="#F5A623"
+                numerator2Color="#B699C6"
+                numerator3Color="#6E338E"
                 numeratorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts)}
+                numerator2TooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts)}
+                numerator3TooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)}
                 denominatorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)} />);
         }
         else if (type === 'idv' || type === 'contract') {

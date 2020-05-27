@@ -37,7 +37,8 @@ $covid-potential: #AAC6E2;
                 border: rem(4) solid $color-gray-lighter;
             }
             &.obligated,
-            &.grant-obligated {
+            &.grant-obligated,
+            &.numerator {
                 .nested-obligations {
                     padding: rem(2);
                     width: 100%;
