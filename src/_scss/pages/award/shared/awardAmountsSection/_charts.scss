@@ -12,6 +12,10 @@ $covid-potential: #AAC6E2;
 }
 
 .award-amounts-viz {
+    .award-amounts-tt__wrapper {
+        position: relative;
+        z-index: 2;
+    }
     .award-amounts-viz__bar-wrapper {
         border: rem(2) solid $color-gray;
         background-color: $color-white;
