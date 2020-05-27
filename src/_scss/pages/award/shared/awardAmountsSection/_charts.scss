@@ -17,7 +17,8 @@ $covid-potential: #AAC6E2;
         background-color: $color-white;
         margin: rem(16) 0 rem(7) 0;
         padding: rem(3);
-        .potential {
+        .potential,
+        .total-funding {
             height: rem(40);
         }
         .award-amounts-tt__wrapper {
@@ -304,6 +305,9 @@ $covid-potential: #AAC6E2;
         }
     }
     .award-amounts-viz__desc--nff-zero {
+        .award-amounts-viz__desc-text-nff-zero {
+            @include display(flex);
+        }
         .award-amounts-viz__desc-text {
             order: 1;
             margin-left: 10px;
