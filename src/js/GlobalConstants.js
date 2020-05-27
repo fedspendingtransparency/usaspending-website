@@ -5,7 +5,7 @@
 
 const moment = require('moment');
 
-const dayOfCaresRelease = moment('2020-09-20');
+const dayOfCaresRelease = moment('2020-08-01');
 
 const globalConstants = {
     API: process.env.USASPENDING_API,
