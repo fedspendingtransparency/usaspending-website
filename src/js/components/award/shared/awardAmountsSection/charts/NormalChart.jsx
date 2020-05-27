@@ -23,7 +23,7 @@ const propTypes = {
 const isCovid = true;
 
 const emptyTooltipProps = {
-    styles: {},
+    styles: { transform: '' },
     tooltipComponent: <p>Placeholder</p>
 };
 
@@ -32,39 +32,31 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const isIdv = (awardType === 'idv');
 
-    const showTooltip = (spendingCategory, type = awardType, data = awardAmounts) => {
-        setActiveTooltipProps({
-            ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
-            wide: isIdv
-        });
-        setIsTooltipVisible(true);
-    };
-
-    const closeTooltip = () => {
-        setIsTooltipVisible(false);
-    };
-
     const obligation = awardAmounts._totalObligation;
     const current = awardAmounts._baseExercisedOptions;
     const potential = awardAmounts._baseAndAllOptions;
     const fileCOutlay = awardAmounts._fileCOutlay;
     const fileCObligated = awardAmounts._fileCObligated;
 
-    const fileCOutlayWidth = {
-        width: generatePercentage(fileCOutlay / potential)
-    };
-    const fileCObligatedWidth = {
-        width: generatePercentage((fileCObligated + fileCOutlay) / potential)
-    };
-    const obligatedWidth = {
-        width: generatePercentage(obligation / potential)
-    };
-    const currentWidth = {
-        width: generatePercentage((current - obligation) / potential)
-    };
-
-    const currentLabelWidth = {
-        width: generatePercentage(current / potential)
+    const widths = {
+        currentWithObligatedOffset: {
+            width: generatePercentage((current - obligation) / potential)
+        },
+        current: {
+            width: generatePercentage((current / potential))
+        },
+        obligated: {
+            width: generatePercentage(obligation / potential)
+        },
+        fileCObligated: {
+            width: generatePercentage(fileCObligated / potential)
+        },
+        fileCOutlay: {
+            width: generatePercentage(fileCOutlay / potential)
+        },
+        potential: {
+            width: '100%'
+        }
     };
 
     const fileCOutlayBarStyle = {
@@ -73,7 +65,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
 
     const fileCOutlayPositioning = {
         position: 'relative',
-        right: fileCObligatedWidth.width,
+        right: widths.fileCObligated.width,
         padding: '0.2rem'
     };
 
@@ -94,6 +86,21 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const potentialBarStyle = {
         backgroundColor: isCovid ? '#AAC6E2' : '#fff',
         border: 'none'
+    };
+
+    const showTooltip = (spendingCategory, type = awardType, data = awardAmounts) => {
+        setActiveTooltipProps({
+            ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
+            wide: isIdv,
+            styles: {
+                transform: `translate(calc(${widths[spendingCategory].width} + 15px), 90px)`
+            }
+        });
+        setIsTooltipVisible(true);
+    };
+
+    const closeTooltip = () => {
+        setIsTooltipVisible(false);
     };
 
     const showObligatedTooltip = (e) => {
@@ -121,15 +128,15 @@ const NormalChart = ({ awardType, awardAmounts }) => {
 
     return (
         <div className="award-amounts-viz">
-            <TooltipWrapper
+            {isTooltipVisible && <TooltipWrapper
                 className="award-section-tt"
                 onMouseMoveTooltip={setIsTooltipVisible.bind(null, true)}
                 onMouseLeaveTooltip={setIsTooltipVisible.bind(null, false)}
                 controlledProps={{
                     isControlled: true,
-                    isVisible: isTooltipVisible
+                    isVisible: true
                 }}
-                {...activeTooltipProps} />
+                {...activeTooltipProps} />}
             <div
                 className="award-amounts-viz__desc-top"
                 role="button"
@@ -142,7 +149,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 onClick={showObligatedTooltip}>
                 <strong>{awardAmounts.totalObligationAbbreviated}</strong><br />{isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
             </div>
-            <div className="award-amounts-viz__label obligated" style={obligatedWidth}>
+            <div className="award-amounts-viz__label obligated" style={widths.obligated}>
                 <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
             </div>
             <div className="award-amounts-viz__bar-wrapper">
@@ -156,10 +163,12 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                     onMouseEnter={showPotentialTooltip}
                     onMouseLeave={closeTooltip}
                     onClick={showPotentialTooltip}>
-                    <div className="award-amounts-viz__bar potential" style={potentialBarStyle}>
+                    <div
+                        className="award-amounts-viz__bar potential"
+                        style={potentialBarStyle}>
                         <div
                             className="obligated"
-                            style={obligatedWidth}
+                            style={widths.obligated}
                             role="button"
                             tabIndex="0"
                             onBlur={closeTooltip}
@@ -169,12 +178,13 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                             onMouseLeave={closeTooltip}
                             onClick={showObligatedTooltip}>
                             <div
+                                // ref={obligatedBarRef}
                                 className="award-amounts-viz__bar obligated"
                                 style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
                                 <div className="nested-obligations">
                                     <div
                                         className="file-c-obligated"
-                                        style={fileCObligatedWidth}
+                                        style={widths.fileCObligated}
                                         role="button"
                                         tabIndex="0"
                                         onBlur={closeTooltip}
@@ -189,7 +199,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                                     </div>
                                     <div
                                         className="file-c-outlay"
-                                        style={{ ...fileCOutlayWidth, ...fileCOutlayPositioning }}
+                                        style={{ ...widths.fileCOutlay, ...fileCOutlayPositioning }}
                                         role="button"
                                         tabIndex="0"
                                         onBlur={closeTooltip}
@@ -207,7 +217,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                         </div>
                         <div
                             className="current"
-                            style={currentWidth}
+                            style={widths.currentWithObligatedOffset}
                             role="button"
                             tabIndex="0"
                             onBlur={closeTooltip}
@@ -221,7 +231,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                     </div>
                 </div>
             </div>
-            <div className="award-amounts-viz__label" style={currentLabelWidth}>
+            <div className="award-amounts-viz__label" style={widths.current}>
                 <div
                     className={`award-amounts-viz__line current${classNameForCovid}`}
                     style={{ backgroundColor: currentBarStyle.backgroundColor }} />
