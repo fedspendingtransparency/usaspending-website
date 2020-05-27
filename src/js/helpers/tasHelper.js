@@ -5,7 +5,7 @@ import {
     removeStagedFilter,
     autoCheckImmediateChildrenAfterDynamicExpand,
     expandNodeAndAllDescendantParents,
-    removePlaceholderString
+    getAncestryPathOfNodes
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
@@ -126,7 +126,9 @@ export const expandTasNodeAndAllDescendantParents = (
     'value',
     shouldTasNodeHaveChildren
 );
-export const getAncestryPathOfNodes = (checked, nodes) => checked
-    .map((code) => removePlaceholderString(code))
-    .map((code) => getTasNodeFromTree(nodes, code))
-    .map((node) => ([...node.ancestors, node.value]));
+
+export const getTasAncestryPathForChecked = (checked, nodes) => getAncestryPathOfNodes(
+    checked,
+    nodes,
+    getTasNodeFromTree
+);

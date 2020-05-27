@@ -13,7 +13,8 @@ export const initialState = {
     expanded: new List(),
     searchExpanded: new List(),
     checked: new List(),
-    unchecked: new List()
+    unchecked: new List(),
+    counts: new List()
 };
 
 const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateChildNodes(
@@ -90,6 +91,12 @@ export const naicsReducer = (state = initialState, action) => {
                 ...state,
                 // new Set to eliminate any duplicate values
                 checked: new List([...new Set([...state.checked, action.payload])])
+            };
+        }
+        case 'SET_NAICS_COUNTS': {
+            return {
+                ...state,
+                counts: new List(action.payload)
             };
         }
         default:

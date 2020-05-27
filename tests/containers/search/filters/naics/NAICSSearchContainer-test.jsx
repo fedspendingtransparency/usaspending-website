@@ -33,16 +33,16 @@ describe('naicsSearchContainer', () => {
             });
 
             // Set up container with mocked naics action
-            const naicsContainer = shallow(
+            const NAICSCheckboxTree = shallow(
                 <NAICSSearchContainer
                     {...initialFilters}
                     updateSelectedNAICS={mockReduxActionNAICS} />);
 
-            const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
+            const selectNAICSSpy = sinon.spy(NAICSCheckboxTree.instance(),
                 'selectNAICS');
 
             // Add NAICS to redux
-            naicsContainer.instance().selectNAICS(naics, true);
+            NAICSCheckboxTree.instance().selectNAICS(naics, true);
 
             // everything should be updated now
             expect(selectNAICSSpy.callCount).toEqual(1);
@@ -63,22 +63,22 @@ describe('naicsSearchContainer', () => {
             });
 
             // Set up container with mocked naics action
-            const naicsContainer = shallow(
+            const NAICSCheckboxTree = shallow(
                 <NAICSSearchContainer
                     {...initialFilters}
                     updateSelectedNAICS={mockReduxActionNAICS} />);
 
-            const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
+            const selectNAICSSpy = sinon.spy(NAICSCheckboxTree.instance(),
                 'selectNAICS');
 
-            const removeNAICSSpy = sinon.spy(naicsContainer.instance(),
+            const removeNAICSSpy = sinon.spy(NAICSCheckboxTree.instance(),
                 'removeNAICS');
 
             // Add NAICS to redux
-            naicsContainer.instance().selectNAICS(naics, true);
+            NAICSCheckboxTree.instance().selectNAICS(naics, true);
 
             // Remove NAICS from Redux
-            naicsContainer.instance().removeNAICS(naics);
+            NAICSCheckboxTree.instance().removeNAICS(naics);
 
             // everything should be updated now
             expect(selectNAICSSpy.callCount).toEqual(1);

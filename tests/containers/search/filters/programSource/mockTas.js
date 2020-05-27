@@ -200,7 +200,6 @@ export const defaultProps = {
     setCheckedTas: () => {},
     setSearchedTas: () => {},
     setTasCounts: () => {},
-    // restoreHashedFilters: () => {},
     addCheckedTas: () => {},
     showTasTree: () => {},
     setUncheckedTas: () => {},
