@@ -128,7 +128,7 @@ const ContractGrantActivity = ({
                 title: 'Total Obligations to Date',
                 paragraphs: [
                     `${formatMoney(transaction.running_obligation_total_to_date)} 
-                    ${totalObligation ? `(${calculateTreemapPercentage(transaction.federal_action_obligation, totalObligation)} of Potential Award Amount)` : ''}`
+                    ${totalObligation ? `(${calculateTreemapPercentage(transaction.running_obligation_total_to_date, totalObligation)} of Potential Award Amount)` : ''}`
                 ]
             },
             {
