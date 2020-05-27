@@ -29,7 +29,8 @@ const propTypes = {
     showHideTooltipLine: PropTypes.func,
     showTooltipTransaction: PropTypes.func,
     hideTooltipTransaction: PropTypes.func,
-    thisLineOrTextIsHovered: PropTypes.string
+    thisLineOrTextIsHovered: PropTypes.string,
+    hideTransactionTooltipOnBlur: PropTypes.func
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -45,7 +46,8 @@ const ContractGrantsActivityChart = ({
     showHideTooltipLine,
     showTooltipTransaction,
     hideTooltipTransaction,
-    thisLineOrTextIsHovered
+    thisLineOrTextIsHovered,
+    hideTransactionTooltipOnBlur
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -418,7 +420,8 @@ const ContractGrantsActivityChart = ({
                     xAxisSpacing={xAxisSpacing}
                     height={height}
                     showTooltip={showTooltipTransaction}
-                    hideTooltip={hideTooltipTransaction} />}
+                    hideTooltip={hideTooltipTransaction}
+                    hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur} />}
                 {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
