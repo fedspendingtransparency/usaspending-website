@@ -5,16 +5,15 @@ export const accountColumns = {
             displayName: 'Budget Function'
         },
         {
-            title: 'obligated_amount',
+            title: 'obligatedAmount',
             displayName: 'Obligated Amount'
         },
-        // TODO - calculate the percent (in a model?)
-        // {
-        //     title: '',
-        //     displayName: '% of Total Obligations'
-        // },
         {
-            title: 'gross_outlay_amount',
+            title: 'percentOfTotalObligations',
+            displayName: '% of Total Obligations'
+        },
+        {
+            title: 'grossOutlayAmount',
             displayName: 'Gross Outlay Amount'
         }
     ],
@@ -24,15 +23,15 @@ export const accountColumns = {
             displayName: 'Program Activity'
         },
         {
-            title: 'obligated_amount',
+            title: 'obligatedAmount',
             displayName: 'Obligated Amount'
         },
-        // {
-        //     title: '',
-        //     displayName: '% of Total Obligations'
-        // },
         {
-            title: 'gross_outlay_amount',
+            title: 'percentOfTotalObligations',
+            displayName: '% of Total Obligations'
+        },
+        {
+            title: 'grossOutlayAmount',
             displayName: 'Gross Outlay Amount'
         }
     ],
@@ -42,15 +41,15 @@ export const accountColumns = {
             displayName: 'Object Class'
         },
         {
-            title: 'obligated_amount',
+            title: 'obligatedAmount',
             displayName: 'Obligated Amount'
         },
-        // {
-        //     title: '',
-        //     displayName: '% of Total Obligations'
-        // },
         {
-            title: 'gross_outlay_amount',
+            title: 'percentOfTotalObligations',
+            displayName: '% of Total Obligations'
+        },
+        {
+            title: 'grossOutlayAmount',
             displayName: 'Gross Outlay Amount'
         }
     ],
@@ -60,16 +59,23 @@ export const accountColumns = {
             displayName: 'Federal Account'
         },
         {
-            title: 'obligated_amount',
+            title: 'obligatedAmount',
             displayName: 'Obligated Amount'
         },
-        // {
-        //     title: '',
-        //     displayName: '% of Total Obligations'
-        // },
         {
-            title: 'gross_outlay_amount',
+            title: 'percentOfTotalObligations',
+            displayName: '% of Total Obligations'
+        },
+        {
+            title: 'grossOutlayAmount',
             displayName: 'Gross Outlay Amount'
         }
     ]
+};
+
+export const accountFields = {
+    name: 'name',
+    grossOutlayAmount: 'gross_outlay_amount',
+    obligatedAmount: 'obligated_amount',
+    percentOfTotalObligations: 'obligated_amount'
 };
