@@ -6,11 +6,12 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseAwardAmounts = {
-    populateBase(data) {
+    populateBase(data, awardType) {
         this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id
             ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '';
+        this._denominator = awardType === 'loan' ? '_subsidy' : '_totalObligation';
     },
     populateAggIdv(data) {
         this.childIDVCount = data.child_idv_count || 0;
@@ -56,7 +57,7 @@ const BaseAwardAmounts = {
         this._fileCObligated = data._totalObligation * 0.50;
     },
     populate(data, awardAmountType) {
-        this.populateBase(data);
+        this.populateBase(data, awardAmountType);
         if (awardAmountType === 'idv_aggregated') {
             this.populateAggIdv(data);
         }
@@ -131,24 +132,24 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
     },
     get fileCOutlayFormatted() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._fileCOutlay, 2);
+        return MoneyFormatter.formatMoneyWithPrecision(this[this._denominator] - this._fileCOutlay, 2);
     },
     get fileCOutlayAbbreviated() {
-        if (this._totalObligation - this._fileCOutlay >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._fileCOutlay);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._fileCOutlay) / units.unit, 1)} ${units.unitLabel}`;
+        if (this[this._denominator] - this._fileCOutlay >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this[this._denominator] - this._fileCOutlay);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this[this._denominator] - this._fileCOutlay) / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this._totalObligation - this._fileCOutlay);
+        return MoneyFormatter.formatMoney(this[this._denominator] - this._fileCOutlay);
     },
     get fileCObligatedFormatted() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._fileCObligated, 2);
+        return MoneyFormatter.formatMoneyWithPrecision(this[this._denominator] - this._fileCObligated, 2);
     },
     get fileCObligatedAbbreviated() {
-        if (this._totalObligation - this._fileCObligated >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._fileCObligated);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._fileCObligated) / units.unit, 1)} ${units.unitLabel}`;
+        if (this[this._denominator] - this._fileCObligated >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this[this._denominator] - this._fileCObligated);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this[this._denominator] - this._fileCObligated) / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this._totalObligation - this._fileCObligated);
+        return MoneyFormatter.formatMoney(this[this._denominator] - this._fileCObligated);
     },
     get totalFundingAbbreviated() {
         if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {

@@ -59,6 +59,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             return <GrantChart awardAmounts={awardAmounts} awardType={type} />;
         }
         else if (type === 'loan' && isNormal) {
+            console.log("test", awardAmounts);
             return (<RectanglePercentViz
                 numerator={{
                     rawValue: awardAmounts._subsidy,

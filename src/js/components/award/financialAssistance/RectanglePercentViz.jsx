@@ -41,6 +41,8 @@ const emptyTooltipProps = {
     tooltipComponent: <p>Placeholder</p>
 };
 
+const isCovid = true;
+
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
@@ -59,6 +61,9 @@ const RectanglePercentViz = ({
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const numeratorIsZero = (numerator.rawValue === 0);
+    const verticalTooltipOffset = isCovid
+        ? 170
+        : 90;
 
     const absoluteWidths = {
         denominator: {
@@ -98,7 +103,7 @@ const RectanglePercentViz = ({
             ...tooltipData,
             wide: false,
             styles: {
-                transform: `translate(calc(${absoluteWidths[category].width} + 15px), 90px)`
+                transform: `translate(calc(${absoluteWidths[category].width} + 15px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
@@ -111,7 +116,9 @@ const RectanglePercentViz = ({
 
     const numeratorValue = percentage ? `${numerator.value} (${numerator.width})` : numerator.value;
 
-    const closeTooltip = () => {
+    const closeTooltip = (e) => {
+        console.log("goodbye", e);
+        debugger;
         setIsTooltipVisible(false);
     };
 
@@ -130,6 +137,7 @@ const RectanglePercentViz = ({
 
     const showNumerator3Tooltip = (e) => {
         e.stopPropagation();
+        console.log("helloooooo");
         showTooltip(numerator3TooltipData, "numerator3");
     };
 
@@ -185,6 +193,21 @@ const RectanglePercentViz = ({
                     <span>{numerator.text}</span>
                 </div>
             }
+            <div
+                className="award-amounts-viz__desc-top file-c-obligated"
+                role="button"
+                tabIndex="0"
+                onBlur={closeTooltip}
+                onFocus={showNumerator2Tooltip}
+                onKeyPress={showNumerator2Tooltip}
+                onMouseEnter={showNumerator2Tooltip}
+                onMouseLeave={closeTooltip}
+                onClick={showNumerator2Tooltip}>
+                <strong>{numerator2.value}</strong><br />COVID-19 Response Obligations Amount
+            </div>
+            <div className="award-amounts-viz__label file-c-obligated">
+                <div className="award-amounts-viz__line-up file-c-obligated" style={absoluteWidths.numerator2} />
+            </div>
             <div className="award-amounts-viz__bar-wrapper">
                 <div
                     className="denominator"
@@ -256,6 +279,24 @@ const RectanglePercentViz = ({
                         {numeratorIsZero && (
                             <div className="award-amounts-viz__obligated--grants" style={numeratorBarAndLabelStyles} />
                         )}
+                    </div>
+                </div>
+            </div>
+            <div className="award-amounts-viz__label file-c-outlay">
+                <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.numerator3} />
+                <div className="award-amounts-viz__desc">
+                    <div
+                        className="award-amounts-viz__desc-text"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showNumerator3Tooltip}
+                        onKeyPress={showNumerator3Tooltip}
+                        onMouseEnter={showNumerator3Tooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showNumerator3Tooltip}>
+                        <strong>{numerator3.value}</strong><br />
+                        COVID-19 Response Outlay Amount
                     </div>
                 </div>
             </div>
