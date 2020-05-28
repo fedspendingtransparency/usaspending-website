@@ -67,6 +67,12 @@
 				
 				.tooltip-wrapper {
 					float: right;
+					margin-top: rem(4);
+
+					svg {
+						height: rem(13);
+						width: rem(13);
+					}
 				}
 			}
 			.recipient-section__viz {
