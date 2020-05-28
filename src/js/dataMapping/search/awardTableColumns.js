@@ -269,8 +269,8 @@ const defaultLoan = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
     { title: 'Issued Date' },
-    { title: 'Loan Value' },
-    { title: 'Subsidy Cost' },
+    { title: 'Loan Value', displayName: 'Loan Face Value' },
+    { title: 'Subsidy Cost', displayName: 'Loan Subsidy Cost (Total Obligations To Date)' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' }
 ];

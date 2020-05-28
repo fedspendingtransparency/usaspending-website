@@ -135,6 +135,7 @@ export class ResultsTableContainer extends React.Component {
         // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+            console.log(' Visible Columns : ', visibleColumns);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
                 [data.title]: this.createColumn(data.displayName, data.title)
             }), {});
