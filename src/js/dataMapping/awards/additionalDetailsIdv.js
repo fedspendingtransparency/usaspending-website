@@ -113,6 +113,7 @@ const additionalDetails = (awardData) => {
         additionalDetails: {
             'IDV Type': awardData.additionalDetails.idvType,
             'IDC Type': awardData.additionalDetails.idcType,
+            'National Interest Action': awardData.additionalDetails.nationalInterestActionDesc,
             'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv,
             'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
             'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,

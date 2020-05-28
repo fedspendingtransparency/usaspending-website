@@ -26,7 +26,6 @@ const BaseContractAdditionalDetails = {
         this.pricing = data.type_of_contract_pric_desc || '';
 
         // Parent Award Details
-
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
@@ -74,6 +73,7 @@ const BaseContractAdditionalDetails = {
         this.multiYearContract = data.multi_year_contract_desc || '--';
         this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
         this.consolidated = data.consolidated_contract_desc || '--';
+        this.nationalInterestActionDesc = data.national_interest_action_description || '--';
 
         // Executive Compensation
         this.officers = parseExecutiveCompensation(data);

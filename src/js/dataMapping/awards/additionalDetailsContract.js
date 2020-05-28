@@ -153,6 +153,7 @@ const additionalDetailsContracts = (awardData) => {
         },
         additionalDetails: {
             'Contract Type': awardData.typeDescription,
+            'National Interest Action': awardData.additionalDetails.nationalInterestActionDesc,
             'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
             'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
             'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
