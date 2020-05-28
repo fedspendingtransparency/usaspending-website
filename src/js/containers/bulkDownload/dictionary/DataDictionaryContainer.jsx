@@ -93,7 +93,7 @@ export default class DataDictionaryContainer extends React.Component {
     }
 
     defaultSort() {
-        if(this.state.columns.length > 0){
+        if (this.state.columns.length > 0) {
             this.changeSort(this.state.columns[0].raw, 'asc');
         }
     }
