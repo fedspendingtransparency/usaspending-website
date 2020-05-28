@@ -142,6 +142,21 @@ const GrantChart = ({ awardAmounts, awardType }) => {
             <div className="award-amounts-viz__label" style={{ width: barWidthsByCategory.obligated }}>
                 <div className="award-amounts-viz__line-up" />
             </div>
+            <div
+                className="award-amounts-viz__desc-top file-c-obligated"
+                role="button"
+                tabIndex="0"
+                onBlur={closeTooltip}
+                onFocus={showFileCObligatedTooltip}
+                onKeyPress={showFileCObligatedTooltip}
+                onMouseEnter={showFileCObligatedTooltip}
+                onMouseLeave={closeTooltip}
+                onClick={showFileCObligatedTooltip}>
+                <strong>{awardAmounts.fileCObligatedFormatted}</strong><br />COVID-19 Response Obligations Amount
+            </div>
+            <div className="award-amounts-viz__label file-c-obligated" style={{ width: tooltipPositionsByCategory.fileCObligated }}>
+                <div className="award-amounts-viz__line-up file-c-obligated" />
+            </div>
             <div className="award-amounts-viz__bar-wrapper">
                 <div
                     className="total-funding"
@@ -222,6 +237,24 @@ const GrantChart = ({ awardAmounts, awardType }) => {
                                     style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
                             </div>
                         }
+                    </div>
+                </div>
+            </div>
+            <div className="award-amounts-viz__label file-c-outlay">
+                <div className="award-amounts-viz__line file-c-outlay" style={{ width: tooltipPositionsByCategory.fileCOutlay }} />
+                <div className="award-amounts-viz__desc">
+                    <div
+                        className="award-amounts-viz__desc-text"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showFileCOutlayTooltip}
+                        onKeyPress={showFileCOutlayTooltip}
+                        onMouseEnter={showFileCOutlayTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showFileCOutlayTooltip}>
+                        <strong>{awardAmounts.fileCOutlayFormatted}</strong><br />
+                        COVID-19 Response Outlay Amount
                     </div>
                 </div>
             </div>
