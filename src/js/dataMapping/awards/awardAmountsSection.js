@@ -13,6 +13,22 @@ export const spendingCategoriesByAwardType = {
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
 };
 
+export const caresActSpendingCategories = [
+    'fileCObligatedFormatted',
+    'fileCOutlayFormatted'
+];
+
+export const mockAwardIdsForCaresAct = [
+    // contract
+    'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-',
+    // IDV
+    'CONT_IDV_EDFSA09D0012_9100',
+    // grant
+    'ASST_NON_1905CA5MAP_7530',
+    // loan
+    'ASST_NON_13789835_12D2'
+];
+
 export const formattedSpendingCategoriesByAwardType = {
     contract: [
         'fileCOutlayFormatted',
