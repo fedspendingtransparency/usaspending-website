@@ -5,7 +5,7 @@
 
 import { cloneDeep } from 'lodash';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
-import BaseCFDA from 'models/v2/awardsV2/BaseCFDA';
+import BaseCFDA from 'models/v2/award/BaseCFDA';
 import { mockLoan } from './mockAwardApi';
 
 const denominator = 100000;

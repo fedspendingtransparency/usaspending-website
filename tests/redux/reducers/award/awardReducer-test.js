@@ -3,11 +3,11 @@
  * Created by Lizzie Salita 12/4/18
  */
 
-import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseContract from 'models/v2/award/BaseContract';
 
 import awardReducer, { initialState } from 'redux/reducers/award/awardReducer';
 
-import { mockContract } from '../../../models/awardsV2/mockAwardApi';
+import { mockContract } from '../../../models/award/mockAwardApi';
 
 const contractModel = Object.create(BaseContract);
 contractModel.populate(mockContract);

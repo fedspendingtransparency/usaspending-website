@@ -3,10 +3,10 @@
  * Created by David Trinh 10/10/18
  */
 
-import CoreAward from 'models/v2/awardsV2/CoreAward';
+import CoreAward from 'models/v2/award/CoreAward';
 import { each, upperFirst } from 'lodash';
 import { descriptionsForAwardTypes }
-    from 'dataMapping/awards/descriptionsForAwardTypes';
+    from 'dataMapping/award/descriptionsForAwardTypes';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { decodedAwardId, encodedAwardId } from "../../mockData";
 
@@ -84,5 +84,5 @@ describe('Core Award Model', () => {
             });
         });
     });
-    
+
 });

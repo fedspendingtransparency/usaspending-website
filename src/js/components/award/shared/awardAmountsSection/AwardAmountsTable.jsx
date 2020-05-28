@@ -6,7 +6,7 @@ import {
     tableTitlesBySpendingCategoryAndAwardType,
     formattedSpendingCategoriesByAwardType,
     awardTableClassMap
-} from "dataMapping/awards/awardAmountsSection";
+} from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
 

@@ -3,13 +3,13 @@
  * Created by Lizzie Salita 12/4/18
  */
 
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
+import BaseIdv from 'models/v2/award/BaseIdv';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
-import BaseContractAdditionalDetails from "models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails";
-import CoreExecutiveDetails from 'models/v2/awardsV2/CoreExecutiveDetails';
-import BaseParentAwardDetails from 'models/v2/awardsV2/BaseParentAwardDetails';
+import BaseAwardRecipient from "models/v2/award/BaseAwardRecipient";
+import CoreAwardAgency from "models/v2/award/CoreAwardAgency";
+import BaseContractAdditionalDetails from "models/v2/award/additionalDetails/BaseContractAdditionalDetails";
+import CoreExecutiveDetails from 'models/v2/award/CoreExecutiveDetails';
+import BaseParentAwardDetails from 'models/v2/award/BaseParentAwardDetails';
 
 import { mockIdv } from './mockAwardApi';
 

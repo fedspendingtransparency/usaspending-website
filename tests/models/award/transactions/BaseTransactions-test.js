@@ -3,9 +3,9 @@
  * Created by Lizzie Salita 3/13/18
  */
 
-import BaseContractTransaction from "models/v2/awardsV2/transactions/BaseContractTransaction";
-import BaseAssistanceTransaction from "models/v2/awardsV2/transactions/BaseAssistanceTransaction";
-import BaseLoanTransaction from "models/v2/awardsV2/transactions/BaseLoanTransaction";
+import BaseContractTransaction from "models/v2/award/transactions/BaseContractTransaction";
+import BaseAssistanceTransaction from "models/v2/award/transactions/BaseAssistanceTransaction";
+import BaseLoanTransaction from "models/v2/award/transactions/BaseLoanTransaction";
 
 const mockContractTransaction = {
     federal_action_obligation: '1230.4'

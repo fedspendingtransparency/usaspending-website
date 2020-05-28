@@ -1,32 +1,21 @@
 /**
- * BaseFinancialAssistance.js
+ * BaseContract.js
  * Created by David Trinh 10/9/18
  */
-
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as pscHelper from 'helpers/pscHelper';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
+import BaseParentAwardDetails from './BaseParentAwardDetails';
 import CoreAwardAgency from './CoreAwardAgency';
+import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
-import BaseCFDA from './BaseCFDA';
+import CoreExecutiveDetails from './CoreExecutiveDetails';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
-import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
-const BaseFinancialAssistance = Object.create(CoreAward);
-export const emptyCfda = {
-    total_funding_amount: -Infinity,
-    cfdaTitle: '',
-    cfdaNumber: ''
-};
+const BaseContract = Object.create(CoreAward);
 
-const getLargestCfda = (acc, cfdaItem) => {
-    if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
-        const newCFDA = new BaseCFDA(cfdaItem);
-        return newCFDA;
-    }
-    return acc;
-};
-
-BaseFinancialAssistance.populate = function populate(data) {
+BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
         id: data.id,
@@ -39,45 +28,43 @@ BaseFinancialAssistance.populate = function populate(data) {
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        baseAndAllOptions: data.base_and_all_options,
+        naics: data.naics_hierarchy,
+        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy)
     };
     this.populateCore(coreData);
-    if (data.cfda_info.length) {
-        this.cfdas = data.cfda_info.map((cfda) => {
-            const newCFDA = new BaseCFDA(cfda, data.total_obligation);
-            return newCFDA;
-        });
-    }
+
     if (data.recipient) {
         const recipient = Object.create(BaseAwardRecipient);
         recipient.populate(data.recipient);
         this.recipient = recipient;
     }
+
     if (data.place_of_performance) {
         const placeOfPerformanceData = {
             city: data.place_of_performance.city_name,
-            countyCode: data.place_of_performance.county_code,
             county: data.place_of_performance.county_name,
             stateCode: data.place_of_performance.state_code,
-            state: data.place_of_performance.state_name || data.place_of_performance.state_code,
+            state: data.place_of_performance.state_code,
             province: data.place_of_performance.foreign_province,
-            foreignPostalCode: data.foreign_postal_code,
             zip5: data.place_of_performance.zip5,
             zip4: data.place_of_performance.zip4,
             congressionalDistrict: data.place_of_performance.congressional_code,
             country: data.place_of_performance.country_name,
             countryCode: data.place_of_performance.location_country_code
         };
-
         const placeOfPerformance = Object.create(CoreLocation);
         placeOfPerformance.populateCore(placeOfPerformanceData);
         this.placeOfPerformance = placeOfPerformance;
     }
+
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance.start_date,
             endDate: data.period_of_performance.end_date,
-            lastModifiedDate: data.period_of_performance.last_modified_date
+            lastModifiedDate: data.period_of_performance.last_modified_date,
+            potentialEndDate: data.period_of_performance.potential_end_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
@@ -120,34 +107,50 @@ BaseFinancialAssistance.populate = function populate(data) {
         this.fundingAgency = {};
     }
 
+    if (data.latest_transaction_contract_data) {
+        const additionalDetails = Object.create(BaseContractAdditionalDetails);
+        additionalDetails.populate(data.latest_transaction_contract_data);
+        this.additionalDetails = additionalDetails;
+    }
+
+    const parentAwardDetails = Object.create(BaseParentAwardDetails);
+    parentAwardDetails.populateCore(data.parent_award || {});
+    this.parentAwardDetails = parentAwardDetails;
+
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);
     this.executiveDetails = executiveDetails;
 
-    // populate the financial assistance-specific fields
-    this._faceValue = parseFloat(data.total_loan_value) || 0;
-    this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
-    this._baseAllOptions = parseFloat(data.base_and_all_options) || 0;
-    this._federalObligation = parseFloat(data.transaction_obligated_amount) || 0;
-    this._nonFederalFunding = parseFloat(data.non_federal_funding) || 0;
-    this._totalFunding = parseFloat(data.total_funding) || 0;
-    this.fain = data.fain;
-    this.uri = data.uri;
-    this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
-    this.cfdaList = data.cfda_info;
-    this.recordType = data.record_type;
+    this.pricing = data.latest_transaction_contract_data || '--';
+    this._amount = parseFloat(data.base_and_all_options) || 0;
+    this.piid = data.piid || '';
 };
 
-Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
+
+// getter functions
+Object.defineProperty(BaseContract, 'amount', {
     get() {
-        if (this.biggestCfda.cfdaNumber && this.biggestCfda.cfdaTitle) {
-            return `${this.biggestCfda.cfdaNumber} - ${this.biggestCfda.cfdaTitle}`;
+        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._amount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 2)} ${units.longLabel}`;
         }
-        else if (this.biggestCfda.cfdaNumber || this.biggestCfda.cfdaTitle) {
-            return `${this.biggestCfda.cfdaNumber}${this.biggestCfda.cfdaTitle}`;
+        return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
+    }
+});
+Object.defineProperty(BaseContract, 'amountFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._amount);
+    }
+});
+Object.defineProperty(BaseContract, 'remaining', {
+    get() {
+        const remaining = this._amount - this._obligation;
+        if (remaining >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(remaining);
+            return `${MoneyFormatter.formatMoneyWithPrecision(remaining / units.unit, 2)} ${units.longLabel}`;
         }
-        return '--';
+        return MoneyFormatter.formatMoneyWithPrecision(remaining, 0);
     }
 });
 
-export default BaseFinancialAssistance;
+export default BaseContract;

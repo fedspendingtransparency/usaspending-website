@@ -3,7 +3,7 @@
  * Created by David Trinh 10/10/18
  */
 
-import BaseContractAdditionalDetails from 'models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails';
+import BaseContractAdditionalDetails from 'models/v2/award/additionalDetails/BaseContractAdditionalDetails';
 import { mockIdv } from '../mockAwardApi';
 
 const details = Object.create(BaseContractAdditionalDetails);

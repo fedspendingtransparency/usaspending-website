@@ -3,7 +3,7 @@
  * Created by Kwadwo 04/04/19
  */
 
-import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccountFunding';
+import BaseFederalAccount from 'models/v2/award/BaseFederalAccountFunding';
 import { mockFederalAccountFunding } from './mockAwardApi';
 
 import { decodedAwardId, encodedAwardId } from "../../mockData";

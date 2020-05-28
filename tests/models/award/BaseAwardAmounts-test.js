@@ -3,8 +3,8 @@
  * Created by David Trinh 2/11/19
  */
 
-import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
+import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
+import BaseFinancialAssistance from '../../../src/js/models/v2/award/BaseFinancialAssistance';
 
 import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
 import { decodedAwardId, encodedAwardId } from '../../mockData';

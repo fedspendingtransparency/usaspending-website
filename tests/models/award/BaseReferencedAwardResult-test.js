@@ -4,7 +4,7 @@
  */
 
 import { mockReferencedAwards } from './mockAwardApi';
-import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
+import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
 import { decodedAwardId, encodedAwardId } from '../../mockData';
 
 const row = Object.create(BaseReferencedAwardResult);
