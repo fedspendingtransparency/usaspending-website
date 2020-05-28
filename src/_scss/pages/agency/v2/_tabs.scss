@@ -66,6 +66,10 @@
                     line-height: rem(20);
                 }
             }
+
+            &:disabled {
+                background-color: #FAFAFA;
+            }
         }
     }
 }

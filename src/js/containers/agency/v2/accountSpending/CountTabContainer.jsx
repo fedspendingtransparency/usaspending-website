@@ -45,6 +45,7 @@ const CountTabContainer = (props) => {
             subHeading={props.subHeading}
             setActiveTab={props.setActiveTab}
             active={props.active}
+            disabled={count === 0}
             type={props.type} />
     );
 };

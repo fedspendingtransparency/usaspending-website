@@ -13,13 +13,15 @@ const propTypes = {
     setActiveTab: PropTypes.func.isRequired,
     active: PropTypes.bool,
     count: PropTypes.number,
-    subCount: PropTypes.number
+    subCount: PropTypes.number,
+    disabled: PropTypes.bool
 };
 
 const CountTab = (props) => (
     <button
         className={`count-tabs__button${props.active ? ' count-tabs__button_active' : ''}`}
-        onClick={() => props.setActiveTab(props.type)}>
+        onClick={() => props.setActiveTab(props.type)}
+        disabled={props.disabled}>
         <div className="count-button">
             <div className="count-button__label">
                 {props.label}
