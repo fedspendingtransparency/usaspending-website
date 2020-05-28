@@ -161,24 +161,24 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
     },
     get fileCOutlayFormatted() {
-        return MoneyFormatter.formatMoneyWithPrecision(this[this._denominator] - this._fileCOutlay, 2);
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCOutlay, 2);
     },
     get fileCOutlayAbbreviated() {
-        if (this[this._denominator] - this._fileCOutlay >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this[this._denominator] - this._fileCOutlay);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this[this._denominator] - this._fileCOutlay) / units.unit, 1)} ${units.unitLabel}`;
+        if (this._fileCOutlay >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCOutlay);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._fileCOutlay) / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this[this._denominator] - this._fileCOutlay);
+        return MoneyFormatter.formatMoney(this._fileCOutlay);
     },
     get fileCObligatedFormatted() {
-        return MoneyFormatter.formatMoneyWithPrecision(this[this._denominator] - this._fileCObligated, 2);
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCObligated, 2);
     },
     get fileCObligatedAbbreviated() {
-        if (this[this._denominator] - this._fileCObligated >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this[this._denominator] - this._fileCObligated);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this[this._denominator] - this._fileCObligated) / units.unit, 1)} ${units.unitLabel}`;
+        if (this._fileCObligated >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCObligated);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._fileCObligated) / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this[this._denominator] - this._fileCObligated);
+        return MoneyFormatter.formatMoney(this._fileCObligated);
     },
     get totalFundingAbbreviated() {
         if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
