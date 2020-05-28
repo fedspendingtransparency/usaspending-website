@@ -3,10 +3,6 @@
  * Created by Maxwell Kendall 7/8/19
 */
 
-const moment = require('moment');
-
-const dayOfCaresRelease = moment('2020-08-01');
-
 const globalConstants = {
     API: process.env.USASPENDING_API,
     LOCAL_ROOT: "",
@@ -21,8 +17,7 @@ const globalConstants = {
     QAT: (process.env.ENV === 'qat'),
     CARES_ACT_RELEASED: (
         process.env.ENV === 'dev' ||
-        process.env.ENV === 'sandbox' ||
-        moment().isAfter(dayOfCaresRelease)
+        process.env.ENV === 'sandbox'
     )
 };
 
