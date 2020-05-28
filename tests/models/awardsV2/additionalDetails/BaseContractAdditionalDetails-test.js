@@ -49,4 +49,7 @@ describe('BaseContractAdditionalDetails', () => {
 
         expect(updatedDetailsNull.smallBusinessCompetitive).toEqual('--');
     });
+    it('should store the NIA description', () => {
+        expect(details.nationalInterestActionDesc).toEqual('Mock NIA description');
+    });
 });

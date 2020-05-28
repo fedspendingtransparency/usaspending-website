@@ -84,6 +84,7 @@ const BaseContractAdditionalDetails = {
         this._dodAcquisitionProgramDescription = data.dod_acquisition_program_description || '';
         this._infoTechCommercialItem = data.information_technology_commercial_item_category || '';
         this._infoTechCommercialItemDescription = data.information_technology_commercial_item_category_description || '';
+        this.nationalInterestActionDesc = data.national_interest_action_description || '--';
     },
     get pscCode() {
         return parseCodeAndDescription(this._pscCode, this._pscDescription);

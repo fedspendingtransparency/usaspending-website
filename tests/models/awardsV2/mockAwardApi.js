@@ -108,7 +108,9 @@ export const mockContract = {
         multi_year_contract_desc: 'No',
         purchase_card_as_paym_desc: 'Yes',
         consolidated_contract_desc: 'NO',
-        type_of_contract_pric_desc: 'FIRM FIXED PRICE'
+        type_of_contract_pric_desc: 'FIRM FIXED PRICE',
+        national_interest_action: "NONE",
+        national_interest_action_description: "Mock NIA description"
     },
     executive_details: {
         officers: [{
@@ -404,7 +406,9 @@ export const mockIdv = {
         type_of_contract_pricing_description: "FIRM FIXED PRICE",
         type_of_idc_description: null,
         type_set_aside: "NONE",
-        type_set_aside_description: "NO SET ASIDE USED."
+        type_set_aside_description: "NO SET ASIDE USED.",
+        national_interest_action: "NONE",
+        national_interest_action_description: "Mock NIA description"
     },
     psc_hierarchy: {},
     naics_hierarchy: {},
