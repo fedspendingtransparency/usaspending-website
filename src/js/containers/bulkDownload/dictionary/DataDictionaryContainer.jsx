@@ -95,7 +95,7 @@ export default class DataDictionaryContainer extends React.Component {
     changeSort(field, direction) {
         // Get the index of the column we are sorting by
         const index = this.state.columns.findIndex((col) => col.raw === field);
-
+        
         // Sort the rows based on their value at that index
         let rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
 
