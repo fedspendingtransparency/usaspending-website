@@ -1,8 +1,10 @@
 $grants-line-color: #47AAA7;
 $loans-line-color: #F5A623;
-$covid-obligated: #0A2F5A;
-$covid-current: #558EC6;
-$covid-potential: #AAC6E2;
+$file-c-obligated: #0A2F5A;
+$file-c-current: #558EC6;
+$file-c-potential: #AAC6E2;
+$file-c-outlay: #6E338E;
+$file-c-obligation: #B699C6;
 
 %award-amounts-viz__line-indicator {
     content: "";
@@ -112,6 +114,17 @@ $covid-potential: #AAC6E2;
 
     .award-amounts-viz__label {
         text-align: center;
+        &.file-c-outlay {
+            text-align: left;
+            width: 100%;
+            .award-amounts-viz__desc {
+                border-left: rem(4) solid $file-c-outlay;
+                .award-amounts-viz__desc-text {
+                    text-align: left;
+                    padding-left: rem(5);
+                }
+            }
+        }
     }
 
     .award-amounts-viz__line-up,
@@ -123,27 +136,33 @@ $covid-potential: #AAC6E2;
     }
 
     .award-amounts-viz__line-up {
-        border-bottom: 1px solid $color-cool-blue-light;
+        border-bottom: rem(1) solid $color-cool-blue-light;
         &.covid {
-            border-bottom: 1px solid $covid-obligated;
+            border-bottom: rem(1) solid $file-c-obligated;
+        }
+        &.file-c-obligated {
+            border-bottom: rem(1) solid $file-c-obligation
         }
     }
 
     .award-amounts-viz__line-up--loans {
-        border-bottom: 1px solid $loans-line-color;
+        border-bottom: rem(1) solid $loans-line-color;
     }
 
     .award-amounts-viz__line {
         margin: rem(20) 0 rem(5) rem(1);
-        border-bottom: 1px solid $color-gray-lighter;
+        border-bottom: rem(1) solid $color-gray-lighter;
         position: relative;
         width: 99.5%;
         height: rem(1);
         &.covid.current {
-            border-bottom: 1px solid $covid-current;
+            border-bottom: rem(1) solid $file-c-current;
         }
         &.covid.potential {
-            border-bottom: 1px solid $covid-potential;
+            border-bottom: rem(1) solid $file-c-potential;
+        }
+        &.file-c-outlay {
+            border-bottom: rem(1) solid $file-c-outlay;
         }
     }
 
@@ -185,7 +204,7 @@ $covid-potential: #AAC6E2;
         }
         &.covid::before,
         &.covid::after {
-            border-left: 1px solid $covid-obligated;
+            border-left: 1px solid $file-c-obligated;
         }
     }
 
@@ -206,7 +225,7 @@ $covid-potential: #AAC6E2;
         &::after,
         &::before {
             @extend %award-amounts-viz__line-indicator;
-            border-left: 1px solid $color-gray-lighter;
+            border-left: rem(1) solid $color-gray-lighter;
             top: -9px;
             right: -1px;
         }
@@ -215,11 +234,15 @@ $covid-potential: #AAC6E2;
         }
         &.covid.current::after,
         &.covid.current::before {
-            border-left: 1px solid $covid-current;
+            border-left: rem(1) solid $file-c-current;
         }
         &.covid.potential::after,
         &.covid.potential::before {
-            border-left: 1px solid $covid-potential;
+            border-left: rem(1) solid $file-c-potential;
+        }
+        &.file-c-outlay::after,
+        &.file-c-outlay::before {
+            border-left: rem(1) solid $file-c-outlay;
         }
     }
 
@@ -246,8 +269,18 @@ $covid-potential: #AAC6E2;
         margin-bottom: rem(15);
         border-left: solid rem(4) $color-cool-blue-light;
         width: auto;
+        &.file-c-obligated {
+            border-left: solid rem(4) $file-c-obligation;
+            margin-top: rem(17);
+            strong {
+                font-size: $h6-font-size;
+            }
+        }
         strong {
             font-size: $h4-font-size;
+        }
+        br {
+            font-size: $small-font-size;
         }
     }
 

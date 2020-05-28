@@ -38,6 +38,10 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const fileCOutlay = awardAmounts._fileCOutlay;
     const fileCObligated = awardAmounts._fileCObligated;
 
+    const verticalTooltipOffset = isCovid
+        ? 170
+        : 90;
+
     const widths = {
         currentWithObligatedOffset: {
             width: generatePercentage((current - obligation) / potential)
@@ -93,7 +97,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
             ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
             wide: isIdv,
             styles: {
-                transform: `translate(calc(${widths[spendingCategory].width} + 15px), 90px)`
+                transform: `translate(calc(${widths[spendingCategory].width} + 15px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
@@ -151,6 +155,21 @@ const NormalChart = ({ awardType, awardAmounts }) => {
             </div>
             <div className="award-amounts-viz__label obligated" style={widths.obligated}>
                 <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
+            </div>
+            <div
+                role="button"
+                className="award-amounts-viz__desc-top file-c-obligated"
+                tabIndex="0"
+                onBlur={closeTooltip}
+                onFocus={showFileCObligatedTooltip}
+                onKeyPress={showFileCObligatedTooltip}
+                onMouseEnter={showFileCObligatedTooltip}
+                onMouseLeave={closeTooltip}
+                onClick={showFileCObligatedTooltip}>
+                <strong>{awardAmounts.fileCObligatedAbbreviated}</strong><br />COVID-19 Response Obligations Amount
+            </div>
+            <div className="award-amounts-viz__label file-c-obligated" style={widths.fileCObligated}>
+                <div className="award-amounts-viz__line-up file-c-obligated" />
             </div>
             <div className="award-amounts-viz__bar-wrapper">
                 <div
@@ -227,6 +246,24 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                             onClick={showCurrentTooltip}>
                             <div className="award-amounts-viz__bar current" style={currentBarStyle} />
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="award-amounts-viz__label file-c-outlay">
+                <div className="award-amounts-viz__line file-c-outlay" style={widths.fileCOutlay} />
+                <div className="award-amounts-viz__desc">
+                    <div
+                        className="award-amounts-viz__desc-text"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showFileCOutlayTooltip}
+                        onKeyPress={showFileCOutlayTooltip}
+                        onMouseEnter={showFileCOutlayTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showFileCOutlayTooltip}>
+                        <strong>{awardAmounts.fileCOutlayAbbreviated}</strong><br />
+                        COVID-19 Response Outlay Amount
                     </div>
                 </div>
             </div>
