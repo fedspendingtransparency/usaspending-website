@@ -122,6 +122,9 @@ $file-c-obligation: #B699C6;
                 .award-amounts-viz__desc-text {
                     text-align: left;
                     padding-left: rem(5);
+                    strong {
+                        font-size: $h6-font-size;
+                    }
                 }
             }
         }

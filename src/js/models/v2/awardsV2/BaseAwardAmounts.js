@@ -25,6 +25,8 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
+        this._fileCOutlay = data._totalObligation * 0.25;
+        this._fileCObligated = data._totalObligation * 0.50;
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;
