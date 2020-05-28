@@ -117,6 +117,7 @@ $file-c-obligation: #B699C6;
         &.file-c-outlay {
             text-align: left;
             width: 100%;
+            margin-bottom: rem(17);
             .award-amounts-viz__desc {
                 border-left: rem(4) solid $file-c-outlay;
                 .award-amounts-viz__desc-text {

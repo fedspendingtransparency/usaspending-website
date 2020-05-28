@@ -291,6 +291,14 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             exceedsPotential: {
                 offsetAdjustments: { top: 0 },
                 tooltipComponent: <CombinedExceedsPotentialAmounts total={data.extremeOverspendingFormatted} count={data.childAwardCount} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
             }
         },
         contract: {

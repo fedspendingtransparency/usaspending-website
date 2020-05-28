@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
+import GlobalConstants from "GlobalConstants";
 import { generatePercentage } from 'helpers/awardAmountHelper';
 
 const shape = PropTypes.shape({
@@ -41,8 +42,6 @@ const emptyTooltipProps = {
     tooltipComponent: <p>Placeholder</p>
 };
 
-const isCovid = true;
-
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
@@ -61,7 +60,10 @@ const RectanglePercentViz = ({
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const numeratorIsZero = (numerator.rawValue === 0);
-    const verticalTooltipOffset = isCovid
+    const isNumerator2Defined = (numerator2 !== null);
+    const isNumerator3Defined = (numerator3 !== null);
+    const isCaresReleased = isNumerator2Defined && GlobalConstants.DEV;
+    const verticalTooltipOffset = isCaresReleased
         ? 170
         : 90;
 
@@ -190,21 +192,25 @@ const RectanglePercentViz = ({
                     <span>{numerator.text}</span>
                 </div>
             }
-            <div
-                className="award-amounts-viz__desc-top file-c-obligated"
-                role="button"
-                tabIndex="0"
-                onBlur={closeTooltip}
-                onFocus={showNumerator2Tooltip}
-                onKeyPress={showNumerator2Tooltip}
-                onMouseEnter={showNumerator2Tooltip}
-                onMouseLeave={closeTooltip}
-                onClick={showNumerator2Tooltip}>
-                <strong>{numerator2.value}</strong><br />COVID-19 Response Obligations Amount
-            </div>
-            <div className="award-amounts-viz__label file-c-obligated">
-                <div className="award-amounts-viz__line-up file-c-obligated" style={absoluteWidths.numerator2} />
-            </div>
+            {isCaresReleased &&
+                <>
+                    <div
+                        className="award-amounts-viz__desc-top file-c-obligated"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showNumerator2Tooltip}
+                        onKeyPress={showNumerator2Tooltip}
+                        onMouseEnter={showNumerator2Tooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showNumerator2Tooltip}>
+                        <strong>{numerator2.value}</strong><br />COVID-19 Response Obligations Amount
+                    </div>
+                    <div className="award-amounts-viz__label file-c-obligated">
+                        <div className="award-amounts-viz__line-up file-c-obligated" style={absoluteWidths.numerator2} />
+                    </div>
+                </>
+            }
             <div className="award-amounts-viz__bar-wrapper">
                 <div
                     className="denominator"
@@ -238,38 +244,43 @@ const RectanglePercentViz = ({
                                         width: '100%',
                                         backgroundColor: numeratorBarAndLabelStyles.backgroundColor
                                     }}>
-                                    <div className="nested-obligations">
-                                        <div
-                                            className="file-c-obligated"
-                                            style={relativeWidths.numerator2}
-                                            role="button"
-                                            tabIndex="0"
-                                            onBlur={closeTooltip}
-                                            onFocus={showNumerator2Tooltip}
-                                            onKeyPress={showNumerator2Tooltip}
-                                            onMouseEnter={showNumerator2Tooltip}
-                                            onMouseLeave={closeTooltip}
-                                            onClick={showNumerator2Tooltip}>
+
+                                    {isCaresReleased &&
+                                        <div className="nested-obligations">
                                             <div
-                                                className="award-amounts-viz__bar file-c-obligated"
-                                                style={{ width: generatePercentage(1), backgroundColor: numerator2Color }} />
+                                                className="file-c-obligated"
+                                                style={relativeWidths.numerator2}
+                                                role="button"
+                                                tabIndex="0"
+                                                onBlur={closeTooltip}
+                                                onFocus={showNumerator2Tooltip}
+                                                onKeyPress={showNumerator2Tooltip}
+                                                onMouseEnter={showNumerator2Tooltip}
+                                                onMouseLeave={closeTooltip}
+                                                onClick={showNumerator2Tooltip}>
+                                                <div
+                                                    className="award-amounts-viz__bar file-c-obligated"
+                                                    style={{ width: generatePercentage(1), backgroundColor: numerator2Color }} />
+                                            </div>
+                                            {isNumerator3Defined &&
+                                                <div
+                                                    className="file-c-outlay"
+                                                    style={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
+                                                    role="button"
+                                                    tabIndex="0"
+                                                    onBlur={closeTooltip}
+                                                    onFocus={showNumerator3Tooltip}
+                                                    onKeyPress={showNumerator3Tooltip}
+                                                    onMouseEnter={showNumerator3Tooltip}
+                                                    onMouseLeave={closeTooltip}
+                                                    onClick={showNumerator3Tooltip}>
+                                                    <div
+                                                        className="award-amounts-viz__bar file-c-outlay"
+                                                        style={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
+                                                </div>
+                                            }
                                         </div>
-                                        <div
-                                            className="file-c-outlay"
-                                            style={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
-                                            role="button"
-                                            tabIndex="0"
-                                            onBlur={closeTooltip}
-                                            onFocus={showNumerator3Tooltip}
-                                            onKeyPress={showNumerator3Tooltip}
-                                            onMouseEnter={showNumerator3Tooltip}
-                                            onMouseLeave={closeTooltip}
-                                            onClick={showNumerator3Tooltip}>
-                                            <div
-                                                className="award-amounts-viz__bar file-c-outlay"
-                                                style={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         )}
@@ -279,24 +290,27 @@ const RectanglePercentViz = ({
                     </div>
                 </div>
             </div>
-            <div className="award-amounts-viz__label file-c-outlay">
-                <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.numerator3} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showNumerator3Tooltip}
-                        onKeyPress={showNumerator3Tooltip}
-                        onMouseEnter={showNumerator3Tooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showNumerator3Tooltip}>
-                        <strong>{numerator3.value}</strong><br />
-                        COVID-19 Response Outlay Amount
+            {/* Even if numerator3 is 0, we want to show this so long as numerator2 is > 0 */}
+            {isCaresReleased &&
+                <div className="award-amounts-viz__label file-c-outlay">
+                    <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.numerator3} />
+                    <div className="award-amounts-viz__desc">
+                        <div
+                            className="award-amounts-viz__desc-text"
+                            role="button"
+                            tabIndex="0"
+                            onBlur={closeTooltip}
+                            onFocus={showNumerator3Tooltip}
+                            onKeyPress={showNumerator3Tooltip}
+                            onMouseEnter={showNumerator3Tooltip}
+                            onMouseLeave={closeTooltip}
+                            onClick={showNumerator3Tooltip}>
+                            <strong>{numerator3.value}</strong><br />
+                            COVID-19 Response Outlay Amount
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <div className="award-amounts-viz__label">
                 <div className="award-amounts-viz__line" style={{ backgroundColor: denominatorColor }} />
                 <div className="award-amounts-viz__desc">

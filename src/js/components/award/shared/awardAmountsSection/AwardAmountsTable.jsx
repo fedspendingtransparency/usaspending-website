@@ -5,12 +5,14 @@ import { uniqueId } from 'lodash';
 import {
     tableTitlesBySpendingCategoryAndAwardType,
     formattedSpendingCategoriesByAwardType,
-    awardTableClassMap
+    awardTableClassMap,
+    caresActSpendingCategories
 } from "dataMapping/awards/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
+    showFileC: PropTypes.bool,
     children: PropTypes.node,
     awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
@@ -34,7 +36,8 @@ const getTableTitleByAwardTypeByCategory = (type) => {
 const AwardAmountsTable = ({
     awardData,
     awardAmountType,
-    spendingScenario
+    spendingScenario,
+    showFileC
 }) => {
     /*
      * we have to do this because right now whenever there's any kind of overspending
@@ -74,6 +77,12 @@ const AwardAmountsTable = ({
 
     // build a map using the relevant keys for the awardAmountType
     const amountMapByCategoryTitle = getSpendingCategoriesByAwardType(awardAmountType)
+        .filter((category) => {
+            if (caresActSpendingCategories.includes(category)) {
+                return showFileC;
+            }
+            return true;
+        })
         .reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);

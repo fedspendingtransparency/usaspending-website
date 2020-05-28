@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
+import GlobalConstants from "GlobalConstants";
 import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
@@ -25,7 +26,6 @@ const emptyTooltipProps = {
     styles: { transform: '' },
     tooltipComponent: <p>Placeholder</p>
 };
-const isCovid = true;
 
 const horiztonalTooltipPositionOffset = 10;
 
@@ -40,15 +40,18 @@ const barColorsByCategory = {
 const GrantChart = ({ awardAmounts, awardType }) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
-    const verticalTooltipOffset = isCovid
-        ? 170
-        : 90;
     // Rename properties to improve readability of the calculations
     const obligation = awardAmounts._totalObligation;
     const nonFederalFunding = awardAmounts._nonFederalFunding;
     const totalFunding = awardAmounts._totalFunding;
     const fileCOutlay = awardAmounts._fileCOutlay;
     const fileCObligated = awardAmounts._fileCObligated;
+    const isFileCOutlayDefined = fileCOutlay > 0;
+    const isFileCObligatedDefined = fileCObligated > 0;
+    const isCaresReleased = isFileCObligatedDefined && GlobalConstants.DEV;
+    const verticalTooltipOffset = isCaresReleased
+        ? 170
+        : 90;
 
     const nonFederalFundingIsZero = (nonFederalFunding === 0);
 
@@ -144,21 +147,25 @@ const GrantChart = ({ awardAmounts, awardType }) => {
             <div className="award-amounts-viz__label" style={{ width: barWidthsByCategory.obligated }}>
                 <div className="award-amounts-viz__line-up" />
             </div>
-            <div
-                className="award-amounts-viz__desc-top file-c-obligated"
-                role="button"
-                tabIndex="0"
-                onBlur={closeTooltip}
-                onFocus={showFileCObligatedTooltip}
-                onKeyPress={showFileCObligatedTooltip}
-                onMouseEnter={showFileCObligatedTooltip}
-                onMouseLeave={closeTooltip}
-                onClick={showFileCObligatedTooltip}>
-                <strong>{awardAmounts.fileCObligatedFormatted}</strong><br />COVID-19 Response Obligations Amount
-            </div>
-            <div className="award-amounts-viz__label file-c-obligated" style={{ width: tooltipPositionsByCategory.fileCObligated }}>
-                <div className="award-amounts-viz__line-up file-c-obligated" />
-            </div>
+            {isCaresReleased &&
+                <>
+                    <div
+                        className="award-amounts-viz__desc-top file-c-obligated"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showFileCObligatedTooltip}
+                        onKeyPress={showFileCObligatedTooltip}
+                        onMouseEnter={showFileCObligatedTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showFileCObligatedTooltip}>
+                        <strong>{awardAmounts.fileCObligatedAbbreviated}</strong><br />COVID-19 Response Obligations Amount
+                    </div>
+                    <div className="award-amounts-viz__label file-c-obligated" style={{ width: tooltipPositionsByCategory.fileCObligated }}>
+                        <div className="award-amounts-viz__line-up file-c-obligated" />
+                    </div>
+                </>
+            }
             <div className="award-amounts-viz__bar-wrapper">
                 <div
                     className="total-funding"
@@ -188,38 +195,42 @@ const GrantChart = ({ awardAmounts, awardType }) => {
                             <div
                                 className="award-amounts-viz__bar grant-obligated"
                                 style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.obligated }} >
-                                <div className="nested-obligations">
-                                    <div
-                                        className="file-c-obligated"
-                                        style={{ width: barWidthsByCategory.fileCObligated }}
-                                        role="button"
-                                        tabIndex="0"
-                                        onBlur={closeTooltip}
-                                        onFocus={showFileCObligatedTooltip}
-                                        onKeyPress={showFileCObligatedTooltip}
-                                        onMouseEnter={showFileCObligatedTooltip}
-                                        onMouseLeave={closeTooltip}
-                                        onClick={showFileCObligatedTooltip}>
+                                {isCaresReleased &&
+                                    <div className="nested-obligations">
                                         <div
-                                            className="award-amounts-viz__bar file-c-obligated"
-                                            style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCObligated }} />
+                                            className="file-c-obligated"
+                                            style={{ width: barWidthsByCategory.fileCObligated }}
+                                            role="button"
+                                            tabIndex="0"
+                                            onBlur={closeTooltip}
+                                            onFocus={showFileCObligatedTooltip}
+                                            onKeyPress={showFileCObligatedTooltip}
+                                            onMouseEnter={showFileCObligatedTooltip}
+                                            onMouseLeave={closeTooltip}
+                                            onClick={showFileCObligatedTooltip}>
+                                            <div
+                                                className="award-amounts-viz__bar file-c-obligated"
+                                                style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCObligated }} />
+                                        </div>
+                                        {isFileCOutlayDefined &&
+                                            <div
+                                                className="file-c-outlay"
+                                                style={{ width: barWidthsByCategory.fileCOutlay, ...fileCOutlayPositioning }}
+                                                role="button"
+                                                tabIndex="0"
+                                                onBlur={closeTooltip}
+                                                onFocus={showFileCOutlayTooltip}
+                                                onKeyPress={showFileCOutlayTooltip}
+                                                onMouseEnter={showFileCOutlayTooltip}
+                                                onMouseLeave={closeTooltip}
+                                                onClick={showFileCOutlayTooltip}>
+                                                <div
+                                                    className="award-amounts-viz__bar file-c-outlay"
+                                                    style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCOutlay }} />
+                                            </div>
+                                        }
                                     </div>
-                                    <div
-                                        className="file-c-outlay"
-                                        style={{ width: barWidthsByCategory.fileCOutlay, ...fileCOutlayPositioning }}
-                                        role="button"
-                                        tabIndex="0"
-                                        onBlur={closeTooltip}
-                                        onFocus={showFileCOutlayTooltip}
-                                        onKeyPress={showFileCOutlayTooltip}
-                                        onMouseEnter={showFileCOutlayTooltip}
-                                        onMouseLeave={closeTooltip}
-                                        onClick={showFileCOutlayTooltip}>
-                                        <div
-                                            className="award-amounts-viz__bar file-c-outlay"
-                                            style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCOutlay }} />
-                                    </div>
-                                </div>
+                                }
                             </div>
                         </div>
                         {!nonFederalFundingIsZero &&
@@ -242,24 +253,27 @@ const GrantChart = ({ awardAmounts, awardType }) => {
                     </div>
                 </div>
             </div>
-            <div className="award-amounts-viz__label file-c-outlay">
-                <div className="award-amounts-viz__line file-c-outlay" style={{ width: tooltipPositionsByCategory.fileCOutlay }} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showFileCOutlayTooltip}
-                        onKeyPress={showFileCOutlayTooltip}
-                        onMouseEnter={showFileCOutlayTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showFileCOutlayTooltip}>
-                        <strong>{awardAmounts.fileCOutlayFormatted}</strong><br />
-                        COVID-19 Response Outlay Amount
+            {/* Even if outlay is 0, we want to show this so long as the obligated is > 0 */}
+            {isCaresReleased &&
+                <div className="award-amounts-viz__label file-c-outlay">
+                    <div className="award-amounts-viz__line file-c-outlay" style={{ width: tooltipPositionsByCategory.fileCOutlay }} />
+                    <div className="award-amounts-viz__desc">
+                        <div
+                            className="award-amounts-viz__desc-text"
+                            role="button"
+                            tabIndex="0"
+                            onBlur={closeTooltip}
+                            onFocus={showFileCOutlayTooltip}
+                            onKeyPress={showFileCOutlayTooltip}
+                            onMouseEnter={showFileCOutlayTooltip}
+                            onMouseLeave={closeTooltip}
+                            onClick={showFileCOutlayTooltip}>
+                            <strong>{awardAmounts.fileCOutlayAbbreviated}</strong><br />
+                            COVID-19 Response Outlay Amount
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <div className="award-amounts-viz__label" style={{ width: barWidthsByCategory.nonFederalFunding, ...nonFederalFundingPositioning }}>
                 {!nonFederalFundingIsZero && (
                     <div
