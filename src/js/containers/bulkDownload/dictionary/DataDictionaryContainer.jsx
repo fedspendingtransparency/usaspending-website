@@ -88,7 +88,7 @@ export default class DataDictionaryContainer extends React.Component {
             rows: parsedRows
         }, () => {
             // Default sort
-            this.changeSort('element', 'asc');
+            this.changeSort(this.state.columns[0].raw, 'asc');
         });
     }
 
