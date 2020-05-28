@@ -3,12 +3,13 @@
  * Created by Lizzie Salita 8/24/17
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import RecipientTooltip from './RecipientTooltip';
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
+import { recipientLoanFaceValueInfo } from '../award/shared/InfoTooltipContent';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -17,22 +18,6 @@ const propTypes = {
 };
 
 const RecipientOverview = (props) => {
-    const [showInfoTooltip, setShowInfoTooltip] = useState(false);
-
-    const showTooltip = () => {
-        setShowInfoTooltip(true, () => {
-            const closeButton = document.querySelector('#state-overview-tooltip__close_icon');
-            if (closeButton) {
-                closeButton.focus();
-            }
-        });
-    };
-
-    const closeTooltip = () => {
-        setShowInfoTooltip(false);
-    };
-
-
     const recipient = props.recipient.overview;
     let label = (
         <div className="recipient-overview__label">
@@ -108,31 +93,17 @@ const RecipientOverview = (props) => {
         );
     }
 
-    let tooltip = null;
-    if (showInfoTooltip) {
-        tooltip = (
-            <RecipientTooltip
-                showInfoTooltip={showInfoTooltip}
-                closeTooltip={closeTooltip}
-                content="asdf" />
-        );
-    }
-
     const loanTotals = () => (
         <div className="recipient-section__viz totals-subset">
             <h5 className="recipient-overview__heading-subset">
                                 Total Face Value of Loans
-                <span className="recipient__info_icon_holder">
-                    <button
-                        id="recipient__info_icon"
-                        className="recipient__info_icon"
-                        onFocus={showTooltip}
-                        onBlur={closeTooltip}
-                        onMouseEnter={showTooltip}
-                        onClick={showTooltip}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                    </button>
-                </span>
+                <TooltipWrapper
+                    className="award-section-tt"
+                    tooltipPosition="right"
+                    icon="info"
+                    wide
+                    tooltipComponent={recipientLoanFaceValueInfo} />
+
             </h5>
 
             <div className="totals-subset__amount">
@@ -141,7 +112,6 @@ const RecipientOverview = (props) => {
             <div className="totals-subset__awards">
                                 from <span className="state-overview__total">{recipient.totalLoanTransactions}</span> transactions
             </div>
-            {tooltip}
         </div>
     );
 

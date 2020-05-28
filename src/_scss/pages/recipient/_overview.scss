@@ -158,23 +158,6 @@
             }
         }
 
-        .recipient-section__row {
-            .recipient-section-totals-container {
-                .recipient__info_icon_holder {
-                    position: relative;
-                    padding-left: rem(5);
-                    .recipient__info_icon {
-                        @include button-unstyled;
-                        svg {
-                            color: gray;
-                            height: rem(13);
-                            width: rem(13);
-                        }
-                    }
-                }
-            }
-        }
-
         @import "./recipientTooltip";
         @import "pages/state/overview/subsetTotals";
         @import "pages/state/overview/totals";

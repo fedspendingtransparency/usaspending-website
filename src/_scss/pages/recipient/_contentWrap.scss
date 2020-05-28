@@ -41,11 +41,32 @@
 					margin-right: rem(10);
 				}
 
+				.recipient-overview__heading-subset {
+					@include display(inline-block);
+				}
+
 				.recipient-section__viz {
 					&:last-child {
 						margin-left: rem(0);
 						margin-top: rem(50);
 					}
+				}
+
+				.recipient__info_icon_holder {
+                    position: relative;
+                    padding-left: rem(5);
+                    .recipient__info_icon {
+                        @include button-unstyled;
+                        svg {
+                            color: gray;
+                            height: rem(13);
+                            width: rem(13);
+                        }
+                    }
+				}
+				
+				.tooltip-wrapper {
+					float: right;
 				}
 			}
 			.recipient-section__viz {
