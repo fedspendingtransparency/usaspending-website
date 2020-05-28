@@ -21,9 +21,12 @@ const BaseAccountSpendingRow = {
     },
     get percentOfTotalObligations() {
         if (this._totalObligatedAmount > 0) {
-            return generatePercentage(this._obligatedAmount / this._totalObligatedAmount);
+            const percentage = generatePercentage(this._obligatedAmount / this._totalObligatedAmount);
+            if (percentage === ('0.00%')) return 'Less than 0.01%';
+            if (percentage === ('-0.00%')) return 'Less than -0.01%';
+            return percentage;
         }
-        return '0%';
+        return '0.00%';
     }
 };
 
