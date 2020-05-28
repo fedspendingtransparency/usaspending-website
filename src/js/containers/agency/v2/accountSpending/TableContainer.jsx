@@ -7,9 +7,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { accountColumns, accountFields } from 'dataMapping/agency/tableColumns';
 import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
 import BaseAccountSpendingRow from '../../../../models/v2/account/BaseAccountSpendingRow';
+import ResultsTableLoadingMessage from '../../../../components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from '../../../../components/search/table/ResultsTableErrorMessage';
+
 
 const propTypes = {
     // TODO - when the overview section is complete, get agency ID and FY from Redux
@@ -30,6 +34,8 @@ const TableContainer = (props) => {
         setOrder(direction);
     };
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     // TODO - use totalObligation to calculate '% of Total Obligations' column value
     const totalObligation = useSelector((state) => state.agencyV2.budgetaryResources._agencyTotalObligated);
 
@@ -61,11 +67,10 @@ const TableContainer = (props) => {
 
             // parse row and row's children
             const parsedData = dataAndTotalObligation.map((item) => {
-                let rowChildren = [];
                 const accountSpendingRow = Object.create(BaseAccountSpendingRow);
                 accountSpendingRow.populate(item);
 
-
+                let rowChildren = [];
                 if (item.children && item.children.length > 0) {
                     rowChildren = item.children.map((childItem) => {
                         const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
@@ -87,6 +92,7 @@ const TableContainer = (props) => {
     };
 
     useEffect(() => {
+        setLoading(true);
         // Reset to the first page
         changePage(1);
         const params = {
@@ -100,10 +106,17 @@ const TableContainer = (props) => {
             .then((res) => {
                 parseAccount(res.data.results);
                 setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+                setError(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
             });
     }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
+        setLoading(true);
         // Make a request with the new page number
         const params = {
             fiscal_year: props.fy,
@@ -116,8 +129,41 @@ const TableContainer = (props) => {
         request.promise
             .then((res) => {
                 parseAccount(res.data.results);
+                setLoading(false);
+                setError(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
             });
     }, [currentPage]);
+
+    let message = null;
+    if (loading) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableLoadingMessage />
+            </div>
+        );
+    } else if (error) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableErrorMessage />
+            </div>
+        );
+    }
+
+    if (message) {
+        return (
+            <CSSTransitionGroup
+                transitionName="table-message-fade"
+                transitionLeaveTimeout={225}
+                transitionEnterTimeout={195}
+                transitionLeave>
+                {message}
+            </CSSTransitionGroup>
+        );
+    }
 
     return (
         <>
