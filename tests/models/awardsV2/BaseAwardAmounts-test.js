@@ -6,7 +6,7 @@
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
 
-import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
+import { mockAwardAmounts, mockContract, mockGrant, mockLoan, mockIdv } from './mockAwardApi';
 import { decodedAwardId, encodedAwardId } from '../../mockData';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
@@ -192,6 +192,46 @@ describe('BaseAwardAmounts', () => {
             expect(loanAwardAmounts._faceValue).toEqual(2497000000.00);
             expect(loanAwardAmounts.faceValueFormatted).toEqual("$2,497,000,000.00");
             expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 B");
+        });
+    });
+    describe('Mock Awards for Cares Act Release', () => {
+        it.each([
+            ['contract', 'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-', mockContract, '_totalObligation', 100],
+            ['idv', 'CONT_IDV_EDFSA09D0012_9100', mockIdv, '_totalObligation', 100],
+            ['grant', 'ASST_NON_1905CA5MAP_7530', mockGrant, '_totalObligation', 100],
+            ['loan', 'ASST_NON_13789835_12D2', mockLoan, '_subsidy', 100]
+        ])('For %s awards, with whitelisted award id %s it adds mock file c data', (
+            awardType,
+            id,
+            mockAward,
+            denominatorKey,
+            denominatorValue
+        ) => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({ ...mockAward, generatedId: id, [denominatorKey]: denominatorValue }, awardType);
+            expect(mockAwardAmount._isMockCares).toEqual(true);
+            expect(mockAwardAmount._fileCObligated > 0).toEqual(true);
+            expect(mockAwardAmount._fileCOutlay > 0).toEqual(true);
+            expect(mockAwardAmount._fileCOutlay < mockAwardAmount._fileCObligated).toEqual(true);
+        });
+        it.each([
+            ['contract', 'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-z', mockContract, '_totalObligation', 100],
+            ['idv', 'CONT_IDV_EDFSA09D0012_9100-z', mockIdv, '_totalObligation', 100],
+            ['grant', 'ASST_NON_1905CA5MAP_7530-z', mockGrant, '_totalObligation', 100],
+            ['loan', 'ASST_NON_13789835_12D2-z', mockLoan, '_subsidy', 100]
+        ])('For %s awards not whitelisted (%s) it does not add the mock file c data', (
+            awardType,
+            id,
+            mockAward,
+            denominatorKey,
+            denominatorValue
+        ) => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({ ...mockAward, generatedId: id, [denominatorKey]: denominatorValue }, awardType);
+            expect(mockAwardAmount._isMockCares).toEqual(false);
+            expect(mockAwardAmount._fileCObligated > 0).toEqual(false);
+            expect(mockAwardAmount._fileCOutlay > 0).toEqual(false);
+            expect(mockAwardAmount._fileCOutlay < mockAwardAmount._fileCObligated).toEqual(false);
         });
     });
 });
