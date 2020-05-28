@@ -155,13 +155,23 @@ const TableContainer = (props) => {
 
     if (message) {
         return (
-            <CSSTransitionGroup
-                transitionName="table-message-fade"
-                transitionLeaveTimeout={225}
-                transitionEnterTimeout={195}
-                transitionLeave>
-                {message}
-            </CSSTransitionGroup>
+            <>
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changePage}
+                    changeLimit={changeLimit}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </>
         );
     }
 
