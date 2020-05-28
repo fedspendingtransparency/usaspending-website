@@ -25,8 +25,8 @@ const emptyTooltipProps = {
     styles: { transform: '' },
     tooltipComponent: <p>Placeholder</p>
 };
+const isCovid = true;
 
-const verticalTooltipPosition = 90;
 const horiztonalTooltipPositionOffset = 10;
 
 const barColorsByCategory = {
@@ -40,7 +40,9 @@ const barColorsByCategory = {
 const GrantChart = ({ awardAmounts, awardType }) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
-
+    const verticalTooltipOffset = isCovid
+        ? 170
+        : 90;
     // Rename properties to improve readability of the calculations
     const obligation = awardAmounts._totalObligation;
     const nonFederalFunding = awardAmounts._nonFederalFunding;
@@ -71,7 +73,7 @@ const GrantChart = ({ awardAmounts, awardType }) => {
             wide: false,
             styles: {
                 // TODO: handle when non federal funding is zero.
-                transform: `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horiztonalTooltipPositionOffset}px), ${verticalTooltipPosition}px)`
+                transform: `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horiztonalTooltipPositionOffset}px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
