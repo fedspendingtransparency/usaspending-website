@@ -259,7 +259,13 @@ describe('Line Helper', () => {
         expect(lineHelper(moment(''))).toBeNull();
     });
     it('should return a number if date exists', () => {
-        expect(lineHelper(goodDates._startDate)).toBe(goodDates._startDate.valueOf());
+        expect(lineHelper(goodDates._startDate, [goodDates._startDate.subtract(7, 'd'), goodDates._startDate.add(7, 'd')])).toBe(goodDates._startDate.valueOf());
+    });
+    it('should return null when date is less than domain', () => {
+        expect(lineHelper(3, [10, 20])).toBeNull();
+    });
+    it('should return null when date is greater than domain', () => {
+        expect(lineHelper(25, [10, 20])).toBeNull();
     });
 });
 

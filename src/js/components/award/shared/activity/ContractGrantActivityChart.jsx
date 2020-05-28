@@ -62,7 +62,7 @@ const ContractGrantsActivityChart = ({
     // start line
     const [startLineData, setStartLineData] = useState({ value: 0, height: 0 });
     // today line
-    const [todayLineData, setTodayLineData] = useState({ value: Date.now(), height: 0 });
+    const [todayLineData, setTodayLineData] = useState({ value: 0, height: 0 });
     // end line
     const [endLineData, setEndLineData] = useState({ value: 0, height: 0 });
     // potential end line
@@ -303,10 +303,13 @@ const ContractGrantsActivityChart = ({
     ]);
     // sets the line values - hook - runs on mount and dates change
     useEffect(() => {
-        setStartLineData(Object.assign({}, startLineData, { value: lineHelper(dates._startDate) }));
-        setEndLineData(Object.assign({}, endLineData, { value: lineHelper(dates._endDate) }));
-        setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: lineHelper(dates._potentialEndDate) }));
-    }, [dates]);
+        if (xDomain?.length) {
+            setStartLineData(Object.assign({}, startLineData, { value: lineHelper(dates._startDate, xDomain) }));
+            setTodayLineData(Object.assign({}, todayLineData, { value: lineHelper(moment(Date.now()), xDomain) }));
+            setEndLineData(Object.assign({}, endLineData, { value: lineHelper(dates._endDate, xDomain) }));
+            setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: lineHelper(dates._potentialEndDate, xDomain) }));
+        }
+    }, [dates, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
