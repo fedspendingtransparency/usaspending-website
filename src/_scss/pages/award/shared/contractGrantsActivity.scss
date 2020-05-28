@@ -57,9 +57,9 @@
             .tooltip__message {
               .tooltip__text {
                   padding: 2rem 2rem 0 2rem;
-              }
-              .tooltip__text:last-child {
-                padding: 2rem;
+                  .tooltip__text-section {
+                    padding: 2rem 2rem 0 2rem;
+                  }
               }
             } 
           }

@@ -95,4 +95,3 @@ export const defaultSort = (type) => {
 
     return columns[type];
 };
-

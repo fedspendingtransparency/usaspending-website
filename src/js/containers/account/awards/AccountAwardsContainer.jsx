@@ -16,7 +16,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
 import { defaultColumns, defaultSort } from
     'dataMapping/search/awardTableColumns';
-
+import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
@@ -44,7 +44,8 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: true
+        enabled: true,
+        tooltip: tableTabsTooltips('loans')
     },
     {
         label: 'Other',

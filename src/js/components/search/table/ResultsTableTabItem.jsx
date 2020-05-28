@@ -16,7 +16,8 @@ const propTypes = {
     enabled: PropTypes.bool,
     switchTab: PropTypes.func,
     hideCounts: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    tooltip: PropTypes.element
 };
 
 export default class ResultsTableTabItem extends React.Component {
@@ -71,6 +72,7 @@ export default class ResultsTableTabItem extends React.Component {
                         {this.props.label}
                     </div>
                     {count}
+                    {this.props.tooltip}
                 </div>
             </button>
         );

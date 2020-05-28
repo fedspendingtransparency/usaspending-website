@@ -94,6 +94,7 @@ export default class TransactionTableHeaderCell extends React.Component {
         if (this.props.isLastColumn) {
             lastClass = ' last-column';
         }
+        const tooltip = this.props.tooltip;
 
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         // we need to allow the outer div to take an onClick event because there are nested
