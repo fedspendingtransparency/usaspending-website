@@ -2,7 +2,8 @@
  * CoreTransaction-test.js
  * Created by Lizzie Salita 3/13/18
  */
-import CoreTransaction from "models/v2/awards/transactions/CoreTransaction";
+
+import CoreTransaction from "models/v2/awardsV2/transactions/CoreTransaction";
 
 const transactionData = {
     actionDate: '1999-12-31',

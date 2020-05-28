@@ -2,9 +2,10 @@
  * BaseTransactions-test.js
  * Created by Lizzie Salita 3/13/18
  */
-import BaseContractTransaction from "models/v2/awards/transactions/BaseContractTransaction";
-import BaseAssistanceTransaction from "models/v2/awards/transactions/BaseAssistanceTransaction";
-import BaseLoanTransaction from "models/v2/awards/transactions/BaseLoanTransaction";
+
+import BaseContractTransaction from "models/v2/awardsV2/transactions/BaseContractTransaction";
+import BaseAssistanceTransaction from "models/v2/awardsV2/transactions/BaseAssistanceTransaction";
+import BaseLoanTransaction from "models/v2/awardsV2/transactions/BaseLoanTransaction";
 
 const mockContractTransaction = {
     federal_action_obligation: '1230.4'
