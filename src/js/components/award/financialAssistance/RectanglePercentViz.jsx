@@ -62,7 +62,7 @@ const RectanglePercentViz = ({
     const numeratorIsZero = (numerator.rawValue === 0);
     const isNumerator2Defined = (numerator2 !== null);
     const isNumerator3Defined = (numerator3 !== null);
-    const isCaresReleased = isNumerator2Defined && GlobalConstants.DEV;
+    const isCaresReleased = isNumerator2Defined && GlobalConstants.CARES_ACT_RELEASED;
     const verticalTooltipOffset = isCaresReleased
         ? 170
         : 90;

@@ -26,7 +26,7 @@ const AwardAmountsSection = ({
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
     const showCaresActViz = (
         awardOverview._isMockCares &&
-        GlobalConstants.DEV
+        GlobalConstants.CARES_ACT_RELEASED
     );
     return (
         <AwardSection type="column" className="award-viz award-amounts">

@@ -48,7 +48,7 @@ const GrantChart = ({ awardAmounts, awardType }) => {
     const fileCObligated = awardAmounts._fileCObligated;
     const isFileCOutlayDefined = fileCOutlay > 0;
     const isFileCObligatedDefined = fileCObligated > 0;
-    const isCaresReleased = isFileCObligatedDefined && GlobalConstants.DEV;
+    const isCaresReleased = isFileCObligatedDefined && GlobalConstants.CARES_ACT_RELEASED;
     const verticalTooltipOffset = isCaresReleased
         ? 170
         : 90;

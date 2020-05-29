@@ -53,7 +53,7 @@ export default class AggregatedAwardAmounts extends React.Component {
         const { awardAmounts } = this.props;
         const showCaresActViz = (
             awardAmounts._isMockCares &&
-            GlobalConstants.DEV
+            GlobalConstants.CARES_ACT_RELEASED
         );
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
         return (
