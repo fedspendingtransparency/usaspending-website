@@ -237,7 +237,9 @@ const defaultContract = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
@@ -248,7 +250,9 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -259,7 +263,9 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -271,6 +277,8 @@ const defaultLoan = [
     { title: 'Issued Date' },
     { title: 'Loan Value' },
     { title: 'Subsidy Cost' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' }
 ];
@@ -282,6 +290,9 @@ const defaultOther = [
     { title: 'Start Date' },
     { title: 'End Date' },
     { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -292,7 +303,9 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)' },
+    { title: 'COVID-19 Response Obligations' },
+    { title: 'COVID-19 Response Outlays' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
