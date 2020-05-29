@@ -27,8 +27,7 @@ const CountTab = (props) => {
         <button
             className={`count-tabs__button${props.active ? ' count-tabs__button_active' : ''}`}
             onClick={setActiveTab}
-            disabled={props.disabled}
-            value={props.type}>
+            disabled={props.disabled}>
             <div className="count-button">
                 <div className="count-button__label">
                     {props.label}
