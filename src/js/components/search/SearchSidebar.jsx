@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import GlobalConstants from "GlobalConstants";
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
@@ -79,7 +80,8 @@ const filters = {
                 icon: 'info',
                 tooltipComponent: <DEFTooltip />
             }),
-            className: 'def-sidebar'
+            className: 'def-sidebar',
+            isReleased: GlobalConstants.CARES_ACT_RELEASED
         },
         {
             title: 'CFDA Program'
@@ -170,8 +172,19 @@ const defaultProps = {
 
 export default class SearchSidebar extends React.Component {
     render() {
+        const indexOfUnreleased = filters.options.findIndex((option) => (
+            Object.keys(option).includes('isReleased') &&
+            !option.isReleased
+        ));
+        // debugger;
+        const releasedFilters = indexOfUnreleased === -1
+            ? filters
+            : Object.entries(filters).reduce((acc, [key, arr]) => ({
+                ...acc,
+                [key]: arr.filter((item, i) => i !== indexOfUnreleased)
+            }), {});
         const expanded = [];
-        filters.options.forEach((filter) => {
+        releasedFilters.options.forEach((filter) => {
             // Collapse all by default, unless the filter has a selection made
             if (filter === 'Time Period') {
                 // time period is always expanded
@@ -197,7 +210,7 @@ export default class SearchSidebar extends React.Component {
                     <SearchSidebarSubmitContainer />
                 </div>
                 <FilterSidebar
-                    {...filters}
+                    {...releasedFilters}
                     expanded={expanded}
                     hash={this.props.hash} />
                 <div className="sidebar-bottom-submit">

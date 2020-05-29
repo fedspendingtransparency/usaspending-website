@@ -2,9 +2,14 @@
     .def-checkbox-tree {
         .react-checkbox-tree {
             ol {
+                border-left: none;
                 padding-left: rem(34);
+                padding-right: rem(5);
                 .rct-collapse.rct-collapse-btn {
                     display: none;
+                }
+                .rct-node:nth-child(n) ol {
+                  border-left: none;
                 }
             }
         }

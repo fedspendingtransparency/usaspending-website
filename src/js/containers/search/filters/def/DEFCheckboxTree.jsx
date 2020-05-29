@@ -19,27 +19,27 @@ const mockData = {
     showNodeIcon: false,
     children: [
         {
-            label: "Some Description that people are gonna read blah blah",
+            label: "Some Description with placeholder content...",
             value: "L",
             expandDisabled: true
         },
         {
-            label: "Some Description that people are gonna read blah blah",
+            label: "Some Description with placeholder content...",
             value: "M",
             expandDisabled: true
         },
         {
-            label: "Some Description that people are gonna read blah blah",
+            label: "Some Description with placeholder content...",
             value: "N",
             expandDisabled: true
         },
         {
             value: "O",
-            label: "Some Description that people are gonna read blah blah"
+            label: "Some Description with placeholder content..."
         },
         {
             value: "P",
-            label: "Some Description that people are gonna read blah blah",
+            label: "Some Description with placeholder content...",
             expandDisabled: true
         }
     ]
