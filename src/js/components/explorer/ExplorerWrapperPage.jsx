@@ -46,7 +46,7 @@ const ExplorerWrapperPage = (props) => (
                     slug={slug}
                     email={{
                         subject: emailSubject,
-                        body: `Explore Federal Spending on USAspending.gov: ${getBaseUrl(slug)}`
+                        body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
                     }} />
                 }
                 
