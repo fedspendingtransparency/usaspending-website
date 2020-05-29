@@ -15,23 +15,23 @@
     .award-result-header-cell {
         @import "cells/_genericHeader";
         @include genericHeader();
-        .cell-content {
-            .header-sort {
-                .header-icons {
-                    vertical-align: top;
-                    padding-top: rem(10);
-                }
-            }
-        }
         &.last-column {
             border-right: none;
         }
 
         .cell-content {
-            .header-sort .header-icons {
-                .sort-icon{
-                    &:first-child {
-                        display: none;
+            .header-sort {
+                padding: rem(16) rem(20);
+                .header-label {
+                    line-height: rem(18);
+                }
+                .header-icons {
+                    vertical-align: top;
+                    padding-top: rem(4);
+                    .sort-icon {
+                        &:first-child {
+                            display: none;
+                        }
                     }
                 }
             }

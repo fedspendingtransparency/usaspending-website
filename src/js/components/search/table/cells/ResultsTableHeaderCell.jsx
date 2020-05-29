@@ -16,7 +16,12 @@ const propTypes = {
     background: PropTypes.string,
     defaultDirection: PropTypes.string,
     currentSort: PropTypes.object,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    headerHeight: PropTypes.number
+};
+
+const defaultProps = {
+    headerHeight: 50
 };
 
 const TableHeaderCell = (props) => {
@@ -62,8 +67,8 @@ const TableHeaderCell = (props) => {
     }
 
     const customStyle = props.background ? (
-        { backgroundColor: props.background }
-    ) : {};
+        { backgroundColor: props.background, height: props.headerHeight }
+    ) : { height: props.headerHeight };
 
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
     // allow keyboard selection of the header cell
@@ -109,5 +114,6 @@ const TableHeaderCell = (props) => {
 };
 
 TableHeaderCell.propTypes = propTypes;
+TableHeaderCell.defaultProps = defaultProps;
 
 export default TableHeaderCell;
