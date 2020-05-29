@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/22/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
@@ -91,16 +91,7 @@ const TableContainer = (props) => {
         }
     };
 
-    useEffect(() => {
-        setLoading(true);
-        // Reset to the first page
-        changeCurrentPage(1);
-        const params = {
-            fiscal_year: props.fy,
-            limit: pageSize,
-            sort: accountFields[sort],
-            order
-        };
+    const fetchSpendingByCategoryCallback = useCallback((params) => {
         const request = fetchSpendingByCategory(props.agencyId, props.type, params);
         request.promise
             .then((res) => {
@@ -113,6 +104,20 @@ const TableContainer = (props) => {
                 setLoading(false);
                 console.error(err);
             });
+    });
+
+    useEffect(() => {
+        setLoading(true);
+        // Reset to the first page
+        changeCurrentPage(1);
+        const params = {
+            fiscal_year: props.fy,
+            limit: pageSize,
+            sort: accountFields[sort],
+            order
+        };
+
+        fetchSpendingByCategoryCallback(params);
     }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
@@ -125,17 +130,7 @@ const TableContainer = (props) => {
             sort: accountFields[sort],
             order
         };
-        const request = fetchSpendingByCategory(props.agencyId, props.type, params);
-        request.promise
-            .then((res) => {
-                parseAccount(res.data.results);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
+        fetchSpendingByCategoryCallback(params);
     }, [currentPage]);
 
     let message = null;
