@@ -15,7 +15,8 @@ import {
     addChildrenAndPossiblyPlaceholder,
     areChildrenPartial,
     getUniqueAncestorPaths,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    doesMeetMinimumCharsRequiredForSearch
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -863,5 +864,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(leanArray.length).toEqual(1);
             expect(leanArray).toEqual([['Research and Development']]);
         });
+    });
+    describe('doesMeetMinimumCharsRequiredForSearch', () => {
+        const mockFalse = doesMeetMinimumCharsRequiredForSearch('ab');
+        const mockTrue = doesMeetMinimumCharsRequiredForSearch('abc');
+        expect(mockFalse).toEqual(false);
+        expect(mockTrue).toEqual(true);
     });
 });
