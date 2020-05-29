@@ -42,10 +42,6 @@ const filters = {
             title: 'Keyword',
             tooltip: withAdvancedSearchTooltip({
                 icon: "info",
-                controlledProps: {
-                    isVisible: true,
-                    isControlled: true
-                },
                 tooltipComponent: <KeyWordTooltip />
             })
         },
