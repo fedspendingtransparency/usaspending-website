@@ -163,7 +163,7 @@ export default class ResultsTable extends React.Component {
                 <IBTable
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
-                    headerHeight={50}
+                    headerHeight={78}
                     contentWidth={calculatedValues.width}
                     bodyWidth={this.props.visibleWidth}
                     bodyHeight={variableBodyHeight}

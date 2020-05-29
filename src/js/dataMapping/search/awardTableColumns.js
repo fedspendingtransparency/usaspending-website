@@ -232,14 +232,30 @@ const subawardColumns = [
     'Prime Recipient Name'
 ];
 
+const awardColWidth = 280;
+const covidColWidth = 182;
+const covidColor = '#6E338E';
+
 const defaultContract = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: 222 },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
@@ -250,9 +266,21 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: 222 },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -263,9 +291,21 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: 222 },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -277,8 +317,20 @@ const defaultLoan = [
     { title: 'Issued Date' },
     { title: 'Loan Value' },
     { title: 'Subsidy Cost' },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' }
 ];
@@ -289,10 +341,21 @@ const defaultOther = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: 222 },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -303,9 +366,21 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date' },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: 222 },
-    { title: 'COVID-19 Response Obligations', background: '#6E338E' },
-    { title: 'COVID-19 Response Outlays', background: '#6E338E' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    {
+        title: 'COVID-19 Response Obligations',
+        subtitle: 'Obligations',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
+    {
+        title: 'COVID-19 Response Outlays',
+        subtitle: 'Outlays',
+        background: covidColor,
+        displayName: 'COVID-19 Response',
+        customWidth: covidColWidth
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }

@@ -9,9 +9,20 @@
         @import "cells/_genericCell";
         @include genericCell();
     }
+    .ibt-header-cell {
+        vertical-align: top;
+    }
     .award-result-header-cell {
         @import "cells/_genericHeader";
         @include genericHeader();
+        .cell-content {
+            .header-sort {
+                .header-icons {
+                    vertical-align: top;
+                    padding-top: rem(10);
+                }
+            }
+        }
         &.last-column {
             border-right: none;
         }
