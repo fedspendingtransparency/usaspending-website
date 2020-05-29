@@ -71,7 +71,6 @@ export default class TransactionsTable extends React.Component {
         const tableMapping = this.tableMapping();
         const column = tableMapping.table._order[columnIndex];
         const displayName = tableMapping.table[column];
-
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
         return (

@@ -41,8 +41,8 @@ const loanColumns = [
     { title: 'Mod' },
     { title: 'Recipient Name' },
     { title: 'Action Date' },
-    { title: 'Loan Value' },
-    { title: 'Subsidy Cost' },
+    { title: 'Loan Value', displayName: 'Loan Face Value' },
+    { title: 'Subsidy Cost', displayName: 'Loan Subsidy Cost (Total Obligations To Date)' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -95,4 +95,3 @@ export const defaultSort = (type) => {
 
     return columns[type];
 };
-

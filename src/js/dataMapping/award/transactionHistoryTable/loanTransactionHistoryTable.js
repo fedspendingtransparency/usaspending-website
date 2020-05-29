@@ -44,8 +44,8 @@ const tableSearchFields = {
         modificationNumber: 'Modification Number',
         cfdaNumber: 'CFDA Number',
         actionDate: 'Action Date',
-        faceValue: 'Face Value',
-        subsidy: 'Subsidy Cost',
+        faceValue: 'Loan Face Value',
+        subsidy: 'Loan Subsidy Cost (Total Obligations To Date)',
         actionTypeDescription: 'Action Type',
         description: 'Description'
     }
