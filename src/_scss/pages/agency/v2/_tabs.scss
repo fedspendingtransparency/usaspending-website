@@ -68,8 +68,8 @@
             }
 
             &:disabled {
-                color: #737373;
-                background-color: #FAFAFA;
+                color: $color-gray-medium;
+                background-color: $color-gray-lightest;
             }
         }
     }
