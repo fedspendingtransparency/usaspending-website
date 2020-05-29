@@ -20,7 +20,8 @@ import {
     getAllDescendants,
     removePlaceholderString,
     getUniqueAncestorPaths,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    doesMeetMinimumCharsRequiredForSearch
 } from 'helpers/checkboxTreeHelper';
 
 import {
@@ -324,18 +325,21 @@ export class PSCCheckboxTreeContainer extends React.Component {
     }
 
     handleTextInputChange = (e) => {
+        e.persist();
         const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
+        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
+        if (shouldTriggerSearch) {
+            return this.setState({
+                searchString: text,
+                isSearch: true,
+                isLoading: true
+            }, this.onSearchChange);
+        }
         return this.setState({
-            searchString: text,
-            isSearch: true,
-            isLoading: true
-        }, () => {
-            if (text.length >= 3) {
-                this.onSearchChange();
-            }
+            searchString: text
         });
     }
 

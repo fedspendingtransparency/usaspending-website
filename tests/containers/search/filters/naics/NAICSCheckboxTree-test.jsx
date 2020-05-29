@@ -125,10 +125,10 @@ describe('NAICS Search Filter Container', () => {
             const mockFn = jest.fn();
             const container = shallow(<NAICSCheckboxTree {...defaultProps} nodes={reallyBigTree} />);
             container.instance().onSearchChange = mockFn;
-            container.instance().handleTextInputChange({ target: { value: 'a' } });
-            container.instance().handleTextInputChange({ target: { value: 'ab' } });
+            container.instance().handleTextInputChange({ target: { value: 'a' }, persist: () => {} });
+            container.instance().handleTextInputChange({ target: { value: 'ab' }, persist: () => {} });
             expect(mockFn).not.toHaveBeenCalled();
-            container.instance().handleTextInputChange({ target: { value: 'abc' } });
+            container.instance().handleTextInputChange({ target: { value: 'abc' }, persist: () => {} });
             expect(mockFn).toHaveBeenCalledTimes(1);
         });
     });
