@@ -13,9 +13,7 @@ const propTypes = {
     previousPage: PropTypes.func,
     nextPage: PropTypes.func,
     previousPageButtonClassnames: PropTypes.string,
-    nextPageButtonClassnames: PropTypes.string,
-    previousPageButtonIsDisabled: PropTypes.bool,
-    nextPageButtonIsDisabled: PropTypes.bool
+    nextPageButtonClassnames: PropTypes.string
 };
 
 const PaginatedTooltip = ({
@@ -24,13 +22,10 @@ const PaginatedTooltip = ({
     previousPage,
     nextPage,
     previousPageButtonClassnames,
-    nextPageButtonClassnames,
-    previousPageButtonIsDisabled,
-    nextPageButtonIsDisabled
+    nextPageButtonClassnames
 }) => (
     <div className="tooltip-pagination-container">
         <button
-            disabled={previousPageButtonIsDisabled}
             onClick={previousPage}
             className={previousPageButtonClassnames}>
             <FontAwesomeIcon icon="caret-left" />
@@ -39,7 +34,6 @@ const PaginatedTooltip = ({
             {currentPage} of {totalPages} modifications made on this day
         </div>
         <button
-            disabled={nextPageButtonIsDisabled}
             onClick={nextPage}
             className={nextPageButtonClassnames}>
             <FontAwesomeIcon icon="caret-right" />

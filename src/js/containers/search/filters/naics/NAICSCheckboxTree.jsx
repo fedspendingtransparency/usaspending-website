@@ -21,7 +21,10 @@ import {
     getHighestAncestorNaicsCode
 } from 'helpers/naicsHelper';
 
-import { getAllDescendants } from 'helpers/checkboxTreeHelper';
+import {
+    getAllDescendants,
+    doesMeetMinimumCharsRequiredForSearch
+} from 'helpers/checkboxTreeHelper';
 
 import { naicsRequest } from 'helpers/searchHelper';
 
@@ -235,11 +238,22 @@ export class NAICSCheckboxTree extends React.Component {
     };
 
     handleTextInputChange = (e) => {
+        e.persist();
         const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
-        return this.setState({ searchString: text, isSearch: true, isLoading: true }, this.onSearchChange);
+        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
+        if (shouldTriggerSearch) {
+            return this.setState({
+                searchString: text,
+                isSearch: true,
+                isLoading: true
+            }, this.onSearchChange);
+        }
+        return this.setState({
+            searchString: text
+        });
     }
 
     autoCheckSearchedResultDescendants = (checked, expanded) => {

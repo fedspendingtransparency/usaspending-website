@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { tabs, awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/award/table/SubawardsContainer';

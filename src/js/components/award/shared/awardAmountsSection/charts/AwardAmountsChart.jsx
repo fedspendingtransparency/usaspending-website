@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awards/awardAmountsSection';
+import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awardAmountsSection';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 import NormalChart from './NormalChart';

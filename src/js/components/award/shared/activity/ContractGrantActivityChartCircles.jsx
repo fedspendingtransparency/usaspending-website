@@ -15,7 +15,8 @@ const propTypes = {
     xAxisSpacing: PropTypes.number,
     height: PropTypes.number,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    hideTransactionTooltipOnBlur: PropTypes.func
 };
 
 const ContractGrantActivityChartCircles = ({
@@ -26,7 +27,8 @@ const ContractGrantActivityChartCircles = ({
     xAxisSpacing,
     height,
     showTooltip,
-    hideTooltip
+    hideTooltip,
+    hideTransactionTooltipOnBlur
 }) => {
     // circle data
     const [circleData, setCircleData] = useState([]);
@@ -60,6 +62,15 @@ const ContractGrantActivityChartCircles = ({
 
     const onMouseLeave = () => hideTooltip();
 
+    const onFocus = (e) => {
+        e.preventDefault();
+        showTooltip(circleData[e.target.getAttribute('data-index')], 'Modification');
+    };
+    const onBlur = (e) => {
+        e.preventDefault();
+        hideTransactionTooltipOnBlur();
+    };
+
     return (
         <g className="contract-grant-activity-chart__circles">
             {
@@ -73,7 +84,12 @@ const ContractGrantActivityChartCircles = ({
                         r
                     } = circle;
                     return (
-                        <g key={key} tabIndex="0">
+                        <g
+                            data-index={i}
+                            onFocus={onFocus}
+                            onBlur={onBlur}
+                            key={key}
+                            tabIndex="0">
                             <desc>{description}</desc>
                             <circle
                                 data-index={i}
