@@ -9,7 +9,7 @@ import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import SVGLine from 'components/sharedComponents/SVGLine';
 import {
     getXDomain,
-    lineHelper
+    validateLineValue
 } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
@@ -304,10 +304,10 @@ const ContractGrantsActivityChart = ({
     // sets the line values - hook - runs on mount and dates change
     useEffect(() => {
         if (xDomain?.length) {
-            setStartLineData(Object.assign({}, startLineData, { value: lineHelper(dates._startDate, xDomain) }));
-            setTodayLineData(Object.assign({}, todayLineData, { value: lineHelper(moment(Date.now()), xDomain) }));
-            setEndLineData(Object.assign({}, endLineData, { value: lineHelper(dates._endDate, xDomain) }));
-            setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: lineHelper(dates._potentialEndDate, xDomain) }));
+            setStartLineData(Object.assign({}, startLineData, { value: validateLineValue(dates._startDate, xDomain) }));
+            setTodayLineData(Object.assign({}, todayLineData, { value: validateLineValue(moment(Date.now()), xDomain) }));
+            setEndLineData(Object.assign({}, endLineData, { value: validateLineValue(dates._endDate, xDomain) }));
+            setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: validateLineValue(dates._potentialEndDate, xDomain) }));
         }
     }, [dates, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
