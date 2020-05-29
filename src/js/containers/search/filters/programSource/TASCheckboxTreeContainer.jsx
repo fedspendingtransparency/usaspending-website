@@ -38,7 +38,7 @@ import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-import ProgramSourceInfoTooltip from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
+import ProgramSourceInfoTooltip from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
