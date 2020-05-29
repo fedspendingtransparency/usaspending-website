@@ -17,26 +17,34 @@ const propTypes = {
     disabled: PropTypes.bool
 };
 
-const CountTab = (props) => (
-    <button
-        className={`count-tabs__button${props.active ? ' count-tabs__button_active' : ''}`}
-        onClick={() => props.setActiveTab(props.type)}
-        disabled={props.disabled}>
-        <div className="count-button">
-            <div className="count-button__label">
-                {props.label}
-            </div>
-            <div className="count-button__count">
-                {(props.count || props.count === 0) ? `${props.count}` : '--'}
-            </div>
-            {props.subHeading ? (
-                <div className="count-button__sub-heading">
-                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
+
+const CountTab = (props) => {
+    const setActiveTab = () => {
+        props.setActiveTab(props.type);
+    };
+
+    return (
+        <button
+            className={`count-tabs__button${props.active ? ' count-tabs__button_active' : ''}`}
+            onClick={setActiveTab}
+            disabled={props.disabled}
+            value={props.type}>
+            <div className="count-button">
+                <div className="count-button__label">
+                    {props.label}
                 </div>
-            ) : <>&nbsp;</>}
-        </div>
-    </button>
-);
+                <div className="count-button__count">
+                    {(props.count || props.count === 0) ? `${props.count}` : '--'}
+                </div>
+                {props.subHeading ? (
+                    <div className="count-button__sub-heading">
+                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
+                    </div>
+                ) : <>&nbsp;</>}
+            </div>
+        </button>
+    );
+};
 
 CountTab.propTypes = propTypes;
 export default CountTab;
