@@ -1,0 +1,32 @@
+.tooltip-wrapper {
+    height: rem(20);
+    width: rem(20);
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+    .advanced-search-tt {
+        display: flex;
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        & .advanced-search-tt__list,
+        & span {
+            padding: rem(10);
+        }
+
+        h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: $h6-font-size;
+            width: 100%;
+            text-align: center;
+            background: #f1f1f1;
+        }
+        .advanced-search-tt__list {
+            @include align-self(flex-start);
+            padding-left: rem(40);
+            padding-top: 0;
+        }
+    }
+}

@@ -25,8 +25,12 @@ import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxT
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
+import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
 
-import KeywordHover from 'components/search/filters/keyword/KeywordHover';
+import {
+    KeyWordTooltip,
+    withAdvancedSearchTooltip
+} from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
@@ -34,22 +38,84 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
-        'Keyword',
-        'Time Period',
-        'Award Type',
-        'Agency',
-        'Treasury Account Symbol (TAS)',
-        'Location',
-        'Recipient',
-        'Recipient Type',
-        'Award Amount',
-        'Award ID',
-        'CFDA Program',
-        'North American Industry Classification System (NAICS)',
-        'Product or Service Code (PSC)',
-        'Type of Contract Pricing',
-        'Type of Set Aside',
-        'Extent Competed'
+        {
+            title: 'Keyword',
+            tooltip: withAdvancedSearchTooltip({
+                icon: "info",
+                controlledProps: {
+                    isVisible: true,
+                    isControlled: true
+                },
+                tooltipComponent: <KeyWordTooltip />
+            })
+        },
+        {
+            title: 'Time Period',
+            tooltip: null
+        },
+        {
+            title: 'Award Type',
+            tooltip: null
+        },
+        {
+            title: 'Agency',
+            tooltip: null
+        },
+        {
+            title: 'Treasury Account Symbol (TAS)',
+            tooltip: null
+        },
+        {
+            title: 'Location',
+            tooltip: null
+        },
+        {
+            title: 'Recipient',
+            tooltip: null
+        },
+        {
+            title: 'Recipient Type',
+            tooltip: null
+        },
+        {
+            title: 'Award Amount',
+            tooltip: null
+        },
+        {
+            title: 'Award ID',
+            tooltip: null
+        },
+        {
+            title: 'Disaster and Emergency Fund (DEF) Code',
+            tooltip: withAdvancedSearchTooltip({
+                icon: 'info',
+                tooltipComponent: <p>I am here.</p>
+            })
+        },
+        {
+            title: 'CFDA Program',
+            tooltip: null
+        },
+        {
+            title: 'North American Industry Classification System (NAICS)',
+            tooltip: null
+        },
+        {
+            title: 'Product or Service Code (PSC)',
+            tooltip: null
+        },
+        {
+            title: 'Type of Contract Pricing',
+            tooltip: null
+        },
+        {
+            title: 'Type of Set Aside',
+            tooltip: null
+        },
+        {
+            title: 'Extent Competed',
+            tooltip: null
+        }
     ],
     components: [
         KeywordContainer,
@@ -62,6 +128,7 @@ const filters = {
         RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
+        DEFCheckboxTree,
         CFDASearchContainer,
         NAICSCheckboxTree,
         PSCCheckboxTreeContainer,
@@ -70,7 +137,7 @@ const filters = {
         ExtentCompetedContainer
     ],
     accessories: [
-        KeywordHover,
+        withAdvancedSearchTooltip(KeyWordTooltip),
         null,
         null,
         null,
@@ -80,6 +147,7 @@ const filters = {
         null,
         null,
         null,
+        NewBadge,
         null,
         null,
         null,
@@ -97,6 +165,7 @@ const filters = {
         null,
         null,
         null,
+        null, // def-code
         null,
         null,
         'product-or-service-code-psc',

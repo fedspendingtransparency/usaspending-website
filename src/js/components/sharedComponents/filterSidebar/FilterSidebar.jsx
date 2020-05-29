@@ -27,7 +27,7 @@ const propTypes = {
 
 export default class FilterSidebar extends React.Component {
     render() {
-        const optionsList = this.props.options.map((name, i) => {
+        const optionsList = this.props.options.map(({ title, tooltip }, i) => {
             const component = this.props.components[i];
             const accessory = this.props.accessories[i];
             const glossarySlug = this.props.glossaryEntries[i];
@@ -37,8 +37,9 @@ export default class FilterSidebar extends React.Component {
                 glossaryUrl = `#/search${hash}/?glossary=${glossarySlug}`;
             }
             return (<FilterOption
-                name={name}
-                key={name}
+                name={title}
+                tooltip={tooltip}
+                key={title}
                 component={component}
                 accessory={accessory}
                 defaultExpand={this.props.expanded[i]}

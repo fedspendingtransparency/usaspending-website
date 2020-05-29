@@ -26,6 +26,8 @@
 
         .filter-toggle__name {
             @include h6;
+            @include display(flex);
+            @include align-items(center);
             @include flex(1 1 auto);
             color: $color-gray;
             font-size: $small-font-size;
@@ -34,10 +36,13 @@
             line-height: 1;
             margin: 0;
             padding-left: rem(6);
-            vertical-align: middle;
             @include media($large-screen) {
                 font-size: $base-font-size;
             }
+            span {
+                padding-right: rem(5);
+            }
+            @import "./tooltips";
         }
 
         &:hover {
