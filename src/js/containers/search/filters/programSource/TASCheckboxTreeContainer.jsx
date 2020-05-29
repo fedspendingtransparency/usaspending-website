@@ -334,7 +334,11 @@ export class TASCheckboxTree extends React.Component {
             searchString: text,
             isSearch: true,
             isLoading: true
-        }, this.onSearchChange);
+        }, () => {
+            if (e.target.value.length >= 3) {
+                this.onSearchChange();
+            }
+        });
     }
 
     render() {
