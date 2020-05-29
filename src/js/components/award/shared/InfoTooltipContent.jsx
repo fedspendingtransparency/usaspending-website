@@ -224,9 +224,8 @@ export const transactionHistoryInfoFinancialAssistance = (
                 <strong>Description</strong> – Describes the modification,
                 typically covering its effect on the award.
             </p>
-            <strong>Loan Face Value</strong>
-            <p className="tooltip__text-section">
-                The Face Value of a loan represents how much has actually been lent out to
+            <p>
+                <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
                 the entity that received the loan dollars. Sometimes loans are financed by a
                 financial institution (with the Federal government merely providing a &#39;loan
                 guarantee&#39; to the financial institution and reimbursement in cases where the
@@ -237,9 +236,8 @@ export const transactionHistoryInfoFinancialAssistance = (
                 estimated long-term cost to the government of a loan is captured
                 in the subsidy cost field.
             </p>
-            <strong>Loan Subsidy Cost (Total Obligations To Date)</strong>
-            <p className="tooltip__text-section">
-            The implications of a loan or loan guarantee for the Federal Budget (and thus the
+            <p>
+                <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
             loan version of spending/obligations) are known as the loan&#39;s subsidy
             cost. Subsidy cost is the calculated net present value of the loan to the
             government, taking into account the interest rate and the modeled risk of the
