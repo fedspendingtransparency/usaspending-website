@@ -122,6 +122,11 @@ export default class ResultsTable extends React.Component {
                 props.value = '- -';
             }
         }
+        else if (
+            (column.columnName === 'COVID-19 Response Obligations' || column.columnName === 'COVID-19 Response Outlays')
+            && !this.props.results[rowIndex][column.columnName]) {
+            props.value = '--';
+        }
 
         return React.createElement(
             cellClass,
