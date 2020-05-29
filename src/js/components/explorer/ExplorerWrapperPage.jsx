@@ -49,7 +49,6 @@ const ExplorerWrapperPage = (props) => (
                         body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
                     }} />
                 }
-                
             </div>
         </StickyHeader>
         <main
