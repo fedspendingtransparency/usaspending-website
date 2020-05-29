@@ -238,9 +238,7 @@
                         }
                     }
                 }
-                .usda-table { 
-                    table-layout: fixed;
-
+                .usda-table {
                     td {
                         &:first-child {
                             @include span-columns(6 of 12, table);
@@ -248,6 +246,7 @@
                         }
                         @include span-columns(2 of 12, table);
                         text-align: right;
+                        word-break: break-word;
                     }
 
                     .table-header {
@@ -261,7 +260,6 @@
                             margin-bottom: auto;
                         }
                     }
-                    
                 }
             }
             .body__section {
