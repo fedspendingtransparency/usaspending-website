@@ -49,7 +49,27 @@ describe('BaseContractAdditionalDetails', () => {
 
         expect(updatedDetailsNull.smallBusinessCompetitive).toEqual('--');
     });
-    it('should store the NIA description', () => {
-        expect(details.nationalInterestActionDesc).toEqual('Mock NIA description');
+    describe('National Interest Action', () => {
+        it('should store the NIA description', () => {
+            expect(details.nationalInterestActionDesc).toEqual('Mock NIA description');
+        });
+        it('should display "NONE" when the value is "NONE"', () => {
+            const noneNIA = Object.assign({}, mockIdv.latest_transaction_contract_data, {
+                national_interest_action_description: 'NONE'
+            });
+            const updatedDetails = Object.create(BaseContractAdditionalDetails);
+            updatedDetails.populate(noneNIA);
+
+            expect(updatedDetails.nationalInterestActionDesc).toEqual('NONE');
+        });
+        it('should display "--" when the value is null', () => {
+            const nullNIA = Object.assign({}, mockIdv.latest_transaction_contract_data, {
+                national_interest_action_description: null
+            });
+            const updatedDetails = Object.create(BaseContractAdditionalDetails);
+            updatedDetails.populate(nullNIA);
+
+            expect(updatedDetails.nationalInterestActionDesc).toEqual('--');
+        });
     });
 });
