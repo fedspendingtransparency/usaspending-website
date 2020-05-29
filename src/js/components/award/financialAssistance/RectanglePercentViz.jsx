@@ -124,7 +124,7 @@ const RectanglePercentViz = ({
 
     const numeratorValue = percentage ? `${numerator.value} (${numerator.width})` : numerator.value;
 
-    const closeTooltip = (e) => {
+    const closeTooltip = () => {
         setIsTooltipVisible(false);
     };
 
