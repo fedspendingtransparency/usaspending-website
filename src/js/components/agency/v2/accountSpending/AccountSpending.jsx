@@ -16,7 +16,7 @@ const propTypes = {
 const tabs = [
     {
         type: 'budget_function',
-        label: 'Total Budget Functions',
+        label: 'Budget Functions',
         description: 'What were the major categories of spending?',
         subHeading: 'Budget Sub-Functions',
         countField: 'budget_function_count',
@@ -24,19 +24,19 @@ const tabs = [
     },
     {
         type: 'program_activity',
-        label: 'Total Program Activities',
+        label: 'Program Activities',
         description: 'What were the purposes of this agency’s spending?',
         countField: 'program_activity_count'
     },
     {
         type: 'object_class',
-        label: 'Total Object Classes',
+        label: 'Object Classes',
         description: 'What types of things did this agency purchase?',
         countField: 'object_class_count'
     },
     {
         type: 'federal_account',
-        label: 'Total Federal Accounts',
+        label: 'Federal Accounts',
         description: 'What accounts funded this agency’s spending?',
         subHeading: 'Treasury Accounts',
         countField: 'federal_account_count',

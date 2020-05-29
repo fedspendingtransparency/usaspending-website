@@ -32,7 +32,7 @@ export default class DataSources extends React.Component {
                             rel="noopener noreferrer">
                             Federal Procurement Data System Next Generation (FPDS-NG)
                         </a>, which is the system of record for federal procurement data;
-                        Financial Assistance award data is loaded in from the Federal Assistance
+                        Financial Assistance award data is loaded in from the Financial Assistance
                         Broker Submission system (FABS). In the end, more than 400 points of data
                         are collected.
                     </p>

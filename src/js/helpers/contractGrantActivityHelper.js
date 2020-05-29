@@ -20,7 +20,7 @@ export const dateMatchingFirstLineValue = (lines, dates, todayLineValue, endLine
 // should we extend path for last data point y value change
 export const shouldExtendAreaPathWhenLastDataPointYValueChange = (transactions, areaPathExtensionToTodayLine) => {
     if (transactions.length <= 1) return false;
-    const lastTransactionValueChange = transactions[transactions.length - 1].running_obligation_total > transactions[transactions.length - 2].running_obligation_total;
+    const lastTransactionValueChange = transactions[transactions.length - 1].running_obligation_total !== transactions[transactions.length - 2].running_obligation_total;
     if (!lastTransactionValueChange) return false;
     if (areaPathExtensionToTodayLine) return false;
     return true;
