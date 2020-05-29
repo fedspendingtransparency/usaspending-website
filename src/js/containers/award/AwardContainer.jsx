@@ -20,9 +20,9 @@ import {
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import BaseContract from 'models/v2/award/BaseContract';
+import BaseIdv from 'models/v2/award/BaseIdv';
+import BaseFinancialAssistance from 'models/v2/award/BaseFinancialAssistance';
 import {
     fetchIdvDownloadFile,
     fetchContractDownloadFile,

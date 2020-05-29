@@ -7,12 +7,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { AwardContainer } from 'containers/award/AwardContainer';
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
+import BaseContract from 'models/v2/award/BaseContract';
+import BaseIdv from 'models/v2/award/BaseIdv';
+import BaseFinancialAssistance from "models/v2/award/BaseFinancialAssistance";
 
 import { mockParams, mockActions } from './mockAward';
-import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
+import { mockContract, mockLoan, mockIdv } from '../../models/award/mockAwardApi';
 
 jest.mock('helpers/searchHelper', () => require('./awardHelper'));
 jest.mock("helpers/downloadHelper", () => require("./awardHelper"));
