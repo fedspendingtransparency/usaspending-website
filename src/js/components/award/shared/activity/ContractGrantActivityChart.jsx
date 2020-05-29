@@ -303,7 +303,7 @@ const ContractGrantsActivityChart = ({
     ]);
     // sets the line values - hook - runs on mount and dates change
     useEffect(() => {
-        if (xDomain?.length) {
+        if (xDomain && xDomain.length > 0) {
             setStartLineData(Object.assign({}, startLineData, { value: validateLineValue(dates._startDate, xDomain) }));
             setTodayLineData(Object.assign({}, todayLineData, { value: validateLineValue(moment(Date.now()), xDomain) }));
             setEndLineData(Object.assign({}, endLineData, { value: validateLineValue(dates._endDate, xDomain) }));
