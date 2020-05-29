@@ -17,7 +17,12 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 
 
 const propTypes = {
-    children: PropTypes.element
+    children: PropTypes.element,
+    showShareIcon: PropTypes.bool
+};
+
+const defaultProps = {
+    showShareIcon: false
 };
 
 require('pages/explorer/explorerPage.scss');
@@ -36,12 +41,14 @@ const ExplorerWrapperPage = (props) => (
                 </h1>
             </div>
             <div className="sticky-header__toolbar">
+                {props.showShareIcon &&
                 <ShareIcon
                     slug={slug}
                     email={{
                         subject: emailSubject,
-                        body: `Explore Federal Spending on USAspending.gov: ${getBaseUrl(slug)}`
+                        body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
                     }} />
+                }
             </div>
         </StickyHeader>
         <main
@@ -54,5 +61,6 @@ const ExplorerWrapperPage = (props) => (
 );
 
 ExplorerWrapperPage.propTypes = propTypes;
+ExplorerWrapperPage.defaultProps = defaultProps;
 
 export default ExplorerWrapperPage;
