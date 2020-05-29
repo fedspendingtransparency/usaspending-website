@@ -21,6 +21,8 @@ const BaseRecipientOverview = {
         this.parents = data.parents || [];
         this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
         this._totalTransactions = parseFloat(data.total_transactions) || 0;
+
+        // TODO: Update the object keys for face value loan after back end is implemented
         this._totalLoanFaceValueAmount = parseFloat(data.total_face_value_loan_amount) || 0;
         this._totalLoanTransactions = parseFloat(data.total_face_value_loan_transactions) || 0;
         this._businessTypes = data.business_types || [];

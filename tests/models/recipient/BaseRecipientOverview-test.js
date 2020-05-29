@@ -17,6 +17,12 @@ describe('BaseRecipientOverview', () => {
     it('should format the total transactions', () => {
         expect(recipient.totalTransactions).toEqual('327,721');
     });
+    it('should format the prime award total', () => {
+        expect(recipient.totalLoanFaceValueAmount).toEqual('$123.1 million');
+    });
+    it('should format the total transactions', () => {
+        expect(recipient.totalLoanTransactions).toEqual('2');
+    });
     describe('location', () => {
         it('should be an object with CoreLocation in its prototype chain', () => {
             expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);
@@ -44,5 +50,5 @@ describe('BaseRecipientOverview', () => {
             'Higher Education'
         ];
         expect(recipient.businessTypes).toEqual(expected);
-    })
+    });
 });
