@@ -37,14 +37,12 @@ export default class PSCFilterGroup extends React.Component {
 
     generateTags() {
         // check to see if a DEF code is provided
-        return this.props.filter.values.map((value) => {
-            return {
-                value: `${value.value}`,
-                title: `${value.value} - ${value.def_description}`,
-                isSpecial: false,
-                removeFilter: this.removeFilter
-            };
-        });
+        return this.props.filter.values.map((value) => ({
+            value: `${value.value}`,
+            title: `${value.value} - ${value.def_description}`,
+            isSpecial: false,
+            removeFilter: this.removeFilter
+        }));
     }
 
     render() {
