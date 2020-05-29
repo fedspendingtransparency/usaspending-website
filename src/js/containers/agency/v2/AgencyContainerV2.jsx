@@ -32,6 +32,7 @@ import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
+import Error from '../../../components/sharedComponents/Error';
 
 require('pages/agency/v2/index.scss');
 
@@ -82,6 +83,7 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -95,6 +97,10 @@ export const AgencyProfileV2 = ({
                 budgetaryResources.populate(res.data);
                 // store the data model object in Redux
                 dispatch(setBudgetaryResources(budgetaryResources));
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
             });
     }, [params.agencyId]);
 
@@ -199,13 +205,19 @@ export const AgencyProfileV2 = ({
                                 label: startCase(section)
                             }))} />
                     </div>
-                    <div className="body usda__flex-col">
-                        {Object.keys(componentByAgencySection).map((section) => (
-                            <AgencySection key={section} section={section} >
-                                {componentByAgencySection[section]}
-                            </AgencySection>
-                        ))}
-                    </div>
+                    {error &&
+                        <div className="body usda__flex-col">
+                            <Error />
+                        </div>}
+                    {!error &&
+                        <div className="body usda__flex-col">
+                            {Object.keys(componentByAgencySection).map((section) => (
+                                <AgencySection key={section} section={section} >
+                                    {componentByAgencySection[section]}
+                                </AgencySection>
+                            ))}
+                        </div>
+                    }
                 </main>
             </LoadingWrapper>
             <Footer />
