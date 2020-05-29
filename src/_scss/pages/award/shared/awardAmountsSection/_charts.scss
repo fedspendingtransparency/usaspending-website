@@ -280,21 +280,20 @@ $file-c-obligation: #B699C6;
                 font-size: $h6-font-size;
             }
         }
+        &.loans {
+            border-left: solid rem(4) $loans-line-color;
+            flex-wrap: wrap;
+            span {
+                // this span is only present when the loans subsidy amount is zero
+                margin: auto;
+                width: 100%;
+            }
+        }
         strong {
             font-size: $h4-font-size;
         }
         br {
             font-size: $small-font-size;
-        }
-    }
-
-    .award-amounts-viz__desc-top--loans {
-        border-left: solid rem(4) $loans-line-color;
-        flex-wrap: wrap;
-        span {
-            // this span is only present when the loans subsidy amount is zero
-            margin: auto;
-            width: 100%;
         }
     }
 

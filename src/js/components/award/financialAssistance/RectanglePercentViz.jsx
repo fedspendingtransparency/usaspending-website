@@ -66,6 +66,10 @@ const RectanglePercentViz = ({
     const verticalTooltipOffset = isCaresReleased
         ? 170
         : 90;
+    const numeratorZeroToolTipPositions = {
+        horizontal: 175,
+        vertical: 10
+    };
 
     const absoluteWidths = {
         denominator: {
@@ -105,7 +109,9 @@ const RectanglePercentViz = ({
             ...tooltipData,
             wide: false,
             styles: {
-                transform: `translate(calc(${absoluteWidths[category].width} + 15px), ${verticalTooltipOffset}px)`
+                transform: category === 'numerator' && numeratorIsZero
+                    ? `translate(calc(${numeratorZeroToolTipPositions.horizontal}px + 15px), ${numeratorZeroToolTipPositions.vertical}px)`
+                    : `translate(calc(${absoluteWidths[category].width} + 15px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
@@ -157,39 +163,23 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            {!numeratorIsZero && <>
-                <div
-                    className="award-amounts-viz__desc-top--loans"
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showNumeratorTooltip}
-                    onKeyPress={showNumeratorTooltip}
-                    onMouseEnter={showNumeratorTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showNumeratorTooltip}>
-                    <strong>{numeratorValue}</strong>
-                    <br />
-                    {numerator.text}
-                </div>
+            <div
+                className="award-amounts-viz__desc-top loans"
+                role="button"
+                tabIndex="0"
+                onBlur={closeTooltip}
+                onFocus={showNumeratorTooltip}
+                onKeyPress={showNumeratorTooltip}
+                onMouseEnter={showNumeratorTooltip}
+                onMouseLeave={closeTooltip}
+                onClick={showNumeratorTooltip}>
+                <strong>{numeratorValue}</strong>
+                <br />
+                {numerator.text}
+            </div>
+            {!numeratorIsZero &&
                 <div className="award-amounts-viz__label" style={numeratorBarAndLabelStyles}>
                     <div className="award-amounts-viz__line-up--loans" />
-                </div>
-            </>}
-            {numeratorIsZero &&
-                <div
-                    className="numerator"
-                    style={{ width: '160px' }}
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showNumeratorTooltip}
-                    onKeyPress={showNumeratorTooltip}
-                    onMouseEnter={showNumeratorTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showNumeratorTooltip}>
-                    <strong>{numeratorValue}</strong>
-                    <span>{numerator.text}</span>
                 </div>
             }
             {isCaresReleased &&

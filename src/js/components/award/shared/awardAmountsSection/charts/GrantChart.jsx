@@ -53,6 +53,13 @@ const GrantChart = ({ awardAmounts, awardType }) => {
         ? 170
         : 90;
 
+    const nonFederalFundingZeroToolTipPositions = {
+        horizontal: 175,
+        vertical: isCaresReleased
+            ? 130
+            : 60
+    };
+
     const nonFederalFundingIsZero = (nonFederalFunding === 0);
 
     const tooltipPositionsByCategory = {
@@ -76,7 +83,9 @@ const GrantChart = ({ awardAmounts, awardType }) => {
             wide: false,
             styles: {
                 // TODO: handle when non federal funding is zero.
-                transform: `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horiztonalTooltipPositionOffset}px), ${verticalTooltipOffset}px)`
+                transform: spendingCategory === 'nonFederalFunding' && nonFederalFundingIsZero
+                    ? `translate(calc(${nonFederalFundingZeroToolTipPositions.horizontal}px + ${horiztonalTooltipPositionOffset}px), calc(${verticalTooltipOffset}px + ${nonFederalFundingZeroToolTipPositions.vertical}px))`
+                    : `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horiztonalTooltipPositionOffset}px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
