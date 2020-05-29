@@ -1,0 +1,41 @@
+.def-code-filter {
+    .def-checkbox-tree {
+        .react-checkbox-tree {
+            ol {
+                padding-left: rem(34);
+                .rct-collapse.rct-collapse-btn {
+                    display: none;
+                }
+            }
+        }
+    }
+    @import '../../../../elements/filters/selectedFilterBtn';
+    .selected-filters {
+      background: #E4E4E4;
+      padding: rem(10);
+      margin-bottom: rem(10);
+      width: 100%;
+      .shown-filter-button {
+        line-height: rem(15);
+        font-size: rem(12);
+        color: #5B616B;
+        .close {
+          color: #5B616B;
+        }
+        &:hover {
+          outline: none;
+          border: rem(1) solid $color-gray-lighter;
+          & .close {
+            color: #5B616B;
+            outline: none;
+          }
+        }
+        &:focus {
+          outline: none;
+          & .close {
+            outline: none;
+          }
+        }
+      }
+    }
+}

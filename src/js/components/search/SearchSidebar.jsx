@@ -77,11 +77,7 @@ const filters = {
             title: 'Disaster and Emergency Fund (DEF) Code',
             tooltip: withAdvancedSearchTooltip({
                 icon: 'info',
-                tooltipComponent: <DEFTooltip />,
-                controlledProps: {
-                    isControlled: true,
-                    isVisible: true
-                }
+                tooltipComponent: <DEFTooltip />
             }),
             className: 'def-sidebar'
         },

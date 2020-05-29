@@ -16,6 +16,7 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 const propTypes = {
     data: PropTypes.array,
+    className: PropTypes.string,
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
     errorMessage: PropTypes.string,
@@ -209,7 +210,8 @@ export default class CheckboxTree extends Component {
             isLoading,
             isError,
             errorMessage,
-            noResults
+            noResults,
+            className
         } = this.props;
         const labeledNodes = this.createLabels(data);
         if (isLoading) {
@@ -241,7 +243,7 @@ export default class CheckboxTree extends Component {
         }
         else if (!data.length) return null;
         return (
-            <div className="checkbox-tree">
+            <div className={`checkbox-tree ${className}`}>
                 <CheckBoxTree
                     nodes={labeledNodes}
                     checked={checked}

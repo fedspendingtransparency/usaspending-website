@@ -40,6 +40,7 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     tasCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
+    defCodes: CheckboxTreeSelections,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -70,6 +71,7 @@ export const initialState = {
     naicsCodes: new CheckboxTreeSelections(),
     selectedPSC: new OrderedMap(),
     pscCodes: new CheckboxTreeSelections(),
+    defCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
@@ -277,6 +279,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 extentCompeted: ContractFilterFunctions.updateContractFilterSet(
                     state.extentCompeted, action.extentCompeted)
+            });
+        }
+
+        // DEF Codes Filter
+        case 'UPDATE_DEF_CODES': {
+            return Object.assign({}, state, {
+                defCodes: action.payload
             });
         }
 

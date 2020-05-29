@@ -1,0 +1,31 @@
+{
+    "label": "COVID-19 Response",
+    "value": "COVID",
+    "children": [
+        {
+            "label": "L",
+            "description": "Some Description that people are gonna read blah blah",
+            "value": "L"
+        },
+        {
+            "label": "M",
+            "description": "Some Description that people are gonna read blah blah",
+            "value": "M"
+        },
+        {
+            "label": "N",
+            "description": "Some Description that people are gonna read blah blah",
+            "value": "N"
+        },
+        {
+            "label": "O",
+            "description": "Some Description that people are gonna read blah blah",
+            "value": "O"
+        },
+        {
+            "label": "P",
+            "description": "Some Description that people are gonna read blah blah",
+            "value": "P"
+        }
+    ]
+}
