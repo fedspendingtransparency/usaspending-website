@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 import transactionHistoryV2Mapping from
-    'dataMapping/awards/transactionHistoryTable/transactionHistoryTable';
+    'dataMapping/award/transactionHistoryTable/transactionHistoryTable';
 import loanTransactionHistoryTable from
-    'dataMapping/awards/transactionHistoryTable/loanTransactionHistoryTable';
+    'dataMapping/award/transactionHistoryTable/loanTransactionHistoryTable';
 import contractMapping from 'dataMapping/contracts/transactionTable';
 import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
