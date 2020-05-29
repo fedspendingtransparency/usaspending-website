@@ -168,6 +168,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(extentCompeted);
         }
 
+        const selectedDefCodes = this.prepareSelectedDefCodes(props);
+        if (selectedDefCodes) {
+            filters.push(selectedDefCodes);
+        }
+
         this.setState({
             filters,
             filterCount: this.determineFilterCount(filters)
@@ -176,6 +181,29 @@ export class TopFilterBarContainer extends React.Component {
                 this.props.updateFilterCount(this.state.filterCount);
             }
         });
+    }
+
+    prepareSelectedDefCodes(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+        if (props.defCodes.require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.defCodes.counts.map((def) => ({
+                    ...def,
+                    def_description: `${def.label} (${def.count})`
+                }))
+            ];
+        }
+        if (selected) {
+            filter.code = 'defCodes';
+            filter.name = 'Disaster Emergency Fund (DEF) Codes';
+            return filter;
+        }
+        return null;
     }
 
     /**
