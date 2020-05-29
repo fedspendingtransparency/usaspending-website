@@ -1,15 +1,18 @@
 /* Section Headings */
 $dictionary-green: #D8E4BC;
+$dictionary-purple: #D5D3EA;
 $dictionary-teal: #B7DEE8;
 $dictionary-orange: #FDE9D9;
 
 /* Column Headings */
 $dictionary-green-light: #E4ECD0;
+$dictionary-purple-light: #ECEAF5;
 $dictionary-teal-light: #DBEEF3;
 $dictionary-orange-light: #FEF0E5;
 
 /* Table Cells */
 $dictionary-green-lighter: #F8FAF2;
+$dictionary-purple-lighter: #F7F4FA;
 $dictionary-teal-lighter: #F1F9FB;
 $dictionary-orange-lighter: #FFFBF8;
 
@@ -138,6 +141,9 @@ $dictionary-yellow: #FFF694;
         background-color: $dictionary-teal;
     }
     .section-2 {
+        background-color: $dictionary-purple;
+    }
+    .section-3 {
         background-color: $dictionary-orange;
     }
 
@@ -148,6 +154,9 @@ $dictionary-yellow: #FFF694;
         background-color: $dictionary-teal-light;
     }
     .section-2-col {
+        background-color: $dictionary-purple-light;
+    }
+    .section-3-col {
         background-color: $dictionary-orange-light;
     }
 
@@ -158,6 +167,9 @@ $dictionary-yellow: #FFF694;
         background-color: $dictionary-teal-lighter;
     }
     .section-2-cell {
+        background-color: $dictionary-purple-lighter;
+    }
+    .section-3-cell {
         background-color: $dictionary-orange-lighter;
     }
 }
