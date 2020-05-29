@@ -24,8 +24,8 @@ const propTypes = {
 };
 
 const TableContainer = (props) => {
-    const [currentPage, changePage] = useState(1);
-    const [pageSize, changeLimit] = useState(10);
+    const [currentPage, changeCurrentPage] = useState(1);
+    const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [sort, setSort] = useState('obligatedAmount');
     const [order, setOrder] = useState('desc');
@@ -94,7 +94,7 @@ const TableContainer = (props) => {
     useEffect(() => {
         setLoading(true);
         // Reset to the first page
-        changePage(1);
+        changeCurrentPage(1);
         const params = {
             fiscal_year: props.fy,
             limit: pageSize,
@@ -165,8 +165,8 @@ const TableContainer = (props) => {
                 </CSSTransitionGroup>
                 <Pagination
                     currentPage={currentPage}
-                    changePage={changePage}
-                    changeLimit={changeLimit}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
                     limitSelector
                     resultsText
                     pageSize={pageSize}
@@ -186,8 +186,8 @@ const TableContainer = (props) => {
                 updateSort={updateSort} />
             <Pagination
                 currentPage={currentPage}
-                changePage={changePage}
-                changeLimit={changeLimit}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}
