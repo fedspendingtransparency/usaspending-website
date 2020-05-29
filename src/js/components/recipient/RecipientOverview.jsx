@@ -5,11 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipWrapper } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
-import { recipientLoanFaceValueInfo } from '../award/shared/InfoTooltipContent';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -81,7 +79,7 @@ const RecipientOverview = (props) => {
     // Format business types
     let businessTypes = (
         <td>
-                Not provided in source system
+            Not provided in source system
         </td>
     );
     if (recipient.businessTypes.length > 0) {
@@ -96,21 +94,14 @@ const RecipientOverview = (props) => {
     const loanTotals = () => (
         <div className="recipient-section__viz totals-subset">
             <h5 className="recipient-overview__heading-subset">
-                                Total Face Value of Loans
-                <TooltipWrapper
-                    className="award-section-tt"
-                    tooltipPosition="right"
-                    icon="info"
-                    wide
-                    tooltipComponent={recipientLoanFaceValueInfo} />
-
+                Total Face Value of Loans
             </h5>
 
             <div className="totals-subset__amount">
                 {recipient.totalLoanFaceValueAmount}
             </div>
             <div className="totals-subset__awards">
-                                from <span className="state-overview__total">{recipient.totalLoanTransactions}</span> transactions
+                from <span className="state-overview__total">{recipient.totalLoanTransactions}</span> transactions
             </div>
         </div>
     );
