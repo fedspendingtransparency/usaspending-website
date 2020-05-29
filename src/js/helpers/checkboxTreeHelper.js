@@ -1,8 +1,9 @@
-/**
+/*
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
-**/
-import { difference, cloneDeep } from 'lodash';
+*/
+
+import { difference, cloneDeep, isEqual } from 'lodash';
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
@@ -35,7 +36,7 @@ const getChildren = (node, keyMap) => {
  * @param {Array.Object} nodes
  * @param {function} traverseTreeByCodeFn
  * @returns {number} the sum count of the given node's (represented by its key or node.value) descendants
- */
+*/
 const getCountOfCheckedDescendants = (key, codesWithCheckedAncestor, nodes, traverseTreeByCodeFn) => {
     const hasCheckedDescendants = codesWithCheckedAncestor.some((obj) => obj.checkedAncestor === key);
 
@@ -61,11 +62,13 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
-export const getAllDescendants = (node) => {
+export const getAllDescendants = (node, blackList = []) => {
+    if (blackList.includes(node.value)) return [];
     if (!node.children || node?.children?.length === 0) return [node.value];
     return [
         ...node.children
-            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant)]), [])
+            .filter((child) => !blackList.includes(child.value))
+            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant, blackList)]), [])
     ];
 };
 
@@ -201,12 +204,18 @@ export const decrementCountAndUpdateUnchecked = (
             return nodeFromCounts;
         });
     }
-    // we only update the unchecked array if an ancestor of the unchecked node is checked
+    // only update the unchecked array if...
     const shouldUpdateUnchecked = (
-        checked.includes(parentKey) ||
-        checked.includes(`children_of_${parentKey}`) ||
-        checked.includes(ancestorKey) ||
-        checked.includes(`children_of_${ancestorKey}`)
+        (
+            // (a): an ancestor of the unchecked node is checked
+            checked.includes(parentKey) ||
+            checked.includes(`children_of_${parentKey}`) ||
+            checked.includes(ancestorKey) ||
+            checked.includes(`children_of_${ancestorKey}`)
+        ) && (
+            // and (b): the unchecked node is not one of the highest ancestors.
+            parentKey !== value
+        )
     );
 
     const newUnchecked = shouldUpdateUnchecked
@@ -675,6 +684,79 @@ export const showAllNodes = (tree) => tree
                 .sort(sortNodesByValue)
             : []
     }));
+/**
+ * @param checkedAncestorPaths 2d array, each item an ancestryPath with the last item in the array representing a checkedNode; ie, [[11, 1111, 111110]] to represented checked state for 111110
+ * @param uncheckedAncestorPaths same as @param checkedAncestorPaths except for unchecked nodes
+ * @returns a sorted list of unique ancestor paths delimited by a '/' to be used in an API call
+ */
+export const getUniqueAncestorPaths = (
+    checkedAncestorPaths,
+    uncheckedAncestorPaths = []
+) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
+    .reduce((listOfUniqueAncestors, ancestryPath) => {
+        // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
+        const numberOfAncestors = ancestryPath.length === 1
+            ? 1
+            : ancestryPath.length - 1;
+        const uniqueAncestors = [...new Array(numberOfAncestors)]
+            .reduce((ancestors, _, i) => {
+                const currentAncestor = ancestryPath[i];
+                // already have this ancestor, move to the next.
+                if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors;
+                }
+                // top level ancestor does not exist, add it and move to the next.
+                if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors.concat([currentAncestor]);
+                }
+
+                // ancestor string like parentX/parentY/parentZ
+                const ancestorString = [...new Array(i + 1)]
+                    .reduce((str, __, index) => {
+                        if (index === 0) {
+                            return `${ancestryPath[index]}`;
+                        }
+                        return `${str}/${ancestryPath[index]}`;
+                    }, '');
+
+                if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+
+                return ancestors.concat([ancestorString]);
+            }, []);
+
+        return listOfUniqueAncestors.concat(uniqueAncestors);
+    }, [])
+    .sort((param1, param2) => {
+        const a = param1.split('/').length;
+        const b = param2.split('/').length;
+        // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+        if (b > a) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
+
+export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
+    ...new Set(
+        checked.map((code) => removePlaceholderString(code))
+    )]
+    .map((code) => traverseTreeByCodeFn(nodes, code))
+    .map((node) => ([...node.ancestors, node.value]));
+
+export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths
+    .sort((a, b) => a.length - b.length)
+    .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
+        const ancestorsForCheckedDescendant = ancestryPath.slice(0, ancestryPath.length - 1);
+        const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
+            .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
+                isEqual(arr, [ancestor]) ||
+                isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
+                isEqual(arr, listOfAncestors)
+            )));
+        if (isSomeAncestorAlreadyChecked) {
+            return leanArrayOfAncestryPaths;
+        }
+        return leanArrayOfAncestryPaths.concat([ancestryPath]);
+    }, []);
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,

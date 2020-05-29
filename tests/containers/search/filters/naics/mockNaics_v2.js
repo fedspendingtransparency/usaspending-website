@@ -781,6 +781,7 @@ export const defaultProps = {
     expanded: [],
     checked: [],
     unchecked: [],
+    counts: [],
     nodes: placeholderNodes,
     searchExpanded: [],
     stageNaics: () => {},
@@ -789,12 +790,13 @@ export const defaultProps = {
     setCheckedNaics: () => {},
     removeNAICS: () => {},
     setSearchedNaics: () => {},
+    setNaicsCounts: () => {},
     addCheckedNaics: () => {},
     showNaicsTree: () => {},
     setUncheckedNaics: () => {},
-    restoreHashedFilters: () => {},
     uncheckedFromHash: [],
     checkedFromHash: [],
+    countsFromHash: [],
     filters: {
         naicsCodes: {
             require: [],

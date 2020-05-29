@@ -58,8 +58,8 @@ const AwardDescription = ({
                                     <span>
                                         {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
                                         (PSC)
-                                        <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
-                                            <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
+                                        <a href={`#/award/${awardId}/?glossary=product-or-service-code-psc`}>
+                                            <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
                                         </a>
                                     </span>
                                 </div>
