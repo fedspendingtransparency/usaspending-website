@@ -54,6 +54,22 @@ const ContractGrantActivityContainer = ({
             return t;
         });
     };
+        /**
+     * Since we have multiple transactions on the same day and we wont know the total for
+     * a transaction until format transactions has run its course we run through all transactions
+     * again to set every transaction on the same day to the total for the day
+     */
+    const addRunningObligationTotalToChildren = (data) => data.map((info) => {
+        const aTransaction = info;
+        if (aTransaction.allTransactionsOnTheSameDate.length > 1) {
+            aTransaction.allTransactionsOnTheSameDate = info.allTransactionsOnTheSameDate.map((t) => {
+                const newTransaction = t;
+                newTransaction.running_obligation_total_to_date = info.running_obligation_total;
+                return newTransaction;
+            });
+        }
+        return aTransaction;
+    });
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -114,7 +130,7 @@ const ContractGrantActivityContainer = ({
                 previousRunningObligationTotal = total;
                 return updatedData;
             });
-        return newData;
+        return addRunningObligationTotalToChildren(newData);
     };
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
