@@ -239,7 +239,15 @@ export class NAICSCheckboxTree extends React.Component {
         if (!text) {
             return this.onClear();
         }
-        return this.setState({ searchString: text, isSearch: true, isLoading: true }, this.onSearchChange);
+        return this.setState({
+            searchString: text,
+            isSearch: true,
+            isLoading: true
+        }, () => {
+            if (text.length >= 3) {
+                this.onSearchChange();
+            }
+        });
     }
 
     autoCheckSearchedResultDescendants = (checked, expanded) => {

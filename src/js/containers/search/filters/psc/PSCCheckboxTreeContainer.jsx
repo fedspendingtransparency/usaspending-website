@@ -332,7 +332,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
             searchString: text,
             isSearch: true,
             isLoading: true
-        }, this.onSearchChange);
+        }, () => {
+            if (text.length >= 3) {
+                this.onSearchChange();
+            }
+        });
     }
 
     render() {

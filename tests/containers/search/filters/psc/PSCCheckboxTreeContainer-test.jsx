@@ -279,4 +279,16 @@ describe('PscCheckboxTreeContainer', () => {
             expect(mockSetCheckedPsc).toHaveBeenCalledWith(checkedNodes);
         });
     });
+    describe('handleTextInputChange', () => {
+        it('only calls onSearchChange if search string is greater than or equal to 3 chars', () => {
+            const mockFn = jest.fn();
+            const container = shallow(<PSCCheckboxTreeContainer {...defaultProps} nodes={reallyBigTree} />);
+            container.instance().onSearchChange = mockFn;
+            container.instance().handleTextInputChange({ target: { value: 'a' } });
+            container.instance().handleTextInputChange({ target: { value: 'ab' } });
+            expect(mockFn).not.toHaveBeenCalled();
+            container.instance().handleTextInputChange({ target: { value: 'abc' } });
+            expect(mockFn).toHaveBeenCalledTimes(1);
+        });
+    });
 });
