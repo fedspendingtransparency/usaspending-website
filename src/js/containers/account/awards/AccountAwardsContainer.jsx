@@ -186,7 +186,7 @@ export class AccountAwardsContainer extends React.Component {
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                [data.title]: this.createColumn(data.displayName, data.title)
+                [data.title]: this.createColumn(data)
             }), {});
 
             return Object.assign({}, cols, {
@@ -201,17 +201,18 @@ export class AccountAwardsContainer extends React.Component {
         });
     }
 
-    createColumn(displayName, title) {
+    createColumn(col) {
         const direction = 'desc';
+        const width = col.customWidth || measureTableHeader(col.displayName || col.title);
 
-        const column = {
-            columnName: title,
-            displayName: displayName || title,
-            width: measureTableHeader(displayName || title),
+        return {
+            columnName: col.title,
+            displayName: col.displayName || col.title,
+            subtitle: col.subtitle || '',
+            width,
+            background: col.background || '',
             defaultDirection: direction
         };
-
-        return column;
     }
 
     performSearch(newSearch = false) {
