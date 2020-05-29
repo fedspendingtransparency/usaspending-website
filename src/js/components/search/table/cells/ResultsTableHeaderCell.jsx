@@ -12,6 +12,8 @@ const propTypes = {
     isActive: PropTypes.bool,
     title: PropTypes.string,
     displayName: PropTypes.string,
+    subtitle: PropTypes.string,
+    background: PropTypes.string,
     defaultDirection: PropTypes.string,
     currentSort: PropTypes.object,
     updateSort: PropTypes.func
@@ -59,12 +61,17 @@ const TableHeaderCell = (props) => {
         activeDesc = ' active';
     }
 
+    const customStyle = props.background ? (
+        { backgroundColor: props.background }
+    ) : {};
+
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
     // allow keyboard selection of the header cell
     return (
         <div className={`award-result-header-cell ${lastClass}`}>
             <div
                 className="cell-content"
+                style={customStyle}
                 onClick={clickedDefault}
                 onKeyDown={pressedKey}
                 role="presentation"
@@ -72,7 +79,7 @@ const TableHeaderCell = (props) => {
                 tabIndex={0}>
                 <div className="header-sort">
                     <div className="header-label">
-                        {props.displayName}
+                        {props.displayName}{props.subtitle ? (<div>{props.subtitle}</div>) : ''}
                     </div>
                     <div className="header-icons">
                         <button

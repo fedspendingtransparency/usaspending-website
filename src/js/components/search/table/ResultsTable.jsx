@@ -59,6 +59,8 @@ export default class ResultsTable extends React.Component {
                 isActive={isActive}
                 title={column.columnName}
                 displayName={column.displayName}
+                subtitle={column.subtitle}
+                background={column.background}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
                 updateSort={this.props.updateSort} />
