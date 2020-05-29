@@ -5,5 +5,5 @@ export default () => (
 );
 
 export const NewBadge = () => (
-    <span>NEW!!</span>
+    <div className="advanced-search-filter-accessory__new-badge">NEW</div>
 );

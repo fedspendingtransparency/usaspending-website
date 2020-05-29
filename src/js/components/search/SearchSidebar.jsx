@@ -29,7 +29,8 @@ import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFChec
 
 import {
     KeyWordTooltip,
-    withAdvancedSearchTooltip
+    withAdvancedSearchTooltip,
+    DEFTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
@@ -46,71 +47,61 @@ const filters = {
             })
         },
         {
-            title: 'Time Period',
-            tooltip: null
+            title: 'Time Period'
         },
         {
-            title: 'Award Type',
-            tooltip: null
+            title: 'Award Type'
         },
         {
-            title: 'Agency',
-            tooltip: null
+            title: 'Agency'
         },
         {
-            title: 'Treasury Account Symbol (TAS)',
-            tooltip: null
+            title: 'Treasury Account Symbol (TAS)'
         },
         {
-            title: 'Location',
-            tooltip: null
+            title: 'Location'
         },
         {
-            title: 'Recipient',
-            tooltip: null
+            title: 'Recipient'
         },
         {
-            title: 'Recipient Type',
-            tooltip: null
+            title: 'Recipient Type'
         },
         {
-            title: 'Award Amount',
-            tooltip: null
+            title: 'Award Amount'
         },
         {
-            title: 'Award ID',
-            tooltip: null
+            title: 'Award ID'
         },
         {
             title: 'Disaster and Emergency Fund (DEF) Code',
             tooltip: withAdvancedSearchTooltip({
                 icon: 'info',
-                tooltipComponent: <p>I am here.</p>
-            })
+                tooltipComponent: <DEFTooltip />,
+                controlledProps: {
+                    isControlled: true,
+                    isVisible: true
+                }
+            }),
+            className: 'def-sidebar'
         },
         {
-            title: 'CFDA Program',
-            tooltip: null
+            title: 'CFDA Program'
         },
         {
-            title: 'North American Industry Classification System (NAICS)',
-            tooltip: null
+            title: 'North American Industry Classification System (NAICS)'
         },
         {
-            title: 'Product or Service Code (PSC)',
-            tooltip: null
+            title: 'Product or Service Code (PSC)'
         },
         {
-            title: 'Type of Contract Pricing',
-            tooltip: null
+            title: 'Type of Contract Pricing'
         },
         {
-            title: 'Type of Set Aside',
-            tooltip: null
+            title: 'Type of Set Aside'
         },
         {
-            title: 'Extent Competed',
-            tooltip: null
+            title: 'Extent Competed'
         }
     ],
     components: [

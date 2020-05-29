@@ -13,7 +13,7 @@ $letter-color: #323A45;
         // tooltip header styles
         h3 {
             margin: 0;
-            padding: 0;
+            padding: 0 rem(10);
             font-weight: bold;
             font-size: rem(16);
             width: 100%;
@@ -21,6 +21,7 @@ $letter-color: #323A45;
             text-align: center;
             background: #F0F0F0;
             line-height: rem(42);
+            z-index: 2;
         }
         // tooltip body styles
         span,

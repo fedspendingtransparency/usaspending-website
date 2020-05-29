@@ -16,7 +16,8 @@ const propTypes = {
     tooltip: PropTypes.node,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
-    glossaryUrl: PropTypes.string
+    glossaryUrl: PropTypes.string,
+    className: PropTypes.string
 };
 
 const ariaDescription = 'accessory-view';
@@ -91,7 +92,7 @@ export default class FilterExpandButton extends React.Component {
                     aria-expanded={this.props.arrowState === 'expanded'}
                     aria-describedby={ariaDescription}>
                     {icon}
-                    <div className="filter-toggle__name">
+                    <div className={`filter-toggle__name ${this.props.className}`}>
                         <span>{this.props.name}</span>
                         {this.props.tooltip && <this.props.tooltip />}
                     </div>

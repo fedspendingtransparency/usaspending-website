@@ -29,6 +29,17 @@ export const KeyWordTooltip = () => (
     </div>
 );
 
+export const DEFTooltip = () => (
+    <div className="advanced-search-tt">
+        <h3 className="advanced-search-tt__header">
+           Disaster and Emergency Fund (DEF) Code
+        </h3>
+        <span>
+            This is some placeholder content.
+        </span>
+    </div>
+);
+
 
 export const withAdvancedSearchTooltip = (props) => () => (
     <TooltipWrapper {...props} />
