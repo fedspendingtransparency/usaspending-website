@@ -120,7 +120,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
             }
             // 5.b
             if (badCurrent && !badStart) {
-                if (transactions[0].action_date.valueOf() < startDate.valueOf()) return true;
+                if (transactions[0].action_date.valueOf() <= startDate.valueOf()) return true;
             }
         }
         return false;
@@ -188,7 +188,6 @@ export const getXDomain = (dates, awardType, transactions) => {
     const badCurrent = isNaN(currentEndDate.valueOf()) || !currentEndDate;
     const badEnd = isNaN(potentialEndDate.valueOf()) || !potentialEndDate;
     const onlyOneTransaction = transactions.length === 1;
-
     // only one transaction
     if (onlyOneTransaction) {
         if (isAwardFinancialAssistance(awardType)) { // grant
@@ -204,6 +203,10 @@ export const getXDomain = (dates, awardType, transactions) => {
         if (badStart && (!badCurrent || !badEnd)) {
             const date = !badEnd ? potentialEndDate : currentEndDate;
             return [transactions[0].action_date.valueOf(), date.valueOf()];
+        }
+        if (!badStart && (!badCurrent || !badEnd)) {
+            const date = !badEnd ? potentialEndDate : currentEndDate;
+            return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, date).valueOf()];
         }
         return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, potentialEndDate).valueOf()];
     }

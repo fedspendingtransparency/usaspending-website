@@ -60,9 +60,12 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'North American Industry Classification System (NAICS)':
-            return (reduxFilters.naicsCodes.require.length > 0);
+            return (reduxFilters.naicsCodes.toObject().require.length > 0);
         case 'Product/Service Code (PSC)':
             if (reduxFilters.selectedPSC.toArray().length > 0) {
+                return true;
+            }
+            else if (reduxFilters.pscCodes.toObject().require.length > 0) {
                 return true;
             }
             return false;
@@ -82,7 +85,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'Treasury Account Symbol (TAS)':
-            if (reduxFilters.tasCodes.require.length > 0) return true;
+            if (reduxFilters.tasCodes.toObject().require.length > 0) return true;
             return false;
         default:
             return false;

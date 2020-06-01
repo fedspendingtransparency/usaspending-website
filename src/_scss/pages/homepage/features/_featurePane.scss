@@ -102,7 +102,12 @@
       margin-top: auto;
       background-color: transparent;
       padding: rem(10) rem(20) rem(10) rem(20);
-      #middle-pane-feature-icon {
+      display: flex;
+      justify-content: center;
+      .feature-pane__button-redirect-modal {
+        margin: 0;
+      }
+      .feature-pane__button-icon {
         padding-left: rem(5);
       }
       &:focus {

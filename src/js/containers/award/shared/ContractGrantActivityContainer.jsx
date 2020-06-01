@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
@@ -14,19 +15,22 @@ import {
     contractActivityGrants,
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
+import JumpToSectionButton from 'components/award/shared/awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     awardId: PropTypes.string,
     awardType: PropTypes.string,
     dates: PropTypes.object,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    jumpToTransactionHistoryTable: PropTypes.func
 };
 
 const ContractGrantActivityContainer = ({
     awardId,
     awardType,
     dates,
-    totalObligation
+    totalObligation,
+    jumpToTransactionHistoryTable
 }) => {
     // bad dates
     const [badDates, setBadDates] = useState(false);
@@ -82,7 +86,8 @@ const ContractGrantActivityContainer = ({
                  * We will create the all transactions property and add itself to it
                  * then add it to the acc
                  */
-                updatedData.allTransactionsOnTheSameDate = [updatedData];
+                const originalData = cloneDeep(updatedData);
+                updatedData.allTransactionsOnTheSameDate = [originalData];
                 acc.push(updatedData);
                 return acc;
             }, []);
@@ -261,6 +266,10 @@ const ContractGrantActivityContainer = ({
                     {message()}
                 </div>
                 {content()}
+                <JumpToSectionButton
+                    linkText="View transactions table"
+                    icon="table"
+                    onClick={jumpToTransactionHistoryTable} />
             </div>
         </div>
     );

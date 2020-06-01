@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { twentyNineteenFiscalDataCookie } from './Header';
+import { CovidHomepageCookie } from './Header';
 
 const propTypes = {
     closeBanner: PropTypes.func
@@ -16,13 +16,13 @@ export default class InfoBanner extends React.Component {
     }
 
     bannerClosed() {
-        this.props.closeBanner('showInfoBanner', twentyNineteenFiscalDataCookie);
+        this.props.closeBanner('showInfoBanner', CovidHomepageCookie);
     }
 
     clickedBannerLink = () => {
         Analytics.event({
             category: 'Banner - Link',
-            action: 'https://datalab.usaspending.gov/americas-finance-guide/'
+            action: 'https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf'
         });
     }
 
@@ -35,21 +35,22 @@ export default class InfoBanner extends React.Component {
                     </span>
                     <div className="info-banner__alert-text">
                         <div className="info-banner__title-text">
-                            Updated with FY 2019 Data - Your Guide to America&#39;s Finances
+                            Coming to USAspending in July -- New Tools to Search and Display COVID-19 Spending Data:
                         </div>
-                        Your Guide provides a snapshot of 2019 Fiscal Year revenue,
-                        spending, deficit, debt, along with data for download.
-                        <span className="info-banner__hyphen">-</span>
+                        Based on&nbsp;
                         <a
-                            href="https://datalab.usaspending.gov/americas-finance-guide/"
+                            href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={this.clickedBannerLink}>
-                        https://datalab.usaspending.gov/americas-finance-guide/
+                            OMB Memo M-20-21
                         </a>
                         <span className="info-banner__description-external-link">
                             <FontAwesomeIcon icon="external-link-alt" />
                         </span>
+                        , Federal agencies will begin supplementing existing reporting of
+                        spending related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act, as
+                        well as other COVID-19 appropriations in July 2020.
                     </div>
                     <button
                         className="info-banner__close-button"

@@ -55,7 +55,7 @@ describe('SearchContainer', () => {
         const receiveHash = jest.fn();
         container.instance().receiveHash = receiveHash;
 
-        container.instance().componentWillReceiveProps({
+        container.instance().componentDidUpdate({
             params: {
                 hash: '11111'
             }
@@ -66,6 +66,7 @@ describe('SearchContainer', () => {
 
     it('should not try to resolve the URL hash again when the URL changes programmatically', () => {
         const container = shallow(<SearchContainer
+            params={{ hash: "11111" }}
             {...mockActions}
             {...mockRedux} />);
 
@@ -76,11 +77,7 @@ describe('SearchContainer', () => {
         const receiveHash = jest.fn();
         container.instance().receiveHash = receiveHash;
 
-        container.instance().componentWillReceiveProps(Object.assign({}, mockActions, mockRedux, {
-            params: {
-                hash: '11111'
-            }
-        }));
+        // componentDidUpdate, which we're testing here, does get called simply by updating state as of enzyme v3: https://enzymejs.github.io/enzyme/docs/guides/migration-from-2-to-3.html#lifecycle-methods
 
         expect(receiveHash).toHaveBeenCalledTimes(0);
     });
@@ -99,7 +96,7 @@ describe('SearchContainer', () => {
             timePeriodFY: new Set(['1987'])
         });
 
-        const nextProps = Object.assign({}, mockRedux, mockActions, {
+        const prevProps = Object.assign({}, mockRedux, mockActions, {
             appliedFilters: Object.assign({}, initialApplied, {
                 filters: nextFilters
             })
@@ -108,7 +105,7 @@ describe('SearchContainer', () => {
         const generateHash = jest.fn();
         container.instance().generateHash = generateHash;
 
-        container.instance().componentWillReceiveProps(nextProps);
+        container.instance().componentDidUpdate(prevProps);
 
         expect(generateHash).toHaveBeenCalledTimes(1);
     });

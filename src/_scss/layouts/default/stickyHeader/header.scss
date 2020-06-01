@@ -53,6 +53,7 @@
                 @include flex(0 0 auto);
                 @import "../../tabbedSearch/header/downloadButton";
             }
+            @import "./toolbar";
         }
     }
 }

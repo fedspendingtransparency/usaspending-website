@@ -51,7 +51,7 @@ export default class ExplorerLanding extends React.Component {
         }
 
         return (
-            <ExplorerWrapperPage>
+            <ExplorerWrapperPage showShareIcon>
                 <div className="explorer-landing">
                     <div className="explorer-landing__intro">
                         <h2

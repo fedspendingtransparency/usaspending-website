@@ -32,7 +32,8 @@ const propTypes = {
     onMouseMoveLine: PropTypes.func,
     onMouseLeaveLine: PropTypes.func,
     onMouseMoveText: PropTypes.func,
-    onMouseLeaveText: PropTypes.func
+    onMouseLeaveText: PropTypes.func,
+    verticalLineTextData: PropTypes.func
 };
 
 export default class SVGLine extends Component {
@@ -44,18 +45,30 @@ export default class SVGLine extends Component {
         };
         // React will call this function when the DOM draws it ( React Callback Refs )
         const textArray = Array.isArray(props.text) ? props.text : [props.text];
-        textArray.forEach((text) => {
-            this[`textDiv${text}`] = null;
-            this[`setTextDiv${text}`] = (element) => {
-                this[`textDiv${text}`] = element;
-                this.positionText(text);
-            };
-        });
+        /**
+         * TODO - Do not use Variable Class Properties state, methods, refs?
+         */
+        if (!props.noText) {
+            textArray.forEach((text) => {
+                const stateName = text.replace(/\s/g, '').toLowerCase();
+                this[`textDiv${stateName}`] = null;
+                this[`setTextDiv${stateName}`] = (element) => {
+                    this[`textDiv${stateName}`] = element;
+                    this.positionText(stateName);
+                };
+            });
+        }
     }
 
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentDidUpdate(prevProps) {
+        if ((prevProps.textY !== this.props.textY) && !this.props.noText) {
+            this.positionText(this.props.text);
+        }
     }
 
     componentWillUnmount() {
@@ -88,7 +101,8 @@ export default class SVGLine extends Component {
     })
     onMouseMoveText = throttle(() => {
         const { onMouseMoveText, text, position } = this.props;
-        const textDiv = this[`textDiv${text}`];
+        const stateName = text.replace(/\s/g, '').toLowerCase();
+        const textDiv = this[`textDiv${stateName}`];
         if (textDiv) {
             const data = textDiv.getBoundingClientRect();
             data.position = this.getLinePosition();
@@ -121,7 +135,7 @@ export default class SVGLine extends Component {
             max,
             adjustmentX
         } = this.props;
-        if (isHorizontal) return graphHeight - scale(max);
+        if (isHorizontal) return graphHeight;
         return scale(max) + (adjustmentX || 0);
     }
     // since we set the position of the text we need to update it on window resize
@@ -142,19 +156,19 @@ export default class SVGLine extends Component {
             showTextPosition,
             textY,
             adjustmentX,
-            noText
+            noText,
+            verticalLineTextData
         } = this.props;
         if (noText) return null;
         let positionX = scale(position || Date.now()) + (adjustmentX || 0);
         let modifiedTextY = textY;
-        // the text div starts null since React only calls the callback ref function
-        // when the DOM draws the element, without this you will get an error since
-        // we will be call properties on null
-        const textDiv = this[`textDiv${text}`];
+        let width = 0;
+        const stateName = text.replace(/\s/g, '').toLowerCase();
+        const textDiv = this[`textDiv${stateName}`];
         if (textDiv) {
             const wordIndex = textDiv.getAttribute('data-wordindex');
             const textDivDimensions = textDiv.getBoundingClientRect();
-            const width = textDivDimensions.width;
+            width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
             if (showTextPosition === 'right') positionX += 4;
             if (showTextPosition === 'top') {
@@ -164,8 +178,26 @@ export default class SVGLine extends Component {
             if (wordIndex !== '0') {
                 modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
+            if (verticalLineTextData) {
+                const textData = {
+                    positionX,
+                    modifiedTextY,
+                    text,
+                    textY
+                };
+                for (const key in textDivDimensions) {
+                    if (textDivDimensions[key]) {
+                        textData[key] = textDivDimensions[key];
+                    }
+                }
+                verticalLineTextData(textData);
+            }
         }
-        return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
+        return this.setState({
+            [`${stateName}TextX`]: positionX,
+            [`${stateName}TextY`]: modifiedTextY,
+            [`${stateName}Width`]: width || 0
+        });
     }
 
     line = () => {
@@ -199,24 +231,38 @@ export default class SVGLine extends Component {
     }
 
     text = (lineIsDisplayed) => {
-        const { text, textClassname } = this.props;
-        if (!lineIsDisplayed || !text) return null;
+        const { text, textClassname, noText } = this.props;
+        if (!lineIsDisplayed || noText) return null;
         const textArray = Array.isArray(text) ? text : [text];
         const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
-        return textArray.map((data, i) => (
-            <text
-                key={data}
-                tabIndex="0"
-                className={classname}
-                x={this.state[`${data}TextX`]}
-                y={this.state[`${data}TextY`]}
-                ref={this[`setTextDiv${data}`]}
-                data-wordindex={i}
-                onMouseMove={this.onMouseMoveText}
-                onMouseLeave={this.onMouseLeaveText}>
-                {data}
-            </text>
-        ));
+        /**
+         * TODO - Do not use Variable Class Properties state, methods, refs?
+         */
+        return textArray.map((data, i) => {
+            const stateName = data.replace(/\s/g, '').toLowerCase();
+            return (
+                <g
+                    key={`containerForText${i}`}>
+                    <rect
+                        className="rectangle-background"
+                        width={this.state[`${stateName}Width`]}
+                        height={15.5}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.props.textY - 11} />
+                    <text
+                        tabIndex="0"
+                        className={classname}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.state[`${stateName}TextY`]}
+                        ref={this[`setTextDiv${stateName}`]}
+                        data-wordindex={i}
+                        onMouseMove={this.onMouseMoveText}
+                        onMouseLeave={this.onMouseLeaveText}>
+                        {data}
+                    </text>
+                </g>
+            );
+        });
     }
 
     description = () => (this.props.description ||

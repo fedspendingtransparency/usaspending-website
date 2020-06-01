@@ -12,8 +12,10 @@ import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
+import { getBaseUrl } from "helpers/socialShare";
 
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import RecipientContent from './RecipientContent';
@@ -47,6 +49,8 @@ export default class RecipientPage extends React.Component {
     hideChildRecipientModal = () => this.setState({ showChildRecipientModal: false });
 
     render() {
+        const { id, recipient } = this.props;
+        const slug = `recipient/${id}/${recipient.fy}`;
         let content = (
             <RecipientContent
                 showChildRecipientModal={this.showChildRecipientModal}
@@ -68,6 +72,14 @@ export default class RecipientPage extends React.Component {
                         <h1 tabIndex={-1} id="main-focus">
                             Recipient Profile
                         </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug={slug}
+                            email={{
+                                subject: `USAspending.gov Recipient Profile: ${recipient.overview.name}`,
+                                body: `View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`
+                            }} />
                     </div>
                 </StickyHeader>
                 <main

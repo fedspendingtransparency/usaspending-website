@@ -83,7 +83,8 @@ const FinancialAssistanceContent = ({
                 <ContractGrantActivityContainer
                     awardId={awardId}
                     awardType={overview.category}
-                    dates={overview.periodOfPerformance} />
+                    dates={overview.periodOfPerformance}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 : <ComingSoonSection
                     title="Grant Activity"
                     icon="chart-area"

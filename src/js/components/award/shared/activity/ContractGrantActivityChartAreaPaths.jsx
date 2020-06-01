@@ -82,15 +82,13 @@ const ContractGrantActivityChartAreaPaths = ({
         padding
     ]);
     // should we extend area path to today line
-    const shouldWeExtendAreaPathToTodayLine = useCallback(() => {
+    const shouldWeExtendAreaPathToTodayLineOrEndLines = useCallback(() => {
         const lastTransaction = transactions[transactions.length - 1];
-        const todayLineIsBeforeAllEndDates = [endLineValue, potentialEndLineValue]
-            .filter((line) => line).every((line) => moment(todayLineValue).isBefore(moment(line)));
         const everyLineIsAfterLastTransaction = filteredAndSortedLinesFirstToLast(
             [todayLineValue, endLineValue, potentialEndLineValue]).every((line) => (
             lastTransaction.action_date.isBefore(moment(line))
         ));
-        if (todayLineIsBeforeAllEndDates && everyLineIsAfterLastTransaction) return true;
+        if (everyLineIsAfterLastTransaction) return true;
         return false;
     }, [
         transactions,
@@ -101,7 +99,7 @@ const ContractGrantActivityChartAreaPaths = ({
     // extend area path to today
     const extendAreaPathToTodayLine = useCallback(() => {
         const lastTransaction = transactions[transactions.length - 1];
-        if (shouldWeExtendAreaPathToTodayLine() && xScale && yScale) {
+        if (shouldWeExtendAreaPathToTodayLineOrEndLines() && xScale && yScale) {
             setAreaPathExtensionToToday(createSteppedAreaPath(
                 [
                     ...transactions,
@@ -125,7 +123,7 @@ const ContractGrantActivityChartAreaPaths = ({
         yScale,
         height,
         padding,
-        shouldWeExtendAreaPathToTodayLine,
+        shouldWeExtendAreaPathToTodayLineOrEndLines,
         todayLineValue,
         endLineValue,
         potentialEndLineValue,

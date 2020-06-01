@@ -28,6 +28,7 @@ export const defaultFilters = {
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     naicsCodes: new CheckboxTreeSelections(),
+    pscCodes: new CheckboxTreeSelections(),
     recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
     selectedAwardIDs: new OrderedMap(),

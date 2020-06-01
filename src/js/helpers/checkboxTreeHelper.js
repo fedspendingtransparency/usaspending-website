@@ -1,8 +1,14 @@
-/**
+/*
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
-**/
-import { difference, cloneDeep } from 'lodash';
+*/
+
+import { difference, cloneDeep, isEqual } from 'lodash';
+
+export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3) => (
+    str &&
+    str.length >= charMinimum
+);
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
@@ -29,24 +35,29 @@ const getChildren = (node, keyMap) => {
     }
     return {};
 };
+/**
+ * @param {string} key
+ * @param {Array.Object} codesWithCheckedAncestor
+ * @param {Array.Object} nodes
+ * @param {function} traverseTreeByCodeFn
+ * @returns {number} the sum count of the given node's (represented by its key or node.value) descendants
+*/
+const getCountOfCheckedDescendants = (key, codesWithCheckedAncestor, nodes, traverseTreeByCodeFn) => {
+    const hasCheckedDescendants = codesWithCheckedAncestor.some((obj) => obj.checkedAncestor === key);
 
-const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes, traverseTreeByCodeFn) => {
-    // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
-    const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
-
-    if (hasSelectedButNotCounted) {
-        const nodesUnderPlaceholder = codesUnderPlaceholder
-            .filter((code) => code.placeholder === key);
-        const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
+    if (hasCheckedDescendants) {
+        const nodesUnderPlaceholder = codesWithCheckedAncestor
+            .filter((code) => code.checkedAncestor === key);
+        const sumOfCheckedDescendants = nodesUnderPlaceholder
             .map((obj) => traverseTreeByCodeFn(nodes, obj.code))
-            .reduce((agg, nodeTobeCounted) => {
-                if (nodeTobeCounted.count === 0) {
+            .reduce((agg, descendantToBeCounted) => {
+                if (descendantToBeCounted.count === 0) {
                     return agg + 1;
                 }
-                return agg + nodeTobeCounted.count;
+                return agg + descendantToBeCounted.count;
             }, 0);
 
-        return aggregateOffsetOfNodesUnderPlaceholder;
+        return sumOfCheckedDescendants;
     }
     return 0;
 };
@@ -56,11 +67,13 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
-export const getAllDescendants = (node) => {
+export const getAllDescendants = (node, blackList = []) => {
+    if (blackList.includes(node.value)) return [];
     if (!node.children || node?.children?.length === 0) return [node.value];
     return [
         ...node.children
-            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant)]), [])
+            .filter((child) => !blackList.includes(child.value))
+            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant, blackList)]), [])
     ];
 };
 
@@ -196,12 +209,18 @@ export const decrementCountAndUpdateUnchecked = (
             return nodeFromCounts;
         });
     }
-    // we only update the unchecked array if an ancestor of the unchecked node is checked
+    // only update the unchecked array if...
     const shouldUpdateUnchecked = (
-        checked.includes(parentKey) ||
-        checked.includes(`children_of_${parentKey}`) ||
-        checked.includes(ancestorKey) ||
-        checked.includes(`children_of_${ancestorKey}`)
+        (
+            // (a): an ancestor of the unchecked node is checked
+            checked.includes(parentKey) ||
+            checked.includes(`children_of_${parentKey}`) ||
+            checked.includes(ancestorKey) ||
+            checked.includes(`children_of_${ancestorKey}`)
+        ) && (
+            // and (b): the unchecked node is not one of the highest ancestors.
+            parentKey !== value
+        )
     );
 
     const newUnchecked = shouldUpdateUnchecked
@@ -224,42 +243,42 @@ export const incrementCountAndUpdateUnchecked = (
 ) => {
     const newlyChecked = difference(newChecked, oldChecked);
     const nodeTree = cloneDeep(nodes);
-
-    // child place holders reflect the count of their immediate ancestor
-    const placeHoldersToBeCounted = newChecked
-        .filter((node) => node.includes('children_of_'));
-
-    const codesUnderPlaceholder = [];
-    const codesWithoutPlaceholder = [];
+    const codesWithCheckedAncestor = [];
     const codesToBeRemovedFromUnchecked = [];
 
     newChecked
-        .filter((code) => !code.includes('children_of_'))
-        .forEach((code) => {
+        .map((code) => removePlaceholderString(code))
+        .forEach((code, i, arr) => {
             const node = traverseTreeByCodeFn(nodeTree, code);
             const immediateAncestorCode = getImmediateAncestorFn(node);
             const highestAncestorCode = getHighestAncestorFn(node);
-            if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: immediateAncestorCode });
+            const isImmediateAncestorChecked = (
+                immediateAncestorCode !== code &&
+                arr.includes(immediateAncestorCode)
+            );
+
+            const isHighestAncestorChecked = (
+                highestAncestorCode !== code &&
+                arr.includes(highestAncestorCode)
+            );
+            if (node?.ancestors) {
+                const checkedAncestors = node.ancestors.filter((ancestor) => arr.includes(ancestor));
+                if (checkedAncestors.length > 0) {
+                    // always use the nearest ancestor.
+                    codesWithCheckedAncestor.push({ code, checkedAncestor: checkedAncestors.pop() });
+                }
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: highestAncestorCode });
+            else if (isImmediateAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: immediateAncestorCode });
             }
-            else if (placeHoldersToBeCounted.includes(`children_of_${code}`)) {
-                codesUnderPlaceholder.push({ code, placeholder: code });
-            }
-            else {
-                codesWithoutPlaceholder.push(code);
+            else if (isHighestAncestorChecked) {
+                codesWithCheckedAncestor.push({ code, checkedAncestor: highestAncestorCode });
             }
         });
 
     const newCounts = [...new Set([...newlyChecked])]
         .reduce((newState, code) => {
-            const isPlaceholder = code.includes('children_of_');
-            const key = isPlaceholder
-                ? code.split('children_of_')[1]
-                : code;
-
+            const key = removePlaceholderString(code);
             const currentNode = traverseTreeByCodeFn(nodeTree, key);
             const parentKey = getHighestAncestorFn(currentNode);
             const parentNode = traverseTreeByCodeFn(nodeTree, parentKey);
@@ -280,12 +299,11 @@ export const incrementCountAndUpdateUnchecked = (
 
             const indexInArray = newState.findIndex((node) => node.value === parentKey);
             const isParentInArray = indexInArray > -1;
-
-            const offsetCount = getCountWithPlaceholderOffset(key, codesUnderPlaceholder, nodeTree, traverseTreeByCodeFn);
+            const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
                 ? 1
                 : currentNode.count;
-            const amountToIncrement = originalCount - offsetCount;
+            const amountToIncrement = originalCount - countOfCheckedDescendants;
 
             if (!isParentInArray) {
                 newState.push({
@@ -355,20 +373,15 @@ export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', 
         .reduce(getValue, []);
 };
 
-const addPlaceholder = (children, parentValue, hide = true) => {
-    const placeHolderExists = children.some((child) => child.isPlaceHolder);
-    if (placeHolderExists) return children;
-    return children.concat([{
-        isPlaceHolder: true,
-        label: 'Child Placeholder',
-        value: `children_of_${parentValue}`,
-        className: hide ? 'hide' : ''
-    }]);
-};
+export const doesNodeHaveGenuineChildren = (node) => (
+    Object.keys(node).includes('children') &&
+    node?.children?.length > 0 &&
+    node.children.some((child) => !child.isPlaceHolder)
+);
 
 const removePlaceHolders = (children) => children.filter((child) => !child.isPlaceHolder);
 
-const areChildrenPartial = (count, children) => {
+export const areChildrenPartial = (count, children) => {
     if (!children) return false;
     const sumOfAllChildren = removePlaceHolders(children)
         .reduce((acc, child) => {
@@ -376,6 +389,45 @@ const areChildrenPartial = (count, children) => {
             return acc + childCount;
         }, 0);
     return sumOfAllChildren < count;
+};
+
+export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true) => {
+    if (!children || !parent) return [];
+    const hasGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
+    const placeHolderAlreadyExists = children.some((child) => child.isPlaceHolder);
+    const isPlaceHolderNeeded = (
+        areChildrenPartial(parent.count, children) &&
+        !placeHolderAlreadyExists
+    );
+    if (isPlaceHolderNeeded && hasGrandChildren) {
+        return children
+            .map((child) => ({
+                ...child,
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }))
+            .concat([{
+                isPlaceHolder: true,
+                label: 'Child Placeholder',
+                value: `children_of_${parent.value}`,
+                className: hide ? 'hide' : ''
+            }]);
+    }
+    if (hasGrandChildren) {
+        return children
+            .map((child) => ({
+                ...child,
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }));
+    }
+    if (isPlaceHolderNeeded) {
+        return children.concat([{
+            isPlaceHolder: true,
+            label: 'Child Placeholder',
+            value: `children_of_${parent.value}`,
+            className: hide ? 'hide' : ''
+        }]);
+    }
+    return children;
 };
 
 /**
@@ -387,106 +439,67 @@ const areChildrenPartial = (count, children) => {
  * (b) the pre-existing nodes not apart of search results that are hidden via the className obj property w/ the value "hide"
  * (c) placeholder nodes to represent the presence of partial children
 */
-export const mergeChildren = (parentFromSearch, existingParent) => {
-    if (existingParent.children && parentFromSearch.children) {
-        // Hide all existing children by default.
-        const existingChildArray = existingParent
-            .children
-            .map((node) => ({ ...node, className: 'hide' }));
-
+export const appendChildrenFromSearchResults = (parentFromSearch, existingParent) => {
+    if (doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
         return parentFromSearch.children
             .reduce((acc, searchChild) => {
-                const existingChildIndex = acc
-                    .findIndex((existingChild) => existingChild.value === searchChild.value);
-
-                if (existingChildIndex !== -1) {
+                const existingChildIndex = acc.findIndex((existingChild) => existingChild.value === searchChild.value);
+                const childAlreadyExists = existingChildIndex !== -1;
+                if (childAlreadyExists) {
                     const existingChild = acc[existingChildIndex];
-                    // Show existingChildren if they are in the search results.
-                    existingChild.className = '';
-                    if (existingChild.children) {
-                        // Hide this node's children.
-                        existingChild.children = existingChild.children.map((grand) => ({ ...grand, className: 'hide' }));
+                    // Show child if they are in the search results.
+                    const existingChildHasRealChildren = doesNodeHaveGenuineChildren(existingChild);
+
+                    if (existingChildHasRealChildren) {
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...existingChild,
+                                    className: '',
+                                    children: appendChildrenFromSearchResults(searchChild, existingChild)
+                                };
+                            }
+                            return node;
+                        });
                     }
-
-                    if (existingChild.children && searchChild.children) {
-                        searchChild.children
-                            .forEach((searchGrandChild) => {
-                                const existingGrandChildIndex = existingChild.children
-                                    .findIndex((existingGC) => existingGC.value === searchGrandChild.value);
-
-                                if (existingGrandChildIndex !== -1) {
-                                    const existingGrandChild = existingChild.children[existingGrandChildIndex];
-                                    // Show the existingGrandChildren if they are also in the search array.
-                                    existingGrandChild.className = '';
-                                    const isParent = (
-                                        Object.keys(existingGrandChild).includes('children') &&
-                                        existingGrandChild?.children?.length > 0
-                                    );
-                                    if (isParent) {
-                                        existingGrandChild.children = existingGrandChild.children
-                                            .map((greatGrand) => {
-                                                const greatGrandIsInSearchResults = searchGrandChild.children
-                                                    .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
-                                                if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
-                                                // Hide the greatGrandChildren if they are not in the search results array.
-                                                return { ...greatGrand, className: 'hide' };
-                                            });
-                                        const needsPlaceholder = areChildrenPartial(
-                                            existingGrandChild.count,
-                                            existingGrandChild.children.concat(searchGrandChild.children)
-                                        );
-                                        if (needsPlaceholder) {
-                                            existingGrandChild.children = addPlaceholder(existingGrandChild.children, existingGrandChild.value);
-                                        }
-                                    }
-                                }
-                                else {
-                                    // No existingChild to hide, just add it.
-                                    acc[existingChildIndex].children.push(searchGrandChild);
-                                }
-                            });
+                    else if (!existingChildHasRealChildren) {
+                        // No existingChild to hide, just add it.
+                        return acc.map((node) => {
+                            if (node.value === searchChild.value) {
+                                return {
+                                    ...node,
+                                    className: '',
+                                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
+                                };
+                            }
+                            return node;
+                        });
                     }
                     return acc;
                 }
-                // searchChild is completely new, add it w/ a placeholder.
-                if (areChildrenPartial(searchChild.count, searchChild.children)) {
-                    acc.push({
-                        ...searchChild,
-                        children: [
-                            ...mergeChildren(searchChild, { value: searchChild.value, children: [] }),
-                            {
-                                isPlaceHolder: true,
-                                label: "Child Placeholder",
-                                value: `children_of_${searchChild.value}`,
-                                className: 'hide'
-                            }
-                        ]
-                    });
-                }
-                // searchChild is completely new and fully populated with children, add it w/o a placeholder.
-                else {
-                    acc.push({
-                        ...searchChild,
-                        children: [...mergeChildren(searchChild, { value: searchChild.value, children: [] })]
-                    });
-                }
 
-                return acc;
-            }, existingChildArray);
+                // child from search is completely new, but not fully populated, add it w/ a placeholder.
+                return acc.concat([{
+                    ...searchChild,
+                    children: addChildrenAndPossiblyPlaceholder(searchChild.children, searchChild, true)
+                }]);
+            }, existingParent
+                .children
+                .map((node) => ({ ...node, className: 'hide' })));
     }
-    else if (existingParent.children && !parentFromSearch.children) {
-        return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
+    else if (doesNodeHaveGenuineChildren(existingParent) && !doesNodeHaveGenuineChildren(parentFromSearch)) {
+        return {
+            ...existingParent,
+            className: 'hide',
+            children: addChildrenAndPossiblyPlaceholder(
+                existingParent.children.map((child) => ({ ...child, className: 'hide' })),
+                existingParent,
+                true
+            )
+        };
     }
-    else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
-        return [
-            ...parentFromSearch.children,
-            {
-                className: 'hide',
-                isPlaceHolder: true,
-                label: 'Placeholder Child',
-                value: `children_of_${parentFromSearch.value}`
-            }
-        ];
+    else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
+        return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
     }
     return [];
 };
@@ -513,7 +526,7 @@ export const addSearchResultsToTree = (
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 return {
                     ...nodeFromSearch,
-                    children: [...mergeChildren(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
+                    children: [...appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
                 };
             }
             return { ...existingNode, className: 'hide' };
@@ -676,6 +689,79 @@ export const showAllNodes = (tree) => tree
                 .sort(sortNodesByValue)
             : []
     }));
+/**
+ * @param checkedAncestorPaths 2d array, each item an ancestryPath with the last item in the array representing a checkedNode; ie, [[11, 1111, 111110]] to represented checked state for 111110
+ * @param uncheckedAncestorPaths same as @param checkedAncestorPaths except for unchecked nodes
+ * @returns a sorted list of unique ancestor paths delimited by a '/' to be used in an API call
+ */
+export const getUniqueAncestorPaths = (
+    checkedAncestorPaths,
+    uncheckedAncestorPaths = []
+) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
+    .reduce((listOfUniqueAncestors, ancestryPath) => {
+        // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
+        const numberOfAncestors = ancestryPath.length === 1
+            ? 1
+            : ancestryPath.length - 1;
+        const uniqueAncestors = [...new Array(numberOfAncestors)]
+            .reduce((ancestors, _, i) => {
+                const currentAncestor = ancestryPath[i];
+                // already have this ancestor, move to the next.
+                if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors;
+                }
+                // top level ancestor does not exist, add it and move to the next.
+                if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors.concat([currentAncestor]);
+                }
+
+                // ancestor string like parentX/parentY/parentZ
+                const ancestorString = [...new Array(i + 1)]
+                    .reduce((str, __, index) => {
+                        if (index === 0) {
+                            return `${ancestryPath[index]}`;
+                        }
+                        return `${str}/${ancestryPath[index]}`;
+                    }, '');
+
+                if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+
+                return ancestors.concat([ancestorString]);
+            }, []);
+
+        return listOfUniqueAncestors.concat(uniqueAncestors);
+    }, [])
+    .sort((param1, param2) => {
+        const a = param1.split('/').length;
+        const b = param2.split('/').length;
+        // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+        if (b > a) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
+
+export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
+    ...new Set(
+        checked.map((code) => removePlaceholderString(code))
+    )]
+    .map((code) => traverseTreeByCodeFn(nodes, code))
+    .map((node) => ([...node.ancestors, node.value]));
+
+export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths
+    .sort((a, b) => a.length - b.length)
+    .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
+        const ancestorsForCheckedDescendant = ancestryPath.slice(0, ancestryPath.length - 1);
+        const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
+            .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
+                isEqual(arr, [ancestor]) ||
+                isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
+                isEqual(arr, listOfAncestors)
+            )));
+        if (isSomeAncestorAlreadyChecked) {
+            return leanArrayOfAncestryPaths;
+        }
+        return leanArrayOfAncestryPaths.concat([ancestryPath]);
+    }, []);
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,
