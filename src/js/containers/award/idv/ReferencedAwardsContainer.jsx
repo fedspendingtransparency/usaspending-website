@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { isEqual, pick, findKey } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
-import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
+import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
 import ReferencedAwardsSection from 'components/award/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {

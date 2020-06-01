@@ -5,6 +5,11 @@
 
 import { difference, cloneDeep, isEqual } from 'lodash';
 
+export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3) => (
+    str &&
+    str.length >= charMinimum
+);
+
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
         const value = node[keyMap.value]

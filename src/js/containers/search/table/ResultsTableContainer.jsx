@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
-
+import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -59,7 +59,8 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: true
+        enabled: true,
+        tooltip: tableTabsTooltips('loans')
     },
     {
         label: 'Other',

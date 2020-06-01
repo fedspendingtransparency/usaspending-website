@@ -120,4 +120,16 @@ describe('NAICS Search Filter Container', () => {
             expect(setUnchecked).toHaveBeenCalledWith([uncheckedNode.value]);
         });
     });
+    describe('handleTextInputChange', () => {
+        it('only calls onSearchChange if search string is greater than or equal to 3 chars', () => {
+            const mockFn = jest.fn();
+            const container = shallow(<NAICSCheckboxTree {...defaultProps} nodes={reallyBigTree} />);
+            container.instance().onSearchChange = mockFn;
+            container.instance().handleTextInputChange({ target: { value: 'a' }, persist: () => {} });
+            container.instance().handleTextInputChange({ target: { value: 'ab' }, persist: () => {} });
+            expect(mockFn).not.toHaveBeenCalled();
+            container.instance().handleTextInputChange({ target: { value: 'abc' }, persist: () => {} });
+            expect(mockFn).toHaveBeenCalledTimes(1);
+        });
+    });
 });

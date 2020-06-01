@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import GlobalConstants from "GlobalConstants";
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
-import tableMapping from 'dataMapping/awards/federalAccountSectionTable';
+import tableMapping from 'dataMapping/award/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
