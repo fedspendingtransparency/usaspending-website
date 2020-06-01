@@ -10,25 +10,92 @@ const totalPropTypes = {
     total: PropTypes.string
 };
 
-export const FileCOutlayTooltip = ({ total }) => (
+const fileCProps = {
+    total: PropTypes.string,
+    awardType: PropTypes.string,
+    title: PropTypes.string
+};
+
+export const FileCOutlayTooltip = ({ total, awardType, title = "COVID-19 Response Outlay Amount" }) => (
     <div className="award-amounts-tt">
-        <h4 className="tooltip__title">Outlay Amount for COVID-19</h4>
+        <h4 className="tooltip__title">{title}</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
-        <div className="tooltip__text">
-            <p>Placeholder for tooltip content</p>
-        </div>
+        {awardType === 'contract' && (
+            <div className="tooltip__text">
+                <p>Out of the amount obligated by this award as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19, this amount is how much was actually paid to the recipient to date. The timing of outlays (i.e., actual payments) against their obligations (i.e., promises for payment) is determined by the terms of the contract and invoices from the contractor.</p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
+        {awardType === 'idv' && (
+            <div className="tooltip__text">
+                <p>Out of the amount obligated by this award as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19, this amount is how much was actually paid to the recipient to date. The timing of outlays (i.e., actual payments) against their obligations (i.e., promises for payment) is determined by the terms of the contract and invoices from the contractor.</p>
+                <p>
+                    This amount includes all the award orders underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* nested under a child IDV order* (if any). This amount does not include obligations directly attached to any child IDV orders*, or to the IDV itself*.
+                </p>
+                <ul className="tooltip__list">
+                    <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
+                    <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
+                    <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV &gt; IDV &gt; Award).</li>
+                    <li><strong>*IDV itself</strong> refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
+                </ul>
+            </div>
+        )}
+        {awardType === 'asst' && (
+            <div className="tooltip__text">
+                <p>Out of the amount obligated by this award as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19, this amount is how much was actually paid to the recipient to date. The timing of outlays (i.e., actual payments) against their obligations (i.e., promises for payment) is determined by the terms of the award.</p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
+        {awardType === 'loan' && (
+            <div className="tooltip__text">
+                <p>Out of the amount obligated by this award (for loans, total subsidy cost) as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19, this amount is how much was actually paid to the recipient to date. The timing of outlays (i.e., actual payments) against their obligations (i.e., promises for payment) is determined by the terms of the award.</p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
     </div>
 );
 
 FileCOutlayTooltip.propTypes = totalPropTypes;
 
-export const FileCObligatedTooltip = ({ total }) => (
+export const FileCObligatedTooltip = ({ total, awardType, title = "COVID-19 Response Obligated Amount" }) => (
     <div className="award-amounts-tt">
-        <h4 className="tooltip__title">Obligations for COVID-19</h4>
+        <h4 className="tooltip__title">{title}</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
-        <div className="tooltip__text">
-            <p>Placeholder for tooltip content</p>
-        </div>
+        {awardType === 'contract' && (
+            <div className="tooltip__text">
+                <p>Out of the total amount obligated by this award, this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments.
+                </p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
+        {awardType === 'idv' && (
+            <>
+                <div className="tooltip__text">
+                    <p>Out of the total amount obligated by this award, this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments.</p>
+                    <p>This amount includes all the award orders underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* nested under a child IDV order* (if any). This amount does not include obligations directly attached to any child IDV orders*, or to the IDV itself*.</p>
+                </div>
+                <ul className="tooltip__list">
+                    <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
+                    <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
+                    <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV &gt; IDV &gt; Award).</li>
+                    <li><strong>*IDV itself</strong> refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
+                </ul>
+            </>
+        )}
+        {awardType === 'asst' && (
+            <div className="tooltip__text">
+                <p>Out of the total amount obligated by this award, this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments (if applicable).</p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
+        {awardType === 'loan' && (
+            <div className="tooltip__text">
+                <p>
+                    Out of the total amount obligated by this award (for loans, total subsidy cost), this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments (if applicable).
+                </p>
+                <p>This amount is updated on a monthly basis.</p>
+            </div>
+        )}
     </div>
 );
 
@@ -268,6 +335,8 @@ CombinedExceedsCurrentAmounts.propTypes = {
 ObligatedAmountTooltip.propTypes = propTypes;
 CurrentAmountTooltip.propTypes = propTypes;
 PotentialAmountTooltip.propTypes = propTypes;
+FileCObligatedTooltip.propTypes = fileCProps;
+FileCOutlayTooltip.propTypes = fileCProps;
 
 export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, data = {}) => {
     const map = {
@@ -294,21 +363,21 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             },
             fileCObligated: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="idv" />
             },
             fileCOutlay: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="idv" />
             }
         },
         contract: {
             fileCOutlay: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="contract" />
             },
             fileCObligated: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="contract" />
             },
             obligated: {
                 offsetAdjustments: { top: 0 },
@@ -342,11 +411,11 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             },
             fileCObligated: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="loan" />
             },
             fileCOutlay: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="loan" />
             }
         },
         asst: {
@@ -364,11 +433,11 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             },
             fileCObligated: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} />
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="asst" />
             },
             fileCOutlay: {
                 offsetAdjustments: { top: 0 },
-                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} />
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="asst" />
             }
         }
     };
