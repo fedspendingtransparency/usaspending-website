@@ -75,6 +75,9 @@ const filters = {
             title: 'Award ID'
         },
         {
+            title: 'CFDA Program'
+        },
+        {
             title: 'Disaster and Emergency Fund (DEF) Code',
             tooltip: withAdvancedSearchTooltip({
                 icon: 'info',
@@ -82,9 +85,6 @@ const filters = {
             }),
             className: 'def-sidebar',
             isReleased: GlobalConstants.CARES_ACT_RELEASED
-        },
-        {
-            title: 'CFDA Program'
         },
         {
             title: 'North American Industry Classification System (NAICS)'
@@ -114,8 +114,8 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         DEFCheckboxTree,
-        CFDASearchContainer,
         NAICSCheckboxTree,
+        CFDASearchContainer,
         PSCCheckboxTreeContainer,
         PricingTypeContainer,
         SetAsideContainer,
@@ -132,8 +132,8 @@ const filters = {
         null,
         null,
         null,
-        NewBadge,
         null,
+        NewBadge,
         null,
         null,
         null,
