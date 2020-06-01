@@ -235,7 +235,7 @@ const RectanglePercentViz = ({
                                         backgroundColor: numeratorBarAndLabelStyles.backgroundColor
                                     }}>
 
-                                    {isCaresReleased &&
+                                    {isCaresReleased && numerator2.rawValue > 0 &&
                                         <div className="nested-obligations">
                                             <div
                                                 className="file-c-obligated"
@@ -252,7 +252,7 @@ const RectanglePercentViz = ({
                                                     className="award-amounts-viz__bar file-c-obligated"
                                                     style={{ width: generatePercentage(1), backgroundColor: numerator2Color }} />
                                             </div>
-                                            {isNumerator3Defined &&
+                                            {isNumerator3Defined && numerator3.rawValue > 0 &&
                                                 <div
                                                     className="file-c-outlay"
                                                     style={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
@@ -280,7 +280,7 @@ const RectanglePercentViz = ({
                     </div>
                 </div>
             </div>
-            {/* Even if numerator3 is 0, we want to show this so long as numerator2 is > 0 */}
+            {/* Even if numerator3 is 0, we want to show this so long as numerator2 is defined */}
             {isCaresReleased &&
                 <div className="award-amounts-viz__label file-c-outlay">
                     <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.numerator3} />
