@@ -31,6 +31,7 @@ const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
 const tableHeight = 29.5 * rowHeight;
+const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
     constructor(props) {
@@ -59,9 +60,12 @@ export default class ResultsTable extends React.Component {
                 isActive={isActive}
                 title={column.columnName}
                 displayName={column.displayName}
+                subtitle={column.subtitle}
+                background={column.background}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
-                updateSort={this.props.updateSort} />
+                updateSort={this.props.updateSort}
+                headerHeight={headerHeight} />
         );
     }
 
@@ -118,6 +122,11 @@ export default class ResultsTable extends React.Component {
                 props.value = '- -';
             }
         }
+        else if (
+            (column.columnName === 'COVID-19 Response Obligations' || column.columnName === 'COVID-19 Response Outlays')
+            && !this.props.results[rowIndex][column.columnName]) {
+            props.value = '--';
+        }
 
         return React.createElement(
             cellClass,
@@ -161,7 +170,7 @@ export default class ResultsTable extends React.Component {
                 <IBTable
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
-                    headerHeight={50}
+                    headerHeight={headerHeight}
                     contentWidth={calculatedValues.width}
                     bodyWidth={this.props.visibleWidth}
                     bodyHeight={variableBodyHeight}

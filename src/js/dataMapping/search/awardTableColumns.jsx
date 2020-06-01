@@ -3,6 +3,8 @@
  * Created by Kevin Li 9/8/17
  */
 
+import kGlobalConstants from '../../GlobalConstants';
+
 const contractColumns = [
     'Award ID',
     'Recipient Name',
@@ -232,12 +234,16 @@ const subawardColumns = [
     'Prime Recipient Name'
 ];
 
+const awardColWidth = 280;
+const covidColWidth = 182;
+const covidColor = '#6E338E';
+
 const defaultContract = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
@@ -248,7 +254,7 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -259,7 +265,7 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -270,7 +276,12 @@ const defaultLoan = [
     { title: 'Recipient Name' },
     { title: 'Issued Date' },
     { title: 'Loan Value', displayName: 'Loan Face Value' },
-    { title: 'Subsidy Cost', displayName: 'Loan Subsidy Cost (Total Obligations To Date)' },
+    {
+        title: 'Subsidy Cost',
+        displayName: 'Loan Subsidy Cost',
+        subtitle: '(Total Obligations To Date)',
+        customWidth: 240
+    },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' }
 ];
@@ -281,7 +292,7 @@ const defaultOther = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -292,11 +303,44 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date' },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date' },
-    { title: 'Award Amount' },
+    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
 ];
+
+const covidObligationsCol = {
+    title: 'COVID-19 Response Obligations',
+    subtitle: 'Obligations',
+    background: covidColor,
+    displayName: 'COVID-19 Response',
+    customWidth: covidColWidth
+};
+
+const covidOutlaysCol = {
+    title: 'COVID-19 Response Outlays',
+    subtitle: 'Outlays',
+    background: covidColor,
+    displayName: 'COVID-19 Response',
+    customWidth: covidColWidth
+};
+
+const tabsWithCovidCols = [
+    defaultContract,
+    defaultGrant,
+    defaultDirectPayment,
+    defaultLoan,
+    defaultOther,
+    defaultIdvColumns
+];
+
+if (kGlobalConstants.CARES_ACT_RELEASED) {
+    // Insert columns for COVID-19
+    tabsWithCovidCols.forEach((tab) => {
+        tab.splice(5, 0, covidObligationsCol);
+        tab.splice(6, 0, covidOutlaysCol);
+    });
+}
 
 const defaultSub = [
     { title: 'Sub-Award ID' },
