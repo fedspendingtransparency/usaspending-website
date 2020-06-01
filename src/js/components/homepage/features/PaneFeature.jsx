@@ -29,7 +29,7 @@ const PaneFeature = () => {
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
                         <p className="feature-pane_content-text">
-                            Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.  
+                            Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.
                         </p>
                         <div className="feature-pane__button-wrapper">
                             <button
