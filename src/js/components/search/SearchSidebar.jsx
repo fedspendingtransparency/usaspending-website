@@ -122,7 +122,7 @@ const filters = {
         ExtentCompetedContainer
     ],
     accessories: [
-        withAdvancedSearchTooltip(KeyWordTooltip),
+        null,
         null,
         null,
         null,
@@ -176,7 +176,6 @@ export default class SearchSidebar extends React.Component {
             Object.keys(option).includes('isReleased') &&
             !option.isReleased
         ));
-        // debugger;
         const releasedFilters = indexOfUnreleased === -1
             ? filters
             : Object.entries(filters).reduce((acc, [key, arr]) => ({
