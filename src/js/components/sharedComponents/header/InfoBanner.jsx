@@ -45,9 +45,9 @@ export default class InfoBanner extends React.Component {
                             onClick={this.clickedBannerLink}>
                             OMB Memo M-20-21
                         </a>
-                        {/* <span className="info-banner__description-external-link">
+                        <span className="info-banner__description-external-link">
                             <FontAwesomeIcon icon="external-link-alt" />
-                        </span> */}
+                        </span>
                         , Federal agencies will begin supplementing existing reporting of
                         spending related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act, as
                         well as other COVID-19 appropriations in July 2020.
