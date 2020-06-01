@@ -91,7 +91,16 @@ const TableContainer = (props) => {
         }
     };
 
-    const fetchSpendingByCategoryCallback = useCallback((params) => {
+    const fetchSpendingByCategoryCallback = useCallback(() => {
+        setLoading(true);
+        // Make a request with the new page number
+        const params = {
+            fiscal_year: props.fy,
+            limit: pageSize,
+            page: currentPage,
+            sort: accountFields[sort],
+            order
+        };
         const request = fetchSpendingByCategory(props.agencyId, props.type, params);
         request.promise
             .then((res) => {
@@ -107,30 +116,13 @@ const TableContainer = (props) => {
     });
 
     useEffect(() => {
-        setLoading(true);
         // Reset to the first page
         changeCurrentPage(1);
-        const params = {
-            fiscal_year: props.fy,
-            limit: pageSize,
-            sort: accountFields[sort],
-            order
-        };
-
-        fetchSpendingByCategoryCallback(params);
+        fetchSpendingByCategoryCallback();
     }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
-        setLoading(true);
-        // Make a request with the new page number
-        const params = {
-            fiscal_year: props.fy,
-            limit: pageSize,
-            page: currentPage,
-            sort: accountFields[sort],
-            order
-        };
-        fetchSpendingByCategoryCallback(params);
+        fetchSpendingByCategoryCallback();
     }, [currentPage]);
 
     let message = null;
