@@ -1,6 +1,6 @@
 /**
- * PSCFilterGroup.jsx
- * Created by Emily Gullo 07/21/2017
+ * DefCodesFilterGroup.jsx
+ * Created by Maxwell Kendall 06/01/2020
  */
 
 import React from 'react';
@@ -14,7 +14,7 @@ const propTypes = {
     compressed: PropTypes.bool
 };
 
-export default class PSCFilterGroup extends React.Component {
+export default class DefCodesFilterGroup extends React.Component {
     constructor(props) {
         super(props);
 
@@ -56,4 +56,4 @@ export default class PSCFilterGroup extends React.Component {
     }
 }
 
-PSCFilterGroup.propTypes = propTypes;
+DefCodesFilterGroup.propTypes = propTypes;
