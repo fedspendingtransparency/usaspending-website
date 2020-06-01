@@ -33,10 +33,6 @@ const PaneFeature = () => {
                         </p>
                         <div className="feature-pane__button-wrapper">
                             <button
-                                // href="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                                // target="_blank"
-                                // role="button"
-                                // rel="noopener noreferrer"
                                 onClick={onRedirectModalClick}
                                 value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
                                 className="feature-pane__button feature-pane__button-redirect-modal">

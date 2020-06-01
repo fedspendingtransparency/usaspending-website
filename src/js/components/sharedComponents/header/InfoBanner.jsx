@@ -22,7 +22,7 @@ export default class InfoBanner extends React.Component {
     clickedBannerLink = () => {
         Analytics.event({
             category: 'Banner - Link',
-            action: 'https://datalab.usaspending.gov/americas-finance-guide/'
+            action: 'https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf'
         });
     }
 
@@ -51,8 +51,6 @@ export default class InfoBanner extends React.Component {
                         , Federal agencies will begin supplementing existing reporting of
                         spending related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act, as
                         well as other COVID-19 appropriations in July 2020.
-                        {/* <span className="info-banner__hyphen">-</span> */}
-                        
                     </div>
                     <button
                         className="info-banner__close-button"
