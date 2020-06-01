@@ -4,7 +4,7 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { mockAwardIdsForCaresAct } from 'dataMapping/awards/awardAmountsSection';
+import { mockAwardIdsForCaresAct } from 'dataMapping/award/awardAmountsSection';
 
 const BaseAwardAmounts = {
     populateBase(data, awardType) {
