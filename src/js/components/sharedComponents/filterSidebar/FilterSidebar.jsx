@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string),
+    options: PropTypes.arrayOf(PropTypes.shape({})),
     components: PropTypes.arrayOf(PropTypes.object),
     expanded: PropTypes.arrayOf(PropTypes.bool),
     accessories: PropTypes.arrayOf(PropTypes.func),

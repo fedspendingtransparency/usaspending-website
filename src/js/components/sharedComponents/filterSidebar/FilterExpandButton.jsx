@@ -13,7 +13,8 @@ const propTypes = {
     toggleFilter: PropTypes.func,
     arrowState: PropTypes.string,
     name: PropTypes.string,
-    tooltip: PropTypes.node,
+    // functional component!
+    tooltip: PropTypes.func,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
     glossaryUrl: PropTypes.string,
@@ -103,7 +104,6 @@ export default class FilterExpandButton extends React.Component {
                         <div
                             tabIndex="0"
                             id="accessory-view"
-                            ariaDescription={ariaDescription}
                             role="toolbar">
                             <this.props.accessory />
                         </div>
