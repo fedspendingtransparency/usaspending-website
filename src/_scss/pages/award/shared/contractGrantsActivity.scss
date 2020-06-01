@@ -53,13 +53,17 @@
         .tooltip-wrapper {
           z-index: 214748364;
           pointer-events: visible;
+          .tooltip-pointer {
+            height: 1.6rem;
+            width: 1.6rem;
+          }
           .tooltip__content {
             .tooltip__message {
               .tooltip__text {
                   padding: 2rem 2rem 0 2rem;
-              }
-              .tooltip__text:last-child {
-                padding: 2rem;
+                  .tooltip__text-section {
+                    padding: 2rem 2rem 0 2rem;
+                  }
               }
             } 
           }
@@ -138,8 +142,9 @@
       opacity: 0.3;
     }
     .svg-line {
+      stroke-width: 2;
       &.start {
-        stroke: $color-green-lighter;
+        stroke: $color-green-light;
       }
       &.noOpacity {
         opacity: 1;
@@ -172,7 +177,7 @@
     .svg-line__text {
       font-weight: $font-semibold;
       &.start {
-        fill: $color-green-lighter;
+        fill: $color-green-light;
       }
       &.contract-end {
         fill: $color-gold-light;

@@ -38,7 +38,7 @@ export default class StateLandingPage extends React.Component {
                             slug={slug}
                             email={{
                                 subject: emailSubject,
-                                body: `Search for different State profiles on USAspending.gov: ${getBaseUrl(slug)}`
+                                body: `View all of the State Profiles on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                     </div>
                 </StickyHeader>

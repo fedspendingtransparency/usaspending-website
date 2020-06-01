@@ -10,6 +10,9 @@
             .usa-dt-picker__list {
                 width: rem(140);
                 z-index: 1;
+                .usa-dt-picker__item {
+                    padding-right: rem(10);
+                }
                 span {
                     margin-left: rem(10);
                 }

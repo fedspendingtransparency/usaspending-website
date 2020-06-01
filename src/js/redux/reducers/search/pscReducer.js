@@ -100,6 +100,12 @@ export const pscReducer = (state = initialState, action) => {
                 counts: new List(action.payload)
             };
         }
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return {
+                ...initialState,
+                psc: state.psc
+            };
+        }
         default:
             return state;
     }

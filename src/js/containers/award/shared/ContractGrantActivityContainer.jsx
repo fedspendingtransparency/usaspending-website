@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
@@ -14,19 +15,22 @@ import {
     contractActivityGrants,
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
+import JumpToSectionButton from 'components/award/shared/awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     awardId: PropTypes.string,
     awardType: PropTypes.string,
     dates: PropTypes.object,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    jumpToTransactionHistoryTable: PropTypes.func
 };
 
 const ContractGrantActivityContainer = ({
     awardId,
     awardType,
     dates,
-    totalObligation
+    totalObligation,
+    jumpToTransactionHistoryTable
 }) => {
     // bad dates
     const [badDates, setBadDates] = useState(false);
@@ -50,6 +54,22 @@ const ContractGrantActivityContainer = ({
             return t;
         });
     };
+        /**
+     * Since we have multiple transactions on the same day and we wont know the total for
+     * a transaction until format transactions has run its course we run through all transactions
+     * again to set every transaction on the same day to the total for the day
+     */
+    const addRunningObligationTotalToChildren = (data) => data.map((info) => {
+        const aTransaction = info;
+        if (aTransaction.allTransactionsOnTheSameDate.length > 1) {
+            aTransaction.allTransactionsOnTheSameDate = info.allTransactionsOnTheSameDate.map((t) => {
+                const newTransaction = t;
+                newTransaction.running_obligation_total_to_date = info.running_obligation_total;
+                return newTransaction;
+            });
+        }
+        return aTransaction;
+    });
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -82,7 +102,8 @@ const ContractGrantActivityContainer = ({
                  * We will create the all transactions property and add itself to it
                  * then add it to the acc
                  */
-                updatedData.allTransactionsOnTheSameDate = [updatedData];
+                const originalData = cloneDeep(updatedData);
+                updatedData.allTransactionsOnTheSameDate = [originalData];
                 acc.push(updatedData);
                 return acc;
             }, []);
@@ -109,7 +130,7 @@ const ContractGrantActivityContainer = ({
                 previousRunningObligationTotal = total;
                 return updatedData;
             });
-        return newData;
+        return addRunningObligationTotalToChildren(newData);
     };
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
@@ -261,6 +282,10 @@ const ContractGrantActivityContainer = ({
                     {message()}
                 </div>
                 {content()}
+                <JumpToSectionButton
+                    linkText="View transactions table"
+                    icon="table"
+                    onClick={jumpToTransactionHistoryTable} />
             </div>
         </div>
     );

@@ -4,6 +4,7 @@
   **/
 
 import { removePlaceholderString } from "helpers/checkboxTreeHelper";
+import { CheckboxTreeSelections } from "redux/reducers/search/searchFiltersReducer";
 
 // Keyword Filter
 export const updateTextSearchInput = (textInput) => ({
@@ -146,11 +147,11 @@ export const updateNaicsV2 = (require, exclude, counts) => ({
 
 export const updateTASV2 = (require, exclude, counts) => ({
     type: 'UPDATE_TAS_V2',
-    payload: {
+    payload: new CheckboxTreeSelections({
         exclude,
         require: require.map((code) => removePlaceholderString(code)),
         counts
-    }
+    })
 });
 
 export const updateSelectedNAICS = (state) => ({
@@ -164,8 +165,16 @@ export const updateSelectedPSC = (state) => ({
     psc: state.psc
 });
 
-// Contract Pricing Type Filter
+export const updatePSCV2 = (require, exclude, counts) => ({
+    type: 'UPDATE_PSC_V2',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    })
+});
 
+// Contract Pricing Type Filter
 export const updatePricingType = ({ value }) => ({
     type: 'UPDATE_PRICING_TYPE',
     pricingType: value

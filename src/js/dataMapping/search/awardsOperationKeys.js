@@ -27,6 +27,11 @@ export const rootKeys = {
     extentCompeted: 'extent_competed_type_codes'
 };
 
+export const checkboxTreeKeys = {
+    require: [],
+    exclude: []
+};
+
 export const timePeriodKeys = {
     startDate: 'start_date',
     endDate: 'end_date'

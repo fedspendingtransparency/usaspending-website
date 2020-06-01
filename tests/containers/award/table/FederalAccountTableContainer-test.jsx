@@ -9,9 +9,9 @@ import { shallow } from 'enzyme';
 import { FederalAccountTableContainer } from
     'containers/award/table/FederalAccountTableContainer';
 
-import { mockFederalAccountFunding } from '../../../models/awardsV2/mockAwardApi';
+import { mockFederalAccountFunding } from '../../../models/award/mockAwardApi';
 
-import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
+import BaseFederalAccountFunding from 'models/v2/award/BaseFederalAccountFunding';
 
 // mock the IDV helper
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));

@@ -185,8 +185,9 @@ const ContractGrantActivity = ({
 
     const hideTooltipTransaction = () => setTimeout(() => setShowTooltipTransaction(false), 500);
 
+    const hideTransactionTooltipOnBlur = () => setShowTooltipTransaction(false);
+
     const showHideTooltipLine = (data, text) => {
-        // hide tooltip
         if (!data && showTooltipLine) {
             setShowTooltipLine(false);
             setThisLineOrTextIsHovered('');
@@ -220,6 +221,7 @@ const ContractGrantActivity = ({
                 showHideTooltipLine={showHideTooltipLine}
                 showTooltipTransaction={showTransactionTooltip}
                 hideTooltipTransaction={hideTooltipTransaction}
+                hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
                 thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
         </div>
     );

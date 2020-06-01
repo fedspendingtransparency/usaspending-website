@@ -34,7 +34,7 @@ describe('TASCheckboxContainer', () => {
             container.instance().fetchTas = mockFn;
             await container.instance().componentDidMount();
             // second call to fetchTas is for the agency
-            expect(mockFn).toHaveBeenLastCalledWith('012');
+            expect(mockFn).toHaveBeenLastCalledWith('012', null, false);
             // only calls for agency 12 once
             expect(mockFn).toHaveBeenCalledTimes(2);
         });
@@ -48,7 +48,7 @@ describe('TASCheckboxContainer', () => {
 
             await container.instance().componentDidMount();
 
-            expect(mockFn).toHaveBeenLastCalledWith('012/012-8226');
+            expect(mockFn).toHaveBeenLastCalledWith('012/012-8226', null, false);
             // only calls for federal account 012-8226 once
             expect(mockFn).toHaveBeenCalledTimes(3);
         });
@@ -175,6 +175,23 @@ describe('TASCheckboxContainer', () => {
 
             const newChecked = mockFn.mock.calls[0][0];
             expect(newChecked).toEqual([]);
+        });
+    });
+    describe('handleTextInputChange', () => {
+        it('only calls onSearchChange if search string is greater than or equal to 3 chars', () => {
+            const mockFn = jest.fn();
+            const container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                setCheckedTas={mockFn}
+                nodes={treePopulatedToFederalAccountLevel}
+                checked={['012']} />);
+            
+            container.instance().onSearchChange = mockFn;
+            container.instance().handleTextInputChange({ target: { value: 'a' }, persist: () => {} });
+            container.instance().handleTextInputChange({ target: { value: 'ab' }, persist: () => {} });
+            expect(mockFn).not.toHaveBeenCalled();
+            container.instance().handleTextInputChange({ target: { value: 'abc' }, persist: () => {} });
+            expect(mockFn).toHaveBeenCalledTimes(1);
         });
     });
 });
