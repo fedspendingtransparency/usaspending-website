@@ -80,7 +80,7 @@ export const topFilterGroupGenerator = (config = {
         case 'extentCompeted':
             return (<ExtentCompetedFilterGroup key={groupKey} {...config} />);
         case 'defCodes':
-            return(<DefCodesFilterGroup key={groupKey} {...config} />);
+            return (<DefCodesFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }
