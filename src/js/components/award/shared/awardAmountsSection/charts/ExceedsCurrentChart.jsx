@@ -110,7 +110,7 @@ const ExceedsCurrentChart = ({ awardAmounts, awardType }) => {
                 <div className="award-amounts-viz__line-up" />
             </div>
             <div className="award-amounts-viz__bar-wrapper">
-                <TooltipWrapper {...propsForPotentialTooltip} styles={{ width: "100%" }}>
+                <TooltipWrapper {...propsForPotentialTooltip}>
                     <div className="award-amounts-viz__bar">{/* Combined Potential */}
                         <TooltipWrapper className="award-amounts-chart-tt" {...propsForObligatedTooltip} styles={obligatedLabelStyle}>
                             <TooltipWrapper className="award-amounts-chart-tt" {...propsForCurrentTooltip} styles={{ width: currentBarStyle.width }}>

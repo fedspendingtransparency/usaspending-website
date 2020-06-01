@@ -4,13 +4,23 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { mockAwardIdsForCaresAct } from 'dataMapping/award/awardAmountsSection';
 
 const BaseAwardAmounts = {
-    populateBase(data) {
+    populateBase(data, awardType) {
         this.id = (data.award_id && `${data.award_id}`) || '';
+        if (data.generatedId) {
+            this.generatedId = encodeURIComponent(`${data.generatedId}`);
+        }
         this.generatedId = data.generated_unique_award_id
             ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '';
+        this._denominator = awardType === 'loan' ? '_subsidy' : '_totalObligation';
+        this._isMockCares = (
+            mockAwardIdsForCaresAct.includes(data?.generatedId) ||
+            // eslint-disable-next-line camelcase
+            mockAwardIdsForCaresAct.includes(data?.generated_unique_award_id)
+        );
     },
     populateAggIdv(data) {
         this.childIDVCount = data.child_idv_count || 0;
@@ -25,28 +35,58 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
+        this._fileCOutlay = this._isMockCares
+            ? this[this._denominator] * 0.25
+            : 0;
+        this._fileCObligated = this._isMockCares
+            ? this[this._denominator] * 0.5
+            : 0;
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
+        this._fileCOutlay = this._isMockCares
+            ? data[this._denominator] * 0.25
+            : 0;
+        this._fileCObligated = this._isMockCares
+            ? data[this._denominator] * 0.5
+            : 0;
     },
     populateLoan(data) {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
+        this._fileCOutlay = this._isMockCares
+            ? data[this._denominator] * 0.25
+            : 0;
+        this._fileCObligated = this._isMockCares
+            ? data[this._denominator] * 0.5
+            : 0;
     },
     populateAsst(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
+        this._fileCOutlay = this._isMockCares
+            ? data[this._denominator] * 0.25
+            : 0;
+        this._fileCObligated = this._isMockCares
+            ? data[this._denominator] * 0.5
+            : 0;
     },
     populateContract(data) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
+        this._fileCOutlay = this._isMockCares
+            ? data[this._denominator] * 0.25
+            : 0;
+        this._fileCObligated = this._isMockCares
+            ? data[this._denominator] * 0.5
+            : 0;
     },
     populate(data, awardAmountType) {
-        this.populateBase(data);
+        this.populateBase(data, awardAmountType);
         if (awardAmountType === 'idv_aggregated') {
             this.populateAggIdv(data);
         }
@@ -119,6 +159,26 @@ const BaseAwardAmounts = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseAndAllOptions) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
+    },
+    get fileCOutlayFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCOutlay, 2);
+    },
+    get fileCOutlayAbbreviated() {
+        if (this._fileCOutlay >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCOutlay);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._fileCOutlay) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._fileCOutlay);
+    },
+    get fileCObligatedFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCObligated, 2);
+    },
+    get fileCObligatedAbbreviated() {
+        if (this._fileCObligated >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCObligated);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._fileCObligated) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._fileCObligated);
     },
     get totalFundingAbbreviated() {
         if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
