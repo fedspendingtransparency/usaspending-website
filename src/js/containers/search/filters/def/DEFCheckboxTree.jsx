@@ -79,7 +79,7 @@ const DEFCheckboxTree = ({
 
     const removeSelectedFilter = (e) => {
         e.preventDefault();
-        stageDef([]);
+        stageDef([], [], []);
         setChecked([]);
     };
 
