@@ -11,6 +11,29 @@
                 .rct-node:nth-child(n) ol {
                   border-left: none;
                 }
+                .def-checkbox-label--covid  {
+                  &.rct-node-parent > .rct-text {
+                    .rct-checkbox {
+                      align-self: center;
+                    }
+                    .rct-title .def-checkbox-label--covid {
+                      width: auto;
+                      .checkbox-tree-label__value-container {
+                        display: none;
+                      }
+                      .checkbox-tree-label__label {
+                        background: #6E338E;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        padding: 5px 10px;
+                        font-size: 16px;
+                        border: 1px solid #C7C7C7;
+                        border-radius: 4px;
+                      }
+                    }
+                  }
+                }
             }
         }
     }
