@@ -10,7 +10,7 @@ import {
     getXDomain,
     beforeDate,
     afterDate,
-    lineHelper,
+    getLineValue,
     filteredAndSortedLinesFirstToLast,
     dateMatchingFirstLineValue,
     shouldExtendAreaPathWhenLastDataPointYValueChange,
@@ -253,13 +253,19 @@ describe('Contract Grant Activity Helper', () => {
 
 describe('Line Helper', () => {
     it('should return null if no date', () => {
-        expect(lineHelper()).toBeNull();
+        expect(getLineValue()).toBeNull();
     });
     it('should return null if date isNaN', () => {
-        expect(lineHelper(moment(''))).toBeNull();
+        expect(getLineValue(moment(''))).toBeNull();
     });
     it('should return a number if date exists', () => {
-        expect(lineHelper(goodDates._startDate)).toBe(goodDates._startDate.valueOf());
+        expect(getLineValue(goodDates._startDate, [goodDates._startDate.subtract(7, 'd'), goodDates._startDate.add(7, 'd')])).toBe(goodDates._startDate.valueOf());
+    });
+    it('should return null when date is less than domain', () => {
+        expect(getLineValue(3, [10, 20])).toBeNull();
+    });
+    it('should return null when date is greater than domain', () => {
+        expect(getLineValue(25, [10, 20])).toBeNull();
     });
 });
 
