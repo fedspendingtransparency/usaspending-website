@@ -178,6 +178,7 @@ export default class CheckboxTree extends Component {
                 label: this.setChildrenToLoading(node)
             };
         }
+
         const displayId = Object.keys(node).includes('displayId')
             ? node.displayId
             : true;
@@ -190,10 +191,11 @@ export default class CheckboxTree extends Component {
                 )
                 : (
                     <CheckboxTreeLabel
+                        className={node?.labelClassName}
                         count={node.count}
                         displayId={displayId}
-                        value={this.highlightText(node.value)}
-                        label={this.highlightText(node.label)}
+                        value={node.isSearchable ? this.highlightText(node.value) : node.value}
+                        label={node.isSearchable ? this.highlightText(node.label) : node.label}
                         countLabel={this.props.countLabel} />
                 ),
             children: node.children
