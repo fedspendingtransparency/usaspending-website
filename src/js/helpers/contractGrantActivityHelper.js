@@ -69,12 +69,12 @@ export const createSteppedAreaPath = (
     }, 'M')
 );
 /**
- * validateLineValue
+ * getLineValue
  * - determines if a line should be drawn
  * @param {Moment{}} date
  * @returns {null || Number}
  */
-export const validateLineValue = (date, xDomain) => {
+export const getLineValue = (date, xDomain) => {
     if (!date || isNaN(date.valueOf())) return null;
     if (date.valueOf() < xDomain[0] || date.valueOf() > xDomain[1]) return null;
     return date.valueOf();
