@@ -84,8 +84,10 @@ const ContractGrantActivityChartAreaPaths = ({
     // should we extend area path to today line
     const shouldWeExtendAreaPathToTodayLineOrEndLines = useCallback(() => {
         const lastTransaction = transactions[transactions.length - 1];
-        const everyLineIsAfterLastTransaction = filteredAndSortedLinesFirstToLast(
-            [todayLineValue, endLineValue, potentialEndLineValue]).every((line) => (
+        const verticalLines = filteredAndSortedLinesFirstToLast(
+            [todayLineValue, endLineValue, potentialEndLineValue]);
+        if (!verticalLines?.length) return false;
+        const everyLineIsAfterLastTransaction = verticalLines.every((line) => (
             lastTransaction.action_date.isBefore(moment(line))
         ));
         if (everyLineIsAfterLastTransaction) return true;

@@ -13,9 +13,9 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
-import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
-import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
+import BaseContractTransaction from 'models/v2/award/transactions/BaseContractTransaction';
+import BaseLoanTransaction from 'models/v2/award/transactions/BaseLoanTransaction';
+import BaseAssistanceTransaction from 'models/v2/award/transactions/BaseAssistanceTransaction';
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {

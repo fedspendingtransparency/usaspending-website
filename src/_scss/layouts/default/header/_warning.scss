@@ -37,6 +37,7 @@
             @include flex(0 0 auto);
             @include button-unstyled;
             padding: rem(5) rem(10);
+            color: $color-base;
         }
     }
     &.info-banner_warning {

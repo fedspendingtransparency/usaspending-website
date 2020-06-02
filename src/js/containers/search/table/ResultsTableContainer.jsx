@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
-
+import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -59,7 +59,8 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: true
+        enabled: true,
+        tooltip: tableTabsTooltips('loans')
     },
     {
         label: 'Other',
@@ -136,7 +137,7 @@ export class ResultsTableContainer extends React.Component {
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                [data.title]: this.createColumn(data.displayName, data.title)
+                [data.title]: this.createColumn(data)
             }), {});
 
             return Object.assign({}, cols, {
@@ -151,7 +152,7 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
-    createColumn(displayName, title) {
+    createColumn(col) {
         // create an object that integrates with the expected column data structure used by
         // the table component
         // const dataType = awardTableColumnTypes[title];
@@ -162,15 +163,16 @@ export class ResultsTableContainer extends React.Component {
 
         // BODGE: Temporarily only allow descending columns
         const direction = 'desc';
+        const width = col.customWidth || measureTableHeader(col.displayName || col.title);
 
-        const column = {
-            columnName: title,
-            displayName: displayName || title,
-            width: measureTableHeader(displayName || title),
+        return {
+            columnName: col.title,
+            displayName: col.displayName || col.title,
+            subtitle: col.subtitle || '',
+            width,
+            background: col.background || '',
             defaultDirection: direction
         };
-
-        return column;
     }
 
     pickDefaultTab() {

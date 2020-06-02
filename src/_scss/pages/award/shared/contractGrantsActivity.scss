@@ -53,6 +53,10 @@
         .tooltip-wrapper {
           z-index: 214748364;
           pointer-events: visible;
+          .tooltip-pointer {
+            height: 1.6rem;
+            width: 1.6rem;
+          }
           .tooltip__content {
             .tooltip__message {
               .tooltip__text {

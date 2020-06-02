@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import GlobalConstants from "GlobalConstants";
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
@@ -25,31 +26,81 @@ import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxT
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
+import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
 
-import KeywordHover from 'components/search/filters/keyword/KeywordHover';
+import {
+    KeyWordTooltip,
+    withAdvancedSearchTooltip,
+    DEFTooltip
+} from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
-const filters = {
+const staticFilters = {
     options: [
-        'Keyword',
-        'Time Period',
-        'Award Type',
-        'Agency',
-        'Treasury Account Symbol (TAS)',
-        'Location',
-        'Recipient',
-        'Recipient Type',
-        'Award Amount',
-        'Award ID',
-        'CFDA Program',
-        'North American Industry Classification System (NAICS)',
-        'Product/Service Code (PSC)',
-        'Type of Contract Pricing',
-        'Type of Set Aside',
-        'Extent Competed'
+        {
+            title: 'Keyword',
+            tooltip: withAdvancedSearchTooltip({
+                icon: "info",
+                tooltipComponent: <KeyWordTooltip />
+            })
+        },
+        {
+            title: 'Time Period'
+        },
+        {
+            title: 'Award Type'
+        },
+        {
+            title: 'Agency'
+        },
+        {
+            title: 'Treasury Account Symbol (TAS)'
+        },
+        {
+            title: 'Location'
+        },
+        {
+            title: 'Recipient'
+        },
+        {
+            title: 'Recipient Type'
+        },
+        {
+            title: 'Award Amount'
+        },
+        {
+            title: 'Award ID'
+        },
+        {
+            title: 'CFDA Program'
+        },
+        {
+            title: 'Disaster and Emergency Fund (DEF) Code',
+            tooltip: withAdvancedSearchTooltip({
+                icon: 'info',
+                tooltipComponent: <DEFTooltip />
+            }),
+            className: 'def-sidebar',
+            isReleased: GlobalConstants.CARES_ACT_RELEASED
+        },
+        {
+            title: 'North American Industry Classification System (NAICS)'
+        },
+        {
+            title: 'Product or Service Code (PSC)'
+        },
+        {
+            title: 'Type of Contract Pricing'
+        },
+        {
+            title: 'Type of Set Aside'
+        },
+        {
+            title: 'Extent Competed'
+        }
     ],
     components: [
         KeywordContainer,
@@ -63,6 +114,7 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,
+        DEFCheckboxTree,
         NAICSCheckboxTree,
         PSCCheckboxTreeContainer,
         PricingTypeContainer,
@@ -70,7 +122,6 @@ const filters = {
         ExtentCompetedContainer
     ],
     accessories: [
-        KeywordHover,
         null,
         null,
         null,
@@ -81,6 +132,8 @@ const filters = {
         null,
         null,
         null,
+        null,
+        NewBadge,
         null,
         null,
         null,
@@ -97,64 +150,76 @@ const filters = {
         null,
         null,
         null,
+        null, // def-code
         null,
         null,
-        'productservice-code-psc',
+        'product-or-service-code-psc',
         null,
         null
     ]
 };
 
 const propTypes = {
-    mobile: PropTypes.bool,
-    filters: PropTypes.object,
-    requestsComplete: PropTypes.bool,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    filters: PropTypes.object
 };
 
 const defaultProps = {
     mobile: false
 };
 
-export default class SearchSidebar extends React.Component {
-    render() {
-        const expanded = [];
-        filters.options.forEach((filter) => {
-            // Collapse all by default, unless the filter has a selection made
-            if (filter === 'Time Period') {
-                // time period is always expanded
-                expanded.push(true);
-            }
-            else {
-                expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
-            }
-        });
+const SearchSidebar = ({
+    filters,
+    hash
+}) => {
+    const indexOfUnreleased = staticFilters.options.findIndex((option) => (
+        Object.keys(option).includes('isReleased') &&
+        !option.isReleased
+    ));
+    const releasedFilters = indexOfUnreleased === -1
+        ? staticFilters
+        : Object.entries(staticFilters).reduce((acc, [key, arr]) => ({
+            ...acc,
+            [key]: arr.filter((item, i) => i !== indexOfUnreleased)
+        }), {});
+    const expanded = [];
+    releasedFilters.options.forEach((filter) => {
+        // Collapse all by default, unless the filter has a selection made
+        if (filter === 'Time Period') {
+            // time period is always expanded
+            expanded.push(true);
+        }
+        else {
+            expanded.push(SidebarHelper.filterHasSelections(filters, filter));
+        }
+    });
 
-        return (
-            <div
-                className="search-sidebar"
-                role="search"
-                aria-label="Filters">
-                <div className="sidebar-header">
-                    <span className="filter-icon">
-                        <FilterIcon />
-                    </span>
-                    <h2 className="sidebar-title">Filters</h2>
-                </div>
-                <div className="sidebar-top-submit">
-                    <SearchSidebarSubmitContainer />
-                </div>
-                <FilterSidebar
-                    {...filters}
-                    expanded={expanded}
-                    hash={this.props.hash} />
-                <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
-                </div>
+    return (
+        <div
+            className="search-sidebar"
+            role="search"
+            aria-label="Filters">
+            <div className="sidebar-header">
+                <span className="filter-icon">
+                    <FilterIcon />
+                </span>
+                <h2 className="sidebar-title">Filters</h2>
             </div>
-        );
-    }
-}
+            <div className="sidebar-top-submit">
+                <SearchSidebarSubmitContainer />
+            </div>
+            <FilterSidebar
+                {...releasedFilters}
+                expanded={expanded}
+                hash={hash} />
+            <div className="sidebar-bottom-submit">
+                <SearchSidebarSubmitContainer />
+            </div>
+        </div>
+    );
+};
 
 SearchSidebar.propTypes = propTypes;
 SearchSidebar.defaultProps = defaultProps;
+
+export default SearchSidebar;

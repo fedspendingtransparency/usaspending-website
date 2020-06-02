@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
-import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';

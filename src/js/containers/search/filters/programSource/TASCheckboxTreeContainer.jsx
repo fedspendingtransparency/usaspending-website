@@ -21,7 +21,8 @@ import {
     removePlaceholderString,
     getUniqueAncestorPaths,
     getAllDescendants,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    doesMeetMinimumCharsRequiredForSearch
 } from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
@@ -38,7 +39,7 @@ import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-import ProgramSourceInfoTooltip from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
+import ProgramSourceInfoTooltip from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -326,15 +327,22 @@ export class TASCheckboxTree extends React.Component {
     }
 
     handleTextInputChange = (e) => {
+        e.persist();
         const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
+        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
+        if (shouldTriggerSearch) {
+            return this.setState({
+                searchString: text,
+                isSearch: true,
+                isLoading: true
+            }, this.onSearchChange);
+        }
         return this.setState({
-            searchString: text,
-            isSearch: true,
-            isLoading: true
-        }, this.onSearchChange);
+            searchString: text
+        });
     }
 
     render() {
