@@ -20,7 +20,7 @@ export const dateMatchingFirstLineValue = (lines, dates, todayLineValue, endLine
 // should we extend path for last data point y value change
 export const shouldExtendAreaPathWhenLastDataPointYValueChange = (transactions, areaPathExtensionToTodayLine) => {
     if (transactions.length <= 1) return false;
-    const lastTransactionValueChange = transactions[transactions.length - 1].running_obligation_total > transactions[transactions.length - 2].running_obligation_total;
+    const lastTransactionValueChange = transactions[transactions.length - 1].running_obligation_total !== transactions[transactions.length - 2].running_obligation_total;
     if (!lastTransactionValueChange) return false;
     if (areaPathExtensionToTodayLine) return false;
     return true;
@@ -69,13 +69,14 @@ export const createSteppedAreaPath = (
     }, 'M')
 );
 /**
- * lineHelper
+ * getLineValue
  * - determines if a line should be drawn
  * @param {Moment{}} date
  * @returns {null || Number}
  */
-export const lineHelper = (date) => {
+export const getLineValue = (date, xDomain) => {
     if (!date || isNaN(date.valueOf())) return null;
+    if (date.valueOf() < xDomain[0] || date.valueOf() > xDomain[1]) return null;
     return date.valueOf();
 };
 /**

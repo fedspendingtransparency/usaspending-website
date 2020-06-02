@@ -4,7 +4,7 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/awards/awardAmountsSection';
+import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/award/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options

@@ -38,10 +38,3 @@ export const fetchAgencyObligatedAmounts = (params) => apiRequest({
     url: `v2/financial_balances/agencies/`,
     params
 });
-
-export const fetchSpendingCount = (agencyId, fy, type) => apiRequest({
-    url: `v2/agency/${agencyId}/${type}/count/`,
-    params: {
-        fiscal_year: parseInt(fy, 10)
-    }
-});

@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { fetchSpendingCount } from 'helpers/agencyHelper';
+import { fetchSpendingCount } from 'helpers/agencyV2Helper';
 import CountTab from 'components/agency/v2/CountTab';
 
 const propTypes = {
@@ -45,6 +45,7 @@ const CountTabContainer = (props) => {
             subHeading={props.subHeading}
             setActiveTab={props.setActiveTab}
             active={props.active}
+            disabled={count === 0}
             type={props.type} />
     );
 };
