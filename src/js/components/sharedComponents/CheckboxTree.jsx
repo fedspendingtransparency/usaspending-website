@@ -16,6 +16,7 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 const propTypes = {
     data: PropTypes.array,
+    className: PropTypes.string,
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
     errorMessage: PropTypes.string,
@@ -177,6 +178,7 @@ export default class CheckboxTree extends Component {
                 label: this.setChildrenToLoading(node)
             };
         }
+
         const displayId = Object.keys(node).includes('displayId')
             ? node.displayId
             : true;
@@ -189,10 +191,11 @@ export default class CheckboxTree extends Component {
                 )
                 : (
                     <CheckboxTreeLabel
+                        className={node?.labelClassName}
                         count={node.count}
                         displayId={displayId}
-                        value={this.highlightText(node.value)}
-                        label={this.highlightText(node.label)}
+                        value={node.isSearchable ? this.highlightText(node.value) : node.value}
+                        label={node.isSearchable ? this.highlightText(node.label) : node.label}
                         countLabel={this.props.countLabel} />
                 ),
             children: node.children
@@ -209,7 +212,8 @@ export default class CheckboxTree extends Component {
             isLoading,
             isError,
             errorMessage,
-            noResults
+            noResults,
+            className
         } = this.props;
         const labeledNodes = this.createLabels(data);
         if (isLoading) {
@@ -240,8 +244,9 @@ export default class CheckboxTree extends Component {
             );
         }
         else if (!data.length) return null;
+        const checkboxTreeClass = className ? ` ${className}` : '';
         return (
-            <div className="checkbox-tree">
+            <div className={`checkbox-tree${checkboxTreeClass}`}>
                 <CheckBoxTree
                     nodes={labeledNodes}
                     checked={checked}

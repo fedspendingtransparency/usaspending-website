@@ -11,7 +11,7 @@ import { programSourceInfo } from 'dataMapping/search/programSourceInfoTooltipCo
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import ProgramSourceInfoTooltipContent from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
+import ProgramSourceInfoTooltipContent from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
 
 const propTypes = {
     component: PropTypes.object,
