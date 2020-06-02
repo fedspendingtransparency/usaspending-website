@@ -160,9 +160,6 @@ const filters = {
 };
 
 const propTypes = {
-    mobile: PropTypes.bool,
-    filters: PropTypes.object,
-    requestsComplete: PropTypes.bool,
     hash: PropTypes.string
 };
 
@@ -170,55 +167,57 @@ const defaultProps = {
     mobile: false
 };
 
-export default class SearchSidebar extends React.Component {
-    render() {
-        const indexOfUnreleased = filters.options.findIndex((option) => (
-            Object.keys(option).includes('isReleased') &&
-            !option.isReleased
-        ));
-        const releasedFilters = indexOfUnreleased === -1
-            ? filters
-            : Object.entries(filters).reduce((acc, [key, arr]) => ({
-                ...acc,
-                [key]: arr.filter((item, i) => i !== indexOfUnreleased)
-            }), {});
-        const expanded = [];
-        releasedFilters.options.forEach((filter) => {
-            // Collapse all by default, unless the filter has a selection made
-            if (filter === 'Time Period') {
-                // time period is always expanded
-                expanded.push(true);
-            }
-            else {
-                expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
-            }
-        });
+const SearchSidebar = ({
+    hash
+}) => {
+    const indexOfUnreleased = filters.options.findIndex((option) => (
+        Object.keys(option).includes('isReleased') &&
+        !option.isReleased
+    ));
+    const releasedFilters = indexOfUnreleased === -1
+        ? filters
+        : Object.entries(filters).reduce((acc, [key, arr]) => ({
+            ...acc,
+            [key]: arr.filter((item, i) => i !== indexOfUnreleased)
+        }), {});
+    const expanded = [];
+    releasedFilters.options.forEach((filter) => {
+        // Collapse all by default, unless the filter has a selection made
+        if (filter === 'Time Period') {
+            // time period is always expanded
+            expanded.push(true);
+        }
+        else {
+            expanded.push(SidebarHelper.filterHasSelections(filters, filter));
+        }
+    });
 
-        return (
-            <div
-                className="search-sidebar"
-                role="search"
-                aria-label="Filters">
-                <div className="sidebar-header">
-                    <span className="filter-icon">
-                        <FilterIcon />
-                    </span>
-                    <h2 className="sidebar-title">Filters</h2>
-                </div>
-                <div className="sidebar-top-submit">
-                    <SearchSidebarSubmitContainer />
-                </div>
-                <FilterSidebar
-                    {...releasedFilters}
-                    expanded={expanded}
-                    hash={this.props.hash} />
-                <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
-                </div>
+    return (
+        <div
+            className="search-sidebar"
+            role="search"
+            aria-label="Filters">
+            <div className="sidebar-header">
+                <span className="filter-icon">
+                    <FilterIcon />
+                </span>
+                <h2 className="sidebar-title">Filters</h2>
             </div>
-        );
-    }
-}
+            <div className="sidebar-top-submit">
+                <SearchSidebarSubmitContainer />
+            </div>
+            <FilterSidebar
+                {...releasedFilters}
+                expanded={expanded}
+                hash={hash} />
+            <div className="sidebar-bottom-submit">
+                <SearchSidebarSubmitContainer />
+            </div>
+        </div>
+    );
+};
 
 SearchSidebar.propTypes = propTypes;
 SearchSidebar.defaultProps = defaultProps;
+
+export default SearchSidebar;
