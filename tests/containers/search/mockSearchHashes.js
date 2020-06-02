@@ -36,7 +36,8 @@ export const mockFilters = {
             federalAccounts: [],
             treasuryAccounts: [],
             tasCodes: { require: [], exclude: [], counts: [] },
-            pscCodes: { require: [], exclude: [], counts: [] }
+            pscCodes: { require: [], exclude: [], counts: [] },
+            defCodes: { require: [], exclude: [], counts: [] }
         }
     }
 };

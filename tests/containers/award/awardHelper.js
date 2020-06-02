@@ -4,7 +4,7 @@ import {
     mockFileDownloadResponseIdv,
     mockFileDownloadResponseAssistance,
     mockFileDownloadResponseContract
-} from "../../models/awardsV2/mockAwardApi";
+} from "../../models/award/mockAwardApi";
 
 // Fetch Individual Awards
 export const fetchAwardV2 = () => (

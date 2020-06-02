@@ -1,0 +1,51 @@
+$letter-color: #323A45;
+
+.tooltip-wrapper {
+    svg {
+        width: rem(20);
+        height: rem(20);
+    }
+    .advanced-search-tt {
+        display: flex;
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        // tooltip header styles
+        h3 {
+            margin: 0;
+            padding: 0 rem(10);
+            font-weight: bold;
+            font-size: rem(16);
+            width: 100%;
+            color: $letter-color;
+            text-align: center;
+            background: #F0F0F0;
+            line-height: rem(42);
+            z-index: 2;
+        }
+        // tooltip body
+        .advanced-search-tt__body {
+            width: 100%;
+            padding: rem(5) rem(10);
+            @include display(flex);
+            @include flex-direction(column);
+            // text based elements
+            span,
+            p,
+            .advanced-search-tt__list,
+            .advanced-search-tt__list li {
+                color: $letter-color;
+                letter-spacing: 0;
+                font-size: rem(14);
+                line-height: rem(18);
+                font-weight: 400;
+                width: 100%;
+            }
+            .advanced-search-tt__list {
+                @include align-self(flex-start);
+                padding-left: rem(40);
+                padding-top: 0;
+            }
+        }
+    }
+}

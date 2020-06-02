@@ -24,6 +24,7 @@ import naicsReducer from './search/naicsReducer';
 import tasReducer from './search/tasReducer';
 import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
+import agencyV2Reducer from './agencyV2/agencyV2Reducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -48,7 +49,8 @@ const appReducer = combineReducers({
     naics: naicsReducer,
     tas: tasReducer,
     psc: pscReducer,
-    searchMapLegendToggle: mapLegendToggleReducer
+    searchMapLegendToggle: mapLegendToggleReducer,
+    agencyV2: agencyV2Reducer
 });
 
 export default appReducer;
