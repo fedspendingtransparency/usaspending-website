@@ -244,8 +244,9 @@ export default class CheckboxTree extends Component {
             );
         }
         else if (!data.length) return null;
+        const checkboxTreeClass = className ? ` ${className}` : '';
         return (
-            <div className={`checkbox-tree ${className}`}>
+            <div className={`checkbox-tree${checkboxTreeClass}`}>
                 <CheckBoxTree
                     nodes={labeledNodes}
                     checked={checked}
