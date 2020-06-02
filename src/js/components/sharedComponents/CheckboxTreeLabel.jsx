@@ -27,8 +27,9 @@ const CheckboxTreeLabel = ({
 }) => {
     const countText = count > 1 ? 'codes' : 'code';
     const countDisplay = countLabel === '' ? countText : countLabel;
+    const className = labelClassName ? ` ${labelClassName}` : '';
     return (
-        <div className={`checkbox-tree-label ${labelClassName}`}>
+        <div className={`checkbox-tree-label${className}`}>
             {displayId && (
                 <div className="checkbox-tree-label__value-container">
                     <div className="checkbox-tree-label__value-container-value">
