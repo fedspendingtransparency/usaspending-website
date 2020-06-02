@@ -85,7 +85,8 @@ const awardOverviewAwardAmountsSectionBase = {
     totalFundingAbbreviated: PropTypes.string,
     totalFundingFormatted: PropTypes.string,
     totalObligationAbbreviated: PropTypes.string,
-    totalObligationFormatted: PropTypes.string
+    totalObligationFormatted: PropTypes.string,
+    isMockCares: PropTypes.bool
 };
 
 const contract = {

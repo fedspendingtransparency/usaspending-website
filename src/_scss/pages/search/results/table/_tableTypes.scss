@@ -54,6 +54,17 @@
                     background-color: $color-gold;    
                 }
             }
+              .tooltip-wrapper {
+                .tooltip__text {
+                    padding: 2rem 2rem 0 2rem;
+                    strong {
+                      padding-bottom: 1rem;
+                    }
+                }
+                .tooltip__text:last-child {
+                  padding: 2rem;
+                }
+              } 
         }
 
         &[disabled] {

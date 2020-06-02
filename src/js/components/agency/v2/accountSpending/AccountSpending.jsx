@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CountTabContainer from 'containers/agency/v2/accountSpending/CountTabContainer';
+import TableContainer from 'containers/agency/v2/accountSpending/TableContainer';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -45,6 +46,7 @@ const tabs = [
 
 const AccountSpending = ({ agencyId, fy }) => {
     const [activeTab, setActiveTab] = useState('budget_function');
+    const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
     return (
         <div className="body__content">
             <div className="count-tabs">
@@ -66,6 +68,11 @@ const AccountSpending = ({ agencyId, fy }) => {
                             active={activeTab === tab.type} />
                     ))}
                 </div>
+                <TableContainer
+                    agencyId={agencyId}
+                    fy={fy}
+                    type={activeTab}
+                    subHeading={subHeading} />
             </div>
         </div>
     );

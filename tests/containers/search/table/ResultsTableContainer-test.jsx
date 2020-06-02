@@ -280,13 +280,64 @@ describe('ResultsTableContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
 
-            const output = container.instance().createColumn('Test Display Name', 'Test Column');
+            const mockColumnData = {
+                title: 'Test Column',
+                displayName: 'Test Display Name',
+                subtitle: '(Test Subtitle)',
+                background: '#eeeeee'
+            };
+
+            const output = container.instance().createColumn(mockColumnData);
             expect(output).toEqual({
                 columnName: 'Test Column',
                 displayName: 'Test Display Name',
                 width: 220,
-                defaultDirection: 'desc'
+                defaultDirection: 'desc',
+                background: '#eeeeee',
+                subtitle: '(Test Subtitle)'
             });
+        });
+        it('should respect a provided custom width', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockColumnData = {
+                title: 'Test Column',
+                displayName: 'Test Display Name',
+                customWidth: 123
+            };
+
+            const output = container.instance().createColumn(mockColumnData);
+            expect(output.width).toEqual(123);
+        });
+        it('should default to the empty string when no subtitle is provided', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockColumnData = {
+                title: 'Test Column',
+                displayName: 'Test Display Name'
+            };
+
+            const output = container.instance().createColumn(mockColumnData);
+            expect(output.subtitle).toBeFalsy();
+            expect(output.subtitle).toEqual('');
+        });
+        it('should default to the empty string when no background color is provided', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockColumnData = {
+                title: 'Test Column',
+                displayName: 'Test Display Name'
+            };
+
+            const output = container.instance().createColumn(mockColumnData);
+            expect(output.background).toBeFalsy();
+            expect(output.background).toEqual('');
         });
     });
 

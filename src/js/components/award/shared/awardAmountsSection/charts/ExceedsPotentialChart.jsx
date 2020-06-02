@@ -130,7 +130,7 @@ const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
                 <div className="award-amounts-viz__line-up" />
             </div>
             <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedLabelStyle} offsetAdjustments={{ top: 17.5, right: 30 }}>
-                <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
+                <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending" style={{ height: '4rem' }}>
                     <div className="award-amounts-viz__bar">
                         <div
                             className="award-amounts-viz__potential-wrapper"
