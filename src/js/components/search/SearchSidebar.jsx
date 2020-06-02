@@ -38,7 +38,7 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
-const filters = {
+const staticFilters = {
     options: [
         {
             title: 'Keyword',
@@ -160,7 +160,8 @@ const filters = {
 };
 
 const propTypes = {
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    filters: PropTypes.object
 };
 
 const defaultProps = {
@@ -168,15 +169,16 @@ const defaultProps = {
 };
 
 const SearchSidebar = ({
+    filters,
     hash
 }) => {
-    const indexOfUnreleased = filters.options.findIndex((option) => (
+    const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
     ));
     const releasedFilters = indexOfUnreleased === -1
-        ? filters
-        : Object.entries(filters).reduce((acc, [key, arr]) => ({
+        ? staticFilters
+        : Object.entries(staticFilters).reduce((acc, [key, arr]) => ({
             ...acc,
             [key]: arr.filter((item, i) => i !== indexOfUnreleased)
         }), {});
