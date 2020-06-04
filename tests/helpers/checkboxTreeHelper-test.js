@@ -34,7 +34,7 @@ import {
     getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
 
-import * as mockData from '../containers/search/filters/naics/mockNaics';
+import * as mockData from '../containers/search/filters/naics/mockNAICS';
 import * as pscMockData from '../containers/search/filters/psc/mockPSC';
 
 // overwriting this because it makes life easier

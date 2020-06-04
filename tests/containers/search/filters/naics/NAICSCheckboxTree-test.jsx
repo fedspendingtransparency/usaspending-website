@@ -11,7 +11,7 @@ import {
     defaultProps,
     searchResults,
     reallyBigTree
-} from './mockNaics';
+} from './mockNAICS';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 

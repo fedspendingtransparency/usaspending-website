@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer';
 import * as naicsActions from 'redux/actions/search/naicsActions';
 
-import * as mockData from "../../../containers/search/filters/naics/mockNaics";
+import * as mockData from "../../../containers/search/filters/naics/mockNAICS";
 
 describe('Naics Reducer', () => {
     describe('redux.naics.naics', () => {

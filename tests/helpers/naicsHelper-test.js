@@ -4,7 +4,7 @@ import {
     getImmediateAncestorNaicsCode
 } from 'helpers/naicsHelper';
 
-import * as mockData from '../containers/search/filters/naics/mockNaics';
+import * as mockData from '../containers/search/filters/naics/mockNAICS';
 
 describe('naicsHelper', () => {
     describe('getNaicsNodeFromTree', () => {
