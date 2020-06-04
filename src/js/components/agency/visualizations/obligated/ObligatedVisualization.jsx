@@ -135,7 +135,7 @@ export default class AgencyObligatedAmount extends React.Component {
                             obligatedText={formattedObligatedAmount}
                             legend={legend} />
                         <p className="outlay-text">
-                            ...and outlaid <span className="number number-bolder outlay">{formattedOutlayAmount}</span> in FY {this.props.activeFY}.
+                            ...and outlayed <span className="number number-bolder outlay">{formattedOutlayAmount}</span> in FY {this.props.activeFY}.
                         </p>
                     </div>
                 </div>
