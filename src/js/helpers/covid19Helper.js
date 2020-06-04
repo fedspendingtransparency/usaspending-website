@@ -8,7 +8,6 @@ import { getBaseUrl } from 'helpers/socialShare';
 import { slug, defCodes, componentByCovid19Section } from 'dataMapping/covid19/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 
-
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
     return {
@@ -16,8 +15,7 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
         value: year,
         onClick: onClickHandler
     };
-})
-.sort((a, b) => defaultSortDEF(a.value, b.value));
+}).sort((a, b) => defaultSortDEF(a.value, b.value));
 
 export const getSocialShareURL = () => getBaseUrl(slug);
 
