@@ -9,9 +9,9 @@
     @import "../../../../components/visualizations/tooltip/csstooltip";
 
         .tooltip-popover-container {
-            @include display(flex);
-            @include flex(0 0 auto);
-            @include align-items(center);
+            // @include display(flex);
+            // @include flex(0 0 auto);
+            // @include align-items(center);
 
             margin-left: rem(5);
             color: $color-gray-lighter;

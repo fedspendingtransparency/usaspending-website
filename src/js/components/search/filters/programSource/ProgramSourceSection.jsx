@@ -20,6 +20,41 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
+const dataNote = (
+    <React.Fragment>
+        This filter uses Account Breakdown by Award data (available&nbsp;
+        <a
+            href="/#/download_center/custom_account_data"
+            target="_blank"
+            rel="noopener noreferrer">
+            here
+        </a>
+        &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
+        <a
+            href="/#/download_center/custom_account_data"
+            target="_blank"
+            rel="noopener noreferrer">
+            Custom Account Data
+        </a>
+        &nbsp;section.
+    </React.Fragment>
+);
+
+const treasuryAccountTab = (
+    <p>Start here to see Treasury Accounts organized by Agency and Federal Account</p>
+);
+
+const tasComponentsTab = (
+    <p>Start here if you already know the code you want to find</p>
+);
+
+const searchTooltip = (
+    <>
+        <p>The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.</p>
+        <p>Filter the options etc...</p>
+    </>
+);
+
 export default class ProgramSourceSection extends React.Component {
     constructor(props) {
         super(props);
@@ -153,25 +188,6 @@ export default class ProgramSourceSection extends React.Component {
                     selectedSources={this.props.selectedTreasuryComponents} />
             );
         }
-        const dataNote = (
-            <React.Fragment>
-                This filter uses Account Breakdown by Award data (available&nbsp;
-                <a
-                    href="/#/download_center/custom_account_data"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    here
-                </a>
-                &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
-                <a
-                    href="/#/download_center/custom_account_data"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Custom Account Data
-                </a>
-                &nbsp;section.
-            </React.Fragment>
-        );
 
         return (
             <div className="program-source-filter search-filter">
@@ -188,6 +204,7 @@ export default class ProgramSourceSection extends React.Component {
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
                             Treasury Account
+                            <ProgramSourceInfoTooltip definition={treasuryAccountTab} heading="Treasury Account" />
                         </button>
                     </li>
                     <li>
@@ -200,6 +217,7 @@ export default class ProgramSourceSection extends React.Component {
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
                             TAS Components
+                            <ProgramSourceInfoTooltip definition={tasComponentsTab} heading="TAS Components" />
                         </button>
                     </li>
                 </ul>
