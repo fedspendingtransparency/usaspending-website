@@ -36,15 +36,14 @@ export const requiredTypes = {
     selectedAwardIDs: OrderedMap,
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
-    naicsCodes: CheckboxTreeSelections,
+    treasuryAccounts: OrderedMap,
     tasCodes: CheckboxTreeSelections,
+    naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set,
-    treasuryAccounts: OrderedMap,
-    federalAccounts: OrderedMap
+    extentCompeted: Set
 };
 
 export const initialState = {
@@ -71,7 +70,6 @@ export const initialState = {
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    federalAccounts: new OrderedMap(),
     treasuryAccounts: new OrderedMap(),
     tasCodes: new CheckboxTreeSelections()
 };
@@ -127,12 +125,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 treasuryAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
                     state.treasuryAccounts, action.source)
-            });
-        }
-        case 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS': {
-            return Object.assign({}, state, {
-                federalAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
-                    state.federalAccounts, action.source)
             });
         }
 

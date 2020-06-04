@@ -26,9 +26,8 @@ class SearchAwardsOperation {
         this.awardingAgencies = [];
         this.fundingAgencies = [];
 
-        this.tasSources = [];
-        this.accountSources = [];
         this.tasCheckbox = checkboxTreeKeys;
+        this.tasSources = [];
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -71,7 +70,6 @@ class SearchAwardsOperation {
             require: state.tasCodes.toObject().require,
             exclude: state.tasCodes.toObject().exclude
         };
-        this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
@@ -198,21 +196,15 @@ class SearchAwardsOperation {
         }
 
         // Add Program Sources
-        if (this.tasSources.length > 0 || this.accountSources.length > 0) {
+        if (this.tasSources.length > 0 || this.tasCheckbox.require.length > 0) {
             const tasCodes = [];
-
-            this.accountSources.forEach((accountObject) => {
-                tasCodes.push(pickBy(accountObject));
-            });
 
             this.tasSources.forEach((tasObject) => {
                 tasCodes.push(pickBy(tasObject));
             });
 
             filters[rootKeys.tasSources] = tasCodes;
-        }
 
-        if (this.tasCheckbox.require.length > 0) {
             if (this.tasCheckbox.exclude.length > 0) {
                 filters[rootKeys.tasCheckbox] = {
                     require: trimCheckedToCommonAncestors(this.tasCheckbox.require),

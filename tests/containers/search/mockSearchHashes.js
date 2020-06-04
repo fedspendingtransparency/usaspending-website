@@ -30,7 +30,6 @@ export const mockFilters = {
             pricingType: [],
             setAside: [],
             extentCompeted: [],
-            federalAccounts: [],
             treasuryAccounts: [],
             naicsCodes: { require: [], exclude: [], counts: [] },
             tasCodes: { require: [], exclude: [], counts: [] },

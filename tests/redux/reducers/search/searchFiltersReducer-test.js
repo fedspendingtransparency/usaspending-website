@@ -8,7 +8,7 @@ import { Set, OrderedMap } from 'immutable';
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 
-import { mockRecipient, mockAgency, mockTreasuryAccount, mockFederalAccount } from './mock/mockFilters';
+import { mockRecipient, mockAgency, mockTreasuryAccount } from './mock/mockFilters';
 
 jest.mock('helpers/fiscalYearHelper', () => require('./mockFiscalYearHelper'));
 
@@ -331,35 +331,6 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.treasuryAccounts).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_FEDERAL_ACCOUNT_COMPONENTS', () => {
-        const action = {
-            type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
-            source: mockFederalAccount
-        };
-
-        const component = {
-            '234-5678': {
-                aid: '234',
-                main: '5678'
-            }
-        };
-
-        it('should add the provided TAS components if it does not currently exist', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap(component));
-        });
-
-        it('should remove the provided TAS component if it already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap(component)
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
         });
     });
 

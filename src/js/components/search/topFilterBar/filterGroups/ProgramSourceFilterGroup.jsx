@@ -45,7 +45,7 @@ export default class ProgramSourceFilterGroup extends React.Component {
     generateTags() {
         const label = (this.props.filter.code === 'treasuryAccounts') ? 'TAS #' : 'FA #';
         return this.props.filter.values.map((tas) => {
-            const title = tas.isV2
+            const title = tas.isCheckbox
                 ? tas.tas_description
                 : `${label} | ${tas}`;
             return {

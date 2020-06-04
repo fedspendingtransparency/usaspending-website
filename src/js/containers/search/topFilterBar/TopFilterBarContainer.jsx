@@ -115,11 +115,6 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedTreasuryAccountFilters);
         }
 
-        const selectedFederalAccountFilters = this.prepareFederalAccounts(props);
-        if (selectedFederalAccountFilters) {
-            filters.push(selectedFederalAccountFilters);
-        }
-
         // prepare Award ID filters
         const selectedAwardIDFilters = this.prepareAwardIDs(props);
         if (selectedAwardIDFilters) {
@@ -338,27 +333,6 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
-    prepareFederalAccounts(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.federalAccounts && props.federalAccounts.count() > 0) {
-            // federal account components have been selected
-            selected = true;
-            const identifiers = Object.keys(props.federalAccounts.toObject());
-            filter.values = identifiers;
-        }
-
-        if (selected) {
-            filter.code = 'federalAccounts';
-            filter.name = 'Federal Account';
-            return filter;
-        }
-        return null;
-    }
-
     prepareTreasuryAccounts(props) {
         let selected = false;
         const filter = {
@@ -378,7 +352,7 @@ export class TopFilterBarContainer extends React.Component {
                 ...filter.values,
                 ...props.tasCodes.counts.map((tas) => ({
                     ...tas,
-                    isV2: true,
+                    isCheckbox: true,
                     tas_description: `${tas.label} (${tas.count})`
                 }))
             ];
