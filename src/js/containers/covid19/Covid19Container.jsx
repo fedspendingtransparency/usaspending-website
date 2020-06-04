@@ -37,7 +37,7 @@ const Covid19Container = () => {
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
-    console.log(' Cookies : ', Cookies.get('usaspending_covid_homepage'));
+
     return (
         <div className="usa-da-covid19-page">
             <MetaTags {...covidPageMetaTags} />
