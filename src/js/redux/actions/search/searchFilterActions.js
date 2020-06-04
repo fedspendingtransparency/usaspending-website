@@ -136,8 +136,8 @@ export const updateSelectedCFDA = (state) => ({
 });
 
 // NAICS Filter
-export const updateNaicsV2 = (require, exclude, counts) => ({
-    type: 'UPDATE_NAICS_V2',
+export const updateNaics = (require, exclude, counts) => ({
+    type: 'UPDATE_NAICS',
     payload: {
         exclude,
         require: require.map((code) => removePlaceholderString(code)),
@@ -152,11 +152,6 @@ export const updateTASV2 = (require, exclude, counts) => ({
         require: require.map((code) => removePlaceholderString(code)),
         counts
     })
-});
-
-export const updateSelectedNAICS = (state) => ({
-    type: 'UPDATE_SELECTED_NAICS',
-    naics: state.naics
 });
 
 // PSC Filter

@@ -646,47 +646,10 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_NAICS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_NAICS',
-            naics: {
-                identifier: '333318',
-                naics: '333318',
-                naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
-            }
-        };
-
-        const naicsNum = '333318';
-
-        const expectedNAICS = {
-            identifier: '333318',
-            naics: '333318',
-            naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
-        };
-
-        it('should add the provided naics if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedNAICS).toEqual(new OrderedMap({
-                [naicsNum]: expectedNAICS
-            }));
-        });
-
-        it('should remove the provided naics if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedNAICS: new OrderedMap({
-                    [naicsNum]: expectedNAICS
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedNAICS).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_NAICS_V2', () => {
+    describe('UPDATE_NAICS', () => {
         it('removes descendants w/ ancestor already in require array', () => {
             const action = {
-                type: "UPDATE_NAICS_V2",
+                type: "UPDATE_NAICS",
                 payload: {
                     exclude: [""],
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"],
@@ -699,7 +662,7 @@ describe('searchFiltersReducer', () => {
         });
         it('does not remove descendants if one ancestor\'s in both require and excluded', () => {
             const action = {
-                type: "UPDATE_NAICS_V2",
+                type: "UPDATE_NAICS",
                 payload: {
                     exclude: ["1111"],
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"]

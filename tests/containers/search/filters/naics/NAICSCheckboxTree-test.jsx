@@ -6,13 +6,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NAICSCheckboxTree } from 'containers/search/filters/naics/NAICSCheckboxTree';
-import { cleanNaicsData } from 'helpers/naicsHelper';
 
 import {
     defaultProps,
     searchResults,
     reallyBigTree
-} from './mockNaics_v2';
+} from './mockNaics';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 

@@ -652,30 +652,12 @@ export class TopFilterBarContainer extends React.Component {
      * that can be parsed by the top filter bar
      */
     prepareNAICS(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.selectedNAICS.count() > 0) {
-            // NAICS have been selected
-            selected = true;
-            filter.values = props.selectedNAICS.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'selectedNAICS';
-            filter.name = 'NAICS';
-            return filter;
-        }
-
-        else if (props.naicsCodes.require.length > 0) {
+        if (props.naicsCodes.require.length > 0) {
             return {
                 code: 'selectedNAICS',
                 name: 'NAICS',
                 values: props.naicsCodes.counts.map((naics) => ({
                     ...naics,
-                    isV2: true,
                     identifier: naics.value,
                     naics_description: `${naics.label} (${naics.count})`
                 }))

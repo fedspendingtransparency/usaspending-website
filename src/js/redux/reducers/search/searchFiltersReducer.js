@@ -36,7 +36,6 @@ export const requiredTypes = {
     selectedAwardIDs: OrderedMap,
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
-    selectedNAICS: OrderedMap,
     naicsCodes: CheckboxTreeSelections,
     tasCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
@@ -66,7 +65,6 @@ export const initialState = {
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
-    selectedNAICS: new OrderedMap(),
     naicsCodes: new CheckboxTreeSelections(),
     pscCodes: new CheckboxTreeSelections(),
     defCodes: new CheckboxTreeSelections(),
@@ -219,16 +217,8 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // NAICS Filter
-        case 'UPDATE_SELECTED_NAICS': {
-            return Object.assign({}, state, {
-                selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
-                    state.selectedNAICS, action.naics)
-            });
-        }
-
-        // NAICS_V2 Filter
-        case 'UPDATE_NAICS_V2': {
-            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
+        case 'UPDATE_NAICS': {
+            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNaics(action.payload));
             return Object.assign({}, state, {
                 naicsCodes
             });
