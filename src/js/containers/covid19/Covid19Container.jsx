@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { startCase, snakeCase } from 'lodash';
+import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -36,7 +37,7 @@ const Covid19Container = () => {
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
-
+    console.log(' Cookies : ', Cookies.get('usaspending_covid_homepage'));
     return (
         <div className="usa-da-covid19-page">
             <MetaTags {...covidPageMetaTags} />
@@ -75,7 +76,7 @@ const Covid19Container = () => {
                 <div className="sidebar usda__flex-col">
                     <Sidebar
                         pageName="covid19"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
                         active={activeSection}
                         jumpToSection={jumpToCovid19Section}
                         detectActiveSection={setActiveSection}

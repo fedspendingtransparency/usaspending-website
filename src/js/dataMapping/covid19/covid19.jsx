@@ -13,7 +13,7 @@ export const getEmailSocialShareData = {
     body: `View the COVID-19 Response on USAspending.gov: ${getSocialShareURL()}`
 };
 
-export const scrollPositionOfSiteHeader = 96;
+export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 
