@@ -41,7 +41,6 @@ export const requiredTypes = {
     tasCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
-    selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set,
@@ -69,7 +68,6 @@ export const initialState = {
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
     naicsCodes: new CheckboxTreeSelections(),
-    selectedPSC: new OrderedMap(),
     pscCodes: new CheckboxTreeSelections(),
     defCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
@@ -233,14 +231,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
             return Object.assign({}, state, {
                 naicsCodes
-            });
-        }
-
-        // PSC Filter
-        case 'UPDATE_SELECTED_PSC': {
-            return Object.assign({}, state, {
-                selectedPSC: OtherFilterFunctions.updateSelectedPSC(
-                    state.selectedPSC, action.psc)
             });
         }
 

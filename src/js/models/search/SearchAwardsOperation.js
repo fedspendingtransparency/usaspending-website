@@ -45,7 +45,6 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.selectedNAICS = [];
         this.naicsCodes = checkboxTreeKeys;
-        this.selectedPSC = [];
         this.pscCheckbox = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
@@ -97,7 +96,6 @@ class SearchAwardsOperation {
             require: state.pscCodes.toObject().require,
             exclude: state.pscCodes.toObject().exclude
         };
-        this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
         this.setAside = state.setAside.toArray();
@@ -321,9 +319,6 @@ class SearchAwardsOperation {
         }
 
         // Add PSC
-        if (this.selectedPSC.length > 0) {
-            filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
-        }
         if (this.pscCheckbox.require.length > 0) {
             if (this.pscCheckbox.exclude.length > 0) {
                 filters[rootKeys.psc] = {

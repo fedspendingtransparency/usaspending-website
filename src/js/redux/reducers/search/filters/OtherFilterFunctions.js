@@ -71,21 +71,3 @@ export const updateNAICSV2 = ({ require, exclude, counts }) => require
         }
         return acc;
     }, { require, exclude, counts });
-
-export const updateSelectedPSC = (state, value) => {
-    let updatedSet = state;
-
-    const pscIdentifier = value.product_or_service_code;
-
-    if (updatedSet.has(pscIdentifier)) {
-        updatedSet = updatedSet.delete(pscIdentifier);
-    }
-    else {
-        const pscObject = Object.assign({}, value, {
-            identifier: pscIdentifier
-        });
-        updatedSet = updatedSet.set(pscIdentifier, pscObject);
-    }
-
-    return updatedSet;
-};

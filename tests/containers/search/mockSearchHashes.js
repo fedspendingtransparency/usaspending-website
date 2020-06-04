@@ -29,7 +29,6 @@ export const mockFilters = {
             naicsCodes: { require: [], exclude: [], counts: [] },
             selectedCFDA: {},
             selectedNAICS: {},
-            selectedPSC: {},
             pricingType: [],
             setAside: [],
             extentCompeted: [],

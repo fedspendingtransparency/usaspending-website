@@ -710,39 +710,7 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_PSC', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_PSC',
-            psc: {
-                product_or_service_code: '1375'
-            }
-        };
-
-        const pscNum = '1375';
-
-        const expectedPSC = {
-            identifier: '1375',
-            product_or_service_code: '1375'
-        };
-
-        it('should add the provided psc if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedPSC).toEqual(new OrderedMap({
-                [pscNum]: expectedPSC
-            }));
-        });
-
-        it('should remove the provided psc if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedPSC: new OrderedMap({
-                    [pscNum]: expectedPSC
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedPSC).toEqual(new OrderedMap());
-        });
-    });
+    // TODO: Add Test for New PSC Reducer
 
     describe('UPDATE_PRICING_TYPE', () => {
         it('should set a pricing type value when there is none', () => {
