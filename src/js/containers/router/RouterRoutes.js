@@ -301,6 +301,21 @@ if (kGlobalConstants.DEV) {
     );
 }
 
+if (kGlobalConstants.CARES_ACT_RELEASED) {
+    routes.routes.push(
+        {
+            path: '/covid19',
+            parent: '/covid19',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/covid19/Covid19Container').default);
+                });
+            }
+        }
+    );
+}
+
 module.exports = routes;
 
 /* eslint-enable global-require */

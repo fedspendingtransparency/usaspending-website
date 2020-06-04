@@ -119,6 +119,15 @@ export const agencyLandingPageMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const covidPageMetaTags = {
+    og_url: `${productionURL}#/covid/`,
+    og_title: 'Covid - USAspending.gov',
+    og_description:
+        'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const stylePageMetaTags = {
     og_url: `${productionURL}#/style`,
     og_title: 'Style Guide - USAspending.gov',
