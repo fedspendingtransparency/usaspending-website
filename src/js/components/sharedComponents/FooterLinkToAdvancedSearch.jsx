@@ -18,14 +18,14 @@ const FooterLinkToAdvancedSearch = ({
     description
 }) => (
     <div className="footerLinkToAdvancedSearch">
-        <div className="footerLinkToAdvancedSearch-content">
+        <div className="footerLinkToAdvancedSearch__content">
             <h4>{title}</h4>
             <p>
                 Check out the <strong>Award Search</strong> page <br />
                 {description}
             </p>
             <button
-                className="footerLinkToAdvancedSearch-search-button"
+                className="footerLinkToAdvancedSearch__button"
                 onClick={clickedSearch}>
                 Let&#39;s go!
             </button>

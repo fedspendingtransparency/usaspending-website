@@ -58,7 +58,7 @@
                   }
                   .usa-dt-picker__button-text,
                   .usa-dt-picker__button-icon svg {
-                      color: white;
+                      color: $color-white;
                   }
                   .usa-dt-picker__icon svg {
                       width: rem(14);
@@ -190,7 +190,7 @@
           @include flex-direction(column);
           padding: 2.5% 2.5% 0 2.5%;
           margin: rem(20) 0 rem(20) 0;
-          background: white;
+          background: $color-white;
           @media(min-width: $medium-screen) {
             margin: rem(20) rem(20) rem(20) 0;
           }
@@ -282,6 +282,10 @@
                   border-bottom: 3px solid $color-base;
                   .body__header-left {
                     display: flex;
+                    padding-bottom: 0.5rem;
+                    @media(min-width: $tablet-screen) {
+                      padding-bottom: 0;
+                    }
                   }
                   .body__header-right {
                     display: flex;
