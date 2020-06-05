@@ -152,7 +152,7 @@ const staticFilters = {
         null,
         null, // def-code
         null,
-        null,
+        'naics',
         'product-or-service-code-psc',
         null,
         null
