@@ -39,7 +39,7 @@ import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-import ProgramSourceInfoTooltip from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
+import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -367,9 +367,9 @@ export class TASCheckboxTree extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
-                <span className="tas-checkbox__header">
+                <span className="checkbox-header">
                     Search by Federal Account, TAS, or Agency Owner
-                    <ProgramSourceInfoTooltip
+                    <CSSOnlyTooltip
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />
                 </span>

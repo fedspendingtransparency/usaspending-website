@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
-import ProgramSourceInfoTooltip from '../tooltips/ProgramSourceInfoTooltip';
+import { CSSOnlyTooltip } from '../tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     selectedTreasuryComponents: PropTypes.object,
@@ -46,13 +46,6 @@ const treasuryAccountTab = (
 
 const tasComponentsTab = (
     <p>Start here if you already know the code you want to find</p>
-);
-
-const searchTooltip = (
-    <>
-        <p>The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.</p>
-        <p>Filter the options etc...</p>
-    </>
 );
 
 export default class ProgramSourceSection extends React.Component {
@@ -204,7 +197,7 @@ export default class ProgramSourceSection extends React.Component {
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
                             Treasury Account
-                            <ProgramSourceInfoTooltip definition={treasuryAccountTab} heading="Treasury Account" />
+                            <CSSOnlyTooltip definition={treasuryAccountTab} heading="Treasury Account" />
                         </button>
                     </li>
                     <li>
@@ -217,14 +210,14 @@ export default class ProgramSourceSection extends React.Component {
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
                             TAS Components
-                            <ProgramSourceInfoTooltip definition={tasComponentsTab} heading="TAS Components" />
+                            <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
                         </button>
                     </li>
                 </ul>
                 <div className="toggle-border" />
                 {filter}
                 {selectedSources}
-                <ProgramSourceInfoTooltip
+                <CSSOnlyTooltip
                     definition={dataNote}
                     heading="A note about our TAS data sources"
                     description="A note about our TAS data sources." />

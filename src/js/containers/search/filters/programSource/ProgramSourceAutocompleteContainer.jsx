@@ -11,7 +11,7 @@ import { programSourceInfo } from 'dataMapping/search/programSourceInfoTooltipCo
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import ProgramSourceInfoTooltipContent from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
+import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     component: PropTypes.object,
@@ -145,7 +145,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             <div className="program-source-select-filter">
                 <label className="program-source-select-filter__label">
                     {`${this.props.component.label} (${this.props.component.code.toUpperCase()})`}
-                    <ProgramSourceInfoTooltipContent
+                    <CSSOnlyTooltip
                         heading={programSourceInfo[this.props.component.code].heading}
                         definition={programSourceInfo[this.props.component.code].definition}
                         example={programSourceInfo[this.props.component.code].example} />
