@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { getSocialShareURL } from 'helpers/covid19Helper';
+import SankeyContainer from 'containers/covid19/SankeyContainer';
 
 export const slug = 'covid19';
 
@@ -48,7 +49,7 @@ const awardHeaderTextTooltip = (
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'landmark',
-        component: <ComingSoon />,
+        component: <SankeyContainer />,
         headerText: awardAndNonAwardHeaderText,
         headerTextTooltip: awardAndNonAwardHeaderTextTT
     },
