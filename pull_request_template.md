@@ -21,7 +21,7 @@ Author:
 - [ ] Verified mobile/tablet/desktop/monitor responsiveness
 - [ ] Verified that this PR does not create any *new* accessibility issues (via Axe Chrome extension)
 - [ ] Added Unit Tests for methods in Container Components, reducers, helper functions, and models `if applicable`
-- [ ] All componentWillReceiveProps and componentWillMount in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3277](https://federal-spending-transparency.atlassian.net/browse/DEV-3277)
+- [ ] All `componentWillReceiveProps` and `componentWillMount` in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3277](https://federal-spending-transparency.atlassian.net/browse/DEV-3277)
 - [ ] [API contract](https://github.com/fedspendingtransparency/usaspending-api/tree/dev/usaspending_api/api_contracts) updated `if applicable`
 - [ ] [Component Library Integration Status Report](https://github.com/fedspendingtransparency/data-act-documentation/blob/data-transparency-ui/frontend_apps/component-library-integration-status.md) updated `if applicable`
 
