@@ -3,149 +3,67 @@
  * Created By Jonathan Hill 06/04/20
  */
 
-import React from 'react';
-import { sankey } from 'd3-sankey';
-import { scaleLinear } from 'd3-scale';
-import chroma from 'chroma-js';
-import SankeyNode from './SankeyNode';
-import SankeyLink from './SankeyLink';
+import React, { useState, useEffect, useRef } from 'react';
+import { throttle } from 'lodash';
+import Sankey from 'components/covid19/sankey/Sankey';
 
-const mockNodes = [
-    {
-        name: 'L'
-    },
-    {
-        name: 'M'
-    },
-    {
-        name: 'N'
-    },
-    {
-        name: 'O'
-    },
-    {
-        name: 'P'
-    },
-    {
-        name: 'totalBudgetAuthority'
-    },
-    {
-        name: 'awardObligations'
-    },
-    {
-        name: 'nonAwardObligations'
-    },
-    {
-        name: 'unObligatedBalance'
-    },
-    {
-        name: 'awardOutlays'
-    },
-    {
-        name: 'notYetOutlayed'
-    },
-    {
-        name: 'nonAwardOutlays'
-    },
-    {
-        name: 'notYetOutlayed'
-    }
-];
-// total amount = 3500000
-const mockLinks = [
-    {
-        source: 0, // L to total
-        target: 5,
-        value: 500000
-    },
-    {
-        source: 1, // M to total
-        target: 5,
-        value: 600000
-    },
-    {
-        source: 2, // N to total
-        target: 5,
-        value: 700000
-    },
-    {
-        source: 3, // O to total
-        target: 5,
-        value: 800000
-    },
-    {
-        source: 4, // P to total
-        target: 5,
-        value: 900000
-    },
-    {
-        source: 5, // total to award obligations
-        target: 6,
-        value: 1100000
-    },
-    {
-        source: 5, // total to non award obligations
-        target: 7,
-        value: 700000
-    },
-    {
-        source: 5, // total to unobligated balance
-        target: 8,
-        value: 1700000
-    },
-    {
-        source: 6,
-        target: 9,
-        value: 550000
-    },
-    {
-        source: 6,
-        target: 10,
-        value: 550000
-    },
-    {
-        source: 7,
-        target: 11,
-        value: 350000
-    },
-    {
-        source: 7,
-        target: 12,
-        value: 350000
-    }
-];
 
-const data = { nodes: mockNodes, links: mockLinks };
-const width = 800;
-const height = 400;
+const height = 500;
 
 const SankeyContainer = () => {
-    const { nodes, links } = sankey()
-        .nodeWidth(15)
-        .nodePadding(10)
-        .extent([[1, 1], [width - 1, height - 5]])(data);
-    const color = chroma.scale("Set3").classes(nodes.length);
-    const colorScale = scaleLinear()
-        .domain([0, nodes.length])
-        .range([0, 1]);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [sankeyWidth, setSankeyWidth] = useState(0);
+    // reference to the div - using to get the current div width
+    const divReference = useRef(null);
+
+    /**
+     * handleWindowResize
+     * - updates window and visualization width based on current window width.
+     * @returns {null}
+     */
+    const handleWindowResize = throttle(() => {
+        if (windowWidth !== window.innerWidth) {
+            setWindowWidth(windowWidth);
+            setSankeyWidth(divReference.current.offsetWidth);
+        }
+    }, 50);
+    /**
+     * hook - runs on mount and unmount.
+     * Any updates to the width of the browser is handled by the
+     * event listener.
+     */
+    useEffect(() => {
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     return (
-        <svg height={height} width={width}>
-            <g style={{ mixBlendMode: 'multiply' }}>
-                {nodes.map((node, i) => (
-                    <SankeyNode
-                        {...node}
-                        color={color(colorScale(i)).hex()}
-                        key={`${node.name}${i}`} />
-                ))}
-                {links.map((link, i) => (
-                    <SankeyLink
-                        key={`link-${i}`}
-                        link={link}
-                        color={color(colorScale(link.source.index)).hex()} />
-                ))}
-            </g>
-        </svg>
+        <div ref={divReference} className="covid19__sankey-container">
+            <div className="covid19__sankey-title">Where did the response funding come from and where did it go?</div>
+            <div className="covid19__sankey-sub-title">COVID-19 Response Spending Process</div>
+            <Sankey height={height} width={sankeyWidth} />
+            <div className="covid19__sankey-legend">
+                <div className="covid19-sankey-legend__item">
+                    <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-budget-source" />
+                    <div className="covid19-sankey-legend__item-text">Budget Source</div>
+                </div>
+                <div className="covid19-sankey-legend__item">
+                    <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-total-budget" />
+                    <div className="covid19-sankey-legend__item-text">Total Budget</div>
+                </div>
+                <div className="covid19-sankey-legend__item">
+                    <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-obligated" />
+                    <div className="covid19-sankey-legend__item-text">Obligated Funds</div>
+                </div>
+                <div className="covid19-sankey-legend__item">
+                    <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-outlayed" />
+                    <div className="covid19-sankey-legend__item-text">Outlayed Funds</div>
+                </div>
+            </div>
+        </div>
     );
 };
 

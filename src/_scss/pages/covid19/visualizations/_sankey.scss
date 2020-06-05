@@ -1,0 +1,64 @@
+.covid19__sankey-container {
+  width: 100%;
+  .covid19__sankey-title {
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: $font-semibold;
+    padding-top: 4.7rem;
+  }
+  .covid19__sankey-sub-title {
+    display: flex;
+    justify-content: center;
+    font-size: 2.1rem;
+    font-weight: $font-light;
+    padding-top: 1.6rem;
+    padding-bottom: 4rem;
+  }
+  .sankey__text {
+    font-size: 1.2rem;
+    font-weight: $font-semibold;
+    fill: $color-gray-medium;
+  }
+  .sankey__text-money {
+    font-size: 1.2rem;
+    fill: $color-gray-medium;
+  }
+  .text__line {
+    stroke: $color-gray-lighter;
+  }
+  .covid19__sankey-legend {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-top: 3.6rem;
+    padding-bottom: 15rem;
+    .covid19-sankey-legend__item {
+      display: inline-flex;
+      padding-right: 4rem;
+      .covid19-sankey-legend__item__circle {
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 20px;
+        margin: 0.7rem 0.7rem 0 0;
+      }
+      .covid19-sankey-legend__item__circle-budget-source {
+        background-color: #B699C6;
+      }
+      .covid19-sankey-legend__item__circle-total-budget {
+        background-color: #AAC6E2;
+      }
+      .covid19-sankey-legend__item__circle-obligated {
+        background-color: #558EC6;
+      }
+      .covid19-sankey-legend__item__circle-outlayed {
+        background-color: #0A2F5A;
+      }
+      .covid19-sankey-legend__item-text {
+        font-size: 2.1rem;
+      }
+    }
+    .covid19-sankey-legend__item:last-child {
+      padding-right: 0;
+    }
+  }
+}

@@ -9,13 +9,11 @@ import { sankeyLinkHorizontal } from 'd3-sankey';
 
 const propTypes = {
     link: PropTypes.object,
-    color: PropTypes.string,
-    keyName: PropTypes.string
+    color: PropTypes.string
 };
 
-const SankeyLink = ({ link, color, keyName }) => (
+const SankeyLink = ({ link, color }) => (
     <path
-        key={keyName}
         d={sankeyLinkHorizontal()(link)}
         style={{
             fill: 'none',
