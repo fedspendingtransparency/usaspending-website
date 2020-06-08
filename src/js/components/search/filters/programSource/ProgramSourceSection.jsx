@@ -188,30 +188,34 @@ export default class ProgramSourceSection extends React.Component {
                     className="toggle-buttons"
                     role="menu">
                     <li>
-                        <button
+                        <div
+                            role="menuitemradio"
+                            onKeyDown={this.toggleTab}
+                            tabIndex="-1"
                             className={`tab-toggle ${checkboxTreeActiveClass}`}
                             value="1"
-                            role="menuitemradio"
                             aria-checked={this.state.activeTab === 1}
                             title="Treasury Account"
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
-                            Treasury Account
+                            <span>Treasury Account</span>
                             <CSSOnlyTooltip definition={treasuryAccountTab} heading="Treasury Account" />
-                        </button>
+                        </div>
                     </li>
                     <li>
-                        <button
+                        <div
+                            role="menuitemradio"
+                            onKeyDown={this.toggleTab}
+                            tabIndex="-1"
                             className={`tab-toggle ${autoCompleteActiveClass}`}
                             value="2"
-                            role="menuitemradio"
                             aria-checked={this.state.activeTab === 2}
                             title="Federal Account"
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
-                            TAS Components
+                            <span>TAS Components</span>
                             <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
-                        </button>
+                        </div>
                     </li>
                 </ul>
                 <div className="toggle-border" />
