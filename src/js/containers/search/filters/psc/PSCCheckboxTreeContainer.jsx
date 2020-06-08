@@ -371,7 +371,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         } = this.state;
         return (
             <div className="psc-checkbox">
-                <span className="checkbox-header">Search by Code or Name: <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
+                <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
