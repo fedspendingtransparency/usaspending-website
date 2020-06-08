@@ -189,10 +189,10 @@
           width: 100%;
           @include flex-direction(column);
           padding: 2.5% 2.5% 0 2.5%;
-          margin: rem(20) 0 rem(20) 0;
+          margin: 2rem 0 14rem 0;
           background: $color-white;
           @media(min-width: $medium-screen) {
-            margin: rem(20) rem(20) rem(20) 0;
+            margin: 2rem 2rem 14rem 0;
           }
           @media(min-width: $tablet-screen) {
               width: 70%;
@@ -273,7 +273,7 @@
               @import './recipient/recipientContainer.scss';
               @include display(flex);
               @include flex-wrap(wrap);
-              margin-bottom: $global-mrg;
+              margin-bottom: 14rem;
               .body__header {
                   width: 100%;
                   display: flex;
@@ -325,6 +325,7 @@
           .body__section:last-child {
             margin-bottom: 0;
           }
+
       }
   }
 

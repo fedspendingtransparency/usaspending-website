@@ -1,11 +1,30 @@
-.covid-19__recipient-container {
+.recipient__container {
   display: flex;
-  .covid-19__recipient-container__title-container {
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  .recipient__title {    
+    font-size: 3rem;
+    padding: 3rem 0 3rem 0;
+  }
+  .recipient__questions {
     display: flex;
-    justify-content: center;
-    .covid-19__recipient-container__title-container__text {
-      font-size: 3rem;
-      padding: 3rem 0 3rem 0;
+    padding-bottom: 2rem;
+    .recipient__question {
+      font-size: 2.1rem;
+      font-weight: $font-light;
+      line-height: 2.7rem;
+      text-align: center;
+      letter-spacing: -0.44px;
+    }
+  }
+  .recipient__tabs-container {
+    width: 100%;
+  }
+  @import '../../agency/v2/tabs';
+  .count-button {
+    @include media($medium-screen) {
+      padding: rem(20);
     }
   }
 }
