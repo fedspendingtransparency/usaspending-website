@@ -26,6 +26,13 @@ const emptyTooltipProps = {
     tooltipComponent: <p>Placeholder</p>
 };
 
+const offsets = {
+    current: 10,
+    obligated: 14,
+    fileCObligated: 18,
+    fileCOutlay: 22
+};
+
 const NormalChart = ({ awardType, awardAmounts }) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
@@ -153,6 +160,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 }}
                 {...activeTooltipProps} />}
             <div
+                style={{ marginLeft: `${offsets.obligated / 2}px` }}
                 className="award-amounts-viz__desc-top"
                 role="button"
                 tabIndex="0"
@@ -164,7 +172,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                 onClick={showObligatedTooltip}>
                 <strong>{awardAmounts.totalObligationAbbreviated}</strong><br />{isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
             </div>
-            <div className="award-amounts-viz__label obligated" style={absoluteWidths.obligated}>
+            <div className="award-amounts-viz__label obligated" style={{ marginLeft: `${offsets.obligated / 2}px`, width: `calc(${absoluteWidths.obligated.width} - ${offsets.obligated}px)` }}>
                 <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
             </div>
             {isCaresReleased &&
@@ -172,6 +180,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                     <div
                         role="button"
                         className="award-amounts-viz__desc-top file-c-obligated"
+                        style={{ marginLeft: `${offsets.fileCObligated / 2}px` }}
                         tabIndex="0"
                         onBlur={closeTooltip}
                         onFocus={showFileCObligatedTooltip}
@@ -181,7 +190,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                         onClick={showFileCObligatedTooltip}>
                         <strong>{awardAmounts.fileCObligatedAbbreviated}</strong><br />COVID-19 Response Obligations Amount
                     </div>
-                    <div className="award-amounts-viz__label file-c-obligated" style={absoluteWidths.fileCObligated}>
+                    <div className="award-amounts-viz__label file-c-obligated" style={{ marginLeft: `${offsets.fileCObligated / 2}px`, width: `calc(${absoluteWidths.fileCObligated.width} - ${offsets.fileCObligated / 2}px)` }}>
                         <div className="award-amounts-viz__line-up file-c-obligated" />
                     </div>
                 </>
@@ -270,13 +279,14 @@ const NormalChart = ({ awardType, awardAmounts }) => {
             </div>
             {/* Even if outlay is 0, we want to show this so long as the obligated is > 0 */}
             {isCaresReleased &&
-                <div className="award-amounts-viz__label file-c-outlay">
-                    <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.fileCOutlay} />
+                <div className="award-amounts-viz__label file-c-outlay" style={{ marginLeft: `${offsets.fileCOutlay / 2}px` }}>
+                    <div className="award-amounts-viz__line file-c-outlay" style={{ width: `calc(${absoluteWidths.fileCOutlay.width} - ${offsets.fileCOutlay / 2}px)` }} />
                     <div className="award-amounts-viz__desc">
                         <div
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
+                            style={{ marginLeft: `${offsets.fileCOutlay / 2}px` }}
                             onBlur={closeTooltip}
                             onFocus={showFileCOutlayTooltip}
                             onKeyPress={showFileCOutlayTooltip}
@@ -289,10 +299,10 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                     </div>
                 </div>
             }
-            <div className="award-amounts-viz__label" style={absoluteWidths.current}>
+            <div className="award-amounts-viz__label" style={{ marginLeft: `${offsets.current / 2}px`, width: `calc(${absoluteWidths.current.width} - ${offsets.current / 2}px)` }}>
                 <div
                     className={`award-amounts-viz__line current${classNameForCovid}`}
-                    style={{ backgroundColor: currentBarStyle.backgroundColor }} />
+                    style={currentBarStyle} />
                 <div className="award-amounts-viz__desc">
                     <div
                         className="award-amounts-viz__desc-text"
