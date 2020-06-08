@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { getSocialShareURL } from 'helpers/covid19Helper';
+import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
 
 export const slug = 'covid19';
 
@@ -64,14 +65,14 @@ export const componentByCovid19Section = () => ({
         headerTextTooltip: awardHeaderTextTooltip
     },
     award_spending_by_agency: {
-        icon: 'sitemap',
+        icon: 'building',
         component: <ComingSoon />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },
     award_spending_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <RecipientContainer />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },

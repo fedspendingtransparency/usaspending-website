@@ -1,0 +1,11 @@
+.covid-19__recipient-container {
+  display: flex;
+  .covid-19__recipient-container__title-container {
+    display: flex;
+    justify-content: center;
+    .covid-19__recipient-container__title-container__text {
+      font-size: 3rem;
+      padding: 3rem 0 3rem 0;
+    }
+  }
+}
