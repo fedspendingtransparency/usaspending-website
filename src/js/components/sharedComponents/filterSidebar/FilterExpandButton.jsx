@@ -84,9 +84,11 @@ export default class FilterExpandButton extends React.Component {
         const filterClassName = this.props.className ? ` ${this.props.className}` : '';
         return (
             <div className="filter-toggle">
-                <button
+                <div
+                    role="button"
                     className={`filter-toggle__button ${hiddenClass}`}
                     onClick={this.props.toggleFilter}
+                    onKeyDown={this.props.toggleFilter}
                     disabled={this.props.disabled}
                     title={this.props.name}
                     aria-label={this.props.name}
@@ -97,7 +99,7 @@ export default class FilterExpandButton extends React.Component {
                         <span>{this.props.name}</span>
                         {this.props.tooltip && <this.props.tooltip />}
                     </div>
-                </button>
+                </div>
                 {glossaryLink}
                 <div className="filter-toggle__accessory">
                     {this.props.accessory && (
