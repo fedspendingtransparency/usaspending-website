@@ -304,8 +304,8 @@ if (kGlobalConstants.DEV) {
 if (kGlobalConstants.CARES_ACT_RELEASED) {
     routes.routes.push(
         {
-            path: '/covid19',
-            parent: '/covid19',
+            path: '/covid-19',
+            parent: '/covid-19',
             addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {

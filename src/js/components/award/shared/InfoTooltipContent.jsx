@@ -229,7 +229,7 @@ export const transactionHistoryInfoFinancialAssistance = (
                 the entity that received the loan dollars. Sometimes loans are financed by a
                 financial institution (with the Federal government merely providing a &#39;loan
                 guarantee&#39; to the financial institution and reimbursement in cases where the
-                loan isn&#39;t paid pack), and other times they are financed by the Federal
+                loan isn&#39;t paid back), and other times they are financed by the Federal
                 government directly (direct loans). Regardless of how it is financed,
                 a loan&#39;s face value is not considered Federal spending, because
                 it does not, in itself, represent a long-term cost to the government. The
