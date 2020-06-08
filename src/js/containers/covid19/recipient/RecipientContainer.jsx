@@ -17,9 +17,9 @@ const RecipientContainer = () => {
             </div>
             <div className="recipient__questions">
                 {
-                    tabs.map((question) => (
+                    Object.keys(tabs).map((tab) => (
                         <div key={uniqueId()} className="recipient__question">
-                            {question.question}
+                            {tabs[tab].question}
                         </div>
                     ))
                 }
@@ -27,13 +27,18 @@ const RecipientContainer = () => {
             <div className="recipient__tabs-container count-tabs">
                 <div className="count-tabs__buttons">
                     {
-                        tabs.map((tab) => (
+                        Object.keys(tabs).map((tab) => (
                             <RecipientTab
-                                {...tab}
+                                {...tabs[tab]}
+                                key={uniqueId()}
+                                type={tab}
                                 setActiveTab={setActiveTab}
-                                active={activeTab === tab.type} />
+                                active={activeTab === tab} />
                         ))
                     }
+                </div>
+                <div className="recipient__content">
+                    {tabs[activeTab].component}
                 </div>
             </div>
         </div>
