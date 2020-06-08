@@ -40,7 +40,6 @@ export default class PSCFilterGroup extends React.Component {
         return this.props.filter.values.map((value) => ({
             value: `${value.value}`,
             title: `${value.psc_description}`,
-            isSpecial: false,
             removeFilter: this.removeFilter
         }));
     }

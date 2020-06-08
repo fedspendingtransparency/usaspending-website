@@ -32,7 +32,6 @@ export default class KeywordFilterGroup extends React.Component {
             {
                 value: `${value}`,
                 title: `${value}`,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             }
         ));

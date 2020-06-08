@@ -51,7 +51,6 @@ export default class ProgramSourceFilterGroup extends React.Component {
             return {
                 value: tas,
                 title,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
         });
