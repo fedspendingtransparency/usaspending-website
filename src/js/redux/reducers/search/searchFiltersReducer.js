@@ -217,14 +217,14 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // PSC_V2 Filter
-        case 'UPDATE_PSC_V2': {
+        case 'UPDATE_PSC': {
             return Object.assign({}, state, {
                 pscCodes: action.payload
             });
         }
 
         // TAS_V2 Filter
-        case 'UPDATE_TAS_V2': {
+        case 'UPDATE_TAS': {
             return Object.assign({}, state, {
                 tasCodes: action.payload
             });
