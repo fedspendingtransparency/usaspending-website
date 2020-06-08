@@ -8,7 +8,7 @@ import { throttle } from 'lodash';
 import Sankey from 'components/covid19/sankey/Sankey';
 
 
-const height = 500;
+const height = 400;
 
 const SankeyContainer = () => {
     const [windowWidth, setWindowWidth] = useState(0);
