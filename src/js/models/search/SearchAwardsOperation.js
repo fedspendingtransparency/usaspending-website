@@ -203,7 +203,9 @@ class SearchAwardsOperation {
                 tasCodes.push(pickBy(tasObject));
             });
 
-            filters[rootKeys.tasSources] = tasCodes;
+            if (tasCodes.length > 0) {
+                filters[rootKeys.tasSources] = tasCodes;
+            }
 
             if (this.tasCheckbox.exclude.length > 0) {
                 filters[rootKeys.tasCheckbox] = {
