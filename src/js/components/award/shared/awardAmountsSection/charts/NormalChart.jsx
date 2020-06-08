@@ -286,7 +286,6 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            style={{ marginLeft: `${offsets.fileCOutlay / 2}px` }}
                             onBlur={closeTooltip}
                             onFocus={showFileCOutlayTooltip}
                             onKeyPress={showFileCOutlayTooltip}
