@@ -7,8 +7,10 @@
         line-height: rem(27);
         text-align: center;
         > div {
-            padding: 0 rem(21) rem(30);
+            padding: rem(30) rem(15) rem(30);
+            flex: 1 0 0;
         }
+
     }
     .count-tabs__buttons {
         @include display(flex);

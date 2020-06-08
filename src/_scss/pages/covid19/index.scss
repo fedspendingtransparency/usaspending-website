@@ -197,77 +197,122 @@
           @media(min-width: $tablet-screen) {
               width: 70%;
           }
-          .body__content {
-              @import '../search/results/table/tableMessages';
-              .results-table-message-container {
-                  position: relative;
-                  background-color: rgb(246, 246, 246);
-                  .results-table-loading {
-                      margin-bottom: rem(100);
-                  }
-                  .no-results-container {
-                      text-align: center;
-                      margin-top: rem(100);
-                      margin-bottom: rem(100);
-                      .no-results-title {
-                          h4 {
-                          margin-bottom: 0;
-                          vertical-align: bottom;
-                          }
-                      }
-                      .no-results-message {
-                          p {
-                          margin-top: 0;
-                          vertical-align: top;
-                          }
-                      }
-                      }
-                      .loading-animation {
-                          @import "../search/results/screens/loading";
-                      }
-                      .results-table-error {
-                      .icon {
-                          width: rem(36);
-                          height: rem(36);
-                          svg {
-                          width: rem(36);
-                          height: rem(36);
-                          }
-                      }
-                      .title {
-                          font-size: rem(20);
-                      line-height: rem(45);
-                      }
-                      .description {
-                          font-size: rem(16);
-                          line-height: rem(10);
-                      }
-                  }
-              }
-              .usda-table {
-                  td {
-                      &:first-child {
-                          @include span-columns(6 of 12, table);
-                          text-align: left;
-                      }
-                      @include span-columns(2 of 12, table);
-                      text-align: right;
-                      word-break: break-word;
-                  }
+            .body__content {
+                @import '../search/results/table/tableMessages';
+                .results-table-message-container {
+                    position: relative;
+                    background-color: rgb(246, 246, 246);
+                    .results-table-loading {
+                        margin-bottom: rem(100);
+                    }
+                    .no-results-container {
+                        text-align: center;
+                        margin-top: rem(100);
+                        margin-bottom: rem(100);
+                        .no-results-title {
+                            h4 {
+                            margin-bottom: 0;
+                            vertical-align: bottom;
+                            }
+                        }
+                        .no-results-message {
+                            p {
+                            margin-top: 0;
+                            vertical-align: top;
+                            }
+                        }
+                        }
+                        .loading-animation {
+                            @import "../search/results/screens/loading";
+                        }
+                        .results-table-error {
+                        .icon {
+                            width: rem(36);
+                            height: rem(36);
+                            svg {
+                            width: rem(36);
+                            height: rem(36);
+                            }
+                        }
+                        .title {
+                            font-size: rem(20);
+                        line-height: rem(45);
+                        }
+                        .description {
+                            font-size: rem(16);
+                            line-height: rem(10);
+                        }
+                    }
+                }
+                .usda-table {
+                    td {
+                        &:first-child {
+                            @include span-columns(6 of 12, table);
+                            text-align: left;
+                        }
+                        @include span-columns(2 of 12, table);
+                        text-align: right;
+                        word-break: break-word;
+                    }
 
-                  .table-header {
-                      .table-header__label {
-                          @include flex(0 1 auto);
-                          text-align: right;
-                      }
-  
-                      .table-header__sort {
-                          margin-top: auto;
-                          margin-bottom: auto;
-                      }
-                  }
-              }
-          }
+                    .table-header {
+                        .table-header__label {
+                            @include flex(0 1 auto);
+                            text-align: right;
+                        }
+
+                        .table-header__sort {
+                            margin-top: auto;
+                            margin-bottom: auto;
+                        }
+                    }
+                }
+                .budget-categories-table {
+                    .usda-table {
+                        margin-top: 0;
+                        td {
+                            &:first-child {
+                                text-align: left;
+                            }
+                            &:nth-child(2) {
+                                @include span-columns(6 of 12, table);
+                                text-align: left;
+                            }
+                            @include span-columns(2 of 12, table);
+                            text-align: right;
+                            word-break: break-word;
+                        }
+
+                        .table-header {
+                            .table-header__label {
+                                @include flex(0 1 auto);
+                                text-align: right;
+                            }
+
+                            .table-header__sort {
+                                margin-top: auto;
+                                margin-bottom: auto;
+                            }
+                        }
+                    }
+                }
+                .budget-categories-table__header {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: rem(20);
+
+                    .usa-dt-picker {
+                        .usa-dt-picker__button-text {
+                            border-bottom: rem(2) solid $color-cool-blue-light;
+                            font-size: $base-font-size;
+                        }
+                        .usa-dt-picker__button-icon svg {
+                            color: $color-cool-blue-light;
+                        }
+                    }
+                }
+            }
           .body__section {
               @import '../agency/v2/tabs';
               @include display(flex);

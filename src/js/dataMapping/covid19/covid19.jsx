@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { getSocialShareURL } from 'helpers/covid19Helper';
+import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 
 export const slug = 'covid19';
 
@@ -53,7 +54,7 @@ export const componentByCovid19Section = () => ({
         headerTextTooltip: awardAndNonAwardHeaderTextTT
     },
     total_spending_by_budget_categories: {
-        component: <ComingSoon />,
+        component: <BudgetCategories />,
         headerText: awardAndNonAwardHeaderText,
         headerTextTooltipooltip: awardAndNonAwardHeaderTextTT
     },
