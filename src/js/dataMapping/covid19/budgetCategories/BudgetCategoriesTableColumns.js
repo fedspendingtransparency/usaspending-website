@@ -5,59 +5,53 @@
 export const budgetDropdownColumns = {
     total_spending: [
         {
-            title: 'totalObligatedAmount',
-            displayName: 'Total Obligated Amount'
+            title: 'totalObligations',
+            displayName: 'Total Obligations'
         },
         {
-            title: 'totalOutlayedAmount',
-            displayName: 'Total Outlayed Amount'
+            title: 'totalOutlays',
+            displayName: 'Total Outlays'
         }
     ],
     award_spending: [
         {
-            title: 'awardTotalObligatedAmount',
-            displayName: 'Total Obligated Amount'
+            title: 'awardTotalObligations',
+            displayName: 'Total Obligations'
         },
         {
-            title: 'awardTotalOutlayedAmount',
-            displayName: 'Total Outlayed Amount'
-        }
-    ],
-    face_value_of_loans: [
-        {
-            title: 'faceValueOfLoans',
-            displayName: 'Face Value of Loans'
+            title: 'awardTotalOutlays',
+            displayName: 'Total Outlays'
         }
     ]
+    // face_value_of_loans: [
+    //     {
+    //         title: 'faceValueOfLoans',
+    //         displayName: 'Face Value of Loans'
+    //     }
+    // ]
 };
 
 export const budgetColumns = {
-    def_codes: [
-        {
-            title: 'defCode',
-            displayName: "DEF Codes"
-        },
-        {
-            title: 'emergencyFundingMandate',
-            displayName: 'Emergency Funding Mandate'
-        }
-    ],
     agencies: [
         {
             title: 'name',
             displayName: 'Agencies'
         }
     ],
+    def_codes: [
+        {
+            title: 'defCode',
+            displayName: "DEF Code"
+        },
+        {
+            title: 'emergencyFundingMandate',
+            displayName: 'Emergency Funding Mandate'
+        }
+    ],
     object_classes: [
         {
             title: 'name',
             displayName: 'Object Classes'
-        }
-    ],
-    program_activities: [
-        {
-            title: 'name',
-            displayName: 'Program Activities'
         }
     ],
     federal_accounts: [
@@ -68,17 +62,22 @@ export const budgetColumns = {
     ]
 };
 
+export const budgetColumnFields = {
+    defCode: 'def_code',
+    emergencyFundingMandate: 'emergency_funding_mandate'
+};
+
 export const budgetFields = {
-    totalObligatedAmount: 'total_obligated_amount',
-    totalOutlayedAmount: 'total_outlayed_amount',
-    awardTotalObligatedAmount: 'award_total_obligated_amount',
-    awardTotalOutlayedAmount: 'award_total_outlayed_amount',
-    faceValueOfLoans: 'face_value_of_loans'
+    totalObligations: 'total_obligations',
+    totalOutlays: 'total_outlays',
+    awardTotalObligations: 'award_total_obligations',
+    awardTotalOutlays: 'award_total_outlays'
+    // faceValueOfLoans: 'face_value_of_loans'
 };
 
 export const budgetDropdownFieldValues = {
     total_spending: 'Total Spending',
-    award_spending: 'Award Spending',
-    face_value_of_loans: 'Face Value of Loans'
+    award_spending: 'Award Spending'
+    // face_value_of_loans: 'Face Value of Loans'
 };
 

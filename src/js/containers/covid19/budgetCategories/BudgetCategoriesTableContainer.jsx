@@ -50,47 +50,47 @@ const BudgetCategoriesTableContainer = (props) => {
                 {
                     def_code: "L",
                     emergency_funding_mandate: "emergencyFundingMandate1",
-                    total_obligated_amount: 1000000,
-                    total_outlayed_amount: 999999,
-                    award_total_obligated_amount: 123123123,
-                    award_total_outlayed_amount: 321321321,
-                    face_value_of_loans: 666666666
+                    total_obligations: 1000000,
+                    total_outlays: 999999,
+                    award_total_obligations: 123123123,
+                    award_total_outlays: 321321321
+                    // face_value_of_loans: 666666666
                 },
                 {
                     def_code: "M",
                     emergency_funding_mandate: "emergencyFundingMandate2",
-                    total_obligated_amount: 1000000,
-                    total_outlayed_amount: 999999,
-                    award_total_obligated_amount: 123123123,
-                    award_total_outlayed_amount: 321321321,
-                    face_value_of_loans: 666666666
+                    total_obligations: 1000000,
+                    total_outlays: 999999,
+                    award_total_obligations: 123123123,
+                    award_total_outlays: 321321321
+                    // face_value_of_loans: 666666666
                 },
                 {
                     def_code: "N",
                     emergency_funding_mandate: "emergencyFundingMandate3",
-                    total_obligated_amount: 1000000,
-                    total_outlayed_amount: 999999,
-                    award_total_obligated_amount: 123123123,
-                    award_total_outlayed_amount: 321321321,
-                    face_value_of_loans: 666666666
+                    total_obligations: 1000000,
+                    total_outlays: 999999,
+                    award_total_obligations: 123123123,
+                    award_total_outlays: 321321321
+                    // face_value_of_loans: 666666666
                 },
                 {
                     def_code: "O",
                     emergency_funding_mandate: "emergencyFundingMandate4",
-                    total_obligated_amount: 1000000,
-                    total_outlayed_amount: 999999,
-                    award_total_obligated_amount: 123123123,
-                    award_total_outlayed_amount: 321321321,
-                    face_value_of_loans: 666666666
+                    total_obligations: 1000000,
+                    total_outlays: 999999,
+                    award_total_obligations: 123123123,
+                    award_total_outlays: 321321321
+                    // face_value_of_loans: 666666666
                 },
                 {
                     def_code: "P",
                     emergency_funding_mandate: "emergencyFundingMandate5",
-                    total_obligated_amount: 1000000,
-                    total_outlayed_amount: 999999,
-                    award_total_obligated_amount: 123123123,
-                    award_total_outlayed_amount: 321321321,
-                    face_value_of_loans: 666666666
+                    total_obligations: 1000000,
+                    total_outlays: 999999,
+                    award_total_obligations: 123123123,
+                    award_total_outlays: 321321321
+                    // face_value_of_loans: 666666666
                 }
             ]);
             setTotalItems(100);

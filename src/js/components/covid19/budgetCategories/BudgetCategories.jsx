@@ -9,28 +9,22 @@ import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/
 
 const tabs = [
     {
-        type: 'def_codes',
-        label: 'DEF Codes',
-        description: 'What legislative acts funded this spending?',
-        countField: 'def_codes_count'
-    },
-    {
         type: 'agencies',
         label: 'Agencies',
         description: 'What agencies did the spending?',
         countField: 'agencies_count'
     },
     {
+        type: 'def_codes',
+        label: 'DEF Codes',
+        description: 'What legislative acts funded this spending?',
+        countField: 'def_codes_count'
+    },
+    {
         type: 'object_classes',
         label: 'Object Classes',
         description: 'What types of things did this agency purchase?',
         countField: 'object_classes_count'
-    },
-    {
-        type: 'program_activities',
-        label: 'Program Activities',
-        description: 'What were the purposes of this agency’s spending?',
-        countField: 'program_activities_count'
     },
     {
         type: 'federal_accounts',

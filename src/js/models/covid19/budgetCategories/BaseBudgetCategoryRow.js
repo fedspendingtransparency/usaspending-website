@@ -4,50 +4,43 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import { budgetDropdownColumns, budgetFields } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 
 const BaseBudgetCategoryRow = {
     populateOnSpendingCategory(data, spendingCategory) {
         [...budgetDropdownColumns[spendingCategory]].forEach((column) => {
             this[`_${column.title}`] = data[budgetFields[column.title]];
+            console.log(`_${column.title}`);
         });
     },
-
-    populateDefCodes(data, spendingCategory) {
-        this.name = data.emergency_funding_mandate || '';
-        this.defCode = data.def_code || '';
-        this.emergencyFundingMandate = data.emergency_funding_mandate || '';
+    populateBase(data, type) {
+        [...budgetColumns[type]].forEach((column) => {
+            if (budgetColumnFields[column.title]) {
+                this[`${column.title}`] = data[budgetColumnFields[column.title]];
+            } else {
+                this[`${column.title}`] = data[column.title];
+            }
+        });
+    },
+    populate(data, type, spendingCategory) {
+        this.populateBase(data, type);
         this.populateOnSpendingCategory(data, spendingCategory);
     },
-
-    populate(data, type, spendingCateogry) {
-        if (type === 'def_codes') {
-            this.populateDefCodes(data, spendingCateogry);
-        } else if (type === 'agencies') {
-            this.populateAgencies(data, spendingCateogry);
-        } else if (type === 'program_activity') {
-            this.populateProgramActivity(data, spendingCateogry);
-        } else if (type === 'object_class') {
-            this.populateObjectClass(data, spendingCateogry);
-        } else {
-            this.populateFederalAccounts(data, spendingCateogry);
-        }
+    get totalObligations() {
+        return formatMoney(this._totalObligations);
     },
-    get totalObligatedAmount() {
-        return formatMoney(this._totalObligatedAmount);
+    get totalOutlays() {
+        return formatMoney(this._totalOutlays);
     },
-    get totalOutlayedAmount() {
-        return formatMoney(this._totalOutlayedAmount);
+    get awardTotalObligations() {
+        return formatMoney(this._awardTotalObligations);
     },
-    get awardTotalObligatedAmount() {
-        return formatMoney(this._awardTotalObligatedAmount);
-    },
-    get awardTotalOutlayedAmount() {
-        return formatMoney(this._awardTotalOutlayedAmount);
-    },
-    get faceValueOfLoans() {
-        return formatMoney(this._faceValueOfLoans);
+    get awardTotalOutlays() {
+        return formatMoney(this._awardTotalOutlays);
     }
+    // get faceValueOfLoans() {
+    //     return formatMoney(this._faceValueOfLoans);
+    // }
 };
 
 export default BaseBudgetCategoryRow;
