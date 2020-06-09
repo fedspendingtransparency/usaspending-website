@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { getSocialShareURL } from 'helpers/covid19Helper';
+import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 
 export const slug = 'covid19';
 
@@ -59,7 +60,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_over_time: {
         icon: 'landmark',
-        component: <ComingSoon />,
+        component: <AwardSpendingOverTime />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },
