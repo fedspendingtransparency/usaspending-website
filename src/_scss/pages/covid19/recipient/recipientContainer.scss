@@ -20,6 +20,53 @@
   }
   .recipient__tabs-container {
     width: 100%;
+    // @import 'pages/search/results/visualizations/geo/geoVisualization';
+    .results-visualization-geo-section {
+      position: relative;
+      @import "pages/search/results/visualizations/geo/_topSection";
+  
+      h2.visualization-title {
+          @include h3;
+          margin: 0;
+      }
+  
+      .map-container {
+          height: rem(475);
+          width: 100%;
+      }
+      @import "pages/search/results/visualizations/geo/map/map";
+      .map-container { 
+        .map__filters-container {
+          background-color: $color-white;
+          top: 1.5rem;
+          // @include media($tablet-screen) {
+          //     bottom: rem(15);
+          // }
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+          left: 1.5rem;
+          position: absolute;
+          z-index: 2;
+        }
+        .map-legend {
+          bottom: 6.5rem;
+          left: 1.5rem;
+          @include media($tablet-screen) {
+            right: 1.5rem;
+            left: auto;
+          }
+        }
+      }
+      .visualization-tooltip {
+          @import "components/visualizations/tooltip/_tooltip";
+      }
+      //HIDE THE MAPBOX COMPASS CONTROLS
+      & .mapboxgl-ctrl-compass {
+          display: none !important;
+      }
+  
+      @import "pages/search/results/visualizations/geo/_disclaimer";
+      @import "pages/search/results/visualizations/geo/_message";
+    }
   }
   @import '../../agency/v2/tabs';
   .count-button {
