@@ -34,7 +34,7 @@ import {
     setSearchedTas,
     setTasCounts
 } from 'redux/actions/search/tasActions';
-import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
+import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -447,7 +447,7 @@ const mapDispatchToProps = (dispatch) => ({
     setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
     setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),
     setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts)),
-    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts))
+    stageTas: (require, exclude, counts) => dispatch(updateTAS(require, exclude, counts))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TASCheckboxTree);

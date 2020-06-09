@@ -26,9 +26,8 @@ class SearchAwardsOperation {
         this.awardingAgencies = [];
         this.fundingAgencies = [];
 
-        this.tasSources = [];
-        this.accountSources = [];
         this.tasCheckbox = checkboxTreeKeys;
+        this.tasSources = [];
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -43,9 +42,7 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = [];
 
         this.selectedCFDA = [];
-        this.selectedNAICS = [];
         this.naicsCodes = checkboxTreeKeys;
-        this.selectedPSC = [];
         this.pscCheckbox = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
@@ -73,7 +70,6 @@ class SearchAwardsOperation {
             require: state.tasCodes.toObject().require,
             exclude: state.tasCodes.toObject().exclude
         };
-        this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
@@ -88,7 +84,6 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
         this.selectedCFDA = state.selectedCFDA.toArray();
-        this.selectedNAICS = state.selectedNAICS.toArray();
         this.naicsCodes = {
             require: state.naicsCodes.toObject().require,
             exclude: state.naicsCodes.toObject().exclude
@@ -97,7 +92,6 @@ class SearchAwardsOperation {
             require: state.pscCodes.toObject().require,
             exclude: state.pscCodes.toObject().exclude
         };
-        this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
         this.setAside = state.setAside.toArray();
@@ -202,21 +196,17 @@ class SearchAwardsOperation {
         }
 
         // Add Program Sources
-        if (this.tasSources.length > 0 || this.accountSources.length > 0) {
+        if (this.tasSources.length > 0 || this.tasCheckbox.require.length > 0) {
             const tasCodes = [];
-
-            this.accountSources.forEach((accountObject) => {
-                tasCodes.push(pickBy(accountObject));
-            });
 
             this.tasSources.forEach((tasObject) => {
                 tasCodes.push(pickBy(tasObject));
             });
 
-            filters[rootKeys.tasSources] = tasCodes;
-        }
+            if (tasCodes.length > 0) {
+                filters[rootKeys.tasSources] = tasCodes;
+            }
 
-        if (this.tasCheckbox.require.length > 0) {
             if (this.tasCheckbox.exclude.length > 0) {
                 filters[rootKeys.tasCheckbox] = {
                     require: trimCheckedToCommonAncestors(this.tasCheckbox.require),
@@ -306,24 +296,16 @@ class SearchAwardsOperation {
         }
 
         // Add NAICS
-        if (this.selectedNAICS.length > 0) {
-            filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
-        }
-
-        // NAICS v2
         if (this.naicsCodes.require.length > 0) {
             if (this.naicsCodes.exclude.length > 0) {
-                filters[rootKeys.naics_v2] = this.naicsCodes;
+                filters[rootKeys.naics] = this.naicsCodes;
             }
             else {
-                filters[rootKeys.naics_v2] = this.naicsCodes.require;
+                filters[rootKeys.naics] = this.naicsCodes.require;
             }
         }
 
         // Add PSC
-        if (this.selectedPSC.length > 0) {
-            filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
-        }
         if (this.pscCheckbox.require.length > 0) {
             if (this.pscCheckbox.exclude.length > 0) {
                 filters[rootKeys.psc] = {

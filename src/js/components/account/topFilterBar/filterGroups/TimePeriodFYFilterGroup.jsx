@@ -60,7 +60,6 @@ export default class TimePeriodFYFilterGroup extends React.Component {
             const tag = {
                 value: 'all',
                 title: 'All Fiscal Years',
-                isSpecial: true,
                 removeFilter: this.clearGroup
             };
 
@@ -72,7 +71,6 @@ export default class TimePeriodFYFilterGroup extends React.Component {
                 const tag = {
                     value,
                     title: `FY ${value}`,
-                    isSpecial: false,
                     removeFilter: this.removeFilter
                 };
 
