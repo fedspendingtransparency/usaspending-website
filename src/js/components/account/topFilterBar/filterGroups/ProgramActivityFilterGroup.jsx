@@ -47,7 +47,6 @@ export default class ProgramActivityFilterGroup extends React.Component {
             const tag = {
                 value,
                 title: label,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

@@ -46,7 +46,6 @@ export default class RecipientTypeFilterGroup extends React.Component {
             const tag = {
                 value,
                 title: RecipientType.recipientTypes[value],
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

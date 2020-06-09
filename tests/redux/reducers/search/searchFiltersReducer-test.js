@@ -644,7 +644,45 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    // TODO: Add Test for New PSC Reducer
+    describe('UPDATE_PSC', () => {
+        it('updates the relevant test property', () => {
+            // when this action is used, lots of functions are composed
+            // to remove redundancy, placeholder strings etc...
+            // consequently, this test is super basic.
+            const action = {
+                type: "UPDATE_PSC",
+                payload: {
+                    exclude: [["Products", "B", "B5"]],
+                    require: [["children_of_Products", "children_of_B"]],
+                    counts: [{ label: 'test', count: 50, value: 'x' }]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).pscCodes;
+            expect(state.require.length).toEqual(1);
+            expect(state.exclude.length).toEqual(1);
+            expect(state.counts.length).toEqual(1);
+        });
+    });
+
+    describe('UPDATE_PSC', () => {
+        it('updates the relevant test property', () => {
+            // when this action is used, lots of functions are composed
+            // to remove redundancy, placeholder strings etc...
+            // consequently, this test is super basic.
+            const action = {
+                type: "UPDATE_TAS",
+                payload: {
+                    exclude: [["Products", "B", "B5"]],
+                    require: [["children_of_Products", "children_of_B"]],
+                    counts: [{ label: 'test', count: 50, value: 'x' }]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).tasCodes;
+            expect(state.require.length).toEqual(1);
+            expect(state.exclude.length).toEqual(1);
+            expect(state.counts.length).toEqual(1);
+        });
+    });
 
     describe('UPDATE_PRICING_TYPE', () => {
         it('should set a pricing type value when there is none', () => {

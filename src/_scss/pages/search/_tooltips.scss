@@ -10,6 +10,7 @@ $letter-color: #323A45;
         @include justify-content(center);
         @include align-items(center);
         @include flex-direction(column);
+        width: 100%;
         // tooltip header styles
         h3 {
             margin: 0;
