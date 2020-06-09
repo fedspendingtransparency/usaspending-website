@@ -38,7 +38,7 @@ import {
     setUncheckedNaics,
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
-import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
+import { updateNaics } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
@@ -469,7 +469,7 @@ export default connect(
         filters: state.appliedFilters.filters
     }),
     (dispatch) => ({
-        stageNaics: (checked, unchecked, counts) => dispatch(updateNaicsV2(checked, unchecked, counts)),
+        stageNaics: (checked, unchecked, counts) => dispatch(updateNaics(checked, unchecked, counts)),
         setNaicsNodes: (key, naics) => dispatch(setNaicsNodes(key, naics)),
         setExpandedNaics: (expanded, type) => dispatch(setExpandedNaics(expanded, type)),
         setCheckedNaics: (checkedNodes) => dispatch(setCheckedNaics(checkedNodes)),

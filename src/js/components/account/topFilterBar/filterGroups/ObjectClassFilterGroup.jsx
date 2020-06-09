@@ -40,7 +40,6 @@ export default class ObjectClassFilterGroup extends React.Component {
             const tag = {
                 value,
                 title: label,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

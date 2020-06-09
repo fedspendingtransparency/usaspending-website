@@ -58,7 +58,6 @@ export default class AgencyFilterGroup extends React.Component {
             const tag = {
                 value: `${value.id}_${value.agencyType}`,
                 title: agencyTitle,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

@@ -12,9 +12,10 @@ import SelectedSources from './SelectedSources';
 import ProgramSourceInfoTooltip from '../tooltips/ProgramSourceInfoTooltip';
 
 const propTypes = {
-    selectedFederalComponents: PropTypes.object,
     selectedTreasuryComponents: PropTypes.object,
-    updateFederalAccountComponents: PropTypes.func,
+    checkboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
+    appliedTreasuryComponents: PropTypes.object,
+    appliedCheckboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
     updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
@@ -75,17 +76,17 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     openDefaultTab() {
-        // switch to the federal account tab if it has a filter applied and TAS does not
-        if (this.props.selectedFederalComponents.size > 0 && this.props.selectedTreasuryComponents.size === 0) {
+        // switch to the autocomplete tab if it has a filter selected/applied and the checkbox tree does not
+        if ((this.props.checkboxTreeSelections.length === 0 && this.props.selectedTreasuryComponents.size > 0) ||
+            (this.props.appliedCheckboxTreeSelections.length === 0 && this.props.appliedTreasuryComponents.size > 0)) {
             this.setState({
-                activeTab: 1
+                activeTab: 2
             });
         }
     }
 
     toggleTab(e) {
         const type = e.target.value;
-
         this.setState({
             activeTab: parseInt(type, 10)
         });
@@ -93,15 +94,8 @@ export default class ProgramSourceSection extends React.Component {
 
     applyFilter(e) {
         e.preventDefault();
-        const components = this.state.components;
-        if (this.state.activeTab === 'federal') {
-            const identifier = `${components.aid}-${components.main}`;
-            this.props.updateFederalAccountComponents({
-                identifier,
-                values: components
-            });
-        }
-        else {
+        const { components } = this.state;
+        if (this.state.activeTab === 2) {
             const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}/${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
             this.props.updateTreasuryAccountComponents({
                 identifier,
@@ -127,12 +121,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     removeFilter(identifier) {
-        if (this.state.activeTab === 'federal') {
-            this.props.updateFederalAccountComponents({
-                identifier, values: {}
-            });
-        }
-        else {
+        if (this.state.activeTab === 2) {
             this.props.updateTreasuryAccountComponents({
                 identifier, values: {}
             });
@@ -142,8 +131,9 @@ export default class ProgramSourceSection extends React.Component {
 
     render() {
         const { activeTab, components } = this.state;
-        const activeTreasury = activeTab === 1 ? '' : 'inactive';
-        const activeFederal = activeTab === 2 ? '' : 'inactive';
+        const checkboxTreeActiveClass = activeTab === 1 ? '' : 'inactive';
+        const autoCompleteActiveClass = activeTab === 2 ? '' : 'inactive';
+
         const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
@@ -155,7 +145,7 @@ export default class ProgramSourceSection extends React.Component {
         );
 
         let selectedSources = null;
-        if (activeTab === 2 && this.props.selectedFederalComponents) {
+        if (activeTab === 2 && this.props.selectedTreasuryComponents.size > 0) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
@@ -190,7 +180,7 @@ export default class ProgramSourceSection extends React.Component {
                     role="menu">
                     <li>
                         <button
-                            className={`tab-toggle ${activeTreasury}`}
+                            className={`tab-toggle ${checkboxTreeActiveClass}`}
                             value="1"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 1}
@@ -202,7 +192,7 @@ export default class ProgramSourceSection extends React.Component {
                     </li>
                     <li>
                         <button
-                            className={`tab-toggle ${activeFederal}`}
+                            className={`tab-toggle ${autoCompleteActiveClass}`}
                             value="2"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 2}
