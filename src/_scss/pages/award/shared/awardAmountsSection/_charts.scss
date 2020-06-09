@@ -173,7 +173,8 @@ $new-potential: #AAC6E2;
                     text-align: left;
                 }
             }
-            &.total-funding::after {
+            &.total-funding::after,
+            &.denominator::after {
                 content: ' ';
                 height: rem(45);
                 border: rem(1) solid $color-gray;
