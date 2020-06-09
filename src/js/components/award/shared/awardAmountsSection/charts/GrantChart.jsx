@@ -12,7 +12,11 @@ import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
-
+import {
+    Bar,
+    BarLabelAndLine,
+    BarValue
+} from "./SharedComponents";
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -27,7 +31,7 @@ const emptyTooltipProps = {
     tooltipComponent: <p>Placeholder</p>
 };
 
-const horiztonalTooltipPositionOffset = 10;
+const horizontalTooltipPositionOffset = 10;
 
 const barColorsByCategory = {
     obligated: `#4773aa`,
@@ -74,7 +78,7 @@ const GrantChart = ({ awardAmounts, awardType }) => {
         nonFederalFunding: nonFederalFundingIsZero ? '100%' : generatePercentage(nonFederalFunding / totalFunding),
         totalFunding: generatePercentage(1),
         fileCObligated: generatePercentage(fileCObligated / obligation),
-        fileCOutlay: generatePercentage(fileCOutlay / obligation)
+        fileCOutlay: generatePercentage(fileCOutlay / fileCObligated)
     };
 
     const showTooltip = (spendingCategory, type = awardType, data = awardAmounts) => {
@@ -82,10 +86,9 @@ const GrantChart = ({ awardAmounts, awardType }) => {
             ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
             wide: false,
             styles: {
-                // TODO: handle when non federal funding is zero.
                 transform: spendingCategory === 'nonFederalFunding' && nonFederalFundingIsZero
-                    ? `translate(calc(${nonFederalFundingZeroToolTipPositions.horizontal}px + ${horiztonalTooltipPositionOffset}px), calc(${verticalTooltipOffset}px + ${nonFederalFundingZeroToolTipPositions.vertical}px))`
-                    : `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horiztonalTooltipPositionOffset}px), ${verticalTooltipOffset}px)`
+                    ? `translate(calc(${nonFederalFundingZeroToolTipPositions.horizontal}px + ${horizontalTooltipPositionOffset}px), calc(${verticalTooltipOffset}px + ${nonFederalFundingZeroToolTipPositions.vertical}px))`
+                    : `translate(calc(${tooltipPositionsByCategory[spendingCategory]} + ${horizontalTooltipPositionOffset}px), ${verticalTooltipOffset}px)`
             }
         });
         setIsTooltipVisible(true);
@@ -97,8 +100,6 @@ const GrantChart = ({ awardAmounts, awardType }) => {
     };
 
     const fileCOutlayPositioning = {
-        position: 'relative',
-        right: barWidthsByCategory.fileCObligated,
         padding: '0.2rem'
     };
 
@@ -141,210 +142,123 @@ const GrantChart = ({ awardAmounts, awardType }) => {
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            <div
+            <BarValue
+                spendingCategory="obligated"
                 className="award-amounts-viz__desc-top"
-                role="button"
-                tabIndex="0"
-                onBlur={closeTooltip}
-                onFocus={showObligatedTooltip}
-                onKeyPress={showObligatedTooltip}
-                onMouseEnter={showObligatedTooltip}
-                onMouseLeave={closeTooltip}
-                onClick={showObligatedTooltip}>
-                <strong>{awardAmounts.totalObligationAbbreviated}</strong><br />Obligated Amount
-            </div>
-            <div className="award-amounts-viz__label" style={{ width: barWidthsByCategory.obligated }}>
-                <div className="award-amounts-viz__line-up" />
-            </div>
+                onLeave={closeTooltip}
+                onEnter={showObligatedTooltip}
+                number={awardAmounts.totalObligationAbbreviated}
+                title="Obligated Amount" />
+            <BarLabelAndLine
+                labelStyles={{ width: barWidthsByCategory.obligated }}
+                lineClassName="award-amounts-viz__line-up" />
             {isCaresReleased &&
                 <>
-                    <div
-                        className="award-amounts-viz__desc-top file-c-obligated"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showFileCObligatedTooltip}
-                        onKeyPress={showFileCObligatedTooltip}
-                        onMouseEnter={showFileCObligatedTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showFileCObligatedTooltip}>
-                        <strong>{awardAmounts.fileCObligatedAbbreviated}</strong><br />COVID-19 Response Obligations Amount
-                    </div>
-                    <div className="award-amounts-viz__label file-c-obligated" style={{ width: tooltipPositionsByCategory.fileCObligated }}>
-                        <div className="award-amounts-viz__line-up file-c-obligated" />
-                    </div>
+                    <BarValue
+                        spendingCategory="file-c-obligated"
+                        className="award-amounts-viz__desc-top"
+                        onLeave={closeTooltip}
+                        onEnter={showFileCObligatedTooltip}
+                        number={awardAmounts.fileCObligatedAbbreviated}
+                        title="COVID-19 Response Obligations Amount" />
+                    <BarLabelAndLine
+                        spendingCategory="file-c-obligated"
+                        lineClassName="award-amounts-viz__line-up"
+                        labelStyles={{ width: tooltipPositionsByCategory.fileCObligated }} />
                 </>
             }
             <div className="award-amounts-viz__bar-wrapper">
-                <div
-                    className="total-funding"
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showTotalFundingTooltip}
-                    onKeyPress={showTotalFundingTooltip}
-                    onMouseEnter={showTotalFundingTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showTotalFundingTooltip}
-                    style={{ backgroundColor: barColorsByCategory.totalFunding }}>
-                    <div
-                        className="award-amounts-viz__bar"
-                        style={{ backgroundColor: barColorsByCategory.totalFunding }}>
-                        <div
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showObligatedTooltip}
-                            onKeyPress={showObligatedTooltip}
-                            onMouseEnter={showObligatedTooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showObligatedTooltip}
-                            className="grant-obligated"
-                            style={{ width: barWidthsByCategory.obligated }}>
-                            <div
-                                className="award-amounts-viz__bar grant-obligated"
-                                style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.obligated }} >
-                                {isCaresReleased &&
-                                    <div className="nested-obligations">
-                                        <div
-                                            className="file-c-obligated"
-                                            style={{ width: barWidthsByCategory.fileCObligated }}
-                                            role="button"
-                                            tabIndex="0"
-                                            onBlur={closeTooltip}
-                                            onFocus={showFileCObligatedTooltip}
-                                            onKeyPress={showFileCObligatedTooltip}
-                                            onMouseEnter={showFileCObligatedTooltip}
-                                            onMouseLeave={closeTooltip}
-                                            onClick={showFileCObligatedTooltip}>
-                                            <div
-                                                className="award-amounts-viz__bar file-c-obligated"
-                                                style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCObligated }} />
-                                        </div>
-                                        {isFileCOutlayDefined &&
-                                            <div
-                                                className="file-c-outlay"
-                                                style={{ width: barWidthsByCategory.fileCOutlay, ...fileCOutlayPositioning }}
-                                                role="button"
-                                                tabIndex="0"
-                                                onBlur={closeTooltip}
-                                                onFocus={showFileCOutlayTooltip}
-                                                onKeyPress={showFileCOutlayTooltip}
-                                                onMouseEnter={showFileCOutlayTooltip}
-                                                onMouseLeave={closeTooltip}
-                                                onClick={showFileCOutlayTooltip}>
-                                                <div
-                                                    className="award-amounts-viz__bar file-c-outlay"
-                                                    style={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.fileCOutlay }} />
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        {!nonFederalFundingIsZero &&
-                            <div
-                                role="button"
-                                tabIndex="0"
-                                onBlur={closeTooltip}
-                                onFocus={showNonFederalFundingTooltip}
-                                onKeyPress={showNonFederalFundingTooltip}
-                                onMouseEnter={showNonFederalFundingTooltip}
-                                onMouseLeave={closeTooltip}
-                                onClick={showNonFederalFundingTooltip}
-                                className="non-federal-funding"
-                                style={{ width: barWidthsByCategory.nonFederalFunding }}>
-                                <div
-                                    className="award-amounts-viz__bar non-federal-funding"
-                                    style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
+                <Bar
+                    spendingCategory="total-funding"
+                    onLeave={closeTooltip}
+                    onEnter={showTotalFundingTooltip}
+                    barWrapperStyles={{ backgroundColor: barColorsByCategory.totalFunding }}
+                    barStyles={{ backgroundColor: barColorsByCategory.totalFunding }}>
+                    <Bar
+                        spendingCategory="grant-obligated"
+                        onLeave={closeTooltip}
+                        onEnter={showObligatedTooltip}
+                        barWrapperStyles={{ width: barWidthsByCategory.obligated }}
+                        barStyles={{ width: generatePercentage(1), backgroundColor: barColorsByCategory.obligated }}>
+                        {isCaresReleased &&
+                            <div className="nested-obligations">
+                                <Bar
+                                    spendingCategory="file-c-obligated"
+                                    onLeave={closeTooltip}
+                                    onEnter={showFileCObligatedTooltip}
+                                    barWrapperStyles={{ width: barWidthsByCategory.fileCObligated }}
+                                    barStyles={{
+                                        width: generatePercentage(1),
+                                        backgroundColor: barColorsByCategory.fileCObligated
+                                    }}>
+                                    {isFileCOutlayDefined &&
+                                        <Bar
+                                            spendingCategory="file-c-outlay"
+                                            onLeave={closeTooltip}
+                                            onEnter={showFileCOutlayTooltip}
+                                            barWrapperStyles={{ width: barWidthsByCategory.fileCOutlay, ...fileCOutlayPositioning }}
+                                            barStyles={{
+                                                width: generatePercentage(1),
+                                                backgroundColor: barColorsByCategory.fileCOutlay
+                                            }} />
+                                    }
+                                </Bar>
                             </div>
                         }
-                    </div>
-                </div>
+                    </Bar>
+                    {!nonFederalFundingIsZero &&
+                        <Bar
+                            spendingCategory="non-federal-funding"
+                            onLeave={closeTooltip}
+                            onEnter={showNonFederalFundingTooltip}
+                            barWrapperStyles={{ width: barWidthsByCategory.nonFederalFunding }}
+                            barStyles={{
+                                width: generatePercentage(1),
+                                backgroundColor: barColorsByCategory.nonFederalFunding
+                            }} />
+                    }
+                </Bar>
             </div>
             {/* Even if outlay is 0, we want to show this so long as the obligated is > 0 */}
             {isCaresReleased &&
-                <div className="award-amounts-viz__label file-c-outlay">
-                    <div className="award-amounts-viz__line file-c-outlay" style={{ width: tooltipPositionsByCategory.fileCOutlay }} />
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showFileCOutlayTooltip}
-                            onKeyPress={showFileCOutlayTooltip}
-                            onMouseEnter={showFileCOutlayTooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showFileCOutlayTooltip}>
-                            <strong>{awardAmounts.fileCOutlayAbbreviated}</strong><br />
-                            COVID-19 Response Outlay Amount
-                        </div>
-                    </div>
-                </div>
+                <BarLabelAndLine
+                    spendingCategory="file-c-outlay"
+                    lineStyles={{ width: tooltipPositionsByCategory.fileCOutlay }}>
+                    <BarValue
+                        spendingCategory="file-c-outlay"
+                        onEnter={showFileCOutlayTooltip}
+                        onLeave={closeTooltip}
+                        title="COVID-19 Response Outlay Amount"
+                        number={awardAmounts.fileCOutlayAbbreviated} />
+                </BarLabelAndLine>
             }
-            <div className="award-amounts-viz__label" style={{ width: barWidthsByCategory.nonFederalFunding, ...nonFederalFundingPositioning }}>
-                {!nonFederalFundingIsZero && (
-                    <div
-                        className="award-amounts-viz__line--non-federal-funding"
-                        style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
-                )}
-                <div className={`${nonFederalFundingIsZero ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero' : 'award-amounts-viz__desc'}`}>
-                    {!nonFederalFundingIsZero && (
-                        <React.Fragment>
-                            <div
-                                className="award-amounts-viz__desc-text"
-                                role="button"
-                                tabIndex="0"
-                                onBlur={closeTooltip}
-                                onFocus={showNonFederalFundingTooltip}
-                                onKeyPress={showNonFederalFundingTooltip}
-                                onMouseOver={showNonFederalFundingTooltip}
-                                onMouseOut={closeTooltip}
-                                onClick={showNonFederalFundingTooltip}>
-                                <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
-                            </div>
-                            <div className="award-amounts-viz__legend-line" style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
-                        </React.Fragment>
-                    )}
-                    {nonFederalFundingIsZero &&
-                        <div
-                            className="award-amounts-viz__desc-text-nff-zero"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showNonFederalFundingTooltip}
-                            onKeyPress={showNonFederalFundingTooltip}
-                            onMouseOver={showNonFederalFundingTooltip}
-                            onMouseOut={closeTooltip}
-                            onClick={showNonFederalFundingTooltip}>
-                            <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
-                                <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
-                            </div>
-                            <div className="award-amounts-viz__legend-line" style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
-                        </div>
-                    }
-                </div>
-                <div className="award-amounts-viz__legend-line" style={{ backgroundColor: barColorsByCategory.nonFederalFunding }} />
-            </div>
-            <div className="award-amounts-viz__label">
-                <div className="award-amounts-viz__line" style={{ backgroundColor: barColorsByCategory.totalFunding }} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showTotalFundingTooltip}
-                        onKeyPress={showTotalFundingTooltip}
-                        onMouseEnter={showTotalFundingTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showTotalFundingTooltip}>
-                        <strong>{awardAmounts.totalFundingAbbreviated}</strong><br />Total Funding
-                    </div>
-                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={{ backgroundColor: barColorsByCategory.totalFunding }} />
-                </div>
-            </div>
+            <BarLabelAndLine
+                spendingCategory="non-federal-funding"
+                labelStyles={{ width: barWidthsByCategory.nonFederalFunding, ...nonFederalFundingPositioning }}
+                lineClassName="award-amounts-viz__line--non-federal-funding"
+                lineStyles={{
+                    display: nonFederalFundingIsZero ? 'none' : 'block',
+                    backgroundColor: barColorsByCategory.nonFederalFunding
+                }}>
+                <BarValue
+                    spendingCategory="non-federal-funding"
+                    className={nonFederalFundingIsZero ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero' : 'award-amounts-viz__desc'}
+                    onEnter={showNonFederalFundingTooltip}
+                    onLeave={closeTooltip}
+                    title="Non-Federal Funding"
+                    number={awardAmounts.nonFederalFundingAbbreviated}/>
+            </BarLabelAndLine>
+            <BarLabelAndLine
+                spendingCategory="total-funding"
+                labelStyles={{ width: barWidthsByCategory.totalFunding }}
+                lineStyle={{ backgroundColor: barColorsByCategory.totalFunding }}>
+                <BarValue
+                    spendingCategory="total-funding"
+                    onEnter={showTotalFundingTooltip}
+                    onLeave={closeTooltip}
+                    title="Total Funding"
+                    number={awardAmounts.totalFundingAbbreviated} />
+            </BarLabelAndLine>
         </div>
     );
 };

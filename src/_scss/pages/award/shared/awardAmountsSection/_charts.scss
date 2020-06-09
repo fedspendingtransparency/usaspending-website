@@ -6,6 +6,9 @@ $file-c-potential: #AAC6E2;
 $file-c-outlay: #6E338E;
 $file-c-obligation: #B699C6;
 
+$new-current: #558EC6;
+$new-potential: #AAC6E2;
+
 %award-amounts-viz__line-indicator {
     content: "";
     position: absolute;
@@ -60,7 +63,7 @@ $file-c-obligation: #B699C6;
             }
             .award-amounts-viz__non-federal-funding {
                 position: relative;
-                padding: 3.5px;
+                padding: rem(3.5);
             }
             .award-amounts-viz__exceeded {
                 border-top: solid rem(4) $color-gray-lightest;
@@ -127,6 +130,54 @@ $file-c-obligation: #B699C6;
                         font-size: $h6-font-size;
                     }
                 }
+            }
+        }
+        &:not(.covid) .award-amounts-viz__desc {
+            &.current {
+                border-right: rem(5) solid $color-gray-lighter;
+            }
+            &.potential::after {
+                content: ' ';
+                height: rem(45);
+                border: rem(1) solid $color-gray;
+                background-color: #ECECDC;
+                width: rem(5);
+            }
+            &.non-federal-funding {
+                border-right: rem(5) solid $grants-line-color;
+            }
+        }
+        &.covid {
+            .award-amounts-viz__desc {
+                &.current {
+                    border-right: 5px solid $new-current;
+                }
+                &.potential {
+                    border-right: 5px solid $new-potential;
+                }
+            }
+        }
+        .award-amounts-viz__desc {
+            &.award-amounts-viz__desc--nff-zero {
+                border-left: rem(5) solid $grants-line-color;
+                &.non-federal-funding {
+                    border-right: none;
+                }
+                .award-amounts-viz__desc-text-nff-zero {
+                    @include display(flex);
+                }
+                .award-amounts-viz__desc-text {
+                    order: 1;
+                    margin-left: 10px;
+                    min-width: rem(160);
+                    text-align: left;
+                }
+            }
+            &.total-funding::after {
+                content: ' ';
+                height: rem(45);
+                border: rem(1) solid $color-gray;
+                width: rem(5);
             }
         }
     }
@@ -347,20 +398,6 @@ $file-c-obligation: #B699C6;
                     $color-secondary rem(7)
                 );
             }
-        }
-    }
-    .award-amounts-viz__desc--nff-zero {
-        .award-amounts-viz__desc-text-nff-zero {
-            @include display(flex);
-        }
-        .award-amounts-viz__desc-text {
-            order: 1;
-            margin-left: 10px;
-            min-width: rem(160);
-            text-align: left;
-        }
-        .award-amounts-viz__legend-line {
-            height: rem(45);
         }
     }
 }
