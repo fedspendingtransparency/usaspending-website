@@ -15,7 +15,7 @@
         border-bottom: solid 1px $color-gray-light;
         button.count-tabs__button {
             @include display(flex);
-            @include flex(1 1 25%);
+            @include flex(0 0 25%);
             @include justify-content(center);
             @include align-items(stretch);
             @include button-unstyled;

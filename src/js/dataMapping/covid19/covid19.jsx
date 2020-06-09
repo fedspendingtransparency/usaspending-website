@@ -59,7 +59,7 @@ export const componentByCovid19Section = () => ({
         headerTextTooltipooltip: awardAndNonAwardHeaderTextTT
     },
     award_spending_over_time: {
-        icon: 'landmark',
+        icon: 'chart-area',
         component: <AwardSpendingOverTime />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip

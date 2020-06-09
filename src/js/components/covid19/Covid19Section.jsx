@@ -30,7 +30,7 @@ const Covid19Section = ({
                 <div className="body__header-icon">
                     <FontAwesomeIcon size="lg" icon={icon} />
                 </div>
-                <h3>{startCase(section)}</h3>
+                <h2>{startCase(section)}</h2>
                 <TooltipWrapper
                     className="covid19-tt"
                     icon="info"
