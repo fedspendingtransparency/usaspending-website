@@ -10,7 +10,6 @@ const BaseBudgetCategoryRow = {
     populateOnSpendingCategory(data, spendingCategory) {
         [...budgetDropdownColumns[spendingCategory]].forEach((column) => {
             this[`_${column.title}`] = data[budgetFields[column.title]];
-            console.log(`_${column.title}`);
         });
     },
     populateBase(data, type) {

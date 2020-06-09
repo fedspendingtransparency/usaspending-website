@@ -103,7 +103,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchBudgetSpending();
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, spendingCategory]);
+    }, [props.type, pageSize, sort, order, spendingCategory]);
 
     useEffect(() => {
         fetchBudgetSpending();
