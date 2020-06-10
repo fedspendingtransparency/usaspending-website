@@ -44,7 +44,8 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     const columns = awardTypes.map((awardType) => (
         {
             displayName: `Total ${startCase(activeTab)} for ${awardTypeGroupLabels[awardType]}`,
-            title: awardType
+            title: awardType,
+            right: true // text-align right for dollar values
         }
     ));
     // Add a column for the time period
@@ -59,6 +60,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         setLoading(true);
         const params = {
             filter: {
+                // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
                 def_codes: ['L', 'M', 'N', 'O', 'P'],
                 fiscal_year: 2020
             },
