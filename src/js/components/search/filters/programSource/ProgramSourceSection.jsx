@@ -41,11 +41,11 @@ const dataNote = (
 );
 
 const treasuryAccountTab = (
-    <p>Start here to see Treasury Accounts organized by Agency and Federal Account</p>
+    <p>Start here to see Treasury Accounts organized by Agency and Federal Account.</p>
 );
 
 const tasComponentsTab = (
-    <p>Start here if you already know the code you want to find</p>
+    <p>Start here if you already know the code you want to find.</p>
 );
 
 export default class ProgramSourceSection extends React.Component {
@@ -114,9 +114,9 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     toggleTab(e) {
-        const type = e.target.value;
+        e.preventDefault();
         this.setState({
-            activeTab: parseInt(type, 10)
+            activeTab: this.state.activeTab === 1 ? 2 : 1
         });
     }
 
@@ -210,8 +210,8 @@ export default class ProgramSourceSection extends React.Component {
                             className={`tab-toggle ${autoCompleteActiveClass}`}
                             value="2"
                             aria-checked={this.state.activeTab === 2}
-                            title="Federal Account"
-                            aria-label="Federal Account"
+                            title="Treasury Account Symbol Components"
+                            aria-label="Treasury Account Symbol Components"
                             onClick={this.toggleTab}>
                             <span>TAS Components</span>
                             <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
