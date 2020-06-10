@@ -438,7 +438,7 @@ describe('TopFilterBarContainer', () => {
         expect(topBarContainer.state().filters).toHaveLength(0);
 
         const programSourceFilter = Object.assign({}, stateWithoutDefault, {
-            federalAccounts: new Set(['123-4567'])
+            treasuryAccounts: new Set(['123-4567'])
         });
 
         topBarContainer.setProps({
@@ -449,8 +449,8 @@ describe('TopFilterBarContainer', () => {
 
         const filterItem = topBarContainer.state().filters[0];
         const expectedFilterState = {
-            code: 'federalAccounts',
-            name: 'Federal Account',
+            code: 'treasuryAccounts',
+            name: 'Treasury Account',
             values: ['123-4567']
         };
 

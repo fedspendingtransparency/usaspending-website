@@ -40,7 +40,6 @@ export default class DefCodesFilterGroup extends React.Component {
         return this.props.filter.values.map((value) => ({
             value: `${value.value}`,
             title: `${value.value} - ${value.def_description}`,
-            isSpecial: false,
             removeFilter: this.removeFilter
         }));
     }

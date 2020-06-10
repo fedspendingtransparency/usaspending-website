@@ -45,7 +45,6 @@ export default class CFDAFilterGroup extends React.Component {
             const tag = {
                 value: `${value.identifier}`,
                 title: `${value.program_number} | ${value.program_title}`,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

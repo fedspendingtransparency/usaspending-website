@@ -57,8 +57,6 @@ export const topFilterGroupGenerator = (config = {
                 key={groupKey}
                 {...config}
                 toggle="recipientDomesticForeign" />);
-        case 'federalAccounts':
-            return <ProgramSourceFilterGroup key={groupKey} {...config} />;
         case 'treasuryAccounts':
             return <ProgramSourceFilterGroup key={groupKey} {...config} />;
         case 'recipientType':
