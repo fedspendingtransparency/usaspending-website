@@ -332,7 +332,11 @@
                   letter-spacing: 0;
                   line-height: 4.5rem;
                   text-align: center;
-                  padding: 0 12rem 2rem 12rem;
+                  padding-bottom: 1rem;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
+                  width: 100%;
                   .color-purple {
                     color: #6E338E;
                   }
@@ -342,7 +346,10 @@
                   letter-spacing: 0;
                   line-height: 2.2rem;
                   text-align: center;
-                  padding: 0 10rem 2rem 10rem;
+                  padding: 0;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
                 }
               }
               .covid__date-note {
