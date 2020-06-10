@@ -39,7 +39,7 @@ import { updateTAS } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-import ProgramSourceInfoTooltip from 'components/search/filters/tooltips/ProgramSourceInfoTooltip';
+import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -64,12 +64,16 @@ const propTypes = {
 
 const SearchNote = () => (
     <div className="tas-checkbox-tt">
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
+        <p>
+            The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
+        </p>
+        <br />
+        <p>Filter the options etc...</p>
+        {/* <ul>
             <li>Any part of an agency name</li>
             <li>Any part of a Federal Account symbol or title</li>
             <li>Any part of a Treasury Account Symbol or title.</li>
-        </ul>
+        </ul> */}
     </div>
 );
 
@@ -363,9 +367,9 @@ export class TASCheckboxTree extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
-                <span className="tas-checkbox__header">
+                <span className="checkbox-header">
                     Search by Federal Account, TAS, or Agency Owner
-                    <ProgramSourceInfoTooltip
+                    <CSSOnlyTooltip
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />
                 </span>
