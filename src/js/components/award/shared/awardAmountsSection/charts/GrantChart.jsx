@@ -246,7 +246,7 @@ const GrantChart = ({ awardAmounts, awardType }) => {
                     onEnter={showNonFederalFundingTooltip}
                     onLeave={closeTooltip}
                     title="Non-Federal Funding"
-                    number={awardAmounts.nonFederalFundingAbbreviated}/>
+                    number={awardAmounts.nonFederalFundingAbbreviated} />
             </BarLabelAndLine>
             <BarLabelAndLine
                 spendingCategory="total-funding"
