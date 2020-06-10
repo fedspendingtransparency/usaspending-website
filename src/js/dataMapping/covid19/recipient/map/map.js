@@ -15,6 +15,7 @@ export const apiScopes = {
 
 export const filters = {
     territory: {
+        label: 'TERRITORIES',
         options: [
             {
                 value: 'state',
@@ -31,6 +32,7 @@ export const filters = {
         ]
     },
     spendingType: {
+        label: 'SPENDING TYPE',
         options: [
             {
                 value: 'obligations',
@@ -43,6 +45,7 @@ export const filters = {
         ]
     },
     amountType: {
+        label: 'AMOUNT TYPE',
         options: [
             {
                 value: 'totalSpending',
@@ -55,6 +58,7 @@ export const filters = {
         ]
     },
     recipientType: {
+        label: 'RECIPIENT TYPE',
         options: [
             {
                 value: 'all',
@@ -99,6 +103,7 @@ export const filters = {
         ]
     },
     awardType: {
+        label: 'AWARD TYPE',
         options: [
             {
                 value: 'all',
@@ -182,3 +187,17 @@ export const logMapScopeEvent = (scope) => {
         action: scope
     });
 };
+// darkest #3B005B
+// darker #5d2b78
+// normal #6E338E
+// light #8c41b4
+// lighter #9266AA
+// lighest #b799c7
+export const visualizationColors = [
+  '#b799c7',
+  '#9266AA',
+  '#8c41b4',
+  '#6E338E',
+  '#5d2b78',
+  '#3B005B'
+];

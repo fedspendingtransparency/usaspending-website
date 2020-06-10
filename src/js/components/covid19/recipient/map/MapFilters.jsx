@@ -23,12 +23,16 @@ const MapFilters = ({ filters, activeFilters }) => {
             <div className="map__filters-body">
                 {
                     Object.keys(filters).map((filter) => (
-                        <Picker
-                            key={uniqueId()}
-                            selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
-                            options={
-                                filters[filter].options.map((option) => ({ name: option.label, value: option.value, onClick: filters[filter].onClick }))
-                            } />
+                        <div key={uniqueId()} className="map__filters-filter__container">
+                            <div className="map__filters-label">
+                                {filters[filter].label}
+                            </div>
+                            <Picker
+                                selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
+                                options={
+                                    filters[filter].options.map((option) => ({ name: option.label, value: option.value, onClick: filters[filter].onClick }))
+                                } />
+                        </div>
                     ))
                 }
             </div>

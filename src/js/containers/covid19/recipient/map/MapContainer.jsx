@@ -34,6 +34,7 @@ export class MapContainer extends React.Component {
             mapLayer: 'state',
             rawAPIData: [],
             data: {
+                labels: {},
                 values: [],
                 locations: []
             },
@@ -44,8 +45,8 @@ export class MapContainer extends React.Component {
                 recipientType: 'all',
                 awardType: 'all'
             },
+            selectedItem: {},
             subAward: false,
-            mapLegendToggle: 'totalSpending',
             visibleEntities: [],
             showHover: false,
             renderHash: `geo-${uniqueId()}`,
@@ -107,35 +108,31 @@ export class MapContainer extends React.Component {
         );
     }
 
-    updateterritoryFilter = (e) => {
-        e.preventDefault();
+    updateterritoryFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
-                currentState.activeFilters, { territory: e.target.value }
+                currentState.activeFilters, { territory: value }
             )
         );
     }
-    updatespendingTypeFilter = (e) => {
-        e.preventDefault();
+    updatespendingTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
-                currentState.activeFilters, { spendingType: e.target.value }
+                currentState.activeFilters, { spendingType: value }
             )
         );
     }
-    updaterecipientTypeFilter = (e) => {
-        e.preventDefault();
+    updaterecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
-                currentState.activeFilters, { recipientType: e.target.value }
+                currentState.activeFilters, { recipientType: value }
             )
         );
     }
-    updateawardTypeFilter = (e) => {
-        e.preventDefault();
+    updateawardTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
-                currentState.activeFilters, { awardType: e.target.value }
+                currentState.activeFilters, { awardType: value }
             )
         );
     }
@@ -287,7 +284,7 @@ export class MapContainer extends React.Component {
             });
     }
 
-    amountTypeKey = () => (this.state.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+    amountTypeKey = () => (this.state.activeFilters.amountType === 'all' ? 'aggregated_amount' : 'per_capita');
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -329,6 +326,30 @@ export class MapContainer extends React.Component {
         }, () => {
             this.prepareFetch(true);
             logMapLayerEvent(layer);
+        });
+    }
+
+    showTooltip = (geoId, position) => {
+        console.log(' Geo ID : ', geoId);
+        console.log(' Position : ', position);
+        // convert state code to full string name
+        const label = this.state.data.labels[geoId];
+        this.setState({
+            showHover: true,
+            selectedItem: {
+                label: label.label,
+                total: this.props.total,
+                value: label.value,
+                x: position.x,
+                y: position.y
+            }
+        });
+    }
+
+    hideTooltip = () => {
+        this.setState({
+            showHover: false,
+            selectedItem: {}
         });
     }
 
@@ -396,9 +417,8 @@ export class MapContainer extends React.Component {
                     data={this.state.data}
                     scope={this.state.mapLayer}
                     renderHash={this.state.renderHash}
-                    // changeMapLayer={this.props.changeMapLayer}
                     changeMapLayer={() => {}}
-                    // showHover={this.state.showHover}
+                    showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}
                     filters={this.addOnClickToFilters()}
                     showHover={this.state.showHover}

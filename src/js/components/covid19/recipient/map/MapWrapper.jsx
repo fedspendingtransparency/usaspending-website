@@ -9,7 +9,7 @@ import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
+import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipient/map/map';
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
@@ -23,7 +23,6 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     tooltip: PropTypes.func,
-    changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
     children: PropTypes.node,
     center: PropTypes.array,
@@ -192,7 +191,7 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = MapHelper.visualizationColors;
+        const colors = visualizationColors;
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({

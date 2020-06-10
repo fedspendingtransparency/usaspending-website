@@ -3,12 +3,13 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 import MapLegendItem from './MapLegendItem';
+import { visualizationColors } from 'dataMapping/covid19/recipient/map/map';
 
 const propTypes = {
     units: PropTypes.shape({
@@ -33,7 +34,7 @@ const MapLegend = ({ units, segments }) => {
         const newItems = segments.map((segment, i, array) => {
             let label = '';
 
-            const color = MapHelper.visualizationColors[i];
+            const color = visualizationColors[i];
 
             const currencyValue =
                 MoneyFormatter.formatMoneyWithPrecision(segment / units.unit,
