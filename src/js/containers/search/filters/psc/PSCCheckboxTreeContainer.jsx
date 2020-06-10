@@ -39,6 +39,7 @@ import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
+import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -60,6 +61,16 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
+
+const SearchTooltip = () => (
+    <>
+        <p>Filter the options below by typing any of the following:</p>
+        <ul>
+            <li>Any PSC numeric code (or part thereof)</li>
+            <li>Any PSC label name (or part thereof)</li>
+        </ul>
+    </>
+);
 
 export class PSCCheckboxTreeContainer extends React.Component {
     constructor(props) {
@@ -360,6 +371,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         } = this.state;
         return (
             <div className="psc-checkbox">
+                <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
