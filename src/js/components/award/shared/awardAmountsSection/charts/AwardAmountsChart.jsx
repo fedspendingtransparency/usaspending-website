@@ -41,7 +41,8 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     <ExceedsPotentialChart awardType={type} awardAmounts={awardAmounts} />
                 );
             case "normal": {
-                const props = {
+                const hasFileC = awardAmounts._fileCObligated > 0;
+                const chartProps = {
                     denominator: {
                         className: `${awardType}-potential`,
                         rawValue: awardAmounts._baseAndAllOptions,
@@ -53,9 +54,11 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', awardAmounts)
                     },
                     numerator: {
+                        labelPosition: 'bottom',
                         className: `${awardType}-current`,
                         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', awardAmounts),
                         rawValue: awardAmounts._baseExercisedOptions,
+                        denominatorValue: awardAmounts._baseAndAllOptions,
                         value: awardAmounts.baseExercisedOptionsAbbreviated,
                         text: awardType === 'idv'
                             ? "Combined Current Award Amounts"
@@ -63,8 +66,10 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         color: `#d8d8d8`,
                         children: [
                             {
+                                labelPosition: 'top',
                                 className: `${awardType}-obligated`,
                                 rawValue: awardAmounts._totalObligation,
+                                denominatorValue: awardAmounts._baseExercisedOptions,
                                 value: awardAmounts.totalObligationAbbreviated,
                                 text: awardType === 'idv'
                                     ? "Combined Obligated Amounts"
@@ -75,8 +80,36 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         ]
                     }
                 };
+                if (hasFileC) {
+                    // eslint-disable-next-line no-multi-assign
+                    chartProps.numerator.children = [{
+                        ...chartProps.numerator.children[0],
+                        children: [
+                            {
+                                labelPosition: 'top',
+                                className: `${awardType}-file-c-obligated`,
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', awardAmounts),
+                                rawValue: awardAmounts._fileCObligated,
+                                denominatorValue: awardAmounts._totalObligation,
+                                value: awardAmounts.fileCObligatedAbbreviated,
+                                text: 'COVID-19 Obligated',
+                                color: `#B699C6`,
+                                children: [{
+                                    labelPosition: 'bottom',
+                                    className: `${awardType}-file-c-outlay`,
+                                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', awardAmounts),
+                                    denominatorValue: awardAmounts._fileCObligated,
+                                    rawValue: awardAmounts._fileCOutlay,
+                                    value: awardAmounts.fileCOutlayAbbreviated,
+                                    text: 'COVID-19 Outlay',
+                                    color: `#6E338E`
+                                }]
+                            }
+                        ]
+                    }];
+                }
                 return (
-                    <RectanglePercentViz {...props} />
+                    <RectanglePercentViz {...chartProps} />
                 );
             }
             default:
@@ -99,16 +132,17 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                 numerator: {
                     rawValue: awardAmounts._subsidy,
                     value: awardAmounts.subsidyAbbreviated,
-                    text: 'Original Subsidy Cost'
+                    text: 'Original Subsidy Cost',
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts),
+                    color: '#F5A623'
                 },
                 denominator: {
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
-                    text: 'Face Value of Direct Loan'
-                },
-                numeratorTooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts),
-                denominatorTooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts),
-                numeratorColor: "#F5A623"
+                    text: 'Face Value of Direct Loan',
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts),
+                    color: '#fff'
+                }
             };
             const props = hasFileC
                 ? {
@@ -116,17 +150,17 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     numerator2: {
                         rawValue: awardAmounts._fileCObligated,
                         value: awardAmounts.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Obligated'
+                        text: 'COVID-19 Obligated',
+                        color: '#B699C6',
+                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts)
                     },
                     numerator3: {
                         rawValue: awardAmounts._fileCOutlay,
                         value: awardAmounts.fileCOutlayAbbreviated,
-                        text: 'COVID-19 Outlay'
-                    },
-                    numerator2Color: "#B699C6",
-                    numerator3Color: "#6E338E",
-                    numerator2TooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
-                    numerator3TooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
+                        text: 'COVID-19 Outlay',
+                        color: '#6E338E',
+                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
+                    }
                 }
                 : propsWithoutFileC;
             return <RectanglePercentViz {...props} />;
