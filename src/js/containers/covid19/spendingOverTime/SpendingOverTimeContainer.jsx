@@ -10,6 +10,8 @@ import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchSpendingOverTime } from 'helpers/covid19RequestsHelper';
+import { convertNumToMonth } from 'helpers/monthHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
@@ -17,15 +19,18 @@ const propTypes = {
     activeTab: PropTypes.string.isRequired
 };
 
-const mockData = [
-    ['March 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456'],
-    ['April 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456'],
-    ['May 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456']
-];
+const awardTypes = Object.keys(awardTypeGroupLabels);
 
-export const parseRows = (rows) => {
-    console.log(rows);
-};
+export const parseRows = (rows) => (
+    rows.map((row) => {
+        const month = convertNumToMonth(row.time_period.period);
+        const formattedMonth = `${month} ${row.time_period.fiscal_year}`;
+        const amounts = awardTypes.map((awardType) => (
+            formatMoney(row.amounts[awardType])
+        ));
+        return [formattedMonth].concat(amounts);
+    })
+);
 
 const SpendingOverTimeContainer = ({ activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
@@ -34,7 +39,6 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const awardTypes = Object.keys(awardTypeGroupLabels);
 
     // Generate a column for each award type
     const columns = awardTypes.map((awardType) => (
@@ -54,16 +58,20 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     const fetchSpendingOverTimeCallback = useCallback(() => {
         setLoading(true);
         const params = {
+            filter: {
+                def_codes: ['L', 'M', 'N', 'O', 'P'],
+                fiscal_year: 2020
+            },
             limit: pageSize,
             page: currentPage,
             group: 'period',
-            def_codes: ['L', 'M', 'N', 'O', 'P'],
             spending_type: activeTab
         };
         const request = fetchSpendingOverTime(params);
         request.promise
             .then((res) => {
-                parseRows(res.data.results);
+                const rows = parseRows(res.data.results);
+                setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
                 setError(false);
@@ -125,7 +133,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         <>
             <Table
                 columns={columns}
-                rows={mockData} />
+                rows={results} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
