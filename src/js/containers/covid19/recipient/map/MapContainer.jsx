@@ -284,7 +284,7 @@ export class MapContainer extends React.Component {
             });
     }
 
-    amountTypeKey = () => (this.state.activeFilters.amountType === 'all' ? 'aggregated_amount' : 'per_capita');
+    amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
     /**
      * valuesLocationsLabelsFromAPIData

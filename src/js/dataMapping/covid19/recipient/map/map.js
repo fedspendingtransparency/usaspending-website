@@ -41,7 +41,7 @@ export const filters = {
             {
                 value: 'outlays',
                 label: 'Outlays'
-            },
+            }
         ]
     },
     amountType: {

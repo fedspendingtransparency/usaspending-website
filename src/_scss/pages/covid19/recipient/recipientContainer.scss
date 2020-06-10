@@ -16,6 +16,10 @@
       line-height: 2.7rem;
       text-align: center;
       letter-spacing: -0.44px;
+      padding: 0;
+      @media(min-width: $tablet-screen) {
+        padding: 0 2rem;
+      }
     }
   }
   .recipient__tabs-container {
