@@ -40,10 +40,45 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                 return (
                     <ExceedsPotentialChart awardType={type} awardAmounts={awardAmounts} />
                 );
-            case "normal":
+            case "normal": {
+                const props = {
+                    denominator: {
+                        className: `${awardType}-potential`,
+                        rawValue: awardAmounts._baseAndAllOptions,
+                        value: awardAmounts.baseAndAllOptionsAbbreviated,
+                        color: `#fff`,
+                        text: awardType === 'idv'
+                            ? "Combined Potential Award Amounts"
+                            : "Potential Award Amount",
+                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', awardAmounts)
+                    },
+                    numerator: {
+                        className: `${awardType}-current`,
+                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', awardAmounts),
+                        rawValue: awardAmounts._baseExercisedOptions,
+                        value: awardAmounts.baseExercisedOptionsAbbreviated,
+                        text: awardType === 'idv'
+                            ? "Combined Current Award Amounts"
+                            : "Current Award Amount",
+                        color: `#d8d8d8`,
+                        children: [
+                            {
+                                className: `${awardType}-obligated`,
+                                rawValue: awardAmounts._totalObligation,
+                                value: awardAmounts.totalObligationAbbreviated,
+                                text: awardType === 'idv'
+                                    ? "Combined Obligated Amounts"
+                                    : "Obligated Amount",
+                                color: `#4773aa`,
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts)
+                            }
+                        ]
+                    }
+                };
                 return (
-                    <NormalChart awardType={type} awardAmounts={awardAmounts} />
+                    <RectanglePercentViz {...props} />
                 );
+            }
             default:
                 return (
                     <div className="results-table-message-container">

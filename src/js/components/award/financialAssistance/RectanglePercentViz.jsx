@@ -15,31 +15,33 @@ import {
     BarValue
 } from "../shared/awardAmountsSection/charts/SharedComponents";
 
-const shape = PropTypes.shape({
-    rawValue: PropTypes.number,
-    value: PropTypes.string,
-    text: PropTypes.string
-});
-
 const tooltipShape = PropTypes.shape({
     offsetAdjustments: PropTypes.object,
     tooltipComponent: PropTypes.element
 });
 
+const BarVizData = PropTypes.shape({
+    rawValue: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    tooltipData: tooltipShape,
+    children: PropTypes.arrayOf(PropTypes.shape({
+        rawValue: PropTypes.number.isRequired,
+        value: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+        color: PropTypes.string,
+        tooltipData: PropTypes.tooltipShape
+    }))
+});
+
 const propTypes = {
-    numerator: shape,
-    numerator2: shape,
-    numerator3: shape,
-    denominator: shape,
-    percentage: PropTypes.string,
-    numeratorTooltipData: tooltipShape,
-    numerator2TooltipData: tooltipShape,
-    numerator3TooltipData: tooltipShape,
-    denominatorTooltipData: tooltipShape,
-    numeratorColor: PropTypes.string,
-    denominatorColor: PropTypes.string,
-    numerator2Color: PropTypes.string,
-    numerator3Color: PropTypes.string
+    numerator: BarVizData,
+    numerator2: BarVizData,
+    numerator3: BarVizData,
+    numerator4: BarVizData,
+    numerator5: BarVizData,
+    denominator: BarVizData,
+    percentage: PropTypes.string
 };
 
 const emptyTooltipProps = {
@@ -51,20 +53,23 @@ const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
     numerator3 = null,
+    numerator4 = null,
+    numerator5 = null,
     denominator,
-    percentage,
-    numeratorTooltipData,
-    denominatorTooltipData,
-    numerator2TooltipData = null,
-    numerator3TooltipData = null,
-    numeratorColor,
-    denominatorColor = `#FFF`,
-    numerator2Color = null,
-    numerator3Color = null
+    percentage
 }) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const [activeTooltipProps, setActiveTooltipProps] = useState(emptyTooltipProps);
     const numeratorIsZero = (numerator.rawValue === 0);
+    const numeratorHasChildren = (
+        Object.keys(numerator).includes('children') &&
+        numerator?.children.length > 0
+    );
+
+    const numeratorHasMultipleChildren = (
+        numeratorHasChildren &&
+        numerator?.children?.length > 1
+    );
     const isNumerator2Defined = (numerator2 !== null);
     const isNumerator3Defined = (numerator3 !== null);
     const isCaresReleased = isNumerator2Defined && GlobalConstants.CARES_ACT_RELEASED;
@@ -98,7 +103,7 @@ const RectanglePercentViz = ({
     const relativeWidths = {
         numerator2: {
             width: numerator2
-                ? generatePercentage(numerator2.rawValue / numerator.rawValue)
+                ? generatePercentage(numerator2.rawValue / denominator.rawValue)
                 : null
         },
         numerator3: {
@@ -108,14 +113,12 @@ const RectanglePercentViz = ({
         }
     };
 
-    const showTooltip = (tooltipData, category) => {
+    const showTooltip = (tooltipData, tooltipWidthPercent, tooltipVerticalPosition = verticalTooltipOffset) => {
         setActiveTooltipProps({
             ...tooltipData,
             wide: false,
             styles: {
-                transform: category === 'numerator' && numeratorIsZero
-                    ? `translate(calc(${numeratorZeroToolTipPositions.horizontal}px + 15px), ${numeratorZeroToolTipPositions.vertical}px)`
-                    : `translate(calc(${absoluteWidths[category].width} + 15px), ${verticalTooltipOffset}px)`
+                transform: `translate(calc(${tooltipWidthPercent} + 15px), ${tooltipVerticalPosition}px)`
             }
         });
         setIsTooltipVisible(true);
@@ -123,7 +126,7 @@ const RectanglePercentViz = ({
 
     const numeratorBarAndLabelStyles = {
         ...absoluteWidths.numerator,
-        backgroundColor: numeratorColor
+        backgroundColor: numerator.color
     };
 
     const numeratorValue = percentage ? `${numerator.value} (${numerator.width})` : numerator.value;
@@ -134,20 +137,31 @@ const RectanglePercentViz = ({
 
     const showNumeratorTooltip = (e) => {
         e.stopPropagation();
-        showTooltip(numeratorTooltipData, "numerator");
+        const width = numerator.rawValue > 0
+            ? absoluteWidths.numerator.width
+            : numeratorZeroToolTipPositions.horizontal;
+        const height = numerator.rawValue > 0
+            ? verticalTooltipOffset
+            : numeratorZeroToolTipPositions.vertical;
+        showTooltip(numerator.tooltipData, width, height);
     };
     const showDenominatorTooltip = (e) => {
         e.stopPropagation();
-        showTooltip(denominatorTooltipData, "denominator");
+        showTooltip(denominator.tooltipData, absoluteWidths.denominator.width);
     };
     const showNumerator2Tooltip = (e) => {
         e.stopPropagation();
-        showTooltip(numerator2TooltipData, "numerator2");
+        showTooltip(numerator2.tooltipData, absoluteWidths.numerator2.width);
     };
 
     const showNumerator3Tooltip = (e) => {
         e.stopPropagation();
-        showTooltip(numerator3TooltipData, "numerator3");
+        showTooltip(numerator3.tooltipData, absoluteWidths.numerator3.width);
+    };
+
+    const showNumerator4Tooltip = (e) => {
+        e.stopPropagation();
+        showTooltip(numerator3.tooltipData, absoluteWidths.numerator3.width);
     };
 
     const numerator3Positioning = {
@@ -165,82 +179,155 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            <BarValue
-                className="award-amounts-viz__desc-top loans"
-                onLeave={closeTooltip}
-                onEnter={showNumeratorTooltip}
-                number={numeratorValue}
-                title={numerator.text} />
-            {!numeratorIsZero &&
-                <BarLabelAndLine lineClassName="award-amounts-viz__line-up--loans" labelStyles={numeratorBarAndLabelStyles} />
+            {numeratorHasChildren &&
+                [numerator.children[0]].map((firstChildOnly) => (
+                    <>
+                        <BarValue
+                            className={`award-amounts-viz__desc-top ${firstChildOnly.className}`}
+                            onLeave={closeTooltip}
+                            onEnter={() => showTooltip(firstChildOnly.tooltipData, generatePercentage(firstChildOnly.rawValue / denominator.rawValue))}
+                            number={firstChildOnly.value}
+                            title={firstChildOnly.text} />
+                        <BarLabelAndLine
+                            spendingCategory={firstChildOnly.className}
+                            lineClassName="award-amounts-viz__line-up"
+                            lineStyles={{
+                                backgroundColor: firstChildOnly.color,
+                                width: generatePercentage(firstChildOnly.rawValue / denominator.rawValue)
+                            }} />
+                    </>
+                ))
             }
-            {isCaresReleased &&
+            {!numeratorHasChildren &&
                 <>
                     <BarValue
-                        spendingCategory="file-c-obligated"
-                        className="award-amounts-viz__desc-top file-c-obligated"
+                        className={`award-amounts-viz__desc-top loans ${numerator.className}`}
                         onLeave={closeTooltip}
-                        onEnter={showNumerator2Tooltip}
-                        number={numerator2.value}
-                        title={numerator2.text} />
-                    <BarLabelAndLine
-                        spendingCategory="file-c-obligated"
-                        lineClassName="award-amounts-viz__line-up"
-                        lineStyles={absoluteWidths.numerator2} />
+                        onEnter={showNumeratorTooltip}
+                        number={numeratorValue}
+                        title={numerator.text}>
+                        {/* when we have overspending:
+                        <>
+                            <BarValue
+                                className="award-amounts-viz__desc-top loans"
+                                onLeave={closeTooltip}
+                                onEnter={() => showTooltip(firstChildOnly.tooltipData, generatePercentage(firstChildOnly.rawValue / denominator.rawValue))}
+                                number={firstChildOnly.value}
+                                title={numerator.text} />
+                            <BarLabelAndLine
+                                spendingCategory="file-c-obligated"
+                                lineClassName="award-amounts-viz__line-up"
+                                lineStyles={{ width: generatePercentage(firstChildOnly.rawValue / denominator.rawValue) }} />
+                        </> */}
+                    </BarValue>
+                    {!numeratorIsZero &&
+                        <BarLabelAndLine lineClassName="award-amounts-viz__line-up--loans" labelStyles={numeratorBarAndLabelStyles} />
+                    }
                 </>
             }
             <div className="award-amounts-viz__bar-wrapper">
                 <Bar
                     spendingCategory="denominator"
-                    barWrapperStyles={{ backgroundColor: denominatorColor }}
+                    barWrapperStyles={{ backgroundColor: denominator.color }}
                     onLeave={closeTooltip}
                     onEnter={showDenominatorTooltip}
-                    barStyles={{ backgroundColor: denominatorColor, width: '100%' }}>
+                    barStyles={{ backgroundColor: denominator.color, width: '100%' }}>
                     {!numeratorIsZero && (
-                        <Bar
-                            spendingCategory="numerator"
-                            barWrapperStyles={{ width: numeratorBarAndLabelStyles.width }}
-                            onLeave={closeTooltip}
-                            onEnter={showNumeratorTooltip}
-                            barStyles={{ width: '100%', backgroundColor: numeratorBarAndLabelStyles.backgroundColor }}>
-                            {isCaresReleased && numerator2.rawValue > 0 &&
-                                <div className="nested-obligations">
-                                    <Bar
-                                        spendingCategory="file-c-obligated"
-                                        barWrapperStyles={relativeWidths.numerator2}
-                                        onLeave={closeTooltip}
-                                        onEnter={showNumerator2Tooltip}
-                                        barStyles={{ width: generatePercentage(1), backgroundColor: numerator2Color }}>
-                                        {isNumerator3Defined && numerator3.rawValue > 0 &&
-                                            <Bar
-                                                spendingCategory="file-c-outlay"
-                                                barWrapperStyles={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
-                                                onLeave={closeTooltip}
-                                                onEnter={showNumerator3Tooltip}
-                                                barStyles={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
-                                        }
-                                    </Bar>
-                                </div>
+                        <>
+                            <Bar
+                                spendingCategory="numerator"
+                                barWrapperStyles={{ width: numeratorBarAndLabelStyles.width }}
+                                onLeave={closeTooltip}
+                                onEnter={showNumeratorTooltip}
+                                barStyles={{ width: '100%', backgroundColor: numeratorBarAndLabelStyles.backgroundColor }}>
+                                {numeratorHasChildren &&
+                                    <div className="nested-obligations">
+                                        <Bar
+                                            spendingCategory={numerator.children[0].className}
+                                            barWrapperStyles={{
+                                                // relative width
+                                                width: generatePercentage(numerator.children[0].rawValue / numerator.rawValue)
+                                            }}
+                                            onLeave={closeTooltip}
+                                            onEnter={(e) => {
+                                                e.stopPropagation();
+                                                showTooltip(
+                                                    numerator.children[0].tooltipData,
+                                                    generatePercentage(numerator.children[0].rawValue / denominator.rawValue)
+                                                );
+                                            }}
+                                            barStyles={{
+                                                width: generatePercentage(1),
+                                                backgroundColor: numerator.children[0].color
+                                            }}>
+                                            {numeratorHasMultipleChildren &&
+                                                <Bar
+                                                    spendingCategory={numerator.children[1].className}
+                                                    barWrapperStyles={{
+                                                        // relative width
+                                                        width: generatePercentage(numerator.children[1].rawValue / numerator.rawValue),
+                                                        ...numerator3Positioning
+                                                    }}
+                                                    onLeave={closeTooltip}
+                                                    onEnter={() => showTooltip(
+                                                        numerator.children[1].tooltipData,
+                                                        generatePercentage(numerator.children[1].rawValue / denominator.rawValue)
+                                                    )}
+                                                    barStyles={{
+                                                        width: generatePercentage(1),
+                                                        backgroundColor: numerator.children[1].color
+                                                    }} />
+                                            }
+                                        </Bar>
+                                    </div>
+                                }
+                            </Bar>
+                            {isNumerator2Defined &&
+                                <Bar
+                                    spendingCategory="numerator2"
+                                    barWrapperStyles={relativeWidths.numerator2}
+                                    onLeave={closeTooltip}
+                                    onEnter={showNumerator2Tooltip}
+                                    barStyles={{ width: generatePercentage(1), backgroundColor: numerator2.color }} />
                             }
-                        </Bar>
+                        </>
                     )}
                 </Bar>
             </div>
-            {/* Even if numerator3 is 0, we want to show this so long as numerator2 is defined */}
-            {isCaresReleased &&
+            {numeratorHasChildren && !numeratorHasMultipleChildren &&
                 <BarLabelAndLine
-                    spendingCategory="file-c-outlay"
-                    lineStyles={absoluteWidths.numerator3}>
+                    spendingCategory={numerator.className}
+                    lineStyles={{ backgroundColor: numeratorBarAndLabelStyles.backgroundColor }}
+                    labelStyles={absoluteWidths.numerator}>
                     <BarValue
                         onLeave={closeTooltip}
-                        onEnter={showNumerator3Tooltip}
-                        number={numerator3.value}
-                        title={numerator3.text} />
+                        onEnter={showNumeratorTooltip}
+                        number={numerator.value}
+                        title={numerator.text} />
                 </BarLabelAndLine>
+            }
+            {/* Even if numerator3 is 0, we want to show this so long as numerator2 is defined */}
+            {numeratorHasMultipleChildren &&
+                numerator.children.slice(1).map((child) => (
+                    <>
+                        <BarLabelAndLine
+                            spendingCategory={child.className}
+                            lineStyles={{ width: generatePercentage(child.rawValue / denominator.rawValue) }}>
+                            <BarValue
+                                onLeave={closeTooltip}
+                                onEnter={() => showTooltip(
+                                    child.tooltipData,
+                                    generatePercentage(child.rawValue / denominator.rawValue)
+                                )}
+                                number={child.value}
+                                title={child.text} />
+                        </BarLabelAndLine>
+                    </>
+                ))
             }
             <BarLabelAndLine
                 spendingCategory="denominator"
-                lineStyles={{ backgroundColor: denominatorColor }}>
+                lineStyles={{ backgroundColor: denominator.color }}>
                 <BarValue
                     spendingCategory="denominator"
                     onLeave={closeTooltip}
