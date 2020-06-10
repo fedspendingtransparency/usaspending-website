@@ -24,10 +24,10 @@ import {
     slug,
     getEmailSocialShareData,
     scrollPositionOfSiteHeader,
-    componentByCovid19Section,
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
 

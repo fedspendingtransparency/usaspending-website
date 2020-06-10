@@ -121,7 +121,7 @@
           }
       }
       .sidebar {
-          display: none;
+          @include display(none);
           @media(min-width: $medium-screen) {
               @include display(flex);
               @include flex-direction(column);
@@ -129,9 +129,9 @@
               margin: rem(20);
           }
           .covid19-sidebar-reference {
-              display: none;
+              @include display(none);
               &.float-sidebar {
-                  display: block;
+                @include display(block);
               }
           }
 
@@ -275,20 +275,20 @@
               margin-bottom: $global-mrg;
               .body__header {
                   width: 100%;
-                  display: flex;
+                  @include display(flex);
                   flex-wrap: wrap;
                   align-items: center;
                   justify-content: space-between;
                   border-bottom: 3px solid $color-base;
                   .body__header-left {
-                    display: flex;
+                    @include display(flex);
                     padding-bottom: 0.5rem;
                     @media(min-width: $tablet-screen) {
                       padding-bottom: 0;
                     }
                   }
                   .body__header-right {
-                    display: flex;
+                    @include display(flex);
                   }
                   .body__header-icon {
                       margin-right: $global-mrg / 2;
@@ -322,7 +322,7 @@
               }
               .heading__container {
                 padding-top: 2rem;
-                display: flex;
+                @include display(flex);
                 flex-wrap: wrap;
                 text-align: center;
                 width: 100%;
@@ -353,7 +353,7 @@
                 }
               }
               .covid__date-note {
-                display: flex;
+                @include display(flex);
                 width: 100%;
                 justify-content: left;
                 font-size: 1.2rem;

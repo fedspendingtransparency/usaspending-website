@@ -1,41 +1,26 @@
 /**
- * covid19
- * Created by Jonathan Hill 06/02/20
+ * covid19.jsx
+ * Created by Jonathan Hill 06/10/20
  */
 
 import React from 'react';
-import { getSocialShareURL } from 'helpers/covid19Helper';
 
-export const slug = 'covid19';
-
-export const getEmailSocialShareData = {
-    subject: 'USAspending.gov COVID-19 Response: ',
-    body: `View the COVID-19 Response on USAspending.gov: ${getSocialShareURL()}`
-};
-
-export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
-
-export const defCodes = ['L', 'M', 'N', 'O', 'P'];
-
-export const ComingSoon = () => (
-    <div className="coming-soon-section">
-        <h4>Coming Soon</h4>
-        <p>This feature is currently under development.</p>
+export const TooltipComponent = () => (
+    <div className="covid19-tt">
+        <h4 className="tooltip__title">Coming Soon</h4>
+        <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
     </div>
 );
 
-export const footerTitle = 'Looking for more insight on COVID-19 relief?';
-export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
-
 const totalSpendingText = (
     <div className="body__header-text">
-        This section covers <strong>Total Spending</strong>
+      This section covers <strong>Total Spending</strong>
     </div>
 );
 
 const awardSpendingText = (
     <div className="body__header-text">
-        This section covers <strong>Award Spending</strong>
+      This section covers <strong>Award Spending</strong>
     </div>
 );
 
@@ -45,6 +30,13 @@ const totalSpendingTooltip = (
 
 const awardSpedingTooltip = (
     <div>Content is Coming soon</div>
+);
+
+const ComingSoon = () => (
+    <div className="coming-soon-section">
+        <h4>Coming Soon</h4>
+        <p>This feature is currently under development.</p>
+    </div>
 );
 
 export const componentByCovid19Section = () => ({
@@ -85,10 +77,3 @@ export const componentByCovid19Section = () => ({
         headerTextTooltip: awardSpedingTooltip
     }
 });
-
-export const TooltipComponent = () => (
-    <div className="covid19-tt">
-        <h4 className="tooltip__title">Coming Soon</h4>
-        <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
-    </div>
-);
