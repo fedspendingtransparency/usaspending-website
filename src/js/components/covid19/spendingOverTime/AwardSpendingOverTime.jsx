@@ -4,51 +4,25 @@
  */
 
 import React, { useState } from 'react';
-import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { Table } from 'data-transparency-ui';
+import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 
 const tabs = [
     {
-        type: 'awardObligations',
+        type: 'obligations',
         label: 'Award Obligations',
-        description: 'How much was promised to be spent on COVID-19 response awards?',
-        term: 'Obligations'
+        description: 'How much was promised to be spent on COVID-19 response awards?'
     },
     {
-        type: 'awardOutlays',
+        type: 'outlays',
         label: 'Award Outlays',
-        description: 'How much was paid out to COVID-19 response awardees?',
-        term: 'Outlays'
+        description: 'How much was paid out to COVID-19 response awardees?'
     }
 ];
 
-const mockData = [
-    ['March 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456'],
-    ['April 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456'],
-    ['May 2020', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456', '$123,456']
-];
-
 const AwardSpendingOverTime = () => {
-    const [activeTab, setActiveTab] = useState('awardObligations');
+    const [activeTab, setActiveTab] = useState('obligations');
     // TODO - get total Award Obligations and Award Outlays from Redux when overview data is added
-    const term = tabs.find((tab) => tab.type === activeTab).term;
-    const awardTypes = Object.keys(awardTypeGroupLabels);
-    // Generate a column for each award type
-    const columns = awardTypes.map((awardType) => (
-        {
-            displayName: `Total ${term} for ${awardTypeGroupLabels[awardType]}`,
-            title: awardType
-        }
-    ));
-    // Add a column for the time period
-    columns.unshift(
-        {
-            displayName: 'Month',
-            title: 'period'
-        }
-    );
-
     return (
         <div className="spending-over-time">
             <h3 className="body__narrative">This is how <strong>awards</strong> supporting the COVID-19 Response were funded over time.</h3>
@@ -73,9 +47,7 @@ const AwardSpendingOverTime = () => {
                             active={activeTab === tab.type} />
                     ))}
                 </div>
-                <Table
-                    columns={columns}
-                    rows={mockData} />
+                <SpendingOverTimeContainer activeTab={activeTab} />
             </div>
         </div>
     );
