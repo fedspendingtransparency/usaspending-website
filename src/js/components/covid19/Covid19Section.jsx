@@ -45,7 +45,6 @@ const Covid19Section = ({
                     tooltipComponent={<TooltipComponent />} />
             </div>
         </div>
-        {/* <hr /> */}
         {children}
     </section>
 );

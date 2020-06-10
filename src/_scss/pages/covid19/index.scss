@@ -320,6 +320,40 @@
                   padding-bottom: 0;
                   height: 730px;
               }
+              .heading__container {
+                padding-top: 2rem;
+                display: flex;
+                flex-wrap: wrap;
+                text-align: center;
+                width: 100%;
+                .heading__title {
+                  font-size: 3.6rem;
+                  font-weight: $font-semibold;
+                  letter-spacing: 0;
+                  line-height: 4.5rem;
+                  text-align: center;
+                  padding: 0 12rem 2rem 12rem;
+                  .color-purple {
+                    color: #6E338E;
+                  }
+                }
+                .heading__description {
+                  font-size: 1.4rem;
+                  letter-spacing: 0;
+                  line-height: 2.2rem;
+                  text-align: center;
+                  padding: 0 10rem 2rem 10rem;
+                }
+              }
+              .covid__date-note {
+                display: flex;
+                width: 100%;
+                justify-content: left;
+                font-size: 1.2rem;
+                font-style: italic;
+                letter-spacing: 0;
+                line-height: 1.5rem;
+              }
           }
           .body__section:last-child {
             margin-bottom: 0;

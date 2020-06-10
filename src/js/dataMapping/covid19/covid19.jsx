@@ -27,58 +27,62 @@ export const ComingSoon = () => (
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
-const awardAndNonAwardHeaderText = (
+const totalSpendingText = (
     <div className="body__header-text">
-        This section covers <strong>Award</strong> and <strong>Non-Award Spending</strong> from FY 2020
+        This section covers <strong>Total Spending</strong>
     </div>
 );
 
-const awardHeaderText = (
-    <div className="body__header-text">This section covers <strong>Award Spending</strong> from FY 2020</div>
+const awardSpendingText = (
+    <div className="body__header-text">
+        This section covers <strong>Award Spending</strong>
+    </div>
 );
 
-const awardAndNonAwardHeaderTextTT = (
+const totalSpendingTooltip = (
     <div>Content is Coming soon</div>
 );
 
-const awardHeaderTextTooltip = (
+const awardSpedingTooltip = (
     <div>Content is Coming soon</div>
 );
 
 export const componentByCovid19Section = () => ({
     overview: {
-        icon: 'landmark',
+        icon: 'hand-holding-medical',
         component: <ComingSoon />,
-        headerText: awardAndNonAwardHeaderText,
-        headerTextTooltip: awardAndNonAwardHeaderTextTT
+        headerText: totalSpendingText,
+        headerTextTooltip: totalSpendingTooltip
     },
     total_spending_by_budget_categories: {
+        icon: 'cubes',
         component: <ComingSoon />,
-        headerText: awardAndNonAwardHeaderText,
-        headerTextTooltipooltip: awardAndNonAwardHeaderTextTT
-    },
-    award_spending_over_time: {
-        icon: 'landmark',
-        component: <ComingSoon />,
-        headerText: awardHeaderText,
-        headerTextTooltip: awardHeaderTextTooltip
-    },
-    award_spending_by_agency: {
-        icon: 'sitemap',
-        component: <ComingSoon />,
-        headerText: awardHeaderText,
-        headerTextTooltip: awardHeaderTextTooltip
+        headerText: totalSpendingText,
+        headerTextTooltipooltip: totalSpendingTooltip
     },
     award_spending_recipient: {
         icon: 'building',
         component: <ComingSoon />,
-        headerText: awardHeaderText,
-        headerTextTooltip: awardHeaderTextTooltip
+        headerText: awardSpendingText,
+        headerTextTooltip: awardSpedingTooltip
     },
-    award_spending_by_other_dimensions: {
+    award_spending_by_agency: {
+        icon: 'sitemap',
         component: <ComingSoon />,
-        headerText: awardHeaderText,
-        headerTextTooltip: awardHeaderTextTooltip
+        headerText: awardSpendingText,
+        headerTextTooltip: awardSpedingTooltip
+    },
+    award_spending_over_time: {
+        icon: 'chart-area',
+        component: <ComingSoon />,
+        headerText: awardSpendingText,
+        headerTextTooltip: awardSpedingTooltip
+    },
+    award_spending_by_assistance_living: {
+        icon: 'plus-circle',
+        component: <ComingSoon />,
+        headerText: awardSpendingText,
+        headerTextTooltip: awardSpedingTooltip
     }
 });
 
