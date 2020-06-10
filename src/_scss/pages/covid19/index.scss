@@ -175,10 +175,17 @@
                   margin-bottom: rem(35);
                   margin-top: 0;
               }
-              h3.body__question {
-                text-align: center;
-                font-weight: $font-semibold;
-                font-size: 3rem;
+              h3.body__narrative {
+                  text-align: center;
+                  font-weight: $font-semibold;
+                  font-size: 3rem;
+              }
+              p.body__narrative-description {
+                  font-size: $small-font-size;
+                  text-align: center;
+                  width: 75%;
+                  margin: auto;
+                  padding-bottom: 5rem;
               }
               .coming-soon-section {
                   width: 100%;

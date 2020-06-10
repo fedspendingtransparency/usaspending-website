@@ -58,9 +58,9 @@ export const componentByCovid19Section = () => ({
         headerText: awardAndNonAwardHeaderText,
         headerTextTooltipooltip: awardAndNonAwardHeaderTextTT
     },
-    award_spending_over_time: {
-        icon: 'chart-area',
-        component: <AwardSpendingOverTime />,
+    award_spending_recipient: {
+        icon: 'building',
+        component: <ComingSoon />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },
@@ -70,9 +70,9 @@ export const componentByCovid19Section = () => ({
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },
-    award_spending_recipient: {
-        icon: 'building',
-        component: <ComingSoon />,
+    award_spending_over_time: {
+        icon: 'chart-area',
+        component: <AwardSpendingOverTime />,
         headerText: awardHeaderText,
         headerTextTooltip: awardHeaderTextTooltip
     },

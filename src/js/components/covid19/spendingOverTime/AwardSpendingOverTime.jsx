@@ -51,7 +51,10 @@ const AwardSpendingOverTime = () => {
 
     return (
         <div className="spending-over-time">
-            <h3 className="body__question">How was COVID-19 response funding spent over time?</h3>
+            <h3 className="body__narrative">This is how <strong>awards</strong> supporting the COVID-19 Response were funded over time.</h3>
+            <p className="body__narrative-description">
+                The Federal Government’s COVID-19 Response spending took place over a series of months. Analyzing spending over time can reveal trends in spending for different award types and the creation of new awards.
+            </p>
             <div className="count-tabs">
                 <div className="count-tabs__questions">
                     {tabs.map((tab) => (
