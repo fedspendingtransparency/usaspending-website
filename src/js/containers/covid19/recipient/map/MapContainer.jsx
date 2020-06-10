@@ -45,6 +45,7 @@ export class MapContainer extends React.Component {
                 recipientType: 'all',
                 awardType: 'all'
             },
+            spendingType: 'totalSpending',
             selectedItem: {},
             subAward: false,
             visibleEntities: [],
@@ -73,19 +74,6 @@ export class MapContainer extends React.Component {
         logMapLayerEvent(this.state.mapLayer);
     }
 
-    componentDidUpdate(prevProps) {
-        // if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
-        //     this.prepareFetch(true);
-        // }
-        // else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
-        //     // subaward toggle changed, update the search object
-        //     this.prepareFetch(true);
-        // }
-        // else if (prevProps.mapLegendToggle !== this.props.mapLegendToggle) {
-        //     this.handleMapLegendToggleChange();
-        // }
-    }
-
     componentWillUnmount() {
         // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
@@ -93,19 +81,13 @@ export class MapContainer extends React.Component {
         });
     }
 
-    onAmountTypeChange = () => {
-        this.setState({
-            data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
-            renderHash: `geo-${uniqueId()}`
-        });
-    }
-
-    updateAmountTypeFilter = (value) => {
+    updateamountTypeFilter = (value) => {
         this.setState(
-            (currentState) => Object.assign(
-                currentState.activeFilters, { amountType: value }
-            )
-        );
+            (currentState) => ({
+                activeFilters: Object.assign(currentState.activeFilters, { amountType: value }),
+                data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
+                renderHash: `geo-${uniqueId()}`
+            }));
     }
 
     updateterritoryFilter = (value) => {
@@ -330,15 +312,12 @@ export class MapContainer extends React.Component {
     }
 
     showTooltip = (geoId, position) => {
-        console.log(' Geo ID : ', geoId);
-        console.log(' Position : ', position);
         // convert state code to full string name
         const label = this.state.data.labels[geoId];
         this.setState({
             showHover: true,
             selectedItem: {
                 label: label.label,
-                total: this.props.total,
                 value: label.value,
                 x: position.x,
                 y: position.y
@@ -421,7 +400,6 @@ export class MapContainer extends React.Component {
                     showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}
                     filters={this.addOnClickToFilters()}
-                    showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
                     hideTooltip={this.hideTooltip}

@@ -395,26 +395,12 @@ export default class MapWrapper extends React.Component {
             spendingScale: scale
         });
     }
-    /**
-     * tooltipDescription
-     * - description for tooltip based on page and toggle
-     * @returns {string}
-     */
-    tooltipDescription = () => {
-        const { stateProfile, mapLegendToggle } = this.props;
-        // state page
-        if (stateProfile) return 'Awarded Amount';
-        // per capita toggle
-        return (mapLegendToggle === 'totalSpending' ? 'Total Obligations' : 'Per Capita Spending');
-    }
 
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
             return (
-                <TooltipComponent
-                    description={this.tooltipDescription()}
-                    {...selectedItem} />
+                <TooltipComponent {...selectedItem} />
             );
         }
         return null;
