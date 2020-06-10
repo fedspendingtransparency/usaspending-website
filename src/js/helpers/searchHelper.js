@@ -62,6 +62,7 @@ export const fetchPSC = (req) => apiRequest({
 });
 
 export const fetchAwardV2 = (awardId) => apiRequest({
+    isLocal: true,
     url: `v2/awards/${awardId}/`
 });
 
