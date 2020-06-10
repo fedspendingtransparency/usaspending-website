@@ -24,7 +24,7 @@ const AwardSpendingOverTime = () => {
     const [activeTab, setActiveTab] = useState('obligations');
     // TODO - get total Award Obligations and Award Outlays from Redux when overview data is added
     return (
-        <div className="spending-over-time">
+        <div className="body__content spending-over-time">
             <h3 className="body__narrative">This is how <strong>awards</strong> supporting the COVID-19 Response were funded over time.</h3>
             <p className="body__narrative-description">
                 The Federal Government’s COVID-19 Response spending took place over a series of months. Analyzing spending over time can reveal trends in spending for different award types and the creation of new awards.

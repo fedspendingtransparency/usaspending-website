@@ -5,9 +5,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
+import { startCase } from 'lodash';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchSpendingOverTime } from 'helpers/covid19RequestsHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -38,7 +39,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     // Generate a column for each award type
     const columns = awardTypes.map((awardType) => (
         {
-            displayName: `Total ${activeTab} for ${awardTypeGroupLabels[awardType]}`,
+            displayName: `Total ${startCase(activeTab)} for ${awardTypeGroupLabels[awardType]}`,
             title: awardType
         }
     ));
