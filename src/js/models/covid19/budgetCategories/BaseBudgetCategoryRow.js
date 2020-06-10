@@ -9,13 +9,17 @@ import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields 
 const BaseBudgetCategoryRow = {
     populateOnSpendingCategory(data, spendingCategory) {
         [...budgetDropdownColumns[spendingCategory]].forEach((column) => {
-            this[`_${column.title}`] = data[budgetFields[column.title]];
+            this[`_${column.title}`] = data[budgetFields[spendingCategory][column.title]];
         });
     },
     populateBase(data, type) {
         [...budgetColumns[type]].forEach((column) => {
-            if (budgetColumnFields[column.title]) {
-                this[`${column.title}`] = data[budgetColumnFields[column.title]];
+            if (type === 'def_codes') {
+                if (budgetColumnFields[column.title]) {
+                    this[`${column.title}`] = data[budgetColumnFields[column.title]];
+                }
+            } else if (column.title === 'name') {
+                this[`${column.title}`] = `${data.code} - ${data.description}`;
             } else {
                 this[`${column.title}`] = data[column.title];
             }
@@ -25,17 +29,17 @@ const BaseBudgetCategoryRow = {
         this.populateBase(data, type);
         this.populateOnSpendingCategory(data, spendingCategory);
     },
-    get totalObligations() {
-        return formatMoney(this._totalObligations);
+    get totalObligation() {
+        return formatMoney(this._totalObligation);
     },
-    get totalOutlays() {
-        return formatMoney(this._totalOutlays);
+    get totalOutlay() {
+        return formatMoney(this._totalOutlay);
     },
-    get awardTotalObligations() {
-        return formatMoney(this._awardTotalObligations);
+    get awardObligation() {
+        return formatMoney(this._awardObligation);
     },
-    get awardTotalOutlays() {
-        return formatMoney(this._awardTotalOutlays);
+    get awardOutlay() {
+        return formatMoney(this._awardOutlay);
     }
     // get faceValueOfLoans() {
     //     return formatMoney(this._faceValueOfLoans);

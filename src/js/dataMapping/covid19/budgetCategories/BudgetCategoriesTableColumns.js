@@ -5,22 +5,22 @@
 export const budgetDropdownColumns = {
     total_spending: [
         {
-            title: 'totalObligations',
-            displayName: 'Total Obligations'
+            title: 'totalOutlay',
+            displayName: 'Total Outlays'
         },
         {
-            title: 'totalOutlays',
-            displayName: 'Total Outlays'
+            title: 'totalObligation',
+            displayName: 'Total Obligations'
         }
     ],
     award_spending: [
         {
-            title: 'awardTotalObligations',
-            displayName: 'Total Obligations'
+            title: 'awardOutlay',
+            displayName: 'Award Outlays'
         },
         {
-            title: 'awardTotalOutlays',
-            displayName: 'Total Outlays'
+            title: 'awardObligation',
+            displayName: 'Award Obligations'
         }
     ]
     // face_value_of_loans: [
@@ -29,6 +29,11 @@ export const budgetDropdownColumns = {
     //         displayName: 'Face Value of Loans'
     //     }
     // ]
+};
+
+export const totalBudgetaryResources = {
+    title: 'totalBudgetaryResources',
+    displayName: 'Total Budgetary Resources'
 };
 
 export const budgetColumns = {
@@ -63,15 +68,20 @@ export const budgetColumns = {
 };
 
 export const budgetColumnFields = {
-    defCode: 'def_code',
-    emergencyFundingMandate: 'emergency_funding_mandate'
+    defCode: 'code',
+    emergencyFundingMandate: 'description',
+    name: 'description'
 };
 
 export const budgetFields = {
-    totalObligations: 'total_obligations',
-    totalOutlays: 'total_outlays',
-    awardTotalObligations: 'award_total_obligations',
-    awardTotalOutlays: 'award_total_outlays'
+    total_spending: {
+        totalObligation: 'total_obligation',
+        totalOutlay: 'total_outlay'
+    },
+    award_spending: {
+        awardObligation: 'award_obligation',
+        awardOutlay: 'award_outlay'
+    }
     // faceValueOfLoans: 'face_value_of_loans'
 };
 
@@ -80,4 +90,3 @@ export const budgetDropdownFieldValues = {
     award_spending: 'Award Spending'
     // face_value_of_loans: 'Face Value of Loans'
 };
-

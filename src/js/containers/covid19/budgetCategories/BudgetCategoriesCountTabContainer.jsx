@@ -6,8 +6,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BudgetCategoriesCountTab from 'components/covid19/budgetCategories/BudgetCategoriesCountTab';
+import { fetchSpendingCount } from '../../../helpers/agencyV2Helper';
 
 const propTypes = {
+    defCodes: PropTypes.array.isRequired,
+    fy: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
@@ -58,6 +61,19 @@ const BudgetCategoriesCountTabContainer = (props) => {
         // Reset any existing results
         setCount(null);
         setSubCount(null);
+
+        // const params = {
+        //     fiscal_year: props.fy,
+        //     def_codes: props.defCodes
+        // };
+        // const countRequest = fetchSpendingCount(props.type, params);
+        // countRequest.promise
+        //     .then((res) => {
+        //         setCount(res.data[props.countField]);
+        //         if (props.subCountField) {
+        //             setSubCount(res.data[props.subCountField]);
+        //         }
+        //     });
         fetchCovid19CountByType();
     }, [props.type, props.countField, props.subCountField]);
     return (

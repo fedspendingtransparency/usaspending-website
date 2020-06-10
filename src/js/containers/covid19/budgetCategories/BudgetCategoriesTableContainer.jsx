@@ -4,16 +4,19 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { initial, last } from 'lodash';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetFields, budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResources } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+// import { fetchDisasterSpending, fetchDefCodes } from 'helpers/covid19/budgetCategoriesHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/covid19/budgetCategories/BaseBudgetCategoryRow';
 
 
 const propTypes = {
+    fy: PropTypes.number,
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string
 };
@@ -33,6 +36,8 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
 
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const [defCodes, setDefCodes] = useState([]);
+    const [params, setParams] = useState({});
 
     const parseSpending = (data) => {
         const parsedData = data.map((row) => {
@@ -43,54 +48,58 @@ const BudgetCategoriesTableContainer = (props) => {
         setResults(parsedData);
     };
 
-    const fetchBudgetSpending = useCallback(() => {
+    const fetchBudgetSpendingCallback = useCallback(async () => {
         setLoading(true);
+
+        // TODO - Uncomment below code when API is ready
+        // const requestDefCodes = fetchDefCodes();
+        // await requestDefCodes.promise.then((res) => {
+        //     setDefCodes(res.data.codes.filter((code) => code.disaster === 'covid_19'));
+        // });
+
+        // const params = {
+        //     filter: {
+        //         def_codes: [...defCodes.filter((defCode) => defCode.disaster === 'covid_19')],
+        //         spending_facets: Object.values(budgetFields[spendingCategory])
+        //     },
+        //     pagination: {
+        //         order,
+        //         size: pageSize,
+        //         page: currentPage
+        //     }
+        // };
+        // const requestDisasterSpending = fetchDisasterSpending(props.type, params);
+        // requestDisasterSpending.promise
+        //     .then((res) => {
+        //         parseSpending(res.data.results);
+        //         setTotalItems(res.data.page_metadata.total);
+        //         setLoading(false);
+        //         setError(false);
+        //     }).catch((err) => {
+        //         setError(true);
+        //         setLoading(false);
+        //         console.error(err);
+        //     });
+
         setTimeout(() => {
             parseSpending([
                 {
-                    def_code: "L",
-                    emergency_funding_mandate: "emergencyFundingMandate1",
-                    total_obligations: 1000000,
-                    total_outlays: 999999,
-                    award_total_obligations: 123123123,
-                    award_total_outlays: 321321321
-                    // face_value_of_loans: 666666666
+                    id: 43,
+                    code: "090",
+                    description: "Description text of 090, for humans",
+                    children: [],
+                    count: 54,
+                    total_obligation: 89.01,
+                    total_outlay: 70.98
                 },
                 {
-                    def_code: "M",
-                    emergency_funding_mandate: "emergencyFundingMandate2",
-                    total_obligations: 1000000,
-                    total_outlays: 999999,
-                    award_total_obligations: 123123123,
-                    award_total_outlays: 321321321
-                    // face_value_of_loans: 666666666
-                },
-                {
-                    def_code: "N",
-                    emergency_funding_mandate: "emergencyFundingMandate3",
-                    total_obligations: 1000000,
-                    total_outlays: 999999,
-                    award_total_obligations: 123123123,
-                    award_total_outlays: 321321321
-                    // face_value_of_loans: 666666666
-                },
-                {
-                    def_code: "O",
-                    emergency_funding_mandate: "emergencyFundingMandate4",
-                    total_obligations: 1000000,
-                    total_outlays: 999999,
-                    award_total_obligations: 123123123,
-                    award_total_outlays: 321321321
-                    // face_value_of_loans: 666666666
-                },
-                {
-                    def_code: "P",
-                    emergency_funding_mandate: "emergencyFundingMandate5",
-                    total_obligations: 1000000,
-                    total_outlays: 999999,
-                    award_total_obligations: 123123123,
-                    award_total_outlays: 321321321
-                    // face_value_of_loans: 666666666
+                    id: 41,
+                    code: "012",
+                    description: "Description text of 012, for humans",
+                    children: [],
+                    count: 2,
+                    total_obligation: 50,
+                    total_outlay: 10
                 }
             ]);
             setTotalItems(100);
@@ -102,20 +111,29 @@ const BudgetCategoriesTableContainer = (props) => {
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
-        fetchBudgetSpending();
-    }, [props.type, pageSize, sort, order, spendingCategory]);
+        fetchBudgetSpendingCallback();
+    }, [props.type, props.fy, pageSize, sort, order, spendingCategory]);
 
     useEffect(() => {
-        fetchBudgetSpending();
+        fetchBudgetSpendingCallback();
     }, [currentPage]);
 
     const renderColumns = () => {
-        if (spendingCategory) {
+        if (props.type && spendingCategory) {
+            if (props.type !== 'object_classes' && spendingCategory !== 'award_spending') {
+                return [
+                    ...budgetColumns[props.type],
+                    ...budgetDropdownColumns[spendingCategory],
+                    totalBudgetaryResources
+                ];
+            }
             return [
                 ...budgetColumns[props.type],
                 ...budgetDropdownColumns[spendingCategory]
             ];
         }
+
+
         return null;
     };
 
@@ -183,7 +201,7 @@ const BudgetCategoriesTableContainer = (props) => {
     return (
         <>
             {spendingViewPicker()}
-            <div className="budget-categories-table">
+            <div className={`budget-categories-table-${props.type}`}>
                 <Table
                     expandable
                     rows={results}
