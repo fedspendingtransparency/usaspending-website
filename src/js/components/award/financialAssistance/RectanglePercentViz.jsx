@@ -58,10 +58,14 @@ const flattenArray = (arr) => arr
         return [...acc, obj];
     }, []);
 
+const numeratorZeroToolTipPositions = {
+    horizontal: 170,
+    vertical: 10
+};
+
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
-    numerator3 = null,
     denominator,
     percentage
 }) => {
@@ -84,42 +88,6 @@ const RectanglePercentViz = ({
     const verticalTooltipOffset = isCaresReleased
         ? 165
         : 90;
-    const numeratorZeroToolTipPositions = {
-        horizontal: 170,
-        vertical: 10
-    };
-
-    const absoluteWidths = {
-        denominator: {
-            width: generatePercentage(1)
-        },
-        numerator: {
-            width: percentage || generatePercentage(numerator.rawValue / denominator.rawValue)
-        },
-        numerator2: {
-            width: numerator2
-                ? generatePercentage(numerator2.rawValue / denominator.rawValue)
-                : null
-        },
-        numerator3: {
-            width: numerator3
-                ? generatePercentage(numerator3.rawValue / denominator.rawValue)
-                : null
-        }
-    };
-
-    const relativeWidths = {
-        numerator2: {
-            width: numerator2
-                ? generatePercentage(numerator2.rawValue / denominator.rawValue)
-                : null
-        },
-        numerator3: {
-            width: numerator3
-                ? generatePercentage(numerator3.rawValue / numerator2.rawValue)
-                : null
-        }
-    };
 
     const showTooltip = (
         tooltipData,
@@ -135,11 +103,6 @@ const RectanglePercentViz = ({
         setIsTooltipVisible(true);
     };
 
-    const numeratorBarAndLabelStyles = {
-        ...absoluteWidths.numerator,
-        backgroundColor: numerator.color
-    };
-
     const numeratorValue = percentage ? `${numerator.value} (${numerator.width})` : numerator.value;
 
     const closeTooltip = () => {
@@ -149,7 +112,7 @@ const RectanglePercentViz = ({
     const showNumeratorTooltip = (e) => {
         e.stopPropagation();
         const width = numerator.rawValue > 0
-            ? absoluteWidths.numerator.width
+            ? generatePercentage(numerator.rawValue / denominator.rawValue)
             : numeratorZeroToolTipPositions.horizontal;
         const height = numerator.rawValue > 0
             ? verticalTooltipOffset
@@ -158,12 +121,12 @@ const RectanglePercentViz = ({
     };
     const showDenominatorTooltip = (e) => {
         e.stopPropagation();
-        showTooltip(denominator.tooltipData, absoluteWidths.denominator.width);
+        showTooltip(denominator.tooltipData, '100%');
     };
 
     const showNumerator2Tooltip = (e) => {
         e.stopPropagation();
-        showTooltip(numerator2.tooltipData, absoluteWidths.numerator2.width);
+        showTooltip(numerator2.tooltipData, generatePercentage(numerator2.rawValue / denominator.rawValue));
     };
 
     const nestedBarStyles = {
@@ -312,7 +275,7 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            {renderLinesAndLabelsForPosition([numerator], 'top')}
+            {renderLinesAndLabelsForPosition([numerator, numerator2], 'top')}
             <div className="award-amounts-viz__bar-container">
                 <Bar
                     spendingCategory={denominator.className}
@@ -324,10 +287,10 @@ const RectanglePercentViz = ({
                         <>
                             <Bar
                                 spendingCategory={numerator.className}
-                                barWrapperStyles={{ width: numeratorBarAndLabelStyles.width }}
+                                barWrapperStyles={{ width: generatePercentage(numerator.rawValue / denominator.rawValue) }}
                                 onLeave={closeTooltip}
                                 onEnter={showNumeratorTooltip}
-                                barStyles={{ width: '100%', backgroundColor: numeratorBarAndLabelStyles.backgroundColor }}>
+                                barStyles={{ width: '100%', backgroundColor: numerator.color }}>
                                 {numeratorHasChildren &&
                                     <div className="nested-obligations">
                                         {numerator.children.map((child) => renderNestedBars(child))}
@@ -337,7 +300,7 @@ const RectanglePercentViz = ({
                             {isNumerator2Defined &&
                                 <Bar
                                     spendingCategory={numerator2.className}
-                                    barWrapperStyles={relativeWidths.numerator2}
+                                    barWrapperStyles={{ width: generatePercentage(numerator2.rawValue / numerator2.denominatorValue) }}
                                     onLeave={closeTooltip}
                                     onEnter={showNumerator2Tooltip}
                                     barStyles={{ width: generatePercentage(1), backgroundColor: numerator2.color }} />
