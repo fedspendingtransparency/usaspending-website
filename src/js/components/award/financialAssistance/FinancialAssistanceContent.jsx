@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import kGlobalConstants from 'GlobalConstants';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
@@ -21,8 +20,6 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import AwardDescription from '../shared/description/AwardDescription';
 import CFDASection from './CFDASection';
-import ComingSoonSection from '../shared/ComingSoonSection';
-import { contractActivityGrants } from '../shared/InfoTooltipContent';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -77,22 +74,6 @@ const FinancialAssistanceContent = ({
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
     const isGrant = overview.category === 'grant';
-    const grantActivity = () => {
-        if (isGrant) {
-            return (kGlobalConstants.DEV) ?
-                <ContractGrantActivityContainer
-                    awardId={awardId}
-                    awardType={overview.category}
-                    dates={overview.periodOfPerformance}
-                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                : <ComingSoonSection
-                    title="Grant Activity"
-                    icon="chart-area"
-                    includeHeader
-                    toolTipContent={contractActivityGrants} />;
-        }
-        return null;
-    };
 
     return (
         <AwardPageWrapper
@@ -128,7 +109,13 @@ const FinancialAssistanceContent = ({
                     awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                {grantActivity()}
+                {
+                    isGrant && <ContractGrantActivityContainer
+                        awardId={awardId}
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance}
+                        jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                }
                 {!isGrant && (
                     <CFDASection
                         cfdas={overview.cfdas}
