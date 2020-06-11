@@ -230,6 +230,7 @@ $new-potential: #AAC6E2;
                         &.idv-current {
                             border-right: rem(5) solid $color-gray-lighter;
                         }
+                        &.idv-potential::after,
                         &.contract-potential::after {
                             content: ' ';
                             height: rem(45);
@@ -246,6 +247,7 @@ $new-potential: #AAC6E2;
                         &.idv-current {
                             border-right: 5px solid $new-current;
                         }
+                        &.idv-potential,
                         &.contract-potential {
                             border-right: 5px solid $new-potential;
                         }
@@ -339,6 +341,7 @@ $new-potential: #AAC6E2;
                             border-left: rem(1) solid $file-c-current;
                         }
                     }
+                    &.covid.idv-potential,
                     &.covid.contract-potential {
                         border-bottom: rem(1) solid $new-potential;
                         &::before,
