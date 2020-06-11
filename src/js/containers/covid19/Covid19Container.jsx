@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { startCase, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -27,7 +27,7 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
-import { defcAPI } from 'helpers/disasterHelper';
+import defcAPI from 'helpers/disasterHelper';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -37,25 +37,26 @@ const Covid19Container = () => {
     // const [selectedDEF, setselectedDEF] = useState('All');
 
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
+    const defCodesRequest = useRef(null);
 
-    const getDefCodes = useCallback(() => {
+    useEffect(() => {
         const getDefCodesData = async () => {
-            const defCodesRequest = defcAPI.promise;
-            let apiData = null;
+            defCodesRequest.current = defcAPI();
             try {
-                const { data } = await defCodesRequest;
-                apiData = data;
+                const data = await defCodesRequest.promise;
+                console.log(' Def Codes : ', data);
             }
             catch (e) {
                 console.log(' Error DefCodes : ', e.message);
             }
-            return apiData;
         };
-        return getDefCodesData();
-    }, []);
-
-    useEffect(() => {
-        console.log(' Def Codes : ', getDefCodes());
+        getDefCodesData();
+        defCodesRequest.current = null;
+        return () => {
+            if (defCodesRequest.current) {
+                defCodesRequest.cancel();
+            }
+        }
     }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);

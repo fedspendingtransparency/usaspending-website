@@ -6,7 +6,7 @@
 import { apiRequest } from 'helpers/apiRequest';
 
 const defcAPI = () => apiRequest({
-    url: '/api/v2/references/def_codes/',
+    url: 'v2/references/def_codes/'
 });
 
 export default defcAPI;
