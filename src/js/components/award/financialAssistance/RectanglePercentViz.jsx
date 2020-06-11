@@ -175,17 +175,44 @@ const RectanglePercentViz = ({
             if (position === 'top') {
                 return (
                     <div className={`award-amounts-viz__desc-container ${position}${classNameForCovid}`}>
-                        <BarValue
-                            spendingCategory={child.className}
-                            className={`award-amounts-viz__desc ${position}${classNameForCovid}`}
-                            onLeave={closeTooltip}
-                            onEnter={() => showTooltip(
-                                child.tooltipData,
-                                generatePercentage(child.rawValue / denominator.rawValue),
-                                verticalTooltipOffset
-                            )}
-                            number={child.value}
-                            title={child.text} />
+                        {child?.improper &&
+                            <div className="improper">
+                                <BarValue
+                                    spendingCategory={child.className}
+                                    className={`award-amounts-viz__desc ${position}${classNameForCovid}`}
+                                    onLeave={closeTooltip}
+                                    onEnter={() => showTooltip(
+                                        child.tooltipData,
+                                        generatePercentage(child.rawValue / denominator.rawValue),
+                                        verticalTooltipOffset
+                                    )}
+                                    number={child.value}
+                                    title={child.text} />
+                                <BarValue
+                                    spendingCategory={child.improper.className}
+                                    className={`award-amounts-viz__desc ${position}${classNameForCovid}`}
+                                    onLeave={closeTooltip}
+                                    onEnter={() => showTooltip(
+                                        child.improper.tooltipData,
+                                        generatePercentage(child.improper.rawValue / denominator.rawValue),
+                                        verticalTooltipOffset
+                                    )}
+                                    number={child.improper.value}
+                                    title={child.improper.text} />
+                            </div>
+                        }
+                        {!child.improper &&
+                            <BarValue
+                                spendingCategory={child.className}
+                                className={`award-amounts-viz__desc ${position}${classNameForCovid}`}
+                                onLeave={closeTooltip}
+                                onEnter={() => showTooltip(
+                                    child.tooltipData,
+                                    generatePercentage(child.rawValue / denominator.rawValue),
+                                    verticalTooltipOffset
+                                )}
+                                number={child.value}
+                                title={child.text} />}
                         {child.rawValue > 0 &&
                             <BarLabelAndLine
                                 spendingCategory={child.className}

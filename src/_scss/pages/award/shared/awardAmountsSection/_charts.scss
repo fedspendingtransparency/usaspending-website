@@ -118,6 +118,24 @@ $new-potential: #AAC6E2;
         &.top {
             @include align-items(flex-start);
             margin-bottom: rem(5);
+            .improper {
+                width: 100%;
+                @include display(flex);
+                .contract-overspending {
+                    text-align: right;
+                    @include justify-content(flex-end);
+                    border-left: none;
+                    padding-right: rem(5);
+                    &::after {
+                        content: ' ';
+                        width: rem(5);
+                        height: rem(55);
+                        border: solid rem(1) #fdb81e;
+                        background: repeating-linear-gradient(45deg, #fff, #fff 0.5rem, #fdb81e 0.2rem, #fdb81e 0.7rem);
+                        margin-left: rem(5);                        
+                    }
+                }
+            }
             .award-amounts-viz__desc {
                 // Description above Viz.
                 @include display(flex);

@@ -131,6 +131,19 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                 : "Obligated Amount",
             color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+            improper: {
+                labelSortOrder: 1,
+                labelPosition: 'hide',
+                className: `${awardType}-overspending`,
+                rawValue: data._totalObligation - data._baseExercisedOptions,
+                denominatorValue: data._totalObligation,
+                value: data.overspendingAbbreviated,
+                text: awardType === 'idv'
+                    ? "Exceeds Combined Current Award Amounts"
+                    : "Exceeds Current Award Amount",
+                color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
+            },
             children: [{
                 labelSortOrder: 1,
                 labelPosition: 'bottom',
@@ -147,7 +160,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
         },
         numerator2: {
             labelSortOrder: 1,
-            labelPosition: 'top',
+            labelPosition: 'hide',
             className: `${awardType}-overspending`,
             rawValue: data._totalObligation - data._baseExercisedOptions,
             denominatorValue: data._totalObligation,
