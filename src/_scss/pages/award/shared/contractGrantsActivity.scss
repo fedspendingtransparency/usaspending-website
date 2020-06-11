@@ -148,10 +148,7 @@
     }
     .area-path__past-end-line {
       fill: $color-gray-lighter;
-      opacity: 0.3;
-      &.darker {
-        opacity: 0.4;
-      }
+      opacity: 0.4;
     }
     .svg-line {
       stroke-width: 2;
