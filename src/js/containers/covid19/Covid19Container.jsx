@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { startCase, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -27,6 +27,7 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { defcAPI } from 'helpers/disasterHelper';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -36,6 +37,26 @@ const Covid19Container = () => {
     // const [selectedDEF, setselectedDEF] = useState('All');
 
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
+
+    const getDefCodes = useCallback(() => {
+        const getDefCodesData = async () => {
+            const defCodesRequest = defcAPI.promise;
+            let apiData = null;
+            try {
+                const { data } = await defCodesRequest;
+                apiData = data;
+            }
+            catch (e) {
+                console.log(' Error DefCodes : ', e.message);
+            }
+            return apiData;
+        };
+        return getDefCodesData();
+    }, []);
+
+    useEffect(() => {
+        console.log(' Def Codes : ', getDefCodes());
+    }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
