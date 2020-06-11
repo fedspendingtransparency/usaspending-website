@@ -37,13 +37,13 @@ export const totalBudgetaryResourcesColumn = {
 };
 
 export const budgetColumns = {
-    federal_accounts: [
+    federal_account: [
         {
             title: 'name',
             displayName: 'Federal Accounts'
         }
     ],
-    def_codes: [
+    def_code: [
         {
             title: 'defCode',
             displayName: "Public Laws"
@@ -53,13 +53,13 @@ export const budgetColumns = {
             displayName: 'Emergency Funding Mandate'
         }
     ],
-    agencies: [
+    agency: [
         {
             title: 'name',
             displayName: 'Agencies'
         }
     ],
-    object_classes: [
+    object_class: [
         {
             title: 'name',
             displayName: 'Object Classes'

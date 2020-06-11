@@ -6,48 +6,49 @@
 import React, { useState, useEffect } from 'react';
 import BudgetCategoriesCountTabContainer from 'containers/covid19/budgetCategories/BudgetCategoriesCountTabContainer';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
+import { fetchDefCodes } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const tabs = [
     {
-        type: 'federal_accounts',
+        type: 'federal_account',
         label: 'Federal Accounts',
         description: 'What accounts funded this response?',
         subHeading: 'Treasury Accounts',
-        countField: 'federal_account_count',
-        subCountField: 'treasury_account_count'
+        countField: 'count',
+        subCountField: 'child_count'
     },
     {
-        type: 'def_codes',
+        type: 'def_code',
         label: 'Public Laws',
         description: 'What legislative acts funded this spending?',
-        countField: 'def_codes_count'
+        countField: 'count'
     },
     {
-        type: 'agencies',
+        type: 'agency',
         label: 'Agencies',
         description: 'What agencies did the spending?',
-        countField: 'agencies_count'
+        countField: 'count'
     },
     {
-        type: 'object_classes',
+        type: 'object_class',
         label: 'Object Classes',
         description: 'What items or services were purchased',
-        countField: 'object_class_count'
+        countField: 'count'
     }
 ];
 
 const BudgetCategories = () => {
-    const [activeTab, setActiveTab] = useState('federal_accounts');
+    const [activeTab, setActiveTab] = useState('federal_account');
     const [defCodes, setDefCodes] = useState([]);
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
 
-    // TODO - Uncomment below when API is done
-    // useEffect(() => {
-    // const requestDefCodes = fetchDefCodes();
-    // requestDefCodes.promise.then((res) => {
-    //     setDefCodes(res.data.codes.filter((code) => code.disaster === 'covid_19'));
-    // });
-    // }, []);
+    // TODO - remove this temporary def codes fetch when it's put into redux
+    useEffect(() => {
+        const requestDefCodes = fetchDefCodes();
+        requestDefCodes.promise.then((res) => {
+            setDefCodes(res.data.codes.filter((code) => code.disaster === 'covid_19'));
+        });
+    }, []);
 
     return (
         <div className="body__content">

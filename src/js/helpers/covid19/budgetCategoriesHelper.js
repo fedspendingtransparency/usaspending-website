@@ -3,21 +3,24 @@
  * Created by James Lee 6/10/20
  */
 
-import { apiRequest } from '../apiRequest';
+import { apiRequest } from "../apiRequest";
 
 export const fetchDisasterSpending = (type, params) => apiRequest({
     url: `v2/disaster/${type}/spending/`,
     method: 'post',
-    data: params
+    data: params,
+    isMocked: true
 });
 
 export const fetchDisasterSpendingCount = (type, params) => apiRequest({
-    url: `v2/disaster/${type}/spending/count/`,
+    url: `v2/disaster/${type}/count/`,
     method: 'post',
-    data: params
+    data: params,
+    isMocked: true
 });
 
 export const fetchDefCodes = () => apiRequest({
-    url: `/v2/references/def_codes/`
+    url: `/v2/references/def_codes/`,
+    isMocked: true
 });
 

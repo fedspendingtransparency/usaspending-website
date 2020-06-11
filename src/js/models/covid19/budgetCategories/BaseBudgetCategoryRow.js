@@ -16,7 +16,7 @@ const BaseBudgetCategoryRow = {
     populateBase(data, type) {
         let defaultValue = null;
         budgetColumns[type].forEach((column) => {
-            if (type === 'def_codes') {
+            if (type === 'def_code') {
                 if (budgetColumnFields[column.title]) {
                     defaultValue = typeof (data[budgetColumnFields[column.title]]) === 'string' ? '' : 0;
                     this[`${column.title}`] = data[budgetColumnFields[column.title]] || defaultValue;
@@ -30,7 +30,7 @@ const BaseBudgetCategoryRow = {
         });
     },
     populateTotalBudgetaryResources(data, type, spendingCategory) {
-        if (type !== 'object_classes' && spendingCategory !== 'award_spending') {
+        if (type !== 'object_class' && spendingCategory !== 'award_spending') {
             this._totalBudgetaryResources = data.total_budgetary_resources || 0;
         }
     },
