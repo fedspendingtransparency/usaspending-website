@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { startCase, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -28,6 +29,7 @@ import {
     footerDescription
 } from 'dataMapping/covid19/covid19';
 import defcAPI from 'helpers/disasterHelper';
+import setCodes from 'redux/actions/covid19/covid19Actions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -38,13 +40,14 @@ const Covid19Container = () => {
 
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const getDefCodesData = async () => {
             defCodesRequest.current = defcAPI();
             try {
-                const data = await defCodesRequest.promise;
-                console.log(' Def Codes : ', data);
+                const { data } = await defCodesRequest.current.promise;
+                dispatch(setCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
             }
             catch (e) {
                 console.log(' Error DefCodes : ', e.message);
@@ -56,7 +59,7 @@ const Covid19Container = () => {
             if (defCodesRequest.current) {
                 defCodesRequest.cancel();
             }
-        }
+        };
     }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
