@@ -8,7 +8,7 @@
         text-align: center;
         > div {
             padding: rem(30) rem(15) rem(30);
-            flex: 1 0 0;
+            @include flex(1 0 0);
         }
 
     }

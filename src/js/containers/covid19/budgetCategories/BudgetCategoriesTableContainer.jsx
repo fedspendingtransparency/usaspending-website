@@ -35,7 +35,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
 
-    const parseSpending = (data) => {
+    const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((row) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
             budgetCategoryRow.populate(row, props.type, spendingCategory);
@@ -63,7 +63,7 @@ const BudgetCategoriesTableContainer = (props) => {
             const requestDisasterSpending = fetchDisasterSpending(props.type, params);
             requestDisasterSpending.promise
                 .then((res) => {
-                    parseSpending(res.data.results);
+                    parseSpendingDataAndSetResults(res.data.results);
                     setTotalItems(res.data.pagination_metadata.total);
                     setLoading(false);
                     setError(false);

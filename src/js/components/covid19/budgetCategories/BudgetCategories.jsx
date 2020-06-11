@@ -41,6 +41,7 @@ const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState('federal_account');
     const [defCodes, setDefCodes] = useState([]);
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
+    const fy = 2020;
 
     // TODO - remove this temporary def codes fetch when it's put into redux
     useEffect(() => {
@@ -71,14 +72,14 @@ const BudgetCategories = () => {
                             {...tab}
                             setActiveTab={setActiveTab}
                             active={activeTab === tab.type}
-                            fy={2020}
+                            fy={fy}
                             defCodes={defCodes} />
                     ))}
                 </div>
                 <BudgetCategoriesTableContainer
                     type={activeTab}
                     subHeading={subHeading}
-                    fy={2020}
+                    fy={fy}
                     defCodes={defCodes} />
             </div>
         </div>
