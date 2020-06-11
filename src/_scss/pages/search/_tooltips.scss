@@ -50,3 +50,68 @@ $letter-color: #323A45;
         }
     }
 }
+
+@import "../../components/visualizations/tooltip/csstooltip";
+
+.tooltip-popover-container {
+    margin-left: rem(5);
+    color: $color-gray-lighter;
+
+    &:hover, &:focus {
+        color: $color-gray-medium;
+        cursor: pointer;
+    }
+
+    &.tooltip-popover-container_description {
+        padding-top: rem(10);
+        font-size: $small-font-size;
+        .tooltip-popover-container__description {
+            color: $color-gray-medium;
+            text-decoration: underline;
+            padding-right: rem(5);
+        }
+        .tooltip-popover {
+            // override the positioning to be centered over the icon
+            left: rem(60);
+            bottom: rem(32);
+        }
+    }
+
+    .tooltip-popover {
+        // override the positioning to be centered over the icon
+        bottom: rem(35);
+        left: rem(-145);
+        padding: 0;
+        font-size: $small-font-size;
+
+        &.advanced-search-css-tooltip {
+            box-shadow: $box-shadow;
+            background-color: $color-white;
+            border: solid rem(1) $color-gray-light;
+
+            .advanced-search-css-tooltip__heading {
+                background-color: $color-gray-lightest;
+                border-top-left-radius: rem(5);
+                border-top-right-radius: rem(5);
+                padding: rem(10) rem(15);
+                font-weight: $font-bold;
+            }
+
+            .advanced-search-css-tooltip__definition {
+                padding: rem(10) rem(15) 0;
+                a:hover {
+                    cursor: pointer;
+                }
+                p:first-of-type {
+                    margin-top: 0;
+                }
+            }
+
+            .advanced-search-css-tooltip__example {
+                font-weight: $font-bold;
+                font-style: italic;
+                padding: rem(10) rem(15) rem(15);
+            }
+        }
+    }
+}

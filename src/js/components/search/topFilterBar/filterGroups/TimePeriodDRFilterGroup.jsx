@@ -44,7 +44,6 @@ export default class TimePeriodDRFilterGroup extends React.Component {
         const tag = {
             value: 'dr',
             title: this.props.filter.values[0],
-            isSpecial: true,
             removeFilter: this.removeTimePeriod
         };
 
