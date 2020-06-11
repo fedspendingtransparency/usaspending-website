@@ -11,7 +11,7 @@ export const mockBaseBudgetCategoryRow = {
     total_budgetary_resources: 99.99
 };
 
-const types = ['federal_accounts', 'def_codes', 'agencies', 'object_classes'];
+const types = ['federal_account', 'def_code', 'agency', 'object_class'];
 const spendingCategories = ['total_spending', 'award_spending'];
 
 
@@ -36,7 +36,7 @@ describe('BaseBudgetCategoryRow', () => {
                         expect(baseBudgetCategoryRow.totalOutlay).toEqual('$0');
                     });
 
-                    if (type !== 'object_classes') {
+                    if (type !== 'object_class') {
                         it('should store the raw total budgetary resources', () => {
                             expect(baseBudgetCategoryRow._totalBudgetaryResources).toEqual(99.99);
                         });
@@ -59,7 +59,7 @@ describe('BaseBudgetCategoryRow', () => {
                     });
                 }
 
-                if (type === 'def_codes') {
+                if (type === 'def_code') {
                     it('should store the defCode', () => {
                         expect(baseBudgetCategoryRow.defCode).toEqual('012');
                     });

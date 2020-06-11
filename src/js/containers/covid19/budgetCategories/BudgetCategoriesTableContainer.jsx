@@ -63,7 +63,6 @@ const BudgetCategoriesTableContainer = (props) => {
             const requestDisasterSpending = fetchDisasterSpending(props.type, params);
             requestDisasterSpending.promise
                 .then((res) => {
-                    console.log(res);
                     parseSpending(res.data.results);
                     setTotalItems(res.data.pagination_metadata.total);
                     setLoading(false);
