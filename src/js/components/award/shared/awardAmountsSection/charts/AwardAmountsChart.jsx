@@ -6,11 +6,9 @@ import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awar
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
-import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
-import GrantChart from './GrantChart';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
@@ -244,7 +242,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                                 denominatorValue: awardAmounts._fileCObligated,
                                 text: 'COVID-19 Response Outlay Amount',
                                 color: '#6E338E',
-                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)        
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
                             }]
                         }]
                     }
