@@ -31,7 +31,7 @@ export const budgetDropdownColumns = {
     // ]
 };
 
-export const totalBudgetaryResources = {
+export const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: 'Total Budgetary Resources'
 };

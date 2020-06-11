@@ -4,11 +4,10 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { initial, last } from 'lodash';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetFields, budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResources } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 // import { fetchDisasterSpending, fetchDefCodes } from 'helpers/covid19/budgetCategoriesHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -82,27 +81,114 @@ const BudgetCategoriesTableContainer = (props) => {
         //     });
 
         setTimeout(() => {
-            parseSpending([
-                {
-                    id: 43,
-                    code: "090",
-                    description: "Description text of 090, for humans",
-                    children: [],
-                    count: 54,
-                    total_obligation: 89.01,
-                    total_outlay: 70.98
-                },
-                {
-                    id: 41,
-                    code: "012",
-                    description: "Description text of 012, for humans",
-                    children: [],
-                    count: 2,
-                    total_obligation: 50,
-                    total_outlay: 10
-                }
-            ]);
-            setTotalItems(100);
+            if (props.type === 'def_codes') {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "L",
+                        description: "Description text of L, for humans",
+                        children: [],
+                        count: 54,
+                        total_obligation: 89.01,
+                        total_outlay: 70.98,
+                        total_budgetary_resources: 19
+                    },
+                    {
+                        id: 41,
+                        code: "M",
+                        description: "Description text of M, for humans",
+                        children: [],
+                        count: 2,
+                        total_obligation: 50,
+                        total_outlay: 10,
+                        total_budgetary_resources: 19
+                    }
+                ]);
+            } else if (props.type === 'agencies') {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "090",
+                        description: "Description text of 090, for humans",
+                        children: [],
+                        count: 54,
+                        award_obligation: 10.01,
+                        award_outlay: 11.98
+                    },
+                    {
+                        id: 41,
+                        code: "012",
+                        description: "Description text of 012, for humans",
+                        children: [],
+                        count: 2,
+                        award_obligation: 50,
+                        award_outlay: 10
+                    }
+                ]);
+            } else if (props.type === 'def_codes') {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "020",
+                        description: "Description text of 020, for humans",
+                        children: [],
+                        count: 54,
+                        award_obligation: 12.01,
+                        award_outlay: 13.98
+                    },
+                    {
+                        id: 41,
+                        code: "013",
+                        description: "Description text of 013, for humans",
+                        children: [],
+                        count: 2,
+                        award_obligation: 60,
+                        award_outlay: 20
+                    }
+                ]);
+            } else if (props.type === 'object_classes') {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "070",
+                        description: "Description text of 070, for humans",
+                        children: [],
+                        count: 54,
+                        award_obligation: 13.01,
+                        award_outlay: 14.98
+                    },
+                    {
+                        id: 41,
+                        code: "011",
+                        description: "Description text of 011, for humans",
+                        children: [],
+                        count: 2,
+                        award_obligation: 70,
+                        award_outlay: 30
+                    }]);
+            } else {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "055",
+                        description: "Description text of 055, for humans",
+                        children: [],
+                        count: 54,
+                        award_obligation: 14.01,
+                        award_outlay: 15.98
+                    },
+                    {
+                        id: 41,
+                        code: "099",
+                        description: "Description text of 099, for humans",
+                        children: [],
+                        count: 2,
+                        award_obligation: 80,
+                        award_outlay: 40
+                    }]);
+            }
+
+            setTotalItems(2);
             setLoading(false);
             setError(false);
         }, 1000);
@@ -124,7 +210,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 return [
                     ...budgetColumns[props.type],
                     ...budgetDropdownColumns[spendingCategory],
-                    totalBudgetaryResources
+                    totalBudgetaryResourcesColumn
                 ];
             }
             return [

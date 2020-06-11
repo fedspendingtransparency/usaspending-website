@@ -23,13 +23,13 @@ const tabs = [
     {
         type: 'object_classes',
         label: 'Object Classes',
-        description: 'What types of things did this agency purchase?',
+        description: 'What items or services were purchased',
         countField: 'object_class_count'
     },
     {
         type: 'federal_accounts',
         label: 'Federal Accounts',
-        description: 'What accounts funded this agency’s spending?',
+        description: 'What accounts funded this response?',
         subHeading: 'Treasury Accounts',
         countField: 'federal_account_count',
         subCountField: 'treasury_account_count'
