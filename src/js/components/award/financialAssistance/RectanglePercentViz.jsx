@@ -209,40 +209,6 @@ const RectanglePercentViz = ({
             return 0;
         })
         .map((child) => {
-            if (Object.keys(child).includes('showTooltip')) return child;
-            return {
-                ...child,
-                showTooltip: () => {
-                    const handleOffset = (
-                        child?.labelSortOrder > 0 &&
-                        child?.labelPostion === 'bottom' &&
-                        child.rawValue <= 0
-                    );
-                    if (handleOffset) {
-                        showTooltip(
-                            child.tooltipData,
-                            `175px`,
-                            130
-                        );
-                    }
-                    else if (child.rawValue <= 0) {
-                        showTooltip(
-                            child.tooltipData,
-                            generatePercentage(child.rawValue / denominator.rawValue),
-                            60
-                        );
-                    }
-                    else {
-                        showTooltip(
-                            child.tooltipData,
-                            generatePercentage(child.rawValue / denominator.rawValue),
-                            verticalTooltipOffset
-                        );
-                    }
-                }
-            };
-        })
-        .map((child) => {
             if (position === 'top') {
                 return (
                     <div className={`award-amounts-viz__desc-container ${position}${classNameForCovid}`}>
