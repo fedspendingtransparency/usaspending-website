@@ -10,7 +10,7 @@ import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchSpendingOverTime } from 'helpers/covid19RequestsHelper';
-import { convertNumToMonth } from 'helpers/monthHelper';
+import { convertPeriodToDate } from 'helpers/monthHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -23,12 +23,11 @@ const awardTypes = Object.keys(awardTypeGroupLabels);
 
 export const parseRows = (rows) => (
     rows.map((row) => {
-        const month = convertNumToMonth(row.time_period.period);
-        const formattedMonth = `${month} ${row.time_period.fiscal_year}`;
+        const date = convertPeriodToDate(row.time_period.period, row.time_period.fiscal_year);
         const amounts = awardTypes.map((awardType) => (
             formatMoney(row.amounts[awardType])
         ));
-        return [formattedMonth].concat(amounts);
+        return [date].concat(amounts);
     })
 );
 
