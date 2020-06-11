@@ -11,12 +11,19 @@ const tabs = [
     {
         type: 'obligations',
         label: 'Award Obligations',
-        description: 'How much was promised to be spent on COVID-19 response awards?'
+        description: 'How much was promised to be spent on COVID-19 response awards?',
+        dollarAmount: true
     },
     {
         type: 'outlays',
         label: 'Award Outlays',
-        description: 'How much was paid out to COVID-19 response awardees?'
+        description: 'How much was paid out to COVID-19 response awardees?',
+        dollarAmount: true
+    },
+    {
+        type: 'newAwards',
+        label: 'New Awards',
+        description: 'How many new awards were made in support of COVID-19 response?'
     }
 ];
 

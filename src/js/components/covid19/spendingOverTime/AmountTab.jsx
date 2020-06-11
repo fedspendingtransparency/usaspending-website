@@ -10,7 +10,9 @@ import {
     formatMoney,
     formatMoneyWithPrecision,
     calculateUnitForSingleValue,
-    unitValues
+    unitValues,
+    formatNumber,
+    formatNumberWithPrecision
 } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -19,9 +21,9 @@ const propTypes = {
     setActiveTab: PropTypes.func.isRequired,
     active: PropTypes.bool,
     amount: PropTypes.number,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    dollarAmount: PropTypes.bool
 };
-
 
 const AmountTab = (props) => {
     const setActiveTab = () => {
@@ -29,10 +31,10 @@ const AmountTab = (props) => {
     };
 
     // Generate formatted amount string
-    let formattedAmount = formatMoney(props.amount);
+    let formattedAmount = props.dollarAmount ? formatMoney(props.amount) : formatNumber(props.amount);
     if (props.amount > unitValues.MILLION) {
         const amount = calculateUnitForSingleValue(props.amount);
-        formattedAmount = `${formatMoneyWithPrecision(props.amount / amount.unit, 1)} ${capitalize(amount.longLabel)}`;
+        formattedAmount = `${props.dollarAmount ? formatMoneyWithPrecision(props.amount / amount.unit, 1) : formatNumberWithPrecision(props.amount / amount.unit, 1)} ${capitalize(amount.longLabel)}`;
     }
 
     return (
