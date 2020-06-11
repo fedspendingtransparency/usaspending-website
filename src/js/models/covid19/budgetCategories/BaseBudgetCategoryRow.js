@@ -54,9 +54,6 @@ const BaseBudgetCategoryRow = {
     get totalBudgetaryResources() {
         return formatMoney(this._totalBudgetaryResources);
     }
-    // get faceValueOfLoans() {
-    //     return formatMoney(this._faceValueOfLoans);
-    // }
 };
 
 export default BaseBudgetCategoryRow;
