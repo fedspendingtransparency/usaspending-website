@@ -47,8 +47,8 @@ const AwardSpendingOverTime = () => {
                             active={activeTab === tab.type} />
                     ))}
                 </div>
-                <SpendingOverTimeContainer activeTab={activeTab} />
             </div>
+            <SpendingOverTimeContainer activeTab={activeTab} />
         </div>
     );
 };
