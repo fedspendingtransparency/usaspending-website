@@ -51,12 +51,13 @@ const BudgetCategoriesTableContainer = (props) => {
         // const params = {
         //     filter: {
         //         def_codes: props.defCodes,
-        //         spending_facets: Object.values(budgetFields[spendingCategory])
+        //         fiscal_year: props.fy
         //     },
+        //     spending_facets: Object.values(budgetFields[spendingCategory]),
         //     pagination: {
-        //         order,
         //         size: pageSize,
-        //         page: currentPage
+        //         page: currentPage,
+        //         order
         //     }
         // };
         // const requestDisasterSpending = fetchDisasterSpending(props.type, params);
