@@ -1,11 +1,11 @@
 $grants-line-color: #47AAA7;
 $loans-line-color: #F5A623;
-$file-c-obligated: #0A2F5A;
 $file-c-current: #558EC6;
 $file-c-potential: #AAC6E2;
 $file-c-outlay: #6E338E;
 $file-c-obligation: #B699C6;
 
+$new-obligated: #0A2F5A;
 $new-current: #558EC6;
 $new-potential: #AAC6E2;
 
@@ -194,7 +194,7 @@ $new-potential: #AAC6E2;
     .award-amounts-viz__line-up {
         border-bottom: rem(1) solid $color-cool-blue-light;
         &.covid {
-            border-bottom: rem(1) solid $file-c-obligated;
+            border-bottom: rem(1) solid $new-obligated;
         }
         &.file-c-obligated {
             border-bottom: rem(1) solid $file-c-obligation
@@ -260,7 +260,7 @@ $new-potential: #AAC6E2;
         }
         &.covid::before,
         &.covid::after {
-            border-left: 1px solid $file-c-obligated;
+            border-left: 1px solid $new-obligated;
         }
     }
 

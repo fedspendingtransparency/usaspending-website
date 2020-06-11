@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import GlobalConstants from "GlobalConstants";
 import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awardAmountsSection';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
+
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
@@ -26,6 +29,8 @@ export const useTooltips = (arrayOfTooltips) => {
     ];
 };
 
+const isCaresActReleased = GlobalConstants.CARES_ACT_RELEASED;
+
 const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
@@ -47,7 +52,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         className: `${awardType}-potential`,
                         rawValue: awardAmounts._baseAndAllOptions,
                         value: awardAmounts.baseAndAllOptionsAbbreviated,
-                        color: `#fff`,
+                        color: isCaresActReleased ? '#AAC6E2' : `#fff`,
                         text: awardType === 'idv'
                             ? "Combined Potential Award Amounts"
                             : "Potential Award Amount",
@@ -63,7 +68,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         text: awardType === 'idv'
                             ? "Combined Current Award Amounts"
                             : "Current Award Amount",
-                        color: `#d8d8d8`,
+                        color: isCaresActReleased ? '#558EC6' : `#d8d8d8`,
                         children: [
                             {
                                 labelPosition: 'top',
@@ -74,7 +79,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                                 text: awardType === 'idv'
                                     ? "Combined Obligated Amounts"
                                     : "Obligated Amount",
-                                color: `#4773aa`,
+                                color: isCaresActReleased ? '#0A2F5A' : `#4773aa`,
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts)
                             }
                         ]

@@ -71,13 +71,9 @@ const RectanglePercentViz = ({
         Object.keys(numerator).includes('children') &&
         numerator?.children.length > 0
     );
-    const numeratorHasGrandChildren = (
-        numeratorHasChildren &&
-        numerator?.children?.some((grand) => Object.keys(grand).includes('children'))
-    );
 
     const isNumerator2Defined = (numerator2 !== null);
-    const isCaresReleased = isNumerator2Defined && GlobalConstants.CARES_ACT_RELEASED;
+    const isCaresReleased = GlobalConstants.CARES_ACT_RELEASED;
     const verticalTooltipOffset = isCaresReleased
         ? 170
         : 90;
@@ -118,7 +114,10 @@ const RectanglePercentViz = ({
         }
     };
 
-    const showTooltip = (tooltipData, tooltipWidthPercent, tooltipVerticalPosition = verticalTooltipOffset) => {
+    const showTooltip = (
+        tooltipData,
+        tooltipWidthPercent,
+        tooltipVerticalPosition = verticalTooltipOffset) => {
         setActiveTooltipProps({
             ...tooltipData,
             wide: false,
@@ -159,7 +158,7 @@ const RectanglePercentViz = ({
         showTooltip(numerator2.tooltipData, absoluteWidths.numerator2.width);
     };
 
-    const numerator3Positioning = {
+    const nestedBarStyles = {
         padding: '0.2rem'
     };
 
@@ -167,6 +166,7 @@ const RectanglePercentViz = ({
         const barProps = {
             spendingCategory: data.className,
             barWrapperStyles: {
+                ...nestedBarStyles,
                 width: generatePercentage(data.rawValue / data.denominatorValue)
             },
             onLeave: closeTooltip,
@@ -283,6 +283,7 @@ const RectanglePercentViz = ({
             {numeratorHasChildren && renderLinesAndLabelsForPosition(numerator.children, 'bottom')}
             <BarLabelAndLine
                 spendingCategory="numerator"
+                labelStyles={absoluteWidths.numerator}
                 lineStyles={{ backgroundColor: numerator.color }}>
                 <BarValue
                     spendingCategory="numerator"
