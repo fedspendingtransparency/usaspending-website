@@ -32,6 +32,7 @@ $new-potential: #AAC6E2;
             // denominators have a fixed height.
             &.contract-potential,
             &.idv-potential,
+            &.loan-face-value,
             &.asst-total-funding {
                 height: rem(40);
             }
@@ -131,6 +132,7 @@ $new-potential: #AAC6E2;
                 margin-bottom: 0;
                 &.idv-file-c-obligated,
                 &.contract-file-c-obligated,
+                &.loan-file-c-obligated,
                 &.asst-file-c-obligated {
                     border-left: solid rem(4) $file-c-obligation;
                     margin-top: rem(17);
@@ -182,7 +184,8 @@ $new-potential: #AAC6E2;
                     }
                     &.idv-file-c-obligated,
                     &.contract-file-c-obligated,
-                    &.asst-file-c-obligated {
+                    &.asst-file-c-obligated,
+                    &.loan-file-c-obligated {
                         border-bottom: rem(1) solid $file-c-obligation;
                         &::before,
                         &::after {
@@ -210,7 +213,8 @@ $new-potential: #AAC6E2;
                 text-align: center;
                 margin-bottom: 0;
                 &.idv-file-c-outlay,
-                &.contract-file-c-outlay {
+                &.contract-file-c-outlay,
+                &.loan-file-c-outlay {
                     text-align: left;
                     width: 100%;
                 }
@@ -265,6 +269,7 @@ $new-potential: #AAC6E2;
                         }
                     }
                     &.contract-file-c-outlay,
+                    &.loan-file-c-outlay,
                     &.idv-file-c-outlay,
                     &.asst-file-c-outlay {
                         border-left: rem(4) solid $file-c-outlay;
@@ -276,7 +281,8 @@ $new-potential: #AAC6E2;
                             }
                         }
                     }
-                    &.total-funding::after {
+                    &.loan-face-value::after,
+                    &.asst-total-funding::after {
                         content: ' ';
                         height: rem(45);
                         border: rem(1) solid $color-gray;
@@ -304,7 +310,9 @@ $new-potential: #AAC6E2;
                     &.idv-file-c-outlay::after,
                     &.idv-file-c-outlay::before,
                     &.asst-file-c-outlay::after,
-                    &.asst-file-c-outlay::before  {
+                    &.asst-file-c-outlay::before,
+                    &.loan-file-c-outlay::after,
+                    &.loan-file-c-outlay::before  {
                         border-left: rem(1) solid $file-c-outlay;
                     }
         
@@ -340,7 +348,8 @@ $new-potential: #AAC6E2;
                     }
                     &.contract-file-c-outlay,
                     &.idv-file-c-outlay,
-                    &.asst-file-c-outlay {
+                    &.asst-file-c-outlay,
+                    &.loan-file-c-outlay {
                         border-bottom: rem(1) solid $file-c-outlay;
                         &::before,
                         &::after {

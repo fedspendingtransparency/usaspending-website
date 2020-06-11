@@ -200,6 +200,9 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             const hasFileC = awardAmounts._fileCObligated > 0;
             const propsWithoutFileC = {
                 numerator: {
+                    labelPosition: 'top',
+                    labelSortOrder: 0,
+                    className: `${awardType}-subsidy`,
                     rawValue: awardAmounts._subsidy,
                     value: awardAmounts.subsidyAbbreviated,
                     text: 'Original Subsidy Cost',
@@ -207,6 +210,9 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     color: '#F5A623'
                 },
                 denominator: {
+                    labelPosition: 'bottom',
+                    labelSortOrder: 3,
+                    className: `${awardType}-face-value`,
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
                     text: 'Face Value of Direct Loan',
@@ -217,19 +223,30 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             const props = hasFileC
                 ? {
                     ...propsWithoutFileC,
-                    numerator2: {
-                        rawValue: awardAmounts._fileCObligated,
-                        value: awardAmounts.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Response Obligations Amount',
-                        color: '#B699C6',
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts)
-                    },
-                    numerator3: {
-                        rawValue: awardAmounts._fileCOutlay,
-                        value: awardAmounts.fileCOutlayAbbreviated,
-                        text: 'COVID-19 Response Outlay Amount',
-                        color: '#6E338E',
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
+                    numerator: {
+                        ...propsWithoutFileC.numerator,
+                        children: [{
+                            labelPosition: 'top',
+                            labelSortOrder: 1,
+                            rawValue: awardAmounts._fileCObligated,
+                            value: awardAmounts.fileCObligatedAbbreviated,
+                            text: 'COVID-19 Response Obligations Amount',
+                            className: `loan-file-c-obligated`,
+                            denominatorValue: awardAmounts._subsidy,
+                            color: '#B699C6',
+                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
+                            children: [{
+                                className: `loan-file-c-outlay`,
+                                labelPosition: 'bottom',
+                                labelSortOrder: 0,
+                                rawValue: awardAmounts._fileCOutlay,
+                                value: awardAmounts.fileCOutlayAbbreviated,
+                                denominatorValue: awardAmounts._fileCObligated,
+                                text: 'COVID-19 Response Outlay Amount',
+                                color: '#6E338E',
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)        
+                            }]
+                        }]
                     }
                 }
                 : propsWithoutFileC;
