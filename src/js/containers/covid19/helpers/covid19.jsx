@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -48,7 +49,7 @@ export const componentByCovid19Section = () => ({
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <ComingSoon />,
+        component: <BudgetCategories />,
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip
     },
