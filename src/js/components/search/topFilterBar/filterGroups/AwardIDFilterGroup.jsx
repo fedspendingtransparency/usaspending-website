@@ -45,7 +45,6 @@ export default class AwardIDFilterGroup extends React.Component {
             const tag = {
                 value: `${value}`,
                 title: `${value} | Award ID`,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

@@ -46,7 +46,6 @@ export default class AwardAmountFilterGroup extends React.Component {
             const tag = {
                 value: key,
                 title: AwardAmountFormatter.formatAwardAmountRange(awardAmounts[key]),
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 
