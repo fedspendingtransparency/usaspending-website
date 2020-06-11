@@ -8,14 +8,14 @@ import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields 
 
 const BaseBudgetCategoryRow = {
     populateOnSpendingCategory(data, spendingCategory) {
-        [...budgetDropdownColumns[spendingCategory]].forEach((column) => {
+        budgetDropdownColumns[spendingCategory].forEach((column) => {
             const defaultValue = typeof (data[budgetFields[spendingCategory][column.title]]) === 'string' ? '' : 0;
             this[`_${column.title}`] = data[budgetFields[spendingCategory][column.title]] || defaultValue;
         });
     },
     populateBase(data, type) {
         let defaultValue = null;
-        [...budgetColumns[type]].forEach((column) => {
+        budgetColumns[type].forEach((column) => {
             if (type === 'def_codes') {
                 if (budgetColumnFields[column.title]) {
                     defaultValue = typeof (data[budgetColumnFields[column.title]]) === 'string' ? '' : 0;

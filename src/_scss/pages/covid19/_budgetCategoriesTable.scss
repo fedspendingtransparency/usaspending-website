@@ -1,4 +1,5 @@
 .usda-table {
+    margin-top: 0;
     td {
         &:first-child {
             @include span-columns(6 of 12, table);
