@@ -20,7 +20,7 @@ $new-potential: #AAC6E2;
     // Tooltip rules.
     .award-amounts-tt__wrapper {
         position: relative;
-        z-index: 2;
+        z-index: 4;
     }
     // Parent element for the Bars Viz, not their labels or text.
     .award-amounts-viz__bar-container {
@@ -31,39 +31,23 @@ $new-potential: #AAC6E2;
         .award-amounts-viz__bar-wrapper {
             // denominators have a fixed height.
             &.contract-potential,
-            &.idv-potential {
+            &.idv-potential,
+            &.asst-total-funding {
                 height: rem(40);
             }
             // all other bars should just have the height of their parent.
             height: 100%;
-            .award-amounts-tt__wrapper {
-                height: rem(40);
-            }
         }
         .award-amounts-viz__bar {
             height: 100%;
             background-color: #ececec;
             @include display(flex);
-            &.obligated {
-                border: rem(4) solid $color-gray-lighter;
-            }
             .nested-obligations {
                 padding: rem(2);
                 width: 100%;
                 @include display(flex);
             }
-            &.current,
-            .award-amounts-viz__current {
-                border: solid rem(4) $color-gray-lighter;
-            }
-            .award-amounts-viz__obligated--grants {
-                border: none;
-            }
-            .award-amounts-viz__potential {
-                border-top: solid 0.4rem #fff;
-                border-bottom: solid 0.4rem #fff;
-            }
-            .award-amounts-viz__non-federal-funding {
+            &.asst-non-federal-funding {
                 position: relative;
                 padding: rem(3.5);
             }
@@ -145,7 +129,9 @@ $new-potential: #AAC6E2;
                 text-align: left;
                 @include flex(1 1 auto);
                 margin-bottom: 0;
-                &.contract-file-c-obligated {
+                &.idv-file-c-obligated,
+                &.contract-file-c-obligated,
+                &.asst-file-c-obligated {
                     border-left: solid rem(4) $file-c-obligation;
                     margin-top: rem(17);
                     strong {
@@ -194,7 +180,9 @@ $new-potential: #AAC6E2;
                     &.covid {
                         border-bottom: rem(1) solid $new-obligated;
                     }
-                    &.contract-file-c-obligated {
+                    &.idv-file-c-obligated,
+                    &.contract-file-c-obligated,
+                    &.asst-file-c-obligated {
                         border-bottom: rem(1) solid $file-c-obligation;
                         &::before,
                         &::after {
@@ -221,14 +209,21 @@ $new-potential: #AAC6E2;
             .award-amounts-viz__label {
                 text-align: center;
                 margin-bottom: 0;
+                &.idv-file-c-outlay,
                 &.contract-file-c-outlay {
                     text-align: left;
                     width: 100%;
                 }
+                &.asst-non-federal-funding {
+                    @include display(flex);
+                    @include flex-direction(column);
+                    @include align-items(flex-end);
+                }
                 .award-amounts-viz__desc {
                     @include display(flex);
                     &:not(.covid) {
-                        &.contract-current {
+                        &.contract-current,
+                        &.idv-current {
                             border-right: rem(5) solid $color-gray-lighter;
                         }
                         &.contract-potential::after {
@@ -243,7 +238,8 @@ $new-potential: #AAC6E2;
                         }
                     }
                     &.covid {
-                        &.contract-current {
+                        &.contract-current,
+                        &.idv-current {
                             border-right: 5px solid $new-current;
                         }
                         &.contract-potential {
@@ -252,7 +248,6 @@ $new-potential: #AAC6E2;
                     }
                     .award-amounts-viz__desc-text {
                         @include flex(1 1 auto);
-                        display: block;
                         font-size: $base-font-size;
                         color: $color-gray;
                         text-align: right;
@@ -269,7 +264,9 @@ $new-potential: #AAC6E2;
                             }
                         }
                     }
-                    &.contract-file-c-outlay {
+                    &.contract-file-c-outlay,
+                    &.idv-file-c-outlay,
+                    &.asst-file-c-outlay {
                         border-left: rem(4) solid $file-c-outlay;
                         .award-amounts-viz__desc-text {
                             text-align: left;
@@ -279,23 +276,7 @@ $new-potential: #AAC6E2;
                             }
                         }
                     }
-                    &.nff-zero {
-                        border-left: rem(5) solid $grants-line-color;
-                        &.non-federal-funding {
-                            border-right: none;
-                        }
-                        .award-amounts-viz__desc-text-nff-zero {
-                            @include display(flex);
-                        }
-                        .award-amounts-viz__desc-text {
-                            order: 1;
-                            margin-left: 10px;
-                            min-width: rem(160);
-                            text-align: left;
-                        }
-                    }
-                    &.total-funding::after,
-                    &.denominator::after {
+                    &.total-funding::after {
                         content: ' ';
                         height: rem(45);
                         border: rem(1) solid $color-gray;
@@ -319,7 +300,11 @@ $new-potential: #AAC6E2;
                         left: -1px;
                     }
                     &.contract-file-c-outlay::after,
-                    &.contract-file-c-outlay::before {
+                    &.contract-file-c-outlay::before,
+                    &.idv-file-c-outlay::after,
+                    &.idv-file-c-outlay::before,
+                    &.asst-file-c-outlay::after,
+                    &.asst-file-c-outlay::before  {
                         border-left: rem(1) solid $file-c-outlay;
                     }
         
@@ -353,12 +338,31 @@ $new-potential: #AAC6E2;
                             border-left: rem(1) solid $new-potential;
                         }
                     }
-                    &.contract-file-c-outlay {
+                    &.contract-file-c-outlay,
+                    &.idv-file-c-outlay,
+                    &.asst-file-c-outlay {
                         border-bottom: rem(1) solid $file-c-outlay;
                         &::before,
                         &::after {
                             border-left: rem(1) solid $file-c-outlay;
                         }
+                    }
+                }
+            }
+            .award-amounts-viz__desc.asst-nff-zero {
+                border-left: rem(5) solid $grants-line-color;
+                border-right: none;
+                margin-top: rem(10);
+                @include display(flex);
+                .award-amounts-viz__desc-text {
+                    text-align: left;
+                    order: 1;
+                    margin-left: rem(10);
+                    min-width: rem(160);
+                    .award-amounts-viz__desc-text-wrapper {
+                        @include display(flex);
+                        @include justify-content(flex-end);
+                        @include align-items(center);
                     }
                 }
             }
