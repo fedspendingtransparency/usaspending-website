@@ -13,7 +13,7 @@ import {
     Bar,
     BarLabelAndLine,
     BarValue
-} from "../shared/awardAmountsSection/charts/SharedComponents";
+} from "../shared/awardAmountsSection/charts/SharedBarComponents";
 
 const tooltipShape = PropTypes.shape({
     offsetAdjustments: PropTypes.object,
