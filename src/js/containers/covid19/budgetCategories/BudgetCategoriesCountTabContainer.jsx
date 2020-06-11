@@ -24,7 +24,7 @@ const BudgetCategoriesCountTabContainer = (props) => {
     const [count, setCount] = useState(null);
     const [subCount, setSubCount] = useState(null);
 
-    const fetchCovid19CountByType = () => {
+    const fetchCountByType = () => {
         switch (props.type) {
             case "federal_accounts":
                 setTimeout(() => {
@@ -57,6 +57,7 @@ const BudgetCategoriesCountTabContainer = (props) => {
         setCount(null);
         setSubCount(null);
 
+        // TODO - Uncomment below when API is done and remove fetchCountByType()
         // const params = {
         //     fiscal_year: props.fy,
         //     def_codes: props.defCodes
@@ -69,7 +70,7 @@ const BudgetCategoriesCountTabContainer = (props) => {
         //             setSubCount(res.data[props.subCountField]);
         //         }
         //     });
-        fetchCovid19CountByType();
+        fetchCountByType();
     }, [props.type, props.countField, props.subCountField]);
     return (
         <BudgetCategoriesCountTab

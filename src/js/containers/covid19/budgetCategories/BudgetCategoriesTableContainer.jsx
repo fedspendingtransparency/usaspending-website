@@ -33,9 +33,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
-    // const [defCodes, setDefCodes] = useState([]);
 
     const parseSpending = (data) => {
         const parsedData = data.map((row) => {
@@ -75,7 +73,7 @@ const BudgetCategoriesTableContainer = (props) => {
         //     });
 
         setTimeout(() => {
-            // temporarily hard code mock data based on type
+            // TODO - Remove this temporarily harded code mock data when API is done
             if (props.type === 'federal_accounts') {
                 parseSpending([
                     {
