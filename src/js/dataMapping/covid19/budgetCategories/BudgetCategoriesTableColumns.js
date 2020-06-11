@@ -37,32 +37,32 @@ export const totalBudgetaryResourcesColumn = {
 };
 
 export const budgetColumns = {
-    agencies: [
+    federal_accounts: [
         {
             title: 'name',
-            displayName: 'Agencies'
+            displayName: 'Federal Accounts'
         }
     ],
     def_codes: [
         {
             title: 'defCode',
-            displayName: "DEF Code"
+            displayName: "Public Laws"
         },
         {
             title: 'emergencyFundingMandate',
             displayName: 'Emergency Funding Mandate'
         }
     ],
+    agencies: [
+        {
+            title: 'name',
+            displayName: 'Agencies'
+        }
+    ],
     object_classes: [
         {
             title: 'name',
             displayName: 'Object Classes'
-        }
-    ],
-    federal_accounts: [
-        {
-            title: 'name',
-            displayName: 'Federal Accounts'
         }
     ]
 };

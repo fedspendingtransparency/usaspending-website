@@ -4,7 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields, totalBudgetaryResources } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 
 const BaseBudgetCategoryRow = {
     populateOnSpendingCategory(data, spendingCategory) {

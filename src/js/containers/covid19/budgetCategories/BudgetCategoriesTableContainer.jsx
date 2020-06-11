@@ -24,7 +24,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
-    const [sort, setSort] = useState('totalObligatedAmount');
+    const [sort, setSort] = useState('totalOutlays');
     const [order, setOrder] = useState('desc');
     const updateSort = (field, direction) => {
         setSort(field);
@@ -35,8 +35,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
 
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
-    const [defCodes, setDefCodes] = useState([]);
-    const [params, setParams] = useState({});
+    // const [defCodes, setDefCodes] = useState([]);
 
     const parseSpending = (data) => {
         const parsedData = data.map((row) => {
@@ -51,14 +50,9 @@ const BudgetCategoriesTableContainer = (props) => {
         setLoading(true);
 
         // TODO - Uncomment below code when API is ready
-        // const requestDefCodes = fetchDefCodes();
-        // await requestDefCodes.promise.then((res) => {
-        //     setDefCodes(res.data.codes.filter((code) => code.disaster === 'covid_19'));
-        // });
-
         // const params = {
         //     filter: {
-        //         def_codes: [...defCodes.filter((defCode) => defCode.disaster === 'covid_19')],
+        //         def_codes: props.defCodes,
         //         spending_facets: Object.values(budgetFields[spendingCategory])
         //     },
         //     pagination: {
@@ -81,7 +75,47 @@ const BudgetCategoriesTableContainer = (props) => {
         //     });
 
         setTimeout(() => {
-            if (props.type === 'def_codes') {
+            // temporarily hard code mock data based on type
+            if (props.type === 'federal_accounts') {
+                parseSpending([
+                    {
+                        id: 43,
+                        code: "055",
+                        description: "Description text of 055, for humans",
+                        children: [],
+                        count: 54,
+                        award_obligation: 14.01,
+                        award_outlay: 15.98
+                    },
+                    {
+                        id: 41,
+                        code: "099",
+                        description: "Description text of 099, for humans",
+                        children: [],
+                        count: 2,
+                        award_obligation: 80,
+                        award_outlay: 40
+                    },
+                    {
+                        id: 43,
+                        code: "005",
+                        description: "Description text of 005, for humans",
+                        children: [],
+                        count: 54,
+                        total_obligation: 14.01,
+                        total_outlay: 15.98
+                    },
+                    {
+                        id: 41,
+                        code: "006",
+                        description: "Description text of 006, for humans",
+                        children: [],
+                        count: 2,
+                        total_obligation: 80,
+                        total_outlay: 40
+                    }
+                ]);
+            } else if (props.type === 'def_codes') {
                 parseSpending([
                     {
                         id: 43,
@@ -105,27 +139,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     }
                 ]);
             } else if (props.type === 'agencies') {
-                parseSpending([
-                    {
-                        id: 43,
-                        code: "090",
-                        description: "Description text of 090, for humans",
-                        children: [],
-                        count: 54,
-                        award_obligation: 10.01,
-                        award_outlay: 11.98
-                    },
-                    {
-                        id: 41,
-                        code: "012",
-                        description: "Description text of 012, for humans",
-                        children: [],
-                        count: 2,
-                        award_obligation: 50,
-                        award_outlay: 10
-                    }
-                ]);
-            } else if (props.type === 'def_codes') {
                 parseSpending([
                     {
                         id: 43,
@@ -170,25 +183,26 @@ const BudgetCategoriesTableContainer = (props) => {
                 parseSpending([
                     {
                         id: 43,
-                        code: "055",
-                        description: "Description text of 055, for humans",
+                        code: "090",
+                        description: "Description text of 090, for humans",
                         children: [],
                         count: 54,
-                        award_obligation: 14.01,
-                        award_outlay: 15.98
+                        award_obligation: 10.01,
+                        award_outlay: 11.98
                     },
                     {
                         id: 41,
-                        code: "099",
-                        description: "Description text of 099, for humans",
+                        code: "012",
+                        description: "Description text of 012, for humans",
                         children: [],
                         count: 2,
-                        award_obligation: 80,
-                        award_outlay: 40
-                    }]);
+                        award_obligation: 50,
+                        award_outlay: 10
+                    }
+                ]);
             }
 
-            setTotalItems(2);
+            setTotalItems(11);
             setLoading(false);
             setError(false);
         }, 1000);
@@ -206,6 +220,11 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
+            console.log('in hurr');
+            console.log([
+                ...budgetColumns[props.type],
+                ...budgetDropdownColumns[spendingCategory]
+            ]);
             if (props.type !== 'object_classes' && spendingCategory !== 'award_spending') {
                 return [
                     ...budgetColumns[props.type],

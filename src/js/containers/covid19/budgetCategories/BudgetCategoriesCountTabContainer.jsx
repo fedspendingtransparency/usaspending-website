@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BudgetCategoriesCountTab from 'components/covid19/budgetCategories/BudgetCategoriesCountTab';
-import { fetchSpendingCount } from '../../../helpers/agencyV2Helper';
+// import { fetchSpendingCount } from '../../../helpers/agencyV2Helper';
 
 const propTypes = {
     defCodes: PropTypes.array.isRequired,
@@ -26,9 +26,10 @@ const BudgetCategoriesCountTabContainer = (props) => {
 
     const fetchCovid19CountByType = () => {
         switch (props.type) {
-            case "def_codes":
+            case "federal_accounts":
                 setTimeout(() => {
                     setCount(2);
+                    setSubCount(2);
                 }, 1000);
                 break;
             case "agencies":
@@ -36,21 +37,15 @@ const BudgetCategoriesCountTabContainer = (props) => {
                     setCount(2);
                 }, 2000);
                 break;
-            case "object_classes":
+            case "def_codes":
                 setTimeout(() => {
                     setCount(2);
                 }, 3000);
                 break;
-            case "program_activities":
+            case "object_classes":
                 setTimeout(() => {
                     setCount(2);
                 }, 4000);
-                break;
-            case "federal_accounts":
-                setTimeout(() => {
-                    setCount(2);
-                    setSubCount(2);
-                }, 5000);
                 break;
             default:
                 return null;

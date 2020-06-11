@@ -9,35 +9,35 @@ import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/
 
 const tabs = [
     {
-        type: 'agencies',
-        label: 'Agencies',
-        description: 'What agencies did the spending?',
-        countField: 'agencies_count'
-    },
-    {
-        type: 'def_codes',
-        label: 'DEF Codes',
-        description: 'What legislative acts funded this spending?',
-        countField: 'def_codes_count'
-    },
-    {
-        type: 'object_classes',
-        label: 'Object Classes',
-        description: 'What items or services were purchased',
-        countField: 'object_class_count'
-    },
-    {
         type: 'federal_accounts',
         label: 'Federal Accounts',
         description: 'What accounts funded this response?',
         subHeading: 'Treasury Accounts',
         countField: 'federal_account_count',
         subCountField: 'treasury_account_count'
+    },
+    {
+        type: 'def_codes',
+        label: 'Public Laws',
+        description: 'What legislative acts funded this spending?',
+        countField: 'def_codes_count'
+    },
+    {
+        type: 'agencies',
+        label: 'Agencies',
+        description: 'What agencies did the spending?',
+        countField: 'agencies_count'
+    },
+    {
+        type: 'object_classes',
+        label: 'Object Classes',
+        description: 'What items or services were purchased',
+        countField: 'object_class_count'
     }
 ];
 
 const BudgetCategories = () => {
-    const [activeTab, setActiveTab] = useState('agencies');
+    const [activeTab, setActiveTab] = useState('federal_accounts');
     const [defCodes, setDefCodes] = useState([]);
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
 
