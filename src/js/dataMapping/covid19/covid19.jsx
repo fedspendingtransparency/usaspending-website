@@ -54,6 +54,7 @@ export const componentByCovid19Section = () => ({
         headerTextTooltip: awardAndNonAwardHeaderTextTT
     },
     total_spending_by_budget_categories: {
+        icon: 'cubes',
         component: <BudgetCategories />,
         headerText: awardAndNonAwardHeaderText,
         headerTextTooltipooltip: awardAndNonAwardHeaderTextTT

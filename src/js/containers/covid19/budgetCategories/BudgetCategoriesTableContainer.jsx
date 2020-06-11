@@ -220,11 +220,6 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
-            console.log('in hurr');
-            console.log([
-                ...budgetColumns[props.type],
-                ...budgetDropdownColumns[spendingCategory]
-            ]);
             if (props.type !== 'object_classes' && spendingCategory !== 'award_spending') {
                 return [
                     ...budgetColumns[props.type],
