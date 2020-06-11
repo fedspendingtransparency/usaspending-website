@@ -59,6 +59,15 @@
           }
           .tooltip__content {
             .tooltip__message {
+              .paginated-tooltip {
+                .tooltip {
+                  .tooltip-body {
+                    max-height: 300px;
+                    min-height: 300px;
+                    overflow-y: scroll;
+                  }
+                }
+              }
               .tooltip__text {
                   padding: 2rem 2rem 0 2rem;
               }
@@ -140,6 +149,9 @@
     .area-path__past-end-line {
       fill: $color-gray-lighter;
       opacity: 0.3;
+      &.darker {
+        opacity: 0.4;
+      }
     }
     .svg-line {
       stroke-width: 2;
