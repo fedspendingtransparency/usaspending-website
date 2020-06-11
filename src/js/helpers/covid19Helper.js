@@ -4,8 +4,8 @@
  */
 
 import { snakeCase } from 'lodash';
-import { getBaseUrl } from 'helpers/socialShare';
-import { slug, defCodes, componentByCovid19Section } from 'dataMapping/covid19/covid19';
+import { defCodes } from 'dataMapping/covid19/covid19';
+import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
@@ -16,8 +16,6 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
         onClick: onClickHandler
     };
 }).sort((a, b) => defaultSortDEF(a.value, b.value));
-
-export const getSocialShareURL = () => getBaseUrl(slug);
 
 export const jumpToSection = (section = '', activeSection, setActiveSection) => {
     // we've been provided a section to jump to

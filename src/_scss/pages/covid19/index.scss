@@ -121,7 +121,7 @@
           }
       }
       .sidebar {
-          display: none;
+          @include display(none);
           @media(min-width: $medium-screen) {
               @include display(flex);
               @include flex-direction(column);
@@ -129,9 +129,9 @@
               margin: rem(20);
           }
           .covid19-sidebar-reference {
-              display: none;
+              @include display(none);
               &.float-sidebar {
-                  display: block;
+                @include display(block);
               }
           }
 
@@ -209,20 +209,20 @@
               margin-bottom: $global-mrg;
               .body__header {
                   width: 100%;
-                  display: flex;
+                  @include display(flex);
                   flex-wrap: wrap;
                   align-items: center;
                   justify-content: space-between;
                   border-bottom: 3px solid $color-base;
                   .body__header-left {
-                    display: flex;
+                    @include display(flex);
                     padding-bottom: 0.5rem;
                     @media(min-width: $tablet-screen) {
                       padding-bottom: 0;
                     }
                   }
                   .body__header-right {
-                    display: flex;
+                    @include display(flex);
                   }
                   .body__header-icon {
                       margin-right: $global-mrg / 2;
@@ -253,6 +253,47 @@
                   @extend %coming-soon-idv;
                   padding-bottom: 0;
                   height: 730px;
+              }
+              .heading__container {
+                padding-top: 2rem;
+                @include display(flex);
+                flex-wrap: wrap;
+                text-align: center;
+                width: 100%;
+                .heading__title {
+                  font-size: 3.6rem;
+                  font-weight: $font-semibold;
+                  letter-spacing: 0;
+                  line-height: 4.5rem;
+                  text-align: center;
+                  padding-bottom: 1rem;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
+                  width: 100%;
+                  .color-purple {
+                    color: #6E338E;
+                  }
+                }
+                .heading__description {
+                  font-size: 1.4rem;
+                  letter-spacing: 0;
+                  line-height: 2.2rem;
+                  text-align: center;
+                  padding: 0;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
+                }
+              }
+              .covid__date-note {
+                @include display(flex);
+                width: 100%;
+                justify-content: left;
+                font-size: 1.2rem;
+                font-style: italic;
+                letter-spacing: 0;
+                line-height: 1.5rem;
               }
           }
           .body__section:last-child {
