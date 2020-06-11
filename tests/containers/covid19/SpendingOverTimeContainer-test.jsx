@@ -8,6 +8,15 @@ import { parseRows } from 'containers/covid19/spendingOverTime/SpendingOverTimeC
 describe('SpendingOverTimeContainer', () => {
     describe('parseRows', () => {
         it('should parse returned contract data and send to the Redux store', () => {
+            const columns = [
+                { title: 'total' },
+                { title: 'contracts' },
+                { title: 'idvs' },
+                { title: 'grants' },
+                { title: 'loans' },
+                { title: 'direct_payments' },
+                { title: 'other' }
+            ];
             const mockResults = [
                 {
                     amounts: {
@@ -17,7 +26,6 @@ describe('SpendingOverTimeContainer', () => {
                         grants: 100,
                         loans: 300,
                         direct_payments: 100,
-                        insurance: 200,
                         other: 0
                     },
                     time_period: {
@@ -33,7 +41,6 @@ describe('SpendingOverTimeContainer', () => {
                         grants: 100,
                         loans: 100,
                         direct_payments: 100,
-                        insurance: 100,
                         other: 100
                     },
                     time_period: {
@@ -45,15 +52,17 @@ describe('SpendingOverTimeContainer', () => {
             const expected = [
                 [
                     'March 2020',
+                    '$1,000',
                     '$100',
                     '$200',
                     '$100',
-                    '$100',
                     '$300',
+                    '$100',
                     '$0'
                 ],
                 [
                     'April 2020',
+                    '$1,000',
                     '$300',
                     '$200',
                     '$100',
@@ -62,7 +71,7 @@ describe('SpendingOverTimeContainer', () => {
                     '$100'
                 ]
             ];
-            const parsed = parseRows(mockResults);
+            const parsed = parseRows(mockResults, columns);
             expect(parsed).toEqual(expected);
         });
     });

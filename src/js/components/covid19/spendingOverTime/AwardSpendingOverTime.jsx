@@ -42,7 +42,7 @@ const AwardSpendingOverTime = () => {
                         <AmountTab
                             key={tab.type}
                             {...tab}
-                            amount={123456}
+                            amount={123456000}
                             setActiveTab={setActiveTab}
                             active={activeTab === tab.type} />
                     ))}

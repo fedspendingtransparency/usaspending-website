@@ -8,7 +8,7 @@
                         // Prevent the month column from wrapping
                         white-space: nowrap;
                     }
-                    @include span-columns(1 of 7, table);
+                    @include span-columns(1 of 8, table);
                 }
             }
         }

@@ -5,7 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMoney } from 'helpers/moneyFormatter';
+import { capitalize } from 'lodash';
+import {
+    formatMoney,
+    formatMoneyWithPrecision,
+    calculateUnitForSingleValue,
+    unitValues
+} from 'helpers/moneyFormatter';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -22,6 +28,13 @@ const AmountTab = (props) => {
         props.setActiveTab(props.type);
     };
 
+    // Generate formatted amount string
+    let formattedAmount = formatMoney(props.amount);
+    if (props.amount > unitValues.MILLION) {
+        const amount = calculateUnitForSingleValue(props.amount);
+        formattedAmount = `${formatMoneyWithPrecision(props.amount / amount.unit, 1)} ${capitalize(amount.longLabel)}`;
+    }
+
     return (
         <button
             className={`count-tabs__button${props.active ? ' count-tabs__button_active' : ''}`}
@@ -32,7 +45,7 @@ const AmountTab = (props) => {
                     {props.label}
                 </div>
                 <div className="count-button__count">
-                    {(props.amount || props.amount === 0) ? `${formatMoney(props.amount)}` : '--'}
+                    {(props.amount || props.amount === 0) ? formattedAmount : '--'}
                 </div>
             </div>
         </button>

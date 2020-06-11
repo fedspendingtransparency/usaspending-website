@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from 'lodash';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
@@ -21,11 +20,11 @@ const propTypes = {
 
 const awardTypes = Object.keys(awardTypeGroupLabels);
 
-export const parseRows = (rows) => (
+export const parseRows = (rows, amountColumns) => (
     rows.map((row) => {
         const date = convertPeriodToDate(row.time_period.period, row.time_period.fiscal_year);
-        const amounts = awardTypes.map((awardType) => (
-            formatMoney(row.amounts[awardType])
+        const amounts = amountColumns.map((col) => (
+            formatMoney(row.amounts[col.title])
         ));
         return [date].concat(amounts);
     })
@@ -42,11 +41,19 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     // Generate a column for each award type
     const columns = awardTypes.map((awardType) => (
         {
-            displayName: `Total ${startCase(activeTab)} for ${awardTypeGroupLabels[awardType]}`,
+            displayName: `${awardTypeGroupLabels[awardType]}`,
             title: awardType,
             right: true // text-align right for dollar values
         }
     ));
+    // TODO - Add a column for all awards
+    columns.unshift(
+        {
+            displayName: 'All Awards',
+            title: 'total',
+            right: true
+        }
+    );
     // Add a column for the time period
     columns.unshift(
         {
@@ -71,7 +78,8 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         const request = fetchSpendingOverTime(params);
         request.promise
             .then((res) => {
-                const rows = parseRows(res.data.results);
+                const amountColumns = columns.slice(1);
+                const rows = parseRows(res.data.results, amountColumns);
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
