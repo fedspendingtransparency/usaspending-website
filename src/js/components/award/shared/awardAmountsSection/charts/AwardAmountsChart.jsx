@@ -52,7 +52,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         className: `${awardType}-potential`,
                         rawValue: awardAmounts._baseAndAllOptions,
                         value: awardAmounts.baseAndAllOptionsAbbreviated,
-                        color: isCaresActReleased ? '#AAC6E2' : `#fff`,
+                        color: (isCaresActReleased && hasFileC) ? '#AAC6E2' : `#ececec`,
                         text: awardType === 'idv'
                             ? "Combined Potential Award Amounts"
                             : "Potential Award Amount",
@@ -68,7 +68,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         text: awardType === 'idv'
                             ? "Combined Current Award Amounts"
                             : "Current Award Amount",
-                        color: isCaresActReleased ? '#558EC6' : `#d8d8d8`,
+                        color: (isCaresActReleased && hasFileC) ? '#558EC6' : `#d8d8d8`,
                         children: [
                             {
                                 labelPosition: 'top',
@@ -79,7 +79,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                                 text: awardType === 'idv'
                                     ? "Combined Obligated Amounts"
                                     : "Obligated Amount",
-                                color: isCaresActReleased ? '#0A2F5A' : `#4773aa`,
+                                color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts)
                             }
                         ]

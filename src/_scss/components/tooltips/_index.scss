@@ -1,13 +1,13 @@
 .tooltip-wrapper {
     div:first-of-type {
-        display: flex;
+        @include display(flex);
     }
     &.award-amounts-tt__wrapper div:first-of-type {
         width: 100%;
         height: 100%;
     }
     &.award-section-tt div:first-of-type {
-        flex-direction: column;
+        @include flex-direction(column)
     }
     .tooltip__content {
         @import './customTooltipContent';

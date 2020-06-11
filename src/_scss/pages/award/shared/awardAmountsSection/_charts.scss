@@ -1,7 +1,7 @@
 $grants-line-color: #47AAA7;
 $loans-line-color: #F5A623;
 $file-c-current: #558EC6;
-$file-c-potential: #AAC6E2;
+$new-potential: #AAC6E2;
 $file-c-outlay: #6E338E;
 $file-c-obligation: #B699C6;
 
@@ -17,22 +17,28 @@ $new-potential: #AAC6E2;
 }
 
 .award-amounts-viz {
+    // Tooltip rules.
     .award-amounts-tt__wrapper {
         position: relative;
         z-index: 2;
     }
-    .award-amounts-viz__bar-wrapper {
+    // Parent element for the Bars Viz, not their labels or text.
+    .award-amounts-viz__bar-container {
         border: rem(2) solid $color-gray;
         background-color: $color-white;
-        margin: rem(16) 0 rem(7) 0;
+        margin: rem(16) 0 0 0;
         padding: rem(3);
-        .potential,
-        .total-funding,
-        .denominator {
-            height: rem(40);
-        }
-        .award-amounts-tt__wrapper {
-            height: rem(40);
+        .award-amounts-viz__bar-wrapper {
+            // denominators have a fixed height.
+            &.contract-potential,
+            &.idv-potential {
+                height: rem(40);
+            }
+            // all other bars should just have the height of their parent.
+            height: 100%;
+            .award-amounts-tt__wrapper {
+                height: rem(40);
+            }
         }
         .award-amounts-viz__bar {
             height: 100%;
@@ -41,14 +47,10 @@ $new-potential: #AAC6E2;
             &.obligated {
                 border: rem(4) solid $color-gray-lighter;
             }
-            &.obligated,
-            &.grant-obligated,
-            &.numerator {
-                .nested-obligations {
-                    padding: rem(2);
-                    width: 100%;
-                    @include display(flex);
-                }
+            .nested-obligations {
+                padding: rem(2);
+                width: 100%;
+                @include display(flex);
             }
             &.current,
             .award-amounts-viz__current {
@@ -114,290 +116,251 @@ $new-potential: #AAC6E2;
             }
         }
     }
-
-    .award-amounts-viz__label {
-        text-align: center;
-        &.file-c-outlay {
-            text-align: left;
+    // Parent element for the individual Bar Description -- including line, legend, and text.
+    .award-amounts-viz__desc-container {
+        @include display(flex);
+        @include align-items(flex-end);
+        @include flex-direction(column);
+        
+        .award-amounts-viz__label {
             width: 100%;
-            margin-bottom: rem(17);
+        }
+        .award-amounts-viz__desc {
+            padding-left: rem(5);
+            margin-bottom: rem(5);
+            text-align: right;
+        }
+        &.top {
+            @include align-items(flex-start);
+            margin-bottom: rem(5);
             .award-amounts-viz__desc {
-                border-left: rem(4) solid $file-c-outlay;
-                .award-amounts-viz__desc-text {
-                    text-align: left;
-                    padding-left: rem(5);
+                // Description above Viz.
+                @include display(flex);
+                @include justify-content(space-between);
+                @include align-items(flex-end);
+                font-size: $base-font-size;
+                color: $color-gray;
+                border-left: solid rem(4) $color-cool-blue-light;
+                width: auto;
+                text-align: left;
+                @include flex(1 1 auto);
+                margin-bottom: 0;
+                &.contract-file-c-obligated {
+                    border-left: solid rem(4) $file-c-obligation;
+                    margin-top: rem(17);
                     strong {
                         font-size: $h6-font-size;
                     }
                 }
+                &.loans {
+                    border-left: solid rem(4) $loans-line-color;
+                    flex-wrap: wrap;
+                    span {
+                        // this span is only present when the loans subsidy amount is zero
+                        margin: auto;
+                        width: 100%;
+                    }
+                }
+                strong {
+                    font-size: $h4-font-size;
+                }
+                br {
+                    font-size: $small-font-size;
+                }
+            }
+            .award-amounts-viz__label {
+                .award-amounts-viz__line {
+                    margin: rem(5) 0 rem(5) rem(1);
+                    position: relative;
+                    width: 99.5%;
+                    height: rem(1);
+                    border-bottom: rem(1) solid $color-cool-blue-light;
+                    &::after {
+                        @extend %award-amounts-viz__line-indicator;
+                        border-left: rem(1) solid $color-cool-blue-light;
+                        top: 0px;
+                        right: -1px;
+                    }
+                    &::before {
+                        @extend %award-amounts-viz__line-indicator;
+                        border-left: rem(1) solid $color-cool-blue-light;
+                        top: 0px;
+                        left: -1px;
+                    }
+                    &.covid::before,
+                    &.covid::after {
+                        border-left: rem(1) solid $new-obligated;
+                    }
+                    &.covid {
+                        border-bottom: rem(1) solid $new-obligated;
+                    }
+                    &.contract-file-c-obligated {
+                        border-bottom: rem(1) solid $file-c-obligation;
+                        &::before,
+                        &::after {
+                            border-left: rem(1) solid $file-c-obligation;
+                        }
+                    }
+                    &.loans {
+                        border-bottom: rem(1) solid $loans-line-color;
+                        &::before {
+                            @extend %award-amounts-viz__line-indicator;
+                            top: 0px;
+                            left: -1px;
+                            border-left: rem(1) solid $loans-line-color;
+                        }
+                        &::after {
+                            border-left: rem(1) solid $loans-line-color;
+                        }
+                    }
+                }
             }
         }
-        &:not(.covid) .award-amounts-viz__desc {
-            &.current {
-                border-right: rem(5) solid $color-gray-lighter;
-            }
-            &.potential::after {
-                content: ' ';
-                height: rem(45);
-                border: rem(1) solid $color-gray;
-                background-color: #ECECDC;
-                width: rem(5);
-            }
-            &.non-federal-funding {
-                border-right: rem(5) solid $grants-line-color;
-            }
-        }
-        &.covid {
-            .award-amounts-viz__desc {
-                &.current {
-                    border-right: 5px solid $new-current;
-                }
-                &.potential {
-                    border-right: 5px solid $new-potential;
-                }
-            }
-        }
-        .award-amounts-viz__desc {
-            &.award-amounts-viz__desc--nff-zero {
-                border-left: rem(5) solid $grants-line-color;
-                &.non-federal-funding {
-                    border-right: none;
-                }
-                .award-amounts-viz__desc-text-nff-zero {
-                    @include display(flex);
-                }
-                .award-amounts-viz__desc-text {
-                    order: 1;
-                    margin-left: 10px;
-                    min-width: rem(160);
+        &.bottom {
+            @include align-items(flex-start);
+            .award-amounts-viz__label {
+                text-align: center;
+                margin-bottom: 0;
+                &.contract-file-c-outlay {
                     text-align: left;
+                    width: 100%;
                 }
-            }
-            &.total-funding::after,
-            &.denominator::after {
-                content: ' ';
-                height: rem(45);
-                border: rem(1) solid $color-gray;
-                width: rem(5);
-            }
-        }
-    }
-
-    .award-amounts-viz__line-up,
-    .award-amounts-viz__line-up--loans {
-        margin: rem(5) 0 rem(5) rem(1);
-        position: relative;
-        width: 99.5%;
-        height: rem(1);
-    }
-
-    .award-amounts-viz__line-up {
-        border-bottom: rem(1) solid $color-cool-blue-light;
-        &.covid {
-            border-bottom: rem(1) solid $new-obligated;
-        }
-        &.file-c-obligated {
-            border-bottom: rem(1) solid $file-c-obligation
-        }
-    }
-
-    .award-amounts-viz__line-up--loans {
-        border-bottom: rem(1) solid $loans-line-color;
-    }
-
-    .award-amounts-viz__line {
-        margin: rem(20) 0 rem(5) rem(1);
-        border-bottom: rem(1) solid $color-gray-lighter;
-        position: relative;
-        width: 99.5%;
-        height: rem(1);
-        &.covid.current {
-            border-bottom: rem(1) solid $file-c-current;
-        }
-        &.covid.potential {
-            border-bottom: rem(1) solid $file-c-potential;
-        }
-        &.file-c-outlay {
-            border-bottom: rem(1) solid $file-c-outlay;
-        }
-    }
-
-    .award-amounts-viz__line--non-federal-funding {
-        margin: rem(20) 0 rem(5) rem(1);
-        border-bottom: 1px solid $color-gray-lighter;
-        position: relative;
-        width: 99.5%;
-        height: rem(1);
-        border-bottom: 1px solid $grants-line-color;
-    }
-
-    .award-amounts-viz__line--non-federal-funding::before {
-        @extend %award-amounts-viz__line-indicator;
-        top: -9px;
-        right: -1px;
-        left: -1px;
-        border-left: 1px solid $grants-line-color;
-    }
-    .award-amounts-viz__line--non-federal-funding:after {
-        @extend %award-amounts-viz__line-indicator;
-        top: -9px;
-        right: -1px;
-        border-left: 1px solid $grants-line-color; 
-    }
-
-    .award-amounts-viz__line-up {
-        &::after {
-            @extend %award-amounts-viz__line-indicator;
-            border-left: 1px solid $color-cool-blue-light;
-            top: 0px;
-            right: -1px;
-        }
-        &::before {
-            @extend %award-amounts-viz__line-indicator;
-            border-left: 1px solid $color-cool-blue-light;
-            top: 0px;
-            left: -1px;
-        }
-        &.covid::before,
-        &.covid::after {
-            border-left: 1px solid $new-obligated;
-        }
-    }
-
-    .award-amounts-viz__line-up--loans::before {
-        @extend %award-amounts-viz__line-indicator;
-        top: 0px;
-        left: -1px;
-        border-left: 1px solid $loans-line-color;
-    }
-    .award-amounts-viz__line-up--loans::after {
-        @extend %award-amounts-viz__line-indicator;
-        top: 0px;
-        right: -1px;
-        border-left: 1px solid $loans-line-color;
-    }
-
-    .award-amounts-viz__line {
-        &::after,
-        &::before {
-            @extend %award-amounts-viz__line-indicator;
-            border-left: rem(1) solid $color-gray-lighter;
-            top: -9px;
-            right: -1px;
-        }
-        &::before {
-            left: -1px;
-        }
-        &.covid.current::after,
-        &.covid.current::before {
-            border-left: rem(1) solid $file-c-current;
-        }
-        &.covid.potential::after,
-        &.covid.potential::before {
-            border-left: rem(1) solid $file-c-potential;
-        }
-        &.file-c-outlay::after,
-        &.file-c-outlay::before {
-            border-left: rem(1) solid $file-c-outlay;
-        }
-    }
-
-    .award-amounts-viz__desc-top-wrapper {
-        @include display(flex);
-        @include justify-content(space-between);
-        @include align-items(flex-end);
-        padding-bottom: rem(15);
-        .award-amounts-viz__desc-top {
-            margin-bottom: 0;
-            @include flex(1 1 auto);
-        }
-        .award-amounts-viz__desc {
-            text-align: right;
-            @include flex(1 1 auto);
-        }
-    }
-
-    .award-amounts-viz__desc-top,
-    .award-amounts-viz__desc-top--loans {
-        font-size: $base-font-size;
-        color: $color-gray;
-        padding-left: rem(5);
-        margin-bottom: rem(15);
-        border-left: solid rem(4) $color-cool-blue-light;
-        width: auto;
-        &.file-c-obligated {
-            border-left: solid rem(4) $file-c-obligation;
-            margin-top: rem(17);
-            strong {
-                font-size: $h6-font-size;
-            }
-        }
-        &.loans {
-            border-left: solid rem(4) $loans-line-color;
-            flex-wrap: wrap;
-            span {
-                // this span is only present when the loans subsidy amount is zero
-                margin: auto;
-                width: 100%;
-            }
-        }
-        strong {
-            font-size: $h4-font-size;
-        }
-        br {
-            font-size: $small-font-size;
-        }
-    }
-
-    .award-amounts-viz__desc {
-        @include display(flex);
-        @include align-items(flex-end);
-        .award-amounts-viz__desc-text {
-            @include flex(1 1 auto);
-            display: block;
-            font-size: $base-font-size;
-            color: $color-gray;
-            text-align: right;
-            padding-right: rem(10);
-            strong {
-                font-size: $lead-font-size;
-            }
-            .award-amounts-viz__desc-text-wrapper {
-                @include display(flex);
-                @include justify-content(flex-end);
-                @include align-items(center);
-                .award__info-wrapper {
-                    margin-right: rem(5);
+                .award-amounts-viz__desc {
+                    @include display(flex);
+                    &:not(.covid) {
+                        &.contract-current {
+                            border-right: rem(5) solid $color-gray-lighter;
+                        }
+                        &.contract-potential::after {
+                            content: ' ';
+                            height: rem(45);
+                            border: rem(1) solid $color-gray;
+                            background-color: #ECECDC;
+                            width: rem(5);
+                        }
+                        &.non-federal-funding {
+                            border-right: rem(5) solid $grants-line-color;
+                        }
+                    }
+                    &.covid {
+                        &.contract-current {
+                            border-right: 5px solid $new-current;
+                        }
+                        &.contract-potential {
+                            border-right: 5px solid $new-potential;
+                        }
+                    }
+                    .award-amounts-viz__desc-text {
+                        @include flex(1 1 auto);
+                        display: block;
+                        font-size: $base-font-size;
+                        color: $color-gray;
+                        text-align: right;
+                        padding-right: rem(10);
+                        strong {
+                            font-size: $lead-font-size;
+                        }
+                        .award-amounts-viz__desc-text-wrapper {
+                            @include display(flex);
+                            @include justify-content(flex-end);
+                            @include align-items(center);
+                            .award__info-wrapper {
+                                margin-right: rem(5);
+                            }
+                        }
+                    }
+                    &.contract-file-c-outlay {
+                        border-left: rem(4) solid $file-c-outlay;
+                        .award-amounts-viz__desc-text {
+                            text-align: left;
+                            padding-left: rem(5);
+                            strong {
+                                font-size: $h6-font-size;
+                            }
+                        }
+                    }
+                    &.nff-zero {
+                        border-left: rem(5) solid $grants-line-color;
+                        &.non-federal-funding {
+                            border-right: none;
+                        }
+                        .award-amounts-viz__desc-text-nff-zero {
+                            @include display(flex);
+                        }
+                        .award-amounts-viz__desc-text {
+                            order: 1;
+                            margin-left: 10px;
+                            min-width: rem(160);
+                            text-align: left;
+                        }
+                    }
+                    &.total-funding::after,
+                    &.denominator::after {
+                        content: ' ';
+                        height: rem(45);
+                        border: rem(1) solid $color-gray;
+                        width: rem(5);
+                    }
                 }
-            }
-        }
-        .award-amounts-viz__legend-line {
-            @include flex(0 0 rem(5));
-            height: rem(45);
-            background-color: $color-gray-lighter;
-            &.award-amounts-viz__legend-line_potential {
-                border: solid rem(1) $color-gray;
-                background-color: #ececec;
-            }
-            &.award-amounts-viz__legend-line_overspending {
-                border: solid rem(1) $color-gold;
-                background: repeating-linear-gradient(
-                    45deg,
-                    $color-white,
-                    $color-white rem(5),
-                    $color-gold rem(2),
-                    $color-gold rem(7)
-                );
-            }
-            &.award-amounts-viz__legend-line_extreme-overspending {
-                border: solid rem(1) $color-secondary;
-                background: repeating-linear-gradient(
-                    45deg,
-                    $color-white,
-                    $color-white rem(5),
-                    $color-secondary rem(2),
-                    $color-secondary rem(7)
-                );
+                .award-amounts-viz__line {
+                    margin: rem(20) 0 rem(5) rem(1);
+                    border-bottom: rem(1) solid $color-gray-lighter;
+                    position: relative;
+                    width: 99.5%;
+                    height: rem(1);
+                    &::after,
+                    &::before {
+                        @extend %award-amounts-viz__line-indicator;
+                        border-left: rem(1) solid $color-gray-lighter;
+                        top: -9px;
+                        right: -1px;
+                    }
+                    &::before {
+                        left: -1px;
+                    }
+                    &.contract-file-c-outlay::after,
+                    &.contract-file-c-outlay::before {
+                        border-left: rem(1) solid $file-c-outlay;
+                    }
+        
+                    &.non-federal-funding {
+                        border-bottom: 1px solid $grants-line-color;
+                        &::before {
+                            @extend %award-amounts-viz__line-indicator;
+                            top: -9px;
+                            right: -1px;
+                            left: -1px;
+                            border-left: 1px solid $grants-line-color;
+                        }
+                        &::after {
+                            @extend %award-amounts-viz__line-indicator;
+                            top: -9px;
+                            right: -1px;
+                            border-left: 1px solid $grants-line-color; 
+                        }
+                    }
+                    &.covid.contract-current {
+                        border-bottom: rem(1) solid $file-c-current;
+                        &::after,
+                        &::before {
+                            border-left: rem(1) solid $file-c-current;
+                        }
+                    }
+                    &.covid.contract-potential {
+                        border-bottom: rem(1) solid $new-potential;
+                        &::before,
+                        &::after {
+                            border-left: rem(1) solid $new-potential;
+                        }
+                    }
+                    &.contract-file-c-outlay {
+                        border-bottom: rem(1) solid $file-c-outlay;
+                        &::before,
+                        &::after {
+                            border-left: rem(1) solid $file-c-outlay;
+                        }
+                    }
+                }
             }
         }
     }
