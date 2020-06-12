@@ -13,7 +13,6 @@ const getCovid19Totals = (arr) => arr
 
 const BaseAwardAmounts = {
     populateBase(data, awardType) {
-        console.log('data', data);
         this.id = (data.award_id && `${data.award_id}`) || '';
         if (data.generatedId) {
             this.generatedId = encodeURIComponent(`${data.generatedId}`);
