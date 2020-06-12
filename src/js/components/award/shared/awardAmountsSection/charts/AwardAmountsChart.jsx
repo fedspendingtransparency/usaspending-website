@@ -194,6 +194,10 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                         denominatorValue: data._totalObligation,
                         value: data.fileCObligatedAbbreviated,
                         text: 'COVID-19 Response Obligations Amount',
+                        barWidthOverrides: {
+                            rawValue: data._fileCObligated,
+                            denominatorValue: data._baseAndAllOptions
+                        },
                         color: `#B699C6`,
                         children: [{
                             labelSortOrder: 0,
@@ -225,7 +229,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             text: awardType === 'idv'
                 ? "Combined Obligated Amounts"
                 : "Obligated Amount",
-            color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `transparent`,
+            color: `transparent`,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
             improper: {
                 labelSortOrder: 1,
@@ -310,33 +314,46 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
         // eslint-disable-next-line no-multi-assign
         numerator: {
             ...chartProps.numerator,
-            children: [{
-                ...chartProps.numerator.children[0],
-                children: [
-                    {
-                        labelSortOrder: 1,
-                        labelPosition: 'top',
-                        className: `${awardType}-file-c-obligated`,
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-                        rawValue: data._fileCObligated,
-                        denominatorValue: data._totalObligation,
-                        value: data.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Response Obligations Amount',
-                        color: `#B699C6`,
-                        children: [{
-                            labelSortOrder: 0,
-                            labelPosition: 'bottom',
-                            className: `${awardType}-file-c-outlay`,
-                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-                            denominatorValue: data._fileCObligated,
-                            rawValue: data._fileCOutlay,
-                            value: data.fileCOutlayAbbreviated,
-                            text: 'COVID-19 Response Outlay Amount',
-                            color: `#6E338E`
-                        }]
-                    }
-                ]
-            }]
+            children: chartProps.numerator.children.map((child, i) => {
+                if (i === 0) {
+                    return {
+                        ...child,
+                        children: [
+                            {
+                                labelSortOrder: 1,
+                                labelPosition: 'top',
+                                className: `${awardType}-file-c-obligated`,
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
+                                rawValue: data._fileCObligated,
+                                denominatorValue: data._totalObligation,
+                                value: data.fileCObligatedAbbreviated,
+                                text: 'COVID-19 Response Obligations Amount',
+                                barWidthOverrides: {
+                                    rawValue: data._fileCObligated,
+                                    denominatorValue: data._baseExercisedOptions
+                                },
+                                color: `#B699C6`,
+                                children: [{
+                                    labelSortOrder: 0,
+                                    labelPosition: 'bottom',
+                                    className: `${awardType}-file-c-outlay`,
+                                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
+                                    denominatorValue: data._fileCObligated,
+                                    rawValue: data._fileCOutlay,
+                                    value: data.fileCOutlayAbbreviated,
+                                    barWidthOverrides: {
+                                        rawValue: data._fileCOutlay,
+                                        denominatorValue: data._fileCObligated
+                                    },
+                                    text: 'COVID-19 Response Outlay Amount',
+                                    color: `#6E338E`
+                                }]
+                            }
+                        ]
+                    };
+                }
+                return child;
+            })
         }
     };
 };
@@ -351,17 +368,17 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
         switch (scenario) {
             case "exceedsBigger": {
                 return (
-                    <RectanglePercentViz {...buildExceedsCurrentProps(awardType, awardAmounts, false)} />
+                    <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasFileC)} />
                 );
             }
             case "exceedsBiggest": {
                 return (
-                    <RectanglePercentViz {...buildExceedsPotentialProps(awardType, awardAmounts, false)} />
+                    <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasFileC)} />
                 );
             }
             case "normal":
                 return (
-                    <RectanglePercentViz {...buildNormalProps(awardType, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasFileC)} />
                 );
             default:
                 return (

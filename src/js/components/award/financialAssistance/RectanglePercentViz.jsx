@@ -133,7 +133,7 @@ const RectanglePercentViz = ({
     const renderNestedBars = (data) => {
         if (data.improper) return null;
         const barProps = {
-            spendingCategory: data.className,
+            spendingCategory: `${data.className}${classNameForCovid}`,
             barWrapperStyles: {
                 padding: data.isImproper ? '0' : nestedBarStyles.padding,
                 width: data.barWidthOverrides

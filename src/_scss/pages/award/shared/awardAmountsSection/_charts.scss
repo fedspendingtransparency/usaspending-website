@@ -105,53 +105,6 @@ $new-potential: #AAC6E2;
                 position: relative;
                 padding: rem(3.5);
             }
-            .award-amounts-viz__exceeded {
-                border-top: solid rem(4) $color-gray-lightest;
-                border-bottom: solid rem(4) $color-gray-lightest;
-                background: repeating-linear-gradient(
-                    45deg,
-                    $color-cool-blue-light,
-                    $color-cool-blue-light rem(8),
-                    $color-gold rem(2),
-                    $color-gold rem(10)
-                );
-            }
-        }
-        &.award-amounts-viz__bar-wrapper_extreme-overspending {
-            border: 0;
-            padding: 0;
-            .award-amounts-viz__bar {
-                height: rem(50);
-                background-color: transparent;
-                @include display(flex);
-                @include align-items(center);
-                .award-amounts-viz__potential-wrapper {
-                    @include display(flex);
-                    border: rem(2) solid $color-gray;
-                    padding: rem(2);
-                    background-color: $color-white;
-                    .award-amounts-viz__bar {
-                        &.potential {
-                            border-top: solid rem(4) $color-white;
-                            border-bottom: solid rem(4) $color-white;
-                        }
-                        &.current {
-                            border: solid rem(4) $color-gray-lighter;
-                        }
-                    }
-                }
-                .award-amounts-viz__exceeded-potential {
-                    height: rem(34);
-                    @include align-self(center);
-                    background: repeating-linear-gradient(
-                        45deg,
-                        $color-cool-blue-light,
-                        $color-cool-blue-light rem(8),
-                        $color-secondary rem(2),
-                        $color-secondary rem(10)
-                    );
-                }
-            }
         }
     }
     // Parent element for the individual Bar Description -- including line, legend, and text.

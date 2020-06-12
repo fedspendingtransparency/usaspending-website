@@ -21,8 +21,16 @@ export const caresActSpendingCategories = [
 export const mockAwardIdsForCaresAct = [
     // contract
     'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-',
+    // exceeds current contract
+    'CONT_AWD_W91QVN04P2195_9700_-NONE-_-NONE-',
+    // exceeds potential contract
+    'CONT_AWD_WCO00200110D68R80201_6800_-NONE-_-NONE-',
     // IDV
     'CONT_IDV_EDFSA09D0012_9100',
+    // Exceeds Current IDV
+    'CONT_IDV_SLMAQM01D0074_1900',
+    // Exceeds Potential IDV
+    'CONT_IDV_GS10F0287L_4730',
     // grant
     'ASST_NON_1905CA5MAP_7530',
     // loan
