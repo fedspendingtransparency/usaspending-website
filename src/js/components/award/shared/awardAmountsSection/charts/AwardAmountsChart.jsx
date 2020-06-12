@@ -182,37 +182,47 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
         // eslint-disable-next-line no-multi-assign
         numerator: {
             ...chartProps.numerator,
-            children: [{
-                ...chartProps.numerator.children[0],
-                children: [
-                    {
-                        labelSortOrder: 1,
-                        labelPosition: 'top',
-                        className: `${awardType}-file-c-obligated`,
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-                        rawValue: data._fileCObligated,
-                        denominatorValue: data._totalObligation,
-                        value: data.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Response Obligations Amount',
-                        barWidthOverrides: {
-                            rawValue: data._fileCObligated,
-                            denominatorValue: data._baseAndAllOptions
-                        },
-                        color: `#B699C6`,
-                        children: [{
-                            labelSortOrder: 0,
-                            labelPosition: 'bottom',
-                            className: `${awardType}-file-c-outlay`,
-                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-                            denominatorValue: data._fileCObligated,
-                            rawValue: data._fileCOutlay,
-                            value: data.fileCOutlayAbbreviated,
-                            text: 'COVID-19 Response Outlay Amount',
-                            color: `#6E338E`
-                        }]
-                    }
-                ]
-            }]
+            children: chartProps.numerator.children.map((child, i) => {
+                if (i === 0) {
+                    return {
+                        ...child,
+                        children: [
+                            {
+                                labelSortOrder: 1,
+                                labelPosition: 'top',
+                                className: `${awardType}-file-c-obligated`,
+                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
+                                rawValue: data._fileCObligated,
+                                denominatorValue: data._totalObligation,
+                                value: data.fileCObligatedAbbreviated,
+                                text: 'COVID-19 Response Obligations Amount',
+                                barWidthOverrides: {
+                                    rawValue: data._fileCObligated,
+                                    denominatorValue: data._baseExercisedOptions
+                                },
+                                color: `#B699C6`,
+                                children: [{
+                                    labelSortOrder: 0,
+                                    labelPosition: 'bottom',
+                                    className: `${awardType}-file-c-outlay`,
+                                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
+                                    denominatorValue: data._fileCObligated,
+                                    rawValue: data._fileCOutlay,
+                                    value: data.fileCOutlayAbbreviated,
+                                    barWidthOverrides: {
+                                        rawValue: data._fileCOutlay,
+                                        denominatorValue: data._fileCObligated
+                                    },
+                                    text: 'COVID-19 Response Outlay Amount',
+                                    color: `#6E338E`
+                                }]
+                            }
+                        ]
+                    };
+                }
+                return child;
+            })
+
         }
     };
 };

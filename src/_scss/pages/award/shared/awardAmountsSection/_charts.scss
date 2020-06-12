@@ -62,6 +62,10 @@ $new-potential: #AAC6E2;
                 border-top: .4rem solid #f1f1f1;
                 border-bottom: .4rem solid #f1f1f1;
                 background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
+                &.covid {
+                    border-top: .4rem solid $new-potential;
+                    border-bottom: .4rem solid $new-potential;
+                }
             }
             .award-amounts-viz__bar-wrapper {
                 &.idv-extreme-overspending-potential-wrapper,

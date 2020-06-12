@@ -131,6 +131,8 @@ const RectanglePercentViz = ({
     };
 
     const renderNestedBars = (data) => {
+        if (data.improper && data.children) return data.children.map((child) => renderNestedBars(child));
+        // we dont render a bar using the improper object, just the label.
         if (data.improper) return null;
         const barProps = {
             spendingCategory: `${data.className}${classNameForCovid}`,
