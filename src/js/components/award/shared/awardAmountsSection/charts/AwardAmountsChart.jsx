@@ -32,6 +32,8 @@ const isCaresActReleased = GlobalConstants.CARES_ACT_RELEASED;
 const buildNormalProps = (awardType, data, hasFileC) => {
     const chartProps = {
         denominator: {
+            labelSortOrder: 3,
+            labelPosition: 'bottom',
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
@@ -108,12 +110,15 @@ const buildNormalProps = (awardType, data, hasFileC) => {
 };
 
 const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
+    const showCares = (isCaresActReleased && hasFileC);
     const chartProps = {
         denominator: {
+            labelPosition: 'bottom',
+            labelSortOrder: 3,
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
-            color: (isCaresActReleased && hasFileC) ? '#AAC6E2' : `#ececec`,
+            color: (showCares) ? '#AAC6E2' : `#ececec`,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
                 : "Potential Award Amount",
@@ -130,7 +135,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
-            color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+            color: (showCares) ? '#0A2F5A' : `#4773aa`,
             children: [{
                 labelSortOrder: 0,
                 labelPosition: 'top',
@@ -141,7 +146,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                 text: awardType === 'idv'
                     ? "Combined Obligated Amounts"
                     : "Obligated Amount",
-                color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+                color: (showCares) ? '#0A2F5A' : `#4773aa`,
                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
                 improper: {
                     labelSortOrder: 1,
@@ -153,7 +158,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                     text: awardType === 'idv'
                         ? "Exceeds Combined Current Award Amounts"
                         : "Exceeds Current Award Amount",
-                    color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+                    color: (showCares) ? '#0A2F5A' : `#4773aa`,
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
                 }
             }]
@@ -176,7 +181,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
         }
     };
-    if (!hasFileC) return chartProps;
+    if (!showCares) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign

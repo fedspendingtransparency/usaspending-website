@@ -333,8 +333,7 @@ const RectanglePercentViz = ({
                     )}
                 </Bar>
             </div>
-            {numeratorHasChildren && renderLinesAndLabelsForPosition([{ ...numerator, numeratorValue }, numerator2], 'bottom')}
-            {!numeratorHasChildren && renderLinesAndLabelsForPosition([denominator, numerator, numerator2, numerator3], 'bottom')}
+            {numeratorHasChildren && renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2, numerator3], 'bottom')}
         </div>
     );
 };

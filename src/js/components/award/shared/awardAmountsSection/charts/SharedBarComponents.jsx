@@ -11,7 +11,7 @@ const BarValue = ({
     number
 }) => (
     <div
-        style={style}
+        style={{ ...style, minWidth: '100px' }}
         className={`${className} ${spendingCategory}`}
         role="button"
         tabIndex="0"

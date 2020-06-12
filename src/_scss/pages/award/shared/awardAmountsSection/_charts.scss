@@ -78,6 +78,10 @@ $new-potential: #AAC6E2;
                         &.idv-extreme-overspending-current {
                             border: solid 0.4rem #d6d7d9;
                         }
+                        &.covid.contract-extreme-overspending-current,
+                        &.covid.idv-extreme-overspending-current {
+                            border: solid 0.4rem $new-current;
+                        }
                         &.contract-extreme-overspending-potential,
                         &.idv-extreme-overspending-potential {
                             border-top: 4px solid white;
@@ -273,7 +277,11 @@ $new-potential: #AAC6E2;
                             border-right: rem(5) solid $color-gray-lighter;
                         }
                         &.idv-potential::after,
-                        &.contract-potential::after {
+                        &.contract-potential::after,
+                        &.idv-overspending-potential::after,
+                        &.contract-overspending-potential::after,
+                        &.idv-extreme-overspending-potential::after,
+                        &.contract-extreme-overspending-potential::after {
                             content: ' ';
                             height: rem(45);
                             border: rem(1) solid $color-gray;
@@ -286,11 +294,19 @@ $new-potential: #AAC6E2;
                     }
                     &.covid {
                         &.contract-current,
-                        &.idv-current {
+                        &.idv-current,
+                        &.contract-overspending-current,
+                        &.idv-overspending-current,
+                        &.contract-extreme-overspending-current,
+                        &.idv-extreme-overspending-current {
                             border-right: 5px solid $new-current;
                         }
                         &.idv-potential,
-                        &.contract-potential {
+                        &.contract-potential,
+                        &.idv-overspending-potential,
+                        &.contract-overspending-potential,
+                        &.idv-extreme-overspending-potential,
+                        &.contract-extreme-overspending-potential {
                             border-right: 5px solid $new-potential;
                         }
                     }
