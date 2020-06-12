@@ -158,7 +158,7 @@ $new-potential: #AAC6E2;
                         font-size: $h6-font-size;
                     }
                 }
-                &.loans {
+                &.loan-subsidy {
                     border-left: solid rem(4) $loans-line-color;
                     flex-wrap: wrap;
                     span {
@@ -210,7 +210,7 @@ $new-potential: #AAC6E2;
                             border-left: rem(1) solid $file-c-obligation;
                         }
                     }
-                    &.loans {
+                    &.loan-subsidy {
                         border-bottom: rem(1) solid $loans-line-color;
                         &::before {
                             @extend %award-amounts-viz__line-indicator;

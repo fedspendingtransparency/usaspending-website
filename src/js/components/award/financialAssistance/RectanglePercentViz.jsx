@@ -247,6 +247,7 @@ const RectanglePercentViz = ({
                             }}>
                             <BarValue
                                 spendingCategory={child.className}
+                                style={{ width: child.labelSortOrder === 0 ? '100%' : generatePercentage(child.rawValue / denominator.rawValue) }}
                                 className={`award-amounts-viz__desc ${position}${classNameForCovid}`}
                                 onLeave={closeTooltip}
                                 onEnter={(e) => {
