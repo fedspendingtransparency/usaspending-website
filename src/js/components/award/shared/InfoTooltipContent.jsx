@@ -1282,7 +1282,7 @@ export const CovidFlagTooltip = ({ codes }) => (
             COVID-19 Response
         </div>
         <div className="tooltip__text">
-            <p>This award is part of the COVID-19 Response because part of its spending was derived from funds associated with the following Disaster and Emergency Fund Codes (DEFC): </p>
+            <p>This award is part of the COVID-19 Response because part of its spending was derived from funds associated with the following <strong>Disaster and Emergency Fund Codes</strong> (DEFC): </p>
             <p style={{ textAlign: 'center' }}>
                 {codes.map((code, i, arr) => {
                     if (i === arr.length - 1) {

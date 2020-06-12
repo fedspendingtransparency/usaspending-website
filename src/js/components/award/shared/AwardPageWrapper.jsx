@@ -44,7 +44,7 @@ const AwardPageWrapper = ({
                         <p>{identifier}</p>
                     </div>
                     {covidDefC.length > 0 &&
-                        <TooltipWrapper controlledProps={{ isVisible: true, isControlled: true }}className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefC} />}>
+                        <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefC} />}>
                             <span className="covid-spending-flag">
                                 COVID-19 Response
                             </span>
