@@ -26,11 +26,11 @@ export const budgetDropdownColumns = {
     loan_spending: [
         {
             title: 'faceValueOfLoan',
-            displayName: 'Face Value of Loan'
+            displayName: 'Face Value of Loans'
         },
         {
-            title: 'subsidyCost',
-            displayName: 'Subsidy Cost'
+            title: 'countOfLoan',
+            displayName: 'Count of Loans'
         }
     ]
 };
@@ -79,16 +79,16 @@ export const budgetColumnFields = {
 
 export const budgetFields = {
     total_spending: {
-        totalObligation: 'total_obligation',
-        totalOutlay: 'total_outlay'
+        totalObligation: 'obligation',
+        totalOutlay: 'outlay'
     },
     award_spending: {
-        awardObligation: 'award_obligation',
-        awardOutlay: 'award_outlay'
+        awardObligation: 'obligation',
+        awardOutlay: 'outlay'
     },
     loan_spending: {
         faceValueOfLoan: 'face_value_of_loan',
-        subsidyCost: 'subsidy_cost'
+        countOfLoan: 'count'
     }
 };
 

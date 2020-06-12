@@ -28,7 +28,7 @@ const BaseBudgetCategoryRow = {
                 this[`${column.title}`] = data[column.title] || defaultValue;
             }
         });
-        if (type !== 'object_class' && spendingCategory !== 'award_spending') {
+        if (type !== 'object_class' && spendingCategory === 'total_spending') {
             this._totalBudgetaryResources = data.total_budgetary_resources || 0;
         }
     },
@@ -50,6 +50,12 @@ const BaseBudgetCategoryRow = {
     },
     get totalBudgetaryResources() {
         return formatMoney(this._totalBudgetaryResources);
+    },
+    get faceValueOfLoan() {
+        return formatMoney(this._faceValueOfLoan);
+    },
+    get countOfLoan() {
+        return this._countOfLoan;
     }
 };
 
