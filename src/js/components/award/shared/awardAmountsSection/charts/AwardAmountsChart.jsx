@@ -6,8 +6,6 @@ import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awar
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
-import ExceedsCurrentChart from './ExceedsCurrentChart';
-import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
 
