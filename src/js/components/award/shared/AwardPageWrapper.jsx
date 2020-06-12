@@ -8,12 +8,9 @@ import GlobalConstants from 'GlobalConstants';
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
+import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
 
 const isCaresReleased = GlobalConstants.CARES_ACT_RELEASED;
-
-const CovidFlagTooltip = () => (
-    <p>Yo wut up</p>
-);
 
 const AwardPageWrapper = ({
     fileC,
@@ -26,7 +23,6 @@ const AwardPageWrapper = ({
     children,
     dates
 }) => {
-    console.log("fileC", fileC);
     const covidDefC = isCaresReleased
         ? getCovidFromFileC(fileC?.obligations)
         : [];
@@ -48,7 +44,7 @@ const AwardPageWrapper = ({
                         <p>{identifier}</p>
                     </div>
                     {covidDefC.length > 0 &&
-                        <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip />}>
+                        <TooltipWrapper controlledProps={{ isVisible: true, isControlled: true }}className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefC} />}>
                             <span className="covid-spending-flag">
                                 COVID-19 Response
                             </span>

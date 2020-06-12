@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Mapping of section identifier to tooltip content JSX
-
 export const transactionHistoryInfoGeneric = (
     <div className="award-summary-tooltip transaction-history-tt">
         <div className="tooltip__title">Transaction History</div>
@@ -1275,3 +1275,27 @@ export const CFDASectionInfo = (
         </div>
     </div>
 );
+
+export const CovidFlagTooltip = ({ codes }) => (
+    <div className="award-summary-tooltip covid-19">
+        <div className="tooltip__title">
+            COVID-19 Response
+        </div>
+        <div className="tooltip__text">
+            <p>This award is part of the COVID-19 Response because part of its spending was derived from funds associated with the following Disaster and Emergency Fund Codes (DEFC): </p>
+            <p style={{ textAlign: 'center' }}>
+                {codes.map((code, i, arr) => {
+                    if (i === arr.length - 1) {
+                        return <strong>{code.toUpperCase()}</strong>;
+                    }
+                    return <strong>{`${code.toUpperCase()}, `}</strong>;
+                }
+                )}
+            </p>
+        </div>
+    </div>
+);
+
+CovidFlagTooltip.propTypes = {
+    codes: PropTypes.arrayOf(PropTypes.string)
+};
