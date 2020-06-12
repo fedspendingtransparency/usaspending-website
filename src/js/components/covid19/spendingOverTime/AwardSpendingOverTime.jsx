@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 6/9/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchNewAwardsCount } from 'helpers/covid19RequestsHelper';
 import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 
@@ -29,7 +30,28 @@ const tabs = [
 
 const AwardSpendingOverTime = () => {
     const [activeTab, setActiveTab] = useState('obligations');
-    // TODO - get total Award Obligations and Award Outlays from Redux when overview data is added
+    const [newAwards, setNewAwards] = useState(0);
+    const params = {
+        spending_type: 'award',
+        // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
+        def_codes: ['L', 'M', 'N', 'O', 'P'],
+        fiscal_year: 2020
+    };
+    useEffect(() => {
+        const request = fetchNewAwardsCount(params);
+        request.promise
+            .then((res) => {
+                setNewAwards(res.data.count);
+            }).catch((err) => {
+                console.error(err);
+            });
+    });
+    const amounts = {
+        newAwards,
+        // TODO - get total Award Obligations and Award Outlays from Redux when overview data is added
+        obligations: 866700000000,
+        outlays: 753100000000
+    };
     return (
         <div className="body__content spending-over-time">
             <h3 className="body__narrative">This is how <strong>awards</strong> supporting the COVID-19 Response were funded over time.</h3>
@@ -49,7 +71,7 @@ const AwardSpendingOverTime = () => {
                         <AmountTab
                             key={tab.type}
                             {...tab}
-                            amount={123456000}
+                            amount={amounts[tab.type]}
                             setActiveTab={setActiveTab}
                             active={activeTab === tab.type} />
                     ))}
