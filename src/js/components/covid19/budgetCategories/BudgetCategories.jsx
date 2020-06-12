@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import BudgetCategoriesCountTabContainer from 'containers/covid19/budgetCategories/BudgetCategoriesCountTabContainer';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
+import DateNote from 'components/covid19/DateNote';
 import { fetchDefCodes } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const tabs = [
@@ -41,7 +42,10 @@ const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState('federal_account');
     const [defCodes, setDefCodes] = useState([]);
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
+
+    // TODO - Remove hard coded values
     const fy = 2020;
+    const dateString = "June 30, 2020";
 
     // TODO - remove this temporary def codes fetch when it's put into redux
     useEffect(() => {
@@ -53,6 +57,7 @@ const BudgetCategories = () => {
 
     return (
         <div className="body__content">
+            <DateNote dateString={dateString} />
             <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
