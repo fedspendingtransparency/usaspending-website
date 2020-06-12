@@ -1,5 +1,23 @@
 .spending-over-time {
     width: 100%;
+    .count-tabs {
+        .count-tabs__questions {
+            >div {
+                @include flex(0 1 33%);
+                @include media($medium-screen) {
+                    @include flex(0 1 25%);
+                }
+            }
+        }
+        .count-tabs__buttons {
+            .count-tabs__button {
+                @include flex(0 1 33%);
+                @include media($medium-screen) {
+                    @include flex(0 1 25%);
+                }
+            }
+        }
+    }
     .table-wrapper {
         overflow-x: auto;
         .usda-table {
