@@ -19,6 +19,12 @@
             margin-top: auto;
             margin-bottom: auto;
         }
+
+        &:not(:first-child) {
+            .table-header__content {
+                justify-content: flex-end;
+            }
+        }
     }
 }
 .budget-categories-table-def_code {
@@ -46,6 +52,17 @@
             .table-header__sort {
                 margin-top: auto;
                 margin-bottom: auto;
+            }
+
+            &:not(:first-child) {
+                .table-header__content {
+                    justify-content: flex-end;
+                }
+            }
+            &:nth-child(2) {
+                .table-header__content {
+                    justify-content: start;
+                }
             }
         }
     }
