@@ -38,8 +38,6 @@ const propTypes = {
     numerator: BarVizData,
     numerator2: BarVizData,
     numerator3: BarVizData,
-    numerator4: BarVizData,
-    numerator5: BarVizData,
     denominator: BarVizData,
     percentage: PropTypes.string
 };
@@ -71,6 +69,7 @@ const nestedBarStyles = {
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
+    numerator3 = null,
     denominator,
     percentage
 }) => {
@@ -90,6 +89,8 @@ const RectanglePercentViz = ({
     const classNameForCovid = isCaresReleased ? ' covid' : '';
 
     const isNumerator2Defined = (numerator2 !== null && numerator2?.rawValue > 0);
+    const isNumerator3Defined = (numerator3 !== null && numerator3?.rawValue > 0);
+
     const verticalTooltipOffset = isCaresReleased
         ? 165
         : 90;
@@ -134,7 +135,7 @@ const RectanglePercentViz = ({
         const barProps = {
             spendingCategory: data.className,
             barWrapperStyles: {
-                padding: data.improper ? '0' : nestedBarStyles.padding,
+                padding: data.isImproper ? '0' : nestedBarStyles.padding,
                 width: data.barWidthOverrides
                     ? generatePercentage(data.barWidthOverrides.rawValue / data.barWidthOverrides.denominatorValue)
                     : generatePercentage(data.rawValue / data.denominatorValue)
@@ -302,8 +303,8 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            {renderLinesAndLabelsForPosition([numerator, numerator2], 'top')}
-            <div className="award-amounts-viz__bar-container">
+            {renderLinesAndLabelsForPosition([denominator, numerator, numerator2, numerator3], 'top')}
+            <div className={`award-amounts-viz__bar-container ${denominator.className}`}>
                 <Bar
                     spendingCategory={denominator.className}
                     barWrapperStyles={{ backgroundColor: denominator.color }}
@@ -325,27 +326,13 @@ const RectanglePercentViz = ({
                                 }
                             </Bar>
                             {isNumerator2Defined && renderNestedBars(numerator2)}
+                            {isNumerator3Defined && renderNestedBars(numerator3)}
                         </>
                     )}
                 </Bar>
             </div>
             {numeratorHasChildren && renderLinesAndLabelsForPosition([{ ...numerator, numeratorValue }, numerator2], 'bottom')}
-            {!numeratorHasChildren && renderLinesAndLabelsForPosition([numerator2], 'bottom')}
-            <div className={`award-amounts-viz__desc-container bottom${classNameForCovid}`}>
-                <BarLabelAndLine
-                    spendingCategory={denominator.className}
-                    labelClassName={`award-amounts-viz__label${classNameForCovid}`}
-                    lineClassName={`award-amounts-viz__line${classNameForCovid}`}
-                    lineStyles={{ backgroundColor: denominator.color }}>
-                    <BarValue
-                        className={`award-amounts-viz__desc${classNameForCovid}`}
-                        spendingCategory={denominator.className}
-                        onLeave={closeTooltip}
-                        onEnter={showDenominatorTooltip}
-                        number={denominator.value}
-                        title={denominator.text} />
-                </BarLabelAndLine>
-            </div>
+            {!numeratorHasChildren && renderLinesAndLabelsForPosition([denominator, numerator, numerator2, numerator3], 'bottom')}
         </div>
     );
 };

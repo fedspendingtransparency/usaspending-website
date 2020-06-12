@@ -30,17 +30,24 @@ $new-potential: #AAC6E2;
         background-color: $color-white;
         margin: rem(16) 0 0 0;
         padding: rem(3);
+        &.idv-extreme-overspending-obligated,
+        &.contract-extreme-overspending-obligated {
+            border: none;
+        }
         .award-amounts-viz__bar-wrapper {
             // denominators have a fixed height.
             &.contract-potential,
             &.idv-potential,
             &.loan-face-value,
+            &.contract-extreme-overspending-obligated,
+            &.idv-extreme-overspending-obligated,
             &.asst-total-funding {
-                height: rem(40);
+                height: rem(50);
             }
             // all other bars should just have the height of their parent.
             height: 100%;
         }
+
         .award-amounts-viz__bar {
             height: 100%;
             background-color: #ececec;
@@ -56,9 +63,41 @@ $new-potential: #AAC6E2;
                 border-bottom: .4rem solid #f1f1f1;
                 background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
             }
+            .award-amounts-viz__bar-wrapper {
+                &.contract-extreme-overspending-potential-wrapper {
+                    border: 0.2rem solid #5b616b;
+                    background-color: #fff;
+                    .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar,
+                    .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar {
+                        &.contract-extreme-overspending-current,
+                        &.idv-extreme-overspending-current {
+                            border: solid 0.4rem #d6d7d9;
+                        }
+                        &.contract-extreme-overspending-potential,
+                        &.idv-extreme-overspending-potential {
+                            border-top: 4px solid white;
+                            border-bottom: 4px solid white;
+                        }
+                    }
+                }
+                &.contract-extreme-overspending,
+                &.idv-extreme-overspending {
+                    @include display(flex);
+                    @include align-items(center);
+                }
+            }
+
             &.idv-overspending-current,
             &.contract-overspending-current {
                 border: rem(4) solid #d6d7d9;
+            }
+
+            &.idv-extreme-overspending,
+            &.contract-extreme-overspending {
+                height: rem(40);
+                background: repeating-linear-gradient(45deg, #4773aa, #4773aa 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
+                border-top: solid 0.4rem #fff;
+                border-bottom: solid 0.4rem #fff;
             }
             
             &.asst-non-federal-funding {
