@@ -13,7 +13,7 @@ const BaseBudgetCategoryRow = {
             this[`_${column.title}`] = data[budgetFields[spendingCategory][column.title]] || defaultValue;
         });
     },
-    populateBase(data, type) {
+    populateBase(data, type, spendingCategory) {
         let defaultValue = null;
         budgetColumns[type].forEach((column) => {
             if (type === 'def_code') {
@@ -28,16 +28,13 @@ const BaseBudgetCategoryRow = {
                 this[`${column.title}`] = data[column.title] || defaultValue;
             }
         });
-    },
-    populateTotalBudgetaryResources(data, type, spendingCategory) {
         if (type !== 'object_class' && spendingCategory !== 'award_spending') {
             this._totalBudgetaryResources = data.total_budgetary_resources || 0;
         }
     },
     populate(data, type, spendingCategory) {
-        this.populateBase(data, type);
+        this.populateBase(data, type, spendingCategory);
         this.populateOnSpendingCategory(data, spendingCategory);
-        this.populateTotalBudgetaryResources(data, type, spendingCategory);
     },
     get totalObligation() {
         return formatMoney(this._totalObligation);
