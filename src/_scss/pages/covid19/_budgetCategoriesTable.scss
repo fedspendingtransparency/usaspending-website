@@ -66,5 +66,8 @@
         .usa-dt-picker__button-icon svg {
             color: $color-cool-blue-light;
         }
+        .usa-dt-picker__list {
+            z-index: 4;
+        }
     }
 }

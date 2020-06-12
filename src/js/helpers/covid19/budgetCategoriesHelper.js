@@ -24,3 +24,10 @@ export const fetchDefCodes = () => apiRequest({
     isMocked: true
 });
 
+export const fetchLoanSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/loans/`,
+    method: 'post',
+    data: params,
+    isMocked: true
+});
+

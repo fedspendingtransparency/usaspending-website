@@ -7,8 +7,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetFields, budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
-import { fetchDisasterSpending } from 'helpers/covid19/budgetCategoriesHelper';
+import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/covid19/budgetCategoriesHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/covid19/budgetCategories/BaseBudgetCategoryRow';
@@ -44,34 +44,60 @@ const BudgetCategoriesTableContainer = (props) => {
         setResults(parsedData);
     };
 
-    const fetchBudgetSpendingCallback = useCallback(async () => {
-        if (props.defCodes) {
+    const fetchBudgetSpendingCallback = useCallback(() => {
+        if (props.defCodes && spendingCategory) {
             setLoading(true);
 
-            const params = {
-                filter: {
-                    def_codes: props.defCodes,
-                    fiscal_year: props.fy
-                },
-                spending_facets: Object.values(budgetFields[spendingCategory]),
-                pagination: {
-                    size: pageSize,
-                    page: currentPage,
-                    order
-                }
-            };
-            const requestDisasterSpending = fetchDisasterSpending(props.type, params);
-            requestDisasterSpending.promise
-                .then((res) => {
-                    parseSpendingDataAndSetResults(res.data.results);
-                    setTotalItems(res.data.pagination_metadata.total);
-                    setLoading(false);
-                    setError(false);
-                }).catch((err) => {
-                    setError(true);
-                    setLoading(false);
-                    console.error(err);
-                });
+            if (spendingCategory === 'loan_spending') {
+                const params = {
+                    filter: {
+                        def_codes: props.defCodes,
+                        fiscal_year: props.fy
+                    },
+                    pagination: {
+                        size: pageSize,
+                        page: currentPage,
+                        order
+                    }
+                };
+                const requestLoanSpending = fetchLoanSpending(props.type, params);
+                requestLoanSpending.promise
+                    .then((res) => {
+                        parseSpendingDataAndSetResults(res.data.results);
+                        setTotalItems(res.data.pagination_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    });
+            } else {
+                const params = {
+                    filter: {
+                        def_codes: props.defCodes,
+                        fiscal_year: props.fy
+                    },
+                    spending_type: apiSpendingTypes[spendingCategory],
+                    pagination: {
+                        size: pageSize,
+                        page: currentPage,
+                        order
+                    }
+                };
+                const requestDisasterSpending = fetchDisasterSpending(props.type, params);
+                requestDisasterSpending.promise
+                    .then((res) => {
+                        parseSpendingDataAndSetResults(res.data.results);
+                        setTotalItems(res.data.pagination_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    });
+            }
         }
     });
 
