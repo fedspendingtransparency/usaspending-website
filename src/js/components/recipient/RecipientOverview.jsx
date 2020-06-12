@@ -7,7 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
+import { recipientOverviewLoanInfo } from '../award/shared/InfoTooltipContent';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
+import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -91,21 +94,6 @@ const RecipientOverview = (props) => {
         );
     }
 
-    const loanTotals = () => (
-        <div className="recipient-section__viz totals-subset">
-            <h5 className="recipient-overview__heading-subset">
-                Total Face Value of Loans
-            </h5>
-
-            <div className="totals-subset__amount">
-                {recipient.totalLoanFaceValueAmount}
-            </div>
-            <div className="totals-subset__awards">
-                from <span className="state-overview__total">{recipient.totalLoanTransactions}</span> transactions
-            </div>
-        </div>
-    );
-
     const removeAllNonNumericCharacters = (str) => str.replace(/\D/g, '');
 
     return (
@@ -124,7 +112,7 @@ const RecipientOverview = (props) => {
                     {viewChildren}
                 </div>
                 <div className="recipient-section__row">
-                    <div className="recipient-section-totals-container">
+                    <div className="recipient-section__viz totals-container">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">
                             Total Transactions
@@ -136,7 +124,12 @@ const RecipientOverview = (props) => {
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
                         </div>
-                        {removeAllNonNumericCharacters(recipient.totalLoanFaceValueAmount) > 0 && removeAllNonNumericCharacters(recipient.totalLoanTransactions) > 0 && loanTotals()}
+                        {removeAllNonNumericCharacters(recipient.totalLoanFaceValueAmount) > 0 && removeAllNonNumericCharacters(recipient.totalLoanTransactions) > 0
+                        && (
+                            <div className="recipient-section__viz loan">
+                                <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="icon" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
+                            </div>
+                        )}
                     </div>
 
                     <div className="recipient-section__viz details">
@@ -168,3 +161,4 @@ const RecipientOverview = (props) => {
 
 RecipientOverview.propTypes = propTypes;
 export default RecipientOverview;
+
