@@ -1,7 +1,11 @@
 .search-option {
   @import '../../../../components/_checkboxTree';
   .naics-search-container {
-    padding: 0 rem(12);
+    @import "../../tooltips";
+    .checkbox-header {
+      padding-top: rem(10);
+    }
+    padding: rem(12);
     margin-bottom: rem(12);
     .children-are-loading {
       font-size: rem(15);
@@ -12,7 +16,7 @@
       border-bottom: 1px solid $color-gray-lighter;
     }
     .autocomplete__input {
-      padding-bottom: rem(10);
+      padding: rem(10) 0;
       position: relative;
       width: 100%;
       input {

@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from 'data-transparency-ui';
 
 export const KeyWordTooltip = () => (
@@ -48,3 +50,33 @@ export const DEFTooltip = () => (
 export const withAdvancedSearchTooltip = (props) => () => (
     <TooltipWrapper {...props} />
 );
+
+const CSSOnlyTooltipProps = {
+    definition: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    heading: PropTypes.string,
+    example: PropTypes.string,
+    description: PropTypes.string
+};
+
+export const CSSOnlyTooltip = (props) => (
+    <div
+        className={`tooltip-popover-container ${props.description ? 'tooltip-popover-container_description' : ''}`}
+        tabIndex="0"
+        role="button">
+        {<span className="tooltip-popover-container__description">{props.description}</span> || ''}
+        <FontAwesomeIcon icon="info-circle" />
+        <span className="advanced-search-css-tooltip tooltip-popover">
+            <div className="advanced-search-css-tooltip__heading">
+                {props.heading}
+            </div>
+            <div className="advanced-search-css-tooltip__definition">
+                {props.definition}
+            </div>
+            <div className="advanced-search-css-tooltip__example">
+                {props.example ? `Example value: ${props.example}` : ''}
+            </div>
+        </span>
+    </div>
+);
+
+CSSOnlyTooltip.propTypes = CSSOnlyTooltipProps;

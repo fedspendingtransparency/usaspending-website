@@ -12,6 +12,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Footer from 'containers/Footer';
+import Heading from 'components/covid19/Heading';
 // import { Picker } from 'data-transparency-ui';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
@@ -23,10 +24,10 @@ import {
     slug,
     getEmailSocialShareData,
     scrollPositionOfSiteHeader,
-    componentByCovid19Section,
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
 
@@ -87,6 +88,9 @@ const Covid19Container = () => {
                             }))} />
                 </div>
                 <div className="body usda__flex-col">
+                    <section className="body__section">
+                        <Heading />
+                    </section>
                     {Object.keys(componentByCovid19Section()).map((section) => (
                         <Covid19Section
                             key={section}
