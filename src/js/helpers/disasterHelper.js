@@ -5,8 +5,10 @@
 
 import { apiRequest } from 'helpers/apiRequest';
 
-const defcAPI = () => apiRequest({
+export const fetchDEFCodes = () => apiRequest({
     url: 'v2/references/def_codes/'
 });
 
-export default defcAPI;
+export const fetchOverview = () => apiRequest({
+    url: 'v2/disaster/overview/'
+});

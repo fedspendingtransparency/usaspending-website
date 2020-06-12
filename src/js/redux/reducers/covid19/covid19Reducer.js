@@ -4,13 +4,17 @@
  */
 
 const initialState = {
-    codes: []
+    defCodes: [],
+    overview: {}
 };
 
 const covid19Reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_CODES': {
-            return Object.assign(state, { codes: action.codes });
+        case 'SET_DEF_CODES': {
+            return Object.assign(state, { defCodes: action.defCodes });
+        }
+        case 'SET_OVERVIEW': {
+            return Object.assign(state, { overview: action.overview });
         }
         default: return state;
     }

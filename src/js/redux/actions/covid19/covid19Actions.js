@@ -3,9 +3,13 @@
  * Created by Jonathan Hill 06/11/20
  */
 
-const setCodes = (codes) => ({
-    type: 'SET_CODES',
-    codes
+export const setDEFCodes = (defCodes) => ({
+    type: 'SET_DEF_CODES',
+    defCodes
 });
 
-export default setCodes;
+export const setOverview = (overview) => ({
+    type: 'SET_OVERVIEW',
+    overview
+});
+
