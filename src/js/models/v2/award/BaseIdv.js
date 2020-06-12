@@ -33,8 +33,8 @@ BaseIdv.populate = function populate(data) {
         naics: data.naics_hierarchy || pscHelper.emptyHierarchy,
         psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy),
         fileC: {
-            obligations: data.account_obligations_by_def_code.length,
-            outlays: data.account_outlays_by_def_code
+            obligations: data.account_obligations_by_defc,
+            outlays: data.account_outlays_by_defc
         }
     };
 

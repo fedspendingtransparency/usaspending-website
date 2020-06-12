@@ -41,8 +41,8 @@ BaseFinancialAssistance.populate = function populate(data) {
         baseExercisedOptions: data.base_exercised_options,
         dateSigned: data.date_signed,
         fileC: {
-            obligations: data.account_obligations_by_def_code,
-            outlays: data.account_outlays_by_def_code
+            obligations: data.account_obligations_by_defc,
+            outlays: data.account_outlays_by_defc
         }
     };
     this.populateCore(coreData);
