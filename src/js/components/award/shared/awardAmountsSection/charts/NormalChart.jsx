@@ -12,6 +12,11 @@ import GlobalConstants from "GlobalConstants";
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
+import {
+    Bar,
+    BarLabelAndLine,
+    BarValue
+} from "./SharedComponents";
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -24,6 +29,13 @@ const propTypes = {
 const emptyTooltipProps = {
     styles: { transform: '' },
     tooltipComponent: <p>Placeholder</p>
+};
+
+const offsets = {
+    current: 10,
+    obligated: 14,
+    fileCObligated: 18,
+    fileCOutlay: 22
 };
 
 const NormalChart = ({ awardType, awardAmounts }) => {
@@ -70,7 +82,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
             width: generatePercentage(fileCObligated / obligation)
         },
         fileCOutlay: {
-            width: generatePercentage(fileCOutlay / obligation)
+            width: generatePercentage(fileCOutlay / fileCObligated)
         }
     };
 
@@ -79,8 +91,6 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     };
 
     const fileCOutlayPositioning = {
-        position: 'relative',
-        right: relativeWidths.fileCObligated.width,
         padding: '0.2rem'
     };
 
@@ -152,181 +162,123 @@ const NormalChart = ({ awardType, awardAmounts }) => {
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            <div
+            <BarValue
+                spendingCategory="obligated"
+                style={{ marginLeft: `${offsets.obligated / 2}px` }}
                 className="award-amounts-viz__desc-top"
-                role="button"
-                tabIndex="0"
-                onBlur={closeTooltip}
-                onFocus={showObligatedTooltip}
-                onKeyPress={showObligatedTooltip}
-                onMouseEnter={showObligatedTooltip}
-                onMouseLeave={closeTooltip}
-                onClick={showObligatedTooltip}>
-                <strong>{awardAmounts.totalObligationAbbreviated}</strong><br />{isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
-            </div>
-            <div className="award-amounts-viz__label obligated" style={absoluteWidths.obligated}>
-                <div className={`award-amounts-viz__line-up${classNameForCovid}`} />
-            </div>
+                onLeave={closeTooltip}
+                onEnter={showObligatedTooltip}
+                number={awardAmounts.totalObligationAbbreviated}
+                title={isIdv ? "Combined Obligated Amounts" : "Obligated Amount"} />
+            <BarLabelAndLine
+                spendingCategory="obligated"
+                lineClassName={`award-amounts-viz__line-up${classNameForCovid}`}
+                labelStyles={{ marginLeft: `${offsets.obligated / 2}px` }}
+                lineStyles={{
+                    marginLeft: `${offsets.obligated / 2}px`,
+                    width: `calc(${absoluteWidths.obligated.width} - ${offsets.obligated}px)`
+                }} />
             {isCaresReleased &&
                 <>
-                    <div
-                        role="button"
-                        className="award-amounts-viz__desc-top file-c-obligated"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showFileCObligatedTooltip}
-                        onKeyPress={showFileCObligatedTooltip}
-                        onMouseEnter={showFileCObligatedTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showFileCObligatedTooltip}>
-                        <strong>{awardAmounts.fileCObligatedAbbreviated}</strong><br />COVID-19 Response Obligations Amount
-                    </div>
-                    <div className="award-amounts-viz__label file-c-obligated" style={absoluteWidths.fileCObligated}>
-                        <div className="award-amounts-viz__line-up file-c-obligated" />
-                    </div>
+                    <BarValue
+                        spendingCategory="file-c-obligated"
+                        className="award-amounts-viz__desc-top"
+                        style={{ marginLeft: `${offsets.fileCObligated / 2}px` }}
+                        onLeave={closeTooltip}
+                        onEnter={showFileCObligatedTooltip}
+                        number={awardAmounts.fileCObligatedAbbreviated}
+                        title="COVID-19 Response Obligations Amount" />
+                    <BarLabelAndLine
+                        spendingCategory="file-c-obligated"
+                        lineClassName="award-amounts-viz__line-up"
+                        labelStyles={{ marginLeft: `${offsets.fileCObligated / 2}px` }}
+                        lineStyles={{
+                            width: `calc(${absoluteWidths.fileCObligated.width} - ${offsets.fileCObligated / 2}px)`
+                        }} />
                 </>
             }
             <div className="award-amounts-viz__bar-wrapper">
-                <div
-                    className="potential"
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showPotentialTooltip}
-                    onKeyPress={showPotentialTooltip}
-                    onMouseEnter={showPotentialTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showPotentialTooltip}>
-                    <div
-                        className="award-amounts-viz__bar potential"
-                        style={potentialBarStyle}>
-                        <div
-                            className="obligated"
-                            style={absoluteWidths.obligated}
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showObligatedTooltip}
-                            onKeyPress={showObligatedTooltip}
-                            onMouseEnter={showObligatedTooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showObligatedTooltip}>
-                            <div
-                                className="award-amounts-viz__bar obligated"
-                                style={{ width: generatePercentage(1), ...obligatedBarStyle }}>
-                                {isCaresReleased &&
-                                    <div className="nested-obligations">
-                                        <div
-                                            className="file-c-obligated"
-                                            style={relativeWidths.fileCObligated}
-                                            role="button"
-                                            tabIndex="0"
-                                            onBlur={closeTooltip}
-                                            onFocus={showFileCObligatedTooltip}
-                                            onKeyPress={showFileCObligatedTooltip}
-                                            onMouseEnter={showFileCObligatedTooltip}
-                                            onMouseLeave={closeTooltip}
-                                            onClick={showFileCObligatedTooltip}>
-                                            <div
-                                                className="award-amounts-viz__bar file-c-obligated"
-                                                style={{ width: generatePercentage(1), ...fileCObligatedBarStyle }} />
-                                        </div>
-                                        {isFileCOutlayDefined &&
-                                            <div
-                                                className="file-c-outlay"
-                                                style={{ ...relativeWidths.fileCOutlay, ...fileCOutlayPositioning }}
-                                                role="button"
-                                                tabIndex="0"
-                                                onBlur={closeTooltip}
-                                                onFocus={showFileCOutlayTooltip}
-                                                onKeyPress={showFileCOutlayTooltip}
-                                                onMouseEnter={showFileCOutlayTooltip}
-                                                onMouseLeave={closeTooltip}
-                                                onClick={showFileCOutlayTooltip}>
-                                                <div
-                                                    className="award-amounts-viz__bar file-c-outlay"
-                                                    style={{ width: generatePercentage(1), ...fileCOutlayBarStyle }} />
-                                            </div>
-                                        }
-                                    </div>
-                                }
+                <Bar
+                    spendingCategory="potential"
+                    onLeave={closeTooltip}
+                    onEnter={showPotentialTooltip}
+                    barStyles={potentialBarStyle}>
+                    <Bar
+                        spendingCategory="obligated"
+                        barWrapperStyles={absoluteWidths.obligated}
+                        onLeave={closeTooltip}
+                        onEnter={showObligatedTooltip}
+                        barStyles={{ width: generatePercentage(1), ...obligatedBarStyle }}>
+                        {isCaresReleased &&
+                            <div className="nested-obligations">
+                                <Bar
+                                    spendingCategory="file-c-obligated"
+                                    onLeave={closeTooltip}
+                                    onEnter={showFileCObligatedTooltip}
+                                    barWrapperStyles={relativeWidths.fileCObligated}
+                                    barStyles={{ width: generatePercentage(1), ...fileCObligatedBarStyle }}>
+                                    {isFileCOutlayDefined &&
+                                        <Bar
+                                            spendingCategory="file-c-outlay"
+                                            onLeave={closeTooltip}
+                                            onEnter={showFileCOutlayTooltip}
+                                            barWrapperStyles={{ ...relativeWidths.fileCOutlay, ...fileCOutlayPositioning }}
+                                            barStyles={{ width: generatePercentage(1), ...fileCOutlayBarStyle }} />
+                                    }
+                                </Bar>
                             </div>
-                        </div>
-                        <div
-                            className="current"
-                            style={absoluteWidths.currentWithObligatedOffset}
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showCurrentTooltip}
-                            onKeyPress={showCurrentTooltip}
-                            onMouseEnter={showCurrentTooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showCurrentTooltip}>
-                            <div className="award-amounts-viz__bar current" style={currentBarStyle} />
-                        </div>
-                    </div>
-                </div>
+                        }
+                    </Bar>
+                    <Bar
+                        spendingCategory="current"
+                        barWrapperStyles={absoluteWidths.currentWithObligatedOffset}
+                        onLeave={closeTooltip}
+                        onEnter={showCurrentTooltip}
+                        barStyles={currentBarStyle} />
+                </Bar>
             </div>
             {/* Even if outlay is 0, we want to show this so long as the obligated is > 0 */}
             {isCaresReleased &&
-                <div className="award-amounts-viz__label file-c-outlay">
-                    <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.fileCOutlay} />
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showFileCOutlayTooltip}
-                            onKeyPress={showFileCOutlayTooltip}
-                            onMouseEnter={showFileCOutlayTooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showFileCOutlayTooltip}>
-                            <strong>{awardAmounts.fileCOutlayAbbreviated}</strong><br />
-                            COVID-19 Response Outlay Amount
-                        </div>
-                    </div>
-                </div>
+                <BarLabelAndLine
+                    spendingCategory="file-c-outlay"
+                    labelStyles={{ marginLeft: `${offsets.fileCOutlay / 2}px` }}
+                    lineStyles={{ width: `calc(${absoluteWidths.fileCOutlay.width} - ${offsets.fileCOutlay / 2}px)` }}>
+                    <BarValue
+                        spendingCategory="file-c-outlay"
+                        onEnter={showFileCOutlayTooltip}
+                        onLeave={closeTooltip}
+                        title="COVID-19 Response Outlay Amount"
+                        number={awardAmounts.fileCOutlayAbbreviated} />
+                </BarLabelAndLine>
             }
-            <div className="award-amounts-viz__label" style={absoluteWidths.current}>
-                <div
-                    className={`award-amounts-viz__line current${classNameForCovid}`}
-                    style={{ backgroundColor: currentBarStyle.backgroundColor }} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showCurrentTooltip}
-                        onKeyPress={showCurrentTooltip}
-                        onMouseEnter={showCurrentTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showCurrentTooltip}>
-                        <strong>{awardAmounts.baseExercisedOptionsAbbreviated}</strong><br />{isIdv ? "Combined Current Award Amounts" : "Current Award Amount"}
-                    </div>
-                    <div className="award-amounts-viz__legend-line" style={currentBarStyle} />
-                </div>
-            </div>
-            <div className="award-amounts-viz__label">
-                <div className={`award-amounts-viz__line potential${classNameForCovid}`} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showPotentialTooltip}
-                        onKeyPress={showPotentialTooltip}
-                        onMouseEnter={showPotentialTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showPotentialTooltip}>
-                        <strong>{awardAmounts.baseAndAllOptionsAbbreviated}</strong><br />{isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"}
-                    </div>
-                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={potentialBarStyle} />
-                </div>
-            </div>
+            <BarLabelAndLine
+                spendingCategory="current"
+                labelStyles={{
+                    marginLeft: `${offsets.current / 2}px`,
+                    width: `calc(${absoluteWidths.current.width} - ${offsets.current / 2}px)`
+                }}
+                lineStyles={currentBarStyle}
+                labelClassName={`award-amounts-viz__label${classNameForCovid}`}
+                lineClassName={`award-amounts-viz__line${classNameForCovid} `}>
+                <BarValue
+                    spendingCategory="current"
+                    onLeave={closeTooltip}
+                    onEnter={showCurrentTooltip}
+                    number={awardAmounts.baseExercisedOptionsAbbreviated}
+                    title={isIdv ? "Combined Current Award Amounts" : "Current Award Amount"} />
+            </BarLabelAndLine>
+            <BarLabelAndLine
+                spendingCategory="potential"
+                labelClassName={`award-amounts-viz__label${classNameForCovid}`}
+                lineClassName={`award-amounts-viz__line${classNameForCovid} `}
+                lineStyles={{ backgroundColor: potentialBarStyle.backgroundColor }}>
+                <BarValue
+                    spendingCategory="potential"
+                    onLeave={closeTooltip}
+                    onEnter={showPotentialTooltip}
+                    number={awardAmounts.baseAndAllOptionsAbbreviated}
+                    title={isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"} />
+            </BarLabelAndLine>
         </div>
     );
 };

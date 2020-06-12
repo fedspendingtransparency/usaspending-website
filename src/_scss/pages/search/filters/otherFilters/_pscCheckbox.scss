@@ -1,8 +1,12 @@
 .psc-checkbox {
-    padding: 0 rem(12);
+    padding: rem(12);
+    @import '../../tooltips';
+    .checkbox-header {
+      padding-top: rem(10);
+    }
     .autocomplete__input {
         width: 100%;
-        padding-bottom: rem(10);
+        padding: rem(10) 0;
         position: relative;
         input {
             width: 100%;

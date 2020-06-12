@@ -9,6 +9,11 @@ import { TooltipWrapper } from "data-transparency-ui";
 
 import GlobalConstants from "GlobalConstants";
 import { generatePercentage } from 'helpers/awardAmountHelper';
+import {
+    Bar,
+    BarLabelAndLine,
+    BarValue
+} from "../shared/awardAmountsSection/charts/SharedComponents";
 
 const shape = PropTypes.shape({
     rawValue: PropTypes.number,
@@ -91,7 +96,6 @@ const RectanglePercentViz = ({
     };
 
     const relativeWidths = {
-        ...absoluteWidths,
         numerator2: {
             width: numerator2
                 ? generatePercentage(numerator2.rawValue / numerator.rawValue)
@@ -99,7 +103,7 @@ const RectanglePercentViz = ({
         },
         numerator3: {
             width: numerator3
-                ? generatePercentage(numerator3.rawValue / numerator.rawValue)
+                ? generatePercentage(numerator3.rawValue / numerator2.rawValue)
                 : null
         }
     };
@@ -147,8 +151,6 @@ const RectanglePercentViz = ({
     };
 
     const numerator3Positioning = {
-        position: 'relative',
-        right: relativeWidths.numerator2.width,
         padding: '0.2rem'
     };
 
@@ -163,162 +165,89 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            <div
+            <BarValue
                 className="award-amounts-viz__desc-top loans"
-                role="button"
-                tabIndex="0"
-                onBlur={closeTooltip}
-                onFocus={showNumeratorTooltip}
-                onKeyPress={showNumeratorTooltip}
-                onMouseEnter={showNumeratorTooltip}
-                onMouseLeave={closeTooltip}
-                onClick={showNumeratorTooltip}>
-                <strong>{numeratorValue}</strong>
-                <br />
-                {numerator.text}
-            </div>
+                onLeave={closeTooltip}
+                onEnter={showNumeratorTooltip}
+                number={numeratorValue}
+                title={numerator.text} />
             {!numeratorIsZero &&
-                <div className="award-amounts-viz__label" style={numeratorBarAndLabelStyles}>
-                    <div className="award-amounts-viz__line-up--loans" />
-                </div>
+                <BarLabelAndLine lineClassName="award-amounts-viz__line-up--loans" labelStyles={numeratorBarAndLabelStyles} />
             }
             {isCaresReleased &&
                 <>
-                    <div
+                    <BarValue
+                        spendingCategory="file-c-obligated"
                         className="award-amounts-viz__desc-top file-c-obligated"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showNumerator2Tooltip}
-                        onKeyPress={showNumerator2Tooltip}
-                        onMouseEnter={showNumerator2Tooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showNumerator2Tooltip}>
-                        <strong>{numerator2.value}</strong><br />COVID-19 Response Obligations Amount
-                    </div>
-                    <div className="award-amounts-viz__label file-c-obligated">
-                        <div className="award-amounts-viz__line-up file-c-obligated" style={absoluteWidths.numerator2} />
-                    </div>
+                        onLeave={closeTooltip}
+                        onEnter={showNumerator2Tooltip}
+                        number={numerator2.value}
+                        title={numerator2.text} />
+                    <BarLabelAndLine
+                        spendingCategory="file-c-obligated"
+                        lineClassName="award-amounts-viz__line-up"
+                        lineStyles={absoluteWidths.numerator2} />
                 </>
             }
             <div className="award-amounts-viz__bar-wrapper">
-                <div
-                    className="denominator"
-                    style={{ backgroundColor: denominatorColor }}
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showDenominatorTooltip}
-                    onKeyPress={showDenominatorTooltip}
-                    onMouseEnter={showDenominatorTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showDenominatorTooltip}>
-                    <div
-                        className="award-amounts-viz__bar denominator"
-                        style={{ backgroundColor: denominatorColor, width: '100%' }}>
-                        {!numeratorIsZero && (
-                            <div
-                                className="numerator"
-                                style={{ width: numeratorBarAndLabelStyles.width }}
-                                role="button"
-                                tabIndex="0"
-                                onBlur={closeTooltip}
-                                onFocus={showNumeratorTooltip}
-                                onKeyPress={showNumeratorTooltip}
-                                onMouseEnter={showNumeratorTooltip}
-                                onMouseLeave={closeTooltip}
-                                onClick={showNumeratorTooltip}>
-                                <div
-                                    className="award-amounts-viz__bar numerator"
-                                    style={{
-                                        width: '100%',
-                                        backgroundColor: numeratorBarAndLabelStyles.backgroundColor
-                                    }}>
-
-                                    {isCaresReleased && numerator2.rawValue > 0 &&
-                                        <div className="nested-obligations">
-                                            <div
-                                                className="file-c-obligated"
-                                                style={relativeWidths.numerator2}
-                                                role="button"
-                                                tabIndex="0"
-                                                onBlur={closeTooltip}
-                                                onFocus={showNumerator2Tooltip}
-                                                onKeyPress={showNumerator2Tooltip}
-                                                onMouseEnter={showNumerator2Tooltip}
-                                                onMouseLeave={closeTooltip}
-                                                onClick={showNumerator2Tooltip}>
-                                                <div
-                                                    className="award-amounts-viz__bar file-c-obligated"
-                                                    style={{ width: generatePercentage(1), backgroundColor: numerator2Color }} />
-                                            </div>
-                                            {isNumerator3Defined && numerator3.rawValue > 0 &&
-                                                <div
-                                                    className="file-c-outlay"
-                                                    style={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
-                                                    role="button"
-                                                    tabIndex="0"
-                                                    onBlur={closeTooltip}
-                                                    onFocus={showNumerator3Tooltip}
-                                                    onKeyPress={showNumerator3Tooltip}
-                                                    onMouseEnter={showNumerator3Tooltip}
-                                                    onMouseLeave={closeTooltip}
-                                                    onClick={showNumerator3Tooltip}>
-                                                    <div
-                                                        className="award-amounts-viz__bar file-c-outlay"
-                                                        style={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
-                                                </div>
-                                            }
-                                        </div>
-                                    }
+                <Bar
+                    spendingCategory="denominator"
+                    barWrapperStyles={{ backgroundColor: denominatorColor }}
+                    onLeave={closeTooltip}
+                    onEnter={showDenominatorTooltip}
+                    barStyles={{ backgroundColor: denominatorColor, width: '100%' }}>
+                    {!numeratorIsZero && (
+                        <Bar
+                            spendingCategory="numerator"
+                            barWrapperStyles={{ width: numeratorBarAndLabelStyles.width }}
+                            onLeave={closeTooltip}
+                            onEnter={showNumeratorTooltip}
+                            barStyles={{ width: '100%', backgroundColor: numeratorBarAndLabelStyles.backgroundColor }}>
+                            {isCaresReleased && numerator2.rawValue > 0 &&
+                                <div className="nested-obligations">
+                                    <Bar
+                                        spendingCategory="file-c-obligated"
+                                        barWrapperStyles={relativeWidths.numerator2}
+                                        onLeave={closeTooltip}
+                                        onEnter={showNumerator2Tooltip}
+                                        barStyles={{ width: generatePercentage(1), backgroundColor: numerator2Color }}>
+                                        {isNumerator3Defined && numerator3.rawValue > 0 &&
+                                            <Bar
+                                                spendingCategory="file-c-outlay"
+                                                barWrapperStyles={{ width: relativeWidths.numerator3.width, ...numerator3Positioning }}
+                                                onLeave={closeTooltip}
+                                                onEnter={showNumerator3Tooltip}
+                                                barStyles={{ width: generatePercentage(1), backgroundColor: numerator3Color }} />
+                                        }
+                                    </Bar>
                                 </div>
-                            </div>
-                        )}
-                        {numeratorIsZero && (
-                            <div className="award-amounts-viz__obligated--grants" style={numeratorBarAndLabelStyles} />
-                        )}
-                    </div>
-                </div>
+                            }
+                        </Bar>
+                    )}
+                </Bar>
             </div>
             {/* Even if numerator3 is 0, we want to show this so long as numerator2 is defined */}
             {isCaresReleased &&
-                <div className="award-amounts-viz__label file-c-outlay">
-                    <div className="award-amounts-viz__line file-c-outlay" style={absoluteWidths.numerator3} />
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={closeTooltip}
-                            onFocus={showNumerator3Tooltip}
-                            onKeyPress={showNumerator3Tooltip}
-                            onMouseEnter={showNumerator3Tooltip}
-                            onMouseLeave={closeTooltip}
-                            onClick={showNumerator3Tooltip}>
-                            <strong>{numerator3.value}</strong><br />
-                            COVID-19 Response Outlay Amount
-                        </div>
-                    </div>
-                </div>
+                <BarLabelAndLine
+                    spendingCategory="file-c-outlay"
+                    lineStyles={absoluteWidths.numerator3}>
+                    <BarValue
+                        onLeave={closeTooltip}
+                        onEnter={showNumerator3Tooltip}
+                        number={numerator3.value}
+                        title={numerator3.text} />
+                </BarLabelAndLine>
             }
-            <div className="award-amounts-viz__label">
-                <div className="award-amounts-viz__line" style={{ backgroundColor: denominatorColor }} />
-                <div className="award-amounts-viz__desc">
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showDenominatorTooltip}
-                        onKeyPress={showDenominatorTooltip}
-                        onMouseEnter={showDenominatorTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showDenominatorTooltip}>
-                        <strong>{denominator.value}</strong><br />{denominator.text}
-                    </div>
-                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={{ backgroundColor: denominatorColor }} />
-                </div>
-            </div>
+            <BarLabelAndLine
+                spendingCategory="denominator"
+                lineStyles={{ backgroundColor: denominatorColor }}>
+                <BarValue
+                    spendingCategory="denominator"
+                    onLeave={closeTooltip}
+                    onEnter={showDenominatorTooltip}
+                    number={denominator.value}
+                    title={denominator.text} />
+            </BarLabelAndLine>
         </div>
     );
 };

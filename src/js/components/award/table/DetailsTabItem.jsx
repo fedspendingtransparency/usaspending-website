@@ -72,7 +72,9 @@ export default class DetailsTabItem extends React.Component {
         }
 
         return (
-            <button
+            <div
+                role="button"
+                onKeyDown={this.clickedButton}
                 className={`table-type-toggle ${activeClass}${status}`}
                 onClick={this.clickedButton}
                 title={`Show ${this.props.label}`}
@@ -83,7 +85,7 @@ export default class DetailsTabItem extends React.Component {
                     {count}
                 </div>
                 {infoTooltip}
-            </button>
+            </div>
         );
     }
 }

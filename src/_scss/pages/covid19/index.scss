@@ -1,0 +1,384 @@
+.usa-da-covid19-page {
+  @import "all";
+  @import "layouts/default/default";
+  @import "layouts/default/stickyHeader/header";
+  @import "components/pageLoading";
+
+  @include display(flex);
+  @include justify-content(flex-start);
+  @include align-items(center);
+  @include flex-direction(column);
+  min-height: 100vh;
+  width: 100%;
+
+  .site-header,
+  .sticky-header,
+  .page__loading,
+  .main-content,
+  .footer-container {
+      width: 100%;
+  }
+
+  @import "../explorer/detail/sidebar/fyPicker";
+
+  .sticky-header .sticky-header__container .sticky-header__header {
+      @include display(flex);
+      @include justify-content(flex-start);
+      @include align-items(center);
+      @include flex-wrap(nowrap);
+      .sticky-header__toolbar {
+          @include display(flex);
+          .fy-picker-label {
+              font-size: rem(21);
+              @include align-self(flex-start);
+          }
+          .fiscal-year-container {
+              @include display(flex);
+              @include flex-direction(column);
+              @include justify-content(center);
+              @include align-items(center);
+              padding-left: rem(12);
+              .usa-dt-picker {
+                  background-color: #385C88;
+                  height: rem(25);
+                  width: 100%;
+                  .usa-dt-picker__list-item {
+                      .usa-dt-picker__item {
+                          width: 100%;
+                          height: 100%;
+                      }
+                      .active {
+                          background-color: #f1f1f1;
+                          color: #0071bc;
+                      }
+                  }
+                  .usa-dt-picker__dropdown-container {
+                      background-color: #385C88;
+                      margin: auto;
+                  }
+                  .usa-dt-picker__button-text,
+                  .usa-dt-picker__button-icon svg {
+                      color: $color-white;
+                  }
+                  .usa-dt-picker__icon svg {
+                      width: rem(14);
+                      margin-left: rem(10);
+                  }
+                  .usa-dt-picker__button {
+                      padding: 0 rem(10);
+                      margin: 0;
+                  }
+                  .usa-dt-picker__button-text {
+                      height: rem(23);
+                      width: rem(37);
+                      font-size: rem(18);
+                      font-weight: 600;
+                      letter-spacing: 0;
+                      line-height: rem(23);
+                      margin: 0;
+                  }
+                  .usa-dt-picker__button-icon {
+                      padding-left: rem(10);
+                  }
+              }
+          }
+          hr {
+              box-sizing: content-box;
+              height: 45px;
+              width: 1px;
+              margin: 0 10px;
+              border: none;
+              background: #6C6C6C;
+          }
+          .copy-confirmation {
+              right: rem(83);
+          }
+      }
+  }
+
+  .usda__flex-row {
+      @include display(flex);
+      @include flex-wrap(wrap);
+      width: 100%;
+      .usda__flex-col {
+          @include flex(1 1 auto);
+          .body__content {
+              width: 100%; // Fixes an IE Flexbox bug
+          }
+      }
+  }
+
+  .main-content {
+      @include display(flex);
+      width: 100%;
+      @include flex-grow(1);
+      @include flex-wrap(wrap);
+      max-width: rem(1600);
+      ul {
+          padding: 0;
+          li {
+              list-style: none;
+          }
+      }
+      .sidebar {
+          @include display(none);
+          @media(min-width: $medium-screen) {
+              @include display(flex);
+              @include flex-direction(column);
+              width: 22%;
+              margin: rem(20);
+          }
+          .covid19-sidebar-reference {
+              @include display(none);
+              &.float-sidebar {
+                @include display(block);
+              }
+          }
+
+          .covid19-sidebar-content {
+              background-color: $color-white;
+              box-shadow: $container-shadow;
+              color: $color-base;
+              border-top: 1px solid $color-gray-border;
+              border-right: 1px solid $color-gray-border;
+              border-bottom: 1px solid $color-gray-border;
+              border-radius: rem(5);
+              &.float-sidebar {
+                  position: fixed;
+                  top: rem(96);
+              }
+              ul {
+                  @include unstyled-list;
+                  padding: rem(30);
+
+                  li {
+                      margin-bottom: rem(24);
+
+                      &:last-child {
+                          margin-bottom: rem(0);
+                      }
+                  }
+
+                  a.sidebar-link {
+                      color: $color-base;
+                      font-size: rem(19);
+                      line-height: rem(20);
+                      padding-bottom: rem(5);
+
+                      text-decoration: none;
+                      border-bottom: 5px solid transparent;
+                      @include transition(all 0.15s ease-in-out);
+
+                      &:hover {
+                          border-bottom: 5px solid $color-primary;
+                          line-height: 3.5rem;
+                      }
+
+                      &.active {
+                          font-weight: $font-bold;
+                          border-bottom: 5px solid $color-primary;
+                          line-height: 3.5rem;
+                      }
+                  }
+              }
+          }
+      }
+      .body {
+          @import "components/_footerLinkToAdvancedSearch";
+          @include display(flex);
+          width: 100%;
+          @include flex-direction(column);
+          padding: 2.5% 2.5% 0 2.5%;
+          margin: rem(20) 0 rem(20) 0;
+          background: $color-white;
+          @media(min-width: $medium-screen) {
+            margin: rem(20) rem(20) rem(20) 0;
+          }
+          @media(min-width: $tablet-screen) {
+              width: 70%;
+          }
+          .body__content {
+              @import '../search/results/table/tableMessages';
+              .results-table-message-container {
+                  position: relative;
+                  background-color: rgb(246, 246, 246);
+                  .results-table-loading {
+                      margin-bottom: rem(100);
+                  }
+                  .no-results-container {
+                      text-align: center;
+                      margin-top: rem(100);
+                      margin-bottom: rem(100);
+                      .no-results-title {
+                          h4 {
+                          margin-bottom: 0;
+                          vertical-align: bottom;
+                          }
+                      }
+                      .no-results-message {
+                          p {
+                          margin-top: 0;
+                          vertical-align: top;
+                          }
+                      }
+                      }
+                      .loading-animation {
+                          @import "../search/results/screens/loading";
+                      }
+                      .results-table-error {
+                      .icon {
+                          width: rem(36);
+                          height: rem(36);
+                          svg {
+                          width: rem(36);
+                          height: rem(36);
+                          }
+                      }
+                      .title {
+                          font-size: rem(20);
+                      line-height: rem(45);
+                      }
+                      .description {
+                          font-size: rem(16);
+                          line-height: rem(10);
+                      }
+                  }
+              }
+              .usda-table {
+                  td {
+                      &:first-child {
+                          @include span-columns(6 of 12, table);
+                          text-align: left;
+                      }
+                      @include span-columns(2 of 12, table);
+                      text-align: right;
+                      word-break: break-word;
+                  }
+
+                  .table-header {
+                      .table-header__label {
+                          @include flex(0 1 auto);
+                          text-align: right;
+                      }
+  
+                      .table-header__sort {
+                          margin-top: auto;
+                          margin-bottom: auto;
+                      }
+                  }
+              }
+          }
+          .body__section {
+              @import '../agency/v2/tabs';
+              @include display(flex);
+              @include flex-wrap(wrap);
+              margin-bottom: $global-mrg;
+              .body__header {
+                  width: 100%;
+                  @include display(flex);
+                  flex-wrap: wrap;
+                  align-items: center;
+                  justify-content: space-between;
+                  border-bottom: 3px solid $color-base;
+                  .body__header-left {
+                    @include display(flex);
+                    padding-bottom: 0.5rem;
+                    @media(min-width: $tablet-screen) {
+                      padding-bottom: 0;
+                    }
+                  }
+                  .body__header-right {
+                    @include display(flex);
+                  }
+                  .body__header-icon {
+                      margin-right: $global-mrg / 2;
+                  }
+                  .body__header-text {
+                    font-size: 1.4rem;
+                  }
+                  h3 {
+                      @include display(flex);
+                      margin: 0;
+                      line-height: $base-line-height;
+                      font-size: rem(18);
+                      font-weight: $font-semibold;
+                  }
+              }
+              hr {
+                  width: 100%;
+                  height: 2px;
+                  background: #555555;
+                  border: none;
+                  margin-bottom: rem(35);
+                  margin-top: 0;
+              }
+              .coming-soon-section {
+                  width: 100%;
+                  @include display(flex);
+                  @include flex-direction(column);
+                  @extend %coming-soon-idv;
+                  padding-bottom: 0;
+                  height: 730px;
+              }
+              .heading__container {
+                padding-top: 2rem;
+                @include display(flex);
+                flex-wrap: wrap;
+                text-align: center;
+                width: 100%;
+                .heading__title {
+                  font-size: 3.6rem;
+                  font-weight: $font-semibold;
+                  letter-spacing: 0;
+                  line-height: 4.5rem;
+                  text-align: center;
+                  padding-bottom: 1rem;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
+                  width: 100%;
+                  .color-purple {
+                    color: #6E338E;
+                  }
+                }
+                .heading__description {
+                  font-size: 1.4rem;
+                  letter-spacing: 0;
+                  line-height: 2.2rem;
+                  text-align: center;
+                  padding: 0;
+                  @media(min-width: $tablet-screen) {
+                    padding: 0 12rem 2rem 12rem;
+                  }
+                }
+              }
+              .covid__date-note {
+                @include display(flex);
+                width: 100%;
+                justify-content: left;
+                font-size: 1.2rem;
+                font-style: italic;
+                letter-spacing: 0;
+                line-height: 1.5rem;
+              }
+          }
+          .body__section:last-child {
+            margin-bottom: 0;
+          }
+      }
+  }
+
+  .covid19-tt {
+      @include display(flex);
+      @include justify-content(center);
+      @include flex-direction(column);
+      .tooltip__title {
+          width: 100%;
+          margin-bottom: $global-mrg / 2;
+          text-align: center;
+      }
+      .tooltip__text {
+          padding: rem(0) rem(23);
+      }
+  }
+}
