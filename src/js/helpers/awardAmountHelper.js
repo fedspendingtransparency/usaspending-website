@@ -88,6 +88,7 @@ export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null)
 
     return 'insufficientData';
 };
+
 export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) => {
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);

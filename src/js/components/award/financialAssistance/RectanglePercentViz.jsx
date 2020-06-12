@@ -24,6 +24,16 @@ const BarVizData = PropTypes.shape({
     rawValue: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    improper: PropTypes.object,
+    isImproper: PropTypes.bool,
+    labelSortOrder: PropTypes.number,
+    labelPosition: PropTypes.string,
+    denominatorValue: PropTypes.number,
+    barWidthOverrides: PropTypes.shape({
+        rawValue: PropTypes.number,
+        denominatorValue: PropTypes.number
+    }),
     tooltipData: tooltipShape,
     children: PropTypes.arrayOf(PropTypes.shape({
         rawValue: PropTypes.number.isRequired,
@@ -33,6 +43,9 @@ const BarVizData = PropTypes.shape({
         tooltipData: PropTypes.tooltipShape
     }))
 });
+
+// TODO:
+// This Component shouldn't take static objects, it should be an array of objects. Don't have time to keep refactoring this at the moment.
 
 const propTypes = {
     numerator: BarVizData,
@@ -47,6 +60,7 @@ const emptyTooltipProps = {
     tooltipComponent: <p>Placeholder</p>
 };
 
+// flattenArray takes an array of objects which possibly have arrays in their key 'children'
 const flattenArray = (arr) => arr
     .filter((obj) => obj)
     .reduce((acc, obj) => {
@@ -64,7 +78,6 @@ const numeratorZeroToolTipPositions = {
 const nestedBarStyles = {
     padding: '0.2rem'
 };
-
 
 const RectanglePercentViz = ({
     numerator,
@@ -333,7 +346,7 @@ const RectanglePercentViz = ({
                     )}
                 </Bar>
             </div>
-            {numeratorHasChildren && renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2, numerator3], 'bottom')}
+            {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2, numerator3], 'bottom')}
         </div>
     );
 };

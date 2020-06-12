@@ -410,6 +410,8 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             const showFileC = awardAmounts._fileCObligated > 0 && GlobalConstants.CARES_ACT_RELEASED;
             const chartProps = {
                 denominator: {
+                    labelPosition: 'bottom',
+                    labelSortOrder: 2,
                     className: `asst-total-funding`,
                     rawValue: awardAmounts._totalFunding,
                     value: awardAmounts.totalFundingAbbreviated,
