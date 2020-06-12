@@ -230,13 +230,13 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             improper: {
                 labelSortOrder: 1,
                 labelPosition: 'hide',
-                className: `${awardType}-overspending-obligated`,
+                className: `${awardType}-extreme-overspending-label`,
                 rawValue: data._totalObligation,
                 denominatorValue: data._baseAndAllOptions,
                 value: data.overspendingAbbreviated,
                 text: awardType === 'idv'
-                    ? "Exceeds Combined Current Award Amounts"
-                    : "Exceeds Current Award Amount",
+                    ? "Exceeds Combined Potential Award Amounts"
+                    : "Exceeds Potential Award Amount",
                 color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
             }
