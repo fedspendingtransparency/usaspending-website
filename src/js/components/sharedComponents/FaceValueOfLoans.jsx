@@ -11,7 +11,7 @@ const propTypes = {
     amount: PropTypes.string.isRequired,
     heading: PropTypes.string.isRequired,
     headingClass: PropTypes.string.isRequired,
-    transactions: PropTypes.number,
+    transactions: PropTypes.string.isRequired,
     tooltipComponent: PropTypes.element,
     tooltipClasses: PropTypes.string,
     tooltipPosition: PropTypes.string,
@@ -20,7 +20,7 @@ const propTypes = {
 
 const FaceValueOfLoans = (props) => (
     <div className="totals">
-        <div>
+        <div className="totals__header">
             <h3 className={props.headingClass}>
                 {props.heading}
             </h3>

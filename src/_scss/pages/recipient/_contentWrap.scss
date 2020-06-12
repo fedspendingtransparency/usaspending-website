@@ -46,6 +46,11 @@
 					margin-left: 0;
 					@include flex(1 1 50%);
 
+					.totals__header {
+						@include display(flex);
+						@include align-items(center);
+					}
+
 					.recipient-overview__heading {
 						float: left;
 					}
@@ -53,11 +58,14 @@
 					.tooltip-wrapper {
 						@include display(inline-block);
 						float: left;
-						padding-left: rem(20);
 	
+						.recipient-overview-tooltip {
+							@include display(inline-block);
+						}
+
 						svg {
-							height: rem(13);
-							width: rem(13);
+							height: rem(20);
+							width: rem(20);
 						}
 					}
 
