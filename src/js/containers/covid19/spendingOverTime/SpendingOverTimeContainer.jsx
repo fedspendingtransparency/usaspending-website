@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchSpendingOverTime } from 'helpers/covid19RequestsHelper';
+import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/covid19RequestsHelper';
 import { convertPeriodToDate } from 'helpers/monthHelper';
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
@@ -20,12 +20,16 @@ const propTypes = {
 
 const awardTypes = Object.keys(awardTypeGroupLabels);
 
-export const parseRows = (rows, amountColumns) => (
+export const parseRows = (rows, amountColumns, amountType) => (
     rows.map((row) => {
         const date = convertPeriodToDate(row.time_period.period, row.time_period.fiscal_year);
-        const amounts = amountColumns.map((col) => (
-            formatMoney(row.amounts[col.title])
-        ));
+        const amounts = amountColumns.map((col) => {
+            if (amountType === 'amounts') {
+                return formatMoney(row[amountType][col.title]);
+            }
+            // amountType === 'counts' (new awards tab)
+            return formatNumber(row[amountType][col.title]);
+        });
         return [date].concat(amounts);
     })
 );
@@ -70,16 +74,42 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
                 def_codes: ['L', 'M', 'N', 'O', 'P'],
                 fiscal_year: 2020
             },
-            limit: pageSize,
-            page: currentPage,
             group: 'period',
-            spending_type: activeTab
+            spending_type: activeTab,
+            limit: pageSize,
+            page: currentPage
         };
         const request = fetchSpendingOverTime(params);
         request.promise
             .then((res) => {
                 const amountColumns = columns.slice(1);
-                const rows = parseRows(res.data.results, amountColumns);
+                const rows = parseRows(res.data.results, amountColumns, 'amounts');
+                setResults(rows);
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+                setError(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    });
+
+    const fetchNewAwardsCallback = useCallback(() => {
+        setLoading(true);
+        const params = {
+            // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
+            def_codes: ['L', 'M', 'N', 'O', 'P'],
+            limit: pageSize,
+            page: currentPage,
+            group: 'period'
+        };
+        const request = fetchNewAwardsOverTime(params);
+        request.promise
+            .then((res) => {
+                const amountColumns = columns.slice(1);
+                console.log('new awards over time', res.data.results);
+                const rows = parseRows(res.data.results, amountColumns, 'counts');
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -94,11 +124,21 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
-        fetchSpendingOverTimeCallback();
+        if (activeTab !== 'newAwards') {
+            fetchSpendingOverTimeCallback();
+        }
+        else {
+            fetchNewAwardsCallback();
+        }
     }, [activeTab, pageSize]);
 
     useEffect(() => {
-        fetchSpendingOverTimeCallback();
+        if (activeTab !== 'newAwards') {
+            fetchSpendingOverTimeCallback();
+        }
+        else {
+            fetchNewAwardsCallback();
+        }
     }, [currentPage]);
 
     let message = null;

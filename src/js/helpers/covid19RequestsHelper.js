@@ -23,3 +23,10 @@ export const fetchNewAwardsCount = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const fetchNewAwardsOverTime = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/new_awards_over_time/',
+    method: 'post',
+    data: params
+});
