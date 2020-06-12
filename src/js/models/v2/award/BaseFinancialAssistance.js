@@ -39,7 +39,11 @@ BaseFinancialAssistance.populate = function populate(data) {
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        fileC: {
+            obligations: data.account_obligations_by_def_code,
+            outlays: data.account_outlays_by_def_code
+        }
     };
     this.populateCore(coreData);
     if (data.cfda_info.length) {

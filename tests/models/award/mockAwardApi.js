@@ -11,6 +11,8 @@ export const mockContract = {
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
     base_exercised_options: 234242,
+    account_obligations_by_defc: [],
+    account_outlays_by_defc: [],
     awarding_agency: {
         id: '234',
         has_agency_page: true,

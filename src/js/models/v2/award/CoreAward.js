@@ -26,6 +26,7 @@ const CoreAward = {
         this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
         this.naics = data.naics || {};
         this.psc = data.psc || {};
+        this.fileC = data.fileC || { obligations: [], outlays: [] };
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {
