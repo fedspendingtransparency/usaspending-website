@@ -10,6 +10,7 @@ import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
 import { awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
 import ContractGrantActivityContainer from 'containers/award/shared/ContractGrantActivityContainer';
+
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';

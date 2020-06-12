@@ -1,11 +1,22 @@
 import React from 'react';
+import { TooltipWrapper } from 'data-transparency-ui';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
+import { getCovidFromFileC } from 'helpers/covid19Helper';
+
+import GlobalConstants from 'GlobalConstants';
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
 
+const isCaresReleased = GlobalConstants.CARES_ACT_RELEASED;
+
+const CovidFlagTooltip = () => (
+    <p>Yo wut up</p>
+);
+
 const AwardPageWrapper = ({
+    fileC,
     awardType,
     title,
     glossaryLink,
@@ -15,6 +26,10 @@ const AwardPageWrapper = ({
     children,
     dates
 }) => {
+    console.log("fileC", fileC);
+    const covidDefC = isCaresReleased
+        ? getCovidFromFileC(fileC?.obligations)
+        : [];
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
         'View glossary definition';
@@ -32,6 +47,13 @@ const AwardPageWrapper = ({
                         <h3>{idLabel}</h3>
                         <p>{identifier}</p>
                     </div>
+                    {covidDefC.length > 0 &&
+                        <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip />}>
+                            <span className="covid-spending-flag">
+                                COVID-19 Response
+                            </span>
+                        </TooltipWrapper>
+                    }
                 </div>
                 <AwardStatus
                     awardType={awardType}

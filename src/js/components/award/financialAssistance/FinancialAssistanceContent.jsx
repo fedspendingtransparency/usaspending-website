@@ -31,7 +31,7 @@ const propTypes = {
 
 const FinancialAssistanceContent = ({
     awardId,
-    overview = { generatedId: '' },
+    overview = { generatedId: '', fileC: { obligations: [] } },
     jumpToSection,
     isSubAwardIdClicked,
     subAwardIdClicked
@@ -77,6 +77,7 @@ const FinancialAssistanceContent = ({
 
     return (
         <AwardPageWrapper
+            fileC={overview.fileC}
             identifier={identifier}
             idLabel={idLabel}
             awardType={overview.category}

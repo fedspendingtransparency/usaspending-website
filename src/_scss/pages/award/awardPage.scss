@@ -93,6 +93,23 @@
                         font-size: $h5-font-size;
                       }
                   }
+                .award-summary__covid-19-flag {
+                  padding: rem(3) rem(7);
+                  @include display(flex);
+                  @include justify-content(center);
+                  @include align-items(center);
+                  background: #6E338E;
+                  color: #fff;
+                  font-size: rem(14);
+                  font-weight: 600;
+                  text-align: center;
+                  height: rem(25);
+                  border-radius: rem(4);
+                  width: rem(132);
+                  @media(min-width: $medium-screen) {
+                    margin-left: rem(10);
+                  }
+                }
               }
               .award-status-container {
                 @include media($medium-screen) {
