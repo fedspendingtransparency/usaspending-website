@@ -61,6 +61,7 @@
 	
 						.recipient-overview-tooltip {
 							@include display(inline-block);
+							width: 100%;
 						}
 
 						svg {
