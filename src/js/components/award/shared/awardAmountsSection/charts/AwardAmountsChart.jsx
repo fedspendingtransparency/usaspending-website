@@ -120,51 +120,55 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
         },
         numerator: {
-            labelSortOrder: 0,
-            labelPosition: 'top',
-            className: `${awardType}-obligated`,
-            rawValue: data._totalObligation,
-            denominatorValue: data._baseExercisedOptions,
-            value: data.totalObligationAbbreviated,
+            labelSortOrder: 1,
+            labelPosition: 'bottom',
+            className: `${awardType}-overspending-current`,
+            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
+            rawValue: data._baseExercisedOptions,
+            denominatorValue: data._totalObligation,
+            value: data.baseExercisedOptionsAbbreviated,
             text: awardType === 'idv'
-                ? "Combined Obligated Amounts"
-                : "Obligated Amount",
+                ? "Combined Current Award Amounts"
+                : "Current Award Amount",
             color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
-            improper: {
-                labelSortOrder: 1,
-                labelPosition: 'hide',
-                className: `${awardType}-overspending`,
-                rawValue: data._totalObligation - data._baseExercisedOptions,
-                denominatorValue: data._totalObligation,
-                value: data.overspendingAbbreviated,
-                text: awardType === 'idv'
-                    ? "Exceeds Combined Current Award Amounts"
-                    : "Exceeds Current Award Amount",
-                color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
-                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
-            },
             children: [{
-                labelSortOrder: 1,
-                labelPosition: 'bottom',
-                className: `${awardType}-current`,
-                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-                rawValue: data._baseExercisedOptions,
-                denominatorValue: data._totalObligation,
-                value: data.baseExercisedOptionsAbbreviated,
+                labelSortOrder: 0,
+                labelPosition: 'top',
+                className: `${awardType}-obligated`,
+                rawValue: data._totalObligation,
+                denominatorValue: data._baseAndAllOptions,
+                value: data.totalObligationAbbreviated,
                 text: awardType === 'idv'
-                    ? "Combined Current Award Amounts"
-                    : "Current Award Amount",
-                color: (isCaresActReleased && hasFileC) ? '#558EC6' : `#d8d8d8`
+                    ? "Combined Obligated Amounts"
+                    : "Obligated Amount",
+                color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+                improper: {
+                    labelSortOrder: 1,
+                    labelPosition: 'hide',
+                    className: `${awardType}-overspending-obligated`,
+                    rawValue: data._totalObligation,
+                    denominatorValue: data._baseAndAllOptions,
+                    value: data.overspendingAbbreviated,
+                    text: awardType === 'idv'
+                        ? "Exceeds Combined Current Award Amounts"
+                        : "Exceeds Current Award Amount",
+                    color: (isCaresActReleased && hasFileC) ? '#0A2F5A' : `#4773aa`,
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
+                }
             }]
         },
         numerator2: {
             labelSortOrder: 1,
             labelPosition: 'hide',
             className: `${awardType}-overspending`,
-            rawValue: data._totalObligation - data._baseExercisedOptions,
-            denominatorValue: data._totalObligation,
+            rawValue: data._totalObligation,
+            denominatorValue: data._baseAndAllOptions,
             value: data.overspendingAbbreviated,
+            barWidthOverrides: {
+                rawValue: data._totalObligation - data._baseExercisedOptions,
+                denominatorValue: data._baseAndAllOptions
+            },
             text: awardType === 'idv'
                 ? "Exceeds Combined Current Award Amounts"
                 : "Exceeds Current Award Amount",

@@ -5,6 +5,8 @@ $new-potential: #AAC6E2;
 $file-c-outlay: #6E338E;
 $file-c-obligation: #B699C6;
 
+$old-obligated: #4773aa;
+
 $new-obligated: #0A2F5A;
 $new-current: #558EC6;
 $new-potential: #AAC6E2;
@@ -48,6 +50,17 @@ $new-potential: #AAC6E2;
                 width: 100%;
                 @include display(flex);
             }
+            &.idv-overspending,
+            &.contract-overspending {
+                border-top: .4rem solid #f1f1f1;
+                border-bottom: .4rem solid #f1f1f1;
+                background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
+            }
+            &.idv-overspending-current,
+            &.contract-overspending-current {
+                border: rem(4) solid #d6d7d9;
+            }
+            
             &.asst-non-federal-funding {
                 position: relative;
                 padding: rem(3.5);
@@ -121,7 +134,8 @@ $new-potential: #AAC6E2;
             .improper {
                 width: 100%;
                 @include display(flex);
-                .contract-overspending {
+                .idv-overspending-obligated,
+                .contract-overspending-obligated {
                     text-align: right;
                     @include justify-content(flex-end);
                     border-left: none;

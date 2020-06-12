@@ -63,6 +63,11 @@ const numeratorZeroToolTipPositions = {
     vertical: 10
 };
 
+const nestedBarStyles = {
+    padding: '0.2rem'
+};
+
+
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
@@ -124,21 +129,15 @@ const RectanglePercentViz = ({
         showTooltip(denominator.tooltipData, '100%');
     };
 
-    const showNumerator2Tooltip = (e) => {
-        e.stopPropagation();
-        showTooltip(numerator2.tooltipData, generatePercentage(numerator2.rawValue / denominator.rawValue));
-    };
-
-    const nestedBarStyles = {
-        padding: '0.2rem'
-    };
-
     const renderNestedBars = (data) => {
+        if (data.improper) return null;
         const barProps = {
             spendingCategory: data.className,
             barWrapperStyles: {
-                ...nestedBarStyles,
-                width: generatePercentage(data.rawValue / data.denominatorValue)
+                padding: data.improper ? '0' : nestedBarStyles.padding,
+                width: data.barWidthOverrides
+                    ? generatePercentage(data.barWidthOverrides.rawValue / data.barWidthOverrides.denominatorValue)
+                    : generatePercentage(data.rawValue / data.denominatorValue)
             },
             onLeave: closeTooltip,
             onEnter: (e) => {
@@ -314,7 +313,7 @@ const RectanglePercentViz = ({
                     {!numeratorIsZero && (
                         <>
                             <Bar
-                                spendingCategory={numerator.className}
+                                spendingCategory={`${numerator.improper ? numerator.improper.className : numerator.className}`}
                                 barWrapperStyles={{ width: generatePercentage(numerator.rawValue / denominator.rawValue) }}
                                 onLeave={closeTooltip}
                                 onEnter={showNumeratorTooltip}
@@ -325,14 +324,7 @@ const RectanglePercentViz = ({
                                     </div>
                                 }
                             </Bar>
-                            {isNumerator2Defined &&
-                                <Bar
-                                    spendingCategory={numerator2.className}
-                                    barWrapperStyles={{ width: generatePercentage(numerator2.rawValue / numerator2.denominatorValue) }}
-                                    onLeave={closeTooltip}
-                                    onEnter={showNumerator2Tooltip}
-                                    barStyles={{ width: generatePercentage(1), backgroundColor: numerator2.color }} />
-                            }
+                            {isNumerator2Defined && renderNestedBars(numerator2)}
                         </>
                     )}
                 </Bar>
