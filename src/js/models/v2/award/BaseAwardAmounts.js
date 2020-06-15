@@ -13,7 +13,6 @@ const getCovid19Totals = (arr) => arr
 
 const BaseAwardAmounts = {
     populateBase(data, awardType) {
-        console.log('data', data);
         this.id = (data.award_id && `${data.award_id}`) || '';
         if (data.generatedId) {
             this.generatedId = encodeURIComponent(`${data.generatedId}`);
@@ -44,10 +43,10 @@ const BaseAwardAmounts = {
         ) || 0;
         this._fileCOutlay = this._showFileC
             ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
-            : getCovid19Totals(data.fileC.outlays);
+            : getCovid19Totals(data.account_outlays_by_defc);
         this._fileCObligated = this._showFileC
             ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
-            : getCovid19Totals(data.fileC.obligations);
+            : getCovid19Totals(data.account_obligations_by_defc);
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;
@@ -95,6 +94,7 @@ const BaseAwardAmounts = {
     populate(data, awardAmountType) {
         this.populateBase(data, awardAmountType);
         if (awardAmountType === 'idv_aggregated') {
+            // In every other context, the data has been parsed by CoreAward; here, it's payload straight from the API.
             this.populateAggIdv(data);
         }
         else if (awardAmountType === 'idv') {
