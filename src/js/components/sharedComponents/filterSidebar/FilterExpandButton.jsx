@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AngleRight, AngleDown, InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
@@ -13,10 +13,15 @@ const propTypes = {
     toggleFilter: PropTypes.func,
     arrowState: PropTypes.string,
     name: PropTypes.string,
+    // functional component!
+    tooltip: PropTypes.func,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
-    glossaryUrl: PropTypes.string
+    glossaryUrl: PropTypes.string,
+    className: PropTypes.string
 };
+
+const ariaDescription = 'accessory-view';
 
 export default class FilterExpandButton extends React.Component {
     constructor(props) {
@@ -68,43 +73,6 @@ export default class FilterExpandButton extends React.Component {
             icon = <AngleDown />;
         }
 
-        let accessoryIcon = null;
-        let accessoryView = null;
-        let ariaDescription = null;
-        if (this.props.accessory) {
-            // We need to add this onClick for mobile tapping
-            /* eslint-disable jsx-a11y/no-static-element-interactions */
-            /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-
-            accessoryIcon = (
-                <div
-                    className="filter-toggle__accessory-icon"
-                    onMouseOver={this.showAccessory}
-                    onMouseLeave={this.hideAccessory}
-                    onFocus={this.showAccessory}
-                    onBlur={this.hideAccessory}
-                    onClick={this.toggleAccessory}
-                    tabIndex={0}
-                    aria-hidden="true">
-                    <InfoCircle alt="More information" />
-                </div>
-            );
-            /* eslint-enable jsx-a11y/no-static-element-interactions */
-            /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
-
-            ariaDescription = 'accessory-view';
-
-            if (this.state.showAccessory) {
-                accessoryView = (
-                    <div
-                        id="accessory-view"
-                        role="toolbar">
-                        <this.props.accessory />
-                    </div>
-                );
-            }
-        }
-
         let glossaryLink = null;
         if (this.props.glossaryUrl) {
             glossaryLink = (
@@ -113,26 +81,35 @@ export default class FilterExpandButton extends React.Component {
                 </div>
             );
         }
-
+        const filterClassName = this.props.className ? ` ${this.props.className}` : '';
         return (
             <div className="filter-toggle">
-                <button
+                <div
+                    role="button"
                     className={`filter-toggle__button ${hiddenClass}`}
                     onClick={this.props.toggleFilter}
+                    onKeyDown={this.props.toggleFilter}
                     disabled={this.props.disabled}
                     title={this.props.name}
                     aria-label={this.props.name}
                     aria-expanded={this.props.arrowState === 'expanded'}
                     aria-describedby={ariaDescription}>
                     {icon}
-                    <div className="filter-toggle__name">
-                        {this.props.name}
+                    <div className={`filter-toggle__name${filterClassName}`}>
+                        <span>{this.props.name}</span>
+                        {this.props.tooltip && <this.props.tooltip />}
                     </div>
-                </button>
+                </div>
                 {glossaryLink}
                 <div className="filter-toggle__accessory">
-                    {accessoryIcon}
-                    {accessoryView}
+                    {this.props.accessory && (
+                        <div
+                            tabIndex="0"
+                            id="accessory-view"
+                            role="toolbar">
+                            <this.props.accessory />
+                        </div>
+                    )}
                 </div>
             </div>
         );

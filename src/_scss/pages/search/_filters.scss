@@ -15,6 +15,7 @@
     @import "./filters/programSource/programSource";
     @import "../../components/_comingSoon";
     @import "../../components/_checkboxes";
+    @import "./filters/otherFilters/defCheckbox";
     @import "./_submitHint";
 
     @include comingSoon;

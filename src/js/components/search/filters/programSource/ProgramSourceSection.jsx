@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
-import ProgramSourceInfoTooltip from './ProgramSourceInfoTooltip';
+import ProgramSourceInfoTooltip from '../tooltips/ProgramSourceInfoTooltip';
 
 const propTypes = {
     selectedFederalComponents: PropTypes.object,

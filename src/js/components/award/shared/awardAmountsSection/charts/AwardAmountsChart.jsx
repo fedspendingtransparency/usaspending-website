@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awards/awardAmountsSection';
+import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awardAmountsSection';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 import NormalChart from './NormalChart';
@@ -59,20 +59,42 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             return <GrantChart awardAmounts={awardAmounts} awardType={type} />;
         }
         else if (type === 'loan' && isNormal) {
-            return (<RectanglePercentViz
-                numerator={{
+            const hasFileC = awardAmounts._fileCObligated > 0;
+            const propsWithoutFileC = {
+                numerator: {
                     rawValue: awardAmounts._subsidy,
                     value: awardAmounts.subsidyAbbreviated,
                     text: 'Original Subsidy Cost'
-                }}
-                denominator={{
+                },
+                denominator: {
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
                     text: 'Face Value of Direct Loan'
-                }}
-                numeratorColor="#F5A623"
-                numeratorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts)}
-                denominatorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)} />);
+                },
+                numeratorTooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts),
+                denominatorTooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts),
+                numeratorColor: "#F5A623"
+            };
+            const props = hasFileC
+                ? {
+                    ...propsWithoutFileC,
+                    numerator2: {
+                        rawValue: awardAmounts._fileCObligated,
+                        value: awardAmounts.fileCObligatedAbbreviated,
+                        text: 'COVID-19 Obligated'
+                    },
+                    numerator3: {
+                        rawValue: awardAmounts._fileCOutlay,
+                        value: awardAmounts.fileCOutlayAbbreviated,
+                        text: 'COVID-19 Outlay'
+                    },
+                    numerator2Color: "#B699C6",
+                    numerator3Color: "#6E338E",
+                    numerator2TooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
+                    numerator3TooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
+                }
+                : propsWithoutFileC;
+            return <RectanglePercentViz {...props} />;
         }
         else if (type === 'idv' || type === 'contract') {
             return renderChartBySpendingScenario(scenario);

@@ -3,11 +3,9 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
 import {
@@ -15,7 +13,9 @@ import {
     Picker
 } from 'data-transparency-ui';
 
-import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActions';
+import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
+import { fetchBudgetaryResources } from 'helpers/agencyV2Helper';
+import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -32,10 +32,10 @@ import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
+import Error from '../../../components/sharedComponents/Error';
 
 require('pages/agency/v2/index.scss');
 
-// document.querySelector('.site-navigation').offsetHeight + document.querySelector('.site-navigation').offsetTop
 const scrollPositionOfSiteHeader = 96;
 
 const TooltipComponent = () => (
@@ -70,15 +70,39 @@ const ComingSoon = () => (
     </div>
 );
 
+const propTypes = {
+    params: PropTypes.shape({
+        agencyId: PropTypes.string
+    })
+};
+
 export const AgencyProfileV2 = ({
-    agencyOverview,
-    agencyId,
-    params,
-    clearAgency,
-    setOverview
+    params
 }) => {
+    const dispatch = useDispatch();
     const [activeSection, setActiveSection] = useState('overview');
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        // request budgetary resources data for this agency
+        const budgetaryResourcesRequest = fetchBudgetaryResources(params.agencyId);
+        budgetaryResourcesRequest.promise
+            .then((res) => {
+                // parse the response using our data model
+                setLoading(false);
+                const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
+                budgetaryResources.populate(res.data);
+                // store the data model object in Redux
+                dispatch(setBudgetaryResources(budgetaryResources));
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    }, [params.agencyId]);
 
     const componentByAgencySection = {
         overview: <ComingSoon />,
@@ -154,7 +178,8 @@ export const AgencyProfileV2 = ({
                         <ShareIcon
                             slug={slug}
                             email={{
-                                subject: `USAspending.gov Agency Profile: ${agencyOverview.name}`,
+                                // TODO - add agency name when the data is available
+                                subject: 'USAspending.gov Agency Profile: ',
                                 body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                         <div className="sticky-header__toolbar-item">
@@ -166,7 +191,7 @@ export const AgencyProfileV2 = ({
                     </div>
                 </>
             </StickyHeader>
-            <LoadingWrapper isLoading={false} >
+            <LoadingWrapper isLoading={loading} >
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
                         <Sidebar
@@ -180,13 +205,19 @@ export const AgencyProfileV2 = ({
                                 label: startCase(section)
                             }))} />
                     </div>
-                    <div className="body usda__flex-col">
-                        {Object.keys(componentByAgencySection).map((section) => (
-                            <AgencySection key={section} section={section} >
-                                {componentByAgencySection[section]}
-                            </AgencySection>
-                        ))}
-                    </div>
+                    {error &&
+                        <div className="body usda__flex-col">
+                            <Error />
+                        </div>}
+                    {!error &&
+                        <div className="body usda__flex-col">
+                            {Object.keys(componentByAgencySection).map((section) => (
+                                <AgencySection key={section} section={section} >
+                                    {componentByAgencySection[section]}
+                                </AgencySection>
+                            ))}
+                        </div>
+                    }
                 </main>
             </LoadingWrapper>
             <Footer />
@@ -194,14 +225,6 @@ export const AgencyProfileV2 = ({
     );
 };
 
-const mapStateToProps = (state) => ({
-    agencyOverview: state.agency.overview,
-    agencyId: state.agency.id
-});
+AgencyProfileV2.propTypes = propTypes;
 
-const mapDispatchToProps = (dispatch) => ({
-    clearAgency: () => dispatch(resetAgency()),
-    setOverview: (agency) => dispatch(setAgencyOverview(agency))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AgencyProfileV2);
+export default AgencyProfileV2;

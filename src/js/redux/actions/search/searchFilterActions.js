@@ -201,6 +201,15 @@ export const setSearchOrder = (state) => ({
     direction: state.direction
 });
 
+export const updateDefCodes = (require, exclude, counts) => ({
+    type: 'UPDATE_DEF_CODES',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require,
+        counts
+    })
+});
+
 export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });

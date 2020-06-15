@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CountTabContainer from 'containers/agency/v2/accountSpending/CountTabContainer';
+import TableContainer from 'containers/agency/v2/accountSpending/TableContainer';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -15,7 +16,7 @@ const propTypes = {
 const tabs = [
     {
         type: 'budget_function',
-        label: 'Total Budget Functions',
+        label: 'Budget Functions',
         description: 'What were the major categories of spending?',
         subHeading: 'Budget Sub-Functions',
         countField: 'budget_function_count',
@@ -23,19 +24,19 @@ const tabs = [
     },
     {
         type: 'program_activity',
-        label: 'Total Program Activities',
+        label: 'Program Activities',
         description: 'What were the purposes of this agency’s spending?',
         countField: 'program_activity_count'
     },
     {
         type: 'object_class',
-        label: 'Total Object Classes',
+        label: 'Object Classes',
         description: 'What types of things did this agency purchase?',
         countField: 'object_class_count'
     },
     {
         type: 'federal_account',
-        label: 'Total Federal Accounts',
+        label: 'Federal Accounts',
         description: 'What accounts funded this agency’s spending?',
         subHeading: 'Treasury Accounts',
         countField: 'federal_account_count',
@@ -45,6 +46,7 @@ const tabs = [
 
 const AccountSpending = ({ agencyId, fy }) => {
     const [activeTab, setActiveTab] = useState('budget_function');
+    const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
     return (
         <div className="body__content">
             <div className="count-tabs">
@@ -66,6 +68,11 @@ const AccountSpending = ({ agencyId, fy }) => {
                             active={activeTab === tab.type} />
                     ))}
                 </div>
+                <TableContainer
+                    agencyId={agencyId}
+                    fy={fy}
+                    type={activeTab}
+                    subHeading={subHeading} />
             </div>
         </div>
     );

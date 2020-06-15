@@ -84,8 +84,10 @@ const ContractGrantActivityChartAreaPaths = ({
     // should we extend area path to today line
     const shouldWeExtendAreaPathToTodayLineOrEndLines = useCallback(() => {
         const lastTransaction = transactions[transactions.length - 1];
-        const everyLineIsAfterLastTransaction = filteredAndSortedLinesFirstToLast(
-            [todayLineValue, endLineValue, potentialEndLineValue]).every((line) => (
+        const verticalLines = filteredAndSortedLinesFirstToLast(
+            [todayLineValue, endLineValue, potentialEndLineValue]);
+        if (!verticalLines?.length) return false;
+        const everyLineIsAfterLastTransaction = verticalLines.every((line) => (
             lastTransaction.action_date.isBefore(moment(line))
         ));
         if (everyLineIsAfterLastTransaction) return true;
@@ -207,13 +209,13 @@ const ContractGrantActivityChartAreaPaths = ({
     useEffect(() => {
         if (shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, areaPathExtensionToTodayLine) && xScale && yScale) {
             const lastTransaction = transactions[transactions.length - 1];
-            const className = areaPathPastEndLine ? 'area-path__past-end-line' : 'area-path';
+            const className = areaPathPastEndLine ? 'area-path__past-end-line darker' : 'area-path';
             const colorForDescription = className === 'area-path' ? 'light blue' : 'grey';
             const description = `An area path of color ${colorForDescription} representing an
             extension of 0.5 pixels to the area path when the y value of the last transaction is greater than
             the second to last transaction`;
 
-            const xAdjustment = xScale.invert(xAxisSpacing + 1) - (xDomain[0]);
+            const xAdjustment = xScale.invert(xAxisSpacing + 3) - (xDomain[0]);
             const heightAdjustment = areaPathPastEndLine ? height - 0.5 : height;
 
             setAreaPathExtensionLastDataPointYValueChange(

@@ -19,7 +19,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2020-05-20';
+export const filterStoreVersion = '2020-06-01';
 
 export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
 
@@ -40,6 +40,7 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     tasCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
+    defCodes: CheckboxTreeSelections,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -70,6 +71,7 @@ export const initialState = {
     naicsCodes: new CheckboxTreeSelections(),
     selectedPSC: new OrderedMap(),
     pscCodes: new CheckboxTreeSelections(),
+    defCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
@@ -277,6 +279,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 extentCompeted: ContractFilterFunctions.updateContractFilterSet(
                     state.extentCompeted, action.extentCompeted)
+            });
+        }
+
+        // DEF Codes Filter
+        case 'UPDATE_DEF_CODES': {
+            return Object.assign({}, state, {
+                defCodes: action.payload
             });
         }
 

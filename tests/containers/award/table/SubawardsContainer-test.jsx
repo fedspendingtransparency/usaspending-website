@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { SubawardsContainer } from
     'containers/award/table/SubawardsContainer';
 
-import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
+import BaseSubawardRow from 'models/v2/award/subawards/BaseSubawardRow';
 
 import { mockSubawards } from '../mockSubawards';
 import { mockParams } from '../mockAward';

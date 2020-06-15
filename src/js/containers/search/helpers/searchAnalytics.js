@@ -176,7 +176,7 @@ export const convertFilter = (type, value) => {
         case 'selectedPSC':
             return convertReducibleValue(
                 value,
-                'Product/Service Code (PSC)',
+                'Product or Service Code (PSC)',
                 (psc) => `${psc.product_or_service_code} - ${psc.psc_description}`
             );
         case 'pricingType':
