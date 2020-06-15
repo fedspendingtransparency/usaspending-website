@@ -9,7 +9,7 @@ export const setDEFCodes = (defCodes) => ({
 });
 
 export const setOverview = (overview) => ({
-    type: 'SET_OVERVIEW',
+    type: 'SET_COVID_OVERVIEW',
     overview
 });
 

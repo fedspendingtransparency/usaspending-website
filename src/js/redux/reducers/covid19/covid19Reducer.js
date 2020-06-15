@@ -13,7 +13,7 @@ const covid19Reducer = (state = initialState, action) => {
         case 'SET_DEF_CODES': {
             return Object.assign(state, { defCodes: action.defCodes });
         }
-        case 'SET_OVERVIEW': {
+        case 'SET_COVID_OVERVIEW': {
             return Object.assign(state, { overview: action.overview });
         }
         default: return state;
