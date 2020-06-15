@@ -12,6 +12,7 @@ import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/covid19/budget
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/covid19/budgetCategories/BaseBudgetCategoryRow';
+import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
 
 
 const propTypes = {
@@ -180,7 +181,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 className="budget-categories-section-tt"
                 icon="info"
                 tooltipPosition="right"
-                tabIndex={0} />
+                tabIndex={0}
+                tooltipComponent={BudgetCategoriesInfo} />
         </div>
     );
 

@@ -68,7 +68,6 @@
     }
 }
 
-
 .budget-categories-table__header {
     display: flex;
     justify-content: center;
@@ -86,5 +85,19 @@
         .usa-dt-picker__list {
             z-index: 4;
         }
+        .usa-dt-picker__button {
+            margin-right: 0;
+        }
+    }
+
+    .budget-categories-tooltip {
+        display: block;
+        width: 100%;
+    }
+}
+
+.count-tabs {
+    .count-button {
+        padding-bottom: 1em !important;
     }
 }

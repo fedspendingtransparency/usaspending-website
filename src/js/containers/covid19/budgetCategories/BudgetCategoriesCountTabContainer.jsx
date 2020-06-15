@@ -13,7 +13,6 @@ const propTypes = {
     fy: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    subHeading: PropTypes.string,
     setActiveTab: PropTypes.func.isRequired,
     active: PropTypes.bool,
     countField: PropTypes.string,
@@ -22,13 +21,11 @@ const propTypes = {
 
 const BudgetCategoriesCountTabContainer = (props) => {
     const [count, setCount] = useState(null);
-    const [subCount, setSubCount] = useState(null);
 
     useEffect(() => {
         if (props.defCodes) {
             // Reset any existing results
             setCount(null);
-            setSubCount(null);
 
             const params = {
                 fiscal_year: props.fy,
@@ -38,18 +35,13 @@ const BudgetCategoriesCountTabContainer = (props) => {
             countRequest.promise
                 .then((res) => {
                     setCount(res.data[props.countField]);
-                    if (props.subCountField) {
-                        setSubCount(res.data[props.subCountField]);
-                    }
                 });
         }
     }, [props.type, props.countField, props.subCountField]);
     return (
         <BudgetCategoriesCountTab
             count={count}
-            subCount={subCount}
             label={props.label}
-            subHeading={props.subHeading}
             setActiveTab={props.setActiveTab}
             active={props.active}
             disabled={count === 0}

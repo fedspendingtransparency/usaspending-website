@@ -35,11 +35,6 @@ const BudgetCategoriesCountTab = (props) => {
                 <div className="count-button__count">
                     {(props.count || props.count === 0) ? `${props.count}` : '--'}
                 </div>
-                {props.subHeading ? (
-                    <div className="count-button__sub-heading">
-                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
-                    </div>
-                ) : <>&nbsp;</>}
             </div>
         </button>
     );
