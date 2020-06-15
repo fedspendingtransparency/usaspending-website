@@ -1,5 +1,5 @@
 /**
- * covid19
+ * covid19.js
  * Created by Jonathan Hill 06/02/20
  */
 
