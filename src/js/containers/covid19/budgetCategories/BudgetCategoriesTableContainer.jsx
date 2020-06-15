@@ -24,7 +24,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
-    const [sort, setSort] = useState('totalOutlays');
+    const [sort, setSort] = useState('totalBudgetaryResources');
     const [order, setOrder] = useState('desc');
     const updateSort = (field, direction) => {
         setSort(field);
@@ -57,7 +57,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         size: pageSize,
                         page: currentPage,
-                        order
+                        order,
+                        sort
                     }
                 };
                 const requestLoanSpending = fetchLoanSpending(props.type, params);
@@ -82,7 +83,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         size: pageSize,
                         page: currentPage,
-                        order
+                        order,
+                        sort
                     }
                 };
                 const requestDisasterSpending = fetchDisasterSpending(props.type, params);
@@ -100,6 +102,22 @@ const BudgetCategoriesTableContainer = (props) => {
             }
         }
     });
+
+    const sortBasedOnTypeAndSpendingCategory = () => {
+        if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+            setSort('totalObligation');
+        } else if (spendingCategory === 'total_spending') {
+            setSort('totalBudgetaryResources');
+        } else if (spendingCategory === 'loan_spending') {
+            setSort('faceValueOfLoan');
+        } else {
+            setSort('awardObligation');
+        }
+    };
+
+    useEffect(() => {
+        sortBasedOnTypeAndSpendingCategory();
+    }, [props.type, props.fy, spendingCategory]);
 
     useEffect(() => {
         // Reset to the first page
