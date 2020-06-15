@@ -42,7 +42,7 @@ describe('Core Award Model', () => {
 
         const withoutFileC = Object.create(CoreAward);
         withoutFileC.populateCore({ ...awardData, account_obligations_by_def_code: [], account_outlays_by_def_code: [] });
-        expect(withoutFileC.fileC.obligations).toEqual();
+        expect(withoutFileC.fileC.obligations).toEqual([]);
     });
     describe('Getter functions', () => {
         it('should format the subaward total', () => {
