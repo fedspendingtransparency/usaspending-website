@@ -47,16 +47,6 @@ export const budgetColumns = {
             displayName: 'Federal Accounts'
         }
     ],
-    def_code: [
-        {
-            title: 'defCode',
-            displayName: "Public Laws"
-        },
-        {
-            title: 'emergencyFundingMandate',
-            displayName: 'Emergency Funding Mandate'
-        }
-    ],
     agency: [
         {
             title: 'name',
@@ -67,6 +57,16 @@ export const budgetColumns = {
         {
             title: 'name',
             displayName: 'Object Classes'
+        }
+    ],
+    def_code: [
+        {
+            title: 'defCode',
+            displayName: "DEF Code"
+        },
+        {
+            title: 'emergencyFundingMandate',
+            displayName: 'Emergency Funding Mandate'
         }
     ]
 };

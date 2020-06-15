@@ -19,12 +19,6 @@ const tabs = [
         subCountField: 'child_count'
     },
     {
-        type: 'def_code',
-        label: 'Public Laws',
-        description: 'What legislative acts funded this spending?',
-        countField: 'count'
-    },
-    {
         type: 'agency',
         label: 'Agencies',
         description: 'What agencies did the spending?',
@@ -34,6 +28,12 @@ const tabs = [
         type: 'object_class',
         label: 'Object Classes',
         description: 'What items or services were purchased',
+        countField: 'count'
+    },
+    {
+        type: 'def_code',
+        label: 'Public Laws',
+        description: 'What legislative acts funded this spending?',
         countField: 'count'
     }
 ];
