@@ -163,10 +163,10 @@
 
                 .body__header {
                     width: 100%;
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: space-between;
+                    @include display(flex);
+                    @include flex-wrap(wrap);
+                    @include align-items(center);
+                    @include justify-content(space-between);
                     border-bottom: 3px solid $color-base;
 
                     .body__header-left {
@@ -218,7 +218,7 @@
                     @extend %coming-soon-idv;
 
                     padding-bottom: 0;
-                    height: 730px;
+                    height: 73rem;
                     h3 {
                         font-size: $h4-font-size;
                     }
@@ -269,7 +269,7 @@
                     @include display(flex);
 
                     width: 100%;
-                    justify-content: left;
+                    @include justify-content(flex-start);
                     font-size: 1.2rem;
                     font-style: italic;
                     letter-spacing: 0;
@@ -284,20 +284,5 @@
             }
         }
     }
-
-    .covid19-tt {
-        @include display(flex);
-        @include justify-content(center);
-        @include flex-direction(column);
-
-        .tooltip__title {
-            width: 100%;
-            margin-bottom: $global-mrg / 2;
-            text-align: center;
-        }
-
-        .tooltip__text {
-            padding: rem(0) rem(23);
-        }
-    }
+    @import './covidTooltip';
 }

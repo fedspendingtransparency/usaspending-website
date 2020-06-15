@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { fetchNewAwardsCount } from 'helpers/covid19RequestsHelper';
+import { fetchNewAwardsCount } from 'helpers/disasterHelper';
 import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 

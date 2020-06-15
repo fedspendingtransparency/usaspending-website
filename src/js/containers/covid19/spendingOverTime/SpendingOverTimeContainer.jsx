@@ -5,10 +5,11 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/covid19RequestsHelper';
+import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/disasterHelper';
 import { convertPeriodToDate } from 'helpers/monthHelper';
 import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -34,6 +35,29 @@ export const parseRows = (rows, amountColumns, amountType) => (
     })
 );
 
+// Generate a column for each award type
+const columns = awardTypes.map((awardType) => (
+    {
+        displayName: `${awardTypeGroupLabels[awardType]}`,
+        title: awardType,
+        right: true // text-align right for dollar values
+    }
+));
+columns.unshift(
+    {
+        displayName: 'All Awards',
+        title: 'total',
+        right: true
+    }
+);
+// Add a column for the time period
+columns.unshift(
+    {
+        displayName: 'Month',
+        title: 'period'
+    }
+);
+
 const SpendingOverTimeContainer = ({ activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
@@ -41,37 +65,13 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
-    // Generate a column for each award type
-    const columns = awardTypes.map((awardType) => (
-        {
-            displayName: `${awardTypeGroupLabels[awardType]}`,
-            title: awardType,
-            right: true // text-align right for dollar values
-        }
-    ));
-    // TODO - Add a column for all awards
-    columns.unshift(
-        {
-            displayName: 'All Awards',
-            title: 'total',
-            right: true
-        }
-    );
-    // Add a column for the time period
-    columns.unshift(
-        {
-            displayName: 'Month',
-            title: 'period'
-        }
-    );
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingOverTimeCallback = useCallback(() => {
         setLoading(true);
         const params = {
             filter: {
-                // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
-                def_codes: ['L', 'M', 'N', 'O', 'P'],
+                def_codes: defCodes.map((defc) => defc.code),
                 fiscal_year: 2020
             },
             group: 'period',
@@ -130,7 +130,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         else {
             fetchNewAwardsCallback();
         }
-    }, [activeTab, pageSize]);
+    }, [activeTab, pageSize, defCodes]);
 
     useEffect(() => {
         if (activeTab !== 'newAwards') {
