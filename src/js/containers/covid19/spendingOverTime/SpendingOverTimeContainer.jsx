@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchSpendingOverTime } from 'helpers/covid19RequestsHelper';
+import { fetchSpendingOverTime } from 'helpers/disasterHelper';
 import { convertPeriodToDate } from 'helpers/monthHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
