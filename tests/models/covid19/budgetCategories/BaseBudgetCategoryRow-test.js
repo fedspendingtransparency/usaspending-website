@@ -56,7 +56,7 @@ describe('BaseBudgetCategoryRow', () => {
                         expect(baseBudgetCategoryRow.faceValueOfLoan).toEqual("$123");
                     });
                     it('should store the raw count of loan', () => {
-                        expect(baseBudgetCategoryRow.countOfLoan).toEqual(2);
+                        expect(baseBudgetCategoryRow.countOfLoan).toEqual("2");
                     });
                 } else {
                     it('should store the raw award obligation', () => {
