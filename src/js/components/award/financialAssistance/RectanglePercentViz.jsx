@@ -143,14 +143,14 @@ const RectanglePercentViz = ({
         showTooltip(denominator.tooltipData, '100%');
     };
 
-    const renderNestedBars = (data) => {
-        if (data.improper && data.children) return data.children.map((child) => renderNestedBars(child));
+    const renderBarVisualization = (data, isNested = false) => {
+        if (data.improper && data.children) return data.children.map((child) => renderBarVisualization(child));
         // we dont render a bar using the improper object, just the label.
         if (data.improper) return null;
         const barProps = {
             spendingCategory: `${data.className}${classNameForCovid}`,
             barWrapperStyles: {
-                padding: data.isImproper ? '0' : nestedBarStyles.padding,
+                padding: (data.isImproper || !isNested) ? '0' : nestedBarStyles.padding,
                 width: data.barWidthOverrides
                     ? generatePercentage(data.barWidthOverrides.rawValue / data.barWidthOverrides.denominatorValue)
                     : generatePercentage(data.rawValue / data.denominatorValue)
@@ -172,7 +172,7 @@ const RectanglePercentViz = ({
         if (Object.keys(data).includes('children')) {
             return (
                 <Bar {...barProps}>
-                    {data.children ? data.children.map((child) => renderNestedBars(child)) : null}
+                    {data.children ? data.children.map((child) => renderBarVisualization(child, true)) : null}
                 </Bar>
             );
         }
@@ -336,12 +336,12 @@ const RectanglePercentViz = ({
                                 barStyles={{ width: '100%', backgroundColor: numerator.color }}>
                                 {numeratorHasChildren &&
                                     <div className="nested-obligations">
-                                        {numerator.children.map((child) => renderNestedBars(child))}
+                                        {numerator.children.map((child) => renderBarVisualization(child, true))}
                                     </div>
                                 }
                             </Bar>
-                            {isNumerator2Defined && renderNestedBars(numerator2)}
-                            {isNumerator3Defined && renderNestedBars(numerator3)}
+                            {isNumerator2Defined && renderBarVisualization(numerator2)}
+                            {isNumerator3Defined && renderBarVisualization(numerator3)}
                         </>
                     )}
                 </Bar>
