@@ -46,7 +46,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         }
     };
     this.populateCore(coreData);
-    if (data.cfda_info.length) {
+    if (data.cfda_info && data.cfda_info.length) {
         this.cfdas = data.cfda_info.map((cfda) => {
             const newCFDA = new BaseCFDA(cfda, data.total_obligation);
             return newCFDA;
