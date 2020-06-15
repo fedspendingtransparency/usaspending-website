@@ -3,7 +3,8 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { startCase, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -27,6 +28,8 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { fetchDEFCodes } from 'helpers/disasterHelper';
+import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -36,6 +39,56 @@ const Covid19Container = () => {
     // const [selectedDEF, setselectedDEF] = useState('All');
 
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
+    const defCodesRequest = useRef(null);
+    // const overviewRequest = useRef(null);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getDefCodesData = async () => {
+            defCodesRequest.current = fetchDEFCodes();
+            try {
+                const { data } = await defCodesRequest.current.promise;
+                dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
+            }
+            catch (e) {
+                console.log(' Error DefCodes : ', e.message);
+            }
+        };
+        getDefCodesData();
+        defCodesRequest.current = null;
+        return () => {
+            if (defCodesRequest.current) {
+                defCodesRequest.cancel();
+            }
+        };
+    }, []);
+
+    // TODO - uncomment when API is implemented
+    // useEffect(() => {
+    //     const getOverviewData = async () => {
+    //         overviewRequest.current = fetchOverview();
+    //         try {
+    //             const { data } = await overviewRequest.current.promise;
+    //             const { spending, funding } = data;
+    //             data.spending.otherObligations = spending.total_obligations - spending.award_obligations;
+    //             data.spending.awardObligationsNotOutlayed = spending.award_obligations - spending.award_outlays;
+    //             data.spending.remainingBalance = funding.total_budget_authority - spending.total_obligations;
+    //             data.spending.nonAwardOutLays = spending.total_outlays - spending.award_outlays;
+    //             data.spending.nonAwardNotOutlayed = data.spending.otherObligations - data.spending.nonAwardOutlays;
+    //             dispatch(setOverview(data));
+    //         }
+    //         catch (e) {
+    //             console.log(' Error Overview : ', e.message);
+    //         }
+    //     };
+    //     getOverviewData();
+    //     overviewRequest.current = null;
+    //     return () => {
+    //         if (overviewRequest.current) {
+    //             overviewRequest.cancel();
+    //         }
+    //     };
+    // }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
