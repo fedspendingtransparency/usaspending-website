@@ -139,11 +139,6 @@ export const mockContract = {
     }
 };
 
-export const mockGrant = {
-    ...mockContract,
-    _totalFunding: 1130000000, // 1.13 Billion
-    _nonFederalFunding: 1130000 // 1.13 Million
-};
 
 export const mockLoan = {
     type: 'C',
@@ -161,6 +156,8 @@ export const mockLoan = {
     total_subsidy_cost: 1290000.00, // subsidy 1.3 M
     total_loan_value: 2497000000.00, // faceValue 2.5 B
     total_subaward_amount: 32423342,
+    account_obligations_by_defc: [],
+    account_outlays_by_defc: [],
     awarding_agency: {
         id: '323',
         has_agency_page: true,
@@ -266,6 +263,12 @@ export const mockLoan = {
     ]
 };
 
+export const mockGrant = {
+    ...mockLoan,
+    total_funding: 1130000000, // 1.13 Billion
+    non_federal_funding: 1130000 // 1.13 Million
+};
+
 export const mockIdv = {
     type: 'IDV_A',
     category: 'idv',
@@ -273,6 +276,11 @@ export const mockIdv = {
     piid: 'W31P4Q15A0024',
     generated_unique_award_id: '6657452ew23',
     description: 'ewraijwrw',
+    total_obligation: 0,
+    base_exercised_options: 0.0,
+    base_and_all_options: 0.0,
+    account_obligations_by_defc: [],
+    account_outlays_by_defc: [],
     date_signed: '2005-02-18',
     awarding_agency: {
         has_agency_page: true,
@@ -437,7 +445,9 @@ export const mockAwardAmounts = {
     child_award_base_and_all_options_value: 53493660.55,
     grandchild_award_base_and_all_options_value: 53493660.55,
     child_award_total_obligation: 811660.51,
-    grandchild_award_total_obligation: 811660.51
+    grandchild_award_total_obligation: 811660.51,
+    account_obligations_by_defc: [],
+    account_outlays_by_defc: []
 };
 
 export const mockReferencedAwards = {
