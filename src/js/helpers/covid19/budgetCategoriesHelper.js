@@ -1,5 +1,5 @@
 /**
- * agencyHelper.js
+ * budgetCategoriesHelper.js
  * Created by James Lee 6/10/20
  */
 

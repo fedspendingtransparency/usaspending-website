@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes, budgetCategoriesCssMappingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/covid19/budgetCategoriesHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -212,7 +212,7 @@ const BudgetCategoriesTableContainer = (props) => {
     return (
         <>
             {spendingViewPicker()}
-            <div className={`budget-categories-table-${props.type}`}>
+            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]}`}>
                 <Table
                     expandable
                     rows={results}

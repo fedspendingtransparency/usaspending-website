@@ -102,3 +102,10 @@ export const apiSpendingTypes = {
     total_spending: 'total',
     award_spending: 'award'
 };
+
+export const budgetCategoriesCssMappingTypes = {
+    federal_account: 'federal-account',
+    def_code: 'def-code',
+    agency: 'agency',
+    object_class: 'object-class'
+};

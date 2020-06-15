@@ -3,7 +3,7 @@
  * Created by James Lee 6/05/20
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 import { budgetColumns, budgetColumnFields, budgetDropdownColumns, budgetFields } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 
 const BaseBudgetCategoryRow = {
@@ -55,7 +55,7 @@ const BaseBudgetCategoryRow = {
         return formatMoney(this._faceValueOfLoan);
     },
     get countOfLoan() {
-        return this._countOfLoan;
+        return formatNumber(this._countOfLoan);
     }
 };
 

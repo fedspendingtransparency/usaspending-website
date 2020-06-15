@@ -27,7 +27,7 @@ const tabs = [
     {
         type: 'object_class',
         label: 'Object Classes',
-        description: 'What items or services were purchased',
+        description: 'What items or services were purchased?',
         countField: 'count'
     },
     {

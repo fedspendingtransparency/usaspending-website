@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BudgetCategoriesCountTab from 'components/covid19/budgetCategories/BudgetCategoriesCountTab';
+import CountTab from 'components/agency/v2/CountTab';
 import { fetchDisasterSpendingCount } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const propTypes = {
@@ -39,7 +39,7 @@ const BudgetCategoriesCountTabContainer = (props) => {
         }
     }, [props.type, props.countField, props.subCountField]);
     return (
-        <BudgetCategoriesCountTab
+        <CountTab
             count={count}
             label={props.label}
             setActiveTab={props.setActiveTab}
