@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import GlobalConstants from "GlobalConstants";
@@ -13,16 +13,6 @@ const propTypes = {
     awardType: PropTypes.string,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
     spendingScenario: PropTypes.string
-};
-
-// eslint-disable-next-line import/prefer-default-export
-export const useTooltips = (arrayOfTooltips) => {
-    const [activeTooltip, setActiveTooltip] = useState('');
-    return [
-        activeTooltip,
-        () => setActiveTooltip(''),
-        ...arrayOfTooltips.map((tt) => () => setActiveTooltip(tt))
-    ];
 };
 
 const isCaresActReleased = GlobalConstants.CARES_ACT_RELEASED;
@@ -432,7 +422,13 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
                     labelSortOrder: 1,
                     labelPosition: 'bottom',
-                    rawValue: awardAmounts._nonFederalFunding,
+                    // fudging this for to get the correct tooltip position.
+                    rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
+                    denominatorValue: awardAmounts._totalFunding,
+                    barWidthOverrides: {
+                        rawValue: awardAmounts._nonFederalFunding,
+                        denominatorValue: awardAmounts._totalFunding
+                    },
                     value: awardAmounts.nonFederalFundingAbbreviated,
                     color: `#47AAA7`,
                     text: "Non Federal Funding",
