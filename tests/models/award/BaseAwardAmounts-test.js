@@ -291,4 +291,34 @@ describe('BaseAwardAmounts', () => {
             expect(mockAwardAmount.fileCOutlayAbbreviated).toEqual("$2.5 M");
         });
     });
+    describe('fileCObligated and fileCOutlay only represent COVID spending', () => {
+        it('does not include non-covid amounts', () => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({
+                ...mockContract,
+                // not using white listed formulaic way of populating file c data
+                generatedId: 'test',
+                fileC: {
+                    obligations: [{ amount: 1, code: 'not-covid' }, { amount: 10, code: 'M' }],
+                    outlays: [{ amount: 1, code: 'not-covid' }, { amount: 10, code: 'M' }]
+                }
+            }, 'contract');
+            expect(mockAwardAmount._fileCObligated).toEqual(10);
+            expect(mockAwardAmount._fileCOutlay).toEqual(10);
+        });
+        it('provides aggregate amount of all covid codes amounts', () => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({
+                ...mockContract,
+                // not using white listed formulaic way of populating file c data
+                generatedId: 'test',
+                fileC: {
+                    obligations: [{ amount: 1, code: 'N' }, { amount: 10, code: 'M' }],
+                    outlays: [{ amount: 1, code: 'N' }, { amount: 10, code: 'M' }]
+                }
+            }, 'contract');
+            expect(mockAwardAmount._fileCObligated).toEqual(11);
+            expect(mockAwardAmount._fileCOutlay).toEqual(11);
+        });
+    });
 });
