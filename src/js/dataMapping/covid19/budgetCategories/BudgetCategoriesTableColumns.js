@@ -109,3 +109,62 @@ export const budgetCategoriesCssMappingTypes = {
     agency: 'agency',
     object_class: 'object-class'
 };
+
+export const budgetCategoriesSort = {
+    federal_account: {
+        total_spending: {
+            sort: 'totalBudgetaryResources',
+            order: 'desc'
+        },
+        award_spending: {
+            sort: 'awardObligation',
+            order: 'desc'
+        },
+        loan_spending: {
+            sort: 'faceValueOfLoan',
+            order: 'desc'
+        }
+    },
+    def_code: {
+        total_spending: {
+            sort: 'totalBudgetaryResources',
+            order: 'desc'
+        },
+        award_spending: {
+            sort: 'awardObligation',
+            order: 'desc'
+        },
+        loan_spending: {
+            sort: 'faceValueOfLoan',
+            order: 'desc'
+        }
+    },
+    agency: {
+        total_spending: {
+            sort: 'totalBudgetaryResources',
+            order: 'desc'
+        },
+        award_spending: {
+            sort: 'awardObligation',
+            order: 'desc'
+        },
+        loan_spending: {
+            sort: 'faceValueOfLoan',
+            order: 'desc'
+        }
+    },
+    object_class: {
+        total_spending: {
+            sort: 'totalObligation',
+            order: 'desc'
+        },
+        award_spending: {
+            sort: 'awardObligation',
+            order: 'desc'
+        },
+        loan_spending: {
+            sort: 'faceValueOfLoan',
+            order: 'desc'
+        }
+    }
+};

@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes, budgetCategoriesCssMappingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes, budgetCategoriesCssMappingTypes, budgetCategoriesSort } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/covid19/budgetCategoriesHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -25,6 +25,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
+    const [sortAndOrder, setSortAndOrder] = useState(budgetCategoriesSort);
     const [sort, setSort] = useState('totalBudgetaryResources');
     const [order, setOrder] = useState('desc');
     const updateSort = (field, direction) => {
@@ -58,8 +59,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         size: pageSize,
                         page: currentPage,
-                        order,
-                        sort
+                        sort: sortAndOrder[props.type][spendingCategory].sort,
+                        order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
                 const requestLoanSpending = fetchLoanSpending(props.type, params);
@@ -84,8 +85,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         size: pageSize,
                         page: currentPage,
-                        order,
-                        sort
+                        sort: sortAndOrder[props.type][spendingCategory].sort,
+                        order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
                 const requestDisasterSpending = fetchDisasterSpending(props.type, params);
@@ -104,25 +105,56 @@ const BudgetCategoriesTableContainer = (props) => {
         }
     });
 
-    const sortBasedOnTypeAndSpendingCategory = () => {
-        if (props.type === 'object_class' && spendingCategory === 'total_spending') {
-            setSort('totalObligation');
-        } else if (spendingCategory === 'total_spending') {
-            setSort('totalBudgetaryResources');
-        } else if (spendingCategory === 'loan_spending') {
-            setSort('faceValueOfLoan');
-        } else {
-            setSort('awardObligation');
+    const setSortAndOrderCallback = useCallback(() => {
+        const tabCategory = Object.keys(sortAndOrder).filter((key) => key === props.type);
+        const dropdownCategory = Object.keys(sortAndOrder[tabCategory]).filter((val) => val === spendingCategory);
+        if (tabCategory && dropdownCategory) {
+            const categoryName = tabCategory[0];
+            const dropdownCategoryName = dropdownCategory[0];
+            const slice = sortAndOrder[categoryName][dropdownCategoryName];
+            setSort(slice.sort);
+            setOrder(slice.order);
         }
-    };
+    });
+
+    const storeSortAndOrderObjectCallback = useCallback(() => {
+        const tabCategory = Object.keys(sortAndOrder).filter((key) => key === props.type);
+        const dropdownCategory = Object.keys(sortAndOrder[tabCategory]).filter((val) => val === spendingCategory);
+
+        if (tabCategory && dropdownCategory) {
+            const categoryName = tabCategory[0];
+            const dropdownCategoryName = dropdownCategory[0];
+
+            const modifiedSortObj = {
+                ...sortAndOrder,
+                [categoryName]: {
+                    ...sortAndOrder[categoryName],
+                    [dropdownCategoryName]: {
+                        sort,
+                        order
+                    }
+                }
+
+            };
+            setSortAndOrder(modifiedSortObj);
+        }
+    });
+
 
     useEffect(() => {
-        sortBasedOnTypeAndSpendingCategory();
-    }, [props.type, props.fy, spendingCategory]);
+        setSortAndOrderCallback();
+        storeSortAndOrderObjectCallback();
+        fetchBudgetSpendingCallback();
+    }, [props.type, spendingCategory]);
 
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
+        fetchBudgetSpendingCallback();
+    }, [props.type, pageSize]);
+
+    useEffect(() => {
+        storeSortAndOrderObjectCallback();
         fetchBudgetSpendingCallback();
     }, [props.type, props.fy, pageSize, sort, order, spendingCategory]);
 
