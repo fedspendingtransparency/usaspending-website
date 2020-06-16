@@ -93,8 +93,6 @@ const RecipientOverview = (props) => {
         );
     }
 
-    const removeAllNonNumericCharacters = (str) => str.replace(/\D/g, '');
-
     return (
         <div
             id="recipient-overview"
@@ -123,12 +121,9 @@ const RecipientOverview = (props) => {
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
                         </div>
-                        {removeAllNonNumericCharacters(recipient.totalLoanFaceValueAmount) > 0 && removeAllNonNumericCharacters(recipient.totalLoanTransactions) > 0
-                        && (
-                            <div className="recipient-section__viz loan">
-                                <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
-                        )}
+                        <div className="recipient-section__viz loan">
+                            <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
+                        </div>
                     </div>
 
                     <div className="recipient-section__viz details">
