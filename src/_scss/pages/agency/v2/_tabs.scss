@@ -9,6 +9,7 @@
         > div {
             padding: rem(30) rem(15) rem(30);
             @include flex(1 0 0);
+            width: 100%;
         }
 
     }
