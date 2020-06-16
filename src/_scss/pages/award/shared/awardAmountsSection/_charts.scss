@@ -5,7 +5,7 @@ $new-potential: #AAC6E2;
 $file-c-outlay: #6E338E;
 $file-c-obligation: #B699C6;
 
-$old-obligated: #4773aa;
+$old-obligated: $color-cool-blue-light;
 
 $new-obligated: #0A2F5A;
 $new-current: #558EC6;
@@ -59,8 +59,8 @@ $new-potential: #AAC6E2;
             }
             &.idv-overspending,
             &.contract-overspending {
-                border-top: .4rem solid #f1f1f1;
-                border-bottom: .4rem solid #f1f1f1;
+                border-top: .4rem solid $color-gray-lightest;
+                border-bottom: .4rem solid $color-gray-lightest;
                 background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
                 &.covid {
                     border-top: .4rem solid $new-potential;
@@ -76,7 +76,7 @@ $new-potential: #AAC6E2;
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar {
                         &.contract-extreme-overspending-current,
                         &.idv-extreme-overspending-current {
-                            border: solid 0.4rem #d6d7d9;
+                            border: solid 0.4rem $color-gray-lighter;
                         }
                         &.covid.contract-extreme-overspending-current,
                         &.covid.idv-extreme-overspending-current {
@@ -98,7 +98,7 @@ $new-potential: #AAC6E2;
 
             &.idv-overspending-current,
             &.contract-overspending-current {
-                border: rem(4) solid #d6d7d9;
+                border: rem(4) solid $color-gray-lighter;
             }
 
             &.idv-extreme-overspending,

@@ -11,6 +11,7 @@ const BarValue = ({
     number
 }) => (
     <div
+        // minWidth here ensures that the container of the desc-text is not too scrunched up.
         style={{ ...style, minWidth: '100px' }}
         className={`${className} ${spendingCategory}`}
         role="button"
