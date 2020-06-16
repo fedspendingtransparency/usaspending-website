@@ -82,7 +82,6 @@ const nestedBarStyles = {
 const RectanglePercentViz = ({
     numerator,
     numerator2 = null,
-    numerator3 = null,
     denominator,
     percentage
 }) => {
@@ -102,7 +101,6 @@ const RectanglePercentViz = ({
     const classNameForCovid = isCaresReleased ? ' covid' : '';
 
     const isNumerator2Defined = (numerator2 !== null && numerator2?.rawValue > 0);
-    const isNumerator3Defined = (numerator3 !== null && numerator3?.rawValue > 0);
 
     const verticalTooltipOffset = isCaresReleased
         ? 165
@@ -318,7 +316,7 @@ const RectanglePercentViz = ({
                     isVisible: true
                 }}
                 {...activeTooltipProps} />}
-            {renderLinesAndLabelsForPosition([denominator, numerator, numerator2, numerator3], 'top')}
+            {renderLinesAndLabelsForPosition([denominator, numerator, numerator2], 'top')}
             <div className={`award-amounts-viz__bar-container ${denominator.className}`}>
                 <Bar
                     spendingCategory={denominator.className}
@@ -341,12 +339,11 @@ const RectanglePercentViz = ({
                                 }
                             </Bar>
                             {isNumerator2Defined && renderBarVisualization(numerator2)}
-                            {isNumerator3Defined && renderBarVisualization(numerator3)}
                         </>
                     )}
                 </Bar>
             </div>
-            {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2, numerator3], 'bottom')}
+            {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2], 'bottom')}
         </div>
     );
 };
