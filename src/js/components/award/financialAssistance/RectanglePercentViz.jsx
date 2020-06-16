@@ -251,7 +251,6 @@ const RectanglePercentViz = ({
                 isCaresReleased &&
                 child?.labelSortOrder > 0
             );
-            console.log("child", child.className, child, isBarAbsent);
 
             return (
                 <div className={`award-amounts-viz__desc-container ${position}${classNameForCovid}`}>
