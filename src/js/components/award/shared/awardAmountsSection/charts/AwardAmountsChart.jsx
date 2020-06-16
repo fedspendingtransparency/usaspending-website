@@ -426,6 +426,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
                     denominatorValue: awardAmounts._totalFunding,
                     barWidthOverrides: {
+                        applyToLine: true,
                         rawValue: awardAmounts._nonFederalFunding,
                         denominatorValue: awardAmounts._totalFunding
                     },

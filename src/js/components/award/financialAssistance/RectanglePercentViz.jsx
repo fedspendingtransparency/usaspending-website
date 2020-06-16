@@ -241,12 +241,18 @@ const RectanglePercentViz = ({
                 );
             }
             const isBarAbsent = (
-                child.rawValue <= 0
+                (child.rawValue <= 0) ||
+                (
+                    child?.barWidthOverrides?.rawValue <= 0 &&
+                    child?.barWidthOverrides?.applyToLine
+                )
             );
             const isLabelNested = (
                 isCaresReleased &&
                 child?.labelSortOrder > 0
             );
+            console.log("child", child.className, child, isBarAbsent);
+
             return (
                 <div className={`award-amounts-viz__desc-container ${position}${classNameForCovid}`}>
                     {!isBarAbsent &&
@@ -256,7 +262,9 @@ const RectanglePercentViz = ({
                             lineClassName={`award-amounts-viz__line ${position}${classNameForCovid}`}
                             lineStyles={{
                                 backgroundColor: child.color,
-                                width: generatePercentage(child.rawValue / denominator.rawValue)
+                                width: child?.barWidthOverrides?.applyToLine
+                                    ? generatePercentage(child.barWidthOverrides.rawValue / child.barWidthOverrides.denominatorValue)
+                                    : generatePercentage(child.rawValue / denominator.rawValue)
                             }}>
                             <BarValue
                                 spendingCategory={child.className}
