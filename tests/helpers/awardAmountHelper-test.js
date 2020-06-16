@@ -8,6 +8,7 @@ import {
     generatePercentage,
     getAscendingSpendingCategoriesByAwardType,
     determineSpendingScenarioAsstAwards,
+    determineFileCSpendingScenario,
     determineSpendingScenarioByAwardType
 } from 'helpers/awardAmountHelper';
 
@@ -27,9 +28,14 @@ const contractAwardAmounts = {
 };
 const idvAwardAmounts = contractAwardAmounts;
 
-const buildContract = (amounts) => ({ _totalObligation: amounts[0], _baseExercisedOptions: amounts[1], _baseAndAllOptions: amounts[2] });
-const buildLoan = (amounts) => ({ _subsidy: amounts[0], _faceValue: amounts[1] });
-const buildAsst = (amounts) => ({ _totalObligation: amounts[0], _nonFederalFunding: amounts[1], _totalFunding: amounts[2] });
+const fileCAmounts = {
+    _fileCObligated: 0,
+    _fileCOutlay: 0
+};
+
+const buildContract = (amounts) => ({ _totalObligation: amounts[0], _baseExercisedOptions: amounts[1], _baseAndAllOptions: amounts[2], ...fileCAmounts });
+const buildLoan = (amounts) => ({ _subsidy: amounts[0], _faceValue: amounts[1], ...fileCAmounts });
+const buildAsst = (amounts) => ({ _totalObligation: amounts[0], _nonFederalFunding: amounts[1], _totalFunding: amounts[2], ...fileCAmounts });
 
 describe('Award Amounts Advanced Search Filter Helper', () => {
     describe('Format Labels', () => {
@@ -191,6 +197,23 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
                 const awardAmountObj = buildAsst([firstSpendingCategory, secondSpendingCategory, thirdSpendingCategory]);
                 const scenario = determineSpendingScenarioByAwardType(awardType, awardAmountObj);
                 expect(scenario).toEqual(result);
+            }
+        );
+    });
+    describe('determineFileCSpendingScenario', () => {
+        it.each([
+            ['normal', 51, 50, 99, [1, 2]],
+            ['normal', 100, 50, 99, [1, 2]],
+            ['insufficientData', 1, 50, 99, [2, 1]],
+            ['normal', 1, 50, 99, [0, 0]],
+            ['normal', 1, 50, 99, [0, 1]],
+            ['normal', 1, 50, 99, [1, 1]],
+            ['insufficientData', 1, 50, 99, [-1, 1]]
+        ])(
+            ('returns %s for contracts when normative ascending values are %s, %s, %s'),
+            (expected, asc1, asc2, asc3, fileCData) => {
+                const awardAmountObj = { ...buildContract([asc1, asc2, asc3]), _fileCObligated: fileCData[1], _fileCOutlay: fileCData[0] };
+                expect(determineFileCSpendingScenario('contract', awardAmountObj)).toEqual(expected);
             }
         );
     });
