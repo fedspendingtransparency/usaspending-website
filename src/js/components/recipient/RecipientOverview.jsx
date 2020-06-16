@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import { recipientOverviewLoanInfo } from '../award/shared/InfoTooltipContent';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
@@ -48,7 +47,7 @@ const RecipientOverview = (props) => {
             <button
                 className="recipient-overview__children-button"
                 onClick={props.showChildRecipientModal}>
-                    View child recipients <FontAwesomeIcon icon={faCaretRight} />
+                    View child recipients <FontAwesomeIcon icon="caret-right" />
             </button>
         );
     }
@@ -59,7 +58,7 @@ const RecipientOverview = (props) => {
             <button
                 className="recipient-overview__alternate-names-button"
                 onClick={props.showAlternateNamesRecipientModal}>
-                {`Also known by ${numberOfAlternateNames} other ${pluralizeAltNamesLabel}`} <FontAwesomeIcon icon={faCaretRight} />
+                {`Also known by ${numberOfAlternateNames} other ${pluralizeAltNamesLabel}`} <FontAwesomeIcon icon="caret-right" />
             </button>
         )
         : null;
@@ -68,7 +67,7 @@ const RecipientOverview = (props) => {
     let address = (
         <td>Address not provided in source system</td>
     );
-    if (recipient.location.streetAddress || recipient.location.regionalAddress || recipient.location.fullCongressionalDistrict) {
+    if (recipient.location.streetAddress && recipient.location.regionalAddress && recipient.location.fullCongressionalDistrict) {
         address = (
             <td>
                 <div>{recipient.location.streetAddress}</div>
