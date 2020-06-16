@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 // Mapping of section identifier to tooltip content JSX
 export const transactionHistoryInfoGeneric = (
@@ -1286,9 +1287,9 @@ export const CovidFlagTooltip = ({ codes }) => (
             <p style={{ textAlign: 'center' }}>
                 {codes.map((code, i, arr) => {
                     if (i === arr.length - 1) {
-                        return <strong>{code.toUpperCase()}</strong>;
+                        return <strong key={uniqueId(i)}>{code.toUpperCase()}</strong>;
                     }
-                    return <strong>{`${code.toUpperCase()}, `}</strong>;
+                    return <strong key={uniqueId(i)}>{`${code.toUpperCase()}, `}</strong>;
                 }
                 )}
             </p>
