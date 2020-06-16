@@ -9,15 +9,44 @@ import PropTypes from 'prop-types';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
-import ProgramSourceInfoTooltip from '../tooltips/ProgramSourceInfoTooltip';
+import { CSSOnlyTooltip } from '../tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
-    selectedFederalComponents: PropTypes.object,
     selectedTreasuryComponents: PropTypes.object,
-    updateFederalAccountComponents: PropTypes.func,
+    checkboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
+    appliedTreasuryComponents: PropTypes.object,
+    appliedCheckboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
     updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
+
+const dataNote = (
+    <React.Fragment>
+        This filter uses Account Breakdown by Award data (available&nbsp;
+        <a
+            href="/#/download_center/custom_account_data"
+            target="_blank"
+            rel="noopener noreferrer">
+            here
+        </a>
+        &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
+        <a
+            href="/#/download_center/custom_account_data"
+            target="_blank"
+            rel="noopener noreferrer">
+            Custom Account Data
+        </a>
+        &nbsp;section.
+    </React.Fragment>
+);
+
+const treasuryAccountTab = (
+    <p>Start here to see Treasury Accounts organized by Agency and Federal Account.</p>
+);
+
+const tasComponentsTab = (
+    <p>Start here if you already know the code you want to find.</p>
+);
 
 export default class ProgramSourceSection extends React.Component {
     constructor(props) {
@@ -75,33 +104,26 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     openDefaultTab() {
-        // switch to the federal account tab if it has a filter applied and TAS does not
-        if (this.props.selectedFederalComponents.size > 0 && this.props.selectedTreasuryComponents.size === 0) {
+        // switch to the autocomplete tab if it has a filter selected/applied and the checkbox tree does not
+        if ((this.props.checkboxTreeSelections.length === 0 && this.props.selectedTreasuryComponents.size > 0) ||
+            (this.props.appliedCheckboxTreeSelections.length === 0 && this.props.appliedTreasuryComponents.size > 0)) {
             this.setState({
-                activeTab: 1
+                activeTab: 2
             });
         }
     }
 
     toggleTab(e) {
-        const type = e.target.value;
-
+        e.preventDefault();
         this.setState({
-            activeTab: parseInt(type, 10)
+            activeTab: this.state.activeTab === 1 ? 2 : 1
         });
     }
 
     applyFilter(e) {
         e.preventDefault();
-        const components = this.state.components;
-        if (this.state.activeTab === 'federal') {
-            const identifier = `${components.aid}-${components.main}`;
-            this.props.updateFederalAccountComponents({
-                identifier,
-                values: components
-            });
-        }
-        else {
+        const { components } = this.state;
+        if (this.state.activeTab === 2) {
             const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}/${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
             this.props.updateTreasuryAccountComponents({
                 identifier,
@@ -127,12 +149,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     removeFilter(identifier) {
-        if (this.state.activeTab === 'federal') {
-            this.props.updateFederalAccountComponents({
-                identifier, values: {}
-            });
-        }
-        else {
+        if (this.state.activeTab === 2) {
             this.props.updateTreasuryAccountComponents({
                 identifier, values: {}
             });
@@ -142,8 +159,9 @@ export default class ProgramSourceSection extends React.Component {
 
     render() {
         const { activeTab, components } = this.state;
-        const activeTreasury = activeTab === 1 ? '' : 'inactive';
-        const activeFederal = activeTab === 2 ? '' : 'inactive';
+        const checkboxTreeActiveClass = activeTab === 1 ? '' : 'inactive';
+        const autoCompleteActiveClass = activeTab === 2 ? '' : 'inactive';
+
         const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
@@ -155,7 +173,7 @@ export default class ProgramSourceSection extends React.Component {
         );
 
         let selectedSources = null;
-        if (activeTab === 2 && this.props.selectedFederalComponents) {
+        if (activeTab === 2 && this.props.selectedTreasuryComponents.size > 0) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
@@ -163,25 +181,6 @@ export default class ProgramSourceSection extends React.Component {
                     selectedSources={this.props.selectedTreasuryComponents} />
             );
         }
-        const dataNote = (
-            <React.Fragment>
-                This filter uses Account Breakdown by Award data (available&nbsp;
-                <a
-                    href="/#/download_center/custom_account_data"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    here
-                </a>
-                &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
-                <a
-                    href="/#/download_center/custom_account_data"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Custom Account Data
-                </a>
-                &nbsp;section.
-            </React.Fragment>
-        );
 
         return (
             <div className="program-source-filter search-filter">
@@ -189,34 +188,40 @@ export default class ProgramSourceSection extends React.Component {
                     className="toggle-buttons"
                     role="menu">
                     <li>
-                        <button
-                            className={`tab-toggle ${activeTreasury}`}
-                            value="1"
+                        <div
                             role="menuitemradio"
+                            onKeyDown={this.toggleTab}
+                            tabIndex="-1"
+                            className={`tab-toggle ${checkboxTreeActiveClass}`}
+                            value="1"
                             aria-checked={this.state.activeTab === 1}
                             title="Treasury Account"
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
-                            Treasury Account
-                        </button>
+                            <span>Treasury Account</span>
+                            <CSSOnlyTooltip definition={treasuryAccountTab} heading="Treasury Account" />
+                        </div>
                     </li>
                     <li>
-                        <button
-                            className={`tab-toggle ${activeFederal}`}
-                            value="2"
+                        <div
                             role="menuitemradio"
+                            onKeyDown={this.toggleTab}
+                            tabIndex="-1"
+                            className={`tab-toggle ${autoCompleteActiveClass}`}
+                            value="2"
                             aria-checked={this.state.activeTab === 2}
-                            title="Federal Account"
-                            aria-label="Federal Account"
+                            title="Treasury Account Symbol Components"
+                            aria-label="Treasury Account Symbol Components"
                             onClick={this.toggleTab}>
-                            TAS Components
-                        </button>
+                            <span>TAS Components</span>
+                            <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
+                        </div>
                     </li>
                 </ul>
                 <div className="toggle-border" />
                 {filter}
                 {selectedSources}
-                <ProgramSourceInfoTooltip
+                <CSSOnlyTooltip
                     definition={dataNote}
                     heading="A note about our TAS data sources"
                     description="A note about our TAS data sources." />

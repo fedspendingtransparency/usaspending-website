@@ -2,7 +2,7 @@
     @import '../../../../components/_checkboxTree';
     display: block;
     padding-top: rem(15);
-    .tas-checkbox__header {
+    .checkbox-header {
       @include display(flex);
       .tooltip-popover-container .tooltip-popover {
         bottom: rem(45);

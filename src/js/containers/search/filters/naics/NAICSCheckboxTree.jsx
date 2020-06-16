@@ -10,6 +10,8 @@ import { debounce, uniqueId } from 'lodash';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+
 import {
     incrementNaicsCountAndUpdateUnchecked,
     decrementNaicsCountAndUpdateUnchecked,
@@ -38,7 +40,7 @@ import {
     setUncheckedNaics,
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
-import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
+import { updateNaics } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
@@ -69,6 +71,16 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     filters: PropTypes.object
 };
+
+const SearchTooltip = () => (
+    <>
+        <p>Filter the options below by typing any of the following:</p>
+        <ul>
+            <li>Any NAICS numeric code (or part thereof)</li>
+            <li>Any NAICS label name (or part thereof)</li>
+        </ul>
+    </>
+);
 
 export class NAICSCheckboxTree extends React.Component {
     constructor(props) {
@@ -410,6 +422,9 @@ export class NAICSCheckboxTree extends React.Component {
         return (
             <div>
                 <div className="naics-search-container">
+                    <span className="checkbox-header">Search by Code or Name
+                        <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
+                    </span>
                     <EntityDropdownAutocomplete
                         placeholder="Type to find codes"
                         searchString={searchString}
@@ -469,7 +484,7 @@ export default connect(
         filters: state.appliedFilters.filters
     }),
     (dispatch) => ({
-        stageNaics: (checked, unchecked, counts) => dispatch(updateNaicsV2(checked, unchecked, counts)),
+        stageNaics: (checked, unchecked, counts) => dispatch(updateNaics(checked, unchecked, counts)),
         setNaicsNodes: (key, naics) => dispatch(setNaicsNodes(key, naics)),
         setExpandedNaics: (expanded, type) => dispatch(setExpandedNaics(expanded, type)),
         setCheckedNaics: (checkedNodes) => dispatch(setCheckedNaics(checkedNodes)),
