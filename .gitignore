@@ -60,3 +60,6 @@ usa_spending.sh
 
 # direnv
 .envrc
+
+# IDE stuff
+.vscode
