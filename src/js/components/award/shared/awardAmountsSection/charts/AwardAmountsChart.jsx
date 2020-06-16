@@ -17,6 +17,7 @@ const propTypes = {
 
 const isCaresActReleased = GlobalConstants.CARES_ACT_RELEASED;
 
+// Only for Contract and IDV Awards
 const buildNormalProps = (awardType, data, hasFileC) => {
     const chartProps = {
         denominator: {
@@ -97,6 +98,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
     };
 };
 
+// Only for Contract and IDV Awards
 const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
     const showCares = (isCaresActReleased && hasFileC);
     const chartProps = {
@@ -220,6 +222,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
     };
 };
 
+// Only for Contract and IDV Awards
 const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
     const chartProps = {
         denominator: {
