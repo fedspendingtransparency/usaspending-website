@@ -18,6 +18,7 @@ export const caresActSpendingCategories = [
     'fileCOutlayFormatted'
 ];
 
+// TODO: [DEV-5434] Remove White Listed Award IDs for Mock Award Amount Data
 export const mockAwardIdsForCaresAct = [
     // contract
     'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-',
