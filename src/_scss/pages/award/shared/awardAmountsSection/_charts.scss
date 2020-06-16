@@ -376,7 +376,7 @@ $new-potential: #AAC6E2;
                         border-left: rem(1) solid $file-c-outlay;
                     }
         
-                    &.non-federal-funding {
+                    &.asst-non-federal-funding {
                         border-bottom: 1px solid $grants-line-color;
                         &::before {
                             @extend %award-amounts-viz__line-indicator;
