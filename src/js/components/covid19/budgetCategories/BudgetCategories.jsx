@@ -3,11 +3,10 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BudgetCategoriesCountTabContainer from 'containers/covid19/budgetCategories/BudgetCategoriesCountTabContainer';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
-import { fetchDefCodes } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const tabs = [
     {
@@ -40,20 +39,11 @@ const tabs = [
 
 const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState('federal_account');
-    const [defCodes, setDefCodes] = useState([]);
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
 
     // TODO - Remove hard coded values
     const fy = 2020;
     const dateString = "June 30, 2020";
-
-    // TODO - remove this temporary def codes fetch when it's put into redux
-    useEffect(() => {
-        const requestDefCodes = fetchDefCodes();
-        requestDefCodes.promise.then((res) => {
-            setDefCodes(res.data.codes.filter((code) => code.disaster === 'covid_19'));
-        });
-    }, []);
 
     return (
         <div className="body__content">
@@ -77,15 +67,13 @@ const BudgetCategories = () => {
                             {...tab}
                             setActiveTab={setActiveTab}
                             active={activeTab === tab.type}
-                            fy={fy}
-                            defCodes={defCodes} />
+                            fy={fy} />
                     ))}
                 </div>
                 <BudgetCategoriesTableContainer
                     type={activeTab}
                     subHeading={subHeading}
-                    fy={fy}
-                    defCodes={defCodes} />
+                    fy={fy} />
             </div>
         </div>
     );

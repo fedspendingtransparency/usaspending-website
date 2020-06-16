@@ -36,6 +36,8 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+
 
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((row) => {
@@ -47,13 +49,13 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
-        if (props.defCodes && spendingCategory) {
+        if (defCodes && spendingCategory) {
             setLoading(true);
 
             if (spendingCategory === 'loan_spending') {
                 const params = {
                     filter: {
-                        def_codes: props.defCodes,
+                        def_codes: defCodes,
                         fiscal_year: props.fy
                     },
                     pagination: {
@@ -78,7 +80,7 @@ const BudgetCategoriesTableContainer = (props) => {
             } else {
                 const params = {
                     filter: {
-                        def_codes: props.defCodes,
+                        def_codes: defCodes,
                         fiscal_year: props.fy
                     },
                     spending_type: apiSpendingTypes[spendingCategory],

@@ -4,12 +4,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import CountTab from 'components/agency/v2/CountTab';
 import { fetchDisasterSpendingCount } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const propTypes = {
-    defCodes: PropTypes.array.isRequired,
     fy: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -21,15 +21,16 @@ const propTypes = {
 
 const BudgetCategoriesCountTabContainer = (props) => {
     const [count, setCount] = useState(null);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
-        if (props.defCodes) {
+        if (defCodes) {
             // Reset any existing results
             setCount(null);
 
             const params = {
                 fiscal_year: props.fy,
-                def_codes: props.defCodes
+                def_codes: defCodes
             };
             const countRequest = fetchDisasterSpendingCount(props.type, params);
             countRequest.promise
