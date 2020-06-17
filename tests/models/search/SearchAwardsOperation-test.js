@@ -10,7 +10,7 @@ describe('SearchAwardsOperation', () => {
     describe('building the request object with toParams', () => {
         // we have two kinds of tas properties on the request object; one for the checkbox
         // tree selections; the other for the non-checkbox tree selections
-        it('does not put an empty exclude array for tas_components property when tas-checbox tree items are selected', () => {
+        it('does not put an empty exclude or count array for tas_codes property when tas-checkbox tree items are selected', () => {
             const model = new SearchAwardsOperation();
             model.fromState({
                 ...initialState,
@@ -25,7 +25,7 @@ describe('SearchAwardsOperation', () => {
             expect(Object.keys(requestObject)).toEqual(['time_period', 'tas_codes']);
             expect(requestObject.tas_codes.counts).toBeFalsy();
         });
-        it('does not put an empty exclude array for def_codes property when tas-checbox tree items are selected', () => {
+        it('does not put an empty exclude or count array for def_codes property when defcode-checkbox tree items are selected', () => {
             const model = new SearchAwardsOperation();
             model.fromState({
                 ...initialState,
