@@ -3,6 +3,8 @@
  * Created by Jonathan Hill 06/10/20
  */
 
+import MapContainer from 'containers/covid19/recipient/RecipientContainer';
+
 import React from 'react';
 
 export const TooltipComponent = () => (
@@ -54,7 +56,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <MapContainer />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip
     },
