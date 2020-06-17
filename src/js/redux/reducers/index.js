@@ -25,6 +25,7 @@ import tasReducer from './search/tasReducer';
 import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 import agencyV2Reducer from './agencyV2/agencyV2Reducer';
+import covid19Reducer from './covid19/covid19Reducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -50,7 +51,8 @@ const appReducer = combineReducers({
     tas: tasReducer,
     psc: pscReducer,
     searchMapLegendToggle: mapLegendToggleReducer,
-    agencyV2: agencyV2Reducer
+    agencyV2: agencyV2Reducer,
+    covid19: covid19Reducer
 });
 
 export default appReducer;
