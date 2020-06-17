@@ -44,6 +44,5 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
     setActiveSection(matchedSection);
 };
 
-export const getCovidFromFileC = (arr) => arr
-    .filter((obj) => defCodes.includes(obj.code))
-    .map((obj) => obj.code);
+export const getCovidFromFileC = (codes) => codes
+    .filter((code) => defCodes.includes(code));

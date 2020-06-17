@@ -13,7 +13,7 @@ import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
 const isCaresReleased = GlobalConstants.CARES_ACT_RELEASED;
 
 const AwardPageWrapper = ({
-    fileC,
+    defCodes,
     awardType,
     title,
     glossaryLink,
@@ -24,7 +24,7 @@ const AwardPageWrapper = ({
     dates
 }) => {
     const covidDefC = isCaresReleased
-        ? getCovidFromFileC(fileC?.obligations)
+        ? getCovidFromFileC(defCodes)
         : [];
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :

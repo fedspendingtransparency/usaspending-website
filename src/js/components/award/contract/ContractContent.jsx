@@ -69,6 +69,7 @@ const ContractContent = ({
     });
     return (
         <AwardPageWrapper
+            defCodes={overview.defCodes}
             glossaryLink={glossaryLink}
             overviewType={overview.type}
             identifier={overview.piid}
