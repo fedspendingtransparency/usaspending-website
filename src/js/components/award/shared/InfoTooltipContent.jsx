@@ -1293,7 +1293,7 @@ export const CovidFlagTooltip = ({ codes }) => (
                 }
                 )}
             </p>
-        </div> 
+        </div>
     </div>
 );
 
