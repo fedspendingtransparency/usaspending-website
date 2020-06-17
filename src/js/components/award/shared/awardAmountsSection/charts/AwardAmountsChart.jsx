@@ -61,7 +61,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             ]
         }
     };
-    if (!hasFileC) return chartProps;
+    if (!hasFileC || !isCaresActReleased) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -171,7 +171,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
         }
     };
-    if (!showCares) return chartProps;
+    if (!hasFileC || !isCaresActReleased) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -314,7 +314,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsPotential', data)
         }
     };
-    if (!hasFileC) return chartProps;
+    if (!hasFileC || !isCaresActReleased) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -398,7 +398,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
-            const showFileC = awardAmounts._fileCObligated > 0 && GlobalConstants.CARES_ACT_RELEASED;
+            const showFileC = awardAmounts._fileCObligated > 0 && isCaresActReleased;
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',
@@ -471,7 +471,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             );
         }
         else if (type === 'loan' && isNormal) {
-            const hasFileC = awardAmounts._fileCObligated > 0;
+            const showFileC = awardAmounts._fileCObligated > 0 && isCaresActReleased;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',
@@ -494,7 +494,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     color: '#fff'
                 }
             };
-            const props = hasFileC
+            const props = showFileC
                 ? {
                     ...propsWithoutFileC,
                     numerator: {
