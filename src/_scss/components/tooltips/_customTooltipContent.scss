@@ -48,9 +48,9 @@
         margin: 0;
     }
     .info-tooltip__list {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include flex-direction(column);
         &.award-desciption-section {
             // the list in the award description section
             li:last-of-type {

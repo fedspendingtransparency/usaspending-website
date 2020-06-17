@@ -15,10 +15,10 @@ import AccountProgramActivityContainer
 
 const filters = {
     options: [
-        'Time Period',
-        'Object Class',
-        'Program Activity',
-        'Treasury Account Symbol (TAS)'
+        { title: 'Time Period' },
+        { title: 'Object Class' },
+        { title: 'Program Activity' },
+        { title: 'Treasury Account Symbol (TAS)' }
     ],
     components: [
         AccountTimePeriodContainer,
