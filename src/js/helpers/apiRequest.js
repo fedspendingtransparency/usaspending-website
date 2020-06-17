@@ -7,7 +7,7 @@ import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
 const mockUrl = `http://localhost:5000/api/`;
-const localUrl = `http://localhost:8080/api/`;
+const localUrl = `http://localhost:8000/api/`;
 
 const getBaseUrl = (params) => {
     if (params.isMocked) return mockUrl;
