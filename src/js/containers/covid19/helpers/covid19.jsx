@@ -3,6 +3,8 @@
  * Created by Jonathan Hill 06/10/20
  */
 
+import SankeyContainer from 'containers/covid19/SankeyContainer';
+
 import React from 'react';
 
 export const TooltipComponent = () => (
@@ -42,7 +44,7 @@ const ComingSoon = () => (
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
-        component: <ComingSoon />,
+        component: <SankeyContainer />,
         headerText: totalSpendingText,
         headerTextTooltip: totalSpendingTooltip
     },
