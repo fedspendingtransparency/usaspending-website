@@ -332,16 +332,14 @@ export class MapContainer extends React.Component {
         });
     }
 
-    addOnClickToFilters = () => {
-        return Object.keys(filters).reduce((acc, filter) => {
-            const filterWithOnClick = {
-                ...filters[filter],
-                onClick: this[filtersOnClickHandler[filter]]
-            };
-            acc[filter] = filterWithOnClick;
-            return acc;
-        }, {});
-    }
+    addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
+        const filterWithOnClick = {
+            ...filters[filter],
+            onClick: this[filtersOnClickHandler[filter]]
+        };
+        acc[filter] = filterWithOnClick;
+        return acc;
+    }, {});
 
     render() {
         let message = null;

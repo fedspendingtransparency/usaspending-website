@@ -66,7 +66,7 @@ export const filters = {
             },
             {
                 value: 'category_business',
-                label: 'Business',
+                label: 'Business'
             },
             {
                 value: 'minority_owned_business',

@@ -217,62 +217,60 @@ export default class MapWrapper extends React.Component {
         this.loadedLayers[type] = sourceRef;
     }
 
-    prepareLayers = () => {
-        return new Promise((resolve, reject) => {
-            if (!this.state.mapReady) {
-                // something went wrong, the map isn't ready yet
-                reject();
+    prepareLayers = () => new Promise((resolve, reject) => {
+        if (!this.state.mapReady) {
+            // something went wrong, the map isn't ready yet
+            reject();
+        }
+
+        const source = mapboxSources[this.props.scope];
+        if (!source) {
+            reject();
+        }
+
+        // hide all the other layers
+        Object.keys(mapboxSources).forEach((type) => {
+            if (type !== this.props.scope) {
+                this.hideSource(type);
             }
-
-            const source = mapboxSources[this.props.scope];
-            if (!source) {
-                reject();
-            }
-
-            // hide all the other layers
-            Object.keys(mapboxSources).forEach((type) => {
-                if (type !== this.props.scope) {
-                    this.hideSource(type);
-                }
-            });
-
-            this.showSource(this.props.scope);
-
-            // check if we need to zoom in to show the layer
-            if (source.minZoom) {
-                const currentZoom = this.mapRef.map.getZoom();
-                if (currentZoom < source.minZoom) {
-                    // we are zoomed too far out and won't be able to see the new map layer, zoom in
-                    // don't allow users to zoom further out than the min zoom
-                    this.mapRef.map.setMinZoom(source.minZoom);
-                }
-            }
-            else {
-                this.mapRef.map.setMinZoom(0);
-            }
-
-
-            const parentMap = this.mapRef.map;
-            function renderResolver() {
-                parentMap.off('render', renderResolver);
-                resolve();
-            }
-            function loadResolver(e) {
-                // Mapbox insists on emitting sourcedata events for many different source
-                // loading stages, so we need to wait for the source to be loaded AND for
-                // it to be affecting tiles (aka, it has moved onto the render stage)
-                if (e.isSourceLoaded && e.tile) {
-                    // source has finished loading and is rendered (so we can start filtering
-                    // and querying)
-                    parentMap.off('sourcedata', loadResolver);
-                    parentMap.on('render', renderResolver);
-                }
-            }
-
-            // if we're loading new data, we need to wait for the data to be ready
-            this.mapRef.map.on('sourcedata', loadResolver);
         });
-    }
+
+        this.showSource(this.props.scope);
+
+        // check if we need to zoom in to show the layer
+        if (source.minZoom) {
+            const currentZoom = this.mapRef.map.getZoom();
+            if (currentZoom < source.minZoom) {
+                // we are zoomed too far out and won't be able to see the new map layer, zoom in
+                // don't allow users to zoom further out than the min zoom
+                this.mapRef.map.setMinZoom(source.minZoom);
+            }
+        }
+        else {
+            this.mapRef.map.setMinZoom(0);
+        }
+
+
+        const parentMap = this.mapRef.map;
+        function renderResolver() {
+            parentMap.off('render', renderResolver);
+            resolve();
+        }
+        function loadResolver(e) {
+            // Mapbox insists on emitting sourcedata events for many different source
+            // loading stages, so we need to wait for the source to be loaded AND for
+            // it to be affecting tiles (aka, it has moved onto the render stage)
+            if (e.isSourceLoaded && e.tile) {
+                // source has finished loading and is rendered (so we can start filtering
+                // and querying)
+                parentMap.off('sourcedata', loadResolver);
+                parentMap.on('render', renderResolver);
+            }
+        }
+
+        // if we're loading new data, we need to wait for the data to be ready
+        this.mapRef.map.on('sourcedata', loadResolver);
+    });
 
     measureMap = (forced = false) => {
         // determine which entities (state, counties, etc based on current scope) are in view

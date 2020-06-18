@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as MapHelper from 'helpers/mapHelper';
 import { visualizationColors } from 'dataMapping/covid19/recipient/map/map';
 import MapLegendItem from './MapLegendItem';
 
@@ -82,7 +81,7 @@ const MapLegend = ({ units, segments }) => {
             </ul>
         </div>
     );
-}
+};
 
 MapLegend.propTypes = propTypes;
 MapLegend.defaultProps = defaultProps;
