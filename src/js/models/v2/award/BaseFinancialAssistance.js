@@ -32,7 +32,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         id: data.id,
         generatedId: data.generated_unique_award_id,
         type: data.type,
-        typeDescription: data.ty8000pe_description,
+        typeDescription: data.type_description,
         description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
