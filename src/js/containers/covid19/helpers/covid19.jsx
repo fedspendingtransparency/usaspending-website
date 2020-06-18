@@ -54,7 +54,7 @@ export const componentByCovid19Section = () => ({
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip
     },
-    award_spending_recipient: {
+    award_spending_by_recipient: {
         icon: 'building',
         component: <MapContainer />,
         headerText: awardSpendingText,
