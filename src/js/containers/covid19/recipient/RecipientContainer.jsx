@@ -7,13 +7,20 @@ import React, { useState } from 'react';
 import { uniqueId } from 'lodash';
 import tabs from 'dataMapping/covid19/recipient/recipient';
 import RecipientTab from 'components/covid19/recipient/RecipientTab';
+import DateNote from 'components/covid19/DateNote';
 
 const RecipientContainer = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
     return (
         <div className="recipient__container">
+            <DateNote />
             <div className="recipient__title">
-                    Who received COVID-19 response funding?
+                These are the recipients who received COVID-19 Response awards.
+            </div>
+            <div className="recipient__sub-title">
+                Federal agencies allocate award funds. Agencies receive funding from
+                the Federal Government, which they award to recipients in order to
+                respond to the COVID-19 pandemic.
             </div>
             <div className="recipient__questions">
                 {

@@ -187,17 +187,12 @@ export const logMapScopeEvent = (scope) => {
         action: scope
     });
 };
-// darkest #3B005B
-// darker #5d2b78
-// normal #6E338E
-// light #8c41b4
-// lighter #9266AA
-// lighest #b799c7
+
 export const visualizationColors = [
-  '#b799c7',
-  '#9266AA',
-  '#8c41b4',
-  '#6E338E',
-  '#5d2b78',
-  '#3B005B'
+    '#dfe5ea',
+    '#dfe5ea',
+    '#c9d2d7',
+    '#6c8a8e',
+    '#3e5c6a',
+    '#083546'
 ];

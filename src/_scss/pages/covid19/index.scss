@@ -274,6 +274,9 @@
               @include display(flex);
               @include flex-wrap(wrap);
               margin-bottom: 14rem;
+              .covid__date-note {
+                padding-top: 0.4rem;
+              }
               .body__header {
                   width: 100%;
                   @include display(flex);

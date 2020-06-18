@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
-import MapLegendItem from './MapLegendItem';
 import { visualizationColors } from 'dataMapping/covid19/recipient/map/map';
+import MapLegendItem from './MapLegendItem';
 
 const propTypes = {
     units: PropTypes.shape({

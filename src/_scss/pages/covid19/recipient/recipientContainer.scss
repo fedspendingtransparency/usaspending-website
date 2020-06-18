@@ -4,7 +4,18 @@
   width: 100%;
   .recipient__title {    
     font-size: 3rem;
-    padding: 3rem 0 3rem 0;
+    padding: 2.1rem 6.1rem;
+    text-align: center;
+    justify-content: center;
+    @include display(flex);
+    width: 100%;
+  }
+  .recipient__sub-title{
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    line-height: 1.8rem;
+    text-align: center;
+    padding: 0 11rem 6.6rem 11rem;
     text-align: center;
     justify-content: center;
     @include display(flex);
@@ -96,8 +107,17 @@
                 .usa-dt-picker__dropdown-container {
                   .usa-dt-picker__button {
                     padding: 0.5rem 0 0 0;
+                    .usa-dt-picker__button-text {
+                      @include flex(0 0 auto);
+                      margin-right: 0.3rem;
+                    }
                     .usa-dt-picker__button-icon {
-                      @include display(none);
+                      padding-bottom: 0.25rem;
+                      svg {
+                        color: $color-primary;
+                        height: 1.25rem;
+                        width: 1.25rem;
+                      }
                     }
                     .usa-dt-picker__button-text{
                       font-size: 1.4rem;
