@@ -70,7 +70,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip
     },
-    award_spending_by_assistance_living: {
+    award_spending_by_assistance_listing: {
         icon: 'plus-circle',
         component: <ComingSoon />,
         headerText: awardSpendingText,
