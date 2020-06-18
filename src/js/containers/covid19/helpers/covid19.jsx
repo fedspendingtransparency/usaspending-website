@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import AwardQuestion from 'components/covid19/AwardQuestions';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -44,36 +45,46 @@ export const componentByCovid19Section = () => ({
         icon: 'hand-holding-medical',
         component: <ComingSoon />,
         headerText: totalSpendingText,
-        headerTextTooltip: totalSpendingTooltip
+        headerTextTooltip: totalSpendingTooltip,
+        showInMenu: true
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
         component: <ComingSoon />,
         headerText: totalSpendingText,
-        headerTextTooltipooltip: totalSpendingTooltip
+        headerTextTooltipooltip: totalSpendingTooltip,
+        showInMenu: true
+    },
+    award_question: {
+        component: <AwardQuestion />,
+        showInMenu: false
     },
     award_spending_recipient: {
         icon: 'building',
         component: <ComingSoon />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true
     },
     award_spending_by_agency: {
         icon: 'sitemap',
         component: <ComingSoon />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true
     },
     award_spending_over_time: {
         icon: 'chart-area',
         component: <ComingSoon />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
         component: <ComingSoon />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true
     }
 });

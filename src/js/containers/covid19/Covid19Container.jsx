@@ -133,6 +133,7 @@ const Covid19Container = () => {
                         jumpToSection={jumpToCovid19Section}
                         detectActiveSection={setActiveSection}
                         sections={Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMenu)
                             .map((section) => ({
                                 section: snakeCase(section),
                                 label: startCase(section)
@@ -142,15 +143,16 @@ const Covid19Container = () => {
                     <section className="body__section">
                         <Heading />
                     </section>
-                    {Object.keys(componentByCovid19Section()).map((section) => (
-                        <Covid19Section
-                            key={section}
-                            section={section}
-                            icon={componentByCovid19Section()[section].icon}
-                            headerText={componentByCovid19Section()[section].headerText}>
-                            {componentByCovid19Section()[section].component}
-                        </Covid19Section>
-                    ))}
+                    {Object.keys(componentByCovid19Section())
+                        .map((section) => (
+                            <Covid19Section
+                                key={section}
+                                section={section}
+                                icon={componentByCovid19Section()[section].icon}
+                                headerText={componentByCovid19Section()[section].headerText}>
+                                {componentByCovid19Section()[section].component}
+                            </Covid19Section>
+                        ))}
                     <section className="body__section">
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}

@@ -6,10 +6,11 @@
 import React from 'react';
 
 const Heading = () => (
-    <div className="heading__container">
+    <div className="heading__container information-body">
+        <div className="heading__top information-top" />
         <div className="heading__title">
             How much has the Federal Government
-            spent on the <span className="color-purple">COVID-19 Response</span> in total?
+            spent on the <span className="color-purple">COVID-19 Response</span> <strong>in total</strong>?
         </div>
         <div className="heading__description">
             In April 2020 the Federal Government began allocating funds in
