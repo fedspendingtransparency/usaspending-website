@@ -84,8 +84,8 @@ export const awardTableClassMap = {
     "Total Funding": "award-amounts__data-icon_gray",
     "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
     "Original Subsidy Cost": "award-amounts__data-icon_yellow",
-    "COVID-19 2020 Related Obligations Amount": "award-amounts__file-c-obligations",
-    "COVID-19 2020 Related Outlays Amount": "award-amounts__file-c-outlays"
+    "COVID-19 Related Obligations Amount": "award-amounts__file-c-obligations",
+    "COVID-19 Related Outlays Amount": "award-amounts__file-c-outlays"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {
