@@ -21,6 +21,7 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+// import OverviewModel from 'models/covid19/OverviewModel';
 import {
     slug,
     getEmailSocialShareData,
@@ -70,12 +71,9 @@ const Covid19Container = () => {
     //         try {
     //             const { data } = await overviewRequest.current.promise;
     //             const { spending, funding } = data;
-    //             data.spending.otherObligations = spending.total_obligations - spending.award_obligations;
-    //             data.spending.awardObligationsNotOutlayed = spending.award_obligations - spending.award_outlays;
-    //             data.spending.remainingBalance = funding.total_budget_authority - spending.total_obligations;
-    //             data.spending.nonAwardOutLays = spending.total_outlays - spending.award_outlays;
-    //             data.spending.nonAwardNotOutlayed = data.spending.otherObligations - data.spending.nonAwardOutlays;
-    //             dispatch(setOverview(data));
+    //             const newOverview = Object.create(OverviewModel);
+    //              newOverview.populate(data);
+    //             dispatch(setOverview(newOverview));
     //         }
     //         catch (e) {
     //             console.log(' Error Overview : ', e.message);
