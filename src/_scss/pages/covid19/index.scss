@@ -185,6 +185,7 @@
       }
       .body {
           @import "components/_footerLinkToAdvancedSearch";
+          @import './awardSpendingAgency/awardSpendingAgency';
           @include display(flex);
           width: 100%;
           @include flex-direction(column);

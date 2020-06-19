@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -60,7 +61,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_agency: {
         icon: 'sitemap',
-        component: <ComingSoon />,
+        component: <AwardSpendingAgency />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip
     },
