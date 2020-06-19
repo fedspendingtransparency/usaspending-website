@@ -1,6 +1,6 @@
 .feature-pane {
     .feature-pane__wrapper {
-        display: block; 
+        display: block;
         margin: rem(60) 0 rem(100);
         width: 100%;
 
@@ -59,8 +59,21 @@
         background-repeat: no-repeat;
         background-image: url('#{$image-path}/homepage-eagle-large.png');
       }
+      &.feature-pane__content-covid {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('#{$image-path}/homepage-covid-large.png');
+      }
     }
-    
+
+    .covid-announcement-text-box {
+        margin-top: 50px;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.75);
+        z-index: 1;
+     }
+
     .feature-pane__content-divider {
         display: none;
         @include media($medium-screen) {
@@ -69,7 +82,6 @@
             height: 202px;
             align-self: center;
         }
-        
     }
 
     #feature-pane__content-header__middle {
@@ -87,6 +99,15 @@
         color: #5B616B;
         line-height: 1;
         margin-top: rem(35);
+    }
+
+    .feature-pane__content-title-covid {
+      font-size: rem(24);
+      font-weight: bold;
+      color: #5B616B;
+      line-height: 1;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     #feature-pane__content-title__middle {
@@ -114,7 +135,7 @@
         box-shadow: none;
       }
     }
-    
+
     .feature-pane__bottom-divider {
         border: 1px solid rgba(214,215,217,0.4);
     }
@@ -132,6 +153,25 @@
     .feature-pane__button {
         color: #0071BC;
         background-color: transparent;
+        border: 1px solid #0071BC;
+        text-decoration: none;
+        font-weight: 600;
+        padding: rem(10) rem(20) rem(10) rem(20);
+        &:hover {
+            color: #ffffff;
+            background-color: #0071bc;
+            font-weight: 600;
+        }
+
+        &:active {
+            box-shadow: inset 0 0 0 2px #112e51;
+            color: #112e51;
+        }
+    }
+
+    .feature-pane__button-covid {
+        color: #0071BC;
+        background-color: white;
         border: 1px solid #0071BC;
         text-decoration: none;
         font-weight: 600;
