@@ -27,8 +27,11 @@
     fill: $color-gray-medium;
   }
   .sankey__text-money {
-    font-size: 1.2rem;
-    fill: $color-gray-medium;
+    font-size: 1.4rem;
+    font-weight: $font-normal;
+  }
+  .sankey__text__public-law {
+    font-size: 1.4rem;
   }
   .text__line {
     stroke: $color-gray-lighter;
@@ -65,6 +68,23 @@
     }
     .covid19-sankey-legend__item:last-child {
       padding-right: 0;
+    }
+  }
+  .sankey__tooltip {
+    position: absolute;
+    font-size: 1.2rem;
+  }
+  .sankey__glossary {
+    position: absolute;
+    // @include display(flex);
+    // @include flex(0 0 auto);
+    // padding-right: rem(15);
+    a {
+        font-size: $small-font-size;
+        color: $color-gray-light;
+        &:hover {
+            color: $color-gray;
+        }
     }
   }
 }

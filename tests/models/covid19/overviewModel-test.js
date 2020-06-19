@@ -1,14 +1,14 @@
 /**
- * overview-test.js
+ * OverviewModel-test.js
  * Created by Jonathan Hill 06/18/20
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import OverviewModel from 'models/covid19/OverviewModel';
+import { OverviewModel } from 'models/covid19/OverviewModel';
 import mockData from './mockData';
 
-const overview = Object.create(OverviewModel);
-overview.populate(mockData);
+const OverviewModel = Object.create(OverviewModel);
+OverviewModel.populate(mockData);
 
 const _otherObligations = mockData.spending.total_obligations - mockData.spending.award_obligations;
 const _awardObligationsNotOutlayed = mockData.spending.award_obligations - mockData.spending.award_outlays;
@@ -16,54 +16,54 @@ const _remainingBalance = mockData.total_budget_authority - mockData.spending.to
 const nonAwardOutLays = mockData.spending.total_outlays - mockData.spending.award_outlays;
 const _nonAwardNotOutlayed = (mockData.spending.total_obligations - mockData.spending.award_obligations) - (mockData.spending.total_outlays - mockData.spending.award_outlays);
 
-describe(' COVID-19 overview Model', () => {
+describe(' COVID-19 OverviewModel Model', () => {
     describe('Private Variables', () => {
         it('should calculate otherObligations', () => {
-            expect(overview._otherObligations).toEqual(_otherObligations);
+            expect(OverviewModel._otherObligations).toEqual(_otherObligations);
         });
         it('should calculate awardObligationsNotOutlayed', () => {
-            expect(overview._awardObligationsNotOutlayed).toEqual(_awardObligationsNotOutlayed);
+            expect(OverviewModel._awardObligationsNotOutlayed).toEqual(_awardObligationsNotOutlayed);
         });
         it('should calculate remainingBalance', () => {
-            expect(overview._remainingBalance).toEqual(_remainingBalance);
+            expect(OverviewModel._remainingBalance).toEqual(_remainingBalance);
         });
         it('should calculate nonAwardOutLays', () => {
-            expect(overview._nonAwardOutLays).toEqual(nonAwardOutLays);
+            expect(OverviewModel._nonAwardOutLays).toEqual(nonAwardOutLays);
         });
         it('should calculate nonAwardNotOutlayed', () => {
-            expect(overview._nonAwardNotOutlayed).toEqual(_nonAwardNotOutlayed);
+            expect(OverviewModel._nonAwardNotOutlayed).toEqual(_nonAwardNotOutlayed);
         });
     });
     describe('Public Variables', () => {
         it('should format totalBudgetAuthority', () => {
-            expect(overview.totalBudgetAuthority).toEqual(formatMoney(overview._totalBudgetAuthority));
+            expect(OverviewModel.totalBudgetAuthority).toEqual(formatMoney(OverviewModel._totalBudgetAuthority));
         });
         it('should format awardObligations', () => {
-            expect(overview.awardObligations).toEqual(formatMoney(overview._awardObligations));
+            expect(OverviewModel.awardObligations).toEqual(formatMoney(OverviewModel._awardObligations));
         });
         it('should format awardOutlays', () => {
-            expect(overview.awardOutlays).toEqual(formatMoney(overview._awardOutlays));
+            expect(OverviewModel.awardOutlays).toEqual(formatMoney(OverviewModel._awardOutlays));
         });
         it('should format totalObligations', () => {
-            expect(overview.totalObligations).toEqual(formatMoney(overview._totalObligations));
+            expect(OverviewModel.totalObligations).toEqual(formatMoney(OverviewModel._totalObligations));
         });
         it('should format totalOutlays', () => {
-            expect(overview.totalOutlays).toEqual(formatMoney(overview._totalOutlays));
+            expect(OverviewModel.totalOutlays).toEqual(formatMoney(OverviewModel._totalOutlays));
         });
         it('should format otherObligations', () => {
-            expect(overview.otherObligations).toEqual(formatMoney(overview._otherObligations));
+            expect(OverviewModel.otherObligations).toEqual(formatMoney(OverviewModel._otherObligations));
         });
         it('should format awardObligationsNotOutlayed', () => {
-            expect(overview.awardObligationsNotOutlayed).toEqual(formatMoney(overview._awardObligationsNotOutlayed));
+            expect(OverviewModel.awardObligationsNotOutlayed).toEqual(formatMoney(OverviewModel._awardObligationsNotOutlayed));
         });
         it('should format remainingBalance', () => {
-            expect(overview.remainingBalance).toEqual(formatMoney(overview._remainingBalance));
+            expect(OverviewModel.remainingBalance).toEqual(formatMoney(OverviewModel._remainingBalance));
         });
         it('should format nonAwardOutLays', () => {
-            expect(overview.nonAwardOutLays).toEqual(formatMoney(overview._nonAwardOutLays));
+            expect(OverviewModel.nonAwardOutLays).toEqual(formatMoney(OverviewModel._nonAwardOutLays));
         });
         it('should format nonAwardNotOutlayed', () => {
-            expect(overview.nonAwardNotOutlayed).toEqual(formatMoney(overview._nonAwardNotOutlayed));
+            expect(OverviewModel.nonAwardNotOutlayed).toEqual(formatMoney(OverviewModel._nonAwardNotOutlayed));
         });
     });
 });

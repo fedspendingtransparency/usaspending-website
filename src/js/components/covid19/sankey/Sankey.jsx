@@ -3,59 +3,60 @@
  * Created By Jonathan Hill 06/05/20
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { sankey } from 'd3-sankey';
-// import chroma from 'chroma-js';
+import { uniqueId } from 'lodash';
 import { formatMoney } from 'helpers/moneyFormatter';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { Glossary } from 'components/sharedComponents/icons/Icons';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
 
 const mockNodes = [
     {
-        name: 'L',
-        label: 'DEF Code: L',
-        color: '#B699C6'
-    },
-    {
-        name: 'M',
-        label: 'DEF Code: M',
-        color: '#B699C6'
-    },
-    {
-        name: 'N',
-        label: 'DEF Code: N',
-        color: '#B699C6'
-    },
-    {
-        name: 'O',
-        label: 'DEF Code: O',
-        color: '#B699C6'
-    },
-    {
-        name: 'P',
-        label: 'DEF Code: P',
-        color: '#B699C6'
-    },
-    {
         name: 'totalBudgetAuthority',
         label: 'Total Budget Authority',
-        color: '#AAC6E2'
+        color: '#AAC6E2',
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 121,
+        textHeight: 31
     },
     {
         name: 'awardObligations',
         label: 'Award Obligations',
-        color: '#558EC6'
+        color: '#558EC6',
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 99,
+        textHeight: 31
     },
     {
         name: 'nonAwardObligations',
         label: 'Non-Award Obligations',
-        color: '#558EC6'
+        color: '#558EC6',
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 123,
+        textHeight: 31
     },
     {
         name: 'awardOutlays',
         label: 'Award Outlays',
-        color: '#0A2F5A'
+        color: '#0A2F5A',
+        glossary: '/yellow',
+        textWidth: 79,
+        textHeight: 31
     },
     {
         name: 'notYetOutlayed',
@@ -63,12 +64,26 @@ const mockNodes = [
         stroke: '#0A2F5A',
         color: 'white',
         strokeWidth: 2,
-        strokeOpacity: 0.4
+        strokeOpacity: 0.4,
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 91,
+        textHeight: 31
     },
     {
         name: 'nonAwardOutlays',
         label: 'Non-Award Outlays',
-        color: '#0A2F5A'
+        color: '#0A2F5A',
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 104,
+        textHeight: 31
     },
     {
         name: 'notYetOutlayed',
@@ -76,7 +91,14 @@ const mockNodes = [
         stroke: '#0A2F5A',
         color: 'white',
         strokeWidth: 2,
-        strokeOpacity: 0.4
+        strokeOpacity: 0.4,
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 91,
+        textHeight: 31
     },
     {
         name: 'unObligatedBalance',
@@ -84,28 +106,35 @@ const mockNodes = [
         color: 'white',
         stroke: '#558EC6',
         strokeWidth: 2,
-        strokeOpacity: 0.4
+        strokeOpacity: 0.4,
+        glossary: (
+            <a href="/">
+                <Glossary />
+            </a>
+        ),
+        textWidth: 111,
+        textHeight: 31
     }
 ];
 // total amount = 3500000
 const mockLinks = [
     {
-        source: 0, // L to total
+        source: 0, // O to total
         target: 5,
         value: 500000
     },
     {
-        source: 1, // M to total
+        source: 1, // L to total
         target: 5,
         value: 600000
     },
     {
-        source: 2, // N to total
+        source: 2, // M to total
         target: 5,
         value: 700000
     },
     {
-        source: 3, // O to total
+        source: 3, // N to total
         target: 5,
         value: 800000
     },
@@ -151,11 +180,12 @@ const mockLinks = [
     }
 ];
 
-const data = { nodes: mockNodes, links: mockLinks };
+const defCodeColor = '#B699C6';
 
 const propTypes = {
     height: PropTypes.number,
-    width: PropTypes.number
+    width: PropTypes.number,
+    defCodes: PropTypes.array
 };
 
 /**
@@ -172,77 +202,183 @@ const propTypes = {
  * DEF code L, M, N, O, and P.
  */
 
-const Sankey = ({ height, width }) => {
-    const { nodes, links } = sankey()
-        .nodeWidth(width / 8)
-        .nodePadding(50)
-        .extent([[1, 80], [width - 1, height - 5]])(data);
-    const fundingTextStart = nodes[0].x0;
-    const fundingTextEnd = nodes.find((node) => node.name === 'totalBudgetAuthority').x1;
-    const spendingTextStart = nodes.find((node) => node.name === 'awardObligations').x0;
-    const spendingTextEnd = nodes.find((node) => node.name === 'awardOutlays').x1;
+const Sankey = ({ height, width, defCodes }) => {
+    const [nodeData, setNodeData] = useState([]);
+    const [sankeyData, setSankeyData] = useState({ nodes: [], links: [] });
+    const [sankeyNodes, setSankeyNodes] = useState([]);
+    const [sankeyLinks, setSankeyLinks] = useState([]);
+    const [fundingSpendingTextData, setFundingSpendingTextData] = useState({
+        fundingTextStart: 0,
+        fundingTextEnd: 0,
+        spendingTextStart: 0,
+        spendingTextEnd: 0
+    });
+    const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
+    // create data for def code nodes
+    useEffect(() => {
+        const dataForNodes = defCodes.map((code) => {
+            const emergencyText = code.public_law.startsWith('Emergency') ? 'Emergency' : 'Non-Emergency';
+            const lawCode = code.public_law.split(' ').pop();
+            const publicLaw = `${emergencyText} Public Law ${lawCode}`;
+            return {
+                name: code.code,
+                publicLaw,
+                label: `DEF Code: ${code.code}`,
+                color: defCodeColor,
+                tooltip: <TooltipWrapper icon="info" />,
+                textWidth: 63,
+                textHeight: 29
+            };
+        }).concat(mockNodes);
+        // put O def code first
+        const oDefCode = dataForNodes.splice(3, 1)[0];
+        dataForNodes.unshift(oDefCode);
+        setNodeData(dataForNodes);
+    }, [defCodes]);
+    // set the data used for the d3 sankey method
+    useEffect(() => {
+        console.log(' Setting Data For Sankey to use ');
+        setSankeyData(Object.assign({}, { nodes: nodeData, links: mockLinks }));
+    }, [nodeData]);
+    // create sankey data
+    useEffect(() => {
+        if (sankeyData.nodes.length && sankeyData.links.length) {
+            const { nodes, links } = sankey()
+                .nodeWidth(width / 5)
+                .nodePadding(60)
+                .extent([[1, 100], [width - 1, height - 5]])(sankeyData);
+            setSankeyNodes(nodes);
+            setSankeyLinks(links);
+        }
+    }, [sankeyData, height, width]);
 
+    useEffect(() => {
+        if (sankeyNodes.length) {
+            const fundingTextStart = sankeyNodes[0].x0;
+            const fundingTextEnd = sankeyNodes.find((node) => node.name === 'totalBudgetAuthority').x1;
+            const spendingTextStart = sankeyNodes.find((node) => node.name === 'awardObligations').x0;
+            const spendingTextEnd = sankeyNodes.find((node) => node.name === 'awardOutlays').x1;
+            setFundingSpendingTextData({
+                fundingTextStart,
+                fundingTextEnd,
+                spendingTextStart,
+                spendingTextEnd
+            });
+        }
+    }, [sankeyNodes, width]);
+
+    useEffect(() => {
+        const data = sankeyNodes.map((node) => {
+            if (node.tooltip) {
+                return (
+                    <TooltipWrapper
+                        key={uniqueId()}
+                        icon="info"
+                        styles={
+                            {
+                                position: 'abosolute',
+                                transform: `translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`
+                            }
+                        }
+                        className="sankey__tooltip" />
+                );
+            }
+            if (node.glossary) {
+                return (
+                    <div
+                        key={uniqueId()}
+                        // transform={`translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`}
+                        style={
+                            {
+                                position: 'absolute',
+                                width: '1.2rem',
+                                height: '1.2rem',
+                                transform: `translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`
+                            }
+                        }
+                        className="sankey__glossary">
+                        <a href="/">
+                            <Glossary />
+                        </a>
+                    </div>
+                );
+            }
+        });
+        setTooltipsAndGlossaryIcons(data);
+    }, [sankeyNodes, width]);
 
     return (
-        <svg height={height} width={width}>
-            <g style={{ mixBlendMode: 'multiply' }}>
-                {/* funding text and line */}
-                <text
-                    className="text"
-                    x={fundingTextStart}
-                    y={20}>
-                    FUNDING
-                </text>
-                <line
-                    className="text__line"
-                    x1={fundingTextStart}
-                    y1={25}
-                    x2={fundingTextEnd}
-                    y2={25} />
-                {/* spending text and line */}
-                <text
-                    className="text"
-                    x={spendingTextStart}
-                    y={20}>
-                    SPENDING
-                </text>
-                <line
-                    className="text__line"
-                    x1={spendingTextStart}
-                    y1={25}
-                    x2={spendingTextEnd}
-                    y2={25} />
-                {nodes.map((node, i) => {
-                    return (
-                        <g key={`node-${node.name}${i}`}>
-                            <text
-                                className="sankey__text"
-                                x={node.x0}
-                                y={node.y0 - 19}>
-                                {node.label}
-                            </text>
-                            <text
-                                className="sankey__text-money"
-                                x={node.x0}
-                                y={node.y0 - 4}>
-                                {formatMoney(node.value)}
-                            </text>
-                            <SankeyNode
-                                {...node}
-                                color={node.color} />
-                        </g>
-                    );
-                })}
-                {links.map((link, i) => {
-                    return (
-                        <SankeyLink
-                            key={`link-${i}`}
-                            link={link}
-                            color={link.target.stroke || link.target.color} />
-                    );
-                })}
-            </g>
-        </svg>
+        <div className="sankey">
+            {tooltipsAndGlossaryIcons}
+            <svg height={height} width={width}>
+                <g style={{ mixBlendMode: 'multiply' }}>
+                    {/* funding text and line */}
+                    <text
+                        className="text"
+                        x={fundingSpendingTextData.fundingTextStart}
+                        y={20}>
+                        FUNDING
+                    </text>
+                    <line
+                        className="text__line"
+                        x1={fundingSpendingTextData.fundingTextStart}
+                        y1={25}
+                        x2={fundingSpendingTextData.fundingTextEnd}
+                        y2={25} />
+                    {/* spending text and line */}
+                    <text
+                        className="text"
+                        x={fundingSpendingTextData.spendingTextStart}
+                        y={20}>
+                        SPENDING
+                    </text>
+                    <line
+                        className="text__line"
+                        x1={fundingSpendingTextData.spendingTextStart}
+                        y1={25}
+                        x2={fundingSpendingTextData.spendingTextEnd}
+                        y2={25} />
+                    {sankeyNodes.map((node, i) => {
+                        return (
+                            <g key={`node-${node.name}${i}`}>
+                                {
+                                    node.publicLaw &&
+                                    <text
+                                        className="sankey__text sankey__text__public-law"
+                                        x={node.x0}
+                                        y={node.y0 - 34}>
+                                        {node.publicLaw}
+                                    </text>
+                                }
+                                <text
+                                    className="sankey__text"
+                                    x={node.x0}
+                                    y={node.y0 - 19}>
+                                    {node.label}
+                                </text>
+                                <text
+                                    className="sankey__text sankey__text-money"
+                                    x={node.x0}
+                                    y={node.y0 - 4}>
+                                    {formatMoney(node.value)}
+                                </text>
+                                <SankeyNode
+                                    {...node}
+                                    color={node.color} />
+                            </g>
+                        );
+                    })}
+                    {sankeyLinks.map((link, i) => {
+                        return (
+                            <SankeyLink
+                                key={`link-${i}`}
+                                link={link}
+                                color={link.target.stroke || link.target.color} />
+                        );
+                    })}
+                </g>
+            </svg>
+        </div>
     );
 };
 

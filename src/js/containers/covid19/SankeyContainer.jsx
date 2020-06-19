@@ -51,7 +51,7 @@ const SankeyContainer = () => {
                 sources (in this case, the different Public Laws that funded the COVID-19 Response)
                 through to the money that has been paid out.
             </div>
-            <Sankey data={data} height={height} width={sankeyWidth} />
+            <Sankey defCodes={data.defCodes} height={height} width={sankeyWidth} />
             <div className="covid19__sankey-legend">
                 <div className="covid19-sankey-legend__item">
                     <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-budget-source" />

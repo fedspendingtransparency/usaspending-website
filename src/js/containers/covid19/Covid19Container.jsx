@@ -14,6 +14,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Covid19Section from 'components/covid19/Covid19Section';
 import Footer from 'containers/Footer';
 import Heading from 'components/covid19/Heading';
+import { LoadingWrapper } from 'components/sharedComponents/Loading';
 // import { Picker } from 'data-transparency-ui';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
@@ -37,6 +38,7 @@ require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
     const [activeSection, setActiveSection] = useState('overview');
+    const [isLoading, setIsLoading] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
 
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
@@ -50,6 +52,7 @@ const Covid19Container = () => {
             try {
                 const { data } = await defCodesRequest.current.promise;
                 dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
+                setIsLoading(false);
             }
             catch (e) {
                 console.log(' Error DefCodes : ', e.message);
@@ -124,43 +127,45 @@ const Covid19Container = () => {
                     </div>
                 </>
             </StickyHeader>
-            <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        pageName="covid19"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                        active={activeSection}
-                        jumpToSection={jumpToCovid19Section}
-                        detectActiveSection={setActiveSection}
-                        sections={Object.keys(componentByCovid19Section())
-                            .filter((section) => componentByCovid19Section()[section].showInMenu)
-                            .map((section) => ({
-                                section: snakeCase(section),
-                                label: componentByCovid19Section()[section].title
-                            }))} />
-                </div>
-                <div className="body usda__flex-col">
-                    <section className="body__section">
-                        <Heading />
-                    </section>
-                    {Object.keys(componentByCovid19Section())
-                        .map((section) => (
-                            <Covid19Section
-                                key={section}
-                                section={section}
-                                icon={componentByCovid19Section()[section].icon}
-                                headerText={componentByCovid19Section()[section].headerText}
-                                title={componentByCovid19Section()[section].title}>
-                                {componentByCovid19Section()[section].component}
-                            </Covid19Section>
-                        ))}
-                    <section className="body__section">
-                        <FooterLinkToAdvancedSearchContainer
-                            title={footerTitle}
-                            description={footerDescription} />
-                    </section>
-                </div>
-            </main>
+            <LoadingWrapper isLoading={isLoading}>
+                <main id="main-content" className="main-content usda__flex-row">
+                    <div className="sidebar usda__flex-col">
+                        <Sidebar
+                            pageName="covid19"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                            active={activeSection}
+                            jumpToSection={jumpToCovid19Section}
+                            detectActiveSection={setActiveSection}
+                            sections={Object.keys(componentByCovid19Section())
+                                .filter((section) => componentByCovid19Section()[section].showInMenu)
+                                .map((section) => ({
+                                    section: snakeCase(section),
+                                    label: componentByCovid19Section()[section].title
+                                }))} />
+                    </div>
+                    <div className="body usda__flex-col">
+                        <section className="body__section">
+                            <Heading />
+                        </section>
+                        {Object.keys(componentByCovid19Section())
+                            .map((section) => (
+                                <Covid19Section
+                                    key={section}
+                                    section={section}
+                                    icon={componentByCovid19Section()[section].icon}
+                                    headerText={componentByCovid19Section()[section].headerText}
+                                    title={componentByCovid19Section()[section].title}>
+                                    {componentByCovid19Section()[section].component}
+                                </Covid19Section>
+                            ))}
+                        <section className="body__section">
+                            <FooterLinkToAdvancedSearchContainer
+                                title={footerTitle}
+                                description={footerDescription} />
+                        </section>
+                    </div>
+                </main>
+            </LoadingWrapper>
             <Footer />
         </div>
     );
