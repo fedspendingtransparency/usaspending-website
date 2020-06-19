@@ -1,19 +1,25 @@
 .covid19__sankey-container {
   width: 100%;
   .covid19__sankey-title {
-    display: flex;
-    justify-content: center;
-    font-size: 3rem;
     font-weight: $font-semibold;
-    padding-top: 4.7rem;
+    padding-top: 4.7rem 1rem 0 1rem;
+    @media(min-width: $tablet-screen) {
+      padding: 4.7rem 12.9rem 0 12.9rem;
+    }
+    font-size: 2.8rem;
+    letter-spacing: 0;
+    line-height: 3.6rem;
+    text-align: center;
   }
   .covid19__sankey-sub-title {
-    display: flex;
-    justify-content: center;
-    font-size: 2.1rem;
-    font-weight: $font-light;
-    padding-top: 1.6rem;
-    padding-bottom: 4rem;
+    padding: 1.6rem 1rem 4rem 1rem;
+    @media(min-width: $tablet-screen) {
+      padding: 1.6rem 9.8rem 4rem 9.8rem;
+    }
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    line-height: 1.8rem;
+    text-align: center;
   }
   .sankey__text {
     font-size: 1.2rem;

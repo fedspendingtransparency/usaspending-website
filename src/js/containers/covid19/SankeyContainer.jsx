@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
 import Sankey from 'components/covid19/sankey/Sankey';
 
@@ -15,7 +16,7 @@ const SankeyContainer = () => {
     const [sankeyWidth, setSankeyWidth] = useState(0);
     // reference to the div - using to get the current div width
     const divReference = useRef(null);
-
+    const data = useSelector((state) => state.covid19);
     /**
      * handleWindowResize
      * - updates window and visualization width based on current window width.
@@ -42,9 +43,15 @@ const SankeyContainer = () => {
 
     return (
         <div ref={divReference} className="covid19__sankey-container">
-            <div className="covid19__sankey-title">Where did the response funding come from and where did it go?</div>
-            <div className="covid19__sankey-sub-title">COVID-19 Response Spending Process</div>
-            <Sankey height={height} width={sankeyWidth} />
+            <div className="covid19__sankey-title">
+                  This is how the <strong>total spending</strong> was funded and spent.
+            </div>
+            <div className="covid19__sankey-sub-title">
+                This Sankey diagram shows the flow of spending from specific funding
+                sources (in this case, the different Public Laws that funded the COVID-19 Response)
+                through to the money that has been paid out.
+            </div>
+            <Sankey data={data} height={height} width={sankeyWidth} />
             <div className="covid19__sankey-legend">
                 <div className="covid19-sankey-legend__item">
                     <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-budget-source" />
