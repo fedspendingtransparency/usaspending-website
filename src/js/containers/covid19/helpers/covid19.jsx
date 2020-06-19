@@ -46,14 +46,16 @@ export const componentByCovid19Section = () => ({
         component: <ComingSoon />,
         headerText: totalSpendingText,
         headerTextTooltip: totalSpendingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Overview'
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
         component: <ComingSoon />,
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Total Spending by Budget Categories'
     },
     award_question: {
         component: <AwardQuestion />,
@@ -64,27 +66,31 @@ export const componentByCovid19Section = () => ({
         component: <ComingSoon />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Award Spending by Recipient'
     },
     award_spending_by_agency: {
         icon: 'sitemap',
         component: <ComingSoon />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Award Spending by Agency'
     },
     award_spending_over_time: {
         icon: 'chart-area',
         component: <ComingSoon />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Award Spending Over Time'
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
         component: <ComingSoon />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true
+        showInMenu: true,
+        title: 'Award Spending by Assistance Listing'
     }
 });

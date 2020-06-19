@@ -188,7 +188,7 @@
           @include display(flex);
           width: 100%;
           @include flex-direction(column);
-          padding: 2.5% 2.5% 0 2.5%;
+          // padding: 2.5% 2.5% 0 2.5%;
           margin: rem(20) 0 rem(20) 0;
           background: $color-white;
           border-radius: 0.5rem 0.5rem 0 0;
@@ -274,6 +274,7 @@
               @include display(flex);
               @include flex-wrap(wrap);
               margin-bottom: $global-mrg;
+              padding: 0 2.5%;
               // &.award_question {
               //   .body__header {
               //     display: none;
@@ -356,6 +357,7 @@
                   text-align: center;
                   padding-top: 2rem;
                   padding-bottom: 1rem;
+                  padding: 1rem;
                   @media(min-width: $tablet-screen) {
                     padding: 2rem 12rem 2rem 12rem;
                   }
@@ -366,7 +368,7 @@
                   letter-spacing: 0;
                   line-height: 2.2rem;
                   text-align: center;
-                  padding: 0;
+                  padding: 1rem;
                   @media(min-width: $tablet-screen) {
                     padding: 0 12rem 2rem 12rem;
                   }
@@ -391,8 +393,9 @@
                   text-align: center;
                   width: 100%;
                   .information-top {
-                    height: 0.2rem;
+                    height: 0.5rem;
                     width: 100%;
+                    border-radius: 0;
                   }
                   .award-question__title {
                     font-size: 3.6rem;
@@ -403,7 +406,7 @@
                     padding-top: 6.2rem;
                     padding-bottom: 3.1rem;
                     @media(min-width: $tablet-screen) {
-                      padding: 6.2rem 18.3rem 3.1rem 18.3rem;
+                      padding: 6.2rem 12rem 3.1rem 12rem;
                     }
                     width: 100%;
                   }
@@ -413,7 +416,7 @@
                     line-height: 2.2rem;
                     text-align: center;
                     @media(min-width: $tablet-screen) {
-                      padding: 0 20.1rem 6.1rem 20.1rem;
+                      padding: 0 12rem 6.1rem 12rem;
                     }
                     .award-question__sub-section_paragraph:first-of-type {
                       margin-top: 0;
@@ -421,6 +424,12 @@
                   }
                 }
               }
+          }
+          .body__section:first-of-type {
+            padding: 0;
+          }
+          .body__section:nth-child(4) {
+            padding: 0;
           }
           .body__section:last-child {
             margin-bottom: 0;

@@ -136,7 +136,7 @@ const Covid19Container = () => {
                             .filter((section) => componentByCovid19Section()[section].showInMenu)
                             .map((section) => ({
                                 section: snakeCase(section),
-                                label: startCase(section)
+                                label: componentByCovid19Section()[section].title
                             }))} />
                 </div>
                 <div className="body usda__flex-col">
@@ -149,7 +149,8 @@ const Covid19Container = () => {
                                 key={section}
                                 section={section}
                                 icon={componentByCovid19Section()[section].icon}
-                                headerText={componentByCovid19Section()[section].headerText}>
+                                headerText={componentByCovid19Section()[section].headerText}
+                                title={componentByCovid19Section()[section].title}>
                                 {componentByCovid19Section()[section].component}
                             </Covid19Section>
                         ))}
