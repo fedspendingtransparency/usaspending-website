@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { startCase, snakeCase } from 'lodash';
+import { snakeCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from 'data-transparency-ui';
 import { TooltipComponent } from 'containers/covid19/helpers/covid19';

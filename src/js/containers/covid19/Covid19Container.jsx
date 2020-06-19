@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { startCase, snakeCase } from 'lodash';
+import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
