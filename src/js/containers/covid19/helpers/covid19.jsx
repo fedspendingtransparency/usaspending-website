@@ -5,6 +5,7 @@
 
 import React from 'react';
 import AwardQuestion from 'components/covid19/AwardQuestions';
+import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -87,10 +88,10 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <ComingSoon />,
+        component: <SpendingByCFDA />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
-        title: 'Award Spending by Assistance Listing'
+        title: 'Award Spending by Assistance Listing (CFDA Program)'
     }
 });
