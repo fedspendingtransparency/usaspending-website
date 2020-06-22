@@ -60,10 +60,12 @@
         background-image: url('#{$image-path}/homepage-eagle-large.png');
       }
       &.feature-pane__content-covid {
+        //background-size: contain;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         background-image: url('#{$image-path}/homepage-covid-large.png');
+        //background-image: url('#{$image-path}/covid.png');
       }
     }
 
