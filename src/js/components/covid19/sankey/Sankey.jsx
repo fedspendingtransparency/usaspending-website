@@ -115,6 +115,7 @@ const Sankey = ({ height, width, defCodes }) => {
         const data = sankeyNodes.map((node) => {
             const {
                 tooltip,
+                label,
                 glossary,
                 x0,
                 y0,
@@ -150,7 +151,7 @@ const Sankey = ({ height, width, defCodes }) => {
                     }
                     className="sankey__glossary">
                     <a href={glossary}>
-                        <Glossary />
+                        <Glossary alt={`View Glossary Definition of ${label}`} />
                     </a>
                 </div>
             );
