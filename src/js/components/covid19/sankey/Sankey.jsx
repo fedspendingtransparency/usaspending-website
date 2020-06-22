@@ -15,6 +15,9 @@ import { mockNodes, mockLinks, defCodeColor } from 'dataMapping/covid19/covid19'
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
 
+// const sankey = require('../../../../../node_modules/d3-sankey/dist/d3-sankey.min.js');
+
+
 const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
@@ -37,7 +40,7 @@ const startOfSankeyY = 100;
  * DEF code L, M, N, O, and P.
  */
 
-const Sankey = ({ height, width, defCodes }) => {
+const SankeyChart = ({ height, width, defCodes }) => {
     const [nodeData, setNodeData] = useState([]);
     const [sankeyData, setSankeyData] = useState({ nodes: [], links: [] });
     const [sankeyNodes, setSankeyNodes] = useState([]);
@@ -239,5 +242,5 @@ const Sankey = ({ height, width, defCodes }) => {
     );
 };
 
-Sankey.propTypes = propTypes;
-export default Sankey;
+SankeyChart.propTypes = propTypes;
+export default SankeyChart;
