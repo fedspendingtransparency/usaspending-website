@@ -21,6 +21,7 @@
     }
 
     @import "../explorer/detail/sidebar/fyPicker";
+
     @import "./stickyHeader";
 
     .usda__flex-row {
@@ -68,9 +69,9 @@
 
             @include flex-direction(column);
 
-            padding: 2.5% 2.5% 0 2.5%;
             margin: rem(20) 0 rem(20) 0;
             background: $color-white;
+            border-radius: 0.5rem 0.5rem 0 0;
 
             @media (min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
@@ -151,7 +152,37 @@
                         }
                     }
                 }
+
+                .usda-table {
+                    td {
+                        &:first-child {
+                            @include span-columns(6 of 12, table);
+
+                            text-align: left;
+                        }
+
+                        @include span-columns(2 of 12, table);
+
+                        text-align: right;
+                        word-break: break-word;
+                    }
+
+                    .table-header {
+                        .table-header__label {
+                            @include flex(0 1 auto);
+
+                            text-align: right;
+                        }
+
+                        .table-header__sort {
+                            margin-top: auto;
+                            margin-bottom: auto;
+                        }
+                    }
+                }
             }
+
+            @import "./spendingOverTime/awardSpendingOverTime";
 
             .body__section {
                 @import "../agency/v2/tabs";
@@ -160,17 +191,21 @@
                 @include flex-wrap(wrap);
 
                 margin-bottom: $global-mrg;
+                padding: 0 2.5%;
 
                 .body__header {
                     width: 100%;
+
                     @include display(flex);
-                    @include flex-wrap(wrap);
-                    @include align-items(center);
-                    @include justify-content(space-between);
-                    border-bottom: 3px solid $color-base;
+
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: rem(3) solid $color-base;
 
                     .body__header-left {
-                        display: flex;
+                        @include display(flex);
+
                         padding-bottom: 0.5rem;
 
                         @media (min-width: $tablet-screen) {
@@ -179,7 +214,7 @@
                     }
 
                     .body__header-right {
-                        display: flex;
+                        @include display(flex);
                     }
 
                     .body__header-icon {
@@ -190,7 +225,7 @@
                         font-size: 1.4rem;
                     }
 
-                    h2 {
+                    h3 {
                         @include display(flex);
 
                         margin: 0;
@@ -202,7 +237,7 @@
 
                 hr {
                     width: 100%;
-                    height: 2px;
+                    height: rem(2);
                     background: #555555;
                     border: none;
                     margin-bottom: rem(35);
@@ -219,13 +254,26 @@
 
                     padding-bottom: 0;
                     height: 73rem;
-                    h3 {
-                        font-size: $h4-font-size;
-                    }
+                }
+
+                .information-body {
+                    background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);
+                }
+
+                .information-top {
+                    width: 100%;
+                    opacity: 0.2;
+                    transform: scaleY(-1);
+                    border-radius: 0 0 rem(5) rem(5);
+                    background-color: #763E94;
+                }
+
+                .color-purple {
+                    color: #6E338E;
                 }
 
                 .heading__container {
-                    padding-top: 2rem;
+                    border-radius: 0.5rem 0.5rem 0 0;
 
                     @include display(flex);
 
@@ -233,23 +281,25 @@
                     text-align: center;
                     width: 100%;
 
+                    .heading__top {
+                        height: 1.66rem;
+                    }
+
                     .heading__title {
                         font-size: 3.6rem;
                         font-weight: $font-semibold;
                         letter-spacing: 0;
                         line-height: 4.5rem;
                         text-align: center;
+                        padding-top: 2rem;
                         padding-bottom: 1rem;
+                        padding: 1rem;
 
                         @media (min-width: $tablet-screen) {
-                            padding: 0 12rem 2rem 12rem;
+                            padding: 2rem 12rem 2rem 12rem;
                         }
 
                         width: 100%;
-
-                        .color-purple {
-                            color: #6E338E;
-                        }
                     }
 
                     .heading__description {
@@ -257,7 +307,7 @@
                         letter-spacing: 0;
                         line-height: 2.2rem;
                         text-align: center;
-                        padding: 0;
+                        padding: 1rem;
 
                         @media (min-width: $tablet-screen) {
                             padding: 0 12rem 2rem 12rem;
@@ -269,14 +319,71 @@
                     @include display(flex);
 
                     width: 100%;
-                    @include justify-content(flex-start);
+                    justify-content: left;
                     font-size: 1.2rem;
                     font-style: italic;
                     letter-spacing: 0;
                     line-height: 1.5rem;
                 }
 
-                @import "./spendingOverTime/awardSpendingOverTime";
+                &.award_question {
+                    .body__header {
+                        display: none;
+                    }
+
+                    .award-question__container {
+                        @include display(flex);
+
+                        flex-wrap: wrap;
+                        text-align: center;
+                        width: 100%;
+
+                        .information-top {
+                            height: 0.5rem;
+                            width: 100%;
+                            border-radius: 0;
+                        }
+
+                        .award-question__title {
+                            font-size: 3.6rem;
+                            font-weight: $font-semibold;
+                            letter-spacing: 0;
+                            line-height: 4.5rem;
+                            text-align: center;
+                            padding-top: 6.2rem;
+                            padding-bottom: 3.1rem;
+
+                            @media (min-width: $tablet-screen) {
+                                padding: 6.2rem 12rem 3.1rem 12rem;
+                            }
+
+                            width: 100%;
+                        }
+
+                        .award-question__sub-section {
+                            font-size: 1.4rem;
+                            letter-spacing: 0;
+                            line-height: 2.2rem;
+                            text-align: center;
+
+                            @media (min-width: $tablet-screen) {
+                                padding: 0 12rem 6.1rem 12rem;
+                            }
+
+                            .award-question__sub-section_paragraph:first-of-type {
+                                margin-top: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .body__section:first-of-type {
+                padding: 0;
+            }
+
+            .body__section:nth-child(4) {
+                padding: 0;
             }
 
             .body__section:last-child {
@@ -284,5 +391,6 @@
             }
         }
     }
-    @import './covidTooltip';
+
+    @import "./covidTooltip";
 }

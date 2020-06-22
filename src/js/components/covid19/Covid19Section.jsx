@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { startCase, snakeCase } from 'lodash';
+import { snakeCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from 'data-transparency-ui';
 import { TooltipComponent } from 'containers/covid19/helpers/covid19';
@@ -14,7 +14,8 @@ const propTypes = {
     section: PropTypes.string,
     icon: PropTypes.string,
     children: PropTypes.element,
-    headerText: PropTypes.element
+    headerText: PropTypes.element,
+    title: PropTypes.string
 };
 
 // eslint-disable-next-line react/prop-types
@@ -22,7 +23,8 @@ const Covid19Section = ({
     section,
     icon = "chart-area",
     headerText,
-    children
+    children,
+    title
 }) => (
     <section id={`covid19-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
         <div className="body__header">
@@ -30,7 +32,7 @@ const Covid19Section = ({
                 <div className="body__header-icon">
                     <FontAwesomeIcon size="lg" icon={icon} />
                 </div>
-                <h2>{startCase(section)}</h2>
+                <h3>{title}</h3>
                 <TooltipWrapper
                     className="covid19-tt"
                     icon="info"

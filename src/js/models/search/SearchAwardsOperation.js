@@ -44,6 +44,7 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.naicsCodes = checkboxTreeKeys;
         this.pscCheckbox = checkboxTreeKeys;
+        this.defCodes = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -91,6 +92,10 @@ class SearchAwardsOperation {
         this.pscCheckbox = {
             require: state.pscCodes.toObject().require,
             exclude: state.pscCodes.toObject().exclude
+        };
+        this.defCodes = {
+            require: state.defCodes.toObject().require,
+            exclude: state.defCodes.toObject().exclude
         };
 
         this.pricingType = state.pricingType.toArray();
@@ -331,6 +336,15 @@ class SearchAwardsOperation {
         // Add Extent Competed
         if (this.extentCompeted.length > 0) {
             filters[rootKeys.extentCompeted] = this.extentCompeted;
+        }
+
+        // Add Def Codes
+        if (this.defCodes.require.length > 0) {
+            filters[rootKeys.defCodes] = { require: this.defCodes.require };
+            // at the moment, this will never be added unless we introduce some hierarchy.
+            if (this.defCodes.exclude.length > 0) {
+                filters[rootKeys.defCodes].exclude = this.defCodes.exclude;
+            }
         }
 
         return filters;
