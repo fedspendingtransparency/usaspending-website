@@ -96,90 +96,7 @@
                     padding-bottom: 5rem;
                 }
 
-                @import "../search/results/table/tableMessages";
-
-                .results-table-message-container {
-                    position: relative;
-                    background-color: rgb(246, 246, 246);
-
-                    .results-table-loading {
-                        margin-bottom: rem(100);
-                    }
-
-                    .no-results-container {
-                        text-align: center;
-                        margin-top: rem(100);
-                        margin-bottom: rem(100);
-
-                        .no-results-title {
-                            h4 {
-                                margin-bottom: 0;
-                                vertical-align: bottom;
-                            }
-                        }
-
-                        .no-results-message {
-                            p {
-                                margin-top: 0;
-                                vertical-align: top;
-                            }
-                        }
-                    }
-
-                    .loading-animation {
-                        @import "../search/results/screens/loading";
-                    }
-
-                    .results-table-error {
-                        .icon {
-                            width: rem(36);
-                            height: rem(36);
-
-                            svg {
-                                width: rem(36);
-                                height: rem(36);
-                            }
-                        }
-
-                        .title {
-                            font-size: rem(20);
-                            line-height: rem(45);
-                        }
-
-                        .description {
-                            font-size: rem(16);
-                            line-height: rem(10);
-                        }
-                    }
-                }
-
-                .usda-table {
-                    td {
-                        &:first-child {
-                            @include span-columns(6 of 12, table);
-
-                            text-align: left;
-                        }
-
-                        @include span-columns(2 of 12, table);
-
-                        text-align: right;
-                        word-break: break-word;
-                    }
-
-                    .table-header {
-                        .table-header__label {
-                            @include flex(0 1 auto);
-
-                            text-align: right;
-                        }
-
-                        .table-header__sort {
-                            margin-top: auto;
-                            margin-bottom: auto;
-                        }
-                    }
-                }
+                @import "./tableMessages";
             }
 
             @import "./spendingOverTime/awardSpendingOverTime";
@@ -200,7 +117,9 @@
 
                     flex-wrap: wrap;
                     align-items: center;
-                    justify-content: space-between;
+
+                    @include justify-content(space-between);
+
                     border-bottom: rem(3) solid $color-base;
 
                     .body__header-left {
@@ -238,7 +157,7 @@
                 hr {
                     width: 100%;
                     height: rem(2);
-                    background: #555555;
+                    background: $color-gray;
                     border: none;
                     margin-bottom: rem(35);
                     margin-top: 0;
