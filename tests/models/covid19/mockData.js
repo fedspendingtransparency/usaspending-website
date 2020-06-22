@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/18/20
  */
 
-export const overview = {
+export const overviewAPIResponse = {
     funding: [
         {
             def_code: 'L',
