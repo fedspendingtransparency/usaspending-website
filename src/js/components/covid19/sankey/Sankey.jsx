@@ -21,6 +21,8 @@ const propTypes = {
     defCodes: PropTypes.array
 };
 
+const startOfSankeyY = 100;
+
 /**
  * Node Width
  * We set nodeWidth to the width of the div divided by 8.
@@ -88,7 +90,7 @@ const Sankey = ({ height, width, defCodes }) => {
             const { nodes, links } = sankey()
                 .nodeWidth(width / 5)
                 .nodePadding(60)
-                .extent([[1, 100], [width - 1, height - 5]])(sankeyData);
+                .extent([[1, startOfSankeyY], [width - 1, height - 5]])(sankeyData);
             setSankeyNodes(manuallyPositionOtherObligations(nodes));
             setSankeyLinks(links);
         }
@@ -135,25 +137,23 @@ const Sankey = ({ height, width, defCodes }) => {
                         className="covid19-tt sankey__tooltip" />
                 );
             }
-            if (glossary) {
-                return (
-                    <div
-                        key={uniqueId()}
-                        style={
-                            {
-                                position: 'absolute',
-                                width: '1.2rem',
-                                height: '1.2rem',
-                                transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
-                            }
+            return (
+                <div
+                    key={uniqueId()}
+                    style={
+                        {
+                            position: 'absolute',
+                            width: '1.2rem',
+                            height: '1.2rem',
+                            transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
                         }
-                        className="sankey__glossary">
-                        <a href={glossary}>
-                            <Glossary />
-                        </a>
-                    </div>
-                );
-            }
+                    }
+                    className="sankey__glossary">
+                    <a href={glossary}>
+                        <Glossary />
+                    </a>
+                </div>
+            );
         });
         setTooltipsAndGlossaryIcons(data);
     }, [sankeyNodes, width]);
