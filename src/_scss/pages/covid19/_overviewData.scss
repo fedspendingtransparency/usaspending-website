@@ -1,0 +1,30 @@
+.overview-data-group {
+    @include display(flex);
+    text-align: center;
+    border-bottom: solid rem(1) $color-gray-lighter;
+    .overview-data {
+        @include display(flex);
+        @include flex(1 0 25%);
+        @include flex-direction(column);
+        border-right: solid rem(1) $color-gray-lighter;
+        padding: rem(16);
+        margin: rem(11) 0;
+        &:last-of-type {
+            border-right: 0;
+        }
+        .overview-data__label {
+            font-size: rem(22);
+            font-weight: $font-semibold;
+            line-height: rem(28);
+        }
+        .overview-data__subtitle {
+            font-size: rem(17);
+            line-height: rem(22);
+        }
+        .overview-data__amount {
+            font-size: rem(36);
+            font-weight: $font-light;
+            line-height: rem(45);
+        }
+    }
+}

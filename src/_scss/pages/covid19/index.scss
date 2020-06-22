@@ -198,6 +198,19 @@
               width: 70%;
           }
           .body__content {
+            h3.body__narrative {
+                text-align: center;
+                font-weight: $font-semibold;
+                font-size: 3rem;
+            }
+
+            p.body__narrative-description {
+                font-size: $small-font-size;
+                text-align: center;
+                width: 75%;
+                margin: auto;
+                padding-bottom: 5rem;
+            }
               @import '../search/results/table/tableMessages';
               .results-table-message-container {
                   position: relative;
@@ -423,6 +436,7 @@
                   }
                 }
               }
+              @import './overviewData';
           }
           .body__section:first-of-type {
             padding: 0;
