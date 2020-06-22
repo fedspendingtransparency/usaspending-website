@@ -1,6 +1,6 @@
 /**
  * SpendingByCFDA.jsx
- * Created by Lizzie Salita
+ * Created by Lizzie Salita 6/22/20
  */
 
 import React from 'react';
