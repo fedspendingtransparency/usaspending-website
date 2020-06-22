@@ -58,17 +58,14 @@ const PaneFeature = () => {
 
                     {/*DEV-5403*/}
                     <div className="feature-pane__content feature-pane__content-covid">
-
                         <div className="covid-announcement-text-box">
                             <p className="feature-pane__content-title-covid">
                                 The Federal Response to COVID-19
                             </p>
                         </div>
-
                         <div className="feature-pane__button-wrapper">
                             <a href="https://www.google.com" role="button" className="feature-pane__button-covid">Explore Data Lab<span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span></a>
                         </div>
-
                     </div>
 
                     <div className="feature-pane__content-divider" />
