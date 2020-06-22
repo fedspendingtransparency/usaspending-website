@@ -10,177 +10,10 @@ import { uniqueId } from 'lodash';
 import { formatMoney } from 'helpers/moneyFormatter';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
+import { TooltipComponent } from 'containers/covid19/helpers/covid19';
+import { mockNodes, mockLinks, defCodeColor } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
-
-const mockNodes = [
-    {
-        name: 'totalBudgetAuthority',
-        label: 'Total Budget Authority',
-        color: '#AAC6E2',
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 121,
-        textHeight: 31
-    },
-    {
-        name: 'awardObligations',
-        label: 'Award Obligations',
-        color: '#558EC6',
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 99,
-        textHeight: 31
-    },
-    {
-        name: 'nonAwardObligations',
-        label: 'Non-Award Obligations',
-        color: '#558EC6',
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 123,
-        textHeight: 31
-    },
-    {
-        name: 'awardOutlays',
-        label: 'Award Outlays',
-        color: '#0A2F5A',
-        glossary: '/yellow',
-        textWidth: 79,
-        textHeight: 31
-    },
-    {
-        name: 'notYetOutlayed',
-        label: 'Not Yet Outlayed',
-        stroke: '#0A2F5A',
-        color: 'white',
-        strokeWidth: 2,
-        strokeOpacity: 0.4,
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 91,
-        textHeight: 31
-    },
-    {
-        name: 'nonAwardOutlays',
-        label: 'Non-Award Outlays',
-        color: '#0A2F5A',
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 104,
-        textHeight: 31
-    },
-    {
-        name: 'notYetOutlayed',
-        label: 'Not Yet Outlayed',
-        stroke: '#0A2F5A',
-        color: 'white',
-        strokeWidth: 2,
-        strokeOpacity: 0.4,
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 91,
-        textHeight: 31
-    },
-    {
-        name: 'unObligatedBalance',
-        label: 'Unobligated Balance',
-        color: 'white',
-        stroke: '#558EC6',
-        strokeWidth: 2,
-        strokeOpacity: 0.4,
-        glossary: (
-            <a href="/">
-                <Glossary />
-            </a>
-        ),
-        textWidth: 111,
-        textHeight: 31
-    }
-];
-// total amount = 3500000
-const mockLinks = [
-    {
-        source: 0, // O to total
-        target: 5,
-        value: 500000
-    },
-    {
-        source: 1, // L to total
-        target: 5,
-        value: 600000
-    },
-    {
-        source: 2, // M to total
-        target: 5,
-        value: 700000
-    },
-    {
-        source: 3, // N to total
-        target: 5,
-        value: 800000
-    },
-    {
-        source: 4, // P to total
-        target: 5,
-        value: 900000
-    },
-    {
-        source: 5, // total to award obligations
-        target: 6,
-        value: 1100000
-    },
-    {
-        source: 5, // total to non award obligations
-        target: 7,
-        value: 700000
-    },
-    {
-        source: 6, // award to award outlays
-        target: 8,
-        value: 550000
-    },
-    {
-        source: 6, // award to not yet outlayed
-        target: 9,
-        value: 550000
-    },
-    {
-        source: 7, // non award to non award outlays
-        target: 10,
-        value: 350000
-    },
-    {
-        source: 7, // non award to non award not yet outlayed
-        target: 11,
-        value: 350000
-    },
-    {
-        source: 5, // total to unobligated balance
-        target: 12,
-        value: 1700000
-    }
-];
-
-const defCodeColor = '#B699C6';
 
 const propTypes = {
     height: PropTypes.number,
@@ -214,6 +47,16 @@ const Sankey = ({ height, width, defCodes }) => {
         spendingTextEnd: 0
     });
     const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
+    const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
+        const newNode = node;
+        if (node.name === 'unObligatedBalance') {
+            const { x1, x0 } = array.find((n) => n.name === 'awardObligations');
+            newNode.x0 = x0;
+            newNode.x1 = x1;
+            return newNode;
+        }
+        return newNode;
+    });
     // create data for def code nodes
     useEffect(() => {
         const dataForNodes = defCodes.map((code) => {
@@ -237,7 +80,6 @@ const Sankey = ({ height, width, defCodes }) => {
     }, [defCodes]);
     // set the data used for the d3 sankey method
     useEffect(() => {
-        console.log(' Setting Data For Sankey to use ');
         setSankeyData(Object.assign({}, { nodes: nodeData, links: mockLinks }));
     }, [nodeData]);
     // create sankey data
@@ -247,7 +89,7 @@ const Sankey = ({ height, width, defCodes }) => {
                 .nodeWidth(width / 5)
                 .nodePadding(60)
                 .extent([[1, 100], [width - 1, height - 5]])(sankeyData);
-            setSankeyNodes(nodes);
+            setSankeyNodes(manuallyPositionOtherObligations(nodes));
             setSankeyLinks(links);
         }
     }, [sankeyData, height, width]);
@@ -269,7 +111,15 @@ const Sankey = ({ height, width, defCodes }) => {
 
     useEffect(() => {
         const data = sankeyNodes.map((node) => {
-            if (node.tooltip) {
+            const {
+                tooltip,
+                glossary,
+                x0,
+                y0,
+                textWidth,
+                textHeight
+            } = node;
+            if (tooltip) {
                 return (
                     <TooltipWrapper
                         key={uniqueId()}
@@ -277,27 +127,28 @@ const Sankey = ({ height, width, defCodes }) => {
                         styles={
                             {
                                 position: 'abosolute',
-                                transform: `translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`
+                                transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
                             }
                         }
-                        className="sankey__tooltip" />
+
+                        tooltipComponent={<TooltipComponent />}
+                        className="covid19-tt sankey__tooltip" />
                 );
             }
-            if (node.glossary) {
+            if (glossary) {
                 return (
                     <div
                         key={uniqueId()}
-                        // transform={`translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`}
                         style={
                             {
                                 position: 'absolute',
                                 width: '1.2rem',
                                 height: '1.2rem',
-                                transform: `translate(${node.x0 + node.textWidth}px,${(node.y0 - node.textHeight)}px)`
+                                transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
                             }
                         }
                         className="sankey__glossary">
-                        <a href="/">
+                        <a href={glossary}>
                             <Glossary />
                         </a>
                     </div>
@@ -338,44 +189,49 @@ const Sankey = ({ height, width, defCodes }) => {
                         y1={25}
                         x2={fundingSpendingTextData.spendingTextEnd}
                         y2={25} />
-                    {sankeyNodes.map((node, i) => {
+                    {sankeyNodes.map((node) => {
+                        const {
+                            x0,
+                            y0,
+                            color,
+                            value,
+                            publicLaw
+                        } = node;
                         return (
-                            <g key={`node-${node.name}${i}`}>
+                            <g key={uniqueId()}>
                                 {
                                     node.publicLaw &&
                                     <text
                                         className="sankey__text sankey__text__public-law"
-                                        x={node.x0}
-                                        y={node.y0 - 34}>
-                                        {node.publicLaw}
+                                        x={x0}
+                                        y={y0 - 34}>
+                                        {publicLaw}
                                     </text>
                                 }
                                 <text
                                     className="sankey__text"
-                                    x={node.x0}
-                                    y={node.y0 - 19}>
+                                    x={x0}
+                                    y={y0 - 19}>
                                     {node.label}
                                 </text>
                                 <text
                                     className="sankey__text sankey__text-money"
-                                    x={node.x0}
-                                    y={node.y0 - 4}>
-                                    {formatMoney(node.value)}
+                                    x={x0}
+                                    y={y0 - 4}>
+                                    {formatMoney(value)}
                                 </text>
                                 <SankeyNode
                                     {...node}
-                                    color={node.color} />
+                                    color={color} />
                             </g>
                         );
                     })}
-                    {sankeyLinks.map((link, i) => {
-                        return (
-                            <SankeyLink
-                                key={`link-${i}`}
-                                link={link}
-                                color={link.target.stroke || link.target.color} />
-                        );
-                    })}
+                    {sankeyLinks.map((link) => (
+                        <SankeyLink
+                            key={uniqueId()}
+                            link={link}
+                            color={link.target.color} />
+                    ))}
                 </g>
             </svg>
         </div>

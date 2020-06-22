@@ -13,10 +13,10 @@ const propTypes = {
     y0: PropTypes.number,
     y1: PropTypes.number,
     color: PropTypes.string,
-    stroke: PropTypes.string,
-    strokeWidth: PropTypes.number,
-    strokeOpacity: PropTypes.number
+    whiteRectangle: PropTypes.bool
 };
+
+const smallerRectangle = 2;
 
 const SankeyNode = ({
     name,
@@ -25,21 +25,29 @@ const SankeyNode = ({
     y0,
     y1,
     color,
-    stroke,
-    strokeWidth,
-    strokeOpacity
+    whiteRectangle
 }) => (
-    <rect
-        x={x0}
-        y={y0}
-        width={x1 - x0}
-        height={y1 - y0}
-        fill={color}
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-        strokeOpacity={strokeOpacity}>
-        <title>{name}</title>
-    </rect>
+    <g>
+        <rect
+            x={x0}
+            y={y0}
+            width={x1 - x0}
+            height={y1 - y0}
+            fill={color}>
+            <title>{name}</title>
+        </rect>
+        {
+            whiteRectangle &&
+            <rect
+                x={x0 + smallerRectangle}
+                y={y0 + smallerRectangle}
+                width={(x1 - x0) - (smallerRectangle * 2)}
+                height={(y1 - y0) - (smallerRectangle * 2)}
+                fill="white">
+                <title>{name}</title>
+            </rect>
+        }
+    </g>
 );
 
 SankeyNode.propTypes = propTypes;

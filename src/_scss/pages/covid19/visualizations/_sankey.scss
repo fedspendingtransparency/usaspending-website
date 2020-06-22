@@ -70,9 +70,21 @@
       padding-right: 0;
     }
   }
-  .sankey__tooltip {
-    position: absolute;
-    font-size: 1.2rem;
+  .tooltip-wrapper {
+    .tooltip-spacer {
+      right: -400px;
+      top: -19px;
+    }
+    &.sankey__tooltip {
+      position: absolute;
+      font-size: 1.2rem;
+    }
+    pointer-events: visible;
+    .tooltip__hover-wrapper {
+      svg {
+        pointer-events: visible;
+      }
+    }
   }
   .sankey__glossary {
     position: absolute;
