@@ -19,6 +19,151 @@ export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
+export const amountsHeight = 400;
+export const sankeyHeight = 400;
+export const amountsPadding = {
+    left: 80,
+    right: 80
+};
+
+export const moneyLabel = {
+    B: 'Billion',
+    M: 'Million',
+    T: 'Trillion'
+};
+
+export const paddingBetweenRectangles = 4;
+
+export const rectangleMapping = {
+    _totalBudgetAuthority: {
+        fill: 'black',
+        offset: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+        },
+        line: true,
+        text: {
+            question: 'How much is available to be spent?',
+            questionLeft: 310,
+            questionDown: 15,
+            valueLeft: 182,
+            valueDown: 50,
+            labelLeft: 198,
+            label: 'Total Budgetary Resources'
+        }
+    },
+    contentOuter: { // white rectangle
+        fill: 'white',
+        offset: {
+            left: paddingBetweenRectangles,
+            right: paddingBetweenRectangles,
+            top: paddingBetweenRectangles,
+            bottom: paddingBetweenRectangles
+        },
+        primaryKey: '_totalBudgetAuthority'
+    },
+    content: { // baby blue rectangle
+        fill: '#02bfe7', // $color-primary-alt
+        offset: {
+            left: 2 * paddingBetweenRectangles,
+            right: 2 * paddingBetweenRectangles,
+            top: 2 * paddingBetweenRectangles,
+            bottom: 2 * paddingBetweenRectangles
+        },
+        primaryKey: '_totalBudgetAuthority'
+    },
+    _totalObligations: {
+        fill: '#046b99', // $color-primary-alt-darkest
+        offset: {
+            left: 2 * paddingBetweenRectangles,
+            right: 0,
+            top: 3 * paddingBetweenRectangles,
+            bottom: 3 * paddingBetweenRectangles
+        },
+        line: true,
+        text: {
+            question: 'How much was promised to be spent?',
+            label: 'Total Obligations',
+            questionLeft: 310,
+            questionDown: 15,
+            valueLeft: 182,
+            valueDown: 50,
+            labelLeft: 198
+        }
+    },
+    _totalOutlays: {
+        fill: '#112e51', // $color-primary-darkest
+        offset: {
+            left: 2 * paddingBetweenRectangles,
+            right: 0,
+            top: 4 * paddingBetweenRectangles,
+            bottom: 4 * paddingBetweenRectangles
+        },
+        line: true,
+        text: {
+            question: 'How much has been paid out?',
+            label: 'Total Outlays',
+            questionLeft: 310,
+            questionDown: 15,
+            valueLeft: 182,
+            valueDown: 50,
+            labelLeft: 198
+        }
+    },
+    _remainingBalance: {
+        fill: '#046b99', // $color-primary-alt-darkest
+        primaryKey: '_totalObligations',
+        offset: {
+            left: 3 * paddingBetweenRectangles,
+            right: 6 * paddingBetweenRectangles,
+            top: 3 * paddingBetweenRectangles,
+            bottom: 3 * paddingBetweenRectangles
+        },
+        line: true,
+        text: {
+            question: 'How much is left?',
+            label: 'Total Remaining Balance',
+            questionLeft: 158,
+            questionDown: 15,
+            valueLeft: 182,
+            valueDown: 50,
+            labelLeft: 198
+        }
+    },
+    remainingBalanceFiller: {
+        fill: 'white',
+        primaryKey: '_totalObligations',
+        offset: {
+            left: 4 * paddingBetweenRectangles,
+            right: 8 * paddingBetweenRectangles,
+            top: 4 * paddingBetweenRectangles,
+            bottom: 4 * paddingBetweenRectangles
+        }
+    }
+};
+
+export const startOfChartY = 200;
+export const rectangleHeight = 60;
+export const lineStrokeWidth = 3;
+export const lineLength = 127;
+export const textSize = {
+    question: {
+        height: 21,
+        width: 250
+    },
+    value: {
+        height: 41,
+        width: 150
+    },
+    label: {
+        height: 17,
+        width: 75
+    }
+};
+
+
 export const mockNodes = [
     {
         name: 'totalBudgetAuthority',

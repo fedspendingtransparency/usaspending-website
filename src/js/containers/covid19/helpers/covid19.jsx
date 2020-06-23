@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/10/20
  */
 
-import SankeyContainer from 'containers/covid19/SankeyContainer';
+import OverviewContainer from 'containers/covid19/OverviewContainer';
 
 import React from 'react';
 import AwardQuestion from 'components/covid19/AwardQuestions';
@@ -45,7 +45,7 @@ const ComingSoon = () => (
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
-        component: <SankeyContainer />,
+        component: <OverviewContainer />,
         headerText: totalSpendingText,
         headerTextTooltip: totalSpendingTooltip,
         showInMenu: true,

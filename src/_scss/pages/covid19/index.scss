@@ -270,7 +270,6 @@
           }
           .body__section {
               @import '../agency/v2/tabs';
-              @import './visualizations/sankey';
               @include display(flex);
               @include flex-wrap(wrap);
               margin-bottom: $global-mrg;
@@ -361,6 +360,11 @@
                 font-style: italic;
                 letter-spacing: 0;
                 line-height: 1.5rem;
+              }
+              .overview {
+                width: 100%;
+                @import './visualizations/sankey';
+                @import './visualizations/amounts';
               }
           }
           .body__section:last-child {
