@@ -2,15 +2,26 @@
     @include display(flex);
     text-align: center;
     border-bottom: solid rem(1) $color-gray-lighter;
+    @include flex-direction(column); // stack the columns in mobile
+    @media(min-width: $tablet-screen) {
+        @include flex-direction(row);
+    }
     .overview-data {
         @include display(flex);
-        @include flex(1 0 25%);
+        @include flex(0 1 25%);
         @include flex-direction(column);
-        border-right: solid rem(1) $color-gray-lighter;
+        border-bottom: solid rem(1) $color-gray-lighter;
+        &:last-of-type {
+            border-bottom: 0;
+        }
         padding: rem(16);
         margin: rem(11) 0;
-        &:last-of-type {
-            border-right: 0;
+        @media(min-width: $tablet-screen) {
+            border-bottom: 0;
+            border-right: solid rem(1) $color-gray-lighter;
+            &:last-of-type {
+                border-right: 0;
+            }
         }
         .overview-data__label {
             font-size: rem(22);
