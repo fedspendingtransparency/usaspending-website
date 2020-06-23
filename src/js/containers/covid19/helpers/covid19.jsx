@@ -36,7 +36,7 @@ const awardSpedingTooltip = (
 
 const ComingSoon = () => (
     <div className="coming-soon-section">
-        <h4>Coming Soon</h4>
+        <h3>Coming Soon</h3>
         <p>This feature is currently under development.</p>
     </div>
 );

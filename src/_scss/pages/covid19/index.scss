@@ -273,7 +273,7 @@
                           @include flex(0 1 auto);
                           text-align: right;
                       }
-  
+
                       .table-header__sort {
                           margin-top: auto;
                           margin-bottom: auto;
@@ -315,7 +315,7 @@
                   .body__header-text {
                     font-size: 1.4rem;
                   }
-                  h3 {
+                  h2 {
                       @include display(flex);
                       margin: 0;
                       line-height: $base-line-height;
@@ -338,6 +338,9 @@
                   @extend %coming-soon-idv;
                   padding-bottom: 0;
                   height: 730px;
+                  h3 {
+                      font-size: $h4-font-size;
+                  }
               }
               .information-body {
                 background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);
