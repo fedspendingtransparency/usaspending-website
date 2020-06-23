@@ -12,3 +12,10 @@ export const fetchDEFCodes = () => apiRequest({
 export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
+
+export const fetchCfdaCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/count/',
+    method: 'post',
+    data: params
+});

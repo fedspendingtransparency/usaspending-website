@@ -3,7 +3,9 @@
  * Created by Lizzie Salita 6/22/20
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { fetchCfdaCount } from 'helpers/disasterHelper';
 import OverviewData from '../OverviewData';
 
 const overviewData = [
@@ -28,9 +30,25 @@ const overviewData = [
 ];
 
 const SpendingByCFDA = () => {
-    // TODO - replace hard-coded values with numbers from Redux and count API response
+    const [totalCfda, setTotalCfda] = useState(null);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    useEffect(() => {
+        const params = {
+            filter: {
+                def_codes: defCodes.map((defc) => defc.code)
+                // TODO - add award type codes
+            }
+        };
+        fetchCfdaCount(params).promise
+            .then((res) => {
+                setTotalCfda(res.data.count);
+            });
+    }, [defCodes]);
+
+    // TODO - replace hard-coded values with numbers from API responses
     const amounts = {
-        totalCfda: 35,
+        totalCfda,
         totalAwardOutlays: 413100000000,
         totalAwardObligations: 866700000000,
         numberOfAwards: 53000000
