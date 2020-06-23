@@ -50,7 +50,8 @@ export const rectangleMapping = {
             questionDown: 15,
             valueLeft: 182,
             valueDown: 50,
-            labelLeft: 198,
+            labelLeft: 186,
+            labelDown: 25,
             label: 'Total Budgetary Resources'
         }
     },
@@ -86,11 +87,12 @@ export const rectangleMapping = {
         text: {
             question: 'How much was promised to be spent?',
             label: 'Total Obligations',
-            questionLeft: 310,
-            questionDown: 15,
-            valueLeft: 182,
-            valueDown: 50,
-            labelLeft: 198
+            questionLeft: 331,
+            questionDown: 41,
+            valueLeft: 161,
+            valueDown: 40,
+            labelLeft: 123,
+            labelDown: 25
         }
     },
     _totalOutlays: {
@@ -105,11 +107,12 @@ export const rectangleMapping = {
         text: {
             question: 'How much has been paid out?',
             label: 'Total Outlays',
-            questionLeft: 310,
+            questionLeft: 266,
             questionDown: 15,
-            valueLeft: 182,
+            valueLeft: 161,
             valueDown: 50,
-            labelLeft: 198
+            labelLeft: 97,
+            labelDown: 25
         }
     },
     _remainingBalance: {
@@ -126,10 +129,11 @@ export const rectangleMapping = {
             question: 'How much is left?',
             label: 'Total Remaining Balance',
             questionLeft: 158,
-            questionDown: 15,
+            questionDown: 41,
             valueLeft: 182,
-            valueDown: 50,
-            labelLeft: 198
+            valueDown: 40,
+            labelLeft: 175,
+            labelDown: 25
         }
     },
     remainingBalanceFiller: {

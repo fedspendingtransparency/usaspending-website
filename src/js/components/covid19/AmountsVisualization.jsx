@@ -87,13 +87,13 @@ const AmountsVisualization = ({ data, width = null }) => {
                             className: 'amounts-text__question'
                         },
                         {
-                            y: (startOfChartY - lineLength) + textInfo?.questionDown + 10,
+                            y: (startOfChartY - lineLength) + textInfo?.questionDown + textInfo?.valueDown,
                             x: lineXPosition - textInfo?.valueLeft,
                             text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
                             className: 'amounts-text__value'
                         },
                         {
-                            y: (startOfChartY - lineLength) + textInfo?.questionDown + 10 + textSize.value.height + 5,
+                            y: (startOfChartY - lineLength) + textInfo?.questionDown + textInfo?.valueDown + textInfo?.labelDown,
                             x: lineXPosition - textInfo?.labelLeft,
                             text: textInfo?.label,
                             className: 'amounts-text__label'
@@ -101,13 +101,13 @@ const AmountsVisualization = ({ data, width = null }) => {
                     ] :
                     [
                         {
-                            y: startOfChartY + rectangleHeight + 10,
+                            y: startOfChartY + rectangleHeight + textInfo?.valueDown,
                             x: lineXPosition - textInfo?.valueLeft,
                             text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
                             className: 'amounts-text__value'
                         },
                         {
-                            y: startOfChartY + rectangleHeight + 10 + textSize.value.height + 5,
+                            y: startOfChartY + rectangleHeight + textInfo?.valueDown + textInfo?.labelDown,
                             x: lineXPosition - textInfo?.labelLeft,
                             text: textInfo?.label,
                             className: 'amounts-text__label'
