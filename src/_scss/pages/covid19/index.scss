@@ -144,7 +144,7 @@
                         font-size: 1.4rem;
                     }
 
-                    h3 {
+                    h2 {
                         @include display(flex);
 
                         margin: 0;
@@ -173,6 +173,9 @@
 
                     padding-bottom: 0;
                     height: 73rem;
+                    h3 {
+                        font-size: $h4-font-size;
+                    }
                 }
 
                 .information-body {
@@ -296,7 +299,7 @@
                     }
                 }
             }
-
+            @import './overviewData';
             .body__section:first-of-type {
                 padding: 0;
             }
