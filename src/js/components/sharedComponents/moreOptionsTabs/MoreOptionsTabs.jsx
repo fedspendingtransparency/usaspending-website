@@ -128,6 +128,29 @@ const MoreOptionsTabs = (props) => {
         return 'More Options';
     };
 
+    const previewCountPropTypes = {
+        name: PropTypes.string,
+        value: PropTypes.string
+    };
+
+    const PreviewCount = ({ name, value }) => {
+        const selectDropdownOption = () => {
+            pickerOptions.forEach((option) => {
+                if (option.value === value) {
+                    setPickerActiveTab(value);
+                }
+            });
+            setActiveTab(value);
+        };
+
+        return (
+            <div tabIndex={0} onKeyDown={selectDropdownOption} role="button" onClick={selectDropdownOption}>
+                <div className="more-options__tabs_preview-label">{name}</div>
+                <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? props.tabCounts[value] : '0'}</div>
+            </div>
+        );
+    };
+    PreviewCount.propTypes = previewCountPropTypes;
 
     useEffect(() => {
         const handleResize = () => {
@@ -135,6 +158,7 @@ const MoreOptionsTabs = (props) => {
             setTabsContainerWidth(tabs.current.offsetWidth);
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
+            setPickerActiveTab(activeTab);
         };
 
         window.addEventListener('resize', throttle(handleResize, 100));
@@ -161,13 +185,15 @@ const MoreOptionsTabs = (props) => {
 
             {showMoreOptions ?
                 <Picker
+                    id="more-options__tabs-picker"
                     className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
                     icon=""
                     selectedOption={selectedOptionDecision()}
                     options={pickerOptions.length > 0 && pickerOptions.map((option) => ({
-                        name: `${option.name} [${props.tabCounts[option.value] ? props.tabCounts[option.value] : '0'}]`,
+                        name: option.name,
                         value: option.value,
-                        onClick: switchTab
+                        component: <PreviewCount name={option.name} value={option.value} />,
+                        onClick: () => {}
                     }))} />
                 : null}
             {pickerOptions.length > 0 && pickerOptions.length === props.tabs.length ? '' : <div className="tab-padding-right" />}
