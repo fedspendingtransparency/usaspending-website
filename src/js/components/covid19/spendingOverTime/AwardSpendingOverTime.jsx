@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAwardAmounts } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchNewAwardsCount } from 'helpers/disasterHelper';
 import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 
@@ -13,12 +13,19 @@ const tabs = [
     {
         type: 'obligations',
         label: 'Award Obligations',
-        description: 'How much was promised to be spent on COVID-19 response awards?'
+        description: 'How much was promised to be spent on COVID-19 response awards?',
+        dollarAmount: true
     },
     {
         type: 'outlays',
         label: 'Award Outlays',
-        description: 'How much was paid out to COVID-19 response awardees?'
+        description: 'How much was paid out to COVID-19 response awardees?',
+        dollarAmount: true
+    },
+    {
+        type: 'newAwards',
+        label: 'New Awards',
+        description: 'How many new awards were made in support of COVID-19 response?'
     }
 ];
 
@@ -26,21 +33,32 @@ const AwardSpendingOverTime = () => {
     const [activeTab, setActiveTab] = useState('obligations');
     const [obligations, setObligations] = useState(null);
     const [outlays, setOutlays] = useState(null);
+    const [newAwards, setNewAwards] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const defCodeList = defCodes.map((defc) => defc.code);
     const amounts = {
         obligations,
-        outlays
+        outlays,
+        newAwards
     };
     useEffect(() => {
         const params = {
             filter: {
-                def_codes: defCodes.map((defc) => defc.code)
+                def_codes: defCodeList
             }
+        };
+        const countParams = {
+            spending_type: 'award',
+            def_codes: defCodeList
         };
         fetchAwardAmounts(params).promise
             .then((res) => {
                 setObligations(res.data.obligation);
                 setOutlays(res.data.outlay);
+            });
+        fetchNewAwardsCount(countParams).promise
+            .then((res) => {
+                setNewAwards(res.data.count);
             });
     }, [defCodes]);
     return (
