@@ -5,21 +5,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchCfdaCount } from 'helpers/disasterHelper';
+import { fetchCfdaCount, fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
 import OverviewData from '../OverviewData';
 
 const overviewData = [
     {
-        type: 'totalCfda',
+        type: 'cfdaCount',
         label: 'Total CFDA Programs'
     },
     {
-        type: 'totalAwardOutlays',
+        type: 'awardOutlays',
         label: 'Total Award Outlays',
         dollarAmount: true
     },
     {
-        type: 'totalAwardObligations',
+        type: 'awardObligations',
         label: 'Total Award Obligations',
         dollarAmount: true
     },
@@ -30,7 +30,10 @@ const overviewData = [
 ];
 
 const SpendingByCFDA = () => {
-    const [totalCfda, setTotalCfda] = useState(null);
+    const [cfdaCount, setCfdaCount] = useState(null);
+    const [awardOutlays, setAwardOutlays] = useState(null);
+    const [awardObligations, setAwardObligations] = useState(null);
+    const [numberOfAwards, setNumberOfAwards] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
@@ -42,17 +45,26 @@ const SpendingByCFDA = () => {
         };
         fetchCfdaCount(params).promise
             .then((res) => {
-                setTotalCfda(res.data.count);
+                setCfdaCount(res.data.count);
+            });
+        fetchAwardAmounts(params).promise
+            .then((res) => {
+                setAwardObligations(res.data.obligation);
+                setAwardOutlays(res.data.outlay);
+            });
+        fetchAwardCount(params).promise
+            .then((res) => {
+                setNumberOfAwards(res.data.count);
             });
     }, [defCodes]);
 
-    // TODO - replace hard-coded values with numbers from API responses
     const amounts = {
-        totalCfda,
-        totalAwardOutlays: 413100000000,
-        totalAwardObligations: 866700000000,
-        numberOfAwards: 53000000
+        cfdaCount,
+        awardOutlays,
+        awardObligations,
+        numberOfAwards
     };
+
     return (
         <div className="body__content assistance-listing">
             <h3 className="body__narrative">
