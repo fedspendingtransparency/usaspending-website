@@ -121,7 +121,7 @@ export const agencyLandingPageMetaTags = {
 
 export const covidPageMetaTags = {
     og_url: `${productionURL}#/covid/`,
-    og_title: 'Covid - USAspending.gov',
+    og_title: 'COVID-19 Response - USAspending.gov',
     og_description:
         'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
     og_site_name: siteName,

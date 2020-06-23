@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { fetchNewAwardsCount } from 'helpers/disasterHelper';
+import { useSelector } from 'react-redux';
+import { fetchAwardAmounts, fetchNewAwardsCount } from 'helpers/disasterHelper';
 import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 
@@ -30,28 +31,36 @@ const tabs = [
 
 const AwardSpendingOverTime = () => {
     const [activeTab, setActiveTab] = useState('obligations');
-    const [newAwards, setNewAwards] = useState(0);
-    const params = {
-        spending_type: 'award',
-        // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
-        def_codes: ['L', 'M', 'N', 'O', 'P'],
-        fiscal_year: 2020
+    const [obligations, setObligations] = useState(null);
+    const [outlays, setOutlays] = useState(null);
+    const [newAwards, setNewAwards] = useState(null);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const defCodeList = defCodes.map((defc) => defc.code);
+    const amounts = {
+        obligations,
+        outlays,
+        newAwards
     };
     useEffect(() => {
-        const request = fetchNewAwardsCount(params);
-        request.promise
+        const params = {
+            filter: {
+                def_codes: defCodeList
+            }
+        };
+        const countParams = {
+            spending_type: 'award',
+            def_codes: defCodeList
+        };
+        fetchAwardAmounts(params).promise
+            .then((res) => {
+                setObligations(res.data.obligation);
+                setOutlays(res.data.outlay);
+            });
+        fetchNewAwardsCount(countParams).promise
             .then((res) => {
                 setNewAwards(res.data.count);
-            }).catch((err) => {
-                console.error(err);
             });
-    });
-    const amounts = {
-        newAwards,
-        // TODO - get total Award Obligations and Award Outlays from Redux when overview data is added
-        obligations: 866700000000,
-        outlays: 753100000000
-    };
+    }, [defCodes]);
     return (
         <div className="body__content spending-over-time">
             <h3 className="body__narrative">This is how <strong>awards</strong> supporting the COVID-19 Response were funded over time.</h3>

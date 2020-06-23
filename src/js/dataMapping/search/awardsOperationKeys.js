@@ -21,6 +21,7 @@ export const rootKeys = {
     cfda: 'program_numbers',
     naics: 'naics_codes',
     psc: 'psc_codes',
+    defCodes: 'def_codes',
     contractPricing: 'contract_pricing_type_codes',
     setAsideType: 'set_aside_type_codes',
     extentCompeted: 'extent_competed_type_codes'
