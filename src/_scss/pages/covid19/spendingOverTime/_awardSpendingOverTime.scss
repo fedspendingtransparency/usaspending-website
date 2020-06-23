@@ -21,6 +21,17 @@
     .table-wrapper {
         overflow-x: auto;
         .usda-table {
+            .usda-table__head {
+                th.table-header {
+                    text-align: right;
+                    &:first-of-type {
+                        text-align: left; // Align the Month column to the left
+                    }
+                    .table-header__label {
+                        width: 100%;
+                    }
+                }
+            }
             .usda-table__body {
                 tr.usda-table__row {
                     td.usda-table__cell {
