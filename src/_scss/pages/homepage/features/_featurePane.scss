@@ -44,37 +44,65 @@
         @include flex-wrap(wrap);
     }
 
-    .feature-pane__content {
-      @include display(flex);
-      @include flex-direction(column);
-      text-align: center;
-      font-size: rem(14);
-      line-height: rem(17);
+
+  .feature-pane__content {
+    @include display(flex);
+    @include flex-direction(column);
+    text-align: center;
+    font-size: rem(14);
+    line-height: rem(17);
+    @include media($medium-screen) {
+      @include flex(1 1 1);
+      width: 30%;
+    }
+    &.feature-pane__content-middle__sub {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url('#{$image-path}/homepage-eagle-large.png');
+    }
+    &.feature-pane__content-covid {
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
       @include media($medium-screen) {
-          @include flex(1 1 1);
-          width: 30%;
+        background-image: url('#{$image-path}/covid/covid1200.png');
       }
-      &.feature-pane__content-middle__sub {
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-image: url('#{$image-path}/homepage-eagle-large.png');
-      }
-      &.feature-pane__content-covid {
-        //background-size: contain;
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-image: url('#{$image-path}/homepage-covid-large.png');
-        //background-image: url('#{$image-path}/covid.png');
+      @include media($small-screen) {
+        background-image: url('#{$image-path}/covid/covid1200.png');
       }
     }
+  }
 
-    .covid-announcement-text-box {
-        margin-top: 50px;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.75);
-        z-index: 1;
-     }
+
+
+    //// tablets
+    //@media (min-width: 481px) {
+    //  .feature-pane__content.feature-pane__content-covid {
+    //    background-size: contain;
+    //    background-position: center center;
+    //    background-repeat: no-repeat;
+    //    background-image: url('#{$image-path}/covid/covid1200.png');
+    //  }
+    //}
+    //
+    //// computers
+    //@media (min-width: 769px) {
+    //  .feature-pane__content.feature-pane__content-covid {
+    //    background-size: contain;
+    //    background-position: center center;
+    //    background-repeat: no-repeat;
+    //    background-image: url('#{$image-path}/covid/covid1200.png');
+    //  }
+    //}
+
+  .covid-announcement-text-box {
+    margin-top: rem(50);
+    padding: rem(0.5);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    z-index: 1;
+  }
 
     .feature-pane__content-divider {
         display: none;

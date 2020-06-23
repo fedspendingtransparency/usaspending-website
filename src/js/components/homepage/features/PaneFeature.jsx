@@ -53,15 +53,18 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-                    <hr className="feature-pane__mobile-content-divider" />
+
                     <div className="feature-pane__content-divider" />
+                    <hr className="feature-pane__mobile-content-divider" />
 
                     {/*DEV-5403*/}
                     <div className="feature-pane__content feature-pane__content-covid">
-                        <div className="covid-announcement-text-box">
-                            <p className="feature-pane__content-title-covid">
-                                The Federal Response to COVID-19
-                            </p>
+                        <div>
+                            <div className="covid-announcement-text-box">
+                                <p className="feature-pane__content-title-covid">
+                                    The Federal Response to COVID-19
+                                </p>
+                            </div>
                         </div>
                         <div className="feature-pane__button-wrapper">
                             <a href="https://www.google.com" role="button" className="feature-pane__button-covid">Explore Data Lab<span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span></a>
@@ -69,6 +72,7 @@ const PaneFeature = () => {
                     </div>
 
                     <div className="feature-pane__content-divider" />
+                    <hr className="feature-pane__mobile-content-divider" />
 
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
