@@ -1,0 +1,15 @@
+.covid19-tt {
+    @include display(flex);
+    @include justify-content(center);
+    @include flex-direction(column);
+
+    .tooltip__title {
+        width: 100%;
+        margin-bottom: $global-mrg / 2;
+        text-align: center;
+    }
+
+    .tooltip__text {
+        padding: rem(0) rem(23);
+    }
+}

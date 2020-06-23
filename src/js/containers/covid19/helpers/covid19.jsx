@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
@@ -80,7 +81,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_over_time: {
         icon: 'chart-area',
-        component: <ComingSoon />,
+        component: <AwardSpendingOverTime />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,

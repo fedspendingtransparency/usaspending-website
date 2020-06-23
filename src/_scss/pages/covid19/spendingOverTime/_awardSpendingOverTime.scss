@@ -1,0 +1,19 @@
+.spending-over-time {
+    width: 100%;
+    .table-wrapper {
+        overflow-x: auto;
+        .usda-table {
+            .usda-table__body {
+                tr.usda-table__row {
+                    td.usda-table__cell {
+                        &:first-of-type {
+                            // Prevent the month column from wrapping
+                            white-space: nowrap;
+                        }
+                        @include span-columns(1 of 8, table);
+                    }
+                }
+            }
+        }
+    }
+}

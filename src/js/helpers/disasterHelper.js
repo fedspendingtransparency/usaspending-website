@@ -13,6 +13,13 @@ export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
 
+export const fetchSpendingOverTime = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/spending_over_time/',
+    method: 'post',
+    data: params
+});
+
 export const fetchAwardAmounts = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/award/amount/',
