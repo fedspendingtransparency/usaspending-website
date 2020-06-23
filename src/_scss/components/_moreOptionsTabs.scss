@@ -1,0 +1,112 @@
+.more-options__tabs_primary {
+    @import "pages/search/results/table/_tableTypes";
+    @include display(flex);
+
+    .tab-padding-right {
+        padding-right: rem(15);
+        border-bottom: 1px solid $color-gray-light;
+    }
+
+    .table-type-toggle {
+        white-space: nowrap;
+    }
+
+    .usa-dt-picker {
+        @include display(flex);
+        justify-content: center;
+        width: 100%;
+        @include media($tablet-screen) {
+            flex: 1 1 0%;
+        }
+        height: rem(50);
+        background-color: $color-gray-lightest;
+        border-bottom: 1px solid $color-gray-light;
+
+        &:hover{
+            @include transition(all 0.3s ease-in-out);
+            background-color: darken($color-gray-lightest, 5%);
+        }
+        &.active {
+            background-color: $color-white;
+            border-top: 1px solid $color-gray-light;
+            border-right: 1px solid $color-gray-light;
+            border-bottom: 1px solid $color-white;
+            border-left: 1px solid $color-gray-light;
+            color: $color-base;
+
+            &:hover{
+                @include transition(all 0.3s ease-in-out);
+                background-color: darken($color-gray-lightest, 5%);
+            }
+        }
+
+        .usa-dt-picker__dropdown-container {
+            @include display(flex);
+            width: 100%;
+            height: 100%;
+
+            .usa-dt-picker__button {
+                display: inline-flex;
+                margin: 0;
+                .usa-dt-picker__button-text {
+                    @include display(flex);
+                    align-items: center;
+                    justify-content: center;
+                    white-space: nowrap;
+                    color: $color-base;
+                    font-size: $base-font-size;
+                    font-weight: normal;
+                    width: 100%;
+                    margin-left: rem(15);
+    
+                    .tab-content {
+                        @include display(flex);
+                        @include align-items(center);
+                        @include justify-content(center);
+                        position: relative;
+                        .tab-label {
+                            @include flex(1 1 auto);
+                            margin-right: rem(5);
+                        }
+            
+                        .count-badge {
+                            @include flex(1 1 auto);
+                            background-color: $color-gray-lighter;
+                            font-size: rem(12);
+                            line-height: rem(16);
+                            padding: rem(0) rem(5);
+                            color: $color-base;
+            
+                            &.active {
+                                background-color: $color-gold; 
+                                color: $color-base;
+                            }
+                        }
+                        .tooltip-wrapper {
+                            .tooltip__text {
+                                padding: 2rem 2rem 0 2rem;
+                                strong {
+                                    padding-bottom: 1rem;
+                                }
+                            }
+                            .tooltip__text:last-child {
+                                padding: 2rem;
+                            }
+                        } 
+                    }
+                }
+                .usa-dt-picker__button-icon {
+                    margin-right: rem(15);
+                    svg {
+                        color: $color-cool-blue;
+                    }
+                }
+            }
+        }
+    }
+
+    &:not(.more-options__tabs_primary_js) {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}

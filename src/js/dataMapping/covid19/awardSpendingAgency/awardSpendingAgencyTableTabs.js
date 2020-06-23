@@ -1,4 +1,4 @@
-export const awardSpendingAgencyTableColumns = [
+export const awardSpendingAgencyTableTabs = [
     {
         enabled: true,
         internal: 'all',
