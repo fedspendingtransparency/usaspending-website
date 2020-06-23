@@ -11,23 +11,27 @@ import { Picker } from 'data-transparency-ui';
 import ResultsTableTabs from '../../search/table/ResultsTableTabs';
 import { awardSpendingAgencyTableColumns } from '../../../dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableColumns';
 
-
 const AwardSpendingAgency = () => {
     const [activeTab, setActiveTab] = useState('all');
     const [tabClass, setTabClass] = useState('');
     const [showMoreOptions, setShowMoreOptions] = useState(false);
-    const tabs = useRef(null);
     const [tabsContainerWidth, setTabsContainerWidth] = useState(null);
     const [pickerOptions, setPickerOptions] = useState([]);
     const [tabTypes, setTabTypes] = useState(awardSpendingAgencyTableColumns);
     const [indexesToDelete, setIndexesToDelete] = useState([]);
-    const [initialRender, setInitialRender] = useState(false);
+    const [pickerActiveTab, setPickerActiveTab] = useState('');
+    const tabs = useRef(null);
 
     // TODO - Remove hard coded values
     const fy = 2020;
     const dateString = "June 30, 2020";
 
     const switchTab = (tab) => {
+        pickerOptions.forEach((option) => {
+            if (option.value === tab) {
+                setPickerActiveTab(tab);
+            }
+        });
         setActiveTab(tab);
     };
 
@@ -45,6 +49,7 @@ const AwardSpendingAgency = () => {
     };
 
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
+    const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
 
     const dropdownOptions = (name, value) => (
         <div
@@ -65,53 +70,79 @@ const AwardSpendingAgency = () => {
         </div>
     );
 
-    const getIndexesToDelete = () => {
-        // stopWidth is initialized to roughly 2x the width of the 'More Options' dropdown
-        let stopWidth = 200;
-        setTabsContainerWidth(tabs.current.offsetWidth);
-
+    const getIndexesToDelete = (allTabs, tabsWidth, containerWidth, moreOptionsWidth) => {
+        setTabsContainerWidth(containerWidth);
         if (tabsContainerWidth) {
-            // grab the indexes of tabs to delete
+            let stopWidth = moreOptionsWidth;
             const indexes = [];
-            tabTypes.forEach((tab, i) => {
-                const width = tabs.current.children[0].children[i].offsetWidth;
+
+            // grab the indexes of tabs to delete
+            allTabs.forEach((_, i) => {
+                const width = allTabs[i].offsetWidth;
                 if (width === 0) {
                     setShowMoreOptions(true);
                     setPickerOptions(awardSpendingAgencyTableColumns.map((col) => ({
                         name: col.label,
                         value: col.internal
                     })));
-                } else if (tabsContainerWidth >= stopWidth + width) {
+                }
+
+                if (width > 0 && Array.from(allTabs).length === awardSpendingAgencyTableColumns.length) {
+                    setShowMoreOptions(false);
+                }
+
+                if (tabsContainerWidth >= (stopWidth + width)) {
                     stopWidth += width;
                 } else {
                     indexes.push(i);
                 }
             });
-            if (indexes.length > 1) {
+
+            if (indexes.length > 0) {
+                // remove an extra element for buffer so columns don't overflow off the page
+                const minIndex = Math.min(...indexes);
+                indexes.push(minIndex - 1);
+
+                // set the tabs to delete off the screen
                 setIndexesToDelete(indexes);
             }
         }
     };
 
     const adaptTabs = () => {
-        if (indexesToDelete.length > 0) {
+        // if we have indexes to delete we want to delete them and add them to the picker options
+        if (indexesToDelete && indexesToDelete.length > 0) {
             setShowMoreOptions(true);
             if (tabTypes.length - indexesToDelete.length <= 0) {
+                // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
                 setTabTypes(tabTypes.slice(0, 0));
                 setPickerOptions(awardSpendingAgencyTableColumns.map((col) => ({
                     name: col.label,
                     value: col.internal
                 })));
             } else {
+                // remove tabs and add the removed tabs to picker options dropdown
                 setTabTypes(tabTypes.slice(0, tabTypes.length - indexesToDelete.length));
                 setPickerOptions(tabTypes.slice(tabTypes.length - indexesToDelete.length, tabTypes.length).map((col) => ({
                     name: col.label,
                     value: col.internal
                 })));
             }
-        } else {
-            setShowMoreOptions(true);
         }
+    };
+
+    const selectedOptionDecision = () => {
+        if (filteredSelectedPickerOption && filteredSelectedPickerOption.length > 0 && pickerOptions.length !== awardSpendingAgencyTableColumns.length) {
+            return dropdownOptions(filteredSelectedPickerOption[0].name, filteredSelectedPickerOption[0].value);
+        } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length !== awardSpendingAgencyTableColumns.length) {
+            return dropdownOptions(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
+        } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length > 0 && pickerOptions.length === awardSpendingAgencyTableColumns.length) {
+            if (pickerOptions[0] && pickerOptions[0].value === activeTab) {
+                return dropdownOptions(pickerOptions[0].name, pickerOptions[0].value);
+            }
+            return dropdownOptions(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
+        }
+        return 'More Options';
     };
 
 
@@ -123,12 +154,12 @@ const AwardSpendingAgency = () => {
             setIndexesToDelete([]);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', throttle(handleResize, 100));
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
-        getIndexesToDelete();
+        getIndexesToDelete(tabs.current.children[0].children, tabs.current.children[0].offsetWidth, tabs.current.offsetWidth, 200);
         // set class for when js is not available
         setTabClass('award-spending__tabs_primary_js');
     }, [tabTypes, tabsContainerWidth]);
@@ -137,7 +168,6 @@ const AwardSpendingAgency = () => {
         adaptTabs();
     }, [indexesToDelete]);
 
-
     return (
         <div className="body__content award-spending">
             <DateNote dateString={dateString} />
@@ -145,7 +175,6 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
             </p>
-
 
             <div className={`award-spending__tabs award-spending__tabs_primary ${tabClass}`} ref={tabs}>
                 <ResultsTableTabs
@@ -158,13 +187,14 @@ const AwardSpendingAgency = () => {
                     <Picker
                         className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
                         icon=""
-                        selectedOption={filteredSelectedOption && filteredSelectedOption.length > 0 ? dropdownOptions(filteredSelectedOption[0].name, filteredSelectedOption[0].value) : 'More Options'}
+                        selectedOption={selectedOptionDecision()}
                         options={pickerOptions.map((option) => ({
-                            name: option.name,
+                            name: `${option.name} [${mockCounts[option.value] ? mockCounts[option.value] : '0'}]`,
                             value: option.value,
                             onClick: switchTab
                         }))} />
                     : null}
+                {pickerOptions.length === awardSpendingAgencyTableColumns.length ? '' : <div className="tab-padding-right" />}
             </div>
             <div className="award-spending__content" />
         </div>

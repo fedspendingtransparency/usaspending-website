@@ -53,5 +53,15 @@ export const awardSpendingAgencyTableColumns = [
         enabled: true,
         internal: 'insurance4',
         label: 'Insurance4'
+    },
+    {
+        enabled: true,
+        internal: 'insurance5',
+        label: 'Insurance5'
+    },
+    {
+        enabled: true,
+        internal: 'insurance6',
+        label: 'Insurance6'
     }
 ];
