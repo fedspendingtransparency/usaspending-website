@@ -51,19 +51,27 @@
                 justify-content: center;
 
                 .usa-dt-picker__item  {
-                    display: flex;
-                    flex-wrap: wrap;
+                    @include display(inline-block);
+                    padding: 0;
 
                     div {
                         @include display(flex);
+                        width: auto;
+                        height: auto;
+                        margin: rem(5) rem(10);
+                        align-items: center;
 
                         .more-options__tabs_preview-label {
-                            @include display(flex);
-                            margin-right: rem(5);
+                            margin-right: 0;
                         }
 
                         .more-options__tabs_preview-count {
-                            @include display(flex);
+                            width:  auto;
+                            height: 100%;
+                            margin-left: 0;
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            align-items: center;
                             background-color: $color-gray-lighter;
                             font-size: rem(12);
                             line-height: rem(16);

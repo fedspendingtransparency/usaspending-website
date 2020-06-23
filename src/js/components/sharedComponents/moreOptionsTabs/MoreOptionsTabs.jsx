@@ -7,8 +7,9 @@ import ResultsTableTabs from '../../search/table/ResultsTableTabs';
 
 
 const propTypes = {
-    tabs: PropTypes.array,
-    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+    tabs: PropTypes.array.isRequired,
+    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    classes: PropTypes.string.isOptional
 };
 
 const MoreOptionsTabs = (props) => {
@@ -133,23 +134,12 @@ const MoreOptionsTabs = (props) => {
         value: PropTypes.string
     };
 
-    const PreviewCount = ({ name, value }) => {
-        const selectDropdownOption = () => {
-            pickerOptions.forEach((option) => {
-                if (option.value === value) {
-                    setPickerActiveTab(value);
-                }
-            });
-            setActiveTab(value);
-        };
-
-        return (
-            <div tabIndex={0} onKeyDown={selectDropdownOption} role="button" onClick={selectDropdownOption}>
-                <div className="more-options__tabs_preview-label">{name}</div>
-                <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? props.tabCounts[value] : '0'}</div>
-            </div>
-        );
-    };
+    const PreviewCount = ({ name, value }) => (
+        <div>
+            <div className="more-options__tabs_preview-label">{name}</div>
+            <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? props.tabCounts[value] : '0'}</div>
+        </div>
+    );
     PreviewCount.propTypes = previewCountPropTypes;
 
     useEffect(() => {
@@ -158,7 +148,6 @@ const MoreOptionsTabs = (props) => {
             setTabsContainerWidth(tabs.current.offsetWidth);
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
-            setPickerActiveTab(activeTab);
         };
 
         window.addEventListener('resize', throttle(handleResize, 100));
@@ -176,7 +165,7 @@ const MoreOptionsTabs = (props) => {
     }, [indexesToDelete]);
 
     return (
-        <div className={`more-options__tabs more-options__tabs_primary ${tabClass}`} ref={tabs}>
+        <div className={`more-options__tabs more-options__tabs_primary ${tabClass} ${props.classes}`} ref={tabs}>
             <ResultsTableTabs
                 types={tabTypes}
                 active={activeTab}
@@ -193,7 +182,7 @@ const MoreOptionsTabs = (props) => {
                         name: option.name,
                         value: option.value,
                         component: <PreviewCount name={option.name} value={option.value} />,
-                        onClick: () => {}
+                        onClick: () => { switchTab(option.value); }
                     }))} />
                 : null}
             {pickerOptions.length > 0 && pickerOptions.length === props.tabs.length ? '' : <div className="tab-padding-right" />}
