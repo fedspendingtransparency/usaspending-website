@@ -6,7 +6,9 @@
 import OverviewContainer from 'containers/covid19/OverviewContainer';
 
 import React from 'react';
+import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
+import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -37,7 +39,7 @@ const awardSpedingTooltip = (
 
 const ComingSoon = () => (
     <div className="coming-soon-section">
-        <h4>Coming Soon</h4>
+        <h3>Coming Soon</h3>
         <p>This feature is currently under development.</p>
     </div>
 );
@@ -81,7 +83,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_over_time: {
         icon: 'chart-area',
-        component: <ComingSoon />,
+        component: <AwardSpendingOverTime />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
@@ -89,10 +91,10 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <ComingSoon />,
+        component: <SpendingByCFDA />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
-        title: 'Award Spending by Assistance Listing'
+        title: 'Award Spending by Assistance Listing (CFDA Program)'
     }
 });
