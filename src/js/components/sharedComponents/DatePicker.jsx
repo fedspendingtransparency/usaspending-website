@@ -234,8 +234,7 @@ export default class DatePicker extends React.Component {
                     <a
                         href="#null"
                         onClick={this.toggleDatePicker}
-                        className="usa-da-icon picker-icon date"
-                        aria-haspopup="true">
+                        className="usa-da-icon picker-icon date">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>
