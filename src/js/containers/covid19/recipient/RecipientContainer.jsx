@@ -11,16 +11,16 @@ import DateNote from 'components/covid19/DateNote';
 const RecipientContainer = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
     return (
-        <div className="recipient__container">
+        <div className="body__content recipient__container">
             <DateNote />
-            <div className="recipient__title">
+            <h3 className="body__narrative">
                 These are the recipients who received COVID-19 Response awards.
-            </div>
-            <div className="recipient__sub-title">
+            </h3>
+            <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from
                 the Federal Government, which they award to recipients in order to
                 respond to the COVID-19 pandemic.
-            </div>
+            </p>
             <div className="recipient__questions">
                 {
                     Object.keys(tabs).map((tab) => (
