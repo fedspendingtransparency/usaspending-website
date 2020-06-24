@@ -1,11 +1,11 @@
 /**
- * overview.js
+ * BaseOverview.js
  * Created by Jonathan Hill 06/18/20
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
-const overview = {
+const BaseOverview = {
     populate(data) {
         data.funding.forEach((code) => {
             this[`_defCode_${code.def_code}_funding`] = code.amount;
@@ -54,4 +54,4 @@ const overview = {
     }
 };
 
-export default overview;
+export default BaseOverview;

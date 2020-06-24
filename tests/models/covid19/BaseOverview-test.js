@@ -1,20 +1,20 @@
 /**
- * overview-test.js
+ * BaseOverview-test.js
  * Created by Jonathan Hill 06/18/20
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import OverviewModel from 'models/covid19/OverviewModel';
-import mockData from './mockData';
+import BaseOverview from 'models/v2/covid19/BaseOverview';
+import { mockOverviewData } from './mockData';
 
-const overview = Object.create(OverviewModel);
-overview.populate(mockData);
+const overview = Object.create(BaseOverview);
+overview.populate(mockOverviewData);
 
-const _otherObligations = mockData.spending.total_obligations - mockData.spending.award_obligations;
-const _awardObligationsNotOutlayed = mockData.spending.award_obligations - mockData.spending.award_outlays;
-const _remainingBalance = mockData.total_budget_authority - mockData.spending.total_obligations;
-const nonAwardOutLays = mockData.spending.total_outlays - mockData.spending.award_outlays;
-const _nonAwardNotOutlayed = (mockData.spending.total_obligations - mockData.spending.award_obligations) - (mockData.spending.total_outlays - mockData.spending.award_outlays);
+const _otherObligations = mockOverviewData.spending.total_obligations - mockOverviewData.spending.award_obligations;
+const _awardObligationsNotOutlayed = mockOverviewData.spending.award_obligations - mockOverviewData.spending.award_outlays;
+const _remainingBalance = mockOverviewData.total_budget_authority - mockOverviewData.spending.total_obligations;
+const nonAwardOutLays = mockOverviewData.spending.total_outlays - mockOverviewData.spending.award_outlays;
+const _nonAwardNotOutlayed = (mockOverviewData.spending.total_obligations - mockOverviewData.spending.award_obligations) - (mockOverviewData.spending.total_outlays - mockOverviewData.spending.award_outlays);
 
 describe(' COVID-19 overview Model', () => {
     describe('Private Variables', () => {
