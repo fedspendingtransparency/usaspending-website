@@ -5,7 +5,6 @@ import { formatNumber } from 'accounting';
 import { Picker } from 'data-transparency-ui';
 import ResultsTableTabs from '../../search/table/ResultsTableTabs';
 
-
 const propTypes = {
     tabs: PropTypes.array.isRequired,
     tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
@@ -35,7 +34,7 @@ const MoreOptionsTabs = (props) => {
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
     const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
 
-    const dropdownOptions = (name, value) => (
+    const selectOption = (name, value) => (
         <div
             role="listbox"
             onChange={switchTab}
@@ -115,16 +114,20 @@ const MoreOptionsTabs = (props) => {
         }
     };
 
-    const selectedOptionDecision = () => {
+    const selectOptionDecision = () => {
         if (filteredSelectedPickerOption && filteredSelectedPickerOption.length > 0 && pickerOptions.length !== props.tabs.length) {
-            return dropdownOptions(filteredSelectedPickerOption[0].name, filteredSelectedPickerOption[0].value);
+            // if picker options contains the active tab then show the active tab as selected in the picker
+            const foundActiveTab = pickerOptions.filter((option) => option.value === activeTab);
+            if (foundActiveTab && foundActiveTab.length > 0) {
+                return selectOption(foundActiveTab[0].name, foundActiveTab[0].value);
+            }
         } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length !== props.tabs.length) {
-            return dropdownOptions(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
+            return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
         } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length > 0 && pickerOptions.length === props.tabs.length) {
             if (pickerOptions[0] && pickerOptions[0].value === activeTab) {
-                return dropdownOptions(pickerOptions[0].name, pickerOptions[0].value);
+                return selectOption(pickerOptions[0].name, pickerOptions[0].value);
             }
-            return dropdownOptions(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
+            return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
         }
         return 'More Options';
     };
@@ -177,7 +180,7 @@ const MoreOptionsTabs = (props) => {
                     id="more-options__tabs-picker"
                     className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
                     icon=""
-                    selectedOption={selectedOptionDecision()}
+                    selectedOption={selectOptionDecision()}
                     options={pickerOptions.length > 0 && pickerOptions.map((option) => ({
                         name: option.name,
                         value: option.value,
