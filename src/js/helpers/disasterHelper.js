@@ -18,3 +18,45 @@ export const recipientMapHelper = (params) => apiRequest({
     params,
     method: 'post'
 });
+
+export const fetchSpendingOverTime = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/spending_over_time/',
+    method: 'post',
+    data: params
+});
+
+export const fetchNewAwardsCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/new_award/count/',
+    method: 'post',
+    data: params
+});
+
+export const fetchAwardAmounts = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/award/amount/',
+    method: 'post',
+    data: params
+});
+
+export const fetchNewAwardsOverTime = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/new_awards_over_time/',
+    method: 'post',
+    data: params
+});
+
+export const fetchAwardCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/award/count/',
+    method: 'post',
+    data: params
+});
+
+export const fetchCfdaCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/count/',
+    method: 'post',
+    data: params
+});
