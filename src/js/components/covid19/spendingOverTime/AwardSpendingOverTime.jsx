@@ -51,15 +51,15 @@ const AwardSpendingOverTime = () => {
             spending_type: 'award',
             def_codes: defCodeList
         };
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setObligations(res.data.obligation);
-                setOutlays(res.data.outlay);
-            });
-        fetchNewAwardsCount(countParams).promise
-            .then((res) => {
-                setNewAwards(res.data.count);
-            });
+        // fetchAwardAmounts(params).promise
+        //     .then((res) => {
+        //         setObligations(res.data.obligation);
+        //         setOutlays(res.data.outlay);
+        //     });
+        // fetchNewAwardsCount(countParams).promise
+        //     .then((res) => {
+        //         setNewAwards(res.data.count);
+        //     });
     }, [defCodes]);
     return (
         <div className="body__content spending-over-time">

@@ -150,22 +150,8 @@ export const rectangleMapping = {
 
 export const startOfChartY = 200;
 export const rectangleHeight = 60;
-export const lineStrokeWidth = 3;
+export const lineStrokeWidth = 2;
 export const lineLength = 127;
-export const textSize = {
-    question: {
-        height: 21,
-        width: 250
-    },
-    value: {
-        height: 41,
-        width: 150
-    },
-    label: {
-        height: 17,
-        width: 75
-    }
-};
 
 
 export const mockNodes = [

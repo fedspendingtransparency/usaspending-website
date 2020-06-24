@@ -41,7 +41,7 @@ const OverviewContainer = () => {
     }, []);
 
     return (
-        <div ref={divReference} className="overview">
+        <div ref={divReference} className="body__content overview">
             <DateNote />
             <AmountsVisualization data={data} width={visualizationsWidth} />
             <SankeyVisualization data={data} width={visualizationsWidth} />

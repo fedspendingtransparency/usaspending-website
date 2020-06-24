@@ -15,7 +15,6 @@ import {
     rectangleHeight,
     lineStrokeWidth,
     lineLength,
-    textSize,
     moneyLabel
 } from 'dataMapping/covid19/covid19';
 import { formatMoney, calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
@@ -113,7 +112,7 @@ const AmountsVisualization = ({ data, width = null }) => {
                             className: 'amounts-text__label'
                         },
                         {
-                            y: startOfChartY + rectangleHeight + 10 + textInfo?.questionDown + 10 + textSize.value.height + 5,
+                            y: startOfChartY + rectangleHeight + 10 + textInfo?.questionDown + 10 + textInfo?.valueDown + 5,
                             x: lineXPosition - textInfo?.questionLeft,
                             text: textInfo?.question,
                             className: 'amounts-text__question'
@@ -222,9 +221,9 @@ const AmountsVisualization = ({ data, width = null }) => {
 
     return (
         <div className="amounts-viz">
-            <div className="amounts-viz__title">
+            <h3 className="body__narrative amounts-viz__title">
                 This is how much was spent on the COVID-19 Response <strong>in total</strong>.
-            </div>
+            </h3>
             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                 <g>
                     {rectangles}

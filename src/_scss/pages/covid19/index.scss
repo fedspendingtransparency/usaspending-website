@@ -103,7 +103,6 @@
 
             .body__section {
                 @import "../agency/v2/tabs";
-
                 @include display(flex);
                 @include flex-wrap(wrap);
 
@@ -298,8 +297,10 @@
                         }
                     }
                 }
+                @import './overviewData';
+                @import './visualizations/sankey';
+                @import './visualizations/amounts';
             }
-            @import './overviewData';
             .body__section:first-of-type {
                 padding: 0;
             }

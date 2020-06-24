@@ -43,19 +43,19 @@ const SpendingByCFDA = () => {
                 // TODO - add award type codes
             }
         };
-        fetchCfdaCount(params).promise
-            .then((res) => {
-                setCfdaCount(res.data.count);
-            });
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
+        // fetchCfdaCount(params).promise
+        //     .then((res) => {
+        //         setCfdaCount(res.data.count);
+        //     });
+        // fetchAwardAmounts(params).promise
+        //     .then((res) => {
+        //         setAwardObligations(res.data.obligation);
+        //         setAwardOutlays(res.data.outlay);
+        //     });
+        // fetchAwardCount(params).promise
+        //     .then((res) => {
+        //         setNumberOfAwards(res.data.count);
+        //     });
     }, [defCodes]);
 
     const amounts = {
