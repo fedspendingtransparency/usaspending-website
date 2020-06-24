@@ -1,0 +1,145 @@
+/**
+ * SpendingByCFDAContainer.jsx
+ * Created by Lizzie Salita 6/24/20
+ */
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { Table, Pagination } from 'data-transparency-ui';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
+import { fetchSpendingByCfda } from 'helpers/disasterHelper';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+
+const columns = [
+    {
+        title: 'assistanceListing',
+        displayName: 'CFDA Program (Assistance Listing)'
+    },
+    {
+        title: 'obligation',
+        displayName: 'Award Obligations',
+        right: true
+    },
+    {
+        title: 'outlay',
+        displayName: 'Award Outlays',
+        right: true
+    },
+    {
+        title: 'count',
+        displayName: 'Number of Awards',
+        right: true
+    }
+];
+
+export const parseRows = (rows) => (
+    rows.map((row) => {
+        const rowData = Object.create(BaseSpendingByCfdaRow);
+        rowData.populate(row);
+        let link = rowData.name;
+        if (rowData._link) {
+            // TODO - add modal and external link icon
+            link = (<a href={rowData._link}>{rowData.name}</a>);
+        }
+        return [
+            link,
+            rowData.obligation,
+            rowData.outlay,
+            rowData.count
+        ];
+    })
+);
+
+const SpendingByCFDAContainer = () => {
+    const [currentPage, changeCurrentPage] = useState(1);
+    const [pageSize, changePageSize] = useState(10);
+    const [totalItems, setTotalItems] = useState(0);
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const fetchSpendingByCfdaCallback = useCallback(() => {
+        setLoading(true);
+        const params = {
+            filter: {
+                def_codes: defCodes.map((defc) => defc.code)
+                // TODO - add award type codes based on active tab
+            },
+            spending_type: 'award',
+            pagination: {
+                limit: pageSize,
+                page: currentPage
+                // TODO - add sort order
+            }
+        };
+        const request = fetchSpendingByCfda(params);
+        request.promise
+            .then((res) => {
+                const rows = parseRows(res.data.results);
+                setResults(rows);
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+                setError(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    });
+
+    useEffect(() => {
+        // Reset to the first page
+        changeCurrentPage(1);
+        fetchSpendingByCfdaCallback();
+    }, [pageSize, defCodes]);
+
+    useEffect(() => {
+        fetchSpendingByCfdaCallback();
+    }, [currentPage]);
+
+    let message = null;
+    if (loading) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableLoadingMessage />
+            </div>
+        );
+    } else if (error) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableErrorMessage />
+            </div>
+        );
+    }
+
+    if (message) {
+        return (
+            <>
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </>
+        );
+    }
+
+    return (
+        <Table columns={columns} rows={results} />
+    );
+};
+
+export default SpendingByCFDAContainer;

@@ -71,8 +71,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         setLoading(true);
         const params = {
             filter: {
-                def_codes: defCodes.map((defc) => defc.code),
-                fiscal_year: 2020
+                def_codes: defCodes.map((defc) => defc.code)
             },
             group: 'period',
             spending_type: activeTab,
@@ -98,8 +97,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     const fetchNewAwardsCallback = useCallback(() => {
         setLoading(true);
         const params = {
-            // TODO: remove hard-coded values after integration with v2/references/def_codes/ API
-            def_codes: ['L', 'M', 'N', 'O', 'P'],
+            def_codes: defCodes.map((defc) => defc.code),
             limit: pageSize,
             page: currentPage,
             group: 'period'
@@ -108,7 +106,6 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         request.promise
             .then((res) => {
                 const amountColumns = columns.slice(1);
-                console.log('new awards over time', res.data.results);
                 const rows = parseRows(res.data.results, amountColumns, 'counts');
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);

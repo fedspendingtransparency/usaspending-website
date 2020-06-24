@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchCfdaCount, fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
+import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import OverviewData from '../OverviewData';
 
 const overviewData = [
@@ -83,6 +84,7 @@ const SpendingByCFDA = () => {
                         amount={amounts[data.type]} />
                 ))}
             </div>
+            <SpendingByCFDAContainer />
         </div>
     );
 };

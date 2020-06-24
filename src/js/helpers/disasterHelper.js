@@ -54,3 +54,10 @@ export const fetchCfdaCount = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const fetchSpendingByCfda = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/spending/',
+    method: 'post',
+    data: params
+});
