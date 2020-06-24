@@ -219,4 +219,66 @@ describe('Month helper functions', () => {
             expect(year).toEqual(FiscalYearHelper.currentFiscalYear());
         });
     });
+
+    describe('convertPeriodToDate', () => {
+        it('should convert {"1", "2017"}  to "October 2016"', () => {
+            const date = MonthHelper.convertPeriodToDate("1", "2017");
+            expect(date).toEqual("October 2016");
+        });
+
+        it('should convert {"2", "2017"}  to "November 2016"', () => {
+            const date = MonthHelper.convertPeriodToDate("2", "2017");
+            expect(date).toEqual("November 2016");
+        });
+
+        it('should convert {"3", "2017"}  to "December 2016"', () => {
+            const date = MonthHelper.convertPeriodToDate("3", "2017");
+            expect(date).toEqual("December 2016");
+        });
+
+        it('should convert {"4", "2017"}  to "January 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("4", "2017");
+            expect(date).toEqual("January 2017");
+        });
+
+        it('should convert {"5", "2017"}  to "February 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("5", "2017");
+            expect(date).toEqual("February 2017");
+        });
+
+        it('should convert {"6", "2017"}  to "March 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("6", "2017");
+            expect(date).toEqual("March 2017");
+        });
+
+        it('should convert {"7", "2017"}  to "April 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("7", "2017");
+            expect(date).toEqual("April 2017");
+        });
+
+        it('should convert {"8", "2017"}  to "May 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("8", "2017");
+            expect(date).toEqual("May 2017");
+        });
+
+        it('should convert {"9", "2017"}  to "June 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("9", "2017");
+            expect(date).toEqual("June 2017");
+        });
+
+        it('should convert {"10", "2017"}  to "July 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("10", "2017");
+            expect(date).toEqual("July 2017");
+        });
+
+        it('should convert {"11", "2017"}  to "August 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("11", "2017");
+            expect(date).toEqual("August 2017");
+        });
+
+        it('should convert {"12", "2017"}  to "September 2017"', () => {
+            const date = MonthHelper.convertPeriodToDate("12", "2017");
+            expect(date).toEqual("September 2017");
+        });
+    });
 });
