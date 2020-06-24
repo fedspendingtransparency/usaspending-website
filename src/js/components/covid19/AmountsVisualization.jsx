@@ -77,47 +77,55 @@ const AmountsVisualization = ({ data, width = null }) => {
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
                 const units = calculateUnits([mockData[key]]);
-                const textData = (i === 0 || i === 4) ?
-                    [
-                        {
-                            y: (startOfChartY - lineLength) + textInfo?.questionDown,
-                            x: lineXPosition - textInfo?.questionLeft,
-                            text: textInfo?.question,
+                let textData = [];
+                if (textInfo) {
+                    if (i === 0 || i === 4) {
+                        const questionData = textInfo.question.map((t, i) => ({
+                          y: (startOfChartY - lineLength) + (textInfo.questionDown * (i === 0 ? 1 : 2) + (i === 0 ? 0 : 10)),
+                          x: lineXPosition - textInfo.questionLeft,
+                          text: t,
+                          className: 'amounts-text__question'
+                      }));
+                      textData = [
+                            ...questionData,
+                            {
+                                y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
+                                x: lineXPosition - textInfo.valueLeft,
+                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
+                                className: 'amounts-text__value'
+                            },
+                            {
+                                y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown + textInfo.labelDown,
+                                x: lineXPosition - textInfo?.labelLeft,
+                                text: textInfo?.label,
+                                className: 'amounts-text__label'
+                            }
+                        ]
+                    }
+                    else {
+                        const questionData = textInfo.question.map((t, i) => ({
+                            y: startOfChartY + rectangleHeight + 10 + textInfo.valueDown + 5 + ((textInfo.questionDown * (i === 0 ? 1 : 2))),
+                            x: lineXPosition - textInfo.questionLeft,
+                            text: t,
                             className: 'amounts-text__question'
-                        },
-                        {
-                            y: (startOfChartY - lineLength) + textInfo?.questionDown + textInfo?.valueDown,
-                            x: lineXPosition - textInfo?.valueLeft,
-                            text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
-                            className: 'amounts-text__value'
-                        },
-                        {
-                            y: (startOfChartY - lineLength) + textInfo?.questionDown + textInfo?.valueDown + textInfo?.labelDown,
-                            x: lineXPosition - textInfo?.labelLeft,
-                            text: textInfo?.label,
-                            className: 'amounts-text__label'
-                        }
-                    ] :
-                    [
-                        {
-                            y: startOfChartY + rectangleHeight + textInfo?.valueDown,
-                            x: lineXPosition - textInfo?.valueLeft,
-                            text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
-                            className: 'amounts-text__value'
-                        },
-                        {
-                            y: startOfChartY + rectangleHeight + textInfo?.valueDown + textInfo?.labelDown,
-                            x: lineXPosition - textInfo?.labelLeft,
-                            text: textInfo?.label,
-                            className: 'amounts-text__label'
-                        },
-                        {
-                            y: startOfChartY + rectangleHeight + 10 + textInfo?.questionDown + 10 + textInfo?.valueDown + 5,
-                            x: lineXPosition - textInfo?.questionLeft,
-                            text: textInfo?.question,
-                            className: 'amounts-text__question'
-                        }
-                    ];
+                        }));
+                        textData = [
+                            {
+                                y: startOfChartY + rectangleHeight + textInfo.valueDown,
+                                x: lineXPosition - textInfo.valueLeft,
+                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
+                                className: 'amounts-text__value'
+                            },
+                            {
+                                y: startOfChartY + rectangleHeight + textInfo.valueDown + textInfo.labelDown,
+                                x: lineXPosition - textInfo.labelLeft,
+                                text: textInfo.label,
+                                className: 'amounts-text__label'
+                            },
+                            ...questionData
+                        ];
+                    }
+                }
                 acc[key] = {
                     x,
                     y,
@@ -191,28 +199,15 @@ const AmountsVisualization = ({ data, width = null }) => {
                 const textData = rectangleData[key].text;
                 const rData = rectangleMapping[key];
                 if (!rData.text) return acc;
-                acc.push(
-                    <g key={uniqueId()}>
-                        <text
-                            className={textData[0].className}
-                            x={textData[0].x}
-                            y={textData[0].y}>
-                            {textData[0].text}
-                        </text>
-                        <text
-                            className={textData[1].className}
-                            x={textData[1].x}
-                            y={textData[1].y}>
-                            {textData[1].text}
-                        </text>
-                        <text
-                            className={textData[2].className}
-                            x={textData[2].x}
-                            y={textData[2].y}>
-                            {textData[2].text}
-                        </text>
-                    </g>
-                );
+                textData.forEach((text) => acc.push(
+                    <text
+                        key={uniqueId()}
+                        className={text.className}
+                        x={text.x}
+                        y={text.y}>
+                        {text.text}
+                    </text>
+                ));
                 return acc;
             }, []);
             setText(t);
