@@ -121,7 +121,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
             }
             // 5.b
             if (badCurrent && !badStart) {
-                if (transactions[0].action_date.valueOf() <= startDate.valueOf()) return true;
+                if (transactions[0].action_date.valueOf() === startDate.valueOf()) return true;
             }
         }
         return false;
@@ -140,7 +140,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
         }
         // 5.b
         if ((badCurrent && badEnd) && !badStart) {
-            if (transactions[0].action_date.valueOf() < startDate.valueOf()) return true;
+            if (transactions[0].action_date.valueOf() === startDate.valueOf()) return true;
         }
     }
     return false;
