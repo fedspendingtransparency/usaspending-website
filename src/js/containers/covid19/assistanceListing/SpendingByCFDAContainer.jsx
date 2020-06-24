@@ -4,13 +4,19 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { fetchSpendingByCfda } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+
+const propTypes = {
+    onRedirectModalClick: PropTypes.func.isRequired
+};
 
 const columns = [
     {
@@ -34,14 +40,20 @@ const columns = [
     }
 ];
 
-export const parseRows = (rows) => (
+export const parseRows = (rows, onRedirectModalClick) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByCfdaRow);
         rowData.populate(row);
         let link = rowData.name;
         if (rowData._link) {
-            // TODO - add modal and external link icon
-            link = (<a href={rowData._link}>{rowData.name}</a>);
+            link = (
+                <button
+                    className="assistance-listing__button"
+                    value={rowData._link}
+                    onClick={onRedirectModalClick}>
+                    {rowData.name} <FontAwesomeIcon icon="external-link-alt" />
+                </button>
+            );
         }
         return [
             link,
@@ -52,7 +64,7 @@ export const parseRows = (rows) => (
     })
 );
 
-const SpendingByCFDAContainer = () => {
+const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -78,7 +90,7 @@ const SpendingByCFDAContainer = () => {
         const request = fetchSpendingByCfda(params);
         request.promise
             .then((res) => {
-                const rows = parseRows(res.data.results);
+                const rows = parseRows(res.data.results, onRedirectModalClick);
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -144,4 +156,5 @@ const SpendingByCFDAContainer = () => {
     );
 };
 
+SpendingByCFDAContainer.propTypes = propTypes;
 export default SpendingByCFDAContainer;

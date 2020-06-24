@@ -20,6 +20,10 @@
                             // Prevent the CFDA column from wrapping
                             white-space: nowrap;
                         }
+                        .assistance-listing__button {
+                            @include button-link;
+                            font-size: 1.8rem;
+                        }
                     }
                 }
             }

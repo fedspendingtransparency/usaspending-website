@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchCfdaCount, fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
+import RedirectModal from 'components/sharedComponents/RedirectModal';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import OverviewData from '../OverviewData';
 
@@ -36,6 +37,19 @@ const SpendingByCFDA = () => {
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
+    const [redirectModalURL, setRedirectModalURL] = useState('');
+
+    const onRedirectModalClick = (e) => {
+        setRedirectModalURL(e.currentTarget.value);
+        setIsRedirectModalMounted(true);
+    };
+
+    const closeRedirectModal = () => {
+        setRedirectModalURL('');
+        setIsRedirectModalMounted(false);
+    };
 
     useEffect(() => {
         const params = {
@@ -84,7 +98,11 @@ const SpendingByCFDA = () => {
                         amount={amounts[data.type]} />
                 ))}
             </div>
-            <SpendingByCFDAContainer />
+            <SpendingByCFDAContainer onRedirectModalClick={onRedirectModalClick} />
+            <RedirectModal
+                mounted={isRedirectModalMounted}
+                hideModal={closeRedirectModal}
+                url={redirectModalURL} />
         </div>
     );
 };
