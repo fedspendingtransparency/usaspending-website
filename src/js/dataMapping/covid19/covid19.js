@@ -22,8 +22,8 @@ export const footerDescription = 'for more in-depth analysis on this COVID-19 an
 export const amountsHeight = 400;
 export const sankeyHeight = 400;
 export const amountsPadding = {
-    left: 80,
-    right: 80
+    left: 45,
+    right: 45
 };
 
 export const moneyLabel = {
