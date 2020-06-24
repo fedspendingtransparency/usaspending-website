@@ -12,21 +12,21 @@ import OverviewData from '../OverviewData';
 const overviewData = [
     {
         type: 'cfdaCount',
-        label: 'Total CFDA Programs'
-    },
-    {
-        type: 'awardOutlays',
-        label: 'Total Award Outlays',
-        dollarAmount: true
+        label: 'CFDA Programs'
     },
     {
         type: 'awardObligations',
-        label: 'Total Award Obligations',
+        label: 'Award Obligations',
+        dollarAmount: true
+    },
+    {
+        type: 'awardOutlays',
+        label: 'Award Outlays',
         dollarAmount: true
     },
     {
         type: 'numberOfAwards',
-        label: 'Total Number of Awards'
+        label: 'Number of Awards'
     }
 ];
 
