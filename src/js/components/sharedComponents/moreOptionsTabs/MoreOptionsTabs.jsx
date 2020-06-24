@@ -1,3 +1,8 @@
+/**
+ * MoreOptionsTabs.jsx
+ * Created by James Lee 6/18/20
+ */
+
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
