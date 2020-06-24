@@ -76,10 +76,18 @@ export const awardTypeGroups = {
     other: ['09', '11']
 };
 
+export const analyticsAwardTypeGroupLabels = {
+    contracts: 'Contracts',
+    idvs: "Indefinite Delivery Vehicle",
+    grants: 'Grants',
+    direct_payments: 'Direct Payments',
+    loans: 'Loans',
+    other: 'Other'
+};
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Indefinite Delivery Vehicle",
+    idvs: "Contract IDVs",
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
