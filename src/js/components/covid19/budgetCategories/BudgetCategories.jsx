@@ -42,7 +42,6 @@ const BudgetCategories = () => {
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
 
     // TODO - Remove hard coded values
-    const fy = 2020;
     const dateString = "June 30, 2020";
 
     return (
@@ -66,14 +65,12 @@ const BudgetCategories = () => {
                             key={tab.type}
                             {...tab}
                             setActiveTab={setActiveTab}
-                            active={activeTab === tab.type}
-                            fy={fy} />
+                            active={activeTab === tab.type} />
                     ))}
                 </div>
                 <BudgetCategoriesTableContainer
                     type={activeTab}
-                    subHeading={subHeading}
-                    fy={fy} />
+                    subHeading={subHeading} />
             </div>
         </div>
     );

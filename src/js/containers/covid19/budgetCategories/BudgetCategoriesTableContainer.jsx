@@ -17,7 +17,6 @@ import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoToolt
 
 
 const propTypes = {
-    fy: PropTypes.number,
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string
 };
@@ -56,11 +55,10 @@ const BudgetCategoriesTableContainer = (props) => {
             if (spendingCategory === 'loan_spending') {
                 const params = {
                     filter: {
-                        def_codes: defCodes,
-                        fiscal_year: props.fy
+                        def_codes: defCodes
                     },
                     pagination: {
-                        size: pageSize,
+                        limit: pageSize,
                         page: currentPage,
                         sort: sortAndOrder[props.type][spendingCategory].sort,
                         order: sortAndOrder[props.type][spendingCategory].order
@@ -81,12 +79,11 @@ const BudgetCategoriesTableContainer = (props) => {
             } else {
                 const params = {
                     filter: {
-                        def_codes: defCodes,
-                        fiscal_year: props.fy
+                        def_codes: defCodes
                     },
                     spending_type: apiSpendingTypes[spendingCategory],
                     pagination: {
-                        size: pageSize,
+                        limit: pageSize,
                         page: currentPage,
                         sort: sortAndOrder[props.type][spendingCategory].sort,
                         order: sortAndOrder[props.type][spendingCategory].order
@@ -159,7 +156,7 @@ const BudgetCategoriesTableContainer = (props) => {
     useEffect(() => {
         storeSortAndOrderObjectCallback();
         fetchBudgetSpendingCallback();
-    }, [props.type, props.fy, pageSize, sort, order, spendingCategory]);
+    }, [props.type, pageSize, sort, order, spendingCategory]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

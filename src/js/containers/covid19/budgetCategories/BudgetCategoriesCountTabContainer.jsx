@@ -10,7 +10,6 @@ import CountTab from 'components/agency/v2/CountTab';
 import { fetchDisasterSpendingCount } from '../../../helpers/covid19/budgetCategoriesHelper';
 
 const propTypes = {
-    fy: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     setActiveTab: PropTypes.func.isRequired,
@@ -29,7 +28,6 @@ const BudgetCategoriesCountTabContainer = (props) => {
             setCount(null);
 
             const params = {
-                fiscal_year: props.fy,
                 def_codes: defCodes
             };
             const countRequest = fetchDisasterSpendingCount(props.type, params);
