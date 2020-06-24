@@ -22,7 +22,7 @@ import {
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 // import { awardTypeGroups } from 'dataMapping/search/awardType';
-// import { recipientMapHelper } from 'helpers/covid19Helper';
+// import { recipientMapHelper } from 'helpers/disasterHelper';
 // import { recipientTypeGroups } from 'dataMapping/search/recipientType';
 
 export class MapContainer extends React.Component {

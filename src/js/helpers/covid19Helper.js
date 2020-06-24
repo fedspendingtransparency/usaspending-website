@@ -7,7 +7,6 @@ import { snakeCase } from 'lodash';
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { apiRequest } from './apiRequest';
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -44,9 +43,3 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
 
     setActiveSection(matchedSection);
 };
-
-export const recipientMapHelper = (params) => apiRequest({
-    url: '/api/v2/disaster/spending_by_geography/',
-    params,
-    method: 'post'
-});

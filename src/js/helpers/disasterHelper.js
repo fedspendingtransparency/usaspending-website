@@ -12,3 +12,9 @@ export const fetchDEFCodes = () => apiRequest({
 export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
+
+export const recipientMapHelper = (params) => apiRequest({
+    url: '/api/v2/disaster/spending_by_geography/',
+    params,
+    method: 'post'
+});

@@ -1,6 +1,6 @@
 /**
  * MapLegend.jsx
- * Created by Kevin Li 2/17/17
+ * Created by Jonathan Hill 06/24/20
  */
 
 import React, { useState, useEffect, useCallback } from 'react';

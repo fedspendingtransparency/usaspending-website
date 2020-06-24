@@ -4,8 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { uniqueId } from 'lodash';
-import tabs from 'dataMapping/covid19/recipient/recipient';
+import tabs from 'containers/covid19/helpers/recipient';
 import RecipientTab from 'components/covid19/recipient/RecipientTab';
 import DateNote from 'components/covid19/DateNote';
 
@@ -25,7 +24,7 @@ const RecipientContainer = () => {
             <div className="recipient__questions">
                 {
                     Object.keys(tabs).map((tab) => (
-                        <div key={uniqueId()} className="recipient__question">
+                        <div key={tab} className="recipient__question">
                             {tabs[tab].question}
                         </div>
                     ))
@@ -37,7 +36,7 @@ const RecipientContainer = () => {
                         Object.keys(tabs).map((tab) => (
                             <RecipientTab
                                 {...tabs[tab]}
-                                key={uniqueId()}
+                                key={tab}
                                 type={tab}
                                 setActiveTab={setActiveTab}
                                 active={activeTab === tab} />

@@ -1,5 +1,5 @@
 /**
- * recipient.js
+ * recipient.jsx
  * Created by Jonathan Hill 06/08/20
  */
 

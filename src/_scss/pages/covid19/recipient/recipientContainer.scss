@@ -6,7 +6,7 @@
     font-size: 3rem;
     padding: 2.1rem 6.1rem;
     text-align: center;
-    justify-content: center;
+    @include justify-content(center);
     @include display(flex);
     width: 100%;
   }
@@ -129,16 +129,6 @@
                   }
                   .usa-dt-picker__list {
                     z-index: 3;
-                    .usa-dt-picker__list-item {
-                      .usa-dt-picker__item {
-                        &.active {
-                          color: #6E338E
-                        }
-                      }
-                      .usa-dt-picker__item:hover {
-                        color: #6E338E
-                      }
-                    }
                   }
                 }
               }
