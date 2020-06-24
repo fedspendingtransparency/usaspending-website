@@ -8,8 +8,10 @@ import { useSelector } from 'react-redux';
 import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
 import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
+import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
+
 
 const overviewData = [
     {
@@ -37,7 +39,14 @@ const AwardSpendingAgency = () => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
-    const [activeTabLabel, setActiveTabLabel] = useState(awardSpendingAgencyTableTabs[0].label);
+
+    const [activeTab, setActiveTab] = useState(
+        {
+            internal: awardSpendingAgencyTableTabs[0].internal,
+            subtitle: awardSpendingAgencyTableTabs[0].subtitle
+        }
+    );
+
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     // TODO - Remove hard coded values
@@ -88,10 +97,14 @@ const AwardSpendingAgency = () => {
 
     const changeActiveTab = (tab) => {
         // TODO - update counts and amounts based on which tab selected
-        const tabLabel = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].label;
-        setActiveTabLabel(tabLabel);
-    };
+        const tabSubtitle = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].subtitle;
+        const tabInternal = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].internal;
 
+        setActiveTab({
+            internal: tabInternal,
+            subtitle: tabSubtitle
+        });
+    };
 
     return (
         <div className="body__content award-spending">
@@ -106,11 +119,13 @@ const AwardSpendingAgency = () => {
                     <OverviewData
                         key={data.label}
                         {...data}
-                        subtitle={`for all ${activeTabLabel}`}
+                        subtitle={`for all ${activeTab.subtitle}`}
                         amount={amounts[data.type]} />
                 ))}
             </div>
-            <div className="award-spending__content" />
+            <div className="award-spending__content">
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} />
+            </div>
         </div>
     );
 };
