@@ -70,7 +70,7 @@ const SearchNote = () => (
         <br />
         <p>Filter the options below by typing any of the following:</p>
         <ul>
-            <li>Any part of an agency name</li>
+            <li>Any part of an Agency name</li>
             <li>Any part of a Federal Account symbol or title</li>
             <li>Any part of a Treasury Account Symbol or title.</li>
         </ul>
