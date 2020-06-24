@@ -3,6 +3,8 @@
  * Created by Jonathan Hill 06/10/20
  */
 
+import MapContainer from 'containers/covid19/recipient/RecipientContainer';
+
 import React from 'react';
 import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
@@ -63,9 +65,9 @@ export const componentByCovid19Section = () => ({
         component: <AwardQuestion />,
         showInMenu: false
     },
-    award_spending_recipient: {
+    award_spending_by_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <MapContainer />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,

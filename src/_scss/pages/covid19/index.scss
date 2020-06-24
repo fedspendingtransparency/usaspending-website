@@ -301,6 +301,7 @@
                 }
             }
             @import './overviewData';
+            @import './recipient/recipientContainer.scss';
             .body__section:first-of-type {
                 padding: 0;
             }
