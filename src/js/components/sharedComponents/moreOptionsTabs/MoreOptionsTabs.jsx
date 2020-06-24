@@ -9,7 +9,8 @@ const propTypes = {
     tabs: PropTypes.array.isRequired,
     tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
     classes: PropTypes.string,
-    pickerLabel: PropTypes.string
+    pickerLabel: PropTypes.string,
+    changeActiveTab: PropTypes.func
 };
 
 const MoreOptionsTabs = (props) => {
@@ -30,6 +31,11 @@ const MoreOptionsTabs = (props) => {
             }
         });
         setActiveTab(tab);
+
+        // update subtiitle based on tab selected
+        if (props.changeActiveTab) {
+            props.changeActiveTab(tab);
+        }
     };
 
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
