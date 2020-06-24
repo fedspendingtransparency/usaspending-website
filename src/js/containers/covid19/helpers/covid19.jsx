@@ -4,6 +4,7 @@
  */
 
 import OverviewContainer from 'containers/covid19/OverviewContainer';
+import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
 
 import React from 'react';
 import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
@@ -65,9 +66,9 @@ export const componentByCovid19Section = () => ({
         component: <AwardQuestion />,
         showInMenu: false
     },
-    award_spending_recipient: {
+    award_spending_by_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <RecipientContainer />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
