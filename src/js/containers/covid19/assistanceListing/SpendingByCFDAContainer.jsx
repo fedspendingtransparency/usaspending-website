@@ -138,7 +138,9 @@ const SpendingByCFDAContainer = () => {
     }
 
     return (
-        <Table columns={columns} rows={results} />
+        <div className="table-wrapper">
+            <Table columns={columns} rows={results} />
+        </div>
     );
 };
 

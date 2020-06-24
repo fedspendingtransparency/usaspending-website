@@ -100,6 +100,7 @@
             }
 
             @import "./spendingOverTime/awardSpendingOverTime";
+            @import "./assistanceListing/assistanceListing";
 
             .body__section {
                 @import "../agency/v2/tabs";
