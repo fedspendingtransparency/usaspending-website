@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { formatNumber } from 'accounting';
 import { Picker } from 'data-transparency-ui';
+import { formatNumber } from 'accounting';
 import ResultsTableTabs from '../../search/table/ResultsTableTabs';
 
 const propTypes = {
     tabs: PropTypes.array.isRequired,
     tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
-    classes: PropTypes.string.isOptional
+    classes: PropTypes.string,
+    pickerLabel: PropTypes.string
 };
 
 const MoreOptionsTabs = (props) => {
@@ -129,7 +130,7 @@ const MoreOptionsTabs = (props) => {
             }
             return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
         }
-        return 'More Options';
+        return props.pickerLabel ? props.pickerLabel : 'More Options';
     };
 
     const previewCountPropTypes = {
@@ -140,7 +141,7 @@ const MoreOptionsTabs = (props) => {
     const PreviewCount = ({ name, value }) => (
         <div>
             <div className="more-options__tabs_preview-label">{name}</div>
-            <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? props.tabCounts[value] : '0'}</div>
+            <div className="more-options__tabs_preview-count">{formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>
         </div>
     );
     PreviewCount.propTypes = previewCountPropTypes;

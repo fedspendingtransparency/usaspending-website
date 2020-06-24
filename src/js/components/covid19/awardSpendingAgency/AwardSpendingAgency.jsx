@@ -34,7 +34,7 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
             </p>
-            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={mockCounts} />
+            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={mockCounts} pickerLabel="More Award Types" />
             <div className="award-spending__content" />
         </div>
     );
