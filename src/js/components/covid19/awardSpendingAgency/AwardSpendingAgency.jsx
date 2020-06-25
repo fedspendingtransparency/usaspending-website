@@ -65,8 +65,8 @@ const AwardSpendingAgency = () => {
     useEffect(() => {
         const params = {
             filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes
+                def_codes: defCodes.map((defc) => defc.code),
+                award_type_codes: awardSpendingAgencyTableTabs.filter((type) => type === activeTab).codes
             }
         };
         fetchAgencyCount(params).promise

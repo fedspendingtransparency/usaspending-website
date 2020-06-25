@@ -64,8 +64,8 @@ export const awardSpendingAgencyTableColumns = (type) => (
             displayName: `${type} Outlays`
         },
         {
-            title: 'number',
-            displayName: `Number of ${type}`
+            title: 'count',
+            displayName: `Number of ${type}s`
         }
     ]
 );

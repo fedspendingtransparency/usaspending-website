@@ -35,17 +35,32 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const parseAwardSpendingByAgency = (data) => {
-        // const parsedData = data.map((row) => {
-        //     const budgetCategoryRow = Object.create(BaseAwardSpendingByAgencyRow);
-        //     budgetCategoryRow.populate(row);
-        //     return budgetCategoryRow;
-        // });
-        // setResults(parsedData);
+        const parsedData = data.map((item) => {
+            const awardSpendingByAgencyRow = Object.create(BaseAwardSpendingByAgencyRow);
+            awardSpendingByAgencyRow.populate(item);
+
+            let rowChildren = [];
+            if (item.children && item.children.length > 0) {
+                rowChildren = item.children.map((childItem) => {
+                    const awardSpendingByAgencyChildRow = Object.create(BaseAwardSpendingByAgencyRow);
+                    awardSpendingByAgencyChildRow.populate(childItem);
+                    return awardSpendingByAgencyChildRow;
+                });
+            }
+
+            if (rowChildren && rowChildren.length > 0) {
+                Object.defineProperty(awardSpendingByAgencyRow, "children", {
+                    value: rowChildren
+                });
+            }
+
+            return awardSpendingByAgencyRow;
+        });
+        setResults(parsedData);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
-        setLoading(false);
-        setError(true);
+        setLoading(true);
         // Make a request with the new page number
         const params = {
             filter: {
@@ -58,17 +73,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 sort: awardSpendingAgencyTableColumnFieldMapping[sort],
                 order
             },
-            spending_type: 'total'
+            spending_type: 'award'
         };
 
         // TODO - Add request
         const request = fetchAwardSpendingByAgency(params);
         request.promise
             .then((res) => {
-                console.log(res.data);
-                // parseAccount(res.data.results);
                 parseAwardSpendingByAgency(res.data.results);
-                setTotalItems(res.data.pagination_metadata.total);
+                setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
                 setError(false);
             }).catch((err) => {
