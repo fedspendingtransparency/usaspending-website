@@ -73,7 +73,7 @@ describe('Contract Grant Activity Helper', () => {
                 expect(areTransactionDatesOrAwardAmountsInvalid(badStartDate, 'grant', newTransaction)).toBe(true);
             });
             // 5/b
-            it('should return true when there is no end date and start date exists and only one transaction and transaction date is === than start date', () => {
+            it('should return true when there is no end date and start date exists and only one transaction and transaction date is equal to start date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
                 newTransaction[0].action_date = moment('01/25/2011', 'MM/DD/YYYY');
                 expect(areTransactionDatesOrAwardAmountsInvalid(badEndDate, 'grant', newTransaction)).toBe(true);
