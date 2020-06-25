@@ -66,7 +66,7 @@ export const rectangleMapping = {
         primaryKey: '_totalBudgetAuthority'
     },
     content: { // baby blue rectangle
-        fill: '#AAC6E2', 
+        fill: '#AAC6E2',
         offset: {
             left: 2 * paddingBetweenRectangles,
             right: 2 * paddingBetweenRectangles,
