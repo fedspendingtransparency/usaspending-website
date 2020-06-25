@@ -32,5 +32,5 @@ export const mockCfdaData = {
     obligation: 89000000.01,
     outlay: 70000000.98,
     total_budgetary_resources: null,
-    sam_website: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view'
+    resource_link: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view'
 };

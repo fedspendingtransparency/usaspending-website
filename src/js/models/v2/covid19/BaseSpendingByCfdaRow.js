@@ -13,7 +13,7 @@ const BaseSpendingByCfdaRow = {
         this._count = data.count || 0;
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
-        this._link = data.sam_website || '';
+        this._link = data.resource_link || '';
     },
     get obligation() {
         return formatMoney(this._obligation);

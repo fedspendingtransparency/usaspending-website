@@ -6,7 +6,9 @@
                 th.table-header {
                     text-align: right;
                     &:first-of-type {
-                        text-align: left; // Align the CFDA column to the left
+                        .table-header__label {
+                            text-align: left; // Align the CFDA column to the left
+                        }
                     }
                     .table-header__label {
                         width: 100%;
