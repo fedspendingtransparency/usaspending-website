@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
+import { cfdaSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByCfda } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -71,6 +72,12 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [sort, setSort] = useState('obligation');
+    const [order, setOrder] = useState('desc');
+    const updateSort = (field, direction) => {
+        setSort(field);
+        setOrder(direction);
+    };
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
@@ -83,8 +90,9 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
             spending_type: 'award',
             pagination: {
                 limit: pageSize,
-                page: currentPage
-                // TODO - add sort order
+                page: currentPage,
+                sort: cfdaSortFields[sort],
+                order
             }
         };
         const request = fetchSpendingByCfda(params);
@@ -106,7 +114,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCfdaCallback();
-    }, [pageSize, defCodes]);
+    }, [pageSize, defCodes, sort, order]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -151,7 +159,11 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
 
     return (
         <div className="table-wrapper">
-            <Table columns={columns} rows={results} />
+            <Table
+                columns={columns}
+                rows={results}
+                updateSort={updateSort}
+                currentSort={{ field: sort, direction: order }} />
         </div>
     );
 };
