@@ -32,11 +32,11 @@ export const moneyLabel = {
     T: 'Trillion'
 };
 
-export const paddingBetweenRectangles = 4;
+export const paddingBetweenRectangles = 3;
 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
-        fill: 'black',
+        fill: '#555',
         offset: {
             left: 0,
             right: 0,
@@ -66,7 +66,7 @@ export const rectangleMapping = {
         primaryKey: '_totalBudgetAuthority'
     },
     content: { // baby blue rectangle
-        fill: '#02bfe7', // $color-primary-alt
+        fill: '#AAC6E2', 
         offset: {
             left: 2 * paddingBetweenRectangles,
             right: 2 * paddingBetweenRectangles,
@@ -76,7 +76,7 @@ export const rectangleMapping = {
         primaryKey: '_totalBudgetAuthority'
     },
     _totalObligations: {
-        fill: '#046b99', // $color-primary-alt-darkest
+        fill: '#558EC6',
         offset: {
             left: 2 * paddingBetweenRectangles,
             right: 0,
@@ -96,7 +96,7 @@ export const rectangleMapping = {
         }
     },
     _totalOutlays: {
-        fill: '#112e51', // $color-primary-darkest
+        fill: '#0A2F5A',
         offset: {
             left: 2 * paddingBetweenRectangles,
             right: 0,
@@ -116,7 +116,7 @@ export const rectangleMapping = {
         }
     },
     _remainingBalance: {
-        fill: '#046b99', // $color-primary-alt-darkest
+        fill: '#558EC6',
         primaryKey: '_totalObligations',
         offset: {
             left: 3 * paddingBetweenRectangles,
@@ -149,7 +149,7 @@ export const rectangleMapping = {
 };
 
 export const startOfChartY = 160;
-export const rectangleHeight = 60;
+export const rectangleHeight = 50;
 export const lineStrokeWidth = 2;
 export const lineLength = 127;
 
