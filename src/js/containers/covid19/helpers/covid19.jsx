@@ -82,14 +82,14 @@ export const componentByCovid19Section = () => ({
         showInMenu: true,
         title: 'Award Spending by Agency'
     },
-    award_spending_over_time: {
-        icon: 'chart-area',
-        component: <AwardSpendingOverTime />,
-        headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true,
-        title: 'Award Spending Over Time'
-    },
+    // award_spending_over_time: {
+    //     icon: 'chart-area',
+    //     component: <AwardSpendingOverTime />,
+    //     headerText: awardSpendingText,
+    //     headerTextTooltip: awardSpedingTooltip,
+    //     showInMenu: true,
+    //     title: 'Award Spending Over Time'
+    // },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
         component: <SpendingByCFDA />,
