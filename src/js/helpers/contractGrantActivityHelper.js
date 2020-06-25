@@ -121,7 +121,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
             }
             // 5.b
             if (badCurrent && !badStart) {
-                if (transactions[0].action_date.valueOf() <= startDate.valueOf()) return true;
+                if (transactions[0].action_date.valueOf() === startDate.valueOf()) return true;
             }
         }
         return false;
@@ -140,7 +140,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
         }
         // 5.b
         if ((badCurrent && badEnd) && !badStart) {
-            if (transactions[0].action_date.valueOf() < startDate.valueOf()) return true;
+            if (transactions[0].action_date.valueOf() === startDate.valueOf()) return true;
         }
     }
     return false;
@@ -193,13 +193,13 @@ export const getXDomain = (dates, awardType, transactions) => {
     if (onlyOneTransaction) {
         if (isAwardFinancialAssistance(awardType)) { // grant
             // 5.a start and no end use transaction as end domain
-            if (!badStart && badCurrent) return [startDate.valueOf(), transactions[0].action_date.valueOf()];
+            if (!badStart && badCurrent) return [beforeDate(startDate, transactions[0].action_date).valueOf(), afterDate(startDate, transactions[0].action_date).valueOf()];
             // 4.a no start and end use transaction as start domain
             if (badStart && !badCurrent) return [transactions[0].action_date.valueOf(), currentEndDate.valueOf()];
             return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, currentEndDate).valueOf()];
         }
         // 5.a start and no end use transaction as end domain
-        if (!badStart && (badCurrent && badEnd)) return [startDate.valueOf(), transactions[0].action_date.valueOf()];
+        if (!badStart && (badCurrent && badEnd)) return [beforeDate(startDate, transactions[0].action_date).valueOf(), afterDate(startDate, transactions[0].action_date).valueOf()];
         // 4.a no start and end use transaction as start domain
         if (badStart && (!badCurrent || !badEnd)) {
             const date = !badEnd ? potentialEndDate : currentEndDate;
