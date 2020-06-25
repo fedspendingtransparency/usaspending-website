@@ -3,8 +3,11 @@
  * Created by Jonathan Hill 06/10/20
  */
 
+import MapContainer from 'containers/covid19/recipient/RecipientContainer';
+
 import React from 'react';
 import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
+import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
@@ -54,7 +57,7 @@ export const componentByCovid19Section = () => ({
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <ComingSoon />,
+        component: <BudgetCategories />,
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip,
         showInMenu: true,
@@ -64,9 +67,9 @@ export const componentByCovid19Section = () => ({
         component: <AwardQuestion />,
         showInMenu: false
     },
-    award_spending_recipient: {
+    award_spending_by_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <MapContainer />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,

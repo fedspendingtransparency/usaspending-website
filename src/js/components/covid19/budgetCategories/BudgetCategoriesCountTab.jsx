@@ -1,6 +1,6 @@
 /**
- * CountTab.jsx
- * Created by Lizzie Salita 5/8/20
+ * BudgetCategoriesCountTab.jsx
+ * Created by James Lee 6/5/20
  */
 
 import React from 'react';
@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 
-const CountTab = (props) => {
+const BudgetCategoriesCountTab = (props) => {
     const setActiveTab = () => {
         props.setActiveTab(props.type);
     };
@@ -35,15 +35,10 @@ const CountTab = (props) => {
                 <div className="count-button__count">
                     {(props.count || props.count === 0) ? `${props.count}` : '--'}
                 </div>
-                {props.subHeading ? (
-                    <div className="count-button__sub-heading">
-                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
-                    </div>
-                ) : ''}
             </div>
         </button>
     );
 };
 
-CountTab.propTypes = propTypes;
-export default CountTab;
+BudgetCategoriesCountTab.propTypes = propTypes;
+export default BudgetCategoriesCountTab;
