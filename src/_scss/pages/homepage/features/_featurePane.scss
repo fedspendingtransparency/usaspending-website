@@ -55,6 +55,7 @@
       @include flex(1 1 1);
       width: 30%;
     }
+
     &.feature-pane__content-middle__sub {
       background-size: cover;
       background-position: center center;
@@ -65,36 +66,20 @@
       background-size: contain;
       background-position: center center;
       background-repeat: no-repeat;
-      @include media($medium-screen) {
-        background-image: url('#{$image-path}/covid/covid1200.png');
-      }
-      @include media($small-screen) {
-        background-image: url('#{$image-path}/covid/covid1200.png');
-      }
+      background-image: url('#{$image-path}/covid/covid1200.png');
+
+      //@include media($medium-screen) {
+      //  background-image: url('#{$image-path}/covid/covid1200.png');
+      //}
+    }
+    &.feature-pane__content-fiscal-data {
+      background-size: cover;
+      margin: rem(10);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url('#{$image-path}/homepage-fiscal-data.png'); // test image 1 and 2
     }
   }
-
-
-
-    //// tablets
-    //@media (min-width: 481px) {
-    //  .feature-pane__content.feature-pane__content-covid {
-    //    background-size: contain;
-    //    background-position: center center;
-    //    background-repeat: no-repeat;
-    //    background-image: url('#{$image-path}/covid/covid1200.png');
-    //  }
-    //}
-    //
-    //// computers
-    //@media (min-width: 769px) {
-    //  .feature-pane__content.feature-pane__content-covid {
-    //    background-size: contain;
-    //    background-position: center center;
-    //    background-repeat: no-repeat;
-    //    background-image: url('#{$image-path}/covid/covid1200.png');
-    //  }
-    //}
 
   .covid-announcement-text-box {
     margin-top: rem(50);
@@ -104,15 +89,15 @@
     z-index: 1;
   }
 
-    .feature-pane__content-divider {
-        display: none;
-        @include media($medium-screen) {
-            display: block;
-            border-right: 1px solid $color-gray-lighter;
-            height: 202px;
-            align-self: center;
-        }
-    }
+  .feature-pane__content-divider {
+      display: none;
+      @include media($medium-screen) {
+          display: block;
+          border-right: 1px solid $color-gray-lighter;
+          height: 202px;
+          align-self: center;
+      }
+  }
 
     #feature-pane__content-header__middle {
       font-size: rem(16);

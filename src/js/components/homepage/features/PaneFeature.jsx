@@ -28,28 +28,22 @@ const PaneFeature = () => {
                 <div className="feature-pane__content-wrapper">
                     <hr className="feature-pane__mobile-content-divider" />
 
-                    <div className="feature-pane__content feature-pane__content-middle__sub">
+                    {/*DEV-5402*/}
+                    <div className="feature-pane__content feature-pane__content-fiscal-data">
                         <div>
-                            <div id="feature-pane__content-header__middle">
-                                Updated for FY 2019
-                            </div>
-                            <h3 className="feature-pane__content-title" id="feature-pane__content-title__middle">
-                                Your Guide to America’s Finances
-                            </h3>
+                            <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
                             <p className="feature-pane_content-text">
-                                Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
-                                deficit, and debt, along with data for download.
-                                Click below to visit our partner site.
+                                Fiscal Data is a new site featuring federal financial data in machine-readable formats with comprehensive metadata. Explore and download the data today!
                             </p>
                         </div>
                         <div className="feature-pane__button-wrapper">
                             <a
-                                href="https://datalab.usaspending.gov/americas-finance-guide/"
+                                href="https://www.FiscalData.Treasury.gov"
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button">
-                                Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                className="feature-pane__button-covid">
+                                Explore Fiscal Data <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
                     </div>
@@ -67,7 +61,7 @@ const PaneFeature = () => {
                             </div>
                         </div>
                         <div className="feature-pane__button-wrapper">
-                            <a href="https://www.google.com" role="button" className="feature-pane__button-covid">Explore Data Lab<span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span></a>
+                            <a href="https://datalab.usaspending.gov/federal-covid-spending" role="button" className="feature-pane__button-covid">Explore Data Lab<span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span></a>
                         </div>
                     </div>
 
