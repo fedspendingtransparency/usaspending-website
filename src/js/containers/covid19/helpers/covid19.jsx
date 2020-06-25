@@ -7,6 +7,7 @@ import OverviewContainer from 'containers/covid19/OverviewContainer';
 import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
 
 import React from 'react';
+import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
@@ -56,7 +57,7 @@ export const componentByCovid19Section = () => ({
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <ComingSoon />,
+        component: <BudgetCategories />,
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip,
         showInMenu: true,

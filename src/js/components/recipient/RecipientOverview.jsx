@@ -111,7 +111,7 @@ const RecipientOverview = (props) => {
                     <div className="recipient-section__viz totals-container">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">
-                            Total Transactions
+                                Total Awarded Amount
                             </h3>
                             <div className="totals__amount">
                                 {recipient.totalAmount}

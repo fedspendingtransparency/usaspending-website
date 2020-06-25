@@ -134,7 +134,7 @@ const ContractGrantActivity = ({
             {
                 title: 'Action Type',
                 paragraphs: [
-                    `${transaction.type_description || '--'}`
+                    `${transaction.action_type || '--'}`
                 ]
             },
             {
