@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 import { Picker } from 'data-transparency-ui';
 import { formatNumber } from 'accounting';
 import ResultsTableTabs from '../../search/table/ResultsTableTabs';
+import { getIndexesToDelete, adaptTabs, selectOptionDecision } from '../../../helpers/moreOptionsTabs/moreOptionsTabsHelper';
 
 const propTypes = {
     tabs: PropTypes.array.isRequired,
@@ -29,6 +30,9 @@ const MoreOptionsTabs = (props) => {
     const [indexesToDelete, setIndexesToDelete] = useState([]);
     const tabs = useRef(null);
 
+    const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
+    const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
+
     const switchTab = (tab) => {
         pickerOptions.forEach((option) => {
             if (option.value === tab) {
@@ -37,14 +41,11 @@ const MoreOptionsTabs = (props) => {
         });
         setActiveTab(tab);
 
-        // update subtiitle based on tab selected
+        // update subtitle based on tab selected
         if (props.changeActiveTab) {
             props.changeActiveTab(tab);
         }
     };
-
-    const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
-    const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
 
     const selectOption = (name, value) => (
         <div
@@ -64,85 +65,6 @@ const MoreOptionsTabs = (props) => {
             </div>
         </div>
     );
-
-    const getIndexesToDelete = (allTabs, containerWidth, moreOptionsWidth) => {
-        setTabsContainerWidth(containerWidth);
-        if (tabsContainerWidth) {
-            let stopWidth = moreOptionsWidth;
-            const indexes = [];
-
-            // grab the indexes of tabs to delete
-            allTabs.forEach((_, i) => {
-                const width = allTabs[i].offsetWidth;
-                if (width === 0) {
-                    setShowMoreOptions(true);
-                    setPickerOptions(props.tabs.map((col) => ({
-                        name: col.label,
-                        value: col.internal
-                    })));
-                }
-
-                if (width > 0 && Array.from(allTabs).length === props.tabs.length) {
-                    setShowMoreOptions(false);
-                }
-
-                if (tabsContainerWidth >= (stopWidth + width)) {
-                    stopWidth += width;
-                } else {
-                    indexes.push(i);
-                }
-            });
-
-            if (indexes.length > 0) {
-                // remove an extra element for buffer so columns don't overflow off the page
-                const minIndex = Math.min(...indexes);
-                indexes.push(minIndex - 1);
-
-                // set the tabs to delete off the screen
-                setIndexesToDelete(indexes);
-            }
-        }
-    };
-
-    const adaptTabs = () => {
-        // if we have indexes to delete we want to delete them and add them to the picker options
-        if (indexesToDelete && indexesToDelete.length > 0) {
-            setShowMoreOptions(true);
-            if (tabTypes.length - indexesToDelete.length <= 0) {
-                // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
-                setTabTypes(tabTypes.slice(0, 0));
-                setPickerOptions(props.tabs.map((col) => ({
-                    name: col.label,
-                    value: col.internal
-                })));
-            } else {
-                // remove tabs and add the removed tabs to picker options dropdown
-                setTabTypes(tabTypes.slice(0, tabTypes.length - indexesToDelete.length));
-                setPickerOptions(tabTypes.slice(tabTypes.length - indexesToDelete.length, tabTypes.length).map((col) => ({
-                    name: col.label,
-                    value: col.internal
-                })));
-            }
-        }
-    };
-
-    const selectOptionDecision = () => {
-        if (filteredSelectedPickerOption && filteredSelectedPickerOption.length > 0 && pickerOptions.length !== props.tabs.length) {
-            // if picker options contains the active tab then show the active tab as selected in the picker
-            const foundActiveTab = pickerOptions.filter((option) => option.value === activeTab);
-            if (foundActiveTab && foundActiveTab.length > 0) {
-                return selectOption(foundActiveTab[0].name, foundActiveTab[0].value);
-            }
-        } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length !== props.tabs.length) {
-            return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
-        } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length > 0 && pickerOptions.length === props.tabs.length) {
-            if (pickerOptions[0] && pickerOptions[0].value === activeTab) {
-                return selectOption(pickerOptions[0].name, pickerOptions[0].value);
-            }
-            return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
-        }
-        return props.pickerLabel ? props.pickerLabel : 'More Options';
-    };
 
     const previewCountPropTypes = {
         name: PropTypes.string,
@@ -170,13 +92,13 @@ const MoreOptionsTabs = (props) => {
     }, []);
 
     useEffect(() => {
-        getIndexesToDelete(tabs.current.children[0].children, tabs.current.offsetWidth, 200);
+        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 200, setShowMoreOptions, setPickerOptions));
         // set class for when js is not available
         setTabClass('more-options__tabs_primary_js');
     }, [tabTypes, tabsContainerWidth]);
 
     useEffect(() => {
-        adaptTabs();
+        adaptTabs(indexesToDelete, tabTypes, props.tabs, setShowMoreOptions, setTabTypes, setPickerOptions);
     }, [indexesToDelete]);
 
     return (
@@ -192,7 +114,7 @@ const MoreOptionsTabs = (props) => {
                     id="more-options__tabs-picker"
                     className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
                     icon=""
-                    selectedOption={selectOptionDecision()}
+                    selectedOption={selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, props.tabs, pickerOptions, activeTab, selectOption, props.pickerLabel)}
                     options={pickerOptions.length > 0 && pickerOptions.map((option) => ({
                         name: option.name,
                         value: option.value,

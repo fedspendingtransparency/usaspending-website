@@ -55,7 +55,7 @@ const BudgetCategoriesTableContainer = (props) => {
             if (spendingCategory === 'loan_spending') {
                 const params = {
                     filter: {
-                        def_codes: defCodes
+                        def_codes: defCodes.map((defc) => defc.code)
                     },
                     pagination: {
                         limit: pageSize,
@@ -79,7 +79,7 @@ const BudgetCategoriesTableContainer = (props) => {
             } else {
                 const params = {
                     filter: {
-                        def_codes: defCodes
+                        def_codes: defCodes.map((defc) => defc.code)
                     },
                     spending_type: apiSpendingTypes[spendingCategory],
                     pagination: {
