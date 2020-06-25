@@ -125,19 +125,19 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         // Reset to the first page
         changeCurrentPage(1);
         if (activeTab !== 'newAwards') {
-            // fetchSpendingOverTimeCallback();
+            fetchSpendingOverTimeCallback();
         }
         else {
-            // fetchNewAwardsCallback();
+            fetchNewAwardsCallback();
         }
     }, [activeTab, pageSize, defCodes]);
 
     useEffect(() => {
         if (activeTab !== 'newAwards') {
-            // fetchSpendingOverTimeCallback();
+            fetchSpendingOverTimeCallback();
         }
         else {
-            // fetchNewAwardsCallback();
+            fetchNewAwardsCallback();
         }
     }, [currentPage]);
 

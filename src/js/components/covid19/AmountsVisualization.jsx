@@ -36,7 +36,10 @@ const mockData = {
     remainingBalance: formatMoney(2400000000000 - 963000000000)
 };
 
-const AmountsVisualization = ({ data, width = null }) => {
+const AmountsVisualization = ({
+    // data,
+    width = null
+}) => {
     const [scale, setScale] = useState(null);
     const [rectangles, setRectangles] = useState(null);
     const [rectangleData, setRectangleData] = useState({});
@@ -81,8 +84,8 @@ const AmountsVisualization = ({ data, width = null }) => {
                 let textData = [];
                 if (textInfo) {
                     if (i === 0 || i === 4) {
-                        const questionData = textInfo.question.map((t, i) => ({
-                            y: (startOfChartY - lineLength) + (textInfo.questionDown * (i === 0 ? 1 : 2) + (i === 0 ? 0 : 10)),
+                        const questionData = textInfo.question.map((t, f) => ({
+                            y: (startOfChartY - lineLength) + ((textInfo.questionDown * (f === 0 ? 1 : 2)) + (f === 0 ? 0 : 10)),
                             x: lineXPosition - textInfo.questionLeft,
                             text: t,
                             className: 'amounts-text__question'
@@ -174,8 +177,13 @@ const AmountsVisualization = ({ data, width = null }) => {
     // lines
     useEffect(() => {
         if (Object.keys(rectangleData).length) {
-            const l = Object.keys(rectangleData).reduce((acc, key, i) => {
-                const { x1, x2, y1, y2 } = rectangleData[key].line;
+            const l = Object.keys(rectangleData).reduce((acc, key) => {
+                const {
+                    x1,
+                    x2,
+                    y1,
+                    y2
+                } = rectangleData[key].line;
                 const rData = rectangleMapping[key];
                 if (!rData.line) return acc;
                 acc.push(
@@ -196,17 +204,17 @@ const AmountsVisualization = ({ data, width = null }) => {
     // text
     useEffect(() => {
         if (Object.keys(rectangleData).length) {
-            const t = Object.keys(rectangleData).reduce((acc, key, i) => {
+            const t = Object.keys(rectangleData).reduce((acc, key) => {
                 const textData = rectangleData[key].text;
                 const rData = rectangleMapping[key];
                 if (!rData.text) return acc;
-                textData.forEach((text) => acc.push(
+                textData.forEach((txt) => acc.push(
                     <text
                         key={uniqueId()}
-                        className={text.className}
-                        x={text.x}
-                        y={text.y}>
-                        {text.text}
+                        className={txt.className}
+                        x={txt.x}
+                        y={txt.y}>
+                        {txt.text}
                     </text>
                 ));
                 return acc;
@@ -217,8 +225,6 @@ const AmountsVisualization = ({ data, width = null }) => {
 
     const dateNoteStyles = {
         position: 'absolute',
-        // width: '1.2rem',
-        // height: '1.2rem',
         transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`
     };
 
