@@ -5,7 +5,7 @@
 
 import { getBaseUrl } from 'helpers/socialShare';
 
-const slug = 'covid-19';
+export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
     subject: 'USAspending.gov COVID-19 Response: ',
