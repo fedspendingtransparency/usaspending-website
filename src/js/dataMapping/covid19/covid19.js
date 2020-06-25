@@ -48,8 +48,8 @@ export const rectangleMapping = {
             question: ['How much is', 'available to be spent?'],
             questionLeft: 197,
             questionDown: 15,
-            valueLeft: 182,
-            valueDown: 50,
+            valueLeft: 188,
+            valueDown: 70,
             labelLeft: 186,
             labelDown: 25,
             label: 'Total Budgetary Resources'
@@ -88,8 +88,8 @@ export const rectangleMapping = {
             question: ['How much was', 'promised to be spent?'],
             label: 'Total Obligations',
             questionLeft: 198,
-            questionDown: 26,
-            valueLeft: 161,
+            questionDown: 46,
+            valueLeft: 165,
             valueDown: 40,
             labelLeft: 123,
             labelDown: 25
@@ -109,8 +109,8 @@ export const rectangleMapping = {
             label: 'Total Outlays',
             questionLeft: 138,
             questionDown: 15,
-            valueLeft: 161,
-            valueDown: 50,
+            valueLeft: 165,
+            valueDown: 70,
             labelLeft: 97,
             labelDown: 25
         }
@@ -130,7 +130,7 @@ export const rectangleMapping = {
             label: 'Total Remaining Balance',
             questionLeft: 158,
             questionDown: 41,
-            valueLeft: 182,
+            valueLeft: 183,
             valueDown: 40,
             labelLeft: 175,
             labelDown: 25
@@ -148,7 +148,7 @@ export const rectangleMapping = {
     }
 };
 
-export const startOfChartY = 200;
+export const startOfChartY = 160;
 export const rectangleHeight = 60;
 export const lineStrokeWidth = 2;
 export const lineLength = 127;

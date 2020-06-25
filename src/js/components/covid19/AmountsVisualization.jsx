@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
 import { uniqueId } from 'lodash';
+import DateNote from 'components/covid19/DateNote';
 import {
     amountsHeight,
     amountsPadding,
@@ -81,18 +82,18 @@ const AmountsVisualization = ({ data, width = null }) => {
                 if (textInfo) {
                     if (i === 0 || i === 4) {
                         const questionData = textInfo.question.map((t, i) => ({
-                          y: (startOfChartY - lineLength) + (textInfo.questionDown * (i === 0 ? 1 : 2) + (i === 0 ? 0 : 10)),
-                          x: lineXPosition - textInfo.questionLeft,
-                          text: t,
-                          className: 'amounts-text__question'
-                      }));
-                      textData = [
+                            y: (startOfChartY - lineLength) + (textInfo.questionDown * (i === 0 ? 1 : 2) + (i === 0 ? 0 : 10)),
+                            x: lineXPosition - textInfo.questionLeft,
+                            text: t,
+                            className: 'amounts-text__question'
+                        }));
+                        textData = [
                             ...questionData,
                             {
                                 y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
                                 text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
-                                className: 'amounts-text__value'
+                                className: key === '_totalBudgetAuthority' ? 'amounts-text__value bold' : 'amounts-text__value'
                             },
                             {
                                 y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown + textInfo.labelDown,
@@ -100,11 +101,11 @@ const AmountsVisualization = ({ data, width = null }) => {
                                 text: textInfo?.label,
                                 className: 'amounts-text__label'
                             }
-                        ]
+                        ];
                     }
                     else {
-                        const questionData = textInfo.question.map((t, i) => ({
-                            y: startOfChartY + rectangleHeight + 10 + textInfo.valueDown + 5 + ((textInfo.questionDown * (i === 0 ? 1 : 2))),
+                        const questionData = textInfo.question.map((t, z) => ({
+                            y: startOfChartY + rectangleHeight + 10 + textInfo.valueDown + 5 + ((textInfo.questionDown * (z === 0 ? 1 : 1.5))),
                             x: lineXPosition - textInfo.questionLeft,
                             text: t,
                             className: 'amounts-text__question'
@@ -214,11 +215,19 @@ const AmountsVisualization = ({ data, width = null }) => {
         }
     }, [rectangleData]);
 
+    const dateNoteStyles = {
+        position: 'absolute',
+        // width: '1.2rem',
+        // height: '1.2rem',
+        transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`
+    };
+
     return (
         <div className="amounts-viz">
             <h3 className="body__narrative amounts-viz__title">
                 This is how much was spent on the COVID-19 Response <strong>in total</strong>.
             </h3>
+            <DateNote styles={dateNoteStyles} />
             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                 <g>
                     {rectangles}

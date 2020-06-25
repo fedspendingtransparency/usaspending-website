@@ -6,10 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const propTypes = { dateString: PropTypes.string };
+const propTypes = { dateString: PropTypes.string, styles: PropTypes.object };
 
-const DateNote = ({ dateString = 'June 30, 2020' }) => (
-    <div className="covid__date-note">
+const DateNote = ({ dateString = 'June 30, 2020', styles }) => (
+    <div style={{ ...styles }} className="covid__date-note">
         Data as of {dateString}
     </div>
 );

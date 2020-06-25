@@ -15,15 +15,15 @@ const propTypes = {
 
 const SankeyContainer = ({ data, width }) => {
     return (
-        <div className="covid19__sankey-container">
-            <div className="covid19__sankey-title">
+        <div className="body__content covid19__sankey-container">
+            <h3 className="body__narrative covid19__sankey-title">
                   This is how the <strong>total spending</strong> was funded and spent.
-            </div>
-            <div className="covid19__sankey-sub-title">
+            </h3>
+            <p className="body__narrative-description covid19__sankey-sub-title">
                 This Sankey diagram shows the flow of spending from specific funding
                 sources (in this case, the different Public Laws that funded the COVID-19 Response)
                 through to the money that has been paid out.
-            </div>
+            </p>
             <Sankey defCodes={data.defCodes} height={sankeyHeight} width={width} />
             <div className="covid19__sankey-legend">
                 <div className="covid19-sankey-legend__item">
