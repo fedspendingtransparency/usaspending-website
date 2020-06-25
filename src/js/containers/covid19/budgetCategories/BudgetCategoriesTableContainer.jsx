@@ -68,7 +68,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 requestLoanSpending.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.pagination_metadata.total);
+                        setTotalItems(res.data.page_metadata.total);
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
@@ -93,7 +93,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 requestDisasterSpending.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.pagination_metadata.total);
+                        setTotalItems(res.data.page_metadata.total);
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
