@@ -7,7 +7,7 @@ import MapContainer from 'containers/covid19/recipient/RecipientContainer';
 
 import React from 'react';
 import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
-import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
+// import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
