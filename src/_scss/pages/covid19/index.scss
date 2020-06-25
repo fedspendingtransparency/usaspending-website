@@ -98,7 +98,7 @@
                     flex-wrap: wrap;
                     align-items: center;
                     @include justify-content(space-between);
-                    border-bottom: 3px solid $color-base;
+                    border-bottom: rem(3) solid $color-base;
                     .body__header-left {
                         @include display(flex);
                         padding-bottom: 0.5rem;
