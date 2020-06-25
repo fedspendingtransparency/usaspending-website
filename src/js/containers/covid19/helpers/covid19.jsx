@@ -7,7 +7,6 @@ import MapContainer from 'containers/covid19/recipient/RecipientContainer';
 
 import React from 'react';
 import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
-import AwardSpendingOverTime from 'components/covid19/spendingOverTime/AwardSpendingOverTime';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
@@ -81,14 +80,6 @@ export const componentByCovid19Section = () => ({
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
         title: 'Award Spending by Agency'
-    },
-    award_spending_over_time: {
-        icon: 'chart-area',
-        component: <AwardSpendingOverTime />,
-        headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip,
-        showInMenu: true,
-        title: 'Award Spending Over Time'
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
