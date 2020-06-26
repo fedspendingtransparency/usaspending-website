@@ -26,9 +26,6 @@ const PaneFeature = () => {
             <div className="feature-pane__wrapper">
                 <h2 className="feature-pane__title">Featured Content</h2>
                 <div className="feature-pane__content-wrapper">
-                    <hr className="feature-pane__mobile-content-divider" />
-
-                    {/*DEV-5402*/}
                     <div className="feature-pane__content feature-pane__content-fiscal-data">
                         <div>
                             <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
@@ -42,32 +39,32 @@ const PaneFeature = () => {
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button-covid">
+                                className="feature-pane__button white">
                                 Explore Fiscal Data <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
                     </div>
-
                     <div className="feature-pane__content-divider" />
                     <hr className="feature-pane__mobile-content-divider" />
 
-                    {/*DEV-5403*/}
                     <div className="feature-pane__content feature-pane__content-covid">
-                        <div>
-                            <div className="covid-announcement-text-box">
-                                <p className="feature-pane__content-title-covid">
-                                    The Federal Response to COVID-19
-                                </p>
-                            </div>
+                        <div className="covid-announcement-text-box">
+                            <p className="feature-pane__content-title">
+                                The Federal Response to COVID-19
+                            </p>
                         </div>
                         <div className="feature-pane__button-wrapper">
-                            <a href="https://datalab.usaspending.gov/federal-covid-spending" role="button" className="feature-pane__button-covid">Explore Data Lab<span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span></a>
+                            <button
+                                onClick={onRedirectModalClick}
+                                value="https://datalab.usaspending.gov/federal-covid-spending"
+                                className="feature-pane__button feature-pane__button-redirect-modal white">
+                                Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                            </button>
                         </div>
                     </div>
 
-                    <div className="feature-pane__content-divider" />
                     <hr className="feature-pane__mobile-content-divider" />
-
+                    <div className="feature-pane__content-divider" />
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
                         <p className="feature-pane_content-text">
