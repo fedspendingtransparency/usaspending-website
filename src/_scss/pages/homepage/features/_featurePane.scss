@@ -1,6 +1,6 @@
 .feature-pane {
     .feature-pane__wrapper {
-        display: block; 
+        display: block;
         margin: rem(60) 0 rem(100);
         width: 100%;
 
@@ -44,33 +44,50 @@
         @include flex-wrap(wrap);
     }
 
-    .feature-pane__content {
-      @include display(flex);
-      @include flex-direction(column);
-      text-align: center;
-      font-size: rem(14);
-      line-height: rem(17);
+
+  .feature-pane__content {
+    @include display(flex);
+    @include flex-direction(column);
+    text-align: center;
+    font-size: rem(14);
+    line-height: rem(17);
+    @include media($medium-screen) {
+      @include flex(1 1 1);
+      width: 30%;
+    }
+
+    &.feature-pane__content-middle__sub {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url('#{$image-path}/homepage-eagle-large.png');
+    }
+    &.feature-pane__content-fiscal-data {
+      background-size: cover;
+      margin: rem(10);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url('#{$image-path}/homepage-fiscal-data.png');
+    }
+  }
+
+  .covid-announcement-text-box {
+    margin-top: rem(50);
+    padding: rem(0.5);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    z-index: 1;
+  }
+
+  .feature-pane__content-divider {
+      display: none;
       @include media($medium-screen) {
-          @include flex(1 1 1);
-          width: 30%;
+          display: block;
+          border-right: 1px solid $color-gray-lighter;
+          height: 202px;
+          align-self: center;
       }
-      &.feature-pane__content-middle__sub {
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-image: url('#{$image-path}/homepage-eagle-large.png');
-      }
-    }
-    
-    .feature-pane__content-divider {
-        display: none;
-        @include media($medium-screen) {
-            display: block;
-            border-right: 1px solid $color-gray-lighter;
-            height: 202px;
-            align-self: center;
-        }
-        
-    }
+  }
 
     #feature-pane__content-header__middle {
       font-size: rem(16);
@@ -87,6 +104,15 @@
         color: #5B616B;
         line-height: 1;
         margin-top: rem(35);
+    }
+
+    .feature-pane__content-title-covid {
+      font-size: rem(24);
+      font-weight: bold;
+      color: #5B616B;
+      line-height: 1;
+      padding-left: rem(20);
+      padding-right: rem(20);
     }
 
     #feature-pane__content-title__middle {
@@ -114,7 +140,7 @@
         box-shadow: none;
       }
     }
-    
+
     .feature-pane__bottom-divider {
         border: 1px solid rgba(214,215,217,0.4);
     }
@@ -141,11 +167,27 @@
             background-color: #0071bc;
             font-weight: 600;
         }
+        &:active {
+          box-shadow: inset 0 0 0 2px #112e51;
+          color: #112e51;
+        }
+    }
 
+    .feature-pane__button-white {
+        color: #0071BC;
+        background-color: white;
+        border: 1px solid #0071BC;
+        text-decoration: none;
+        font-weight: 600;
+        padding: rem(10) rem(20) rem(10) rem(20);
+        &:hover {
+            color: #ffffff;
+            background-color: #0071bc;
+            font-weight: 600;
+        }
         &:active {
             box-shadow: inset 0 0 0 2px #112e51;
             color: #112e51;
         }
     }
-
 }

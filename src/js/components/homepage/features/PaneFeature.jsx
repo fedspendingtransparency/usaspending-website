@@ -26,20 +26,7 @@ const PaneFeature = () => {
             <div className="feature-pane__wrapper">
                 <h2 className="feature-pane__title">Featured Content</h2>
                 <div className="feature-pane__content-wrapper">
-                    <div className="feature-pane__content">
-                        <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
-                        <p className="feature-pane_content-text">
-                            Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.
-                        </p>
-                        <div className="feature-pane__button-wrapper">
-                            <button
-                                onClick={onRedirectModalClick}
-                                value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                                className="feature-pane__button feature-pane__button-redirect-modal">
-                                Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </button>
-                        </div>
-                    </div>
+                    
                     <div className="feature-pane__content-divider" />
                     <hr className="feature-pane__mobile-content-divider" />
                     <div className="feature-pane__content feature-pane__content-middle__sub">
@@ -70,10 +57,17 @@ const PaneFeature = () => {
                     <hr className="feature-pane__mobile-content-divider" />
                     <div className="feature-pane__content-divider" />
                     <div className="feature-pane__content">
-                        <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
-                        <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
+                        <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
+                        <p className="feature-pane_content-text">
+                            Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.
+                        </p>
                         <div className="feature-pane__button-wrapper">
-                            <a href="/#/agency" role="button" className="feature-pane__button">Explore Budget Justifications</a>
+                            <button
+                                onClick={onRedirectModalClick}
+                                value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
+                                className="feature-pane__button feature-pane__button-redirect-modal">
+                                Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                            </button>
                         </div>
                     </div>
                 </div>
