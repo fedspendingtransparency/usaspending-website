@@ -1,16 +1,21 @@
 /**
- * Sankey.jsx
+ * SankeyViz.jsx
  * Created By Jonathan Hill 06/05/20
  */
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
-import { formatMoney } from 'helpers/moneyFormatter';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { TooltipComponent } from 'containers/covid19/helpers/covid19';
-import { mockNodes, mockLinks, defCodeColor } from 'dataMapping/covid19/covid19';
+import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import {
+    otherSankeyNodes,
+    dataForLinks,
+    defCodeColor,
+    moneyLabel
+} from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
 
@@ -20,7 +25,8 @@ const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
 const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    overview: PropTypes.object
 };
 
 const startOfSankeyY = 100;
@@ -39,8 +45,14 @@ const startOfSankeyY = 100;
  * DEF code L, M, N, O, and P.
  */
 
-const SankeyChart = ({ height, width, defCodes }) => {
+const SankeyViz = ({
+    height,
+    width,
+    defCodes,
+    overview
+}) => {
     const [nodeData, setNodeData] = useState([]);
+    const [linkData, setLinkData] = useState([]);
     const [sankeyData, setSankeyData] = useState({ nodes: [], links: [] });
     const [sankeyNodes, setSankeyNodes] = useState([]);
     const [sankeyLinks, setSankeyLinks] = useState([]);
@@ -53,8 +65,17 @@ const SankeyChart = ({ height, width, defCodes }) => {
     const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
     const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
         const newNode = node;
-        if (node.name === 'unObligatedBalance') {
-            const { x1, x0 } = array.find((n) => n.name === 'awardObligations');
+        if (node.name === '_remainingBalance' && !isIE) {
+            // console.log(' node : ', array.find((n) => n.name === '_otherObligations'));
+            const { x1, x0 } = array.find((n) => n.name === '_awardObligations');
+            // const { x1, x0, y1 } = array.find((n) => n.name === '_awardObligations');
+            // const { y1: yOne } = array.find((n) => n.name === '_otherObligations');
+            // const difference = yOne - y1;
+            // const nodeHeight = node.y1 - node.y0;
+            // newNode.x0 = x0;
+            // newNode.x1 = x1;
+            // newNode.y0 = yOne + difference;
+            // newNode.y1 = yOne + difference + nodeHeight;
             newNode.x0 = x0;
             newNode.x1 = x1;
             return newNode;
@@ -68,7 +89,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
             const lawCode = code.public_law.split(' ').pop();
             const publicLaw = `${emergencyText} Public Law ${lawCode}`;
             return {
-                name: code.code,
+                name: `_defCode_${code.code}_funding`,
                 publicLaw,
                 label: `DEF Code: ${code.code}`,
                 color: defCodeColor,
@@ -76,16 +97,25 @@ const SankeyChart = ({ height, width, defCodes }) => {
                 textWidth: 63,
                 textHeight: 29
             };
-        }).concat(mockNodes);
+        }).concat(otherSankeyNodes);
         // put O def code first
         const oDefCode = dataForNodes.splice(3, 1)[0];
         dataForNodes.unshift(oDefCode);
         setNodeData(dataForNodes);
     }, [defCodes]);
+    // create data for links
+    useEffect(() => {
+        // TODO - once the over api is done use this code
+        // const links = nodeData.reduce((acc, node, i) => {
+        //     acc[i].value = overview[node.name];
+        // }, [dataForLinks]);
+        // setLinkData(links);
+        setLinkData(dataForLinks);
+    }, [nodeData, overview]);
     // set the data used for the d3 sankey method
     useEffect(() => {
-        setSankeyData(Object.assign({}, { nodes: nodeData, links: mockLinks }));
-    }, [nodeData]);
+        setSankeyData(Object.assign({}, { nodes: nodeData, links: linkData }));
+    }, [nodeData, linkData]);
     // create sankey data
     useEffect(() => {
         if (sankeyData.nodes.length && sankeyData.links.length) {
@@ -101,9 +131,9 @@ const SankeyChart = ({ height, width, defCodes }) => {
     useEffect(() => {
         if (sankeyNodes.length) {
             const fundingTextStart = sankeyNodes[0].x0;
-            const fundingTextEnd = sankeyNodes.find((node) => node.name === 'totalBudgetAuthority').x1;
-            const spendingTextStart = sankeyNodes.find((node) => node.name === 'awardObligations').x0;
-            const spendingTextEnd = sankeyNodes.find((node) => node.name === 'awardOutlays').x1;
+            const fundingTextEnd = sankeyNodes.find((node) => node.name === '_totalBudgetAuthority').x1;
+            const spendingTextStart = sankeyNodes.find((node) => node.name === '_awardObligations').x0;
+            const spendingTextEnd = sankeyNodes.find((node) => node.name === '_awardOutlays').x1;
             setFundingSpendingTextData({
                 fundingTextStart,
                 fundingTextEnd,
@@ -114,7 +144,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
     }, [sankeyNodes, width]);
 
     useEffect(() => {
-        const data = sankeyNodes.map((node) => {
+        const ttAndGlossaryIcons = sankeyNodes.map((node) => {
             const {
                 tooltip,
                 label,
@@ -158,7 +188,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
                 </div>
             );
         });
-        setTooltipsAndGlossaryIcons(data);
+        setTooltipsAndGlossaryIcons(ttAndGlossaryIcons);
     }, [sankeyNodes, width]);
 
     return (
@@ -200,6 +230,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
                             value,
                             publicLaw
                         } = node;
+                        const units = calculateUnits([value]);
                         return (
                             <g key={uniqueId()}>
                                 {
@@ -221,7 +252,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
                                     className="sankey__text sankey__text-money"
                                     x={x0}
                                     y={y0 - 4}>
-                                    {formatMoney(value)}
+                                    {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`}
                                 </text>
                                 <SankeyNode
                                     {...node}
@@ -241,5 +272,5 @@ const SankeyChart = ({ height, width, defCodes }) => {
     );
 };
 
-SankeyChart.propTypes = propTypes;
-export default SankeyChart;
+SankeyViz.propTypes = propTypes;
+export default SankeyViz;

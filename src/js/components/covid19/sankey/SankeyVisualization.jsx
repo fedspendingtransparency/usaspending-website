@@ -9,11 +9,12 @@ import Sankey from 'components/covid19/sankey/Sankey';
 import { sankeyHeight } from 'dataMapping/covid19/covid19';
 
 const propTypes = {
-    data: PropTypes.object,
+    defCodes: PropTypes.array,
+    overview: PropTypes.object,
     width: PropTypes.number
 };
 
-const SankeyContainer = ({ data, width }) => (
+const SankeyContainer = ({ defCodes, overview, width }) => (
     <div className="body__content covid19__sankey-container">
         <h3 className="body__narrative covid19__sankey-title">
               This is how the <strong>total spending</strong> was funded and spent.
@@ -23,7 +24,7 @@ const SankeyContainer = ({ data, width }) => (
             sources (in this case, the different Public Laws that funded the COVID-19 Response)
             through to the money that has been paid out.
         </p>
-        <Sankey defCodes={data.defCodes} height={sankeyHeight} width={width} />
+        <Sankey defCodes={defCodes} overview={overview} height={sankeyHeight} width={width} />
         <div className="covid19__sankey-legend">
             <div className="covid19-sankey-legend__item">
                 <div className="covid19-sankey-legend__item__circle covid19-sankey-legend__item__circle-budget-source" />

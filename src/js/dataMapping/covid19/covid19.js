@@ -154,9 +154,9 @@ export const lineStrokeWidth = 2;
 export const lineLength = 127;
 
 
-export const mockNodes = [
+export const otherSankeyNodes = [
     {
-        name: 'totalBudgetAuthority',
+        name: '_totalBudgetAuthority',
         label: 'Total Budgetary Resources',
         color: '#AAC6E2',
         glossary: `#/${slug}?glossary=budget-authority`,
@@ -164,7 +164,7 @@ export const mockNodes = [
         textHeight: 31
     },
     {
-        name: 'awardObligations',
+        name: '_awardObligations',
         label: 'Award Obligations',
         color: '#558EC6',
         glossary: `#/${slug}?glossary=award-obligations`,
@@ -172,7 +172,7 @@ export const mockNodes = [
         textHeight: 31
     },
     {
-        name: 'nonAwardObligations',
+        name: '_otherObligations',
         label: 'Non-Award Obligations',
         color: '#558EC6',
         glossary: `#/${slug}?glossary=non-award-obligations`,
@@ -180,7 +180,7 @@ export const mockNodes = [
         textHeight: 31
     },
     {
-        name: 'awardOutlays',
+        name: '_awardOutlays',
         label: 'Award Outlays',
         color: '#0A2F5A',
         glossary: `#/${slug}?glosary=outlay`,
@@ -188,7 +188,7 @@ export const mockNodes = [
         textHeight: 31
     },
     {
-        name: 'notYetOutlayed',
+        name: '_awardObligationsNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
         glossary: `#/${slug}?glosary=outlay`,
@@ -197,7 +197,7 @@ export const mockNodes = [
         whiteRectangle: true
     },
     {
-        name: 'nonAwardOutlays',
+        name: '_nonAwardOutLays',
         label: 'Other Outlays',
         color: '#0A2F5A',
         glossary: `#/${slug}?glosary=outlay`,
@@ -205,7 +205,7 @@ export const mockNodes = [
         textHeight: 31
     },
     {
-        name: 'notYetOutlayed',
+        name: '_nonAwardNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
         glossary: `#/${slug}?glosary=outlay`,
@@ -214,7 +214,7 @@ export const mockNodes = [
         whiteRectangle: true
     },
     {
-        name: 'unObligatedBalance',
+        name: '_remainingBalance',
         label: 'Remainging Balance',
         color: '#558EC6',
         glossary: `#/${slug}?glossary=unobligated-balance`,
@@ -224,66 +224,66 @@ export const mockNodes = [
     }
 ];
 // total amount = 3500000
-export const mockLinks = [
+export const dataForLinks = [
     {
         source: 0, // O to total
         target: 5,
-        value: 500000
+        value: 1800000000000
     },
     {
         source: 1, // L to total
         target: 5,
-        value: 600000
+        value: 7400000000
     },
     {
         source: 2, // M to total
         target: 5,
-        value: 700000
+        value: 11100000000
     },
     {
         source: 3, // N to total
         target: 5,
-        value: 800000
+        value: 327700000000
     },
     {
         source: 4, // P to total
         target: 5,
-        value: 900000
+        value: 125100000000
     },
     {
         source: 5, // total to award obligations
         target: 6,
-        value: 1100000
+        value: 866700000000
     },
     {
         source: 5, // total to non award obligations
         target: 7,
-        value: 700000
+        value: 96300000000
     },
     {
         source: 6, // award to award outlays
         target: 8,
-        value: 550000
+        value: 413100000000
     },
     {
         source: 6, // award to not yet outlayed
         target: 9,
-        value: 550000
+        value: 453600000000
     },
     {
         source: 7, // non award to non award outlays
         target: 10,
-        value: 350000
+        value: 45900000000
     },
     {
         source: 7, // non award to non award not yet outlayed
         target: 11,
-        value: 350000
+        value: 50400000000
     },
     {
         source: 5, // total to unobligated balance
         target: 12,
-        value: 1700000
+        value: 1400000000000
     }
 ];
 
