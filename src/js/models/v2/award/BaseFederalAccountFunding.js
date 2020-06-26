@@ -27,7 +27,7 @@ const BaseFederalAccount = {
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
         this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
-        this._grossOutlayAmountByAwardCPE = data.gross_outlay_amount_by_award_cpe || ''; 
+        this._grossOutlayAmountByAwardCPE = data.gross_outlay_amount_by_award_cpe || '';
     },
 
     populate(data, category) {
