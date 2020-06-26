@@ -30,7 +30,7 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
         indexes.push(minIndex - 1);
 
         // set the tabs to delete off the screen
-        return indexes;
+        return indexes.sort((a, b) => a - b);
     }
     return null;
 };
