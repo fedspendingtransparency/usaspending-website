@@ -18,22 +18,18 @@ import {
     lineLength,
     moneyLabel
 } from 'dataMapping/covid19/covid19';
-import { formatMoney, calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    data: PropTypes.object,
+    // data: PropTypes.object,
     width: PropTypes.number
 };
 
 const mockData = {
     _totalBudgetAuthority: 1800000000000 + 7400000000 + 11100000000 + 327700000000 + 125100000000,
-    // totalBudgetAuthority: formatMoney(2400000000000),
     _totalOutlays: 413100000000 + 45900000000,
-    // totalOutlays: formatMoney(459000000000),
     _totalObligations: 866700000000 + 96300000000,
-    // totalObligations: formatMoney(963000000000),
     _remainingBalance: 1400000000000
-    // remainingBalance: formatMoney(2400000000000 - 963000000000)
 };
 
 const AmountsVisualization = ({
