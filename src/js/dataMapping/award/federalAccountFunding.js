@@ -65,7 +65,9 @@ export const nonIdvTableMapping = {
         fedAccount: 0,
         programActivity: 300,
         objectClass: 300,
-        fundingObligated: 0
+        fundingObligated: 0,
+        disasterEmergencyFundCode: 0,
+        grossOutlayAmountByAwardCPE: 0
     },
     defaultSortDirection: {
         submissionDate: 'desc',
@@ -74,7 +76,9 @@ export const nonIdvTableMapping = {
         fedAccount: 'asc',
         programActivity: 'asc',
         objectClass: 'asc',
-        fundingObligated: 'desc'
+        fundingObligated: 'desc',
+        disasterEmergencyFundCode: 'desc',
+        grossOutlayAmountByAwardCPE: 'desc'
     },
     table: {
         _order: [
@@ -84,7 +88,9 @@ export const nonIdvTableMapping = {
             'awardingAgencyName',
             'programActivity',
             'objectClass',
-            'fundingObligated'
+            'fundingObligated',
+            'disasterEmergencyFundCode',
+            'grossOutlayAmountByAwardCPE'
         ],
         _sortFields: {
             submissionDate: 'reporting_fiscal_date',
@@ -93,7 +99,9 @@ export const nonIdvTableMapping = {
             fedAccount: 'account_title',
             programActivity: 'program_activity',
             objectClass: 'object_class',
-            fundingObligated: 'transaction_obligated_amount'
+            fundingObligated: 'transaction_obligated_amount',
+            disasterEmergencyFundCode: 'disaster_emergency_fund_code',
+            grossOutlayAmountByAwardCPE: 'gross_outlay_amount_by_award_cpe'
         },
         submissionDate: 'Submission Date',
         fedAccount: 'Federal Account',
@@ -101,7 +109,9 @@ export const nonIdvTableMapping = {
         awardingAgencyName: 'Awarding Agency',
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
-        fundingObligated: 'Funding Obligated'
+        fundingObligated: 'Funding Obligated',
+        disasterEmergencyFundCode: 'Disaster Emergency Fund Code',
+        grossOutlayAmountByAwardCPE: 'Outlay Amount From FYB to Period End'
     }
 };
 

@@ -53,4 +53,20 @@ describe('Base Financial Assistance', () => {
             expect(nonIdv.federalAccountCode).toEqual('123-456');
         });
     });
+    describe('disasterEmergencyFundCode', () => {
+        it('should return -- when it does not exist', () => {
+            const fakeRow = Object.create(BaseFederalAccount);
+            const fakeData = { ...mockFederalAccountFunding.results[0] };
+            fakeData.disaster_emergency_fund_code = null;
+            fakeRow.populate(fakeData);
+            expect(fakeRow.disasterEmergencyFundCode).toEqual('--');
+        });
+    });
+    describe('grossOutlayAmountByAwardCPE', () => {
+        it('should format the account number using the agency id and main account code', () => {
+            const fakeRow = Object.create(BaseFederalAccount);
+            fakeRow.populate(mockFederalAccountFunding.results[0]);
+            expect(fakeRow.grossOutlayAmountByAwardCPE).toEqual('$111');
+        });
+    });
 });

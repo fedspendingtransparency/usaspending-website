@@ -26,6 +26,8 @@ const BaseFederalAccount = {
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
+        this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
+        this._grossOutlayAmountByAwardCPE = data.gross_outlay_amount_by_award_cpe || ''; 
     },
 
     populate(data, category) {
@@ -85,6 +87,22 @@ Object.defineProperty(BaseFederalAccount, 'accountNumber', {
             return `${this._agencyId}-${this._mainAccountCode}`;
         }
         return '';
+    }
+});
+Object.defineProperty(BaseFederalAccount, 'grossOutlayAmountByAwardCPE', {
+    get() {
+        if (this._grossOutlayAmountByAwardCPE) {
+            return formatMoney(this._grossOutlayAmountByAwardCPE);
+        }
+        return '--';
+    }
+});
+Object.defineProperty(BaseFederalAccount, 'disasterEmergencyFundCode', {
+    get() {
+        if (this._disasterEmergencyFundCode) {
+            return this._disasterEmergencyFundCode;
+        }
+        return '--';
     }
 });
 
