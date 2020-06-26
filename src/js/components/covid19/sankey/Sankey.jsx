@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { sankey } from 'd3-sankey';
 import { uniqueId } from 'lodash';
 import { formatMoney } from 'helpers/moneyFormatter';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -15,8 +14,8 @@ import { mockNodes, mockLinks, defCodeColor } from 'dataMapping/covid19/covid19'
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
 
-// const sankey = require('../../../../../node_modules/d3-sankey/dist/d3-sankey.min.js');
-
+const isIE = !!document.documentMode;
+const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
 
 const propTypes = {
     height: PropTypes.number,
@@ -90,7 +89,7 @@ const SankeyChart = ({ height, width, defCodes }) => {
     // create sankey data
     useEffect(() => {
         if (sankeyData.nodes.length && sankeyData.links.length) {
-            const { nodes, links } = sankey()
+            const { nodes, links } = Sankey.sankey()
                 .nodeWidth(width / 5)
                 .nodePadding(60)
                 .extent([[1, startOfSankeyY], [width - 1, height - 5]])(sankeyData);
