@@ -256,6 +256,7 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // DEF Codes Filter
         case 'UPDATE_DEF_CODES': {
+            console.log(' Action Paylod : ', action);
             return Object.assign({}, state, {
                 defCodes: action.payload
             });
@@ -284,6 +285,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
+            console.log(' Clearing Filters ');
             return Object.assign({}, initialState);
         }
 

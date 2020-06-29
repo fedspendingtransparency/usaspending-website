@@ -67,11 +67,13 @@ export class SearchContainer extends React.Component {
     }
 
     componentDidMount() {
+        console.log(' Applied Filters : ', this.props.appliedFilters);
         this.handleInitialUrl(this.props.params.hash);
         this.requestDownloadAvailability(this.props.appliedFilters.filters);
     }
 
     componentDidUpdate(prevProps) {
+        console.log(' Applied Filters 2 : ', this.props.appliedFilters);
         const nextHash = this.props.params.hash || '';
         // TODO: use either props or state, not both.
         if (nextHash !== this.state.hash) {
@@ -281,7 +283,7 @@ export class SearchContainer extends React.Component {
                 break;
             }
         }
-
+        console.log(' UnFiltered : ', unfiltered);
         return unfiltered;
     }
 
