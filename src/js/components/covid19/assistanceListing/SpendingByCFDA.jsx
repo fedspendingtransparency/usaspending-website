@@ -13,7 +13,7 @@ import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/Spendi
 const SpendingByCFDA = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
     const [redirectModalURL, setRedirectModalURL] = useState('');
-    const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].label);
+    const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
 
     const onRedirectModalClick = (e) => {
         setRedirectModalURL(e.currentTarget.value);
@@ -36,7 +36,7 @@ const SpendingByCFDA = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const selectedTab = financialAssistanceTabs.filter((item) => item.internal === tab)[0].label;
+        const selectedTab = financialAssistanceTabs.filter((item) => item.internal === tab)[0].internal;
         setActiveTab(selectedTab);
     };
 
