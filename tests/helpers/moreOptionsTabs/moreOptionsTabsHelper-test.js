@@ -91,7 +91,7 @@ describe('moreOptionsTabs Helper', () => {
 
     it('should return the correct indexes to delete', () => {
         const indexes = getIndexesToDelete(mockHtmlCollection, mockAwardSpendingAgencyTableTabs, 1000, 200, setShowMoreOptions, setPickerOptions);
-        expect(indexes).toEqual([1, 2, 3, 4, 5]);
+        expect(indexes).toEqual([2, 3, 4, 5]);
         expect(setShowMoreOptions).toHaveBeenCalledWith(false);
         expect(setPickerOptions).toHaveBeenCalledTimes(0);
 
@@ -99,10 +99,6 @@ describe('moreOptionsTabs Helper', () => {
         expect(setShowMoreOptions).toHaveBeenCalledWith(false);
 
         const pickerOptionsActual = [
-            {
-                value: 'contracts',
-                name: 'Contracts'
-            },
             {
                 value: 'idvs',
                 name: 'Contract IDVs'
@@ -128,6 +124,11 @@ describe('moreOptionsTabs Helper', () => {
                 enabled: true,
                 internal: "all",
                 label: "All Awards"
+            },
+            {
+                enabled: true,
+                internal: "contracts",
+                label: "Contracts"
             }
         ];
 
@@ -171,6 +172,15 @@ describe('moreOptionsTabs Helper', () => {
         adaptTabs(indexes, mockAwardSpendingAgencyTableTabs, mockAwardSpendingAgencyTableTabs, setShowMoreOptions, setTabTypes, setPickerOptions);
         expect(setTabTypes).toHaveBeenCalledTimes(0);
         expect(setPickerOptions).toHaveBeenCalledWith(pickerOptionsActual);
+    });
+
+    it('should return the correct states for showMoreOptions and pickerOptions when the indexesToDelete length is 1', () => {
+        const indexes = [5];
+
+        adaptTabs(indexes, mockAwardSpendingAgencyTableTabs, mockAwardSpendingAgencyTableTabs, setShowMoreOptions, setTabTypes, setPickerOptions);
+        expect(setShowMoreOptions).toHaveBeenCalledWith(false);
+        expect(setTabTypes).toHaveBeenCalledTimes(1);
+        expect(setTabTypes).toHaveBeenCalledWith(mockAwardSpendingAgencyTableTabs);
     });
 
     it('should display the correct dropdown option when picker option from filteredSelectedPickerOption is not empty and is active', () => {
