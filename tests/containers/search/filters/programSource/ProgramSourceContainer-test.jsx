@@ -14,9 +14,9 @@ jest.mock('components/search/filters/programSource/ProgramSourceSection', () =>
     jest.fn(() => null));
 
 const mockRedux = {
-    selectedFederalComponents: new OrderedMap(),
+    checkboxTreeSelections: [],
     selectedTreasuryComponents: new OrderedMap(),
-    appliedFederalComponents: new OrderedMap(),
+    appliedCheckboxTreeSelections: [],
     appliedTreasuryComponents: new OrderedMap()
 };
 
@@ -27,7 +27,7 @@ describe('ProgramSourceContainer', () => {
                 {...mockRedux} />);
 
             container.setProps({
-                selectedFederalComponents: new OrderedMap({ a: 'a' })
+                selectedTreasuryComponents: new OrderedMap({ main: 'test' })
             });
 
             const changed = container.instance().dirtyFilters();

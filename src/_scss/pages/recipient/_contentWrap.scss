@@ -33,17 +33,52 @@
 			@include media($tablet-screen) {
 				@include display(flex);
 			}
+
+			.totals-container {
+				@include media($tablet-screen) {
+					@include flex(1 1 50%);
+					@include flex-direction(column);
+					margin-right: rem(10);
+				}
+
+				.loan {
+					margin-top: rem(50);
+					margin-left: 0;
+					@include flex(1 1 50%);
+
+					.totals__header {
+						@include display(flex);
+						@include align-items(center);
+					}
+
+					.recipient-overview__heading {
+						float: left;
+					}
+
+					.tooltip-wrapper {
+						@include display(inline-block);
+						float: left;
+	
+						.recipient-overview-tooltip {
+							@include display(inline-block);
+							width: 100%;
+						}
+
+						svg {
+							height: rem(20);
+							width: rem(20);
+						}
+					}
+
+					.totals__amount {
+						clear: both;
+					}
+				}
+			}
 			.recipient-section__viz {
 				width: 100%;
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
-				}
-				// Add 20px space between visualizations
-				&:first-child {
-					margin-right: rem(10);
-				}
-				&:last-child {
-					margin-left: rem(10);
 				}
 			}
 		}

@@ -15,17 +15,15 @@ import ProgramSourceSection from 'components/search/filters/programSource/Progra
 
 const propTypes = {
     selectedTreasuryComponents: PropTypes.object,
-    selectedFederalComponents: PropTypes.object,
+    checkboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
     appliedTreasuryComponents: PropTypes.object,
-    appliedFederalComponents: PropTypes.object,
-    updateFederalAccountComponents: PropTypes.func,
+    appliedCheckboxTreeSelections: PropTypes.arrayOf(PropTypes.string),
     updateTreasuryAccountComponents: PropTypes.func
 };
 
 export class ProgramSourceContainer extends React.Component {
     dirtyFilters() {
-        if (is(this.props.selectedTreasuryComponents, this.props.appliedTreasuryComponents) &&
-            is(this.props.selectedFederalComponents, this.props.appliedFederalComponents)) {
+        if (is(this.props.selectedTreasuryComponents, this.props.appliedTreasuryComponents)) {
             return null;
         }
         return Symbol('dirty program sources');
@@ -34,10 +32,7 @@ export class ProgramSourceContainer extends React.Component {
     render() {
         return (
             <ProgramSourceSection
-                selectedTreasuryComponents={this.props.selectedTreasuryComponents}
-                selectedFederalComponents={this.props.selectedFederalComponents}
-                updateFederalAccountComponents={this.props.updateFederalAccountComponents}
-                updateTreasuryAccountComponents={this.props.updateTreasuryAccountComponents}
+                {...this.props}
                 dirtyFilters={this.dirtyFilters()} />
         );
     }
@@ -47,10 +42,10 @@ ProgramSourceContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
+        checkboxTreeSelections: state.filters.tasCodes.toObject().require,
+        appliedCheckboxTreeSelections: state.appliedFilters.filters.tasCodes.toObject().require,
         selectedTreasuryComponents: state.filters.treasuryAccounts,
-        selectedFederalComponents: state.filters.federalAccounts,
-        appliedTreasuryComponents: state.appliedFilters.filters.treasuryAccounts,
-        appliedFederalComponents: state.appliedFilters.filters.federalAccounts
+        appliedTreasuryComponents: state.appliedFilters.filters.treasuryAccounts
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(ProgramSourceContainer);
