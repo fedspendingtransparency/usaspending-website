@@ -45,11 +45,12 @@
             @include display(flex);
             width: 100%;
             height: 100%;
-            z-index: 999;
+            z-index: 4;
 
             .usa-dt-picker__list {
                 @include flex(1 1 auto);
                 justify-content: center;
+                z-index: 5;
 
                 .usa-dt-picker__item  {
                     @include display(inline-block);
