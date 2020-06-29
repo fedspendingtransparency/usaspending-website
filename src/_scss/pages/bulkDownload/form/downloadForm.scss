@@ -70,6 +70,15 @@
             }
             .download-filter__fy {
                 @import "fyPicker";
+                .quarter-picker .quarter-picker__fy {
+                    @include flex(0 0 auto);
+                    padding-right: rem(20);
+                }
+                .usa-dt-quarter-picker__quarter {
+                    width: rem(72);
+                    height: rem(30);
+                    font-weight: $font-bold;
+                }
             }
         }
 
