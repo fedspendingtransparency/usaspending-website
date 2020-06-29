@@ -25,3 +25,31 @@ export const cfdaSortFields = {
     count: 'count',
     name: 'description'
 };
+
+export const financialAssistanceTabs = [
+    {
+        enabled: true,
+        internal: 'all',
+        label: 'All Awards'
+    },
+    {
+        enabled: true,
+        internal: 'grants',
+        label: 'Grants'
+    },
+    {
+        enabled: true,
+        internal: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        enabled: true,
+        internal: 'loans',
+        label: 'Loans'
+    },
+    {
+        enabled: true,
+        internal: 'other',
+        label: 'Other'
+    }
+];

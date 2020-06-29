@@ -4,9 +4,14 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { fetchCfdaCount, fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
+
+const propTypes = {
+    activeTab: PropTypes.string
+};
 
 const overviewData = [
     {
@@ -29,7 +34,7 @@ const overviewData = [
     }
 ];
 
-const SummaryInsightsContainer = () => {
+const SummaryInsightsContainer = ({ activeTab }) => {
     const [cfdaCount, setCfdaCount] = useState(null);
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
@@ -71,12 +76,12 @@ const SummaryInsightsContainer = () => {
                 <OverviewData
                     key={data.label}
                     {...data}
-                    // TODO - use the active award type in the subtitle
-                    subtitle="for all awards"
+                    subtitle={`for ${activeTab.toLowerCase()}`}
                     amount={amounts[data.type]} />
             ))}
         </div>
     );
 };
 
+SummaryInsightsContainer.propTypes = propTypes;
 export default SummaryInsightsContainer;
