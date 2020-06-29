@@ -4,7 +4,7 @@
 */
 
 import React from 'react';
-import { getIndexesToDelete, adaptTabs } from 'helpers/moreOptionsTabs/moreOptionsTabsHelper';
+import { getIndexesToDelete, adaptTabs, selectOptionDecision } from 'helpers/moreOptionsTabs/moreOptionsTabsHelper';
 
 const mockHtmlCollection = [
     {
@@ -171,5 +171,235 @@ describe('moreOptionsTabs Helper', () => {
         adaptTabs(indexes, mockAwardSpendingAgencyTableTabs, mockAwardSpendingAgencyTableTabs, setShowMoreOptions, setTabTypes, setPickerOptions);
         expect(setTabTypes).toHaveBeenCalledTimes(0);
         expect(setPickerOptions).toHaveBeenCalledWith(pickerOptionsActual);
+    });
+
+    it('should display the correct dropdown option when picker option from filteredSelectedPickerOption is not empty and is active', () => {
+        const filteredSelectedOption = [];
+        const filteredSelectedPickerOption = [{
+            name: 'Loans',
+            value: 'loans'
+        }];
+
+        const pickerOptions = [
+            {
+                value: 'contracts',
+                name: 'Contracts'
+            },
+            {
+                value: 'idvs',
+                name: 'Contract IDVs'
+            },
+            {
+                value: 'grants',
+                name: 'Grants'
+            },
+            {
+                value: 'direct_payments',
+                name: 'Direct Payments'
+            },
+            {
+                value: 'loans',
+                name: 'Loans'
+            }
+        ];
+
+        const activeTab = 'loans';
+
+        const selectOption = (name, value) => ({
+            name,
+            value
+        });
+
+        const pickerLabel = 'Label rendered';
+
+        const result = selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, mockAwardSpendingAgencyTableTabs, pickerOptions, activeTab, selectOption, pickerLabel);
+        expect(result).toEqual({
+            name: 'Loans',
+            value: 'loans'
+        });
+    });
+
+    it('should display the correct dropdown option when picker option from filteredSelectedOption is not empty and is active', () => {
+        const filteredSelectedOption = [{
+            name: 'Loans',
+            value: 'loans'
+        }];
+        const filteredSelectedPickerOption = [];
+
+        const pickerOptions = [
+            {
+                value: 'contracts',
+                name: 'Contracts'
+            },
+            {
+                value: 'idvs',
+                name: 'Contract IDVs'
+            },
+            {
+                value: 'grants',
+                name: 'Grants'
+            },
+            {
+                value: 'direct_payments',
+                name: 'Direct Payments'
+            },
+            {
+                value: 'loans',
+                name: 'Loans'
+            }
+        ];
+
+        const activeTab = 'loans';
+
+        const selectOption = (name, value) => ({
+            name,
+            value
+        });
+
+        const pickerLabel = 'Label rendered';
+
+        const result = selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, mockAwardSpendingAgencyTableTabs, pickerOptions, activeTab, selectOption, pickerLabel);
+        expect(result).toEqual({
+            name: 'Loans',
+            value: 'loans'
+        });
+    });
+
+    it('should display the correct dropdown option when picker options is equal to the count of tabs', () => {
+        const filteredSelectedOption = [{
+            name: 'Loans',
+            value: 'loans'
+        }];
+        const filteredSelectedPickerOption = [];
+
+        const pickerOptions = [
+            {
+                value: 'all',
+                name: 'All Awards'
+            },
+            {
+                value: 'contracts',
+                name: 'Contracts'
+            },
+            {
+                value: 'idvs',
+                name: 'Contract IDVs'
+            },
+            {
+                value: 'grants',
+                name: 'Grants'
+            },
+            {
+                value: 'direct_payments',
+                name: 'Direct Payments'
+            },
+            {
+                value: 'loans',
+                name: 'Loans'
+            }
+        ];
+
+        const activeTab = 'loans';
+
+        const selectOption = (name, value) => ({
+            name,
+            value
+        });
+
+        const pickerLabel = 'Label rendered';
+
+        const result = selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, mockAwardSpendingAgencyTableTabs, pickerOptions, activeTab, selectOption, pickerLabel);
+        expect(result).toEqual({
+            name: 'Loans',
+            value: 'loans'
+        });
+    });
+
+    it('should display the picker label when filteredSelectedOptions are empty', () => {
+        const filteredSelectedOption = [];
+        const filteredSelectedPickerOption = [];
+
+        const pickerLabel = 'Label rendered';
+
+        const pickerOptions = [
+            {
+                value: 'all',
+                name: 'All Awards'
+            },
+            {
+                value: 'contracts',
+                name: 'Contracts'
+            },
+            {
+                value: 'idvs',
+                name: 'Contract IDVs'
+            },
+            {
+                value: 'grants',
+                name: 'Grants'
+            },
+            {
+                value: 'direct_payments',
+                name: 'Direct Payments'
+            },
+            {
+                value: 'loans',
+                name: 'Loans'
+            }
+        ];
+
+        const activeTab = 'loans';
+
+        const selectOption = (name, value) => ({
+            name,
+            value
+        });
+
+        const result = selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, mockAwardSpendingAgencyTableTabs, pickerOptions, activeTab, selectOption, pickerLabel);
+        expect(result).toEqual('Label rendered');
+    });
+
+    it('should display the "More Options" when no picker label is provided', () => {
+        const filteredSelectedOption = [];
+        const filteredSelectedPickerOption = [];
+
+        const pickerLabel = '';
+
+        const pickerOptions = [
+            {
+                value: 'all',
+                name: 'All Awards'
+            },
+            {
+                value: 'contracts',
+                name: 'Contracts'
+            },
+            {
+                value: 'idvs',
+                name: 'Contract IDVs'
+            },
+            {
+                value: 'grants',
+                name: 'Grants'
+            },
+            {
+                value: 'direct_payments',
+                name: 'Direct Payments'
+            },
+            {
+                value: 'loans',
+                name: 'Loans'
+            }
+        ];
+
+        const activeTab = 'loans';
+
+        const selectOption = (name, value) => ({
+            name,
+            value
+        });
+
+        const result = selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, mockAwardSpendingAgencyTableTabs, pickerOptions, activeTab, selectOption, pickerLabel);
+        expect(result).toEqual('More Options');
     });
 });
