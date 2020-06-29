@@ -26,6 +26,13 @@ export const fetchSpendingOverTime = (params) => apiRequest({
     data: params
 });
 
+export const fetchAgencyCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/agency/count/',
+    method: 'post',
+    data: params
+});
+
 export const fetchNewAwardsCount = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/new_award/count/',
