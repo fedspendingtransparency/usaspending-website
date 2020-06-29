@@ -64,7 +64,7 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
-            
+
             .body__content {
                 h3.body__narrative {
                     text-align: center;
@@ -82,9 +82,10 @@
                 @import "./tableMessages";
                 @import './budgetCategoriesTable';
             }
-            
+
             @import './spendingOverTime/awardSpendingOverTime';
-            
+            @import './assistanceListing/assistanceListing';
+
             .body__section {
                 @import "../agency/v2/tabs";
                 @include display(flex);

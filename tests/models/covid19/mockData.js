@@ -2,7 +2,8 @@
  * mockData
  * Created by Jonathan Hill 06/18/20
  */
-const mockData = {
+
+export const mockOverviewData = {
     funding: [
         {
             def_code: 'L',
@@ -22,4 +23,14 @@ const mockData = {
     }
 };
 
-export default mockData;
+export const mockCfdaData = {
+    id: '43',
+    code: '090',
+    description: 'Description text',
+    children: [],
+    count: 5400,
+    obligation: 89000000.01,
+    outlay: 70000000.98,
+    total_budgetary_resources: null,
+    resource_link: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view'
+};

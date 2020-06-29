@@ -88,6 +88,6 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
-        title: 'Award Spending by Assistance Listing (CFDA Program)'
+        title: 'Award Spending by CFDA Program (Assistance Listing)'
     }
 });

@@ -21,7 +21,7 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
-// import OverviewModel from 'models/covid19/OverviewModel';
+// import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
     getEmailSocialShareData,
@@ -71,7 +71,7 @@ const Covid19Container = () => {
     //         try {
     //             const { data } = await overviewRequest.current.promise;
     //             const { spending, funding } = data;
-    //             const newOverview = Object.create(OverviewModel);
+    //             const newOverview = Object.create(BaseOverview);
     //              newOverview.populate(data);
     //             dispatch(setOverview(newOverview));
     //         }
