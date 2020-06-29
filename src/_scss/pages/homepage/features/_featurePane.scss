@@ -71,8 +71,15 @@
       background-size: contain;
       background-position: center center;
       background-repeat: no-repeat;
-      background-image: url('#{$image-path}/homepage-covid-large.png');
-      //@include
+      background-image: url('#{$image-path}/homepage-covid.png');
+      @include media($tablet-screen) {
+        width: 100%;
+        background-image: url('#{$image-path}/homepage-covid-large.png');
+      }
+      @include media(1024px) {
+        width: 30%;
+        background-image: url('#{$image-path}/homepage-covid.png');
+      }
     }
   }
 
