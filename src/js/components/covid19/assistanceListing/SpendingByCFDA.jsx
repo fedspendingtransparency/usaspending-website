@@ -45,8 +45,9 @@ const SpendingByCFDA = () => {
     };
 
     useEffect(() => {
-        const counts = defaultTabCounts;
+        const promises = [];
         // Make an API request for the count of CFDA for each award type
+        // Post-MVP this should be updated to use a new endpoint that returns all the counts
         financialAssistanceTabs.forEach((awardType) => {
             const params = {
                 filter: {
@@ -56,13 +57,19 @@ const SpendingByCFDA = () => {
             if (awardType.internal !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
-            fetchCfdaCount(params).promise
-                .then((res) => {
-                    counts[awardType.internal] = res.data.count;
-                });
+            promises.push(fetchCfdaCount(params).promise);
         });
-        // Store the counts in state
-        setTabCounts(counts);
+        // Wait for all the requests to complete and then store the results in state
+        Promise.all(promises)
+            .then(([allRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
+                setTabCounts({
+                    all: allRes.data.count,
+                    grants: grantsRes.data.count,
+                    direct_payments: directPaymentsRes.data.count,
+                    loans: loansRes.data.count,
+                    other: otherRes.data.count
+                });
+            });
     }, [defCodes]);
 
     return (
