@@ -1,20 +1,30 @@
 .more-options__tabs_primary {
     @import "pages/search/results/table/_tableTypes";
     @include display(flex);
-    border-bottom: 1px solid $color-gray-light;
 
     .tab-padding-right {
+        padding-top: rem(10);
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
+        width: 100%;
     }
 
     .table-types {
-        border-bottom: none;
+        padding-right: rem(1.5);
     }
 
     .table-type-toggle {
         white-space: nowrap;
         border-bottom: none;
+
+        &.active {
+            background-color: $color-white;
+            border-top: 1px solid $color-gray-light;
+            border-right: 1px solid $color-gray-light;
+            border-bottom: 1px solid $color-white;
+            border-left: 1px solid $color-gray-light;
+            color: $color-base;
+        }
     }
 
     .usa-dt-picker {

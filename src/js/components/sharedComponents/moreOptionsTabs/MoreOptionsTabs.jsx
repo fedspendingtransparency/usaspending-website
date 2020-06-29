@@ -87,7 +87,7 @@ const MoreOptionsTabs = (props) => {
             setIndexesToDelete([]);
         };
 
-        window.addEventListener('resize', throttle(handleResize, 100));
+        window.addEventListener('resize', throttle(handleResize, 250));
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
