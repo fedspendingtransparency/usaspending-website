@@ -35,7 +35,7 @@ const overviewData = [
 ];
 
 const AwardSpendingAgency = () => {
-    const [awardCount, setAwardCount] = useState(null);
+    const [agencyCount, setAgencyCount] = useState(null);
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -71,7 +71,7 @@ const AwardSpendingAgency = () => {
         };
         fetchAgencyCount(params).promise
             .then((res) => {
-                setAwardCount(res.data.count);
+                setAgencyCount(res.data.count);
             });
         fetchAwardAmounts(params).promise
             .then((res) => {
@@ -85,7 +85,7 @@ const AwardSpendingAgency = () => {
     }, [defCodes]);
 
     const amounts = {
-        awardCount,
+        agencyCount,
         awardOutlays,
         awardObligations,
         numberOfAwards
