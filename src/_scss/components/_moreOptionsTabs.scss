@@ -1,23 +1,34 @@
 .more-options__tabs_primary {
     @import "pages/search/results/table/_tableTypes";
     @include display(flex);
+    border-bottom: 1px solid $color-gray-light;
 
     .tab-padding-right {
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
     }
 
+    .table-types {
+        border-bottom: none;
+    }
+
     .table-type-toggle {
         white-space: nowrap;
+        border-bottom: none;
     }
 
     .usa-dt-picker {
         @include display(flex);
+        @include flex(0 1 0%);
         justify-content: center;
         width: 100%;
-        @include media($tablet-screen) {
-            flex: 1 1 0%;
+        @include media($small-screen) {
+            @include flex (1 1 auto);
         }
+        @include media($tablet-screen) {
+            @include flex(0 1 0%);
+        }
+        
         height: rem(50);
         background-color: $color-gray-lightest;
         border-bottom: 1px solid $color-gray-light;
@@ -49,6 +60,12 @@
 
             .usa-dt-picker__list {
                 @include flex(1 1 auto);
+                @include media($small-screen) {
+                    width: 100%
+                }
+                @include media($tablet-screen) {
+                    width: auto;
+                }
                 justify-content: center;
                 z-index: 5;
 

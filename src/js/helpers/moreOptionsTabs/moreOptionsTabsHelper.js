@@ -25,10 +25,6 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
     });
 
     if (indexes.length > 0) {
-        // remove an extra element for buffer so columns don't overflow off the page
-        const minIndex = Math.min(...indexes);
-        indexes.push(minIndex - 1);
-
         // set the tabs to delete off the screen
         return indexes.sort((a, b) => a - b);
     }
@@ -39,7 +35,11 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
     // if we have indexes to delete we want to delete them and add them to the picker options
     if (indexesToDelete && indexesToDelete.length > 0) {
         setShowMoreOptions(true);
-        if (tabTypes.length - indexesToDelete.length <= 0) {
+        // if only one index to delete, then just show all tabs
+        if (indexesToDelete.length === 1) {
+            setShowMoreOptions(false);
+            setTabTypes(tabs);
+        } else if (tabTypes.length - indexesToDelete.length <= 0 && indexesToDelete !== 1) {
             // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
             setTabTypes(tabTypes.slice(0, 0));
             setPickerOptions(tabs.map((col) => ({
