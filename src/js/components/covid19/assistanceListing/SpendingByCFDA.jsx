@@ -54,7 +54,9 @@ const SpendingByCFDA = () => {
                 pickerLabel="More Award Types"
                 changeActiveTab={changeActiveTab} />
             <SummaryInsightsContainer activeTab={activeTab} />
-            <SpendingByCFDAContainer onRedirectModalClick={onRedirectModalClick} />
+            <SpendingByCFDAContainer
+                onRedirectModalClick={onRedirectModalClick}
+                activeTab={activeTab} />
             <RedirectModal
                 mounted={isRedirectModalMounted}
                 hideModal={closeRedirectModal}
