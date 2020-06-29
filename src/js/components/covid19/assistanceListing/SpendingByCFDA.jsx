@@ -3,8 +3,11 @@
  * Created by Lizzie Salita 6/22/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { fetchCfdaCount } from 'helpers/disasterHelper';
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import SummaryInsightsContainer from 'containers/covid19/assistanceListing/SummaryInsightsContainer';
@@ -14,6 +17,17 @@ const SpendingByCFDA = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
     const [redirectModalURL, setRedirectModalURL] = useState('');
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const defaultTabCounts = {
+        all: null,
+        grants: null,
+        direct_payments: null,
+        loans: null,
+        other: null
+    };
+
+    const [tabCounts, setTabCounts] = useState(defaultTabCounts);
 
     const onRedirectModalClick = (e) => {
         setRedirectModalURL(e.currentTarget.value);
@@ -25,20 +39,31 @@ const SpendingByCFDA = () => {
         setIsRedirectModalMounted(false);
     };
 
-    // TODO - Remove mock counts and replace with API call for counts
-    const mockCounts = {
-        all: 123123123,
-        contracts: 2856942,
-        idvs: 65718,
-        grants: 262180,
-        direct_payments: 3173522,
-        loans: 955562
-    };
-
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.filter((item) => item.internal === tab)[0].internal;
         setActiveTab(selectedTab);
     };
+
+    useEffect(() => {
+        const counts = defaultTabCounts;
+        // Make an API request for the count of CFDA for each award type
+        financialAssistanceTabs.forEach((awardType) => {
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                }
+            };
+            if (awardType.internal !== 'all') {
+                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+            }
+            fetchCfdaCount(params).promise
+                .then((res) => {
+                    counts[awardType.internal] = res.data.count;
+                });
+        });
+        // Store the counts in state
+        setTabCounts(counts);
+    }, [defCodes]);
 
     return (
         <div className="body__content assistance-listing">
@@ -50,10 +75,13 @@ const SpendingByCFDA = () => {
             </p>
             <MoreOptionsTabs
                 tabs={financialAssistanceTabs}
-                tabCounts={mockCounts}
+                tabCounts={tabCounts}
                 pickerLabel="More Award Types"
                 changeActiveTab={changeActiveTab} />
-            <SummaryInsightsContainer activeTab={activeTab} />
+            <SummaryInsightsContainer
+                // pass CFDA count to the summary section so we don't have to make the same API request again
+                cfdaCount={tabCounts[activeTab]}
+                activeTab={activeTab} />
             <SpendingByCFDAContainer
                 onRedirectModalClick={onRedirectModalClick}
                 activeTab={activeTab} />

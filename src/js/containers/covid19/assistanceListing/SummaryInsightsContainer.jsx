@@ -7,11 +7,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchCfdaCount, fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
 
 const propTypes = {
-    activeTab: PropTypes.string
+    activeTab: PropTypes.string,
+    cfdaCount: PropTypes.number
 };
 
 const overviewData = [
@@ -35,8 +36,7 @@ const overviewData = [
     }
 ];
 
-const SummaryInsightsContainer = ({ activeTab }) => {
-    const [cfdaCount, setCfdaCount] = useState(null);
+const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -44,7 +44,6 @@ const SummaryInsightsContainer = ({ activeTab }) => {
 
     useEffect(() => {
         // Reset any existing counts
-        setCfdaCount(null);
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
@@ -57,10 +56,6 @@ const SummaryInsightsContainer = ({ activeTab }) => {
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        fetchCfdaCount(params).promise
-            .then((res) => {
-                setCfdaCount(res.data.count);
-            });
         fetchAwardAmounts(params).promise
             .then((res) => {
                 setAwardObligations(res.data.obligation);
