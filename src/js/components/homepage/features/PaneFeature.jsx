@@ -58,7 +58,7 @@ const PaneFeature = () => {
                                 onClick={onRedirectModalClick}
                                 value="https://datalab.usaspending.gov/federal-covid-spending"
                                 className="feature-pane__button feature-pane__button-redirect-modal white">
-                                Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </button>
                         </div>
                     </div>
