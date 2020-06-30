@@ -1,0 +1,22 @@
+.award-spending {
+    max-width: 1200px;
+    width: 100%;
+
+    @import 'components/moreOptionsTabs';
+
+    .award-spending__description {
+        font-size: rem(20);
+        line-height: rem(25);
+        font-weight: $font-light;
+        margin-bottom: rem(35)
+    }
+
+    .award-spending__content {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(flex-start);
+        @include flex-wrap(wrap);
+
+        margin-bottom: rem(90);
+    }
+}
