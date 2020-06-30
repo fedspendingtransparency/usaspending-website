@@ -21,6 +21,7 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 // import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
@@ -89,8 +90,10 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
-
-    const onFooterClick = () => dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: 5, label: "COVID-19 Response" }]));
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: 5, label: "COVID-19 Response" }]));
+        dispatch(setAppliedFilterCompletion(true));
+    };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
