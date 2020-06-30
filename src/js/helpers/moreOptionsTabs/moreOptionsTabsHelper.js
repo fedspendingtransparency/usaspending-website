@@ -25,6 +25,11 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
     });
 
     if (indexes.length > 0) {
+        // temp fix for tablet overflow
+        if (containerWidth === 730) {
+            const minIndex = Math.min(...indexes);
+            indexes.push(minIndex - 1);
+        }
         // set the tabs to delete off the screen
         return indexes.sort((a, b) => a - b);
     }
@@ -34,8 +39,7 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
 export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, setTabTypes, setPickerOptions) => {
     // if we have indexes to delete we want to delete them and add them to the picker options
     if (indexesToDelete && indexesToDelete.length > 0) {
-        // if only one index to delete, then just show all tabs
-        if (tabTypes.length - indexesToDelete.length === 0) {
+        if (tabTypes.length - indexesToDelete.length <= 0) {
             // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
             setShowMoreOptions(true);
             setTabTypes(tabTypes.slice(0, 0));

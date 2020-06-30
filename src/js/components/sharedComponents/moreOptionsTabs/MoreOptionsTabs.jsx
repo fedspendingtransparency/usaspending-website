@@ -87,12 +87,12 @@ const MoreOptionsTabs = (props) => {
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
 
-            if (showMoreOptions && tabs.current.children[1].id === 'more-options__tabs-picker') {
+            if (tabs.current.children[1].id === 'more-options__tabs-picker') {
                 setPickerWidth(tabs.current.children[1].offsetWidth);
             }
         };
 
-        window.addEventListener('resize', throttle(handleResize, 250));
+        window.addEventListener('resize', throttle(handleResize, 100));
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
