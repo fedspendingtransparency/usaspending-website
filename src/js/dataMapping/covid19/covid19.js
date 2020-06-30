@@ -288,3 +288,10 @@ export const dataForLinks = [
 ];
 
 export const defCodeColor = '#B699C6';
+
+export const cfdaSortFields = {
+    obligation: 'obligation',
+    outlay: 'outlay',
+    count: 'count',
+    name: 'description'
+};
