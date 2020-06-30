@@ -39,7 +39,7 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
         if (indexesToDelete.length === 1) {
             setShowMoreOptions(false);
             setTabTypes(tabs);
-        } else if (tabTypes.length - indexesToDelete.length <= 0 && indexesToDelete !== 1) {
+        } else if (tabTypes.length - indexesToDelete.length <= 0 && indexesToDelete.length !== 1) {
             // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
             setTabTypes(tabTypes.slice(0, 0));
             setPickerOptions(tabs.map((col) => ({
