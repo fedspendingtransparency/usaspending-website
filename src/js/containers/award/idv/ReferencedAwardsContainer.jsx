@@ -62,7 +62,7 @@ export class ReferencedAwardsContainer extends React.Component {
                 grandchild_awards: 'desc'
             },
             tableTypes,
-            inFlight: true,
+            inFlight: false,
             error: false,
             results: []
         };
