@@ -241,18 +241,18 @@
                     }
                 }
                 @import './overviewData';
+            }
+            .body__section:first-of-type {
+              padding: 0;
+            }
 
-                .body__section:first-of-type {
-                    padding: 0;
-                }
+            .body__section:nth-child(4) {
+                padding: 0;
+            }
 
-                .body__section:nth-child(4) {
-                    padding: 0;
-                }
-
-                .body__section:last-child {
-                    margin-bottom: 0;
-                }
+            .body__section:last-child {
+                margin-bottom: 0;
+                padding: 0;
             }
         }
     }
