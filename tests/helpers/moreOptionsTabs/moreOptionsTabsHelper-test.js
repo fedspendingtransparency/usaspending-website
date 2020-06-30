@@ -174,15 +174,6 @@ describe('moreOptionsTabs Helper', () => {
         expect(setPickerOptions).toHaveBeenCalledWith(pickerOptionsActual);
     });
 
-    it('should return the correct states for showMoreOptions and pickerOptions when the indexesToDelete length is 1', () => {
-        const indexes = [5];
-
-        adaptTabs(indexes, mockAwardSpendingAgencyTableTabs, mockAwardSpendingAgencyTableTabs, setShowMoreOptions, setTabTypes, setPickerOptions);
-        expect(setShowMoreOptions).toHaveBeenCalledWith(false);
-        expect(setTabTypes).toHaveBeenCalledTimes(1);
-        expect(setTabTypes).toHaveBeenCalledWith(mockAwardSpendingAgencyTableTabs);
-    });
-
     it('should display the correct dropdown option when picker option from filteredSelectedPickerOption is not empty and is active', () => {
         const filteredSelectedOption = [];
         const filteredSelectedPickerOption = [{

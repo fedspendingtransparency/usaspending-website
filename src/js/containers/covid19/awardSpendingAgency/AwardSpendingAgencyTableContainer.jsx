@@ -9,9 +9,10 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardSpendingAgencyTableColumns, awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
-import { fetchAwardSpendingByAgency } from 'helpers/disasterHelper';
+import { fetchAwardSpendingByAgency, fetchFaceValueOfLoans } from 'helpers/disasterHelper';
 import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/BaseAwardSpendingByAgencyRow';
 
 
@@ -61,27 +62,72 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
         setLoading(true);
-        // Make a request with the new page number
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code),
-                award_type_codes: awardSpendingAgencyTableTabs.filter((type) => type === props.type).codes
-            },
-            pagination: {
-                limit: pageSize,
-                page: currentPage,
-                sort: awardSpendingAgencyTableColumnFieldMapping[sort],
-                order
-            },
-            spending_type: 'award'
-        };
 
-        // TODO - Add request
-        const request = fetchAwardSpendingByAgency(params);
-        request.promise
-            .then((res) => {
-                parseAwardSpendingByAgency(res.data.results);
-                setTotalItems(res.data.page_metadata.total);
+        let params = {};
+
+        // if active tab is all, default to all award type codes
+        if (props.type === 'all') {
+            params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    order
+                },
+                spending_type: 'award'
+            };
+        } else {
+            params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code),
+                    award_type_codes: awardTypeGroups[props.type]
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    order
+                },
+                spending_type: 'award'
+            };
+        }
+
+        let faceValueOfLoansRequest;
+        if (props.type === 'loans') {
+            const faceValueOfLoansParams = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    order
+                },
+                spending_type: 'award'
+            };
+            faceValueOfLoansRequest = fetchFaceValueOfLoans(faceValueOfLoansParams);
+        }
+
+
+        if (faceValueOfLoansRequest) {
+            const request = fetchAwardSpendingByAgency(params);
+
+            // merge request arrays with face_value_of_loan data
+            Promise.all([request.promise, faceValueOfLoansRequest.promise]).then((res) => {
+                const result = res[0].data.results.filter((o1) =>
+                    res[1].data.results.some((o2) =>
+                        o1.id === o2.id
+                    )
+                ).map((o) => {
+                    const faceValueOfLoan = res[1].data.results.filter((item) => o.id === item.id)[0].face_value_of_loan;
+                    return { ...o, face_value_of_loan: faceValueOfLoan };
+                });
+                parseAwardSpendingByAgency(result);
+                setTotalItems(res[0].data.page_metadata.total);
                 setLoading(false);
                 setError(false);
             }).catch((err) => {
@@ -89,13 +135,27 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 setLoading(false);
                 console.error(err);
             });
+        } else {
+            const request = fetchAwardSpendingByAgency(params);
+            request.promise
+                .then((res) => {
+                    parseAwardSpendingByAgency(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setError(true);
+                    setLoading(false);
+                    console.error(err);
+                });
+        }
     });
 
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order]);
+    }, [props.type, pageSize, sort, order]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

@@ -11,6 +11,7 @@ const BaseAwardSpendingByAgencyRow = {
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
         this._count = data.count || 0;
+        this._face_value_of_loan = data.face_value_of_loan || 0;
     },
     populate(data) {
         this.populateBase(data);
@@ -23,6 +24,9 @@ const BaseAwardSpendingByAgencyRow = {
     },
     get count() {
         return formatNumber(this._count);
+    },
+    get faceValueOfLoan() {
+        return formatMoney(this._face_value_of_loan);
     }
 };
 
