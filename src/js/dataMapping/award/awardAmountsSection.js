@@ -93,35 +93,35 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         totalFundingFormatted: 'Total Funding',
         nonFederalFundingFormatted: 'Non-Federal Funding',
         totalObligationFormatted: 'Obligated Amount',
-        fileCOutlayFormatted: 'COVID-19 2020 Related Outlays Amount',
-        fileCObligatedFormatted: 'COVID-19 2020 Related Obligations Amount'
+        fileCOutlayFormatted: 'COVID-19 Related Outlays Amount',
+        fileCObligatedFormatted: 'COVID-19 Related Obligations Amount'
     },
     idv_aggregated: {
         baseExercisedOptionsFormatted: 'Combined Current Amounts',
         baseAndAllOptionsFormatted: 'Combined Potential Amounts',
         totalObligationFormatted: 'Combined Obligated Amounts',
-        fileCOutlayFormatted: 'COVID-19 2020 Related Outlays Amount',
-        fileCObligatedFormatted: 'COVID-19 2020 Related Obligations Amount'
+        fileCOutlayFormatted: 'COVID-19 Related Outlays Amount',
+        fileCObligatedFormatted: 'COVID-19 Related Obligations Amount'
     },
     contract: {
         baseExercisedOptionsFormatted: 'Current Amount',
         baseAndAllOptionsFormatted: 'Potential Amount',
         totalObligationFormatted: 'Obligated Amount',
-        fileCOutlayFormatted: 'COVID-19 2020 Related Outlays Amount',
-        fileCObligatedFormatted: 'COVID-19 2020 Related Obligations Amount'
+        fileCOutlayFormatted: 'COVID-19 Related Outlays Amount',
+        fileCObligatedFormatted: 'COVID-19 Related Obligations Amount'
     },
     idv: {
         baseExercisedOptionsFormatted: 'Current Amount',
         baseAndAllOptionsFormatted: 'Potential Amount',
         totalObligationFormatted: 'Obligated Amount',
-        fileCOutlayFormatted: 'COVID-19 2020 Related Outlays Amount',
-        fileCObligatedFormatted: 'COVID-19 2020 Related Obligations Amount'
+        fileCOutlayFormatted: 'COVID-19 Related Outlays Amount',
+        fileCObligatedFormatted: 'COVID-19 Related Obligations Amount'
     },
     loan: {
         subsidyFormatted: 'Original Subsidy Cost',
         faceValueFormatted: 'Face Value of Direct Loan',
-        fileCOutlayFormatted: 'COVID-19 2020 Related Outlays Amount',
-        fileCObligatedFormatted: 'COVID-19 2020 Related Obligations Amount'
+        fileCOutlayFormatted: 'COVID-19 Related Outlays Amount',
+        fileCObligatedFormatted: 'COVID-19 Related Obligations Amount'
     }
 };
 
