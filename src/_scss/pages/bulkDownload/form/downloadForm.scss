@@ -74,10 +74,21 @@
                     @include flex(0 0 auto);
                     padding-right: rem(20);
                 }
+                .usa-dt-quarter-picker__period-list-container {
+                    height: auto;
+                    p {
+                        font-weight: 600;
+                    }
+                }
                 .usa-dt-quarter-picker__quarter {
                     width: rem(72);
                     height: rem(30);
                     font-weight: $font-bold;
+                }
+                .double-period-extra-wide {
+                    .usa-dt-quarter-picker__quarter {
+                        width: auto;
+                    }    
                 }
             }
         }
