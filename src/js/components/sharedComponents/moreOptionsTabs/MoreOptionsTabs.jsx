@@ -28,6 +28,7 @@ const MoreOptionsTabs = (props) => {
     const [pickerOptions, setPickerOptions] = useState([]);
     const [tabTypes, setTabTypes] = useState(props.tabs);
     const [indexesToDelete, setIndexesToDelete] = useState([]);
+    const [pickerWidth, setPickerWidth] = useState(190);
     const tabs = useRef(null);
 
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
@@ -85,6 +86,10 @@ const MoreOptionsTabs = (props) => {
             setTabsContainerWidth(tabs.current.offsetWidth);
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
+
+            if (showMoreOptions && tabs.current.children[1].id === 'more-options__tabs-picker') {
+                setPickerWidth(tabs.current.children[1].offsetWidth);
+            }
         };
 
         window.addEventListener('resize', throttle(handleResize, 250));
@@ -92,10 +97,10 @@ const MoreOptionsTabs = (props) => {
     }, []);
 
     useEffect(() => {
-        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 190, setShowMoreOptions, setPickerOptions));
+        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, pickerWidth, setShowMoreOptions, setPickerOptions));
         // set class for when js is not available
         setTabClass('more-options__tabs_primary_js');
-    }, [tabTypes, tabsContainerWidth]);
+    }, [tabTypes, tabsContainerWidth, pickerWidth]);
 
     useEffect(() => {
         adaptTabs(indexesToDelete, tabTypes, props.tabs, setShowMoreOptions, setTabTypes, setPickerOptions);
