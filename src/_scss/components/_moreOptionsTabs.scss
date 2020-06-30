@@ -7,6 +7,18 @@
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
         width: 100%;
+        @include media($small-screen) {
+            padding-top: 0;
+            padding-right: 0;
+            border-bottom: none;
+        }
+        @include media($tablet-screen) {
+            padding-top: rem(10);
+            padding-right: rem(15);
+            border-bottom: 1px solid $color-gray-light;
+            width: 100%;
+        }
+        
     }
 
     .tabs-padding-right {
