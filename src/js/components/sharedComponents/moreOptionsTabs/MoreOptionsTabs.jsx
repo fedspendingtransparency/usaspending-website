@@ -122,7 +122,7 @@ const MoreOptionsTabs = (props) => {
                         onClick: () => { switchTab(option.value); }
                     }))} />
                 : null}
-            {pickerOptions.length > 0 && pickerOptions.length === props.tabs.length ? '' : <div className="tab-padding-right" />}
+            {pickerOptions.length > 0 ? <div className="picker-tab-padding-right" /> : <div className="tabs-padding-right" />}
         </div>
     );
 };

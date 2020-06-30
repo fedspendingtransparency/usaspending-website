@@ -2,15 +2,17 @@
     @import "pages/search/results/table/_tableTypes";
     @include display(flex);
 
-    .tab-padding-right {
+    .picker-tab-padding-right {
         padding-top: rem(10);
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
         width: 100%;
     }
 
-    .table-types {
-        padding-right: rem(1.5);
+    .tabs-padding-right {
+        padding-right: rem(15);
+        border-bottom: 1px solid $color-gray-light;
+        width: 100%;
     }
 
     .table-type-toggle {
@@ -34,9 +36,11 @@
         width: 100%;
         @include media($small-screen) {
             @include flex (1 1 auto);
+            min-width: 100%;
         }
         @include media($tablet-screen) {
             @include flex(0 1 0%);
+            min-width: auto;
         }
         
         height: rem(50);
