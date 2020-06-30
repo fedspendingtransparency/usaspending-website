@@ -81,11 +81,11 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) {
+        if ((this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) && this.props.award.counts) {
             this.pickDefaultTab();
         }
 
-        if (this.props.tableType !== prevProps.tableType) this.loadResults();
+        if (this.props.tableType !== prevProps.tableType && this.props.award.counts) this.loadResults();
     }
 
     componentWillUnmount() {
