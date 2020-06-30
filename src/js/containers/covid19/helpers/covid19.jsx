@@ -39,13 +39,6 @@ const awardSpedingTooltip = (
     <div>Content is Coming soon</div>
 );
 
-const ComingSoon = () => (
-    <div className="coming-soon-section">
-        <h3>Coming Soon</h3>
-        <p>This feature is currently under development.</p>
-    </div>
-);
-
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
