@@ -1,11 +1,11 @@
 /**
- * covid19
+ * covid19.js
  * Created by Jonathan Hill 06/02/20
  */
 
 import { getBaseUrl } from 'helpers/socialShare';
 
-const slug = 'covid-19';
+export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
     subject: 'USAspending.gov COVID-19 Response: ',
@@ -18,3 +18,10 @@ export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
+
+export const cfdaSortFields = {
+    obligation: 'obligation',
+    outlay: 'outlay',
+    count: 'count',
+    name: 'description'
+};

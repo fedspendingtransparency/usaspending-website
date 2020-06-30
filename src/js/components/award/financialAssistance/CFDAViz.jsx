@@ -158,12 +158,34 @@ export default class CFDAViz extends React.Component {
         const numerator = {
             rawValue: cfda._federalActionOblicationAmount,
             value: cfda.federalActionOblicationAmountShort,
-            text: numeratorTitle
+            text: numeratorTitle,
+            color: numeratorColor,
+            labelPosition: 'top',
+            className: 'cfda-viz',
+            tooltipData: {
+                className: "award-amounts-tt__wrapper",
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    amount={cfda.federalActionOblicationAmount}
+                    title={numeratorTitle} />
+            }
         };
         const denominator = {
             rawValue: awardTotalObligation,
+            labelPosition: 'bottom',
+            className: 'cfda-viz',
             value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
-            text: denominatorTitle
+            text: denominatorTitle,
+            color: '#FFF',
+            tooltipData: {
+                className: 'award-amounts-tt__wrapper',
+                offsetAdjustments: {
+                    top: -7
+                },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    amount={formatMoney(awardTotalObligation)}
+                    title={denominatorTitle} />
+            }
         };
         if (showSingleCFDAVis) {
             if (
@@ -180,22 +202,8 @@ export default class CFDAViz extends React.Component {
             return (<RectanglePercentViz
                 numerator={numerator}
                 denominator={denominator}
-                percentage={cfda.percentOfTotal}
-                numeratorColor={numeratorColor}
-                numeratorTooltipData={{
-                    className: "award-amounts-tt__wrapper",
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <RectanglePercentVizTooltip
-                        amount={cfda.federalActionOblicationAmount}
-                        title={numeratorTitle} />
-                }}
-                denominatorTooltipData={{
-                    className: "award-amounts-tt__wrapper",
-                    offsetAdjustments: { top: -7 },
-                    tooltipComponent: <RectanglePercentVizTooltip
-                        amount={formatMoney(awardTotalObligation)}
-                        title={denominatorTitle} />
-                }} />);
+                percentage={cfda.percentOfTotal} />
+            );
         }
         return null;
     }

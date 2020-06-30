@@ -1,0 +1,63 @@
+.sidebar {
+    display: none;
+    @media(min-width: $medium-screen) {
+        @include display(flex);
+        @include flex-direction(column);
+        width: 22%;
+        margin: rem(20);
+    }
+    .covid19-sidebar-reference {
+        display: none;
+        &.float-sidebar {
+            display: block;
+        }
+    }
+
+    .covid19-sidebar-content {
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
+        border-radius: rem(5);
+        &.float-sidebar {
+            position: fixed;
+            top: rem(96);
+        }
+        ul {
+            @include unstyled-list;
+            padding: rem(30);
+
+            li {
+                margin-bottom: rem(24);
+
+                &:last-child {
+                    margin-bottom: rem(0);
+                }
+            }
+
+            a.sidebar-link {
+                color: $color-base;
+                font-size: rem(19);
+                line-height: rem(20);
+                padding-bottom: rem(5);
+
+                text-decoration: none;
+                border-bottom: 5px solid transparent;
+                @include transition(all 0.15s ease-in-out);
+
+                &:hover {
+                    border-bottom: 5px solid $color-primary;
+                    line-height: 3.5rem;
+                }
+
+                &.active {
+                    font-weight: $font-bold;
+                    border-bottom: 5px solid $color-primary;
+                    line-height: 3.5rem;
+                }
+            }
+        }
+    }
+}

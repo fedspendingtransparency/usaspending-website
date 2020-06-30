@@ -1,0 +1,50 @@
+.spending-over-time {
+    width: 100%;
+    .count-tabs {
+        .count-tabs__questions {
+            >div {
+                @include flex(0 1 33%);
+                @include media($medium-screen) {
+                    @include flex(0 1 25%);
+                }
+            }
+        }
+        .count-tabs__buttons {
+            .count-tabs__button {
+                @include flex(0 1 33%);
+                @include media($medium-screen) {
+                    @include flex(0 1 25%);
+                }
+            }
+        }
+    }
+    .table-wrapper {
+        overflow-x: auto;
+        .usda-table {
+            .usda-table__head {
+                th.table-header {
+                    text-align: right;
+                    &:first-of-type {
+                        .table-header__label {
+                            text-align: left; // Align the Month column to the left
+                        }
+                    }
+                    .table-header__label {
+                        width: 100%;
+                    }
+                }
+            }
+            .usda-table__body {
+                tr.usda-table__row {
+                    td.usda-table__cell {
+                        &:first-of-type {
+                            // Prevent the month column from wrapping
+                            white-space: nowrap;
+                        }
+                        @include span-columns(1 of 8, table);
+                    }
+                }
+            }
+        }
+    }
+}
