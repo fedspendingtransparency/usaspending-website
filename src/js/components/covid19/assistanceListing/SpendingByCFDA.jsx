@@ -19,15 +19,13 @@ const SpendingByCFDA = () => {
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    const defaultTabCounts = {
+    const [tabCounts, setTabCounts] = useState({
         all: null,
         grants: null,
         direct_payments: null,
         loans: null,
         other: null
-    };
-
-    const [tabCounts, setTabCounts] = useState(defaultTabCounts);
+    });
 
     const onRedirectModalClick = (e) => {
         setRedirectModalURL(e.currentTarget.value);
@@ -45,19 +43,19 @@ const SpendingByCFDA = () => {
     };
 
     useEffect(() => {
-        const promises = [];
         // Make an API request for the count of CFDA for each award type
         // Post-MVP this should be updated to use a new endpoint that returns all the counts
-        financialAssistanceTabs.forEach((awardType) => {
+        const promises = financialAssistanceTabs.map((awardType) => {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
                 }
             };
             if (awardType.internal !== 'all') {
+                // Endpoint defaults to all financial assistance types if award_type_codes is not provided
                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
-            promises.push(fetchCfdaCount(params).promise);
+            return fetchCfdaCount(params).promise;
         });
         // Wait for all the requests to complete and then store the results in state
         Promise.all(promises)

@@ -43,6 +43,8 @@ const columns = [
     }
 ];
 
+// TODO - add Face Value of Loans column when Loans is the active tab (pending API contract)
+
 export const parseRows = (rows, onRedirectModalClick) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByCfdaRow);
