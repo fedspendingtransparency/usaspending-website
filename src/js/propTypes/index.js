@@ -49,6 +49,7 @@ export const AWARD_SECTION_PROPS = {
 };
 
 export const AWARD_PAGE_WRAPPER_PROPS = {
+    defCodes: PropTypes.arrayOf(PropTypes.string),
     awardType: AWARD_TYPE_PROPS,
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,

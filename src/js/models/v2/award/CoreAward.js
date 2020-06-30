@@ -27,6 +27,7 @@ const CoreAward = {
         this.naics = data.naics || {};
         this.psc = data.psc || {};
         this.fileC = data.fileC || { obligations: [], outlays: [] };
+        this.defCodes = data.defCodes;
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {

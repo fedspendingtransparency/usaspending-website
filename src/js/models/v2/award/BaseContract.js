@@ -5,6 +5,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as pscHelper from 'helpers/pscHelper';
 import CoreLocation from 'models/v2/CoreLocation';
+import { mockAwardIdsForCaresAct } from 'dataMapping/award/awardAmountsSection';
 
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';
@@ -37,7 +38,10 @@ BaseContract.populate = function populate(data) {
         fileC: {
             obligations: data.account_obligations_by_defc,
             outlays: data.account_outlays_by_defc
-        }
+        },
+        defCodes: mockAwardIdsForCaresAct.includes(data.generated_unique_award_id)
+            ? ["L", "M", "N"]
+            : data.disaster_emergency_fund_codes
     };
     this.populateCore(coreData);
 
