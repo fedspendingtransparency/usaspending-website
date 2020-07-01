@@ -54,12 +54,15 @@ const PaneFeature = () => {
                             </p>
                         </div>
                         <div className="feature-pane__button-wrapper">
-                            <button
-                                onClick={onRedirectModalClick}
+                            <a
+                                href="https://www.FiscalData.Treasury.gov"
+                                target="_blank"
+                                role="button"
+                                rel="noopener noreferrer"
                                 value="https://datalab.usaspending.gov/federal-covid-spending"
-                                className="feature-pane__button feature-pane__button-redirect-modal white">
+                                className="feature-pane__button white">
                                 Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </button>
+                            </a>
                         </div>
                     </div>
 
