@@ -46,7 +46,7 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
             // remove tabs and add the removed tabs to picker options dropdown
             setShowMoreOptions(true);
             setTabTypes(tabTypes.slice(0, (tabTypes.length - indexesToDelete.length) - 1));
-            setPickerOptions(tabTypes.slice(tabTypes.length - indexesToDelete.length, tabTypes.length).map((col) => ({
+            setPickerOptions(tabTypes.slice((tabTypes.length - indexesToDelete.length) - 1, tabTypes.length).map((col) => ({
                 name: col.label,
                 value: col.internal
             })));
