@@ -1,12 +1,16 @@
+.more-options__tabs_primary > * {
+    flex-shrink: 0;
+}
+
 .more-options__tabs_primary {
     @import "pages/search/results/table/_tableTypes";
     @include display(flex);
 
     .picker-tab-padding-right {
+        flex-shrink: 1;
         padding-top: rem(10);
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
-        width: 100%;
         @include media($small-screen) {
             padding-top: 0;
             padding-right: 0;
@@ -22,6 +26,7 @@
     }
 
     .tabs-padding-right {
+        flex-shrink: 0;
         padding-right: rem(15);
         border-bottom: 1px solid $color-gray-light;
         width: 100%;
@@ -52,12 +57,13 @@
         }
         @include media($tablet-screen) {
             @include flex(0 1 0%);
-            min-width: auto;
+            min-width: rem(190);
         }
         
         height: rem(50);
         background-color: $color-gray-lightest;
         border-bottom: 1px solid $color-gray-light;
+        padding-bottom: rem(0.4);
 
         &:hover{
             @include transition(all 0.3s ease-in-out);
@@ -134,7 +140,7 @@
             }
 
             .usa-dt-picker__button {
-                display: inline-flex;
+                @include display(inline-flex);
                 margin: 0;
                 .usa-dt-picker__button-text {
                     @include display(flex);

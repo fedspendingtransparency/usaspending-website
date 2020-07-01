@@ -91,7 +91,7 @@ describe('moreOptionsTabs Helper', () => {
 
     it('should return the correct indexes to delete', () => {
         const indexes = getIndexesToDelete(mockHtmlCollection, mockAwardSpendingAgencyTableTabs, 1000, 200, setShowMoreOptions, setPickerOptions);
-        expect(indexes).toEqual([2, 3, 4, 5]);
+        expect(indexes).toEqual([3, 4, 5]);
         expect(setShowMoreOptions).toHaveBeenCalledWith(false);
         expect(setPickerOptions).toHaveBeenCalledTimes(0);
 
