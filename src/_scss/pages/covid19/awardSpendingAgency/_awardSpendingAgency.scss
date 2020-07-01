@@ -13,5 +13,14 @@
 
     .award-spending__content {
         @include display(block);
+        
+        .usda-table__row {
+            .usda-table__cell_name {
+                padding-left: rem(15);
+            }
+            .usda-table__cell {
+                padding-right: rem(40);
+            }
+        }
     }
 }

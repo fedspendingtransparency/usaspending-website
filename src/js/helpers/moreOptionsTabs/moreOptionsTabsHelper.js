@@ -17,7 +17,7 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
             setShowMoreOptions(false);
         }
 
-        if (containerWidth >= (stopWidth + width)) {
+        if (containerWidth > stopWidth) {
             stopWidth += width;
         } else {
             indexes.push(i);
@@ -25,11 +25,6 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
     });
 
     if (indexes.length > 0) {
-        // temp fix for tablet overflow
-        if (containerWidth === 730) {
-            const minIndex = Math.min(...indexes);
-            indexes.push(minIndex - 1);
-        }
         // set the tabs to delete off the screen
         return indexes.sort((a, b) => a - b);
     }
@@ -50,7 +45,7 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
         } else if (indexesToDelete.length > 1) {
             // remove tabs and add the removed tabs to picker options dropdown
             setShowMoreOptions(true);
-            setTabTypes(tabTypes.slice(0, tabTypes.length - indexesToDelete.length));
+            setTabTypes(tabTypes.slice(0, (tabTypes.length - indexesToDelete.length) - 1));
             setPickerOptions(tabTypes.slice(tabTypes.length - indexesToDelete.length, tabTypes.length).map((col) => ({
                 name: col.label,
                 value: col.internal
