@@ -1,3 +1,4 @@
+// disable flex shrink here for ie11
 .more-options__tabs_primary > * {
     flex-shrink: 0;
 }

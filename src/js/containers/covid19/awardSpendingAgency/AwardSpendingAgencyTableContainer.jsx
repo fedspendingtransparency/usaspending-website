@@ -12,7 +12,7 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardSpendingAgencyTableColumns, awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
-import { fetchAwardSpendingByAgency, fetchFaceValueOfLoans } from 'helpers/disasterHelper';
+import { fetchAwardSpendingByAgency, fetchFaceValueOfLoansByAgency } from 'helpers/disasterHelper';
 import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/BaseAwardSpendingByAgencyRow';
 
 
@@ -109,7 +109,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 },
                 spending_type: 'award'
             };
-            faceValueOfLoansRequest = fetchFaceValueOfLoans(faceValueOfLoansParams);
+            faceValueOfLoansRequest = fetchFaceValueOfLoansByAgency(faceValueOfLoansParams);
         }
 
 
@@ -118,13 +118,13 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
             // merge request arrays with face_value_of_loan data
             Promise.all([request.promise, faceValueOfLoansRequest.promise]).then((res) => {
-                const result = res[0].data.results.filter((o1) =>
-                    res[1].data.results.some((o2) =>
-                        o1.id === o2.id
+                const result = res[0].data.results.filter((awardResult) =>
+                    res[1].data.results.some((loanResult) =>
+                        awardResult.id === loanResult.id
                     )
-                ).map((o) => {
-                    const faceValueOfLoan = res[1].data.results.filter((item) => o.id === item.id)[0].face_value_of_loan;
-                    return { ...o, face_value_of_loan: faceValueOfLoan };
+                ).map((combinedResult) => {
+                    const faceValueOfLoan = res[1].data.results.filter((item) => combinedResult.id === item.id)[0].face_value_of_loan;
+                    return { ...combinedResult, face_value_of_loan: faceValueOfLoan };
                 });
                 parseAwardSpendingByAgency(result);
                 setTotalItems(res[0].data.page_metadata.total);
@@ -155,7 +155,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
-    }, [props.type, pageSize, sort, order]);
+    }, [props.type, pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

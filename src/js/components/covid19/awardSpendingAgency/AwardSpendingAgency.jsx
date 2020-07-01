@@ -57,8 +57,6 @@ const AwardSpendingAgency = () => {
     });
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
-
-    // TODO - Remove hard coded values
     const dateString = "June 30, 2020";
 
     useEffect(() => {
