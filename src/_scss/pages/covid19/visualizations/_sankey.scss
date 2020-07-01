@@ -5,6 +5,9 @@
     font-weight: $font-semibold;
     fill: $color-gray-medium;
   }
+  .text {
+    font-size: 1.4rem;
+  }
   .sankey__text-money {
     font-size: 1.4rem;
     font-weight: $font-normal;
@@ -42,7 +45,7 @@
         background-color: #0A2F5A;
       }
       .covid19-sankey-legend__item-text {
-        font-size: 2.1rem;
+        font-size: 1.6rem;
       }
     }
     .covid19-sankey-legend__item:last-child {

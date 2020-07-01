@@ -15,8 +15,7 @@ import {
     startOfChartY,
     rectangleHeight,
     lineStrokeWidth,
-    lineLength,
-    moneyLabel
+    lineLength
 } from 'dataMapping/covid19/covid19';
 import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
@@ -59,9 +58,7 @@ const AmountsVisualization = ({
                 const y = startOfChartY + offset.top;
                 const height = rectangleHeight - (2 * offset.bottom);
                 const mappingKey = rectangleMapping[key].primaryKey ? rectangleMapping[key].primaryKey : key;
-                // let x = scale(mockData[mappingKey]);
                 let x = left + offset.left;
-                // const rectWidth = scale(mockData[mappingKey]) - (left + offset);
                 let rectWidth = scale(mockData[mappingKey]) - (right + (2 * offset.right || 0));
                 let lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 /**
@@ -77,6 +74,7 @@ const AmountsVisualization = ({
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
                 const units = calculateUnits([mockData[key]]);
+                units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
                 let textData = [];
                 if (textInfo) {
                     if (i === 0 || i === 4) {
@@ -91,7 +89,7 @@ const AmountsVisualization = ({
                             {
                                 y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
+                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${units.longLabel}`,
                                 className: key === '_totalBudgetAuthority' ? 'amounts-text__value bold' : 'amounts-text__value'
                             },
                             {
@@ -113,7 +111,7 @@ const AmountsVisualization = ({
                             {
                                 y: startOfChartY + rectangleHeight + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`,
+                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${units.longLabel}`,
                                 className: 'amounts-text__value'
                             },
                             {

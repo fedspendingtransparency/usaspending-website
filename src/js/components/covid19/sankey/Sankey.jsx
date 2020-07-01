@@ -13,8 +13,7 @@ import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter
 import {
     otherSankeyNodes,
     dataForLinks,
-    defCodeColor,
-    moneyLabel
+    defCodeColor
 } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
@@ -32,17 +31,7 @@ const propTypes = {
 const startOfSankeyY = 100;
 
 /**
- * Node Width
- * We set nodeWidth to the width of the div divided by 8.
- * Due to use have 4 separate nodes and we need space to
- * draw the links we double the nodes.
- */
-
-/**
  * Node Padding - Space between nodes (rectangles)
- * We set the node height to be the height divided by 4.
- * Due to use having at most 4 nodes vertically due to the
- * DEF code L, M, N, O, and P.
  */
 
 const SankeyViz = ({
@@ -66,16 +55,7 @@ const SankeyViz = ({
     const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
         const newNode = node;
         if (node.name === '_remainingBalance' && !isIE) {
-            // console.log(' node : ', array.find((n) => n.name === '_otherObligations'));
             const { x1, x0 } = array.find((n) => n.name === '_awardObligations');
-            // const { x1, x0, y1 } = array.find((n) => n.name === '_awardObligations');
-            // const { y1: yOne } = array.find((n) => n.name === '_otherObligations');
-            // const difference = yOne - y1;
-            // const nodeHeight = node.y1 - node.y0;
-            // newNode.x0 = x0;
-            // newNode.x1 = x1;
-            // newNode.y0 = yOne + difference;
-            // newNode.y1 = yOne + difference + nodeHeight;
             newNode.x0 = x0;
             newNode.x1 = x1;
             return newNode;
@@ -231,6 +211,7 @@ const SankeyViz = ({
                             publicLaw
                         } = node;
                         const units = calculateUnits([value]);
+                        units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
                         return (
                             <g key={uniqueId()}>
                                 {
@@ -252,7 +233,7 @@ const SankeyViz = ({
                                     className="sankey__text sankey__text-money"
                                     x={x0}
                                     y={y0 - 4}>
-                                    {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${moneyLabel[units.unitLabel]}`}
+                                    {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
                                 </text>
                                 <SankeyNode
                                     {...node}

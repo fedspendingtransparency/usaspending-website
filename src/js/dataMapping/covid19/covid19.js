@@ -26,12 +26,6 @@ export const amountsPadding = {
     right: 45
 };
 
-export const moneyLabel = {
-    B: 'Billion',
-    M: 'Million',
-    T: 'Trillion'
-};
-
 export const paddingBetweenRectangles = 3;
 
 export const rectangleMapping = {
