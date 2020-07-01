@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -29,8 +30,8 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
-import { fetchDEFCodes } from 'helpers/disasterHelper';
-import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { fetchDEFCodes, fetchAllSubmissionDates } from 'helpers/disasterHelper';
+import { setDEFCodes, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -38,9 +39,9 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const [activeSection, setActiveSection] = useState('overview');
     // const [selectedDEF, setselectedDEF] = useState('All');
-
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
+    const allSubmissionDatesRequest = useRef(null);
     // const overviewRequest = useRef(null);
     const dispatch = useDispatch();
 
@@ -87,6 +88,26 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
+
+    useEffect(() => {
+        const getAllSubmissionDates = async () => {
+            allSubmissionDatesRequest.current = fetchAllSubmissionDates();
+            try {
+                const { submissions } = await allSubmissionDatesRequest.current.promise.data;
+                dispatch(setLatestSubmissionDate(submissions.map((s) => moment(s)).sort((a, b) => a.value - b.value)[0].format('MMM DD[,] YYYY')));
+            }
+            catch (e) {
+                console.log(' Error DefCodes : ', e.message);
+            }
+        };
+        getAllSubmissionDates();
+        allSubmissionDatesRequest.current = null;
+        return () => {
+            if (allSubmissionDatesRequest.current) {
+                allSubmissionDatesRequest.cancel();
+            }
+        };
+    }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 

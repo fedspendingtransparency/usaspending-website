@@ -74,3 +74,7 @@ export const fetchSpendingByCfda = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const fetchAllSubmissionDates = () => apiRequest({
+    url: 'v2/references/submission_periods/'
+});
