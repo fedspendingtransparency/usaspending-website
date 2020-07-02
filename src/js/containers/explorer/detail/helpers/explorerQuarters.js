@@ -25,10 +25,10 @@ export const periods = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
 
 // before 2020, we show periods in such a way that relative to the api we're actually selecting quarters.
 const periodsPerQuarterPre2020 = [
-    [{ title: '1 - 3', id: '1', className: 'double-period' }],
-    [{ title: '4 - 6', id: '2', className: 'double-period' }],
-    [{ title: '7 - 9', id: '3', className: 'double-period' }],
-    [{ title: '10 - 12', id: '4', className: 'double-period-extra-wide' }]
+    [{ title: '1 - 3', id: '1', className: 'triple-period' }],
+    [{ title: '4 - 6', id: '2', className: 'triple-period' }],
+    [{ title: '7 - 9', id: '3', className: 'triple-period' }],
+    [{ title: '10 - 12', id: '4', className: 'triple-period--extra-wide' }]
 ];
 
 // after 2020, we show periods, in such a way that relative to the api we're allowing selection of actual periods.
@@ -56,8 +56,8 @@ export const periodsPerQuarterPost2020 = [
 
 // for 2020, we show periods and quarters; for quarters 1 - 2, as before 2020; for quarters 3 - 4, as we do after 2020.
 export const periodsPerQuarterDuring2020 = [
-    [{ title: '1 - 3', id: '3', className: 'double-period' }],
-    [{ title: '4 - 6', id: '6', className: 'double-period' }],
+    [{ title: '1 - 3', id: '3', className: 'triple-period' }],
+    [{ title: '4 - 6', id: '6', className: 'triple-period' }],
     [
         { title: '7', id: '7' },
         { title: '8', id: '8' },
