@@ -40,9 +40,25 @@ const BudgetCategoriesTableContainer = (props) => {
 
 
     const parseSpendingDataAndSetResults = (data) => {
-        const parsedData = data.map((row) => {
+        const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
-            budgetCategoryRow.populate(row, props.type, spendingCategory);
+            budgetCategoryRow.populate(item, props.type, spendingCategory);
+
+            let rowChildren = [];
+            if (item.children && item.children.length > 0) {
+                rowChildren = item.children.map((childItem) => {
+                    const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
+                    budgetCategoryChildRow.populate(childItem, props.type, spendingCategory);
+                    return budgetCategoryChildRow;
+                });
+            }
+
+            if (rowChildren && rowChildren.length > 0) {
+                Object.defineProperty(budgetCategoryRow, "children", {
+                    value: rowChildren
+                });
+            }
+
             return budgetCategoryRow;
         });
         setResults(parsedData);

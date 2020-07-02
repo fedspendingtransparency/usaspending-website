@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { cfdaSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByCfda } from 'helpers/disasterHelper';
@@ -16,7 +17,8 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
 const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired
+    onRedirectModalClick: PropTypes.func.isRequired,
+    activeTab: PropTypes.string.isRequired
 };
 
 const columns = [
@@ -40,6 +42,8 @@ const columns = [
         right: true
     }
 ];
+
+// TODO - add Face Value of Loans column when Loans is the active tab (pending API contract)
 
 export const parseRows = (rows, onRedirectModalClick) => (
     rows.map((row) => {
@@ -65,7 +69,7 @@ export const parseRows = (rows, onRedirectModalClick) => (
     })
 );
 
-const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
+const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -85,7 +89,6 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes based on active tab
             },
             spending_type: 'award',
             pagination: {
@@ -95,6 +98,9 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
                 order
             }
         };
+        if (activeTab !== 'all') {
+            params.filter.award_type_codes = awardTypeGroups[activeTab];
+        }
         const request = fetchSpendingByCfda(params);
         request.promise
             .then((res) => {
@@ -114,7 +120,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCfdaCallback();
-    }, [pageSize, defCodes, sort, order]);
+    }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
