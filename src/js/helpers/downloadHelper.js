@@ -48,3 +48,10 @@ export const fetchIdvDownloadFile = (awardId) => apiRequest({
     },
     data: { award_id: awardId }
 });
+
+export const fetchActivePeriods = () => apiRequest({
+    isMocked: true,
+    url: 'v2/download/accounts/submission_periods/',
+    method: 'get'
+});
+
