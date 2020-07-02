@@ -92,7 +92,7 @@ const MoreOptionsTabs = (props) => {
     }, []);
 
     useEffect(() => {
-        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 200, setShowMoreOptions, setPickerOptions));
+        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 190, setShowMoreOptions, setPickerOptions));
         // set class for when js is not available
         setTabClass('more-options__tabs_primary_js');
     }, [tabTypes, tabsContainerWidth]);
@@ -122,7 +122,7 @@ const MoreOptionsTabs = (props) => {
                         onClick: () => { switchTab(option.value); }
                     }))} />
                 : null}
-            {pickerOptions.length > 0 && pickerOptions.length === props.tabs.length ? '' : <div className="tab-padding-right" />}
+            {pickerOptions.length > 0 ? <div className="picker-tab-padding-right" /> : <div className="tabs-padding-right" />}
         </div>
     );
 };
