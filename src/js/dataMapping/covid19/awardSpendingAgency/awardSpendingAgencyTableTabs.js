@@ -8,6 +8,34 @@ export const awardSpendingAgencyTableTabs = [
     },
     {
         enabled: true,
+        internal: 'grants',
+        label: 'Grants',
+        subtitle: 'Grants',
+        columnName: 'Grant'
+    },
+    {
+        enabled: true,
+        internal: 'loans',
+        label: 'Loans',
+        subtitle: 'Loans',
+        columnName: 'Loan'
+    },
+    {
+        enabled: true,
+        internal: 'direct_payments',
+        label: 'Direct Payments',
+        subtitle: 'Direct Payments',
+        columnName: 'Direct Payment'
+    },
+    {
+        enabled: true,
+        internal: 'other',
+        label: 'Other Financial Assistance',
+        subtitle: 'Other Financial Assistance',
+        columnName: 'Other Financial Assistance'
+    },
+    {
+        enabled: true,
         internal: 'contracts',
         label: 'Contracts',
         subtitle: 'Contracts',
@@ -19,34 +47,6 @@ export const awardSpendingAgencyTableTabs = [
         label: 'Contract IDVs',
         subtitle: 'Contract IDVs',
         columnName: 'Contract IDV'
-    },
-    {
-        enabled: true,
-        internal: 'grants',
-        label: 'Grants',
-        subtitle: 'Grants',
-        columnName: 'Grant'
-    },
-    {
-        enabled: true,
-        internal: 'direct_payments',
-        label: 'Direct Payments',
-        subtitle: 'Direct Payments',
-        columnName: 'Direct Payment'
-    },
-    {
-        enabled: true,
-        internal: 'loans',
-        label: 'Loans',
-        subtitle: 'Loans',
-        columnName: 'Loan'
-    },
-    {
-        enabled: true,
-        internal: 'other',
-        label: 'Other',
-        subtitle: 'Other',
-        columnName: 'Other'
     }
 ];
 
