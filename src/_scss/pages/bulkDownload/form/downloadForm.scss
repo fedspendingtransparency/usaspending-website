@@ -74,6 +74,12 @@
                     @include flex(0 0 auto);
                     padding-right: rem(20);
                 }
+                .usa-dt-quarter-picker__list {
+                    @include flex-wrap(wrap);
+                    @media(min-width: $tablet-screen) {
+                        @include flex-wrap(nowrap);
+                    }
+                }
                 .usa-dt-quarter-picker__period-list-container {
                     p {
                         font-weight: 600;
