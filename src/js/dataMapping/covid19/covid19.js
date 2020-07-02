@@ -23,7 +23,8 @@ export const cfdaSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
     count: 'count',
-    name: 'description'
+    name: 'description',
+    faceValue: 'face_value_of_loan'
 };
 
 export const financialAssistanceTabs = [

@@ -12,7 +12,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { cfdaSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda } from 'helpers/disasterHelper';
+import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
@@ -43,9 +43,33 @@ const columns = [
     }
 ];
 
-// TODO - add Face Value of Loans column when Loans is the active tab (pending API contract)
+const loanColumns = [
+    {
+        title: 'assistanceListing',
+        displayName: 'CFDA Program (Assistance Listing)'
+    },
+    {
+        title: 'faceValue',
+        displayName: 'Face Value of Loans'
+    },
+    {
+        title: 'obligation',
+        displayName: 'Award Obligations (Loan Subsidy Cost)',
+        right: true
+    },
+    {
+        title: 'outlay',
+        displayName: 'Award Outlays (Loan Subsidy Cost)',
+        right: true
+    },
+    {
+        title: 'count',
+        displayName: 'Number of Loans',
+        right: true
+    }
+];
 
-export const parseRows = (rows, onRedirectModalClick) => (
+export const parseRows = (rows, onRedirectModalClick, activeTab) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByCfdaRow);
         rowData.populate(row);
@@ -59,6 +83,15 @@ export const parseRows = (rows, onRedirectModalClick) => (
                     {rowData.name} <FontAwesomeIcon icon="external-link-alt" />
                 </button>
             );
+        }
+        if (activeTab === 'loans') {
+            return [
+                link,
+                rowData.faceValue,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.count
+            ];
         }
         return [
             link,
@@ -101,10 +134,13 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        const request = fetchSpendingByCfda(params);
+        let request = fetchSpendingByCfda(params);
+        if (activeTab === 'loans') {
+            request = fetchCfdaLoans(params);
+        }
         request.promise
             .then((res) => {
-                const rows = parseRows(res.data.results, onRedirectModalClick);
+                const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -166,7 +202,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     return (
         <div className="table-wrapper">
             <Table
-                columns={columns}
+                columns={activeTab === 'loans' ? loanColumns : columns}
                 rows={results}
                 updateSort={updateSort}
                 currentSort={{ field: sort, direction: order }} />
