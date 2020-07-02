@@ -86,10 +86,12 @@
                     }
                     .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
                         // the generic period styles
-                        margin-bottom: 0;
-                        .usa-dt-quarter-picker__quarter .usa-dt-quarter-picker__quarter {
+                        margin: rem(0) rem(1);
+                        .usa-dt-quarter-picker__quarter {
                             width: rem(24);
                             font-weight: $font-bold;
+                            padding-right: 0;
+                            padding-left: 0;
                         }
                         // period representing two periods (1-2)
                         &.double-period .usa-dt-quarter-picker__quarter {
