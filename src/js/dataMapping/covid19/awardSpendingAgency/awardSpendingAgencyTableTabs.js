@@ -59,20 +59,16 @@ export const awardSpendingAgencyTableColumns = (type) => {
                     displayName: 'Agency Name'
                 },
                 {
+                    title: 'faceValueOfLoan',
+                    displayName: 'Face Value of Loans'
+                },
+                {
                     title: 'obligation',
-                    displayName: 'Award Obligations'
+                    displayName: 'Award Obligations (Loan Subsidy Cost)'
                 },
                 {
                     title: 'outlay',
-                    displayName: 'Award Outlays'
-                },
-                {
-                    title: 'faceValueOfLoan',
-                    displayName: 'Face Value of Loan'
-                },
-                {
-                    title: 'count',
-                    displayName: 'Number of Awards'
+                    displayName: 'Award Outlays (Loan Subsidy Cost)'
                 }
             ]);
     }
