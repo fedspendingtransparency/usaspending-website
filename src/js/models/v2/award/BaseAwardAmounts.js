@@ -4,7 +4,12 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { defCodes } from 'dataMapping/covid19/covid19';
 import { mockAwardIdsForCaresAct } from 'dataMapping/award/awardAmountsSection';
+
+const getCovid19Totals = (arr) => arr
+    .filter((obj) => defCodes.includes(obj.code))
+    .reduce((acc, obj) => acc + obj.amount, 0);
 
 const BaseAwardAmounts = {
     populateBase(data, awardType) {
@@ -16,7 +21,8 @@ const BaseAwardAmounts = {
             ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '';
         this._denominator = awardType === 'loan' ? '_subsidy' : '_totalObligation';
-        this._isMockCares = (
+        this._showFileC = (
+            // will be passed as data.fileC
             mockAwardIdsForCaresAct.includes(data?.generatedId) ||
             // eslint-disable-next-line camelcase
             mockAwardIdsForCaresAct.includes(data?.generated_unique_award_id)
@@ -35,59 +41,60 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
-        this._fileCOutlay = this._isMockCares
-            ? this[this._denominator] * 0.25
-            : 0;
-        this._fileCObligated = this._isMockCares
-            ? this[this._denominator] * 0.5
-            : 0;
+        this._fileCOutlay = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
+            : getCovid19Totals(data.account_outlays_by_defc);
+        this._fileCObligated = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
+            : getCovid19Totals(data.account_obligations_by_defc);
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
-        this._fileCOutlay = this._isMockCares
-            ? data[this._denominator] * 0.25
-            : 0;
-        this._fileCObligated = this._isMockCares
-            ? data[this._denominator] * 0.5
-            : 0;
+        this._fileCOutlay = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
+            : getCovid19Totals(data.fileC.outlays);
+        this._fileCObligated = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
+            : getCovid19Totals(data.fileC.obligations);
     },
     populateLoan(data) {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
-        this._fileCOutlay = this._isMockCares
-            ? data[this._denominator] * 0.25
-            : 0;
-        this._fileCObligated = this._isMockCares
-            ? data[this._denominator] * 0.5
-            : 0;
+        this._fileCOutlay = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
+            : getCovid19Totals(data.fileC.outlays);
+        this._fileCObligated = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
+            : getCovid19Totals(data.fileC.obligations);
     },
     populateAsst(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
-        this._fileCOutlay = this._isMockCares
-            ? data[this._denominator] * 0.25
-            : 0;
-        this._fileCObligated = this._isMockCares
-            ? data[this._denominator] * 0.5
-            : 0;
+        this._fileCOutlay = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
+            : getCovid19Totals(data.fileC.outlays);
+        this._fileCObligated = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
+            : getCovid19Totals(data.fileC.obligations);
     },
     populateContract(data) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
-        this._fileCOutlay = this._isMockCares
-            ? data[this._denominator] * 0.25
-            : 0;
-        this._fileCObligated = this._isMockCares
-            ? data[this._denominator] * 0.5
-            : 0;
+        this._fileCOutlay = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
+            : getCovid19Totals(data.fileC.outlays);
+        this._fileCObligated = this._showFileC
+            ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
+            : getCovid19Totals(data.fileC.obligations);
     },
     populate(data, awardAmountType) {
         this.populateBase(data, awardAmountType);
         if (awardAmountType === 'idv_aggregated') {
+            // In every other context, the data has been parsed by CoreAward; here, it's payload straight from the API.
             this.populateAggIdv(data);
         }
         else if (awardAmountType === 'idv') {

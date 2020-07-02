@@ -8,7 +8,6 @@
     @include justify-content(flex-start);
     @include align-items(center);
     @include flex-direction(column);
-
     min-height: 100vh;
     width: 100%;
 
@@ -21,63 +20,48 @@
     }
 
     @import "../explorer/detail/sidebar/fyPicker";
-
-    @import "./stickyHeader";
+    @import './stickyHeader';
 
     .usda__flex-row {
         @include display(flex);
         @include flex-wrap(wrap);
-
         width: 100%;
-
         .usda__flex-col {
             @include flex(1 1 auto);
-
             .body__content {
                 width: 100%; // Fixes an IE Flexbox bug
-
             }
         }
     }
 
     .main-content {
         @include display(flex);
-
         width: 100%;
-
         @include flex-grow(1);
         @include flex-wrap(wrap);
-
         max-width: rem(1600);
-
         ul {
             padding: 0;
-
             li {
                 list-style: none;
             }
         }
-
-        @import "./sidebar";
-
+        @import './sidebar';
         .body {
             @import "components/_footerLinkToAdvancedSearch";
+            @import './awardSpendingAgency/awardSpendingAgency';
+            @import './recipient/recipientContainer';
 
             @include display(flex);
-
             width: 100%;
-
             @include flex-direction(column);
-
             margin: rem(20) 0 rem(20) 0;
             background: $color-white;
             border-radius: 0.5rem 0.5rem 0 0;
-
-            @media (min-width: $medium-screen) {
+            @media(min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
             }
-
-            @media (min-width: $tablet-screen) {
+            @media(min-width: $tablet-screen) {
                 width: 70%;
             }
 
@@ -95,68 +79,51 @@
                     margin: auto;
                     padding-bottom: 5rem;
                 }
-
-                @import '../search/results/table/tableMessages';
-                @import '../search/results/table/resultsTableMessageContainer';
-                @import './budgetCategoriesTable';
                 @import "./tableMessages";
+                @import './budgetCategoriesTable';
             }
 
-            @import "./spendingOverTime/awardSpendingOverTime";
+            @import './spendingOverTime/awardSpendingOverTime';
+            @import './assistanceListing/assistanceListing';
 
             .body__section {
                 @import "../agency/v2/tabs";
-
                 @include display(flex);
                 @include flex-wrap(wrap);
-
                 margin-bottom: $global-mrg;
                 padding: 0 2.5%;
 
                 .body__header {
                     width: 100%;
-
                     @include display(flex);
-
                     flex-wrap: wrap;
                     align-items: center;
-
                     @include justify-content(space-between);
-
                     border-bottom: rem(3) solid $color-base;
-
                     .body__header-left {
                         @include display(flex);
-
                         padding-bottom: 0.5rem;
-
-                        @media (min-width: $tablet-screen) {
-                            padding-bottom: 0;
+                        @media(min-width: $tablet-screen) {
+                        padding-bottom: 0;
                         }
                     }
-
                     .body__header-right {
                         @include display(flex);
                     }
-
                     .body__header-icon {
                         margin-right: $global-mrg / 2;
                     }
-
                     .body__header-text {
                         font-size: 1.4rem;
                     }
-
                     h2 {
                         @include display(flex);
-
                         margin: 0;
                         line-height: $base-line-height;
                         font-size: rem(18);
                         font-weight: $font-semibold;
                     }
                 }
-
                 hr {
                     width: 100%;
                     height: rem(2);
@@ -165,26 +132,20 @@
                     margin-bottom: rem(35);
                     margin-top: 0;
                 }
-
                 .coming-soon-section {
                     width: 100%;
-
                     @include display(flex);
                     @include flex-direction(column);
-
                     @extend %coming-soon-idv;
-
                     padding-bottom: 0;
                     height: 73rem;
                     h3 {
                         font-size: $h4-font-size;
                     }
                 }
-
                 .information-body {
                     background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);
                 }
-
                 .information-top {
                     width: 100%;
                     opacity: 0.2;
@@ -192,24 +153,18 @@
                     border-radius: 0 0 rem(5) rem(5);
                     background-color: #763E94;
                 }
-
                 .color-purple {
                     color: #6E338E;
                 }
-
                 .heading__container {
                     border-radius: 0.5rem 0.5rem 0 0;
-
                     @include display(flex);
-
                     flex-wrap: wrap;
                     text-align: center;
                     width: 100%;
-
                     .heading__top {
                         height: 1.66rem;
                     }
-
                     .heading__title {
                         font-size: 3.6rem;
                         font-weight: $font-semibold;
@@ -219,30 +174,24 @@
                         padding-top: 2rem;
                         padding-bottom: 1rem;
                         padding: 1rem;
-
-                        @media (min-width: $tablet-screen) {
-                            padding: 2rem 12rem 2rem 12rem;
+                        @media(min-width: $tablet-screen) {
+                        padding: 2rem 12rem 2rem 12rem;
                         }
-
                         width: 100%;
                     }
-
                     .heading__description {
                         font-size: 1.4rem;
                         letter-spacing: 0;
                         line-height: 2.2rem;
                         text-align: center;
                         padding: 1rem;
-
-                        @media (min-width: $tablet-screen) {
-                            padding: 0 12rem 2rem 12rem;
+                        @media(min-width: $tablet-screen) {
+                        padding: 0 12rem 2rem 12rem;
                         }
                     }
                 }
-
                 .covid__date-note {
                     @include display(flex);
-
                     width: 100%;
                     justify-content: left;
                     font-size: 1.2rem;
@@ -250,25 +199,20 @@
                     letter-spacing: 0;
                     line-height: 1.5rem;
                 }
-
                 &.award_question {
                     .body__header {
                         display: none;
                     }
-
                     .award-question__container {
                         @include display(flex);
-
                         flex-wrap: wrap;
                         text-align: center;
                         width: 100%;
-
                         .information-top {
                             height: 0.5rem;
                             width: 100%;
                             border-radius: 0;
                         }
-
                         .award-question__title {
                             font-size: 3.6rem;
                             font-weight: $font-semibold;
@@ -277,35 +221,29 @@
                             text-align: center;
                             padding-top: 6.2rem;
                             padding-bottom: 3.1rem;
-
-                            @media (min-width: $tablet-screen) {
+                            @media(min-width: $tablet-screen) {
                                 padding: 6.2rem 12rem 3.1rem 12rem;
                             }
-
                             width: 100%;
                         }
-
                         .award-question__sub-section {
                             font-size: 1.4rem;
                             letter-spacing: 0;
                             line-height: 2.2rem;
                             text-align: center;
-
-                            @media (min-width: $tablet-screen) {
+                            @media(min-width: $tablet-screen) {
                                 padding: 0 12rem 6.1rem 12rem;
                             }
-
                             .award-question__sub-section_paragraph:first-of-type {
                                 margin-top: 0;
                             }
                         }
                     }
                 }
+                @import './overviewData';
             }
-            @import './overviewData';
-            @import './recipient/recipientContainer.scss';
             .body__section:first-of-type {
-                padding: 0;
+              padding: 0;
             }
 
             .body__section:nth-child(4) {
@@ -314,9 +252,9 @@
 
             .body__section:last-child {
                 margin-bottom: 0;
+                padding: 0;
             }
         }
     }
-
     @import "./covidTooltip";
 }
