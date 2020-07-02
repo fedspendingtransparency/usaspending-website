@@ -60,11 +60,11 @@ export const awardSpendingAgencyTableColumns = (type) => {
                 },
                 {
                     title: 'obligation',
-                    displayName: `${type} Obligations`
+                    displayName: 'Award Obligations'
                 },
                 {
                     title: 'outlay',
-                    displayName: `${type} Outlays`
+                    displayName: 'Award Outlays'
                 },
                 {
                     title: 'faceValueOfLoan',
@@ -72,7 +72,7 @@ export const awardSpendingAgencyTableColumns = (type) => {
                 },
                 {
                     title: 'count',
-                    displayName: `Number of ${type}s`
+                    displayName: 'Number of Awards'
                 }
             ]);
     }
@@ -84,15 +84,15 @@ export const awardSpendingAgencyTableColumns = (type) => {
             },
             {
                 title: 'obligation',
-                displayName: `${type} Obligations`
+                displayName: 'Award Obligations'
             },
             {
                 title: 'outlay',
-                displayName: `${type} Outlays`
+                displayName: 'Award Outlays'
             },
             {
                 title: 'count',
-                displayName: `Number of ${type}s`
+                displayName: 'Number of Awards'
             }
         ]);
 };
