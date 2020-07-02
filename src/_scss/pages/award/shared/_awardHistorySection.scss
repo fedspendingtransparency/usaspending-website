@@ -2,6 +2,13 @@
     padding: rem(40) 0 rem(60);
     width: 100%; 
     @import "./table/_tablesSection";
+    .tables-section .transactions-table .transaction-header-cell {
+      &.column-disasterEmergencyFundCode {
+        .cell-content {
+          background-color: $color-disaster-covid-19;
+        }
+      }
+    }
     .table-types {
       .table-type-toggle {
         margin-top: 0;
