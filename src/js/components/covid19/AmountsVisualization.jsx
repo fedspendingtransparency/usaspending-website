@@ -20,19 +20,12 @@ import {
 import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    // data: PropTypes.object,
+    overviewData: PropTypes.object,
     width: PropTypes.number
 };
 
-const mockData = {
-    _totalBudgetAuthority: 1800000000000 + 7400000000 + 11100000000 + 327700000000 + 125100000000,
-    _totalOutlays: 413100000000 + 45900000000,
-    _totalObligations: 866700000000 + 96300000000,
-    _remainingBalance: 1400000000000
-};
-
 const AmountsVisualization = ({
-    // data,
+    overviewData,
     width = null
 }) => {
     const [scale, setScale] = useState(null);
@@ -44,12 +37,12 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, mockData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
-    }, [width]);
-    // create data to draw rectangles
+    }, [width, overviewData]);
+    // create overviewData to draw rectangles
     useEffect(() => {
         if (scale) {
             const r = Object.keys(rectangleMapping).reduce((acc, key, i) => {
@@ -59,7 +52,7 @@ const AmountsVisualization = ({
                 const height = rectangleHeight - (2 * offset.bottom);
                 const mappingKey = rectangleMapping[key].primaryKey ? rectangleMapping[key].primaryKey : key;
                 let x = left + offset.left;
-                let rectWidth = scale(mockData[mappingKey]) - (right + (2 * offset.right || 0));
+                let rectWidth = scale(overviewData[mappingKey]) - (right + (2 * offset.right || 0));
                 let lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 /**
                  * Handle Remaining Balance Edge Case and it's inner rectangle.
@@ -68,12 +61,12 @@ const AmountsVisualization = ({
                  * value will give us the x position to start from
                  */
                 if (key === '_remainingBalance' || key === 'remainingBalanceFiller') {
-                    x = scale(mockData[mappingKey]) + (offset.left);
-                    // rectWidth = scale(mockData._totalBudgetAuthority) - scale(mockData._totalObligations) - (right + (2 * offset.right));
-                    rectWidth = scale(mockData._totalBudgetAuthority) - scale(mockData._totalObligations) - offset.right;
+                    x = scale(overviewData[mappingKey]) + (offset.left);
+                    // rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - (right + (2 * offset.right));
+                    rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
-                const units = calculateUnits([mockData[key]]);
+                const units = calculateUnits([overviewData[key]]);
                 units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
                 let textData = [];
                 if (textInfo) {
@@ -89,7 +82,7 @@ const AmountsVisualization = ({
                             {
                                 y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${units.longLabel}`,
+                                text: `${formatMoneyWithPrecision(overviewData[key] / units.unit, units.precision)} ${units.longLabel}`,
                                 className: key === '_totalBudgetAuthority' ? 'amounts-text__value bold' : 'amounts-text__value'
                             },
                             {
@@ -111,7 +104,7 @@ const AmountsVisualization = ({
                             {
                                 y: startOfChartY + rectangleHeight + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(mockData[key] / units.unit, units.precision)} ${units.longLabel}`,
+                                text: `${formatMoneyWithPrecision(overviewData[key] / units.unit, units.precision)} ${units.longLabel}`,
                                 className: 'amounts-text__value'
                             },
                             {
@@ -142,7 +135,7 @@ const AmountsVisualization = ({
             }, {});
             setRectangleData(r);
         }
-    }, [scale]);
+    }, [scale, overviewData]);
     // Rectangles
     useEffect(() => {
         if (Object.keys(rectangleData).length) {
