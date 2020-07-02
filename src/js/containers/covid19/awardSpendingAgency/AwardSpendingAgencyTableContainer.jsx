@@ -55,7 +55,27 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 });
             }
 
-            return awardSpendingByAgencyRow;
+
+            let link = awardSpendingByAgencyRow.name;
+            const code = awardSpendingByAgencyRow.code;
+            if (link && code) {
+                link = (
+                    <a
+                        className="agency-profile__link"
+                        href={`#/agency/${code}`}>
+                        {awardSpendingByAgencyRow.name}
+                    </a>
+                );
+            }
+
+            return {
+                obligation: awardSpendingByAgencyRow.obligation,
+                outlay: awardSpendingByAgencyRow.outlay,
+                count: awardSpendingByAgencyRow.count,
+                faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
+                ...awardSpendingByAgencyRow,
+                name: link
+            };
         });
         setResults(parsedData);
     };
