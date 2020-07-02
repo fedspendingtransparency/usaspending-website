@@ -107,7 +107,6 @@ const Covid19Container = () => {
                 )
             )
         );
-        // dispatch(setAppliedFilterCompletion(true));
     };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
