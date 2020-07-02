@@ -352,7 +352,14 @@ describe('BulkDownloadPageContainer', () => {
             const container = shallow(<BulkDownloadPageContainer
                 {...{
                     ...accountsRedux,
-                    period: '5'
+                    bulkDownload: {
+                        ...accountsRedux.bulkDownload,
+                        accounts: {
+                            ...accountsRedux.bulkDownload.accounts,
+                            quarter: '',
+                            period: '5'
+                        }
+                    }
                 }}
                 {...mockActions} />);
 
