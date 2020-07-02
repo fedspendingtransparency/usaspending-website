@@ -69,6 +69,10 @@ export const awardSpendingAgencyTableColumns = (type) => {
                 {
                     title: 'outlay',
                     displayName: 'Award Outlays (Loan Subsidy Cost)'
+                },
+                {
+                    title: 'count',
+                    displayName: 'Number of Loans'
                 }
             ]);
     }
