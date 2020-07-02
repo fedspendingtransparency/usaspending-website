@@ -7,8 +7,9 @@ import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 
 const BaseAwardSpendingByAgencyRow = {
     populateBase(data) {
-        this.name = data.description || '';
+        this.id = data.id || 0;
         this.code = data.code || 0;
+        this.name = data.description || '';
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
         this._count = data.count || 0;

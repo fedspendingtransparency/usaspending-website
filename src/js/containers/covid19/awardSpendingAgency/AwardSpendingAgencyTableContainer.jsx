@@ -57,12 +57,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
 
             let link = awardSpendingByAgencyRow.name;
-            const code = awardSpendingByAgencyRow.code;
-            if (link && code) {
+            const id = awardSpendingByAgencyRow.id;
+            if (link && id) {
                 link = (
                     <a
                         className="agency-profile__link"
-                        href={`#/agency/${code}`}>
+                        href={`#/agency/${id}`}>
                         {awardSpendingByAgencyRow.name}
                     </a>
                 );
