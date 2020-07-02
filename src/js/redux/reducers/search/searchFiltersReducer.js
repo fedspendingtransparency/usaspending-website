@@ -284,7 +284,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
-            console.log(' Clearing Filters ');
             return Object.assign({}, initialState);
         }
 
