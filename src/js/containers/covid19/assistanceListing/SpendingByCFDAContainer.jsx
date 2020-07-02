@@ -80,7 +80,7 @@ export const parseRows = (rows, onRedirectModalClick, activeTab) => (
                     className="assistance-listing__button"
                     value={rowData._link}
                     onClick={onRedirectModalClick}>
-                    {rowData.name} <FontAwesomeIcon icon="external-link-alt" />
+                    {rowData.name}<FontAwesomeIcon icon="external-link-alt" />
                 </button>
             );
         }

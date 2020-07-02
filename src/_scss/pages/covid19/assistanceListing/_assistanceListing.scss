@@ -23,6 +23,9 @@
                         &:first-of-type {
                             // Prevent the CFDA column from wrapping
                             white-space: nowrap;
+                            .fa-external-link-alt {
+                                margin-left: rem(5);
+                            }
                         }
                         .assistance-listing__button {
                             @include button-link;
