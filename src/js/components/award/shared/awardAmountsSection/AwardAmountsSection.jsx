@@ -25,7 +25,6 @@ const AwardAmountsSection = ({
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
     const showCaresActViz = (
-        awardOverview._showFileC &&
         GlobalConstants.CARES_ACT_RELEASED
     );
     return (
