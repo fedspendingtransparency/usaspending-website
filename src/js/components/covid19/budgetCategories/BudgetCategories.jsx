@@ -10,6 +10,12 @@ import DateNote from 'components/covid19/DateNote';
 
 const tabs = [
     {
+        type: 'agency',
+        label: 'Agencies',
+        description: 'What agencies did the spending?',
+        countField: 'count'
+    },
+    {
         type: 'federal_account',
         label: 'Federal Accounts',
         description: 'What accounts funded this response?',
@@ -18,27 +24,15 @@ const tabs = [
         subCountField: 'child_count'
     },
     {
-        type: 'agency',
-        label: 'Agencies',
-        description: 'What agencies did the spending?',
-        countField: 'count'
-    },
-    {
         type: 'object_class',
         label: 'Object Classes',
         description: 'What items or services were purchased?',
-        countField: 'count'
-    },
-    {
-        type: 'def_code',
-        label: 'Public Laws',
-        description: 'What legislative acts funded this spending?',
         countField: 'count'
     }
 ];
 
 const BudgetCategories = () => {
-    const [activeTab, setActiveTab] = useState('federal_account');
+    const [activeTab, setActiveTab] = useState('agency');
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
 
     // TODO - Remove hard coded values

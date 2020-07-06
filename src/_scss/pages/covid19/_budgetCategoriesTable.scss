@@ -70,8 +70,8 @@
 }
 
 .budget-categories-table__header {
-    display: flex;
-    justify-content: center;
+    @include display(flex);
+    justify-content: left;
     align-items: center;
     margin-top: rem(20);
 

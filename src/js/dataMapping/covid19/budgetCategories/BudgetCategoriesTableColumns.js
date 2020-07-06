@@ -41,16 +41,16 @@ export const totalBudgetaryResourcesColumn = {
 };
 
 export const budgetColumns = {
-    federal_account: [
-        {
-            title: 'name',
-            displayName: 'Federal Accounts'
-        }
-    ],
     agency: [
         {
             title: 'name',
             displayName: 'Agencies'
+        }
+    ],
+    federal_account: [
+        {
+            title: 'name',
+            displayName: 'Federal Accounts'
         }
     ],
     object_class: [
@@ -58,21 +58,10 @@ export const budgetColumns = {
             title: 'name',
             displayName: 'Object Classes'
         }
-    ],
-    def_code: [
-        {
-            title: 'defCode',
-            displayName: "DEF Code"
-        },
-        {
-            title: 'emergencyFundingMandate',
-            displayName: 'Emergency Funding Mandate'
-        }
     ]
 };
 
 export const budgetColumnFields = {
-    defCode: 'code',
     emergencyFundingMandate: 'description',
     name: 'description'
 };
@@ -105,27 +94,12 @@ export const apiSpendingTypes = {
 
 export const budgetCategoriesCssMappingTypes = {
     federal_account: 'federal-account',
-    def_code: 'def-code',
     agency: 'agency',
     object_class: 'object-class'
 };
 
 export const budgetCategoriesSort = {
     federal_account: {
-        total_spending: {
-            sort: 'totalBudgetaryResources',
-            order: 'desc'
-        },
-        award_spending: {
-            sort: 'awardObligation',
-            order: 'desc'
-        },
-        loan_spending: {
-            sort: 'faceValueOfLoan',
-            order: 'desc'
-        }
-    },
-    def_code: {
         total_spending: {
             sort: 'totalBudgetaryResources',
             order: 'desc'
