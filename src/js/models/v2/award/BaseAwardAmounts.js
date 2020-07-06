@@ -43,10 +43,10 @@ const BaseAwardAmounts = {
         ) || 0;
         this._fileCOutlay = this._showFileC
             ? getCovid19Totals([{ amount: this[this._denominator] * 0.25, code: 'L' }])
-            : getCovid19Totals(data.account_outlays_by_defc);
+            : getCovid19Totals(data.child_account_obligations_by_defc);
         this._fileCObligated = this._showFileC
             ? getCovid19Totals([{ amount: this[this._denominator] * 0.5, code: 'L' }])
-            : getCovid19Totals(data.account_obligations_by_defc);
+            : getCovid19Totals(data.child_account_obligations_by_defc);
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;
