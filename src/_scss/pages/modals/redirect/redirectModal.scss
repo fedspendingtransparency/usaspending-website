@@ -1,12 +1,12 @@
-.redirect-modal {
+.usas-modal {
     background-color: $color-white;
     // Overrides the default library max width of 100%
     max-width: rem(1200); 
-    .redirect-modal__header {
+    .usas-modal__header {
         background-color: $color-primary;
         @include display(flex);
         @include justify-content(flex-end);
-        .redirect-modal__close-button {
+        .usas-modal__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
             padding: rem(10);
@@ -17,14 +17,14 @@
             }
         }
     }
-    .redirect-modal__body {
+    .usas-modal__body {
         text-align: center;
         padding: rem(30) rem(45) rem(45) rem(45);
-        .redirect-modal__title {
+        .usas-modal__title {
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
-            .redirect-modal__title-icon {
+            .usas-modal__title-icon {
                 @include flex(0 0 rem(35));
                 padding-right: rem(10);
                 svg {
@@ -33,25 +33,44 @@
                     fill: $color-gray;
                 }
             }
-            .redirect-modal__title-text {
+            .usas-modal__title-text {
                 @include flex(1 1 auto);
                 font-weight: 600;
                 font-size: rem(34);
             }
         }
-        .redirect-modal__explanation {
+        .usas-modal__explanation {
             padding-top: rem(30);
             padding-bottom: rem(30);
             font-size: rem(18);
         }
-        .redirect-modal__directions {
+        .usas-modal__directions {
             font-size: $small-font-size;
             padding-bottom: rem(20);
             font-weight: 600;
         }
-        .redirect-modal__link {
+        .usas-modal__link {
             font-weight: 600;
             font-size: rem(21);
+        }
+    }
+    &.covid-modal {
+        .usas-modal__header {
+            background: $color-gray-light;
+            h1 {
+                margin: 0;
+                text-align: center;
+                font-size: rem(41);
+                color: white;
+                padding: rem(35) rem(34);
+                line-height: rem(51);
+            }
+            .usas-modal__close-button {
+                padding: rem(10);
+                @include display(flex);
+                @include align-items(center);
+                @include align-self(flex-start);        
+            }
         }
     }
 }

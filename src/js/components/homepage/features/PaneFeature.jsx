@@ -35,7 +35,7 @@ const PaneFeature = () => {
                             <button
                                 onClick={onRedirectModalClick}
                                 value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                                className="feature-pane__button feature-pane__button-redirect-modal">
+                                className="feature-pane__button feature-pane__button-usas-modal">
                                 Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </button>
                         </div>
