@@ -4,7 +4,7 @@
 
 // eslint-disable-next-line import/prefer-default-export
 export const filterHasSelections = (reduxFilters, filter) => {
-    switch (filter) {
+    switch (filter.title) {
         case 'Time Period':
             if (reduxFilters.timePeriodFY.toArray().length > 0
                 || (reduxFilters.timePeriodRange
@@ -54,18 +54,10 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'NAICS Code':
-            if (reduxFilters.selectedNAICS.toArray().length > 0) {
-                return true;
-            }
-            return false;
         case 'North American Industry Classification System (NAICS)':
             return (reduxFilters.naicsCodes.toObject().require.length > 0);
         case 'Product or Service Code (PSC)':
-            if (reduxFilters.selectedPSC.toArray().length > 0) {
-                return true;
-            }
-            else if (reduxFilters.pscCodes.toObject().require.length > 0) {
+            if (reduxFilters.pscCodes.toObject().require.length > 0) {
                 return true;
             }
             return false;
@@ -86,6 +78,9 @@ export const filterHasSelections = (reduxFilters, filter) => {
             return false;
         case 'Treasury Account Symbol (TAS)':
             if (reduxFilters.tasCodes.toObject().require.length > 0) return true;
+            return false;
+        case 'Disaster Emergency Fund (DEF) Code':
+            if (reduxFilters.defCodes.toObject().require.length > 0) return true;
             return false;
         default:
             return false;
