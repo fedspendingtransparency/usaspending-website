@@ -25,9 +25,7 @@ export default class Homepage extends React.Component {
             <div className="usa-da-home-page">
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
-                <main
-                    id="main-content"
-                    className="homepage-content">
+                <main id="main-content" className="homepage-content">
                     <Hero />
                     <Features />
                     <Download />

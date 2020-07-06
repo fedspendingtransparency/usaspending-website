@@ -15,7 +15,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export const CovidHomepageCookie = 'usaspending_covid_homepage';
+export const CovidHomepageCookie = 'usaspending_covid_release';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -58,9 +58,14 @@ export default class Header extends React.Component {
         });
     }
 
+    triggerCovidModal() {
+        console.log('yo man');
+    }
+
     render() {
         let infoBanner = (
             <InfoBanner
+                triggerModal={this.triggerCovidModal}
                 closeBanner={this.closeBanner} />
         );
 
