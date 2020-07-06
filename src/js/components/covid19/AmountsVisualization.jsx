@@ -51,8 +51,9 @@ const AmountsVisualization = ({
                 const y = startOfChartY + offset.top;
                 const height = rectangleHeight - (2 * offset.bottom);
                 const mappingKey = rectangleMapping[key].primaryKey ? rectangleMapping[key].primaryKey : key;
+                const amount = Math.abs(overviewData[mappingKey]);
                 let x = left + offset.left;
-                let rectWidth = scale(overviewData[mappingKey]) - (right + (2 * offset.right || 0));
+                let rectWidth = scale(amount) - (right + (2 * offset.right || 0));
                 let lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 /**
                  * Handle Remaining Balance Edge Case and it's inner rectangle.
@@ -61,12 +62,13 @@ const AmountsVisualization = ({
                  * value will give us the x position to start from
                  */
                 if (key === '_remainingBalance' || key === 'remainingBalanceFiller') {
-                    x = scale(overviewData[mappingKey]) + (offset.left);
-                    // rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - (right + (2 * offset.right));
+                    x = scale(amount) + (offset.left);
                     rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
-                const units = calculateUnits([overviewData[key]]);
+                const units = calculateUnits([amount]);
+                const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+                const description = !textInfo ? 'A rectangle for spacing' : `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`;
                 units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
                 let textData = [];
                 if (textInfo) {
@@ -82,7 +84,7 @@ const AmountsVisualization = ({
                             {
                                 y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(overviewData[key] / units.unit, units.precision)} ${units.longLabel}`,
+                                text: moneyLabel,
                                 className: key === '_totalBudgetAuthority' ? 'amounts-text__value bold' : 'amounts-text__value'
                             },
                             {
@@ -104,7 +106,7 @@ const AmountsVisualization = ({
                             {
                                 y: startOfChartY + rectangleHeight + textInfo.valueDown,
                                 x: lineXPosition - textInfo.valueLeft,
-                                text: `${formatMoneyWithPrecision(overviewData[key] / units.unit, units.precision)} ${units.longLabel}`,
+                                text: moneyLabel,
                                 className: 'amounts-text__value'
                             },
                             {
@@ -123,6 +125,7 @@ const AmountsVisualization = ({
                     rectWidth,
                     height,
                     fill,
+                    description,
                     line: {
                         x1: lineXPosition,
                         x2: lineXPosition,
@@ -145,17 +148,22 @@ const AmountsVisualization = ({
                     y,
                     rectWidth,
                     height,
-                    fill
+                    fill,
+                    description
                 } = rectangleData[key];
                 return (
-                    <rect
-                        className={`${key}`}
-                        key={uniqueId()}
-                        x={x}
-                        y={y}
-                        width={rectWidth}
-                        height={height}
-                        fill={fill} />
+                    <g key={uniqueId()} tabIndex="0" aria-label={description}>
+                        <desc>
+                            {description}
+                        </desc>
+                        <rect
+                            className={`${key}`}
+                            x={x}
+                            y={y}
+                            width={rectWidth}
+                            height={height}
+                            fill={fill} />
+                    </g>
                 );
             });
             setRectangles(vizRectangles);
@@ -174,14 +182,16 @@ const AmountsVisualization = ({
                 const rData = rectangleMapping[key];
                 if (!rData.line) return acc;
                 acc.push(
-                    <line
-                        key={uniqueId()}
-                        x1={x1}
-                        x2={x2}
-                        y1={y1}
-                        y2={y2}
-                        stroke={rData.fill}
-                        strokeWidth={lineStrokeWidth} />
+                    <g key={uniqueId()} tabIndex="0" aria-label="A line linking a rectangle to text">
+                        <desc>A line linking a rectangle to text</desc>
+                        <line
+                            x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            stroke={rData.fill}
+                            strokeWidth={lineStrokeWidth} />
+                    </g>
                 );
                 return acc;
             }, []);
@@ -196,13 +206,14 @@ const AmountsVisualization = ({
                 const rData = rectangleMapping[key];
                 if (!rData.text) return acc;
                 textData.forEach((txt) => acc.push(
-                    <text
-                        key={uniqueId()}
-                        className={txt.className}
-                        x={txt.x}
-                        y={txt.y}>
-                        {txt.text}
-                    </text>
+                    <g key={uniqueId()} tabIndex="0">
+                        <text
+                            className={txt.className}
+                            x={txt.x}
+                            y={txt.y}>
+                            {txt.text}
+                        </text>
+                    </g>
                 ));
                 return acc;
             }, []);

@@ -4,8 +4,8 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { snakeCase } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -45,6 +45,7 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+    const defCodes = useSelector((state) => state.covid19.defCodes.map((code) => code.code), isEqual);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -69,7 +70,7 @@ const Covid19Container = () => {
 
     useEffect(() => {
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview();
+            overviewRequest.current = fetchOverview(defCodes);
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -80,14 +81,16 @@ const Covid19Container = () => {
                 console.log(' Error Overview : ', e.message);
             }
         };
-        getOverviewData();
-        overviewRequest.current = null;
+        if (defCodes.length) {
+            getOverviewData();
+            overviewRequest.current = null;
+        }
         return () => {
             if (overviewRequest.current) {
                 overviewRequest.cancel();
             }
         };
-    }, []);
+    }, [defCodes]);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 

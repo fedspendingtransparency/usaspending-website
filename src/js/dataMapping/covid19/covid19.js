@@ -209,7 +209,7 @@ export const otherSankeyNodes = [
     },
     {
         name: '_remainingBalance',
-        label: 'Remainging Balance',
+        label: 'Total Unobligated Balance',
         color: '#558EC6',
         glossary: `#/${slug}?glossary=unobligated-balance`,
         textWidth: 109,
@@ -217,7 +217,6 @@ export const otherSankeyNodes = [
         whiteRectangle: true
     }
 ];
-// total amount = 3500000
 export const dataForLinks = [
     {
         source: 0, // O to total

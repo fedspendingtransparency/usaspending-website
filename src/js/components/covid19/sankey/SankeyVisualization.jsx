@@ -1,5 +1,5 @@
 /**
- * SankeyContainer.jsx
+ * SankeyVisualization.jsx
  * Created By Jonathan Hill 06/04/20
  */
 
