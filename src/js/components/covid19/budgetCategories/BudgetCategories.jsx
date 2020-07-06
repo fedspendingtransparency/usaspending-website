@@ -3,40 +3,107 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState } from 'react';
-import BudgetCategoriesCountTabContainer from 'containers/covid19/budgetCategories/BudgetCategoriesCountTabContainer';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
+import { fetchDisasterSpendingCount, fetchOverview } from 'helpers/disasterHelper';
+import BaseOverview from 'models/v2/covid19/BaseOverview';
+import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import OverviewData from '../OverviewData';
+
 
 const tabs = [
     {
-        type: 'agency',
-        label: 'Agencies',
-        description: 'What agencies did the spending?',
-        countField: 'count'
+        internal: 'agency',
+        label: 'Agencies'
     },
     {
-        type: 'federal_account',
-        label: 'Federal Accounts',
-        description: 'What accounts funded this response?',
-        subHeading: 'Treasury Accounts',
-        countField: 'count',
-        subCountField: 'child_count'
+        internal: 'federal_account',
+        label: 'Federal Accounts'
     },
     {
-        type: 'object_class',
-        label: 'Object Classes',
-        description: 'What items or services were purchased?',
-        countField: 'count'
+        internal: 'object_class',
+        label: 'Object Classes'
     }
 ];
 
 const BudgetCategories = () => {
-    const [activeTab, setActiveTab] = useState('agency');
-    const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
+    const [activeTab, setActiveTab] = useState(
+        {
+            internal: tabs[0].internal
+        }
+    );
+    const [count, setCount] = useState(null);
+    const [totalBudgetaryResources, setTotalBudgetaryResources] = useState(null);
+    const [totalObligations, setTotalObligations] = useState(null);
+    const [totalOutlays, setTotalOutlays] = useState(null);
+
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const overviewData = [
+        {
+            type: 'count',
+            label: `Number of ${tabs.filter((tab) => tab.internal === activeTab.internal)[0].label}`
+        },
+        {
+            type: 'totalBudgetaryResources',
+            label: 'Total Budgetary Resources',
+            dollarAmount: true
+        },
+        {
+            type: 'totalObligations',
+            label: 'Total Obligations',
+            dollarAmount: true
+        },
+        {
+            type: 'totalOutlays',
+            label: 'Total Outlays',
+            dollarAmount: true
+        }
+    ];
 
     // TODO - Remove hard coded values
     const dateString = "June 30, 2020";
+
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
+
+        setActiveTab({
+            internal: tabInternal
+        });
+    };
+
+    useEffect(() => {
+        if (defCodes) {
+            // Reset any existing results
+            setCount(null);
+
+            const params = {
+                def_codes: defCodes
+            };
+            const countRequest = fetchDisasterSpendingCount(activeTab.internal, params);
+            countRequest.promise
+                .then((res) => {
+                    setCount(res.data.count);
+                });
+        }
+
+        const overviewRequest = fetchOverview();
+        overviewRequest.promise.then((res) => {
+            const newOverview = Object.create(BaseOverview);
+            newOverview.populate(res.data);
+            setTotalBudgetaryResources(newOverview._totalBudgetAuthority);
+            setTotalObligations(newOverview._totalObligations);
+            setTotalOutlays(newOverview._totalOutlays);
+        });
+    }, [activeTab]);
+
+    const amounts = {
+        count,
+        totalBudgetaryResources,
+        totalObligations,
+        totalOutlays
+    };
 
     return (
         <div className="body__content">
@@ -45,27 +112,17 @@ const BudgetCategories = () => {
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
             </p>
-            <div className="count-tabs">
-                <div className="count-tabs__questions">
-                    {tabs.map((tab) => (
-                        <div key={tab.type}>
-                            {tab.description}
-                        </div>
-                    ))}
-                </div>
-                <div className="count-tabs__buttons">
-                    {tabs.map((tab) => (
-                        <BudgetCategoriesCountTabContainer
-                            key={tab.type}
-                            {...tab}
-                            setActiveTab={setActiveTab}
-                            active={activeTab === tab.type} />
-                    ))}
-                </div>
-                <BudgetCategoriesTableContainer
-                    type={activeTab}
-                    subHeading={subHeading} />
+            <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+            <div className="overview-data-group">
+                {overviewData.map((data) => (
+                    <OverviewData
+                        key={data.label}
+                        {...data}
+                        amount={amounts[data.type]} />
+                ))}
             </div>
+            <BudgetCategoriesTableContainer
+                type={activeTab.internal} />
         </div>
     );
 };

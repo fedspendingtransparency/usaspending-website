@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { budgetColumns, budgetDropdownColumns, budgetDropdownFieldValues, totalBudgetaryResourcesColumn, apiSpendingTypes, budgetCategoriesCssMappingTypes, budgetCategoriesSort } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
-import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/covid19/budgetCategoriesHelper';
+import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/covid19/budgetCategories/BaseBudgetCategoryRow';
@@ -17,8 +17,7 @@ import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoToolt
 
 
 const propTypes = {
-    type: PropTypes.string.isRequired,
-    subHeading: PropTypes.string
+    type: PropTypes.string.isRequired
 };
 
 const BudgetCategoriesTableContainer = (props) => {
@@ -265,7 +264,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     expandable
                     rows={results}
                     columns={renderColumns()}
-                    divider={props.subHeading}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort} />
             </div>

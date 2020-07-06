@@ -13,10 +13,11 @@ import { getIndexesToDelete, adaptTabs, selectOptionDecision } from '../../../he
 
 const propTypes = {
     tabs: PropTypes.array.isRequired,
-    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     classes: PropTypes.string,
     pickerLabel: PropTypes.string,
-    changeActiveTab: PropTypes.func
+    changeActiveTab: PropTypes.func,
+    hideCounts: PropTypes.bool
 };
 
 const MoreOptionsTabs = (props) => {
@@ -53,14 +54,14 @@ const MoreOptionsTabs = (props) => {
             onChange={switchTab}
             onKeyDown={switchTab}
             title={`Show ${name}`}
-            aria-label={`Show ${name} - ${props.tabCounts[value]} ${props.tabCounts[value] === 1 ? 'result' : 'results'}`}
+            aria-label={`Show ${name} - ${props.hideCounts ? '' : `${props.tabCounts[value]} ${props.tabCounts[value] === 1 ? 'result' : 'results'}`}`}
             tabIndex={0}>
             <div className="tab-content">
                 <div className="tab-label">
                     {name}
                 </div>
                 <div className={`count-badge ${value === activeTab ? 'active' : ''}`}>
-                    {formatNumber(props.tabCounts[value])}
+                    {props.hideCounts ? '' : formatNumber(props.tabCounts[value])}
                 </div>
             </div>
         </div>
@@ -74,7 +75,7 @@ const MoreOptionsTabs = (props) => {
     const PreviewCount = ({ name, value }) => (
         <div>
             <div className="more-options__tabs_preview-label">{name}</div>
-            <div className="more-options__tabs_preview-count">{formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>
+            <div className="more-options__tabs_preview-count">{!props.hideCounts && formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>
         </div>
     );
     PreviewCount.propTypes = previewCountPropTypes;
@@ -107,7 +108,8 @@ const MoreOptionsTabs = (props) => {
                 types={tabTypes}
                 active={activeTab}
                 switchTab={switchTab}
-                counts={props.tabCounts} />
+                counts={props.tabCounts}
+                hideCounts={props.hideCounts} />
 
             {showMoreOptions ?
                 <Picker
