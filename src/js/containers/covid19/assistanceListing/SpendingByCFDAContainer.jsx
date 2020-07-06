@@ -24,7 +24,12 @@ const propTypes = {
 const columns = [
     {
         title: 'assistanceListing',
-        displayName: 'CFDA Program (Assistance Listing)'
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
     },
     {
         title: 'obligation',
@@ -38,7 +43,12 @@ const columns = [
     },
     {
         title: 'count',
-        displayName: 'Number of Awards',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
         right: true
     }
 ];
@@ -46,25 +56,50 @@ const columns = [
 const loanColumns = [
     {
         title: 'assistanceListing',
-        displayName: 'CFDA Program (Assistance Listing)'
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
     },
     {
         title: 'faceValue',
-        displayName: 'Face Value of Loans'
+        displayName: (
+            <>
+                <div>Face Value</div>
+                <div>of Loans</div>
+            </>
+        )
     },
     {
         title: 'obligation',
-        displayName: 'Award Obligations (Loan Subsidy Cost)',
+        displayName: (
+            <>
+                <div>Award Obligations</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
         right: true
     },
     {
         title: 'outlay',
-        displayName: 'Award Outlays (Loan Subsidy Cost)',
+        displayName: (
+            <>
+                <div>Award Outlays</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
         right: true
     },
     {
         title: 'count',
-        displayName: 'Number of Loans',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
         right: true
     }
 ];
