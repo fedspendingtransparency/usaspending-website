@@ -419,8 +419,21 @@ $new-potential: #AAC6E2;
                     }
                 }
             }
-            .award-amounts-viz__desc.asst-nff-zero {
-                border-left: rem(5) solid $grants-line-color;
+            .award-amounts-viz__desc.asst-nff-zero,
+            .award-amounts-viz__desc.loan-file-c-outlay--zero,
+            .award-amounts-viz__desc.idv-file-c-outlay--z,
+            .award-amounts-viz__desc.contract-file-c-outlay--zero,
+            .award-amounts-viz__desc.asst-file-c-outlay--zero {
+                &.asst-nff-zero {
+                    border-left: rem(5) solid $grants-line-color;
+                }
+                &.loan-file-c-outlay--zero,
+                &.asst-file-c-outlay--zero,
+                &.idv-file-c-outlay--zero,
+                &.contract-file-c-outlay--zero {
+                    margin-top: rem(20);
+                    border-left: rem(5) solid $file-c-outlay;
+                }
                 border-right: none;
                 margin-top: rem(10);
                 @include display(flex);
