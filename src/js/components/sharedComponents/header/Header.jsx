@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
+import CovidModal from 'components/sharedComponents/CovidModal';
+
 
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
@@ -22,11 +24,14 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showInfoBanner: false
+            showInfoBanner: false,
+            showCovidModal: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
+        this.openCovidModal = this.openCovidModal.bind(this);
+        this.closeCovidModal = this.closeCovidModal.bind(this);
     }
     componentWillMount() {
         // check if the info banner cookie exists
@@ -58,14 +63,18 @@ export default class Header extends React.Component {
         });
     }
 
-    triggerCovidModal() {
-        console.log('yo man');
+    openCovidModal() {
+        this.setState({ showCovidModal: true });
+    }
+
+    closeCovidModal() {
+        this.setState({ showCovidModal: false });
     }
 
     render() {
         let infoBanner = (
             <InfoBanner
-                triggerModal={this.triggerCovidModal}
+                triggerModal={this.openCovidModal}
                 closeBanner={this.closeBanner} />
         );
 
@@ -127,6 +136,7 @@ export default class Header extends React.Component {
                 </header>
                 <GlossaryContainer />
                 <RedirectModalContainer />
+                <CovidModal showModal={this.state.showCovidModal} closeModal={this.closeCovidModal} />
             </div>
         );
     }

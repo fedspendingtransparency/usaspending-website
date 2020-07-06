@@ -69,7 +69,21 @@
                 padding: rem(10);
                 @include display(flex);
                 @include align-items(center);
-                @include align-self(flex-start);        
+                @include align-self(flex-start);
+                svg {
+                    width: rem(20);
+                    height: rem(20);
+                }
+            }
+        }
+        .usas-modal__body {
+            .usas-modal__link {
+                @include display(flex);
+                @include justify-content(flex-end);
+                button {
+                    height: rem(36);
+                    width: rem(158);
+                }
             }
         }
     }
