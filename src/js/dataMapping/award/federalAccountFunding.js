@@ -54,16 +54,16 @@ export const idvTableMapping = {
             fundingObligated: 'transaction_obligated_amount',
             grossOutlayAmountByAwardCPE: 'gross_outlay_amount_by_award_cpe'
         },
-        submissionDate: 'Submission Date',
+        submissionDate: 'Submission Period',
         id: 'Award ID',
         agency: 'Funding Agency',
         awardingAgencyName: 'Awarding Agency',
-        disasterEmergencyFundCode: 'COVID-19 Response DEF Codes',
+        disasterEmergencyFundCode: 'DEF Code',
         fedAccount: 'Federal Account Name',
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
         fundingObligated: 'Funding Obligated',
-        grossOutlayAmountByAwardCPE: 'Outlay Amount From FYB to Period End'
+        grossOutlayAmountByAwardCPE: 'Outlayed Amount (Beginning of FY to Period End)'
     }
 };
 
@@ -113,15 +113,15 @@ export const nonIdvTableMapping = {
             fundingObligated: 'transaction_obligated_amount',
             grossOutlayAmountByAwardCPE: 'gross_outlay_amount_by_award_cpe'
         },
-        submissionDate: 'Submission Date',
+        submissionDate: 'Submission Period',
         fedAccount: 'Federal Account',
         agency: 'Funding Agency',
         awardingAgencyName: 'Awarding Agency',
-        disasterEmergencyFundCode: 'COVID-19 Response DEF Codes',
+        disasterEmergencyFundCode: 'DEF Code',
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
         fundingObligated: 'Funding Obligated',
-        grossOutlayAmountByAwardCPE: 'Outlay Amount From FYB to Period End'
+        grossOutlayAmountByAwardCPE: 'Outlayed Amount (Beginning of FY to Period End)'
     }
 };
 
