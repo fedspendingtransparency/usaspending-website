@@ -142,3 +142,14 @@ export const budgetCategoriesSort = {
         }
     }
 };
+
+export const sortMapping = {
+    totalBudgetaryResources: 'total_budgetary_resources',
+    awardObligation: 'obligation',
+    awardOutlay: 'outlay',
+    totalObligation: 'obligation',
+    totalOutlay: 'outlay',
+    faceValueOfLoan: 'face_value_of_loan',
+    countOfLoan: 'count',
+    name: 'description'
+};

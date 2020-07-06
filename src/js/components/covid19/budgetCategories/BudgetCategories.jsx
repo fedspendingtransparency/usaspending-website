@@ -74,12 +74,14 @@ const BudgetCategories = () => {
     };
 
     useEffect(() => {
-        if (defCodes) {
+        if (defCodes && defCodes.length > 0) {
             // Reset any existing results
             setCount(null);
 
             const params = {
-                def_codes: defCodes
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                }
             };
             const countRequest = fetchDisasterSpendingCount(activeTab.internal, params);
             countRequest.promise
@@ -94,9 +96,9 @@ const BudgetCategories = () => {
             newOverview.populate(res.data);
             setTotalBudgetaryResources(newOverview._totalBudgetAuthority);
             setTotalObligations(newOverview._totalObligations);
-            setTotalOutlays(newOverview._totalOutlays);
+            setTotalOutlays(Math.abs(newOverview._totalOutlays));
         });
-    }, [activeTab]);
+    }, [activeTab, defCodes]);
 
     const amounts = {
         count,
