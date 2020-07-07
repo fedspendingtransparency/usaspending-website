@@ -285,7 +285,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }
 
     return (
-        <>
+        <div className="table-wrapper">
             <Table
                 expandable
                 rows={results}
@@ -300,7 +300,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 
