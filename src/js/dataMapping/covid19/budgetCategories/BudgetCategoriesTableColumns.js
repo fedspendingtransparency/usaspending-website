@@ -2,43 +2,6 @@
  * BudgetCategoriesTableColumns.jsx
  * Created by James Lee 6/5/20
  */
-export const budgetDropdownColumns = {
-    total_spending: [
-        {
-            title: 'totalOutlay',
-            displayName: 'Total Outlays'
-        },
-        {
-            title: 'totalObligation',
-            displayName: 'Total Obligations'
-        }
-    ],
-    award_spending: [
-        {
-            title: 'awardOutlay',
-            displayName: 'Award Outlays'
-        },
-        {
-            title: 'awardObligation',
-            displayName: 'Award Obligations'
-        }
-    ],
-    loan_spending: [
-        {
-            title: 'faceValueOfLoan',
-            displayName: 'Face Value of Loans'
-        },
-        {
-            title: 'countOfLoan',
-            displayName: 'Count of Loans'
-        }
-    ]
-};
-
-export const totalBudgetaryResourcesColumn = {
-    title: 'totalBudgetaryResources',
-    displayName: 'Total Budgetary Resources'
-};
 
 export const budgetColumns = {
     agency: [
@@ -145,11 +108,9 @@ export const budgetCategoriesSort = {
 
 export const sortMapping = {
     totalBudgetaryResources: 'total_budgetary_resources',
-    awardObligation: 'obligation',
-    awardOutlay: 'outlay',
-    totalObligation: 'obligation',
-    totalOutlay: 'outlay',
+    obligation: 'obligation',
+    outlay: 'outlay',
     faceValueOfLoan: 'face_value_of_loan',
-    countOfLoan: 'count',
+    count: 'count',
     name: 'description'
 };
