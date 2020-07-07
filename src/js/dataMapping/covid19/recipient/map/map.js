@@ -43,7 +43,7 @@ export const filters = {
                 label: 'Outlays'
             },
             {
-                value: 'facevalueofloan',
+                value: 'face_value_of_loan',
                 label: 'Face Value of Loans'
             }
         ]

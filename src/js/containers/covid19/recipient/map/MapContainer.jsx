@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy } from 'lodash';
+import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 // import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -80,6 +80,10 @@ export class MapContainer extends React.Component {
         // log the initial event
         logMapScopeEvent(this.state.scope);
         logMapLayerEvent(this.state.mapLayer);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.defCodes, this.props.defCodes)) this.prepareFetch(true);
     }
 
     componentWillUnmount() {
@@ -389,7 +393,6 @@ export class MapContainer extends React.Component {
                 </MapMessage>
             );
         }
-        console.log(' Filters : ', filters);
 
         return (
             <div
