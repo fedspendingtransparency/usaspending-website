@@ -11,13 +11,85 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { awardSpendingAgencyTableColumns, awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
-import { fetchAwardSpendingByAgency, fetchFaceValueOfLoansByAgency } from 'helpers/disasterHelper';
+import { awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
+import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/BaseAwardSpendingByAgencyRow';
 
 
 const propTypes = {
     type: PropTypes.string.isRequired
+};
+
+const awardSpendingAgencyTableColumns = (type) => {
+    if (type === 'Loan') {
+        return (
+            [
+                {
+                    title: 'name',
+                    displayName: 'Agency Name'
+                },
+                {
+                    title: 'faceValueOfLoan',
+                    displayName: (
+                        <>
+                            <div>Face Value</div>
+                            <div>of Loans</div>
+                        </>
+                    )
+                },
+                {
+                    title: 'obligation',
+                    displayName: (
+                        <>
+                            <div>Award Obligations</div>
+                            <div>(Loan Subsidy Cost)</div>
+                        </>
+                    )
+                },
+                {
+                    title: 'outlay',
+                    displayName: (
+                        <>
+                            <div>Award Outlays</div>
+                            <div>(Loan Subsidy Cost)</div>
+                        </>
+                    )
+                },
+                {
+                    title: 'count',
+                    displayName: (
+                        <>
+                            <div>Number</div>
+                            <div>of Awards</div>
+                        </>
+                    )
+                }
+            ]);
+    }
+    return (
+        [
+            {
+                title: 'name',
+                displayName: 'Agency Name'
+            },
+            {
+                title: 'obligation',
+                displayName: 'Award Obligations'
+            },
+            {
+                title: 'outlay',
+                displayName: 'Award Outlays'
+            },
+            {
+                title: 'count',
+                displayName: (
+                    <>
+                        <div>Number</div>
+                        <div>of Awards</div>
+                    </>
+                )
+            }
+        ]);
 };
 
 const AwardSpendingAgencyTableContainer = (props) => {
@@ -129,32 +201,22 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 },
                 spending_type: 'award'
             };
-            faceValueOfLoansRequest = fetchFaceValueOfLoansByAgency(faceValueOfLoansParams);
+            faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
         }
 
 
         if (faceValueOfLoansRequest) {
-            const request = fetchAwardSpendingByAgency(params);
-
-            // merge request arrays with face_value_of_loan data
-            Promise.all([request.promise, faceValueOfLoansRequest.promise]).then((res) => {
-                const result = res[0].data.results.filter((awardResult) =>
-                    res[1].data.results.some((loanResult) =>
-                        awardResult.id === loanResult.id
-                    )
-                ).map((combinedResult) => {
-                    const faceValueOfLoan = res[1].data.results.filter((item) => combinedResult.id === item.id)[0].face_value_of_loan;
-                    return { ...combinedResult, face_value_of_loan: faceValueOfLoan };
+            faceValueOfLoansRequest.promise
+                .then((res) => {
+                    parseAwardSpendingByAgency(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setError(true);
+                    setLoading(false);
+                    console.error(err);
                 });
-                parseAwardSpendingByAgency(result);
-                setTotalItems(res[0].data.page_metadata.total);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
         } else {
             const request = fetchAwardSpendingByAgency(params);
             request.promise

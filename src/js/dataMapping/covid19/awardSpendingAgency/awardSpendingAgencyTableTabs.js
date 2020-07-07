@@ -50,53 +50,6 @@ export const awardSpendingAgencyTableTabs = [
     }
 ];
 
-export const awardSpendingAgencyTableColumns = (type) => {
-    if (type === 'Loan') {
-        return (
-            [
-                {
-                    title: 'name',
-                    displayName: 'Agency Name'
-                },
-                {
-                    title: 'faceValueOfLoan',
-                    displayName: 'Face Value of Loans'
-                },
-                {
-                    title: 'obligation',
-                    displayName: 'Award Obligations (Loan Subsidy Cost)'
-                },
-                {
-                    title: 'outlay',
-                    displayName: 'Award Outlays (Loan Subsidy Cost)'
-                },
-                {
-                    title: 'count',
-                    displayName: 'Number of Loans'
-                }
-            ]);
-    }
-    return (
-        [
-            {
-                title: 'name',
-                displayName: 'Agency Name'
-            },
-            {
-                title: 'obligation',
-                displayName: 'Award Obligations'
-            },
-            {
-                title: 'outlay',
-                displayName: 'Award Outlays'
-            },
-            {
-                title: 'count',
-                displayName: 'Number of Awards'
-            }
-        ]);
-};
-
 export const awardSpendingAgencyTableColumnFieldMapping = {
     name: 'name',
     obligation: 'obligation',
