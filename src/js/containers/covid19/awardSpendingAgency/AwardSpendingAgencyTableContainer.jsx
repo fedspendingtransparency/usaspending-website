@@ -131,7 +131,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 });
             }
 
-
             let link = awardSpendingByAgencyRow.name;
             const id = awardSpendingByAgencyRow.id;
             if (link && id) {
@@ -150,6 +149,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 count: awardSpendingByAgencyRow.count,
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
+                children: awardSpendingByAgencyRow.children,
                 name: link
             };
         });
