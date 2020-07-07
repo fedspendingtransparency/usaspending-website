@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { uniqueId } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -56,7 +56,8 @@ const DEFCheckboxTree = ({
     stageDef
 }) => {
     const hint = useRef();
-    const [checked, setChecked] = useState([]);
+    const checkedDefCodes = useSelector((state) => state.filters.defCodes.require);
+    const [checked, setChecked] = useState(checkedDefCodes);
 
     const stageFilter = (newChecked) => {
         setChecked(newChecked);
