@@ -13,24 +13,6 @@
         }
     }
 
-    .feature-award-search__background-flair {
-        position: absolute;
-        top: rem(-30);
-        bottom: rem(-30);
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-
-        background-color: $color-gray-warm-light;
-        opacity: 0.5;
-
-        @include transform(skewY(5deg));
-
-        @include media($medium-screen) {
-            top: 0;
-            bottom: 0;
-        }
-    }
-
     .feature-award-search__content {
         position: relative;
         @include media($medium-screen) {

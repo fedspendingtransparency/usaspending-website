@@ -26,6 +26,32 @@
             }
         }
     }
+    .feature-homepage__background-flair__container {
+        position: relative;
+        .featured-section-image__wrapper {
+            position: relative;
+        }
+    }
+    .feature-homepage__background-flair {
+        position: absolute;
+        top: rem(-30);
+        bottom: rem(-30);
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+
+        background-color: $color-gray-warm-light;
+        opacity: 0.5;
+        @include transform(skewY(5deg));
+        @include media($medium-screen) {
+            top: 0;
+            bottom: 0;
+        }
+        &.covid {
+            @include transform(skewY(-5deg));
+            height: rem(330);
+            top: rem(20);
+        }
+    }
 
     @import "./_carousel";
     @import "./_dropdown";

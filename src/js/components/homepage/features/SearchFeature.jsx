@@ -26,7 +26,7 @@ const images = [
 const SearchFeature = () => (
     <div className="feature-award-search">
         <div className="feature-award-search__wrapper">
-            <div className="feature-award-search__background-flair" />
+            <div className="feature-homepage__background-flair" />
             <div className="feature-award-search__content">
                 <h2
                     className="homepage-feature-title"
