@@ -5,7 +5,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+<<<<<<< HEAD
 import { snakeCase, isEqual } from 'lodash';
+=======
+import { snakeCase } from 'lodash';
+>>>>>>> dev
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -22,7 +26,13 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+<<<<<<< HEAD
 import BaseOverview from 'models/v2/covid19/BaseOverview';
+=======
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+// import BaseOverview from 'models/v2/covid19/BaseOverview';
+>>>>>>> dev
 import {
     slug,
     getEmailSocialShareData,
@@ -30,8 +40,14 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+<<<<<<< HEAD
 import { fetchDEFCodes, fetchOverview } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview } from 'redux/actions/covid19/covid19Actions';
+=======
+import { fetchDEFCodes } from 'helpers/disasterHelper';
+import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
+>>>>>>> dev
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -45,7 +61,11 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+<<<<<<< HEAD
     const defCodes = useSelector((state) => state.covid19.defCodes.map((code) => code.code), isEqual);
+=======
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+>>>>>>> dev
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -91,6 +111,24 @@ const Covid19Container = () => {
             }
         };
     }, [defCodes]);
+    
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
+        dispatch(
+            applyStagedFilters(
+                Object.assign(
+                    {}, defaultAdvancedSearchFilters,
+                    {
+                        defCodes: new CheckboxTreeSelections({
+                            require: defCodes.map((code) => code.code),
+                            exclude: [],
+                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        })
+                    }
+                )
+            )
+        );
+    };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
@@ -128,6 +166,7 @@ const Covid19Container = () => {
                     </div>
                 </>
             </StickyHeader>
+<<<<<<< HEAD
             <LoadingWrapper isLoading={isLoading}>
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
@@ -167,6 +206,46 @@ const Covid19Container = () => {
                     </div>
                 </main>
             </LoadingWrapper>
+=======
+            <main id="main-content" className="main-content usda__flex-row">
+                <div className="sidebar usda__flex-col">
+                    <Sidebar
+                        pageName="covid19"
+                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                        active={activeSection}
+                        jumpToSection={jumpToCovid19Section}
+                        detectActiveSection={setActiveSection}
+                        sections={Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMenu)
+                            .map((section) => ({
+                                section: snakeCase(section),
+                                label: componentByCovid19Section()[section].title
+                            }))} />
+                </div>
+                <div className="body usda__flex-col">
+                    <section className="body__section">
+                        <Heading />
+                    </section>
+                    {Object.keys(componentByCovid19Section())
+                        .map((section) => (
+                            <Covid19Section
+                                key={section}
+                                section={section}
+                                icon={componentByCovid19Section()[section].icon}
+                                headerText={componentByCovid19Section()[section].headerText}
+                                title={componentByCovid19Section()[section].title}>
+                                {componentByCovid19Section()[section].component}
+                            </Covid19Section>
+                        ))}
+                    <section className="body__section">
+                        <FooterLinkToAdvancedSearchContainer
+                            title={footerTitle}
+                            description={footerDescription}
+                            onClick={onFooterClick} />
+                    </section>
+                </div>
+            </main>
+>>>>>>> dev
             <Footer />
         </div>
     );

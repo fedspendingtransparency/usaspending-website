@@ -90,7 +90,7 @@
                 @import "../agency/v2/tabs";
                 @include display(flex);
                 @include flex-wrap(wrap);
-                margin-bottom: $global-mrg;
+                margin-bottom: 10rem;
                 padding: 0 2.5%;
 
                 .body__header {
