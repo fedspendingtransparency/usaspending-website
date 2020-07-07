@@ -135,7 +135,37 @@ const BudgetCategoriesTableContainer = (props) => {
                 });
             }
 
-            return budgetCategoryRow;
+            let link = budgetCategoryRow.name;
+            const id = budgetCategoryRow.id;
+            const code = budgetCategoryRow.code;
+            if (link && code && props.type === 'federal_account') {
+                link = (
+                    <a
+                        className="federal-account-profile__link"
+                        href={`#/federal_account/${code}`}>
+                        {budgetCategoryRow.name}
+                    </a>
+                );
+            } else if (link && id && props.type === 'agency') {
+                link = (
+                    <a
+                        className="agency-profile__link"
+                        href={`#/agency/${id}`}>
+                        {budgetCategoryRow.name}
+                    </a>
+                );
+            }
+
+            return {
+                ...budgetCategoryRow,
+                obligation: budgetCategoryRow.obligation,
+                outlay: budgetCategoryRow.outlay,
+                totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
+                faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
+                count: budgetCategoryRow.count,
+                children: budgetCategoryRow.children,
+                name: link
+            };
         });
         setResults(parsedData);
     };

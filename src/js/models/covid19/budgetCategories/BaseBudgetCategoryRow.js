@@ -7,6 +7,8 @@ import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 
 const BaseBudgetCategoryRow = {
     populate(data) {
+        this.id = data.id || 0;
+        this.code = data.code || 0;
         this.name = `${data.code} — ${data.description}` || '';
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
