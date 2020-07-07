@@ -68,7 +68,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         award_spending: {
-            sort: 'awardObligation',
+            sort: 'obligation',
             order: 'desc'
         },
         loan_spending: {
@@ -82,7 +82,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         award_spending: {
-            sort: 'awardObligation',
+            sort: 'obligation',
             order: 'desc'
         },
         loan_spending: {
@@ -96,7 +96,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         award_spending: {
-            sort: 'awardObligation',
+            sort: 'obligation',
             order: 'desc'
         },
         loan_spending: {
