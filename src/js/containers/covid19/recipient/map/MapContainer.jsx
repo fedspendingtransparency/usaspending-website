@@ -27,7 +27,6 @@ import {
 import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { recipientMapHelper } from 'helpers/disasterHelper';
-import { recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {
@@ -213,8 +212,6 @@ export class MapContainer extends React.Component {
         const {
             visibleEntities,
             activeFilters
-            // scope,
-            // subAward
         } = this.state;
         // if no entities are visible, don't make an API rquest because nothing in the US is visible
         if (visibleEntities.length === 0) {
@@ -238,22 +235,11 @@ export class MapContainer extends React.Component {
             spending_type: activeFilters.spendingType
             // TODO - uncomment this when filter is ready
             // recipient_type: recipientTypeGroups[activeFilters.recipientType],
-            // auditTrail: 'COVID-19 Map Visualization'
         };
         // add specific award types
         if (activeFilters.awardType !== 'all') {
             covidParams.filter.award_type_codes = awardTypeGroups[activeFilters.awardType];
         }
-
-        // generate the API parameters
-        // const apiParams = {
-        //     scope,
-        //     geo_layer: apiScopes[activeFilters.territory],
-        //     geo_layer_filters: visibleEntities,
-        //     filters: { time_period: [{ start_date: "2018-10-01", end_date: "2019-09-30" }] },
-        //     subawards: subAward,
-        //     auditTrail: 'COVID-19 Map Visualization'
-        // };
 
         if (this.apiRequest) {
             this.apiRequest.cancel();
@@ -414,7 +400,7 @@ export class MapContainer extends React.Component {
                     onClick={this.updateawardTypeFilter}
                     filters={awardTypeFilters}
                     activeFilter={this.state.activeFilters.awardType} />
-                {/* <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} /> */}
+                <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
                     scope={this.state.mapLayer}
