@@ -9,7 +9,10 @@
         }
         @include span-columns(2 of 12, table);
         text-align: right;
-        word-break: break-word;
+
+        &:not(:first-child) {
+            padding-right: rem(40);
+        }
     }
     .table-header {
         .table-header__label {
