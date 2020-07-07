@@ -44,7 +44,8 @@ const awardSpendingAgencyTableColumns = (type) => {
                             <div>Award Obligations</div>
                             <div>(Loan Subsidy Cost)</div>
                         </>
-                    )
+                    ),
+                    right: true
                 },
                 {
                     title: 'outlay',
@@ -53,7 +54,8 @@ const awardSpendingAgencyTableColumns = (type) => {
                             <div>Award Outlays</div>
                             <div>(Loan Subsidy Cost)</div>
                         </>
-                    )
+                    ),
+                    right: true
                 },
                 {
                     title: 'count',
@@ -62,7 +64,8 @@ const awardSpendingAgencyTableColumns = (type) => {
                             <div>Number</div>
                             <div>of Awards</div>
                         </>
-                    )
+                    ),
+                    right: true
                 }
             ]);
     }
@@ -87,7 +90,8 @@ const awardSpendingAgencyTableColumns = (type) => {
                         <div>Number</div>
                         <div>of Awards</div>
                     </>
-                )
+                ),
+                right: true
             }
         ]);
 };
