@@ -18,6 +18,7 @@ const AwardFilterButtons = ({ onClick, filters, activeFilter }) => (
         {
             filters.map((button) => (
                 <AwardFilterButton
+                    key={button.value}
                     onClick={onClick}
                     label={button.label}
                     value={button.value}

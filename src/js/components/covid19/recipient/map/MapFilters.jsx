@@ -11,11 +11,12 @@ import MapFiltersHeader from './MapFiltersHeader';
 
 const propTypes = {
     filters: PropTypes.object,
-    activeFilters: PropTypes.object
+    activeFilters: PropTypes.object,
+    isOpen: PropTypes.bool
 };
 
-const MapFilters = ({ filters, activeFilters }) => (
-    <div className="map__filters-container">
+const MapFilters = ({ filters, activeFilters, isOpen }) => (
+    <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
         <div className="map__filters-header">
             <MapFiltersHeader />
         </div>

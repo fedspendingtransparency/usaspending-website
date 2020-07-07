@@ -13,6 +13,7 @@ import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipien
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
+import MapFiltersToggle from './MapFiltersToggle';
 
 const propTypes = {
     data: PropTypes.object,
@@ -51,7 +52,8 @@ export default class MapWrapper extends React.Component {
                 segments: [],
                 units: {}
             },
-            mapReady: false
+            mapReady: false,
+            isFiltersOpen: true
         };
 
         this.mapRef = null;
@@ -394,6 +396,8 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
@@ -410,7 +414,8 @@ export default class MapWrapper extends React.Component {
         return (
             <MapFilters
                 filters={this.props.filters}
-                activeFilters={this.props.activeFilters} />
+                activeFilters={this.props.activeFilters}
+                isOpen={this.state.isFiltersOpen} />
         );
     }
 
@@ -437,6 +442,7 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
+                <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}

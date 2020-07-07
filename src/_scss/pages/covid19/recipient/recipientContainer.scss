@@ -42,14 +42,45 @@
             width: 100%;
         }
         @import "pages/search/results/visualizations/geo/map/map";
-        .map-container { 
+        .map-container {
+          .map__filters-toggle {
+            background-color: $color-white;
+            top: 3rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            left: 19rem;
+            position: absolute;
+            z-index: 2;
+            padding: 1rem 0.5rem;
+            &.closed {
+              left: 0;
+              transition: left;
+            }
+            &.open {
+              left: 19rem;
+              transition: left;
+            }
+          }
           .map__filters-container {
             background-color: $color-white;
             top: 1.5rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            left: 1.5rem;
             position: absolute;
+            width: 19rem;
             z-index: 2;
+            transition: 1s;
+            opacity: 1;
+            &.closed {
+              opacity: 0;
+              display: none;
+              transition: opacity 1s;
+              transition: display 1s;
+            }
+            &.open {
+              opacity: 1;
+              display: block;
+              transition: opacity 1s;
+              transition: display 1s;
+            }
             .map__filters-header {
               @include display(flex);
               padding: 1rem 0 2rem 1rem;
@@ -57,6 +88,7 @@
               font-weight: $font-semibold;
               letter-spacing: 0;
               line-height: 1.8rem;
+              transition: 2s;
               .map__filters-header__title {
                 @include display(flex);
                 align-items: center;
@@ -73,8 +105,10 @@
             .map__filters-body {
               padding-left: 1rem;
               padding-bottom: 1rem;
+              transition: 2s;
               .map__filters-filter__container {
                 padding-bottom: 2rem;
+                transition: 2s;
                 .map__filters-label {
                   opacity: 0.75;
                   font-size: 1.2rem;
@@ -107,6 +141,13 @@
                     }
                     .usa-dt-picker__list {
                       z-index: 3;
+                      .usa-dt-picker__list-item {
+                        .usa-dt-picker__item {
+                          font-size: 1.4rem;
+                          letter-spacing: 0;
+                          line-height: 1.8rem;
+                        }
+                      }
                     }
                   }
                 }

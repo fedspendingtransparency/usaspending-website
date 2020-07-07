@@ -35,12 +35,16 @@ export const filters = {
         label: 'SPENDING TYPE',
         options: [
             {
-                value: 'obligations',
+                value: 'obligation',
                 label: 'Obligations'
             },
             {
-                value: 'outlays',
+                value: 'outlay',
                 label: 'Outlays'
+            },
+            {
+                value: 'facevalueofloan',
+                label: 'Face Value of Loans'
             }
         ]
     },
@@ -56,52 +60,53 @@ export const filters = {
                 label: 'Per Capita'
             }
         ]
-    },
-    recipientType: {
-        label: 'RECIPIENT TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Recipient Types'
-            },
-            {
-                value: 'category_business',
-                label: 'Business'
-            },
-            {
-                value: 'minority_owned_business',
-                label: 'Minority Owned Business'
-            },
-            {
-                value: 'woman_owned_business',
-                label: 'Women Owned Business'
-            },
-            {
-                value: 'veteran_owned_business',
-                label: 'Veteran Owned Business'
-            },
-            {
-                value: 'special_designations',
-                label: 'Special Designations'
-            },
-            {
-                value: 'nonprofit',
-                label: 'Nonprofit'
-            },
-            {
-                value: 'higher_education',
-                label: 'Higher Education'
-            },
-            {
-                value: 'government',
-                label: 'Government'
-            },
-            {
-                value: 'individuals',
-                label: 'Individuals'
-            }
-        ]
     }
+    // TODO - uncomment this when filter is ready
+    // recipientType: {
+    //     label: 'RECIPIENT TYPE',
+    //     options: [
+    //         {
+    //             value: 'all',
+    //             label: 'All Recipient Types'
+    //         },
+    //         {
+    //             value: 'category_business',
+    //             label: 'Business'
+    //         },
+    //         {
+    //             value: 'minority_owned_business',
+    //             label: 'Minority Owned Business'
+    //         },
+    //         {
+    //             value: 'woman_owned_business',
+    //             label: 'Women Owned Business'
+    //         },
+    //         {
+    //             value: 'veteran_owned_business',
+    //             label: 'Veteran Owned Business'
+    //         },
+    //         {
+    //             value: 'special_designations',
+    //             label: 'Special Designations'
+    //         },
+    //         {
+    //             value: 'nonprofit',
+    //             label: 'Nonprofit'
+    //         },
+    //         {
+    //             value: 'higher_education',
+    //             label: 'Higher Education'
+    //         },
+    //         {
+    //             value: 'government',
+    //             label: 'Government'
+    //         },
+    //         {
+    //             value: 'individuals',
+    //             label: 'Individuals'
+    //         }
+    //     ]
+    // }
 };
 
 export const awardTypeFilters = [
@@ -126,11 +131,11 @@ export const awardTypeFilters = [
         label: 'Other Financial Assistance'
     },
     {
-        value: 'contract',
+        value: 'contracts',
         label: 'Contracts'
     },
     {
-        value: 'idv',
+        value: 'idvs',
         label: 'Contract IDVs'
     }
 ];
@@ -139,7 +144,8 @@ export const filtersOnClickHandler = {
     territory: 'updateterritoryFilter',
     spendingType: 'updatespendingTypeFilter',
     amountType: 'updateamountTypeFilter',
-    recipientType: 'updaterecipientTypeFilter',
+    // TODO - uncomment when this filter is ready
+    // recipientType: 'updaterecipientTypeFilter',
     awardType: 'updateawardTypeFilter'
 };
 
