@@ -159,7 +159,7 @@
         }
         &.white:hover{
           color: $color-white;
-          background-color: #0071bc;
+          background-color: $color-primary;
           font-weight: 600;
         }
     }
