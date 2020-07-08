@@ -28,21 +28,22 @@
           }
         }
       }
+      @import './spendingByRecipient';
       .results-visualization-geo-section {
         position: relative;
         @import "pages/search/results/visualizations/geo/_topSection";
-        
+
         h2.visualization-title {
             @include h3;
             margin: 0;
         }
-    
+
         .map-container {
             height: rem(475);
             width: 100%;
         }
         @import "pages/search/results/visualizations/geo/map/map";
-        .map-container { 
+        .map-container {
           .map__filters-container {
             background-color: $color-white;
             top: 1.5rem;
@@ -137,7 +138,7 @@
         & .mapboxgl-ctrl-compass {
             display: none !important;
         }
-    
+
         @import "pages/search/results/visualizations/geo/_disclaimer";
         @import "pages/search/results/visualizations/geo/_message";
       }

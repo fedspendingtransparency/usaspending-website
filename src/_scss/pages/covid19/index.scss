@@ -81,6 +81,9 @@
                 }
                 @import "./tableMessages";
                 @import './budgetCategoriesTable';
+                .table-wrapper {
+                    overflow-x: auto;
+                }
             }
 
             @import './spendingOverTime/awardSpendingOverTime';
