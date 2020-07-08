@@ -4,7 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import { generatePercentage } from '../../../helpers/awardAmountHelper';
+import { generatePercentage } from 'helpers/awardAmountHelper';
 
 const BaseAccountSpendingRow = {
     populate(data) {

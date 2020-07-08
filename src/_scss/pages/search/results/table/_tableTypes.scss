@@ -24,6 +24,7 @@
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
+            cursor: pointer;
         }
         &.active {
             background-color: $color-white;
@@ -52,7 +53,7 @@
                 padding: rem(0) rem(5);
 
                 &.active {
-                    background-color: $color-gold;    
+                    background-color: $color-gold;
                 }
             }
               .tooltip-wrapper {
@@ -65,7 +66,7 @@
                 .tooltip__text:last-child {
                   padding: 2rem;
                 }
-              } 
+              }
         }
 
         &[disabled] {

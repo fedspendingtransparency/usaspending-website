@@ -4,22 +4,44 @@
  */
 
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
-import BaseFinancialAssistance from '../../../src/js/models/v2/award/BaseFinancialAssistance';
+import BaseContract from 'models/v2/award/BaseContract';
+import BaseFinancialAssistance from 'models/v2/award/BaseFinancialAssistance';
+import BaseIdv from 'models/v2/award/BaseIdv';
 
-import { mockAwardAmounts, mockContract, mockGrant, mockLoan, mockIdv } from './mockAwardApi';
+import * as mockApiData from './mockAwardApi';
 import { decodedAwardId, encodedAwardId } from '../../mockData';
+
+// For Aggregate IDVs, we pass to this model unparsed api data
+const { mockAwardAmounts } = mockApiData;
+
+// For every other award type, we pass the model data from the api that's already been parsed
+const mockContract = Object.create(BaseContract);
+mockContract.populate(mockApiData.mockContract);
+
+const mockGrant = Object.create(BaseFinancialAssistance);
+mockGrant.populate(mockApiData.mockGrant);
+
+const mockIdv = Object.create(BaseIdv);
+mockIdv.populate(mockApiData.mockIdv);
+
+const mockLoan = Object.create(BaseFinancialAssistance);
+mockLoan.populate(mockApiData.mockLoan);
 
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
-const negativeObligation = {
+const negativeObligationAgg = {
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_total_obligation: -811660.51,
     grandchild_award_total_obligation: -811660.51
 };
 
 const awardAmountsOverspent = Object.create(BaseAwardAmounts);
-const overspending = {
+const overspendingAgg = {
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_base_exercised_options_val: 2500000,
     grandchild_award_base_exercised_options_val: 2500000,
     child_award_base_and_all_options_value: 5000000,
@@ -29,7 +51,9 @@ const overspending = {
 };
 
 const awardAmountsExtremeOverspent = Object.create(BaseAwardAmounts);
-const extremeOverspending = {
+const extremeOverspendingAgg = {
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_base_exercised_options_val: 1250000,
     grandchild_award_base_exercised_options_val: 1250000,
     child_award_base_and_all_options_value: 2500000,
@@ -42,25 +66,37 @@ const nonAggregateIdvNormal = Object.create(BaseAwardAmounts);
 const nonAggregateIdvOverspent = Object.create(BaseAwardAmounts);
 const nonAggregateIdvExtremeOverspent = Object.create(BaseAwardAmounts);
 const normalIdv = {
+    fileC: {
+        obligations: [],
+        outlays: []
+    },
     _baseExercisedOptions: 0.0,
     _baseAndAllOptions: 0.0,
     _totalObligation: 0.0
 };
 const overspentIdv = {
+    fileC: {
+        obligations: [],
+        outlays: []
+    },
     _baseExercisedOptions: 10.0,
     _baseAndAllOptions: 0.0,
     _totalObligation: 0.0
 
 };
 const extremeOverspentIdv = {
+    fileC: {
+        obligations: [],
+        outlays: []
+    },
     _baseExercisedOptions: 0.0,
     _baseAndAllOptions: 10.0,
     _totalObligation: 0.0
 };
 
-awardAmountsNeg.populate(negativeObligation, "idv_aggregated");
-awardAmountsOverspent.populate(overspending, "idv_aggregated");
-awardAmountsExtremeOverspent.populate(extremeOverspending, "idv_aggregated");
+awardAmountsNeg.populate(negativeObligationAgg, "idv_aggregated");
+awardAmountsOverspent.populate(overspendingAgg, "idv_aggregated");
+awardAmountsExtremeOverspent.populate(extremeOverspendingAgg, "idv_aggregated");
 
 nonAggregateIdvNormal.populate(normalIdv, 'idv');
 nonAggregateIdvOverspent.populate(overspentIdv, 'idv');
@@ -181,10 +217,8 @@ describe('BaseAwardAmounts', () => {
         });
     });
     describe('Loan Award Amounts', () => {
-        const parsedLoan = Object.create(BaseFinancialAssistance);
-        parsedLoan.populate(mockLoan);
         const loanAwardAmounts = Object.create(BaseAwardAmounts);
-        loanAwardAmounts.populate(parsedLoan, "loan");
+        loanAwardAmounts.populate(mockLoan, "loan");
         it('creates loan specific properties w/ correct formatting', () => {
             expect(loanAwardAmounts._subsidy).toEqual(1290000.00);
             expect(loanAwardAmounts.subsidyFormatted).toEqual("$1,290,000.00");
@@ -209,7 +243,7 @@ describe('BaseAwardAmounts', () => {
         ) => {
             const mockAwardAmount = Object.create(BaseAwardAmounts);
             mockAwardAmount.populate({ ...mockAward, generatedId: id, [denominatorKey]: denominatorValue }, awardType);
-            expect(mockAwardAmount._isMockCares).toEqual(true);
+            expect(mockAwardAmount._showFileC).toEqual(true);
             expect(mockAwardAmount._fileCObligated > 0).toEqual(true);
             expect(mockAwardAmount._fileCOutlay > 0).toEqual(true);
             expect(mockAwardAmount._fileCOutlay < mockAwardAmount._fileCObligated).toEqual(true);
@@ -228,7 +262,7 @@ describe('BaseAwardAmounts', () => {
         ) => {
             const mockAwardAmount = Object.create(BaseAwardAmounts);
             mockAwardAmount.populate({ ...mockAward, generatedId: id, [denominatorKey]: denominatorValue }, awardType);
-            expect(mockAwardAmount._isMockCares).toEqual(false);
+            expect(mockAwardAmount._showFileC).toEqual(false);
             expect(mockAwardAmount._fileCObligated > 0).toEqual(false);
             expect(mockAwardAmount._fileCOutlay > 0).toEqual(false);
             expect(mockAwardAmount._fileCOutlay < mockAwardAmount._fileCObligated).toEqual(false);
@@ -249,12 +283,42 @@ describe('BaseAwardAmounts', () => {
         ) => {
             const mockAwardAmount = Object.create(BaseAwardAmounts);
             mockAwardAmount.populate({ ...mockAward, generatedId: id, [denominatorKey]: denominatorValue }, awardType);
-            expect(mockAwardAmount._isMockCares).toEqual(true);
+            expect(mockAwardAmount._showFileC).toEqual(true);
             expect(mockAwardAmount.fileCObligatedFormatted).toEqual("$5,000,000.00");
             expect(mockAwardAmount.fileCObligatedAbbreviated).toEqual("$5.0 M");
 
             expect(mockAwardAmount.fileCOutlayFormatted).toEqual("$2,500,000.00");
             expect(mockAwardAmount.fileCOutlayAbbreviated).toEqual("$2.5 M");
+        });
+    });
+    describe('fileCObligated and fileCOutlay only represent COVID spending', () => {
+        it('does not include non-covid amounts', () => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({
+                ...mockContract,
+                // not using white listed formulaic way of populating file c data
+                generatedId: 'test',
+                fileC: {
+                    obligations: [{ amount: 1, code: 'not-covid' }, { amount: 10, code: 'M' }],
+                    outlays: [{ amount: 1, code: 'not-covid' }, { amount: 10, code: 'M' }]
+                }
+            }, 'contract');
+            expect(mockAwardAmount._fileCObligated).toEqual(10);
+            expect(mockAwardAmount._fileCOutlay).toEqual(10);
+        });
+        it('provides aggregate amount of all covid codes amounts', () => {
+            const mockAwardAmount = Object.create(BaseAwardAmounts);
+            mockAwardAmount.populate({
+                ...mockContract,
+                // not using white listed formulaic way of populating file c data
+                generatedId: 'test',
+                fileC: {
+                    obligations: [{ amount: 1, code: 'N' }, { amount: 10, code: 'M' }],
+                    outlays: [{ amount: 1, code: 'N' }, { amount: 10, code: 'M' }]
+                }
+            }, 'contract');
+            expect(mockAwardAmount._fileCObligated).toEqual(11);
+            expect(mockAwardAmount._fileCOutlay).toEqual(11);
         });
     });
 });

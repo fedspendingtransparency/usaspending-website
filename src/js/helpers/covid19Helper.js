@@ -43,3 +43,6 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
 
     setActiveSection(matchedSection);
 };
+
+export const getCovidFromFileC = (codes) => codes
+    .filter((code) => defCodes.includes(code));

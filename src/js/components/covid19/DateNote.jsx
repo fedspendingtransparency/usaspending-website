@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = { dateString: PropTypes.string };
 
-const DateNote = ({ dateString }) => (
+const DateNote = ({ dateString = 'June 30, 2020' }) => (
     <div className="covid__date-note">
         Data as of {dateString}
     </div>

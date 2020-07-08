@@ -4,8 +4,8 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { startCase, snakeCase } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -21,6 +21,9 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+// import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
     getEmailSocialShareData,
@@ -30,6 +33,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -42,6 +46,7 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     // const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -70,12 +75,9 @@ const Covid19Container = () => {
     //         try {
     //             const { data } = await overviewRequest.current.promise;
     //             const { spending, funding } = data;
-    //             data.spending.otherObligations = spending.total_obligations - spending.award_obligations;
-    //             data.spending.awardObligationsNotOutlayed = spending.award_obligations - spending.award_outlays;
-    //             data.spending.remainingBalance = funding.total_budget_authority - spending.total_obligations;
-    //             data.spending.nonAwardOutLays = spending.total_outlays - spending.award_outlays;
-    //             data.spending.nonAwardNotOutlayed = data.spending.otherObligations - data.spending.nonAwardOutlays;
-    //             dispatch(setOverview(data));
+    //             const newOverview = Object.create(BaseOverview);
+    //              newOverview.populate(data);
+    //             dispatch(setOverview(newOverview));
     //         }
     //         catch (e) {
     //             console.log(' Error Overview : ', e.message);
@@ -89,6 +91,23 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
+        dispatch(
+            applyStagedFilters(
+                Object.assign(
+                    {}, defaultAdvancedSearchFilters,
+                    {
+                        defCodes: new CheckboxTreeSelections({
+                            require: defCodes.map((code) => code.code),
+                            exclude: [],
+                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        })
+                    }
+                )
+            )
+        );
+    };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
@@ -135,28 +154,32 @@ const Covid19Container = () => {
                         jumpToSection={jumpToCovid19Section}
                         detectActiveSection={setActiveSection}
                         sections={Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMenu)
                             .map((section) => ({
                                 section: snakeCase(section),
-                                label: startCase(section)
+                                label: componentByCovid19Section()[section].title
                             }))} />
                 </div>
                 <div className="body usda__flex-col">
                     <section className="body__section">
                         <Heading />
                     </section>
-                    {Object.keys(componentByCovid19Section()).map((section) => (
-                        <Covid19Section
-                            key={section}
-                            section={section}
-                            icon={componentByCovid19Section()[section].icon}
-                            headerText={componentByCovid19Section()[section].headerText}>
-                            {componentByCovid19Section()[section].component}
-                        </Covid19Section>
-                    ))}
+                    {Object.keys(componentByCovid19Section())
+                        .map((section) => (
+                            <Covid19Section
+                                key={section}
+                                section={section}
+                                icon={componentByCovid19Section()[section].icon}
+                                headerText={componentByCovid19Section()[section].headerText}
+                                title={componentByCovid19Section()[section].title}>
+                                {componentByCovid19Section()[section].component}
+                            </Covid19Section>
+                        ))}
                     <section className="body__section">
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}
-                            description={footerDescription} />
+                            description={footerDescription}
+                            onClick={onFooterClick} />
                     </section>
                 </div>
             </main>

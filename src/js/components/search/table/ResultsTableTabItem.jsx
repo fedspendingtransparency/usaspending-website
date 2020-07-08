@@ -67,6 +67,7 @@ export default class ResultsTableTabItem extends React.Component {
                 aria-checked={this.props.active}
                 title={`Show ${this.props.label}`}
                 aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
+                tabIndex={0}
                 disabled={disabledStatus}>
                 <div className="tab-content">
                     <div className="tab-label">

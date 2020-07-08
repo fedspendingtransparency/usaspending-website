@@ -1,7 +1,15 @@
 .award-summary-tooltip {
+    width: 100%;
     .tooltip__title,
     .tooltip__text {
         text-align: left;
+    }
+    &.covid-19 {
+        @include display(flex);
+        @include flex-direction(column);
+        .tooltip__title {
+            @include justify-content(center);
+        }
     }
 }
 

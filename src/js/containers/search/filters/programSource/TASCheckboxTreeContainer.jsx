@@ -68,12 +68,12 @@ const SearchNote = () => (
             The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
         </p>
         <br />
-        <p>Filter the options etc...</p>
-        {/* <ul>
-            <li>Any part of an agency name</li>
+        <p>Filter the options below by typing any of the following:</p>
+        <ul>
+            <li>Any part of an Agency name</li>
             <li>Any part of a Federal Account symbol or title</li>
             <li>Any part of a Treasury Account Symbol or title.</li>
-        </ul> */}
+        </ul>
     </div>
 );
 
@@ -368,7 +368,7 @@ export class TASCheckboxTree extends React.Component {
         return (
             <div className="tas-checkbox">
                 <span className="checkbox-header">
-                    Search by Federal Account, TAS, or Agency Owner
+                    Search by Agency, Federal Account, or Treasury Account
                     <CSSOnlyTooltip
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />

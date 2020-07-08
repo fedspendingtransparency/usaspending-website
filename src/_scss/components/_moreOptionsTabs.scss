@@ -1,0 +1,221 @@
+// disable flex shrink here for IE11
+.more-options__tabs_primary > * {
+    flex-shrink: 0;
+}
+
+.more-options__tabs_primary {
+    @import "pages/search/results/table/_tableTypes";
+    @include display(flex);
+
+    .picker-tab-padding-right {
+        flex-shrink: 1;
+        padding-top: rem(10);
+        padding-right: rem(15);
+        border-bottom: 1px solid $color-gray-light;
+        @include media($small-screen) {
+            padding-top: 0;
+            padding-right: 0;
+            border-bottom: none;
+        }
+        @include media($tablet-screen) {
+            padding-top: rem(10);
+            padding-right: rem(15);
+            border-bottom: 1px solid $color-gray-light;
+            width: 100%;
+        }
+    }
+
+    .tabs-padding-right {
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding-right: rem(15);
+        border-bottom: 1px solid $color-gray-light;
+        width: auto;
+    }
+
+    .table-type-toggle {
+        white-space: nowrap;
+        border-bottom: none;
+
+        &.active {
+            background-color: $color-white;
+            border-top: 1px solid $color-gray-light;
+            border-right: 1px solid $color-gray-light;
+            border-bottom: 1px solid $color-white;
+            border-left: 1px solid $color-gray-light;
+            color: $color-base;
+        }
+    }
+
+    .usa-dt-picker {
+        @include display(flex);
+        @include flex(0 1 0%);
+        justify-content: center;
+        width: 100%;
+        @include media($small-screen) {
+            @include flex (1 1 auto);
+            min-width: 100%;
+        }
+        @include media($tablet-screen) {
+            @include flex(0 1 0%);
+            min-width: rem(190);
+        }
+        
+        height: rem(50);
+        background-color: $color-gray-lightest;
+        border-bottom: 1px solid $color-gray-light;
+        padding-bottom: rem(0.4);
+
+        &:hover{
+            @include transition(all 0.3s ease-in-out);
+            background-color: darken($color-gray-lightest, 5%);
+        }
+        &.active {
+            background-color: $color-white;
+            border-top: 1px solid $color-gray-light;
+            border-right: 1px solid $color-gray-light;
+            border-bottom: 1px solid $color-white;
+            border-left: 1px solid $color-gray-light;
+            color: $color-base;
+
+            &:hover{
+                @include transition(all 0.3s ease-in-out);
+                background-color: darken($color-gray-lightest, 5%);
+            }
+        }
+
+
+        .usa-dt-picker__dropdown-container {
+            @include display(flex);
+            flex-shrink: 1;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+
+            .usa-dt-picker__list {
+                @include flex(1 1 auto);
+                @include media($small-screen) {
+                    width: 100%
+                }
+                @include media($tablet-screen) {
+                    width: auto;
+                }
+                justify-content: center;
+                z-index: 5;
+
+                .usa-dt-picker__item  {
+                    @include display(inline-block);
+                    padding: 0;
+
+                    div {
+                        @include display(flex);
+                        width: auto;
+                        height: auto;
+                        margin: rem(5) rem(10);
+                        align-items: center;
+
+                        .more-options__tabs_preview-label {
+                            margin-right: rem(5);
+                        }
+
+                        .more-options__tabs_preview-count {
+                            width:  auto;
+                            height: 100%;
+                            margin-left: 0;
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            align-items: center;
+                            background-color: $color-gray-lighter;
+                            font-size: rem(12);
+                            line-height: rem(16);
+                            padding: rem(0) rem(5);
+                            color: $color-base;
+            
+                            &.active {
+                                background-color: $color-gold; 
+                                color: $color-base;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+
+            .usa-dt-picker__button {
+                @include display(inline-flex);
+                margin: 0;
+                .usa-dt-picker__button-text {
+                    @include display(block);
+                    @include media($small-screen) {
+                        @include display(flex);
+                        justify-content: center;
+                    }
+                    @include media($tablet-screen) {
+                        @include display(block);
+                        justify-content: start;
+                    }
+                    align-items: center;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow-x: hidden;
+                    color: $color-base;
+                    font-size: $base-font-size;
+                    font-weight: normal;
+                    width: 100%;
+                    margin-left: rem(15);
+    
+                    .tab-content {
+                        @include display(flex);
+                        @include align-items(center);
+                        @include justify-content(center);
+                        position: relative;
+                        .tab-label {
+                            @include flex(1 1 auto);
+                            margin-right: rem(5);
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            display: block;
+                            overflow: hidden
+                        }
+            
+                        .count-badge {
+                            @include flex(1 1 auto);
+                            background-color: $color-gray-lighter;
+                            font-size: rem(12);
+                            line-height: rem(16);
+                            padding: rem(0) rem(5);
+                            color: $color-base;
+            
+                            &.active {
+                                background-color: $color-gold; 
+                                color: $color-base;
+                            }
+                        }
+                        .tooltip-wrapper {
+                            .tooltip__text {
+                                padding: 2rem 2rem 0 2rem;
+                                strong {
+                                    padding-bottom: 1rem;
+                                }
+                            }
+                            .tooltip__text:last-child {
+                                padding: 2rem;
+                            }
+                        } 
+                    }
+                }
+                .usa-dt-picker__button-icon {
+                    margin-right: rem(15);
+                    svg {
+                        color: $color-cool-blue;
+                    }
+                }
+            }
+        }
+    }
+
+    &:not(.more-options__tabs_primary_js) {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
