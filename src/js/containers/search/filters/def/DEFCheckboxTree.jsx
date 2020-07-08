@@ -110,9 +110,9 @@ export class DEFCheckboxTree extends React.Component {
                     checked={this.props.checked}
                     expanded={defaultExpanded}
                     data={this.state.nodes}
-                    isError={false}
-                    errorMessage={null}
-                    isLoading={false}
+                    isError={this.state.isError}
+                    errorMessage={this.state.errorMessage}
+                    isLoading={this.state.isLoading}
                     searchText=""
                     noResults={false}
                     onUncheck={this.stageFilter}
