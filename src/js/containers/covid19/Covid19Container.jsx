@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -21,6 +21,8 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 // import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
@@ -31,6 +33,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -43,6 +46,7 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     // const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -87,6 +91,23 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
+        dispatch(
+            applyStagedFilters(
+                Object.assign(
+                    {}, defaultAdvancedSearchFilters,
+                    {
+                        defCodes: new CheckboxTreeSelections({
+                            require: defCodes.map((code) => code.code),
+                            exclude: [],
+                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        })
+                    }
+                )
+            )
+        );
+    };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
@@ -157,7 +178,8 @@ const Covid19Container = () => {
                     <section className="body__section">
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}
-                            description={footerDescription} />
+                            description={footerDescription}
+                            onClick={onFooterClick} />
                     </section>
                 </div>
             </main>

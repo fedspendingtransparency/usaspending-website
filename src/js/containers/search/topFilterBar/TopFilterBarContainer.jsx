@@ -183,7 +183,7 @@ export class TopFilterBarContainer extends React.Component {
         const filter = {
             values: []
         };
-        if (props.defCodes.require.length > 0) {
+        if (props.defCodes.toObject().require.length > 0) {
             selected = true;
             filter.values = [
                 ...filter.values,

@@ -40,7 +40,7 @@ export const fetchAwardSpendingByAgency = (params) => apiRequest({
     data: params
 });
 
-export const fetchFaceValueOfLoansByAgency = (params) => apiRequest({
+export const fetchLoansByAgency = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/agency/loans/',
     method: 'post',
@@ -85,6 +85,13 @@ export const fetchCfdaCount = (params) => apiRequest({
 export const fetchSpendingByCfda = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/cfda/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchCfdaLoans = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/loans/',
     method: 'post',
     data: params
 });
