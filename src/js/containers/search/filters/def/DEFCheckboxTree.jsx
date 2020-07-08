@@ -9,7 +9,7 @@ import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 export const NewBadge = () => (
-    <div className="advanced-search-filter-accessory__new-badge">NEW</div>
+    <div className="new-badge">NEW</div>
 );
 
 const mockData = {
