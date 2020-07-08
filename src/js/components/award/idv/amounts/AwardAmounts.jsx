@@ -57,7 +57,10 @@ export default class AwardAmounts extends React.Component {
                 jumpToSection={this.props.jumpToSection} />
         ) : (
             <AwardAmountsTable
-                showFileC={(GlobalConstants.CARES_ACT_RELEASED)}
+                showFileC={(
+                    GlobalConstants.CARES_ACT_RELEASED &&
+                    awards._fileCObligated > 0
+                )}
                 awardData={awards}
                 awardAmountType="idv"
                 spendingScenario={determineSpendingScenarioByAwardType("idv", awards)} />

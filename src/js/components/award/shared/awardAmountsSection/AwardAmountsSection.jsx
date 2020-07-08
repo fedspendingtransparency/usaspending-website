@@ -38,7 +38,10 @@ const AwardAmountsSection = ({
                         showCaresActViz={showCaresActViz}
                         spendingScenario={spendingScenario} />
                     <AwardAmountsTable
-                        showFileC={showCaresActViz}
+                        showFileC={(
+                            showCaresActViz &&
+                            awardOverview._fileCObligated > 0
+                        )}
                         awardData={awardOverview}
                         awardAmountType={awardType}
                         spendingScenario={spendingScenario} />
