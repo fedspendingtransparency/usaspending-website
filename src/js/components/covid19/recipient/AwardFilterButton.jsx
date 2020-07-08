@@ -10,21 +10,26 @@ const propTypes = {
     onClick: PropTypes.func,
     label: PropTypes.string,
     value: PropTypes.string,
-    activeFilter: PropTypes.string
+    active: PropTypes.bool,
+    disabled: PropTypes.bool
 };
 
 const AwardFilterButton = ({
     onClick,
     label,
     value,
-    activeFilter
+    active,
+    disabled
 }) => {
     const click = () => {
         if (onClick) onClick(value);
     };
     return (
-        <div className={activeFilter === value ? 'award-filter__button active' : 'award-filter__button'}>
-            <button onClick={click}>
+        <div className={`award-filter__button ${active ? ' award-filter__button_active' : ''}`}>
+            <button
+                disabled={disabled}
+                onClick={click}
+                title={disabled ? `No results for ${label}` : ''}>
                 {label}
             </button>
         </div>

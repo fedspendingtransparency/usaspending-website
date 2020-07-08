@@ -3,31 +3,7 @@
   .recipient__tabs-container {
     width: 100%;
     .recipient__content {
-      .award-filter__buttons {
-        @include display(flex);
-        @include flex-wrap(wrap);
-        padding: 3rem 0 3rem 3rem;
-        .award-filter__button {
-          padding: 0 1rem;
-          button {
-            padding: 0;
-            margin: 0;
-            background-color: transparent;
-            color: $color-base;
-            font-size: 1.6rem;
-            font-weight: $font-normal;
-            letter-spacing: 0;
-            line-height: 2rem;
-            white-space: nowrap;
-          }
-          &.active {
-            button {
-              font-weight: $font-semibold;
-              border-bottom: 0.3rem solid $color-primary;
-            }
-          }
-        }
-      }
+      @import './awardFilterButtons';
       @import './spendingByRecipient';
       .results-visualization-geo-section {
         position: relative;
