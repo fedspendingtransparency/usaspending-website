@@ -34,8 +34,8 @@ export const formattedSpendingCategoriesByAwardType = {
         'baseAndAllOptionsFormatted'
     ],
     idv_aggregated: [
-        'fileCObligatedFormatted',
         'fileCOutlayFormatted',
+        'fileCObligatedFormatted',
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
         'baseAndAllOptionsFormatted'
