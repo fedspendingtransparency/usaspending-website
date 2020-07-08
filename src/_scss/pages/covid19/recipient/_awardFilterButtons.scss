@@ -16,7 +16,7 @@
         white-space: nowrap;
         &:disabled {
             cursor: not-allowed;
-            opacity: 75%;
+            opacity: 0.75;
         }
       }
       &.award-filter__button_active {
