@@ -10,6 +10,7 @@ const BaseBudgetCategoryRow = {
         this.id = data.id || 0;
         this.code = data.code || 0;
         this.name = `${data.code} — ${data.description}` || '';
+        this.description = data.description || '';
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
         this._totalBudgetaryResources = data.total_budgetary_resources || 0;

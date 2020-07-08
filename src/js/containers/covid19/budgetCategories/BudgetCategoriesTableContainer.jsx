@@ -40,6 +40,16 @@ const budgetDropdownColumns = {
         {
             title: 'outlay',
             displayName: 'Award Outlays'
+        },
+        {
+            title: 'count',
+            displayName: (
+                <>
+                    <div>Number</div>
+                    <div>of Awards</div>
+                </>
+            ),
+            right: true
         }
     ],
     loan_spending: [

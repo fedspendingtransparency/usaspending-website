@@ -1,6 +1,12 @@
 @import 'components/moreOptionsTabs';
 
 .budget-categories {
+    .overview-data {
+        .overview-data__label {
+            white-space: nowrap;
+        }
+    }
+
     .table-wrapper {
         overflow-x: auto;
         .usda-table {
@@ -102,19 +108,34 @@
         align-items: center;
         margin-top: rem(20);
 
+        label {
+            padding-right: rem(6);
+        }
+
         .usa-dt-picker {
-            .usa-dt-picker__button-text {
-                border-bottom: rem(2) solid $color-cool-blue-light;
-                font-size: $base-font-size;
-            }
-            .usa-dt-picker__button-icon svg {
-                color: $color-cool-blue-light;
-            }
-            .usa-dt-picker__list {
-                z-index: 4;
-            }
+            
             .usa-dt-picker__button {
                 margin-right: 0;
+                padding-bottom: 0;
+                padding-top: 0;
+                margin-left: 0;
+                padding-left: rem(1);
+                border-bottom: rem(2) solid $color-cool-blue-light;
+
+                .usa-dt-picker__button-text {
+                    font-size: $base-font-size;
+                    white-space: nowrap;
+                    margin-right: rem(6);
+                }
+                .usa-dt-picker__button-icon svg {
+                    height: rem(12);
+                    margin-bottom: rem(3);
+                    color: $color-cool-blue-light;
+                }
+            }
+
+            .usa-dt-picker__list {
+                z-index: 4;
             }
         }
 
