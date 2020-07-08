@@ -10,8 +10,29 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchCfdaCount } from 'helpers/disasterHelper';
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
-import SummaryInsightsContainer from 'containers/covid19/assistanceListing/SummaryInsightsContainer';
+import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
+
+const overviewData = [
+    {
+        type: 'resultsCount',
+        label: 'CFDA Programs'
+    },
+    {
+        type: 'awardObligations',
+        label: 'Award Obligations',
+        dollarAmount: true
+    },
+    {
+        type: 'awardOutlays',
+        label: 'Award Outlays',
+        dollarAmount: true
+    },
+    {
+        type: 'numberOfAwards',
+        label: 'Number of Awards'
+    }
+];
 
 const SpendingByCFDA = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
@@ -85,8 +106,9 @@ const SpendingByCFDA = () => {
                 changeActiveTab={changeActiveTab} />
             <SummaryInsightsContainer
                 // pass CFDA count to the summary section so we don't have to make the same API request again
-                cfdaCount={tabCounts[activeTab]}
-                activeTab={activeTab} />
+                resultsCount={tabCounts[activeTab]}
+                activeTab={activeTab}
+                overviewData={overviewData} />
             <SpendingByCFDAContainer
                 onRedirectModalClick={onRedirectModalClick}
                 activeTab={activeTab} />

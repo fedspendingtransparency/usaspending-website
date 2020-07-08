@@ -95,3 +95,10 @@ export const fetchCfdaLoans = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const fetchRecipientCount = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/recipient/count/',
+    method: 'post',
+    data: params
+});

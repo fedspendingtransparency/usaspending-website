@@ -49,3 +49,34 @@ export const financialAssistanceTabs = [
         label: 'Other'
     }
 ];
+
+export const awardTypeTabs = [
+    {
+        internal: 'all',
+        label: 'All Awards'
+    },
+    {
+        internal: 'grants',
+        label: 'Grants'
+    },
+    {
+        internal: 'loans',
+        label: 'Loans'
+    },
+    {
+        internal: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        internal: 'other',
+        label: 'Other Financial Assistance'
+    },
+    {
+        internal: 'contracts',
+        label: 'Contracts'
+    },
+    {
+        internal: 'idvs',
+        label: 'Contract IDVs'
+    }
+];

@@ -12,31 +12,14 @@ import OverviewData from 'components/covid19/OverviewData';
 
 const propTypes = {
     activeTab: PropTypes.string,
-    cfdaCount: PropTypes.number
+    resultsCount: PropTypes.number,
+    overviewData: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string,
+        label: PropTypes.string
+    }))
 };
 
-const overviewData = [
-    {
-        type: 'cfdaCount',
-        label: 'CFDA Programs'
-    },
-    {
-        type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
-    },
-    {
-        type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
-    },
-    {
-        type: 'numberOfAwards',
-        label: 'Number of Awards'
-    }
-];
-
-const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
+const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -68,7 +51,7 @@ const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
     }, [defCodes, activeTab]);
 
     const amounts = {
-        cfdaCount,
+        resultsCount,
         awardOutlays,
         awardObligations,
         numberOfAwards
