@@ -80,9 +80,9 @@
                     padding-bottom: 5rem;
                 }
                 @import "./tableMessages";
-                @import './budgetCategoriesTable';
             }
-
+            
+            @import './budgetCategoriesTable';
             @import './spendingOverTime/awardSpendingOverTime';
             @import './assistanceListing/assistanceListing';
 

@@ -362,7 +362,7 @@ const BudgetCategoriesTableContainer = (props) => {
     return (
         <>
             {spendingViewPicker()}
-            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]}`}>
+            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
                 <Table
                     expandable
                     rows={results}

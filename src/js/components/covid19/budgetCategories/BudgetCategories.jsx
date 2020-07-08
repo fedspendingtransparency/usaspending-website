@@ -80,7 +80,7 @@ const BudgetCategories = () => {
                     def_codes: defCodes.map((defc) => defc.code)
                 }
             };
-            const countRequest = fetchDisasterSpendingCount(activeTab.internal, params);
+            const countRequest = fetchDisasterSpendingCount(activeTab, params);
             countRequest.promise
                 .then((res) => {
                     setCount(res.data.count);
@@ -105,7 +105,7 @@ const BudgetCategories = () => {
     };
 
     return (
-        <div className="body__content">
+        <div className="body__content budget-categories">
             <DateNote dateString={dateString} />
             <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
             <p className="body__narrative-description">
