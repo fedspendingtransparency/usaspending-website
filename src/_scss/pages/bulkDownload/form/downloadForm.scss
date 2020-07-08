@@ -103,7 +103,7 @@
                         }
                         // period representing three periods w/ two-digit integers (10-12)
                         &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
-                            width: auto;
+                            width: rem(72);
                         }
                     }
                 }
