@@ -83,7 +83,9 @@ const MoreOptionsTabs = (props) => {
     useEffect(() => {
         const handleResize = () => {
             // reset everything
-            setTabsContainerWidth(tabs.current.offsetWidth);
+            if (tabs && tabs.current && tabs.current.offsetWidth) {
+                setTabsContainerWidth(tabs.current.offsetWidth);
+            }
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
         };
