@@ -40,7 +40,7 @@ export const fetchAwardSpendingByAgency = (params) => apiRequest({
     data: params
 });
 
-export const fetchFaceValueOfLoansByAgency = (params) => apiRequest({
+export const fetchLoansByAgency = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/agency/loans/',
     method: 'post',
