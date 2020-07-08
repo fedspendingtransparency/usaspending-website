@@ -88,6 +88,7 @@
 
             .body__section {
                 @import "../agency/v2/tabs";
+                @import "./dataSourcesAndMethodology";
                 @include display(flex);
                 @include flex-wrap(wrap);
                 margin-bottom: $global-mrg;
@@ -257,4 +258,5 @@
         }
     }
     @import "./covidTooltip";
+
 }

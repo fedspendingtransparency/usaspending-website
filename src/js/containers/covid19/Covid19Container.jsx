@@ -32,6 +32,7 @@ import {
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import { componentByCovid19Section } from './helpers/covid19';
+import DataSourcesAndMethodology from '../../components/covid19/DataSourcesAndMethodology';
 
 require('pages/covid19/index.scss');
 
@@ -154,7 +155,9 @@ const Covid19Container = () => {
                                 {componentByCovid19Section()[section].component}
                             </Covid19Section>
                         ))}
+                    
                     <section className="body__section">
+                        <DataSourcesAndMethodology />
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}
                             description={footerDescription} />
