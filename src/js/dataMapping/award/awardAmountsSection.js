@@ -56,19 +56,12 @@ export const formattedSpendingCategoriesByAwardType = {
 };
 
 export const awardTableClassMap = {
-    "Combined Obligated Amounts": "award-amounts__data-icon_blue",
-    "Combined Current Amounts": "award-amounts__data-icon_gray",
-    "Combined Potential Amounts": "award-amounts__data-icon_transparent",
-    "Obligated Amount": "award-amounts__data-icon_blue",
-    "Current Amount": "award-amounts__data-icon_gray",
-    "Potential Amount": "award-amounts__data-icon_transparent",
-    // TODO: [DEV-5309] update colors for post cares act release
-    // "Combined Obligated Amounts": "award-amounts__obligated",
-    // "Combined Current Amounts": "award-amounts__current",
-    // "Combined Potential Amounts": "award-amounts__potential",
-    // "Obligated Amount": "award-amounts__obligated",
-    // "Current Amount": "award-amounts__current",
-    // "Potential Amount": "award-amounts__potential",
+    "Combined Obligated Amounts": "award-amounts__obligated",
+    "Combined Current Amounts": "award-amounts__current",
+    "Combined Potential Amounts": "award-amounts__potential",
+    "Obligated Amount": "award-amounts__obligated",
+    "Current Amount": "award-amounts__current",
+    "Potential Amount": "award-amounts__potential",
     "Non-Federal Funding": "award-amounts__data-icon_green",
     "Total Funding": "award-amounts__data-icon_gray",
     "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
