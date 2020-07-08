@@ -9,7 +9,7 @@ const CoreSpendingTableRow = {
     populateCore(data) {
         this._id = data.id || '';
         this._code = data.code || '';
-        this._description = data.description || '';
+        this.description = data.description || '';
         this._count = data.count || 0;
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;

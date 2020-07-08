@@ -9,7 +9,7 @@ import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientCount } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
-//import SpendingByRecipientContainer from 'containers/covid19/assistanceListing/SpendingByRecipientContainer';
+import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 
 const overviewData = [
     {
@@ -86,6 +86,7 @@ const SpendingByRecipient = () => {
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 overviewData={overviewData} />
+            <SpendingByRecipientContainer activeTab={activeTab} />
         </div>
     );
 };

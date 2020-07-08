@@ -1,35 +1,28 @@
 /**
- * SpendingByCFDAContainer.jsx
- * Created by Lizzie Salita 6/24/20
+ * SpendingByRecipientContainer.jsx
+ * Created by Lizzie Salita 7/8/20
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
+import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
+import { fetchSpendingByRecipient, fetchRecipientLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
 const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired,
     activeTab: PropTypes.string.isRequired
 };
 
 const columns = [
     {
-        title: 'assistanceListing',
-        displayName: (
-            <>
-                <div>CFDA Program</div>
-                <div>(Assistance Listing)</div>
-            </>
-        )
+        title: 'recipient',
+        displayName: 'Recipient'
     },
     {
         title: 'obligation',
@@ -55,13 +48,8 @@ const columns = [
 
 const loanColumns = [
     {
-        title: 'assistanceListing',
-        displayName: (
-            <>
-                <div>CFDA Program</div>
-                <div>(Assistance Listing)</div>
-            </>
-        )
+        title: 'recipient',
+        displayName: 'Recipient'
     },
     {
         title: 'faceValue',
@@ -104,19 +92,16 @@ const loanColumns = [
     }
 ];
 
-export const parseRows = (rows, onRedirectModalClick, activeTab) => (
+export const parseRows = (rows, activeTab) => (
     rows.map((row) => {
-        const rowData = Object.create(BaseSpendingByCfdaRow);
-        rowData.populate(row);
-        let link = rowData.name;
-        if (rowData._link) {
+        const rowData = Object.create(CoreSpendingTableRow);
+        rowData.populateCore(row);
+        let link = rowData.description;
+        if (rowData._id) {
             link = (
-                <button
-                    className="assistance-listing__button"
-                    value={rowData._link}
-                    onClick={onRedirectModalClick}>
-                    {rowData.name}<FontAwesomeIcon icon="external-link-alt" />
-                </button>
+                <a href={`#/recipient/${rowData._id}`}>
+                    {rowData.description}
+                </a>
             );
         }
         if (activeTab === 'loans') {
@@ -137,7 +122,7 @@ export const parseRows = (rows, onRedirectModalClick, activeTab) => (
     })
 );
 
-const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
+const SpendingByRecipientContainer = ({ activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -152,13 +137,12 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    const fetchSpendingByCfdaCallback = useCallback(() => {
+    const fetchSpendingByRecipientCallback = useCallback(() => {
         setLoading(true);
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
             },
-            spending_type: 'award',
             pagination: {
                 limit: pageSize,
                 page: currentPage,
@@ -169,13 +153,13 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        let request = fetchSpendingByCfda(params);
+        let request = fetchSpendingByRecipient(params);
         if (activeTab === 'loans') {
-            request = fetchCfdaLoans(params);
+            request = fetchRecipientLoans(params);
         }
         request.promise
             .then((res) => {
-                const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
+                const rows = parseRows(res.data.results, activeTab);
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -190,11 +174,11 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
-        fetchSpendingByCfdaCallback();
+        fetchSpendingByRecipientCallback();
     }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
-        fetchSpendingByCfdaCallback();
+        fetchSpendingByRecipientCallback();
     }, [currentPage]);
 
     let message = null;
@@ -245,5 +229,5 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     );
 };
 
-SpendingByCFDAContainer.propTypes = propTypes;
-export default SpendingByCFDAContainer;
+SpendingByRecipientContainer.propTypes = propTypes;
+export default SpendingByRecipientContainer;

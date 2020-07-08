@@ -19,7 +19,7 @@ export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
-export const cfdaSortFields = {
+export const spendingTableSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
     count: 'count',

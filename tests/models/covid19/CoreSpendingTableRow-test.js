@@ -18,7 +18,7 @@ describe('COVID-19 spending table row', () => {
             expect(row._code).toEqual('090');
         });
         it('should store the description', () => {
-            expect(row._description).toEqual('Description text');
+            expect(row.description).toEqual('Description text');
         });
     });
     describe('obligation properties', () => {

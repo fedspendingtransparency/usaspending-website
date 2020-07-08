@@ -13,8 +13,8 @@ BaseSpendingByCfdaRow.populate = function populate(data) {
     // Add properties specific to CFDA
     this._link = data.resource_link || '';
     this._number = (this._id && this._code) ? `${this._id}.${this._code}` : '';
-    if (this._number && this._description) {
-        this.name = `${this._number}: ${this._description}`;
+    if (this._number && this.description) {
+        this.name = `${this._number}: ${this.description}`;
     }
     else {
         this.name = `${this._number}${this.description}` || '--';
