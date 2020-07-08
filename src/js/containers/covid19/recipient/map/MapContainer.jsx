@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy, isEqual } from 'lodash';
+import { uniqueId, keyBy, isEqual, cloneDeep } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 // import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -104,7 +104,7 @@ export class MapContainer extends React.Component {
         );
     }
 
-    updaeTerritoryFilter = (value) => {
+    updateTerritoryFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { territory: value }
@@ -275,7 +275,7 @@ export class MapContainer extends React.Component {
             });
     }
 
-    amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+    amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'amount' : 'per_capita');
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -408,6 +408,7 @@ export class MapContainer extends React.Component {
                     data={this.state.data}
                     scope={this.state.mapLayer}
                     renderHash={this.state.renderHash}
+                    awardTypeFilters={awardTypeFilters}
                     changeMapLayer={() => {}}
                     showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}

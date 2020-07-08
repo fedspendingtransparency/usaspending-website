@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
+import { uniq, cloneDeep } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -29,7 +29,8 @@ const propTypes = {
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     filters: PropTypes.object,
-    activeFilters: PropTypes.object
+    activeFilters: PropTypes.object,
+    awardTypeFilters: PropTypes.array
 };
 
 const defaultProps = {
@@ -369,6 +370,7 @@ export default class MapWrapper extends React.Component {
         const filterValues = colors.map(() => (
             []
         ));
+        console.log(' Props : ', this.props);
         this.props.data.locations.forEach((location, index) => {
             let value = this.props.data.values[index];
             if (isNaN(value)) value = 0;
@@ -409,11 +411,17 @@ export default class MapWrapper extends React.Component {
     }
 
     filters = () => {
-        const { filters, activeFilters } = this.props;
+        const { activeFilters } = this.props;
+        const filters = cloneDeep(this.props.filters);
         if (!filters || !activeFilters) return null;
+        const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.value).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        console.log(' Award Type filters : ', awardTypeFilters);
+        if (awardTypeFilters.includes(activeFilters.awardType)) {
+            filters.spendingType.options.pop();
+        }
         return (
             <MapFilters
-                filters={this.props.filters}
+                filters={filters}
                 activeFilters={this.props.activeFilters}
                 isOpen={this.state.isFiltersOpen} />
         );
