@@ -112,5 +112,5 @@ export const sortMapping = {
     outlay: 'outlay',
     faceValueOfLoan: 'face_value_of_loan',
     count: 'count',
-    name: 'description'
+    name: 'code'
 };

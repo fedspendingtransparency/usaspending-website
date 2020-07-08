@@ -135,6 +135,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 rowChildren = item.children.map((childItem) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
                     budgetCategoryChildRow.populate(childItem);
+                    // update name of children to not include description, just make the name the code
+                    budgetCategoryChildRow.name = budgetCategoryChildRow.code;
                     return budgetCategoryChildRow;
                 });
             }
