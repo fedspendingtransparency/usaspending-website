@@ -20,6 +20,12 @@
             line-height: 2rem;
             white-space: nowrap;
           }
+          button:hover {
+            border-bottom: 0.3rem solid $color-primary-alt-light;
+            &.disabled {
+              border: none;
+            }
+          }
           &.active {
             button {
               font-weight: $font-semibold;
@@ -185,15 +191,29 @@
     }
   }
   @import '../../agency/v2/tabs';
-  .count-button {
-    @include media($medium-screen) {
-      padding: rem(20);
-    }
-  }
-  .count-tabs {
-    .count-tabs__buttons {
-      button.count-tabs__button {
-        @include flex(0 0 20%);
+  // .count-tabs .count-tabs__buttons button.count-tabs__button .count-button
+  // .count-button {
+  //   @include media($medium-screen) {
+  //     padding: 1rem;
+  //   }
+  // }
+  .recipient__tabs-container {
+    &.count-tabs {
+      .count-tabs__buttons {
+        button.count-tabs__button {
+          @include flex(0 1 auto);
+          .count-button {
+            @include media($medium-screen) {
+              padding: 2.1rem;
+            }
+            .count-button__label {
+              font-size: 1.8rem;
+              font-weight: $font-semibold;
+              letter-spacing: 0;
+              line-height: 2.3rem;
+            }
+          }
+        }
       }
     }
   }

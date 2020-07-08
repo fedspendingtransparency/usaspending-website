@@ -9,26 +9,36 @@ import PropTypes from 'prop-types';
 const propTypes = {
     onClick: PropTypes.func,
     filters: PropTypes.array,
-    activeFilter: PropTypes.string
+    activeAwardTypeFilter: PropTypes.string,
+    activeSpendingTypeFilter: PropTypes.string
 };
 
-const AwardFilterButtons = ({ onClick, filters, activeFilter }) => {
+const AwardFilterButtons = ({
+    onClick,
+    filters,
+    activeAwardTypeFilter,
+    activeSpendingTypeFilter
+}) => {
     const click = (e) => {
         e.preventDefault();
         if (onClick) onClick(e.target.value);
     };
+    const nonLoanFilters = filters.map((filter) => filter.value).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
     return (
         <div className="award-filter__buttons">
             {
-                filters.map((button) => (
-                    <div
-                        key={button.value}
-                        className={activeFilter === button.value ? 'award-filter__button active' : 'award-filter__button'}>
-                        <button value={button.value} onClick={click}>
-                            {button.label}
-                        </button>
-                    </div>
-                ))
+                filters.map((button) => {
+                    const isDisabled = activeSpendingTypeFilter === 'face_value_of_loan' && nonLoanFilters.includes(button.value);
+                    return (
+                        <div
+                            key={button.value}
+                            className={activeAwardTypeFilter === button.value ? 'award-filter__button active' : 'award-filter__button'}>
+                            <button className={isDisabled ? 'disabled' : ''} disabled={isDisabled} value={button.value} onClick={click}>
+                                {button.label}
+                            </button>
+                        </div>
+                    );
+                })
             }
         </div>
     );

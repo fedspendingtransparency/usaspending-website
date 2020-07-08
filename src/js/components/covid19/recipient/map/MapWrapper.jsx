@@ -370,7 +370,6 @@ export default class MapWrapper extends React.Component {
         const filterValues = colors.map(() => (
             []
         ));
-        console.log(' Props : ', this.props);
         this.props.data.locations.forEach((location, index) => {
             let value = this.props.data.values[index];
             if (isNaN(value)) value = 0;
@@ -415,7 +414,6 @@ export default class MapWrapper extends React.Component {
         const filters = cloneDeep(this.props.filters);
         if (!filters || !activeFilters) return null;
         const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.value).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
-        console.log(' Award Type filters : ', awardTypeFilters);
         if (awardTypeFilters.includes(activeFilters.awardType)) {
             filters.spendingType.options.pop();
         }

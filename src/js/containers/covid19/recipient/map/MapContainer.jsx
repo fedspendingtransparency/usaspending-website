@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy, isEqual, cloneDeep } from 'lodash';
+import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 // import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -83,6 +83,7 @@ export class MapContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log(' Updating : ', prevProps, this.props);
         if (!isEqual(prevProps.defCodes, this.props.defCodes)) this.prepareFetch(true);
     }
 
@@ -232,7 +233,7 @@ export class MapContainer extends React.Component {
         // COVID-19 API Params
         const covidParams = {
             filter: {
-                def_codes: this.props.defCodes
+                def_codes: this.props.defCodes.map((code) => code.code)
             },
             geo_layer: activeFilters.territory,
             geo_layer_filters: visibleEntities,
@@ -253,7 +254,7 @@ export class MapContainer extends React.Component {
             loading: true,
             error: false
         });
-
+        if (!this.props.defCodes.length) return;
         this.apiRequest = fetchRecipientSpendingByGeography(covidParams);
 
         // this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
@@ -402,7 +403,8 @@ export class MapContainer extends React.Component {
                 <AwardFilterButtons
                     onClick={this.updateAwardTypeFilter}
                     filters={awardTypeFilters}
-                    activeFilter={this.state.activeFilters.awardType} />
+                    activeAwardTypeFilter={this.state.activeFilters.awardType}
+                    activeSpendingTypeFilter={this.state.activeFilters.spendingType} />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
@@ -429,6 +431,6 @@ MapContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        defCodes: state.covid19.defCodes.map((code) => code.code)
+        defCodes: state.covid19.defCodes
     })
 )(MapContainer);
