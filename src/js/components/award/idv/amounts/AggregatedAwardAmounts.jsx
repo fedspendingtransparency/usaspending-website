@@ -88,7 +88,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                     awardAmountType="idv_aggregated"
                     showFileC={(
                         showCaresActViz &&
-                        awardAmounts.__fileCObligated > 0
+                        awardAmounts._fileCObligated > 0
                     )}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario} />
