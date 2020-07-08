@@ -7,9 +7,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeFilters } from 'dataMapping/covid19/recipient/map/map';
 import { fetchRecipientCount } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
+import AwardFilterButtons from './AwardFilterButtons';
 
 const overviewData = [
     {
@@ -81,6 +83,10 @@ const SpendingByRecipient = () => {
 
     return (
         <div className="spending-by-recipient">
+            <AwardFilterButtons
+                filters={awardTypeFilters}
+                onClick={changeActiveTab}
+                activeFilter={activeTab} />
             <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}

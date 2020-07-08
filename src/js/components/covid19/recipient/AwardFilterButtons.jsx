@@ -9,7 +9,10 @@ import AwardFilterButton from './AwardFilterButton';
 
 const propTypes = {
     onClick: PropTypes.func,
-    filters: PropTypes.array,
+    filters: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+    })),
     activeFilter: PropTypes.string
 };
 
