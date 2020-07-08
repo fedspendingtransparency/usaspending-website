@@ -16,24 +16,23 @@ import OverviewData from '../OverviewData';
 const tabs = [
     {
         internal: 'agency',
-        label: 'Agencies'
+        label: 'Agencies',
+        subHeading: 'Sub-Agencies'
     },
     {
         internal: 'federal_account',
-        label: 'Federal Accounts'
+        label: 'Federal Accounts',
+        subHeading: 'Treasury Account Symbol (TAS)'
     },
     {
         internal: 'object_class',
-        label: 'Object Classes'
+        label: 'Object Classes',
+        subHeading: 'Object Class'
     }
 ];
 
 const BudgetCategories = () => {
-    const [activeTab, setActiveTab] = useState(
-        {
-            internal: tabs[0].internal
-        }
-    );
+    const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
     const [totalBudgetaryResources, setTotalBudgetaryResources] = useState(null);
     const [totalObligations, setTotalObligations] = useState(null);
@@ -43,7 +42,7 @@ const BudgetCategories = () => {
     const overviewData = [
         {
             type: 'count',
-            label: `Number of ${tabs.filter((tab) => tab.internal === activeTab.internal)[0].label}`
+            label: `Number of ${tabs.filter((tab) => tab.internal === activeTab)[0].label}`
         },
         {
             type: 'totalBudgetaryResources',
@@ -68,9 +67,7 @@ const BudgetCategories = () => {
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
-        setActiveTab({
-            internal: tabInternal
-        });
+        setActiveTab(tabInternal);
     };
 
     useEffect(() => {
@@ -124,7 +121,8 @@ const BudgetCategories = () => {
                 ))}
             </div>
             <BudgetCategoriesTableContainer
-                type={activeTab.internal} />
+                type={activeTab}
+                subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
         </div>
     );
 };

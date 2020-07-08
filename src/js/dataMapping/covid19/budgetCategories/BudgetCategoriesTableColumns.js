@@ -7,19 +7,19 @@ export const budgetColumns = {
     agency: [
         {
             title: 'name',
-            displayName: 'Agencies'
+            displayName: 'Agency'
         }
     ],
     federal_account: [
         {
             title: 'name',
-            displayName: 'Federal Accounts'
+            displayName: 'Federal Account'
         }
     ],
     object_class: [
         {
             title: 'name',
-            displayName: 'Object Classes'
+            displayName: 'Major Object Class'
         }
     ]
 };

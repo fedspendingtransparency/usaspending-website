@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetColumns, budgetDropdownFieldValues, budgetCategoriesCssMappingTypes, budgetCategoriesSort, sortMapping } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { budgetColumns, budgetDropdownFieldValues, budgetCategoriesCssMappingTypes, budgetCategoriesSort, sortMapping, apiSpendingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -202,7 +202,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     filter: {
                         def_codes: defCodes.map((defc) => defc.code)
                     },
-                    spending_type: 'total',
+                    spending_type: apiSpendingTypes[spendingCategory],
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
@@ -274,11 +274,11 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchBudgetSpendingCallback();
-    }, [props.type, pageSize]);
+    }, [props.type, pageSize, sortAndOrder]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage, sortAndOrder]);
+    }, [currentPage]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
@@ -368,7 +368,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     rows={results}
                     columns={renderColumns()}
                     currentSort={{ field: sort, direction: order }}
-                    updateSort={updateSort} />
+                    updateSort={updateSort}
+                    divider={props.subHeading} />
             </div>
             <Pagination
                 currentPage={currentPage}
