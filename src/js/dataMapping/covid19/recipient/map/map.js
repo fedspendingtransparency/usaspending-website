@@ -141,12 +141,12 @@ export const awardTypeFilters = [
 ];
 
 export const filtersOnClickHandler = {
-    territory: 'updateterritoryFilter',
-    spendingType: 'updatespendingTypeFilter',
-    amountType: 'updateamountTypeFilter',
+    territory: 'updateTerritoryFilter',
+    spendingType: 'updateSpendingTypeFilter',
+    amountType: 'updateAmountTypeFilter',
     // TODO - uncomment when this filter is ready
-    // recipientType: 'updaterecipientTypeFilter',
-    awardType: 'updateawardTypeFilter'
+    // recipientType: 'updateRecipientTypeFilter',
+    awardType: 'updateAwardTypeFilter'
 };
 
 export const mapboxSources = {

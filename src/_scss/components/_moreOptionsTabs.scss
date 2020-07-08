@@ -145,10 +145,19 @@
                 @include display(inline-flex);
                 margin: 0;
                 .usa-dt-picker__button-text {
-                    @include display(flex);
+                    @include display(block);
+                    @include media($small-screen) {
+                        @include display(flex);
+                        justify-content: center;
+                    }
+                    @include media($tablet-screen) {
+                        @include display(block);
+                        justify-content: start;
+                    }
                     align-items: center;
-                    justify-content: center;
                     white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow-x: hidden;
                     color: $color-base;
                     font-size: $base-font-size;
                     font-weight: normal;
@@ -163,6 +172,10 @@
                         .tab-label {
                             @include flex(1 1 auto);
                             margin-right: rem(5);
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            display: block;
+                            overflow: hidden
                         }
             
                         .count-badge {

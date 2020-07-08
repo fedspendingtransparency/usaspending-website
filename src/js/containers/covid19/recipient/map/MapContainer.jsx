@@ -26,7 +26,7 @@ import {
 } from 'dataMapping/covid19/recipient/map/map';
 import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { recipientMapHelper } from 'helpers/disasterHelper';
+import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {
@@ -93,7 +93,7 @@ export class MapContainer extends React.Component {
         });
     }
 
-    updateamountTypeFilter = (value) => {
+    updateAmountTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
                 activeFilters: Object.assign(currentState.activeFilters, { amountType: value }),
@@ -104,7 +104,7 @@ export class MapContainer extends React.Component {
         );
     }
 
-    updateterritoryFilter = (value) => {
+    updaeTerritoryFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { territory: value }
@@ -112,7 +112,7 @@ export class MapContainer extends React.Component {
             () => this.prepareFetch(true)
         );
     }
-    updatespendingTypeFilter = (value) => {
+    updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { spendingType: value }
@@ -120,7 +120,7 @@ export class MapContainer extends React.Component {
             () => this.prepareFetch(true)
         );
     }
-    updaterecipientTypeFilter = (value) => {
+    updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { recipientType: value }
@@ -128,7 +128,7 @@ export class MapContainer extends React.Component {
             () => this.prepareFetch(true)
         );
     }
-    updateawardTypeFilter = (value) => {
+    updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { awardType: value }
@@ -254,7 +254,7 @@ export class MapContainer extends React.Component {
             error: false
         });
 
-        this.apiRequest = recipientMapHelper(covidParams);
+        this.apiRequest = fetchRecipientSpendingByGeography(covidParams);
 
         // this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
@@ -400,7 +400,7 @@ export class MapContainer extends React.Component {
                 id="results-section-geo"
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
-                    onClick={this.updateawardTypeFilter}
+                    onClick={this.updateAwardTypeFilter}
                     filters={awardTypeFilters}
                     activeFilter={this.state.activeFilters.awardType} />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />

@@ -13,7 +13,7 @@ export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
 
-export const recipientMapHelper = (params) => apiRequest({
+export const fetchRecipientSpendingByGeography = (params) => apiRequest({
     url: 'v2/disaster/spending_by_geography/',
     method: 'post',
     data: params
@@ -40,7 +40,7 @@ export const fetchAwardSpendingByAgency = (params) => apiRequest({
     data: params
 });
 
-export const fetchFaceValueOfLoansByAgency = (params) => apiRequest({
+export const fetchLoansByAgency = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/agency/loans/',
     method: 'post',
@@ -91,6 +91,13 @@ export const fetchSpendingByCfda = (params) => apiRequest({
 
 export const fetchRecipientCount = (params) => apiRequest({
     url: 'v2/disaster/recipient/count/',
+    method: 'post',
+    data: params
+});
+
+export const fetchCfdaLoans = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/loans/',
     method: 'post',
     data: params
 });

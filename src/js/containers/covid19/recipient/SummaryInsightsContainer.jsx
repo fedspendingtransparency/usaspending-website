@@ -57,7 +57,6 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         if (activeFilter !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeFilter];
         }
-        console.log(' Params : ', params);
         fetchAwardAmounts(params).promise
             .then((res) => {
                 setAwardObligations(res.data.obligation);

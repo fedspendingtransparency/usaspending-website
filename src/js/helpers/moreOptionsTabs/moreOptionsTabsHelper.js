@@ -42,7 +42,7 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
                 name: col.label,
                 value: col.internal
             })));
-        } else if (indexesToDelete.length > 1) {
+        } else {
             // remove tabs and add the removed tabs to picker options dropdown
             setShowMoreOptions(true);
             setTabTypes(tabTypes.slice(0, (tabTypes.length - indexesToDelete.length) - 1));

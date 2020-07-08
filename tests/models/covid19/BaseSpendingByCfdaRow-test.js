@@ -51,4 +51,12 @@ describe('COVID-19 spending by CFDA row', () => {
             expect(row.count).toEqual('5,400');
         });
     });
+    describe('face value of loan properties', () => {
+        it('should store the raw face value', () => {
+            expect(row._faceValue).toEqual(56000001.02);
+        });
+        it('should store the formatted face value', () => {
+            expect(row.faceValue).toEqual('$56,000,001');
+        });
+    });
 });

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import AwardFilterButton from './AwardFilterButton';
 
 const propTypes = {
     onClick: PropTypes.func,
@@ -13,20 +12,27 @@ const propTypes = {
     activeFilter: PropTypes.string
 };
 
-const AwardFilterButtons = ({ onClick, filters, activeFilter }) => (
-    <div className="award-filter__buttons">
-        {
-            filters.map((button) => (
-                <AwardFilterButton
-                    key={button.value}
-                    onClick={onClick}
-                    label={button.label}
-                    value={button.value}
-                    activeFilter={activeFilter} />
-            ))
-        }
-    </div>
-);
+const AwardFilterButtons = ({ onClick, filters, activeFilter }) => {
+    const click = (e) => {
+        e.preventDefault();
+        if (onClick) onClick(e.target.value);
+    };
+    return (
+        <div className="award-filter__buttons">
+            {
+                filters.map((button) => (
+                    <div
+                        key={button.value}
+                        className={activeFilter === button.value ? 'award-filter__button active' : 'award-filter__button'}>
+                        <button value={button.value} onClick={click}>
+                            {button.label}
+                        </button>
+                    </div>
+                ))
+            }
+        </div>
+    );
+};
 
 AwardFilterButtons.propTypes = propTypes;
 export default AwardFilterButtons;
