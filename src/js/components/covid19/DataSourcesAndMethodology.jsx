@@ -16,7 +16,7 @@ const DataSourcesAndMethodology = ({
 }) => {
     const handleClick = (e) => {
         e.preventDefault();
-        handleExternalLinkClick(e.target.value);
+        handleExternalLinkClick(e.target.href);
     };
     return (
         <div className="heading__container information-body">
@@ -36,13 +36,69 @@ const DataSourcesAndMethodology = ({
                 <div className="bottomSection">
                     <h2 className="dsm__topHeading">Other Resources</h2>
                     <ul className="otherResources__list">
-                        <li>Department of Health and Human Services - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>Department of Labor - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>Department of the Treasury - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>Federal Reserve - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>General Services Administration - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>Pandemic Response Accountability Committee - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
-                        <li>Small Business Administration - <a href="URLhere.gov" value="test" onClick={handleClick}>URLhere.gov <FontAwesomeIcon size="sm" icon="external-link-alt" /></a></li>
+                        <li>
+                            Department of Health and Human Services -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Labor -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of the Treasury -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Federal Reserve -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            General Services Administration -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Pandemic Response Accountability Committee -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Small Business Administration -
+                            <a
+                                href="URLhere.gov"
+                                onClick={handleClick}>
+                                    URLhere.gov
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
