@@ -2,9 +2,31 @@
 
 .budget-categories {
     .overview-data {
-        .overview-data__label {
-            white-space: nowrap;
+        @include media($small-screen) {
+            .overview-data__label {
+                white-space: wrap;
+            }
         }
+        @include media($tablet-screen) {
+            .overview-data__label {
+                white-space: wrap;
+            }   
+        }
+        @include media($medium-screen) {
+            .overview-data__label {
+                white-space: wrap;
+            }        
+        }  
+        @include media($large-screen) {
+            .overview-data__label {
+                white-space: nowrap;
+            }        
+        }    
+        @include media($x-large-screen) {
+            .overview-data__label {
+                white-space: nowrap;
+            }        
+        }       
     }
 
     .table-wrapper {
