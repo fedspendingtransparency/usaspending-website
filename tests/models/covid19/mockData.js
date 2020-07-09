@@ -44,3 +44,13 @@ export const mockRowData = {
     outlay: 70000000.98,
     face_value_of_loan: 56000001.02
 };
+
+export const mockRecipientData = {
+    id: ['hash-R', 'hash-C'],
+    code: '090',
+    description: 'Description text',
+    count: 5400,
+    obligation: 89000000.01,
+    outlay: 70000000.98,
+    face_value_of_loan: 56000001.02
+};
