@@ -103,10 +103,10 @@ export const parseRows = (rows, activeTab) => (
                 <>
                     {rowData.description} (
                     <a href={`#/recipient/${rowData._childId}`}>
-                        as a Child
+                        as Child
                     </a>,&nbsp;
                     <a href={`#/recipient/${rowData._recipientId}`}>
-                        as a Recipient
+                        as Recipient
                     </a>
                     )
                 </>
@@ -117,7 +117,7 @@ export const parseRows = (rows, activeTab) => (
                 <>
                     {rowData.description} (
                     <a href={`#/recipient/${rowData._childId}`}>
-                        as a Child
+                        as Child
                     </a>
                     )
                 </>
@@ -128,7 +128,7 @@ export const parseRows = (rows, activeTab) => (
                 <>
                     {rowData.description} (
                     <a href={`#/recipient/${rowData._recipientId}`}>
-                        as a Recipient
+                        as Recipient
                     </a>
                     )
                 </>
