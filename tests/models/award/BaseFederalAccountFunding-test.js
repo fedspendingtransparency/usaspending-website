@@ -27,6 +27,13 @@ describe('Base Financial Assistance', () => {
         it('should format the submission date', () => {
             expect(row.submissionDate).toEqual('FY 2018 Q2');
         });
+        const newData = mockFederalAccountFunding.results[0];
+        newData.is_quarterly_submission = false;
+        const newRow = Object.create(BaseFederalAccount);
+        newRow.populate(newData, 'idv');
+        it('should format the submission period', () => {
+            expect(newRow.submissionDate).toEqual('FY 2018 P04');
+        });
     });
     describe('Funding Obligated Amount', () => {
         it('should format the funding obligated amount', () => {
@@ -62,11 +69,11 @@ describe('Base Financial Assistance', () => {
             expect(fakeRow.disasterEmergencyFundCode).toEqual('--');
         });
     });
-    describe('grossOutlayAmountByAwardCPE', () => {
+    describe('grossOutlayAmount', () => {
         it('should format the account number using the agency id and main account code', () => {
             const fakeRow = Object.create(BaseFederalAccount);
             fakeRow.populate(mockFederalAccountFunding.results[0]);
-            expect(fakeRow.grossOutlayAmountByAwardCPE).toEqual('$111');
+            expect(fakeRow.grossOutlayAmount).toEqual('$111');
         });
     });
 });

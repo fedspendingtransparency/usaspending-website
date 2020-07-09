@@ -5,6 +5,21 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
+const monthToPeriod = {
+    10: 'P01/P02',
+    11: 'P01/P02',
+    12: 'P03',
+    1: 'P04',
+    2: 'P05',
+    3: 'P06',
+    4: 'P07',
+    5: 'P08',
+    6: 'P09',
+    7: 'P10',
+    8: 'P11',
+    9: 'P12'
+};
+
 const BaseFederalAccount = {
     populateBase(data) {
         this.reportingFiscalYear = data.reporting_fiscal_year || null;
@@ -27,7 +42,9 @@ const BaseFederalAccount = {
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
         this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
-        this._grossOutlayAmountByAwardCPE = data.gross_outlay_amount_by_award_cpe || '';
+        this._grossOutlayAmount = data.gross_outlay_amount || '';
+        this._isQuarterlySubmission = data.is_quarterly_submission;
+        this._reportingFiscalMonth = data.reporting_fiscal_month || null;
     },
 
     populate(data, category) {
@@ -53,8 +70,14 @@ Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
 });
 Object.defineProperty(BaseFederalAccount, 'submissionDate', {
     get() {
-        if (this.reportingFiscalYear && this.reportingFiscalQuarter) {
-            return `FY ${this.reportingFiscalYear} Q${this.reportingFiscalQuarter}`;
+        if (this._isQuarterlySubmission) {
+            if (this.reportingFiscalYear && this.reportingFiscalQuarter) {
+                return `FY ${this.reportingFiscalYear} Q${this.reportingFiscalQuarter}`;
+            }
+            return '--';
+        }
+        if (this.reportingFiscalYear && this._reportingFiscalMonth) {
+            return `FY ${this.reportingFiscalYear} ${monthToPeriod[this._reportingFiscalMonth]}`;
         }
         return '--';
     }
@@ -89,10 +112,10 @@ Object.defineProperty(BaseFederalAccount, 'accountNumber', {
         return '';
     }
 });
-Object.defineProperty(BaseFederalAccount, 'grossOutlayAmountByAwardCPE', {
+Object.defineProperty(BaseFederalAccount, 'grossOutlayAmount', {
     get() {
-        if (this._grossOutlayAmountByAwardCPE) {
-            return formatMoney(this._grossOutlayAmountByAwardCPE);
+        if (this._grossOutlayAmount) {
+            return formatMoney(this._grossOutlayAmount);
         }
         return '--';
     }

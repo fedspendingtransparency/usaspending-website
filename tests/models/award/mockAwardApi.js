@@ -498,7 +498,9 @@ export const mockFederalAccountFunding = {
             agency_id: '091',
             main_account_code: '1901',
             disaster_emergency_fund_code: 'C',
-            gross_outlay_amount_by_award_cpe: 111
+            gross_outlay_amount: 111,
+            is_quarterly_submission: true,
+            reporting_fiscal_month: 1
         }
     ],
     page_metadata: {

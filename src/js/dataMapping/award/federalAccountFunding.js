@@ -15,7 +15,7 @@ export const idvTableMapping = {
         programActivity: 300,
         objectClass: 300,
         fundingObligated: 0,
-        grossOutlayAmountByAwardCPE: 0
+        grossOutlayAmount: 0
     },
     defaultSortDirection: {
         submissionDate: 'desc',
@@ -27,7 +27,7 @@ export const idvTableMapping = {
         programActivity: 'asc',
         objectClass: 'asc',
         fundingObligated: 'desc',
-        grossOutlayAmountByAwardCPE: 'desc'
+        grossOutlayAmount: 'desc'
     },
     table: {
         _order: [
@@ -40,7 +40,7 @@ export const idvTableMapping = {
             'programActivity',
             'objectClass',
             'fundingObligated',
-            'grossOutlayAmountByAwardCPE'
+            'grossOutlayAmount'
         ],
         _sortFields: {
             submissionDate: 'reporting_fiscal_date',
@@ -52,7 +52,7 @@ export const idvTableMapping = {
             programActivity: 'program_activity',
             objectClass: 'object_class',
             fundingObligated: 'transaction_obligated_amount',
-            grossOutlayAmountByAwardCPE: 'gross_outlay_amount_by_award_cpe'
+            grossOutlayAmount: 'gross_outlay_amount'
         },
         submissionDate: 'Submission Period',
         id: 'Award ID',
@@ -63,7 +63,7 @@ export const idvTableMapping = {
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
         fundingObligated: 'Funding Obligated',
-        grossOutlayAmountByAwardCPE: 'Outlayed Amount (Beginning of FY to Period End)'
+        grossOutlayAmount: 'Outlayed Amount (Beginning of FY to Period End)'
     }
 };
 
@@ -77,7 +77,7 @@ export const nonIdvTableMapping = {
         programActivity: 300,
         objectClass: 300,
         fundingObligated: 0,
-        grossOutlayAmountByAwardCPE: 0
+        grossOutlayAmount: 0
     },
     defaultSortDirection: {
         submissionDate: 'desc',
@@ -88,7 +88,7 @@ export const nonIdvTableMapping = {
         programActivity: 'asc',
         objectClass: 'asc',
         fundingObligated: 'desc',
-        grossOutlayAmountByAwardCPE: 'desc'
+        grossOutlayAmount: 'desc'
     },
     table: {
         _order: [
@@ -100,7 +100,7 @@ export const nonIdvTableMapping = {
             'programActivity',
             'objectClass',
             'fundingObligated',
-            'grossOutlayAmountByAwardCPE'
+            'grossOutlayAmount'
         ],
         _sortFields: {
             submissionDate: 'reporting_fiscal_date',
@@ -111,7 +111,7 @@ export const nonIdvTableMapping = {
             programActivity: 'program_activity',
             objectClass: 'object_class',
             fundingObligated: 'transaction_obligated_amount',
-            grossOutlayAmountByAwardCPE: 'gross_outlay_amount_by_award_cpe'
+            grossOutlayAmount: 'gross_outlay_amount'
         },
         submissionDate: 'Submission Period',
         fedAccount: 'Federal Account',
@@ -121,7 +121,7 @@ export const nonIdvTableMapping = {
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
         fundingObligated: 'Funding Obligated',
-        grossOutlayAmountByAwardCPE: 'Outlayed Amount (Beginning of FY to Period End)'
+        grossOutlayAmount: 'Outlayed Amount (Beginning of FY to Period End)'
     }
 };
 
