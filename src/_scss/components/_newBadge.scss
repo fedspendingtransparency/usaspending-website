@@ -13,7 +13,6 @@
 }
 
 .covid-newbadge {
-  &.new-badge {
     height: rem(24);
     width: rem(47);
     border-radius: rem(4);
@@ -24,9 +23,7 @@
     font-size: rem(14);
     color: #FFF;
     font-weight: 600;
-    margin-right: rem(35);
-    margin-left: rem(50);
-  }
+    margin-left: rem(15);
 }
 
 

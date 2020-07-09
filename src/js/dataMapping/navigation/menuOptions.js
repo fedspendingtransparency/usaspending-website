@@ -8,7 +8,7 @@ import kGlobalConstants from 'GlobalConstants';
 import { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
 
 const New = () => {
-    return (<div className="covid-newbadge">COVID-19 Response <div className="new-badge">NEW</div> </div>);
+    return (<div>COVID-19 Response <div className="covid-newbadge">NEW</div></div>);
 }
 
 export const searchOptions = [
