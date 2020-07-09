@@ -194,6 +194,9 @@ const BudgetCategoriesTableContainer = (props) => {
     const fetchBudgetSpendingCallback = useCallback(() => {
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory && sortAndOrder) {
+            // if type is agency then sort name column by description
+            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : sortMapping[sortAndOrder[props.type][spendingCategory].sort];
+
             if (spendingCategory === 'loan_spending') {
                 const params = {
                     filter: {
@@ -202,7 +205,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: sortMapping[sortAndOrder[props.type][spendingCategory].sort],
+                        sort: sortMap,
                         order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
@@ -227,7 +230,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: sortMapping[sortAndOrder[props.type][spendingCategory].sort],
+                        sort: sortMap,
                         order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
