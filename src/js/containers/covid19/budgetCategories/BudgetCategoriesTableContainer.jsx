@@ -130,13 +130,22 @@ const BudgetCategoriesTableContainer = (props) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
             budgetCategoryRow.populate(item);
 
+            // show only description for agency
+            if (props.type === 'agency') {
+                budgetCategoryRow.name = budgetCategoryRow.description;
+            }
+
             let rowChildren = [];
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
                     budgetCategoryChildRow.populate(childItem);
-                    // update name of children to not include description, just make the name the code
-                    budgetCategoryChildRow.name = budgetCategoryChildRow.code;
+                    // update name of children to not include description, just make the name the code for only federal account
+                    if (props.type === 'federal_account' || props.type === 'object_class') {
+                        budgetCategoryChildRow.name = budgetCategoryChildRow.code;
+                    } else if (props.type === 'agency') {
+                        budgetCategoryChildRow.name = budgetCategoryChildRow.description;
+                    }
                     return budgetCategoryChildRow;
                 });
             }
