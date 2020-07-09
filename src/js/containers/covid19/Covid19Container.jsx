@@ -155,7 +155,6 @@ const Covid19Container = () => {
                                 {componentByCovid19Section()[section].component}
                             </Covid19Section>
                         ))}
-                    
                     <section className="body__section">
                         <DataSourcesAndMethodology />
                         <FooterLinkToAdvancedSearchContainer
