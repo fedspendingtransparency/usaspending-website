@@ -3,8 +3,9 @@
  * Created by Kevin Li 5/8/17
  */
 
-import { apiRequest } from './apiRequest';
 import moment from 'moment';
+
+import { apiRequest } from './apiRequest';
 
 export const requestFullDownload = (params, type) => apiRequest({
     url: `v2/download/${type}/`,
