@@ -12,7 +12,7 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import DownloadButton from 'components/search/header/DownloadButton';
+import DownloadIconButton from 'components/sharedComponents/stickyHeader/DownloadIconButton';
 
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const DownloadButtonContainer = () => {
             dispatch(setDownloadExpectedFile(data.file_name));
             // disable download button
             dispatch(setDownloadPending(true));
-            this.downloadRequest.current = null;
+            downloadRequest.current = null;
         }
         catch (err) {
             console.log(err);
@@ -50,7 +50,7 @@ const DownloadButtonContainer = () => {
     };
 
     return (
-        <DownloadButton
+        <DownloadIconButton
             downloadAvailable
             downloadInFlight={downloadInFlight}
             onClick={downloadData} />
