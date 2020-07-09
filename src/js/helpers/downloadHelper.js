@@ -4,6 +4,7 @@
  */
 
 import { apiRequest } from './apiRequest';
+import moment from 'moment';
 
 export const requestFullDownload = (params, type) => apiRequest({
     url: `v2/download/${type}/`,
@@ -53,3 +54,15 @@ export const fetchActivePeriods = () => apiRequest({
     url: 'v2/references/submission_periods/',
     method: 'get'
 });
+
+export const getLatestSubmissionPeriodInFy = (fy, availablePeriods) => availablePeriods
+    .filter((period) => period.submission_fiscal_year === parseInt(fy, 10))
+    .filter((period) => moment(period.submission_reveal_date).isSameOrBefore(moment()))
+    .reduce((acc, latestPeriod) => {
+        if (acc.period < latestPeriod.submission_fiscal_month) {
+            return {
+                period: latestPeriod.submission_fiscal_month
+            };
+        }
+        return acc;
+    }, { period: 0 });

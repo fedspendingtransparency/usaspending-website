@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { QuarterPicker } from 'data-transparency-ui';
 
-import { fetchActivePeriods } from 'helpers/downloadHelper';
+import { fetchActivePeriods, getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
 import {
     availableQuartersInFY,
     periods,
@@ -29,16 +29,7 @@ const QuarterPickerWithFY = ({
             request.current = fetchActivePeriods();
             request.current.promise
                 .then(({ data: { available_periods: availablePeriods } }) => {
-                    const latestAvailablePeriodInFy = availablePeriods
-                        .filter((period) => period.submission_fiscal_year === parseInt(fy, 10))
-                        .reduce((acc, latestPeriod) => {
-                            if (acc.period < latestPeriod.submission_fiscal_month) {
-                                return {
-                                    period: latestPeriod.submission_fiscal_month
-                                };
-                            }
-                            return acc;
-                        }, { period: 0 });
+                    const latestAvailablePeriodInFy = getLatestSubmissionPeriodInFy(fy, availablePeriods);
                     const allAvailablePeriodsInFy = periods.filter((period) => parseInt(period, 10) <= latestAvailablePeriodInFy.period);
                     setDisabledPeriodsInFy(periods.filter((period) => !allAvailablePeriodsInFy.includes(period)));
                     request.current = null;
