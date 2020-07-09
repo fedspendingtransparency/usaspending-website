@@ -50,6 +50,8 @@ const AwardSpendingAgency = () => {
 
     const [tabCounts, setTabCounts] = useState({
         all: null,
+        contracts: null,
+        idvs: null,
         grants: null,
         direct_payments: null,
         loans: null,
@@ -70,8 +72,10 @@ const AwardSpendingAgency = () => {
                     def_codes: defCodes.map((defc) => defc.code)
                 }
             };
-            if (awardType.internal !== 'all') {
-                // Endpoint defaults to all financial assistance types if award_type_codes is not provided
+            if (awardType.internal === 'all') {
+                const allAwardTypeGroups = [];
+                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups).map((awardTypeGroup) => awardTypeGroup));
+            } else {
                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
             return fetchAgencyCount(params).promise;
