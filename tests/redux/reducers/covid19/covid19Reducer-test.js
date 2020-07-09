@@ -20,7 +20,7 @@ describe('Covid 19 Reducer', () => {
     });
     it('should SET_LATEST_SUBMISSION_DATE', () => {
         let state = covid19Reducer(undefined, {});
-        state = covid19Reducer(state, setLatestSubmissionDate('Max Well, 1999'));
-        expect(state.latestSubmissionDate).toEqual('Max Well, 1999');
+        state = covid19Reducer(state, setLatestSubmissionDate('June 01, 1999'));
+        expect(state.latestSubmissionDate).toEqual('June 01, 1999');
     });
 });
