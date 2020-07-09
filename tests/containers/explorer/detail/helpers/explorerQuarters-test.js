@@ -4,6 +4,7 @@
  */
 
 import * as explorerQuarters from 'containers/explorer/detail/helpers/explorerQuarters';
+import { getPeriodsPerQuarterByFy } from '../../../../../src/js/containers/explorer/detail/helpers/explorerQuarters';
 
 const nativeDate = Date.now;
 
@@ -174,6 +175,15 @@ describe('explorerQuarters', () => {
                 quarters: [1, 2, 3, 4],
                 year: 2019
             });
+        });
+    });
+    describe('getPeriodsPerQuarterByFy', () => {
+        it.each([
+            [2019, 0, 1],
+            [2020, 2, 3]
+        ])('returns the correct array for fiscal year %i', (fy, resultIndex, expected) => {
+            const result = getPeriodsPerQuarterByFy(fy);
+            expect(result[resultIndex].length).toEqual(expected);
         });
     });
 });

@@ -152,8 +152,7 @@ export class BulkDownloadPageContainer extends React.Component {
                 budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
                 submission_types: submissionTypes,
-                fy: formState.fy,
-                quarter: formState.quarter
+                fy: formState.fy
             },
             file_format: 'csv'
         };
@@ -164,6 +163,13 @@ export class BulkDownloadPageContainer extends React.Component {
 
         if (formState.budgetSubfunction.code !== '' && formState.budgetSubfunction.code !== 'all') {
             params.filters.budget_subfunction = formState.budgetSubfunction.code;
+        }
+
+        if (formState.period !== '') {
+            params.filters.period = formState.period;
+        }
+        else {
+            params.filters.quarter = formState.quarter;
         }
 
         this.requestDownload(params, 'accounts');
