@@ -25,7 +25,6 @@ const AwardAmountsSection = ({
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
     const showCaresActViz = (
-        awardOverview._showFileC &&
         GlobalConstants.CARES_ACT_RELEASED
     );
     return (
@@ -39,7 +38,10 @@ const AwardAmountsSection = ({
                         showCaresActViz={showCaresActViz}
                         spendingScenario={spendingScenario} />
                     <AwardAmountsTable
-                        showFileC={showCaresActViz}
+                        showFileC={(
+                            showCaresActViz &&
+                            awardOverview._fileCObligated > 0
+                        )}
                         awardData={awardOverview}
                         awardAmountType={awardType}
                         spendingScenario={spendingScenario} />
