@@ -14,6 +14,7 @@ const BaseSpendingByCfdaRow = {
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
         this._link = data.resource_link || '';
+        this._faceValue = data.face_value_of_loan || 0;
     },
     get obligation() {
         return formatMoney(this._obligation);
@@ -32,6 +33,9 @@ const BaseSpendingByCfdaRow = {
             return `${this._number}: ${this._description}`;
         }
         return `${this._number}${this.description}` || '--';
+    },
+    get faceValue() {
+        return formatMoney(this._faceValue);
     }
 };
 

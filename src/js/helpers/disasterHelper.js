@@ -33,6 +33,20 @@ export const fetchAgencyCount = (params) => apiRequest({
     data: params
 });
 
+export const fetchAwardSpendingByAgency = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/agency/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchLoansByAgency = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/agency/loans/',
+    method: 'post',
+    data: params
+});
+
 export const fetchNewAwardsCount = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/new_award/count/',
@@ -77,4 +91,11 @@ export const fetchSpendingByCfda = (params) => apiRequest({
 
 export const fetchAllSubmissionDates = () => apiRequest({
     url: 'v2/references/submission_periods/'
+});
+
+export const fetchCfdaLoans = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/loans/',
+    method: 'post',
+    data: params
 });

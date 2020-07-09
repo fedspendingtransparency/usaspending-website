@@ -3,7 +3,7 @@
     width: 100%;
 
     @import 'components/moreOptionsTabs';
-
+    
     .award-spending__description {
         font-size: rem(20);
         line-height: rem(25);
@@ -12,11 +12,37 @@
     }
 
     .award-spending__content {
-        @include display(flex);
-        @include justify-content(space-between);
-        @include align-items(flex-start);
-        @include flex-wrap(wrap);
+        @include display(block);
+        
+        .usda-table__row {
+            .usda-table__cell_name {
+                padding-left: rem(15);
+            }
+            .usda-table__cell {
+                padding-right: rem(40);
+            }
+        }
 
-        margin-bottom: rem(90);
+        .table-wrapper {
+            overflow-x: auto;
+            .usda-table {
+                .usda-table__head {
+                    th.table-header {
+                        text-align: right;
+                        &:first-of-type {
+                            .table-header__label {
+                                text-align: left; // Align the Agency Name column to the left
+                                width: auto;
+                            }
+                        }
+                        .table-header__label {
+                            width: 100%;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 }

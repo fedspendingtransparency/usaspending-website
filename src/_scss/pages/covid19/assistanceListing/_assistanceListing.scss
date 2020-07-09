@@ -1,4 +1,5 @@
 .assistance-listing {
+    @import 'components/moreOptionsTabs';
     .table-wrapper {
         overflow-x: auto;
         .usda-table {
@@ -8,10 +9,12 @@
                     &:first-of-type {
                         .table-header__label {
                             text-align: left; // Align the CFDA column to the left
+                            width: auto;
                         }
                     }
                     .table-header__label {
                         width: 100%;
+                        white-space: nowrap;
                     }
                 }
             }
@@ -21,6 +24,9 @@
                         &:first-of-type {
                             // Prevent the CFDA column from wrapping
                             white-space: nowrap;
+                            .fa-external-link-alt {
+                                margin-left: rem(5);
+                            }
                         }
                         .assistance-listing__button {
                             @include button-link;

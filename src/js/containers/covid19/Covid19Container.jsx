@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import moment from 'moment';
@@ -22,6 +22,8 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 // import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
@@ -32,6 +34,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
+import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import { componentByCovid19Section } from './helpers/covid19';
 
 require('pages/covid19/index.scss');
@@ -44,6 +47,7 @@ const Covid19Container = () => {
     const allSubmissionDatesRequest = useRef(null);
     // const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -88,16 +92,38 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
+        dispatch(
+            applyStagedFilters(
+                Object.assign(
+                    {}, defaultAdvancedSearchFilters,
+                    {
+                        defCodes: new CheckboxTreeSelections({
+                            require: defCodes.map((code) => code.code),
+                            exclude: [],
+                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        })
+                    }
+                )
+            )
+        );
+    };
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
             allSubmissionDatesRequest.current = fetchAllSubmissionDates();
             try {
-                const { submissions } = await allSubmissionDatesRequest.current.promise.data;
-                dispatch(setLatestSubmissionDate(submissions.map((s) => moment(s)).sort((a, b) => a.value - b.value)[0].format('MMM DD[,] YYYY')));
+                const data = await allSubmissionDatesRequest.current.promise;
+                dispatch(setLatestSubmissionDate(data.data.available_periods
+                    .filter((s) => !s.is_quarter)
+                    .map((s) => moment(s.submission_due_date))
+                    .sort((a, b) => b.valueOf() - a.valueOf())
+                    .find((s) => Date.now() >= s.valueOf())
+                    .format('MMM DD[,] YYYY')));
             }
             catch (e) {
-                console.log(' Error DefCodes : ', e.message);
+                console.log(' Error Submission Periods : ', e.message);
             }
         };
         getAllSubmissionDates();
@@ -178,7 +204,8 @@ const Covid19Container = () => {
                     <section className="body__section">
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}
-                            description={footerDescription} />
+                            description={footerDescription}
+                            onClick={onFooterClick} />
                     </section>
                 </div>
             </main>

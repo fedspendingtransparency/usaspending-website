@@ -32,16 +32,16 @@ awardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligationAgg = {
-    account_obligations_by_defc: [],
-    account_outlays_by_defc: [],
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_total_obligation: -811660.51,
     grandchild_award_total_obligation: -811660.51
 };
 
 const awardAmountsOverspent = Object.create(BaseAwardAmounts);
 const overspendingAgg = {
-    account_obligations_by_defc: [],
-    account_outlays_by_defc: [],
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_base_exercised_options_val: 2500000,
     grandchild_award_base_exercised_options_val: 2500000,
     child_award_base_and_all_options_value: 5000000,
@@ -52,8 +52,8 @@ const overspendingAgg = {
 
 const awardAmountsExtremeOverspent = Object.create(BaseAwardAmounts);
 const extremeOverspendingAgg = {
-    account_obligations_by_defc: [],
-    account_outlays_by_defc: [],
+    child_account_obligations_by_defc: [],
+    child_account_outlays_by_defc: [],
     child_award_base_exercised_options_val: 1250000,
     grandchild_award_base_exercised_options_val: 1250000,
     child_award_base_and_all_options_value: 2500000,

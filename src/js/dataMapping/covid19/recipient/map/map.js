@@ -101,41 +101,39 @@ export const filters = {
                 label: 'Individuals'
             }
         ]
-    },
-    awardType: {
-        label: 'AWARD TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Award Types'
-            },
-            {
-                value: 'contract',
-                label: 'Contracts'
-            },
-            {
-                value: 'idv',
-                label: 'Indefinite Delivery Vehicle'
-            },
-            {
-                value: 'grants',
-                label: 'Grants'
-            },
-            {
-                value: 'direct_payments',
-                label: 'Direct Payments'
-            },
-            {
-                value: 'loans',
-                label: 'Loans'
-            },
-            {
-                value: 'other',
-                label: 'Other'
-            }
-        ]
     }
 };
+
+export const awardTypeFilters = [
+    {
+        value: 'all',
+        label: 'All Award Types'
+    },
+    {
+        value: 'grants',
+        label: 'Grants'
+    },
+    {
+        value: 'loans',
+        label: 'Loans'
+    },
+    {
+        value: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        value: 'other',
+        label: 'Other Financial Assistance'
+    },
+    {
+        value: 'contract',
+        label: 'Contracts'
+    },
+    {
+        value: 'idv',
+        label: 'Contract IDVs'
+    }
+];
 
 export const filtersOnClickHandler = {
     territory: 'updateterritoryFilter',
