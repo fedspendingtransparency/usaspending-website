@@ -16,7 +16,6 @@ import DownloadIconButton from 'components/sharedComponents/stickyHeader/Downloa
 
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
-    const defCodes = useSelector((state) => state.covid19.defCodes);
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
 
@@ -27,13 +26,7 @@ const DownloadButtonContainer = () => {
             downloadRequest.cancel();
         }
 
-        const params = {
-            filters: {
-                def_codes: defCodes.map((defc) => defc.code)
-            }
-        };
-
-        downloadRequest.current = requestFullDownload(params, 'disaster');
+        downloadRequest.current = requestFullDownload({}, 'disaster');
 
         try {
             const { data } = await downloadRequest.current.promise;
@@ -51,7 +44,6 @@ const DownloadButtonContainer = () => {
 
     return (
         <DownloadIconButton
-            downloadAvailable
             downloadInFlight={downloadInFlight}
             onClick={downloadData} />
     );
