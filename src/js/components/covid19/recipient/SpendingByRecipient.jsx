@@ -48,7 +48,7 @@ const SpendingByRecipient = () => {
     });
 
     const changeActiveTab = (tab) => {
-        const selectedTab = awardTypeTabs.filter((item) => item.internal === tab)[0].internal;
+        const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
     };
 

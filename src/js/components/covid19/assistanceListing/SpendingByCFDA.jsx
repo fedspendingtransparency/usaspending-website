@@ -59,7 +59,7 @@ const SpendingByCFDA = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const selectedTab = financialAssistanceTabs.filter((item) => item.internal === tab)[0].internal;
+        const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
     };
 

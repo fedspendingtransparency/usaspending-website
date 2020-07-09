@@ -113,8 +113,8 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabSubtitle = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].subtitle;
-        const tabInternal = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].internal;
+        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
+        const tabInternal = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
             internal: tabInternal,
