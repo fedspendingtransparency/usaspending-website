@@ -13,6 +13,10 @@ export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
 
+export const fetchCovidTotals = () => apiRequest({
+    url: 'v2/disaster/overview/?def_codes=L,M,N,O,P'
+});
+
 export const recipientMapHelper = (params) => apiRequest({
     url: '/api/v2/disaster/spending_by_geography/',
     params,
@@ -85,6 +89,20 @@ export const fetchCfdaCount = (params) => apiRequest({
 export const fetchSpendingByCfda = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/cfda/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchAllCovidSpendingByCfda = (data) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/spending/',
+    method: 'post',
+    data
+});
+
+export const fetchCfdaLoans = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/cfda/loans/',
     method: 'post',
     data: params
 });
