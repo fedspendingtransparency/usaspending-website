@@ -1,0 +1,39 @@
+.covid-hero {
+    background: #3B005B;
+    .covid-hero__wrapper {
+        position: relative;
+        @include display(flex);
+        .covid-hero__content {
+            padding: 5rem 2rem;
+            &:first-of-type {
+                border: 1px solid red;
+            }
+            width: 50%;
+            h1.covid-hero__headline {
+                color: white;
+                margin: 0;
+                @include display(flex);
+                @include flex-wrap(wrap);
+                .covid-hero__headline--amount {
+                    border-bottom: rem(5) solid #FDB81E;
+                }
+                span {
+                    width: 100%;
+                    color: $color-white;
+                    &strong {
+                        font-weight: 700;
+                    }
+                }
+                .covid-hero__headline {
+                    margin-top: rem(10);
+                    font-weight: 700;
+                }
+            }
+            p {
+                font-size: rem(21);
+                color: white;
+            }
+        }
+        @import "./_heroButton";
+    }
+}

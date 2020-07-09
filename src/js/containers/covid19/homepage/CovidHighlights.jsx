@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { get } from 'lodash';
 
-import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
+// import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
 import { fetchCovidTotals, fetchAllCovidSpendingByCfda } from 'helpers/disasterHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
-
+import HeroButton from 'components/homepage/hero/HeroButton';
 
 const TooltipContent = () => (
     <p>Yes. This is a lot of cash.</p>
@@ -14,7 +14,8 @@ const TooltipContent = () => (
 
 const getTotalSpendingAbbreviated = (totalSpending) => {
     const unit = calculateUnitForSingleValue(totalSpending);
-    return `${formatMoneyWithPrecision(totalSpending)} ${unit}}`;
+    const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
+    return `${abbreviatedValue} ${unit.longLabel}`;
 };
 
 const defaultParams = {
@@ -73,7 +74,7 @@ export class CovidHighlights extends React.Component {
                     errorMessage: get(e, 'message', 'Error fetching data.')
                 });
             });
-    };
+    }
 
     parseSpendingTotals = ({
         data: { spending: { total_obligations: totalSpendingAmount } }
@@ -92,26 +93,37 @@ export class CovidHighlights extends React.Component {
             totalSpendingAmount
         } = this.state;
         return (
-            <section className="homepage-hero covid" aria-label="Introduction">
-                <div
-                    id="homepage-hero__wrapper"
-                    className="homepage-hero__wrapper">
-                    <div className="homepage-hero__content">
-                        <h1 className="homepage-hero__headline" tabIndex={-1}>
-                            In 2020, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{totalSpendingAmount}.</strong>
-                            <div style={{ width: '20px' }}>
-                                <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
-                            </div>
+            <section className="covid-hero" aria-label="Introduction">
+                <div id="covid-hero__wrapper" className="covid-hero__wrapper">
+                    <div className="covid-hero__content">
+                        <h1 className="covid-hero__headline" tabIndex={-1}>
+                            As of June 2020,
+                            <span>The Federal Government has spent</span>
+                            <span>
+                                <strong className="covid-hero__headline--amount">{
+                                    ` ${totalSpendingAmount} `}
+                                </strong>
+                                in response to
+                            </span>
+                            <span className="covid-hero__headline">
+                                {` COVID-19.`}
+                                <div style={{ width: '20px' }}>
+                                    <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
+                                </div>
+                            </span>
                         </h1>
-                        <hr className="homepage-hero__divider" />
-                        <div className="homepage-hero__description">
-                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">USA Spending tracks federal spending to ensure taxpayers can see how their money is being used</strong> in communities across America. Learn more on how this money was spent with tools to help you navigate spending from top to bottom.
-                        </div>
+                        <p>
+                            USAspending is the official source of federal spending data - including spending in response to COVID-19. The tools and features on the site allow taxpayers to see how their money is spent communities across the country.
+                        </p>
                     </div>
+                    <div className="covid-hero__content">
+                        Rolling data.
+                    </div>
+                    <HeroButton />
                 </div>
             </section>
         );
     }
-};
+}
 
 export default CovidHighlights;
