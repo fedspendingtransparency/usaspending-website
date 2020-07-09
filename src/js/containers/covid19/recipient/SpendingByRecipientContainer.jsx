@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
+import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByRecipient, fetchRecipientLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -94,14 +94,44 @@ const loanColumns = [
 
 export const parseRows = (rows, activeTab) => (
     rows.map((row) => {
-        const rowData = Object.create(CoreSpendingTableRow);
-        rowData.populateCore(row);
+        const rowData = Object.create(BaseSpendingByRecipientRow);
+        rowData.populate(row);
         let link = rowData.description;
-        if (rowData._id) {
+        if (rowData._childId && rowData._recipientId) {
+            // there are two profile pages for this recipient
             link = (
-                <a href={`#/recipient/${rowData._id}`}>
-                    {rowData.description}
-                </a>
+                <>
+                    {rowData.description} (
+                    <a href={`#/recipient/${rowData._childId}`}>
+                        as a Child
+                    </a>,&nbsp;
+                    <a href={`#/recipient/${rowData._recipientId}`}>
+                        as a Recipient
+                    </a>
+                    )
+                </>
+            );
+        }
+        else if (rowData._childId) {
+            link = (
+                <>
+                    {rowData.description} (
+                    <a href={`#/recipient/${rowData._childId}`}>
+                        as a Child
+                    </a>
+                    )
+                </>
+            );
+        }
+        else if (rowData._recipientId) {
+            link = (
+                <>
+                    {rowData.description} (
+                    <a href={`#/recipient/${rowData._recipientId}`}>
+                        as a Recipient
+                    </a>
+                    )
+                </>
             );
         }
         if (activeTab === 'loans') {
