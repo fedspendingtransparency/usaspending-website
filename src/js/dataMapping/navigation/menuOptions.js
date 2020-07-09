@@ -3,7 +3,13 @@
  * Created by Kevin Li 1/18/18
  */
 
+import React from 'react'
 import kGlobalConstants from 'GlobalConstants';
+import { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
+
+const New = () => {
+    return (<div className="covid-newbadge">COVID-19 Response <div className="new-badge">NEW</div> </div>);
+}
 
 export const searchOptions = [
     {
@@ -37,6 +43,11 @@ export const profileOptions = [
     {
         label: 'Recipients',
         url: '#/recipient',
+        enabled: true
+    },
+    {
+        label: <New />,
+        url: '#/disaster/covid-19',
         enabled: true
     }
 ];
