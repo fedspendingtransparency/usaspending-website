@@ -41,7 +41,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -50,7 +50,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -59,7 +59,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -68,7 +68,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -77,7 +77,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -86,7 +86,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
@@ -95,7 +95,7 @@ const DataSourcesAndMethodology = ({
                             <a
                                 href="URLhere.gov"
                                 onClick={handleClick}>
-                                    URLhere.gov
+                                {" URLhere.gov "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
