@@ -5,7 +5,6 @@
 
 import React from 'react'
 import kGlobalConstants from 'GlobalConstants';
-import { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
 
 const New = () => {
     return (<div>COVID-19 Response <div className="covid-newbadge">NEW</div></div>);

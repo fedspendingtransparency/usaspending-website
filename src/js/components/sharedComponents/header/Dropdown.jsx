@@ -9,8 +9,6 @@ import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import DropdownItem from './DropdownItem';
 
-import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
-
 const propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
