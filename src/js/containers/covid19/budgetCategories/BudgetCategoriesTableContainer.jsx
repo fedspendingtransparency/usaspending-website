@@ -371,14 +371,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
             </>
         );
     }
