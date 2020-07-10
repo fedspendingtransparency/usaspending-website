@@ -36,6 +36,10 @@
     .table-type-toggle {
         white-space: nowrap;
         border-bottom: none;
+        border-top-left-radius: rem(8);
+        border-top-right-radius: rem(8);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
 
         &.active {
             background-color: $color-white;
