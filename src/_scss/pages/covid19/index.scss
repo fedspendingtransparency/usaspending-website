@@ -80,8 +80,12 @@
                     padding-bottom: 5rem;
                 }
                 @import "./tableMessages";
+                @import './budgetCategoriesTable';
+                .table-wrapper {
+                    overflow-x: auto;
+                }
             }
-            
+
             @import './budgetCategoriesTable';
             @import './spendingOverTime/awardSpendingOverTime';
             @import './assistanceListing/assistanceListing';
