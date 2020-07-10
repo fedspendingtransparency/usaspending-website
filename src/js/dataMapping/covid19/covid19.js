@@ -27,10 +27,14 @@ export const amountsPadding = {
 };
 
 export const paddingBetweenRectangles = 3;
+export const startOfChartY = 160;
+export const rectangleHeight = 45;
+export const lineStrokeWidth = 2;
+export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
-        fill: '#555',
+        fill: '#AAC6E2',
         offset: {
             left: 0,
             right: 0,
@@ -38,8 +42,9 @@ export const rectangleMapping = {
             bottom: 0
         },
         line: true,
+        lineLength: lineLength[0],
         text: {
-            question: ['How much is', 'available to be spent?'],
+            question: ['How much is available to be spent?'],
             questionLeft: 197,
             questionDown: 15,
             valueLeft: 188,
@@ -49,37 +54,18 @@ export const rectangleMapping = {
             label: 'Total Budgetary Resources'
         }
     },
-    contentOuter: { // white rectangle
-        fill: 'white',
-        offset: {
-            left: paddingBetweenRectangles,
-            right: paddingBetweenRectangles,
-            top: paddingBetweenRectangles,
-            bottom: paddingBetweenRectangles
-        },
-        primaryKey: '_totalBudgetAuthority'
-    },
-    content: { // baby blue rectangle
-        fill: '#AAC6E2',
-        offset: {
-            left: 2 * paddingBetweenRectangles,
-            right: 2 * paddingBetweenRectangles,
-            top: 2 * paddingBetweenRectangles,
-            bottom: 2 * paddingBetweenRectangles
-        },
-        primaryKey: '_totalBudgetAuthority'
-    },
     _totalObligations: {
         fill: '#558EC6',
         offset: {
-            left: 2 * paddingBetweenRectangles,
+            left: 0,
             right: 0,
-            top: 3 * paddingBetweenRectangles,
-            bottom: 3 * paddingBetweenRectangles
+            top: paddingBetweenRectangles,
+            bottom: paddingBetweenRectangles
         },
         line: true,
+        lineLength: lineLength[1],
         text: {
-            question: ['How much was', 'promised to be spent?'],
+            question: ['How much was promised to be spent?'],
             label: 'Total Obligations',
             questionLeft: 198,
             questionDown: 46,
@@ -92,14 +78,15 @@ export const rectangleMapping = {
     _totalOutlays: {
         fill: '#0A2F5A',
         offset: {
-            left: 2 * paddingBetweenRectangles,
+            left: 0,
             right: 0,
-            top: 4 * paddingBetweenRectangles,
-            bottom: 4 * paddingBetweenRectangles
+            top: 2 * paddingBetweenRectangles,
+            bottom: 2 * paddingBetweenRectangles
         },
         line: true,
+        lineLength: lineLength[1],
         text: {
-            question: ['How much has', 'been paid out?'],
+            question: ['How much has been paid out?'],
             label: 'Total Outlays',
             questionLeft: 138,
             questionDown: 15,
@@ -110,15 +97,16 @@ export const rectangleMapping = {
         }
     },
     _remainingBalance: {
-        fill: '#558EC6',
+        fill: 'white',
         primaryKey: '_totalObligations',
         offset: {
-            left: 3 * paddingBetweenRectangles,
-            right: 6 * paddingBetweenRectangles,
-            top: 3 * paddingBetweenRectangles,
-            bottom: 3 * paddingBetweenRectangles
+            left: 0,
+            right: paddingBetweenRectangles,
+            top: paddingBetweenRectangles,
+            bottom: paddingBetweenRectangles
         },
         line: true,
+        lineLength: lineLength[0],
         text: {
             question: ['How much is left?'],
             label: 'Total Remaining Balance',
@@ -129,24 +117,8 @@ export const rectangleMapping = {
             labelLeft: 175,
             labelDown: 25
         }
-    },
-    remainingBalanceFiller: {
-        fill: 'white',
-        primaryKey: '_totalObligations',
-        offset: {
-            left: 4 * paddingBetweenRectangles,
-            right: 8 * paddingBetweenRectangles,
-            top: 4 * paddingBetweenRectangles,
-            bottom: 4 * paddingBetweenRectangles
-        }
     }
 };
-
-export const startOfChartY = 160;
-export const rectangleHeight = 50;
-export const lineStrokeWidth = 2;
-export const lineLength = 127;
-
 
 export const otherSankeyNodes = [
     {

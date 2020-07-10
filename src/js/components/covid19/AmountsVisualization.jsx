@@ -14,14 +14,20 @@ import {
     rectangleMapping,
     startOfChartY,
     rectangleHeight,
-    lineStrokeWidth,
-    lineLength
+    lineStrokeWidth
 } from 'dataMapping/covid19/covid19';
 import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
     overviewData: PropTypes.object,
     width: PropTypes.number
+};
+
+const fakeData = {
+    _totalBudgetAuthority: 2400000000000,
+    _totalObligations: 963000000000,
+    _totalOutlays: 459000000000,
+    _remainingBalance: 1400000000000
 };
 
 const AmountsVisualization = ({
@@ -36,8 +42,12 @@ const AmountsVisualization = ({
     // X Scale
     useEffect(() => {
         if (width) {
+            // const s = scaleLinear()
+            //     .domain([0, overviewData._totalBudgetAuthority])
+            //     .range([amountsPadding.left, width - amountsPadding.right]);
+            // setScale(() => s);
             const s = scaleLinear()
-                .domain([0, overviewData._totalBudgetAuthority])
+                .domain([0, fakeData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
@@ -46,14 +56,16 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (scale) {
             const r = Object.keys(rectangleMapping).reduce((acc, key, i) => {
-                const { offset, fill, text: textInfo } = rectangleMapping[key];
+                const { offset, fill, text: textInfo, lineLength } = rectangleMapping[key];
                 const { left, right } = amountsPadding;
                 const y = startOfChartY + offset.top;
                 const height = rectangleHeight - (2 * offset.bottom);
                 const mappingKey = rectangleMapping[key].primaryKey ? rectangleMapping[key].primaryKey : key;
-                const amount = Math.abs(overviewData[mappingKey]);
+                // const amount = Math.abs(overviewData[mappingKey]);
+                const amount = Math.abs(fakeData[mappingKey]);
                 let x = left + offset.left;
-                let rectWidth = scale(amount) - (right + (2 * offset.right || 0));
+                // let rectWidth = scale(amount) - (right + (2 * offset.right || 0));
+                let rectWidth = scale(amount) - (right + (offset.right || 0));
                 let lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 /**
                  * Handle Remaining Balance Edge Case and it's inner rectangle.
@@ -63,7 +75,8 @@ const AmountsVisualization = ({
                  */
                 if (key === '_remainingBalance' || key === 'remainingBalanceFiller') {
                     x = scale(amount) + (offset.left);
-                    rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
+                    // rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
+                    rectWidth = scale(fakeData._totalBudgetAuthority) - scale(fakeData._totalObligations) - offset.right;
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
                 const units = calculateUnits([amount]);
@@ -72,7 +85,7 @@ const AmountsVisualization = ({
                 units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
                 let textData = [];
                 if (textInfo) {
-                    if (i === 0 || i === 4) {
+                    if (i === 0 || i === 2) {
                         const questionData = textInfo.question.map((t, f) => ({
                             y: (startOfChartY - lineLength) + ((textInfo.questionDown * (f === 0 ? 1 : 2)) + (f === 0 ? 0 : 10)),
                             x: lineXPosition - textInfo.questionLeft,
@@ -129,8 +142,8 @@ const AmountsVisualization = ({
                     line: {
                         x1: lineXPosition,
                         x2: lineXPosition,
-                        y1: (i === 0 || i === 4) ? startOfChartY - lineLength : startOfChartY + (rectangleHeight / 2), // line ends or start at middle of rectangle
-                        y2: (i === 0 || i === 4) ? startOfChartY + (rectangleHeight / 2) : startOfChartY + rectangleHeight + lineLength
+                        y1: (i === 0 || i === 2) ? startOfChartY - lineLength : startOfChartY + (rectangleHeight / 2), // line ends or start at middle of rectangle
+                        y2: (i === 0 || i === 2) ? startOfChartY + (rectangleHeight / 2) : startOfChartY + rectangleHeight + lineLength
                     },
                     text: textData
                 };
