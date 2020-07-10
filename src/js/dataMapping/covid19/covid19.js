@@ -45,13 +45,13 @@ export const rectangleMapping = {
         lineLength: lineLength[0],
         text: {
             question: ['How much is available to be spent?'],
-            questionLeft: 197,
-            questionDown: 15,
-            valueLeft: 188,
-            valueDown: 70,
-            labelLeft: 186,
+            questionLeft: 265,
+            questionDown: 20,
+            valueLeft: 128,
+            valueDown: 25,
+            labelLeft: 340,
             labelDown: 25,
-            label: 'Total Budgetary Resources'
+            label: 'Total Budgetary Resources:'
         }
     },
     _totalObligations: {
@@ -66,13 +66,13 @@ export const rectangleMapping = {
         lineLength: lineLength[1],
         text: {
             question: ['How much was promised to be spent?'],
-            label: 'Total Obligations',
-            questionLeft: 198,
-            questionDown: 46,
-            valueLeft: 165,
-            valueDown: 40,
-            labelLeft: 123,
-            labelDown: 25
+            label: 'Total Obligations:',
+            questionLeft: -10,
+            questionDown: 15,
+            valueLeft: -150,
+            valueDown: 35,
+            labelLeft: -10,
+            labelDown: 35
         }
     },
     _totalOutlays: {
@@ -87,17 +87,17 @@ export const rectangleMapping = {
         lineLength: lineLength[1],
         text: {
             question: ['How much has been paid out?'],
-            label: 'Total Outlays',
-            questionLeft: 138,
-            questionDown: 15,
-            valueLeft: 165,
-            valueDown: 70,
-            labelLeft: 97,
+            label: 'Total Outlays:',
+            questionLeft: -10,
+            questionDown: 20,
+            valueLeft: -120,
+            valueDown: 25,
+            labelLeft: -10,
             labelDown: 25
         }
     },
     _remainingBalance: {
-        fill: 'white',
+        fill: 'grey',
         primaryKey: '_totalObligations',
         offset: {
             left: 0,
@@ -109,13 +109,13 @@ export const rectangleMapping = {
         lineLength: lineLength[0],
         text: {
             question: ['How much is left?'],
-            label: 'Total Remaining Balance',
-            questionLeft: 158,
-            questionDown: 41,
-            valueLeft: 183,
-            valueDown: 40,
-            labelLeft: 175,
-            labelDown: 25
+            label: 'Total Remaining Balance:',
+            questionLeft: 138,
+            questionDown: 15,
+            valueLeft: 115,
+            valueDown: 110,
+            labelLeft: 315,
+            labelDown: 110
         }
     }
 };

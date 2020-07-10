@@ -42,14 +42,14 @@ const AmountsVisualization = ({
     // X Scale
     useEffect(() => {
         if (width) {
-            // const s = scaleLinear()
-            //     .domain([0, overviewData._totalBudgetAuthority])
-            //     .range([amountsPadding.left, width - amountsPadding.right]);
-            // setScale(() => s);
             const s = scaleLinear()
-                .domain([0, fakeData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
+            // const s = scaleLinear()
+            //     .domain([0, fakeData._totalBudgetAuthority])
+            //     .range([amountsPadding.left, width - amountsPadding.right]);
+            // setScale(() => s);
         }
     }, [width, overviewData]);
     // create overviewData to draw rectangles
@@ -61,8 +61,8 @@ const AmountsVisualization = ({
                 const y = startOfChartY + offset.top;
                 const height = rectangleHeight - (2 * offset.bottom);
                 const mappingKey = rectangleMapping[key].primaryKey ? rectangleMapping[key].primaryKey : key;
-                // const amount = Math.abs(overviewData[mappingKey]);
-                const amount = Math.abs(fakeData[mappingKey]);
+                const amount = Math.abs(overviewData[mappingKey]);
+                // const amount = Math.abs(fakeData[mappingKey]);
                 let x = left + offset.left;
                 // let rectWidth = scale(amount) - (right + (2 * offset.right || 0));
                 let rectWidth = scale(amount) - (right + (offset.right || 0));
@@ -75,8 +75,8 @@ const AmountsVisualization = ({
                  */
                 if (key === '_remainingBalance' || key === 'remainingBalanceFiller') {
                     x = scale(amount) + (offset.left);
-                    // rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
-                    rectWidth = scale(fakeData._totalBudgetAuthority) - scale(fakeData._totalObligations) - offset.right;
+                    rectWidth = scale(overviewData._totalBudgetAuthority) - scale(overviewData._totalObligations) - offset.right;
+                    // rectWidth = scale(fakeData._totalBudgetAuthority) - scale(fakeData._totalObligations) - offset.right;
                     lineXPosition = (x + rectWidth) - (lineStrokeWidth / 2);
                 }
                 const units = calculateUnits([amount]);
@@ -101,7 +101,7 @@ const AmountsVisualization = ({
                                 className: key === '_totalBudgetAuthority' ? 'amounts-text__value bold' : 'amounts-text__value'
                             },
                             {
-                                y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown + textInfo.labelDown,
+                                y: (startOfChartY - lineLength) + textInfo.questionDown + textInfo.valueDown,
                                 x: lineXPosition - textInfo?.labelLeft,
                                 text: textInfo?.label,
                                 className: 'amounts-text__label'
@@ -110,7 +110,7 @@ const AmountsVisualization = ({
                     }
                     else {
                         const questionData = textInfo.question.map((t, z) => ({
-                            y: startOfChartY + rectangleHeight + 10 + textInfo.valueDown + 5 + ((textInfo.questionDown * (z === 0 ? 1 : 1.5))),
+                            y: startOfChartY + rectangleHeight + textInfo.valueDown + 5 + ((textInfo.questionDown * (z === 0 ? 1 : 1.5))),
                             x: lineXPosition - textInfo.questionLeft,
                             text: t,
                             className: 'amounts-text__question'
@@ -123,7 +123,7 @@ const AmountsVisualization = ({
                                 className: 'amounts-text__value'
                             },
                             {
-                                y: startOfChartY + rectangleHeight + textInfo.valueDown + textInfo.labelDown,
+                                y: startOfChartY + rectangleHeight + textInfo.valueDown,
                                 x: lineXPosition - textInfo.labelLeft,
                                 text: textInfo.label,
                                 className: 'amounts-text__label'
