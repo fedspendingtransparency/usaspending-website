@@ -40,7 +40,7 @@ const AwardAmountsSection = ({
                     <AwardAmountsTable
                         showFileC={(
                             showCaresActViz &&
-                            awardOverview._fileCObligated > 0
+                            awardOverview._fileCObligated !== 0
                         )}
                         awardData={awardOverview}
                         awardAmountType={awardType}
