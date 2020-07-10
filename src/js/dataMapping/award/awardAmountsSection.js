@@ -63,7 +63,7 @@ export const awardTableClassMap = {
     "Current Amount": "award-amounts__current",
     "Potential Amount": "award-amounts__potential",
     "Non-Federal Funding": "award-amounts__data-icon_green",
-    "Total Funding": "award-amounts__data-icon_gray",
+    "Total Funding": "award-amounts__data-icon_transparent",
     "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
     "Original Subsidy Cost": "award-amounts__data-icon_yellow",
     "COVID-19 Response Obligated Amount": "award-amounts__file-c-obligations",

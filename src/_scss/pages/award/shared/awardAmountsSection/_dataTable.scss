@@ -56,7 +56,14 @@
     }
 
     .award-amounts__obligated {
-        background-color: #0A2F5A;
+        background-color: #4773aa;
+    }
+
+    &.contract,
+    &.idv {
+        .award-amounts__obligated {
+            background-color: #0A2F5A;
+        }
     }
 
     .award-amounts__file-c-obligations {

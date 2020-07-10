@@ -1,159 +1,147 @@
 .recipient__container {
   width: 100%;
-  .recipient__tabs-container {
-    width: 100%;
-    .recipient__content {
-      .award-filter__buttons {
-        @include display(flex);
-        @include flex-wrap(wrap);
-        padding: 3rem 0 3rem 3rem;
-        .award-filter__button {
-          padding: 0 1rem;
-          button {
-            padding: 0;
-            margin: 0;
-            background-color: transparent;
-            color: $color-base;
-            font-size: 1.6rem;
-            font-weight: $font-normal;
-            letter-spacing: 0;
-            line-height: 2rem;
-            white-space: nowrap;
+  .count-tabs {
+    &.recipient__tabs-container {
+      width: 100%;
+      .recipient__content {
+        @import './awardFilterButtons';
+        @import './spendingByRecipient';
+        .results-visualization-geo-section {
+          position: relative;
+          @import "pages/search/results/visualizations/geo/_topSection";
+
+          h2.visualization-title {
+              @include h3;
+              margin: 0;
           }
-          &.active {
-            button {
-              font-weight: $font-semibold;
-              border-bottom: 0.3rem solid $color-primary;
-            }
+
+          .map-container {
+              height: rem(475);
+              width: 100%;
           }
-        }
-      }
-      .results-visualization-geo-section {
-        position: relative;
-        @import "pages/search/results/visualizations/geo/_topSection";
-        
-        h2.visualization-title {
-            @include h3;
-            margin: 0;
-        }
-    
-        .map-container {
-            height: rem(475);
-            width: 100%;
-        }
-        @import "pages/search/results/visualizations/geo/map/map";
-        .map-container { 
-          .map__filters-container {
-            background-color: $color-white;
-            top: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            left: 1.5rem;
-            position: absolute;
-            z-index: 2;
-            .map__filters-header {
-              @include display(flex);
-              padding: 1rem 0 2rem 1rem;
-              font-size: 1.4rem;
-              font-weight: $font-semibold;
-              letter-spacing: 0;
-              line-height: 1.8rem;
-              .map__filters-header__title {
+          @import "pages/search/results/visualizations/geo/map/map";
+          .map-container {
+            .map__filters-container {
+              background-color: $color-white;
+              top: 1.5rem;
+              box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+              left: 1.5rem;
+              position: absolute;
+              z-index: 2;
+              .map__filters-header {
                 @include display(flex);
-                align-items: center;
-                .tooltip-wrapper {
-                  .tooltip-pointer {
-                    left: -0.7rem;
-                  }
-                  .tooltip-pointer::after {
-                    background-color: $color-white;;
+                padding: 1rem 0 2rem 1rem;
+                font-size: 1.4rem;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: 1.8rem;
+                .map__filters-header__title {
+                  @include display(flex);
+                  align-items: center;
+                  .tooltip-wrapper {
+                    .tooltip-pointer {
+                      left: -0.7rem;
+                    }
+                    .tooltip-pointer::after {
+                      background-color: $color-white;;
+                    }
                   }
                 }
               }
-            }
-            .map__filters-body {
-              padding-left: 1rem;
-              padding-bottom: 1rem;
-              .map__filters-filter__container {
-                padding-bottom: 2rem;
-                .map__filters-label {
-                  opacity: 0.75;
-                  font-size: 1.2rem;
-                  letter-spacing: 0;
-                  line-height: 1.5rem;
-                }
-                .usa-dt-picker {
-                  .usa-dt-picker__dropdown-container {
-                    .usa-dt-picker__button {
-                      padding: 0.5rem 0 0 0;
-                      .usa-dt-picker__button-text {
-                        @include flex(0 0 auto);
-                        margin-right: 0.3rem;
-                      }
-                      .usa-dt-picker__button-icon {
-                        padding-bottom: 0.25rem;
-                        svg {
-                          color: $color-primary;
-                          height: 1.25rem;
-                          width: 1.25rem;
+              .map__filters-body {
+                padding-left: 1rem;
+                padding-bottom: 1rem;
+                .map__filters-filter__container {
+                  padding-bottom: 2rem;
+                  .map__filters-label {
+                    opacity: 0.75;
+                    font-size: 1.2rem;
+                    letter-spacing: 0;
+                    line-height: 1.5rem;
+                  }
+                  .usa-dt-picker {
+                    .usa-dt-picker__dropdown-container {
+                      .usa-dt-picker__button {
+                        padding: 0.5rem 0 0 0;
+                        .usa-dt-picker__button-text {
+                          @include flex(0 0 auto);
+                          margin-right: 0.3rem;
+                        }
+                        .usa-dt-picker__button-icon {
+                          padding-bottom: 0.25rem;
+                          svg {
+                            color: $color-primary;
+                            height: 1.25rem;
+                            width: 1.25rem;
+                          }
+                        }
+                        .usa-dt-picker__button-text{
+                          font-size: 1.4rem;
+                          letter-spacing: 0;
+                          line-height: 1.8rem;
+                          text-align: center;
+                          font-weight: $font-semibold;
                         }
                       }
-                      .usa-dt-picker__button-text{
-                        font-size: 1.4rem;
-                        letter-spacing: 0;
-                        line-height: 1.8rem;
-                        text-align: center;
-                        font-weight: $font-semibold;
+                      .usa-dt-picker__list {
+                        z-index: 3;
                       }
-                    }
-                    .usa-dt-picker__list {
-                      z-index: 3;
                     }
                   }
                 }
+                .map__filters-filter__container:last-of-type {
+                  padding-bottom: 0;
+                }
               }
-              .map__filters-filter__container:last-of-type {
-                padding-bottom: 0;
+            }
+            .map-legend {
+              bottom: 6.5rem;
+              left: 1.5rem;
+              @include media($tablet-screen) {
+                right: 1.5rem;
+                left: auto;
               }
             }
           }
-          .map-legend {
-            bottom: 6.5rem;
-            left: 1.5rem;
-            @include media($tablet-screen) {
-              right: 1.5rem;
-              left: auto;
+          .visualization-tooltip {
+              @import "components/visualizations/tooltip/_tooltip";
+              .tooltip {
+                .tooltip-value {
+                  border-bottom: none;
+                }
+              }
+          }
+          //HIDE THE MAPBOX COMPASS CONTROLS
+          & .mapboxgl-ctrl-compass {
+              display: none !important;
+          }
+
+          @import "pages/search/results/visualizations/geo/_disclaimer";
+          @import "pages/search/results/visualizations/geo/_message";
+        }
+      }
+      .count-tabs__buttons {
+        .count-tabs__button {
+          @include flex(0 0 auto);
+          margin-right: rem(5);
+          .count-button {
+            padding: rem(15) rem(20);
+            .count-button__label {
+              font-weight: $font-normal;
+              font-size: rem(18);
+              line-height: rem(23);
+            }
+          }
+          &.count-tabs__button_active {
+            .count-button {
+              .count-button__label {
+                font-weight: $font-semibold;
+              }
             }
           }
         }
-        .visualization-tooltip {
-            @import "components/visualizations/tooltip/_tooltip";
-            .tooltip {
-              .tooltip-value {
-                border-bottom: none;
-              }
-            }
-        }
-        //HIDE THE MAPBOX COMPASS CONTROLS
-        & .mapboxgl-ctrl-compass {
-            display: none !important;
-        }
-    
-        @import "pages/search/results/visualizations/geo/_disclaimer";
-        @import "pages/search/results/visualizations/geo/_message";
       }
     }
   }
   @import '../../agency/v2/tabs';
-  .count-button {
-    @include media($medium-screen) {
-      padding: rem(20);
-    }
-  }
-  .count-tabs {
-    .count-tabs__buttons {
-      button.count-tabs__button {
-        @include flex(0 0 20%);
-      }
-    }
-  }
 }
