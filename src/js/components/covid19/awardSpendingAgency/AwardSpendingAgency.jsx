@@ -89,16 +89,17 @@ const AwardSpendingAgency = () => {
                     other: otherRes.data.count
                 });
             });
-
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
+        if (defCodes && defCodes.length > 0) {
+            fetchAwardAmounts(params).promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                });
+            fetchAwardCount(params).promise
+                .then((res) => {
+                    setNumberOfAwards(res.data.count);
+                });
+        }
     }, [defCodes]);
 
     useEffect(() => {
@@ -113,8 +114,8 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabSubtitle = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].subtitle;
-        const tabInternal = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].internal;
+        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
+        const tabInternal = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
             internal: tabInternal,
@@ -140,7 +141,7 @@ const AwardSpendingAgency = () => {
                 ))}
             </div>
             <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
         </div>
     );

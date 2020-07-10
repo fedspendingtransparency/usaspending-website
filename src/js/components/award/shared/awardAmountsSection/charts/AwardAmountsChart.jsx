@@ -83,7 +83,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
-                            className: `${awardType}-file-c-outlay`,
+                            className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
                             denominatorValue: data._fileCObligated,
                             rawValue: data._fileCOutlay,
@@ -199,7 +199,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                                 children: [{
                                     labelSortOrder: 0,
                                     labelPosition: 'bottom',
-                                    className: `${awardType}-file-c-outlay`,
+                                    className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
                                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
                                     denominatorValue: data._fileCObligated,
                                     rawValue: data._fileCOutlay,
@@ -342,7 +342,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                                 children: [{
                                     labelSortOrder: 0,
                                     labelPosition: 'bottom',
-                                    className: `${awardType}-file-c-outlay`,
+                                    className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
                                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
                                     denominatorValue: data._fileCObligated,
                                     rawValue: data._fileCOutlay,
@@ -455,7 +455,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
-                            className: `asst-file-c-outlay`,
+                            className: `${awardAmounts._fileCOutlay > 0 ? `asst-file-c-outlay` : `asst-file-c-outlay--zero`}`,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', awardAmounts),
                             denominatorValue: awardAmounts._fileCObligated,
                             rawValue: awardAmounts._fileCOutlay,
@@ -510,7 +510,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                             color: '#B699C6',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
                             children: [{
-                                className: `loan-file-c-outlay`,
+                                className: `${awardAmounts._fileCOutlay > 0 ? `loan-file-c-outlay` : `loan-file-c-outlay--zero`}`,
                                 labelPosition: 'bottom',
                                 labelSortOrder: 0,
                                 rawValue: awardAmounts._fileCOutlay,
