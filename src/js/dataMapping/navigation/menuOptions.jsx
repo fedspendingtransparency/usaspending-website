@@ -49,7 +49,7 @@ export const profileOptions = [
     {
         label: <New />,
         url: '#/disaster/covid-19',
-        enabled: true
+        enabled: kGlobalConstants.CARES_ACT_RELEASED
     }
 ];
 
