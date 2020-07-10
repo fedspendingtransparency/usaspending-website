@@ -8,7 +8,14 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { budgetColumns, budgetDropdownFieldValues, budgetCategoriesCssMappingTypes, budgetCategoriesSort, sortMapping, apiSpendingTypes } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import {
+    budgetColumns,
+    budgetDropdownFieldValues,
+    budgetCategoriesCssMappingTypes,
+    budgetCategoriesSort,
+    sortMapping,
+    apiSpendingTypes
+} from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -25,21 +32,25 @@ const budgetDropdownColumns = {
     total_spending: [
         {
             title: 'obligation',
-            displayName: 'Total Obligations'
+            displayName: 'Total Obligations',
+            right: true
         },
         {
             title: 'outlay',
-            displayName: 'Total Outlays'
+            displayName: 'Total Outlays',
+            right: true
         }
     ],
     award_spending: [
         {
             title: 'obligation',
-            displayName: 'Award Obligations'
+            displayName: 'Award Obligations',
+            right: true
         },
         {
             title: 'outlay',
-            displayName: 'Award Outlays'
+            displayName: 'Award Outlays',
+            right: true
         },
         {
             title: 'count',
@@ -80,7 +91,8 @@ const budgetDropdownColumns = {
                     <div>Face Value</div>
                     <div>of Loans</div>
                 </>
-            )
+            ),
+            right: true
         },
         {
             title: 'count',

@@ -36,7 +36,8 @@ const awardSpendingAgencyTableColumns = (type) => {
                             <div>Face Value</div>
                             <div>of Loans</div>
                         </>
-                    )
+                    ),
+                    right: true
                 },
                 {
                     title: 'obligation',
@@ -78,11 +79,13 @@ const awardSpendingAgencyTableColumns = (type) => {
             },
             {
                 title: 'obligation',
-                displayName: 'Award Obligations'
+                displayName: 'Award Obligations',
+                right: true
             },
             {
                 title: 'outlay',
-                displayName: 'Award Outlays'
+                displayName: 'Award Outlays',
+                right: true
             },
             {
                 title: 'count',
