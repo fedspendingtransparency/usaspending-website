@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId } from 'lodash';
+import { get, uniqueId, delay } from 'lodash';
 
 // import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
 import { fetchCovidTotals, fetchAllCovidSpendingByCfda } from 'helpers/disasterHelper';
@@ -33,14 +33,17 @@ const defaultParams = {
     spending_type: "total"
 };
 
-let interval = null;
+let scrollInterval = null;
+let amountUpdate = null;
+let artificialDelay = null;
 
 export class CovidHighlights extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalSpendingAmount: 0,
-            isLoading: false,
+            totalSpendingAmount: getTotalSpendingAbbreviated(0),
+            isAmountLoading: true,
+            areHighlightsLoading: true,
             // AKA CFDA accounts or w/e
             highlights: [],
             isHoverActive: false
@@ -72,8 +75,7 @@ export class CovidHighlights extends React.Component {
                 })
         ])
             .then(() => {
-                this.setState({ isLoading: false });
-                interval = window.setInterval(() => {
+                scrollInterval = window.setInterval(() => {
                     const newPosition = this.scrollBar.scrollTop + 72;
                     const maxScroll = this.scrollBar.scrollHeight - 446;
                     if (newPosition >= maxScroll && !this.state.isHoverActive) {
@@ -82,7 +84,7 @@ export class CovidHighlights extends React.Component {
                     else if (!this.state.isHoverActive) {
                         scrollToY(newPosition, 2000, this.scrollBar);
                     }
-                }, 5000);
+                }, 3000);
             })
             .catch((e) => {
                 this.setState({
@@ -93,19 +95,35 @@ export class CovidHighlights extends React.Component {
     }
 
     componentWillUnmount() {
-        window.clearInterval(interval);
+        window.clearInterval(scrollInterval);
+        window.clearInterval(amountUpdate);
+        window.clearInterval(artificialDelay);
+    }
+
+    updateTotalSpending = (newAmount) => {
+        this.setState({
+            totalSpendingAmount: getTotalSpendingAbbreviated(newAmount)
+        });
     }
 
     parseSpendingTotals = ({
         data: { spending: { total_obligations: totalSpendingAmount } }
     }) => {
-        this.setState({
-            totalSpendingAmount: getTotalSpendingAbbreviated(totalSpendingAmount)
-        });
+        // this is really fun and all but doesnt work in IE :(
+        artificialDelay = delay(() => {
+            this.setState({ isAmountLoading: false }, () => {
+                new Array(1000)
+                    .fill(0)
+                    .forEach((num, index) => {
+                        const divisor = (index + 1) * 0.001;
+                        amountUpdate = delay(() => this.updateTotalSpending(divisor * totalSpendingAmount), 1750);
+                    });
+            });
+        }, 3000);
     };
 
     parseSpendingHighlights = ({ data: { results: highlights }}) => {
-        this.setState({ highlights });
+        this.setState({ highlights, areHighlightsLoading: false });
     };
 
     handleHover = () => {
@@ -119,7 +137,8 @@ export class CovidHighlights extends React.Component {
     render() {
         const {
             totalSpendingAmount,
-            highlights
+            highlights,
+            isAmountLoading
         } = this.state;
         return (
             <section className="covid-hero" aria-label="Introduction">
@@ -127,10 +146,11 @@ export class CovidHighlights extends React.Component {
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
                             As of June 2020,
-                            <span>The Federal Government has spent</span>
+                            <span>The Federal Government has spent </span>
                             <span>
-                                <strong className="covid-hero__headline--amount">{
-                                    ` ${totalSpendingAmount} `}
+                                {isAmountLoading && <div className="dot-pulse" />}
+                                <strong className={`covid-hero__headline--amount${isAmountLoading ? ' show-amount' : ''}`}>
+                                    {totalSpendingAmount}
                                 </strong>
                                 in response to
                             </span>
