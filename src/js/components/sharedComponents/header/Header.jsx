@@ -33,8 +33,12 @@ export default class Header extends React.Component {
         this.openCovidModal = this.openCovidModal.bind(this);
         this.closeCovidModal = this.closeCovidModal.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         // check if the info banner cookie exists
+        this.checkCookie();
+    }
+
+    checkCookie = () => {
         if (!Cookies.get(CovidHomepageCookie)) {
             // cookie does not exist, show the banner
             this.setState({

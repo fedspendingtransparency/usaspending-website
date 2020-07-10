@@ -1,37 +1,75 @@
 .covid-hero {
     background: #3B005B;
+    height: rem(446);
     .covid-hero__wrapper {
-        position: relative;
         @include display(flex);
+        position: relative;
+        height: 100%;
         .covid-hero__content {
-            padding: 5rem 2rem;
-            &:first-of-type {
-                border: 1px solid red;
-            }
             width: 50%;
-            h1.covid-hero__headline {
-                color: white;
-                margin: 0;
-                @include display(flex);
-                @include flex-wrap(wrap);
-                .covid-hero__headline--amount {
-                    border-bottom: rem(5) solid #FDB81E;
-                }
-                span {
-                    width: 100%;
-                    color: $color-white;
-                    &strong {
+            &:first-of-type {
+                padding: 5rem 2rem;
+                h1.covid-hero__headline {
+                    color: white;
+                    margin: 0;
+                    @include display(flex);
+                    @include flex-wrap(wrap);
+                    .covid-hero__headline--amount {
+                        border-bottom: rem(5) solid #FDB81E;
+                    }
+                    span {
+                        width: 100%;
+                        color: $color-white;
+                        &strong {
+                            font-weight: 700;
+                        }
+                    }
+                    .covid-hero__headline {
+                        margin-top: rem(10);
                         font-weight: 700;
                     }
                 }
-                .covid-hero__headline {
-                    margin-top: rem(10);
-                    font-weight: 700;
+                p {
+                    font-size: rem(21);
+                    color: white;
                 }
             }
-            p {
-                font-size: rem(21);
-                color: white;
+            &:nth-of-type(2) {
+                overflow-y: scroll;
+                height: 100%;
+                ul.covid-highlights {
+                    @include display(flex);
+                    @include flex-direction(column);
+                    @include align-items(flex-end);
+                    margin-right: rem(30);
+                    color: $color-white;
+                    margin: 0 5rem;
+                    height: 100%;
+                    li.covid-highlights__highlight {
+                        list-style-type: none;
+                        @include display(flex);
+                        @include flex-wrap(wrap);
+                        @include flex-direction(column);
+                        @include align-items(flex-end);
+                        @include justify-content(flex-end);
+                        opacity: 0.5;
+                        height: rem(72);
+                        margin: 0;
+                        &:hover {
+                            opacity: 1;
+                        }
+                        span {
+                            width: 100%;
+                            text-align: right;
+                            &.covid-highlight__description {
+    
+                            }
+                            &.covid-highlight__amount {
+                                font-weight: 700;
+                            }
+                        }
+                    }
+                }
             }
         }
         @import "./_heroButton";

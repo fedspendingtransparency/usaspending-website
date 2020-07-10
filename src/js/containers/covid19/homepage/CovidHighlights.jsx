@@ -1,12 +1,13 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get } from 'lodash';
+import { get, uniqueId } from 'lodash';
 
 // import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
 import { fetchCovidTotals, fetchAllCovidSpendingByCfda } from 'helpers/disasterHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 import HeroButton from 'components/homepage/hero/HeroButton';
+import { scrollToY } from '../../../helpers/scrollToHelper';
 
 const TooltipContent = () => (
     <p>Yes. This is a lot of cash.</p>
@@ -32,16 +33,21 @@ const defaultParams = {
     spending_type: "total"
 };
 
+let interval = null;
+
 export class CovidHighlights extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             totalSpendingAmount: 0,
             isLoading: false,
-            highlights: []
+            // AKA CFDA accounts or w/e
+            highlights: [],
+            isHoverActive: false
         };
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
+        this.scrollBar = null;
     }
 
     componentDidMount() {
@@ -52,7 +58,7 @@ export class CovidHighlights extends React.Component {
             this.fetchTotalsByCfdaRequest.cancel();
         }
         this.fetchTotalsRequest = fetchCovidTotals();
-        this.fetchTotalsByCfdaRequest = fetchAllCovidSpendingByCfda(defaultParams)
+        this.fetchTotalsByCfdaRequest = fetchAllCovidSpendingByCfda(defaultParams);
         return Promise.all([
             this.fetchTotalsRequest.promise
                 .then((data) => {
@@ -67,6 +73,16 @@ export class CovidHighlights extends React.Component {
         ])
             .then(() => {
                 this.setState({ isLoading: false });
+                interval = window.setInterval(() => {
+                    const newPosition = this.scrollBar.scrollTop + 72;
+                    const maxScroll = this.scrollBar.scrollHeight - 446;
+                    if (newPosition >= maxScroll && !this.state.isHoverActive) {
+                        scrollToY(0, 2000, this.scrollBar);
+                    }
+                    else if (!this.state.isHoverActive) {
+                        scrollToY(newPosition, 2000, this.scrollBar);
+                    }
+                }, 5000);
             })
             .catch((e) => {
                 this.setState({
@@ -74,6 +90,10 @@ export class CovidHighlights extends React.Component {
                     errorMessage: get(e, 'message', 'Error fetching data.')
                 });
             });
+    }
+
+    componentWillUnmount() {
+        window.clearInterval(interval);
     }
 
     parseSpendingTotals = ({
@@ -88,9 +108,18 @@ export class CovidHighlights extends React.Component {
         this.setState({ highlights });
     };
 
+    handleHover = () => {
+        this.setState({ isHoverActive: true });
+    };
+
+    handleBlur = () => {
+        this.setState({ isHoverActive: false });
+    };
+
     render() {
         const {
-            totalSpendingAmount
+            totalSpendingAmount,
+            highlights
         } = this.state;
         return (
             <section className="covid-hero" aria-label="Introduction">
@@ -116,8 +145,29 @@ export class CovidHighlights extends React.Component {
                             USAspending is the official source of federal spending data - including spending in response to COVID-19. The tools and features on the site allow taxpayers to see how their money is spent communities across the country.
                         </p>
                     </div>
-                    <div className="covid-hero__content">
-                        Rolling data.
+                    <div
+                        className="covid-hero__content"
+                        ref={(scroll) => {
+                            this.scrollBar = scroll;
+                        }}>
+                        <ul className="covid-highlights">
+                            {highlights.map((highlight) => {
+                                const dollarAmount = formatMoneyWithPrecision(highlight.outlay, 0);
+                                return (
+                                    <li
+                                        key={uniqueId(highlight.description)}
+                                        className="covid-highlights__highlight"
+                                        onFocus={this.handleHover}
+                                        onMouseOver={this.handleHover}
+                                        onMouseOut={this.handleBlur}
+                                        onBlur={this.handleBlur}>
+                                        <span className="covid-highlight__description">{highlight.description}</span>
+                                        <span className="covid-highlight__amount">{dollarAmount}</span>
+                                        <span>OUTLAYED AMOUT</span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </div>
                     <HeroButton />
                 </div>
