@@ -140,7 +140,7 @@ const AwardSpendingAgency = () => {
                 ))}
             </div>
             <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
         </div>
     );

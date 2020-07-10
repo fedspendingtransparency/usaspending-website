@@ -95,3 +95,21 @@ export const fetchCfdaLoans = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const fetchDisasterSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/spending/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchDisasterSpendingCount = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/count/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchLoanSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/loans/`,
+    method: 'post',
+    data: params
+});
