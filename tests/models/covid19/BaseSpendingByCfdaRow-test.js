@@ -12,11 +12,8 @@ row.populate(mockCfdaData);
 describe('COVID-19 spending by CFDA row', () => {
     describe('CoreSpendingTableRow properties', () => {
         describe('name column properties', () => {
-            it('should store the id', () => {
-                expect(row._id).toEqual('43');
-            });
-            it('should store the code', () => {
-                expect(row._code).toEqual('090');
+            it('should store the code (CFDA number)', () => {
+                expect(row._code).toEqual('43.090');
             });
             it('should store the description', () => {
                 expect(row.description).toEqual('Description text');
@@ -56,10 +53,7 @@ describe('COVID-19 spending by CFDA row', () => {
         });
     });
     describe('CFDA-specific properties', () => {
-        it('should format the number using the id and code', () => {
-            expect(row._number).toEqual('43.090');
-        });
-        it('should format the name using the number and description', () => {
+        it('should format the name using the code and description', () => {
             expect(row.name).toEqual('43.090: Description text');
         });
         it('should store the resource link value', () => {

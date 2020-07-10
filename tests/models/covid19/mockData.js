@@ -24,8 +24,7 @@ export const mockOverviewData = {
 };
 
 export const mockCfdaData = {
-    id: '43',
-    code: '090',
+    code: '43.090',
     description: 'Description text',
     children: [],
     count: 5400,
