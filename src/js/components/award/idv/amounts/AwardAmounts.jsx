@@ -59,7 +59,10 @@ export default class AwardAmounts extends React.Component {
             <AwardAmountsTable
                 showFileC={(
                     GlobalConstants.CARES_ACT_RELEASED &&
-                    awards._fileCObligated !== 0
+                    (
+                        awards._fileCObligated !== 0 ||
+                        awards._fileCOutlay !== 0
+                    )
                 )}
                 awardData={awards}
                 awardAmountType="idv"
