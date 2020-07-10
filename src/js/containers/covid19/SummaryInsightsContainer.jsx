@@ -39,15 +39,17 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
+        if (defCodes && defCodes.length > 0) {
+            fetchAwardAmounts(params).promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                });
+            fetchAwardCount(params).promise
+                .then((res) => {
+                    setNumberOfAwards(res.data.count);
+                });
+        }
     }, [defCodes, activeTab]);
 
     const amounts = {

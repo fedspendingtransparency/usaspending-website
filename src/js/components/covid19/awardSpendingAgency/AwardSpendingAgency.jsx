@@ -89,16 +89,17 @@ const AwardSpendingAgency = () => {
                     other: otherRes.data.count
                 });
             });
-
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
+        if (defCodes && defCodes.length > 0) {
+            fetchAwardAmounts(params).promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                });
+            fetchAwardCount(params).promise
+                .then((res) => {
+                    setNumberOfAwards(res.data.count);
+                });
+        }
     }, [defCodes]);
 
     useEffect(() => {
