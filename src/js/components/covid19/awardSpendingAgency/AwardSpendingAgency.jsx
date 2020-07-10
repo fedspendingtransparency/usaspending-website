@@ -74,7 +74,7 @@ const AwardSpendingAgency = () => {
             };
             if (awardType.internal === 'all') {
                 const allAwardTypeGroups = [];
-                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups).map((awardTypeGroup) => awardTypeGroup));
+                params.filter.award_type_codes = allAwardTypeGroups.concat(Object.values(awardTypeGroups));
             } else {
                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
