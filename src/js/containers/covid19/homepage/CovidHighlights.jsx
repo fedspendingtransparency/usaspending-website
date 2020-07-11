@@ -149,7 +149,7 @@ export class CovidHighlights extends React.Component {
                             <span>The Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
-                                <strong className={`covid-hero__headline--amount${isAmountLoading ? ' show-amount' : ''}`}>
+                                <strong className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}>
                                     {totalSpendingAmount}
                                 </strong>
                                 in response to

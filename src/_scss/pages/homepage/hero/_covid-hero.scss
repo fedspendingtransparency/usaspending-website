@@ -15,12 +15,14 @@
                     @include display(flex);
                     @include flex-wrap(wrap);
                     .covid-hero__headline--amount {
-                        opacity: 1;
+                        opacity: 0;
+                        position: absolute;
                         border-bottom: rem(5) solid #FDB81E;
                         margin-right: rem(10);
                         transition: opacity 2s ease-in-out;
                         &.show-amount {
-                            opacity: 0;
+                            opacity: 1;
+                            position: static;
                         }
                     }
                     span {
