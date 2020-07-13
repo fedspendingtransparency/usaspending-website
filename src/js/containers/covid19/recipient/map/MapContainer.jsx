@@ -10,6 +10,7 @@ import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 // import * as SearchHelper from 'helpers/searchHelper';
+import AwardFilterButtons from 'components/covid19/recipient/map/AwardFilterButtons';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,13 +19,12 @@ import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVis
 import {
     centerOfMap,
     // apiScopes,
-    filters,
     awardTypeFilters,
+    filters,
     logMapLayerEvent,
     logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
-import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
@@ -83,7 +83,6 @@ export class MapContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(' Updating : ', prevProps, this.props);
         if (!isEqual(prevProps.defCodes, this.props.defCodes)) this.prepareFetch(true);
     }
 

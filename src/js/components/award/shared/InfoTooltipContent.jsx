@@ -1300,20 +1300,10 @@ export const CovidFlagTooltip = ({ codes }) => (
 export const BudgetCategoriesInfo = (
     <div className="budget-categories-tooltip">
         <div className="tooltip__title">
-            placeholder title
+            Coming Soon
         </div>
         <div className="tooltip__text">
-            <p>placeholder text:</p>
-            <ul>
-                <li>
-                    <strong>test 1 </strong>
-                    placeholder text
-                </li>
-                <li>
-                    <strong>test 2 </strong>
-                    placeholder text
-                </li>
-            </ul>
+            <p>The tooltip content for this section is currently under review.</p>
         </div>
     </div>
 );
