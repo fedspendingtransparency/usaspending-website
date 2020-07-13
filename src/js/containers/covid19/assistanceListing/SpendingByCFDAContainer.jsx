@@ -228,13 +228,23 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     }
 
     return (
-        <div className="table-wrapper">
-            <Table
-                columns={activeTab === 'loans' ? loanColumns : columns}
-                rows={results}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }} />
-        </div>
+        <>
+            <div className="table-wrapper">
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={results}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }} />
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+        </>
     );
 };
 
