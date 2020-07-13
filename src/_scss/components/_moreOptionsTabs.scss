@@ -36,6 +36,10 @@
     .table-type-toggle {
         white-space: nowrap;
         border-bottom: none;
+        border-top-left-radius: rem(8);
+        border-top-right-radius: rem(8);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
 
         &.active {
             background-color: $color-white;
@@ -145,15 +149,25 @@
                 @include display(inline-flex);
                 margin: 0;
                 .usa-dt-picker__button-text {
-                    @include display(flex);
+                    @include display(block);
+                    @include media($small-screen) {
+                        @include display(flex);
+                        justify-content: center;
+                    }
+                    @include media($tablet-screen) {
+                        @include display(block);
+                        justify-content: start;
+                    }
                     align-items: center;
-                    justify-content: center;
                     white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow-x: hidden;
                     color: $color-base;
                     font-size: $base-font-size;
                     font-weight: normal;
                     width: 100%;
                     margin-left: rem(15);
+                    margin-right: rem(0);
     
                     .tab-content {
                         @include display(flex);
@@ -161,12 +175,16 @@
                         @include justify-content(center);
                         position: relative;
                         .tab-label {
-                            @include flex(1 1 auto);
+                            @include flex(0 1 auto);
                             margin-right: rem(5);
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            display: block;
+                            overflow: hidden
                         }
             
                         .count-badge {
-                            @include flex(1 1 auto);
+                            @include flex(0 1 auto);
                             background-color: $color-gray-lighter;
                             font-size: rem(12);
                             line-height: rem(16);
@@ -174,6 +192,7 @@
                             color: $color-base;
             
                             &.active {
+                                text-align: center;
                                 background-color: $color-gold; 
                                 color: $color-base;
                             }
@@ -193,6 +212,7 @@
                 }
                 .usa-dt-picker__button-icon {
                     margin-right: rem(15);
+                    margin-left: rem(7.5);
                     svg {
                         color: $color-cool-blue;
                     }

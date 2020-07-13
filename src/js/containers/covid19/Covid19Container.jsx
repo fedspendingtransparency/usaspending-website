@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
+
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -19,7 +20,7 @@ import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
@@ -35,8 +36,11 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes, fetchOverview } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview } from 'redux/actions/covid19/covid19Actions';
+import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
+import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
+import DownloadButtonContainer from './DownloadButtonContainer';
 
 require('pages/covid19/index.scss');
 
@@ -116,6 +120,10 @@ const Covid19Container = () => {
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
+    const handleExternalLinkClick = (url) => {
+        dispatch(showModal(url));
+    };
+
     return (
         <div className="usa-da-covid19-page">
             <MetaTags {...covidPageMetaTags} />
@@ -142,10 +150,7 @@ const Covid19Container = () => {
                             slug={slug}
                             email={getEmailSocialShareData} />
                         <div className="sticky-header__toolbar-item">
-                            <button className="sticky-header__button">
-                                <FontAwesomeIcon icon="download" />
-                            </button>
-                            <span>Download</span>
+                            <DownloadButtonContainer />
                         </div>
                     </div>
                 </>
@@ -182,6 +187,8 @@ const Covid19Container = () => {
                                 </Covid19Section>
                             ))}
                         <section className="body__section">
+                            <DataSourcesAndMethodology
+                                handleExternalLinkClick={handleExternalLinkClick} />
                             <FooterLinkToAdvancedSearchContainer
                                 title={footerTitle}
                                 description={footerDescription}

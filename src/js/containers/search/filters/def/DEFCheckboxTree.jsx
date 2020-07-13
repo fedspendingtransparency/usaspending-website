@@ -1,76 +1,69 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
+import { isCancel } from 'axios';
 import PropTypes from "prop-types";
-import { connect, useSelector } from 'react-redux';
-import { uniqueId } from 'lodash';
+import { connect } from 'react-redux';
+import { uniqueId, get } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 export const NewBadge = () => (
-    <div className="advanced-search-filter-accessory__new-badge">NEW</div>
+    <div className="new-badge">NEW</div>
 );
 
-const mockData = {
+const covidParentNode = {
     label: "COVID-19 Response",
     value: "COVID",
     className: "def-checkbox-label--covid",
     isSearchable: false,
     expandDisabled: true,
     showNodeIcon: false,
-    children: [
-        {
-            label: "Some Description with placeholder content...",
-            value: "L",
-            expandDisabled: true
-        },
-        {
-            label: "Some Description with placeholder content...",
-            value: "M",
-            expandDisabled: true
-        },
-        {
-            label: "Some Description with placeholder content...",
-            value: "N",
-            expandDisabled: true
-        },
-        {
-            value: "O",
-            label: "Some Description with placeholder content..."
-        },
-        {
-            value: "P",
-            label: "Some Description with placeholder content...",
-            expandDisabled: true
-        }
-    ]
+    children: []
 };
 
+const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'covid_19')
+    .reduce((acc, covidCode) => ({
+        ...acc,
+        children: acc.children.concat([{
+            label: covidCode.title,
+            value: covidCode.code,
+            expandDisabled: true
+        }])
+    }), covidParentNode);
+
 const defaultExpanded = ['COVID'];
-const nodes = [mockData];
 const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Response' };
 
-const DEFCheckboxTree = ({
-    counts,
-    stageDef
-}) => {
-    const hint = useRef();
-    const checkedDefCodes = useSelector((state) => state.filters.defCodes.require);
-    const [checked, setChecked] = useState(checkedDefCodes);
+export class DEFCheckboxTree extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            nodes: [],
+            isLoading: false,
+            isError: false,
+            errorMessage: null
+        };
+        this.request = null;
+    }
 
-    const stageFilter = (newChecked) => {
-        setChecked(newChecked);
+    componentDidMount() {
+        this.fetchCodes();
+    }
+
+    stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
         if (newCount > 0) {
-            stageDef(
+            this.props.stageDef(
                 newChecked,
                 [],
                 [{ ...countLabel, count: newCount }]
             );
         }
         else {
-            stageDef(
+            this.props.stageDef(
                 [],
                 [],
                 []
@@ -78,61 +71,92 @@ const DEFCheckboxTree = ({
         }
     };
 
-    const removeSelectedFilter = (e) => {
-        e.preventDefault();
-        stageDef([], [], []);
-        setChecked([]);
+    fetchCodes = async () => {
+        if (this.request) {
+            this.request.cancel();
+        }
+        this.request = fetchDEFCodes();
+        this.setState({ isLoading: true });
+        try {
+            const { data: { codes: allDisasterCodes } } = await this.request.promise;
+            const covidCodes = parseCovidCodes(allDisasterCodes);
+            this.setState({
+                nodes: [covidCodes],
+                isLoading: false
+            });
+        }
+        catch (e) {
+            console.log('Error fetching Def Codes ', e);
+            if (!isCancel(e)) {
+                this.setState({
+                    isLoading: false,
+                    isError: true,
+                    errorMessage: get(e, 'message', 'There was an error, please refresh the browser.')
+                });
+            }
+        }
     };
 
-    return (
-        <div className="def-code-filter">
-            <CheckboxTree
-                className="def-checkbox-tree"
-                checked={checked}
-                expanded={defaultExpanded}
-                data={nodes}
-                isError={false}
-                errorMessage={null}
-                isLoading={false}
-                searchText=""
-                noResults={false}
-                onUncheck={stageFilter}
-                onCheck={stageFilter} />
-            {counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {counts.map((node) => {
-                        const label = `${node.value} - ${node.label} (${node.count})`;
-                        return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
-                                <span className="close">
-                                    <FontAwesomeIcon icon="times" />
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            )}
-            <SubmitHint ref={hint} />
-        </div>
-    );
+    removeSelectedFilter = (e) => {
+        e.preventDefault();
+        this.props.stageDef([], [], []);
+    };
+
+    render() {
+        return (
+            <div className="def-code-filter">
+                <CheckboxTree
+                    className="def-checkbox-tree"
+                    checked={this.props.checked}
+                    expanded={defaultExpanded}
+                    data={this.state.nodes}
+                    isError={this.state.isError}
+                    errorMessage={this.state.errorMessage}
+                    isLoading={this.state.isLoading}
+                    searchText=""
+                    noResults={false}
+                    onUncheck={this.stageFilter}
+                    onCheck={this.stageFilter} />
+                {this.props.counts.length > 0 && (
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {this.props.counts.map((node) => {
+                            const label = `${node.value} - ${node.label} (${node.count})`;
+                            return (
+                                <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
+                                    <span className="close">
+                                        <FontAwesomeIcon icon="times" />
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                )}
+                <SubmitHint ref={(component) => {
+                    this.hint = component;
+                }} />
+            </div>
+        );
+    }
 };
 
 DEFCheckboxTree.propTypes = {
     counts: PropTypes.arrayOf(PropTypes.shape({})),
+    checked: PropTypes.arrayOf(PropTypes.string),
     stageDef: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-    counts: state.filters.defCodes.toObject().counts
+    counts: state.filters.defCodes.toObject().counts,
+    checked: state.filters.defCodes.toObject().require
 });
 
 const mapDispatchToProps = (dispatch) => ({

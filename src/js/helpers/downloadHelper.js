@@ -3,6 +3,8 @@
  * Created by Kevin Li 5/8/17
  */
 
+import moment from 'moment';
+
 import { apiRequest } from './apiRequest';
 
 export const requestFullDownload = (params, type) => apiRequest({
@@ -48,3 +50,20 @@ export const fetchIdvDownloadFile = (awardId) => apiRequest({
     },
     data: { award_id: awardId }
 });
+
+export const fetchActivePeriods = () => apiRequest({
+    url: 'v2/references/submission_periods/',
+    method: 'get'
+});
+
+export const getLatestSubmissionPeriodInFy = (fy, availablePeriods) => availablePeriods
+    .filter((period) => period.submission_fiscal_year === parseInt(fy, 10))
+    .filter((period) => moment(period.submission_reveal_date).isSameOrBefore(moment()))
+    .reduce((acc, latestPeriod) => {
+        if (acc.period < latestPeriod.submission_fiscal_month) {
+            return {
+                period: latestPeriod.submission_fiscal_month
+            };
+        }
+        return acc;
+    }, { period: 0 });

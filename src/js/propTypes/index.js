@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
     _category: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     generatedId: PropTypes.string,
     type: PropTypes.string,
     typeDescription: PropTypes.string,
@@ -44,7 +44,7 @@ export const TOOLTIP_PROPS = PropTypes.shape({
 
 export const AWARD_SECTION_PROPS = {
     type: PropTypes.oneOf(["row", "column"]),
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     children: PropTypes.node
 };
 
@@ -78,7 +78,7 @@ const awardOverviewAwardAmountsSectionBase = {
     extremeOverspendingAbbreviated: PropTypes.string,
     extremeOverspendingFormatted: PropTypes.string,
     generatedId: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     nonFederalFundingAbbreviated: PropTypes.string,
     nonFederalFundingFormatted: PropTypes.string,
     overspendingAbbreviated: PropTypes.string,

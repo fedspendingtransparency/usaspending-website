@@ -37,6 +37,7 @@ describe('SearchAwardsOperation', () => {
             });
             const requestObject = model.toParams();
             expect(Object.keys(requestObject).includes('def_codes')).toEqual(true);
+            expect(Array.isArray(requestObject.def_codes)).toEqual(true);
             expect(Object.keys(requestObject)).toEqual(['time_period', 'def_codes']);
             expect(requestObject.def_codes.counts).toBeFalsy();
         });

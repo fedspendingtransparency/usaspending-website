@@ -11,7 +11,7 @@ import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
-import { cfdaSortFields } from 'dataMapping/covid19/covid19';
+import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -162,7 +162,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
             pagination: {
                 limit: pageSize,
                 page: currentPage,
-                sort: cfdaSortFields[sort],
+                sort: spendingTableSortFields[sort],
                 order
             }
         };
