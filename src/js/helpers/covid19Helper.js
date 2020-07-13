@@ -47,10 +47,3 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
 
 export const getCovidFromFileC = (codes) => codes
     .filter((code) => defCodes.includes(code));
-
-export const lastestSubmissionDateFormatted = (availablePeriods) => availablePeriods
-    .filter((s) => !s.is_quarter)
-    .map((s) => moment(s.submission_due_date))
-    .sort((a, b) => b.valueOf() - a.valueOf())
-    .find((s) => Date.now() >= s.valueOf())
-    .format('MMM DD[,] YYYY');

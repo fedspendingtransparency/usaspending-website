@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase } from 'lodash';
+import moment from 'moment';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -20,7 +21,7 @@ import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
-import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
+import { jumpToSection } from 'helpers/covid19Helper';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 // import BaseOverview from 'models/v2/covid19/BaseOverview';
@@ -117,7 +118,12 @@ const Covid19Container = () => {
             allSubmissionDatesRequest.current = fetchAllSubmissionDates();
             try {
                 const data = await allSubmissionDatesRequest.current.promise;
-                dispatch(setLatestSubmissionDate(latestSubmissionDateFormatted(data.data)));
+                dispatch(setLatestSubmissionDate(data.data.available_periods
+                    .filter((s) => !s.is_quarter)
+                    .map((s) => moment(s.submission_due_date))
+                    .sort((a, b) => b.valueOf() - a.valueOf())
+                    .find((s) => Date.now() >= s.valueOf())
+                    .format('MMM DD[,] YYYY')));
             }
             catch (e) {
                 console.log(' Error Submission Periods : ', e.message);
