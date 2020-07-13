@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -122,6 +123,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const [request, setRequest] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
 
@@ -192,6 +194,10 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
+
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory && sortAndOrder) {
             // if type is agency then sort name column by description
@@ -210,6 +216,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     }
                 };
                 const requestLoanSpending = fetchLoanSpending(props.type, params);
+                setRequest(requestLoanSpending);
                 requestLoanSpending.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
@@ -217,9 +224,12 @@ const BudgetCategoriesTableContainer = (props) => {
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             } else {
                 const params = {
@@ -234,17 +244,21 @@ const BudgetCategoriesTableContainer = (props) => {
                         order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
-                const requestDisasterSpending = fetchDisasterSpending(props.type, params);
-                requestDisasterSpending.promise
+                const disasterSpendingRequest = fetchDisasterSpending(props.type, params);
+                setRequest(disasterSpendingRequest);
+                disasterSpendingRequest.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
                         setTotalItems(res.data.page_metadata.total);
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             }
         }

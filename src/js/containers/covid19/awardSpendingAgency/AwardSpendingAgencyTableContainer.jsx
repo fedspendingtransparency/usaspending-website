@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
@@ -111,6 +112,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const [request, setRequest] = useState(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -158,6 +160,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
+
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
             let params = {};
@@ -207,6 +213,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     spending_type: 'award'
                 };
                 faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
+                setRequest(faceValueOfLoansRequest);
             }
 
 
@@ -218,22 +225,29 @@ const AwardSpendingAgencyTableContainer = (props) => {
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             } else {
-                const request = fetchAwardSpendingByAgency(params);
-                request.promise
+                const awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
+                setRequest(awardSpendingAgencyRequest);
+                awardSpendingAgencyRequest.promise
                     .then((res) => {
                         parseAwardSpendingByAgency(res.data.results);
                         setTotalItems(res.data.page_metadata.total);
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             }
         }
