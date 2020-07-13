@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import tabs from 'containers/covid19/helpers/recipient';
-import RecipientTab from 'components/covid19/recipient/RecipientTab';
 import DateNote from 'components/covid19/DateNote';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 
