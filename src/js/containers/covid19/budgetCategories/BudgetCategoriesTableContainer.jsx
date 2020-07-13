@@ -298,7 +298,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchBudgetSpendingCallback();
-    }, [props.type, pageSize, sortAndOrder]);
+    }, [props.type, pageSize, sortAndOrder, defCodes]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

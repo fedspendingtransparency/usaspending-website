@@ -13,7 +13,6 @@ import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingA
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
-
 const overviewData = [
     {
         type: 'agencyCount',
@@ -62,38 +61,38 @@ const AwardSpendingAgency = () => {
     const dateString = "June 30, 2020";
 
     useEffect(() => {
-        let params = {};
-
-        // Make an API request for the count of Agency for each award type
-        // Post-MVP this should be updated to use a new endpoint that returns all the counts
-        const promises = awardSpendingAgencyTableTabs.map((awardType) => {
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                }
-            };
-            if (awardType.internal === 'all') {
-                const allAwardTypeGroups = [];
-                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
-            } else {
-                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
-            }
-            return fetchAgencyCount(params).promise;
-        });
-        // Wait for all the requests to complete and then store the results in state
-        Promise.all(promises)
-            .then(([allRes, contractsRes, idvsRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
-                setTabCounts({
-                    all: allRes.data.count,
-                    contracts: contractsRes.data.count,
-                    idvs: idvsRes.data.count,
-                    grants: grantsRes.data.count,
-                    direct_payments: directPaymentsRes.data.count,
-                    loans: loansRes.data.count,
-                    other: otherRes.data.count
-                });
-            });
         if (defCodes && defCodes.length > 0) {
+            let params = {};
+
+            // Make an API request for the count of Agency for each award type
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            const promises = awardSpendingAgencyTableTabs.map((awardType) => {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code)
+                    }
+                };
+                if (awardType.internal === 'all') {
+                    const allAwardTypeGroups = [];
+                    params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
+                } else {
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+                }
+                return fetchAgencyCount(params).promise;
+            });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, contractsRes, idvsRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        contracts: contractsRes.data.count,
+                        idvs: idvsRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count
+                    });
+                });
             fetchAwardAmounts(params).promise
                 .then((res) => {
                     setAwardObligations(res.data.obligation);

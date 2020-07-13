@@ -13,16 +13,42 @@
 
     .award-spending__content {
         @include display(block);
+
+        .usda-table {
+            margin-top: 0;
+            td {
+                &:first-child {
+                    @include span-columns(6 of 12, table);
+                    text-align: left;
+                    width: 100%;
+                    padding-left: rem(15);
+                }
+                @include span-columns(2 of 12, table);
+                text-align: right;
         
-        .usda-table__row {
-            .usda-table__cell_name {
-                padding-left: rem(15);
+                &:not(:first-child) {
+                    padding-right: rem(40);
+                }
             }
-            .usda-table__cell {
-                padding-right: rem(40);
+            .table-header {
+                .table-header__label {
+                    @include flex(0 1 auto);
+                    text-align: right;
+                }
+        
+                .table-header__sort {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+        
+                &:not(:first-child) {
+                    .table-header__content {
+                        justify-content: flex-end;
+                    }
+                }
             }
         }
-
+        
         .table-wrapper {
             overflow-x: auto;
             .usda-table {
