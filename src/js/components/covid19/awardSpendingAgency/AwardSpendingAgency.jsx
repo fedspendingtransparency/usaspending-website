@@ -93,6 +93,19 @@ const AwardSpendingAgency = () => {
                         other: otherRes.data.count
                     });
                 });
+
+            params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                }
+            };
+            if (activeTab.internal === 'all') {
+                const allAwardTypeGroups = [];
+                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
+            } else {
+                params.filter.award_type_codes = awardTypeGroups[activeTab.internal];
+            }
+
             fetchAwardAmounts(params).promise
                 .then((res) => {
                     setAwardObligations(res.data.obligation);
@@ -103,7 +116,7 @@ const AwardSpendingAgency = () => {
                     setNumberOfAwards(res.data.count);
                 });
         }
-    }, [defCodes]);
+    }, [defCodes, activeTab]);
 
     useEffect(() => {
         setAgencyCount(tabCounts[activeTab.internal]);
@@ -117,8 +130,8 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
         const tabInternal = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).internal;
+        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
 
         setActiveTab({
             internal: tabInternal,
