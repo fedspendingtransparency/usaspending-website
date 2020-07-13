@@ -5,7 +5,9 @@
 
 const initialState = {
     defCodes: [],
-    overview: {}
+    overview: {
+        _totalObligations: 0
+    }
 };
 
 const covid19Reducer = (state = initialState, action) => {
@@ -14,7 +16,10 @@ const covid19Reducer = (state = initialState, action) => {
             return Object.assign(state, { defCodes: action.defCodes });
         }
         case 'SET_COVID_OVERVIEW': {
-            return Object.assign(state, { overview: action.overview });
+            return {
+                ...state,
+                overview: action.overview
+            };
         }
         default: return state;
     }

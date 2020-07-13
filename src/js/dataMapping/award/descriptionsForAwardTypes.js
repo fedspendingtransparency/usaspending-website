@@ -25,12 +25,12 @@ export const descriptionsForAwardTypes = {
     '03': 'Formula Grant',
     '04': 'Project Grant',
     '05': 'Cooperative Agreement',
-    10: 'Direct Payment with Unrestricted Use',
+    '10': 'Direct Payment with Unrestricted Use',
     '06': 'Direct Payment for Specified Use',
     '07': 'Direct Loan',
     '08': 'Guaranteed/Insured Loan',
     '09': 'Insurance',
-    11: 'Other Financial Assistance'
+    '11': 'Other Financial Assistance'
 };
 
 /**
