@@ -12,8 +12,7 @@ describe('SpendingByCFDAContainer', () => {
         it('should parse returned CFDA data', () => {
             const mockResults = [
                 {
-                    id: '43',
-                    code: '090',
+                    code: '43.090',
                     description: 'Description text',
                     children: [],
                     count: 5400,
@@ -22,8 +21,7 @@ describe('SpendingByCFDAContainer', () => {
                     resource_link: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view'
                 },
                 {
-                    id: '44',
-                    code: '091',
+                    code: '44.091',
                     description: 'Description text 2',
                     children: [],
                     count: 5401,
@@ -63,8 +61,7 @@ describe('SpendingByCFDAContainer', () => {
         it('should parse returned CFDA loans data', () => {
             const mockResults = [
                 {
-                    id: '43',
-                    code: '090',
+                    code: '43.090',
                     description: 'Description text',
                     children: [],
                     count: 5400,
@@ -74,8 +71,7 @@ describe('SpendingByCFDAContainer', () => {
                     face_value_of_loan: 56000001.02
                 },
                 {
-                    id: '44',
-                    code: '091',
+                    code: '44.091',
                     description: 'Description text 2',
                     children: [],
                     count: 5401,

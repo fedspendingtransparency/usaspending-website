@@ -12,12 +12,11 @@ BaseSpendingByCfdaRow.populate = function populate(data) {
     this.populateCore(data);
     // Add properties specific to CFDA
     this._link = data.resource_link || '';
-    this._number = (this._id && this._code) ? `${this._id}.${this._code}` : '';
-    if (this._number && this.description) {
-        this.name = `${this._number}: ${this.description}`;
+    if (this._code && this.description) {
+        this.name = `${this._code}: ${this.description}`;
     }
     else {
-        this.name = `${this._number}${this.description}` || '--';
+        this.name = `${this._code}${this.description}` || '--';
     }
 };
 

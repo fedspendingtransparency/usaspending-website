@@ -3,7 +3,14 @@
  * Created by Kevin Li 1/18/18
  */
 
+import React from 'react';
 import kGlobalConstants from 'GlobalConstants';
+
+const New = () => (
+    <span>
+        COVID-19 Response
+        <span className="covid-newbadge"> NEW</span>
+    </span>);
 
 export const searchOptions = [
     {
@@ -38,6 +45,11 @@ export const profileOptions = [
         label: 'Recipients',
         url: '#/recipient',
         enabled: true
+    },
+    {
+        label: <New />,
+        url: '#/disaster/covid-19',
+        enabled: kGlobalConstants.CARES_ACT_RELEASED
     }
 ];
 

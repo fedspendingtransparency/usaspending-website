@@ -20,7 +20,6 @@ import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
@@ -37,8 +36,9 @@ import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
+import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
-import DataSourcesAndMethodology from '../../components/covid19/DataSourcesAndMethodology';
+import DownloadButtonContainer from './DownloadButtonContainer';
 
 require('pages/covid19/index.scss');
 
@@ -145,10 +145,7 @@ const Covid19Container = () => {
                             slug={slug}
                             email={getEmailSocialShareData} />
                         <div className="sticky-header__toolbar-item">
-                            <button className="sticky-header__button">
-                                <FontAwesomeIcon icon="download" />
-                            </button>
-                            <span>Download</span>
+                            <DownloadButtonContainer />
                         </div>
                     </div>
                 </>
