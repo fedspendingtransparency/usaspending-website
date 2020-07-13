@@ -70,7 +70,8 @@ const loanColumns = [
                 <div>Face Value</div>
                 <div>of Loans</div>
             </>
-        )
+        ),
+        right: true
     },
     {
         title: 'obligation',
