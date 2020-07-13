@@ -92,7 +92,7 @@ export const budgetCategoriesSort = {
     },
     object_class: {
         total_spending: {
-            sort: 'totalObligation',
+            sort: 'obligation',
             order: 'desc'
         },
         award_spending: {
