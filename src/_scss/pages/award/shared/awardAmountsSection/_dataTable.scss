@@ -47,18 +47,24 @@
         border: rem(2) solid #6E338E;
     }
 
-    // [DEV-5309] update colors for post cares act release
-    // .award-amounts__potential {
-    //     background-color: rgb(170, 198, 226);
-    // }
+    .award-amounts__potential {
+        background-color:#AAC6E2;
+    }
 
-    // .award-amounts__current {
-    //     background-color: rgb(85, 142, 198);
-    // }
+    .award-amounts__current {
+        background-color: #558EC6;
+    }
 
-    // .award-amounts__obligated {
-    //     background-color: #4773aa;
-    // }
+    .award-amounts__obligated {
+        background-color: #4773aa;
+    }
+
+    &.contract,
+    &.idv {
+        .award-amounts__obligated {
+            background-color: #0A2F5A;
+        }
+    }
 
     .award-amounts__file-c-obligations {
         background-color: #B699C6;

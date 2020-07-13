@@ -36,11 +36,11 @@ export const KeyWordTooltip = () => (
 export const DEFTooltip = () => (
     <div className="advanced-search-tt">
         <h3 className="advanced-search-tt__header">
-           Disaster and Emergency Fund (DEF) Code
+           Disaster Emergency Fund (DEF) Code
         </h3>
         <div className="advanced-search-tt__body">
             <p>
-                Disaster Emergency Fund Code (DEF Code) is an accounting attribute used to track the spending of supplemental funding targeting disasters and emergencies.
+                <strong>Disaster Emergency Fund (DEF) Code</strong> is an accounting attribute used to track the spending of supplemental funding targeting disasters and emergencies.
             </p>
         </div>
     </div>

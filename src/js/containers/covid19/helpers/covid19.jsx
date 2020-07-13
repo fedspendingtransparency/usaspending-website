@@ -3,7 +3,13 @@
  * Created by Jonathan Hill 06/10/20
  */
 
+import MapContainer from 'containers/covid19/recipient/RecipientContainer';
+
 import React from 'react';
+import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
+import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
+import AwardQuestion from 'components/covid19/AwardQuestions';
+import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
 export const TooltipComponent = () => (
     <div className="covid19-tt">
@@ -34,7 +40,7 @@ const awardSpedingTooltip = (
 
 const ComingSoon = () => (
     <div className="coming-soon-section">
-        <h4>Coming Soon</h4>
+        <h3>Coming Soon</h3>
         <p>This feature is currently under development.</p>
     </div>
 );
@@ -44,36 +50,44 @@ export const componentByCovid19Section = () => ({
         icon: 'hand-holding-medical',
         component: <ComingSoon />,
         headerText: totalSpendingText,
-        headerTextTooltip: totalSpendingTooltip
+        headerTextTooltip: totalSpendingTooltip,
+        showInMenu: true,
+        title: 'Overview'
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <ComingSoon />,
+        component: <BudgetCategories />,
         headerText: totalSpendingText,
-        headerTextTooltipooltip: totalSpendingTooltip
+        headerTextTooltipooltip: totalSpendingTooltip,
+        showInMenu: true,
+        title: 'Total Spending by Budget Categories'
     },
-    award_spending_recipient: {
+    award_question: {
+        component: <AwardQuestion />,
+        showInMenu: false
+    },
+    award_spending_by_recipient: {
         icon: 'building',
-        component: <ComingSoon />,
+        component: <MapContainer />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true,
+        title: 'Award Spending by Recipient'
     },
     award_spending_by_agency: {
         icon: 'sitemap',
-        component: <ComingSoon />,
+        component: <AwardSpendingAgency />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true,
+        title: 'Award Spending by Agency'
     },
-    award_spending_over_time: {
-        icon: 'chart-area',
-        component: <ComingSoon />,
-        headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
-    },
-    award_spending_by_assistance_living: {
+    award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <ComingSoon />,
+        component: <SpendingByCFDA />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip
+        headerTextTooltip: awardSpedingTooltip,
+        showInMenu: true,
+        title: 'Award Spending by CFDA Program (Assistance Listing)'
     }
 });

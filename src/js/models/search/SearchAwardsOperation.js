@@ -44,6 +44,7 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.naicsCodes = checkboxTreeKeys;
         this.pscCheckbox = checkboxTreeKeys;
+        // the defCodes don't actually send the checkboxTrees object shape to the API. See comment below.
         this.defCodes = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
@@ -340,11 +341,10 @@ class SearchAwardsOperation {
 
         // Add Def Codes
         if (this.defCodes.require.length > 0) {
-            filters[rootKeys.defCodes] = { require: this.defCodes.require };
-            // at the moment, this will never be added unless we introduce some hierarchy.
-            if (this.defCodes.exclude.length > 0) {
-                filters[rootKeys.defCodes].exclude = this.defCodes.exclude;
-            }
+            // right now, due to the shape of this data, we never send excluded to the api, so the
+            // api expects just an array of strings. Should that ever change and the DEFC data becomes more complex
+            // and the checkbox tree is more like the others, we can easily migrate to the more complex request object.
+            filters[rootKeys.defCodes] = this.defCodes.require;
         }
 
         return filters;

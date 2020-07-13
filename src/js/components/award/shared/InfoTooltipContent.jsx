@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 // Mapping of section identifier to tooltip content JSX
-
 export const transactionHistoryInfoGeneric = (
     <div className="award-summary-tooltip transaction-history-tt">
         <div className="tooltip__title">Transaction History</div>
@@ -1276,6 +1277,36 @@ export const CFDASectionInfo = (
     </div>
 );
 
+export const CovidFlagTooltip = ({ codes }) => (
+    <div className="award-summary-tooltip covid-19">
+        <div className="tooltip__title">
+            COVID-19 Response
+        </div>
+        <div className="tooltip__text">
+            <p>This award is part of the COVID-19 Response because part of its spending was derived from funds associated with the following <strong>Disaster and Emergency Fund Codes</strong> (DEFC): </p>
+            <p style={{ textAlign: 'center' }}>
+                {codes.map((code, i, arr) => {
+                    if (i === arr.length - 1) {
+                        return <strong key={uniqueId(i)}>{code.toUpperCase()}</strong>;
+                    }
+                    return <strong key={uniqueId(i)}>{`${code.toUpperCase()}, `}</strong>;
+                }
+                )}
+            </p>
+        </div>
+    </div>
+);
+
+export const BudgetCategoriesInfo = (
+    <div className="budget-categories-tooltip">
+        <div className="tooltip__title">
+            Coming Soon
+        </div>
+        <div className="tooltip__text">
+            <p>The tooltip content for this section is currently under review.</p>
+        </div>
+    </div>
+);
 
 export const recipientOverviewLoanInfo = (
     <div className="recipient-overview-tooltip">
@@ -1295,3 +1326,7 @@ export const recipientOverviewLoanInfo = (
         </div>
     </div>
 );
+
+CovidFlagTooltip.propTypes = {
+    codes: PropTypes.arrayOf(PropTypes.string)
+};
