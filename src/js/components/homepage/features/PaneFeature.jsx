@@ -69,7 +69,7 @@ const PaneFeature = () => {
                             </div>
                         </div>
                     )}
-                    
+
                     {!GlobalConstants.CARES_ACT_RELEASE && (
                         <div className="feature-pane__content feature-pane__content-middle__sub">
                             <div>
