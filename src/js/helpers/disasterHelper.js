@@ -74,21 +74,18 @@ export const fetchAwardCount = (params) => apiRequest({
 });
 
 export const fetchCfdaCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/cfda/count/',
     method: 'post',
     data: params
 });
 
 export const fetchSpendingByCfda = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/cfda/spending/',
     method: 'post',
     data: params
 });
 
 export const fetchCfdaLoans = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/cfda/loans/',
     method: 'post',
     data: params
