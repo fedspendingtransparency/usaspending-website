@@ -37,26 +37,6 @@ const PaneFeature = () => {
                         </div>
                         <div className="feature-pane__button-wrapper">
                             <a
-                                href="https://fiscaldata.treasury.gov/"
-                                target="_blank"
-                                role="button"
-                                rel="noopener noreferrer"
-                                className="feature-pane__button white">
-                                Explore Fiscal Data <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="feature-pane__content-divider" />
-                    <hr className="feature-pane__mobile-content-divider" />
-                    <div className="feature-pane__content feature-pane__content-middle__sub">
-                        <div>
-                            <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
-                            <p className="feature-pane_content-text">
-                                Fiscal Data is a new site featuring federal financial data in machine-readable formats with comprehensive metadata. Explore and download the data today!
-                            </p>
-                        </div>
-                        <div className="feature-pane__button-wrapper">
-                            <a
                                 href="https://www.FiscalData.Treasury.gov"
                                 target="_blank"
                                 role="button"
@@ -88,7 +68,8 @@ const PaneFeature = () => {
                                 </a>
                             </div>
                         </div>
-                    )}
+                    )
+                    }
 
                     {!GlobalConstants.CARES_ACT_RELEASE && (
                         <div className="feature-pane__content feature-pane__content-middle__sub">
@@ -116,7 +97,8 @@ const PaneFeature = () => {
                                 </a>
                             </div>
                         </div>
-                    )}
+                    )
+                    }
 
                     <hr className="feature-pane__mobile-content-divider" />
                     <div className="feature-pane__content-divider" />
