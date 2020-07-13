@@ -4,6 +4,8 @@
  */
 
 import CoreLocation from 'models/v2/CoreLocation';
+import { mockAwardIdsForCaresAct } from 'dataMapping/award/awardAmountsSection';
+
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
@@ -39,10 +41,19 @@ BaseFinancialAssistance.populate = function populate(data) {
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        fileC: {
+            obligations: mockAwardIdsForCaresAct.includes(data.generated_unique_award_id)
+                ? [{ code: 'L', amount: 5 }, { code: 'M', amount: 6 }]
+                : data.account_obligations_by_defc,
+            outlays: data.account_outlays_by_defc
+        },
+        defCodes: mockAwardIdsForCaresAct.includes(data.generated_unique_award_id)
+            ? ["L", "M", "N"]
+            : data.disaster_emergency_fund_codes
     };
     this.populateCore(coreData);
-    if (data.cfda_info.length) {
+    if (data.cfda_info && data.cfda_info.length) {
         this.cfdas = data.cfda_info.map((cfda) => {
             const newCFDA = new BaseCFDA(cfda, data.total_obligation);
             return newCFDA;

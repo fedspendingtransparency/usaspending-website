@@ -1,0 +1,98 @@
+.usda-table {
+    margin-top: 0;
+    td {
+        &:first-child {
+            @include span-columns(6 of 12, table);
+            text-align: left;
+        }
+        @include span-columns(2 of 12, table);
+        text-align: right;
+        word-break: break-word;
+    }
+    .table-header {
+        .table-header__label {
+            @include flex(0 1 auto);
+            text-align: right;
+        }
+
+        .table-header__sort {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        &:not(:first-child) {
+            .table-header__content {
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+.budget-categories-table_def-code {
+    .usda-table {
+        margin-top: 0;
+        td {
+            &:first-child {
+                text-align: left;
+            }
+            &:nth-child(2) {
+                @include span-columns(6 of 12, table);
+                text-align: left;
+            }
+            @include span-columns(2 of 12, table);
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .table-header {
+            .table-header__label {
+                @include flex(0 1 auto);
+                text-align: right;
+            }
+
+            .table-header__sort {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            &:not(:first-child) {
+                .table-header__content {
+                    justify-content: flex-end;
+                }
+            }
+            &:nth-child(2) {
+                .table-header__content {
+                    justify-content: start;
+                }
+            }
+        }
+    }
+}
+
+.budget-categories-table__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: rem(20);
+
+    .usa-dt-picker {
+        .usa-dt-picker__button-text {
+            border-bottom: rem(2) solid $color-cool-blue-light;
+            font-size: $base-font-size;
+        }
+        .usa-dt-picker__button-icon svg {
+            color: $color-cool-blue-light;
+        }
+        .usa-dt-picker__list {
+            z-index: 4;
+        }
+        .usa-dt-picker__button {
+            margin-right: 0;
+        }
+    }
+
+    .budget-categories-tooltip {
+        display: block;
+        width: 100%;
+    }
+}

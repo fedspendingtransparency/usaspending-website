@@ -49,6 +49,7 @@ export const AWARD_SECTION_PROPS = {
 };
 
 export const AWARD_PAGE_WRAPPER_PROPS = {
+    defCodes: PropTypes.arrayOf(PropTypes.string),
     awardType: AWARD_TYPE_PROPS,
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,
@@ -86,7 +87,7 @@ const awardOverviewAwardAmountsSectionBase = {
     totalFundingFormatted: PropTypes.string,
     totalObligationAbbreviated: PropTypes.string,
     totalObligationFormatted: PropTypes.string,
-    isMockCares: PropTypes.bool
+    showFileC: PropTypes.bool
 };
 
 const contract = {
