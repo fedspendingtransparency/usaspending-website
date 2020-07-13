@@ -54,5 +54,6 @@ export const awardSpendingAgencyTableColumnFieldMapping = {
     name: 'name',
     obligation: 'obligation',
     outlay: 'outlay',
-    number: 'number'
+    count: 'count',
+    faceValueOfLoan: 'face_value_of_loan'
 };

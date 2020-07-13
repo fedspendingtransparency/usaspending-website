@@ -163,7 +163,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (request) {
             request.cancel();
         }
-
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
             let params = {};
@@ -258,6 +257,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
     }, [props.type, pageSize, sort, order, defCodes]);
+
+    useEffect(() => {
+        updateSort('obligation', 'desc');
+    }, [props.type]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
