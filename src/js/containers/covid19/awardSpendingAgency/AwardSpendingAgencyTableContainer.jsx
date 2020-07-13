@@ -13,8 +13,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
-import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/BaseAwardSpendingByAgencyRow';
-
+import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -117,14 +116,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
-            const awardSpendingByAgencyRow = Object.create(BaseAwardSpendingByAgencyRow);
-            awardSpendingByAgencyRow.populate(item);
+            const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
+            awardSpendingByAgencyRow.populateCore(item);
 
             let rowChildren = [];
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
-                    const awardSpendingByAgencyChildRow = Object.create(BaseAwardSpendingByAgencyRow);
-                    awardSpendingByAgencyChildRow.populate(childItem);
+                    const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
+                    awardSpendingByAgencyChildRow.populateCore(childItem);
                     return awardSpendingByAgencyChildRow;
                 });
             }
@@ -135,14 +134,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 });
             }
 
-            let link = awardSpendingByAgencyRow.name;
+            let link = awardSpendingByAgencyRow.description;
             const id = awardSpendingByAgencyRow.id;
             if (link && id) {
                 link = (
                     <a
                         className="agency-profile__link"
                         href={`#/agency/${id}`}>
-                        {awardSpendingByAgencyRow.name}
+                        {awardSpendingByAgencyRow.description}
                     </a>
                 );
             }

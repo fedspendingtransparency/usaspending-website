@@ -19,7 +19,7 @@ import {
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import BaseBudgetCategoryRow from 'models/covid19/budgetCategories/BaseBudgetCategoryRow';
+import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
 
 
@@ -194,7 +194,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 obligation: budgetCategoryRow.obligation,
                 outlay: budgetCategoryRow.outlay,
                 totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
-                faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
+                faceValueOfLoan: budgetCategoryRow.faceValue,
                 count: budgetCategoryRow.count,
                 children: budgetCategoryRow.children,
                 name: link
