@@ -5,11 +5,15 @@
 
 import React, { useState } from 'react';
 import tabs from 'containers/covid19/helpers/recipient';
-import RecipientTab from 'components/covid19/recipient/RecipientTab';
 import DateNote from 'components/covid19/DateNote';
+import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 
 const RecipientContainer = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+        setActiveTab(tabInternal);
+    };
     return (
         <div className="body__content recipient__container">
             <DateNote />
@@ -22,20 +26,9 @@ const RecipientContainer = () => {
                 pandemic.
             </p>
             <div className="recipient__tabs-container count-tabs">
-                <div className="count-tabs__buttons">
-                    {
-                        Object.keys(tabs).map((tab) => (
-                            <RecipientTab
-                                {...tabs[tab]}
-                                key={tab}
-                                type={tab}
-                                setActiveTab={setActiveTab}
-                                active={activeTab === tab} />
-                        ))
-                    }
-                </div>
+                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
                 <div className="recipient__content">
-                    {tabs[activeTab].component}
+                    {tabs.find((item) => item.internal === activeTab).component}
                 </div>
             </div>
         </div>
