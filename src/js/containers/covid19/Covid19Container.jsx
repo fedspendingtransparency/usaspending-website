@@ -195,6 +195,7 @@ const Covid19Container = () => {
                                 onClick={onFooterClick} />
                         </section>
                     </div>
+                    <RedirectModalContainer />
                 </main>
             </LoadingWrapper>
             <Footer />
