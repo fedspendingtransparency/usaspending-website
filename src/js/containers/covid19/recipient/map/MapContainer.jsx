@@ -21,6 +21,8 @@ import {
     logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 // import { awardTypeGroups } from 'dataMapping/search/awardType';
 // import { recipientMapHelper } from 'helpers/disasterHelper';
 // import { recipientTypeGroups } from 'dataMapping/search/recipientType';
@@ -390,6 +392,10 @@ export class MapContainer extends React.Component {
                 className="results-visualization-geo-section"
                 id="results-section-geo"
                 aria-label="Spending by Geography">
+                <AwardFilterButtons
+                    onClick={this.updateawardTypeFilter}
+                    filters={awardTypeTabs}
+                    activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
                     scope={this.state.mapLayer}

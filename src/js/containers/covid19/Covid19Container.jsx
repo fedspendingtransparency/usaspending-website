@@ -4,9 +4,10 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
+
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -18,9 +19,11 @@ import Heading from 'components/covid19/Heading';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 // import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     slug,
@@ -31,7 +34,11 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
+import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
+import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
+import DownloadButtonContainer from './DownloadButtonContainer';
 
 require('pages/covid19/index.scss');
 
@@ -43,6 +50,7 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     // const overviewRequest = useRef(null);
     const dispatch = useDispatch();
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -87,8 +95,29 @@ const Covid19Container = () => {
     //         }
     //     };
     // }, []);
+    const onFooterClick = () => {
+        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
+        dispatch(
+            applyStagedFilters(
+                Object.assign(
+                    {}, defaultAdvancedSearchFilters,
+                    {
+                        defCodes: new CheckboxTreeSelections({
+                            require: defCodes.map((code) => code.code),
+                            exclude: [],
+                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        })
+                    }
+                )
+            )
+        );
+    };
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
+
+    const handleExternalLinkClick = (url) => {
+        dispatch(showModal(url));
+    };
 
     return (
         <div className="usa-da-covid19-page">
@@ -116,10 +145,7 @@ const Covid19Container = () => {
                             slug={slug}
                             email={getEmailSocialShareData} />
                         <div className="sticky-header__toolbar-item">
-                            <button className="sticky-header__button">
-                                <FontAwesomeIcon icon="download" />
-                            </button>
-                            <span>Download</span>
+                            <DownloadButtonContainer />
                         </div>
                     </div>
                 </>
@@ -155,11 +181,15 @@ const Covid19Container = () => {
                             </Covid19Section>
                         ))}
                     <section className="body__section">
+                        <DataSourcesAndMethodology
+                            handleExternalLinkClick={handleExternalLinkClick} />
                         <FooterLinkToAdvancedSearchContainer
                             title={footerTitle}
-                            description={footerDescription} />
+                            description={footerDescription}
+                            onClick={onFooterClick} />
                     </section>
                 </div>
+                <RedirectModalContainer />
             </main>
             <Footer />
         </div>

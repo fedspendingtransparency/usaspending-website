@@ -5,6 +5,7 @@
 
 import React from 'react';
 import MapContainer from 'containers/covid19/recipient/map/MapContainer';
+import SpendingByRecipient from 'components/covid19/recipient/SpendingByRecipient';
 
 const tabs = {
     recipient_locations: {
@@ -15,7 +16,7 @@ const tabs = {
     recipients: {
         label: 'Recipients',
         question: 'Who are the recipients that received COVID-19 response funding?',
-        disabled: true
+        component: <SpendingByRecipient />
     },
     recipient_types: {
         label: 'Recipient Types',

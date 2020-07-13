@@ -44,7 +44,7 @@ export const fetchAwardSpendingByAgency = (params) => apiRequest({
     data: params
 });
 
-export const fetchFaceValueOfLoansByAgency = (params) => apiRequest({
+export const fetchLoansByAgency = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/agency/loans/',
     method: 'post',
@@ -59,7 +59,6 @@ export const fetchNewAwardsCount = (params) => apiRequest({
 });
 
 export const fetchAwardAmounts = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/award/amount/',
     method: 'post',
     data: params
@@ -73,7 +72,6 @@ export const fetchNewAwardsOverTime = (params) => apiRequest({
 });
 
 export const fetchAwardCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/award/count/',
     method: 'post',
     data: params
@@ -103,6 +101,44 @@ export const fetchAllCovidSpendingByCfda = (data) => apiRequest({
 export const fetchCfdaLoans = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/cfda/loans/',
+    method: 'post',
+    data: params
+});
+
+export const fetchDisasterSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/spending/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchDisasterSpendingCount = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/count/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchLoanSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/loans/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchRecipientCount = (params) => apiRequest({
+    url: 'v2/disaster/recipient/count/',
+    method: 'post',
+    data: params
+});
+
+export const fetchSpendingByRecipient = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/recipient/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchRecipientLoans = (params) => apiRequest({
+    isMocked: true,
+    url: 'v2/disaster/recipient/loans/',
     method: 'post',
     data: params
 });
