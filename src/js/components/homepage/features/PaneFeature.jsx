@@ -26,7 +26,7 @@ const PaneFeature = () => {
     return (
         <div className="feature-pane">
             <div className="feature-pane__wrapper">
-                <h2 className="feature-pane__title">Featured Content</h2>
+                <h2 className="feature-pane__title">OTHER DATA ACT CONTENT</h2>
                 <div className="feature-pane__content-wrapper">
                     <div className="feature-pane__content feature-pane__content-fiscal-data">
                         <div>
@@ -49,7 +49,7 @@ const PaneFeature = () => {
                     <div className="feature-pane__content-divider" />
                     <hr className="feature-pane__mobile-content-divider" />
 
-                    {GlobalConstants.CARES_ACT_RELEASE && (
+                    {GlobalConstants.CARES_ACT_RELEASED && (
                         <div className="feature-pane__content feature-pane__content-covid">
                             <div className="covid-announcement-text-box">
                                 <p className="feature-pane__content-title">
@@ -71,7 +71,7 @@ const PaneFeature = () => {
                     )
                     }
 
-                    {!GlobalConstants.CARES_ACT_RELEASE && (
+                    {!GlobalConstants.CARES_ACT_RELEASED && (
                         <div className="feature-pane__content feature-pane__content-middle__sub">
                             <div>
                                 <div id="feature-pane__content-header__middle">
