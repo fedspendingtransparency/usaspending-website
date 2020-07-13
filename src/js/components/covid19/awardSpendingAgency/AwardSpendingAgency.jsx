@@ -44,7 +44,7 @@ const AwardSpendingAgency = () => {
     const [activeTab, setActiveTab] = useState(
         {
             internal: awardTypeTabs[0].internal,
-            subtitle: awardTypeTabs[0].subtitle
+            subtitle: awardTypeTabs[0].label
         }
     );
 
@@ -118,7 +118,7 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).subtitle;
+        const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
         const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
