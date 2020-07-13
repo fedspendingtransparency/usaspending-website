@@ -7,6 +7,7 @@ import { snakeCase } from 'lodash';
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
+import moment from 'moment';
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -46,3 +47,10 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
 
 export const getCovidFromFileC = (codes) => codes
     .filter((code) => defCodes.includes(code));
+
+export const lastestSubmissionDateFormatted = (availablePeriods) => availablePeriods
+    .filter((s) => !s.is_quarter)
+    .map((s) => moment(s.submission_due_date))
+    .sort((a, b) => b.valueOf() - a.valueOf())
+    .find((s) => Date.now() >= s.valueOf())
+    .format('MMM DD[,] YYYY');
