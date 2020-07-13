@@ -35,7 +35,7 @@ const PaneFeature = () => {
                         </div>
                         <div className="feature-pane__button-wrapper">
                             <a
-                                href="https://www.FiscalData.Treasury.gov"
+                                href="https://fiscaldata.treasury.gov/"
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
