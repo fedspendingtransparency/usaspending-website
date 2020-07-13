@@ -546,7 +546,7 @@ const AmountsVisualization = ({
                 </div>
             }
             <DateNote styles={dateNoteStyles} />
-            {   
+            {
                 !loading &&
                 <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                     {
