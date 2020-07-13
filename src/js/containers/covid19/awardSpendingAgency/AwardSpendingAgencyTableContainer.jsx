@@ -28,7 +28,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: 'Agency Name'
                 },
                 {
-                    title: 'faceValueOfLoan',
+                    title: 'faceValue',
                     displayName: (
                         <>
                             <div>Face Value</div>
@@ -149,7 +149,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
                 count: awardSpendingByAgencyRow.count,
-                faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
+                faceValue: awardSpendingByAgencyRow.faceValue,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
                 name: link

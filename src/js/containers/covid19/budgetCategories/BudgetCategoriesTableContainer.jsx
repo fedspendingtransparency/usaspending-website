@@ -85,7 +85,7 @@ const budgetDropdownColumns = {
             right: true
         },
         {
-            title: 'faceValueOfLoan',
+            title: 'faceValue',
             displayName: (
                 <>
                     <div>Face Value</div>
@@ -194,7 +194,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 obligation: budgetCategoryRow.obligation,
                 outlay: budgetCategoryRow.outlay,
                 totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
-                faceValueOfLoan: budgetCategoryRow.faceValue,
+                faceValue: budgetCategoryRow.faceValue,
                 count: budgetCategoryRow.count,
                 children: budgetCategoryRow.children,
                 name: link
