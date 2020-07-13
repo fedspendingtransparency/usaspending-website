@@ -9,20 +9,27 @@ import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
-import { cfdaSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda } from 'helpers/disasterHelper';
+import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
+import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
 const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired
+    onRedirectModalClick: PropTypes.func.isRequired,
+    activeTab: PropTypes.string.isRequired
 };
 
 const columns = [
     {
         title: 'assistanceListing',
-        displayName: 'CFDA Program (Assistance Listing)'
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
     },
     {
         title: 'obligation',
@@ -36,12 +43,68 @@ const columns = [
     },
     {
         title: 'count',
-        displayName: 'Number of Awards',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
         right: true
     }
 ];
 
-export const parseRows = (rows, onRedirectModalClick) => (
+const loanColumns = [
+    {
+        title: 'assistanceListing',
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
+    },
+    {
+        title: 'faceValue',
+        displayName: (
+            <>
+                <div>Face Value</div>
+                <div>of Loans</div>
+            </>
+        )
+    },
+    {
+        title: 'obligation',
+        displayName: (
+            <>
+                <div>Award Obligations</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'outlay',
+        displayName: (
+            <>
+                <div>Award Outlays</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'count',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
+        right: true
+    }
+];
+
+export const parseRows = (rows, onRedirectModalClick, activeTab) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByCfdaRow);
         rowData.populate(row);
@@ -52,9 +115,18 @@ export const parseRows = (rows, onRedirectModalClick) => (
                     className="assistance-listing__button"
                     value={rowData._link}
                     onClick={onRedirectModalClick}>
-                    {rowData.name} <FontAwesomeIcon icon="external-link-alt" />
+                    {rowData.name}<FontAwesomeIcon icon="external-link-alt" />
                 </button>
             );
+        }
+        if (activeTab === 'loans') {
+            return [
+                link,
+                rowData.faceValue,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.count
+            ];
         }
         return [
             link,
@@ -65,7 +137,7 @@ export const parseRows = (rows, onRedirectModalClick) => (
     })
 );
 
-const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
+const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -85,20 +157,25 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes based on active tab
             },
             spending_type: 'award',
             pagination: {
                 limit: pageSize,
                 page: currentPage,
-                sort: cfdaSortFields[sort],
+                sort: spendingTableSortFields[sort],
                 order
             }
         };
-        const request = fetchSpendingByCfda(params);
+        if (activeTab !== 'all') {
+            params.filter.award_type_codes = awardTypeGroups[activeTab];
+        }
+        let request = fetchSpendingByCfda(params);
+        if (activeTab === 'loans') {
+            request = fetchCfdaLoans(params);
+        }
         request.promise
             .then((res) => {
-                const rows = parseRows(res.data.results, onRedirectModalClick);
+                const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
                 setResults(rows);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -114,7 +191,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCfdaCallback();
-    }, [pageSize, defCodes, sort, order]);
+    }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -160,7 +237,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
     return (
         <div className="table-wrapper">
             <Table
-                columns={columns}
+                columns={activeTab === 'loans' ? loanColumns : columns}
                 rows={results}
                 updateSort={updateSort}
                 currentSort={{ field: sort, direction: order }} />

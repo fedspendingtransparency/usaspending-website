@@ -8,8 +8,11 @@ import { useSelector } from 'react-redux';
 import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
 import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
+
 
 const overviewData = [
     {
@@ -33,61 +36,96 @@ const overviewData = [
 ];
 
 const AwardSpendingAgency = () => {
-    const [awardCount, setAwardCount] = useState(null);
+    const [agencyCount, setAgencyCount] = useState(null);
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
-    const [activeTabLabel, setActiveTabLabel] = useState(awardSpendingAgencyTableTabs[0].label);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    // TODO - Remove hard coded values
+    const [activeTab, setActiveTab] = useState(
+        {
+            internal: awardSpendingAgencyTableTabs[0].internal,
+            subtitle: awardSpendingAgencyTableTabs[0].subtitle
+        }
+    );
+
+    const [tabCounts, setTabCounts] = useState({
+        all: null,
+        contracts: null,
+        idvs: null,
+        grants: null,
+        direct_payments: null,
+        loans: null,
+        other: null
+    });
+
+    const defCodes = useSelector((state) => state.covid19.defCodes);
     const dateString = "June 30, 2020";
 
-    // TODO - Remove mock counts and replace with API call for counts
-    const mockCounts = {
-        all: 123123123,
-        contracts: 2856942,
-        idvs: 65718,
-        grants: 262180,
-        direct_payments: 3173522,
-        loans: 955562
-    };
-
     useEffect(() => {
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes
+        let params = {};
+
+        // Make an API request for the count of Agency for each award type
+        // Post-MVP this should be updated to use a new endpoint that returns all the counts
+        const promises = awardSpendingAgencyTableTabs.map((awardType) => {
+            params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                }
+            };
+            if (awardType.internal === 'all') {
+                const allAwardTypeGroups = [];
+                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
+            } else {
+                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
-        };
-        fetchAgencyCount(params).promise
-            .then((res) => {
-                setAwardCount(res.data.count);
+            return fetchAgencyCount(params).promise;
+        });
+        // Wait for all the requests to complete and then store the results in state
+        Promise.all(promises)
+            .then(([allRes, contractsRes, idvsRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
+                setTabCounts({
+                    all: allRes.data.count,
+                    contracts: contractsRes.data.count,
+                    idvs: idvsRes.data.count,
+                    grants: grantsRes.data.count,
+                    direct_payments: directPaymentsRes.data.count,
+                    loans: loansRes.data.count,
+                    other: otherRes.data.count
+                });
             });
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
+        if (defCodes && defCodes.length > 0) {
+            fetchAwardAmounts(params).promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                });
+            fetchAwardCount(params).promise
+                .then((res) => {
+                    setNumberOfAwards(res.data.count);
+                });
+        }
     }, [defCodes]);
 
+    useEffect(() => {
+        setAgencyCount(tabCounts[activeTab.internal]);
+    }, [tabCounts]);
+
     const amounts = {
-        awardCount,
+        agencyCount,
         awardOutlays,
         awardObligations,
         numberOfAwards
     };
 
     const changeActiveTab = (tab) => {
-        // TODO - update counts and amounts based on which tab selected
-        const tabLabel = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].label;
-        setActiveTabLabel(tabLabel);
-    };
+        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
+        const tabInternal = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).internal;
 
+        setActiveTab({
+            internal: tabInternal,
+            subtitle: tabSubtitle
+        });
+    };
 
     return (
         <div className="body__content award-spending">
@@ -96,17 +134,19 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
-            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={mockCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData
                         key={data.label}
                         {...data}
-                        subtitle={`for all ${activeTabLabel}`}
+                        subtitle={`for all ${activeTab.subtitle}`}
                         amount={amounts[data.type]} />
                 ))}
             </div>
-            <div className="award-spending__content" />
+            <div className="award-spending__content">
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
+            </div>
         </div>
     );
 };

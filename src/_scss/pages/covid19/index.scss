@@ -51,7 +51,7 @@
             @import "components/_footerLinkToAdvancedSearch";
             @import './awardSpendingAgency/awardSpendingAgency';
             @import './recipient/recipientContainer';
-
+            
             @include display(flex);
             width: 100%;
             @include flex-direction(column);
@@ -81,16 +81,21 @@
                 }
                 @import "./tableMessages";
                 @import './budgetCategoriesTable';
+                .table-wrapper {
+                    overflow-x: auto;
+                }
             }
 
+            @import './budgetCategoriesTable';
             @import './spendingOverTime/awardSpendingOverTime';
             @import './assistanceListing/assistanceListing';
-
             .body__section {
                 @import "../agency/v2/tabs";
+                @import "./dataSourcesAndMethodology";
+                
                 @include display(flex);
                 @include flex-wrap(wrap);
-                margin-bottom: $global-mrg;
+                margin-bottom: 10rem;
                 padding: 0 2.5%;
 
                 .body__header {
@@ -257,4 +262,5 @@
         }
     }
     @import "./covidTooltip";
+
 }

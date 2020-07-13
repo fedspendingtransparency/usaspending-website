@@ -296,6 +296,14 @@ const RectanglePercentViz = ({
                                         300
                                     );
                                 }
+                                // when outlays are zero.
+                                else if (child.text.toLowerCase().includes('covid')) {
+                                    showTooltip(
+                                        child.tooltipData,
+                                        `275px`,
+                                        245
+                                    );
+                                }
                                 else {
                                     showTooltip(
                                         child.tooltipData,

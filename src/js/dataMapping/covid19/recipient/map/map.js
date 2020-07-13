@@ -101,39 +101,6 @@ export const filters = {
                 label: 'Individuals'
             }
         ]
-    },
-    awardType: {
-        label: 'AWARD TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Award Types'
-            },
-            {
-                value: 'contract',
-                label: 'Contracts'
-            },
-            {
-                value: 'idv',
-                label: 'Indefinite Delivery Vehicle'
-            },
-            {
-                value: 'grants',
-                label: 'Grants'
-            },
-            {
-                value: 'direct_payments',
-                label: 'Direct Payments'
-            },
-            {
-                value: 'loans',
-                label: 'Loans'
-            },
-            {
-                value: 'other',
-                label: 'Other'
-            }
-        ]
     }
 };
 

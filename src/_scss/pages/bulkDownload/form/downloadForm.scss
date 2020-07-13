@@ -70,6 +70,43 @@
             }
             .download-filter__fy {
                 @import "fyPicker";
+                .quarter-picker .quarter-picker__fy {
+                    @include flex(0 0 auto);
+                    padding-right: rem(20);
+                }
+                .usa-dt-quarter-picker__list {
+                    @include flex-wrap(wrap);
+                    @media(min-width: $tablet-screen) {
+                        @include flex-wrap(nowrap);
+                    }
+                }
+                .usa-dt-quarter-picker__period-list-container {
+                    p {
+                        font-weight: 600;
+                    }
+                    .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
+                        // the generic period styles
+                        margin: rem(0) rem(1);
+                        .usa-dt-quarter-picker__quarter {
+                            width: rem(24);
+                            font-weight: $font-bold;
+                            padding-right: 0;
+                            padding-left: 0;
+                        }
+                        // period representing two periods (1-2)
+                        &.double-period .usa-dt-quarter-picker__quarter {
+                            width: rem(48);
+                        }
+                        // period representing three periods (1-3)
+                        &.triple-period .usa-dt-quarter-picker__quarter {
+                            width: rem(72);
+                        }
+                        // period representing three periods w/ two-digit integers (10-12)
+                        &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
+                            width: rem(72);
+                        }
+                    }
+                }
             }
         }
 
