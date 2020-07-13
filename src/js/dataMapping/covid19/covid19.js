@@ -35,6 +35,7 @@ export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
         fill: '#AAC6E2',
+        lineColor: '#AAC6E2',
         offset: {
             left: 0,
             right: 0,
@@ -46,7 +47,7 @@ export const rectangleMapping = {
         text: {
             question: 'How much is available to be spent?',
             questionLeft: 265,
-            questionDown: 20,
+            questionDown: 40,
             valueLeft: 128,
             valueDown: 25,
             labelLeft: 340,
@@ -56,6 +57,7 @@ export const rectangleMapping = {
     },
     _totalObligations: {
         fill: '#558EC6',
+        lineColor: '#558EC6',
         offset: {
             left: 0,
             right: 0,
@@ -77,6 +79,7 @@ export const rectangleMapping = {
     },
     _totalOutlays: {
         fill: '#0A2F5A',
+        lineColor: '#0A2F5A',
         offset: {
             left: 0,
             right: 0,
@@ -98,7 +101,7 @@ export const rectangleMapping = {
     },
     _remainingBalance: {
         lineColor: '#9D9D9D',
-        fill: 'grey',
+        fill: 'white',
         primaryKey: '_totalObligations',
         offset: {
             left: 0,
