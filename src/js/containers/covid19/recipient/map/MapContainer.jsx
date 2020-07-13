@@ -17,11 +17,11 @@ import {
     centerOfMap,
     apiScopes,
     filters,
-    awardTypeFilters,
     logMapLayerEvent,
     logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 // import { awardTypeGroups } from 'dataMapping/search/awardType';
 // import { recipientMapHelper } from 'helpers/disasterHelper';
@@ -394,7 +394,7 @@ export class MapContainer extends React.Component {
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
                     onClick={this.updateawardTypeFilter}
-                    filters={awardTypeFilters}
+                    filters={awardTypeTabs}
                     activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}

@@ -19,7 +19,7 @@ export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
-export const cfdaSortFields = {
+export const spendingTableSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
     count: 'count',
@@ -47,5 +47,36 @@ export const financialAssistanceTabs = [
     {
         internal: 'other',
         label: 'Other'
+    }
+];
+
+export const awardTypeTabs = [
+    {
+        internal: 'all',
+        label: 'All Awards'
+    },
+    {
+        internal: 'grants',
+        label: 'Grants'
+    },
+    {
+        internal: 'loans',
+        label: 'Loans'
+    },
+    {
+        internal: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        internal: 'other',
+        label: 'Other Financial Assistance'
+    },
+    {
+        internal: 'contracts',
+        label: 'Contracts'
+    },
+    {
+        internal: 'idvs',
+        label: 'Contract IDVs'
     }
 ];

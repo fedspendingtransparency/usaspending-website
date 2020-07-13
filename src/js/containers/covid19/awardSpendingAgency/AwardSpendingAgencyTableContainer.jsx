@@ -17,7 +17,8 @@ import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/Bas
 
 
 const propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    subHeading: PropTypes.string
 };
 
 const awardSpendingAgencyTableColumns = (type) => {
@@ -291,7 +292,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 rows={results}
                 columns={awardSpendingAgencyTableColumns(awardSpendingAgencyTableTabs.filter((tab) => tab.internal === props.type)[0].columnName)}
                 currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort} />
+                updateSort={updateSort}
+                divider={props.subHeading} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

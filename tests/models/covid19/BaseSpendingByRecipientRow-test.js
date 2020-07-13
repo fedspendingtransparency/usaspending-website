@@ -1,19 +1,22 @@
 /**
- * BaseSpendingByCfdaRow-test.js
- * Created by Lizzie Salita 6/24/20
+ * BaseSpendingByRecipientRow-test.js
+ * Created by Lizzie Salita 7/9/20
  */
 
-import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
-import { mockCfdaData } from './mockData';
+import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
+import { mockRecipientData } from './mockData';
 
-const row = Object.create(BaseSpendingByCfdaRow);
-row.populate(mockCfdaData);
+const row = Object.create(BaseSpendingByRecipientRow);
+row.populate(mockRecipientData);
 
-describe('COVID-19 spending by CFDA row', () => {
+describe('COVID-19 Spending by Recipient row', () => {
     describe('CoreSpendingTableRow properties', () => {
         describe('name column properties', () => {
-            it('should store the code (CFDA number)', () => {
-                expect(row._code).toEqual('43.090');
+            it('should store the id', () => {
+                expect(row._id).toEqual(['hash-R', 'hash-C']);
+            });
+            it('should store the code', () => {
+                expect(row._code).toEqual('090');
             });
             it('should store the description', () => {
                 expect(row.description).toEqual('Description text');
@@ -52,12 +55,24 @@ describe('COVID-19 spending by CFDA row', () => {
             });
         });
     });
-    describe('CFDA-specific properties', () => {
-        it('should format the name using the code and description', () => {
-            expect(row.name).toEqual('43.090: Description text');
+    describe('recipient-specific properties', () => {
+        it('should store the child recipient id', () => {
+            expect(row._childId).toEqual('hash-C');
         });
-        it('should store the resource link value', () => {
-            expect(row._link).toEqual('https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view');
+        it('should store the recipient id', () => {
+            expect(row._recipientId).toEqual('hash-R');
+        });
+
+        const noIdData = {
+            ...mockRecipientData,
+            id: []
+        };
+        const noIdRow = Object.create(BaseSpendingByRecipientRow);
+        noIdRow.populate(noIdData);
+
+        it('should return falsy if an id does not exist', () => {
+            expect(noIdRow._childId).toBeFalsy();
+            expect(noIdRow._recipientId).toBeFalsy();
         });
     });
 });

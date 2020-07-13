@@ -71,7 +71,7 @@ export default class AccountDataContent extends React.Component {
             && (accounts.agency.id !== '')
             && (accounts.submissionTypes.length !== 0)
             && (accounts.fy !== '')
-            && (accounts.quarter !== '')
+            && (accounts.quarter !== '' || accounts.period !== '')
         );
 
         this.setState({
@@ -119,9 +119,9 @@ export default class AccountDataContent extends React.Component {
                             valid={accounts.submissionTypes.length !== 0} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
-                            currentQuarter={accounts.quarter}
+                            latestSelectedTimePeriod={accounts.period === '' ? accounts.quarter : accounts.period}
                             updateFilter={this.props.updateFilter}
-                            valid={accounts.fy && accounts.quarter} />
+                            valid={(accounts.fy && (accounts.quarter || accounts.period))} />
                         <UserSelections
                             accounts={accounts} />
                         <SubmitButton

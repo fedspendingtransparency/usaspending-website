@@ -88,7 +88,7 @@ const AwardAmountsTable = ({
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
 
     return (
-        <div className="award-amounts__data-wrapper">
+        <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
             {Object.keys(amountMapByCategoryTitle)
                 .map((title) => (
                     <div key={uniqueId(title)} className="award-amounts__data-content">
