@@ -67,7 +67,6 @@
                         @include align-items(flex-end);
                         @include justify-content(flex-end);
                         opacity: 0.5;
-                        height: rem(72);
                         margin: 0;
                         &:hover {
                             opacity: 1;

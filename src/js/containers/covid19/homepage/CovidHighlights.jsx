@@ -1,7 +1,7 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
+import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId, delay } from 'lodash';
+import { get, uniqueId, delay, debounce, update } from 'lodash';
 
 // import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
 import { fetchCovidTotals, fetchAllCovidSpendingByCfda } from 'helpers/disasterHelper';
@@ -36,6 +36,50 @@ const defaultParams = {
 let scrollInterval = null;
 let amountUpdate = null;
 let artificialDelay = null;
+
+const TotalAmount = ({
+    total,
+    isLoading,
+    className
+}) => {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const updateAmount = (amount) => new Promise((resolve) => {
+            amountUpdate = delay(() => {
+                ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
+                resolve();
+            }, 5);
+        });
+        if (!isLoading) {
+            new Array(1000)
+                .fill(0)
+                .reduce((prevPromise, currentValue, currentIndex) => prevPromise
+                    .then(() => {
+                        const divisor = (currentIndex + 1) * 0.001;
+                        return updateAmount(divisor * total);
+                    }), Promise.resolve());
+        }
+    }, [isLoading, total]);
+
+    useEffect(() => (
+        () => {
+            if (amountUpdate) {
+                window.clearTimeout(amountUpdate);
+            }
+        }
+    ));
+
+    return (
+        <strong className={className} ref={ref}>$0.00</strong>
+    );
+};
+
+TotalAmount.propTypes = {
+    isLoading: PropTypes.boolean,
+    total: PropTypes.number,
+    className: PropTypes.string
+};
 
 export class CovidHighlights extends React.Component {
     constructor(props) {
@@ -75,16 +119,18 @@ export class CovidHighlights extends React.Component {
                 })
         ])
             .then(() => {
-                scrollInterval = window.setInterval(() => {
-                    const newPosition = this.scrollBar.scrollTop + 72;
-                    const maxScroll = this.scrollBar.scrollHeight - 446;
-                    if (newPosition >= maxScroll && !this.state.isHoverActive) {
-                        scrollToY(0, 2000, this.scrollBar);
-                    }
-                    else if (!this.state.isHoverActive) {
-                        scrollToY(newPosition, 2000, this.scrollBar);
-                    }
-                }, 3000);
+                if (!document.documentMode) {
+                    scrollInterval = window.setInterval(() => {
+                        const newPosition = this.scrollBar.scrollTop + 72;
+                        const maxScroll = this.scrollBar.scrollHeight - 446;
+                        if (newPosition >= maxScroll && !this.state.isHoverActive) {
+                            scrollToY(0, 2000, this.scrollBar);
+                        }
+                        else if (!this.state.isHoverActive) {
+                            scrollToY(newPosition, 2000, this.scrollBar);
+                        }
+                    }, 3000);
+                }
             })
             .catch((e) => {
                 this.setState({
@@ -109,16 +155,8 @@ export class CovidHighlights extends React.Component {
     parseSpendingTotals = ({
         data: { spending: { total_obligations: totalSpendingAmount } }
     }) => {
-        // this is really fun and all but doesnt work in IE :(
         artificialDelay = delay(() => {
-            this.setState({ isAmountLoading: false }, () => {
-                new Array(1000)
-                    .fill(0)
-                    .forEach((num, index) => {
-                        const divisor = (index + 1) * 0.001;
-                        amountUpdate = delay(() => this.updateTotalSpending(divisor * totalSpendingAmount), 1750);
-                    });
-            });
+            this.setState({ isAmountLoading: false, totalSpendingAmount });
         }, 3000);
     };
 
@@ -149,9 +187,10 @@ export class CovidHighlights extends React.Component {
                             <span>The Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
-                                <strong className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}>
-                                    {totalSpendingAmount}
-                                </strong>
+                                <TotalAmount
+                                    className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                                    total={totalSpendingAmount}
+                                    isLoading={isAmountLoading} />
                                 in response to
                             </span>
                             <span className="covid-hero__headline">
