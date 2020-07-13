@@ -29,8 +29,14 @@ export const amountsPadding = {
 export const paddingBetweenRectangles = 3;
 export const startOfChartY = 160;
 export const rectangleHeight = 45;
-export const lineStrokeWidth = 2;
+export const lineStrokeWidth = 4;
 export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
+export const spacingBetweenLineAndText = 10;
+export const remainingBalanceCircleRadius = 4;
+export const labelTextAdjustment = {
+    x: 4,
+    y: 4
+};
 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
