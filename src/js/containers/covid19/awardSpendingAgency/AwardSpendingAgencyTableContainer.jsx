@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
@@ -21,7 +20,7 @@ const propTypes = {
 };
 
 const awardSpendingAgencyTableColumns = (type) => {
-    if (type === 'Loan') {
+    if (type === 'loans') {
         return (
             [
                 {
@@ -173,7 +172,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 pagination: {
                     limit: pageSize,
                     page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    sort,
                     order
                 },
                 spending_type: 'award'
@@ -187,7 +186,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 pagination: {
                     limit: pageSize,
                     page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    sort,
                     order
                 },
                 spending_type: 'award'
@@ -203,7 +202,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 pagination: {
                     limit: pageSize,
                     page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
+                    sort,
                     order
                 },
                 spending_type: 'award'
@@ -284,7 +283,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             <Table
                 expandable
                 rows={results}
-                columns={awardSpendingAgencyTableColumns(awardSpendingAgencyTableTabs.filter((tab) => tab.internal === props.type)[0].columnName)}
+                columns={awardSpendingAgencyTableColumns(props.type)}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort}
                 divider={props.subHeading} />

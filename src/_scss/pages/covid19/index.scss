@@ -87,6 +87,9 @@
                         &.table-header__content_right {
                             text-align: right;
                         }
+                        .table-header__label {
+                            white-space: nowrap;
+                        }
                     }
                 }
             }
