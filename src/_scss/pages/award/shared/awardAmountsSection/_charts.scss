@@ -59,30 +59,22 @@ $file-c-obligation: $color-covid-19-obligations;
                 border-top: .4rem solid $potential;
                 border-bottom: .4rem solid $potential;
                 background: repeating-linear-gradient(45deg,$obligated, $obligated .8rem,#fdb81e 0,#fdb81e 1rem);
-                &.covid {
-                    border-top: .4rem solid $potential;
-                    border-bottom: .4rem solid $potential;
-                }
             }
             .award-amounts-viz__bar-wrapper {
                 &.idv-extreme-overspending-potential-wrapper,
                 &.contract-extreme-overspending-potential-wrapper {
-                    border: 0.2rem solid #5b616b;
+                    border: 0.2rem solid $potential;
                     background-color: #fff;
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar,
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar {
                         &.contract-extreme-overspending-current,
                         &.idv-extreme-overspending-current {
-                            border: solid 0.4rem $color-gray-lighter;
-                        }
-                        &.covid.contract-extreme-overspending-current,
-                        &.covid.idv-extreme-overspending-current {
                             border: solid 0.4rem $current;
                         }
                         &.contract-extreme-overspending-potential,
                         &.idv-extreme-overspending-potential {
-                            border-top: 4px solid white;
-                            border-bottom: 4px solid white;
+                            border-top: 4px solid $potential;
+                            border-bottom: 4px solid $potential;
                         }
                     }
                 }
@@ -226,7 +218,9 @@ $file-c-obligation: $color-covid-19-obligations;
                     &.contract-obligated,
                     &.contract-obligated,
                     &.asst-obligated,
-                    &.asst-obligated {
+                    &.asst-obligated,
+                    &.idv-extreme-overspending-obligated,
+                    &.contract-extreme-overspending-obligated {
                         border-bottom: rem(1) solid $obligated;
                         &::before,
                         &::after {
@@ -379,7 +373,9 @@ $file-c-obligation: $color-covid-19-obligations;
                     &.idv-current,
                     &.contract-current,
                     &.idv-overspending-current,
-                    &.contract-overspending-current {
+                    &.contract-overspending-current,
+                    &.idv-extreme-overspending-current,
+                    &.contract-extreme-overspending-current {
                         border-bottom: rem(1) solid $current;
                         &::after,
                         &::before {
