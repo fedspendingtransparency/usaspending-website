@@ -173,7 +173,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (props.type === 'all') {
                 params = {
                     filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: [].concat(...Object.values(awardTypeGroups))
                     },
                     pagination: {
                         limit: pageSize,
@@ -203,7 +204,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (props.type === 'loans') {
                 const faceValueOfLoansParams = {
                     filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: awardTypeGroups[props.type]
                     },
                     pagination: {
                         limit: pageSize,
