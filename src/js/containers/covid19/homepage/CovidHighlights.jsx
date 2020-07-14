@@ -75,6 +75,7 @@ const TotalAmount = ({
     useEffect(() => {
         const updateAmount = (amount) => new Promise((resolve) => {
             amountUpdate = delay(() => {
+                console.log("HEY");
                 ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
                 resolve();
             }, 5);
@@ -182,9 +183,10 @@ export class CovidHighlights extends React.Component {
             });
     }
 
-    shouldComponentUpdate(_, nextState) {
-        if (!this.state.isIncrementComplete && !this.state.isHoverActive && nextState.isHoverActive) {
-            // we re-render in this case b/c it will stop the increment of the total amount.
+    shouldComponentUpdate(prevProps, nextState) {
+        const hoverStateChanged = (nextState.isHoverActive !== this.state.isHoverActive);
+        if (!this.state.isIncrementComplete && hoverStateChanged) {
+            // if we re-render in this case the increment of the total amount will stop and we will display an inaccurate total number.
             return false;
         }
         return true;
@@ -244,14 +246,12 @@ export class CovidHighlights extends React.Component {
 
     handleHover = throttle(() => {
         if (!this.state.isHoverActive) {
-        // if (!this.state.isHoverActive && this.state.isIncrementComplete) {
             this.setState({ isHoverActive: true });
         }
     }, 10);
 
     handleBlur = throttle(() => {
         if (this.state.isHoverActive) {
-        // if (this.state.isHoverActive && this.state.isIncrementComplete) {
             this.setState({ isHoverActive: false });
         }
     }, 250);
