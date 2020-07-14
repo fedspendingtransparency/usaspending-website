@@ -4,15 +4,17 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const propTypes = { dateString: PropTypes.string };
 
-const DateNote = ({ dateString = 'June 30, 2020' }) => (
-    <div className="covid__date-note">
-        Data as of {dateString}
-    </div>
-);
+const DateNote = () => {
+    const date = useSelector((state) => state.covid19.latestSubmissionDate);
+    if (!date) return null;
+    return (
+        <div className="covid__date-note">
+            Data as of {date}
+        </div>
+    );
+};
 
-DateNote.propTypes = propTypes;
 export default DateNote;

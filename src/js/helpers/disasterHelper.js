@@ -85,6 +85,10 @@ export const fetchSpendingByCfda = (params) => apiRequest({
     data: params
 });
 
+export const fetchAllSubmissionDates = () => apiRequest({
+    url: 'v2/references/submission_periods/'
+});
+
 export const fetchRecipientCount = (params) => apiRequest({
     url: 'v2/disaster/recipient/count/',
     method: 'post',
