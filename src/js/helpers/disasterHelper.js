@@ -111,21 +111,3 @@ export const fetchLoanSpending = (type, params) => apiRequest({
     method: 'post',
     data: params
 });
-
-export const fetchRecipientCount = (params) => apiRequest({
-    url: 'v2/disaster/recipient/count/',
-    method: 'post',
-    data: params
-});
-
-export const fetchSpendingByRecipient = (params) => apiRequest({
-    url: 'v2/disaster/recipient/spending/',
-    method: 'post',
-    data: params
-});
-
-export const fetchRecipientLoans = (params) => apiRequest({
-    url: 'v2/disaster/recipient/loans/',
-    method: 'post',
-    data: params
-});

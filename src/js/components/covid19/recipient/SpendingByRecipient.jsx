@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchRecipientCount } from 'helpers/disasterHelper';
+import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
@@ -65,7 +65,7 @@ const SpendingByRecipient = () => {
                 // Endpoint defaults to all award types if award_type_codes is not provided
                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
             }
-            return fetchRecipientCount(params).promise;
+            return fetchDisasterSpendingCount('recipient', params).promise;
         });
         // Wait for all the requests to complete and then store the results in state
         Promise.all(promises)

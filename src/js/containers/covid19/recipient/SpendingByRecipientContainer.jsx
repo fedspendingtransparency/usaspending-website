@@ -11,7 +11,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByRecipient, fetchRecipientLoans } from 'helpers/disasterHelper';
+import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
@@ -183,9 +183,9 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        let request = fetchSpendingByRecipient(params);
+        let request = fetchDisasterSpending('recipient', params);
         if (activeTab === 'loans') {
-            request = fetchRecipientLoans(params);
+            request = fetchLoanSpending('recipient', params);
         }
         request.promise
             .then((res) => {
