@@ -497,9 +497,9 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     className: `${awardType}-face-value`,
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
+                    color: faceValueColor,
                     text: 'Face Value of Direct Loan',
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts),
-                    color: faceValueColor
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)
                 }
             };
             const props = showFileC

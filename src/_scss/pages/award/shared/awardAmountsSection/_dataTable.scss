@@ -33,8 +33,13 @@
         background-color: #BBBBBB;
     }
     
-    .award-amounts__data-icon_yellow {
+    .award-amounts__data-icon_subsidy {
         background-color: $colors-loans-subsidy;
+    }
+
+    .award-amounts__data-icon_face-value {
+        background-color: $colors-loans-face-value;
+        border: rem(2) solid #BBBBBB;
     }
     
     .award-amounts__data-icon_transparent {

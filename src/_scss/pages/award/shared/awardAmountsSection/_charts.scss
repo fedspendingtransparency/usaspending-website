@@ -160,7 +160,7 @@ $exceeds-potential-color: #e31c3d;
 
                 &.idv-obligated,
                 &.contract-obligated,
-                &.asst-obligated {
+                &.asst-obligation {
                     border-left: rem(4) solid $colors-obligated;
                 }
 
@@ -213,7 +213,8 @@ $exceeds-potential-color: #e31c3d;
                     &.asst-obligated,
                     &.asst-obligated,
                     &.idv-extreme-overspending-obligated,
-                    &.contract-extreme-overspending-obligated {
+                    &.contract-extreme-overspending-obligated,
+                    &.asst-obligation {
                         border-bottom: rem(1) solid $colors-obligated;
                         &::before,
                         &::after {
@@ -314,12 +315,17 @@ $exceeds-potential-color: #e31c3d;
                             }
                         }
                     }
-                    &.loan-face-value::after,
-                    &.asst-total-funding::after {
-                        content: ' ';
-                        height: rem(45);
-                        border: rem(1) solid $color-gray;
-                        width: rem(5);
+                    &.loan-face-value,
+                    &.asst-total-funding {
+                        &::after {
+                            content: ' ';
+                            height: rem(45);
+                            width: rem(5);
+                            border: rem(1) solid $color-gray-light;
+                        }
+                        &.loan-face-value::after {
+                            background: $colors-loans-face-value;
+                        }                        
                     }
                 }
                 .award-amounts-viz__line {
@@ -361,6 +367,13 @@ $exceeds-potential-color: #e31c3d;
                             top: -9px;
                             right: -1px;
                             border-left: 1px solid $colors-grants-nff; 
+                        }
+                    }
+                    &.asst-total-funding {
+                        border-bottom: rem(1) solid $color-gray-light;
+                        &::after,
+                        &::before {
+                            border-left: 1px solid $color-gray-light; 
                         }
                     }
                     &.idv-current,
