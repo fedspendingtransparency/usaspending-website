@@ -3,7 +3,8 @@
  * Created by Jonathan Hill 06/10/20
  */
 
-import MapContainer from 'containers/covid19/recipient/RecipientContainer';
+import OverviewContainer from 'containers/covid19/OverviewContainer';
+import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
 
 import React from 'react';
 import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
@@ -38,17 +39,10 @@ const awardSpedingTooltip = (
     <div>Content is Coming soon</div>
 );
 
-const ComingSoon = () => (
-    <div className="coming-soon-section">
-        <h3>Coming Soon</h3>
-        <p>This feature is currently under development.</p>
-    </div>
-);
-
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
-        component: <ComingSoon />,
+        component: <OverviewContainer />,
         headerText: totalSpendingText,
         headerTextTooltip: totalSpendingTooltip,
         showInMenu: true,
@@ -68,7 +62,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_recipient: {
         icon: 'building',
-        component: <MapContainer />,
+        component: <RecipientContainer />,
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,

@@ -64,7 +64,7 @@ const loanColumns = [
         )
     },
     {
-        title: 'faceValue',
+        title: 'faceValueOfLoan',
         displayName: (
             <>
                 <div>Face Value</div>
@@ -123,7 +123,7 @@ export const parseRows = (rows, onRedirectModalClick, activeTab) => (
         if (activeTab === 'loans') {
             return [
                 link,
-                rowData.faceValue,
+                rowData.faceValueOfLoan,
                 rowData.obligation,
                 rowData.outlay,
                 rowData.count
@@ -155,37 +155,39 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
         setLoading(true);
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-            },
-            spending_type: 'award',
-            pagination: {
-                limit: pageSize,
-                page: currentPage,
-                sort: spendingTableSortFields[sort],
-                order
+        if (defCodes && defCodes.length > 0) {
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                spending_type: 'award',
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: spendingTableSortFields[sort],
+                    order
+                }
+            };
+            if (activeTab !== 'all') {
+                params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
-        };
-        if (activeTab !== 'all') {
-            params.filter.award_type_codes = awardTypeGroups[activeTab];
+            let request = fetchSpendingByCfda(params);
+            if (activeTab === 'loans') {
+                request = fetchCfdaLoans(params);
+            }
+            request.promise
+                .then((res) => {
+                    const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
+                    setResults(rows);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setError(true);
+                    setLoading(false);
+                    console.error(err);
+                });
         }
-        let request = fetchSpendingByCfda(params);
-        if (activeTab === 'loans') {
-            request = fetchCfdaLoans(params);
-        }
-        request.promise
-            .then((res) => {
-                const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
-                setResults(rows);
-                setTotalItems(res.data.page_metadata.total);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
     });
 
     useEffect(() => {
@@ -215,15 +217,13 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
 
     if (message) {
         return (
-            <>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
-            </>
+            <CSSTransitionGroup
+                transitionName="table-message-fade"
+                transitionLeaveTimeout={225}
+                transitionEnterTimeout={195}
+                transitionLeave>
+                {message}
+            </CSSTransitionGroup>
         );
     }
 

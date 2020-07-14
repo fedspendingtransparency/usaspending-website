@@ -4,7 +4,9 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -13,7 +15,6 @@ import {
     budgetDropdownFieldValues,
     budgetCategoriesCssMappingTypes,
     budgetCategoriesSort,
-    sortMapping,
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
@@ -85,7 +86,7 @@ const budgetDropdownColumns = {
             right: true
         },
         {
-            title: 'faceValue',
+            title: 'faceValueOfLoan',
             displayName: (
                 <>
                     <div>Face Value</div>
@@ -134,6 +135,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const [request, setRequest] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
 
@@ -153,8 +155,10 @@ const BudgetCategoriesTableContainer = (props) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
                     budgetCategoryChildRow.populate(childItem);
                     // update name of children to not include description, just make the name the code for only federal account
-                    if (props.type === 'federal_account' || props.type === 'object_class') {
-                        budgetCategoryChildRow.name = budgetCategoryChildRow.code;
+                    if (props.type === 'federal_account') {
+                        budgetCategoryChildRow.name = budgetCategoryChildRow._code;
+                    } else if (props.type === 'object_class') {
+                        budgetCategoryChildRow.name = `${budgetCategoryChildRow._code} — ${budgetCategoryChildRow.description}`;
                     } else if (props.type === 'agency') {
                         budgetCategoryChildRow.name = budgetCategoryChildRow.description;
                     }
@@ -169,8 +173,8 @@ const BudgetCategoriesTableContainer = (props) => {
             }
 
             let link = budgetCategoryRow.name;
-            const id = budgetCategoryRow.id;
-            const code = budgetCategoryRow.code;
+            const id = budgetCategoryRow._id;
+            const code = budgetCategoryRow._code;
             if (link && code && props.type === 'federal_account') {
                 link = (
                     <a
@@ -194,7 +198,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 obligation: budgetCategoryRow.obligation,
                 outlay: budgetCategoryRow.outlay,
                 totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
-                faceValue: budgetCategoryRow.faceValue,
+                faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
                 count: budgetCategoryRow.count,
                 children: budgetCategoryRow.children,
                 name: link
@@ -204,10 +208,14 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
+
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory && sortAndOrder) {
             // if type is agency then sort name column by description
-            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : sortMapping[sortAndOrder[props.type][spendingCategory].sort];
+            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : snakeCase([sortAndOrder[props.type][spendingCategory].sort]);
 
             if (spendingCategory === 'loan_spending') {
                 const params = {
@@ -222,6 +230,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     }
                 };
                 const requestLoanSpending = fetchLoanSpending(props.type, params);
+                setRequest(requestLoanSpending);
                 requestLoanSpending.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
@@ -229,9 +238,12 @@ const BudgetCategoriesTableContainer = (props) => {
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             } else {
                 const params = {
@@ -246,17 +258,21 @@ const BudgetCategoriesTableContainer = (props) => {
                         order: sortAndOrder[props.type][spendingCategory].order
                     }
                 };
-                const requestDisasterSpending = fetchDisasterSpending(props.type, params);
-                requestDisasterSpending.promise
+                const disasterSpendingRequest = fetchDisasterSpending(props.type, params);
+                setRequest(disasterSpendingRequest);
+                disasterSpendingRequest.promise
                     .then((res) => {
                         parseSpendingDataAndSetResults(res.data.results);
                         setTotalItems(res.data.page_metadata.total);
                         setLoading(false);
                         setError(false);
                     }).catch((err) => {
-                        setError(true);
-                        setLoading(false);
-                        console.error(err);
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
                     });
             }
         }
@@ -310,7 +326,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchBudgetSpendingCallback();
-    }, [props.type, pageSize, sortAndOrder]);
+    }, [props.type, pageSize, sortAndOrder, defCodes]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

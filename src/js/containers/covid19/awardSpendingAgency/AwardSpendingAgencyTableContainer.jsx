@@ -5,6 +5,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { snakeCase } from 'lodash';
+import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
@@ -28,16 +30,6 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: 'Agency Name'
                 },
                 {
-                    title: 'faceValue',
-                    displayName: (
-                        <>
-                            <div>Face Value</div>
-                            <div>of Loans</div>
-                        </>
-                    ),
-                    right: true
-                },
-                {
                     title: 'obligation',
                     displayName: (
                         <>
@@ -53,6 +45,16 @@ const awardSpendingAgencyTableColumns = (type) => {
                         <>
                             <div>Award Outlays</div>
                             <div>(Loan Subsidy Cost)</div>
+                        </>
+                    ),
+                    right: true
+                },
+                {
+                    title: 'faceValueOfLoan',
+                    displayName: (
+                        <>
+                            <div>Face Value</div>
+                            <div>of Loans</div>
                         </>
                     ),
                     right: true
@@ -112,6 +114,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const [request, setRequest] = useState(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -123,6 +126,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 rowChildren = item.children.map((childItem) => {
                     const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
                     awardSpendingByAgencyChildRow.populateCore(childItem);
+                    awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
                     return awardSpendingByAgencyChildRow;
                 });
             }
@@ -134,7 +138,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             }
 
             let link = awardSpendingByAgencyRow.description;
-            const id = awardSpendingByAgencyRow.id;
+            const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
                     <a
@@ -144,12 +148,11 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     </a>
                 );
             }
-
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
                 count: awardSpendingByAgencyRow.count,
-                faceValue: awardSpendingByAgencyRow.faceValue,
+                faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
                 name: link
@@ -159,83 +162,96 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
         setLoading(true);
+        if (defCodes && defCodes.length > 0) {
+            let params = {};
 
-        let params = {};
+            // if active tab is all, default to all award type codes
+            if (props.type === 'all') {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: [].concat(...Object.values(awardTypeGroups))
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+            } else {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: awardTypeGroups[props.type]
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+            }
 
-        // if active tab is all, default to all award type codes
-        if (props.type === 'all') {
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort,
-                    order
-                },
-                spending_type: 'award'
-            };
-        } else {
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code),
-                    award_type_codes: awardTypeGroups[props.type]
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort,
-                    order
-                },
-                spending_type: 'award'
-            };
-        }
+            let faceValueOfLoansRequest;
+            if (props.type === 'loans') {
+                const faceValueOfLoansParams = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: awardTypeGroups[props.type]
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+                faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
+            }
 
-        let faceValueOfLoansRequest;
-        if (props.type === 'loans') {
-            const faceValueOfLoansParams = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort,
-                    order
-                },
-                spending_type: 'award'
-            };
-            faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
-        }
-
-
-        if (faceValueOfLoansRequest) {
-            faceValueOfLoansRequest.promise
-                .then((res) => {
-                    parseAwardSpendingByAgency(res.data.results);
-                    setTotalItems(res.data.page_metadata.total);
-                    setLoading(false);
-                    setError(false);
-                }).catch((err) => {
-                    setError(true);
-                    setLoading(false);
-                    console.error(err);
-                });
-        } else {
-            const request = fetchAwardSpendingByAgency(params);
-            request.promise
-                .then((res) => {
-                    parseAwardSpendingByAgency(res.data.results);
-                    setTotalItems(res.data.page_metadata.total);
-                    setLoading(false);
-                    setError(false);
-                }).catch((err) => {
-                    setError(true);
-                    setLoading(false);
-                    console.error(err);
-                });
+            if (faceValueOfLoansRequest) {
+                setRequest(faceValueOfLoansRequest);
+                faceValueOfLoansRequest.promise
+                    .then((res) => {
+                        parseAwardSpendingByAgency(res.data.results);
+                        setTotalItems(res.data.page_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
+                    });
+            } else {
+                const awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
+                setRequest(awardSpendingAgencyRequest);
+                awardSpendingAgencyRequest.promise
+                    .then((res) => {
+                        parseAwardSpendingByAgency(res.data.results);
+                        setTotalItems(res.data.page_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
+                    });
+            }
         }
     });
 
@@ -244,6 +260,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
     }, [props.type, pageSize, sort, order, defCodes]);
+
+    useEffect(() => {
+        if (props.type === 'loans') {
+            updateSort('faceValueOfLoan', 'desc');
+        } else {
+            updateSort('obligation', 'desc');
+        }
+    }, [props.type]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

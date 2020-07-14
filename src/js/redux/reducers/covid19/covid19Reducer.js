@@ -5,7 +5,8 @@
 
 const initialState = {
     defCodes: [],
-    overview: {}
+    overview: {},
+    latestSubmissionDate: ''
 };
 
 const covid19Reducer = (state = initialState, action) => {
@@ -15,6 +16,9 @@ const covid19Reducer = (state = initialState, action) => {
         }
         case 'SET_COVID_OVERVIEW': {
             return Object.assign(state, { overview: action.overview });
+        }
+        case 'SET_LATEST_SUBMISSION_DATE': {
+            return Object.assign(state, { latestSubmissionDate: action.latestSubmissionDate });
         }
         default: return state;
     }
