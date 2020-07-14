@@ -4,10 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy } from 'lodash';
+import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
-import * as SearchHelper from 'helpers/searchHelper';
+// import * as SearchHelper from 'helpers/searchHelper';
+import AwardFilterButtons from 'components/covid19/recipient/map/AwardFilterButtons';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,17 +18,20 @@ import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
 import {
     centerOfMap,
-    apiScopes,
+    // apiScopes,
+    awardTypeFilters,
     filters,
     logMapLayerEvent,
     logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
-import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
-// import { awardTypeGroups } from 'dataMapping/search/awardType';
-// import { recipientMapHelper } from 'helpers/disasterHelper';
-// import { recipientTypeGroups } from 'dataMapping/search/recipientType';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
+import SummaryInsightsContainer from '../SummaryInsightsContainer';
+
+const propTypes = {
+    defCodes: PropTypes.array
+};
 
 export class MapContainer extends React.Component {
     constructor(props) {
@@ -42,7 +48,7 @@ export class MapContainer extends React.Component {
             },
             activeFilters: {
                 territory: 'state',
-                spendingType: 'obligations',
+                spendingType: 'obligation',
                 amountType: 'totalSpending',
                 recipientType: 'all',
                 awardType: 'all'
@@ -76,6 +82,10 @@ export class MapContainer extends React.Component {
         logMapLayerEvent(this.state.mapLayer);
     }
 
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.defCodes, this.props.defCodes)) this.prepareFetch(true);
+    }
+
     componentWillUnmount() {
         // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
@@ -83,41 +93,47 @@ export class MapContainer extends React.Component {
         });
     }
 
-    updateamountTypeFilter = (value) => {
+    updateAmountTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
                 activeFilters: Object.assign(currentState.activeFilters, { amountType: value }),
                 data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
                 renderHash: `geo-${uniqueId()}`
-            }));
+            }),
+            () => this.prepareFetch(true)
+        );
     }
 
-    updateterritoryFilter = (value) => {
+    updateTerritoryFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { territory: value }
-            )
+            ),
+            () => this.prepareFetch(true)
         );
     }
-    updatespendingTypeFilter = (value) => {
+    updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { spendingType: value }
-            )
+            ),
+            () => this.prepareFetch(true)
         );
     }
-    updaterecipientTypeFilter = (value) => {
+    updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { recipientType: value }
-            )
+            ),
+            () => this.prepareFetch(true)
         );
     }
-    updateawardTypeFilter = (value) => {
+    updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => Object.assign(
                 currentState.activeFilters, { awardType: value }
-            )
+            ),
+            () => this.prepareFetch(true)
         );
     }
 
@@ -199,9 +215,7 @@ export class MapContainer extends React.Component {
     fetchData = () => {
         const {
             visibleEntities,
-            activeFilters,
-            scope,
-            subAward
+            activeFilters
         } = this.state;
         // if no entities are visible, don't make an API rquest because nothing in the US is visible
         if (visibleEntities.length === 0) {
@@ -216,27 +230,20 @@ export class MapContainer extends React.Component {
             return;
         }
         // COVID-19 API Params
-        // const covidParams = {
-        //     defc: ['L', 'M', 'N', 'O', 'P'],
-        //     geo_layer: activeFilters.territory,
-        //     geo_layer_filters: visibleEntities,
-        //     spending_type: activeFilters.spendingType,
-        //     recipient_type: recipientTypeGroups[activeFilters.recipientType]
-        // };
-        // // add specific award types
-        // if (activeFilters.awardType !== 'all') {
-        //     covidParams.award_type_codes = awardTypeGroups[activeFilters.awardType]
-        // }
-
-        // generate the API parameters
-        const apiParams = {
-            scope,
-            geo_layer: apiScopes[activeFilters.territory],
+        const covidParams = {
+            filter: {
+                def_codes: this.props.defCodes.map((code) => code.code)
+            },
+            geo_layer: activeFilters.territory,
             geo_layer_filters: visibleEntities,
-            filters: { time_period: [{ start_date: "2018-10-01", end_date: "2019-09-30" }] },
-            subawards: subAward,
-            auditTrail: 'COVID-19 Map Visualization'
+            spending_type: activeFilters.spendingType
+            // TODO - uncomment this when filter is ready
+            // recipient_type: recipientTypeGroups[activeFilters.recipientType],
         };
+        // add specific award types
+        if (activeFilters.awardType !== 'all') {
+            covidParams.filter.award_type_codes = awardTypeGroups[activeFilters.awardType];
+        }
 
         if (this.apiRequest) {
             this.apiRequest.cancel();
@@ -246,10 +253,10 @@ export class MapContainer extends React.Component {
             loading: true,
             error: false
         });
+        if (!this.props.defCodes.length) return;
+        this.apiRequest = fetchRecipientSpendingByGeography(covidParams);
 
-        // this.apiRequest = recipientMapHelper(covidParams);
-
-        this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
+        // this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
@@ -268,7 +275,7 @@ export class MapContainer extends React.Component {
             });
     }
 
-    amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+    amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'amount' : 'per_capita');
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -393,13 +400,16 @@ export class MapContainer extends React.Component {
                 id="results-section-geo"
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
-                    onClick={this.updateawardTypeFilter}
-                    filters={awardTypeTabs}
-                    activeFilter={this.state.activeFilters.awardType} />
+                    onClick={this.updateAwardTypeFilter}
+                    filters={awardTypeFilters}
+                    activeAwardTypeFilter={this.state.activeFilters.awardType}
+                    activeSpendingTypeFilter={this.state.activeFilters.spendingType} />
+                <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
                     scope={this.state.mapLayer}
                     renderHash={this.state.renderHash}
+                    awardTypeFilters={awardTypeFilters}
                     changeMapLayer={() => {}}
                     showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}
@@ -416,4 +426,10 @@ export class MapContainer extends React.Component {
     }
 }
 
-export default MapContainer;
+MapContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({
+        defCodes: state.covid19.defCodes
+    })
+)(MapContainer);

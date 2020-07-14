@@ -310,7 +310,7 @@ const defaultIdvColumns = [
 ];
 
 const covidObligationsCol = {
-    title: 'COVID-19 Response Obligations',
+    title: 'COVID-19 Obligations',
     subtitle: 'Obligations',
     background: covidColor,
     displayName: 'COVID-19 Response',
@@ -318,7 +318,7 @@ const covidObligationsCol = {
 };
 
 const covidOutlaysCol = {
-    title: 'COVID-19 Response Outlays',
+    title: 'COVID-19 Outlays',
     subtitle: 'Outlays',
     background: covidColor,
     displayName: 'COVID-19 Response',

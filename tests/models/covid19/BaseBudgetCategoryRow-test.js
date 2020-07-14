@@ -1,4 +1,4 @@
-import BaseBudgetCategoryRow from "../../../../src/js/models/covid19/budgetCategories/BaseBudgetCategoryRow";
+import BaseBudgetCategoryRow from "models/v2/covid19/BaseBudgetCategoryRow";
 
 export const mockBaseBudgetCategoryRow = {
     id: 41,
@@ -47,13 +47,13 @@ describe('BaseBudgetCategoryRow', () => {
                     }
                 } else if (spendingCategory === 'loan_spending') {
                     it('should store the raw face value of loan', () => {
-                        expect(baseBudgetCategoryRow._faceValueOfLoan).toEqual(123.12);
+                        expect(baseBudgetCategoryRow._faceValue).toEqual(123.12);
                     });
                     it('should store the raw count of loan', () => {
                         expect(baseBudgetCategoryRow._count).toEqual(2);
                     });
                     it('should store the face value of loan', () => {
-                        expect(baseBudgetCategoryRow.faceValueOfLoan).toEqual("$123");
+                        expect(baseBudgetCategoryRow.faceValue).toEqual("$123");
                     });
                     it('should store the raw count of loan', () => {
                         expect(baseBudgetCategoryRow.count).toEqual("2");
@@ -74,7 +74,7 @@ describe('BaseBudgetCategoryRow', () => {
                 }
 
                 it('should store the name as a combination of code and description', () => {
-                    expect(baseBudgetCategoryRow.name).toEqual('012 — Description text of 012, for humans');
+                    expect(baseBudgetCategoryRow.name).toEqual('012 - Description text of 012, for humans');
                 });
             });
         });
