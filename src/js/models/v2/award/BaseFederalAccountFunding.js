@@ -6,18 +6,18 @@
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const monthToPeriod = {
-    10: 'P01/P02',
-    11: 'P01/P02',
-    12: 'P03',
-    1: 'P04',
-    2: 'P05',
-    3: 'P06',
-    4: 'P07',
-    5: 'P08',
-    6: 'P09',
-    7: 'P10',
-    8: 'P11',
-    9: 'P12'
+    1: 'P01/P02',
+    2: 'P01/P02',
+    3: 'P03',
+    4: 'P04',
+    5: 'P05',
+    6: 'P06',
+    7: 'P07',
+    8: 'P08',
+    9: 'P09',
+    10: 'P10',
+    11: 'P11',
+    12: 'P12'
 };
 
 const BaseFederalAccount = {
