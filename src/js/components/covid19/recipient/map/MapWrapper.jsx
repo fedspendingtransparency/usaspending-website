@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
+import { uniq, cloneDeep } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -13,6 +13,7 @@ import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipien
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
+import MapFiltersToggle from './MapFiltersToggle';
 
 const propTypes = {
     data: PropTypes.object,
@@ -28,7 +29,8 @@ const propTypes = {
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     filters: PropTypes.object,
-    activeFilters: PropTypes.object
+    activeFilters: PropTypes.object,
+    awardTypeFilters: PropTypes.array
 };
 
 const defaultProps = {
@@ -51,7 +53,8 @@ export default class MapWrapper extends React.Component {
                 segments: [],
                 units: {}
             },
-            mapReady: false
+            mapReady: false,
+            isFiltersOpen: true
         };
 
         this.mapRef = null;
@@ -394,6 +397,8 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
@@ -405,12 +410,18 @@ export default class MapWrapper extends React.Component {
     }
 
     filters = () => {
-        const { filters, activeFilters } = this.props;
+        const { activeFilters } = this.props;
+        const filters = cloneDeep(this.props.filters);
         if (!filters || !activeFilters) return null;
+        const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.value).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters.includes(activeFilters.awardType)) {
+            filters.spendingType.options.pop();
+        }
         return (
             <MapFilters
-                filters={this.props.filters}
-                activeFilters={this.props.activeFilters} />
+                filters={filters}
+                activeFilters={this.props.activeFilters}
+                isOpen={this.state.isFiltersOpen} />
         );
     }
 
@@ -437,6 +448,7 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
+                <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}

@@ -1,0 +1,81 @@
+.covid19__sankey-container {
+  width: 100%;
+  .sankey__text {
+    font-size: 1.2rem;
+    font-weight: $font-semibold;
+    fill: $color-gray-medium;
+  }
+  .text {
+    font-size: 1.4rem;
+  }
+  .sankey__text-money {
+    font-size: 1.4rem;
+    font-weight: $font-normal;
+  }
+  .sankey__text__public-law {
+    font-size: 1.4rem;
+  }
+  .text__line {
+    stroke: $color-gray-lighter;
+  }
+  .covid19__sankey-legend {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-top: 3.6rem;
+    padding-bottom: 15rem;
+    .covid19-sankey-legend__item {
+      display: inline-flex;
+      padding-right: 4rem;
+      .covid19-sankey-legend__item__circle {
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 20px;
+        margin: 0.7rem 0.7rem 0 0;
+      }
+      .covid19-sankey-legend__item__circle-budget-source {
+        background-color: #B699C6;
+      }
+      .covid19-sankey-legend__item__circle-total-budget {
+        background-color: #AAC6E2;
+      }
+      .covid19-sankey-legend__item__circle-obligated {
+        background-color: #558EC6;
+      }
+      .covid19-sankey-legend__item__circle-outlayed {
+        background-color: #0A2F5A;
+      }
+      .covid19-sankey-legend__item-text {
+        font-size: 1.6rem;
+      }
+    }
+    .covid19-sankey-legend__item:last-child {
+      padding-right: 0;
+    }
+  }
+  .tooltip-wrapper {
+    .tooltip-spacer {
+      right: -400px;
+      top: -19px;
+    }
+    &.sankey__tooltip {
+      position: absolute;
+      font-size: 1.2rem;
+    }
+    pointer-events: visible;
+    .tooltip__hover-wrapper {
+      svg {
+        pointer-events: visible;
+      }
+    }
+  }
+  .sankey__glossary {
+    position: absolute;
+    a {
+        font-size: $small-font-size;
+        color: $color-gray-light;
+        &:hover {
+            color: $color-gray;
+        }
+    }
+  }
+}

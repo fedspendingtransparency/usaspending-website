@@ -5,6 +5,21 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
+const monthToPeriod = {
+    1: 'P01/P02',
+    2: 'P01/P02',
+    3: 'P03',
+    4: 'P04',
+    5: 'P05',
+    6: 'P06',
+    7: 'P07',
+    8: 'P08',
+    9: 'P09',
+    10: 'P10',
+    11: 'P11',
+    12: 'P12'
+};
+
 const BaseFederalAccount = {
     populateBase(data) {
         this.reportingFiscalYear = data.reporting_fiscal_year || null;
@@ -26,6 +41,10 @@ const BaseFederalAccount = {
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
+        this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
+        this._grossOutlayAmount = data.gross_outlay_amount || '';
+        this._isQuarterlySubmission = data.is_quarterly_submission;
+        this._reportingFiscalMonth = data.reporting_fiscal_month || null;
     },
 
     populate(data, category) {
@@ -51,8 +70,14 @@ Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
 });
 Object.defineProperty(BaseFederalAccount, 'submissionDate', {
     get() {
-        if (this.reportingFiscalYear && this.reportingFiscalQuarter) {
-            return `FY ${this.reportingFiscalYear} Q${this.reportingFiscalQuarter}`;
+        if (this._isQuarterlySubmission) {
+            if (this.reportingFiscalYear && this.reportingFiscalQuarter) {
+                return `FY ${this.reportingFiscalYear} Q${this.reportingFiscalQuarter}`;
+            }
+            return '--';
+        }
+        if (this.reportingFiscalYear && this._reportingFiscalMonth) {
+            return `FY ${this.reportingFiscalYear} ${monthToPeriod[this._reportingFiscalMonth]}`;
         }
         return '--';
     }
@@ -85,6 +110,22 @@ Object.defineProperty(BaseFederalAccount, 'accountNumber', {
             return `${this._agencyId}-${this._mainAccountCode}`;
         }
         return '';
+    }
+});
+Object.defineProperty(BaseFederalAccount, 'grossOutlayAmount', {
+    get() {
+        if (this._grossOutlayAmount) {
+            return formatMoney(this._grossOutlayAmount);
+        }
+        return '--';
+    }
+});
+Object.defineProperty(BaseFederalAccount, 'disasterEmergencyFundCode', {
+    get() {
+        if (this._disasterEmergencyFundCode) {
+            return this._disasterEmergencyFundCode;
+        }
+        return '--';
     }
 });
 

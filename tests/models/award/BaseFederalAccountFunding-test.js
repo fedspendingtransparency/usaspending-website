@@ -27,6 +27,13 @@ describe('Base Financial Assistance', () => {
         it('should format the submission date', () => {
             expect(row.submissionDate).toEqual('FY 2018 Q2');
         });
+        const newData = mockFederalAccountFunding.results[0];
+        newData.is_quarterly_submission = false;
+        const newRow = Object.create(BaseFederalAccount);
+        newRow.populate(newData, 'idv');
+        it('should format the submission period', () => {
+            expect(newRow.submissionDate).toEqual('FY 2018 P01/P02');
+        });
     });
     describe('Funding Obligated Amount', () => {
         it('should format the funding obligated amount', () => {
@@ -51,6 +58,22 @@ describe('Base Financial Assistance', () => {
             const nonIdv = Object.create(BaseFederalAccount);
             nonIdv.populate({ federal_account: "123-456", ...mockFederalAccountFunding.results[0] }, "contract");
             expect(nonIdv.federalAccountCode).toEqual('123-456');
+        });
+    });
+    describe('disasterEmergencyFundCode', () => {
+        it('should return -- when it does not exist', () => {
+            const fakeRow = Object.create(BaseFederalAccount);
+            const fakeData = { ...mockFederalAccountFunding.results[0] };
+            fakeData.disaster_emergency_fund_code = null;
+            fakeRow.populate(fakeData);
+            expect(fakeRow.disasterEmergencyFundCode).toEqual('--');
+        });
+    });
+    describe('grossOutlayAmount', () => {
+        it('should format the account number using the agency id and main account code', () => {
+            const fakeRow = Object.create(BaseFederalAccount);
+            fakeRow.populate(mockFederalAccountFunding.results[0]);
+            expect(fakeRow.grossOutlayAmount).toEqual('$111');
         });
     });
 });

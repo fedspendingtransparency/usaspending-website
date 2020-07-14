@@ -5,18 +5,25 @@
 
 import { apiRequest } from 'helpers/apiRequest';
 
+export const defCodeQueryString = (defCodes) => defCodes.reduce((acc, code, i, array) => {
+    let currentString = acc;
+    currentString += code;
+    if (i + 1 !== array.length) currentString += ',';
+    return currentString;
+}, '');
+
 export const fetchDEFCodes = () => apiRequest({
     url: 'v2/references/def_codes/'
 });
 
-export const fetchOverview = () => apiRequest({
-    url: 'v2/disaster/overview/'
+export const fetchOverview = (defCodes) => apiRequest({
+    url: defCodes ? `v2/disaster/overview/?def_codes=${defCodeQueryString(defCodes)}` : 'v2/disaster/overview/'
 });
 
-export const recipientMapHelper = (params) => apiRequest({
-    url: '/api/v2/disaster/spending_by_geography/',
-    params,
-    method: 'post'
+export const fetchRecipientSpendingByGeography = (params) => apiRequest({
+    url: 'v2/disaster/spending_by_geography/',
+    method: 'post',
+    data: params
 });
 
 export const fetchSpendingOverTime = (params) => apiRequest({
@@ -27,8 +34,19 @@ export const fetchSpendingOverTime = (params) => apiRequest({
 });
 
 export const fetchAgencyCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/agency/count/',
+    method: 'post',
+    data: params
+});
+
+export const fetchAwardSpendingByAgency = (params) => apiRequest({
+    url: 'v2/disaster/agency/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchLoansByAgency = (params) => apiRequest({
+    url: 'v2/disaster/agency/loans/',
     method: 'post',
     data: params
 });
@@ -41,7 +59,6 @@ export const fetchNewAwardsCount = (params) => apiRequest({
 });
 
 export const fetchAwardAmounts = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/award/amount/',
     method: 'post',
     data: params
@@ -55,22 +72,47 @@ export const fetchNewAwardsOverTime = (params) => apiRequest({
 });
 
 export const fetchAwardCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/award/count/',
     method: 'post',
     data: params
 });
 
 export const fetchCfdaCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/cfda/count/',
     method: 'post',
     data: params
 });
 
 export const fetchSpendingByCfda = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/cfda/spending/',
+    method: 'post',
+    data: params
+});
+
+export const fetchAllSubmissionDates = () => apiRequest({
+    url: 'v2/references/submission_periods/'
+});
+
+export const fetchCfdaLoans = (params) => apiRequest({
+    url: 'v2/disaster/cfda/loans/',
+    method: 'post',
+    data: params
+});
+
+export const fetchDisasterSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/spending/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchDisasterSpendingCount = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/count/`,
+    method: 'post',
+    data: params
+});
+
+export const fetchLoanSpending = (type, params) => apiRequest({
+    url: `v2/disaster/${type}/loans/`,
     method: 'post',
     data: params
 });

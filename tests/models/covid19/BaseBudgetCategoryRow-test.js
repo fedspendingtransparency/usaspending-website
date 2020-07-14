@@ -1,4 +1,4 @@
-import BaseBudgetCategoryRow from "../../../../src/js/models/covid19/budgetCategories/BaseBudgetCategoryRow";
+import BaseBudgetCategoryRow from "models/v2/covid19/BaseBudgetCategoryRow";
 
 export const mockBaseBudgetCategoryRow = {
     id: 41,
@@ -12,7 +12,7 @@ export const mockBaseBudgetCategoryRow = {
     face_value_of_loan: 123.12
 };
 
-const types = ['federal_account', 'def_code', 'agency', 'object_class'];
+const types = ['federal_account', 'agency', 'object_class'];
 const spendingCategories = ['total_spending', 'award_spending', 'loan_spending'];
 
 
@@ -20,21 +20,21 @@ describe('BaseBudgetCategoryRow', () => {
     types.forEach((type) => {
         spendingCategories.forEach((spendingCategory) => {
             const baseBudgetCategoryRow = Object.create(BaseBudgetCategoryRow);
-            baseBudgetCategoryRow.populate(mockBaseBudgetCategoryRow, type, spendingCategory);
+            baseBudgetCategoryRow.populate(mockBaseBudgetCategoryRow);
 
             describe(`BaseBudgetCategoryRow-${type}`, () => {
                 if (spendingCategory === 'total_spending') {
                     it('should store the raw total obligation', () => {
-                        expect(baseBudgetCategoryRow._totalObligation).toEqual(50.12);
+                        expect(baseBudgetCategoryRow._obligation).toEqual(50.12);
                     });
                     it('should store the raw total outlay', () => {
-                        expect(baseBudgetCategoryRow._totalOutlay).toEqual(10.13);
+                        expect(baseBudgetCategoryRow._outlay).toEqual(10.13);
                     });
                     it('should store the formatted gross outlay amount', () => {
-                        expect(baseBudgetCategoryRow.totalObligation).toEqual('$50');
+                        expect(baseBudgetCategoryRow.obligation).toEqual('$50');
                     });
                     it('should store the formatted obligated amount', () => {
-                        expect(baseBudgetCategoryRow.totalOutlay).toEqual('$10');
+                        expect(baseBudgetCategoryRow.outlay).toEqual('$10');
                     });
 
                     if (type !== 'object_class' && spendingCategory === 'total_spending') {
@@ -50,41 +50,32 @@ describe('BaseBudgetCategoryRow', () => {
                         expect(baseBudgetCategoryRow._faceValueOfLoan).toEqual(123.12);
                     });
                     it('should store the raw count of loan', () => {
-                        expect(baseBudgetCategoryRow._countOfLoan).toEqual(2);
+                        expect(baseBudgetCategoryRow._count).toEqual(2);
                     });
                     it('should store the face value of loan', () => {
                         expect(baseBudgetCategoryRow.faceValueOfLoan).toEqual("$123");
                     });
                     it('should store the raw count of loan', () => {
-                        expect(baseBudgetCategoryRow.countOfLoan).toEqual("2");
+                        expect(baseBudgetCategoryRow.count).toEqual("2");
                     });
                 } else {
                     it('should store the raw award obligation', () => {
-                        expect(baseBudgetCategoryRow._awardObligation).toEqual(50.12);
+                        expect(baseBudgetCategoryRow._obligation).toEqual(50.12);
                     });
                     it('should store the raw award outlay', () => {
-                        expect(baseBudgetCategoryRow._awardOutlay).toEqual(10.13);
+                        expect(baseBudgetCategoryRow._outlay).toEqual(10.13);
                     });
                     it('should store the formatted percent of total obligations', () => {
-                        expect(baseBudgetCategoryRow.awardObligation).toEqual('$50');
+                        expect(baseBudgetCategoryRow.obligation).toEqual('$50');
                     });
                     it('should store the formatted percent of total obligations', () => {
-                        expect(baseBudgetCategoryRow.awardOutlay).toEqual('$10');
+                        expect(baseBudgetCategoryRow.outlay).toEqual('$10');
                     });
                 }
 
-                if (type === 'def_code') {
-                    it('should store the defCode', () => {
-                        expect(baseBudgetCategoryRow.defCode).toEqual('012');
-                    });
-                    it('should store the description', () => {
-                        expect(baseBudgetCategoryRow.emergencyFundingMandate).toEqual('Description text of 012, for humans');
-                    });
-                } else {
-                    it('should store the name as a combination of code and description', () => {
-                        expect(baseBudgetCategoryRow.name).toEqual('012 — Description text of 012, for humans');
-                    });
-                }
+                it('should store the name as a combination of code and description', () => {
+                    expect(baseBudgetCategoryRow.name).toEqual('012 - Description text of 012, for humans');
+                });
             });
         });
     });

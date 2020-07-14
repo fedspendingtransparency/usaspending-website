@@ -35,12 +35,16 @@ export const filters = {
         label: 'SPENDING TYPE',
         options: [
             {
-                value: 'obligations',
+                value: 'obligation',
                 label: 'Obligations'
             },
             {
-                value: 'outlays',
+                value: 'outlay',
                 label: 'Outlays'
+            },
+            {
+                value: 'face_value_of_loan',
+                label: 'Face Value of Loans'
             }
         ]
     },
@@ -56,93 +60,93 @@ export const filters = {
                 label: 'Per Capita'
             }
         ]
-    },
-    recipientType: {
-        label: 'RECIPIENT TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Recipient Types'
-            },
-            {
-                value: 'category_business',
-                label: 'Business'
-            },
-            {
-                value: 'minority_owned_business',
-                label: 'Minority Owned Business'
-            },
-            {
-                value: 'woman_owned_business',
-                label: 'Women Owned Business'
-            },
-            {
-                value: 'veteran_owned_business',
-                label: 'Veteran Owned Business'
-            },
-            {
-                value: 'special_designations',
-                label: 'Special Designations'
-            },
-            {
-                value: 'nonprofit',
-                label: 'Nonprofit'
-            },
-            {
-                value: 'higher_education',
-                label: 'Higher Education'
-            },
-            {
-                value: 'government',
-                label: 'Government'
-            },
-            {
-                value: 'individuals',
-                label: 'Individuals'
-            }
-        ]
-    },
-    awardType: {
-        label: 'AWARD TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Award Types'
-            },
-            {
-                value: 'contract',
-                label: 'Contracts'
-            },
-            {
-                value: 'idv',
-                label: 'Indefinite Delivery Vehicle'
-            },
-            {
-                value: 'grants',
-                label: 'Grants'
-            },
-            {
-                value: 'direct_payments',
-                label: 'Direct Payments'
-            },
-            {
-                value: 'loans',
-                label: 'Loans'
-            },
-            {
-                value: 'other',
-                label: 'Other'
-            }
-        ]
     }
+    // TODO - uncomment this when filter is ready
+    // recipientType: {
+    //     label: 'RECIPIENT TYPE',
+    //     options: [
+    //         {
+    //             value: 'all',
+    //             label: 'All Recipient Types'
+    //         },
+    //         {
+    //             value: 'category_business',
+    //             label: 'Business'
+    //         },
+    //         {
+    //             value: 'minority_owned_business',
+    //             label: 'Minority Owned Business'
+    //         },
+    //         {
+    //             value: 'woman_owned_business',
+    //             label: 'Women Owned Business'
+    //         },
+    //         {
+    //             value: 'veteran_owned_business',
+    //             label: 'Veteran Owned Business'
+    //         },
+    //         {
+    //             value: 'special_designations',
+    //             label: 'Special Designations'
+    //         },
+    //         {
+    //             value: 'nonprofit',
+    //             label: 'Nonprofit'
+    //         },
+    //         {
+    //             value: 'higher_education',
+    //             label: 'Higher Education'
+    //         },
+    //         {
+    //             value: 'government',
+    //             label: 'Government'
+    //         },
+    //         {
+    //             value: 'individuals',
+    //             label: 'Individuals'
+    //         }
+    //     ]
+    // }
 };
 
+export const awardTypeFilters = [
+    {
+        value: 'all',
+        label: 'All Award Types'
+    },
+    {
+        value: 'grants',
+        label: 'Grants'
+    },
+    {
+        value: 'loans',
+        label: 'Loans'
+    },
+    {
+        value: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        value: 'other',
+        label: 'Other Financial Assistance'
+    },
+    {
+        value: 'contracts',
+        label: 'Contracts'
+    },
+    {
+        value: 'idvs',
+        label: 'Contract IDVs'
+    }
+];
+
 export const filtersOnClickHandler = {
-    territory: 'updateterritoryFilter',
-    spendingType: 'updatespendingTypeFilter',
-    amountType: 'updateamountTypeFilter',
-    recipientType: 'updaterecipientTypeFilter',
-    awardType: 'updateawardTypeFilter'
+    territory: 'updateTerritoryFilter',
+    spendingType: 'updateSpendingTypeFilter',
+    amountType: 'updateAmountTypeFilter',
+    // TODO - uncomment when this filter is ready
+    // recipientType: 'updateRecipientTypeFilter',
+    awardType: 'updateAwardTypeFilter'
 };
 
 export const mapboxSources = {
