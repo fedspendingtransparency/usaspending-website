@@ -120,9 +120,11 @@ const BudgetCategories = () => {
                         amount={amounts[data.type]} />
                 ))}
             </div>
-            <BudgetCategoriesTableContainer
-                type={activeTab}
-                subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
+            <div className="budget-categories__content">
+                <BudgetCategoriesTableContainer
+                    type={activeTab}
+                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
+            </div>
         </div>
     );
 };
