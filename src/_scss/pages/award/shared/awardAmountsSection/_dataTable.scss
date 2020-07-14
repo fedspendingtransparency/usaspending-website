@@ -26,7 +26,7 @@
     }
 
     .award-amounts__data-icon_green {
-        background-color: #47AAA7;
+        background-color: $colors-grants-nff;
     }
     
     .award-amounts__data-icon_gray {
@@ -34,7 +34,7 @@
     }
     
     .award-amounts__data-icon_yellow {
-        background-color: #F5A623;
+        background-color: $colors-loans-subsidy;
     }
     
     .award-amounts__data-icon_transparent {
@@ -48,22 +48,15 @@
     }
 
     .award-amounts__potential {
-        background-color:#AAC6E2;
+        background-color: $colors-potential;
     }
 
     .award-amounts__current {
-        background-color: #558EC6;
+        background-color: $colors-current;
     }
 
     .award-amounts__obligated {
-        background-color: #4773aa;
-    }
-
-    &.contract,
-    &.idv {
-        .award-amounts__obligated {
-            background-color: #0A2F5A;
-        }
+        background-color: $colors-obligated;
     }
 
     .award-amounts__file-c-obligations {

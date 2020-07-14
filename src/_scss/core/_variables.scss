@@ -99,6 +99,15 @@ $color-placeholder:          #747474;
 $color-disaster-covid-19:    #6E338E;
 $color-covid-19-obligations: #B699C6;
 
+$colors-grants-nff: #47AAA7;
+$colors-loans-subsidy: #F5A623;
+
+$colors-obligated: #0A2F5A;
+$colors-current: #558EC6;
+$colors-potential: #AAC6E2;
+
+$file-c-outlay: $color-disaster-covid-19;
+$file-c-obligation: $color-covid-19-obligations;
 
 // Global Paadding and Margins
 // (example usage {padding: ($global-pad * 4);} = 60px of padding.)
