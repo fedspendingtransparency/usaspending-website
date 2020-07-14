@@ -19,4 +19,5 @@ const DateNote = ({ styles }) => {
     );
 };
 
+DateNote.propTypes = propTypes;
 export default DateNote;
