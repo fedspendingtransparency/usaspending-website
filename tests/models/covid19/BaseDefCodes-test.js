@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/19/20
  */
 
-import BaseDefCodes from 'models/covid19/BaseDefCodes';
+import BaseDefCodes from 'models/v2/covid19/BaseDefCodes';
 import { defCodes } from './mockData';
 
 const defCodesData = defCodes.map((code) => {
