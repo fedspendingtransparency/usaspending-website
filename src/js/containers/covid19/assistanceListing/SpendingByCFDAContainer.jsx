@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -147,6 +148,8 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [request, setRequest] = useState(null);
+
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
@@ -154,6 +157,9 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
             const params = {
@@ -171,11 +177,12 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
             if (activeTab !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
-            let request = fetchSpendingByCfda(params);
+            let cfdaRequest = fetchSpendingByCfda(params);
             if (activeTab === 'loans') {
-                request = fetchCfdaLoans(params);
+                cfdaRequest = fetchCfdaLoans(params);
             }
-            request.promise
+            setRequest(cfdaRequest);
+            cfdaRequest.promise
                 .then((res) => {
                     const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
                     setResults(rows);
@@ -183,9 +190,11 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setError(true);
-                    setLoading(false);
-                    console.error(err);
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
                 });
         }
     });

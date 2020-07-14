@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -161,6 +162,8 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [request, setRequest] = useState(null);
+
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
@@ -168,37 +171,45 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingByRecipientCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
         setLoading(true);
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-            },
-            pagination: {
-                limit: pageSize,
-                page: currentPage,
-                sort: spendingTableSortFields[sort],
-                order
+        if (defCodes && defCodes.length > 0) {
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: spendingTableSortFields[sort],
+                    order
+                }
+            };
+            if (activeTab !== 'all') {
+                params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
-        };
-        if (activeTab !== 'all') {
-            params.filter.award_type_codes = awardTypeGroups[activeTab];
+            let recipientRequest = fetchDisasterSpending('recipient', params);
+            if (activeTab === 'loans') {
+                recipientRequest = fetchLoanSpending('recipient', params);
+            }
+            setRequest(recipientRequest);
+            recipientRequest.promise
+                .then((res) => {
+                    const rows = parseRows(res.data.results, activeTab);
+                    setResults(rows);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
+                });
         }
-        let request = fetchDisasterSpending('recipient', params);
-        if (activeTab === 'loans') {
-            request = fetchLoanSpending('recipient', params);
-        }
-        request.promise
-            .then((res) => {
-                const rows = parseRows(res.data.results, activeTab);
-                setResults(rows);
-                setTotalItems(res.data.page_metadata.total);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
     });
 
     useEffect(() => {
