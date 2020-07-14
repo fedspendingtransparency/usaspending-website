@@ -190,25 +190,18 @@
           @import "pages/search/results/visualizations/geo/_message";
         }
       }
-      .count-tabs__buttons {
-        .count-tabs__button {
-          @include flex(0 0 auto);
-          margin-right: rem(5);
-          .count-button {
+      .table-types {
+        .table-type-toggle {
             padding: rem(15) rem(20);
-            .count-button__label {
-              font-weight: $font-normal;
-              font-size: rem(18);
-              line-height: rem(23);
+            margin-right: rem(5);
+            .tab-content {
+                font-size: rem(18);
             }
-          }
-          &.count-tabs__button_active {
-            .count-button {
-              .count-button__label {
-                font-weight: $font-semibold;
-              }
+            &.active {
+                .tab-content {
+                    font-weight: $font-semibold;
+                }
             }
-          }
         }
       }
     }

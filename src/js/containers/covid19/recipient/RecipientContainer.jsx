@@ -8,9 +8,12 @@ import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 
-
 const RecipientContainer = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+        setActiveTab(tabInternal);
+    };
     return (
         <div className="body__content recipient__container">
             <DateNote />
@@ -23,7 +26,7 @@ const RecipientContainer = () => {
                 pandemic.
             </p>
             <div className="recipient__tabs-container count-tabs">
-                <MoreOptionsTabs tabs={tabs} changeActiveTab={setActiveTab} hideCounts />
+                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>

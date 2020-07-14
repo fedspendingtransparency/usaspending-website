@@ -1,21 +1,6 @@
 .assistance-listing {
     @import 'components/moreOptionsTabs';
     .usda-table {
-        .usda-table__head {
-            th.table-header {
-                text-align: right;
-                &:first-of-type {
-                    .table-header__label {
-                        text-align: left; // Align the CFDA column to the left
-                        width: auto;
-                    }
-                }
-                .table-header__label {
-                    width: 100%;
-                    white-space: nowrap;
-                }
-            }
-        }
         .usda-table__body {
             tr.usda-table__row {
                 td.usda-table__cell {
