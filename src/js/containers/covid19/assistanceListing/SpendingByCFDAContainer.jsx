@@ -70,7 +70,8 @@ const loanColumns = [
                 <div>Face Value</div>
                 <div>of Loans</div>
             </>
-        )
+        ),
+        right: true
     },
     {
         title: 'obligation',
@@ -222,26 +223,28 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
             </>
         );
     }
 
     return (
-        <div className="table-wrapper">
-            <Table
-                columns={activeTab === 'loans' ? loanColumns : columns}
-                rows={results}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }} />
-        </div>
+        <>
+            <div className="table-wrapper">
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={results}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }} />
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+        </>
     );
 };
 
