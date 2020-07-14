@@ -34,21 +34,18 @@ export const fetchSpendingOverTime = (params) => apiRequest({
 });
 
 export const fetchAgencyCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/agency/count/',
     method: 'post',
     data: params
 });
 
 export const fetchAwardSpendingByAgency = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/agency/spending/',
     method: 'post',
     data: params
 });
 
 export const fetchLoansByAgency = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/agency/loans/',
     method: 'post',
     data: params

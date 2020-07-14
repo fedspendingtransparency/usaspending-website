@@ -269,7 +269,7 @@ export const spendingTableSortFields = {
     outlay: 'outlay',
     count: 'count',
     name: 'description',
-    faceValue: 'face_value_of_loan'
+    faceValueOfLoan: 'face_value_of_loan'
 };
 
 export const financialAssistanceTabs = [

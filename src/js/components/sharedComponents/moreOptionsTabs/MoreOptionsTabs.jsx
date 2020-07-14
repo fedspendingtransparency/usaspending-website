@@ -75,7 +75,7 @@ const MoreOptionsTabs = (props) => {
     const PreviewCount = ({ name, value }) => (
         <div>
             <div className="more-options__tabs_preview-label">{name}</div>
-            <div className="more-options__tabs_preview-count">{!props.hideCounts && formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>
+            {props.hideCounts ? '' : <div className="more-options__tabs_preview-count">{formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>}
         </div>
     );
     PreviewCount.propTypes = previewCountPropTypes;
