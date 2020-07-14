@@ -17,18 +17,33 @@
         .usda-table {
             margin-top: 0;
             td {
+                button {
+                    float: left;
+                    margin-top: rem(5) !important;
+                }
                 &:first-child {
+                    display: table-cell !important;
                     @include span-columns(6 of 12, table);
                     text-align: left;
-                    width: 100%;
                     padding-left: rem(15);
-                    display: flex;
+
+                    p {
+                        a {
+                            // IE11 fix for td not having the correct width
+                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                                max-width: 50%;
+                            }
+                        }
+                    }
                 }
                 @include span-columns(2 of 12, table);
                 text-align: right;
         
                 &:not(:first-child) {
                     padding-right: rem(40);
+                }
+                .usda-table__child-cell-content {
+                    padding: rem(10) rem(0) !important;
                 }
             }
             .table-header {
