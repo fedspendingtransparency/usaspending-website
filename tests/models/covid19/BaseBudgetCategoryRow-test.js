@@ -12,7 +12,7 @@ export const mockBaseBudgetCategoryRow = {
     face_value_of_loan: 123.12
 };
 
-const types = ['federal_account', 'def_code', 'agency', 'object_class'];
+const types = ['federal_account', 'agency', 'object_class'];
 const spendingCategories = ['total_spending', 'award_spending', 'loan_spending'];
 
 
@@ -47,13 +47,13 @@ describe('BaseBudgetCategoryRow', () => {
                     }
                 } else if (spendingCategory === 'loan_spending') {
                     it('should store the raw face value of loan', () => {
-                        expect(baseBudgetCategoryRow._faceValue).toEqual(123.12);
+                        expect(baseBudgetCategoryRow._faceValueOfLoan).toEqual(123.12);
                     });
                     it('should store the raw count of loan', () => {
                         expect(baseBudgetCategoryRow._count).toEqual(2);
                     });
                     it('should store the face value of loan', () => {
-                        expect(baseBudgetCategoryRow.faceValue).toEqual("$123");
+                        expect(baseBudgetCategoryRow.faceValueOfLoan).toEqual("$123");
                     });
                     it('should store the raw count of loan', () => {
                         expect(baseBudgetCategoryRow.count).toEqual("2");

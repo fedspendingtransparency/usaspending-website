@@ -30,16 +30,6 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: 'Agency Name'
                 },
                 {
-                    title: 'faceValueOfLoan',
-                    displayName: (
-                        <>
-                            <div>Face Value</div>
-                            <div>of Loans</div>
-                        </>
-                    ),
-                    right: true
-                },
-                {
                     title: 'obligation',
                     displayName: (
                         <>
@@ -55,6 +45,16 @@ const awardSpendingAgencyTableColumns = (type) => {
                         <>
                             <div>Award Outlays</div>
                             <div>(Loan Subsidy Cost)</div>
+                        </>
+                    ),
+                    right: true
+                },
+                {
+                    title: 'faceValueOfLoan',
+                    displayName: (
+                        <>
+                            <div>Face Value</div>
+                            <div>of Loans</div>
                         </>
                     ),
                     right: true
@@ -260,7 +260,11 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }, [props.type, pageSize, sort, order, defCodes]);
 
     useEffect(() => {
-        updateSort('obligation', 'desc');
+        if (props.type === 'loans') {
+            updateSort('faceValueOfLoan', 'desc');
+        } else {
+            updateSort('obligation', 'desc');
+        }
     }, [props.type]);
 
     useEffect(() => {

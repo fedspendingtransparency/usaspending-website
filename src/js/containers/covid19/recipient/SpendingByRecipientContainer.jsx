@@ -52,7 +52,7 @@ const loanColumns = [
         displayName: 'Recipient'
     },
     {
-        title: 'faceValue',
+        title: 'faceValueOfLoan',
         displayName: (
             <>
                 <div>Face Value</div>
@@ -137,7 +137,7 @@ export const parseRows = (rows, activeTab) => (
         if (activeTab === 'loans') {
             return [
                 link,
-                rowData.faceValue,
+                rowData.faceValueOfLoan,
                 rowData.obligation,
                 rowData.outlay,
                 rowData.count
