@@ -43,8 +43,8 @@
     }
 
     .award-amounts__file-c-outlays {
-        background-color: #6E338E;
-        border: rem(2) solid #6E338E;
+        background-color: $color-disaster-covid-19;
+        border: rem(2) solid $color-disaster-covid-19;
     }
 
     .award-amounts__potential {
@@ -67,8 +67,8 @@
     }
 
     .award-amounts__file-c-obligations {
-        background-color: #B699C6;
-        border: rem(2) solid #B699C6;
+        background-color: $color-covid-19-obligations;
+        border: rem(2) solid $color-covid-19-obligations;
     }
     
     .award-amounts__data-icon_overspending {
