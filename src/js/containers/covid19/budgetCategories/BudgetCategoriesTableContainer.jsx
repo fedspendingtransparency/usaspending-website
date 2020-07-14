@@ -171,8 +171,8 @@ const BudgetCategoriesTableContainer = (props) => {
             }
 
             let link = budgetCategoryRow.name;
-            const id = budgetCategoryRow.id;
-            const code = budgetCategoryRow.code;
+            const id = budgetCategoryRow._id;
+            const code = budgetCategoryRow._code;
             if (link && code && props.type === 'federal_account') {
                 link = (
                     <a

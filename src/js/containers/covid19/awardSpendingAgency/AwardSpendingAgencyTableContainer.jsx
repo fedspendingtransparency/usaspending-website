@@ -136,7 +136,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             }
 
             let link = awardSpendingByAgencyRow.description;
-            const id = awardSpendingByAgencyRow.id;
+            const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
                     <a
@@ -146,7 +146,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     </a>
                 );
             }
-
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
