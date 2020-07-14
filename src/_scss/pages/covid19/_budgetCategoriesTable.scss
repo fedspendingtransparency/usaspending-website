@@ -62,7 +62,7 @@
         
                 &:not(:first-child) {
                     .table-header__content {
-                        justify-content: flex-end;
+                       @include justify-content(flex-end);
                     }
                 }
             }
