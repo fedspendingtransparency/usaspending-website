@@ -31,7 +31,7 @@ const AwardFilterButton = ({
     };
     const countBadge = showCount ? (
         <div className="count-badge">
-            {(count && formatNumber(count)) || '--'}
+            {((count || count === 0) && formatNumber(count)) || '--'}
         </div>
     ) : null;
     return (
