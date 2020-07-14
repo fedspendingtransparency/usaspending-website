@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId, delay } from 'lodash';
+import { get, uniqueId, delay, throttle } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { setOverview } from 'redux/actions/covid19/covid19Actions';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
@@ -107,7 +108,7 @@ const TotalAmount = ({
 };
 
 TotalAmount.propTypes = {
-    isLoading: PropTypes.boolean,
+    isLoading: PropTypes.bool,
     total: PropTypes.number,
     className: PropTypes.string,
     completeIncrement: PropTypes.func
@@ -145,10 +146,33 @@ export class CovidHighlights extends React.Component {
             this.fetchTotalsByCfdaRequest.cancel();
         }
         this.fetchTotalsRequest = fetchCovidTotals();
-        return this.fetchTotalsRequest.promise
-            .then((data) => {
-                this.parseSpendingTotals(data);
-                this.fetchTotalsRequest = null;
+
+        return this.fetchHighlights()
+            .then(() => {
+                if (!document.documentMode) {
+                    scrollInterval = window.setInterval(() => {
+                        const newPosition = this.scrollBar.scrollTop + 72;
+                        const maxScroll = this.scrollBar.scrollHeight - 446;
+                        if (newPosition >= maxScroll) {
+                            this.fetchHighlights()
+                                .then(() => {
+                                    if (!this.state.isHoverActive) {
+                                        scrollToY(newPosition, 750, this.scrollBar);
+                                    }
+                                });
+                        }
+                        else if (!this.state.isHoverActive) {
+                            scrollToY(newPosition, 750, this.scrollBar);
+                        }
+                    }, 3000);
+                }
+            })
+            .then(() => {
+                this.fetchTotalsRequest.promise
+                    .then((data) => {
+                        this.parseSpendingTotals(data);
+                        this.fetchTotalsRequest = null;
+                    });
             })
             .catch((e) => {
                 this.setState({
@@ -156,6 +180,14 @@ export class CovidHighlights extends React.Component {
                     errorMessage: get(e, 'message', 'Error fetching data.')
                 });
             });
+    }
+
+    shouldComponentUpdate(_, nextState) {
+        if (!this.state.isIncrementComplete && !this.state.isHoverActive && nextState.isHoverActive) {
+            // we re-render in this case b/c it will stop the increment of the total amount.
+            return false;
+        }
+        return true;
     }
 
     componentWillUnmount() {
@@ -210,54 +242,33 @@ export class CovidHighlights extends React.Component {
         });
     };
 
-    handleHover = () => {
-        console.log('hover');
+    handleHover = throttle(() => {
         if (!this.state.isHoverActive) {
+        // if (!this.state.isHoverActive && this.state.isIncrementComplete) {
             this.setState({ isHoverActive: true });
         }
-    };
+    }, 10);
 
-    handleBlur = () => {
-        console.log('blur');
-        this.setState({ isHoverActive: false });
-    };
-
-    completeIncrementAndFetchHighlights = () => {
-        if (this.fetchTotalsByCfdaRequest) {
-            this.fetchHighlights.cancel();
+    handleBlur = throttle(() => {
+        if (this.state.isHoverActive) {
+        // if (this.state.isHoverActive && this.state.isIncrementComplete) {
+            this.setState({ isHoverActive: false });
         }
-        this.fetchTotalsByCfdaRequest = fetchDisasterSpending('cfda', defaultParams);
-        return this.fetchTotalsByCfdaRequest.promise
-            .then(() => {
-                if (!document.documentMode) {
-                    scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + 72;
-                        const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (newPosition >= maxScroll) {
-                            this.fetchHighlights()
-                                .then(() => {
-                                    if (!this.state.isHoverActive) {
-                                        scrollToY(newPosition, 2000, this.scrollBar);
-                                    }
-                                });
-                        }
-                        else if (!this.state.isHoverActive && !this.fetchTotalsByCfdaRequest) {
-                            scrollToY(newPosition, 2000, this.scrollBar);
-                        }
-                    }, 3000);
-                }
-            })
-            .then(() => {
-                this.setState({ isIncrementComplete: true });
-            });
+    }, 250);
+
+    completeIncrementAndTriggerScroll = () => {
+        this.setState({ isIncrementComplete: true });
     }
 
     render() {
         const {
-            highlights,
-            isAmountLoading
+            isAmountLoading,
+            hasNext
         } = this.state;
         const { totalSpendingAmount } = this.props;
+        const highlights = hasNext
+            ? this.state.highlights.concat([{ showLoading: true }])
+            : this.state.highlights;
         return (
             <section className="covid-hero" aria-label="Introduction">
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
@@ -268,7 +279,7 @@ export class CovidHighlights extends React.Component {
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
                                 <TotalAmount
-                                    completeIncrement={this.completeIncrementAndFetchHighlights}
+                                    completeIncrement={this.completeIncrementAndTriggerScroll}
                                     className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
                                     total={totalSpendingAmount}
                                     isLoading={isAmountLoading} />
@@ -290,24 +301,33 @@ export class CovidHighlights extends React.Component {
                         ref={(scroll) => {
                             this.scrollBar = scroll;
                         }}>
-                        <ul className="covid-highlights">
-                            {highlights.map((highlight) => {
-                                const dollarAmount = formatMoneyWithPrecision(highlight.outlay, 0);
-                                return (
-                                    <li
-                                        key={uniqueId(highlight.description)}
-                                        className="covid-highlights__highlight"
-                                        onFocus={this.handleHover}
-                                        onMouseOver={this.handleHover}
-                                        onMouseLeave={this.handleHover}
-                                        onMouseOut={this.handleBlur}
-                                        onBlur={this.handleBlur}>
-                                        <span className="covid-highlight__description">{highlight.description}</span>
-                                        <span className="covid-highlight__amount">{dollarAmount}</span>
-                                        <span>OUTLAYED AMOUT</span>
-                                    </li>
-                                );
-                            })}
+                        <ul
+                            className="covid-highlights"
+                            onFocus={this.handleHover}
+                            onMouseLeave={this.handleBlur}
+                            onMouseEnter={this.handleHover}
+                            onBlur={this.handleBlur}>
+                            {highlights
+                                .map((highlight) => {
+                                    if (highlight.showLoading) {
+                                        return (
+                                            <li key={uniqueId('loading')}className="covid-highlights__highlight">
+                                                <FontAwesomeIcon icon="spinner" spin color="white" />
+                                            </li>
+                                        );
+                                    }
+                                    const dollarAmount = formatMoneyWithPrecision(highlight.outlay, 0);
+                                    return (
+                                        <li
+                                            key={uniqueId(highlight.description)}
+                                            className="covid-highlights__highlight">
+                                            <span className="covid-highlight__description">{highlight.description}</span>
+                                            <span className="covid-highlight__amount">{dollarAmount}</span>
+                                            <span>OUTLAYED AMOUT</span>
+                                        </li>
+                                    );
+                                })
+                            }
                         </ul>
                     </div>
                     <HeroButton />
