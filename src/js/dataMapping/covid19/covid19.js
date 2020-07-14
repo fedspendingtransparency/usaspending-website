@@ -80,3 +80,6 @@ export const awardTypeTabs = [
         label: 'Contract IDVs'
     }
 ];
+
+export const covidColor = '#6E338E';
+export const covidObligatedColor = '#B699C6';
