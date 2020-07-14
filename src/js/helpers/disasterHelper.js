@@ -119,14 +119,12 @@ export const fetchRecipientCount = (params) => apiRequest({
 });
 
 export const fetchSpendingByRecipient = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/recipient/spending/',
     method: 'post',
     data: params
 });
 
 export const fetchRecipientLoans = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/disaster/recipient/loans/',
     method: 'post',
     data: params
