@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 
+import GlobalConstants from "GlobalConstants";
+
 const PaneFeature = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
     const [redirectModalURL, setRedirectModalURL] = useState('');
@@ -24,7 +26,7 @@ const PaneFeature = () => {
     return (
         <div className="feature-pane">
             <div className="feature-pane__wrapper">
-                <h2 className="feature-pane__title">Featured Content</h2>
+                <h2 className="feature-pane__title">OTHER DATA ACT CONTENT</h2>
                 <div className="feature-pane__content-wrapper">
                     <div className="feature-pane__content feature-pane__content-fiscal-data">
                         <div>
@@ -35,7 +37,7 @@ const PaneFeature = () => {
                         </div>
                         <div className="feature-pane__button-wrapper">
                             <a
-                                href="https://fiscaldata.treasury.gov/"
+                                href="https://www.FiscalData.Treasury.gov"
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
@@ -46,31 +48,58 @@ const PaneFeature = () => {
                     </div>
                     <div className="feature-pane__content-divider" />
                     <hr className="feature-pane__mobile-content-divider" />
-                    <div className="feature-pane__content feature-pane__content-middle__sub">
-                        <div>
-                            <div id="feature-pane__content-header__middle">
-                                Updated for FY 2019
+
+                    {GlobalConstants.CARES_ACT_RELEASED && (
+                        <div className="feature-pane__content feature-pane__content-covid">
+                            <div className="covid-announcement-text-box">
+                                <p className="feature-pane__content-title">
+                                    The Federal Response to COVID-19
+                                </p>
                             </div>
-                            <h3 className="feature-pane__content-title" id="feature-pane__content-title__middle">
-                                Your Guide to America’s Finances
-                            </h3>
-                            <p className="feature-pane_content-text">
-                                Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
-                                deficit, and debt, along with data for download.
-                                Click below to visit our partner site.
-                            </p>
+                            <div className="feature-pane__button-wrapper">
+                                <a
+                                    href="https://www.FiscalData.Treasury.gov"
+                                    target="_blank"
+                                    role="button"
+                                    rel="noopener noreferrer"
+                                    value="https://datalab.usaspending.gov/federal-covid-spending"
+                                    className="feature-pane__button white">
+                                    Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                </a>
+                            </div>
                         </div>
-                        <div className="feature-pane__button-wrapper">
-                            <a
-                                href="https://datalab.usaspending.gov/americas-finance-guide/"
-                                target="_blank"
-                                role="button"
-                                rel="noopener noreferrer"
-                                className="feature-pane__button">
-                                Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </a>
+                    )
+                    }
+
+                    {!GlobalConstants.CARES_ACT_RELEASED && (
+                        <div className="feature-pane__content feature-pane__content-middle__sub">
+                            <div>
+                                <div id="feature-pane__content-header__middle">
+                                    Updated for FY 2019
+                                </div>
+                                <h3 className="feature-pane__content-title" id="feature-pane__content-title__middle">
+                                    Your Guide to America’s Finances
+                                </h3>
+                                <p className="feature-pane_content-text">
+                                    Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
+                                    deficit, and debt, along with data for download.
+                                    Click below to visit our partner site.
+                                </p>
+                            </div>
+                            <div className="feature-pane__button-wrapper">
+                                <a
+                                    href="https://datalab.usaspending.gov/americas-finance-guide/"
+                                    target="_blank"
+                                    role="button"
+                                    rel="noopener noreferrer"
+                                    className="feature-pane__button">
+                                    Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    )
+                    }
+
                     <hr className="feature-pane__mobile-content-divider" />
                     <div className="feature-pane__content-divider" />
                     <div className="feature-pane__content">
