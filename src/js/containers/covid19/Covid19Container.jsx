@@ -7,7 +7,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
-
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -22,8 +21,8 @@ import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
-import { jumpToSection } from 'helpers/covid19Helper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
+import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 
@@ -34,8 +33,8 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
-import { fetchDEFCodes, fetchOverview } from 'helpers/disasterHelper';
-import { setDEFCodes, setOverview } from 'redux/actions/covid19/covid19Actions';
+import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
+import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
@@ -48,10 +47,10 @@ const Covid19Container = () => {
     const [activeSection, setActiveSection] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
-
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
+    const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes.map((code) => code.code), isEqual);
 
@@ -117,6 +116,26 @@ const Covid19Container = () => {
             )
         );
     };
+
+    useEffect(() => {
+        const getAllSubmissionDates = async () => {
+            allSubmissionDatesRequest.current = fetchAllSubmissionDates();
+            try {
+                const data = await allSubmissionDatesRequest.current.promise;
+                dispatch(setLatestSubmissionDate(latestSubmissionDateFormatted(data.data.available_periods)));
+            }
+            catch (e) {
+                console.log(' Error Submission Periods : ', e.message);
+            }
+        };
+        getAllSubmissionDates();
+        allSubmissionDatesRequest.current = null;
+        return () => {
+            if (allSubmissionDatesRequest.current) {
+                allSubmissionDatesRequest.cancel();
+            }
+        };
+    }, []);
 
     const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 

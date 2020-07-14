@@ -291,7 +291,7 @@ export const financialAssistanceTabs = [
     },
     {
         internal: 'other',
-        label: 'Other'
+        label: 'Other Financial Assistance'
     }
 ];
 

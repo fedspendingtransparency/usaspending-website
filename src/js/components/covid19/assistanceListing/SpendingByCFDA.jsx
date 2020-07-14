@@ -64,31 +64,33 @@ const SpendingByCFDA = () => {
     };
 
     useEffect(() => {
-        // Make an API request for the count of CFDA for each award type
-        // Post-MVP this should be updated to use a new endpoint that returns all the counts
-        const promises = financialAssistanceTabs.map((awardType) => {
-            const params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+        if (defCodes && defCodes.length > 0) {
+            // Make an API request for the count of CFDA for each award type
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            const promises = financialAssistanceTabs.map((awardType) => {
+                const params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code)
+                    }
+                };
+                if (awardType.internal !== 'all') {
+                    // Endpoint defaults to all financial assistance types if award_type_codes is not provided
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
                 }
-            };
-            if (awardType.internal !== 'all') {
-                // Endpoint defaults to all financial assistance types if award_type_codes is not provided
-                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
-            }
-            return fetchCfdaCount(params).promise;
-        });
-        // Wait for all the requests to complete and then store the results in state
-        Promise.all(promises)
-            .then(([allRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
-                setTabCounts({
-                    all: allRes.data.count,
-                    grants: grantsRes.data.count,
-                    direct_payments: directPaymentsRes.data.count,
-                    loans: loansRes.data.count,
-                    other: otherRes.data.count
-                });
+                return fetchCfdaCount(params).promise;
             });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count
+                    });
+                });
+        }
     }, [defCodes]);
 
     return (
