@@ -75,21 +75,19 @@ const TotalAmount = ({
     useEffect(() => {
         const updateAmount = (amount) => new Promise((resolve) => {
             amountUpdate = delay(() => {
-                console.log("HEY");
                 ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
                 resolve();
-            }, 5);
+            }, 1);
         });
         if (!isLoading) {
-            new Array(1000)
+            new Array(500)
                 .fill(0)
                 .reduce((prevPromise, currentValue, currentIndex) => prevPromise
                     .then(() => {
-                        const divisor = (currentIndex + 1) * 0.001;
+                        const divisor = (currentIndex + 1) * 0.002;
                         return updateAmount(divisor * total);
                     }), Promise.resolve())
                 .then(() => {
-                    console.log('done');
                     completeIncrement();
                 });
         }
