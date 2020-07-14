@@ -56,9 +56,9 @@ $file-c-obligation: $color-covid-19-obligations;
             }
             &.idv-overspending,
             &.contract-overspending {
-                border-top: .4rem solid $color-gray-lightest;
-                border-bottom: .4rem solid $color-gray-lightest;
-                background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
+                border-top: .4rem solid $potential;
+                border-bottom: .4rem solid $potential;
+                background: repeating-linear-gradient(45deg,$obligated, $obligated .8rem,#fdb81e 0,#fdb81e 1rem);
                 &.covid {
                     border-top: .4rem solid $potential;
                     border-bottom: .4rem solid $potential;
@@ -95,13 +95,13 @@ $file-c-obligation: $color-covid-19-obligations;
 
             &.idv-overspending-current,
             &.contract-overspending-current {
-                border: rem(4) solid $color-gray-lighter;
+                border: rem(4) solid $current;
             }
 
             &.idv-extreme-overspending,
             &.contract-extreme-overspending {
                 height: rem(40);
-                background: repeating-linear-gradient(45deg, #4773aa, #4773aa 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
+                background: repeating-linear-gradient(45deg, $obligated, $obligated 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
                 border-top: solid 0.4rem #fff;
                 border-bottom: solid 0.4rem #fff;
             }
@@ -168,16 +168,22 @@ $file-c-obligation: $color-covid-19-obligations;
                 @include align-items(flex-end);
                 font-size: $base-font-size;
                 color: $color-gray;
-                border-left: solid rem(4) $color-cool-blue-light;
                 width: auto;
                 text-align: left;
                 @include flex(1 1 auto);
                 margin-bottom: 0;
+
+                &.idv-obligated,
+                &.contract-obligated,
+                &.asst-obligated {
+                    border-left: rem(4) solid $obligated;
+                }
+
                 &.idv-file-c-obligated,
                 &.contract-file-c-obligated,
                 &.loan-file-c-obligated,
                 &.asst-file-c-obligated {
-                    border-left: solid rem(4) $file-c-obligation;
+                    border-left: rem(4) solid $file-c-obligation;
                     margin-top: rem(17);
                     strong {
                         font-size: $h6-font-size;
@@ -205,25 +211,27 @@ $file-c-obligation: $color-covid-19-obligations;
                     position: relative;
                     width: 99.5%;
                     height: rem(1);
-                    border-bottom: rem(1) solid $color-cool-blue-light;
                     &::after {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-cool-blue-light;
                         top: 0px;
                         right: -1px;
                     }
                     &::before {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-cool-blue-light;
                         top: 0px;
                         left: -1px;
                     }
-                    &.covid::before,
-                    &.covid::after {
-                        border-left: rem(1) solid $obligated;
-                    }
-                    &.covid {
+                    &.idv-obligated,
+                    &.idv-obligated,
+                    &.contract-obligated,
+                    &.contract-obligated,
+                    &.asst-obligated,
+                    &.asst-obligated {
                         border-bottom: rem(1) solid $obligated;
+                        &::before,
+                        &::after {
+                            border-left: rem(1) solid $obligated;
+                        }
                     }
                     &.idv-file-c-obligated,
                     &.contract-file-c-obligated,
@@ -268,44 +276,25 @@ $file-c-obligation: $color-covid-19-obligations;
                 }
                 .award-amounts-viz__desc {
                     @include display(flex);
-                    &:not(.covid) {
-                        &.contract-current,
-                        &.idv-current {
-                            border-right: rem(5) solid $color-gray-lighter;
-                        }
-                        &.idv-potential::after,
-                        &.contract-potential::after,
-                        &.idv-overspending-potential::after,
-                        &.contract-overspending-potential::after,
-                        &.idv-extreme-overspending-potential::after,
-                        &.contract-extreme-overspending-potential::after {
-                            content: ' ';
-                            height: rem(45);
-                            border: rem(1) solid $color-gray;
-                            background-color: #ECECDC;
-                            width: rem(5);
-                        }
-                        &.non-federal-funding {
-                            border-right: rem(5) solid $grants-line-color;
-                        }
+                    &.contract-current,
+                    &.idv-current,
+                    &.idv-overspending-current,
+                    &.contract-overspending-current,
+                    &.contract-extreme-overspending-current,
+                    &.idv-extreme-overspending-current {
+                        border-right: rem(5) solid $current;
                     }
-                    &.covid {
-                        &.contract-current,
-                        &.idv-current,
-                        &.contract-overspending-current,
-                        &.idv-overspending-current,
-                        &.contract-extreme-overspending-current,
-                        &.idv-extreme-overspending-current {
-                            border-right: 5px solid $current;
-                        }
-                        &.idv-potential,
-                        &.contract-potential,
-                        &.idv-overspending-potential,
-                        &.contract-overspending-potential,
-                        &.idv-extreme-overspending-potential,
-                        &.contract-extreme-overspending-potential {
-                            border-right: 5px solid $potential;
-                        }
+                    &.non-federal-funding {
+                        border-right: rem(5) solid $grants-line-color;
+                    }
+
+                    &.idv-potential,
+                    &.contract-potential,
+                    &.idv-overspending-potential,
+                    &.contract-overspending-potential,
+                    &.idv-extreme-overspending-potential,
+                    &.contract-extreme-overspending-potential {
+                        border-right: 5px solid $potential;
                     }
                     .award-amounts-viz__desc-text {
                         @include flex(1 1 auto);
@@ -348,14 +337,12 @@ $file-c-obligation: $color-covid-19-obligations;
                 }
                 .award-amounts-viz__line {
                     margin: rem(20) 0 rem(5) rem(1);
-                    border-bottom: rem(1) solid $color-gray-lighter;
                     position: relative;
                     width: 99.5%;
                     height: rem(1);
                     &::after,
                     &::before {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-gray-lighter;
                         top: -9px;
                         right: -1px;
                     }
@@ -389,15 +376,20 @@ $file-c-obligation: $color-covid-19-obligations;
                             border-left: 1px solid $grants-line-color; 
                         }
                     }
-                    &.covid.contract-current {
+                    &.idv-current,
+                    &.contract-current,
+                    &.idv-overspending-current,
+                    &.contract-overspending-current {
                         border-bottom: rem(1) solid $current;
                         &::after,
                         &::before {
                             border-left: rem(1) solid $current;
                         }
                     }
-                    &.covid.idv-potential,
-                    &.covid.contract-potential {
+                    &.idv-potential,
+                    &.contract-potential,
+                    &.idv-extreme-overspending-potential,
+                    &.contract-extreme-overspending-potential {
                         border-bottom: rem(1) solid $potential;
                         &::before,
                         &::after {
