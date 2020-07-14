@@ -13,10 +13,10 @@ export const fetchOverview = () => apiRequest({
     url: 'v2/disaster/overview/'
 });
 
-export const recipientMapHelper = (params) => apiRequest({
-    url: '/api/v2/disaster/spending_by_geography/',
-    params,
-    method: 'post'
+export const fetchRecipientSpendingByGeography = (params) => apiRequest({
+    url: 'v2/disaster/spending_by_geography/',
+    method: 'post',
+    data: params
 });
 
 export const fetchSpendingOverTime = (params) => apiRequest({
@@ -87,6 +87,12 @@ export const fetchSpendingByCfda = (params) => apiRequest({
     data: params
 });
 
+export const fetchRecipientCount = (params) => apiRequest({
+    url: 'v2/disaster/recipient/count/',
+    method: 'post',
+    data: params
+});
+
 export const fetchCfdaLoans = (params) => apiRequest({
     isMocked: true,
     url: 'v2/disaster/cfda/loans/',
@@ -108,12 +114,6 @@ export const fetchDisasterSpendingCount = (type, params) => apiRequest({
 
 export const fetchLoanSpending = (type, params) => apiRequest({
     url: `v2/disaster/${type}/loans/`,
-    method: 'post',
-    data: params
-});
-
-export const fetchRecipientCount = (params) => apiRequest({
-    url: 'v2/disaster/recipient/count/',
     method: 'post',
     data: params
 });

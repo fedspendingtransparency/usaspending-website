@@ -1,6 +1,6 @@
 import React from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import MapLegendTooltip from './MapLegendTooltip';
+import { TooltipComponent } from 'containers/covid19/helpers/covid19';
 
 const MapLegendHeader = () => (
     <div className="map__filters-header__title">
@@ -10,7 +10,7 @@ const MapLegendHeader = () => (
         <TooltipWrapper
             className="tooltip-wrapper award-section-tt"
             icon="info"
-            tooltipComponent={MapLegendTooltip} />
+            tooltipComponent={<TooltipComponent />} />
     </div>
 );
 
