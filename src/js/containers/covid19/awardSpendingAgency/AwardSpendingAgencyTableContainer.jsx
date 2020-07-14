@@ -125,6 +125,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 rowChildren = item.children.map((childItem) => {
                     const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
                     awardSpendingByAgencyChildRow.populateCore(childItem);
+                    awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
                     return awardSpendingByAgencyChildRow;
                 });
             }

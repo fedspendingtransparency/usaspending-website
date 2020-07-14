@@ -155,8 +155,10 @@ const BudgetCategoriesTableContainer = (props) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
                     budgetCategoryChildRow.populate(childItem);
                     // update name of children to not include description, just make the name the code for only federal account
-                    if (props.type === 'federal_account' || props.type === 'object_class') {
-                        budgetCategoryChildRow.name = budgetCategoryChildRow.code;
+                    if (props.type === 'federal_account') {
+                        budgetCategoryChildRow.name = budgetCategoryChildRow._code;
+                    } else if (props.type === 'object_class') {
+                        budgetCategoryChildRow.name = `${budgetCategoryChildRow._code} — ${budgetCategoryChildRow.description}`;
                     } else if (props.type === 'agency') {
                         budgetCategoryChildRow.name = budgetCategoryChildRow.description;
                     }
