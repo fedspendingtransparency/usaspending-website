@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts, fetchAwardCount, fetchRecipientCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchAwardCount, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
 
 const propTypes = {
@@ -66,7 +66,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
             .then((res) => {
                 setNumberOfAwards(res.data.count);
             });
-        fetchRecipientCount(params).promise
+        fetchDisasterSpendingCount('recipient', params).promise
             .then((res) => {
                 setNumberOfRecipients(res.data.count);
             });
