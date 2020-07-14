@@ -1,50 +1,16 @@
 @import 'components/moreOptionsTabs';
 
 .budget-categories {
-    .overview-data {
-        @include media($small-screen) {
-            .overview-data__label {
-                white-space: wrap;
+    .table-types {
+        .table-type-toggle {
+            padding: rem(15) rem(20);
+            margin-right: rem(5);
+            .tab-content {
+                font-size: rem(18);
             }
-        }
-        @include media($tablet-screen) {
-            .overview-data__label {
-                white-space: wrap;
-            }   
-        }
-        @include media($medium-screen) {
-            .overview-data__label {
-                white-space: wrap;
-            }        
-        }  
-        @include media($large-screen) {
-            .overview-data__label {
-                white-space: nowrap;
-            }        
-        }    
-        @include media($x-large-screen) {
-            .overview-data__label {
-                white-space: nowrap;
-            }        
-        }       
-    }
-
-    .table-wrapper {
-        overflow-x: auto;
-        .usda-table {
-            .usda-table__head {
-                th.table-header {
-                    text-align: right;
-                    &:first-of-type {
-                        .table-header__label {
-                            text-align: left; // Align the Agency Name column to the left
-                            width: auto;
-                        }
-                    }
-                    .table-header__label {
-                        width: 100%;
-                        white-space: nowrap;
-                    }
+            &.active {
+                .tab-content {
+                    font-weight: $font-semibold;
                 }
             }
         }
@@ -101,51 +67,21 @@
         }
     }
     
-    .budget-categories-table_def-code {
-        .usda-table {
-            margin-top: 0;
-            td {
-                &:first-child {
-                    text-align: left;
-                }
-                &:nth-child(2) {
-                    @include span-columns(6 of 12, table);
-                    text-align: left;
-                }
-                @include span-columns(2 of 12, table);
-                text-align: right;
-                word-break: break-word;
-            }
-    
-            .table-header {
-                .table-header__label {
-                    @include flex(0 1 auto);
-                    text-align: right;
-                }
-    
-                .table-header__sort {
-                    margin-top: auto;
-                    margin-bottom: auto;
-                }
-    
-                &:not(:first-child) {
-                    .table-header__content {
-                        justify-content: flex-end;
-                    }
-                }
-                &:nth-child(2) {
-                    .table-header__content {
-                        justify-content: start;
-                    }
-                }
+    .overview-data {
+        .overview-data__label {
+            white-space: wrap;
+        }
+        @include media($large-screen) {
+            .overview-data__label {
+                white-space: nowrap;
             }
         }
     }
 
     .budget-categories-table__header {
         @include display(flex);
-        justify-content: left;
-        align-items: center;
+        @include justify-content(left);
+        @include align-items(center);
         margin-top: rem(20);
 
         label {
@@ -153,7 +89,7 @@
         }
 
         .usa-dt-picker {
-            
+
             .usa-dt-picker__button {
                 margin-right: 0;
                 padding-bottom: 0;

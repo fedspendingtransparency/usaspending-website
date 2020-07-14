@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
-import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
@@ -42,8 +42,8 @@ const AwardSpendingAgency = () => {
 
     const [activeTab, setActiveTab] = useState(
         {
-            internal: awardSpendingAgencyTableTabs[0].internal,
-            subtitle: awardSpendingAgencyTableTabs[0].subtitle
+            internal: awardTypeTabs[0].internal,
+            subtitle: awardTypeTabs[0].label
         }
     );
 
@@ -130,8 +130,8 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabInternal = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).internal;
-        const tabSubtitle = awardSpendingAgencyTableTabs.find((item) => item.internal === tab).subtitle;
+        const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
+        const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
             internal: tabInternal,
@@ -146,7 +146,7 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
-            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData

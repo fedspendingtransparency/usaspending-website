@@ -1,9 +1,8 @@
 .award-spending {
-    max-width: 1200px;
     width: 100%;
 
     @import 'components/moreOptionsTabs';
-    
+
     .award-spending__description {
         font-size: rem(20);
         line-height: rem(25);
@@ -86,5 +85,4 @@
             }
         }
     }
-    
 }

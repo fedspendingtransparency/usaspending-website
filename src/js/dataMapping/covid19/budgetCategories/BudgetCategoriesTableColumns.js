@@ -39,7 +39,7 @@ export const budgetFields = {
         awardOutlay: 'outlay'
     },
     loan_spending: {
-        faceValueOfLoan: 'face_value_of_loan',
+        faceValue: 'face_value_of_loan',
         countOfLoan: 'count'
     }
 };
@@ -72,7 +72,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValueOfLoan',
+            sort: 'faceValue',
             order: 'desc'
         }
     },
@@ -86,7 +86,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValueOfLoan',
+            sort: 'faceValue',
             order: 'desc'
         }
     },
@@ -100,7 +100,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValueOfLoan',
+            sort: 'faceValue',
             order: 'desc'
         }
     }
@@ -110,7 +110,7 @@ export const sortMapping = {
     totalBudgetaryResources: 'total_budgetary_resources',
     obligation: 'obligation',
     outlay: 'outlay',
-    faceValueOfLoan: 'face_value_of_loan',
+    faceValue: 'face_value_of_loan',
     count: 'count',
     name: 'code'
 };
