@@ -28,7 +28,7 @@ const RecipientContainer = () => {
             <div className="recipient__tabs-container count-tabs">
                 <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
                 <div className="recipient__content">
-                    {tabs.find((item) => item.internal === activeTab).component}
+                    {tabs.find((t) => activeTab === t.internal).component}
                 </div>
             </div>
         </div>
