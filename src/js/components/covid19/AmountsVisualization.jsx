@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
+import { upperFirst } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -24,13 +25,6 @@ import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter
 const propTypes = {
     overviewData: PropTypes.object,
     width: PropTypes.number
-};
-
-const fakeData = {
-    _totalBudgetAuthority: 2400000000000,
-    _totalObligations: 963000000000, // 1200000000000
-    _totalOutlays: 2200000000000, // 459000000000
-    _remainingBalance: 1400000000000
 };
 
 const AmountsVisualization = ({
@@ -76,24 +70,24 @@ const AmountsVisualization = ({
     const _remainingBalanceValue = useRef(null);
     const zerPercentRef = useRef(null);
     const oneHundredPercentRef = useRef(null);
-    useEffect(() => setLoading(!Object.keys(fakeData).length), [fakeData]);
+    useEffect(() => setLoading(!Object.keys(overviewData).length), [overviewData]);
     // X Scale
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, fakeData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
-    }, [width, fakeData]);
+    }, [width, overviewData]);
     // totalRectangleData
     useEffect(() => {
-        if (scale && Object.keys(fakeData).length > 0) {
+        if (scale && Object.keys(overviewData).length > 0) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalBudgetAuthority);
+            const amount = Math.abs(overviewData._totalBudgetAuthority);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -104,15 +98,15 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // outlayRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalOutlays);
+            const amount = Math.abs(overviewData._totalOutlays);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -123,15 +117,15 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // obligationRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -142,16 +136,16 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setObligationRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // remainingBalanceRectangleData
     useEffect(() => {
         if (scale && obligationRectangleData) {
             const { offset, fill, text: textInfo } = rectangleMapping._remainingBalance;
-            const amount = Math.abs(fakeData._remainingBalance);
+            const amount = Math.abs(overviewData._remainingBalance);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             let draw = true;
-            if (fakeData._remainingBalance <= 0) draw = false;
+            if (overviewData._remainingBalance <= 0) draw = false;
             const data = {
                 draw,
                 x: amountsPadding.left + obligationRectangleData.width,
@@ -163,7 +157,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setRemainingBalanceRectangleData(data);
         }
-    }, [scale, fakeData, obligationRectangleData]);
+    }, [scale, overviewData, obligationRectangleData]);
     // totalLineData
     useEffect(() => {
         if (scale) {
@@ -173,7 +167,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalBudgetAuthority);
+            const amount = Math.abs(overviewData._totalBudgetAuthority);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -185,7 +179,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalLineData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // outlayLineData
     useEffect(() => {
         if (scale) {
@@ -195,7 +189,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalOutlays);
+            const amount = Math.abs(overviewData._totalOutlays);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -207,7 +201,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayLineData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // obligationLineData
     useEffect(() => {
         if (scale) {
@@ -217,7 +211,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -229,7 +223,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setObligationLineData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // remainingBalanceLineData
     useEffect(() => {
         if (scale && remainingBalanceRectangleData?.draw) {
@@ -277,9 +271,9 @@ const AmountsVisualization = ({
     // totalValueData
     useLayoutEffect(() => {
         const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalBudgetAuthority);
+        const amount = Math.abs(overviewData._totalBudgetAuthority);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
         if (totalLineData && totalQuestionData) {
             setTotalValueData({
                 y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0),
@@ -322,9 +316,9 @@ const AmountsVisualization = ({
     // remainingBalanceValueData
     useLayoutEffect(() => {
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._remainingBalance);
+        const amount = Math.abs(overviewData._remainingBalance);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
         if (remainingBalanceLineData && remainingBalanceQuestionData) {
             setRemainingBalanceValueData({
                 y: remainingBalanceLineData.y2 - spacingBetweenLineAndText,
@@ -380,9 +374,9 @@ const AmountsVisualization = ({
     // outlayValueData
     useLayoutEffect(() => {
         const ref = _outlayValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalOutlays);
+        const amount = Math.abs(overviewData._totalOutlays);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
         if (outlayLineData && outlayQuestionData) {
             if (outlayQuestionData.left) {
                 setOutlayValueData({
@@ -450,7 +444,7 @@ const AmountsVisualization = ({
             }
             else {
                 setObligationQuestionData({
-                    y: obligationLineData.y2 - (questionRef?.height || 0) - labelTextAdjustment.y,
+                    y: obligationLineData.y2 - obligationValueData?.height - spacingBetweenLineAndText,
                     x: obligationLineData.x1 + spacingBetweenLineAndText,
                     height: questionRef?.height || 0,
                     text: textInfo.question,
@@ -462,9 +456,9 @@ const AmountsVisualization = ({
     // obligationValueData
     useLayoutEffect(() => {
         const ref = _obligationValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalObligations);
+        const amount = Math.abs(overviewData._totalObligations);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
         if (obligationLineData && obligationQuestionData) {
             if (obligationQuestionData.left) {
                 setObligationValueData({
@@ -479,7 +473,7 @@ const AmountsVisualization = ({
             else {
                 setObligationValueData({
                     y: obligationLineData.y2 - spacingBetweenLineAndText,
-                    x: obligationLineData.x1 + obligationLabelData?.theWidth + spacingBetweenLineAndText,
+                    x: obligationLineData.x1 + obligationLabelData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x,
                     height: ref?.height || 0,
                     theWidth: ref?.width || 0,
                     text: moneyLabel,
@@ -505,7 +499,7 @@ const AmountsVisualization = ({
             }
             else {
                 setObligationLabelData({
-                    y: obligationLineData.y2 - labelTextAdjustment.y,
+                    y: obligationLineData.y2 - spacingBetweenLineAndText,
                     x: obligationLineData.x1 + spacingBetweenLineAndText,
                     height: ref?.height || 0,
                     text: textInfo.label,
