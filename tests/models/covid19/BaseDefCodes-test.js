@@ -1,13 +1,13 @@
 /**
- * defCodesModel-test.js
+ * BaseDefCodes-test.js
  * Created by Jonathan Hill 06/19/20
  */
 
-import defCodesModel from 'models/covid19/DefCodesModel';
+import BaseDefCodes from 'models/covid19/BaseDefCodes';
 import { defCodes } from './mockData';
 
 const defCodesData = defCodes.map((code) => {
-    const defCode = Object.create(defCodesModel);
+    const defCode = Object.create(BaseDefCodes);
     defCode.populate(code);
     return defCode;
 });

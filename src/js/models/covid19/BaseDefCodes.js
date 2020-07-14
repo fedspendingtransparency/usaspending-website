@@ -1,9 +1,9 @@
 /**
- * DefCodesModel.js
+ * BaseDefCodes.js
  * Created by Jonathan Hill 06/19/20
  */
 
-const defCodesModel = {
+const BaseDefCodes = {
     populate(data) {
         this._code = data.code || '';
         this._publicLaw = data.public_law || '';
@@ -19,4 +19,4 @@ const defCodesModel = {
     }
 };
 
-export default defCodesModel;
+export default BaseDefCodes;

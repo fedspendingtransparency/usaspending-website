@@ -26,6 +26,13 @@ const propTypes = {
     width: PropTypes.number
 };
 
+const fakeData = {
+    _totalBudgetAuthority: 2400000000000,
+    _totalObligations: 963000000000, // 1200000000000
+    _totalOutlays: 2200000000000, // 459000000000
+    _remainingBalance: 1400000000000
+};
+
 const AmountsVisualization = ({
     overviewData,
     width = null
@@ -69,22 +76,22 @@ const AmountsVisualization = ({
     const _remainingBalanceValue = useRef(null);
     const zerPercentRef = useRef(null);
     const oneHundredPercentRef = useRef(null);
-    useEffect(() => setLoading(!Object.keys(overviewData).length), [overviewData]);
+    useEffect(() => setLoading(!Object.keys(fakeData).length), [fakeData]);
     // X Scale
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, overviewData._totalBudgetAuthority])
+                .domain([0, fakeData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
-    }, [width, overviewData]);
+    }, [width, fakeData]);
     // totalRectangleData
     useEffect(() => {
-        if (scale && Object.keys(overviewData).length > 0) {
+        if (scale && Object.keys(fakeData).length > 0) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalBudgetAuthority);
+            const amount = Math.abs(fakeData._totalBudgetAuthority);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
             const data = {
@@ -97,13 +104,13 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalRectangleData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // outlayRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalOutlays);
+            const amount = Math.abs(fakeData._totalOutlays);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
             const data = {
@@ -116,13 +123,13 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayRectangleData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // obligationRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalObligations);
+            const amount = Math.abs(fakeData._totalObligations);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
             const data = {
@@ -135,19 +142,18 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setObligationRectangleData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // remainingBalanceRectangleData
     useEffect(() => {
         if (scale && obligationRectangleData) {
             const { offset, fill, text: textInfo } = rectangleMapping._remainingBalance;
-            const amount = Math.abs(overviewData._remainingBalance);
+            const amount = Math.abs(fakeData._remainingBalance);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
             let draw = true;
-            if (overviewData._remainingBalance <= 0) draw = false;
+            if (fakeData._remainingBalance <= 0) draw = false;
             const data = {
                 draw,
-                // x: amountsPadding.left + (offset.left),
                 x: amountsPadding.left + obligationRectangleData.width,
                 y: startOfChartY + offset.top,
                 width: width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width,
@@ -157,7 +163,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setRemainingBalanceRectangleData(data);
         }
-    }, [scale, overviewData, obligationRectangleData]);
+    }, [scale, fakeData, obligationRectangleData]);
     // totalLineData
     useEffect(() => {
         if (scale) {
@@ -167,7 +173,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalBudgetAuthority);
+            const amount = Math.abs(fakeData._totalBudgetAuthority);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -179,7 +185,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalLineData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // outlayLineData
     useEffect(() => {
         if (scale) {
@@ -189,7 +195,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalOutlays);
+            const amount = Math.abs(fakeData._totalOutlays);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -201,7 +207,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayLineData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // obligationLineData
     useEffect(() => {
         if (scale) {
@@ -211,7 +217,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalObligations);
+            const amount = Math.abs(fakeData._totalObligations);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -223,7 +229,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setObligationLineData(data);
         }
-    }, [scale, overviewData]);
+    }, [scale, fakeData]);
     // remainingBalanceLineData
     useEffect(() => {
         if (scale && remainingBalanceRectangleData?.draw) {
@@ -271,7 +277,7 @@ const AmountsVisualization = ({
     // totalValueData
     useLayoutEffect(() => {
         const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
-        const amount = Math.abs(overviewData._totalBudgetAuthority);
+        const amount = Math.abs(fakeData._totalBudgetAuthority);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
         if (totalLineData && totalQuestionData) {
@@ -316,7 +322,7 @@ const AmountsVisualization = ({
     // remainingBalanceValueData
     useLayoutEffect(() => {
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
-        const amount = Math.abs(overviewData._remainingBalance);
+        const amount = Math.abs(fakeData._remainingBalance);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
         if (remainingBalanceLineData && remainingBalanceQuestionData) {
@@ -374,7 +380,7 @@ const AmountsVisualization = ({
     // outlayValueData
     useLayoutEffect(() => {
         const ref = _outlayValue.current?.getBoundingClientRect();
-        const amount = Math.abs(overviewData._totalOutlays);
+        const amount = Math.abs(fakeData._totalOutlays);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
         if (outlayLineData && outlayQuestionData) {
@@ -456,7 +462,7 @@ const AmountsVisualization = ({
     // obligationValueData
     useLayoutEffect(() => {
         const ref = _obligationValue.current?.getBoundingClientRect();
-        const amount = Math.abs(overviewData._totalObligations);
+        const amount = Math.abs(fakeData._totalObligations);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${units.longLabel}`;
         if (obligationLineData && obligationQuestionData) {
