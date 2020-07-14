@@ -32,7 +32,7 @@ describe('Base Financial Assistance', () => {
         const newRow = Object.create(BaseFederalAccount);
         newRow.populate(newData, 'idv');
         it('should format the submission period', () => {
-            expect(newRow.submissionDate).toEqual('FY 2018 P04');
+            expect(newRow.submissionDate).toEqual('FY 2018 P01/P02');
         });
     });
     describe('Funding Obligated Amount', () => {
