@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { snakeCase } from 'lodash';
 import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -29,7 +30,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: 'Agency Name'
                 },
                 {
-                    title: 'faceValue',
+                    title: 'faceValueOfLoan',
                     displayName: (
                         <>
                             <div>Face Value</div>
@@ -151,7 +152,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
                 count: awardSpendingByAgencyRow.count,
-                faceValue: awardSpendingByAgencyRow.faceValue,
+                faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
                 name: link
@@ -177,7 +178,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort,
+                        sort: snakeCase(sort),
                         order
                     },
                     spending_type: 'award'
@@ -191,7 +192,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort,
+                        sort: snakeCase(sort),
                         order
                     },
                     spending_type: 'award'
@@ -207,7 +208,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort,
+                        sort: snakeCase(sort),
                         order
                     },
                     spending_type: 'award'
@@ -215,8 +216,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
             }
 
-
             if (faceValueOfLoansRequest) {
+                setRequest(faceValueOfLoansRequest);
                 faceValueOfLoansRequest.promise
                     .then((res) => {
                         parseAwardSpendingByAgency(res.data.results);

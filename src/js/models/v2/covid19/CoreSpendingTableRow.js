@@ -13,7 +13,7 @@ const CoreSpendingTableRow = {
         this._count = data.count || 0;
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
-        this._faceValue = data.face_value_of_loan || 0;
+        this._faceValueOfLoan = data.face_value_of_loan || 0;
     },
     get obligation() {
         return formatMoney(this._obligation);
@@ -24,8 +24,8 @@ const CoreSpendingTableRow = {
     get count() {
         return formatNumber(this._count);
     },
-    get faceValue() {
-        return formatMoney(this._faceValue);
+    get faceValueOfLoan() {
+        return formatMoney(this._faceValueOfLoan);
     }
 };
 

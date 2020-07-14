@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
@@ -14,7 +15,6 @@ import {
     budgetDropdownFieldValues,
     budgetCategoriesCssMappingTypes,
     budgetCategoriesSort,
-    sortMapping,
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
@@ -86,7 +86,7 @@ const budgetDropdownColumns = {
             right: true
         },
         {
-            title: 'faceValue',
+            title: 'faceValueOfLoan',
             displayName: (
                 <>
                     <div>Face Value</div>
@@ -198,7 +198,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 obligation: budgetCategoryRow.obligation,
                 outlay: budgetCategoryRow.outlay,
                 totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
-                faceValue: budgetCategoryRow.faceValue,
+                faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
                 count: budgetCategoryRow.count,
                 children: budgetCategoryRow.children,
                 name: link
@@ -215,7 +215,7 @@ const BudgetCategoriesTableContainer = (props) => {
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory && sortAndOrder) {
             // if type is agency then sort name column by description
-            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : sortMapping[sortAndOrder[props.type][spendingCategory].sort];
+            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : snakeCase([sortAndOrder[props.type][spendingCategory].sort]);
 
             if (spendingCategory === 'loan_spending') {
                 const params = {

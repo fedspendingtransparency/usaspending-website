@@ -72,7 +72,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValue',
+            sort: 'faceValueOfLoan',
             order: 'desc'
         }
     },
@@ -86,7 +86,7 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValue',
+            sort: 'faceValueOfLoan',
             order: 'desc'
         }
     },
@@ -100,17 +100,8 @@ export const budgetCategoriesSort = {
             order: 'desc'
         },
         loan_spending: {
-            sort: 'faceValue',
+            sort: 'faceValueOfLoan',
             order: 'desc'
         }
     }
-};
-
-export const sortMapping = {
-    totalBudgetaryResources: 'total_budgetary_resources',
-    obligation: 'obligation',
-    outlay: 'outlay',
-    faceValue: 'face_value_of_loan',
-    count: 'count',
-    name: 'code'
 };

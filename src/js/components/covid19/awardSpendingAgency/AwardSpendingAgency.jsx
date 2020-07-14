@@ -10,7 +10,6 @@ import DateNote from 'components/covid19/DateNote';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
-import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
@@ -67,7 +66,7 @@ const AwardSpendingAgency = () => {
 
             // Make an API request for the count of Agency for each award type
             // Post-MVP this should be updated to use a new endpoint that returns all the counts
-            const promises = awardSpendingAgencyTableTabs.map((awardType) => {
+            const promises = awardTypeTabs.map((awardType) => {
                 params = {
                     filter: {
                         def_codes: defCodes.map((defc) => defc.code)
