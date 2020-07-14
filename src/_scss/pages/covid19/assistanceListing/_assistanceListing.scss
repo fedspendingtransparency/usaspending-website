@@ -5,8 +5,6 @@
             tr.usda-table__row {
                 td.usda-table__cell {
                     &:first-of-type {
-                        // Prevent the CFDA column from wrapping
-                        white-space: nowrap;
                         .fa-external-link-alt {
                             margin-left: rem(5);
                         }
