@@ -5,12 +5,19 @@
 
 import { apiRequest } from 'helpers/apiRequest';
 
+export const defCodeQueryString = (defCodes) => defCodes.reduce((acc, code, i, array) => {
+    let currentString = acc;
+    currentString += code;
+    if (i + 1 !== array.length) currentString += ',';
+    return currentString;
+}, '');
+
 export const fetchDEFCodes = () => apiRequest({
     url: 'v2/references/def_codes/'
 });
 
-export const fetchOverview = () => apiRequest({
-    url: 'v2/disaster/overview/'
+export const fetchOverview = (defCodes) => apiRequest({
+    url: defCodes ? `v2/disaster/overview/?def_codes=${defCodeQueryString(defCodes)}` : 'v2/disaster/overview/'
 });
 
 export const fetchRecipientSpendingByGeography = (params) => apiRequest({
