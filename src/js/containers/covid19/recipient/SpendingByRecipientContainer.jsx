@@ -53,15 +53,6 @@ const loanColumns = [
         displayName: 'Recipient'
     },
     {
-        title: 'faceValueOfLoan',
-        displayName: (
-            <>
-                <div>Face Value</div>
-                <div>of Loans</div>
-            </>
-        )
-    },
-    {
         title: 'obligation',
         displayName: (
             <>
@@ -77,6 +68,16 @@ const loanColumns = [
             <>
                 <div>Award Outlays</div>
                 <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'faceValueOfLoan',
+        displayName: (
+            <>
+                <div>Face Value</div>
+                <div>of Loans</div>
             </>
         ),
         right: true
