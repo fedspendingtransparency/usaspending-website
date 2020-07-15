@@ -96,7 +96,6 @@ const Covid19Container = () => {
     //     };
     // }, []);
     const onFooterClick = () => {
-        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
         dispatch(
             applyStagedFilters(
                 Object.assign(
