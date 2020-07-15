@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { get, uniqueId, delay, throttle } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 
 import { setOverview } from 'redux/actions/covid19/covid19Actions';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
@@ -71,12 +72,8 @@ const updateSpeedByIndexRange = (index) => {
     if (indexAsInt <= 300) return 4;
     if (indexAsInt <= 400) return 8;
     if (indexAsInt <= 425) return 16;
-    if (indexAsInt <= 475) return 32;
-    if (indexAsInt <= 480) return 64;
-    if (indexAsInt <= 490) return 128;
-    if (indexAsInt <= 495) return 250;
-    if (indexAsInt <= 498) return 500;
-    return 1000;
+    if (indexAsInt <= 490) return 32;
+    return 64;
 };
 
 const TotalAmount = ({
@@ -88,9 +85,13 @@ const TotalAmount = ({
     const ref = useRef(null);
 
     useEffect(() => {
+        const now = moment();
         const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
             amountUpdate = delay(() => {
                 ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
+                if (amount === total) {
+                    console.log('RESULT: ', moment.duration(moment().diff(now)).as('seconds'));
+                }
                 resolve();
             }, speedOfUpdate);
         });

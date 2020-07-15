@@ -9,6 +9,9 @@
             width: 50%;
             &:first-of-type {
                 padding: 5rem 2rem;
+                @include display(flex);
+                @include flex-direction(column);
+                @include justify-content(center);
                 h1.covid-hero__headline {
                     color: white;
                     margin: 0;
@@ -46,6 +49,8 @@
                 p {
                     font-size: rem(21);
                     color: white;
+                    margin: 0;
+                    margin-top: rem(10);
                 }
             }
             &:nth-of-type(2) {
