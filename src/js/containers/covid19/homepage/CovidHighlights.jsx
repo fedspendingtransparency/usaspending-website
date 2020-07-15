@@ -64,6 +64,21 @@ const defaultParams = {
 let scrollInterval = null;
 let amountUpdate = null;
 
+const updateSpeedByIndexRange = (index) => {
+    const indexAsInt = index + 1;
+    if (indexAsInt <= 100) return 1;
+    if (indexAsInt <= 200) return 2;
+    if (indexAsInt <= 300) return 4;
+    if (indexAsInt <= 400) return 8;
+    if (indexAsInt <= 425) return 16;
+    if (indexAsInt <= 475) return 32;
+    if (indexAsInt <= 480) return 64;
+    if (indexAsInt <= 490) return 128;
+    if (indexAsInt <= 495) return 250;
+    if (indexAsInt <= 498) return 500;
+    return 1000;
+};
+
 const TotalAmount = ({
     total,
     isLoading,
@@ -73,11 +88,11 @@ const TotalAmount = ({
     const ref = useRef(null);
 
     useEffect(() => {
-        const updateAmount = (amount) => new Promise((resolve) => {
+        const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
             amountUpdate = delay(() => {
                 ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
                 resolve();
-            }, 1);
+            }, speedOfUpdate);
         });
         if (!isLoading) {
             new Array(500)
@@ -85,7 +100,7 @@ const TotalAmount = ({
                 .reduce((prevPromise, currentValue, currentIndex) => prevPromise
                     .then(() => {
                         const divisor = (currentIndex + 1) * 0.002;
-                        return updateAmount(divisor * total);
+                        return updateAmount(divisor * total, updateSpeedByIndexRange(currentIndex));
                     }), Promise.resolve())
                 .then(() => {
                     completeIncrement();
