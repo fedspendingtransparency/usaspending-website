@@ -35,7 +35,6 @@ import {
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
-import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
