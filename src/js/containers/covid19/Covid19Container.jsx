@@ -165,7 +165,8 @@ const Covid19Container = () => {
                         {/* <hr /> */}
                         <ShareIcon
                             slug={slug}
-                            email={getEmailSocialShareData} />
+                            email={getEmailSocialShareData}
+                            noHash />
                         <div className="sticky-header__toolbar-item">
                             <DownloadButtonContainer />
                         </div>
