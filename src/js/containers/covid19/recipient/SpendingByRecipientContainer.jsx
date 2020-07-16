@@ -15,6 +15,7 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import SearchBar from 'components/covid19/SearchBar';
 
 const propTypes = {
@@ -241,40 +242,44 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                 <ResultsTableErrorMessage />
             </div>
         );
-    }
-
-    if (message) {
-        return (
-            <>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
-            </>
+    } else if (results.length === 0) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableNoResults />
+            </div>
         );
     }
+
+    const content = message ? (
+        <CSSTransitionGroup
+            transitionName="table-message-fade"
+            transitionLeaveTimeout={225}
+            transitionEnterTimeout={195}
+            transitionLeave>
+            {message}
+        </CSSTransitionGroup>
+    ) : (
+        <div className="table-wrapper">
+            <Table
+                columns={activeTab === 'loans' ? loanColumns : columns}
+                rows={results}
+                updateSort={updateSort}
+                currentSort={{ field: sort, direction: order }} />
+        </div>
+    );
 
     return (
         <>
             <SearchBar setQuery={setQuery} query={query} />
-            <div className="table-wrapper">
-                <Table
-                    columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={results}
-                    updateSort={updateSort}
-                    currentSort={{ field: sort, direction: order }} />
-            </div>
-            <Pagination
+            {content}
+            {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
                 changeLimit={changePageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}
-                totalItems={totalItems} />
+                totalItems={totalItems} />}
         </>
     );
 };
