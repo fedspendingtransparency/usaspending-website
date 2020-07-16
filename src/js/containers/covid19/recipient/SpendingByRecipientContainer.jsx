@@ -15,6 +15,7 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import SearchBar from 'components/covid19/SearchBar';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired
@@ -163,6 +164,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [query, setQuery] = useState('');
     const [request, setRequest] = useState(null);
 
     const updateSort = (field, direction) => {
@@ -191,6 +193,9 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
             if (activeTab !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
+            if (query) {
+                params.filter.query = query;
+            }
             let recipientRequest = fetchDisasterSpending('recipient', params);
             if (activeTab === 'loans') {
                 recipientRequest = fetchLoanSpending('recipient', params);
@@ -217,7 +222,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByRecipientCallback();
-    }, [pageSize, defCodes, sort, order, activeTab]);
+    }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
@@ -248,13 +253,13 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-
             </>
         );
     }
 
     return (
         <>
+            <SearchBar setQuery={setQuery} query={query} />
             <div className="table-wrapper">
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
