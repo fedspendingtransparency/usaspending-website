@@ -166,15 +166,20 @@ export class CovidHighlights extends React.Component {
             .then(() => {
                 if (!document.documentMode) {
                     scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + 72;
+                        const newPosition = this.scrollBar.scrollTop + 115;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
                         if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                            this.fetchHighlights()
-                                .then(() => {
-                                    if (!this.state.isHoverActive) {
-                                        scrollToY(newPosition, 750, this.scrollBar);
-                                    }
-                                });
+                            if (this.state.hasNext) {
+                                this.fetchHighlights()
+                                    .then(() => {
+                                        if (!this.state.isHoverActive) {
+                                            scrollToY(newPosition, 750, this.scrollBar);
+                                        }
+                                    });
+                            }
+                            else if (!this.state.isHoverActive) {
+                                scrollToY(0, 750, this.scrollBar);
+                            }
                         }
                         else if (!this.state.isHoverActive) {
                             scrollToY(newPosition, 750, this.scrollBar);
@@ -322,6 +327,7 @@ export class CovidHighlights extends React.Component {
                             onMouseEnter={this.handleHover}
                             onBlur={this.handleBlur}>
                             {highlights
+                                .filter((highlight) => highlight.outlay > 0 || highlight.showLoading)
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
                                         return (
