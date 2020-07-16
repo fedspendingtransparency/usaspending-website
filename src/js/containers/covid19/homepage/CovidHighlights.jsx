@@ -186,6 +186,18 @@ export class CovidHighlights extends React.Component {
                         }
                     }, 3000);
                 }
+                else {
+                    // this.scrollBar.addEventListener('scroll', () => {
+                    scrollInterval = window.setInterval(() => {
+                        const currentPosition = this.scrollBar.scrollTop;
+                        const maxScroll = this.scrollBar.scrollHeight - 446;
+                        if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                            if (this.state.hasNext) {
+                                this.fetchHighlights();
+                            }
+                        }
+                    }, 1000);
+                }
             })
             .then(() => {
                 this.fetchTotalsRequest.promise
