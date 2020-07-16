@@ -218,7 +218,7 @@ class SearchAwardsOperation {
                     exclude: this.tasCheckbox.exclude
                 };
             }
-            else {
+            else if (this.tasCheckbox.require.length > 0) {
                 filters[rootKeys.tasCheckbox] = { require: trimCheckedToCommonAncestors(this.tasCheckbox.require) };
             }
         }
