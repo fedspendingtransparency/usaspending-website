@@ -168,7 +168,7 @@ export class CovidHighlights extends React.Component {
                     scrollInterval = window.setInterval(() => {
                         const newPosition = this.scrollBar.scrollTop + 72;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (newPosition >= maxScroll) {
+                        if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
                             this.fetchHighlights()
                                 .then(() => {
                                     if (!this.state.isHoverActive) {
@@ -288,8 +288,8 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            As of June 2020,
-                            <span>The Federal Government has spent </span>
+                            <span>As of June 2020,</span>
+                            <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
                                 <TotalAmount
@@ -298,16 +298,16 @@ export class CovidHighlights extends React.Component {
                                     total={totalSpendingAmount}
                                     isLoading={isAmountLoading} />
                                 in response to
-                            </span>
-                            <span className="covid-hero__headline">
-                                {` COVID-19.`}
-                                <div style={{ width: '20px' }}>
-                                    <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
-                                </div>
+                                <span>
+                                    <strong>{` COVID-19.`}</strong>
+                                    <div style={{ width: '20px' }}>
+                                        <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
+                                    </div>
+                                </span>
                             </span>
                         </h1>
                         <p>
-                            USAspending is the official source of federal spending data - including spending in response to COVID-19. The tools and features on the site allow taxpayers to see how their money is spent communities across the country.
+                            <strong>USAspending is the official source of federal spending data - including spending in response to COVID-19.</strong> We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
                         </p>
                     </div>
                     <div

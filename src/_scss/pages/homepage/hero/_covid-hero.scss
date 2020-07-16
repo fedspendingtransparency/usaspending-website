@@ -1,6 +1,9 @@
 .covid-hero {
     background: #3B005B;
     height: rem(446);
+    @media(min-width: $x-large-screen) {
+      height: rem(400);
+    }
     .covid-hero__wrapper {
         @include display(flex);
         position: relative;
@@ -8,15 +11,27 @@
         .covid-hero__content {
             width: 50%;
             &:first-of-type {
-                padding: 5rem 2rem;
+                width: 100%;
+                padding: 0rem 1.5rem;
+                margin-top: rem(10);
                 @include display(flex);
                 @include flex-direction(column);
                 @include justify-content(center);
+                @media(min-width: $tablet-screen) {
+                  width: 50%;
+                  margin-top: rem(20);
+                }
+                @media(min-width: $large-screen) {
+                  @include justify-content(flex-start);
+                  margin-top: rem(60);
+                  padding: 0rem 2rem;
+                }
                 h1.covid-hero__headline {
                     color: white;
                     margin: 0;
                     @include display(flex);
                     @include flex-wrap(wrap);
+                    font-size: rem(30);
                     .covid-hero__headline--amount {
                         opacity: 0;
                         position: absolute;
@@ -33,36 +48,86 @@
                         color: $color-white;
                         @include display(flex);
                         @include align-items(center);
+                        @include flex-wrap(wrap);
+                        font-weight: $font-normal;
+                        line-height: rem(34.5);
+                        @media(min-width: $large-screen) {
+                          line-height: rem(42.5);
+                        }
                         .pulse-container {
                             width: rem(40);
                             margin: 0 rem(40);
                         }
-                        &strong {
-                            font-weight: 700;
+                        strong {
+                          font-size: rem(30);
+                            @media(min-width: $large-screen) {
+                              font-size: rem(40);
+                            }
+                            font-weight: $font-bold;
+                        }
+                        &:first-of-type {
+                          font-size: rem(24);
+                            @media(min-width: $large-screen) {
+                              font-size: rem(30);
+                            }
+                          font-weight: $font-light;
+                        }
+                        &:nth-of-type(2) {
+                          font-size: rem(24);
+                            @media(min-width: $large-screen) {
+                              font-size: rem(30);
+                            }
+                        }
+                        &:nth-of-type(3) {
+                          font-size: rem(24);
+                          span {
+                            width: auto;
+                            strong {
+                              font-size: rem(30);
+                                @media(min-width: $large-screen) {
+                                  font-size: rem(40);
+                                }
+                            }
+                          }
                         }
                     }
                     .covid-hero__headline {
                         margin-top: rem(10);
-                        font-weight: 700;
+                        font-weight: $font-bold;
                     }
                 }
                 p {
-                    font-size: rem(21);
                     color: white;
+                    font-size: rem(14);
+                    font-weight: $font-normal;
                     margin: 0;
                     margin-top: rem(10);
+                    @media(min-width: $large-screen) {
+                      margin-top: rem(47);
+                      font-size: rem(18);
+                    }
+                    strong {
+                      font-weight: $font-bold;
+                    }
                 }
             }
             &:nth-of-type(2) {
+                display: none;
+                @media (min-width: $tablet-screen) {
+                  @include display(flex);
+                }
                 overflow-y: scroll;
                 height: 100%;
                 ul.covid-highlights {
                     @include display(flex);
                     @include flex-direction(column);
                     @include align-items(flex-end);
-                    margin-right: rem(30);
+                    padding-right: rem(15);
+                    @media(min-width: $large-screen) {
+                      margin-right: rem(30);
+                      padding: 0 5rem;
+                    }
                     color: $color-white;
-                    margin: 0 5rem;
                     width: rem(530);
                     margin-left: auto;
                     li.covid-highlights__highlight {
@@ -74,20 +139,28 @@
                         @include justify-content(flex-end);
                         opacity: 0.5;
                         margin: 0;
-                        padding: 2rem;
-                        border: 1px solid white;
+                        padding: rem(15) 0;
                         width: 100%;
+                        transition: opacity .5s ease-in;
                         &:hover {
                             opacity: 1;
                         }
                         span {
                             width: 100%;
                             text-align: right;
+                            font-size: rem(12);
                             &.covid-highlight__description {
-    
+                              font-size: rem(16);
+                              @media(min-width: $large-screen) {
+                                font-size: rem(18.9);
+                              }
                             }
                             &.covid-highlight__amount {
-                                font-weight: 700;
+                                font-weight: $font-bold;
+                                font-size: rem(20.4);
+                                @media(min-width: $large-screen) {
+                                  font-size: rem(26.4);
+                                }
                             }
                         }
                     }
