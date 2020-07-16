@@ -38,7 +38,7 @@ const BudgetCategories = () => {
     const [totalObligations, setTotalObligations] = useState(null);
     const [totalOutlays, setTotalOutlays] = useState(null);
 
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { defCodes, latestSubmissionDate } = useSelector((state) => state.covid19);
     const overviewData = [
         {
             type: 'count',
@@ -60,9 +60,6 @@ const BudgetCategories = () => {
             dollarAmount: true
         }
     ];
-
-    // TODO - Remove hard coded values
-    const dateString = "June 30, 2020";
 
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
@@ -106,7 +103,7 @@ const BudgetCategories = () => {
 
     return (
         <div className="body__content budget-categories">
-            <DateNote dateString={dateString} />
+            <DateNote dateString={latestSubmissionDate} />
             <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.

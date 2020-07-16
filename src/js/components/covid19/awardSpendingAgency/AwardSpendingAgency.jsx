@@ -57,8 +57,7 @@ const AwardSpendingAgency = () => {
         other: null
     });
 
-    const defCodes = useSelector((state) => state.covid19.defCodes);
-    const dateString = "June 30, 2020";
+    const { defCodes, latestSubmissionDate } = useSelector((state) => state.covid19);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -140,7 +139,7 @@ const AwardSpendingAgency = () => {
 
     return (
         <div className="body__content award-spending">
-            <DateNote dateString={dateString} />
+            <DateNote dateString={latestSubmissionDate} />
             <h3 className="body__narrative">These are the federal agencies who spent COVID-19 Response funding on <strong>awards.</strong></h3>
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
