@@ -22,7 +22,7 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
-import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
+import { jumpToSection, latestSubmissionDateFormatted, setAdvancedSearchDefCodesFilter } from 'helpers/covid19Helper';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 
@@ -36,7 +36,6 @@ import {
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
-import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
@@ -52,7 +51,7 @@ const Covid19Container = () => {
     const overviewRequest = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
-    const defCodes = useSelector((state) => state.covid19.defCodes.map((code) => code.code), isEqual);
+    const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
     useEffect(() => {
         const getDefCodesData = async () => {
@@ -77,7 +76,7 @@ const Covid19Container = () => {
 
     useEffect(() => {
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodes);
+            overviewRequest.current = fetchOverview(defCodes.map((code) => code.code));
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -99,23 +98,7 @@ const Covid19Container = () => {
         };
     }, [defCodes]);
 
-    const onFooterClick = () => {
-        dispatch(updateDefCodes(defCodes.map((code) => code.code), [], [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]));
-        dispatch(
-            applyStagedFilters(
-                Object.assign(
-                    {}, defaultAdvancedSearchFilters,
-                    {
-                        defCodes: new CheckboxTreeSelections({
-                            require: defCodes.map((code) => code.code),
-                            exclude: [],
-                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-                        })
-                    }
-                )
-            )
-        );
-    };
+    const addDefCodesToAdvancedSearchFilter = () => dispatch(setAdvancedSearchDefCodesFilter(defCodes));
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
@@ -211,7 +194,7 @@ const Covid19Container = () => {
                             <FooterLinkToAdvancedSearchContainer
                                 title={footerTitle}
                                 description={footerDescription}
-                                onClick={onFooterClick} />
+                                onClick={addDefCodesToAdvancedSearchFilter} />
                         </section>
                     </div>
                     <RedirectModalContainer />

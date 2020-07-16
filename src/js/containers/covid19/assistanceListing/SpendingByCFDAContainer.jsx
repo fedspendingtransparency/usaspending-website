@@ -5,9 +5,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -17,10 +16,7 @@ import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
-const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired,
-    activeTab: PropTypes.string.isRequired
-};
+const propTypes = { activeTab: PropTypes.string.isRequired };
 
 const columns = [
     {
@@ -106,7 +102,7 @@ const loanColumns = [
     }
 ];
 
-export const parseRows = (rows, onRedirectModalClick, activeTab) => (
+export const parseRows = (rows, updateAdvancedSearchFilters, activeTab) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByCfdaRow);
         rowData.populate(row);
@@ -116,8 +112,8 @@ export const parseRows = (rows, onRedirectModalClick, activeTab) => (
                 <button
                     className="assistance-listing__button"
                     value={rowData._link}
-                    onClick={onRedirectModalClick}>
-                    {rowData.name}<FontAwesomeIcon icon="external-link-alt" />
+                    onClick={updateAdvancedSearchFilters}>
+                    {rowData.name}
                 </button>
             );
         }
@@ -139,7 +135,7 @@ export const parseRows = (rows, onRedirectModalClick, activeTab) => (
     })
 );
 
-const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
+const SpendingByCFDAContainer = ({ activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -155,6 +151,11 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const dispatch = useDispatch();
+
+    const updateAdvancedSearchFilters = () => {
+
+    };
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
         if (request) {
@@ -184,7 +185,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
             setRequest(cfdaRequest);
             cfdaRequest.promise
                 .then((res) => {
-                    const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
+                    const rows = parseRows(res.data.results, updateAdvancedSearchFilters, activeTab);
                     setResults(rows);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);

@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchCfdaCount } from 'helpers/disasterHelper';
-import RedirectModal from 'components/sharedComponents/RedirectModal';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
@@ -35,8 +34,6 @@ const overviewData = [
 ];
 
 const SpendingByCFDA = () => {
-    const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
-    const [redirectModalURL, setRedirectModalURL] = useState('');
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
@@ -47,16 +44,6 @@ const SpendingByCFDA = () => {
         loans: null,
         other: null
     });
-
-    const onRedirectModalClick = (e) => {
-        setRedirectModalURL(e.currentTarget.value);
-        setIsRedirectModalMounted(true);
-    };
-
-    const closeRedirectModal = () => {
-        setRedirectModalURL('');
-        setIsRedirectModalMounted(false);
-    };
 
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
@@ -112,12 +99,7 @@ const SpendingByCFDA = () => {
                 activeTab={activeTab}
                 overviewData={overviewData} />
             <SpendingByCFDAContainer
-                onRedirectModalClick={onRedirectModalClick}
                 activeTab={activeTab} />
-            <RedirectModal
-                mounted={isRedirectModalMounted}
-                hideModal={closeRedirectModal}
-                url={redirectModalURL} />
         </div>
     );
 };
