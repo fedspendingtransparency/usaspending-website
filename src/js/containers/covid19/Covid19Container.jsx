@@ -193,6 +193,7 @@ const Covid19Container = () => {
                             <Heading />
                         </section>
                         {Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
                             .map((section) => (
                                 <Covid19Section
                                     key={section}
@@ -203,7 +204,7 @@ const Covid19Container = () => {
                                     {componentByCovid19Section()[section].component}
                                 </Covid19Section>
                             ))}
-                        <section className="body__section">
+                        <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />
                             <FooterLinkToAdvancedSearchContainer

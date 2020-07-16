@@ -172,10 +172,12 @@ const Sidebar = ({
         };
 
         window.addEventListener('scroll', handleScrollAndSetActiveSection);
+        window.addEventListener('scroll', cacheSectionPositions);
         window.addEventListener('resize', cacheSectionPositions);
 
         return () => {
             window.removeEventListener('scroll', handleScrollAndSetActiveSection);
+            window.removeEventListener('scroll', cacheSectionPositions);
             window.removeEventListener('resize', cacheSectionPositions);
         };
     }, [
