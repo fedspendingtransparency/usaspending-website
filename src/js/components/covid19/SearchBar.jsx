@@ -40,22 +40,20 @@ const SearchBar = ({ setQuery, query }) => {
     };
 
     return (
-        <div className="search-bar">
-            <form className="search-bar__form">
-                <input
-                    className="search-bar__input"
-                    value={searchString}
-                    type="text"
-                    onChange={onChange} />
-                <button
-                    disabled={searchString.length < 3}
-                    aria-label="Search"
-                    onClick={handleClick}
-                    className="search-bar__button">
-                    <FontAwesomeIcon icon={(searchString && query === searchString) ? 'times' : 'search'} />
-                </button>
-            </form>
-        </div>
+        <form className="search-bar">
+            <input
+                className="search-bar__input"
+                value={searchString}
+                type="text"
+                onChange={onChange} />
+            <button
+                disabled={searchString.length < 3}
+                aria-label="Search"
+                onClick={handleClick}
+                className="search-bar__button">
+                <FontAwesomeIcon icon={(searchString && query === searchString) ? 'times' : 'search'} />
+            </button>
+        </form>
     );
 };
 

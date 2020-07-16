@@ -100,6 +100,7 @@
             .body__section {
                 @import "../agency/v2/tabs";
                 @import "./dataSourcesAndMethodology";
+                @import './searchBar';
 
                 @include display(flex);
                 @include flex-wrap(wrap);
