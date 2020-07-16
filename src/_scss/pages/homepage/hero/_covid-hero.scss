@@ -21,6 +21,11 @@
                   width: 50%;
                   margin-top: rem(20);
                 }
+                @media(min-width: $medium-screen) {
+                  @include justify-content(flex-start);
+                  margin-top: rem(20);
+                  padding: 0rem 2rem;
+                }
                 @media(min-width: $large-screen) {
                   @include justify-content(flex-start);
                   margin-top: rem(60);
@@ -51,7 +56,7 @@
                         @include flex-wrap(wrap);
                         font-weight: $font-normal;
                         line-height: rem(34.5);
-                        @media(min-width: $large-screen) {
+                        @media(min-width: $medium-screen) {
                           line-height: rem(42.5);
                         }
                         .pulse-container {
@@ -60,21 +65,21 @@
                         }
                         strong {
                           font-size: rem(30);
-                            @media(min-width: $large-screen) {
+                            @media(min-width: $medium-screen) {
                               font-size: rem(40);
                             }
                             font-weight: $font-bold;
                         }
                         &:first-of-type {
                           font-size: rem(24);
-                            @media(min-width: $large-screen) {
+                            @media(min-width: $medium-screen) {
                               font-size: rem(30);
                             }
                           font-weight: $font-light;
                         }
                         &:nth-of-type(2) {
                           font-size: rem(24);
-                            @media(min-width: $large-screen) {
+                            @media(min-width: $medium-screen) {
                               font-size: rem(30);
                             }
                         }
@@ -84,7 +89,7 @@
                             width: auto;
                             strong {
                               font-size: rem(30);
-                                @media(min-width: $large-screen) {
+                                @media(min-width: $medium-screen) {
                                   font-size: rem(40);
                                 }
                             }
@@ -123,7 +128,7 @@
                     @include flex-direction(column);
                     @include align-items(flex-end);
                     padding-right: rem(15);
-                    @media(min-width: $large-screen) {
+                    @media(min-width: $medium-screen) {
                       margin-right: rem(30);
                       padding: 0 5rem;
                     }
@@ -151,14 +156,14 @@
                             font-size: rem(12);
                             &.covid-highlight__description {
                               font-size: rem(16);
-                              @media(min-width: $large-screen) {
+                              @media(min-width: $medium-screen) {
                                 font-size: rem(18.9);
                               }
                             }
                             &.covid-highlight__amount {
                                 font-weight: $font-bold;
                                 font-size: rem(20.4);
-                                @media(min-width: $large-screen) {
+                                @media(min-width: $medium-screen) {
                                   font-size: rem(26.4);
                                 }
                             }
