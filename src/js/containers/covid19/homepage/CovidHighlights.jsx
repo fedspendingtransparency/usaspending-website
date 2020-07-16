@@ -298,12 +298,12 @@ export class CovidHighlights extends React.Component {
                                     total={totalSpendingAmount}
                                     isLoading={isAmountLoading} />
                                 in response to
-                                <span>
-                                    <strong>{` COVID-19.`}</strong>
-                                    <div style={{ width: '20px' }}>
-                                        <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
-                                    </div>
-                                </span>
+                            </span>
+                            <span>
+                                <strong>{` COVID-19.`}</strong>
+                                <div style={{ width: '20px' }}>
+                                    <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
+                                </div>
                             </span>
                         </h1>
                         <p>

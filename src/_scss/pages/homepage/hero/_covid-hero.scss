@@ -1,6 +1,11 @@
 .covid-hero {
     background: #3B005B;
-    height: rem(446);
+    height: rem(350);
+    @include display(flex);
+    @include justify-content(center);
+    @media(min-width: $tablet-screen) {
+      height: rem(446);
+    }
     @media(min-width: $x-large-screen) {
       height: rem(400);
     }
@@ -8,28 +13,32 @@
         @include display(flex);
         position: relative;
         height: 100%;
+        max-width: rem(1600);
         .covid-hero__content {
             width: 50%;
+            margin: auto;
+            &:first-of-type {
+              padding-left: rem(15);
+            }
+            &:nth-of-type(2) {
+              padding-right: rem(15);
+            }
+            @media(min-width: $medium-screen) {
+              padding: 0 2rem;
+            }
             &:first-of-type {
                 width: 100%;
-                padding: 0rem 1.5rem;
-                margin-top: rem(10);
                 @include display(flex);
                 @include flex-direction(column);
                 @include justify-content(center);
                 @media(min-width: $tablet-screen) {
                   width: 50%;
-                  margin-top: rem(20);
                 }
                 @media(min-width: $medium-screen) {
                   @include justify-content(flex-start);
-                  margin-top: rem(20);
-                  padding: 0rem 2rem;
                 }
                 @media(min-width: $large-screen) {
                   @include justify-content(flex-start);
-                  margin-top: rem(60);
-                  padding: 0rem 2rem;
                 }
                 h1.covid-hero__headline {
                     color: white;
@@ -78,21 +87,24 @@
                           font-weight: $font-light;
                         }
                         &:nth-of-type(2) {
-                          font-size: rem(24);
+                          font-size: rem(30);
                             @media(min-width: $medium-screen) {
-                              font-size: rem(30);
+                              font-size: rem(40);
                             }
                         }
                         &:nth-of-type(3) {
-                          font-size: rem(24);
-                          span {
-                            width: auto;
-                            strong {
-                              font-size: rem(30);
-                                @media(min-width: $medium-screen) {
-                                  font-size: rem(40);
-                                }
-                            }
+                          font-size: rem(30);
+                          @media(min-width: $medium-screen) {
+                            font-size: rem(40);
+                          }
+                        }
+                        &:nth-of-type(4) {
+                          width: auto;
+                          strong {
+                            font-size: rem(30);
+                              @media(min-width: $medium-screen) {
+                                font-size: rem(40);
+                              }
                           }
                         }
                     }
@@ -127,11 +139,8 @@
                     @include display(flex);
                     @include flex-direction(column);
                     @include align-items(flex-end);
-                    padding-right: rem(15);
-                    @media(min-width: $medium-screen) {
-                      margin-right: rem(30);
-                      padding: 0 5rem;
-                    }
+                    padding: 0;
+                    margin: 0;
                     color: $color-white;
                     width: rem(530);
                     margin-left: auto;
