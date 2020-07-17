@@ -7,8 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
-import { fetchDisasterSpendingCount, fetchOverview } from 'helpers/disasterHelper';
-import BaseOverview from 'models/v2/covid19/BaseOverview';
+import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
@@ -34,11 +33,8 @@ const tabs = [
 const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
-    const [totalBudgetaryResources, setTotalBudgetaryResources] = useState(null);
-    const [totalObligations, setTotalObligations] = useState(null);
-    const [totalOutlays, setTotalOutlays] = useState(null);
 
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
         {
             type: 'count',
@@ -60,9 +56,6 @@ const BudgetCategories = () => {
             dollarAmount: true
         }
     ];
-
-    // TODO - Remove hard coded values
-    const dateString = "June 30, 2020";
 
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
@@ -86,27 +79,18 @@ const BudgetCategories = () => {
                     setCount(res.data.count);
                 });
         }
-
-        const overviewRequest = fetchOverview();
-        overviewRequest.promise.then((res) => {
-            const newOverview = Object.create(BaseOverview);
-            newOverview.populate(res.data);
-            setTotalBudgetaryResources(newOverview._totalBudgetAuthority);
-            setTotalObligations(newOverview._totalObligations);
-            setTotalOutlays(Math.abs(newOverview._totalOutlays));
-        });
     }, [activeTab, defCodes]);
 
     const amounts = {
         count,
-        totalBudgetaryResources,
-        totalObligations,
-        totalOutlays
+        totalBudgetaryResources: overview._totalBudgetAuthority,
+        totalObligations: overview._totalObligations,
+        totalOutlays: overview._totalOutlays
     };
 
     return (
         <div className="body__content budget-categories">
-            <DateNote dateString={dateString} />
+            <DateNote />
             <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
