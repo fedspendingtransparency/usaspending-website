@@ -36,7 +36,8 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
     }
 
     // if the scrollY position is above the covid-19 sticky header
-    if (window.scrollY <= 161 && activeSection === 'overview') {
+    // use scrollY or window.pageYOffset for IE11
+    if ((window.scrollY || window.pageYOffset <= 161) && activeSection === 'overview') {
         scrollToY(sectionDom.offsetTop - 150, 700);
     } else {
         scrollToY(sectionDom.offsetTop - 86, 700);
