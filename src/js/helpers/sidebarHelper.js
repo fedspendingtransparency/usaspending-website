@@ -49,7 +49,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'CFDA Programs':
+        case 'CFDA Program':
             if (reduxFilters.selectedCFDA.toArray().length > 0) {
                 return true;
             }

@@ -8,8 +8,7 @@ import moment from 'moment';
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -56,16 +55,3 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
     .format('MMM DD[,] YYYY');
-
-export const setAdvancedSearchDefCodesFilter = (codes) => applyStagedFilters(
-    Object.assign(
-        {}, defaultAdvancedSearchFilters,
-        {
-            defCodes: new CheckboxTreeSelections({
-                require: codes.map((code) => code.code),
-                exclude: [],
-                counts: [{ value: "COVID-19", count: codes.length, label: "COVID-19 Response" }]
-            })
-        }
-    )
-);
