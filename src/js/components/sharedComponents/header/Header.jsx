@@ -3,9 +3,7 @@ import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
-import CovidModalContainer from 'containers/shared/CovidModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-
 
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
@@ -24,8 +22,7 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showInfoBanner: false,
-            showCovidModalContainer: false
+            showInfoBanner: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
