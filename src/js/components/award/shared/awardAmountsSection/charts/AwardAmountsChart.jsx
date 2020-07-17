@@ -9,7 +9,9 @@ import {
     potentialColor,
     nonFederalFundingColor,
     subsidyColor,
-    faceValueColor
+    faceValueColor,
+    // Offsets per DEV-5242:
+    barLabelAndLineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';

@@ -1,6 +1,13 @@
 $exceeds-current-color: #fdb81e;
 $exceeds-potential-color: #e31c3d;
 
+// Offsets per DEV-5242:
+// refer to datamapping object; divide relevant value by 2.
+// for proper margin-left value of text offset.
+$obligated-padding: 2px;
+$file-c-obligated-padding: 4px;
+$file-c-outlay-padding: 6px;
+
 %award-amounts-viz__line-indicator {
     content: "";
     position: absolute;

@@ -116,3 +116,22 @@ export const potentialColor = '#AAC6E2';
 export const subsidyColor = '#0B424D';
 export const faceValueColor = '#F3F3F3';
 export const nonFederalFundingColor = '#47AAA7';
+
+// Offsets per DEV-5242:
+// 5px horizontal padding (border + padding) on each side.
+const defaultPadding = 10;
+// 2px of padding on each side
+const additionalPadding = 4;
+// Default padding + (additionalPadding * levels nested)
+const barLabelAndLineOffsetsBySpendingCategory = {
+    obligationProcurment: defaultPadding + (additionalPadding * 2),
+    obligationAsst: defaultPadding,
+    subsidy: defaultPadding,
+    totalFunding: defaultPadding,
+    nonFederalFunding: defaultPadding,
+    faceValue: defaultPadding,
+    fileCProcurmentObligated: defaultPadding + (additionalPadding * 3),
+    fileCProcurmentOutlay: defaultPadding + (additionalPadding * 4),
+    current: defaultPadding + additionalPadding,
+    potential: defaultPadding
+};
