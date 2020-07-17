@@ -39,7 +39,7 @@ const SpendingByCFDA = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
     const [redirectModalURL, setRedirectModalURL] = useState('');
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
-    const { defCodes, latestSubmissionDate } = useSelector((state) => state.covid19);
+    const { defCodes } = useSelector((state) => state.covid19);
 
     const [tabCounts, setTabCounts] = useState({
         all: null,
@@ -96,7 +96,7 @@ const SpendingByCFDA = () => {
 
     return (
         <div className="body__content assistance-listing">
-            <DateNote dateString={latestSubmissionDate} />
+            <DateNote />
             <h3 className="body__narrative">
                 These are the assistance listings that supported the COVID-19 Response with <strong>awards</strong>.
             </h3>
