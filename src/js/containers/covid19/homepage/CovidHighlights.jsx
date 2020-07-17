@@ -23,30 +23,7 @@ const getTotalSpendingAbbreviated = (totalSpending) => {
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
 
-const allDefCAwardTypeCodes = [
-    'IDV_A',
-    'IDV_B',
-    'IDV_B_A',
-    'IDV_B_B',
-    'IDV_B_C',
-    'IDV_C',
-    'IDV_D',
-    'IDV_E',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    'A',
-    'B',
-    'C',
-    'D'
-];
+const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
 
 const defaultParams = {
     filter: {
@@ -187,7 +164,6 @@ export class CovidHighlights extends React.Component {
                     }, 3000);
                 }
                 else {
-                    // this.scrollBar.addEventListener('scroll', () => {
                     scrollInterval = window.setInterval(() => {
                         const currentPosition = this.scrollBar.scrollTop;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
