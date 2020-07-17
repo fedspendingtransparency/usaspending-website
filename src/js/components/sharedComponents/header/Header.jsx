@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
-import CovidModalContainer from 'containers/shared/CovidModalContainer';
+import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 
 
