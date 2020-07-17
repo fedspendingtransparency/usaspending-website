@@ -37,21 +37,21 @@ const CovidModalContainer = ({
             mounted={showModal}
             onExit={closeModal}
             titleText="New to USAspending: Official COVID-19 Response Data"
-            dialogClass="usas-modal"
+            dialogClass="usa-dt-modal"
             verticallyCenter
             escapeExits>
-            <div className="usas-modal covid-modal">
-                <div className="usas-modal__header covid-header">
+            <div className="usa-dt-modal covid-modal">
+                <div className="usa-dt-modal__header covid-header">
                     <h1>New to USAspending: Official COVID-19 Response Data</h1>
                     <button
-                        className="usas-modal__close-button"
+                        className="usa-dt-modal__close-button"
                         onClick={closeModal}
                         title="Close"
                         aria-label="Close">
                         <FontAwesomeIcon icon="times" size="10x" />
                     </button>
                 </div>
-                <div className="usas-modal__body covid-modal-body">
+                <div className="usa-dt-modal__body covid-modal-body">
                     <h2 className="covid-modal-h2">Official spending data from the federal government&apos;s response to COVID-19 is now available on USAspending, which includes:</h2>
                     <div>
                         <ul>
@@ -83,7 +83,7 @@ const CovidModalContainer = ({
                         </ul>
                     </div>
                     <h2 className="covid-modal-h2">Keep an eye out for the purple COVID-19 Response badge found throughout the site. These badges indicate that the page contains information about COVID-19 spending.</h2>
-                    <div className="usas-modal__link covid-modal-button">
+                    <div className="usa-dt-modal__link covid-modal-button">
                         <button onClick={closeModal}>Close</button>
                     </div>
                 </div>

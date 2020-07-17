@@ -6,8 +6,4 @@
     .skip-nav {
         @include skipNav;
     }
-
-    .covid-modal {
-        @import "./covidModal";
-    }
 }

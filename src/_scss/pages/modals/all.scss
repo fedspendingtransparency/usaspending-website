@@ -1,5 +1,11 @@
+// TODO: [DEV-5671] Tech Debt: USAspending Shared Styles and Reducing SCSS Bundle
+// Clean up these modal styles so they're more shared.
+// covid19 and redirect modal share the same classnames.
+
 @import "./extraModal/extraModal";
 @import "./fullDownload/fullDownload";
 @import "./bulkDownload/bulkDownload";
 @import "./recipient/recipient";
-@import "../../components/modal";
+@import "./redirect/redirect";
+@import "../../components/baseModal";
+@import "./covid19/covid19";
