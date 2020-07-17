@@ -3,8 +3,8 @@ import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
+import CovidModalContainer from 'containers/shared/CovidModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import CovidModal from 'components/sharedComponents/CovidModal';
 
 
 import InfoBanner from './InfoBanner';
@@ -25,13 +25,13 @@ export default class Header extends React.Component {
 
         this.state = {
             showInfoBanner: false,
-            showCovidModal: false
+            showCovidModalContainer: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
-        this.openCovidModal = this.openCovidModal.bind(this);
-        this.closeCovidModal = this.closeCovidModal.bind(this);
+        this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
+        this.closeCovidModalContainer = this.closeCovidModalContainer.bind(this);
     }
     componentWillMount() {
         // check if the info banner cookie exists
@@ -63,18 +63,18 @@ export default class Header extends React.Component {
         });
     }
 
-    openCovidModal() {
-        this.setState({ showCovidModal: true });
+    openCovidModalContainer() {
+        this.setState({ showCovidModalContainer: true });
     }
 
-    closeCovidModal() {
-        this.setState({ showCovidModal: false });
+    closeCovidModalContainer() {
+        this.setState({ showCovidModalContainer: false });
     }
 
     render() {
         let infoBanner = (
             <InfoBanner
-                triggerModal={this.openCovidModal}
+                triggerModal={this.openCovidModalContainer}
                 closeBanner={this.closeBanner} />
         );
 
@@ -136,7 +136,7 @@ export default class Header extends React.Component {
                 </header>
                 <GlossaryContainer />
                 <RedirectModalContainer />
-                <CovidModal showModal={this.state.showCovidModal} closeModal={this.closeCovidModal} />
+                <CovidModalContainer showModal={this.state.showCovidModalContainer} closeModal={this.closeCovidModalContainer} />
             </div>
         );
     }
