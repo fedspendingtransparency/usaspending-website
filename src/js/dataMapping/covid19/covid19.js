@@ -3,13 +3,13 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import { getBaseUrl } from 'helpers/socialShare';
+import { getBaseUrlNoHash } from 'helpers/socialShare';
 
 export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
-    subject: 'USAspending.gov COVID-19 Response: ',
-    body: `View the COVID-19 Response on USAspending.gov: ${getBaseUrl(slug)}`
+    subject: 'USAspending.gov COVID-19 Response',
+    body: `View the COVID-19 Response on USAspending.gov: ${getBaseUrlNoHash(slug)}`
 };
 
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
@@ -325,3 +325,6 @@ export const awardTypeTabs = [
         label: 'Contract IDVs'
     }
 ];
+
+export const covidColor = '#6E338E';
+export const covidObligatedColor = '#B699C6';

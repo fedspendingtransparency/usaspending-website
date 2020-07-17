@@ -64,8 +64,8 @@ export const awardTableClassMap = {
     "Potential Amount": "award-amounts__potential",
     "Non-Federal Funding": "award-amounts__data-icon_green",
     "Total Funding": "award-amounts__data-icon_transparent",
-    "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
-    "Original Subsidy Cost": "award-amounts__data-icon_yellow",
+    "Face Value of Direct Loan": "award-amounts__data-icon_face-value",
+    "Original Subsidy Cost": "award-amounts__data-icon_subsidy",
     "COVID-19 Response Obligated Amount": "award-amounts__file-c-obligations",
     "COVID-19 Response Outlayed Amount": "award-amounts__file-c-outlays"
 };
@@ -109,3 +109,10 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
 
 // similar relationship between spending categories
 export const asstAwardTypesWithSimilarAwardAmountData = ['grant', 'other', 'insurance', 'direct payment'];
+
+export const obligatedColor = '#0A2F5A';
+export const currentColor = '#558EC6';
+export const potentialColor = '#AAC6E2';
+export const subsidyColor = '#0B424D';
+export const faceValueColor = '#F3F3F3';
+export const nonFederalFundingColor = '#47AAA7';

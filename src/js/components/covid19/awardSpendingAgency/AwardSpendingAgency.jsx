@@ -81,7 +81,7 @@ const AwardSpendingAgency = () => {
             });
             // Wait for all the requests to complete and then store the results in state
             Promise.all(promises)
-                .then(([allRes, contractsRes, idvsRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractsRes, idvsRes]) => {
                     setTabCounts({
                         all: allRes.data.count,
                         contracts: contractsRes.data.count,
