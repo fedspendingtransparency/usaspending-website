@@ -14,7 +14,12 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import HeroButton from 'components/homepage/hero/HeroButton';
 
 const TooltipContent = () => (
-    <p>Yes. This is a lot of cash.</p>
+    <div className="homepage__covid-19-tt">
+        <h2 className="tooltip__title">COVID 19 Spending Total</h2>
+        <div className="tooltip__text">
+            <p>Tooltip content TBD.</p>
+        </div>
+    </div>
 );
 
 const getTotalSpendingAbbreviated = (totalSpending) => {
@@ -295,7 +300,9 @@ export class CovidHighlights extends React.Component {
                             <span>
                                 <strong>COVID-19.</strong>
                                 <div style={{ width: '20px' }}>
-                                    <TooltipWrapper icon="info" tooltipComponent={<TooltipContent />} />
+                                    <TooltipWrapper
+                                        icon="info"
+                                        tooltipComponent={<TooltipContent />} />
                                 </div>
                             </span>
                         </h1>
@@ -348,7 +355,7 @@ export class CovidHighlights extends React.Component {
 CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    totalSpendingAmount: state.covid19.overview._totalObligations
+    totalSpendingAmount: state.covid19.overview._totalOutlays
 });
 
 const mapDispatchToProps = (dispatch) => ({
