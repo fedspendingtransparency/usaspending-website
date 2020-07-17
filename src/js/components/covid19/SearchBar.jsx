@@ -47,7 +47,7 @@ const SearchBar = ({ setQuery, query }) => {
                 type="text"
                 onChange={onChange} />
             <button
-                disabled={searchString.length < 3}
+                disabled={searchString.length < 2}
                 aria-label="Search"
                 onClick={handleClick}
                 className="search-bar__button">
