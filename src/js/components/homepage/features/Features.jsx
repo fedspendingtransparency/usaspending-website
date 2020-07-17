@@ -19,14 +19,6 @@ const Features = () => (
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />
-            <div className="covid-feature">
-                <div className="feature-homepage__background-flair__container">
-                    <div className="feature-homepage__background-flair covid" />
-                    <div className="featured-section-image__wrapper">
-                        <img src="img/covid-badge.png" alt="covid-badge" />
-                    </div>
-                </div>
-            </div>
             <ProfileFeature />
         </div>
     </section>
