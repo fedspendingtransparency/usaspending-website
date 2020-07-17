@@ -7,8 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
-import { fetchDisasterSpendingCount, fetchOverview } from 'helpers/disasterHelper';
-import BaseOverview from 'models/v2/covid19/BaseOverview';
+import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
@@ -34,11 +33,8 @@ const tabs = [
 const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
-    const [totalBudgetaryResources, setTotalBudgetaryResources] = useState(null);
-    const [totalObligations, setTotalObligations] = useState(null);
-    const [totalOutlays, setTotalOutlays] = useState(null);
 
-    const { defCodes } = useSelector((state) => state.covid19);
+    const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
         {
             type: 'count',
@@ -83,22 +79,13 @@ const BudgetCategories = () => {
                     setCount(res.data.count);
                 });
         }
-
-        const overviewRequest = fetchOverview();
-        overviewRequest.promise.then((res) => {
-            const newOverview = Object.create(BaseOverview);
-            newOverview.populate(res.data);
-            setTotalBudgetaryResources(newOverview._totalBudgetAuthority);
-            setTotalObligations(newOverview._totalObligations);
-            setTotalOutlays(Math.abs(newOverview._totalOutlays));
-        });
     }, [activeTab, defCodes]);
 
     const amounts = {
         count,
-        totalBudgetaryResources,
-        totalObligations,
-        totalOutlays
+        totalBudgetaryResources: overview._totalBudgetAuthority,
+        totalObligations: overview._totalObligations,
+        totalOutlays: overview._totalOutlays
     };
 
     return (
