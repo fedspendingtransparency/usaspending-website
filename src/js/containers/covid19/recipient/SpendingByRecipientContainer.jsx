@@ -102,6 +102,7 @@ export const parseRows = (rows, activeTab, query) => (
         const rowData = Object.create(BaseSpendingByRecipientRow);
         rowData.populate(row);
         let description = rowData.description;
+        let link = description;
         if (query) {
             // wrap the part of the recipient name matching the search string
             // with a span for styling
@@ -113,12 +114,11 @@ export const parseRows = (rows, activeTab, query) => (
                 </span>
             ));
         }
-        let link = description;
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
             link = (
                 <>
-                    {description} (
+                    {description}&nbsp;(
                     <a href={`#/recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
@@ -140,9 +140,9 @@ export const parseRows = (rows, activeTab, query) => (
         if (activeTab === 'loans') {
             return [
                 link,
-                rowData.faceValueOfLoan,
                 rowData.obligation,
                 rowData.outlay,
+                rowData.faceValueOfLoan,
                 rowData.count
             ];
         }
