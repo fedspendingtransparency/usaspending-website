@@ -22,7 +22,7 @@ import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToA
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
-import { jumpToSection, latestSubmissionDateFormatted, setAdvancedSearchDefCodesFilter } from 'helpers/covid19Helper';
+import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
 
 import {
     slug,
