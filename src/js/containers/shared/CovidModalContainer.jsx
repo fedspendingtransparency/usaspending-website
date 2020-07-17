@@ -5,18 +5,32 @@ import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Router from 'containers/router/Router';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
-const options = 'test';
+import { defCodes } from 'dataMapping/covid19/covid19';
 
 const CovidModalContainer = ({
     showModal = false,
     closeModal,
-    goToAdvancedSearch
+    stageDefCodesForAdvancedSearch,
+    clearFilters,
+    resetFilters
 }) => {
     const handleGoToAdvancedSearch = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
+        clearFilters();
+        resetFilters();
+        stageDefCodesForAdvancedSearch({
+            ...defaultFilters,
+            defCodes: new CheckboxTreeSelections({
+                require: defCodes,
+                exclude: [],
+                counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+            })
+        });
         Router.history.push('/search');
-        goToAdvancedSearch(options);
     };
     return (
         <Modal
@@ -81,11 +95,15 @@ const CovidModalContainer = ({
 CovidModalContainer.propTypes = {
     showModal: PropTypes.bool,
     closeModal: PropTypes.func,
-    goToAdvancedSearch: PropTypes.func
+    stageDefCodesForAdvancedSearch: PropTypes.func,
+    clearFilters: PropTypes.func,
+    resetFilters: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    goToAdvancedSearch: (args) => dispatch()
+    resetFilters: () => dispatch(resetAppliedFilters()),
+    clearFilters: () => dispatch(clearAllFilters()),
+    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters))
 });
 
 export default connect(null, mapDispatchToProps)(CovidModalContainer);
