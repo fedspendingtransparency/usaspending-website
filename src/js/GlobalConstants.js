@@ -17,7 +17,8 @@ const globalConstants = {
     QAT: (process.env.ENV === 'qat'),
     CARES_ACT_RELEASED: (
         process.env.ENV === 'dev' ||
-        process.env.ENV === 'sandbox'
+        process.env.ENV === 'sandbox' ||
+        process.env.ENV === 'qat'
     )
 };
 

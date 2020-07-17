@@ -13,7 +13,7 @@ import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
     url: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.node,
     enabled: PropTypes.bool,
     newTab: PropTypes.bool,
     isFirst: PropTypes.bool,

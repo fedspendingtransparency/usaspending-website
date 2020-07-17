@@ -5,19 +5,99 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { snakeCase } from 'lodash';
+import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { awardSpendingAgencyTableColumns, awardSpendingAgencyTableColumnFieldMapping, awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
-import { fetchAwardSpendingByAgency, fetchFaceValueOfLoansByAgency } from 'helpers/disasterHelper';
-import BaseAwardSpendingByAgencyRow from 'models/covid19/awardSpendingAgency/BaseAwardSpendingByAgencyRow';
-
+import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
+import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
 const propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    subHeading: PropTypes.string
+};
+
+const awardSpendingAgencyTableColumns = (type) => {
+    if (type === 'loans') {
+        return (
+            [
+                {
+                    title: 'name',
+                    displayName: 'Agency Name'
+                },
+                {
+                    title: 'obligation',
+                    displayName: (
+                        <>
+                            <div>Award Obligations</div>
+                            <div>(Loan Subsidy Cost)</div>
+                        </>
+                    ),
+                    right: true
+                },
+                {
+                    title: 'outlay',
+                    displayName: (
+                        <>
+                            <div>Award Outlays</div>
+                            <div>(Loan Subsidy Cost)</div>
+                        </>
+                    ),
+                    right: true
+                },
+                {
+                    title: 'faceValueOfLoan',
+                    displayName: (
+                        <>
+                            <div>Face Value</div>
+                            <div>of Loans</div>
+                        </>
+                    ),
+                    right: true
+                },
+                {
+                    title: 'count',
+                    displayName: (
+                        <>
+                            <div>Number</div>
+                            <div>of Awards</div>
+                        </>
+                    ),
+                    right: true
+                }
+            ]);
+    }
+    return (
+        [
+            {
+                title: 'name',
+                displayName: 'Agency Name'
+            },
+            {
+                title: 'obligation',
+                displayName: 'Award Obligations',
+                right: true
+            },
+            {
+                title: 'outlay',
+                displayName: 'Award Outlays',
+                right: true
+            },
+            {
+                title: 'count',
+                displayName: (
+                    <>
+                        <div>Number</div>
+                        <div>of Awards</div>
+                    </>
+                ),
+                right: true
+            }
+        ]);
 };
 
 const AwardSpendingAgencyTableContainer = (props) => {
@@ -34,17 +114,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const [request, setRequest] = useState(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
-            const awardSpendingByAgencyRow = Object.create(BaseAwardSpendingByAgencyRow);
-            awardSpendingByAgencyRow.populate(item);
+            const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
+            awardSpendingByAgencyRow.populateCore(item);
 
             let rowChildren = [];
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
-                    const awardSpendingByAgencyChildRow = Object.create(BaseAwardSpendingByAgencyRow);
-                    awardSpendingByAgencyChildRow.populate(childItem);
+                    const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
+                    awardSpendingByAgencyChildRow.populateCore(childItem);
+                    awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
                     return awardSpendingByAgencyChildRow;
                 });
             }
@@ -55,25 +137,24 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 });
             }
 
-
-            let link = awardSpendingByAgencyRow.name;
-            const id = awardSpendingByAgencyRow.id;
+            let link = awardSpendingByAgencyRow.description;
+            const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
                     <a
                         className="agency-profile__link"
                         href={`#/agency/${id}`}>
-                        {awardSpendingByAgencyRow.name}
+                        {awardSpendingByAgencyRow.description}
                     </a>
                 );
             }
-
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
                 count: awardSpendingByAgencyRow.count,
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
+                children: awardSpendingByAgencyRow.children,
                 name: link
             };
         });
@@ -81,93 +162,96 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
         setLoading(true);
+        if (defCodes && defCodes.length > 0) {
+            let params = {};
 
-        let params = {};
+            // if active tab is all, default to all award type codes
+            if (props.type === 'all') {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: [].concat(...Object.values(awardTypeGroups))
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+            } else {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: awardTypeGroups[props.type]
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+            }
 
-        // if active tab is all, default to all award type codes
-        if (props.type === 'all') {
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
-                    order
-                },
-                spending_type: 'award'
-            };
-        } else {
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code),
-                    award_type_codes: awardTypeGroups[props.type]
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
-                    order
-                },
-                spending_type: 'award'
-            };
-        }
+            let faceValueOfLoansRequest;
+            if (props.type === 'loans') {
+                const faceValueOfLoansParams = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code),
+                        award_type_codes: awardTypeGroups[props.type]
+                    },
+                    pagination: {
+                        limit: pageSize,
+                        page: currentPage,
+                        sort: snakeCase(sort),
+                        order
+                    },
+                    spending_type: 'award'
+                };
+                faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
+            }
 
-        let faceValueOfLoansRequest;
-        if (props.type === 'loans') {
-            const faceValueOfLoansParams = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                },
-                pagination: {
-                    limit: pageSize,
-                    page: currentPage,
-                    sort: awardSpendingAgencyTableColumnFieldMapping[sort],
-                    order
-                },
-                spending_type: 'award'
-            };
-            faceValueOfLoansRequest = fetchFaceValueOfLoansByAgency(faceValueOfLoansParams);
-        }
-
-
-        if (faceValueOfLoansRequest) {
-            const request = fetchAwardSpendingByAgency(params);
-
-            // merge request arrays with face_value_of_loan data
-            Promise.all([request.promise, faceValueOfLoansRequest.promise]).then((res) => {
-                const result = res[0].data.results.filter((awardResult) =>
-                    res[1].data.results.some((loanResult) =>
-                        awardResult.id === loanResult.id
-                    )
-                ).map((combinedResult) => {
-                    const faceValueOfLoan = res[1].data.results.filter((item) => combinedResult.id === item.id)[0].face_value_of_loan;
-                    return { ...combinedResult, face_value_of_loan: faceValueOfLoan };
-                });
-                parseAwardSpendingByAgency(result);
-                setTotalItems(res[0].data.page_metadata.total);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
-        } else {
-            const request = fetchAwardSpendingByAgency(params);
-            request.promise
-                .then((res) => {
-                    parseAwardSpendingByAgency(res.data.results);
-                    setTotalItems(res.data.page_metadata.total);
-                    setLoading(false);
-                    setError(false);
-                }).catch((err) => {
-                    setError(true);
-                    setLoading(false);
-                    console.error(err);
-                });
+            if (faceValueOfLoansRequest) {
+                setRequest(faceValueOfLoansRequest);
+                faceValueOfLoansRequest.promise
+                    .then((res) => {
+                        parseAwardSpendingByAgency(res.data.results);
+                        setTotalItems(res.data.page_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
+                    });
+            } else {
+                const awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
+                setRequest(awardSpendingAgencyRequest);
+                awardSpendingAgencyRequest.promise
+                    .then((res) => {
+                        parseAwardSpendingByAgency(res.data.results);
+                        setTotalItems(res.data.page_metadata.total);
+                        setLoading(false);
+                        setError(false);
+                    }).catch((err) => {
+                        setRequest(null);
+                        if (!isCancel(err)) {
+                            setError(true);
+                            setLoading(false);
+                            console.error(err);
+                        }
+                    });
+            }
         }
     });
 
@@ -176,6 +260,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
     }, [props.type, pageSize, sort, order, defCodes]);
+
+    useEffect(() => {
+        if (props.type === 'loans') {
+            updateSort('faceValueOfLoan', 'desc');
+        } else {
+            updateSort('obligation', 'desc');
+        }
+    }, [props.type]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
@@ -206,26 +298,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
             </>
         );
     }
 
     return (
-        <>
+        <div className="table-wrapper">
             <Table
                 expandable
                 rows={results}
-                columns={awardSpendingAgencyTableColumns(awardSpendingAgencyTableTabs.filter((tab) => tab.internal === props.type)[0].columnName)}
+                columns={awardSpendingAgencyTableColumns(props.type)}
                 currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort} />
+                updateSort={updateSort}
+                divider={props.subHeading} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -234,7 +319,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 

@@ -1,15 +1,5 @@
-$grants-line-color: #47AAA7;
-$loans-line-color: #F5A623;
-$file-c-current: #558EC6;
-$new-potential: #AAC6E2;
-$file-c-outlay: #6E338E;
-$file-c-obligation: #B699C6;
-
-$old-obligated: $color-cool-blue-light;
-
-$new-obligated: #0A2F5A;
-$new-current: #558EC6;
-$new-potential: #AAC6E2;
+$exceeds-current-color: #fdb81e;
+$exceeds-potential-color: #e31c3d;
 
 %award-amounts-viz__line-indicator {
     content: "";
@@ -59,33 +49,25 @@ $new-potential: #AAC6E2;
             }
             &.idv-overspending,
             &.contract-overspending {
-                border-top: .4rem solid $color-gray-lightest;
-                border-bottom: .4rem solid $color-gray-lightest;
-                background: repeating-linear-gradient(45deg,#4773aa,#4773aa .8rem,#fdb81e 0,#fdb81e 1rem);
-                &.covid {
-                    border-top: .4rem solid $new-potential;
-                    border-bottom: .4rem solid $new-potential;
-                }
+                border-top: .4rem solid $colors-potential;
+                border-bottom: .4rem solid $colors-potential;
+                background: repeating-linear-gradient(45deg, $colors-obligated, $colors-obligated .8rem,$exceeds-current-color 0,$exceeds-current-color 1rem);
             }
             .award-amounts-viz__bar-wrapper {
                 &.idv-extreme-overspending-potential-wrapper,
                 &.contract-extreme-overspending-potential-wrapper {
-                    border: 0.2rem solid #5b616b;
+                    border: 0.2rem solid $colors-potential;
                     background-color: #fff;
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar,
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar {
                         &.contract-extreme-overspending-current,
                         &.idv-extreme-overspending-current {
-                            border: solid 0.4rem $color-gray-lighter;
-                        }
-                        &.covid.contract-extreme-overspending-current,
-                        &.covid.idv-extreme-overspending-current {
-                            border: solid 0.4rem $new-current;
+                            border: solid 0.4rem $colors-current;
                         }
                         &.contract-extreme-overspending-potential,
                         &.idv-extreme-overspending-potential {
-                            border-top: 4px solid white;
-                            border-bottom: 4px solid white;
+                            border-top: 4px solid $colors-potential;
+                            border-bottom: 4px solid $colors-potential;
                         }
                     }
                 }
@@ -98,13 +80,13 @@ $new-potential: #AAC6E2;
 
             &.idv-overspending-current,
             &.contract-overspending-current {
-                border: rem(4) solid $color-gray-lighter;
+                border: rem(4) solid $colors-current;
             }
 
             &.idv-extreme-overspending,
             &.contract-extreme-overspending {
                 height: rem(40);
-                background: repeating-linear-gradient(45deg, #4773aa, #4773aa 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
+                background: repeating-linear-gradient(45deg, $colors-obligated, $colors-obligated 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
                 border-top: solid 0.4rem #fff;
                 border-bottom: solid 0.4rem #fff;
             }
@@ -149,8 +131,8 @@ $new-potential: #AAC6E2;
                         content: ' ';
                         width: rem(5);
                         height: rem(55);
-                        border: solid rem(1) #fdb81e;
-                        background: repeating-linear-gradient(45deg, #fff, #fff 0.5rem, #fdb81e 0.2rem, #fdb81e 0.7rem);
+                        border: solid rem(1) $exceeds-current-color;
+                        background: repeating-linear-gradient(45deg, #fff, #fff 0.5rem, $exceeds-current-color 0.2rem, $exceeds-current-color 0.7rem);
                         margin-left: rem(5);                        
                     }
                     &.contract-extreme-overspending-label::after,
@@ -171,23 +153,29 @@ $new-potential: #AAC6E2;
                 @include align-items(flex-end);
                 font-size: $base-font-size;
                 color: $color-gray;
-                border-left: solid rem(4) $color-cool-blue-light;
                 width: auto;
                 text-align: left;
                 @include flex(1 1 auto);
                 margin-bottom: 0;
+
+                &.idv-obligated,
+                &.contract-obligated,
+                &.asst-obligation {
+                    border-left: rem(4) solid $colors-obligated;
+                }
+
                 &.idv-file-c-obligated,
                 &.contract-file-c-obligated,
                 &.loan-file-c-obligated,
                 &.asst-file-c-obligated {
-                    border-left: solid rem(4) $file-c-obligation;
+                    border-left: rem(4) solid $color-covid-19-obligations;
                     margin-top: rem(17);
                     strong {
                         font-size: $h6-font-size;
                     }
                 }
                 &.loan-subsidy {
-                    border-left: solid rem(4) $loans-line-color;
+                    border-left: solid rem(4) $colors-loans-subsidy;
                     flex-wrap: wrap;
                     span {
                         // this span is only present when the loans subsidy amount is zero
@@ -208,46 +196,51 @@ $new-potential: #AAC6E2;
                     position: relative;
                     width: 99.5%;
                     height: rem(1);
-                    border-bottom: rem(1) solid $color-cool-blue-light;
                     &::after {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-cool-blue-light;
                         top: 0px;
                         right: -1px;
                     }
                     &::before {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-cool-blue-light;
                         top: 0px;
                         left: -1px;
                     }
-                    &.covid::before,
-                    &.covid::after {
-                        border-left: rem(1) solid $new-obligated;
-                    }
-                    &.covid {
-                        border-bottom: rem(1) solid $new-obligated;
+                    &.idv-obligated,
+                    &.idv-obligated,
+                    &.contract-obligated,
+                    &.contract-obligated,
+                    &.asst-obligated,
+                    &.asst-obligated,
+                    &.idv-extreme-overspending-obligated,
+                    &.contract-extreme-overspending-obligated,
+                    &.asst-obligation {
+                        border-bottom: rem(1) solid $colors-obligated;
+                        &::before,
+                        &::after {
+                            border-left: rem(1) solid $colors-obligated;
+                        }
                     }
                     &.idv-file-c-obligated,
                     &.contract-file-c-obligated,
                     &.asst-file-c-obligated,
                     &.loan-file-c-obligated {
-                        border-bottom: rem(1) solid $file-c-obligation;
+                        border-bottom: rem(1) solid $color-covid-19-obligations;
                         &::before,
                         &::after {
-                            border-left: rem(1) solid $file-c-obligation;
+                            border-left: rem(1) solid $color-covid-19-obligations;
                         }
                     }
                     &.loan-subsidy {
-                        border-bottom: rem(1) solid $loans-line-color;
+                        border-bottom: rem(1) solid $colors-loans-subsidy;
                         &::before {
                             @extend %award-amounts-viz__line-indicator;
                             top: 0px;
                             left: -1px;
-                            border-left: rem(1) solid $loans-line-color;
+                            border-left: rem(1) solid $colors-loans-subsidy;
                         }
                         &::after {
-                            border-left: rem(1) solid $loans-line-color;
+                            border-left: rem(1) solid $colors-loans-subsidy;
                         }
                     }
                 }
@@ -271,44 +264,25 @@ $new-potential: #AAC6E2;
                 }
                 .award-amounts-viz__desc {
                     @include display(flex);
-                    &:not(.covid) {
-                        &.contract-current,
-                        &.idv-current {
-                            border-right: rem(5) solid $color-gray-lighter;
-                        }
-                        &.idv-potential::after,
-                        &.contract-potential::after,
-                        &.idv-overspending-potential::after,
-                        &.contract-overspending-potential::after,
-                        &.idv-extreme-overspending-potential::after,
-                        &.contract-extreme-overspending-potential::after {
-                            content: ' ';
-                            height: rem(45);
-                            border: rem(1) solid $color-gray;
-                            background-color: #ECECDC;
-                            width: rem(5);
-                        }
-                        &.non-federal-funding {
-                            border-right: rem(5) solid $grants-line-color;
-                        }
+                    &.contract-current,
+                    &.idv-current,
+                    &.idv-overspending-current,
+                    &.contract-overspending-current,
+                    &.contract-extreme-overspending-current,
+                    &.idv-extreme-overspending-current {
+                        border-right: rem(5) solid $colors-current;
                     }
-                    &.covid {
-                        &.contract-current,
-                        &.idv-current,
-                        &.contract-overspending-current,
-                        &.idv-overspending-current,
-                        &.contract-extreme-overspending-current,
-                        &.idv-extreme-overspending-current {
-                            border-right: 5px solid $new-current;
-                        }
-                        &.idv-potential,
-                        &.contract-potential,
-                        &.idv-overspending-potential,
-                        &.contract-overspending-potential,
-                        &.idv-extreme-overspending-potential,
-                        &.contract-extreme-overspending-potential {
-                            border-right: 5px solid $new-potential;
-                        }
+                    &.non-federal-funding {
+                        border-right: rem(5) solid $colors-grants-nff;
+                    }
+
+                    &.idv-potential,
+                    &.contract-potential,
+                    &.idv-overspending-potential,
+                    &.contract-overspending-potential,
+                    &.idv-extreme-overspending-potential,
+                    &.contract-extreme-overspending-potential {
+                        border-right: 5px solid $colors-potential;
                     }
                     .award-amounts-viz__desc-text {
                         @include flex(1 1 auto);
@@ -332,7 +306,7 @@ $new-potential: #AAC6E2;
                     &.loan-file-c-outlay,
                     &.idv-file-c-outlay,
                     &.asst-file-c-outlay {
-                        border-left: rem(4) solid $file-c-outlay;
+                        border-left: rem(4) solid $color-disaster-covid-19;
                         .award-amounts-viz__desc-text {
                             text-align: left;
                             padding-left: rem(5);
@@ -341,24 +315,27 @@ $new-potential: #AAC6E2;
                             }
                         }
                     }
-                    &.loan-face-value::after,
-                    &.asst-total-funding::after {
-                        content: ' ';
-                        height: rem(45);
-                        border: rem(1) solid $color-gray;
-                        width: rem(5);
+                    &.loan-face-value,
+                    &.asst-total-funding {
+                        &::after {
+                            content: ' ';
+                            height: rem(45);
+                            width: rem(5);
+                            border: rem(1) solid $color-gray-light;
+                        }
+                        &.loan-face-value::after {
+                            background: $colors-loans-face-value;
+                        }                        
                     }
                 }
                 .award-amounts-viz__line {
                     margin: rem(20) 0 rem(5) rem(1);
-                    border-bottom: rem(1) solid $color-gray-lighter;
                     position: relative;
                     width: 99.5%;
                     height: rem(1);
                     &::after,
                     &::before {
                         @extend %award-amounts-viz__line-indicator;
-                        border-left: rem(1) solid $color-gray-lighter;
                         top: -9px;
                         right: -1px;
                     }
@@ -373,54 +350,81 @@ $new-potential: #AAC6E2;
                     &.asst-file-c-outlay::before,
                     &.loan-file-c-outlay::after,
                     &.loan-file-c-outlay::before  {
-                        border-left: rem(1) solid $file-c-outlay;
+                        border-left: rem(1) solid $color-disaster-covid-19;
                     }
         
                     &.asst-non-federal-funding {
-                        border-bottom: 1px solid $grants-line-color;
+                        border-bottom: 1px solid $colors-grants-nff;
                         &::before {
                             @extend %award-amounts-viz__line-indicator;
                             top: -9px;
                             right: -1px;
                             left: -1px;
-                            border-left: 1px solid $grants-line-color;
+                            border-left: 1px solid $colors-grants-nff;
                         }
                         &::after {
                             @extend %award-amounts-viz__line-indicator;
                             top: -9px;
                             right: -1px;
-                            border-left: 1px solid $grants-line-color; 
+                            border-left: 1px solid $colors-grants-nff; 
                         }
                     }
-                    &.covid.contract-current {
-                        border-bottom: rem(1) solid $file-c-current;
+                    &.asst-total-funding {
+                        border-bottom: rem(1) solid $color-gray-light;
                         &::after,
                         &::before {
-                            border-left: rem(1) solid $file-c-current;
+                            border-left: 1px solid $color-gray-light; 
                         }
                     }
-                    &.covid.idv-potential,
-                    &.covid.contract-potential {
-                        border-bottom: rem(1) solid $new-potential;
+                    &.idv-current,
+                    &.contract-current,
+                    &.idv-overspending-current,
+                    &.contract-overspending-current,
+                    &.idv-extreme-overspending-current,
+                    &.contract-extreme-overspending-current {
+                        border-bottom: rem(1) solid $colors-current;
+                        &::after,
+                        &::before {
+                            border-left: rem(1) solid $colors-current;
+                        }
+                    }
+                    &.idv-potential,
+                    &.contract-potential,
+                    &.idv-extreme-overspending-potential,
+                    &.contract-extreme-overspending-potential {
+                        border-bottom: rem(1) solid $colors-potential;
                         &::before,
                         &::after {
-                            border-left: rem(1) solid $new-potential;
+                            border-left: rem(1) solid $colors-potential;
                         }
                     }
                     &.contract-file-c-outlay,
                     &.idv-file-c-outlay,
                     &.asst-file-c-outlay,
                     &.loan-file-c-outlay {
-                        border-bottom: rem(1) solid $file-c-outlay;
+                        border-bottom: rem(1) solid $color-disaster-covid-19;
                         &::before,
                         &::after {
-                            border-left: rem(1) solid $file-c-outlay;
+                            border-left: rem(1) solid $color-disaster-covid-19;
                         }
                     }
                 }
             }
-            .award-amounts-viz__desc.asst-nff-zero {
-                border-left: rem(5) solid $grants-line-color;
+            .award-amounts-viz__desc.asst-nff-zero,
+            .award-amounts-viz__desc.loan-file-c-outlay--zero,
+            .award-amounts-viz__desc.idv-file-c-outlay--zero,
+            .award-amounts-viz__desc.contract-file-c-outlay--zero,
+            .award-amounts-viz__desc.asst-file-c-outlay--zero {
+                &.asst-nff-zero {
+                    border-left: rem(5) solid $colors-grants-nff;
+                }
+                &.loan-file-c-outlay--zero,
+                &.asst-file-c-outlay--zero,
+                &.idv-file-c-outlay--zero,
+                &.contract-file-c-outlay--zero {
+                    margin-top: rem(20);
+                    border-left: rem(5) solid $color-disaster-covid-19;
+                }
                 border-right: none;
                 margin-top: rem(10);
                 @include display(flex);

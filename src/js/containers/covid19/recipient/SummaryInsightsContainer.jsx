@@ -1,24 +1,23 @@
 /**
  * SummaryInsightsContainer.jsx
- * Created by Lizzie Salita 6/24/20
+ * Created by Jonathan Hill 07/07/20
  */
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchAwardCount, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
 
 const propTypes = {
-    activeTab: PropTypes.string,
-    cfdaCount: PropTypes.number
+    activeFilter: PropTypes.string
 };
 
 const overviewData = [
     {
-        type: 'cfdaCount',
-        label: 'CFDA Programs'
+        type: 'numberOfRecipients',
+        label: 'Number of Recipients'
     },
     {
         type: 'awardObligations',
@@ -36,10 +35,11 @@ const overviewData = [
     }
 ];
 
-const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
+const SummaryInsightsContainer = ({ activeFilter }) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
+    const [numberOfRecipients, setNumberOfRecipients] = useState(null);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
@@ -47,14 +47,15 @@ const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
+        setNumberOfRecipients(null);
 
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
             }
         };
-        if (activeTab !== 'all') {
-            params.filter.award_type_codes = awardTypeGroups[activeTab];
+        if (activeFilter !== 'all') {
+            params.filter.award_type_codes = awardTypeGroups[activeFilter];
         }
         fetchAwardAmounts(params).promise
             .then((res) => {
@@ -65,10 +66,14 @@ const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
             .then((res) => {
                 setNumberOfAwards(res.data.count);
             });
-    }, [defCodes, activeTab]);
+        fetchDisasterSpendingCount('recipient', params).promise
+            .then((res) => {
+                setNumberOfRecipients(res.data.count);
+            });
+    }, [defCodes, activeFilter]);
 
     const amounts = {
-        cfdaCount,
+        numberOfRecipients,
         awardOutlays,
         awardObligations,
         numberOfAwards
@@ -80,7 +85,7 @@ const SummaryInsightsContainer = ({ activeTab, cfdaCount }) => {
                 <OverviewData
                     key={data.label}
                     {...data}
-                    subtitle={`for all ${(awardTypeGroupLabels[activeTab] || 'awards').toLowerCase()}`}
+                    subtitle={`for all ${(awardTypeGroupLabels[activeFilter] || 'awards').toLowerCase()}`}
                     amount={amounts[data.type]} />
             ))}
         </div>

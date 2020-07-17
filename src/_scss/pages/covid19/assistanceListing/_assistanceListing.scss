@@ -1,33 +1,17 @@
 .assistance-listing {
     @import 'components/moreOptionsTabs';
-    .table-wrapper {
-        overflow-x: auto;
-        .usda-table {
-            .usda-table__head {
-                th.table-header {
-                    text-align: right;
+    .usda-table {
+        .usda-table__body {
+            tr.usda-table__row {
+                td.usda-table__cell {
                     &:first-of-type {
-                        .table-header__label {
-                            text-align: left; // Align the CFDA column to the left
-                            width: auto;
+                        .fa-external-link-alt {
+                            margin-left: rem(5);
                         }
                     }
-                    .table-header__label {
-                        width: 100%;
-                    }
-                }
-            }
-            .usda-table__body {
-                tr.usda-table__row {
-                    td.usda-table__cell {
-                        &:first-of-type {
-                            // Prevent the CFDA column from wrapping
-                            white-space: nowrap;
-                        }
-                        .assistance-listing__button {
-                            @include button-link;
-                            font-size: 1.8rem;
-                        }
+                    .assistance-listing__button {
+                        @include button-link;
+                        font-size: 1.8rem;
                     }
                 }
             }

@@ -7,12 +7,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
-import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
-
 
 const overviewData = [
     {
@@ -43,13 +42,15 @@ const AwardSpendingAgency = () => {
 
     const [activeTab, setActiveTab] = useState(
         {
-            internal: awardSpendingAgencyTableTabs[0].internal,
-            subtitle: awardSpendingAgencyTableTabs[0].subtitle
+            internal: awardTypeTabs[0].internal,
+            subtitle: awardTypeTabs[0].label
         }
     );
 
     const [tabCounts, setTabCounts] = useState({
         all: null,
+        contracts: null,
+        idvs: null,
         grants: null,
         direct_payments: null,
         loans: null,
@@ -60,46 +61,61 @@ const AwardSpendingAgency = () => {
     const dateString = "June 30, 2020";
 
     useEffect(() => {
-        let params = {};
+        if (defCodes && defCodes.length > 0) {
+            let params = {};
 
-        // Make an API request for the count of Agency for each award type
-        // Post-MVP this should be updated to use a new endpoint that returns all the counts
-        const promises = awardSpendingAgencyTableTabs.map((awardType) => {
+            // Make an API request for the count of Agency for each award type
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            const promises = awardTypeTabs.map((awardType) => {
+                params = {
+                    filter: {
+                        def_codes: defCodes.map((defc) => defc.code)
+                    }
+                };
+                if (awardType.internal === 'all') {
+                    params.filter.award_type_codes = [].concat(...Object.values(awardTypeGroups));
+                } else {
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+                }
+                return fetchAgencyCount(params).promise;
+            });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractsRes, idvsRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        contracts: contractsRes.data.count,
+                        idvs: idvsRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count
+                    });
+                });
+
             params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
                 }
             };
-            if (awardType.internal !== 'all') {
-                // Endpoint defaults to all financial assistance types if award_type_codes is not provided
-                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+            if (activeTab.internal === 'all') {
+                const allAwardTypeGroups = [];
+                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
+            } else {
+                params.filter.award_type_codes = awardTypeGroups[activeTab.internal];
             }
-            return fetchAgencyCount(params).promise;
-        });
-        // Wait for all the requests to complete and then store the results in state
-        Promise.all(promises)
-            .then(([allRes, contractsRes, idvsRes, grantsRes, directPaymentsRes, loansRes, otherRes]) => {
-                setTabCounts({
-                    all: allRes.data.count,
-                    contracts: contractsRes.data.count,
-                    idvs: idvsRes.data.count,
-                    grants: grantsRes.data.count,
-                    direct_payments: directPaymentsRes.data.count,
-                    loans: loansRes.data.count,
-                    other: otherRes.data.count
-                });
-            });
 
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
-    }, [defCodes]);
+            fetchAwardAmounts(params).promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                });
+            fetchAwardCount(params).promise
+                .then((res) => {
+                    setNumberOfAwards(res.data.count);
+                });
+        }
+    }, [defCodes, activeTab]);
 
     useEffect(() => {
         setAgencyCount(tabCounts[activeTab.internal]);
@@ -113,8 +129,8 @@ const AwardSpendingAgency = () => {
     };
 
     const changeActiveTab = (tab) => {
-        const tabSubtitle = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].subtitle;
-        const tabInternal = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].internal;
+        const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
+        const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
             internal: tabInternal,
@@ -129,7 +145,7 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
-            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData
@@ -140,7 +156,7 @@ const AwardSpendingAgency = () => {
                 ))}
             </div>
             <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
         </div>
     );

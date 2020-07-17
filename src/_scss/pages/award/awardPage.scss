@@ -98,7 +98,7 @@
                   @include display(flex);
                   @include justify-content(center);
                   @include align-items(center);
-                  background: #6E338E;
+                  background: $color-disaster-covid-19;
                   color: $color-white;
                   font-size: rem(14);
                   font-weight: 600;

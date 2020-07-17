@@ -80,17 +80,30 @@
                     padding-bottom: 5rem;
                 }
                 @import "./tableMessages";
-                @import './budgetCategoriesTable';
+                .table-wrapper {
+                    overflow-x: auto;
+                    .table-header__content {
+                        @include align-items(center);
+                        &.table-header__content_right {
+                            text-align: right;
+                        }
+                        .table-header__label {
+                            white-space: nowrap;
+                        }
+                    }
+                }
             }
 
+            @import './budgetCategoriesTable';
             @import './spendingOverTime/awardSpendingOverTime';
             @import './assistanceListing/assistanceListing';
-
             .body__section {
                 @import "../agency/v2/tabs";
+                @import "./dataSourcesAndMethodology";
+
                 @include display(flex);
                 @include flex-wrap(wrap);
-                margin-bottom: $global-mrg;
+                margin-bottom: 10rem;
                 padding: 0 2.5%;
 
                 .body__header {
@@ -154,7 +167,7 @@
                     background-color: #763E94;
                 }
                 .color-purple {
-                    color: #6E338E;
+                    color: $color-disaster-covid-19;
                 }
                 .heading__container {
                     border-radius: 0.5rem 0.5rem 0 0;
@@ -241,6 +254,7 @@
                     }
                 }
                 @import './overviewData';
+                @import './visualizations/amounts';
             }
             .body__section:first-of-type {
               padding: 0;
@@ -257,4 +271,5 @@
         }
     }
     @import "./covidTooltip";
+
 }

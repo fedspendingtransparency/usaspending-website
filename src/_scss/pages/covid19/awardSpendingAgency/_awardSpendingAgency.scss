@@ -1,9 +1,8 @@
 .award-spending {
-    max-width: 1200px;
     width: 100%;
 
     @import 'components/moreOptionsTabs';
-    
+
     .award-spending__description {
         font-size: rem(20);
         line-height: rem(25);
@@ -13,13 +12,55 @@
 
     .award-spending__content {
         @include display(block);
+
+        .usda-table {
+            margin-top: 0;
+            td {
+                button {
+                    float: left;
+                    margin-top: rem(5);
+                }
+                &:first-child {
+                    display: table-cell;
+                    @include span-columns(6 of 12, table);
+                    text-align: left;
+                    padding-left: rem(15);
+
+                    p {
+                        a {
+                            // IE11 fix for td not having the correct width
+                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                                max-width: 50%;
+                            }
+                        }
+                    }
+                }
+                @include span-columns(2 of 12, table);
+                text-align: right;
         
-        .usda-table__row {
-            .usda-table__cell_name {
-                padding-left: rem(15);
+                &:not(:first-child) {
+                    padding-right: rem(40);
+                }
+                .usda-table__child-cell-content {
+                    padding: rem(10) rem(0);
+                }
             }
-            .usda-table__cell {
-                padding-right: rem(40);
+            .table-header {
+                .table-header__label {
+                    @include flex(0 1 auto);
+                    text-align: right;
+                }
+        
+                .table-header__sort {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+        
+                &:not(:first-child) {
+                    .table-header__content {
+                       @include justify-content(flex-end);
+                    }
+                }
             }
         }
     }
