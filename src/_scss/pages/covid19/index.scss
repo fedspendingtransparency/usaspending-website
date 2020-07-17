@@ -47,6 +47,7 @@
             }
         }
         @import './sidebar';
+        @import './sidebarFooter';
         .body {
             @import "components/_footerLinkToAdvancedSearch";
             @import './awardSpendingAgency/awardSpendingAgency';
