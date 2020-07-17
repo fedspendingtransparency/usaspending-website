@@ -55,20 +55,27 @@
         }
     }
     &.covid-modal {
+        width: rem(1056);
         .usas-modal__header {
-            background: $color-gray-light;
-            h1 {
-                margin: 0;
+            background: #6E338E;
+            &.covid-header {
                 text-align: center;
-                font-size: rem(41);
                 color: white;
-                padding: 1.5rem 2.5rem;
-                line-height: rem(51);
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                h1 {
+                    margin-top: rem(17);
+                    margin-bottom: rem(17);
+                    margin-right: auto;
+                    font-size: rem(34);
+                    line-height: rem(42);
+                    padding: 0;
+                    padding-left: rem(17);
+                }
             }
             .usas-modal__close-button {
                 padding: rem(10);
-                @include display(flex);
-                @include align-items(center);
                 @include align-self(flex-start);
                 svg {
                     width: rem(20);
@@ -77,12 +84,29 @@
             }
         }
         .usas-modal__body {
+            &.covid-modal-body {
+                padding-bottom: 0;
+            }
+            .covid-modal-h2 {
+                font-size: rem(19);
+                font-weight: 600;
+                text-align: left;
+                line-height: rem(24);
+            }
+            .covid-modal-li {
+                text-align: left;
+            }
             .usas-modal__link {
                 @include display(flex);
-                @include justify-content(flex-end);
                 button {
                     height: rem(36);
                     width: rem(158);
+                }
+                &.covid-modal-button {
+                    margin-top: rem(45);
+                    margin-bottom: rem(25);
+                    @include display(flex);
+                    @include justify-content(center);
                 }
             }
         }
