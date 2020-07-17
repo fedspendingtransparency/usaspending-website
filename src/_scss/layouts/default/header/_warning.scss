@@ -29,17 +29,6 @@
                 padding-bottom: rem(3);
                 margin-top: 0;
             }
-            p {
-                margin: 0;
-                button {
-                    border: none;
-                    color: $color-primary;
-                    background-color: inherit;
-                    margin: 0;
-                    padding: 0;
-                    padding-left: rem(2);
-                }
-            }
         }
         .info-banner__description-external-link {
           color: $color-link;

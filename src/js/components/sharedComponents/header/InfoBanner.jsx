@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CovidHomepageCookie } from './Header';
 
 const propTypes = {
-    closeBanner: PropTypes.func,
-    triggerModal: PropTypes.func
+    closeBanner: PropTypes.func
 };
 
 export default class InfoBanner extends React.Component {
@@ -35,11 +34,23 @@ export default class InfoBanner extends React.Component {
                         <FontAwesomeIcon size="lg" icon="info-circle" />
                     </span>
                     <div className="info-banner__alert-text">
-                        <h2 className="info-banner__title-text">New to USAspending: Official COVID-19 Response Data</h2>
-                        <p>
-                            USAspending now has official spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 response spending.
-                            <button onClick={this.props.triggerModal}> Learn more</button> about the data and new features or <a href="/#/covid-19">visit the profile page to explore and download the data today!</a>
-                        </p>
+                        <div className="info-banner__title-text">
+                            Coming to USAspending in July -- New Tools to Search and Display COVID-19 Spending Data:
+                        </div>
+                        Based on&nbsp;
+                        <a
+                            href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={this.clickedBannerLink}>
+                            OMB Memo M-20-21
+                        </a>
+                        <span className="info-banner__description-external-link">
+                            <FontAwesomeIcon icon="external-link-alt" />
+                        </span>
+                        , Federal agencies will begin supplementing existing reporting of
+                        spending related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act, as
+                        well as other COVID-19 appropriations in July 2020.
                     </div>
                     <button
                         className="info-banner__close-button"

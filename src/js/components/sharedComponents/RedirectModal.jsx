@@ -22,38 +22,38 @@ export default class RedirectModal extends React.Component {
                 mounted={this.props.mounted}
                 onExit={this.props.hideModal}
                 titleText="You're leaving a Bureau of the Fiscal Service website."
-                dialogClass="usas-modal"
+                dialogClass="redirect-modal"
                 verticallyCenter
                 escapeExits>
-                <div className="usas-modal">
-                    <div className="usas-modal__header">
+                <div className="redirect-modal">
+                    <div className="redirect-modal__header">
                         <button
-                            className="usas-modal__close-button"
+                            className="redirect-modal__close-button"
                             onClick={this.props.hideModal}
                             title="Close"
                             aria-label="Close">
                             <Close alt="Close modal" />
                         </button>
                     </div>
-                    <div className="usas-modal__body">
-                        <div className="usas-modal__title">
-                            <div className="usas-modal__title-icon">
+                    <div className="redirect-modal__body">
+                        <div className="redirect-modal__title">
+                            <div className="redirect-modal__title-icon">
                                 <i className="usa-da-icon">
                                     <ExclamationTriangle />
                                 </i>
                             </div>
-                            <div className="usas-modal__title-text">
+                            <div className="redirect-modal__title-text">
                                 You&apos;re leaving a Bureau of the Fiscal Service website.
                             </div>
                         </div>
-                        <div className="usas-modal__explanation">
+                        <div className="redirect-modal__explanation">
                             You&apos;re going to a website that is not managed or controlled by the Bureau of the Fiscal Service.
                             <br /> Its privacy policies may differ from ours.
                         </div>
-                        <div className="usas-modal__directions">
+                        <div className="redirect-modal__directions">
                             Click this link to go to the website you have selected.
                         </div>
-                        <div className="usas-modal__link">
+                        <div className="redirect-modal__link">
                             <a
                                 href={this.props.url}
                                 target="_blank"

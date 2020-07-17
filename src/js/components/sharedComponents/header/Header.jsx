@@ -17,7 +17,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export const CovidHomepageCookie = 'usaspending_covid_release';
+export const CovidHomepageCookie = 'usaspending_covid_homepage';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -30,8 +30,6 @@ export default class Header extends React.Component {
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
-        this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
-        this.closeCovidModalContainer = this.closeCovidModalContainer.bind(this);
     }
     componentWillMount() {
         // check if the info banner cookie exists
@@ -63,18 +61,9 @@ export default class Header extends React.Component {
         });
     }
 
-    openCovidModalContainer() {
-        this.setState({ showCovidModalContainer: true });
-    }
-
-    closeCovidModalContainer() {
-        this.setState({ showCovidModalContainer: false });
-    }
-
     render() {
         let infoBanner = (
             <InfoBanner
-                triggerModal={this.openCovidModalContainer}
                 closeBanner={this.closeBanner} />
         );
 
@@ -136,7 +125,6 @@ export default class Header extends React.Component {
                 </header>
                 <GlossaryContainer />
                 <RedirectModalContainer />
-                <CovidModalContainer showModal={this.state.showCovidModalContainer} closeModal={this.closeCovidModalContainer} />
             </div>
         );
     }
