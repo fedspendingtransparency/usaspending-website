@@ -25,7 +25,7 @@ const propTypes = {
 const OverviewData = (props) => {
     // Generate formatted amount string
     let formattedAmount = props.dollarAmount ? formatMoney(props.amount) : formatNumber(props.amount);
-    if (props.amount > unitValues.MILLION) {
+    if (Math.abs(props.amount) > unitValues.MILLION) {
         const amount = calculateUnitForSingleValue(props.amount);
         formattedAmount = `${props.dollarAmount ? formatMoneyWithPrecision(props.amount / amount.unit, 1) : formatNumberWithPrecision(props.amount / amount.unit, 1)} ${capitalize(amount.longLabel)}`;
     }
