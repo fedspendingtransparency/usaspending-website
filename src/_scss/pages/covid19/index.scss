@@ -91,6 +91,10 @@
                             white-space: nowrap;
                         }
                     }
+                    .query-matched {
+                        text-decoration: underline;
+                        font-weight: $font-semibold;
+                    }
                 }
             }
 
