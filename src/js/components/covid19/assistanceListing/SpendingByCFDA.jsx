@@ -98,11 +98,19 @@ const SpendingByCFDA = () => {
         <div className="body__content assistance-listing">
             <DateNote />
             <h3 className="body__narrative">
-                These are the assistance listings that supported COVID-19 Spending with <strong>awards</strong>.
+                These are the assistance listings that supported the COVID-19 Response with <strong>awards</strong>.
             </h3>
-            <p className="body__narrative-description">
-                The total federal spending for COVID-19 Spending can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the response, and the different types of items and services that were purchased.
-            </p>
+            <div className="body__narrative-description">
+                <p>
+                    Catalog of Federal Domestic Assistance (CFDA) Programs or Assistance Listings are programs that provide financial assistance to individuals or organizations. Some examples of Assistance Listings include the Supplemental Nutrition Assistance Program (SNAP) and the Coronavirus Relief Fund. All financial assistance awards are authorized by a CFDA Program.
+                </p>
+                <p>
+                    In this section, you will see awards that CFDA Programs have authorized in response to COVID-19. Financial assistance awards represent the vast majority of CARES package spending.
+                </p>
+                <p>
+                    In the chart below, you will find the five-digit CFDA number next to the name of the Assistance Listing. The first two digits identify the awarding agency and the last three identify the authorized program.
+                </p>
+            </div>
             <MoreOptionsTabs
                 tabs={financialAssistanceTabs}
                 tabCounts={tabCounts}

@@ -140,7 +140,7 @@ const AwardSpendingAgency = () => {
     return (
         <div className="body__content award-spending">
             <DateNote />
-            <h3 className="body__narrative">These are the federal agencies who spent COVID-19 Spending funding on <strong>awards.</strong></h3>
+            <h3 className="body__narrative">These are the federal agencies who spent COVID-19 Response funding on <strong>awards.</strong></h3>
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>

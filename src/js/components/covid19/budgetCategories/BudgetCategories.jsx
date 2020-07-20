@@ -91,7 +91,7 @@ const BudgetCategories = () => {
     return (
         <div className="body__content budget-categories">
             <DateNote />
-            <h3 className="body__narrative">This is how the <strong>total spending</strong> of COVID-19 Spending was categorized.</h3>
+            <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
             <p className="body__narrative-description">
                 The total federal spending for COVID-19 Spending can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the response, and the different types of items and services that were purchased.
             </p>
