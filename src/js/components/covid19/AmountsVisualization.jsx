@@ -250,7 +250,7 @@ const AmountsVisualization = ({
             const { lineColor } = rectangleMapping._remainingBalance;
             const data = {
                 lineColor,
-                cx: remainingBalanceRectangleData.width === 0 ? ((obligationRectangleData.x + obligationRectangleData.width) - remainingBalanceCircleRadius): remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                cx: remainingBalanceRectangleData.width === 0 ? ((obligationRectangleData.x + obligationRectangleData.width) - remainingBalanceCircleRadius) : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
                 cy: remainingBalanceRectangleData.y + (remainingBalanceRectangleData.height / 2),
                 r: remainingBalanceCircleRadius
             };
