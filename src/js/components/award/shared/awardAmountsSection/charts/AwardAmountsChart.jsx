@@ -127,6 +127,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
                 : "Potential Award Amount",
+            lineOffset: 0,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
         },
         numerator: {
@@ -137,6 +138,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             rawValue: data._baseExercisedOptions,
             denominatorValue: data._totalObligation,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: lineOffsetsBySpendingCategory.current,
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
@@ -144,10 +146,11 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             children: [{
                 labelSortOrder: 0,
                 labelPosition: 'top',
-                className: `${awardType}-obligated`,
+                className: `${awardType}-overspending-obligated`,
                 rawValue: data._totalObligation,
                 denominatorValue: data._baseAndAllOptions,
                 value: data.totalObligationAbbreviated,
+                lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
                 text: awardType === 'idv'
                     ? "Combined Obligated Amounts"
                     : "Obligated Amount",
@@ -156,7 +159,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                 improper: {
                     labelSortOrder: 1,
                     labelPosition: 'hide',
-                    className: `${awardType}-overspending-obligated`,
+                    className: `${awardType}-overspending`,
                     rawValue: data._totalObligation,
                     denominatorValue: data._baseAndAllOptions,
                     value: data.overspendingAbbreviated,
