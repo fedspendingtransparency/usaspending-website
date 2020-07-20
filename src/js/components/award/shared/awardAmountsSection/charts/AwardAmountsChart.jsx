@@ -11,7 +11,7 @@ import {
     subsidyColor,
     faceValueColor,
     // Offsets per DEV-5242:
-    barLabelAndLineOffsetsBySpendingCategory
+    lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
@@ -38,6 +38,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
             color: potentialColor,
+            lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
                 : "Potential Award Amount",
@@ -51,6 +52,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             rawValue: data._baseExercisedOptions,
             denominatorValue: data._baseAndAllOptions,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: lineOffsetsBySpendingCategory.current,
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
@@ -67,7 +69,8 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         ? "Combined Obligated Amounts"
                         : "Obligated Amount",
                     color: obligatedColor,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data)
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
             ]
         }
@@ -91,6 +94,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         value: data.fileCObligatedAbbreviated,
                         text: 'COVID-19 Response Obligations Amount',
                         color: covidObligatedColor,
+                        lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
@@ -100,7 +104,8 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                             rawValue: data._fileCOutlay,
                             value: data.fileCOutlayAbbreviated,
                             text: 'COVID-19 Response Outlay Amount',
-                            color: covidColor
+                            color: covidColor,
+                            lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
                         }]
                     }
                 ]
@@ -374,7 +379,11 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
     };
 };
 
-const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
+const AwardAmountsChart = ({
+    awardType,
+    awardOverview,
+    spendingScenario
+}) => {
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,

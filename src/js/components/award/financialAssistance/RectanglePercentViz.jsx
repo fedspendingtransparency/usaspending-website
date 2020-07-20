@@ -227,11 +227,11 @@ const RectanglePercentViz = ({
                         {child.rawValue > 0 &&
                             <BarLabelAndLine
                                 spendingCategory={child.className}
-                                labelClassName={`award-amounts-viz__label`}
+                                labelClassName="award-amounts-viz__label"
                                 lineClassName={`award-amounts-viz__line ${position}`}
                                 lineStyles={{
                                     backgroundColor: child.color,
-                                    width: generatePercentage(child.rawValue / denominator.rawValue)
+                                    width: `calc(${generatePercentage(child.rawValue / denominator.rawValue)} - ${child.lineOffset}px)`
                                 }} />
                         }
                         {Object.keys(child).includes('children') && renderLinesAndLabelsForPosition(child.children, position)}
@@ -255,17 +255,21 @@ const RectanglePercentViz = ({
                     {!isBarAbsent &&
                         <BarLabelAndLine
                             spendingCategory={child.className}
-                            labelClassName={`award-amounts-viz__label`}
+                            labelClassName="award-amounts-viz__label"
                             lineClassName={`award-amounts-viz__line ${position}`}
                             lineStyles={{
                                 backgroundColor: child.color,
                                 width: child?.barWidthOverrides?.applyToLine
-                                    ? generatePercentage(child.barWidthOverrides.rawValue / child.barWidthOverrides.denominatorValue)
-                                    : generatePercentage(child.rawValue / denominator.rawValue)
+                                    ? `calc(${generatePercentage(child.barWidthOverrides.rawValue / child.barWidthOverrides.denominatorValue)} - ${child.lineOffset}px)`
+                                    : `calc(${generatePercentage(child.rawValue / denominator.rawValue)} - ${child.lineOffset}px)`
                             }}>
                             <BarValue
                                 spendingCategory={child.className}
-                                style={{ width: child.labelSortOrder === 0 ? '100%' : generatePercentage(child.rawValue / denominator.rawValue) }}
+                                style={{
+                                    width: child.labelSortOrder === 0
+                                        ? '100%'
+                                        : `calc(${generatePercentage(child.rawValue / denominator.rawValue)})`
+                                }}
                                 className={`award-amounts-viz__desc ${position}`}
                                 onLeave={closeTooltip}
                                 onEnter={(e) => {

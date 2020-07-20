@@ -37,7 +37,7 @@ const BarLabelAndLine = ({
     labelClassName = 'award-amounts-viz__label'
 }) => (
     <div className={`${labelClassName} ${spendingCategory}`} style={labelStyles}>
-        <div className={`${lineClassName} ${spendingCategory}`} style={lineStyles} />
+        <div className={`${lineClassName} ${spendingCategory}`} style={{ ...lineStyles, minWidth: '4px' }} />
         {children}
     </div>
 );
@@ -50,23 +50,26 @@ const Bar = ({
     onLeave,
     barWrapperStyles = {},
     barStyles
-}) => (
-    <div
-        role="button"
-        tabIndex="0"
-        style={barWrapperStyles}
-        className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
-        onBlur={onLeave}
-        onFocus={onEnter}
-        onKeyPress={onEnter}
-        onMouseEnter={onEnter}
-        onMouseLeave={onLeave}
-        onClick={onEnter}>
-        <div className={`${className} ${spendingCategory}`} style={barStyles}>
-            {children}
+}) => {
+    if (barWrapperStyles.width === "0.00%") return null;
+    return (
+        <div
+            role="button"
+            tabIndex="0"
+            style={barWrapperStyles}
+            className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
+            onBlur={onLeave}
+            onFocus={onEnter}
+            onKeyPress={onEnter}
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
+            onClick={onEnter}>
+            <div className={`${className} ${spendingCategory}`} style={barStyles}>
+                {children}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 Bar.propTypes = {
     className: PropTypes.string,

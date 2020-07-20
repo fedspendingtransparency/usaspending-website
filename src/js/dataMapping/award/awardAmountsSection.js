@@ -118,20 +118,21 @@ export const faceValueColor = '#F3F3F3';
 export const nonFederalFundingColor = '#47AAA7';
 
 // Offsets per DEV-5242:
-// 5px horizontal padding (border + padding) on each side.
-const defaultPadding = 10;
-// 2px of padding on each side
+// 3px padding between outermost bar and first nested bar
+const defaultPadding = 6;
+// 2px of padding for each additional nested bar
 const additionalPadding = 4;
-// Default padding + (additionalPadding * levels nested)
-const barLabelAndLineOffsetsBySpendingCategory = {
-    obligationProcurment: defaultPadding + (additionalPadding * 2),
+// offset = defaultPadding + (additionalPadding * levels nested relative to outermost bar)
+export const lineOffsetsBySpendingCategory = {
+    obligationProcurement: defaultPadding + (additionalPadding * 1),
     obligationAsst: defaultPadding,
     subsidy: defaultPadding,
     totalFunding: defaultPadding,
     nonFederalFunding: defaultPadding,
     faceValue: defaultPadding,
-    fileCProcurmentObligated: defaultPadding + (additionalPadding * 3),
-    fileCProcurmentOutlay: defaultPadding + (additionalPadding * 4),
-    current: defaultPadding + additionalPadding,
-    potential: defaultPadding
+    // cannot understand why we have to divide this by two...!!!???
+    fileCProcurementObligated: (defaultPadding + (additionalPadding * 2)) / 2,
+    fileCProcurementOutlay: (defaultPadding + (additionalPadding * 3)) / 2,
+    current: defaultPadding,
+    potential: 0
 };
