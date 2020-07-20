@@ -294,7 +294,7 @@ const AmountsVisualization = ({
         if (totalLineData && totalQuestionData && totalValueData) {
             setTotalLabelData({
                 y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
-                x: totalLineData.x1 - ((ref?.width || 0) + totalValueData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x),
+                x: totalLineData.x1 - ((ref?.width || 0) + (totalValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
                 className: `amounts-text__label ${!ref ? 'white' : ''}`
@@ -307,7 +307,7 @@ const AmountsVisualization = ({
         const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
         if (remainingBalanceLineData) {
             setRemainingBalanceQuestionData({
-                y: remainingBalanceLineData.y2 - remainingBalanceValueData?.height - spacingBetweenLineAndText,
+                y: remainingBalanceLineData.y2 - (remainingBalanceValueData?.height || 0) - spacingBetweenLineAndText,
                 x: remainingBalanceLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
                 height: questionRef?.height || 0,
                 text: textInfo.question,
@@ -339,7 +339,7 @@ const AmountsVisualization = ({
         if (remainingBalanceLineData && remainingBalanceQuestionData && remainingBalanceValueData) {
             setRemainingBalanceLabelData({
                 y: remainingBalanceLineData.y2 - spacingBetweenLineAndText,
-                x: remainingBalanceLineData.x1 - ((ref?.width || 0) + remainingBalanceValueData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x),
+                x: remainingBalanceLineData.x1 - ((ref?.width || 0) + (remainingBalanceValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
                 className: `amounts-text__label ${!ref ? 'white' : ''}`
@@ -351,7 +351,7 @@ const AmountsVisualization = ({
         const { text: textInfo } = rectangleMapping._totalOutlays;
         const questionRef = _outlayQuestion.current?.getBoundingClientRect();
         if (outlayLineData) {
-            if ((outlayLineData.x1 + spacingBetweenLineAndText + questionRef?.width || 0) > (width - 1)) {
+            if ((outlayLineData.x1 + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - 1)) {
                 // text to the left of the line
                 setOutlayQuestionData({
                     y: outlayLineData.y1 + (questionRef?.height || 0),
@@ -393,7 +393,7 @@ const AmountsVisualization = ({
             else { // text to the right of the line
                 setOutlayValueData({
                     y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0),
-                    x: outlayLineData.x1 + outlayLabelData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x,
+                    x: outlayLineData.x1 + (outlayLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
                     height: ref?.height || 0,
                     theWidth: ref?.width || 0,
                     text: moneyLabel,
@@ -410,10 +410,10 @@ const AmountsVisualization = ({
             if (outlayQuestionData.left) {
                 setOutlayLabelData({
                     y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
-                    x: outlayLineData.x1 - ((ref?.width || 0) + outlayValueData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x),
+                    x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                     height: ref?.height || 0,
                     text: textInfo.label,
-                    theWidth: ref?.width,
+                    theWidth: ref?.width || 0,
                     className: `amounts-text__label ${!ref ? 'white' : ''}`
                 });
             }
@@ -423,7 +423,7 @@ const AmountsVisualization = ({
                     x: outlayLineData.x1 + spacingBetweenLineAndText,
                     height: ref?.height || 0,
                     text: textInfo.label,
-                    theWidth: ref?.width,
+                    theWidth: ref?.width || 0,
                     className: `amounts-text__label ${!ref ? 'white' : ''}`
                 });
             }
@@ -436,7 +436,7 @@ const AmountsVisualization = ({
         if (obligationLineData && remainingBalanceLineData) {
             if (((questionRef?.width || 0) + spacingBetweenLineAndText + obligationLineData.x1) >= remainingBalanceLineData.x1) {
                 setObligationQuestionData({
-                    y: obligationLineData.y2 - obligationValueData?.height - spacingBetweenLineAndText,
+                    y: obligationLineData.y2 - (obligationValueData?.height || 0) - spacingBetweenLineAndText,
                     x: obligationLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
                     height: questionRef?.height || 0,
                     text: textInfo.question,
@@ -446,7 +446,7 @@ const AmountsVisualization = ({
             }
             else {
                 setObligationQuestionData({
-                    y: obligationLineData.y2 - obligationValueData?.height - spacingBetweenLineAndText,
+                    y: obligationLineData.y2 - (obligationValueData?.height || 0) - spacingBetweenLineAndText,
                     x: obligationLineData.x1 + spacingBetweenLineAndText,
                     height: questionRef?.height || 0,
                     text: textInfo.question,
@@ -475,7 +475,7 @@ const AmountsVisualization = ({
             else {
                 setObligationValueData({
                     y: obligationLineData.y2 - spacingBetweenLineAndText,
-                    x: obligationLineData.x1 + obligationLabelData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x,
+                    x: obligationLineData.x1 + (obligationLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
                     height: ref?.height || 0,
                     theWidth: ref?.width || 0,
                     text: moneyLabel,
@@ -487,12 +487,13 @@ const AmountsVisualization = ({
     // obligationLabelData
     useLayoutEffect(() => {
         const ref = _obligationLabel.current?.getBoundingClientRect();
+        console.log(' Obligation REf : ', ref);
         const { text: textInfo } = rectangleMapping._totalObligations;
         if (obligationLineData && obligationQuestionData && obligationValueData) {
             if (obligationQuestionData.left) {
                 setObligationLabelData({
                     y: obligationLineData.y2 - spacingBetweenLineAndText,
-                    x: obligationLineData.x1 - ((ref?.width || 0) + obligationValueData?.theWidth + spacingBetweenLineAndText + labelTextAdjustment.x),
+                    x: obligationLineData.x1 - ((ref?.width || 0) + (obligationValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                     height: ref?.height || 0,
                     text: textInfo.label,
                     theWidth: ref?.width || 0,
