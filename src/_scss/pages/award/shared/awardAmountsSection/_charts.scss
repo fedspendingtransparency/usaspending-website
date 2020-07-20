@@ -173,6 +173,10 @@ $proc-current-offset: rem(5);
 
                 &.idv-obligated,
                 &.contract-obligated,
+                &.idv-extreme-overspending-obligated,
+                &.contract-extreme-overspending-obligated,
+                &.idv-overspending-obligated,
+                &.contract-overspending-obligated,
                 &.asst-obligation {
                     border-left: rem(4) solid $colors-obligated;
                 }
@@ -207,6 +211,10 @@ $proc-current-offset: rem(5);
                 &.idv-obligated,
                 &.contract-obligated {
                     margin-left: $proc-obligated-offset;
+                }
+                &.idv-extreme-overspending-obligated,
+                &.contract-extreme-overspending-obligated {
+                    margin-left: rem(10);
                 }
                 &.idv-file-c-obligated,
                 &.contract-file-c-obligated {
@@ -270,6 +278,11 @@ $proc-current-offset: rem(5);
                     &.idv-obligated,
                     &.contract-obligated {
                         margin-left: $proc-obligated-offset;
+                    }
+
+                    &.idv-extreme-overspending-obligated,
+                    &.contract-extreme-overspending-obligated {
+                        margin-left: rem(10);
                     }
 
                     &.idv-file-c-obligated,
@@ -454,6 +467,10 @@ $proc-current-offset: rem(5);
 
                     &.contract-current,
                     &.idv-current {
+                        margin-left: $proc-current-offset;
+                    }
+                    &.contract-extreme-overspending-current,
+                    &.idv-extreme-overspending-current {
                         margin-left: $proc-current-offset;
                     }
                 }

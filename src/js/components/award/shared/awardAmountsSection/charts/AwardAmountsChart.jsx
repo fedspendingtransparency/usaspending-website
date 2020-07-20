@@ -252,6 +252,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                 : "Obligated Amount",
             color: `transparent`,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+            lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
             improper: {
                 labelSortOrder: 1,
                 labelPosition: 'hide',
@@ -274,6 +275,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             rawValue: data._baseAndAllOptions,
             denominatorValue: data._totalObligation,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: 0,
             text: null,
             color: potentialColor,
             children: [
@@ -289,7 +291,8 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                     text: awardType === 'idv'
                         ? "Combined Current Award Amounts"
                         : "Current Award Amount",
-                    color: obligatedColor
+                    color: obligatedColor,
+                    lineOffset: lineOffsetsBySpendingCategory.current
                 },
                 {
                     className: `${awardType}-extreme-overspending-potential`,
@@ -300,6 +303,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                     denominatorValue: data._totalObligation,
                     value: data.baseAndAllOptionsAbbreviated,
                     color: obligatedColor,
+                    lineOffset: 0,
                     barWidthOverrides: {
                         rawValue: data._baseAndAllOptions - data._baseExercisedOptions,
                         denominatorValue: data._baseAndAllOptions
