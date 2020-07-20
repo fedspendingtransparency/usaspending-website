@@ -406,7 +406,7 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const ref = _outlayLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._totalOutlays;
-        if (outlayLineData && outlayQuestionData && outlayValueData) {
+        if (outlayLineData && outlayQuestionData) {
             if (outlayQuestionData.left) {
                 setOutlayLabelData({
                     y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
@@ -433,8 +433,8 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalObligations;
         const questionRef = _obligationQuestion.current?.getBoundingClientRect();
-        if (obligationLineData && remainingBalanceLineData) {
-            if (((questionRef?.width || 0) + spacingBetweenLineAndText + obligationLineData.x1) >= remainingBalanceLineData.x1) {
+        if (obligationLineData) {
+            if (((questionRef?.width || 0) + spacingBetweenLineAndText + obligationLineData.x1) >= (remainingBalanceLineData?.x1 || 0)) {
                 setObligationQuestionData({
                     y: obligationLineData.y2 - (obligationValueData?.height || 0) - spacingBetweenLineAndText,
                     x: obligationLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
@@ -461,8 +461,8 @@ const AmountsVisualization = ({
         const amount = Math.abs(overviewData._totalObligations);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
-        if (obligationLineData && obligationQuestionData) {
-            if (obligationQuestionData.left) {
+        if (obligationLineData) {
+            if (obligationQuestionData?.left) {
                 setObligationValueData({
                     y: obligationLineData.y2 - spacingBetweenLineAndText,
                     x: obligationLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
@@ -487,7 +487,6 @@ const AmountsVisualization = ({
     // obligationLabelData
     useLayoutEffect(() => {
         const ref = _obligationLabel.current?.getBoundingClientRect();
-        console.log(' Obligation REf : ', ref);
         const { text: textInfo } = rectangleMapping._totalObligations;
         if (obligationLineData && obligationQuestionData && obligationValueData) {
             if (obligationQuestionData.left) {
