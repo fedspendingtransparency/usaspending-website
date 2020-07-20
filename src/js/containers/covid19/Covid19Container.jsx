@@ -149,7 +149,7 @@ const Covid19Container = () => {
                 <>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            COVID-19 Response
+                            COVID-19 Spending
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">

@@ -18,7 +18,7 @@ const RecipientContainer = () => {
         <div className="body__content recipient__container">
             <DateNote />
             <h3 className="body__narrative">
-                These are the recipients who received COVID-19 Response <strong>awards</strong>.
+                These are the recipients who received COVID-19 Spending <strong>awards</strong>.
             </h3>
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal

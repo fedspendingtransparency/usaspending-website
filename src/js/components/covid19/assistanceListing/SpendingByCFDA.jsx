@@ -98,10 +98,10 @@ const SpendingByCFDA = () => {
         <div className="body__content assistance-listing">
             <DateNote />
             <h3 className="body__narrative">
-                These are the assistance listings that supported the COVID-19 Response with <strong>awards</strong>.
+                These are the assistance listings that supported COVID-19 Spending with <strong>awards</strong>.
             </h3>
             <p className="body__narrative-description">
-                The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
+                The total federal spending for COVID-19 Spending can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the response, and the different types of items and services that were purchased.
             </p>
             <MoreOptionsTabs
                 tabs={financialAssistanceTabs}

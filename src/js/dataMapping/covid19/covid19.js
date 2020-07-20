@@ -8,15 +8,15 @@ import { getBaseUrlNoHash } from 'helpers/socialShare';
 export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
-    subject: 'USAspending.gov COVID-19 Response',
-    body: `View the COVID-19 Response on USAspending.gov: ${getBaseUrlNoHash(slug)}`
+    subject: 'USAspending.gov COVID-19 Spending',
+    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
 };
 
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 
-export const footerTitle = 'Looking for more insight on COVID-19 relief?';
+export const footerTitle = 'Looking for more insight about COVID-19 Spending?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
 export const amountsHeight = 400;

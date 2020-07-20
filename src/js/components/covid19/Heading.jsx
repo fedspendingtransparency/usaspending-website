@@ -10,12 +10,12 @@ const Heading = () => (
         <div className="heading__top information-top" />
         <div className="heading__title">
             How much has the Federal Government
-            spent on the <span className="color-purple">COVID-19 Response</span> <strong>in total</strong>?
+            spent on <span className="color-purple">COVID-19 Spending</span> <strong>in total</strong>?
         </div>
         <div className="heading__description">
             In April 2020 the Federal Government began allocating funds in
             response to the COVID-19 pandemic. There are a variety of
-            dimensions to analyze COVID-19 Response spending,
+            dimensions to analyze COVID-19 Spending,
             including who received spending, which agency spent the funds, and how
             the funds were spent over time.
         </div>
