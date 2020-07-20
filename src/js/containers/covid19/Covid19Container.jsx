@@ -23,8 +23,6 @@ import RedirectModalContainer from 'containers/redirectModal/RedirectModalContai
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 
 import {
     slug,
@@ -33,6 +31,8 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
@@ -98,22 +98,18 @@ const Covid19Container = () => {
         };
     }, [defCodes]);
 
-    const onFooterClick = () => {
-        dispatch(
-            applyStagedFilters(
-                Object.assign(
-                    {}, defaultAdvancedSearchFilters,
-                    {
-                        defCodes: new CheckboxTreeSelections({
-                            require: defCodes.map((code) => code.code),
-                            exclude: [],
-                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-                        })
-                    }
-                )
-            )
-        );
-    };
+    const addDefCodesToAdvancedSearchFilter = () => dispatch(applyStagedFilters(
+        Object.assign(
+            {}, defaultAdvancedSearchFilters,
+            {
+                defCodes: new CheckboxTreeSelections({
+                    require: defCodes.map((code) => code.code),
+                    exclude: [],
+                    counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                })
+            }
+        )
+    ));
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
@@ -210,7 +206,7 @@ const Covid19Container = () => {
                             <FooterLinkToAdvancedSearchContainer
                                 title={footerTitle}
                                 description={footerDescription}
-                                onClick={onFooterClick} />
+                                onClick={addDefCodesToAdvancedSearchFilter} />
                         </section>
                     </div>
                     <RedirectModalContainer />
