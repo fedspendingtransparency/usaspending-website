@@ -22,7 +22,6 @@ import {
     awardTypeFilters,
     filters,
     logMapLayerEvent,
-    logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
