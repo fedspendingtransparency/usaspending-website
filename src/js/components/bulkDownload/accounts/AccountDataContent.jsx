@@ -84,7 +84,7 @@ export default class AccountDataContent extends React.Component {
                 <div className="download-center__filters">
                     <h2 className="download-center__title">Custom Account Data</h2>
                     <FilterSelection valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
-                    <form className="download-center-form">
+                    <div className="download-center-form">
                         <BudgetFunctionFilter
                             budgetFunctions={this.props.budgetFunctions}
                             budgetSubfunctions={this.props.budgetSubfunctions}
@@ -126,7 +126,7 @@ export default class AccountDataContent extends React.Component {
                             filters={accounts}
                             validDates
                             dataType="accounts" />
-                    </form>
+                    </div>
                     <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
                     </button>
