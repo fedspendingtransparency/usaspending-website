@@ -34,13 +34,18 @@ export default class ResultsTableTabItem extends React.Component {
     render() {
         let activeClass = '';
         let disabledStatus = '';
+        let disabledClass = '';
         if (this.props.active) {
             activeClass = ' active';
         }
         if (this.props.enabled === false) {
             disabledStatus = true;
+            disabledClass = ' disabled';
         }
-        else {
+        else if (!this.props.count || this.props.count === 0) {
+            disabledStatus = true;
+            disabledClass = ' disabled';
+        } else {
             disabledStatus = false;
         }
 
@@ -57,24 +62,26 @@ export default class ResultsTableTabItem extends React.Component {
                 </div>
             );
         }
-        const className = `table-type-toggle${activeClass} ${this.props.className}`;
+        const className = `table-type-toggle${activeClass} ${this.props.className}${disabledClass}`;
         return (
-            <div
-                className={className}
-                onClick={this.clickedTab}
-                onKeyDown={this.clickedTab}
-                role="menuitemradio"
-                aria-checked={this.props.active}
-                title={`Show ${this.props.label}`}
-                aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
-                tabIndex={0}
-                disabled={disabledStatus}>
-                <div className="tab-content">
-                    <div className="tab-label">
-                        {this.props.label}
+            <div className={`table-type-toggle__wrapper${disabledClass}`}>
+                <div
+                    className={className}
+                    onClick={this.clickedTab}
+                    onKeyDown={this.clickedTab}
+                    role="menuitemradio"
+                    aria-checked={this.props.active}
+                    title={`Show ${this.props.label}`}
+                    aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
+                    tabIndex={0}
+                    disabled={disabledStatus}>
+                    <div className="tab-content">
+                        <div className="tab-label">
+                            {this.props.label}
+                        </div>
+                        {count}
+                        {this.props.tooltip}
                     </div>
-                    {count}
-                    {this.props.tooltip}
                 </div>
             </div>
         );

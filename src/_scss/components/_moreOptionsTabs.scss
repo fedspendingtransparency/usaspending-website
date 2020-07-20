@@ -117,7 +117,9 @@
 
                         &.disabled {
                             pointer-events: none;
-                            background-color: #ccc;
+                            color: #1010104d;
+                            background-color: #efefef4d;
+                            border-color: #7676764d;
                         }
     
                         .more-options__tabs_preview {
