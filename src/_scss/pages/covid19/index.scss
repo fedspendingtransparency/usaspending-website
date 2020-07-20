@@ -92,7 +92,8 @@
                         }
                     }
                     .query-matched {
-                        background-color: $color-gold;
+                        font-weight: $font-semibold;
+                        text-decoration: underline;
                     }
                 }
             }
