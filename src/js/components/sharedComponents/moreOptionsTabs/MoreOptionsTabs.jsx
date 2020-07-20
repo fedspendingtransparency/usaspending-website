@@ -30,7 +30,6 @@ const MoreOptionsTabs = (props) => {
     const [tabTypes, setTabTypes] = useState(props.tabs);
     const [indexesToDelete, setIndexesToDelete] = useState([]);
     const tabs = useRef(null);
-    const preview = useRef(null);
 
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
     const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
@@ -70,34 +69,40 @@ const MoreOptionsTabs = (props) => {
 
     const previewCountPropTypes = {
         name: PropTypes.string,
-        value: PropTypes.string
+        value: PropTypes.string,
+        index: PropTypes.number
     };
 
-    const addDisabled = (value) => {
+    const addDisabled = (preview, value) => {
         if (props.hideCounts) {
             return;
         }
 
         if (preview && preview.current) {
-            if (props.tabCounts[value]) {
-                const parent = preview.current.parentNode;
-                const grandParent = parent.parentNode;
-                parent.disabled = false;
-                parent.classList.remove('disabled');
-                grandParent.classList.remove('disabled');
-            } else {
-                const parent = preview.current.parentNode;
-                const grandParent = parent.parentNode;
+            const parent = preview.current.parentNode;
+            const grandParent = parent.parentNode;
+            const parentClasses = parent.className.split(" ");
+            const grandParentClasses = grandParent.className.split(" ");
+            const disabledParentIndex = parentClasses.indexOf('disabled');
+            const disabledGrandParentIndex = grandParentClasses.indexOf('disabled');
+
+            if (!props.hideCounts && (!props.tabCounts[value] || props.tabCounts[value] === 0) && disabledParentIndex === -1 && disabledGrandParentIndex === -1) {
                 parent.disabled = true;
-                parent.classList.add('disabled');
-                grandParent.classList.add('disabled');
+                grandParent.disabled = true;
+                parent.className += ' disabled';
+                grandParent.className += ' disabled';
+            } else if (!props.hideCounts && props.tabCounts[value] && props.tabCounts[value] > 0) {
+                parent.className = parentClasses.filter((className) => className !== 'disabled').join("");
+                grandParent.className = grandParentClasses.filter((className) => className !== 'disabled').join("");
             }
         }
     };
 
-    const PreviewCount = ({ name, value }) => {
+    const PreviewCount = ({ value, name }) => {
+        const preview = useRef(null);
+
         useEffect(() => {
-            addDisabled(value);
+            addDisabled(preview, value);
         }, [preview]);
 
         return (
