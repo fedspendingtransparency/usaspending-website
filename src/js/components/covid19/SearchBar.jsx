@@ -19,23 +19,21 @@ const SearchBar = ({ setQuery, query }) => {
         setSearchString(e.target.value);
     };
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
         setQuery(searchString);
     };
 
-    const resetSearch = (e) => {
-        e.preventDefault();
+    const resetSearch = () => {
         setSearchString('');
         setQuery('');
     };
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         if (searchString && query === searchString) {
-            resetSearch(e);
+            resetSearch();
         }
         else {
-            onSubmit(e);
+            onSubmit();
         }
     };
 
