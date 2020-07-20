@@ -30,6 +30,7 @@ const MoreOptionsTabs = (props) => {
     const [tabTypes, setTabTypes] = useState(props.tabs);
     const [indexesToDelete, setIndexesToDelete] = useState([]);
     const tabs = useRef(null);
+    const preview = useRef(null);
 
     const filteredSelectedOption = pickerOptions.filter((option) => option.value === activeTab);
     const filteredSelectedPickerOption = pickerOptions.filter((option) => option.value === pickerActiveTab);
@@ -72,12 +73,39 @@ const MoreOptionsTabs = (props) => {
         value: PropTypes.string
     };
 
-    const PreviewCount = ({ name, value }) => (
-        <div>
-            <div className="more-options__tabs_preview-label">{name}</div>
-            {props.hideCounts ? '' : <div className="more-options__tabs_preview-count">{formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>}
-        </div>
-    );
+    const addDisabled = (value) => {
+        if (props.hideCounts) {
+            return;
+        }
+
+        if (preview && preview.current) {
+            if (props.tabCounts[value]) {
+                const parent = preview.current.parentNode;
+                const grandParent = parent.parentNode;
+                parent.disabled = false;
+                parent.classList.remove('disabled');
+                grandParent.classList.remove('disabled');
+            } else {
+                const parent = preview.current.parentNode;
+                const grandParent = parent.parentNode;
+                parent.disabled = true;
+                parent.classList.add('disabled');
+                grandParent.classList.add('disabled');
+            }
+        }
+    };
+
+    const PreviewCount = ({ name, value }) => {
+        useEffect(() => {
+            addDisabled(value);
+        }, [preview]);
+
+        return (
+            <div ref={preview} className="more-options__tabs_preview">
+                <div className="more-options__tabs_preview-label">{name}</div>
+                {props.hideCounts ? '' : <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? formatNumber(props.tabCounts[value]) : '0'}</div>}
+            </div>);
+    };
     PreviewCount.propTypes = previewCountPropTypes;
 
     useEffect(() => {
@@ -104,6 +132,7 @@ const MoreOptionsTabs = (props) => {
         adaptTabs(indexesToDelete, tabTypes, props.tabs, setShowMoreOptions, setTabTypes, setPickerOptions);
     }, [indexesToDelete]);
 
+
     return (
         <div className={`more-options__tabs more-options__tabs_primary ${tabClass} ${props.classes}`} ref={tabs}>
             <ResultsTableTabs
@@ -116,7 +145,7 @@ const MoreOptionsTabs = (props) => {
             {showMoreOptions ?
                 <Picker
                     id="more-options__tabs-picker"
-                    className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
+                    className={`table-type-toggle${filteredSelectedOption && filteredSelectedOption.length > 0 ? ' active' : ''}`}
                     icon=""
                     selectedOption={selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, props.tabs, pickerOptions, activeTab, selectOption, props.pickerLabel)}
                     options={pickerOptions.length > 0 && pickerOptions.map((option) => ({
