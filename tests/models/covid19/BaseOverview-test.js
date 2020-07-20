@@ -38,6 +38,29 @@ describe(' COVID-19 overview Model', () => {
         it('should format totalBudgetAuthority', () => {
             expect(overview.totalBudgetAuthority).toEqual(formatMoney(overview._totalBudgetAuthority));
         });
+        describe('totalBudgetAuthorityRounded', () => {
+            it('should round to one decimal and use the long unit label for values over 999', () => {
+                expect(overview.totalBudgetAuthorityRounded).toEqual('$2.3 trillion');
+            });
+            it('should return totalBudgetAuthority for values less than 1,000', () => {
+                const mockResponse = {
+                    ...overviewAPIResponse,
+                    total_budget_authority: 852
+                };
+                const mockOverview = Object.create(BaseOverview);
+                mockOverview.populate(mockResponse);
+                expect(mockOverview.totalBudgetAuthorityRounded).toEqual('$852');
+            });
+            it('should return -- when budget authority is unavailable', () => {
+                const nullResponse = {
+                    ...overviewAPIResponse,
+                    total_budget_authority: null
+                };
+                const mockOverview = Object.create(BaseOverview);
+                mockOverview.populate(nullResponse);
+                expect(mockOverview.totalBudgetAuthorityRounded).toEqual('--');
+            });
+        });
         it('should format awardObligations', () => {
             expect(overview.awardObligations).toEqual(formatMoney(overview._awardObligations));
         });

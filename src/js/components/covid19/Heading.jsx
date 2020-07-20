@@ -9,8 +9,7 @@ const Heading = () => (
     <div className="heading__container information-body">
         <div className="heading__top information-top" />
         <div className="heading__title">
-            How much has the Federal Government
-            spent on <span className="color-purple">COVID-19 Spending</span> <strong>in total</strong>?
+            How much has the federal government spent in response to COVID-19?
         </div>
         <div className="heading__description">
             In April 2020 the Federal Government began allocating funds in
