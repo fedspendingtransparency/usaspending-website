@@ -174,9 +174,9 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
             if (activeTab === 'loans') {
                 return [
                     link,
-                    rowData.faceValueOfLoan,
                     rowData.obligation,
                     rowData.outlay,
+                    rowData.faceValueOfLoan,
                     rowData.count
                 ];
             }
