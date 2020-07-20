@@ -433,6 +433,7 @@ const AwardAmountsChart = ({
                     rawValue: awardAmounts._totalFunding,
                     value: awardAmounts.totalFundingAbbreviated,
                     color: `#FFF`,
+                    lineOffset: 0,
                     text: `Total Funding`,
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'totalFunding', awardAmounts)
                 },
@@ -444,6 +445,7 @@ const AwardAmountsChart = ({
                     rawValue: awardAmounts._totalObligation,
                     denominatorValue: awardAmounts._totalFunding,
                     value: awardAmounts.totalObligationAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                     text: 'Obligated Amount',
                     color: obligatedColor
                 },
@@ -454,6 +456,7 @@ const AwardAmountsChart = ({
                     // fudging this for to get the correct tooltip position.
                     rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
                     denominatorValue: awardAmounts._totalFunding,
+                    lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
                     barWidthOverrides: {
                         applyToLine: true,
                         rawValue: awardAmounts._nonFederalFunding,
@@ -476,12 +479,14 @@ const AwardAmountsChart = ({
                         rawValue: awardAmounts._fileCObligated,
                         denominatorValue: awardAmounts._totalObligation,
                         value: awardAmounts.fileCObligatedAbbreviated,
+                        lineOffset: lineOffsetsBySpendingCategory.fileCAsstObligation,
                         text: 'COVID-19 Response Obligations Amount',
                         color: covidObligatedColor,
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
                             className: `${awardAmounts._fileCOutlay > 0 ? `asst-file-c-outlay` : `asst-file-c-outlay--zero`}`,
+                            lineOffset: lineOffsetsBySpendingCategory.fileCAsstOutlay,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', awardAmounts),
                             denominatorValue: awardAmounts._fileCObligated,
                             rawValue: awardAmounts._fileCOutlay,

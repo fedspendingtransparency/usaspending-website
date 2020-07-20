@@ -130,9 +130,11 @@ export const lineOffsetsBySpendingCategory = {
     totalFunding: defaultPadding,
     nonFederalFunding: defaultPadding,
     faceValue: defaultPadding,
+    current: defaultPadding,
+    potential: 0,
     // cannot understand why we have to divide this by two...!!!???
     fileCProcurementObligated: (defaultPadding + (additionalPadding * 2)) / 2,
     fileCProcurementOutlay: (defaultPadding + (additionalPadding * 3)) / 2,
-    current: defaultPadding,
-    potential: 0
+    fileCAsstObligation: defaultPadding + (additionalPadding * 1),
+    fileCAsstOutlay: defaultPadding + (additionalPadding * 2)
 };

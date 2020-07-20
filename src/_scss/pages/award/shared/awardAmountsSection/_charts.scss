@@ -207,7 +207,7 @@ $proc-current-offset: rem(5);
                     font-size: $small-font-size;
                 }
 
-                // Offsets for descriptions
+                // Offsets for Bar Value Descriptions; for example $10,000
                 &.idv-obligated,
                 &.contract-obligated {
                     margin-left: $proc-obligated-offset;
@@ -221,6 +221,12 @@ $proc-current-offset: rem(5);
                 &.idv-file-c-obligated,
                 &.contract-file-c-obligated {
                     margin-left: $proc-filec-obligated-offset;
+                }
+                &.asst-obligation {
+                    margin-left: rem(6);
+                }
+                &.asst-file-c-obligated {
+                    margin-left: rem(10);
                 }
             }
             .award-amounts-viz__label {
@@ -292,6 +298,14 @@ $proc-current-offset: rem(5);
                     &.idv-file-c-obligated,
                     &.contract-file-c-obligated {
                         margin-left: $proc-filec-obligated-offset;
+                    }
+
+                    &.asst-obligation {
+                        margin-left: rem(6);
+                    }
+
+                    &.asst-file-c-obligated {
+                        margin-left: rem(10);
                     }
                 }
             }
@@ -383,6 +397,9 @@ $proc-current-offset: rem(5);
                     &.contract-file-c-outlay {
                         margin-left: $proc-filec-outlay-offset;
                     }
+                    &.asst-file-c-outlay {
+                        margin-left: rem(12);
+                    }
                 }
                 .award-amounts-viz__line {
                     margin: rem(20) 0 rem(5) rem(1);
@@ -468,6 +485,12 @@ $proc-current-offset: rem(5);
                     &.contract-file-c-outlay,
                     &.idv-file-c-outlay {
                         margin-left: $proc-filec-outlay-offset;
+                    }
+                    &.asst-file-c-outlay {
+                        margin-left: rem(12);
+                    }
+                    &.asst-non-federal-funding {
+                        margin-right: rem(6);
                     }
                 }
             }
