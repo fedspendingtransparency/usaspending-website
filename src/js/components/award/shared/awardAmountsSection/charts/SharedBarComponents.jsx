@@ -50,26 +50,23 @@ const Bar = ({
     onLeave,
     barWrapperStyles = {},
     barStyles
-}) => {
-    if (barWrapperStyles.width === "0.00%") return null;
-    return (
-        <div
-            role="button"
-            tabIndex="0"
-            style={barWrapperStyles}
-            className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
-            onBlur={onLeave}
-            onFocus={onEnter}
-            onKeyPress={onEnter}
-            onMouseEnter={onEnter}
-            onMouseLeave={onLeave}
-            onClick={onEnter}>
-            <div className={`${className} ${spendingCategory}`} style={barStyles}>
-                {children}
-            </div>
+}) => (
+    <div
+        role="button"
+        tabIndex="0"
+        style={barWrapperStyles}
+        className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
+        onBlur={onLeave}
+        onFocus={onEnter}
+        onKeyPress={onEnter}
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+        onClick={onEnter}>
+        <div className={`${className} ${spendingCategory}`} style={barStyles}>
+            {children}
         </div>
-    );
-};
+    </div>
+);
 
 Bar.propTypes = {
     className: PropTypes.string,

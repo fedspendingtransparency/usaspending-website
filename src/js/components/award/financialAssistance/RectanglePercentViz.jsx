@@ -143,6 +143,7 @@ const RectanglePercentViz = ({
         if (data.improper && data.children) return data.children.map((child) => renderBarVisualization(child));
         // we dont render a bar using the improper object, just the label.
         if (data.improper) return null;
+        if (data.rawValue <= 0) return null;
         const barProps = {
             spendingCategory: `${data.className}`,
             barWrapperStyles: {
