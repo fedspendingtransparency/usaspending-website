@@ -126,15 +126,18 @@ const additionalPadding = 4;
 export const lineOffsetsBySpendingCategory = {
     obligationProcurement: defaultPadding + (additionalPadding * 1),
     obligationAsst: defaultPadding,
-    subsidy: defaultPadding,
+    // mark up for loans is a bit different.
+    subsidy: 3,
     totalFunding: defaultPadding,
     nonFederalFunding: defaultPadding,
-    faceValue: defaultPadding,
+    faceValue: 0,
     current: defaultPadding,
     potential: 0,
     // cannot understand why we have to divide this by two...!!!???
     fileCProcurementObligated: (defaultPadding + (additionalPadding * 2)) / 2,
     fileCProcurementOutlay: (defaultPadding + (additionalPadding * 3)) / 2,
     fileCAsstObligation: defaultPadding + (additionalPadding * 1),
-    fileCAsstOutlay: defaultPadding + (additionalPadding * 2)
+    fileCAsstOutlay: defaultPadding + (additionalPadding * 2),
+    loanFileCObligated: 7,
+    loanFileCOutlay: 9
 };

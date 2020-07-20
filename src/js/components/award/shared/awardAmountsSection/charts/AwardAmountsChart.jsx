@@ -510,6 +510,7 @@ const AwardAmountsChart = ({
                     className: `${awardType}-subsidy`,
                     rawValue: awardAmounts._subsidy,
                     value: awardAmounts.subsidyAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.subsidy,
                     text: 'Original Subsidy Cost',
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts),
                     color: subsidyColor
@@ -520,6 +521,7 @@ const AwardAmountsChart = ({
                     className: `${awardType}-face-value`,
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.faceValue,
                     color: faceValueColor,
                     text: 'Face Value of Direct Loan',
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)
@@ -538,6 +540,7 @@ const AwardAmountsChart = ({
                             text: 'COVID-19 Response Obligations Amount',
                             className: `loan-file-c-obligated`,
                             denominatorValue: awardAmounts._subsidy,
+                            lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
                             color: covidObligatedColor,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
                             children: [{
@@ -547,6 +550,7 @@ const AwardAmountsChart = ({
                                 rawValue: awardAmounts._fileCOutlay,
                                 value: awardAmounts.fileCOutlayAbbreviated,
                                 denominatorValue: awardAmounts._fileCObligated,
+                                lineOffset: lineOffsetsBySpendingCategory.loanFileCOutlay,
                                 text: 'COVID-19 Response Outlay Amount',
                                 color: covidColor,
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)

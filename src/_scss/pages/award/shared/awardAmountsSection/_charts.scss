@@ -228,6 +228,12 @@ $proc-current-offset: rem(5);
                 &.asst-file-c-obligated {
                     margin-left: rem(10);
                 }
+                &.loan-file-c-obligated {
+                    margin-left: rem(7);
+                }
+                &.loan-file-c-subsidy {
+                    margin-left: rem(3);
+                }
             }
             .award-amounts-viz__label {
                 .award-amounts-viz__line {
@@ -304,8 +310,16 @@ $proc-current-offset: rem(5);
                         margin-left: rem(6);
                     }
 
+                    &.loan-subsidy {
+                        margin-left: rem(3);
+                    }
+
                     &.asst-file-c-obligated {
                         margin-left: rem(10);
+                    }
+
+                    &.loan-file-c-obligated {
+                        margin-left: rem(7);
                     }
                 }
             }
@@ -400,6 +414,10 @@ $proc-current-offset: rem(5);
                     &.asst-file-c-outlay {
                         margin-left: rem(12);
                     }
+
+                    &.loan-file-c-outlay {
+                        margin-left: rem(9);
+                    }
                 }
                 .award-amounts-viz__line {
                     margin: rem(20) 0 rem(5) rem(1);
@@ -442,7 +460,8 @@ $proc-current-offset: rem(5);
                             border-left: 1px solid $colors-grants-nff; 
                         }
                     }
-                    &.asst-total-funding {
+                    &.asst-total-funding,
+                    &.loan-face-value {
                         border-bottom: rem(1) solid $color-gray-light;
                         &::after,
                         &::before {
@@ -491,6 +510,10 @@ $proc-current-offset: rem(5);
                     }
                     &.asst-non-federal-funding {
                         margin-right: rem(6);
+                    }
+
+                    &.loan-file-c-outlay {
+                        margin-left: rem(9);
                     }
                 }
             }
