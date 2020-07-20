@@ -145,7 +145,8 @@ const AmountsVisualization = ({
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             let draw = true;
-            let theWidth = width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width
+            // let theWidth = width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width;
+            let theWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0);
             if (overviewData._remainingBalance <= 0) draw = false;
             if (theWidth < 0) theWidth = 0;
             const data = {
@@ -235,8 +236,8 @@ const AmountsVisualization = ({
             } = rectangleMapping._remainingBalance;
             const data = {
                 lineColor,
-                x1: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
-                x2: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                x1: remainingBalanceRectangleData.width === 0 ? ((obligationRectangleData.x + obligationRectangleData.width) - remainingBalanceCircleRadius) : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                x2: remainingBalanceRectangleData.width === 0 ? ((obligationRectangleData.x + obligationRectangleData.width) - remainingBalanceCircleRadius) : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
                 y1: startOfChartY + (rectangleHeight / 2),
                 y2: startOfChartY + rectangleHeight + lineLength
             };
@@ -249,7 +250,7 @@ const AmountsVisualization = ({
             const { lineColor } = rectangleMapping._remainingBalance;
             const data = {
                 lineColor,
-                cx: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                cx: remainingBalanceRectangleData.width === 0 ? ((obligationRectangleData.x + obligationRectangleData.width) - remainingBalanceCircleRadius): remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
                 cy: remainingBalanceRectangleData.y + (remainingBalanceRectangleData.height / 2),
                 r: remainingBalanceCircleRadius
             };
@@ -260,16 +261,14 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
         const questionRef = _totalBudgetAuthorityQuestion.current?.getBoundingClientRect();
-        if (totalLineData) {
-            setTotalQuestionData({
-                y: totalLineData.y1 + (questionRef?.height || 0),
-                x: totalLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-            });
-        }
-    }, [_totalBudgetAuthorityQuestion, totalLineData]);
+        setTotalQuestionData({
+            y: (totalLineData?.y1 || 0) + (questionRef?.height || 0),
+            x: (totalLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
+    }, [totalLineData]);
     // totalValueData
     useLayoutEffect(() => {
         const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
@@ -305,16 +304,14 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._remainingBalance;
         const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
-        if (remainingBalanceLineData) {
-            setRemainingBalanceQuestionData({
-                y: remainingBalanceLineData.y2 - (remainingBalanceValueData?.height || 0) - spacingBetweenLineAndText,
-                x: remainingBalanceLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-            });
-        }
-    }, [remainingBalanceLineData]);
+        setRemainingBalanceQuestionData({
+            y: (remainingBalanceLineData?.y2 || 0) - (remainingBalanceValueData?.height || 0) - spacingBetweenLineAndText,
+            x: (remainingBalanceLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
+    }, [remainingBalanceLineData, obligationValueData]);
     // remainingBalanceValueData
     useLayoutEffect(() => {
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
@@ -336,41 +333,37 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const ref = _remainingBalanceLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._remainingBalance;
-        if (remainingBalanceLineData && remainingBalanceQuestionData && remainingBalanceValueData) {
-            setRemainingBalanceLabelData({
-                y: remainingBalanceLineData.y2 - spacingBetweenLineAndText,
-                x: remainingBalanceLineData.x1 - ((ref?.width || 0) + (remainingBalanceValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
-                height: ref?.height || 0,
-                text: textInfo.label,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`
-            });
-        }
-    }, [remainingBalanceLineData, remainingBalanceQuestionData, remainingBalanceValueData]);
+        setRemainingBalanceLabelData({
+            y: (remainingBalanceLineData?.y2 || 0) - spacingBetweenLineAndText,
+            x: (remainingBalanceLineData?.x1 || 0) - ((ref?.width || 0) + (remainingBalanceValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
+            height: ref?.height || 0,
+            text: textInfo.label,
+            className: `amounts-text__label ${!ref ? 'white' : ''}`
+        });
+    }, [remainingBalanceLineData, remainingBalanceValueData]);
     // outlayQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
         const questionRef = _outlayQuestion.current?.getBoundingClientRect();
-        if (outlayLineData) {
-            if ((outlayLineData.x1 + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - 1)) {
-                // text to the left of the line
-                setOutlayQuestionData({
-                    y: outlayLineData.y1 + (questionRef?.height || 0),
-                    x: outlayLineData.x1 - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                    height: questionRef?.height || 0,
-                    text: textInfo.question,
-                    className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
-                    left: true
-                });
-            }
-            else { // text to the right of the line
-                setOutlayQuestionData({
-                    y: outlayLineData.y1 + (questionRef?.height || 0),
-                    x: outlayLineData.x1 + spacingBetweenLineAndText,
-                    height: questionRef?.height || 0,
-                    text: textInfo.question,
-                    className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-                });
-            }
+        if (((outlayLineData?.x1 || 0) + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - 1)) {
+            // text to the left of the line
+            setOutlayQuestionData({
+                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
+                x: (outlayLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+                height: questionRef?.height || 0,
+                text: textInfo.question,
+                className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
+                left: true
+            });
+        }
+        else { // text to the right of the line
+            setOutlayQuestionData({
+                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
+                x: (outlayLineData?.x1 || 0) + spacingBetweenLineAndText,
+                height: questionRef?.height || 0,
+                text: textInfo.question,
+                className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+            });
         }
     }, [outlayLineData]);
     // outlayValueData
@@ -379,10 +372,10 @@ const AmountsVisualization = ({
         const amount = Math.abs(overviewData._totalOutlays);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
-        if (outlayLineData && outlayQuestionData) {
-            if (outlayQuestionData.left) {
+        if (outlayLineData) {
+            if (outlayQuestionData?.left || 0) {
                 setOutlayValueData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0),
+                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
                     x: outlayLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
                     height: ref?.height || 0,
                     theWidth: ref?.width || 0,
@@ -392,7 +385,7 @@ const AmountsVisualization = ({
             }
             else { // text to the right of the line
                 setOutlayValueData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0),
+                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
                     x: outlayLineData.x1 + (outlayLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
                     height: ref?.height || 0,
                     theWidth: ref?.width || 0,
@@ -401,7 +394,7 @@ const AmountsVisualization = ({
                 });
             }
         }
-    }, [outlayLineData, outlayQuestionData]);
+    }, [outlayLabelData]);
     // outlayLabelData
     useLayoutEffect(() => {
         const ref = _outlayLabel.current?.getBoundingClientRect();
@@ -428,7 +421,7 @@ const AmountsVisualization = ({
                 });
             }
         }
-    }, [outlayLineData, outlayQuestionData, outlayValueData]);
+    }, [outlayLineData, outlayQuestionData]);
     // obligationQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalObligations;
@@ -514,21 +507,17 @@ const AmountsVisualization = ({
     // 0%
     useLayoutEffect(() => {
         const ref = zerPercentRef.current?.getBoundingClientRect();
-        if (totalRectangleData) {
-            setZeroPercentData({
-                y: startOfChartY + (rectangleHeight / 2) + 2,
-                x: amountsPadding.left - (ref?.width || 0) - labelTextAdjustment.x
-            });
-        }
+        setZeroPercentData({
+            y: startOfChartY + (rectangleHeight / 2) + 2,
+            x: amountsPadding.left - (ref?.width || 0) - labelTextAdjustment.x
+        });
     }, [width, totalRectangleData]);
     // 100%
     useLayoutEffect(() => {
-        if (totalRectangleData) {
-            setOneHundredPercentData({
-                y: startOfChartY + (rectangleHeight / 2) + 2,
-                x: (width - amountsPadding.right) + labelTextAdjustment.x
-            });
-        }
+        setOneHundredPercentData({
+            y: startOfChartY + (rectangleHeight / 2) + 2,
+            x: (width - amountsPadding.right) + labelTextAdjustment.x
+        });
     }, [width, totalRectangleData]);
 
     const dateNoteStyles = {
@@ -563,6 +552,19 @@ const AmountsVisualization = ({
                                 width={totalRectangleData.width}
                                 height={totalRectangleData.height}
                                 fill={totalRectangleData.fill} />
+                        </g>
+                    }
+                    {
+                        totalLineData &&
+                        <g tabIndex="0" aria-label="A line linking a rectangle to text">
+                            <desc>A line linking a rectangle to text</desc>
+                            <line
+                                x1={totalLineData.x1}
+                                x2={totalLineData.x2}
+                                y1={totalLineData.y1}
+                                y2={totalLineData.y2}
+                                stroke={totalLineData.lineColor}
+                                strokeWidth={lineStrokeWidth} />
                         </g>
                     }
                     {
@@ -605,19 +607,6 @@ const AmountsVisualization = ({
                                 width={remainingBalanceRectangleData.width}
                                 height={remainingBalanceRectangleData.height}
                                 fill={remainingBalanceRectangleData.fill} />
-                        </g>
-                    }
-                    {
-                        totalLineData &&
-                        <g tabIndex="0" aria-label="A line linking a rectangle to text">
-                            <desc>A line linking a rectangle to text</desc>
-                            <line
-                                x1={totalLineData.x1}
-                                x2={totalLineData.x2}
-                                y1={totalLineData.y1}
-                                y2={totalLineData.y2}
-                                stroke={totalLineData.lineColor}
-                                strokeWidth={lineStrokeWidth} />
                         </g>
                     }
                     {
@@ -710,7 +699,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceQuestionData && remainingBalanceRectangleData.draw &&
+                        remainingBalanceQuestionData && remainingBalanceRectangleData?.draw &&
                         <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
                             <desc>{remainingBalanceQuestionData.text}</desc>
                             <text
@@ -723,7 +712,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceValueData && remainingBalanceRectangleData.draw &&
+                        remainingBalanceValueData && remainingBalanceRectangleData?.draw &&
                         <g tabIndex="0" aria-label={remainingBalanceValueData.text}>
                             <desc>{remainingBalanceValueData.text}</desc>
                             <text
@@ -736,7 +725,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceLabelData && remainingBalanceRectangleData.draw &&
+                        remainingBalanceLabelData && remainingBalanceRectangleData?.draw &&
                         <g tabIndex="0" aria-label={remainingBalanceLabelData.text}>
                             <desc>{remainingBalanceLabelData.text}</desc>
                             <text
