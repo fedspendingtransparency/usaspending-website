@@ -55,9 +55,7 @@ export default class AccountDataContent extends React.Component {
         this.props.clearAccountFilters();
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-
+    handleSubmit() {
         this.props.clickedDownload();
     }
 
@@ -86,9 +84,7 @@ export default class AccountDataContent extends React.Component {
                 <div className="download-center__filters">
                     <h2 className="download-center__title">Custom Account Data</h2>
                     <FilterSelection valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
-                    <form
-                        className="download-center-form"
-                        onSubmit={this.handleSubmit}>
+                    <form className="download-center-form">
                         <BudgetFunctionFilter
                             budgetFunctions={this.props.budgetFunctions}
                             budgetSubfunctions={this.props.budgetSubfunctions}
@@ -125,6 +121,7 @@ export default class AccountDataContent extends React.Component {
                         <UserSelections
                             accounts={accounts} />
                         <SubmitButton
+                            handleSubmit={this.handleSubmit}
                             validForm={this.state.validForm}
                             filters={accounts}
                             validDates
