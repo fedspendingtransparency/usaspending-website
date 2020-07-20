@@ -145,12 +145,14 @@ const AmountsVisualization = ({
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             let draw = true;
+            let theWidth = width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width
             if (overviewData._remainingBalance <= 0) draw = false;
+            if (theWidth < 0) theWidth = 0;
             const data = {
                 draw,
                 x: amountsPadding.left + obligationRectangleData.width,
                 y: startOfChartY + offset.top,
-                width: width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width,
+                width: theWidth,
                 height: rectangleHeight - (2 * offset.bottom),
                 fill,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
@@ -233,8 +235,8 @@ const AmountsVisualization = ({
             } = rectangleMapping._remainingBalance;
             const data = {
                 lineColor,
-                x1: remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
-                x2: remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                x1: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                x2: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
                 y1: startOfChartY + (rectangleHeight / 2),
                 y2: startOfChartY + rectangleHeight + lineLength
             };
@@ -247,13 +249,13 @@ const AmountsVisualization = ({
             const { lineColor } = rectangleMapping._remainingBalance;
             const data = {
                 lineColor,
-                cx: remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
+                cx: remainingBalanceRectangleData.width === 0 ? obligationRectangleData.x + obligationRectangleData.width : remainingBalanceRectangleData.x + (0.75 * remainingBalanceRectangleData.width),
                 cy: remainingBalanceRectangleData.y + (remainingBalanceRectangleData.height / 2),
                 r: remainingBalanceCircleRadius
             };
             setRemainingBalanceCircleData(data);
         }
-    }, [scale, remainingBalanceRectangleData]);
+    }, [scale, remainingBalanceRectangleData, obligationRectangleData]);
     // totalQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
