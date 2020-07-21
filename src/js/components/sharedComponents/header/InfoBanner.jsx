@@ -38,7 +38,7 @@ export default class InfoBanner extends React.Component {
                         <h2 className="info-banner__title-text">New to USAspending: Official COVID-19 Response Data</h2>
                         <p>
                             USAspending now has official spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 response spending.
-                            <button onClick={this.props.triggerModal}> Learn more</button> about the data and new features or <a href="/#/covid-19">visit the profile page to explore and download the data today!</a>
+                            <button onClick={this.props.triggerModal}> Learn more</button> about the data and new features or <a href="#/disaster/covid-19">visit the profile page to explore and download the data today!</a>
                         </p>
                     </div>
                     <button
