@@ -117,6 +117,3 @@ export const fetchLoanSpending = (type, params) => apiRequest({
     data: params
 });
 
-export const fetchCovidTotals = () => apiRequest({
-    url: 'v2/disaster/overview/?def_codes=L,M,N,O,P'
-});

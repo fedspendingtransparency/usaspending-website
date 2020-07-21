@@ -2,15 +2,16 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId, delay, throttle } from 'lodash';
+import { get, uniqueId, delay, throttle, isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 
-import { setOverview } from 'redux/actions/covid19/covid19Actions';
+import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
-import { fetchCovidTotals, fetchDisasterSpending } from 'helpers/disasterHelper';
+import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
 import HeroButton from 'components/homepage/hero/HeroButton';
 
 const TooltipContent = () => (
@@ -27,8 +28,6 @@ const getTotalSpendingAbbreviated = (totalSpending) => {
     const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
-
-const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
 
 const defaultParams = {
     filter: {
@@ -114,7 +113,9 @@ TotalAmount.propTypes = {
 const propTypes = {
     totalSpendingAmount: PropTypes.number,
     setCovidOverview: PropTypes.func,
-    completeIncrement: PropTypes.func
+    setCovidDefCodes: PropTypes.func,
+    completeIncrement: PropTypes.func,
+    defCodes: PropTypes.arrayOf(PropTypes.string)
 };
 
 export class CovidHighlights extends React.Component {
@@ -132,61 +133,50 @@ export class CovidHighlights extends React.Component {
         };
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
+        this.fetchDefCodesRequest = null;
         this.scrollBar = null;
     }
 
     componentDidMount() {
-        if (this.fetchTotalsRequest) {
-            this.fetchTotalsRequest.cancel();
-        }
-        if (this.fetchTotalsByCfdaRequest) {
-            this.fetchTotalsByCfdaRequest.cancel();
-        }
-        this.fetchTotalsRequest = fetchCovidTotals();
-
-        return this.fetchHighlights()
-            .then(() => {
-                if (!document.documentMode) {
-                    scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + 115;
-                        const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                            if (this.state.hasNext) {
-                                this.fetchHighlights()
-                                    .then(() => {
-                                        if (!this.state.isHoverActive) {
-                                            scrollToY(newPosition, 750, this.scrollBar);
-                                        }
-                                    });
+        return Promise.all([
+            this.fetchDefCodes(),
+            this.fetchHighlights()
+                .then(() => {
+                    if (!document.documentMode) {
+                        scrollInterval = window.setInterval(() => {
+                            const newPosition = this.scrollBar.scrollTop + 115;
+                            const maxScroll = this.scrollBar.scrollHeight - 446;
+                            if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                                if (this.state.hasNext) {
+                                    this.fetchHighlights()
+                                        .then(() => {
+                                            if (!this.state.isHoverActive) {
+                                                scrollToY(newPosition, 750, this.scrollBar);
+                                            }
+                                        });
+                                }
+                                else if (!this.state.isHoverActive) {
+                                    scrollToY(0, 750, this.scrollBar);
+                                }
                             }
                             else if (!this.state.isHoverActive) {
-                                scrollToY(0, 750, this.scrollBar);
+                                scrollToY(newPosition, 750, this.scrollBar);
                             }
-                        }
-                        else if (!this.state.isHoverActive) {
-                            scrollToY(newPosition, 750, this.scrollBar);
-                        }
-                    }, 3000);
-                }
-                else {
-                    scrollInterval = window.setInterval(() => {
-                        const currentPosition = this.scrollBar.scrollTop;
-                        const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                            if (this.state.hasNext) {
-                                this.fetchHighlights();
+                        }, 3000);
+                    }
+                    else {
+                        scrollInterval = window.setInterval(() => {
+                            const currentPosition = this.scrollBar.scrollTop;
+                            const maxScroll = this.scrollBar.scrollHeight - 446;
+                            if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                                if (this.state.hasNext) {
+                                    this.fetchHighlights();
+                                }
                             }
-                        }
-                    }, 1000);
-                }
-            })
-            .then(() => {
-                this.fetchTotalsRequest.promise
-                    .then((data) => {
-                        this.parseSpendingTotals(data);
-                        this.fetchTotalsRequest = null;
-                    });
-            })
+                        }, 1000);
+                    }
+                })
+        ])
             .catch((e) => {
                 this.setState({
                     isError: true,
@@ -204,9 +194,43 @@ export class CovidHighlights extends React.Component {
         return true;
     }
 
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.defCodes, this.props.defCodes)) {
+            this.fetchTotals();
+        }
+    }
+
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
         window.clearInterval(amountUpdate);
+    }
+
+    fetchTotals = () => {
+        if (this.fetchTotalsRequest) {
+            this.fetchTotalsRequest.cancel();
+        }
+        this.fetchTotalsRequest = fetchOverview(this.props.defCodes);
+
+        this.fetchTotalsRequest.promise
+            .then((data) => {
+                this.parseSpendingTotals(data);
+                this.fetchTotalsRequest = null;
+            });
+    }
+
+    fetchDefCodes = () => {
+        if (this.fetchDefCodesRequest) {
+            this.fetchDefCodesRequest.cancel();
+        }
+        this.fetchDefCodesRequest = fetchDEFCodes();
+
+        return this.fetchDefCodesRequest.promise
+            .then(({ data: { codes } }) => {
+                const covidCodes = codes
+                    .filter((code) => code.disaster === 'covid_19')
+                    .map((code) => code.code);
+                this.props.setCovidDefCodes(covidCodes);
+            });
     }
 
     fetchHighlights = () => {
@@ -236,10 +260,10 @@ export class CovidHighlights extends React.Component {
     }
 
     parseSpendingTotals = ({ data }) => {
-        this.setState({ isAmountLoading: false });
         const overview = Object.create(CovidOverviewModel);
         overview.populate(data);
         this.props.setCovidOverview(overview);
+        this.setState({ isAmountLoading: false });
     };
 
     parseSpendingHighlights = ({
@@ -258,7 +282,7 @@ export class CovidHighlights extends React.Component {
 
     handleHover = throttle(() => {
         if (!this.state.isHoverActive) {
-            this.setState({ isHoverActive: true });
+            this.setState({ isHoverActive: true });5606
         }
     }, 10);
 
@@ -331,13 +355,12 @@ export class CovidHighlights extends React.Component {
                                             </li>
                                         );
                                     }
-                                    const dollarAmount = formatMoneyWithPrecision(highlight.outlay, 0);
                                     return (
                                         <li
                                             key={uniqueId(highlight.description)}
                                             className="covid-highlights__highlight">
                                             <span className="covid-highlight__description">{highlight.description}</span>
-                                            <span className="covid-highlight__amount">{dollarAmount}</span>
+                                            <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
                                             <span>OUTLAYED AMOUT</span>
                                         </li>
                                     );
@@ -354,12 +377,16 @@ export class CovidHighlights extends React.Component {
 
 CovidHighlights.propTypes = propTypes;
 
-const mapStateToProps = (state) => ({
-    totalSpendingAmount: state.covid19.overview._totalOutlays
-});
+const mapStateToProps = (state) => {
+    return {
+        totalSpendingAmount: state.covid19.overview._totalOutlays,
+        defCodes: state.covid19.defCodes
+    };
+}
 
 const mapDispatchToProps = (dispatch) => ({
-    setCovidOverview: (overview) => dispatch(setOverview(overview))
+    setCovidOverview: (overview) => dispatch(setOverview(overview)),
+    setCovidDefCodes: (codes) => dispatch(setDEFCodes(codes))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CovidHighlights);

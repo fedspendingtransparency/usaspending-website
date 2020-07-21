@@ -15,6 +15,7 @@ export const getEmailSocialShareData = {
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
+export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
 
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
