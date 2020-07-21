@@ -9,7 +9,6 @@
         .results-visualization-geo-section {
           position: relative;
           @import "pages/search/results/visualizations/geo/_topSection";
-
           h2.visualization-title {
               @include h3;
               margin: 0;
@@ -31,7 +30,6 @@
       .results-visualization-geo-section {
         position: relative;
         @import "pages/search/results/visualizations/geo/_topSection";
-        
         h2.visualization-title {
             @include h3;
             margin: 0;
@@ -176,8 +174,14 @@
           .visualization-tooltip {
               @import "components/visualizations/tooltip/_tooltip";
               .tooltip {
-                .tooltip-value {
-                  border-bottom: none;
+                .tooltip-body {
+                  padding: 0 ($global-pad * 2);
+                }
+                .tooltip-left {
+                  padding: rem(15) 0;
+                }
+                .tooltip-right {
+                  padding: rem(15) 0;
                 }
               }
           }
