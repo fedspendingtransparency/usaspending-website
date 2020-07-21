@@ -5,9 +5,11 @@
 
 import { snakeCase } from 'lodash';
 import moment from 'moment';
+
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -54,3 +56,9 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
     .format('MMM DD[,] YYYY');
+
+export const getTotalSpendingAbbreviated = (totalSpending) => {
+    const unit = calculateUnitForSingleValue(totalSpending);
+    const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
+    return `${abbreviatedValue} ${unit.longLabel}`;
+};
