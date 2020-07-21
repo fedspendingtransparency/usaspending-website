@@ -210,8 +210,8 @@ export class CovidHighlights extends React.Component {
             this.fetchTotalsRequest.cancel();
         }
         this.fetchTotalsRequest = fetchOverview(this.props.defCodes);
-
-        this.fetchTotalsRequest.promise
+        if (this.props.totalSpendingAmount && this.props.totalSpendingAmount > 0) return Promise.resolve();
+        return this.fetchTotalsRequest.promise
             .then((data) => {
                 this.parseSpendingTotals(data);
                 this.fetchTotalsRequest = null;
@@ -223,7 +223,7 @@ export class CovidHighlights extends React.Component {
             this.fetchDefCodesRequest.cancel();
         }
         this.fetchDefCodesRequest = fetchDEFCodes();
-
+        if (this.props.defCodes.length > 0) return Promise.resolve();
         return this.fetchDefCodesRequest.promise
             .then(({ data: { codes } }) => {
                 const covidCodes = codes
@@ -282,7 +282,7 @@ export class CovidHighlights extends React.Component {
 
     handleHover = throttle(() => {
         if (!this.state.isHoverActive) {
-            this.setState({ isHoverActive: true });5606
+            this.setState({ isHoverActive: true });
         }
     }, 10);
 
