@@ -275,7 +275,7 @@ export const spendingTableSortFields = {
 export const financialAssistanceTabs = [
     {
         internal: 'all',
-        label: 'All Awards'
+        label: 'Awards'
     },
     {
         internal: 'grants',
@@ -298,7 +298,7 @@ export const financialAssistanceTabs = [
 export const awardTypeTabs = [
     {
         internal: 'all',
-        label: 'All Awards'
+        label: 'Awards'
     },
     {
         internal: 'grants',
