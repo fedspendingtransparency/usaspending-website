@@ -311,7 +311,7 @@ export class MapContainer extends React.Component {
                 },
                 awards: {
                     label: `Number of ${awardTypeFilters.find((a) => a.value === this.state.activeFilters.awardType).label}`,
-                    value: data.award_count
+                    value: data.award_count.toLocaleString('en-US')
                 },
                 x: position.x,
                 y: position.y
