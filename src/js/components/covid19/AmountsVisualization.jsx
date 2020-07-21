@@ -145,15 +145,14 @@ const AmountsVisualization = ({
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
             let draw = true;
-            // let theWidth = width - offset.right - amountsPadding.right - amountsPadding.left - obligationRectangleData.width;
-            let theWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0);
+            let adjustedWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0);
             if (overviewData._remainingBalance <= 0) draw = false;
-            if (theWidth < 0) theWidth = 0;
+            if (adjustedWidth < 0) adjustedWidth = 0;
             const data = {
                 draw,
                 x: amountsPadding.left + obligationRectangleData.width,
                 y: startOfChartY + offset.top,
-                width: theWidth,
+                width: adjustedWidth,
                 height: rectangleHeight - (2 * offset.bottom),
                 fill,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
