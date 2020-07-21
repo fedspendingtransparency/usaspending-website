@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    setQuery: PropTypes.func.isRequired,
-    query: PropTypes.string
+    setQuery: PropTypes.func.isRequired
 };
 
-const SearchBar = ({ setQuery, query }) => {
-    const [searchString, setSearchString] = useState(query);
+const SearchBar = ({ setQuery }) => {
+    const [currentSearchTerm, setCurrentSearchTerm] = useState('');
+    const [searchString, setSearchString] = useState('');
 
     const onChange = (e) => {
         setSearchString(e.target.value);
@@ -21,6 +21,7 @@ const SearchBar = ({ setQuery, query }) => {
 
     const onSubmit = () => {
         setQuery(searchString);
+        setCurrentSearchTerm(searchString);
     };
 
     const resetSearch = () => {
@@ -29,7 +30,7 @@ const SearchBar = ({ setQuery, query }) => {
     };
 
     const handleClick = () => {
-        if (searchString && query === searchString) {
+        if (searchString && currentSearchTerm === searchString) {
             resetSearch();
         }
         else {
@@ -49,7 +50,7 @@ const SearchBar = ({ setQuery, query }) => {
                 aria-label="Search"
                 onClick={handleClick}
                 className="search-bar__button">
-                <FontAwesomeIcon icon={(searchString && query === searchString) ? 'times' : 'search'} />
+                <FontAwesomeIcon icon={(searchString && currentSearchTerm === searchString) ? 'times' : 'search'} />
             </button>
         </form>
     );

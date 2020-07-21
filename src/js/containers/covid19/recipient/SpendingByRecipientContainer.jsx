@@ -269,7 +269,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
 
     return (
         <>
-            <SearchBar setQuery={setQuery} query={query} />
+            <SearchBar setQuery={setQuery} />
             {content}
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
