@@ -1,39 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId, delay, throttle, isEqual } from 'lodash';
+import { get, uniqueId, throttle, isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import moment from 'moment';
 
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
 import HeroButton from 'components/homepage/hero/HeroButton';
-
-const TooltipContent = () => (
-    <div className="homepage__covid-19-tt">
-        <h2 className="tooltip__title">COVID 19 Spending Total</h2>
-        <div className="tooltip__text">
-            <p>Tooltip content TBD.</p>
-        </div>
-    </div>
-);
-
-const getTotalSpendingAbbreviated = (totalSpending) => {
-    const unit = calculateUnitForSingleValue(totalSpending);
-    const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
-    return `${abbreviatedValue} ${unit.longLabel}`;
-};
+import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
+import TotalAmount from 'components/homepage/hero/TotalAmount';
 
 const defaultParams = {
-    filter: {
-        def_codes: ["L", "M", "N", "O", "P"],
-        award_type_codes: allDefCAwardTypeCodes
-    },
     pagination: {
         page: 1,
         limit: 100,
@@ -44,71 +26,6 @@ const defaultParams = {
 };
 
 let scrollInterval = null;
-let amountUpdate = null;
-
-const updateSpeedByIndexRange = (index) => {
-    const indexAsInt = index + 1;
-    if (indexAsInt <= 100) return 1;
-    if (indexAsInt <= 200) return 2;
-    if (indexAsInt <= 300) return 4;
-    if (indexAsInt <= 400) return 8;
-    if (indexAsInt <= 425) return 16;
-    if (indexAsInt <= 490) return 32;
-    return 64;
-};
-
-const TotalAmount = ({
-    total,
-    isLoading,
-    className,
-    completeIncrement
-}) => {
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const now = moment();
-        const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
-            amountUpdate = delay(() => {
-                ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
-                if (amount === total) {
-                    console.log('RESULT: ', moment.duration(moment().diff(now)).as('seconds'));
-                }
-                resolve();
-            }, speedOfUpdate);
-        });
-        if (!isLoading) {
-            new Array(500)
-                .fill(0)
-                .reduce((prevPromise, currentValue, currentIndex) => prevPromise
-                    .then(() => {
-                        const divisor = (currentIndex + 1) * 0.002;
-                        return updateAmount(divisor * total, updateSpeedByIndexRange(currentIndex));
-                    }), Promise.resolve())
-                .then(() => {
-                    completeIncrement();
-                });
-        }
-    }, [isLoading, total, completeIncrement]);
-
-    useEffect(() => (
-        () => {
-            if (amountUpdate) {
-                window.clearTimeout(amountUpdate);
-            }
-        }
-    ));
-
-    return (
-        <strong className={className} ref={ref}>$0.00</strong>
-    );
-};
-
-TotalAmount.propTypes = {
-    isLoading: PropTypes.bool,
-    total: PropTypes.number,
-    className: PropTypes.string,
-    completeIncrement: PropTypes.func
-};
 
 const propTypes = {
     totalSpendingAmount: PropTypes.number,
@@ -124,7 +41,6 @@ export class CovidHighlights extends React.Component {
         this.state = {
             isAmountLoading: true,
             areHighlightsLoading: true,
-            // AKA CFDA accounts or w/e
             highlights: [],
             isHoverActive: false,
             page: 1,
@@ -138,45 +54,45 @@ export class CovidHighlights extends React.Component {
     }
 
     componentDidMount() {
-        return Promise.all([
-            this.fetchDefCodes(),
-            this.fetchHighlights()
-                .then(() => {
-                    if (!document.documentMode) {
-                        scrollInterval = window.setInterval(() => {
-                            const newPosition = this.scrollBar.scrollTop + 115;
-                            const maxScroll = this.scrollBar.scrollHeight - 446;
-                            if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                                if (this.state.hasNext) {
-                                    this.fetchHighlights()
-                                        .then(() => {
-                                            if (!this.state.isHoverActive) {
-                                                scrollToY(newPosition, 750, this.scrollBar);
-                                            }
-                                        });
-                                }
-                                else if (!this.state.isHoverActive) {
-                                    scrollToY(0, 750, this.scrollBar);
-                                }
+        return this.fetchDefCodes()
+            .then(() => (
+                this.fetchHighlights()
+            ))
+            .then(() => {
+                if (!document.documentMode) {
+                    scrollInterval = window.setInterval(() => {
+                        const newPosition = this.scrollBar.scrollTop + 115;
+                        const maxScroll = this.scrollBar.scrollHeight - 446;
+                        if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                            if (this.state.hasNext) {
+                                this.fetchHighlights()
+                                    .then(() => {
+                                        if (!this.state.isHoverActive) {
+                                            scrollToY(newPosition, 750, this.scrollBar);
+                                        }
+                                    });
                             }
                             else if (!this.state.isHoverActive) {
-                                scrollToY(newPosition, 750, this.scrollBar);
+                                scrollToY(0, 750, this.scrollBar);
                             }
-                        }, 3000);
-                    }
-                    else {
-                        scrollInterval = window.setInterval(() => {
-                            const currentPosition = this.scrollBar.scrollTop;
-                            const maxScroll = this.scrollBar.scrollHeight - 446;
-                            if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                                if (this.state.hasNext) {
-                                    this.fetchHighlights();
-                                }
+                        }
+                        else if (!this.state.isHoverActive) {
+                            scrollToY(newPosition, 750, this.scrollBar);
+                        }
+                    }, 3000);
+                }
+                else {
+                    scrollInterval = window.setInterval(() => {
+                        const currentPosition = this.scrollBar.scrollTop;
+                        const maxScroll = this.scrollBar.scrollHeight - 446;
+                        if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                            if (this.state.hasNext) {
+                                this.fetchHighlights();
                             }
-                        }, 1000);
-                    }
-                })
-        ])
+                        }
+                    }, 1000);
+                }
+            })
             .catch((e) => {
                 this.setState({
                     isError: true,
@@ -195,14 +111,13 @@ export class CovidHighlights extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.defCodes, this.props.defCodes)) {
+        if (!isEqual(prevProps.defCodes, this.props.defCodes) && this.props.defCodes.length > 0) {
             this.fetchTotals();
         }
     }
 
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
-        window.clearInterval(amountUpdate);
     }
 
     fetchTotals = () => {
@@ -210,7 +125,10 @@ export class CovidHighlights extends React.Component {
             this.fetchTotalsRequest.cancel();
         }
         this.fetchTotalsRequest = fetchOverview(this.props.defCodes);
-        if (this.props.totalSpendingAmount && this.props.totalSpendingAmount > 0) return Promise.resolve();
+        if (this.props.totalSpendingAmount && this.props.totalSpendingAmount > 0) {
+            this.setState({ isAmountLoading: false });
+            return Promise.resolve();
+        }
         return this.fetchTotalsRequest.promise
             .then((data) => {
                 this.parseSpendingTotals(data);
@@ -223,7 +141,10 @@ export class CovidHighlights extends React.Component {
             this.fetchDefCodesRequest.cancel();
         }
         this.fetchDefCodesRequest = fetchDEFCodes();
-        if (this.props.defCodes.length > 0) return Promise.resolve();
+        if (this.props.defCodes.length > 0) {
+            this.setState({ isAmountLoading: false });
+            return Promise.resolve();
+        }
         return this.fetchDefCodesRequest.promise
             .then(({ data: { codes } }) => {
                 const covidCodes = codes
@@ -238,7 +159,10 @@ export class CovidHighlights extends React.Component {
             this.fetchTotalsByCfdaRequest.cancel();
         }
         this.fetchTotalsByCfdaRequest = fetchDisasterSpending('cfda', {
-            ...defaultParams,
+            filter: {
+                def_codes: this.props.defCodes,
+                award_type_codes: allDefCAwardTypeCodes
+            },
             pagination: {
                 ...defaultParams.pagination,
                 page: this.state.hasNext
@@ -326,7 +250,7 @@ export class CovidHighlights extends React.Component {
                                 <div style={{ width: '20px' }}>
                                     <TooltipWrapper
                                         icon="info"
-                                        tooltipComponent={<TooltipContent />} />
+                                        tooltipComponent={<HomePageTooltip />} />
                                 </div>
                             </span>
                         </h1>
@@ -377,12 +301,10 @@ export class CovidHighlights extends React.Component {
 
 CovidHighlights.propTypes = propTypes;
 
-const mapStateToProps = (state) => {
-    return {
-        totalSpendingAmount: state.covid19.overview._totalOutlays,
-        defCodes: state.covid19.defCodes
-    };
-}
+const mapStateToProps = (state) => ({
+    totalSpendingAmount: state.covid19.overview._totalOutlays,
+    defCodes: state.covid19.defCodes
+});
 
 const mapDispatchToProps = (dispatch) => ({
     setCovidOverview: (overview) => dispatch(setOverview(overview)),
