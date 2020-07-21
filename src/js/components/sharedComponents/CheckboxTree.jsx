@@ -196,6 +196,7 @@ export default class CheckboxTree extends Component {
                         displayId={displayId}
                         value={node.isSearchable ? this.highlightText(node.value) : node.value}
                         label={node.isSearchable ? this.highlightText(node.label) : node.label}
+                        subLabel={node.subLabel}
                         countLabel={this.props.countLabel} />
                 ),
             children: node.children
