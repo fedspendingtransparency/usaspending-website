@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { snakeCase } from 'lodash';
 import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -211,7 +210,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: snakeCase(sort),
+                        sort: spendingTableSortFields[sort],
                         order
                     },
                     spending_type: 'award'
