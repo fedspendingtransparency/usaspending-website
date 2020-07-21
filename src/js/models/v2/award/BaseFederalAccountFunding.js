@@ -65,6 +65,7 @@ const BaseFederalAccount = {
 
 Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
     get() {
+        if (this._fundingObligated === 0) return '--';
         return formatMoney(this._fundingObligated);
     }
 });
