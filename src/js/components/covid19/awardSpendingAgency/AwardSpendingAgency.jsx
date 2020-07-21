@@ -19,13 +19,13 @@ const overviewData = [
         label: 'Number of Agencies'
     },
     {
-        type: 'awardOutlays',
-        label: 'Award Outlays',
+        type: 'awardObligations',
+        label: 'Award Obligations',
         dollarAmount: true
     },
     {
-        type: 'awardObligations',
-        label: 'Award Obligations',
+        type: 'awardOutlays',
+        label: 'Award Outlays',
         dollarAmount: true
     },
     {
@@ -150,7 +150,7 @@ const AwardSpendingAgency = () => {
                     <OverviewData
                         key={data.label}
                         {...data}
-                        subtitle={`for all ${activeTab.subtitle}`}
+                        subtitle={`for All ${activeTab.subtitle}`}
                         amount={amounts[data.type]} />
                 ))}
             </div>
