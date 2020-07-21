@@ -163,7 +163,7 @@ export const mapboxSources = {
         layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
-    congressionalDistrict: {
+    district: {
         label: 'congressional district',
         minZoom: 4,
         url: 'mapbox://usaspending.a4bkzui0',

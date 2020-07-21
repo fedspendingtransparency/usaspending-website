@@ -22,7 +22,6 @@ import {
     awardTypeFilters,
     filters,
     logMapLayerEvent,
-    logMapScopeEvent,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -38,14 +37,13 @@ export class MapContainer extends React.Component {
         super(props);
 
         this.state = {
-            scope: 'place_of_performance',
-            mapLayer: 'state',
             rawAPIData: [],
             data: {
                 labels: {},
                 values: [],
                 locations: []
             },
+            scope: 'state',
             activeFilters: {
                 territory: 'state',
                 spendingType: 'obligation',
@@ -53,7 +51,6 @@ export class MapContainer extends React.Component {
                 recipientType: 'all',
                 awardType: 'all'
             },
-            spendingType: 'totalSpending',
             selectedItem: {},
             subAward: false,
             visibleEntities: [],
@@ -78,8 +75,7 @@ export class MapContainer extends React.Component {
         this.mapListeners.push(movedListener);
 
         // log the initial event
-        logMapScopeEvent(this.state.scope);
-        logMapLayerEvent(this.state.mapLayer);
+        logMapLayerEvent(this.state.activeFilters.territory);
     }
 
     componentDidUpdate(prevProps) {
@@ -106,49 +102,46 @@ export class MapContainer extends React.Component {
 
     updateTerritoryFilter = (value) => {
         this.setState(
-            (currentState) => Object.assign(
-                currentState.activeFilters, { territory: value }
-            ),
+            (currentState) => ({
+                activeFilters: Object.assign(
+                    currentState.activeFilters, { territory: value }
+                ),
+                scope: value,
+                renderHash: `geo-${uniqueId()}`,
+                loadingTiles: true
+            }),
             () => this.prepareFetch(true)
         );
     }
     updateSpendingTypeFilter = (value) => {
         this.setState(
-            (currentState) => Object.assign(
-                currentState.activeFilters, { spendingType: value }
-            ),
+            (currentState) => ({
+                activeFilters: Object.assign(
+                    currentState.activeFilters, { spendingType: value }
+                )
+            }),
             () => this.prepareFetch(true)
         );
     }
     updateRecipientTypeFilter = (value) => {
         this.setState(
-            (currentState) => Object.assign(
-                currentState.activeFilters, { recipientType: value }
-            ),
+            (currentState) => ({
+                activeFilters: Object.assign(
+                    currentState.activeFilters, { recipientType: value }
+                )
+            }),
             () => this.prepareFetch(true)
         );
     }
     updateAwardTypeFilter = (value) => {
         this.setState(
-            (currentState) => Object.assign(
-                currentState.activeFilters, { awardType: value }
-            ),
+            (currentState) => ({
+                activeFilters: Object.assign(
+                    currentState.activeFilters, { awardType: value }
+                )
+            }),
             () => this.prepareFetch(true)
         );
-    }
-
-    changeScope = (scope) => {
-        if (scope === this.state.scope) {
-            // scope has not changed
-            return;
-        }
-
-        this.setState({
-            scope
-        }, () => {
-            this.prepareFetch(true);
-            logMapScopeEvent(scope);
-        });
     }
 
     mapLoaded = () => {
@@ -309,17 +302,6 @@ export class MapContainer extends React.Component {
         });
     }
 
-    changeMapLayer = (layer) => {
-        this.setState({
-            mapLayer: layer,
-            renderHash: `geo-${uniqueId()}`,
-            loadingTiles: true
-        }, () => {
-            this.prepareFetch(true);
-            logMapLayerEvent(layer);
-        });
-    }
-
     showTooltip = (geoId, position) => {
         // convert state code to full string name
         const label = this.state.data.labels[geoId];
@@ -407,10 +389,9 @@ export class MapContainer extends React.Component {
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
-                    scope={this.state.mapLayer}
+                    scope={this.state.scope}
                     renderHash={this.state.renderHash}
                     awardTypeFilters={awardTypeFilters}
-                    changeMapLayer={() => {}}
                     showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}
                     filters={this.addOnClickToFilters()}
