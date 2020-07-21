@@ -9,20 +9,19 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
-// import * as SearchHelper from 'helpers/searchHelper';
 import AwardFilterButtons from 'components/covid19/recipient/map/AwardFilterButtons';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
-import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
+import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
 import {
     centerOfMap,
-    // apiScopes,
     awardTypeFilters,
     filters,
     logMapLayerEvent,
-    filtersOnClickHandler
+    filtersOnClickHandler,
+    tooltipLabels
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
@@ -284,10 +283,7 @@ export class MapContainer extends React.Component {
             if (item.shape_code && item.shape_code !== '') {
                 locations.push(item.shape_code);
                 values.push(parseFloat(item[this.amountTypeKey()]));
-                labels[item.shape_code] = {
-                    label: item.display_name,
-                    value: parseFloat(item[this.amountTypeKey()])
-                };
+                labels[item.shape_code] = { ...item };
             }
         });
         return { values, locations, labels };
@@ -304,12 +300,19 @@ export class MapContainer extends React.Component {
 
     showTooltip = (geoId, position) => {
         // convert state code to full string name
-        const label = this.state.data.labels[geoId];
+        const data = this.state.data.labels[geoId];
         this.setState({
             showHover: true,
             selectedItem: {
-                label: label.label,
-                value: label.value,
+                name: data.display_name,
+                amount: {
+                    label: tooltipLabels[this.state.activeFilters.amountType][this.state.activeFilters.spendingType],
+                    value: parseFloat(data[this.amountTypeKey()])
+                },
+                awards: {
+                    label: `Number of ${awardTypeFilters.find((a) => a.value === this.state.activeFilters.awardType).label}`,
+                    value: data.award_count.toLocaleString('en-US')
+                },
                 x: position.x,
                 y: position.y
             }
@@ -398,7 +401,7 @@ export class MapContainer extends React.Component {
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
                     hideTooltip={this.hideTooltip}
-                    tooltip={GeoVisualizationTooltip}
+                    tooltip={RecipientMapTooltip}
                     center={centerOfMap}>
                     {message}
                 </MapWrapper>
