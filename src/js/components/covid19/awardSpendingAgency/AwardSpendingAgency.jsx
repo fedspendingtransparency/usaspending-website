@@ -150,7 +150,7 @@ const AwardSpendingAgency = () => {
                     <OverviewData
                         key={data.label}
                         {...data}
-                        subtitle={`for all ${activeTab.subtitle}`}
+                        subtitle={`for All ${activeTab.subtitle}`}
                         amount={amounts[data.type]} />
                 ))}
             </div>
