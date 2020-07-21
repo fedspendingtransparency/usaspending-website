@@ -13,6 +13,7 @@
             @include justify-content(center);
             font-size: rem(52);
             margin: 0;
+            width: 100%;
             padding: rem(10) rem(0) rem(10) rem(50);
         }
         .usa-dt-modal__close-button {
@@ -109,12 +110,5 @@
                 }
             }
         }
-    }
-}
-
-.stay-in-touch-modal {
-    padding: rem(50) rem(23);
-    .usa-dt-modal__header {
-        height: rem(83);
     }
 }

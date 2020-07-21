@@ -25,7 +25,7 @@ export default class RedirectModal extends React.Component {
                 dialogClass="usa-dt-modal"
                 verticallyCenter
                 escapeExits>
-                <div className="usa-dt-modal">
+                <div className="usa-dt-modal redirect-modal">
                     <div className="usa-dt-modal__header">
                         <button
                             className="usa-dt-modal__close-button"

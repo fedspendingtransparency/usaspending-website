@@ -1,0 +1,9 @@
+.stay-in-touch-modal {
+    padding: rem(50) rem(23);
+    .usa-dt-modal__header {
+        height: rem(83);
+        .usa-dt-modal__title {
+            @include justify-content(flex-start);
+        }
+    }
+}
