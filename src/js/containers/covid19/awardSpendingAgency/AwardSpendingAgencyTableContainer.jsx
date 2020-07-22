@@ -3,7 +3,7 @@
  * Created by James Lee 6/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { snakeCase } from 'lodash';
 import { isCancel } from 'axios';
@@ -15,6 +15,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
+import { scrollIntoView } from '../helpers/scrollHelper';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -115,6 +116,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
     const [request, setRequest] = useState(null);
+    const tableWrapperRef = useRef(null);
+    const paginationRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+    const paginationErrorOrLoadingRef = useRef(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -255,6 +260,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     });
 
+
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
@@ -273,6 +279,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
         fetchSpendingByCategoryCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, document.documentElement.scrollTop);
+    }, [document]);
+
     let message = null;
     if (loading) {
         message = (
@@ -290,7 +304,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -298,12 +312,22 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-            </>
+                <div ref={paginationErrorOrLoadingRef}>
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        limitSelector
+                        resultsText
+                        pageSize={pageSize}
+                        totalItems={totalItems} />
+                </div>
+            </div>
         );
     }
 
     return (
-        <div className="table-wrapper">
+        <div ref={tableWrapperRef} className="table-wrapper">
             <Table
                 expandable
                 rows={results}
@@ -311,14 +335,16 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort}
                 divider={props.subHeading} />
-            <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+            <div ref={paginationRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
         </div>
     );
 };

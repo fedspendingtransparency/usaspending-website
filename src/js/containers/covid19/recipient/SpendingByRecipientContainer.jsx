@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,6 +15,7 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import { scrollIntoView } from '../helpers/scrollHelper';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired
@@ -164,6 +165,10 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
+    const tableWrapperRef = useRef(null);
+    const paginationRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+    const paginationErrorOrLoadingRef = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -223,6 +228,10 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
         fetchSpendingByRecipientCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+    }, [loading, error]);
+
     let message = null;
     if (loading) {
         message = (
@@ -240,7 +249,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
 
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -248,29 +257,39 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-
-            </>
+                <div ref={paginationErrorOrLoadingRef}>
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        limitSelector
+                        resultsText
+                        pageSize={pageSize}
+                        totalItems={totalItems} />
+                </div>
+            </div>
         );
     }
 
     return (
-        <>
-            <div className="table-wrapper">
-                <Table
-                    columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={results}
-                    updateSort={updateSort}
-                    currentSort={{ field: sort, direction: order }} />
+        <div ref={tableWrapperRef}className="table-wrapper">
+            <Table
+                columns={activeTab === 'loans' ? loanColumns : columns}
+                rows={results}
+                updateSort={updateSort}
+                currentSort={{ field: sort, direction: order }} />
+            <div ref={paginationRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
-            <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
-        </>
+        </div>
+
     );
 };
 

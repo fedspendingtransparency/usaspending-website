@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
@@ -20,6 +20,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import Router from 'containers/router/Router';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { scrollIntoView } from '../helpers/scrollHelper';
 
 
 const propTypes = { activeTab: PropTypes.string.isRequired };
@@ -118,6 +119,10 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
+    const tableWrapperRef = useRef(null);
+    const paginationRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+    const paginationErrorOrLoadingRef = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -241,6 +246,14 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
         fetchSpendingByCfdaCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, document.documentElement.scrollTop);
+    }, [document]);
+
     let message = null;
     if (loading) {
         message = (
@@ -258,18 +271,30 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
 
     if (message) {
         return (
-            <CSSTransitionGroup
-                transitionName="table-message-fade"
-                transitionLeaveTimeout={225}
-                transitionEnterTimeout={195}
-                transitionLeave>
-                {message}
-            </CSSTransitionGroup>
+            <div ref={errorOrLoadingWrapperRef}>
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                <div ref={paginationErrorOrLoadingRef}>
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        limitSelector
+                        resultsText
+                        pageSize={pageSize}
+                        totalItems={totalItems} />
+                </div>
+            </div>
         );
     }
 
     return (
-        <>
+        <div ref={tableWrapperRef}>
             <div className="table-wrapper">
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
@@ -277,15 +302,17 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>
-            <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
-        </>
+            <div ref={paginationRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
+        </div>
     );
 };
 

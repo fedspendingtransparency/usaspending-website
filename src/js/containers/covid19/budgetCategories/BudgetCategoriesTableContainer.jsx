@@ -3,7 +3,7 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -22,10 +22,12 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
+import { scrollIntoView } from '../helpers/scrollHelper';
 
 
 const propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    subHeading: PropTypes.string
 };
 
 
@@ -136,6 +138,11 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
     const [request, setRequest] = useState(null);
+    const tableWrapperRef = useRef(null);
+    const paginationRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+    const paginationErrorOrLoadingRef = useRef(null);
+
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
 
@@ -332,6 +339,14 @@ const BudgetCategoriesTableContainer = (props) => {
         fetchBudgetSpendingCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, document.documentElement.scrollTop);
+    }, [document]);
+
     const renderColumns = () => {
         if (props.type && spendingCategory) {
             if (props.type !== 'object_class' && spendingCategory === 'total_spending') {
@@ -390,7 +405,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
                 {spendingViewPicker()}
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
@@ -399,12 +414,22 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-            </>
+                <div ref={paginationErrorOrLoadingRef}>
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        limitSelector
+                        resultsText
+                        pageSize={pageSize}
+                        totalItems={totalItems} />
+                </div>
+            </div>
         );
     }
 
     return (
-        <>
+        <div ref={tableWrapperRef}>
             {spendingViewPicker()}
             <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
                 <Table
@@ -415,15 +440,17 @@ const BudgetCategoriesTableContainer = (props) => {
                     updateSort={updateSort}
                     divider={props.subHeading} />
             </div>
-            <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
-        </>
+            <div ref={paginationRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
+        </div>
     );
 };
 
