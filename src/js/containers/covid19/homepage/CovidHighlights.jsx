@@ -56,7 +56,7 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         return this.fetchDefCodes()
             .then(() => (
-                this.fetchHighlights()
+                Promise.all([this.fetchHighlights(), this.fetchTotals()])
             ))
             .then(() => {
                 if (!document.documentMode) {
@@ -101,18 +101,12 @@ export class CovidHighlights extends React.Component {
             });
     }
 
-    shouldComponentUpdate(prevProps, nextState) {
-        const hoverStateChanged = (nextState.isHoverActive !== this.state.isHoverActive);
-        if (!this.state.isIncrementComplete && hoverStateChanged) {
-            // if we re-render in this case the increment of the total amount will stop and we will display an inaccurate total number.
-            return false;
-        }
-        return true;
-    }
-
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.defCodes, this.props.defCodes) && this.props.defCodes.length > 0) {
-            this.fetchTotals();
+            this.fetchTotals()
+                .then(() => {
+                    this.fetchHighlights();
+                });
         }
     }
 
@@ -123,6 +117,12 @@ export class CovidHighlights extends React.Component {
     fetchTotals = () => {
         if (this.fetchTotalsRequest) {
             this.fetchTotalsRequest.cancel();
+        }
+        if (this.state.isIncrementComplete) {
+            this.setState({ isIncrementComplete: false, isAmountLoading: true });
+        }
+        else {
+            this.setState({ isIncrementComplete: false, isAmountLoading: true });
         }
         this.fetchTotalsRequest = fetchOverview(this.props.defCodes);
         if (this.props.totalSpendingAmount && this.props.totalSpendingAmount > 0) {
