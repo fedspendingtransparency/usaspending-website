@@ -328,3 +328,14 @@ export const awardTypeTabs = [
 
 export const covidColor = '#6E338E';
 export const covidObligatedColor = '#B699C6';
+
+export const mapFilterSortOrderByValue = {
+    states: 0,
+    congressionalDistricts: 1,
+    counties: 2,
+    obligations: 0,
+    faceValueOfLoans: 1,
+    outlays: 2,
+    totalSpending: 0,
+    perCapita: 1
+};

@@ -140,6 +140,10 @@
                       &.hover {
                         border: none;
                       }
+                      &:focus {
+                        outline: none;
+                        box-shadow: none;
+                      }
                       .usa-dt-picker__button-text {
                         @include flex(0 0 auto);
                         margin-right: 0.3rem;
