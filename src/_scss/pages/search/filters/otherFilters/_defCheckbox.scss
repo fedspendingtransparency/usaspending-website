@@ -11,7 +11,7 @@
                 .rct-node:nth-child(n) ol {
                   border-left: none;
                 }
-                .def-checkbox-label--covid  {
+                .rct-node.def-checkbox-label--covid  {
                   &.rct-node-parent > .rct-text {
                     .rct-checkbox {
                       align-self: center;
@@ -31,6 +31,12 @@
                         border: 1px solid #C7C7C7;
                         border-radius: 4px;
                       }
+                    }
+                  }
+                  .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+                    font-weight: $font-bold;
+                    span {
+                      font-weight: $font-normal;
                     }
                   }
                 }
