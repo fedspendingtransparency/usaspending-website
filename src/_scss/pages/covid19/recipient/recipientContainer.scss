@@ -17,7 +17,9 @@
             border-bottom: 0.3rem solid transparent;
             transition: border-bottom .1s ease-in-out;
             &:hover {
-              border-bottom-color: $color-primary-alt-light;
+              &:not(.usa-dt-picker__item) {
+                border-bottom-color: $color-primary-alt-light;
+              }
             }
             &.disabled {
               border: none;
@@ -169,6 +171,7 @@
                       // some styles need to go here to hide the scroll bar in ie
                       -ms-overflow-style: none;
                       .usa-dt-picker__list-item {
+                        border-top: none;
                         .usa-dt-picker__item {
                           font-size: 1.4rem;
                           letter-spacing: 0;

@@ -334,8 +334,8 @@ export const mapFilterSortOrderByValue = {
     congressionalDistricts: 1,
     counties: 2,
     obligations: 0,
-    faceValueOfLoans: 1,
-    outlays: 2,
+    faceValueOfLoans: 2,
+    outlays: 1,
     totalSpending: 0,
     perCapita: 1
 };
