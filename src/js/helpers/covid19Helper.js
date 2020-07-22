@@ -56,7 +56,7 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .map((s) => moment.utc(s.submission_reveal_date))
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
-    .format('MMM DD[,] YYYY');
+    .format('MMMM DD[,] YYYY');
 
 export const getTotalSpendingAbbreviated = (totalSpending) => {
     const unit = calculateUnitForSingleValue(totalSpending);
