@@ -69,7 +69,7 @@
                 background:#F9DEDE;
                 height: rem(45);
                 margin: rem(10) 0;
-                border: rem(1) solid #CD2026;
+                border: rem(1) solid $color-secondary-dark;
                 @include display(flex);
                 @include justify-content(flex-start);
                 @include align-items(center);
