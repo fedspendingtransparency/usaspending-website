@@ -39,9 +39,10 @@ export const DEFTooltip = () => (
            Disaster Emergency Fund (DEF) Code
         </h3>
         <div className="advanced-search-tt__body">
-            <p>
-                <strong>Disaster Emergency Fund (DEF) Code</strong> is an accounting attribute used to track the spending of supplemental funding targeting disasters and emergencies.
-            </p>
+            <p>This filter allows you to find awards funded with Disaster and Emergency Funds.</p>
+            <p>Any award that is funded with Disaster and Emergency Funding is tagged with a Disaster and Emergency Fund Code (DEF Code), which corresponds to the legislative bills which authorized its funding.</p>
+            <p>By selecting DEF Codes in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by those DEF Codes will be displayed in the &quot;Spending by Awards&quot; table.</p>
+            <p>The &quot;COVID-19 Spending Obligations&quot; and &quot;COVID-19 Spending Outlays&quot; columns show specific funding amounts for each award. To view a summary with more information about an award, click on an award ID.</p>
         </div>
     </div>
 );
