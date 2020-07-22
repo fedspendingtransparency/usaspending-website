@@ -158,10 +158,12 @@
                       }
                       .usa-dt-picker__list {
                         z-index: 3;
-                        // some styles need to go here to hide the scroll bar in ie
+                      }
                     }
                     .usa-dt-picker__list {
                       z-index: 3;
+                      // some styles need to go here to hide the scroll bar in ie
+                      -ms-overflow-style: none;
                       .usa-dt-picker__list-item {
                         .usa-dt-picker__item {
                           font-size: 1.4rem;
