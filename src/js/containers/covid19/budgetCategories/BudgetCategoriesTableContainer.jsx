@@ -25,7 +25,8 @@ import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoToolt
 
 
 const propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    onExpand: PropTypes.func
 };
 
 
@@ -402,6 +403,7 @@ const BudgetCategoriesTableContainer = (props) => {
             </>
         );
     }
+    console.log(' Re render Table Container');
 
     return (
         <>
@@ -413,7 +415,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     columns={renderColumns()}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
-                    divider={props.subHeading} />
+                    divider={props.subHeading}
+                    onExpand={props.onExpand} />
             </div>
             <Pagination
                 currentPage={currentPage}

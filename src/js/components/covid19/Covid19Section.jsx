@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { snakeCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

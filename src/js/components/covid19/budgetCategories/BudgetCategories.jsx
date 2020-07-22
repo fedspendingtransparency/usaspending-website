@@ -5,12 +5,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
+const propTypes = { onExpand: PropTypes.func };
 
 const tabs = [
     {
@@ -30,7 +32,7 @@ const tabs = [
     }
 ];
 
-const BudgetCategories = () => {
+const BudgetCategories = ({ onExpand }) => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
 
@@ -87,6 +89,8 @@ const BudgetCategories = () => {
         totalObligations: overview._totalObligations,
         totalOutlays: overview._totalOutlays
     };
+    console.log(' Re render Budget Categories ');
+
 
     return (
         <div className="body__content budget-categories">
@@ -107,10 +111,12 @@ const BudgetCategories = () => {
             <div className="budget-categories__content">
                 <BudgetCategoriesTableContainer
                     type={activeTab}
-                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
+                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
+                    onExpand={onExpand} />
             </div>
         </div>
     );
 };
 
+BudgetCategories.propTypes = propTypes;
 export default BudgetCategories;

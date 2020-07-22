@@ -20,7 +20,8 @@ const propTypes = {
     selectedFy: PropTypes.string,
     pickedYear: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    fixedStickyBreakpoint: PropTypes.number
+    fixedStickyBreakpoint: PropTypes.number,
+    updateSideBarPositions: PropTypes.number
 };
 
 const defaultSectionOffsets = { stickyVerticalOffset: 0 };
@@ -36,13 +37,14 @@ const Sidebar = ({
     selectedFy,
     pickedYear,
     detectActiveSection = false,
-    fixedStickyBreakpoint = null
+    fixedStickyBreakpoint = null,
+    updateSideBarPositions
 }) => {
     // yPosition, in px, of sections referenced in sidebar
     const [sectionPositions, setSectionPositions] = useState([]);
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
-
+    const [activeSection, setActiveSection] = useState(active || sections[0].section);
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
             if (isSidebarSticky && sidebarWidth !== referenceDiv.current.offsetWidth) {
@@ -61,6 +63,7 @@ const Sidebar = ({
     }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
 
     const cacheSectionPositions = throttle(() => {
+        console.log(' Caching ');
         // Measure section positions on windowResize and first render
         const newSectionPositions = sections
             .map((section) => ({ ...defaultSectionOffsets, ...section }))
@@ -90,7 +93,7 @@ const Sidebar = ({
         const windowBottom = windowTop + window.innerHeight;
 
         // determine the section to highlight
-        let nextActiveSection = active;
+        let nextActiveSection = activeSection;
         let bottomSectionVisible = false;
         const visibleSections = [];
 
@@ -154,11 +157,12 @@ const Sidebar = ({
             }
         }
 
-        if (nextActiveSection === active) {
+        if (nextActiveSection === activeSection) {
             // no change
             return;
         }
-        detectActiveSection(nextActiveSection);
+        if (typeof detectActiveSection === 'function') detectActiveSection(nextActiveSection);
+        setActiveSection(nextActiveSection);
     }, 100);
 
     useEffect(() => {
@@ -186,16 +190,30 @@ const Sidebar = ({
         sectionPositions.length
     ]);
 
+    useEffect(() => {
+        if (updateSideBarPositions !== 0) {
+            console.log(' Caching from this ');
+            cacheSectionPositions();
+        }
+    }, [updateSideBarPositions]);
+
+    const jumpToSectionWrapper = (section) => {
+        if (!active) return jumpToSection(section);
+        jumpToSection(section, activeSection);
+        setActiveSection(section);
+    };
+
     const buildItems = (section) => {
         let link = (
             <SidebarLink
                 section={section.section}
                 label={section.label}
-                active={active}
-                onClick={jumpToSection} />
+                active={activeSection}
+                // onClick={jumpToSection}
+                onClick={jumpToSectionWrapper} />
         );
         if (section.url) {
-            const activeClass = active === section.section ? 'active' : '';
+            const activeClass = activeSection === section.section ? 'active' : '';
             link = (
                 <a
                     className={`sidebar-link ${activeClass}`}
