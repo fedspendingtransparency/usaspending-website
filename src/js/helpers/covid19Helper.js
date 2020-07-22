@@ -3,6 +3,7 @@
  * Created By Jonathan Hill 06/02/20
  */
 
+import { useState } from 'react';
 import { snakeCase } from 'lodash';
 import moment from 'moment';
 import { defCodes } from 'dataMapping/covid19/covid19';
@@ -55,3 +56,22 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
     .format('MMMM DD[,] YYYY');
+
+export const useInFlightList = (initialState) => {
+    const [inFlightList, updateInFlightList] = useState(initialState);
+    return [
+        inFlightList,
+        // add
+        (loadingCategory) => {
+            updateInFlightList([...new Set(inFlightList.concat([loadingCategory]))]);
+        },
+        // remove
+        (loadedCategory) => {
+            const newState = inFlightList.filter((item) => item !== loadedCategory);
+            console.log('inflightlist', newState);
+            updateInFlightList(newState);
+        },
+        // reset
+        () => updateInFlightList(initialState)
+    ];
+};

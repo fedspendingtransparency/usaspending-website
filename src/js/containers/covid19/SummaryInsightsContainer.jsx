@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
+import { useInFlightList } from 'helpers/covid19Helper';
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -23,14 +24,15 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
+    const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(
+        overviewData.map((d) => d.type)
+    );
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
-        // Reset any existing counts
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
-
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
@@ -52,6 +54,32 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
         }
     }, [defCodes, activeTab]);
 
+    useEffect(() => {
+        if (!awardOutlays && !awardObligations && !numberOfAwards) {
+            resetInFlight();
+        }
+        else if (inFlightList) {
+            inFlightList.forEach((inFlight) => {
+                if (inFlight === 'awardObligations' && awardObligations) {
+                    removeFromInFlight('awardObligations');
+                }
+                else if (inFlight === 'awardOutlays' && awardOutlays) {
+                    removeFromInFlight('awardOutlays');
+                }
+                else if (inFlight === 'numberOfAwards' && numberOfAwards) {
+                    removeFromInFlight('numberOfAwards');
+                }
+            });
+        }
+    }, [
+        awardOutlays,
+        awardObligations,
+        numberOfAwards,
+        inFlightList,
+        removeFromInFlight,
+        resetInFlight
+    ]);
+
     const amounts = {
         resultsCount,
         awardOutlays,
@@ -71,7 +99,8 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
                     key={data.label}
                     {...data}
                     subtitle={subtitle}
-                    amount={amounts[data.type]} />
+                    amount={amounts[data.type]}
+                    isLoading={inFlightList.includes(data.type)} />
             ))}
         </div>
     );

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { useInFlightList } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
@@ -33,7 +34,10 @@ const overviewData = [
     }
 ];
 
+const initialInFlightState = overviewData.map((d) => d.type);
+
 const SpendingByRecipient = () => {
+    const [inFlightList, addToInFlight, removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
     const [activeTab, setActiveTab] = useState(awardTypeTabs[0].internal);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 

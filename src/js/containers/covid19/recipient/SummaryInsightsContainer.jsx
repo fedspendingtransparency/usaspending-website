@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts, fetchAwardCount, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { useInFlightList } from 'helpers/covid19Helper';
 import OverviewData from 'components/covid19/OverviewData';
 
 const propTypes = {
@@ -35,11 +36,14 @@ const overviewData = [
     }
 ];
 
+const initialInFlightState = overviewData.map((d) => d.type);
+
 const SummaryInsightsContainer = ({ activeFilter }) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfRecipients, setNumberOfRecipients] = useState(null);
+    const [inFlightList, addToInFlight, removeFromInFlight] = useInFlightList(initialInFlightState);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
@@ -88,10 +92,11 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         <div className="overview-data-group">
             {overviewData.map((data) => (
                 <OverviewData
-                    key={data.label}
                     {...data}
+                    key={data.label}
                     subtitle={subtitle}
                     amount={amounts[data.type]} />
+                    // isLoading={categoriesInFlight.includes(data.type)} />
             ))}
         </div>
     );
