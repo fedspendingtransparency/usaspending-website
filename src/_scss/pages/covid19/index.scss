@@ -91,6 +91,10 @@
                             white-space: nowrap;
                         }
                     }
+                    .query-matched {
+                        font-weight: $font-semibold;
+                        text-decoration: underline;
+                    }
                 }
             }
 
@@ -100,6 +104,7 @@
             .body__section {
                 @import "../agency/v2/tabs";
                 @import "./dataSourcesAndMethodology";
+                @import './searchBar';
 
                 @include display(flex);
                 @include flex-wrap(wrap);

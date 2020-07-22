@@ -163,7 +163,7 @@ export const mapboxSources = {
         layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
-    congressionalDistrict: {
+    district: {
         label: 'congressional district',
         minZoom: 4,
         url: 'mapbox://usaspending.a4bkzui0',
@@ -200,3 +200,16 @@ export const visualizationColors = [
     '#3e5c6a',
     '#083546'
 ];
+
+export const tooltipLabels = {
+    totalSpending: {
+        obligation: 'Total Obligations',
+        outlay: 'Total Outlays',
+        face_value_of_loan: 'Total Face Value of Loans'
+    },
+    perCapita: {
+        obligation: 'Obligations Per Capita',
+        outlay: 'Outlays Per Capita',
+        face_value_of_loan: 'Face Value of Loans Per Capita'
+    }
+};
