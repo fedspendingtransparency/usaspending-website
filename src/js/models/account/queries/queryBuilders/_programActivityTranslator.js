@@ -11,10 +11,10 @@ const exchangeTemplate = {
     frontendToAPI: {}
 };
 
-let _frontendAPIExchange = Object.assign({}, exchangeTemplate);
+let _frontendAPIExchange = JSON.parse(JSON.stringify(exchangeTemplate));
 
 export const _resetExchange = () => {
-    _frontendAPIExchange = Object.assign({}, exchangeTemplate);
+    _frontendAPIExchange = JSON.parse(JSON.stringify(exchangeTemplate));
 };
 
 const _exchangeForAPIValue = (frontendId) => _frontendAPIExchange.frontendToAPI[frontendId] || [];

@@ -294,7 +294,22 @@ if (kGlobalConstants.DEV) {
             addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('containers/agency/AgencyContainerV2').default);
+                    cb(require('containers/agency/v2/AgencyContainerV2').default);
+                });
+            }
+        }
+    );
+}
+
+if (kGlobalConstants.CARES_ACT_RELEASED) {
+    routes.routes.push(
+        {
+            path: '/disaster/covid-19',
+            parent: '/disaster',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/covid19/Covid19Container').default);
                 });
             }
         }

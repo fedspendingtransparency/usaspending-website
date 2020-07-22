@@ -1,0 +1,20 @@
+.assistance-listing {
+    @import 'components/moreOptionsTabs';
+    .usda-table {
+        .usda-table__body {
+            tr.usda-table__row {
+                td.usda-table__cell {
+                    &:first-of-type {
+                        .fa-external-link-alt {
+                            margin-left: rem(5);
+                        }
+                    }
+                    .assistance-listing__button {
+                        @include button-link;
+                        font-size: 1.8rem;
+                    }
+                }
+            }
+        }
+    }
+}

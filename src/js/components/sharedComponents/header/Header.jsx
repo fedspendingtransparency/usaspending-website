@@ -15,7 +15,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export const twentyNineteenFiscalDataCookie = 'usaspending_2019_fiscal_data';
+export const CovidHomepageCookie = 'usaspending_covid_homepage';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -29,14 +29,13 @@ export default class Header extends React.Component {
         this.closeBanner = this.closeBanner.bind(this);
     }
     componentWillMount() {
-        // To Show Banner Uncomment the code below.
         // check if the info banner cookie exists
-        // if (!Cookies.get(twentyNineteenFiscalDataCookie)) {
-        //     // cookie does not exist, show the banner
-        //     this.setState({
-        //         showInfoBanner: true
-        //     });
-        // }
+        if (!Cookies.get(CovidHomepageCookie)) {
+            // cookie does not exist, show the banner
+            this.setState({
+                showInfoBanner: true
+            });
+        }
     }
     skippedNav(e) {
         // don't update the URL due to potential React Router conflicts

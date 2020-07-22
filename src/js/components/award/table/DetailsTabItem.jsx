@@ -54,7 +54,11 @@ export default class DetailsTabItem extends React.Component {
         let infoTooltip = null;
         if (this.props.tooltipContent) {
             infoTooltip = (
-                <TooltipWrapper className="award-section-tt" icon="info" tooltipComponent={this.props.tooltipContent} {...this.props.tooltipProps} />);
+                <TooltipWrapper
+                    className="award-section-tt"
+                    icon="info"
+                    tooltipComponent={this.props.tooltipContent}
+                    {...this.props.tooltipProps} />);
         }
 
         let count = null;
@@ -68,7 +72,9 @@ export default class DetailsTabItem extends React.Component {
         }
 
         return (
-            <button
+            <div
+                role="button"
+                onKeyDown={this.clickedButton}
                 className={`table-type-toggle ${activeClass}${status}`}
                 onClick={this.clickedButton}
                 title={`Show ${this.props.label}`}
@@ -79,7 +85,7 @@ export default class DetailsTabItem extends React.Component {
                     {count}
                 </div>
                 {infoTooltip}
-            </button>
+            </div>
         );
     }
 }

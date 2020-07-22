@@ -6,6 +6,7 @@
 export const mockRecipientOverview = {
     recipient_id: '0123456-ABC-P',
     name: 'The ABC Corporation',
+    alternateNames: ['The ABC Corp', 'ABC Corporation, The'],
     duns: '0123456',
     parent_name: 'The XYZ Corporation',
     parent_duns: '0987654',
@@ -22,7 +23,11 @@ export const mockRecipientOverview = {
     business_types: ['minority_owned_business', 'higher_education'],
     total_transaction_amount: 30020000000,
     total_transactions: 327721,
-    recipient_level: 'P'
+    recipient_level: 'P',
+
+    // TODO: update the below face value loan variable names once backend creates them
+    total_face_value_loan_amount: 123123123,
+    total_face_value_loan_transactions: 2
 };
 
 export const mockChildRecipients = [

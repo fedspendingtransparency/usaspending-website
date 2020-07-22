@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { isEqual, pick, findKey } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
-import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
+import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
 import ReferencedAwardsSection from 'components/award/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {
@@ -62,7 +62,7 @@ export class ReferencedAwardsContainer extends React.Component {
                 grandchild_awards: 'desc'
             },
             tableTypes,
-            inFlight: true,
+            inFlight: false,
             error: false,
             results: []
         };
@@ -81,11 +81,11 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) {
+        if ((this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) && this.props.award.counts) {
             this.pickDefaultTab();
         }
 
-        if (this.props.tableType !== prevProps.tableType) this.loadResults();
+        if (this.props.tableType !== prevProps.tableType && this.props.award.counts) this.loadResults();
     }
 
     componentWillUnmount() {

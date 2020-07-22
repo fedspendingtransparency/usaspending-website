@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
+import BaseContractTransaction from 'models/v2/award/transactions/BaseContractTransaction';
 import { TransactionsTableContainer } from 'containers/award/table/TransactionsTableContainer';
 
 import mockContractTransaction from '../mockContractTransaction';

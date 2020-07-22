@@ -1,0 +1,69 @@
+.def-code-filter {
+    .def-checkbox-tree {
+        .react-checkbox-tree {
+            ol {
+                border-left: none;
+                padding-left: rem(34);
+                padding-right: rem(5);
+                .rct-collapse.rct-collapse-btn {
+                    display: none;
+                }
+                .rct-node:nth-child(n) ol {
+                  border-left: none;
+                }
+                .def-checkbox-label--covid  {
+                  &.rct-node-parent > .rct-text {
+                    .rct-checkbox {
+                      align-self: center;
+                    }
+                    .rct-title .checkbox-tree-label {
+                      width: auto;
+                      .checkbox-tree-label__value-container {
+                        display: none;
+                      }
+                      .checkbox-tree-label__label {
+                        background: $color-disaster-covid-19;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        padding: 5px 10px;
+                        font-size: 16px;
+                        border: 1px solid #C7C7C7;
+                        border-radius: 4px;
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    @import '../../../../elements/filters/selectedFilterBtn';
+    .selected-filters {
+      background: #E4E4E4;
+      padding: rem(10);
+      margin-bottom: rem(10);
+      width: 100%;
+      .shown-filter-button {
+        line-height: rem(15);
+        font-size: rem(12);
+        color: #5B616B;
+        .close {
+          color: #5B616B;
+        }
+        &:hover {
+          outline: none;
+          border: rem(1) solid $color-gray-lighter;
+          & .close {
+            color: #5B616B;
+            outline: none;
+          }
+        }
+        &:focus {
+          outline: none;
+          & .close {
+            outline: none;
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,52 @@
+.psc-checkbox {
+    padding: rem(12);
+    @import '../../tooltips';
+    .checkbox-header {
+      padding-top: rem(10);
+    }
+    .autocomplete__input {
+        width: 100%;
+        padding: rem(10) 0;
+        position: relative;
+        input {
+            width: 100%;
+        }
+        .icon {
+          @include flex(0 0 auto);
+          position: absolute;
+          width: rem(15);
+          height: rem(15);
+          right: rem(15);
+          top: rem(15);
+        }
+    }
+    @import '../../../../elements/filters/selectedFilterBtn';
+    .selected-filters {
+      background: #E4E4E4;
+      padding: rem(10);
+      margin-bottom: rem(10);
+      width: 100%;
+      .shown-filter-button {
+        line-height: rem(15);
+        font-size: rem(12);
+        color: #5B616B;
+        .close {
+          color: #5B616B;
+        }
+        &:hover {
+          outline: none;
+          border: rem(1) solid $color-gray-lighter;
+          & .close {
+            color: #5B616B;
+            outline: none;
+          }
+        }
+        &:focus {
+          outline: none;
+          & .close {
+            outline: none;
+          }
+        }
+      }
+    }
+}

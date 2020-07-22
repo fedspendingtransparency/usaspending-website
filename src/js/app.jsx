@@ -11,6 +11,10 @@ import {
     faBook,
     faBuilding,
     faCalendarAlt,
+    faCaretDown,
+    faCaretLeft,
+    faCaretRight,
+    faCaretUp,
     faChartArea,
     faChartBar,
     faChartPie,
@@ -19,8 +23,11 @@ import {
     faChevronDown,
     faChevronUp,
     faChevronRight,
+    faCubes,
     faEllipsisH,
+    faExclamationTriangle,
     faExternalLinkAlt,
+    faHandHoldingMedical,
     faHandsHelping,
     faInfo,
     faInfoCircle,
@@ -29,6 +36,7 @@ import {
     faMapMarkerAlt,
     faMinusSquare,
     faPencilAlt,
+    faPlusCircle,
     faSearch,
     faSitemap,
     faSpinner,
@@ -41,7 +49,8 @@ import {
     faShareAlt,
     faEnvelope,
     faLink,
-    faExclamationCircle
+    faExclamationCircle,
+    faDownload
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -62,6 +71,10 @@ library.add(
     faBook,
     faBuilding,
     faCalendarAlt,
+    faCaretDown,
+    faCaretLeft,
+    faCaretRight,
+    faCaretUp,
     faChartArea,
     faChartBar,
     faChartPie,
@@ -70,8 +83,11 @@ library.add(
     faChevronDown,
     faChevronUp,
     faChevronRight,
+    faCubes,
     faEllipsisH,
+    faExclamationTriangle,
     faExternalLinkAlt,
+    faHandHoldingMedical,
     faHandsHelping,
     faInfo,
     faInfoCircle,
@@ -80,6 +96,7 @@ library.add(
     faMapMarkerAlt,
     faMinusSquare,
     faPencilAlt,
+    faPlusCircle,
     faSearch,
     faSitemap,
     faSpinner,
@@ -92,7 +109,8 @@ library.add(
     faShareAlt,
     faEnvelope,
     faLink,
-    faExclamationCircle
+    faExclamationCircle,
+    faDownload
 );
 
 const appDiv = document.getElementById('app');

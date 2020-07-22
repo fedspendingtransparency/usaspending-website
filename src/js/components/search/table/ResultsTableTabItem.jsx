@@ -16,7 +16,8 @@ const propTypes = {
     enabled: PropTypes.bool,
     switchTab: PropTypes.func,
     hideCounts: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    tooltip: PropTypes.element
 };
 
 export default class ResultsTableTabItem extends React.Component {
@@ -58,21 +59,24 @@ export default class ResultsTableTabItem extends React.Component {
         }
         const className = `table-type-toggle${activeClass} ${this.props.className}`;
         return (
-            <button
+            <div
                 className={className}
                 onClick={this.clickedTab}
+                onKeyDown={this.clickedTab}
                 role="menuitemradio"
                 aria-checked={this.props.active}
                 title={`Show ${this.props.label}`}
                 aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
+                tabIndex={0}
                 disabled={disabledStatus}>
                 <div className="tab-content">
                     <div className="tab-label">
                         {this.props.label}
                     </div>
                     {count}
+                    {this.props.tooltip}
                 </div>
-            </button>
+            </div>
         );
     }
 }

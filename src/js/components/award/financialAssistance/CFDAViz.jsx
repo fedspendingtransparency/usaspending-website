@@ -6,11 +6,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Picker } from 'data-transparency-ui';
+import { cloneDeep } from 'lodash';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
+import {
+    calculateUnitForSingleValue,
+    formatMoneyWithPrecision,
+    formatMoney
+} from 'helpers/moneyFormatter';
+import { RectanglePercentVizTooltip } from './RectanglePercentVizTooltip';
+import RectanglePercentViz from './RectanglePercentViz';
 import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
 import CFDATreeTooltip from './CFDATreeTooltip';
+
+const numeratorColor = "#1b4956";
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -21,6 +33,7 @@ const propTypes = {
     order: PropTypes.string,
     total: PropTypes.number,
     allCFDAs: PropTypes.array,
+    awardTotalObligation: PropTypes.number,
     currentPageCFDAs: PropTypes.array,
     cfda: PropTypes.object,
     view: PropTypes.string,
@@ -29,8 +42,11 @@ const propTypes = {
     changeView: PropTypes.func,
     onTableClick: PropTypes.func,
     onBackClick: PropTypes.func,
-    onTreeClick: PropTypes.func
+    onTreeClick: PropTypes.func,
+    onDropdownClick: PropTypes.func
 };
+
+const sortFunction = (a, b) => parseFloat(a.cfdaNumber) - parseFloat(b.cfdaNumber);
 
 export default class CFDAViz extends React.Component {
     constructor(props) {
@@ -97,7 +113,98 @@ export default class CFDAViz extends React.Component {
     content = () => {
         const { view } = this.props;
         if (view === 'table') return (<CFDATable {...this.props} />);
-        if (view === 'single' || !view) return (<SingleCFDA data={this.props.cfda} />);
+        if (view === 'single' || !view) return (<SingleCFDA currentCfda={this.props.cfda} />);
+        return null;
+    }
+
+    title = () => {
+        const {
+            cfda,
+            view,
+            allCFDAs,
+            onDropdownClick
+        } = this.props;
+        if (view === 'single' || !view) {
+            if (allCFDAs.length > 1) {
+                const options = cloneDeep(allCFDAs)
+                    .sort((a, b) => parseFloat(a.cfdaNumber) - parseFloat(b.cfdaNumber))
+                    .map((x) => ({
+                        name: `${x.cfdaNumber} ${x.cfdaTitle}`,
+                        onClick: onDropdownClick
+                    }));
+                return (<Picker
+                    options={options}
+                    dropdownDirection="right"
+                    backgroundColor="#215493"
+                    selectedOption={`${cfda.cfdaNumber} ${cfda.cfdaTitle}`}
+                    sortFn={sortFunction} />);
+            }
+            return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
+        }
+        return null;
+    }
+
+    chart = () => {
+        const {
+            view,
+            awardTotalObligation,
+            cfda,
+            allCFDAs
+        } = this.props;
+        const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
+        const showSingleCFDAVis = (view === 'single' || !view) && (allCFDAs.length > 1);
+        const numeratorTitle = 'Total Funding From This CFDA Program';
+        const denominatorTitle = 'Total Funding From All CFDA Programs';
+        const numerator = {
+            rawValue: cfda._federalActionOblicationAmount,
+            value: cfda.federalActionOblicationAmountShort,
+            text: numeratorTitle,
+            color: numeratorColor,
+            labelPosition: 'top',
+            className: 'cfda-viz',
+            tooltipData: {
+                className: "award-amounts-tt__wrapper",
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    amount={cfda.federalActionOblicationAmount}
+                    title={numeratorTitle} />
+            }
+        };
+        const denominator = {
+            rawValue: awardTotalObligation,
+            labelPosition: 'bottom',
+            className: 'cfda-viz',
+            value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
+            text: denominatorTitle,
+            color: '#FFF',
+            tooltipData: {
+                className: 'award-amounts-tt__wrapper',
+                offsetAdjustments: {
+                    top: -7
+                },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    amount={formatMoney(awardTotalObligation)}
+                    title={denominatorTitle} />
+            }
+        };
+        if (showSingleCFDAVis) {
+            if (
+                !cfda._federalActionOblicationAmount ||
+                !awardTotalObligation ||
+                cfda._federalActionOblicationAmount.toString().startsWith('-') ||
+                awardTotalObligation.toString().startsWith('-')
+            ) {
+                return (
+                    <div className="results-table-message-container">
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                    </div>);
+            }
+            return (<RectanglePercentViz
+                numerator={numerator}
+                denominator={denominator}
+                percentage={cfda.percentOfTotal} />
+            );
+        }
         return null;
     }
 
@@ -146,6 +253,8 @@ export default class CFDAViz extends React.Component {
                 {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
                 <div className="cfda-section-results">
                     {this.buttons()}
+                    {this.title()}
+                    {this.chart()}
                     {this.content()}
                     <div
                         className="cfda-section-vis__width-reference"

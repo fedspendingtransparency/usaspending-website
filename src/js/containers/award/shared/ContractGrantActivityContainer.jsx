@@ -4,6 +4,7 @@ import moment from 'moment';
 import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
+import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
@@ -14,18 +15,27 @@ import {
     contractActivityGrants,
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
+import JumpToSectionButton from 'components/award/shared/awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     awardId: PropTypes.string,
     awardType: PropTypes.string,
-    dates: PropTypes.object
+    dates: PropTypes.object,
+    totalObligation: PropTypes.number,
+    jumpToTransactionHistoryTable: PropTypes.func
 };
 
-const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
+const ContractGrantActivityContainer = ({
+    awardId,
+    awardType,
+    dates,
+    totalObligation,
+    jumpToTransactionHistoryTable
+}) => {
     // bad dates
     const [badDates, setBadDates] = useState(false);
     // loading
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     // transactions
     const [transactions, updateTransactions] = useState([]);
     // errors
@@ -33,6 +43,33 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
     // requests
     const request = useRef(null);
     const hasNext = useRef(true);
+    let previousRunningObligationTotalToDate = 0;
+    const createTransactionsRunningTotalObligationToDateAndSort = (data, runningObligationTotal) => {
+        const sortedTransactionsByModificationNumber = data.sort((a, b) => parseInt(a.modification_number ? a.modification_number.replace(/\D/g, '') : '', 10) - parseInt(b.modification_number ? b.modification_number.replace(/\D/g, '') : '', 10));
+        return sortedTransactionsByModificationNumber.map((transaction, i) => {
+            if (i === 0) previousRunningObligationTotalToDate = runningObligationTotal;
+            const t = transaction;
+            t.running_obligation_total_to_date = previousRunningObligationTotalToDate + t.federal_action_obligation;
+            previousRunningObligationTotalToDate = t.running_obligation_total_to_date;
+            return t;
+        });
+    };
+        /**
+     * Since we have multiple transactions on the same day and we wont know the total for
+     * a transaction until format transactions has run its course we run through all transactions
+     * again to set every transaction on the same day to the total for the day
+     */
+    const addRunningObligationTotalToChildren = (data) => data.map((info) => {
+        const aTransaction = info;
+        if (aTransaction.allTransactionsOnTheSameDate.length > 1) {
+            aTransaction.allTransactionsOnTheSameDate = info.allTransactionsOnTheSameDate.map((t) => {
+                const newTransaction = t;
+                newTransaction.running_obligation_total_to_date = info.running_obligation_total;
+                return newTransaction;
+            });
+        }
+        return aTransaction;
+    });
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -42,43 +79,58 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
      */
     const formatTransactions = (rawTransactions) => {
         // Reduce into unique transaction objects
-        let newData = rawTransactions.reduce((acc, data) => {
-            const updatedData = { ...data };
-            updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
-            const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
-            /**
-             * When we have multiple transactions on the same day, we will sum their obligation and
-             * we will keep track of all the transactions on the same date for the tooltips in the
-             * allTransactions property.
-             */
-            if (currentTransactionIndex !== -1) {
-                // update the allTransactions array if it exists
-                if (acc[currentTransactionIndex]?.allTransactions) {
-                    acc[currentTransactionIndex].allTransactions.push(updatedData);
-                }
-                else {
-                    /**
-                     * The first duplicate found.
-                     * We will add the duplicate which is this data, and we will add the
-                     * original node which is acc[currentTransactionIndex].
-                     */
-                    const clonedTransaction = cloneDeep(acc[currentTransactionIndex]);
-                    acc[currentTransactionIndex].allTransactions = [clonedTransaction, updatedData];
+        let newData = rawTransactions
+            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
+            .reduce((acc, data) => {
+                const updatedData = { ...data };
+                updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
+                const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
+                /**
+                 * When we have multiple transactions on the same day, we will sum their obligation and
+                 * we will keep track of all the transactions on the same date for the tooltips in the
+                 * allTransactions property.
+                 */
+                if (currentTransactionIndex !== -1) {
+                    // we have a transaction with a duplicate date so we add it to all transactions
+                    acc[currentTransactionIndex].allTransactionsOnTheSameDate.push(updatedData);
+                    const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
+                    acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
+                    return acc;
                 }
                 /**
-                 * We sum the obligation last since we will want to keep the original obligation
-                 * value if we add it to the allTransactions array.
+                 * Here we have a transaction that has a unique date.
+                 * We will create the all transactions property and add itself to it
+                 * then add it to the acc
                  */
-                const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
-                acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
+                const originalData = cloneDeep(updatedData);
+                updatedData.allTransactionsOnTheSameDate = [originalData];
+                acc.push(updatedData);
                 return acc;
-            }
-            acc.push(updatedData);
-            return acc;
-        }, []);
-        // remove negative values
-        newData = newData.filter((data) => !data.federal_action_obligation.toString().startsWith('-'));
-        return newData;
+            }, []);
+        // remove negative values or data with no dates
+        let previousRunningObligationTotal = 0;
+        newData = newData
+            .filter((data) => !isNaN(data.action_date.valueOf()))
+            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
+            .map((data, i) => {
+                const updatedData = data;
+                // handles missing federal action obligation
+                if (!updatedData.federal_action_obligation) updatedData.federal_action_obligation = 0;
+                if (i === 0) { // first one do not sum
+                    updatedData.running_obligation_total = data.federal_action_obligation;
+                    previousRunningObligationTotal = data.federal_action_obligation;
+                    // sort and add running obligation to each transaction
+                    updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, 0);
+                    return updatedData;
+                }
+                const total = previousRunningObligationTotal + data.federal_action_obligation;
+                updatedData.running_obligation_total = total;
+                // sort and add running obligation to each transaction
+                updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, previousRunningObligationTotal);
+                previousRunningObligationTotal = total;
+                return updatedData;
+            });
+        return addRunningObligationTotalToChildren(newData);
     };
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
@@ -146,19 +198,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
             if (hasNext.current) hasNext.current = false;
         };
     }, [getTransactions, awardId]);
-    // hook - run on mount and if award changes
+    // Bad Data - hook - run on mount and if award changes
     useEffect(() => {
-        if (!dates) setBadDates(true);
-        const { startDate, endDate, potentialEndDate } = dates;
-        if (awardType === 'grants') {
-            if (!startDate || !endDate) setBadDates(true);
-        }
-        if (awardType === 'contract') {
-            if (!startDate || !potentialEndDate) setBadDates(true);
-        }
+        setBadDates(areTransactionDatesOrAwardAmountsInvalid(dates, awardType, transactions));
     }, [
         dates,
-        awardType
+        awardType,
+        transactions
     ]);
     /**
      * title
@@ -200,7 +246,8 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
                 <ContractGrantActivity
                     transactions={transactions}
                     dates={dates}
-                    awardType={awardType} />
+                    awardType={awardType}
+                    totalObligation={totalObligation} />
             );
         }
         return null;
@@ -227,13 +274,18 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
                         className="award-section-tt"
                         icon="info"
                         wide
-                        tooltipComponent={tooltipInfo()} />
+                        tooltipComponent={tooltipInfo()}
+                        tooltipPosition="right" />
                 </div>
                 <hr />
                 <div className="results-table-message-container">
                     {message()}
                 </div>
                 {content()}
+                <JumpToSectionButton
+                    linkText="View transactions table"
+                    icon="table"
+                    onClick={jumpToTransactionHistoryTable} />
             </div>
         </div>
     );

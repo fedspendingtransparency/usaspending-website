@@ -4,14 +4,39 @@
 		margin: rem(5) 0;
         font-weight: $font-semibold;
         font-size: rem(36);
-	}
+    }
+    .recipient-overview__alternate-names-button {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include align-items(center);
+        @include button-unstyled;
+        color: $color-primary;
+        padding: rem(5);
+        svg {
+            height: rem(15);
+            width: rem(15);
+            fill: $color-primary;
+        }
+        &:hover {
+            color: $color-primary-darker;
+            svg {
+                fill: $color-primary-darker;
+            }
+        }
+    }
 	.recipient-overview__content {
 		h3.recipient-overview__heading {
 			@include h4;
 			font-size: rem(19);
 			font-weight: 600;
 			margin: 0;
-		}
+        }
+        h5.recipient-overview__heading-subset {
+            @include h5;
+            font-size: $small-font-size;
+            font-weight: 600;
+            margin: 0;
+        }
         .recipient-overview__parent {
             font-size: $small-font-size;
 			@import "components/visualizations/tooltip/_csstooltip.scss";
@@ -133,7 +158,7 @@
             }
         }
 
-		@import "pages/state/overview/totals";
+        @import "pages/state/overview/totals";
 		@import "pages/state/overview/details";
 	}
 }

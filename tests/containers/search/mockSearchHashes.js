@@ -26,15 +26,15 @@ export const mockFilters = {
             selectedRecipientLocations: {},
             awardAmounts: {},
             timePeriodEnd: null,
-            naicsCodes: { require: [], exclude: [], counts: [] },
             selectedCFDA: {},
-            selectedNAICS: {},
-            selectedPSC: {},
             pricingType: [],
             setAside: [],
             extentCompeted: [],
-            federalAccounts: [],
-            treasuryAccounts: []
+            treasuryAccounts: [],
+            naicsCodes: { require: [], exclude: [], counts: [] },
+            tasCodes: { require: [], exclude: [], counts: [] },
+            pscCodes: { require: [], exclude: [], counts: [] },
+            defCodes: { require: [], exclude: [], counts: [] }
         }
     }
 };

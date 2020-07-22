@@ -1,0 +1,40 @@
+.sticky-header__toolbar {
+    .sticky-header__toolbar-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: rem(0) rem(10);
+        .usa-dt-picker {
+            background: #4a4a4a;
+            .usa-dt-picker__list {
+                width: rem(140);
+                z-index: 1;
+                .usa-dt-picker__item {
+                    padding-right: rem(10);
+                }
+                span {
+                    margin-left: rem(10);
+                }
+            }
+        }
+        .sticky-header__button,
+        .usa-dt-picker__button {
+            border-radius: rem(1.8);
+            color: $color-primary;
+            background-color: #D6D7D9;
+            padding: 0;
+            margin: 0;
+            width: rem(40);
+            height: rem(25);
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+        }
+        &:nth-of-type(1) {
+            margin-left: 0;
+        }
+    }
+    
+    @import "../../../components/picker";
+}

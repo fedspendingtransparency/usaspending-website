@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber } from 'helpers/moneyFormatter';
 
+import GlobalConstants from "GlobalConstants";
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
@@ -50,12 +51,19 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
+        const showCaresActViz = (
+            GlobalConstants.CARES_ACT_RELEASED
+        );
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                <AwardAmountsChart awardOverview={awardAmounts} awardType="idv" spendingScenario={spendingScenario} />
+                <AwardAmountsChart
+                    showCaresActViz={showCaresActViz}
+                    awardOverview={awardAmounts}
+                    awardType="idv"
+                    spendingScenario={spendingScenario} />
                 <div className="award-amounts-children__data-wrapper">
                     <div className="award-amounts-children__data-content">
                         <div>Count of Total Award Orders</div>
@@ -72,8 +80,21 @@ export default class AggregatedAwardAmounts extends React.Component {
                         <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
                     </div>
                 </div>
-                <JumpToSectionButton linkText="View award orders table" onClick={this.jumpToReferencedAwardsTable} icon="table" />
-                <AwardAmountsTable awardAmountType="idv_aggregated" awardData={awardAmounts} spendingScenario={spendingScenario} />
+                <JumpToSectionButton
+                    linkText="View award orders table"
+                    onClick={this.jumpToReferencedAwardsTable}
+                    icon="table" />
+                <AwardAmountsTable
+                    awardAmountType="idv_aggregated"
+                    showFileC={(
+                        showCaresActViz &&
+                        (
+                            awardAmounts._fileCObligated !== 0 ||
+                            awardAmounts._fileCOutlay !== 0
+                        )
+                    )}
+                    awardData={awardAmounts}
+                    spendingScenario={spendingScenario} />
             </div>
         );
     }

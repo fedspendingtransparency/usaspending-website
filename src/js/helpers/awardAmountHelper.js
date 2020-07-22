@@ -4,7 +4,7 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/awards/awardAmountsSection';
+import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/award/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options
@@ -88,7 +88,21 @@ export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null)
 
     return 'insufficientData';
 };
+
+export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
+    const { _fileCOutlay, _fileCObligated } = awardAmountObj;
+    if (_fileCObligated === 0 && _fileCOutlay === 0) return 'normal';
+    const spendingCategoriesToConsider = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
+    const fileCScenario = spendingCategoriesToConsider
+        .reduce((scenario, spendingCategory) => {
+            if (scenario !== 'normal') return scenario;
+            return determineSpendingScenario(_fileCOutlay, _fileCObligated, spendingCategory);
+        }, 'normal');
+    return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
+};
+
 export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) => {
+    if (determineFileCSpendingScenario(awardType, awardAmountObj) !== 'normal') return 'insufficientData';
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);
     }
@@ -98,4 +112,3 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) 
 };
 
 export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
-

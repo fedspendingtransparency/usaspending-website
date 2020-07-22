@@ -1,20 +1,20 @@
 import { List } from 'immutable';
 
-import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer/naicsReducer';
+import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer';
 import * as naicsActions from 'redux/actions/search/naicsActions';
 
-import * as mockData from "../../../containers/search/filters/naics/mockNaics_v2";
+import * as mockData from "../../../containers/search/filters/naics/mockNAICS";
 
 describe('Naics Reducer', () => {
     describe('redux.naics.naics', () => {
         it('should set initial state', () => {
             const nodes = mockData.placeholderNodes;
-            const action = { payload: nodes, type: 'SET_NAICS' };
+            const action = { payload: nodes, type: 'SET_NAICS_NODES' };
             const updatedNaics = naicsReducer(initialState, action).naics.toJS();
             expect(updatedNaics[0].label).toEqual('Agriculture, Forestry, Fishing and Hunting');
         });
         it('should update specific parent when passed the key for it', () => {
-            const actionObj = naicsActions.setNaics('11', [mockData.reallyBigTree[0]]);
+            const actionObj = naicsActions.setNaicsNodes('11', [mockData.reallyBigTree[0]]);
             const currentState = { ...initialState, naics: new List(mockData.placeholderNodes) };
             const updatedNaics = naicsReducer(currentState, actionObj).naics.toJS();
             // populates the children for the specified key
@@ -26,48 +26,29 @@ describe('Naics Reducer', () => {
                 expect(Object.keys(child).includes('label')).toBe(true);
                 expect(Object.keys(child).includes('value')).toBe(true);
             });
+            expect(updatedNaics[1].children.length).toEqual(1);
         });
     });
-    describe('other properties under naics keyspace do not and cannot have duplicate values', () => {
+    describe('other properties under naics key-space do not and cannot have duplicate values', () => {
         it('naics.expanded: no duplicates', () => {
-            const action = { payload: ['11', '11', '1111'], type: 'SET_EXPANDED' };
+            const action = { payload: ['11', '11', '1111'], type: 'SET_EXPANDED_NAICS' };
             const updatedExpanded = naicsReducer(initialState, action).expanded.toJS();
             expect(updatedExpanded).toEqual(["11", "1111"]);
         });
         it('naics.checked: no duplicates', () => {
-            const action = { payload: ['11', '11', '1111'], type: 'SET_CHECKED' };
+            const action = { payload: ['11', '11', '1111'], type: 'SET_CHECKED_NAICS' };
             const updatedChecked = naicsReducer(initialState, action).checked.toJS();
             expect(updatedChecked).toEqual(['11', '1111']);
         });
         it('naics.unchecked: no duplicates', () => {
-            const action = { payload: ['11', '11', '1111'], type: 'SET_UNCHECKED' };
+            const action = { payload: ['11', '11', '1111'], type: 'SET_UNCHECKED_NAICS' };
             const updatedUncheck = naicsReducer(initialState, action).unchecked.toJS();
             expect(updatedUncheck).toEqual(['11', '1111']);
         });
         it('naics.searchExpanded: no duplicates', () => {
-            const action = { payload: ['11', '11', '1111'], type: 'SET_SEARCHED_EXPANDED' };
+            const action = { payload: ['11', '11', '1111'], type: 'SET_SEARCHED_EXPANDED_NAICS' };
             const updatedSearchExpanded = naicsReducer(initialState, action).searchExpanded.toJS();
             expect(updatedSearchExpanded).toEqual(['11', '1111']);
         });
     });
-    // describe('addChecked persists previous state plus a new value, while setChecked erases previous values', () => {
-    //     it('naics.expanded: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    //     it('naics.checked: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    //     it('naics.unchecked: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    // });
 });

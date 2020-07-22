@@ -12,7 +12,8 @@ const propTypes = {
     cfdas: PropTypes.array,
     biggestCfda: PropTypes.object,
     CFDAOverviewLinkClicked: PropTypes.bool,
-    updateCFDAOverviewLinkClicked: PropTypes.func
+    updateCFDAOverviewLinkClicked: PropTypes.func,
+    awardTotalObligation: PropTypes.number
 };
 
 export default class CFDAVizContainer extends React.Component {
@@ -62,6 +63,11 @@ export default class CFDAVizContainer extends React.Component {
 
     onTreeClick = (id, cfda) => {
         this.setState({ previousView: 'tree', view: 'single', cfda });
+    }
+
+    onDropdownClick = (title) => {
+        const cfda = this.props.cfdas.find((x) => x.cfdaNumber.toString() === title.split(' ')[0].trim());
+        this.setState({ view: 'single', cfda });
     }
 
     updateViewFromCFDAOverviewClick = (view) => {
@@ -118,7 +124,9 @@ export default class CFDAVizContainer extends React.Component {
                 onTableClick={this.onTableClick}
                 onBackClick={this.onBackClick}
                 allCFDAs={this.props.cfdas}
-                onTreeClick={this.onTreeClick} />
+                awardTotalObligation={this.props.awardTotalObligation}
+                onTreeClick={this.onTreeClick}
+                onDropdownClick={this.onDropdownClick} />
         );
     }
 }

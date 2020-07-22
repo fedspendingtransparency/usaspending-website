@@ -26,20 +26,47 @@
     }
 
     .award-amounts__data-icon_green {
-        background-color: #47AAA7;
+        background-color: $colors-grants-nff;
     }
     
     .award-amounts__data-icon_gray {
         background-color: #BBBBBB;
     }
     
-    .award-amounts__data-icon_yellow {
-        background-color: #F5A623;
+    .award-amounts__data-icon_subsidy {
+        background-color: $colors-loans-subsidy;
+    }
+
+    .award-amounts__data-icon_face-value {
+        background-color: $colors-loans-face-value;
+        border: rem(2) solid #BBBBBB;
     }
     
     .award-amounts__data-icon_transparent {
         background-color: white;
         border: rem(2) solid #BBBBBB;
+    }
+
+    .award-amounts__file-c-outlays {
+        background-color: $color-disaster-covid-19;
+        border: rem(2) solid $color-disaster-covid-19;
+    }
+
+    .award-amounts__potential {
+        background-color: $colors-potential;
+    }
+
+    .award-amounts__current {
+        background-color: $colors-current;
+    }
+
+    .award-amounts__obligated {
+        background-color: $colors-obligated;
+    }
+
+    .award-amounts__file-c-obligations {
+        background-color: $color-covid-19-obligations;
+        border: rem(2) solid $color-covid-19-obligations;
     }
     
     .award-amounts__data-icon_overspending {

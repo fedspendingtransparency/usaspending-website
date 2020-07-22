@@ -4,6 +4,7 @@
   **/
 
 import { removePlaceholderString } from "helpers/checkboxTreeHelper";
+import { CheckboxTreeSelections } from "redux/reducers/search/searchFiltersReducer";
 
 // Keyword Filter
 export const updateTextSearchInput = (textInput) => ({
@@ -98,17 +99,6 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
-// Program Source Filter
-export const updateFederalAccountComponents = (source) => ({
-    type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
-    source
-});
-
-export const updateTreasuryAccountComponents = (source) => ({
-    type: 'UPDATE_TREASURY_ACCOUNT_COMPONENTS',
-    source
-});
-
 // Award Type Filter
 export const toggleAwardType = ({ value }) => ({
     type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
@@ -122,7 +112,6 @@ export const bulkAwardTypeChange = (state) => ({
 });
 
 // Award Amount Filter
-
 export const updateAwardAmounts = ({ value }) => ({
     type: 'UPDATE_AWARD_AMOUNTS',
     awardAmounts: value
@@ -135,8 +124,8 @@ export const updateSelectedCFDA = (state) => ({
 });
 
 // NAICS Filter
-export const updateNaicsV2 = (require, exclude, counts) => ({
-    type: 'UPDATE_NAICS_V2',
+export const updateNaics = (require, exclude, counts) => ({
+    type: 'UPDATE_NAICS',
     payload: {
         exclude,
         require: require.map((code) => removePlaceholderString(code)),
@@ -144,9 +133,19 @@ export const updateNaicsV2 = (require, exclude, counts) => ({
     }
 });
 
-export const updateSelectedNAICS = (state) => ({
-    type: 'UPDATE_SELECTED_NAICS',
-    naics: state.naics
+// TAS Filter
+export const updateTreasuryAccountComponents = (source) => ({
+    type: 'UPDATE_TREASURY_ACCOUNT_COMPONENTS',
+    source
+});
+
+export const updateTAS = (require, exclude, counts) => ({
+    type: 'UPDATE_TAS',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    })
 });
 
 // PSC Filter
@@ -155,22 +154,28 @@ export const updateSelectedPSC = (state) => ({
     psc: state.psc
 });
 
-// Contract Pricing Type Filter
+export const updatePSC = (require, exclude, counts) => ({
+    type: 'UPDATE_PSC',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    })
+});
 
+// Contract Pricing Type Filter
 export const updatePricingType = ({ value }) => ({
     type: 'UPDATE_PRICING_TYPE',
     pricingType: value
 });
 
 // Contract Set-Aside Filter
-
 export const updateSetAside = ({ value }) => ({
     type: 'UPDATE_SET_ASIDE',
     setAside: value
 });
 
 // Contract Extent Competed Filter
-
 export const updateExtentCompeted = ({ value }) => ({
     type: 'UPDATE_EXTENT_COMPETED',
     extentCompeted: value
@@ -181,6 +186,16 @@ export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',
     field: state.field,
     direction: state.direction
+});
+
+// Update DEF Codes
+export const updateDefCodes = (require, exclude, counts) => ({
+    type: 'UPDATE_DEF_CODES',
+    payload: new CheckboxTreeSelections({
+        exclude,
+        require,
+        counts
+    })
 });
 
 export const resetSearchOrder = () => ({

@@ -1,0 +1,24 @@
+.search-bar {
+    border: 1px solid $color-gray-lighter;
+    @include display(flex);
+    @include align-items(center);
+    max-width: 40rem;
+    margin: 2rem 0;
+    .search-bar__input {
+        @include flex(1 1 auto);
+        line-height: rem(28);
+        padding: rem(5) rem(10);
+        border: 0;
+    }
+    .search-bar__button {
+        @include flex(0 0 auto);
+        @include button-unstyled;
+        padding: 0 rem(15);
+        color: $color-gray-light;
+        font-size: rem(26);
+        &:disabled {
+            color: $color-gray-lighter;
+            cursor: not-allowed;
+        }
+    }
+}

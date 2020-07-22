@@ -9,8 +9,8 @@ import moment from 'moment';
 import { throttle, compact } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
 
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
-import { titles } from 'dataMapping/awards/datesSection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import { titles } from 'dataMapping/award/datesSection';
 import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
 
@@ -145,7 +145,11 @@ export default class AwardDates extends Component {
                 <div className="award-dates__heading">
                     <h6 className="award-overview-title award-dates__title">
                         Dates
-                        <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+                        <TooltipWrapper
+                            className="award-section-tt"
+                            icon="info"
+                            pointerPostion="left"
+                            tooltipComponent={tooltipInfo} />
                     </h6>
                 </div>
                 <ProgressBar

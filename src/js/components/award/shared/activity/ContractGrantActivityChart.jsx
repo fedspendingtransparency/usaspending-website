@@ -6,8 +6,17 @@ import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-import VerticalLine from 'components/sharedComponents/VerticalLine';
+import SVGLine from 'components/sharedComponents/SVGLine';
+import {
+    getXDomain,
+    getLineValue
+} from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
+import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
+import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
+import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
+
 
 const propTypes = {
     height: PropTypes.number,
@@ -15,7 +24,13 @@ const propTypes = {
     visualizationWidth: PropTypes.number,
     transactions: PropTypes.array,
     awardType: PropTypes.string,
-    dates: PropTypes.object
+    dates: PropTypes.object,
+    totalObligation: PropTypes.number,
+    showHideTooltipLine: PropTypes.func,
+    showTooltipTransaction: PropTypes.func,
+    hideTooltipTransaction: PropTypes.func,
+    thisLineOrTextIsHovered: PropTypes.string,
+    hideTransactionTooltipOnBlur: PropTypes.func
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -26,7 +41,13 @@ const ContractGrantsActivityChart = ({
     visualizationWidth,
     transactions,
     awardType,
-    dates
+    dates,
+    totalObligation,
+    showHideTooltipLine,
+    showTooltipTransaction,
+    hideTooltipTransaction,
+    thisLineOrTextIsHovered,
+    hideTransactionTooltipOnBlur
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -40,34 +61,26 @@ const ContractGrantsActivityChart = ({
     const [xTicks, setXTicks] = useState([]);
     // y ticks
     const [yTicks, setYTicks] = useState([]);
+    // start line
+    const [startLineData, setStartLineData] = useState({ value: 0, height: 0 });
+    // today line
+    const [todayLineData, setTodayLineData] = useState({ value: 0, height: 0 });
+    // end line
+    const [endLineData, setEndLineData] = useState({ value: 0, height: 0 });
+    // potential end line
+    const [potentialEndLineData, setPotentialEndLineData] = useState({ value: 0, height: 0 });
+    // x axis spacing
+    const [xAxisSpacing, setXAxisSpacing] = useState(0);
+    const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
+    const [totalVerticalLineTextHeight, setTotalVerticalLineTextHeight] = useState(0);
     /**
      * createXSeries
      * - creates the x domain and updates state
      */
-    const createXDomain = useCallback(() => {
-        /**
-         * TODO - We might use this code in further tickets.
-         * Currently, we use the start and end date for the first and last tick.
-         * In the future, we might use transaction or a combo of the two.
-         */
-        // const clonedTransactions = cloneDeep(transactions);
-        // clonedTransactions.sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
-        // setXDomain(
-        //     [
-        //         clonedTransactions[0].action_date.valueOf(),
-        //         clonedTransactions.pop().action_date.valueOf()
-        //     ]
-        // );
-        const {
-            _startDate: startDate,
-            _endDate: endDate,
-            _potentialEndDate: potentialEndDate
-        } = dates;
-        if (awardType === 'grant') return setXDomain([startDate.valueOf(), endDate.valueOf()]);
-        return setXDomain([startDate.valueOf(), potentialEndDate.valueOf()]);
-    }, [
+    const createXDomain = useCallback(() => setXDomain(getXDomain(dates, awardType, transactions)), [
         awardType,
         dates,
+        transactions,
         setXDomain
     ]);
     /**
@@ -78,15 +91,20 @@ const ContractGrantsActivityChart = ({
     const createYDomain = useCallback(() => {
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort(
-            (a, b) => a.federal_action_obligation - b.federal_action_obligation);
-        const yZero = clonedTransactions.length > 1 ?
-            clonedTransactions[0].federal_action_obligation :
-            0;
-        const yOne = !clonedTransactions.length ?
-            0 :
-            clonedTransactions.pop().federal_action_obligation;
+            (a, b) => a.running_obligation_total - b.running_obligation_total);
+        const yZero = 0;
+        let yOne = 0;
+        if (clonedTransactions.length > 1) { // multiple transactions
+            // if the total obligation if bigger than any running obligation total, use total obligation
+            yOne = totalObligation > clonedTransactions[clonedTransactions.length - 1].running_obligation_total
+                ? totalObligation
+                : clonedTransactions[clonedTransactions.length - 1].running_obligation_total;
+        }
+        else { // one transaction
+            yOne = totalObligation || clonedTransactions[0].running_obligation_total;
+        }
         setYDomain([yZero, yOne]);
-    }, [transactions]);
+    }, [transactions, totalObligation]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         createXDomain();
@@ -105,7 +123,7 @@ const ContractGrantsActivityChart = ({
      * @param {Number[]} - an array of numbers.
      * @returns {Number[]} - an array of numbers.
      */
-    const addTicksForSpacing = (ticks, first) => {
+    const addTicksForSpacing = (ticks, scale) => {
         if (!ticks.length) return [];
         const updatedTicks = cloneDeep(ticks);
         const differences = compact(ticks.reverse().map((tick, i) => {
@@ -117,10 +135,29 @@ const ContractGrantsActivityChart = ({
         // average difference
         const averageDifference = differences
             .reduce((acc, data) => acc + data, 0) / differences.length;
-        // subtracts the average difference from the first tick and updates the tick array
-        if (first) updatedTicks.splice(0, 0, updatedTicks[0] - averageDifference);
         // adds the average difference to the last tick and updates the tick array
         updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference);
+        /**
+         * Since we are adding fake spacing to the top of the chart so the vertical line text
+         * never overlaps with the chart, and the lines will be descending in height to make
+         * sure the text never overlaps with other text. We must make sure the average difference
+         * is greater than the total height of the vertical line text. If it is not we will add
+         * another tick.
+         */
+        if (totalVerticalLineTextHeight > scale(averageDifference)) {
+            /**
+             * Now the question is how much space do we need to add? To determine this,
+             * we will get the difference from the total text height and then divide that
+             * by the average difference. If it is greater than 1, then we will add how ever
+             * many extra tick we need. :)
+             */
+            const difference = totalVerticalLineTextHeight - scale(averageDifference);
+            const howManyTicksToAdd = [];
+            for (let i = 0; i < Math.ceil(difference / averageDifference); i++) {
+                howManyTicksToAdd.push(i);
+            }
+            howManyTicksToAdd.forEach(() => updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference));
+        }
         return updatedTicks;
     };
     /**
@@ -224,9 +261,9 @@ const ContractGrantsActivityChart = ({
         });
         theTicks = evenlySpacedTicks(theTicks, averageDifference);
         theTicks = removeOverlappingTicks(theTicks, scale);
-
         setXTicks(xTickDateAndLabel(theTicks));
         setXScale(() => scale);
+        setXAxisSpacing(spacing);
         return null;
     }, [
         xDomain,
@@ -243,7 +280,7 @@ const ContractGrantsActivityChart = ({
         // determine the ticks from D3
         const ticks = scale.ticks(6);
         // add last tick for spacing
-        const updatedTicksWithSpacing = addTicksForSpacing(ticks);
+        const updatedTicksWithSpacing = addTicksForSpacing(ticks, scale);
         // create new scale since we have new data
         const updatedScale = scaleLinear()
             .domain([yDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
@@ -251,12 +288,12 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height]);
+    }, [yDomain, height, totalVerticalLineTextHeight]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
-            createXScaleAndTicks(xDomain);
-            createYScaleAndTicks(yDomain);
+            createXScaleAndTicks();
+            createYScaleAndTicks();
         }
     }, [
         transactions,
@@ -266,18 +303,84 @@ const ContractGrantsActivityChart = ({
         yDomain,
         visualizationWidth
     ]);
+    // sets the line values - hook - runs on mount and dates change
+    useEffect(() => {
+        if (xDomain && xDomain.length > 0) {
+            setStartLineData(Object.assign({}, startLineData, { value: getLineValue(dates._startDate, xDomain) }));
+            setTodayLineData(Object.assign({}, todayLineData, { value: getLineValue(moment(Date.now()), xDomain) }));
+            setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
+            setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
+        }
+    }, [dates, xDomain]);
+    const setVerticalLineHeight = (i, lineHeight) => {
+        if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
+        if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
+        if (i === 2) return setPotentialEndLineData(Object.assign({}, potentialEndLineData, { height: lineHeight }));
+        return setTodayLineData(Object.assign({}, todayLineData, { height: lineHeight }));
+    };
+    const allVerticalLines = useCallback(() => (
+        [startLineData, endLineData, potentialEndLineData, todayLineData]
+    ), [
+        startLineData,
+        endLineData,
+        potentialEndLineData,
+        todayLineData
+    ]);
+    const setVerticalLineHeights = useCallback(() => {
+        let heightHasBeenInitialized = false;
+        let currentHeight = 0;
+        allVerticalLines().map((data) => data.value)
+            .forEach((data, i) => {
+                if (data) {
+                    if (!heightHasBeenInitialized) { // set line to height of chart
+                        heightHasBeenInitialized = true;
+                        setVerticalLineHeight(i, currentHeight);
+                        currentHeight += verticalLineTextHeight;
+                        return null;
+                    }
+                    setVerticalLineHeight(i, currentHeight);
+                    currentHeight += verticalLineTextHeight;
+                    return null;
+                }
+                return null;
+            });
+    }, [
+        verticalLineTextHeight,
+        startLineData,
+        endLineData,
+        todayLineData,
+        potentialEndLineData
+    ]);
+
+    const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
+        if (!totalVerticalLineTextHeight) {
+            setTotalVerticalLineTextHeight((allVerticalLines().map((data) => data.value).filter((data) => data).length) * verticalLineTextHeight);
+            setVerticalLineHeights(verticalLineTextHeight);
+        }
+    }, [
+        verticalLineTextHeight,
+        setVerticalLineHeights,
+        allVerticalLines,
+        totalVerticalLineTextHeight
+    ]);
+    // update the total text height and vertical line heights
+    useEffect(() => {
+        updateTotalTextHeightAndVerticalLineHeights();
+    }, [verticalLineTextHeight, updateTotalTextHeightAndVerticalLineHeights]);
+    // updates the y axis if the total text height changes
+    useEffect(() => {
+        createYScaleAndTicks();
+    }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
+    const updateVerticalLineTextData = (data) => {
+        if (data.height !== verticalLineTextHeight) {
+            setVerticalLineTextHeight(data.height);
+        }
+    };
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-    // text for end line
-    const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
-    // date for end line
-    const dateEndLine = dates?._endDate?.valueOf();
-    // date for potential end line
-    const datePotentialEndLine = dates?._potentialEndDate?.valueOf();
-    // class name for end line and text
-    const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
+    const potentialAwardAmountLineDescription = `A horizontal line representing the total award obligation of ${formatMoney(totalObligation)}`;
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -298,62 +401,65 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
-                {/* start line */}
-                {xScale && <VerticalLine
+                {/* area paths */}
+                {xScale && <ContractGrantActivityChartAreaPaths
                     xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Start"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={xDomain[0]}
-                    showTextPosition="right"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text start"
-                    lineClassname="vertical-line start" />}
-                {/* today line */}
-                {xScale && <VerticalLine
+                    yScale={yScale}
+                    transactions={transactions}
+                    height={height}
+                    padding={padding}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
+                    dates={dates}
+                    xDomain={xDomain}
+                    xAxisSpacing={xAxisSpacing} />}
+                {/* circles */}
+                {transactions.length && <ContractGrantActivityChartCircles
+                    transactions={transactions}
+                    padding={padding}
                     xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Today"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={Date.now()}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text today"
-                    lineClassname="vertical-line today" />}
-                {/* end line */}
-                {xScale && dateEndLine && <VerticalLine
+                    yScale={yScale}
+                    xAxisSpacing={xAxisSpacing}
+                    height={height}
+                    showTooltip={showTooltipTransaction}
+                    hideTooltip={hideTooltipTransaction}
+                    hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur} />}
+                {/* vertical lines */}
+                {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text={endLineText}
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={dateEndLine}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname={`vertical-line__text ${endLineClassName}`}
-                    lineClassname={`vertical-line ${endLineClassName}`} />}
-                {/* potential end line */}
-                {xScale && datePotentialEndLine && <VerticalLine
-                    xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text={['Potential', 'End']}
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={datePotentialEndLine}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text potential-end"
-                    lineClassname="vertical-line potential-end" />}
+                    height={height}
+                    xDomain={xDomain}
+                    padding={padding}
+                    startLineValue={startLineData.value}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
+                    awardType={awardType}
+                    showHideTooltip={showHideTooltipLine}
+                    thisLineOrTextIsHovered={thisLineOrTextIsHovered}
+                    verticalLineTextData={updateVerticalLineTextData}
+                    startLineHeight={startLineData.height}
+                    endLineHeight={endLineData.height}
+                    potentialEndLineHeight={potentialEndLineData.height}
+                    todayLineHeight={todayLineData.height} />}
+                {/* potential award amount line */}
+                {xScale && <SVGLine
+                    lineClassname="potential-award-amount-line"
+                    description={potentialAwardAmountLineDescription}
+                    scale={yScale}
+                    x1={padding.left}
+                    x2={visualizationWidth}
+                    max={yDomain[1]}
+                    min={yDomain[0]}
+                    position={totalObligation}
+                    graphHeight={height}
+                    isHorizontal
+                    noText
+                    onMouseMoveLine={showHideTooltipLine}
+                    onMouseLeaveLine={showHideTooltipLine}
+                    onMouseMoveText={showHideTooltipLine}
+                    onMouseLeaveText={showHideTooltipLine} />}
             </g>
         </svg>
     );

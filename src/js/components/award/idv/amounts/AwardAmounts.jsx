@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
-import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import GlobalConstants from 'GlobalConstants';
+import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
@@ -56,6 +57,13 @@ export default class AwardAmounts extends React.Component {
                 jumpToSection={this.props.jumpToSection} />
         ) : (
             <AwardAmountsTable
+                showFileC={(
+                    GlobalConstants.CARES_ACT_RELEASED &&
+                    (
+                        awards._fileCObligated !== 0 ||
+                        awards._fileCOutlay !== 0
+                    )
+                )}
                 awardData={awards}
                 awardAmountType="idv"
                 spendingScenario={determineSpendingScenarioByAwardType("idv", awards)} />
@@ -67,7 +75,11 @@ export default class AwardAmounts extends React.Component {
                     <h3 className="award-viz__title">
                         $ Award Amounts
                     </h3>
-                    <TooltipWrapper className="award-section-tt" icon="info" wide tooltipComponent={awardAmountsInfo} />
+                    <TooltipWrapper
+                        className="award-section-tt"
+                        icon="info"
+                        wide
+                        tooltipComponent={awardAmountsInfo} />
                 </div>
                 <hr />
                 <div className="award-viz__tabs">

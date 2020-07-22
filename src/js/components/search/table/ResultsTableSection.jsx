@@ -24,6 +24,7 @@ const propTypes = {
     columns: PropTypes.object,
     counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
+    updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
     subaward: PropTypes.bool,
     subAwardIdClick: PropTypes.func
@@ -91,7 +92,6 @@ export default class ResultsTableSection extends React.Component {
         }
 
         const type = this.props.subaward ? 'Sub-Award' : 'Prime Award';
-
         return (
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">

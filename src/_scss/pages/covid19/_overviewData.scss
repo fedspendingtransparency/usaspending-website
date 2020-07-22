@@ -1,0 +1,41 @@
+.overview-data-group {
+    @include display(flex);
+    text-align: center;
+    border-bottom: solid rem(1) $color-gray-lighter;
+    @include flex-direction(column); // stack the columns in mobile
+    @media(min-width: $tablet-screen) {
+        @include flex-direction(row);
+    }
+    .overview-data {
+        @include display(flex);
+        @include flex(0 1 25%);
+        @include flex-direction(column);
+        border-bottom: solid rem(1) $color-gray-lighter;
+        &:last-of-type {
+            border-bottom: 0;
+        }
+        padding: rem(16);
+        margin: rem(11) 0;
+        @media(min-width: $tablet-screen) {
+            border-bottom: 0;
+            border-right: solid rem(1) $color-gray-lighter;
+            &:last-of-type {
+                border-right: 0;
+            }
+        }
+        .overview-data__label {
+            font-size: rem(22);
+            font-weight: $font-semibold;
+            line-height: rem(28);
+        }
+        .overview-data__subtitle {
+            font-size: rem(17);
+            line-height: rem(22);
+        }
+        .overview-data__amount {
+            font-size: rem(36);
+            font-weight: $font-light;
+            line-height: rem(45);
+        }
+    }
+}

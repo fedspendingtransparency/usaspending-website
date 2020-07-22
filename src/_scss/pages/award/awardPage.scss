@@ -93,6 +93,23 @@
                         font-size: $h5-font-size;
                       }
                   }
+                .award-summary__covid-19-flag {
+                  padding: rem(3) rem(7);
+                  @include display(flex);
+                  @include justify-content(center);
+                  @include align-items(center);
+                  background: $color-disaster-covid-19;
+                  color: $color-white;
+                  font-size: rem(14);
+                  font-weight: 600;
+                  text-align: center;
+                  height: rem(25);
+                  border-radius: rem(4);
+                  width: rem(132);
+                  @media(min-width: $medium-screen) {
+                    margin-left: rem(10);
+                  }
+                }
               }
               .award-status-container {
                 @include media($medium-screen) {
@@ -195,5 +212,21 @@
       @import "./awardFinancialAssistance";
       @import "./idv/awardIdv";
       @import "layouts/search/header/downloadButton";
+  }
+  .sticky-header {
+    .sticky-header__toolbar {
+      height: rem(34);
+      @include display(flex);
+      .sticky-header__toolbar-item:nth-of-type(1) {
+        @include align-self(flex-start);
+        .copy-confirmation {
+          top: rem(46);
+          right: rem(127);
+        }
+      }
+      .download-button {
+        margin-top: 0;
+      }
+    }
   }
 }

@@ -5,12 +5,12 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import kGlobalConstants from 'GlobalConstants';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
-import { awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
+import { awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
 import ContractGrantActivityContainer from 'containers/award/shared/ContractGrantActivityContainer';
+
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
@@ -19,8 +19,6 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardDescription from "../shared/description/AwardDescription";
-import ComingSoonSection from '../shared/ComingSoonSection';
-import { contractActivityInfoContracts } from "../shared/InfoTooltipContent";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -71,6 +69,7 @@ const ContractContent = ({
     });
     return (
         <AwardPageWrapper
+            defCodes={overview.defCodes}
             glossaryLink={glossaryLink}
             overviewType={overview.type}
             identifier={overview.piid}
@@ -101,19 +100,12 @@ const ContractContent = ({
                     psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
-                {
-                    kGlobalConstants.DEV ?
-                        <ContractGrantActivityContainer
-                            awardId={awardId}
-                            awardType={overview.category}
-                            dates={overview.periodOfPerformance} />
-                        : <ComingSoonSection
-                            toolTipWide
-                            toolTipContent={contractActivityInfoContracts}
-                            title="Contract Activity"
-                            includeHeader
-                            icon="chart-area" />
-                }
+                <ContractGrantActivityContainer
+                    awardId={awardId}
+                    awardType={overview.category}
+                    dates={overview.periodOfPerformance}
+                    totalObligation={overview._baseAndAllOptions}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
                     awardType={overview.category} />

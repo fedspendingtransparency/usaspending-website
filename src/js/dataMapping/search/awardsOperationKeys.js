@@ -8,7 +8,8 @@ export const rootKeys = {
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
     agencies: 'agencies',
-    tasSources: 'tas_codes',
+    tasSources: 'treasury_account_components',
+    tasCheckbox: 'tas_codes',
     recipients: 'recipient_search_text',
     recipientLocationScope: 'recipient_scope',
     recipientLocation: 'recipient_locations',
@@ -19,11 +20,16 @@ export const rootKeys = {
     awardID: 'award_ids',
     cfda: 'program_numbers',
     naics: 'naics_codes',
-    naics_v2: 'naics_codes',
     psc: 'psc_codes',
+    defCodes: 'def_codes',
     contractPricing: 'contract_pricing_type_codes',
     setAsideType: 'set_aside_type_codes',
     extentCompeted: 'extent_competed_type_codes'
+};
+
+export const checkboxTreeKeys = {
+    require: [],
+    exclude: []
 };
 
 export const timePeriodKeys = {

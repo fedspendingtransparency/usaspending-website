@@ -51,7 +51,7 @@ describe('AccountLandingContainer', () => {
                 {
                     columnName: "managingAgency",
                     defaultDirection: "asc",
-                    displayName: "Managing Agency"
+                    displayName: "Owning Agency"
                 },
                 {
                     columnName: "budgetaryResources",

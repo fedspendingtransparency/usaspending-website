@@ -2,11 +2,16 @@
  * SearchAwardsOperation.js
  * Created by michaelbray on 8/7/17.
  */
-
-import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
-    from 'dataMapping/search/awardsOperationKeys';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { pickBy } from 'lodash';
+import {
+    rootKeys,
+    timePeriodKeys,
+    agencyKeys,
+    awardAmountKeys,
+    checkboxTreeKeys
+} from 'dataMapping/search/awardsOperationKeys';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { trimCheckedToCommonAncestors } from 'helpers/checkboxTreeHelper';
 
 class SearchAwardsOperation {
     constructor() {
@@ -21,8 +26,8 @@ class SearchAwardsOperation {
         this.awardingAgencies = [];
         this.fundingAgencies = [];
 
+        this.tasCheckbox = checkboxTreeKeys;
         this.tasSources = [];
-        this.accountSources = [];
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -37,10 +42,10 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = [];
 
         this.selectedCFDA = [];
-        this.selectedNAICS = [];
-        this.naicsCodes = { require: [], exclude: [] };
-        this.selectedPSC = [];
-
+        this.naicsCodes = checkboxTreeKeys;
+        this.pscCheckbox = checkboxTreeKeys;
+        // the defCodes don't actually send the checkboxTrees object shape to the API. See comment below.
+        this.defCodes = checkboxTreeKeys;
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -63,7 +68,10 @@ class SearchAwardsOperation {
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
 
         this.tasSources = state.treasuryAccounts.toArray();
-        this.accountSources = state.federalAccounts.toArray();
+        this.tasCheckbox = {
+            require: state.tasCodes.toObject().require,
+            exclude: state.tasCodes.toObject().exclude
+        };
 
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
@@ -78,9 +86,18 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
         this.selectedCFDA = state.selectedCFDA.toArray();
-        this.selectedNAICS = state.selectedNAICS.toArray();
-        this.naicsCodes = { require: state.naicsCodes.require, exclude: state.naicsCodes.exclude };
-        this.selectedPSC = state.selectedPSC.toArray();
+        this.naicsCodes = {
+            require: state.naicsCodes.toObject().require,
+            exclude: state.naicsCodes.toObject().exclude
+        };
+        this.pscCheckbox = {
+            require: state.pscCodes.toObject().require,
+            exclude: state.pscCodes.toObject().exclude
+        };
+        this.defCodes = {
+            require: state.defCodes.toObject().require,
+            exclude: state.defCodes.toObject().exclude
+        };
 
         this.pricingType = state.pricingType.toArray();
         this.setAside = state.setAside.toArray();
@@ -185,18 +202,26 @@ class SearchAwardsOperation {
         }
 
         // Add Program Sources
-        if (this.tasSources.length > 0 || this.accountSources.length > 0) {
+        if (this.tasSources.length > 0 || this.tasCheckbox.require.length > 0) {
             const tasCodes = [];
-
-            this.accountSources.forEach((accountObject) => {
-                tasCodes.push(pickBy(accountObject));
-            });
 
             this.tasSources.forEach((tasObject) => {
                 tasCodes.push(pickBy(tasObject));
             });
 
-            filters[rootKeys.tasSources] = tasCodes;
+            if (tasCodes.length > 0) {
+                filters[rootKeys.tasSources] = tasCodes;
+            }
+
+            if (this.tasCheckbox.exclude.length > 0) {
+                filters[rootKeys.tasCheckbox] = {
+                    require: trimCheckedToCommonAncestors(this.tasCheckbox.require),
+                    exclude: this.tasCheckbox.exclude
+                };
+            }
+            else if (this.tasCheckbox.require.length > 0) {
+                filters[rootKeys.tasCheckbox] = { require: trimCheckedToCommonAncestors(this.tasCheckbox.require) };
+            }
         }
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
@@ -205,12 +230,14 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = this.selectedRecipientLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.recipientLocation] = locationSet;
@@ -223,12 +250,14 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            const locationSet = this.selectedLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.placeOfPerformance] = locationSet;
@@ -273,23 +302,26 @@ class SearchAwardsOperation {
         }
 
         // Add NAICS
-        if (this.selectedNAICS.length > 0) {
-            filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
-        }
-
-        // NAICS v2
         if (this.naicsCodes.require.length > 0) {
             if (this.naicsCodes.exclude.length > 0) {
-                filters[rootKeys.naics_v2] = this.naicsCodes;
+                filters[rootKeys.naics] = this.naicsCodes;
             }
             else {
-                filters[rootKeys.naics_v2] = this.naicsCodes.require;
+                filters[rootKeys.naics] = this.naicsCodes.require;
             }
         }
 
         // Add PSC
-        if (this.selectedPSC.length > 0) {
-            filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
+        if (this.pscCheckbox.require.length > 0) {
+            if (this.pscCheckbox.exclude.length > 0) {
+                filters[rootKeys.psc] = {
+                    require: trimCheckedToCommonAncestors(this.pscCheckbox.require),
+                    exclude: this.pscCheckbox.exclude
+                };
+            }
+            else {
+                filters[rootKeys.psc] = { require: trimCheckedToCommonAncestors(this.pscCheckbox.require) };
+            }
         }
 
         // Add Contract Pricing
@@ -305,6 +337,14 @@ class SearchAwardsOperation {
         // Add Extent Competed
         if (this.extentCompeted.length > 0) {
             filters[rootKeys.extentCompeted] = this.extentCompeted;
+        }
+
+        // Add Def Codes
+        if (this.defCodes.require.length > 0) {
+            // right now, due to the shape of this data, we never send excluded to the api, so the
+            // api expects just an array of strings. Should that ever change and the DEFC data becomes more complex
+            // and the checkbox tree is more like the others, we can easily migrate to the more complex request object.
+            filters[rootKeys.defCodes] = this.defCodes.require;
         }
 
         return filters;

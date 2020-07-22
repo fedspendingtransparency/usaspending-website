@@ -1,0 +1,126 @@
+@import 'components/moreOptionsTabs';
+
+.budget-categories {
+    .table-types {
+        .table-type-toggle {
+            padding: rem(15) rem(20);
+            margin-right: rem(5);
+            .tab-content {
+                font-size: rem(18);
+            }
+            &.active {
+                .tab-content {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
+    }
+    
+    .budget-categories__content {
+        .usda-table {
+            margin-top: 0;
+            td {
+                button {
+                    float: left;
+                    margin-top: rem(5);
+                }
+                &:first-child {
+                    display: table-cell;
+                    @include span-columns(6 of 12, table);
+                    text-align: left;
+                    padding-left: rem(15);
+    
+                    p {
+                        a {
+                            // IE11 fix for td not having the correct width
+                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                                max-width: 50%;
+                            }
+                        }
+                    }
+                }
+                @include span-columns(2 of 12, table);
+                text-align: right;
+        
+                &:not(:first-child) {
+                    padding-right: rem(40);
+                }
+                .usda-table__child-cell-content {
+                    padding: rem(10) rem(0);
+                }
+            }
+            .table-header {
+                .table-header__label {
+                    @include flex(0 1 auto);
+                    text-align: right;
+                }
+        
+                .table-header__sort {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+        
+                &:not(:first-child) {
+                    .table-header__content {
+                       @include justify-content(flex-end);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    .overview-data {
+        .overview-data__label {
+            white-space: wrap;
+        }
+        @include media($large-screen) {
+            .overview-data__label {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .budget-categories-table__header {
+        @include display(flex);
+        @include justify-content(left);
+        @include align-items(center);
+        margin-top: rem(20);
+
+        label {
+            padding-right: rem(6);
+        }
+
+        .usa-dt-picker {
+
+            .usa-dt-picker__button {
+                margin-right: 0;
+                padding-bottom: 0;
+                padding-top: 0;
+                margin-left: 0;
+                padding-left: rem(1);
+                border-bottom: rem(2) solid $color-cool-blue-light;
+
+                .usa-dt-picker__button-text {
+                    font-size: $base-font-size;
+                    white-space: nowrap;
+                    margin-right: rem(6);
+                }
+                .usa-dt-picker__button-icon svg {
+                    height: rem(12);
+                    margin-bottom: rem(3);
+                    color: $color-cool-blue-light;
+                }
+            }
+
+            .usa-dt-picker__list {
+                z-index: 4;
+            }
+        }
+
+        .budget-categories-tooltip {
+            display: block;
+            width: 100%;
+        }
+    }
+}

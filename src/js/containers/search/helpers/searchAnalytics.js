@@ -8,7 +8,7 @@ import { uniq } from 'lodash';
 import {
     awardTypeCodes,
     awardTypeGroups,
-    awardTypeGroupLabels
+    analyticsAwardTypeGroupLabels
 } from 'dataMapping/search/awardType';
 import { recipientTypes, groupLabels } from 'dataMapping/search/recipientType';
 import {
@@ -107,7 +107,7 @@ export const combineAwardTypeGroups = (filters) => {
         const groupValues = awardTypeGroups[key];
         const fullMembership = groupValues.every((value) => filters.includes(value));
         if (fullMembership) {
-            groups.push(`All ${awardTypeGroupLabels[key]}`);
+            groups.push(`All ${analyticsAwardTypeGroupLabels[key]}`);
             groupedFilters = groupedFilters.concat(groupValues);
         }
         return groups;
@@ -176,7 +176,7 @@ export const convertFilter = (type, value) => {
         case 'selectedPSC':
             return convertReducibleValue(
                 value,
-                'Product/Service Code (PSC)',
+                'Product or Service Code (PSC)',
                 (psc) => `${psc.product_or_service_code} - ${psc.psc_description}`
             );
         case 'pricingType':

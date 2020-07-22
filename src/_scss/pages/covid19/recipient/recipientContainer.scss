@@ -1,0 +1,234 @@
+.recipient__container {
+  width: 100%;
+  .count-tabs {
+    &.recipient__tabs-container {
+      width: 100%;
+      .recipient__content {
+        @import './awardFilterButtons';
+        @import './spendingByRecipient';
+        .results-visualization-geo-section {
+          position: relative;
+          @import "pages/search/results/visualizations/geo/_topSection";
+          h2.visualization-title {
+              @include h3;
+              margin: 0;
+          }
+          button:hover {
+            border-bottom: 0.3rem solid $color-primary-alt-light;
+            &.disabled {
+              border: none;
+            }
+          }
+          &.active {
+            button {
+              font-weight: $font-semibold;
+              border-bottom: 0.3rem solid $color-primary;
+            }
+          }
+        }
+      }
+      .results-visualization-geo-section {
+        position: relative;
+        @import "pages/search/results/visualizations/geo/_topSection";
+        h2.visualization-title {
+            @include h3;
+            margin: 0;
+        }
+    
+        .map-container {
+            height: rem(475);
+            width: 100%;
+        }
+        @import "pages/search/results/visualizations/geo/map/map";
+        .map-container {
+          .map-legend {
+            bottom: 6.5rem;
+            left: 1.5rem;
+            @include media($tablet-screen) {
+              bottom: 6rem;
+              right: 1.5rem;
+              left: auto;
+            }
+          }
+          .map__filters-toggle {
+            background-color: $color-white;
+            top: 3rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            left: 19rem;
+            position: absolute;
+            z-index: 2;
+            padding: 1rem 0.5rem;
+            &.closed {
+              left: 0;
+              transition: left;
+            }
+            &.open {
+              left: 19rem;
+              transition: left;
+            }
+          }
+          .map__filters-container {
+            background-color: $color-white;
+            top: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            position: absolute;
+            width: 19rem;
+            z-index: 2;
+            transition: 1s;
+            opacity: 1;
+            &.closed {
+              opacity: 0;
+              display: none;
+              transition: opacity 1s;
+              transition: display 1s;
+            }
+            &.open {
+              opacity: 1;
+              display: block;
+              transition: opacity 1s;
+              transition: display 1s;
+            }
+            .map__filters-header {
+              @include display(flex);
+              padding: 1rem 0 2rem 1rem;
+              font-size: 1.4rem;
+              font-weight: $font-semibold;
+              letter-spacing: 0;
+              line-height: 1.8rem;
+              transition: 2s;
+              .map__filters-header__title {
+                @include display(flex);
+                font-size: 1.4rem;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: 1.8rem;
+                .map__filters-header__title {
+                  @include display(flex);
+                  align-items: center;
+                  .tooltip-wrapper {
+                    .tooltip-pointer {
+                      left: -0.7rem;
+                    }
+                    .tooltip-pointer::after {
+                      background-color: $color-white;;
+                    }
+                  }
+                }
+              }
+            }
+            .map__filters-body {
+              padding-left: 1rem;
+              padding-bottom: 1rem;
+              transition: 2s;
+              .map__filters-filter__container {
+                padding-bottom: 2rem;
+                transition: 2s;
+                .map__filters-label {
+                  opacity: 0.75;
+                  font-size: 1.2rem;
+                  letter-spacing: 0;
+                  line-height: 1.5rem;
+                }
+                .usa-dt-picker {
+                  .usa-dt-picker__dropdown-container {
+                    .usa-dt-picker__button {
+                      padding: 0.5rem 0 0 0;
+                      .usa-dt-picker__button-text {
+                        @include flex(0 0 auto);
+                        margin-right: 0.3rem;
+                        font-size: 1.4rem;
+                        letter-spacing: 0;
+                        line-height: 1.8rem;
+                        font-weight: $font-semibold;
+                      }
+                      .usa-dt-picker__button-icon {
+                        padding-bottom: 0.25rem;
+                        svg {
+                          color: $color-primary;
+                          height: 1.25rem;
+                          width: 1.25rem;
+                        }
+                      }
+                      .usa-dt-picker__list {
+                        z-index: 3;
+                      }
+                    }
+                    .usa-dt-picker__list {
+                      z-index: 3;
+                      .usa-dt-picker__list-item {
+                        .usa-dt-picker__item {
+                          font-size: 1.4rem;
+                          letter-spacing: 0;
+                          line-height: 1.8rem;
+                        }
+                      }
+                    }
+                  }
+                }
+                .map__filters-filter__container:last-of-type {
+                  padding-bottom: 0;
+                }
+              }
+            }
+          }
+          .visualization-tooltip {
+              @import "components/visualizations/tooltip/_tooltip";
+              .tooltip {
+                .tooltip-body {
+                  padding: 0 ($global-pad * 2);
+                }
+                .tooltip-left {
+                  padding: rem(15) 0;
+                }
+                .tooltip-right {
+                  padding: rem(15) 0;
+                }
+              }
+          }
+          //HIDE THE MAPBOX COMPASS CONTROLS
+          & .mapboxgl-ctrl-compass {
+              display: none !important;
+          }
+
+          @import "pages/search/results/visualizations/geo/_disclaimer";
+          @import "pages/search/results/visualizations/geo/_message";
+        }
+      }
+      .table-types {
+        .table-type-toggle {
+            padding: rem(15) rem(20);
+            margin-right: rem(5);
+            .tab-content {
+                font-size: rem(18);
+            }
+            &.active {
+                .tab-content {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
+      }
+    }
+  }
+  @import '../../agency/v2/tabs';
+  .recipient__tabs-container {
+    &.count-tabs {
+      .count-tabs__buttons {
+        button.count-tabs__button {
+          @include flex(0 1 auto);
+          .count-button {
+            @include media($medium-screen) {
+              padding: 2.1rem;
+            }
+            .count-button__label {
+              font-size: 1.8rem;
+              font-weight: $font-semibold;
+              letter-spacing: 0;
+              line-height: 2.3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

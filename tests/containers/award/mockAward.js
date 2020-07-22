@@ -3,7 +3,7 @@
  * Created by David Trinh 10/6/18
  */
 
-import { mockContract, mockIdv } from '../../models/awardsV2/mockAwardApi';
+import { mockContract, mockIdv } from '../../models/award/mockAwardApi';
 
 export const mockParams = {
     params: {

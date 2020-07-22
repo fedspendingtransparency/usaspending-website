@@ -3,9 +3,9 @@
     padding-left: rem(15);
     display: none;
     @include media($tablet-screen) {
-        display: block;
+        @include display(flex);
     }
-    button.table-type-toggle {
+    .table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
         color: $color-gray-dark;
@@ -17,12 +17,14 @@
         height: rem(50);
         vertical-align: middle;
         margin-bottom: -0.1rem;
+        width: auto;
         @include media($large-screen) {
             padding: rem(15);
         }
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
+            cursor: pointer;
         }
         &.active {
             background-color: $color-white;
@@ -51,9 +53,20 @@
                 padding: rem(0) rem(5);
 
                 &.active {
-                    background-color: $color-gold;    
+                    background-color: $color-gold;
                 }
             }
+              .tooltip-wrapper {
+                .tooltip__text {
+                    padding: 2rem 2rem 0 2rem;
+                    strong {
+                      padding-bottom: 1rem;
+                    }
+                }
+                .tooltip__text:last-child {
+                  padding: 2rem;
+                }
+              }
         }
 
         &[disabled] {

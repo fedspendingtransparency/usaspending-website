@@ -1,0 +1,9 @@
+.spending-by-recipient {
+    .overview-data-group {
+        border-top: solid rem(1) $color-gray-lighter;
+    }
+    .usda-table {
+        // because the search bar sits above the table in this section
+        margin-top: 0;
+    }
+}
