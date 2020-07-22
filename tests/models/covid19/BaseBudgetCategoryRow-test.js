@@ -15,12 +15,11 @@ export const mockBaseBudgetCategoryRow = {
 const types = ['federal_account', 'agency', 'object_class'];
 const spendingCategories = ['total_spending', 'award_spending', 'loan_spending'];
 
-
 describe('BaseBudgetCategoryRow', () => {
     types.forEach((type) => {
         spendingCategories.forEach((spendingCategory) => {
             const baseBudgetCategoryRow = Object.create(BaseBudgetCategoryRow);
-            baseBudgetCategoryRow.populate(mockBaseBudgetCategoryRow);
+            baseBudgetCategoryRow.populate(mockBaseBudgetCategoryRow, type);
 
             describe(`BaseBudgetCategoryRow-${type}`, () => {
                 if (spendingCategory === 'total_spending') {
@@ -72,11 +71,78 @@ describe('BaseBudgetCategoryRow', () => {
                         expect(baseBudgetCategoryRow.outlay).toEqual('$10');
                     });
                 }
-
-                it('should store the name as a combination of code and description', () => {
-                    expect(baseBudgetCategoryRow.name).toEqual('012 - Description text of 012, for humans');
+                describe('name field', () => {
+                    if (type === 'federal_account') {
+                        it('should store the name as a combination of code and description for Federal Accounts', () => {
+                            expect(baseBudgetCategoryRow.name).toEqual('012: Description text of 012, for humans');
+                        });
+                    }
+                    else if (type === 'object_class') {
+                        it('should store the name as a combination of code and description for Major Object Classes', () => {
+                            expect(baseBudgetCategoryRow.name).toEqual('012: Description text of 012, for humans');
+                        });
+                    }
+                    else if (type === 'agency') {
+                        it('should store the name as just the description for agencies', () => {
+                            expect(baseBudgetCategoryRow.name).toEqual('Description text of 012, for humans');
+                        });
+                    }
                 });
             });
+        });
+    });
+    describe('child rows', () => {
+        types.forEach((type) => {
+            const childBudgetCategoryRow = Object.create(BaseBudgetCategoryRow);
+            childBudgetCategoryRow.populate(mockBaseBudgetCategoryRow, type, true);
+
+            describe(`BaseBudgetCategoryRow-${type}`, () => {
+                describe('name field', () => {
+                    if (type === 'federal_account') {
+                        it('should store the name as just the code Treasury Accounts', () => {
+                            expect(childBudgetCategoryRow.name).toEqual('012');
+                        });
+                    }
+                    else if (type === 'object_class') {
+                        it('should re-format the code and store the name as a combination of code and description for Object Classes', () => {
+                            expect(childBudgetCategoryRow.name).toEqual('01.2: Description text of 012, for humans');
+                        });
+                    }
+                });
+            });
+        });
+    });
+    describe('missing name field data', () => {
+        it('should just show the description with no colon if code is missing', () => {
+            const missingCode = {
+                ...mockBaseBudgetCategoryRow,
+                code: null
+            };
+            const missingCodeRow = Object.create(BaseBudgetCategoryRow);
+            missingCodeRow.populate(missingCode, 'federal_account');
+
+            expect(missingCodeRow.name).toEqual('Description text of 012, for humans');
+        });
+        it('should just show the code with no colon if description is missing', () => {
+            const missingDescription = {
+                ...mockBaseBudgetCategoryRow,
+                description: null
+            };
+            const missingDescriptionRow = Object.create(BaseBudgetCategoryRow);
+            missingDescriptionRow.populate(missingDescription, 'object_class');
+
+            expect(missingDescriptionRow.name).toEqual('012');
+        });
+        it('should show -- if both description and code are missing', () => {
+            const missingData = {
+                ...mockBaseBudgetCategoryRow,
+                code: null,
+                description: null
+            };
+            const missingDataRow = Object.create(BaseBudgetCategoryRow);
+            missingDataRow.populate(missingData, 'object_class');
+
+            expect(missingDataRow.name).toEqual('--');
         });
     });
 });
