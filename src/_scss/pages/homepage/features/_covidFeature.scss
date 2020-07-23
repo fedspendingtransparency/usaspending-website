@@ -6,8 +6,6 @@
         @include display(flex);
         @include justify-content(center);
 
-        border: 1px solid red;
-
         .official-spending-data__text {
             margin-right: rem(85);
             max-width: 40%;  
@@ -16,19 +14,23 @@
         .feature-covid-official-spending-data__image {
             width: 35vw;
             height: 25vw;
-            border: 1px solid black;
         }
     }
 
     //ROW 2: ADVANCED SEARCH FILTER + SPENDING PROFILE 
     .advanced-search-and-spending-profile__wrapper {
-        margin-top: 60px;
+        margin-top: rem(60);
+        margin-left: rem(103);
         @include display(flex);
         @include justify-content(center);
 
         .advanced-search__content-wrapper {
-            margin-left: rem(103);
-            max-width: 40%;
+            max-width: 45%;
+        }
+
+        .advanced-search__content-wrapper-right {
+            max-width: 45%;
+            margin-left: rem(30);
         }
 
         .feature-covid-item__image {
@@ -37,6 +39,10 @@
             padding: 10px;
             margin-bottom: 5%;
             @include align-self(center);
+        }
+
+        .adv-search-spending-profile__text {
+            max-width: 85%;
         }
 
         .feature-covid__button-wrap {
@@ -75,20 +81,36 @@
         padding-right: 70px;
 
         .feature-covid-item__image {
-            max-width: 75%;
             border: 1px solid #D6D7D9;
             padding: 10px;
             margin-bottom: 5%;
-        }
-
-        .award-summary__img {
-            width: 75%;
+            background-color: #FFFFFF;
+            width: 50%;
+            z-index: 1;
         }
     
         .award-summary__text-wrapper {
             margin-left: 55px;
+            z-index: 1;
+        }
+
+        .feature-covid__background-flair {
+            position: absolute;
+            top: rem(-30);
+            bottom: rem(-30);
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+
+            background-color: $color-gray-warm-light;
+            opacity: 0.5;
+
+            @include transform(skewY(175deg));
+
+            @include media($medium-screen) {
+                top: 0;
+                bottom: 0;
+            }
         }
     }
-
 }
 
