@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/22/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -12,6 +12,7 @@ import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOpt
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import DateNote from '../DateNote';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -37,6 +38,7 @@ const overviewData = [
 const SpendingByCFDA = () => {
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
     const { defCodes } = useSelector((state) => state.covid19);
+    const moreOptionsTabsRef = useRef(null);
 
     const [tabCounts, setTabCounts] = useState({
         all: null,
@@ -81,6 +83,10 @@ const SpendingByCFDA = () => {
         }
     }, [defCodes]);
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage, moreOptionsTabsRef);
+    };
+
     return (
         <div className="body__content assistance-listing">
             <DateNote />
@@ -90,18 +96,21 @@ const SpendingByCFDA = () => {
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
             </p>
-            <MoreOptionsTabs
-                tabs={financialAssistanceTabs}
-                tabCounts={tabCounts}
-                pickerLabel="More Award Types"
-                changeActiveTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs
+                    tabs={financialAssistanceTabs}
+                    tabCounts={tabCounts}
+                    pickerLabel="More Award Types"
+                    changeActiveTab={changeActiveTab} />
+            </div>
             <SummaryInsightsContainer
                 // pass CFDA count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 overviewData={overviewData} />
             <SpendingByCFDAContainer
-                activeTab={activeTab} />
+                activeTab={activeTab}
+                scrollIntoView={scrollIntoViewTable} />
         </div>
     );
 };

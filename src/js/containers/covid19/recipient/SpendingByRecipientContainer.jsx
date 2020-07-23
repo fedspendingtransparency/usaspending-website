@@ -15,10 +15,10 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import { scrollIntoView } from '../helpers/scrollHelper';
 
 const propTypes = {
-    activeTab: PropTypes.string.isRequired
+    activeTab: PropTypes.string.isRequired,
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 const columns = [
@@ -155,7 +155,7 @@ export const parseRows = (rows, activeTab) => (
     })
 );
 
-const SpendingByRecipientContainer = ({ activeTab }) => {
+const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -166,9 +166,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
     const tableWrapperRef = useRef(null);
-    const paginationRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-    const paginationErrorOrLoadingRef = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -229,7 +227,9 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+        const startPage = 1;
+        const endPage = Math.ceil(totalItems / pageSize);
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true, startPage, endPage, currentPage);
     }, [loading, error]);
 
     let message = null;
@@ -257,16 +257,14 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <div ref={paginationErrorOrLoadingRef}>
-                    <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        limitSelector
-                        resultsText
-                        pageSize={pageSize}
-                        totalItems={totalItems} />
-                </div>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
         );
     }
@@ -278,16 +276,14 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                 rows={results}
                 updateSort={updateSort}
                 currentSort={{ field: sort, direction: order }} />
-            <div ref={paginationRef}>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </div>
 
     );

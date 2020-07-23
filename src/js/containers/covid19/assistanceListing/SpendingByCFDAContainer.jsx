@@ -20,10 +20,12 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import Router from 'containers/router/Router';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { scrollIntoView } from '../helpers/scrollHelper';
 
 
-const propTypes = { activeTab: PropTypes.string.isRequired };
+const propTypes = {
+    activeTab: PropTypes.string.isRequired,
+    scrollIntoView: PropTypes.func.isRequired
+};
 
 const columns = [
     {
@@ -109,7 +111,7 @@ const loanColumns = [
     }
 ];
 
-const SpendingByCFDAContainer = ({ activeTab }) => {
+const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -120,9 +122,8 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
     const tableWrapperRef = useRef(null);
-    const paginationRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-    const paginationErrorOrLoadingRef = useRef(null);
+
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -247,11 +248,13 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+        const startPage = 1;
+        const endPage = Math.ceil(totalItems / pageSize);
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true, startPage, endPage, currentPage);
     }, [loading, error]);
 
     useEffect(() => {
-        window.scrollTo(0, document.documentElement.scrollTop);
+        window.scrollTo(0, 0);
     }, [document]);
 
     let message = null;
@@ -279,16 +282,14 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <div ref={paginationErrorOrLoadingRef}>
-                    <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        limitSelector
-                        resultsText
-                        pageSize={pageSize}
-                        totalItems={totalItems} />
-                </div>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
         );
     }
@@ -302,16 +303,14 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>
-            <div ref={paginationRef}>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </div>
     );
 };

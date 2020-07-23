@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -11,6 +11,7 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -36,6 +37,7 @@ const overviewData = [
 const SpendingByRecipient = () => {
     const [activeTab, setActiveTab] = useState(awardTypeTabs[0].internal);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const awardFilterButtonsRef = useRef(null);
 
     const [tabCounts, setTabCounts] = useState({
         all: null,
@@ -82,19 +84,25 @@ const SpendingByRecipient = () => {
             });
     }, [defCodes]);
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage, awardFilterButtonsRef);
+    };
+
     return (
         <div className="spending-by-recipient">
-            <AwardFilterButtons
-                filters={awardTypeTabs}
-                onClick={changeActiveTab}
-                activeFilter={activeTab}
-                tabCounts={tabCounts} />
+            <div ref={awardFilterButtonsRef}>
+                <AwardFilterButtons
+                    filters={awardTypeTabs}
+                    onClick={changeActiveTab}
+                    activeFilter={activeTab}
+                    tabCounts={tabCounts} />
+            </div>
             <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 overviewData={overviewData} />
-            <SpendingByRecipientContainer activeTab={activeTab} />
+            <SpendingByRecipientContainer activeTab={activeTab} scrollIntoView={scrollIntoViewTable} />
         </div>
     );
 };

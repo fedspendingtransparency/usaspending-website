@@ -3,7 +3,7 @@
  * Created by James Lee 6/18/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
@@ -12,6 +12,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -58,6 +59,7 @@ const AwardSpendingAgency = () => {
     });
 
     const { defCodes } = useSelector((state) => state.covid19);
+    const moreOptionsTabsRef = useRef(null);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -137,6 +139,10 @@ const AwardSpendingAgency = () => {
         });
     };
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage, moreOptionsTabsRef);
+    };
+
     return (
         <div className="body__content award-spending">
             <DateNote />
@@ -144,7 +150,9 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
-            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            </div>
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData
@@ -155,7 +163,7 @@ const AwardSpendingAgency = () => {
                 ))}
             </div>
             <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

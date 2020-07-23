@@ -22,12 +22,12 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
-import { scrollIntoView } from '../helpers/scrollHelper';
 
 
 const propTypes = {
     type: PropTypes.string.isRequired,
-    subHeading: PropTypes.string
+    subHeading: PropTypes.string,
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 
@@ -139,9 +139,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
     const [request, setRequest] = useState(null);
     const tableWrapperRef = useRef(null);
-    const paginationRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-    const paginationErrorOrLoadingRef = useRef(null);
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
@@ -340,11 +338,13 @@ const BudgetCategoriesTableContainer = (props) => {
     }, [currentPage]);
 
     useEffect(() => {
-        scrollIntoView(loading, error, paginationErrorOrLoadingRef, paginationRef, errorOrLoadingWrapperRef, tableWrapperRef, 40);
+        const startPage = 1;
+        const endPage = Math.ceil(totalItems / pageSize);
+        props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true, startPage, endPage, currentPage);
     }, [loading, error]);
 
     useEffect(() => {
-        window.scrollTo(0, document.documentElement.scrollTop);
+        window.scrollTo(0, 0);
     }, [document]);
 
     const renderColumns = () => {
@@ -414,16 +414,14 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <div ref={paginationErrorOrLoadingRef}>
-                    <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        limitSelector
-                        resultsText
-                        pageSize={pageSize}
-                        totalItems={totalItems} />
-                </div>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
         );
     }
@@ -440,16 +438,14 @@ const BudgetCategoriesTableContainer = (props) => {
                     updateSort={updateSort}
                     divider={props.subHeading} />
             </div>
-            <div ref={paginationRef}>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </div>
     );
 };
