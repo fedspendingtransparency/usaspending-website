@@ -5,15 +5,15 @@
 
 import Axios, { CancelToken } from 'axios';
 
+import kGlobalConstants from 'GlobalConstants';
+
 const mockUrl = `http://localhost:5000/api/`;
 const localUrl = `http://localhost:8000/api/`;
 
 const getBaseUrl = (params) => {
     if (params.isMocked) return mockUrl;
     if (params.isLocal) return localUrl;
-    // return kGlobalConstants.API;
-    // DEV-5242: Can find good awards via advanced search.
-    return 'https://qat-api.usaspending.gov/api/';
+    return kGlobalConstants.API;
 };
 
 // eslint-disable-next-line import/prefer-default-export
