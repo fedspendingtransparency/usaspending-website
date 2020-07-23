@@ -88,7 +88,6 @@ const SpendingByCFDA = () => {
 
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
-        console.log('useEffect', countState);
         if (!countState) {
             setInFlight(true);
         }

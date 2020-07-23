@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/24/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
@@ -27,6 +27,8 @@ const SummaryInsightsContainer = ({
     overviewData,
     areCountsLoading
 }) => {
+    const amountsRequest = useRef();
+    const numberOfAwardsRequest = useRef();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -39,6 +41,12 @@ const SummaryInsightsContainer = ({
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
+        if (numberOfAwardsRequest.current) {
+            numberOfAwardsRequest.current.cancel();
+        }
+        if (amountsRequest.current) {
+            amountsRequest.current.cancel();
+        }
         const params = {
             filter: {
                 def_codes: defCodes.map((defc) => defc.code)
@@ -48,12 +56,14 @@ const SummaryInsightsContainer = ({
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
         if (defCodes && defCodes.length > 0) {
-            fetchAwardAmounts(params).promise
+            amountsRequest.current = fetchAwardAmounts(params);
+            numberOfAwardsRequest.current = fetchAwardCount(params);
+            amountsRequest.current.promise
                 .then((res) => {
                     setAwardObligations(res.data.obligation);
                     setAwardOutlays(res.data.outlay);
                 });
-            fetchAwardCount(params).promise
+            numberOfAwardsRequest.promise
                 .then((res) => {
                     setNumberOfAwards(res.data.count);
                 });
