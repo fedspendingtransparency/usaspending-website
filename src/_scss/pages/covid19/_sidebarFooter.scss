@@ -33,12 +33,14 @@
         
             .covid19-sidebar-footer__header {
                 margin: rem(20);
+                margin-bottom: rem(10);
                 color: $color-disaster-covid-19;
                 font-weight: bold;
             }
         
             .covid19-sidebar-footer__content {
                 margin: rem(20);
+                margin-top: rem(10);
                 line-height: 1.5;
             }
         }    
