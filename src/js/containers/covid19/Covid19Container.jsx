@@ -175,7 +175,7 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar__wrapper">
+                    <div className="sidebar__content">
                         <div className="sidebar">
                             <Sidebar
                                 pageName="covid19"
