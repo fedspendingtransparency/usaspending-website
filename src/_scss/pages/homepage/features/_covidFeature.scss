@@ -1,0 +1,94 @@
+.feature-covid {
+    margin-top: -5%;
+
+    //ROW 1: OFFICIAL SPENDING DATA
+    .official-spending-data__content-wrapper {
+        @include display(flex);
+        @include justify-content(center);
+
+        border: 1px solid red;
+
+        .official-spending-data__text {
+            margin-right: rem(85);
+            max-width: 40%;  
+        }
+
+        .feature-covid-official-spending-data__image {
+            width: 35vw;
+            height: 25vw;
+            border: 1px solid black;
+        }
+    }
+
+    //ROW 2: ADVANCED SEARCH FILTER + SPENDING PROFILE 
+    .advanced-search-and-spending-profile__wrapper {
+        margin-top: 60px;
+        @include display(flex);
+        @include justify-content(center);
+
+        .advanced-search__content-wrapper {
+            margin-left: rem(103);
+            max-width: 40%;
+        }
+
+        .feature-covid-item__image {
+            max-width: 75%;
+            border: 1px solid #D6D7D9;
+            padding: 10px;
+            margin-bottom: 5%;
+            @include align-self(center);
+        }
+
+        .feature-covid__button-wrap {
+            margin-top: rem(55);
+
+            width: rem(190);
+            height: rem(57);
+            margin-left: 0;
+
+            .feature-covid__button {
+                display: block;
+
+                color: $color-white;
+                background-color: $color-primary;
+                padding: rem(15) rem(20);
+
+                font-size: rem(21);
+
+                &:visited {
+                    color: $color-white;                    
+                }
+
+                &:hover, &:active {
+                    text-decoration: none;
+                    background-color: $color-primary-darker;
+                }
+            }
+        }
+    }
+    //ROW 3: AWARD SUMMARY 
+    .award-summary__wrapper {
+        margin-top: 60px;
+        @include display(flex);
+        @include justify-content(center);
+        padding-left: 70px;
+        padding-right: 70px;
+
+        .feature-covid-item__image {
+            max-width: 75%;
+            border: 1px solid #D6D7D9;
+            padding: 10px;
+            margin-bottom: 5%;
+        }
+
+        .award-summary__img {
+            width: 75%;
+        }
+    
+        .award-summary__text-wrapper {
+            margin-left: 55px;
+        }
+    }
+
+}
+
