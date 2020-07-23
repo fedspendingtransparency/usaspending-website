@@ -175,8 +175,8 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar__content">
-                        <div className="sidebar">
+                    <div className="sidebar">
+                        <div className="sidebar__content">
                             <Sidebar
                                 pageName="covid19"
                                 fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
