@@ -25,7 +25,7 @@ const propTypes = {
 
 const columns = [
     {
-        title: 'recipient',
+        title: 'name',
         displayName: 'Recipient'
     },
     {
