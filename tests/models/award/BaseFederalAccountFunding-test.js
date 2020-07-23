@@ -39,13 +39,20 @@ describe('Base Financial Assistance', () => {
         it('should format the funding obligated amount', () => {
             expect(row.fundingObligated).toEqual('$9,469');
         });
-        it('should format the funding obligated amount to -- when 0', () => {
+        it('should format the funding obligated amount to -- only when when NaN', () => {
+            const rowWithNull = Object.create(BaseFederalAccount);
+            rowWithNull.populate({
+                ...mockFederalAccountFunding.results[0],
+                transaction_obligated_amount: null
+            }, "idv");
+            expect(rowWithNull.fundingObligated).toEqual('--');
+
             const rowWithZero = Object.create(BaseFederalAccount);
             rowWithZero.populate({
                 ...mockFederalAccountFunding.results[0],
                 transaction_obligated_amount: 0
             }, "idv");
-            expect(rowWithZero.fundingObligated).toEqual('--');
+            expect(rowWithZero.fundingObligated).toEqual('$0');
         });
     });
     describe('Object Class', () => {
