@@ -24,10 +24,7 @@ import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
 
 
-const propTypes = {
-    type: PropTypes.string.isRequired,
-    onExpand: PropTypes.func
-};
+const propTypes = { type: PropTypes.string.isRequired };
 
 
 const budgetDropdownColumns = {
@@ -403,7 +400,6 @@ const BudgetCategoriesTableContainer = (props) => {
             </>
         );
     }
-    console.log(' Re render Table Container');
 
     return (
         <>
@@ -415,8 +411,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     columns={renderColumns()}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
-                    divider={props.subHeading}
-                    onExpand={props.onExpand} />
+                    divider={props.subHeading} />
             </div>
             <Pagination
                 currentPage={currentPage}

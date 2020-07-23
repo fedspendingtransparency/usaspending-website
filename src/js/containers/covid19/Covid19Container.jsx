@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState, useEffect, useRef, cloneElement } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
@@ -23,13 +23,6 @@ import RedirectModalContainer from 'containers/redirectModal/RedirectModalContai
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
-import OverviewContainer from 'containers/covid19/OverviewContainer';
-import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
-
-import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
-import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
-import AwardQuestion from 'components/covid19/AwardQuestions';
-import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 import {
     slug,
     getEmailSocialShareData,
@@ -43,7 +36,7 @@ import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/d
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
-import { componentByCovid19Section, totalSpendingText, awardSpendingText } from './helpers/covid19';
+import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 
 require('pages/covid19/index.scss');
@@ -51,7 +44,6 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     // const [activeSection, setActiveSection] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
-    const [updateSideBarPositions, setUpdateSideBarPositions] = useState(0);
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
@@ -138,16 +130,10 @@ const Covid19Container = () => {
         };
     }, []);
 
-    // const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
-
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
     };
 
-    const measureAgain = () => {
-        console.log(' Measure Again : ');
-        setUpdateSideBarPositions(updateSideBarPositions + 1);
-    }
     return (
         <div className="usa-da-covid19-page">
             <MetaTags {...covidPageMetaTags} />
@@ -186,13 +172,8 @@ const Covid19Container = () => {
                         <Sidebar
                             pageName="covid19"
                             fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                            // active={activeSection}
-                            active=""
-                            // jumpToSection={jumpToCovid19Section}
                             jumpToSection={jumpToSection}
-                            // detectActiveSection={setActiveSection}
                             detectActiveSection
-                            updateSideBarPositions={updateSideBarPositions}
                             sections={Object.keys(componentByCovid19Section())
                                 .filter((section) => componentByCovid19Section()[section].showInMenu)
                                 .map((section) => ({
@@ -204,7 +185,7 @@ const Covid19Container = () => {
                         <section className="body__section">
                             <Heading />
                         </section>
-                        {/* {Object.keys(componentByCovid19Section())
+                        {Object.keys(componentByCovid19Section())
                             .map((section) => (
                                 <Covid19Section
                                     key={section}
@@ -212,50 +193,9 @@ const Covid19Container = () => {
                                     icon={componentByCovid19Section()[section].icon}
                                     headerText={componentByCovid19Section()[section].headerText}
                                     title={componentByCovid19Section()[section].title}>
-                                    {/* {cloneElement(componentByCovid19Section()[section].component, { onExpand: measureAgain })} */}
-                                    {/* {componentByCovid19Section()[section].component} */}
-                                {/* </Covid19Section> */}
-                            {/* ))} */}
-                        <Covid19Section
-                            key="overview"
-                            section="overview"
-                            icon="hand-holding-medical"
-                            headerText={totalSpendingText}
-                            title="Overview">
-                            <OverviewContainer onExpand={measureAgain} />
-                        </Covid19Section>
-                        <Covid19Section
-                            key="total_spending_by_budget_categories"
-                            section="total_spending_by_budget_categories"
-                            icon="cubes"
-                            headerText={totalSpendingText}
-                            title="Total Spending by Budget Categories">
-                            <BudgetCategories onExpand={measureAgain} />
-                        </Covid19Section>
-                        <Covid19Section
-                            key="award_spending_by_recipient"
-                            section="award_spending_by_recipient"
-                            icon="building"
-                            headerText={awardSpendingText}
-                            title="Award Spending by Recipient">
-                            <RecipientContainer onExpand={measureAgain} />
-                        </Covid19Section>
-                        <Covid19Section
-                            key="award_spending_by_agency"
-                            section="award_spending_by_agency"
-                            icon="sitemap"
-                            headerText={awardSpendingText}
-                            title="Award Spending by Agency">
-                            <AwardSpendingAgency onExpand={measureAgain} />
-                        </Covid19Section>
-                        <Covid19Section
-                            key="award_spending_by_assistance_listing"
-                            section="award_spending_by_assistance_listing"
-                            icon="plus-circle"
-                            headerText={awardSpendingText}
-                            title="Award Spending by CFDA Program (Assistance Listing)">
-                            <SpendingByCFDA onExpand={measureAgain} />
-                        </Covid19Section>
+                                    {componentByCovid19Section()[section].component}
+                                </Covid19Section>
+                            ))}
                         <section className="body__section">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />

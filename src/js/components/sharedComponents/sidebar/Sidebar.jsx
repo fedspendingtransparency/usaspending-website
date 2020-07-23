@@ -20,8 +20,7 @@ const propTypes = {
     selectedFy: PropTypes.string,
     pickedYear: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    fixedStickyBreakpoint: PropTypes.number,
-    updateSideBarPositions: PropTypes.number
+    fixedStickyBreakpoint: PropTypes.number
 };
 
 const defaultSectionOffsets = { stickyVerticalOffset: 0 };
@@ -37,8 +36,7 @@ const Sidebar = ({
     selectedFy,
     pickedYear,
     detectActiveSection = false,
-    fixedStickyBreakpoint = null,
-    updateSideBarPositions
+    fixedStickyBreakpoint = null
 }) => {
     // yPosition, in px, of sections referenced in sidebar
     const [sectionPositions, setSectionPositions] = useState([]);
@@ -63,7 +61,6 @@ const Sidebar = ({
     }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
 
     const cacheSectionPositions = throttle(() => {
-        console.log(' Caching ');
         // Measure section positions on windowResize and first render
         const newSectionPositions = sections
             .map((section) => ({ ...defaultSectionOffsets, ...section }))
@@ -190,17 +187,10 @@ const Sidebar = ({
         sectionPositions.length
     ]);
 
-    useEffect(() => {
-        if (updateSideBarPositions !== 0) {
-            console.log(' Caching from this ');
-            cacheSectionPositions();
-        }
-    }, [updateSideBarPositions]);
-
     const jumpToSectionWrapper = (section) => {
         if (!active) return jumpToSection(section);
         jumpToSection(section, activeSection);
-        setActiveSection(section);
+        return setActiveSection(section);
     };
 
     const buildItems = (section) => {
@@ -209,7 +199,6 @@ const Sidebar = ({
                 section={section.section}
                 label={section.label}
                 active={activeSection}
-                // onClick={jumpToSection}
                 onClick={jumpToSectionWrapper} />
         );
         if (section.url) {
