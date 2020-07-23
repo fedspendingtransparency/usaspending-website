@@ -107,41 +107,52 @@
                 justify-content: center;
                 z-index: 5;
 
-                .usa-dt-picker__item  {
-                    @include display(inline-block);
-                    padding: 0;
+                .usa-dt-picker__list-item {
+                    &.disabled {
+                        cursor: not-allowed;
+                    }
+                    .usa-dt-picker__item  {
+                        @include display(inline-block);
+                        padding: 0;
 
-                    div {
-                        @include display(flex);
-                        width: auto;
-                        height: auto;
-                        margin: rem(5) rem(10);
-                        align-items: center;
-
-                        .more-options__tabs_preview-label {
-                            margin-right: rem(5);
+                        &.disabled {
+                            pointer-events: none;
+                            color: #1010104d;
+                            background-color: #efefef4d;
+                            border-color: #7676764d;
                         }
-
-                        .more-options__tabs_preview-count {
-                            width:  auto;
-                            height: 100%;
-                            margin-left: 0;
-                            padding-top: 0;
-                            padding-bottom: 0;
+    
+                        .more-options__tabs_preview {
+                            @include display(flex);
+                            width: auto;
+                            height: auto;
+                            margin: rem(5) rem(10);
                             align-items: center;
-                            background-color: $color-gray-lighter;
-                            font-size: rem(12);
-                            line-height: rem(16);
-                            padding: rem(0) rem(5);
-                            color: $color-base;
-            
-                            &.active {
-                                background-color: $color-gold; 
+    
+                            .more-options__tabs_preview-label {
+                                margin-right: rem(5);
+                            }
+    
+                            .more-options__tabs_preview-count {
+                                width:  auto;
+                                height: 100%;
+                                margin-left: 0;
+                                padding-top: 0;
+                                padding-bottom: 0;
+                                align-items: center;
+                                background-color: $color-gray-lighter;
+                                font-size: rem(12);
+                                line-height: rem(16);
+                                padding: rem(0) rem(5);
                                 color: $color-base;
+                
+                                &.active {
+                                    background-color: $color-gold; 
+                                    color: $color-base;
+                                }
                             }
                         }
                     }
-                    
                 }
             }
 

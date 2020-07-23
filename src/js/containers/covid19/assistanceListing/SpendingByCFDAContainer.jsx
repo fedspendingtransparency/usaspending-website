@@ -26,7 +26,7 @@ const propTypes = { activeTab: PropTypes.string.isRequired };
 
 const columns = [
     {
-        title: 'assistanceListing',
+        title: 'name',
         displayName: (
             <>
                 <div>CFDA Program</div>

@@ -36,11 +36,11 @@ export const filters = {
         options: [
             {
                 value: 'obligation',
-                label: 'Obligations'
+                label: 'Award Obligations'
             },
             {
                 value: 'outlay',
-                label: 'Outlays'
+                label: 'Award Outlays'
             },
             {
                 value: 'face_value_of_loan',
@@ -200,3 +200,16 @@ export const visualizationColors = [
     '#3e5c6a',
     '#083546'
 ];
+
+export const tooltipLabels = {
+    totalSpending: {
+        obligation: 'Total Obligations',
+        outlay: 'Total Outlays',
+        face_value_of_loan: 'Total Face Value of Loans'
+    },
+    perCapita: {
+        obligation: 'Obligations Per Capita',
+        outlay: 'Outlays Per Capita',
+        face_value_of_loan: 'Face Value of Loans Per Capita'
+    }
+};
