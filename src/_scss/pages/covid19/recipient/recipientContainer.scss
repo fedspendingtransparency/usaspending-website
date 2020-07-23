@@ -13,8 +13,14 @@
               @include h3;
               margin: 0;
           }
-          button:hover {
-            border-bottom: 0.3rem solid $color-primary-alt-light;
+          button {
+            border-bottom: 0.3rem solid transparent;
+            transition: border-bottom .1s ease-in-out;
+            &:hover {
+              &:not(.usa-dt-picker__item) {
+                border-bottom-color: $color-primary-alt-light;
+              }
+            }
             &.disabled {
               border: none;
             }
@@ -133,6 +139,13 @@
                   .usa-dt-picker__dropdown-container {
                     .usa-dt-picker__button {
                       padding: 0.5rem 0 0 0;
+                      &.hover {
+                        border: none;
+                      }
+                      &:focus {
+                        outline: none;
+                        box-shadow: none;
+                      }
                       .usa-dt-picker__button-text {
                         @include flex(0 0 auto);
                         margin-right: 0.3rem;
@@ -155,7 +168,10 @@
                     }
                     .usa-dt-picker__list {
                       z-index: 3;
+                      // some styles need to go here to hide the scroll bar in ie
+                      -ms-overflow-style: none;
                       .usa-dt-picker__list-item {
+                        border-top: none;
                         .usa-dt-picker__item {
                           font-size: 1.4rem;
                           letter-spacing: 0;
