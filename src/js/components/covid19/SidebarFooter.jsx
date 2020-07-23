@@ -62,11 +62,15 @@ function SidebarFooter(props) {
                 &nbsp;
             </div>
             <div ref={div} className={`${props.pageName}-sidebar-footer ${floatSidebarFooter}`} style={{ width: sidebarFooterWidth, top: sidebarFooterTop }}>
-                <div className={`${props.pageName}-sidebar-footer__header`}>Learn more about the COVID-19 response</div>
-                <div className={`${props.pageName}-sidebar-footer__content`}>To learn more about COVID-19 spending legislation and the broader projected economic and fiscal impact of these dollars,
-                    <a href="https://datalab.usaspending.gov/federal-covid-spending/"> visit our DATA Lab &nbsp;
-                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                    </a>
+                <div className={`${props.pageName}-sidebar-footer__header`}>Learn more about <b>The Federal Response to COVID-19</b> at Data Lab!</div>
+                <div className={`${props.pageName}-sidebar-footer__content`}>
+                    Visit our sister site,&nbsp;
+                    <a href="https://datalab.usaspending.gov/federal-covid-spending/">
+                        <b>DATA Lab &nbsp;
+                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                        </b>
+                    </a>, to see more ways the government is providing financial relief and explore how funding makes its way from Congress to the economy.
+
                 </div>
             </div>
         </div>
