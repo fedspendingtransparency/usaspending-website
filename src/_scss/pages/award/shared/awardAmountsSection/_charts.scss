@@ -207,7 +207,7 @@ $proc-current-offset: rem(5);
                     font-size: $small-font-size;
                 }
 
-                // Offsets for Bar Value Descriptions; for example $10,000
+                // Offsets for Bar Value Descriptions/text; for example where the section says $10,000 <spending category>
                 &.idv-obligated,
                 &.contract-obligated {
                     margin-left: $proc-obligated-offset;
