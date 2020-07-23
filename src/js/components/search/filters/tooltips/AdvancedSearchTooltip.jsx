@@ -36,13 +36,13 @@ export const KeyWordTooltip = () => (
 export const DEFTooltip = () => (
     <div className="advanced-search-tt">
         <h3 className="advanced-search-tt__header">
-           Disaster Emergency Fund (DEF) Code
+           Disaster Emergency Fund Code (DEFC)
         </h3>
         <div className="advanced-search-tt__body">
-            <p>This filter allows you to find awards funded with Disaster and Emergency Funds.</p>
-            <p>Any award that is funded with Disaster and Emergency Funding is tagged with a Disaster and Emergency Fund Code (DEF Code), which corresponds to the legislative bills which authorized its funding.</p>
-            <p>By selecting DEF Codes in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by those DEF Codes will be displayed in the &quot;Spending by Awards&quot; table.</p>
-            <p>The &quot;COVID-19 Spending Obligations&quot; and &quot;COVID-19 Spending Outlays&quot; columns show specific funding amounts for each award. To view a summary with more information about an award, click on an award ID.</p>
+            <p>This filter allows you to find awards funded with Disaster Emergency Funds.</p>
+            <p>Any award that is funded with Disaster Emergency Funding is tagged with a Disaster Emergency Fund Code (DEFC), which corresponds to the legislative bill which authorized its funding.</p>
+            <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by those DEFC will be displayed in the &quot;Spending by Awards&quot; table.</p>
+            <p>The &quot;COVID-19 Spending Obligations&quot; and &quot;COVID-19 Spending Outlays&quot; columns show specific funding amounts for each award. To view a summary with more information about an award, click on its award ID.</p>
         </div>
     </div>
 );
