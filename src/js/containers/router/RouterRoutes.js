@@ -314,6 +314,18 @@ if (kGlobalConstants.CARES_ACT_RELEASED) {
             }
         }
     );
+    routes.routes.push(
+        {
+            path: '/disaster/covid-19/data-sources',
+            parent: '/disaster/covid-19',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/covid19/DataSourcesAndMethodologies').default);
+                });
+            }
+        }
+    );
 }
 
 module.exports = routes;
