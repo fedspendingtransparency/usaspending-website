@@ -9,7 +9,9 @@ import {
     potentialColor,
     nonFederalFundingColor,
     subsidyColor,
-    faceValueColor
+    faceValueColor,
+    // Offsets per DEV-5242:
+    lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
 import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
@@ -36,6 +38,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
             color: potentialColor,
+            lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
                 : "Potential Award Amount",
@@ -49,6 +52,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             rawValue: data._baseExercisedOptions,
             denominatorValue: data._baseAndAllOptions,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: lineOffsetsBySpendingCategory.current,
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
@@ -65,7 +69,8 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         ? "Combined Obligated Amounts"
                         : "Obligated Amount",
                     color: obligatedColor,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data)
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
             ]
         }
@@ -89,6 +94,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         value: data.fileCObligatedAbbreviated,
                         text: 'COVID-19 Response Obligations Amount',
                         color: covidObligatedColor,
+                        lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
@@ -98,7 +104,8 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                             rawValue: data._fileCOutlay,
                             value: data.fileCOutlayAbbreviated,
                             text: 'COVID-19 Response Outlay Amount',
-                            color: covidColor
+                            color: covidColor,
+                            lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
                         }]
                     }
                 ]
@@ -120,6 +127,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
                 : "Potential Award Amount",
+            lineOffset: 0,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
         },
         numerator: {
@@ -130,6 +138,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             rawValue: data._baseExercisedOptions,
             denominatorValue: data._totalObligation,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: lineOffsetsBySpendingCategory.current,
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
@@ -137,10 +146,11 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             children: [{
                 labelSortOrder: 0,
                 labelPosition: 'top',
-                className: `${awardType}-obligated`,
+                className: `${awardType}-overspending-obligated`,
                 rawValue: data._totalObligation,
                 denominatorValue: data._baseAndAllOptions,
                 value: data.totalObligationAbbreviated,
+                lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
                 text: awardType === 'idv'
                     ? "Combined Obligated Amounts"
                     : "Obligated Amount",
@@ -149,7 +159,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                 improper: {
                     labelSortOrder: 1,
                     labelPosition: 'hide',
-                    className: `${awardType}-overspending-obligated`,
+                    className: `${awardType}-overspending`,
                     rawValue: data._totalObligation,
                     denominatorValue: data._baseAndAllOptions,
                     value: data.overspendingAbbreviated,
@@ -245,6 +255,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                 : "Obligated Amount",
             color: `transparent`,
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+            lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
             improper: {
                 labelSortOrder: 1,
                 labelPosition: 'hide',
@@ -267,6 +278,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             rawValue: data._baseAndAllOptions,
             denominatorValue: data._totalObligation,
             value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: 0,
             text: null,
             color: potentialColor,
             children: [
@@ -282,7 +294,8 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                     text: awardType === 'idv'
                         ? "Combined Current Award Amounts"
                         : "Current Award Amount",
-                    color: obligatedColor
+                    color: obligatedColor,
+                    lineOffset: lineOffsetsBySpendingCategory.current
                 },
                 {
                     className: `${awardType}-extreme-overspending-potential`,
@@ -293,6 +306,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                     denominatorValue: data._totalObligation,
                     value: data.baseAndAllOptionsAbbreviated,
                     color: obligatedColor,
+                    lineOffset: 0,
                     barWidthOverrides: {
                         rawValue: data._baseAndAllOptions - data._baseExercisedOptions,
                         denominatorValue: data._baseAndAllOptions
@@ -372,7 +386,11 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
     };
 };
 
-const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
+const AwardAmountsChart = ({
+    awardType,
+    awardOverview,
+    spendingScenario
+}) => {
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,
@@ -415,6 +433,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     rawValue: awardAmounts._totalFunding,
                     value: awardAmounts.totalFundingAbbreviated,
                     color: `#FFF`,
+                    lineOffset: 0,
                     text: `Total Funding`,
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'totalFunding', awardAmounts)
                 },
@@ -426,6 +445,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     rawValue: awardAmounts._totalObligation,
                     denominatorValue: awardAmounts._totalFunding,
                     value: awardAmounts.totalObligationAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                     text: 'Obligated Amount',
                     color: obligatedColor
                 },
@@ -436,6 +456,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     // fudging this for to get the correct tooltip position.
                     rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
                     denominatorValue: awardAmounts._totalFunding,
+                    lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
                     barWidthOverrides: {
                         applyToLine: true,
                         rawValue: awardAmounts._nonFederalFunding,
@@ -458,12 +479,14 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                         rawValue: awardAmounts._fileCObligated,
                         denominatorValue: awardAmounts._totalObligation,
                         value: awardAmounts.fileCObligatedAbbreviated,
+                        lineOffset: lineOffsetsBySpendingCategory.fileCAsstObligation,
                         text: 'COVID-19 Response Obligations Amount',
                         color: covidObligatedColor,
                         children: [{
                             labelSortOrder: 0,
                             labelPosition: 'bottom',
                             className: `${awardAmounts._fileCOutlay > 0 ? `asst-file-c-outlay` : `asst-file-c-outlay--zero`}`,
+                            lineOffset: lineOffsetsBySpendingCategory.fileCAsstOutlay,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', awardAmounts),
                             denominatorValue: awardAmounts._fileCObligated,
                             rawValue: awardAmounts._fileCOutlay,
@@ -487,6 +510,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     className: `${awardType}-subsidy`,
                     rawValue: awardAmounts._subsidy,
                     value: awardAmounts.subsidyAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.subsidy,
                     text: 'Original Subsidy Cost',
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts),
                     color: subsidyColor
@@ -497,6 +521,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     className: `${awardType}-face-value`,
                     rawValue: awardAmounts._faceValue,
                     value: awardAmounts.faceValueAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.faceValue,
                     color: faceValueColor,
                     text: 'Face Value of Direct Loan',
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)
@@ -515,6 +540,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                             text: 'COVID-19 Response Obligations Amount',
                             className: `loan-file-c-obligated`,
                             denominatorValue: awardAmounts._subsidy,
+                            lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
                             color: covidObligatedColor,
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCObligated', awardAmounts),
                             children: [{
@@ -524,6 +550,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                                 rawValue: awardAmounts._fileCOutlay,
                                 value: awardAmounts.fileCOutlayAbbreviated,
                                 denominatorValue: awardAmounts._fileCObligated,
+                                lineOffset: lineOffsetsBySpendingCategory.loanFileCOutlay,
                                 text: 'COVID-19 Response Outlay Amount',
                                 color: covidColor,
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)

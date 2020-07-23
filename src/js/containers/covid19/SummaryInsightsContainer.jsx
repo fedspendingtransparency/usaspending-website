@@ -87,9 +87,9 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
         numberOfAwards
     };
 
-    let subtitle = `for All ${(awardTypeGroupLabels[activeTab] || 'Awards')}`;
+    let subtitle = `for ${activeTab === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeTab] || 'Awards')}`;
     if (activeTab === 'other') {
-        subtitle = 'for All Other Financial Assistance';
+        subtitle = 'for all Other Financial Assistance';
     }
 
     return (
