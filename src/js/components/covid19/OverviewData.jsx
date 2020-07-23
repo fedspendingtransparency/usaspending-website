@@ -19,7 +19,8 @@ const propTypes = {
     label: PropTypes.string.isRequired,
     amount: PropTypes.number,
     dollarAmount: PropTypes.bool,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    isLoading: PropTypes.bool
 };
 
 const OverviewData = (props) => {
@@ -39,7 +40,8 @@ const OverviewData = (props) => {
                 {props.subtitle}
             </div>
             <div className="overview-data__amount">
-                {(props.amount || props.amount === 0) ? formattedAmount : '--'}
+                {props.isLoading && "Loading..."}
+                {!props.isLoading && formattedAmount}
             </div>
         </div>
     );

@@ -17,10 +17,16 @@ const propTypes = {
     overviewData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
         label: PropTypes.string
-    }))
+    })),
+    areCountsLoading: PropTypes.bool
 };
 
-const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => {
+const SummaryInsightsContainer = ({
+    activeTab,
+    resultsCount,
+    overviewData,
+    areCountsLoading
+}) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -100,7 +106,7 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
                     {...data}
                     subtitle={subtitle}
                     amount={amounts[data.type]}
-                    isLoading={inFlightList.includes(data.type)} />
+                    isLoading={data.type === 'resultsCount' ? areCountsLoading : inFlightList.includes(data.type)} />
             ))}
         </div>
     );
