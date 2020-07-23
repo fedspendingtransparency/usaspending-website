@@ -61,7 +61,7 @@ export const budgetCategoriesCssMappingTypes = {
     object_class: 'object-class'
 };
 
-export const budgetCategoriesSort = {
+export const defaultSort = {
     federal_account: {
         total_spending: {
             sort: 'totalBudgetaryResources',
@@ -104,4 +104,10 @@ export const budgetCategoriesSort = {
             order: 'desc'
         }
     }
+};
+
+export const budgetCategoriesNameSort = {
+    agency: 'description',
+    federal_account: 'code',
+    object_class: 'code'
 };

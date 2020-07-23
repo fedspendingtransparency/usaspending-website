@@ -87,7 +87,7 @@ const AmountsVisualization = ({
             const { left, right } = amountsPadding;
             const amount = Math.abs(overviewData._totalBudgetAuthority);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -106,7 +106,7 @@ const AmountsVisualization = ({
             const { left, right } = amountsPadding;
             const amount = Math.abs(overviewData._totalOutlays);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -125,7 +125,7 @@ const AmountsVisualization = ({
             const { left, right } = amountsPadding;
             const amount = Math.abs(overviewData._totalObligations);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
@@ -143,7 +143,7 @@ const AmountsVisualization = ({
             const { offset, fill, text: textInfo } = rectangleMapping._remainingBalance;
             const amount = Math.abs(overviewData._remainingBalance);
             const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             let draw = true;
             let adjustedWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0);
             if (overviewData._remainingBalance <= 0) draw = false;
@@ -273,7 +273,7 @@ const AmountsVisualization = ({
         const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData._totalBudgetAuthority);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (totalLineData && totalQuestionData) {
             setTotalValueData({
                 y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0),
@@ -316,7 +316,7 @@ const AmountsVisualization = ({
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData._remainingBalance);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (remainingBalanceLineData && remainingBalanceQuestionData) {
             setRemainingBalanceValueData({
                 y: remainingBalanceLineData.y2 - spacingBetweenLineAndText,
@@ -370,7 +370,7 @@ const AmountsVisualization = ({
         const ref = _outlayValue.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData._totalOutlays);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (outlayLineData) {
             if (outlayQuestionData?.left || 0) {
                 setOutlayValueData({
@@ -452,7 +452,7 @@ const AmountsVisualization = ({
         const ref = _obligationValue.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData._totalObligations);
         const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, units.precision)} ${upperFirst(units.longLabel)}`;
+        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (obligationLineData) {
             if (obligationQuestionData?.left) {
                 setObligationValueData({

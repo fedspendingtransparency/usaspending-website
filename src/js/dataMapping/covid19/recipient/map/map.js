@@ -36,11 +36,11 @@ export const filters = {
         options: [
             {
                 value: 'obligation',
-                label: 'Obligations'
+                label: 'Award Obligations'
             },
             {
                 value: 'outlay',
-                label: 'Outlays'
+                label: 'Award Outlays'
             },
             {
                 value: 'face_value_of_loan',
