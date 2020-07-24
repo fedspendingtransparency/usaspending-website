@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
-import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import OverviewData from '../OverviewData';
-
+import ReadMore from '../ReadMore';
 
 const tabs = [
     {
@@ -91,10 +92,20 @@ const BudgetCategories = () => {
     return (
         <div className="body__content budget-categories">
             <DateNote />
-            <h3 className="body__narrative">This is how the <strong>total spending</strong> of the COVID-19 Response was categorized.</h3>
-            <p className="body__narrative-description">
-                The total federal spending for COVID-19 Spending can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the response, and the different types of items and services that were purchased.
-            </p>
+            <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
+            <div className="body__narrative-description">
+                <p>
+                    In this section, we present the total amount of COVID-19 funding divided into three high-level budget categories: the Agencies <GlossaryLink currentUrl="disaster/covid-19" term="agency" /> who are authorizing the funds to be spent; the Federal Accounts <GlossaryLink currentUrl="disaster/covid-19" term="federal-account" /> from which agencies authorize spending; and the Object Classes <GlossaryLink currentUrl="disaster/covid-19" term="object-class" /> of the goods and services purchased with this funding.
+                </p>
+                <ReadMore>
+                    <p>
+                        This section includes both award spending (detailed in the sections below) and non-award spending, such as internal federal agency expenses.
+                    </p>
+                    <p>
+                        In the chart below, see how much is available to be spent (Total Budgetary Resources), how much has been promised to be spent (Total Obligations), and how much has actually been paid out (Total Outlays).
+                    </p>
+                </ReadMore>
+            </div>
             <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
             <div className="overview-data-group">
                 {overviewData.map((data) => (
