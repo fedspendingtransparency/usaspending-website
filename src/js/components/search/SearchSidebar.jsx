@@ -78,7 +78,7 @@ const staticFilters = {
             title: 'CFDA Program'
         },
         {
-            title: 'Disaster Emergency Fund (DEF) Code',
+            title: 'Disaster Emergency Fund Code (DEFC)',
             tooltip: withAdvancedSearchTooltip({
                 icon: 'info',
                 tooltipComponent: <DEFTooltip />
