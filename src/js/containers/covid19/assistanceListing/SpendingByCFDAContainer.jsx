@@ -121,6 +121,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
 
@@ -259,14 +260,22 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     let message = null;
     if (loading) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -296,7 +305,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     return (
         <div ref={tableWrapperRef}>
-            <div className="table-wrapper">
+            <div ref={tableRef} className="table-wrapper" >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}

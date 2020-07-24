@@ -116,6 +116,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
 
@@ -289,19 +290,26 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     let message = null;
     if (loading) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
     }
-
     if (message) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
@@ -326,13 +334,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     return (
         <div ref={tableWrapperRef} className="table-wrapper">
-            <Table
-                expandable
-                rows={results}
-                columns={awardSpendingAgencyTableColumns(props.type)}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort}
-                divider={props.subHeading} />
+            <div ref={tableRef}>
+                <Table
+                    expandable
+                    rows={results}
+                    columns={awardSpendingAgencyTableColumns(props.type)}
+                    currentSort={{ field: sort, direction: order }}
+                    updateSort={updateSort}
+                    divider={props.subHeading} />
+            </div>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

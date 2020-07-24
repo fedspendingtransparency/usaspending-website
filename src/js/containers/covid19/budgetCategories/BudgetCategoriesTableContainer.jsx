@@ -138,11 +138,11 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
-
 
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
@@ -343,10 +343,6 @@ const BudgetCategoriesTableContainer = (props) => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true, startPage, endPage, currentPage);
     }, [loading, error]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [document]);
-
     const renderColumns = () => {
         if (props.type && spendingCategory) {
             if (props.type !== 'object_class' && spendingCategory === 'total_spending') {
@@ -370,14 +366,22 @@ const BudgetCategoriesTableContainer = (props) => {
 
     let message = null;
     if (loading) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = null;
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -427,9 +431,9 @@ const BudgetCategoriesTableContainer = (props) => {
     }
 
     return (
-        <div ref={tableWrapperRef}>
+        <div ref={tableWrapperRef} className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
             {spendingViewPicker()}
-            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
+            <div ref={tableRef}>
                 <Table
                     expandable
                     rows={results}
@@ -440,7 +444,7 @@ const BudgetCategoriesTableContainer = (props) => {
             </div>
             <Pagination
                 currentPage={currentPage}
-                changePage={changeCurrentPage}
+                changePage={(e) => changeCurrentPage(e)}
                 changeLimit={changePageSize}
                 limitSelector
                 resultsText
