@@ -40,7 +40,7 @@ const OverviewData = (props) => {
                 {props.subtitle}
             </div>
             <div className="overview-data__amount">
-                {props.isLoading && "Loading..."}
+                {props.isLoading && <div className="dot-pulse" />}
                 {!props.isLoading && formattedAmount}
             </div>
         </div>

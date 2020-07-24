@@ -3,6 +3,7 @@
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
     @import "components/pageLoading";
+    @import "components/loading-pulse-animation";
 
     @include display(flex);
     @include justify-content(flex-start);
