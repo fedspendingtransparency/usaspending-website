@@ -29,7 +29,7 @@ const propTypes = {
 
 const columns = [
     {
-        title: 'assistanceListing',
+        title: 'name',
         displayName: (
             <>
                 <div>CFDA Program</div>

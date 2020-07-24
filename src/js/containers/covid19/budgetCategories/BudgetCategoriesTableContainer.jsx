@@ -14,14 +14,15 @@ import {
     budgetColumns,
     budgetDropdownFieldValues,
     budgetCategoriesCssMappingTypes,
-    budgetCategoriesSort,
+    defaultSort,
+    budgetCategoriesNameSort,
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { BudgetCategoriesInfo } from '../../../components/award/shared/InfoTooltipContent';
+import { BudgetCategoriesInfo } from 'components/award/shared/InfoTooltipContent';
 
 
 const propTypes = {
@@ -126,7 +127,6 @@ const BudgetCategoriesTableContainer = (props) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
-    const [sortAndOrder, setSortAndOrder] = useState(budgetCategoriesSort);
     const [sort, setSort] = useState('totalBudgetaryResources');
     const [order, setOrder] = useState('desc');
     const updateSort = (field, direction) => {
@@ -147,26 +147,13 @@ const BudgetCategoriesTableContainer = (props) => {
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
-            budgetCategoryRow.populate(item);
-
-            // show only description for agency
-            if (props.type === 'agency') {
-                budgetCategoryRow.name = budgetCategoryRow.description;
-            }
+            budgetCategoryRow.populate(item, props.type);
 
             let rowChildren = [];
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
-                    budgetCategoryChildRow.populate(childItem);
-                    // update name of children to not include description, just make the name the code for only federal account
-                    if (props.type === 'federal_account') {
-                        budgetCategoryChildRow.name = budgetCategoryChildRow._code;
-                    } else if (props.type === 'object_class') {
-                        budgetCategoryChildRow.name = `${budgetCategoryChildRow._code} — ${budgetCategoryChildRow.description}`;
-                    } else if (props.type === 'agency') {
-                        budgetCategoryChildRow.name = budgetCategoryChildRow.description;
-                    }
+                    budgetCategoryChildRow.populate(childItem, props.type, true);
                     return budgetCategoryChildRow;
                 });
             }
@@ -218,10 +205,8 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && sortAndOrder) {
-            // if type is agency then sort name column by description
-            const sortMap = props.type === 'agency' && sortAndOrder[props.type][spendingCategory].sort === 'name' ? 'description' : snakeCase([sortAndOrder[props.type][spendingCategory].sort]);
-
+        if (defCodes && defCodes.length > 0 && spendingCategory) {
+            const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             if (spendingCategory === 'loan_spending') {
                 const params = {
                     filter: {
@@ -230,8 +215,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: sortMap,
-                        order: sortAndOrder[props.type][spendingCategory].order
+                        sort: apiSortField,
+                        order
                     }
                 };
                 const requestLoanSpending = fetchLoanSpending(props.type, params);
@@ -259,8 +244,8 @@ const BudgetCategoriesTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: sortMap,
-                        order: sortAndOrder[props.type][spendingCategory].order
+                        sort: apiSortField,
+                        order
                     }
                 };
                 const disasterSpendingRequest = fetchDisasterSpending(props.type, params);
@@ -283,55 +268,17 @@ const BudgetCategoriesTableContainer = (props) => {
         }
     });
 
-    const setSortAndOrderCallback = useCallback(() => {
-        const tabCategory = Object.keys(sortAndOrder).filter((key) => key === props.type)[0];
-        const dropdownCategory = Object.keys(sortAndOrder[tabCategory]).filter((val) => val === spendingCategory)[0];
-        if (tabCategory && dropdownCategory) {
-            const categoryName = tabCategory;
-            const dropdownCategoryName = dropdownCategory;
-            const slice = sortAndOrder[categoryName][dropdownCategoryName];
-            setSort(slice.sort);
-            setOrder(slice.order);
-        }
-    });
-
-    const storeSortAndOrderObjectCallback = useCallback(() => {
-        const tabCategory = Object.keys(sortAndOrder).filter((key) => key === props.type);
-        const dropdownCategory = Object.keys(sortAndOrder[tabCategory]).filter((val) => val === spendingCategory);
-
-        if (tabCategory && dropdownCategory) {
-            const categoryName = tabCategory[0];
-            const dropdownCategoryName = dropdownCategory[0];
-
-            const modifiedSortObj = {
-                ...sortAndOrder,
-                [categoryName]: {
-                    ...sortAndOrder[categoryName],
-                    [dropdownCategoryName]: {
-                        sort,
-                        order
-                    }
-                }
-
-            };
-            setSortAndOrder(modifiedSortObj);
-        }
-    });
-
-
     useEffect(() => {
-        setSortAndOrderCallback();
+        // Reset to default sort when the active tab or spending category changes
+        setSort(defaultSort[props.type][spendingCategory].sort);
+        setOrder(defaultSort[props.type][spendingCategory].order);
     }, [props.type, spendingCategory]);
-
-    useEffect(() => {
-        storeSortAndOrderObjectCallback();
-    }, [sort, order]);
 
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchBudgetSpendingCallback();
-    }, [props.type, pageSize, sortAndOrder, defCodes]);
+    }, [props.type, pageSize, defCodes, sort, order]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

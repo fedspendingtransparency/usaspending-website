@@ -39,6 +39,7 @@ import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
+import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
@@ -171,25 +172,33 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                        <Sidebar
-                            pageName="covid19"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                            active={activeSection}
-                            jumpToSection={jumpToCovid19Section}
-                            detectActiveSection={setActiveSection}
-                            sections={Object.keys(componentByCovid19Section())
-                                .filter((section) => componentByCovid19Section()[section].showInMenu)
-                                .map((section) => ({
-                                    section: snakeCase(section),
-                                    label: componentByCovid19Section()[section].title
-                                }))} />
+                    <div className="sidebar">
+                        <div className="sidebar__content">
+                            <Sidebar
+                                pageName="covid19"
+                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                                active={activeSection}
+                                jumpToSection={jumpToCovid19Section}
+                                detectActiveSection={setActiveSection}
+                                sections={Object.keys(componentByCovid19Section())
+                                    .filter((section) => componentByCovid19Section()[section].showInMenu)
+                                    .map((section) => ({
+                                        section: snakeCase(section),
+                                        label: componentByCovid19Section()[section].title
+                                    }))} />
+                        </div>
+                        <div className="sidebar-footer">
+                            <SidebarFooter
+                                pageName="covid19"
+                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                        </div>
                     </div>
                     <div className="body usda__flex-col">
                         <section className="body__section">
                             <Heading />
                         </section>
                         {Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
                             .map((section) => (
                                 <Covid19Section
                                     key={section}
@@ -200,7 +209,7 @@ const Covid19Container = () => {
                                     {componentByCovid19Section()[section].component}
                                 </Covid19Section>
                             ))}
-                        <section className="body__section">
+                        <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />
                             <FooterLinkToAdvancedSearchContainer

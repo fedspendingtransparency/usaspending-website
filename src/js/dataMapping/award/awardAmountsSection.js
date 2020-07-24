@@ -116,3 +116,28 @@ export const potentialColor = '#AAC6E2';
 export const subsidyColor = '#0B424D';
 export const faceValueColor = '#F3F3F3';
 export const nonFederalFundingColor = '#47AAA7';
+
+// Offsets per DEV-5242:
+// 3px padding between outermost bar and first nested bar
+const defaultPadding = 6;
+// 2px of padding for each additional nested bar
+const additionalPadding = 4;
+// offset = defaultPadding + (additionalPadding * levels nested relative to outermost bar)
+export const lineOffsetsBySpendingCategory = {
+    obligationProcurement: defaultPadding + (additionalPadding * 1),
+    obligationAsst: defaultPadding,
+    // mark up for loans is a bit different.
+    subsidy: 3,
+    totalFunding: defaultPadding,
+    nonFederalFunding: defaultPadding,
+    faceValue: 0,
+    current: defaultPadding,
+    potential: 0,
+    // cannot understand why we have to divide this by two...!!!???
+    fileCProcurementObligated: (defaultPadding + (additionalPadding * 2)) / 2,
+    fileCProcurementOutlay: (defaultPadding + (additionalPadding * 3)) / 2,
+    fileCAsstObligation: defaultPadding + (additionalPadding * 1),
+    fileCAsstOutlay: defaultPadding + (additionalPadding * 2),
+    loanFileCObligated: 7,
+    loanFileCOutlay: 9
+};

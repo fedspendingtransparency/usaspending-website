@@ -71,3 +71,19 @@
         }
     }
 }
+
+.homepage__covid-19-tt {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+    h2, p {
+        color: $color-base;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: $base-font-size;
+        padding: 0;
+    }
+}

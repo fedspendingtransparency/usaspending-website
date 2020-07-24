@@ -7,6 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
+import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -15,6 +16,8 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
+import SearchBar from 'components/covid19/SearchBar';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -23,7 +26,7 @@ const propTypes = {
 
 const columns = [
     {
-        title: 'recipient',
+        title: 'name',
         displayName: 'Recipient'
     },
     {
@@ -95,16 +98,28 @@ const loanColumns = [
     }
 ];
 
-export const parseRows = (rows, activeTab) => (
+export const parseRows = (rows, activeTab, query) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByRecipientRow);
         rowData.populate(row);
-        let link = rowData.description;
+        let description = rowData.description;
+        let link = description;
+        if (query) {
+            // wrap the part of the recipient name matching the search string
+            // with a span for styling
+            description = reactStringReplace(description, query, (match, i) => (
+                <span
+                    className="query-matched"
+                    key={match + i}>
+                    {match}
+                </span>
+            ));
+        }
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
             link = (
                 <>
-                    {rowData.description} (
+                    {description}&nbsp;(
                     <a href={`#/recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
@@ -115,34 +130,20 @@ export const parseRows = (rows, activeTab) => (
                 </>
             );
         }
-        else if (rowData._childId) {
+        else if (rowData._childId || rowData._recipientId) {
+            // there is a single profile page for this recipient
             link = (
-                <>
-                    {rowData.description} (
-                    <a href={`#/recipient/${rowData._childId}`}>
-                        as Child
-                    </a>
-                    )
-                </>
-            );
-        }
-        else if (rowData._recipientId) {
-            link = (
-                <>
-                    {rowData.description} (
-                    <a href={`#/recipient/${rowData._recipientId}`}>
-                        as Recipient
-                    </a>
-                    )
-                </>
+                <a href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                    {description}
+                </a>
             );
         }
         if (activeTab === 'loans') {
             return [
                 link,
-                rowData.faceValueOfLoan,
                 rowData.obligation,
                 rowData.outlay,
+                rowData.faceValueOfLoan,
                 rowData.count
             ];
         }
@@ -164,6 +165,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [query, setQuery] = useState('');
     const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
@@ -195,6 +197,9 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             if (activeTab !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
+            if (query) {
+                params.filter.query = query;
+            }
             let recipientRequest = fetchDisasterSpending('recipient', params);
             if (activeTab === 'loans') {
                 recipientRequest = fetchLoanSpending('recipient', params);
@@ -202,7 +207,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             setRequest(recipientRequest);
             recipientRequest.promise
                 .then((res) => {
-                    const rows = parseRows(res.data.results, activeTab);
+                    const rows = parseRows(res.data.results, activeTab, query);
                     setResults(rows);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
@@ -221,7 +226,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByRecipientCallback();
-    }, [pageSize, defCodes, sort, order, activeTab]);
+    }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
@@ -254,49 +259,55 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 <ResultsTableErrorMessage />
             </div>
         );
-    }
-
-    if (message) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
+    } else if (results.length === 0) {
+        message = (
+            <div className="results-table-message-container">
+                <ResultsTableNoResults />
             </div>
         );
     }
 
-    return (
-        <div ref={tableWrapperRef}className="table-wrapper">
-            <div ref={tableRef}>
-                <Table
-                    columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={results}
-                    updateSort={updateSort}
-                    currentSort={{ field: sort, direction: order }} />
-            </div>
-            <Pagination
+    const content = message ? (
+        <>
+            <CSSTransitionGroup
+                transitionName="table-message-fade"
+                transitionLeaveTimeout={225}
+                transitionEnterTimeout={195}
+                transitionLeave>
+                {message}
+            </CSSTransitionGroup>
+            {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
                 changeLimit={changePageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}
-                totalItems={totalItems} />
+                totalItems={totalItems} />}
+            </>
+    ) : (
+        <div ref={tableRef} className="table-wrapper">
+            <Table
+                columns={activeTab === 'loans' ? loanColumns : columns}
+                rows={results}
+                updateSort={updateSort}
+                currentSort={{ field: sort, direction: order }} />
         </div>
+    );
 
+    return (
+        <div ref={tableWrapperRef}>
+            <SearchBar setQuery={setQuery} />
+            {content}
+            {(results.length > 0 || error) && <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />}
+        </div>
     );
 };
 

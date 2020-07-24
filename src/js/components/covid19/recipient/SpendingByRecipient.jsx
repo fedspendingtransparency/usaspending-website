@@ -71,7 +71,7 @@ const SpendingByRecipient = () => {
         });
         // Wait for all the requests to complete and then store the results in state
         Promise.all(promises)
-            .then(([allRes, grantsRes, directPaymentsRes, loansRes, otherRes, contractRes, idvRes]) => {
+            .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractRes, idvRes]) => {
                 setTabCounts({
                     all: allRes.data.count,
                     grants: grantsRes.data.count,
