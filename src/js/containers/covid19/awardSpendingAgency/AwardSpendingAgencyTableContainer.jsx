@@ -303,14 +303,16 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }
 
     return (
-        <div className="table-wrapper">
-            <Table
-                expandable
-                rows={results}
-                columns={awardSpendingAgencyTableColumns(props.type)}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort}
-                divider={props.subHeading} />
+        <>
+            <div className="table-wrapper">
+                <Table
+                    expandable
+                    rows={results}
+                    columns={awardSpendingAgencyTableColumns(props.type)}
+                    currentSort={{ field: sort, direction: order }}
+                    updateSort={updateSort}
+                    divider={props.subHeading} />
+            </div>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -319,7 +321,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </div>
+        </>
     );
 };
 

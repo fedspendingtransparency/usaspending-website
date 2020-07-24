@@ -13,7 +13,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
     budgetColumns,
     budgetDropdownFieldValues,
-    budgetCategoriesCssMappingTypes,
     defaultSort,
     budgetCategoriesNameSort,
     apiSpendingTypes
@@ -352,7 +351,7 @@ const BudgetCategoriesTableContainer = (props) => {
     return (
         <>
             {spendingViewPicker()}
-            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
+            <div className="table-wrapper">
                 <Table
                     expandable
                     rows={results}
