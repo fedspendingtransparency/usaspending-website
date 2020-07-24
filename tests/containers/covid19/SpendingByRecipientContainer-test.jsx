@@ -10,7 +10,7 @@ describe('SpendingByRecipientContainer', () => {
     const mockResults = [
         {
             code: "987654321",
-            count: 2,
+            award_count: 2,
             description: "RECIPIENT 3",
             id: ["d2894d22-67fc-f9cb-4005-33fa6a29ef86-C", "d2894d22-67fc-f9cb-4005-33fa6a29ef86-R"],
             obligation: 2200.0,
@@ -18,7 +18,7 @@ describe('SpendingByRecipientContainer', () => {
         },
         {
             code: "456789123",
-            count: 1,
+            award_count: 1,
             description: "RECIPIENT 2",
             id: ["3c92491a-f2cd-ec7d-294b-7daf91511866-R"],
             obligation: 20.0,
@@ -64,7 +64,7 @@ describe('SpendingByRecipientContainer', () => {
             const mockLoanResults = [
                 {
                     code: "987654321",
-                    count: 2,
+                    award_count: 2,
                     description: "RECIPIENT 3",
                     face_value_of_loan: 100.0,
                     id: ["d2894d22-67fc-f9cb-4005-33fa6a29ef86-C", "d2894d22-67fc-f9cb-4005-33fa6a29ef86-R"],
@@ -73,7 +73,7 @@ describe('SpendingByRecipientContainer', () => {
                 },
                 {
                     code: "456789123",
-                    count: 1,
+                    award_count: 1,
                     description: "RECIPIENT 2",
                     face_value_of_loan: 200.0,
                     id: ["3c92491a-f2cd-ec7d-294b-7daf91511866-R"],
