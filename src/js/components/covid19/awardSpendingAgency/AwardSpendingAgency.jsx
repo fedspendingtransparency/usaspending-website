@@ -5,17 +5,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
+
+import { fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
+import { areCountsDefined } from 'helpers/covid19Helper';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
+import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
-import OverviewData from '../OverviewData';
 
 const overviewData = [
     {
-        type: 'agencyCount',
+        type: 'resultsCount',
         label: 'Number of Agencies'
     },
     {
@@ -34,11 +37,21 @@ const overviewData = [
     }
 ];
 
+const initialTabState = {
+    all: null,
+    contracts: null,
+    idvs: null,
+    grants: null,
+    direct_payments: null,
+    loans: null,
+    other: null
+};
+
 const AwardSpendingAgency = () => {
     const [agencyCount, setAgencyCount] = useState(null);
-    const [awardOutlays, setAwardOutlays] = useState(null);
-    const [awardObligations, setAwardObligations] = useState(null);
-    const [numberOfAwards, setNumberOfAwards] = useState(null);
+    const { defCodes } = useSelector((state) => state.covid19);
+    const [inFlight, setInFlight] = useState(true);
+    const [tabCounts, setTabCounts] = useState(initialTabState);
 
     const [activeTab, setActiveTab] = useState(
         {
@@ -47,17 +60,6 @@ const AwardSpendingAgency = () => {
         }
     );
 
-    const [tabCounts, setTabCounts] = useState({
-        all: null,
-        contracts: null,
-        idvs: null,
-        grants: null,
-        direct_payments: null,
-        loans: null,
-        other: null
-    });
-
-    const { defCodes } = useSelector((state) => state.covid19);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -91,41 +93,22 @@ const AwardSpendingAgency = () => {
                         other: otherRes.data.count
                     });
                 });
-
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                }
-            };
-            if (activeTab.internal === 'all') {
-                const allAwardTypeGroups = [];
-                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
-            } else {
-                params.filter.award_type_codes = awardTypeGroups[activeTab.internal];
-            }
-
-            fetchAwardAmounts(params).promise
-                .then((res) => {
-                    setAwardObligations(res.data.obligation);
-                    setAwardOutlays(res.data.outlay);
-                });
-            fetchAwardCount(params).promise
-                .then((res) => {
-                    setNumberOfAwards(res.data.count);
-                });
         }
     }, [defCodes, activeTab]);
 
     useEffect(() => {
         setAgencyCount(tabCounts[activeTab.internal]);
-    }, [tabCounts]);
+    }, [tabCounts, activeTab]);
 
-    const amounts = {
-        agencyCount,
-        awardOutlays,
-        awardObligations,
-        numberOfAwards
-    };
+    useEffect(() => {
+        const countState = areCountsDefined(tabCounts);
+        if (!countState) {
+            setInFlight(true);
+        }
+        else if (countState) {
+            setInFlight(false);
+        }
+    }, [tabCounts, setInFlight]);
 
     const changeActiveTab = (tab) => {
         const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
@@ -145,15 +128,11 @@ const AwardSpendingAgency = () => {
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
             <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
-            <div className="overview-data-group">
-                {overviewData.map((data) => (
-                    <OverviewData
-                        key={data.label}
-                        {...data}
-                        subtitle={`for ${activeTab.internal === 'all' ? 'All' : 'all'} ${activeTab.subtitle}`}
-                        amount={amounts[data.type]} />
-                ))}
-            </div>
+            <SummaryInsightsContainer
+                resultsCount={agencyCount}
+                overviewData={overviewData}
+                activeTab={activeTab.internal}
+                areCountsLoading={inFlight} />
             <div className="award-spending__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
