@@ -24,26 +24,6 @@ export const budgetColumns = {
     ]
 };
 
-export const budgetColumnFields = {
-    emergencyFundingMandate: 'description',
-    name: 'description'
-};
-
-export const budgetFields = {
-    total_spending: {
-        totalObligation: 'obligation',
-        totalOutlay: 'outlay'
-    },
-    award_spending: {
-        awardObligation: 'obligation',
-        awardOutlay: 'outlay'
-    },
-    loan_spending: {
-        faceValue: 'face_value_of_loan',
-        countOfLoan: 'count'
-    }
-};
-
 export const budgetDropdownFieldValues = {
     total_spending: 'Total Spending',
     award_spending: 'Award Spending',

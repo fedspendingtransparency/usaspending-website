@@ -5,7 +5,7 @@ export const mockBaseBudgetCategoryRow = {
     code: "012",
     description: "Description text of 012, for humans",
     children: [],
-    count: 2,
+    award_count: 2,
     obligation: 50.12,
     outlay: 10.13,
     total_budgetary_resources: 99.99,
@@ -48,14 +48,14 @@ describe('BaseBudgetCategoryRow', () => {
                     it('should store the raw face value of loan', () => {
                         expect(baseBudgetCategoryRow._faceValueOfLoan).toEqual(123.12);
                     });
-                    it('should store the raw count of loan', () => {
-                        expect(baseBudgetCategoryRow._count).toEqual(2);
+                    it('should store the raw award count of loan', () => {
+                        expect(baseBudgetCategoryRow._awardCount).toEqual(2);
                     });
                     it('should store the face value of loan', () => {
                         expect(baseBudgetCategoryRow.faceValueOfLoan).toEqual("$123");
                     });
-                    it('should store the raw count of loan', () => {
-                        expect(baseBudgetCategoryRow.count).toEqual("2");
+                    it('should store the raw award count of loan', () => {
+                        expect(baseBudgetCategoryRow.awardCount).toEqual("2");
                     });
                 } else {
                     it('should store the raw award obligation', () => {
