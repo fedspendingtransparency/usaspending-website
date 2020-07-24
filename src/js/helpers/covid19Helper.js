@@ -83,4 +83,7 @@ export const getTotalSpendingAbbreviated = (totalSpending) => {
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
 
-export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => counts[tab], null);
+export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => {
+    if (acc === null) return acc;
+    return counts[tab];
+}, true);
