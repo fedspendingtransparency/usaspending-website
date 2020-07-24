@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/18/20
  */
 
-import { formatMoney, formatMoneyWithPrecision, calculateUnitForSingleValue, unitValues } from 'helpers/moneyFormatter';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const BaseOverview = {
     populate(data) {
@@ -24,16 +24,6 @@ const BaseOverview = {
     },
     get totalBudgetAuthority() {
         return this._totalBudgetAuthority ? formatMoney(this._totalBudgetAuthority) : null;
-    },
-    get totalBudgetAuthorityRounded() {
-        if (this._totalBudgetAuthority) {
-            if (this._totalBudgetAuthority >= unitValues.THOUSAND) {
-                const units = calculateUnitForSingleValue(this._totalBudgetAuthority);
-                return `${formatMoneyWithPrecision(this._totalBudgetAuthority / units.unit, 1)} ${units.longLabel}`;
-            }
-            return this.totalBudgetAuthority;
-        }
-        return '--';
     },
     get awardObligations() {
         return this._awardObligations ? formatMoney(this._awardObligations) : null;

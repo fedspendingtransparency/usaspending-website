@@ -52,7 +52,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[0],
         text: {
-            question: 'How much is available to be spent?',
+            question: 'This was the total amount made available.',
             questionLeft: 265,
             questionDown: 40,
             valueLeft: 128,
@@ -74,7 +74,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[1],
         text: {
-            question: 'How much was promised to be spent?',
+            question: 'This amount has been promised to be spent.',
             label: 'Total Obligations:',
             questionLeft: -10,
             questionDown: 15,
@@ -96,7 +96,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[1],
         text: {
-            question: 'How much has been paid out?',
+            question: 'This amount has been paid out.',
             label: 'Total Outlays:',
             questionLeft: -10,
             questionDown: 20,
@@ -119,7 +119,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[0],
         text: {
-            question: 'How much is left?',
+            question: 'This amount has not yet been promised to be spent.',
             label: 'Total Remaining Balance:',
             questionLeft: 138,
             questionDown: 15,
