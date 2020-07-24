@@ -46,6 +46,7 @@ export const componentByCovid19Section = () => ({
         headerText: totalSpendingText,
         headerTextTooltip: totalSpendingTooltip,
         showInMenu: true,
+        showInMainSection: true,
         title: 'Overview'
     },
     total_spending_by_budget_categories: {
@@ -54,11 +55,13 @@ export const componentByCovid19Section = () => ({
         headerText: totalSpendingText,
         headerTextTooltipooltip: totalSpendingTooltip,
         showInMenu: true,
+        showInMainSection: true,
         title: 'Total Spending by Budget Categories'
     },
     award_question: {
         component: <AwardQuestion />,
-        showInMenu: false
+        showInMenu: false,
+        showInMainSection: true
     },
     award_spending_by_recipient: {
         icon: 'building',
@@ -66,6 +69,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
+        showInMainSection: true,
         title: 'Award Spending by Recipient'
     },
     award_spending_by_agency: {
@@ -74,6 +78,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
+        showInMainSection: true,
         title: 'Award Spending by Agency'
     },
     award_spending_by_assistance_listing: {
@@ -82,6 +87,12 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
+        showInMainSection: true,
         title: 'Award Spending by CFDA Program (Assistance Listing)'
+    },
+    data_sources_and_methodology: {
+        showInMenu: true,
+        showInMainSection: false,
+        title: 'Data Sources and Methodology'
     }
 });
