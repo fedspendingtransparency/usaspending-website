@@ -10,6 +10,7 @@ import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardT
 import { fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
 import { useInFlightList } from 'helpers/covid19Helper';
+import { isEqual } from 'lodash';
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -27,25 +28,24 @@ const SummaryInsightsContainer = ({
     overviewData,
     areCountsLoading
 }) => {
-    const amountsRequest = useRef();
-    const numberOfAwardsRequest = useRef();
+    const awardAmountRequest = useRef();
+    const awardCountRequest = useRef();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
-    const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(
-        overviewData.map((d) => d.type)
-    );
+    const initialInFlightState = overviewData.map((d) => d.type);
+    const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     useEffect(() => {
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
-        if (numberOfAwardsRequest.current) {
-            numberOfAwardsRequest.current.cancel();
+        if (awardCountRequest.current) {
+            awardCountRequest.current.cancel();
         }
-        if (amountsRequest.current) {
-            amountsRequest.current.cancel();
+        if (awardAmountRequest.current) {
+            awardAmountRequest.current.cancel();
         }
         const params = {
             filter: {
@@ -56,14 +56,14 @@ const SummaryInsightsContainer = ({
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
         if (defCodes && defCodes.length > 0) {
-            amountsRequest.current = fetchAwardAmounts(params);
-            numberOfAwardsRequest.current = fetchAwardCount(params);
-            amountsRequest.current.promise
+            awardAmountRequest.current = fetchAwardAmounts(params);
+            awardCountRequest.current = fetchAwardCount(params);
+            awardAmountRequest.current.promise
                 .then((res) => {
                     setAwardObligations(res.data.obligation);
                     setAwardOutlays(res.data.outlay);
                 });
-            numberOfAwardsRequest.promise
+            awardCountRequest.current.promise
                 .then((res) => {
                     setNumberOfAwards(res.data.count);
                 });
@@ -72,7 +72,9 @@ const SummaryInsightsContainer = ({
 
     useEffect(() => {
         if (!awardOutlays && !awardObligations && !numberOfAwards) {
-            resetInFlight();
+            if (!isEqual(inFlightList, initialInFlightState)) {
+                resetInFlight();
+            }
         }
         else if (inFlightList) {
             inFlightList.forEach((inFlight) => {
@@ -88,6 +90,7 @@ const SummaryInsightsContainer = ({
             });
         }
     }, [
+        initialInFlightState,
         awardOutlays,
         awardObligations,
         numberOfAwards,

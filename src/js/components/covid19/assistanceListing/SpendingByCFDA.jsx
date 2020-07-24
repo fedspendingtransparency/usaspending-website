@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchCfdaCount } from 'helpers/disasterHelper';
+import { areCountsDefined } from 'helpers/covid19Helper';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
@@ -41,8 +42,6 @@ const initialState = {
     loans: null,
     other: null
 };
-
-const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => counts[tab], null);
 
 const SpendingByCFDA = () => {
     const { defCodes } = useSelector((state) => state.covid19);

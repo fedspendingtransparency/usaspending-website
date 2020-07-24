@@ -70,7 +70,6 @@ export const useInFlightList = (initialState) => {
         // remove
         (loadedCategory) => {
             const newState = inFlightList.filter((item) => item !== loadedCategory);
-            console.log('inflightlist', newState);
             updateInFlightList(newState);
         },
         // reset
@@ -83,3 +82,5 @@ export const getTotalSpendingAbbreviated = (totalSpending) => {
     const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
+
+export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => counts[tab], null);
