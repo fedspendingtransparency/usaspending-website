@@ -55,7 +55,7 @@
         margin-top: rem(60);
 
         @include media ($medium-screen) {
-            margin-top: rem(30);
+            margin-top: rem(10);
             margin-left: rem(103);
             @include display(flex);
             @include justify-content(center);
@@ -130,7 +130,6 @@
             width: 19rem;
             height: 5.7rem;
             margin-left: 0;
-            @include justify-self(flex-end);
 
             .feature-covid__button {
                 display: block;
