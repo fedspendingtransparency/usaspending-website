@@ -1,5 +1,9 @@
 .def-code-filter {
+    margin-bottom: rem(12);
+    padding: rem(12);
     .def-checkbox-tree {
+      margin-bottom: 2rem;
+      border-bottom: rem(1) solid rgb(214, 215, 217);
         .react-checkbox-tree {
             ol {
                 border-left: none;
