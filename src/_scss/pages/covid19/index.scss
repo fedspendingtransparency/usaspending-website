@@ -179,6 +179,8 @@
                 .read-more-button {
                     @include button-link;
                 }
+                @import 'components/glossaryLink';
+                @import 'components/externalLink';
                 .heading__container {
                     border-radius: 0.5rem 0.5rem 0 0;
                     @include display(flex);
@@ -213,6 +215,9 @@
                         }
                         .footnotes {
                             font-size: $smallest-font-size;
+                            .usda-external-link {
+                                font-size: $smallest-font-size;
+                            }
                         }
                     }
                 }
