@@ -99,7 +99,8 @@ const SpendingByCFDA = () => {
                 // pass CFDA count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
-                overviewData={overviewData} />
+                overviewData={overviewData}
+                assistanceOnly />
             <SpendingByCFDAContainer
                 activeTab={activeTab} />
         </div>
