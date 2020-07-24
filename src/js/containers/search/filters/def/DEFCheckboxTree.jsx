@@ -81,7 +81,6 @@ export class DEFCheckboxTree extends React.Component {
         try {
             const { data: { codes: allDisasterCodes } } = await this.request.promise;
             const covidCodes = parseCovidCodes(allDisasterCodes);
-            console.log(covidCodes);
             this.setState({
                 nodes: [covidCodes],
                 isLoading: false
