@@ -82,6 +82,8 @@
                 }
                 @import "./tableMessages";
                 .table-wrapper {
+                    height: rem(530);
+                    overflow-y: scroll;
                     overflow-x: auto;
                     .table-header__content {
                         @include align-items(center);

@@ -55,12 +55,6 @@ export const apiSpendingTypes = {
     award_spending: 'award'
 };
 
-export const budgetCategoriesCssMappingTypes = {
-    federal_account: 'federal-account',
-    agency: 'agency',
-    object_class: 'object-class'
-};
-
 export const defaultSort = {
     federal_account: {
         total_spending: {
