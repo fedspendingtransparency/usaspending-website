@@ -13,7 +13,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
     budgetColumns,
     budgetDropdownFieldValues,
-    budgetCategoriesCssMappingTypes,
     defaultSort,
     budgetCategoriesNameSort,
     apiSpendingTypes
@@ -55,7 +54,7 @@ const budgetDropdownColumns = {
             right: true
         },
         {
-            title: 'count',
+            title: 'awardCount',
             displayName: (
                 <>
                     <div>Number</div>
@@ -97,7 +96,7 @@ const budgetDropdownColumns = {
             right: true
         },
         {
-            title: 'count',
+            title: 'awardCount',
             displayName: (
                 <>
                     <div>Number</div>
@@ -185,7 +184,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 outlay: budgetCategoryRow.outlay,
                 totalBudgetaryResources: budgetCategoryRow.totalBudgetaryResources,
                 faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
-                count: budgetCategoryRow.count,
+                awardCount: budgetCategoryRow.awardCount,
                 children: budgetCategoryRow.children,
                 name: link
             };
@@ -352,7 +351,7 @@ const BudgetCategoriesTableContainer = (props) => {
     return (
         <>
             {spendingViewPicker()}
-            <div className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
+            <div className="table-wrapper">
                 <Table
                     expandable
                     rows={results}
