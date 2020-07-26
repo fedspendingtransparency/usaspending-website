@@ -52,45 +52,45 @@ const CovidModalContainer = ({
                     </button>
                 </div>
                 <div className="usa-dt-modal__body covid-modal-body">
-                    <h2 className="covid-modal-h2">Official spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</h2>
+                    <h2 className="covid-modal-h2"><span className="covid-modal-bold">Official spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</span></h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                <strong>Disaster Emergency Fund Code (DEFC)</strong> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations
+                                <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations
                             </li>
                             <li className="covid-modal-li">
-                                <strong>Outlay data</strong> for COVID-19 showing what agencies have paid out, in addition to the existing obligation data showing what agencies have promised to pay
+                                <span className="covid-modal-bold">Outlay data</span> for COVID-19 showing what agencies have paid out, in addition to the existing obligation data showing what agencies have promised to pay
                             </li>
                             <li className="covid-modal-li">
-                                <strong>Breakdown of spending data</strong> by federal agency, award recipient, and a variety of budget categories
+                                <span className="covid-modal-bold">Breakdown of spending data</span> by federal agency, award recipient, and a variety of budget categories
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2">Visit our new <a href="#/disaster/covid-19">profile page dedicated to the COVID-19 Spending:</a></h2>
+                    <h2 className="covid-modal-h2 covid-modal-bold">Visit our new <a href="#/disaster/covid-19">profile page dedicated to the COVID-19 Spending:</a></h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <strong>who received funding, which agencies outlayed funds,</strong> and <strong>which programs were funded.</strong> All COVID-19 spending data is <strong>available for download</strong> on the page with one click.
+                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the page with one click.
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2">Try out our new <a onClick={handleGoToAdvancedSearch} href="#/search">Advanced Search Filter</a> for COVID-19:</h2>
+                    <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <a onClick={handleGoToAdvancedSearch} href="#/search">Advanced Search Filter</a> for COVID-19:</h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                Use the new <strong>Disaster Emergency Fund Code (DEFC)</strong> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want. Additional columns were also added to the search results table to show <strong>COVID-19 spending DEFCs, Obligations,</strong> and <strong>Outlays.</strong>
+                                Use the new <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want. Additional columns were also added to the search results table to show <span className="covid-modal-bold">COVID-19 spending DEFCs, Obligations,</span> and <span className="covid-modal-bold">Outlays.</span>
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2">See which awards were funded through COVID-19 appropriations on our Award Summary pages:</h2>
+                    <h2 className="covid-modal-h2 covid-modal-bold">See which awards were funded through COVID-19 appropriations on our Award Summary pages:</h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                <strong>Purple COVID-19 badges</strong> on our Award Summary pages make it easy to identify which awards have been funded through COVID-19 appropriations. You can hover over the badge to see relevant <strong>DEFCs</strong> associated with that award. The charts found on Award Summary pages now feature <strong>COVID-19 obligation and outlay amounts.</strong>
+                                <span className="covid-modal-bold">Purple COVID-19 badges</span> on our Award Summary pages make it easy to identify which awards have been funded through COVID-19 appropriations. You can hover over the badge to see relevant <span className="covid-modal-bold">DEFCs</span> associated with that award. The charts found on Award Summary pages now feature <span className="covid-modal-bold">COVID-19 obligation and outlay amounts.</span>
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2">We will update the site with new COVID-19 spending data and release more related features in the coming months. Sign up to receive email updates about when these new features, and more, are added!</h2>
+                    <h2 className="covid-modal-h2"><span className="covid-modal-bold">We will update the site with new COVID-19 spending data and release more related features in the coming months. <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a></span> to receive email updates about when these new features, and more, are added!</h2>
                     <div className="usa-dt-modal__link covid-modal-button">
                         <button onClick={closeModal}>Close</button>
                     </div>
