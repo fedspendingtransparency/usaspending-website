@@ -109,37 +109,6 @@ export const filters = {
     // }
 };
 
-export const awardTypeFilters = [
-    {
-        value: 'all',
-        label: 'All Award Types'
-    },
-    {
-        value: 'grants',
-        label: 'Grants'
-    },
-    {
-        value: 'loans',
-        label: 'Loans'
-    },
-    {
-        value: 'direct_payments',
-        label: 'Direct Payments'
-    },
-    {
-        value: 'other',
-        label: 'Other Financial Assistance'
-    },
-    {
-        value: 'contracts',
-        label: 'Contracts'
-    },
-    {
-        value: 'idvs',
-        label: 'Contract IDVs'
-    }
-];
-
 export const filtersOnClickHandler = {
     territory: 'updateTerritoryFilter',
     spendingType: 'updateSpendingTypeFilter',

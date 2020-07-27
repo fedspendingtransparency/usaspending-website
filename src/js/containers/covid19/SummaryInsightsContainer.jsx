@@ -16,10 +16,16 @@ const propTypes = {
     overviewData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
         label: PropTypes.string
-    }))
+    })),
+    assistanceOnly: PropTypes.bool
 };
 
-const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => {
+const SummaryInsightsContainer = ({
+    activeTab,
+    resultsCount,
+    overviewData,
+    assistanceOnly
+}) => {
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -59,7 +65,8 @@ const SummaryInsightsContainer = ({ activeTab, resultsCount, overviewData }) => 
         numberOfAwards
     };
 
-    let subtitle = `for ${activeTab === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeTab] || 'Awards')}`;
+    const allAwardsLabel = assistanceOnly ? 'Assistance Awards' : 'Awards';
+    let subtitle = `for ${activeTab === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeTab] || allAwardsLabel)}`;
     if (activeTab === 'other') {
         subtitle = 'for all Other Financial Assistance';
     }
