@@ -28,20 +28,6 @@ const propTypes = {
     width: PropTypes.number
 };
 
-const constData = {
-    totalBudgetAuthority: 2400000000000,
-    totalOutlays: 459000000000,
-    totalObligations: 1800000000000, // original value 963000000000 ---- close to end 2391000000000
-    remainingBalance: 1437000000000
-};
-
-const fakeData = {
-    _totalBudgetAuthority: constData.totalBudgetAuthority,
-    _totalOutlays: constData.totalOutlays,
-    _totalObligations: constData.totalObligations, // 963000000000
-    _remainingBalance: constData.totalBudgetAuthority - constData.totalObligations
-};
-
 const AmountsVisualization = ({
     overviewData,
     width = null
@@ -77,6 +63,7 @@ const AmountsVisualization = ({
     const [remainingBalanceHorizontalLineData, setRemainingBalanceHorizontalLineData] = useState(null);
     const [obligationLineDataThreeOverlap, setObligationLineDataThreeOverlap] = useState(false);
     const [obligationLineDataTwoOverlap, setObligationLineDataTwoOverlap] = useState(false);
+    const [drawRemainingBalanceItems, setDrawRemainingBalanceItems] = useState(true);
     const _totalBudgetAuthorityQuestion = useRef(null);
     const _totalBudgetAuthorityLabel = useRef(null);
     const _totalBudgetAuthorityValue = useRef(null);
@@ -91,22 +78,22 @@ const AmountsVisualization = ({
     const _remainingBalanceValue = useRef(null);
     const zerPercentRef = useRef(null);
     const oneHundredPercentRef = useRef(null);
-    useEffect(() => setLoading(!Object.keys(fakeData).length), [fakeData]);
+    useEffect(() => setLoading(!Object.keys(overviewData).length), [overviewData]);
     // X Scale
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, fakeData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
-    }, [width, fakeData]);
+    }, [width, overviewData]);
     // totalRectangleData
     useEffect(() => {
-        if (scale && Object.keys(fakeData).length > 0) {
+        if (scale && Object.keys(overviewData).length > 0) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalBudgetAuthority);
+            const amount = Math.abs(overviewData._totalBudgetAuthority);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
@@ -119,13 +106,13 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // outlayRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalOutlays);
+            const amount = Math.abs(overviewData._totalOutlays);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
@@ -138,13 +125,13 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // obligationRectangleData
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const data = {
@@ -157,20 +144,21 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setObligationRectangleData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // remainingBalanceRectangleData
     useEffect(() => {
         if (scale && obligationRectangleData) {
             const { offset, fill, text: textInfo } = rectangleMapping._remainingBalance;
-            const amount = Math.abs(fakeData._remainingBalance);
+            const amount = Math.abs(overviewData._remainingBalance);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             let draw = true;
             let adjustedWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0) - offset.right;
-            if (fakeData._remainingBalance <= 0) draw = false;
-            if (adjustedWidth < 0) adjustedWidth = 0;
+            if (adjustedWidth <= 0) {
+                adjustedWidth = 0;
+                draw = false;
+            }
             const data = {
-                draw,
                 x: amountsPadding.left + obligationRectangleData.width,
                 y: startOfChartY + offset.top,
                 width: adjustedWidth,
@@ -179,8 +167,9 @@ const AmountsVisualization = ({
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
             };
             if (!isNaN(scale(amount))) setRemainingBalanceRectangleData(data);
+            setDrawRemainingBalanceItems(draw);
         }
-    }, [scale, fakeData, obligationRectangleData]);
+    }, [scale, overviewData, obligationRectangleData]);
     // totalLineData
     useEffect(() => {
         if (scale) {
@@ -190,7 +179,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalBudgetAuthority);
+            const amount = Math.abs(overviewData._totalBudgetAuthority);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -202,7 +191,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setTotalLineData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // outlayLineData
     useEffect(() => {
         if (scale) {
@@ -212,7 +201,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalOutlays;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalOutlays);
+            const amount = Math.abs(overviewData._totalOutlays);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -224,7 +213,7 @@ const AmountsVisualization = ({
             };
             if (!isNaN(scale(amount))) setOutlayLineData(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // obligationLineDataOne
     useEffect(() => {
         if (scale) {
@@ -233,7 +222,7 @@ const AmountsVisualization = ({
                 lineColor
             } = rectangleMapping._totalObligations;
             const { left, right } = amountsPadding;
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const x = left + offset.left;
             const rectWidth = scale(amount) - (right + (offset.right || 0));
             const data = {
@@ -241,15 +230,15 @@ const AmountsVisualization = ({
                 x1: (x + rectWidth) - (lineStrokeWidth / 2),
                 x2: (x + rectWidth) - (lineStrokeWidth / 2),
                 y1: startOfChartY + (rectangleHeight / 2),
-                y2: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + ((spacingBetweenLineAndText / 2) / 2)
+                y2: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (spacingBetweenLineAndText / 2)
             };
             if (!isNaN(scale(amount))) setObligationLineDataOne(data);
         }
-    }, [scale, fakeData]);
+    }, [scale, overviewData]);
     // obligationLineDataTwo
     useEffect(() => {
         if (scale) {
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const data = {
                 lineColor: rectangleMapping._totalObligations.lineColor,
                 x1: obligationLineDataOne?.x1 || 0,
@@ -263,13 +252,13 @@ const AmountsVisualization = ({
     // obligationLineDataThree
     useEffect(() => {
         if (scale) {
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const data = {
                 lineColor: rectangleMapping._totalObligations.lineColor,
                 x1: obligationLineDataTwo?.x1 || 0,
                 x2: obligationLineDataTwo?.x1 || 0,
                 y1: obligationLineDataTwo?.y2 || 0,
-                y2: (obligationLineDataTwo?.y2 || 0) + (obligationValueData?.height || 0) + 3
+                y2: ((obligationLineDataTwo?.y2 || 0) + (obligationValueData?.height || 0))
             };
             if (!isNaN(scale(amount))) setObligationLineDataThree(data);
         }
@@ -281,12 +270,12 @@ const AmountsVisualization = ({
                 lineLength,
                 lineColor
             } = rectangleMapping._totalObligations;
-            const amount = Math.abs(fakeData._totalObligations);
+            const amount = Math.abs(overviewData._totalObligations);
             const data = {
                 lineColor,
-                x1: obligationLineDataTwo?.x1 || 0,
-                x2: obligationLineDataTwo?.x1 || 0,
-                y1: obligationLineDataTwo?.y2 || 0,
+                x1: obligationLineDataThree?.x1 || 0,
+                x2: obligationLineDataThree?.x1 || 0,
+                y1: obligationLineDataThree?.y2 || 0,
                 y2: startOfChartY + rectangleHeight + lineLength
             };
             if (!isNaN(scale(amount))) setObligationLineDataFour(data);
@@ -307,7 +296,7 @@ const AmountsVisualization = ({
     // totalValueData
     useLayoutEffect(() => {
         const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalBudgetAuthority);
+        const amount = Math.abs(overviewData._totalBudgetAuthority);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (totalLineData && totalQuestionData) {
@@ -335,45 +324,45 @@ const AmountsVisualization = ({
             });
         }
     }, [totalQuestionData, totalLineData, totalValueData]);
-    // remainingBalanceQuestionData
-    useLayoutEffect(() => {
-        const { text: textInfo } = rectangleMapping._remainingBalance;
-        const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
-        setRemainingBalanceQuestionData({
-            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (spacingBetweenLineAndText / 2) + (questionRef?.height || 0),
-            x: width - amountsPadding.right - (questionRef?.width || 0),
-            height: questionRef?.height || 0,
-            text: textInfo.question,
-            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-        });
-    }, [totalLabelData, leftRemainingBalanceVerticalLineData]);
     // remainingBalanceValueData
     useLayoutEffect(() => {
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._remainingBalance);
+        const amount = Math.abs(overviewData._remainingBalance);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         setRemainingBalanceValueData({
-            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (spacingBetweenLineAndText / 2) + (remainingBalanceQuestionData?.height || 0) + (ref?.height || 0),
+            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (ref?.height || 0),
             x: width - amountsPadding.right - (ref?.width || 0),
             height: ref?.height || 0,
             theWidth: ref?.width || 0,
             text: moneyLabel,
             className: `amounts-text__value ${!ref ? 'white' : ''}`
         });
-    }, [remainingBalanceQuestionData]);
+    }, [width]);
     // remainingBalanceLabelData
     useLayoutEffect(() => {
         const ref = _remainingBalanceLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._remainingBalance;
         setRemainingBalanceLabelData({
-            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (spacingBetweenLineAndText / 2) + (remainingBalanceQuestionData?.height || 0) + (ref?.height || 0) + textInfo.offset.y,
+            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + 3 + (ref?.height || 0),
             x: width - amountsPadding.right - ((ref?.width || 0) + (remainingBalanceValueData?.theWidth || 0) + 4),
             height: ref?.height || 0,
             text: textInfo.label,
             className: `amounts-text__label ${!ref ? 'white' : ''}`
         });
-    }, [remainingBalanceValueData]);
+    }, [width, remainingBalanceValueData, remainingBalanceQuestionData]);
+    // remainingBalanceQuestionData
+    useLayoutEffect(() => {
+        const { text: textInfo } = rectangleMapping._remainingBalance;
+        const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
+        setRemainingBalanceQuestionData({
+            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (remainingBalanceValueData?.height || 0) + (questionRef?.height || 0),
+            x: width - amountsPadding.right - (questionRef?.width || 0),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
+    }, [remainingBalanceValueData, width]);
     // outlayQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
@@ -402,7 +391,7 @@ const AmountsVisualization = ({
     // outlayValueData
     useLayoutEffect(() => {
         const ref = _outlayValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalOutlays);
+        const amount = Math.abs(overviewData._totalOutlays);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (outlayLineData) {
@@ -455,15 +444,28 @@ const AmountsVisualization = ({
             }
         }
     }, [outlayLineData, outlayQuestionData]);
+    // obligationQuestionData
+    useLayoutEffect(() => {
+        const { text: textInfo } = rectangleMapping._totalObligations;
+        const questionRef = _obligationQuestion.current?.getBoundingClientRect();
+        setObligationQuestionData({
+            y: (obligationLineDataFour?.y2 || 0) - spacingBetweenLineAndText,
+            x: (obligationLineDataFour?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
+            left: true
+        });
+    }, [obligationLineDataFour]);
     // obligationValueData
     useLayoutEffect(() => {
         const ref = _obligationValue.current?.getBoundingClientRect();
-        const amount = Math.abs(fakeData._totalObligations);
+        const amount = Math.abs(overviewData._totalObligations);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (obligationQuestionData?.left) {
             setObligationValueData({
-                y: (obligationLineDataFour?.y2 || 0) - spacingBetweenLineAndText,
+                y: (obligationLineDataFour?.y2 || 0) - (obligationQuestionData?.height || 0) - spacingBetweenLineAndText,
                 x: (obligationLineDataFour?.x1 || 0) - ((ref?.width || 0) + spacingBetweenLineAndText),
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
@@ -473,7 +475,7 @@ const AmountsVisualization = ({
         }
         else {
             setObligationValueData({
-                y: (obligationLineDataFour?.y2 || 0) - spacingBetweenLineAndText,
+                y: (obligationLineDataFour?.y2 || 0) - (obligationQuestionData?.height || 0) - spacingBetweenLineAndText,
                 x: (obligationLineDataFour?.x1 || 0) + (obligationLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
@@ -488,7 +490,7 @@ const AmountsVisualization = ({
         const { text: textInfo } = rectangleMapping._totalObligations;
         if (obligationQuestionData?.left) {
             setObligationLabelData({
-                y: (obligationLineDataFour?.y2 || 0) - spacingBetweenLineAndText,
+                y: (obligationLineDataFour?.y2 || 0) - (obligationQuestionData?.height || 0) - spacingBetweenLineAndText,
                 x: (obligationLineDataFour?.x1 || 0) - ((ref?.width || 0) + (obligationValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
@@ -507,19 +509,6 @@ const AmountsVisualization = ({
             });
         }
     }, [obligationValueData]);
-    // obligationQuestionData
-    useLayoutEffect(() => {
-        const { text: textInfo } = rectangleMapping._totalObligations;
-        const questionRef = _obligationQuestion.current?.getBoundingClientRect();
-        setObligationQuestionData({
-            y: (obligationLineDataFour?.y2 || 0) - (obligationValueData?.height || 0) - spacingBetweenLineAndText,
-            x: (obligationLineDataFour?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-            height: questionRef?.height || 0,
-            text: textInfo.question,
-            className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
-            left: true
-        });
-    }, [obligationLabelData]);
     // 0%
     useLayoutEffect(() => {
         const ref = zerPercentRef.current?.getBoundingClientRect();
@@ -537,7 +526,7 @@ const AmountsVisualization = ({
     }, [width, totalRectangleData]);
     // leftRemainingBalanceVerticalLineData
     useEffect(() => {
-        if (scale) {
+        if (scale && drawRemainingBalanceItems) {
             const data = {
                 lineColor: '#555',
                 x1: ((obligationLineDataFour?.x1 || 0) + (lineStrokeWidth / 2) + 3) - remaniningBalanceLineWidth,
@@ -547,10 +536,10 @@ const AmountsVisualization = ({
             };
             setLeftRemainingBalanceVerticalLineData(data);
         }
-    }, [scale, obligationLineDataFour]);
+    }, [scale, obligationLineDataFour, drawRemainingBalanceItems]);
     // rightRemainingBalanceVerticalLineData
     useEffect(() => {
-        if (scale) {
+        if (scale && drawRemainingBalanceItems) {
             const data = {
                 lineColor: '#555',
                 x1: width - amountsPadding.right - remaniningBalanceLineWidth,
@@ -560,10 +549,10 @@ const AmountsVisualization = ({
             };
             setRightRemainingBalanceVerticalLineData(data);
         }
-    }, [scale, width]);
+    }, [scale, width, drawRemainingBalanceItems]);
     // remainingBalanceHorizontalLineData
     useEffect(() => {
-        if (scale) {
+        if (scale && drawRemainingBalanceItems) {
             const data = {
                 lineColor: '#555',
                 x1: leftRemainingBalanceVerticalLineData?.x1 || 0,
@@ -573,26 +562,32 @@ const AmountsVisualization = ({
             };
             setRemainingBalanceHorizontalLineData(data);
         }
-    }, [scale, leftRemainingBalanceVerticalLineData, rightRemainingBalanceVerticalLineData]);
+    }, [scale, leftRemainingBalanceVerticalLineData, rightRemainingBalanceVerticalLineData, drawRemainingBalanceItems]);
+    useEffect(() => {
+        const data = {
+            lineColor: 'transparent',
+            x1: 0,
+            x2: 0,
+            y1: 0,
+            y2: 0
+        };
+        if (!drawRemainingBalanceItems) {
+            setLeftRemainingBalanceVerticalLineData(data);
+            setRightRemainingBalanceVerticalLineData(data);
+            setRemainingBalanceHorizontalLineData(data);
+        }
+    }, [drawRemainingBalanceItems]);
     // obligationLineDataThreeOverlap
     useEffect(() => {
-        console.log(' Obligation Line Three Data : ', obligationLineDataThree);
-        console.log(' obligation x : ', ((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)));
-        console.log(' Remaining balance x : ', remainingBalanceLabelData?.x);
-        console.log(' Remaining Balance Label Data : ', remainingBalanceLabelData);
         if (((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceLabelData?.x || 0)) {
-            console.log(' True ');
             setObligationLineDataThreeOverlap(true);
         }
         else {
-            console.log(' False ');
             setObligationLineDataThreeOverlap(false);
         }
     }, [obligationLineDataThree, remainingBalanceLabelData]);
     // obligationLineDataTwoOverlap
     useEffect(() => {
-        // console.log(' Obligation Line Two Data : ', obligationLineDataTwo);
-        // console.log(' Remaining Balance Label Data : ', remainingBalanceQuestionData);
         if (((obligationLineDataTwo?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceQuestionData?.x || 0)) {
             setObligationLineDataTwoOverlap(true);
         }
@@ -677,7 +672,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceRectangleData && remainingBalanceRectangleData.draw &&
+                        remainingBalanceRectangleData && drawRemainingBalanceItems &&
                         <g tabIndex="0" aria-label={remainingBalanceRectangleData.description}>
                             <desc>
                                 {remainingBalanceRectangleData.description}
@@ -708,11 +703,11 @@ const AmountsVisualization = ({
                         <g tabIndex="0" aria-label="A line linking a rectangle to text">
                             <desc>A line linking a rectangle to text</desc>
                             <line
+                                className="line__obligation"
                                 x1={obligationLineDataOne.x1}
                                 x2={obligationLineDataOne.x2}
                                 y1={obligationLineDataOne.y1}
                                 y2={obligationLineDataOne.y2}
-                                stroke={obligationLineDataOne.lineColor}
                                 strokeWidth={lineStrokeWidth} />
                         </g>
                     }
@@ -721,13 +716,11 @@ const AmountsVisualization = ({
                         <g tabIndex="0" aria-label="A line 2 linking a rectangle to text">
                             <desc>A line linking a rectangle to text</desc>
                             <line
-                                className={obligationLineDataTwoOverlap ? 'addOpacity' : ''}
                                 x1={obligationLineDataTwo.x1}
                                 x2={obligationLineDataTwo.x2}
                                 y1={obligationLineDataTwo.y1}
                                 y2={obligationLineDataTwo.y2}
-                                stroke={obligationLineDataTwo.lineColor}
-                                strokeWidth={lineStrokeWidth} />
+                                className={(drawRemainingBalanceItems && obligationLineDataTwoOverlap) ? 'line__opacity' : 'line__obligation'} />
                         </g>
                     }
                     {
@@ -735,14 +728,11 @@ const AmountsVisualization = ({
                         <g tabIndex="0" aria-label="A line 3 linking a rectangle to text">
                             <desc>A line linking a rectangle to text</desc>
                             <line
-                                className={obligationLineDataThreeOverlap ? 'addOpacity' : ''}
                                 x1={obligationLineDataThree.x1}
                                 x2={obligationLineDataThree.x2}
                                 y1={obligationLineDataThree.y1}
                                 y2={obligationLineDataThree.y2}
-                                stroke={obligationLineDataThree.lineColor}
-                                strokeWidth={lineStrokeWidth}
-                                strokeOpacity={obligationLineDataThreeOverlap ? 0.6 : 1} />
+                                className={(drawRemainingBalanceItems && obligationLineDataThreeOverlap) ? 'line__opacity' : 'line__obligation'} />
                         </g>
                     }
                     {
@@ -750,11 +740,11 @@ const AmountsVisualization = ({
                         <g tabIndex="0" aria-label="A line 4 linking a rectangle to text">
                             <desc>A line linking a rectangle to text</desc>
                             <line
+                                className="line__obligation"
                                 x1={obligationLineDataFour.x1}
                                 x2={obligationLineDataFour.x2}
                                 y1={obligationLineDataFour.y1}
                                 y2={obligationLineDataFour.y2}
-                                stroke={obligationLineDataFour.lineColor}
                                 strokeWidth={lineStrokeWidth} />
                         </g>
                     }
@@ -798,20 +788,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceQuestionData && remainingBalanceRectangleData?.draw &&
-                        <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
-                            <desc>{remainingBalanceQuestionData.text}</desc>
-                            <text
-                                ref={_remainingBalanceQuestion}
-                                className={remainingBalanceQuestionData.className}
-                                x={remainingBalanceQuestionData.x}
-                                y={remainingBalanceQuestionData.y}>
-                                {remainingBalanceQuestionData.text}
-                            </text>
-                        </g>
-                    }
-                    {
-                        remainingBalanceValueData && remainingBalanceRectangleData?.draw &&
+                        remainingBalanceValueData && drawRemainingBalanceItems &&
                         <g tabIndex="0" aria-label={remainingBalanceValueData.text}>
                             <desc>{remainingBalanceValueData.text}</desc>
                             <text
@@ -824,7 +801,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceLabelData && remainingBalanceRectangleData?.draw &&
+                        remainingBalanceLabelData && drawRemainingBalanceItems &&
                         <g tabIndex="0" aria-label={remainingBalanceLabelData.text}>
                             <desc>{remainingBalanceLabelData.text}</desc>
                             <text
@@ -833,6 +810,19 @@ const AmountsVisualization = ({
                                 x={remainingBalanceLabelData.x}
                                 y={remainingBalanceLabelData.y}>
                                 {remainingBalanceLabelData.text}
+                            </text>
+                        </g>
+                    }
+                    {
+                        remainingBalanceQuestionData && drawRemainingBalanceItems &&
+                        <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
+                            <desc>{remainingBalanceQuestionData.text}</desc>
+                            <text
+                                ref={_remainingBalanceQuestion}
+                                className={remainingBalanceQuestionData.className}
+                                x={remainingBalanceQuestionData.x}
+                                y={remainingBalanceQuestionData.y}>
+                                {remainingBalanceQuestionData.text}
                             </text>
                         </g>
                     }
