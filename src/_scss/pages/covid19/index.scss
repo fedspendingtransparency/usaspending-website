@@ -79,6 +79,12 @@
                     width: 75%;
                     margin: auto;
                     padding-bottom: 5rem;
+                    .footnotes {
+                        font-size: $smallest-font-size;
+                        .usda-external-link {
+                            font-size: $smallest-font-size;
+                        }
+                    }
                 }
                 @import "./tableMessages";
                 .table-wrapper {
@@ -87,7 +93,7 @@
                     overflow-x: auto;
 
                     .table-header {
-                        position: -webkit-sticky; /* Safari */  
+                        position: -webkit-sticky; /* Safari */
                         position: sticky;
                         top: 0;
                         .table-header__content {

@@ -21,7 +21,7 @@ const ExternalLink = ({ url, children }) => {
     };
     return (
         <button className="usda-external-link" onClick={redirect}>
-            {children} <FontAwesomeIcon icon="external-link-alt" />
+            {children || url} <FontAwesomeIcon icon="external-link-alt" />
         </button>
     );
 };
