@@ -367,7 +367,7 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
         const questionRef = _outlayQuestion.current?.getBoundingClientRect();
-        if (((outlayLineData?.x1 || 0) + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - 1)) {
+        if (((outlayLineData?.x1 || 0) + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - amountsPadding.right - 1)) {
             // text to the left of the line
             setOutlayQuestionData({
                 y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
