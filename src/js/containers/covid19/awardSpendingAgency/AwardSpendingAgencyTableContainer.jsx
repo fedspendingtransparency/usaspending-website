@@ -5,12 +5,12 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { snakeCase } from 'lodash';
 import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
+import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
@@ -60,7 +60,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     right: true
                 },
                 {
-                    title: 'count',
+                    title: 'awardCount',
                     displayName: (
                         <>
                             <div>Number</div>
@@ -88,7 +88,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                 right: true
             },
             {
-                title: 'count',
+                title: 'awardCount',
                 displayName: (
                     <>
                         <div>Number</div>
@@ -151,7 +151,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
-                count: awardSpendingByAgencyRow.count,
+                awardCount: awardSpendingByAgencyRow.awardCount,
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
@@ -179,7 +179,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: snakeCase(sort),
+                        sort: spendingTableSortFields[sort],
                         order
                     },
                     spending_type: 'award'
@@ -193,7 +193,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: snakeCase(sort),
+                        sort: spendingTableSortFields[sort],
                         order
                     },
                     spending_type: 'award'
@@ -210,7 +210,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     pagination: {
                         limit: pageSize,
                         page: currentPage,
-                        sort: snakeCase(sort),
+                        sort: spendingTableSortFields[sort],
                         order
                     },
                     spending_type: 'award'
@@ -303,14 +303,16 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }
 
     return (
-        <div className="table-wrapper">
-            <Table
-                expandable
-                rows={results}
-                columns={awardSpendingAgencyTableColumns(props.type)}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort}
-                divider={props.subHeading} />
+        <>
+            <div className="table-wrapper">
+                <Table
+                    expandable
+                    rows={results}
+                    columns={awardSpendingAgencyTableColumns(props.type)}
+                    currentSort={{ field: sort, direction: order }}
+                    updateSort={updateSort}
+                    divider={props.subHeading} />
+            </div>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -319,7 +321,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </div>
+        </>
     );
 };
 

@@ -7,6 +7,9 @@ import React from 'react';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
+import GlobalConstants from 'GlobalConstants';
+
+import CovidHighlights from 'containers/covid19/homepage/CovidHighlights';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
@@ -25,10 +28,13 @@ export default class Homepage extends React.Component {
             <div className="usa-da-home-page">
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
-                <main
-                    id="main-content"
-                    className="homepage-content">
-                    <Hero />
+                <main id="main-content" className="homepage-content">
+                    {GlobalConstants.CARES_ACT_RELEASED && (
+                        <CovidHighlights />
+                    )}
+                    {!GlobalConstants.CARES_ACT_RELEASED && (
+                        <Hero />
+                    )}
                     <Features />
                     <Download />
                     <Community />

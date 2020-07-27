@@ -1,12 +1,13 @@
+// Overwriting the baseModalStyles
 .redirect-modal {
     background-color: $color-white;
     // Overrides the default library max width of 100%
     max-width: rem(1200); 
-    .redirect-modal__header {
+    .usa-dt-modal__header {
         background-color: $color-primary;
         @include display(flex);
         @include justify-content(flex-end);
-        .redirect-modal__close-button {
+        .usa-dt-modal__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
             padding: rem(10);
@@ -17,14 +18,14 @@
             }
         }
     }
-    .redirect-modal__body {
+    .usa-dt-modal__body {
         text-align: center;
         padding: rem(30) rem(45) rem(45) rem(45);
-        .redirect-modal__title {
+        .usa-dt-modal__title {
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
-            .redirect-modal__title-icon {
+            .usa-dt-modal__title-icon {
                 @include flex(0 0 rem(35));
                 padding-right: rem(10);
                 svg {
@@ -33,23 +34,23 @@
                     fill: $color-gray;
                 }
             }
-            .redirect-modal__title-text {
+            .usa-dt-modal__title-text {
                 @include flex(1 1 auto);
                 font-weight: 600;
                 font-size: rem(34);
             }
         }
-        .redirect-modal__explanation {
+        .usa-dt-modal__explanation {
             padding-top: rem(30);
             padding-bottom: rem(30);
             font-size: rem(18);
         }
-        .redirect-modal__directions {
+        .usa-dt-modal__directions {
             font-size: $small-font-size;
             padding-bottom: rem(20);
             font-weight: 600;
         }
-        .redirect-modal__link {
+        .usa-dt-modal__link {
             font-weight: 600;
             font-size: rem(21);
         }

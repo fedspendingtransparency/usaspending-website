@@ -5,9 +5,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { OrderedMap } from 'immutable';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -16,15 +16,17 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+import Router from 'containers/router/Router';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
-const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired,
-    activeTab: PropTypes.string.isRequired
-};
+
+const propTypes = { activeTab: PropTypes.string.isRequired };
 
 const columns = [
     {
-        title: 'assistanceListing',
+        title: 'name',
         displayName: (
             <>
                 <div>CFDA Program</div>
@@ -43,7 +45,7 @@ const columns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -95,7 +97,7 @@ const loanColumns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -106,40 +108,7 @@ const loanColumns = [
     }
 ];
 
-export const parseRows = (rows, onRedirectModalClick, activeTab) => (
-    rows.map((row) => {
-        const rowData = Object.create(BaseSpendingByCfdaRow);
-        rowData.populate(row);
-        let link = rowData.name;
-        if (rowData._link) {
-            link = (
-                <button
-                    className="assistance-listing__button"
-                    value={rowData._link}
-                    onClick={onRedirectModalClick}>
-                    {rowData.name}<FontAwesomeIcon icon="external-link-alt" />
-                </button>
-            );
-        }
-        if (activeTab === 'loans') {
-            return [
-                link,
-                rowData.faceValueOfLoan,
-                rowData.obligation,
-                rowData.outlay,
-                rowData.count
-            ];
-        }
-        return [
-            link,
-            rowData.obligation,
-            rowData.outlay,
-            rowData.count
-        ];
-    })
-);
-
-const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
+const SpendingByCFDAContainer = ({ activeTab }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -155,6 +124,70 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const dispatch = useDispatch();
+
+    const updateAdvancedSearchFilters = (e) => {
+        e.preventDefault();
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        const cfdaData = results.find((cfda) => cfda.code === e.target.value);
+        dispatch(applyStagedFilters(
+            Object.assign(
+                {}, defaultAdvancedSearchFilters,
+                {
+                    defCodes: new CheckboxTreeSelections({
+                        require: defCodes.map((code) => code.code),
+                        exclude: [],
+                        counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                    })
+                },
+                {
+                    selectedCFDA: OrderedMap({
+                        [cfdaData.code]: {
+                            program_number: cfdaData.code,
+                            program_title: cfdaData.description,
+                            popular_name: cfdaData.description,
+                            identifier: cfdaData.code
+                        }
+                    })
+                }
+            )
+        ));
+        Router.history.push('/search');
+    };
+
+    const parseRows = () => (
+        results.map((row) => {
+            const rowData = Object.create(BaseSpendingByCfdaRow);
+            rowData.populate(row);
+            let link = rowData.name;
+            if (rowData._code) {
+                link = (
+                    <button
+                        className="assistance-listing__button"
+                        value={rowData._code}
+                        onClick={updateAdvancedSearchFilters}>
+                        {rowData.name}
+                    </button>
+                );
+            }
+            if (activeTab === 'loans') {
+                return [
+                    link,
+                    rowData.obligation,
+                    rowData.outlay,
+                    rowData.faceValueOfLoan,
+                    rowData.awardCount
+                ];
+            }
+            return [
+                link,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
+            ];
+        })
+    );
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
         if (request) {
@@ -184,8 +217,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
             setRequest(cfdaRequest);
             cfdaRequest.promise
                 .then((res) => {
-                    const rows = parseRows(res.data.results, onRedirectModalClick, activeTab);
-                    setResults(rows);
+                    setResults(res.data.results);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -241,7 +273,7 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick, activeTab }) => {
             <div className="table-wrapper">
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={results}
+                    rows={parseRows(results)}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>

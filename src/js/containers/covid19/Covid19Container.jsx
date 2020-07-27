@@ -23,9 +23,6 @@ import RedirectModalContainer from 'containers/redirectModal/RedirectModalContai
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
-
 import {
     slug,
     getEmailSocialShareData,
@@ -33,17 +30,19 @@ import {
     footerTitle,
     footerDescription
 } from 'dataMapping/covid19/covid19';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
+import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
-    const [activeSection, setActiveSection] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
@@ -98,22 +97,18 @@ const Covid19Container = () => {
         };
     }, [defCodes]);
 
-    const onFooterClick = () => {
-        dispatch(
-            applyStagedFilters(
-                Object.assign(
-                    {}, defaultAdvancedSearchFilters,
-                    {
-                        defCodes: new CheckboxTreeSelections({
-                            require: defCodes.map((code) => code.code),
-                            exclude: [],
-                            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-                        })
-                    }
-                )
-            )
-        );
-    };
+    const addDefCodesToAdvancedSearchFilter = () => dispatch(applyStagedFilters(
+        Object.assign(
+            {}, defaultAdvancedSearchFilters,
+            {
+                defCodes: new CheckboxTreeSelections({
+                    require: defCodes.map((code) => code.code),
+                    exclude: [],
+                    counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                })
+            }
+        )
+    ));
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
@@ -134,8 +129,6 @@ const Covid19Container = () => {
             }
         };
     }, []);
-
-    const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
 
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
@@ -175,25 +168,32 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                        <Sidebar
-                            pageName="covid19"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                            active={activeSection}
-                            jumpToSection={jumpToCovid19Section}
-                            detectActiveSection={setActiveSection}
-                            sections={Object.keys(componentByCovid19Section())
-                                .filter((section) => componentByCovid19Section()[section].showInMenu)
-                                .map((section) => ({
-                                    section: snakeCase(section),
-                                    label: componentByCovid19Section()[section].title
-                                }))} />
+                    <div className="sidebar">
+                        <div className="sidebar__content">
+                            <Sidebar
+                                pageName="covid19"
+                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                                jumpToSection={jumpToSection}
+                                detectActiveSection
+                                sections={Object.keys(componentByCovid19Section())
+                                    .filter((section) => componentByCovid19Section()[section].showInMenu)
+                                    .map((section) => ({
+                                        section: snakeCase(section),
+                                        label: componentByCovid19Section()[section].title
+                                    }))} />
+                        </div>
+                        <div className="sidebar-footer">
+                            <SidebarFooter
+                                pageName="covid19"
+                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                        </div>
                     </div>
                     <div className="body usda__flex-col">
                         <section className="body__section">
                             <Heading />
                         </section>
                         {Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
                             .map((section) => (
                                 <Covid19Section
                                     key={section}
@@ -204,13 +204,13 @@ const Covid19Container = () => {
                                     {componentByCovid19Section()[section].component}
                                 </Covid19Section>
                             ))}
-                        <section className="body__section">
+                        <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />
                             <FooterLinkToAdvancedSearchContainer
                                 title={footerTitle}
                                 description={footerDescription}
-                                onClick={onFooterClick} />
+                                onClick={addDefCodesToAdvancedSearchFilter} />
                         </section>
                     </div>
                     <RedirectModalContainer />
