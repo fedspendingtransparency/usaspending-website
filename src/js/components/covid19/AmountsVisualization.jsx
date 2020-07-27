@@ -590,7 +590,6 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceQuestionData?.x || 0)) {
             setObligationLineDataThreeOverlap(true);
-
         }
         else {
             setObligationLineDataThreeOverlap(false);
