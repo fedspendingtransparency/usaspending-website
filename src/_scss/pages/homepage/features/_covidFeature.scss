@@ -123,7 +123,7 @@
 
         .adv-search-spending-profile__text {
             @include media ($medium-screen) {
-                max-width: 85%;
+                width: 85%;
             }
         }
 
