@@ -37,10 +37,10 @@ describe('COVID-19 spending by CFDA row', () => {
         });
         describe('count of awards properties', () => {
             it('should store the raw number of awards', () => {
-                expect(row._count).toEqual(5400);
+                expect(row._awardCount).toEqual(5400);
             });
             it('should store the formatted number of awards', () => {
-                expect(row.count).toEqual('5,400');
+                expect(row.awardCount).toEqual('5,400');
             });
         });
         describe('face value of loan properties', () => {

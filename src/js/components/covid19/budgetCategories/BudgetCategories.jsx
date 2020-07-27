@@ -12,7 +12,6 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
 
-
 const tabs = [
     {
         internal: 'agency',

@@ -268,7 +268,7 @@ export const defCodeColor = '#B699C6';
 export const spendingTableSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
-    count: 'count',
+    awardCount: 'award_count',
     name: 'description',
     faceValueOfLoan: 'face_value_of_loan'
 };
@@ -276,7 +276,7 @@ export const spendingTableSortFields = {
 export const financialAssistanceTabs = [
     {
         internal: 'all',
-        label: 'Awards'
+        label: 'All Assistance Awards'
     },
     {
         internal: 'grants',
@@ -299,7 +299,7 @@ export const financialAssistanceTabs = [
 export const awardTypeTabs = [
     {
         internal: 'all',
-        label: 'Awards'
+        label: 'All Awards'
     },
     {
         internal: 'grants',

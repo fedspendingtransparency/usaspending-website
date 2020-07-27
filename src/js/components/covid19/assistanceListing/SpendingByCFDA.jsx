@@ -114,7 +114,8 @@ const SpendingByCFDA = () => {
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 areCountsLoading={inFlight}
-                overviewData={overviewData} />
+                overviewData={overviewData}
+                assistanceOnly />
             <SpendingByCFDAContainer
                 activeTab={activeTab} />
         </div>

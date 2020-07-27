@@ -410,7 +410,7 @@ export default class MapWrapper extends React.Component {
         const { activeFilters } = this.props;
         const filters = cloneDeep(this.props.filters);
         if (!filters || !activeFilters) return null;
-        const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.value).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
         if (awardTypeFilters.includes(activeFilters.awardType)) {
             filters.spendingType.options.pop();
         }

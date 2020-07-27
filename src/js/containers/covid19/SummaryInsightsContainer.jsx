@@ -19,17 +19,19 @@ const propTypes = {
         type: PropTypes.string,
         label: PropTypes.string
     })),
-    areCountsLoading: PropTypes.bool
+    areCountsLoading: PropTypes.bool,
+    assistanceOnly: PropTypes.bool
 };
 
 const SummaryInsightsContainer = ({
     activeTab,
     resultsCount,
     overviewData,
-    areCountsLoading
+    areCountsLoading,
+    assistanceOnly
 }) => {
-    const awardAmountRequest = useRef();
     const awardCountRequest = useRef();
+    const awardAmountRequest = useRef();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -106,7 +108,8 @@ const SummaryInsightsContainer = ({
         numberOfAwards
     };
 
-    let subtitle = `for ${activeTab === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeTab] || 'Awards')}`;
+    const allAwardsLabel = assistanceOnly ? 'Assistance Awards' : 'Awards';
+    let subtitle = `for ${activeTab === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeTab] || allAwardsLabel)}`;
     if (activeTab === 'other') {
         subtitle = 'for all Other Financial Assistance';
     }

@@ -38,15 +38,16 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
     if (!sectionDom) {
         return;
     }
-    if (activeSection === 'overview') {
+
+    // if the scrollY position is above the covid-19 sticky header
+    // use scrollY or window.pageYOffset for IE11
+    if ((window.scrollY || window.pageYOffset <= 161) && activeSection === 'overview') {
         scrollToY(sectionDom.offsetTop - 150, 700);
-    }
-    else {
-        // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
+    } else {
         scrollToY(sectionDom.offsetTop - 86, 700);
     }
 
-    setActiveSection(matchedSection);
+    if (setActiveSection) setActiveSection(matchedSection);
 };
 
 export const getCovidFromFileC = (codes) => codes

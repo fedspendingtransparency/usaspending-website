@@ -48,7 +48,6 @@ const initialTabState = {
 };
 
 const AwardSpendingAgency = () => {
-    const [agencyCount, setAgencyCount] = useState(null);
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
@@ -97,10 +96,6 @@ const AwardSpendingAgency = () => {
     }, [defCodes, activeTab]);
 
     useEffect(() => {
-        setAgencyCount(tabCounts[activeTab.internal]);
-    }, [tabCounts, activeTab]);
-
-    useEffect(() => {
         const countState = areCountsDefined(tabCounts);
         if (!countState) {
             setInFlight(true);
@@ -129,7 +124,7 @@ const AwardSpendingAgency = () => {
             </p>
             <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
             <SummaryInsightsContainer
-                resultsCount={agencyCount}
+                resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
                 areCountsLoading={inFlight} />
