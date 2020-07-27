@@ -196,6 +196,9 @@
           pointer-events: none;
           @media(min-width: $medium-screen) {
             background: url('../../../../img/header--people-buildings-transparent@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
           }
         }
         @import "./_heroButton";
