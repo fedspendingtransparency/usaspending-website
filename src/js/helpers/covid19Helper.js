@@ -46,8 +46,7 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
         scrollToY(sectionDom.offsetTop - 86, 700);
     }
 
-
-    setActiveSection(matchedSection);
+    if (setActiveSection) setActiveSection(matchedSection);
 };
 
 export const getCovidFromFileC = (codes) => codes
