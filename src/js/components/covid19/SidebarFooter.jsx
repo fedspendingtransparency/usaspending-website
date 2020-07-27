@@ -28,8 +28,7 @@ function SidebarFooter(props) {
             if (isSidebarSticky && sidebarFooterWidth !== referenceDiv.current.offsetWidth) {
                 const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);
                 setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
-                // minus the header (66px)
-                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint) - 66}px`);
+                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
             }
             else if (!isSidebarSticky && sidebarFooterWidth !== div.current.offsetWidth) {
                 setSidebarFooterWidth(`auto`);
