@@ -5,17 +5,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
+import { fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
-import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
-import OverviewData from '../OverviewData';
+import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 
 const overviewData = [
     {
-        type: 'agencyCount',
+        type: 'resultsCount',
         label: 'Number of Agencies'
     },
     {
@@ -35,11 +35,6 @@ const overviewData = [
 ];
 
 const AwardSpendingAgency = () => {
-    const [agencyCount, setAgencyCount] = useState(null);
-    const [awardOutlays, setAwardOutlays] = useState(null);
-    const [awardObligations, setAwardObligations] = useState(null);
-    const [numberOfAwards, setNumberOfAwards] = useState(null);
-
     const [activeTab, setActiveTab] = useState(
         {
             internal: awardTypeTabs[0].internal,
@@ -103,29 +98,8 @@ const AwardSpendingAgency = () => {
             } else {
                 params.filter.award_type_codes = awardTypeGroups[activeTab.internal];
             }
-
-            fetchAwardAmounts(params).promise
-                .then((res) => {
-                    setAwardObligations(res.data.obligation);
-                    setAwardOutlays(res.data.outlay);
-                });
-            fetchAwardCount(params).promise
-                .then((res) => {
-                    setNumberOfAwards(res.data.count);
-                });
         }
     }, [defCodes, activeTab]);
-
-    useEffect(() => {
-        setAgencyCount(tabCounts[activeTab.internal]);
-    }, [tabCounts]);
-
-    const amounts = {
-        agencyCount,
-        awardOutlays,
-        awardObligations,
-        numberOfAwards
-    };
 
     const changeActiveTab = (tab) => {
         const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
@@ -145,15 +119,10 @@ const AwardSpendingAgency = () => {
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
             <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
-            <div className="overview-data-group">
-                {overviewData.map((data) => (
-                    <OverviewData
-                        key={data.label}
-                        {...data}
-                        subtitle={`for ${activeTab.internal === 'all' ? 'All' : 'all'} ${activeTab.subtitle}`}
-                        amount={amounts[data.type]} />
-                ))}
-            </div>
+            <SummaryInsightsContainer
+                activeTab={activeTab.internal}
+                resultsCount={tabCounts[activeTab.internal]}
+                overviewData={overviewData} />
             <div className="award-spending__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
