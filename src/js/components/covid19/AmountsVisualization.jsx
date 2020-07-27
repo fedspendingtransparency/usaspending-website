@@ -577,24 +577,25 @@ const AmountsVisualization = ({
             setRemainingBalanceHorizontalLineData(data);
         }
     }, [drawRemainingBalanceItems]);
-    // obligationLineDataThreeOverlap
-    useEffect(() => {
-        if (((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceLabelData?.x || 0)) {
-            setObligationLineDataThreeOverlap(true);
-        }
-        else {
-            setObligationLineDataThreeOverlap(false);
-        }
-    }, [obligationLineDataThree, remainingBalanceLabelData]);
     // obligationLineDataTwoOverlap
     useEffect(() => {
-        if (((obligationLineDataTwo?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceQuestionData?.x || 0)) {
+        if (((obligationLineDataTwo?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceLabelData?.x || 0)) {
             setObligationLineDataTwoOverlap(true);
         }
         else {
             setObligationLineDataTwoOverlap(false);
         }
-    }, [obligationLineDataTwo, remainingBalanceQuestionData]);
+    }, [obligationLineDataTwo, remainingBalanceLabelData]);
+    // obligationLineDataThreeOverlap
+    useEffect(() => {
+        if (((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceQuestionData?.x || 0)) {
+            setObligationLineDataThreeOverlap(true);
+
+        }
+        else {
+            setObligationLineDataThreeOverlap(false);
+        }
+    }, [obligationLineDataThree, remainingBalanceQuestionData]);
 
     const dateNoteStyles = {
         position: 'absolute',
