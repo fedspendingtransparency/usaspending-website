@@ -43,7 +43,6 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
-    // const [activeSection, setActiveSection] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
