@@ -19,7 +19,7 @@
             p,
             ul {
               max-width: rem(800);
-              margin: auto;
+              margin-left: auto;
             }
             overflow: hidden;
             @media(min-width: $medium-screen) {
@@ -32,7 +32,7 @@
                 @include display(flex);
                 @include flex-direction(column);
                 @include justify-content(center);
-                @media(min-width: $medium-screen) {
+                @media(min-width: $tablet-screen) {
                   padding-left: rem(15);
                   width: 50%;
                 }
@@ -128,7 +128,7 @@
                 display: none;
                 overflow-y: scroll;
                 height: 100%;
-                @media (min-width: $medium-screen) {
+                @media (min-width: $tablet-screen) {
                   @include display(flex);
                   width: 50%;
                 }
@@ -162,13 +162,38 @@
                           @include align-items(flex-start);
                           @include justify-content(flex-start);
                         }
+                        @media(min-width: $large-screen) {
+                          padding: rem(20) 0;
+                        }
+                        @media(min-width: $x-large-screen) {
+                          padding: rem(45) 0;
+                        }
                         span {
                             width: 100%;
                             font-size: rem(12);
+                            @media(min-width: $medium-screen) {
+                              font-size: rem(14);
+                            }
+                            @media(min-width: $large-screen) {
+                              font-size: rem(18);
+                            }
+                            @media(min-width: $x-large-screen) {
+                              font-size: rem(22);
+                            }
                             &.covid-highlight__description {
                               font-size: rem(16);
+                              line-height: rem(18);
                               @media(min-width: $medium-screen) {
-                                font-size: rem(18.9);
+                                line-height: rem(21);
+                                font-size: rem(19);
+                              }
+                              @media(min-width: $large-screen) {
+                                line-height: rem(26);
+                                font-size: rem(24);
+                              }
+                              @media(min-width: $x-large-screen) {
+                                line-height: rem(32);
+                                font-size: rem(30);
                               }
                             }
                             &.covid-highlight__amount {
@@ -176,6 +201,12 @@
                                 font-size: rem(20.4);
                                 @media(min-width: $medium-screen) {
                                   font-size: rem(26.4);
+                                }
+                                @media(min-width: $large-screen) {
+                                  font-size: rem(32);
+                                }
+                                @media(min-width: $x-large-screen) {
+                                  font-size: rem(38);
                                 }
                             }
                         }

@@ -119,7 +119,7 @@ export class CovidHighlights extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
-        window.removeEventListener('resize');
+        window.removeEventListener('resize', this.handleResizeWindow);
     }
 
     fetchTotals = () => {
