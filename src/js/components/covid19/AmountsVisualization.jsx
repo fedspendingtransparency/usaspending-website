@@ -316,7 +316,7 @@ const AmountsVisualization = ({
         const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
         if (totalLineData && totalQuestionData && totalValueData) {
             setTotalLabelData({
-                y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
+                y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                 x: totalLineData.x1 - ((ref?.width || 0) + (totalValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
@@ -424,7 +424,7 @@ const AmountsVisualization = ({
         if (outlayLineData && outlayQuestionData) {
             if (outlayQuestionData.left) {
                 setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
+                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                     x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                     height: ref?.height || 0,
                     text: textInfo.label,
@@ -434,7 +434,7 @@ const AmountsVisualization = ({
             }
             else { // text to the right of line
                 setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y,
+                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                     x: outlayLineData.x1 + spacingBetweenLineAndText,
                     height: ref?.height || 0,
                     text: textInfo.label,
