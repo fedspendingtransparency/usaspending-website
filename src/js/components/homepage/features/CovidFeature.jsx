@@ -53,8 +53,6 @@ const CovidFeature = () => (
                     alt="Illustration of people interacting with data" />
             </div>
         </div>
-
-        {/*ADVANCED SEARCH AND SPENDING PROFILE*/}
         <div className="advanced-search-and-spending-profile__wrapper">
             <div className="advanced-search__content-wrapper">
                 <div className="feature-covid-item__image-wrapper">
@@ -84,7 +82,6 @@ const CovidFeature = () => (
                         Search the Data
                     </a>
                 </div>
-                
             </div>
 
             <div className="advanced-search__content-wrapper-right">
@@ -107,7 +104,6 @@ const CovidFeature = () => (
                     <p>Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
                     <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click.</p>
                 </div>
-                
                 <div className="feature-covid__button-wrap">
                     <a
                         className="feature-covid__button"
@@ -119,8 +115,6 @@ const CovidFeature = () => (
 
             </div>
         </div>
-
-        {/*SPENDING PROFILE*/}
         <div className="award-summary__wrapper feature-award-search">
             <div className="feature-award-search__wrapper">
                 <div className="feature-covid__background-flair" />
