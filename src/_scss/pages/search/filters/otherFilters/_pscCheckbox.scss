@@ -11,6 +11,12 @@
         position: relative;
         input {
             width: 100%;
+            &::-ms-clear {
+              // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
+              display: none;
+              height: 0;
+              width: 0;
+            }
         }
         .icon {
           @include flex(0 0 auto);
