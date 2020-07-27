@@ -15,6 +15,7 @@ export const getEmailSocialShareData = {
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
+export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
 
 export const footerTitle = 'Looking for more insight on COVID-19 relief?';
 export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
@@ -267,7 +268,7 @@ export const defCodeColor = '#B699C6';
 export const spendingTableSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
-    count: 'count',
+    awardCount: 'award_count',
     name: 'description',
     faceValueOfLoan: 'face_value_of_loan'
 };
@@ -275,7 +276,7 @@ export const spendingTableSortFields = {
 export const financialAssistanceTabs = [
     {
         internal: 'all',
-        label: 'All Awards'
+        label: 'Awards'
     },
     {
         internal: 'grants',
@@ -298,7 +299,7 @@ export const financialAssistanceTabs = [
 export const awardTypeTabs = [
     {
         internal: 'all',
-        label: 'All Awards'
+        label: 'Awards'
     },
     {
         internal: 'grants',
@@ -328,3 +329,14 @@ export const awardTypeTabs = [
 
 export const covidColor = '#6E338E';
 export const covidObligatedColor = '#B699C6';
+
+export const mapFilterSortOrderByValue = {
+    states: 0,
+    congressionalDistricts: 1,
+    counties: 2,
+    obligations: 0,
+    faceValueOfLoans: 2,
+    outlays: 1,
+    totalSpending: 0,
+    perCapita: 1
+};

@@ -49,7 +49,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'CFDA Programs':
+        case 'CFDA Program':
             if (reduxFilters.selectedCFDA.toArray().length > 0) {
                 return true;
             }
@@ -79,7 +79,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
         case 'Treasury Account Symbol (TAS)':
             if (reduxFilters.tasCodes.toObject().require.length > 0) return true;
             return false;
-        case 'Disaster Emergency Fund (DEF) Code':
+        case 'Disaster Emergency Fund Code (DEFC)':
             if (reduxFilters.defCodes.toObject().require.length > 0) return true;
             return false;
         default:

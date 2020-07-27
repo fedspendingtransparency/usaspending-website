@@ -5,9 +5,12 @@
 
 import { snakeCase } from 'lodash';
 import moment from 'moment';
+
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
+
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -34,15 +37,16 @@ export const jumpToSection = (section = '', activeSection, setActiveSection) => 
     if (!sectionDom) {
         return;
     }
-    if (activeSection === 'overview') {
+
+    // if the scrollY position is above the covid-19 sticky header
+    // use scrollY or window.pageYOffset for IE11
+    if ((window.scrollY || window.pageYOffset <= 161) && activeSection === 'overview') {
         scrollToY(sectionDom.offsetTop - 150, 700);
-    }
-    else {
-        // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
+    } else {
         scrollToY(sectionDom.offsetTop - 86, 700);
     }
 
-    setActiveSection(matchedSection);
+    if (setActiveSection) setActiveSection(matchedSection);
 };
 
 export const getCovidFromFileC = (codes) => codes
@@ -53,4 +57,10 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .map((s) => moment.utc(s.submission_reveal_date))
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
-    .format('MMM DD[,] YYYY');
+    .format('MMMM DD[,] YYYY');
+
+export const getTotalSpendingAbbreviated = (totalSpending) => {
+    const unit = calculateUnitForSingleValue(totalSpending);
+    const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
+    return `${abbreviatedValue} ${unit.longLabel}`;
+};

@@ -10,7 +10,7 @@ const CoreSpendingTableRow = {
         this._id = data.id || '';
         this._code = data.code || '';
         this.description = data.description || '';
-        this._count = data.count || 0;
+        this._awardCount = data.award_count || 0;
         this._obligation = data.obligation || 0;
         this._outlay = data.outlay || 0;
         this._faceValueOfLoan = data.face_value_of_loan || 0;
@@ -21,8 +21,8 @@ const CoreSpendingTableRow = {
     get outlay() {
         return formatMoney(this._outlay);
     },
-    get count() {
-        return formatNumber(this._count);
+    get awardCount() {
+        return formatNumber(this._awardCount);
     },
     get faceValueOfLoan() {
         return formatMoney(this._faceValueOfLoan);

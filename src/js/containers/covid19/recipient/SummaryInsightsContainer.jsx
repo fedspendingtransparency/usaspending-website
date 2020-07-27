@@ -79,13 +79,18 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         numberOfAwards
     };
 
+    let subtitle = `for ${activeFilter === 'all' ? 'All' : 'all'} ${(awardTypeGroupLabels[activeFilter] || 'Awards')}`;
+    if (activeFilter === 'other') {
+        subtitle = 'for all Other Financial Assistance';
+    }
+
     return (
         <div className="overview-data-group">
             {overviewData.map((data) => (
                 <OverviewData
                     key={data.label}
                     {...data}
-                    subtitle={`for all ${(awardTypeGroupLabels[activeFilter] || 'awards').toLowerCase()}`}
+                    subtitle={subtitle}
                     amount={amounts[data.type]} />
             ))}
         </div>
