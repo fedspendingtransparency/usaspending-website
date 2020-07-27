@@ -40,7 +40,9 @@ const BaseFederalAccount = {
         this._agencyId = data.agency_id || '';
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
-        this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
+        this._fundingObligated = data.transaction_obligated_amount === null
+            ? ''
+            : parseFloat(data.transaction_obligated_amount);
         this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
         this._grossOutlayAmount = data.gross_outlay_amount || '';
         this._isQuarterlySubmission = data.is_quarterly_submission;
@@ -65,6 +67,7 @@ const BaseFederalAccount = {
 
 Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
     get() {
+        if (!this._fundingObligated && this._fundingObligated !== 0) return '--';
         return formatMoney(this._fundingObligated);
     }
 });

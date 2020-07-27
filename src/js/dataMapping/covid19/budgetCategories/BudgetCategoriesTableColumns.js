@@ -24,26 +24,6 @@ export const budgetColumns = {
     ]
 };
 
-export const budgetColumnFields = {
-    emergencyFundingMandate: 'description',
-    name: 'description'
-};
-
-export const budgetFields = {
-    total_spending: {
-        totalObligation: 'obligation',
-        totalOutlay: 'outlay'
-    },
-    award_spending: {
-        awardObligation: 'obligation',
-        awardOutlay: 'outlay'
-    },
-    loan_spending: {
-        faceValue: 'face_value_of_loan',
-        countOfLoan: 'count'
-    }
-};
-
 export const budgetDropdownFieldValues = {
     total_spending: 'Total Spending',
     award_spending: 'Award Spending',
@@ -55,13 +35,7 @@ export const apiSpendingTypes = {
     award_spending: 'award'
 };
 
-export const budgetCategoriesCssMappingTypes = {
-    federal_account: 'federal-account',
-    agency: 'agency',
-    object_class: 'object-class'
-};
-
-export const budgetCategoriesSort = {
+export const defaultSort = {
     federal_account: {
         total_spending: {
             sort: 'totalBudgetaryResources',
@@ -104,4 +78,10 @@ export const budgetCategoriesSort = {
             order: 'desc'
         }
     }
+};
+
+export const budgetCategoriesNameSort = {
+    agency: 'description',
+    federal_account: 'code',
+    object_class: 'code'
 };

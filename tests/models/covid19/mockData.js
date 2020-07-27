@@ -76,7 +76,7 @@ export const mockCfdaData = {
     code: '43.090',
     description: 'Description text',
     children: [],
-    count: 5400,
+    award_count: 5400,
     obligation: 89000000.01,
     outlay: 70000000.98,
     resource_link: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view',
@@ -87,7 +87,7 @@ export const mockRowData = {
     id: '43',
     code: '090',
     description: 'Description text',
-    count: 5400,
+    award_count: 5400,
     obligation: 89000000.01,
     outlay: 70000000.98,
     face_value_of_loan: 56000001.02
@@ -97,7 +97,7 @@ export const mockRecipientData = {
     id: ['hash-R', 'hash-C'],
     code: '090',
     description: 'Description text',
-    count: 5400,
+    award_count: 5400,
     obligation: 89000000.01,
     outlay: 70000000.98,
     face_value_of_loan: 56000001.02

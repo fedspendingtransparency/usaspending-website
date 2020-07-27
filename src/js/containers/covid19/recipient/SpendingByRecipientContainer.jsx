@@ -25,7 +25,7 @@ const propTypes = {
 
 const columns = [
     {
-        title: 'recipient',
+        title: 'name',
         displayName: 'Recipient'
     },
     {
@@ -39,7 +39,7 @@ const columns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -86,7 +86,7 @@ const loanColumns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -143,14 +143,14 @@ export const parseRows = (rows, activeTab, query) => (
                 rowData.obligation,
                 rowData.outlay,
                 rowData.faceValueOfLoan,
-                rowData.count
+                rowData.awardCount
             ];
         }
         return [
             link,
             rowData.obligation,
             rowData.outlay,
-            rowData.count
+            rowData.awardCount
         ];
     })
 );

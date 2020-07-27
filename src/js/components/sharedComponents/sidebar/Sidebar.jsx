@@ -168,6 +168,7 @@ const Sidebar = ({
         }
 
         const handleScrollAndSetActiveSection = () => {
+            cacheSectionPositions();
             handleScroll();
             if (detectActiveSection) highlightCurrentSection();
         };

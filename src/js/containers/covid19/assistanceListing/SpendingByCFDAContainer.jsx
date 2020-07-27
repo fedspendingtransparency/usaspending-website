@@ -26,7 +26,7 @@ const propTypes = { activeTab: PropTypes.string.isRequired };
 
 const columns = [
     {
-        title: 'assistanceListing',
+        title: 'name',
         displayName: (
             <>
                 <div>CFDA Program</div>
@@ -45,7 +45,7 @@ const columns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -97,7 +97,7 @@ const loanColumns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -177,14 +177,14 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                     rowData.obligation,
                     rowData.outlay,
                     rowData.faceValueOfLoan,
-                    rowData.count
+                    rowData.awardCount
                 ];
             }
             return [
                 link,
                 rowData.obligation,
                 rowData.outlay,
-                rowData.count
+                rowData.awardCount
             ];
         })
     );
