@@ -1,213 +1,19 @@
 /**
  * Created by Marco Mendoza
  * 07/23/2020
- */ 
+ */
 
-import React, { useState } from 'react';
-import Cookies from 'js-cookie';
-import { find, throttle } from 'lodash';
-import { scrollToY } from 'helpers/scrollToHelper';
+import React from 'react';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Covid19Section from 'components/covid19/Covid19Section';
 import Footer from 'containers/Footer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
-import { jumpToSection } from 'helpers/covid19Helper';
-import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
 
-const sections = [
-    {
-        section: 'test',
-        title: 'This is a Test'
-    },
-    {
-        section: 'test2',
-        title: 'This is a Test 2'
-    },
-    {
-        section: 'test3',
-        title: 'This is a Test 3'
-    },
-    {
-        section: 'test4',
-        title: 'This is a Test 4'
-    }
-];
-
-require('pages/covid19/index.scss');
 require('pages/about/aboutPage.scss');
 
 export default class DataSourcesAndMethodologies extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeSection: 'test',
-            sectionPositions: [],
-            window: {
-                height: 0
-            }
-        }
-
-        this.jumpToSection = this.jumpToSection.bind(this);
-        this.highlightCurrentSection = throttle(this.highlightCurrentSection.bind(this), 100);
-        this.cacheSectionPositions = throttle(this.cacheSectionPositions.bind(this), 100);
-    }
-    
-    componentDidMount() {
-        this.cacheSectionPositions();
-        window.addEventListener('scroll', this.highlightCurrentSection);
-        window.addEventListener('resize', this.cacheSectionPositions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.highlightCurrentSection);
-        window.removeEventListener('resize', this.cacheSectionPositions);
-    }
-
-    cacheSectionPositions() {
-        // it is expensive to measure the DOM elements on every scroll, so measure them upfront
-        // (and when the window resizes) and cache the values
-        const sectionPositions = [];
-
-        for (let i = 0; i < sections.length; i++) {
-            const sectionCode = sections[i].section;
-            const domElement = document.getElementById(`about-${sectionCode}`);
-            if (!domElement) {
-                // couldn't find the element
-                continue;
-            }
-
-            const topPos = domElement.offsetTop;
-            const bottomPos = domElement.offsetHeight + topPos;
-
-            sectionPositions.push({
-                section: sectionCode,
-                top: topPos,
-                bottom: bottomPos
-            });
-        }
-
-        const windowHeight = window.innerHeight
-            || document.documentElement.clientHeight || document.body.clientHeight;
-
-        this.setState({
-            sectionPositions,
-            window: {
-                height: windowHeight
-            }
-        });
-    }
-
-    jumpToSection(section = '') {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = find(sections, {
-            section
-        });
-
-        if (!matchedSection) {
-            // no matching section
-            return;
-        }
-
-        // update the state
-        this.setState({
-            activeSection: section
-        }, () => {
-            // scroll to the correct section
-            const sectionDom = document.querySelector(`#about-${section}`);
-            if (!sectionDom) {
-                return;
-            }
-
-            const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
-            scrollToY(sectionTop, 700);
-        });
-    }
-
-    highlightCurrentSection() {
-        const windowTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowBottom = windowTop + this.state.window.height;
-
-        // determine the section to highlight
-        let activeSection = sections[0].section;
-        let bottomSectionVisible = false;
-        const visibleSections = [];
-
-        // ignore sections if only 30px of the top or bottom are visible
-        const edgeMargin = 50;
-        const visibleTop = windowTop + edgeMargin;
-        const visibleBottom = windowBottom - edgeMargin;
-
-        this.state.sectionPositions.forEach((section, index) => {
-            // check if the section is in view at all
-            if (section.top <= visibleBottom && section.bottom >= visibleTop) {
-                // at least some of the section is in view, determine how much
-                const height = section.bottom - section.top;
-                const visibleHeight = Math.min(section.bottom, visibleBottom) -
-                    Math.max(visibleTop, section.top);
-                const percentageVisible = visibleHeight / height;
-                visibleSections.push({
-                    section: section.section,
-                    amount: percentageVisible
-                });
-
-                if (index === this.state.sectionPositions.length - 1) {
-                    // this is the last section and it is visible
-                    bottomSectionVisible = true;
-                }
-            }
-            else if (index === this.state.sectionPositions.length - 1) {
-                // this is the last section, so highlight it if we're at the bottom or lower
-                // on the page
-                if (section.top <= visibleTop) {
-                    // we are lower than the top of the last section
-                    bottomSectionVisible = true;
-                    visibleSections.push({
-                        section: section.section,
-                        amount: 1
-                    });
-                }
-            }
-        });
-
-        // select the first section we saw
-        if (visibleSections.length > 0) {
-            activeSection = visibleSections[0].section;
-            if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
-                // less than 15% of the first section is visible and we have more than 1 section,
-                // select the next section
-                activeSection = visibleSections[1].section;
-            }
-        }
-
-        // handle a case where we're at the bottom but there's the bottom section is not tall enough
-        // to be the first visible section (which will cause the bottom section to never be
-        // active)
-        if (bottomSectionVisible && visibleSections.length > 1) {
-            const bottomSection = visibleSections[visibleSections.length - 1];
-            const previousSection = visibleSections[visibleSections.length - 2];
-            if (previousSection.amount < 0.5 && bottomSection.amount === 1) {
-                // less than half of the previous section is visible and all of the bottom section
-                // is visible, select the bottom section
-                activeSection = bottomSection.section;
-            }
-        }
-
-        if (activeSection === this.state.activeSection) {
-            // no change
-            return;
-        }
-
-        this.setState({
-            activeSection
-        });
-    }
-
     render() {
         return (
             <div className="usa-da-about-page">
@@ -223,14 +29,6 @@ export default class DataSourcesAndMethodologies extends React.Component {
                 </StickyHeader>
                 <main id="main-content" className="main-content">
                     <div className="about-content-wrapper">
-                        <div className="about-sidebar">
-                            <Sidebar
-                                pageName="covid19"
-                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                                active={this.state.activeSection}
-                                jumpToSection={this.jumpToSection}
-                                sections={sections} />
-                        </div>
                         <div className="about-content">
                             <div className="about-padded-content">
                                 <div className="about-section-wrapper">
@@ -358,8 +156,8 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 Contract Prime Award Summaries (sourced from FPDS with some derived fields compiled from File C; linked data only)
                                             </li>
                                             <li>
-                                                Assistance Prime Award Summaries (sourced from FABS with several derived fields compiled from File C; linked data only
-                                            )</li>
+                                                Assistance Prime Award Summaries (sourced from FABS with several derived fields compiled from File C; linked data only)
+                                            </li>
                                             <li>
                                                 Contracts_Subawards (sourced from FSRS)
                                             </li>
@@ -417,7 +215,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </p>
                                         <ul>
                                             <li>
-                                                DEF Code "L":
+                                                DEF Code &quot;L&quot;:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -428,7 +226,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEF Code "M":
+                                                DEF Code &quot;M&quot;:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -439,7 +237,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEF Code "N":
+                                                DEF Code &quot;N&quot;:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -450,7 +248,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEF Code "O":
+                                                DEF Code &quot;O&quot;:
                                                 <ul>
                                                     <li>
                                                         Not designated as emergency
@@ -464,7 +262,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEF Code "P":
+                                                DEF Code &quot;P&quot;:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -588,7 +386,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                     </li>
                                                 </ul>
                                             </li>
-                                        </ul>   
+                                        </ul>
                                         <p>
                                             Number of Object Classes calculation:
                                         </p>
@@ -653,7 +451,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                     <div className="about-section-content">
                                         <p>
                                             There are several sections devoted to Award Spending.
-                                        </p> 
+                                        </p>
                                         <p>
                                             In order to understand the data surfaced in these sections, it is important to understand the concept of linking between File C and FPDS/FABS data. File C serves as a bridge between data sourced from agency financial systems (i.e., the data in File C itself) and award data sourced from FPDS and FABS. The actual link between these two data sets is a common award ID. For various reasons, not every award ID in file C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a File C row cannot be matched to FPDS or FABS, we call it ‘unlinked’. ‘Unlinked’ File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA, and funding agency).
                                         </p>
@@ -737,7 +535,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                         Transaction Obligated Amount (TOA) for every TAS tagged with a COVID-19 DEFC. There may be several TOA for any given Award ID.
                                                     </li>
                                                     <li>
-                                                        See <a href="">Note on Loan Spending</a> above
+                                                        See <a href="#">Note on Loan Spending</a> above
                                                     </li>
                                                 </ul>
                                             </li>
@@ -761,12 +559,12 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                         Gross Outlay Amount by Award for the latest accounting period (i.e., Current Period Ending, or CPE) for every TAS tagged with a COVID-19 DEF Code.
                                                     </li>
                                                     <li>
-                                                        See <a href="">Note on Loan Spending</a> above
+                                                        See <a href="#">Note on Loan Spending</a> above
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
-                                        <p> 
+                                        <p>
                                             Number of Awards calculation:
                                         </p>
                                         <ul>
