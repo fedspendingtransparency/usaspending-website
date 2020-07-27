@@ -273,7 +273,7 @@ export class CovidHighlights extends React.Component {
                             </span>
                         </h1>
                         <p>
-                            <strong>USAspending is the official source of federal spending data - including spending in response to COVID-19.</strong> We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
+                            USAspending is the official open data source of federal spending information – including spending in response to COVID-19. We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
                         </p>
                     </div>
                     <div
