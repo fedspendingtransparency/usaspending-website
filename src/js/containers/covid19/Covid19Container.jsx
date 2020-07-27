@@ -23,7 +23,6 @@ import RedirectModalContainer from 'containers/redirectModal/RedirectModalContai
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
-
 import {
     slug,
     getEmailSocialShareData,
@@ -44,7 +43,6 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
-    const [activeSection, setActiveSection] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
@@ -132,8 +130,6 @@ const Covid19Container = () => {
         };
     }, []);
 
-    const jumpToCovid19Section = (section) => jumpToSection(section, activeSection, setActiveSection);
-
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
     };
@@ -177,9 +173,8 @@ const Covid19Container = () => {
                             <Sidebar
                                 pageName="covid19"
                                 fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                                active={activeSection}
-                                jumpToSection={jumpToCovid19Section}
-                                detectActiveSection={setActiveSection}
+                                jumpToSection={jumpToSection}
+                                detectActiveSection
                                 sections={Object.keys(componentByCovid19Section())
                                     .filter((section) => componentByCovid19Section()[section].showInMenu)
                                     .map((section) => ({

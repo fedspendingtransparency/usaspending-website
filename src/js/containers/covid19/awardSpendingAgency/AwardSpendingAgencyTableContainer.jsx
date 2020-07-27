@@ -61,7 +61,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     right: true
                 },
                 {
-                    title: 'count',
+                    title: 'awardCount',
                     displayName: (
                         <>
                             <div>Number</div>
@@ -89,7 +89,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                 right: true
             },
             {
-                title: 'count',
+                title: 'awardCount',
                 displayName: (
                     <>
                         <div>Number</div>
@@ -155,7 +155,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,
-                count: awardSpendingByAgencyRow.count,
+                awardCount: awardSpendingByAgencyRow.awardCount,
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
@@ -349,7 +349,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </div>
+        </>
     );
 };
 

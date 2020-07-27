@@ -12,7 +12,6 @@ import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsT
 import OverviewData from '../OverviewData';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
-
 const tabs = [
     {
         internal: 'agency',

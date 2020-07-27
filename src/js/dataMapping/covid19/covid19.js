@@ -268,7 +268,7 @@ export const defCodeColor = '#B699C6';
 export const spendingTableSortFields = {
     obligation: 'obligation',
     outlay: 'outlay',
-    count: 'count',
+    awardCount: 'award_count',
     name: 'description',
     faceValueOfLoan: 'face_value_of_loan'
 };
