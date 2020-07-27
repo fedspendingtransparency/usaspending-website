@@ -29,7 +29,8 @@ const SearchBar = ({ setQuery }) => {
         setQuery('');
     };
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         if (searchString && currentSearchTerm === searchString) {
             resetSearch();
         }
