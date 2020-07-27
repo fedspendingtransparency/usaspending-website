@@ -212,7 +212,7 @@
 
             @include media($medium-screen) {
                 margin-left: rem(55);
-                max-width: 45%;
+                width: 45%;
             }
         }
 
