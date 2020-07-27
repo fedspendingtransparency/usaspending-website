@@ -1,5 +1,8 @@
 .amounts-viz {
   width: 100%;
+  .addOpacity {
+    opacity: 0.6;
+  }
   .amounts-text__question {
     font-size: 1.8rem;
     font-style: italic;

@@ -32,8 +32,9 @@ export const startOfChartY = 160;
 export const rectangleHeight = 45;
 export const lineStrokeWidth = 3;
 export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
+export const heightOfRemainingBalanceLines = 10;
+export const remaniningBalanceLineWidth = 1;
 export const spacingBetweenLineAndText = 10;
-export const remainingBalanceCircleRadius = 3;
 export const labelTextAdjustment = {
     x: 4,
     y: 4
@@ -72,7 +73,7 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[1],
+        lineLength: lineLength[0],
         text: {
             question: 'How much was promised to be spent?',
             label: 'Total Obligations:',
@@ -117,16 +118,13 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[0],
+        lineLength: lineLength[1],
         text: {
             question: 'How much is left?',
             label: 'Total Remaining Balance:',
-            questionLeft: 138,
-            questionDown: 15,
-            valueLeft: 115,
-            valueDown: 110,
-            labelLeft: 315,
-            labelDown: 110
+            offset: {
+                y: 3
+            }
         }
     }
 };
