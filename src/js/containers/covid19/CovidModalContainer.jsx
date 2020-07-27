@@ -74,7 +74,7 @@ const CovidModalContainer = ({
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <a onClick={handleGoToAdvancedSearch} href="#/search">Advanced Search Filter</a> for COVID-19:</h2>
+                    <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <a onClick={handleGoToAdvancedSearch} href="#/search">Advanced Search</a> Filter for COVID-19:</h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
