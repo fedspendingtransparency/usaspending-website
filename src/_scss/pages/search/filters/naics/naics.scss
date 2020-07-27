@@ -16,6 +16,7 @@
       border-bottom: 1px solid $color-gray-lighter;
     }
     .autocomplete__input {
+      @include display(flex);
       padding: rem(10) 0;
       position: relative;
       width: 100%;
@@ -26,11 +27,10 @@
       }
       .icon {
         @include flex(0 0 auto);
+        @include align-self(center);
         position: absolute;
         width: rem(15);
-        height: rem(15);
-        right: rem(15);
-        top: rem(15);
+        right: rem(5);
         svg {
             // color: $color-gray;
         }

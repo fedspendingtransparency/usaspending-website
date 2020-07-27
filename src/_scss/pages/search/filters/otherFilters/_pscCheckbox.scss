@@ -5,6 +5,7 @@
       padding-top: rem(10);
     }
     .autocomplete__input {
+        @include display(flex);
         width: 100%;
         padding: rem(10) 0;
         position: relative;
@@ -13,11 +14,10 @@
         }
         .icon {
           @include flex(0 0 auto);
+          @include align-self(center);
           position: absolute;
           width: rem(15);
-          height: rem(15);
-          right: rem(15);
-          top: rem(15);
+          right: rem(5);
         }
     }
     @import '../../../../elements/filters/selectedFilterBtn';
