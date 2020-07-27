@@ -215,7 +215,7 @@
             }
         }
         .covid-background {
-          background: url('../../../../img/header--people-buildings-transparent@1x.png');
+          background: url('../../../../img/header-img-people-384x486@2x.png');
           background-position: right bottom;
           background-repeat: no-repeat;
           background-size: cover;
@@ -225,7 +225,19 @@
           z-index: 9;
           pointer-events: none;
           @media(min-width: $medium-screen) {
-            background: url('../../../../img/header--people-buildings-transparent@2x.png');
+            background: url('../../../../img/header-img-people-512x687@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          @media(min-width: $large-screen) {
+            background: url('../../../../img/header-img-people-720x619@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          @media(min-width: $x-large-screen) {
+            background: url('../../../../img/header-img-people-1280x400@2x.png');
             background-position: right bottom;
             background-repeat: no-repeat;
             background-size: cover;
