@@ -18,7 +18,7 @@ import TotalAmount from 'components/homepage/hero/TotalAmount';
 const defaultParams = {
     pagination: {
         page: 1,
-        limit: 100,
+        limit: 10,
         order: "desc",
         sort: "outlay"
     },
@@ -45,15 +45,22 @@ export class CovidHighlights extends React.Component {
             isHoverActive: false,
             page: 1,
             hasNext: false,
-            isIncrementComplete: false
+            isIncrementComplete: false,
+            imgDimensions: {
+                width: 0,
+                height: 0
+            }
         };
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
         this.fetchDefCodesRequest = null;
         this.scrollBar = null;
+        this.handleResizeWindow = throttle(this.handleResizeWindow, 10);
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.handleResizeWindow);
+        this.handleResizeWindow();
         return this.fetchDefCodes()
             .then(() => (
                 Promise.all([this.fetchHighlights(), this.fetchTotals()])
@@ -63,6 +70,7 @@ export class CovidHighlights extends React.Component {
                     scrollInterval = window.setInterval(() => {
                         const newPosition = this.scrollBar.scrollTop + 115;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
+                        console.log('scrollbar', maxScroll, newPosition);
                         if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
                             if (this.state.hasNext) {
                                 this.fetchHighlights()
@@ -112,6 +120,7 @@ export class CovidHighlights extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
+        window.removeEventListener('resize');
     }
 
     fetchTotals = () => {
@@ -134,6 +143,17 @@ export class CovidHighlights extends React.Component {
                 this.parseSpendingTotals(data);
                 this.fetchTotalsRequest = null;
             });
+    }
+
+    handleResizeWindow = () => {
+        if (this.scrollBar) {
+            this.setState({
+                imgDimensions: {
+                    width: this.scrollBar.clientWidth,
+                    height: this.scrollBar.clientHeight
+                }
+            });
+        }
     }
 
     fetchDefCodes = () => {
@@ -226,6 +246,7 @@ export class CovidHighlights extends React.Component {
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
+        console.log('highlights', highlights);
         return (
             <section className="covid-hero" aria-label="Introduction">
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
@@ -271,7 +292,7 @@ export class CovidHighlights extends React.Component {
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
                                         return (
-                                            <li key={uniqueId('loading')}className="covid-highlights__highlight">
+                                            <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
                                                 <FontAwesomeIcon icon="spinner" spin color="white" />
                                             </li>
                                         );
@@ -289,6 +310,13 @@ export class CovidHighlights extends React.Component {
                             }
                         </ul>
                     </div>
+                    <div
+                        className="covid-background"
+                        style={{
+                            width: `${this.state.imgDimensions.width}px`,
+                            height: `${this.state.imgDimensions.height}px`,
+                            zIndex: 9
+                        }} />
                     <HeroButton />
                 </div>
             </section>

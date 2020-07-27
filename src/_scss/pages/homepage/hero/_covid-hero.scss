@@ -1,5 +1,4 @@
 .covid-hero {
-    background: #3B005B;
     height: rem(400);
     @include display(flex);
     @include justify-content(center);
@@ -11,22 +10,29 @@
     }
     .covid-hero__wrapper {
         @include display(flex);
+        background: #C5B3E6;
         position: relative;
         height: 100%;
-        max-width: rem(1600);
+        width: 100%;
         .covid-hero__content {
-            width: 50%;
-            margin: auto;
+            h1,
+            p,
+            ul {
+              max-width: rem(800);
+              margin: auto;
+            }
+            overflow: hidden;
             @media(min-width: $medium-screen) {
               padding: 0 2rem;
             }
             &:first-of-type {
                 width: 100%;
+                background: #7C5E94;
                 padding: 0 rem(10);
                 @include display(flex);
                 @include flex-direction(column);
                 @include justify-content(center);
-                @media(min-width: $tablet-screen) {
+                @media(min-width: $medium-screen) {
                   padding-left: rem(15);
                   width: 50%;
                 }
@@ -38,7 +44,6 @@
                 }
                 h1.covid-hero__headline {
                     color: white;
-                    margin: 0;
                     @include display(flex);
                     @include flex-wrap(wrap);
                     font-size: rem(30);
@@ -110,7 +115,6 @@
                     color: white;
                     font-size: rem(14);
                     font-weight: $font-normal;
-                    margin: 0;
                     margin-top: rem(10);
                     @media(min-width: $large-screen) {
                       margin-top: rem(47);
@@ -125,22 +129,22 @@
                 display: none;
                 overflow-y: scroll;
                 height: 100%;
-                @media (min-width: $tablet-screen) {
+                @media (min-width: $medium-screen) {
                   @include display(flex);
-                  padding-right: rem(15);
                   width: 50%;
                 }
                 ul.covid-highlights {
                     @include display(flex);
-                    // @include flex-direction(column);
+                    @include flex-direction(column);
                     @include align-items(flex-end);
-                    @include flex-wrap(wrap);
+                    transform: rotateX(30deg) rotateY(-30deg) rotateZ(0deg) perspective(0);
                     padding: 0;
                     margin: 0;
                     color: $color-white;
-                    width: 75%;
-                    margin-left: auto;
+                    width: 100%;
+                    margin-right: auto;
                     li.covid-highlights__highlight {
+                        // border: 1px solid red;
                         list-style-type: none;
                         @include display(flex);
                         @include flex-wrap(wrap);
@@ -155,9 +159,12 @@
                         &:hover {
                             opacity: 1;
                         }
+                        &.loading {
+                          @include align-items(flex-start);
+                          @include justify-content(flex-start);
+                        }
                         span {
                             width: 100%;
-                            text-align: right;
                             font-size: rem(12);
                             &.covid-highlight__description {
                               font-size: rem(16);
@@ -177,7 +184,24 @@
                 }
             }
         }
+        .covid-background {
+          background: url('../../../../img/header--people-buildings-transparent@1x.png');
+          background-position: right bottom;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          z-index: 9;
+          pointer-events: none;
+          @media(min-width: $medium-screen) {
+            background: url('../../../../img/header--people-buildings-transparent@2x.png');
+          }
+        }
         @import "./_heroButton";
+        .hero-button__wrapper {
+          z-index: 10;
+        }
     }
 }
   
