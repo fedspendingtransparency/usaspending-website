@@ -111,7 +111,7 @@
                 @include media($medium-screen) {
                     display: block;
 
-                    max-width: 75%;
+                width: 75%;
                     border: rem(1) solid #D6D7D9;
                     padding: rem(10);
                     margin-top: rem(0);
