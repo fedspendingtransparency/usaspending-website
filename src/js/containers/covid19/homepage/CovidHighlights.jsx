@@ -70,7 +70,6 @@ export class CovidHighlights extends React.Component {
                     scrollInterval = window.setInterval(() => {
                         const newPosition = this.scrollBar.scrollTop + 115;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
-                        console.log('scrollbar', maxScroll, newPosition);
                         if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
                             if (this.state.hasNext) {
                                 this.fetchHighlights()
@@ -246,7 +245,6 @@ export class CovidHighlights extends React.Component {
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
-        console.log('highlights', highlights);
         return (
             <section className="covid-hero" aria-label="Introduction">
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
