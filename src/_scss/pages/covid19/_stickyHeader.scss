@@ -1,4 +1,5 @@
 .sticky-header .sticky-header__container .sticky-header__header {
+    @import "layouts/search/header/_downloadButton";
     @include display(flex);
     @include justify-content(flex-start);
     @include align-items(center);
