@@ -11,7 +11,9 @@ import { fetchCfdaCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import DateNote from '../DateNote';
+import ReadMore from '../ReadMore';
 
 const overviewData = [
     {
@@ -85,18 +87,20 @@ const SpendingByCFDA = () => {
         <div className="body__content assistance-listing">
             <DateNote />
             <h3 className="body__narrative">
-                These are the assistance listings that supported the COVID-19 Response with <strong>awards</strong>.
+                <strong>Which CFDA programs (Assistance Listings)</strong> supported the response to COVID-19?
             </h3>
             <div className="body__narrative-description">
                 <p>
-                    Catalog of Federal Domestic Assistance (CFDA) Programs or Assistance Listings are programs that provide financial assistance to individuals or organizations. Some examples of Assistance Listings include the Supplemental Nutrition Assistance Program (SNAP) and the Coronavirus Relief Fund. All financial assistance awards are authorized by a CFDA Program.
+                    Catalog of Federal Domestic Assistance (CFDA) Programs <GlossaryLink term="cfda-program" currentUrl="disaster/covid-19" /> also known as Assistance Listings, are programs that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. Some examples of Assistance Listings include the Supplemental Nutrition Assistance Program (SNAP) and the Coronavirus Relief Fund. All financial assistance awards must be associated with a CFDA Program, all of which must be explicitly authorized by law.
                 </p>
-                <p>
-                    In this section, you will see awards that CFDA Programs have authorized in response to COVID-19. Financial assistance awards represent the vast majority of CARES package spending.
-                </p>
-                <p>
-                    In the chart below, you will find the five-digit CFDA number next to the name of the Assistance Listing. The first two digits identify the awarding agency and the last three identify the authorized program.
-                </p>
+                <ReadMore>
+                    <p>
+                        In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
+                    </p>
+                    <p>
+                        <em>Please note that award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
+                    </p>
+                </ReadMore>
             </div>
             <MoreOptionsTabs
                 tabs={financialAssistanceTabs}
