@@ -15,7 +15,7 @@ export const NewBadge = () => (
 );
 
 const covidParentNode = {
-    label: "COVID-19 Response",
+    label: "COVID-19 Spending",
     value: "COVID",
     className: "def-checkbox-label--covid",
     expandDisabled: true,
@@ -34,7 +34,7 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
     }), covidParentNode);
 
 const defaultExpanded = ['COVID'];
-const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Response' };
+const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
 
 export class DEFCheckboxTree extends React.Component {
     constructor(props) {
