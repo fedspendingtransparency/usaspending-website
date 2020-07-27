@@ -73,11 +73,14 @@
         }
 
         .advanced-search__content-wrapper-right {
-            margin-top: rem(100);
+            margin-top: rem(150);
+            margin-bottom: rem(100);
 
             @include media ($medium-screen) {
                 max-width: 45%;
+                margin-top: rem(100);
                 margin-left: rem(30);
+                margin-bottom: rem(0);
 
                 display: flex;
                 flex-direction: column;

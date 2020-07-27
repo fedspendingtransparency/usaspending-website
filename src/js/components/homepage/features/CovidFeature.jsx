@@ -33,7 +33,7 @@ const CovidFeature = () => (
                         alt="Illustration of people interacting with data" />
                 </div>
                 <div className="homepage-feature-description">
-                    <p>Official spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Learn more about the updates made across the site related to COVID-19 spending.</p>
+                    <p>Official spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. Learn more about the updates made across the site related to COVID-19 spending.</p>
                     <p>The new data includes:</p>
                     <ul>
                         <li><strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations</li>
