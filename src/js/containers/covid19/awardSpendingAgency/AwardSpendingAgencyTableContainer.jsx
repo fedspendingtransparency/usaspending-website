@@ -311,6 +311,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
     if (message) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -318,6 +326,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
         );
     }

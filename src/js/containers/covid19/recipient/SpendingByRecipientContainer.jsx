@@ -269,25 +269,36 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         );
     }
 
-    const content = message ? (
-        <>
-            <CSSTransitionGroup
-                transitionName="table-message-fade"
-                transitionLeaveTimeout={225}
-                transitionEnterTimeout={195}
-                transitionLeave>
-                {message}
-            </CSSTransitionGroup>
-        </>
-    ) : (
-        <div ref={tableRef} className="table-wrapper">
-            <Table
-                columns={activeTab === 'loans' ? loanColumns : columns}
-                rows={results}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }} />
-        </div>
-    );
+    if (message) {
+        return (
+            <>
+                <SearchBar setQuery={setQuery} />
+                {(results.length > 0 || error) && <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />}
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                {(results.length > 0 || error) && <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />}
+            </>
+        );
+    }
 
     return (
         <div ref={tableWrapperRef}>
@@ -300,7 +311,13 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            {content}
+            <div ref={tableRef} className="table-wrapper">
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={results}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }} />
+            </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

@@ -355,6 +355,14 @@ const BudgetCategoriesTableContainer = (props) => {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 {spendingViewPicker()}
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -362,6 +370,14 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             </div>
         );
     }
