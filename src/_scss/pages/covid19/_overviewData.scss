@@ -36,6 +36,14 @@
             font-size: rem(36);
             font-weight: $font-light;
             line-height: rem(45);
+            &.loading {
+                margin: 2.5rem 0 2rem 0;
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                $dot-color: $color-gray-lighter;
+                @import 'components/loading-pulse-animation';
+            }
         }
     }
 }

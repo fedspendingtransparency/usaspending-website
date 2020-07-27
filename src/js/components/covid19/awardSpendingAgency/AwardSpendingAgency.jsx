@@ -5,13 +5,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
+import { areCountsDefined } from 'helpers/covid19Helper';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+
+import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 
 const overviewData = [
     {
@@ -34,7 +37,21 @@ const overviewData = [
     }
 ];
 
+const initialTabState = {
+    all: null,
+    contracts: null,
+    idvs: null,
+    grants: null,
+    direct_payments: null,
+    loans: null,
+    other: null
+};
+
 const AwardSpendingAgency = () => {
+    const { defCodes } = useSelector((state) => state.covid19);
+    const [inFlight, setInFlight] = useState(true);
+    const [tabCounts, setTabCounts] = useState(initialTabState);
+
     const [activeTab, setActiveTab] = useState(
         {
             internal: awardTypeTabs[0].internal,
@@ -42,17 +59,6 @@ const AwardSpendingAgency = () => {
         }
     );
 
-    const [tabCounts, setTabCounts] = useState({
-        all: null,
-        contracts: null,
-        idvs: null,
-        grants: null,
-        direct_payments: null,
-        loans: null,
-        other: null
-    });
-
-    const { defCodes } = useSelector((state) => state.covid19);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -86,20 +92,18 @@ const AwardSpendingAgency = () => {
                         other: otherRes.data.count
                     });
                 });
-
-            params = {
-                filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
-                }
-            };
-            if (activeTab.internal === 'all') {
-                const allAwardTypeGroups = [];
-                params.filter.award_type_codes = allAwardTypeGroups.concat(...Object.values(awardTypeGroups));
-            } else {
-                params.filter.award_type_codes = awardTypeGroups[activeTab.internal];
-            }
         }
     }, [defCodes, activeTab]);
+
+    useEffect(() => {
+        const countState = areCountsDefined(tabCounts);
+        if (!countState) {
+            setInFlight(true);
+        }
+        else if (countState) {
+            setInFlight(false);
+        }
+    }, [tabCounts, setInFlight]);
 
     const changeActiveTab = (tab) => {
         const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
@@ -120,9 +124,10 @@ const AwardSpendingAgency = () => {
             </p>
             <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
             <SummaryInsightsContainer
-                activeTab={activeTab.internal}
                 resultsCount={tabCounts[activeTab.internal]}
-                overviewData={overviewData} />
+                overviewData={overviewData}
+                activeTab={activeTab.internal}
+                areCountsLoading={inFlight} />
             <div className="award-spending__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>

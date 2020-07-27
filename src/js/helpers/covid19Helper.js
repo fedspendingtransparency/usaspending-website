@@ -3,6 +3,7 @@
  * Created By Jonathan Hill 06/02/20
  */
 
+import { useState } from 'react';
 import { snakeCase } from 'lodash';
 import moment from 'moment';
 
@@ -59,8 +60,31 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .find((s) => Date.now() >= s.valueOf())
     .format('MMMM DD[,] YYYY');
 
+export const useInFlightList = (initialState) => {
+    const [inFlightList, updateInFlightList] = useState(initialState);
+    return [
+        inFlightList,
+        // add
+        (loadingCategory) => {
+            updateInFlightList([...new Set(inFlightList.concat([loadingCategory]))]);
+        },
+        // remove
+        (loadedCategory) => {
+            const newState = inFlightList.filter((item) => item !== loadedCategory);
+            updateInFlightList(newState);
+        },
+        // reset
+        () => updateInFlightList(initialState)
+    ];
+};
+
 export const getTotalSpendingAbbreviated = (totalSpending) => {
     const unit = calculateUnitForSingleValue(totalSpending);
     const abbreviatedValue = formatMoneyWithPrecision(totalSpending / unit.unit, 2);
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
+
+export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => {
+    if (acc === null) return acc;
+    return counts[tab];
+}, true);
