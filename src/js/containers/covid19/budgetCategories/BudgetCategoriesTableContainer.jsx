@@ -285,9 +285,7 @@ const BudgetCategoriesTableContainer = (props) => {
     }, [currentPage]);
 
     useEffect(() => {
-        const startPage = 1;
-        const endPage = Math.ceil(totalItems / pageSize);
-        props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true, startPage, endPage, currentPage);
+        props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
     }, [loading, error]);
 
     const renderColumns = () => {
@@ -313,22 +311,22 @@ const BudgetCategoriesTableContainer = (props) => {
 
     let message = null;
     if (loading) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -365,21 +363,21 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
             </div>
         );
     }
 
     return (
-        <div ref={tableWrapperRef} className={`budget-categories-table_${budgetCategoriesCssMappingTypes[props.type]} table-wrapper`}>
+        <div ref={tableWrapperRef} className="table-wrapper">
             {spendingViewPicker()}
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
             <div ref={tableRef}>
                 <Table
                     expandable
@@ -391,7 +389,7 @@ const BudgetCategoriesTableContainer = (props) => {
             </div>
             <Pagination
                 currentPage={currentPage}
-                changePage={(e) => changeCurrentPage(e)}
+                changePage={changeCurrentPage}
                 changeLimit={changePageSize}
                 limitSelector
                 resultsText

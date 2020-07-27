@@ -233,35 +233,37 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        const startPage = 1;
-        const endPage = Math.ceil(totalItems / pageSize);
-        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true, startPage, endPage, currentPage);
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
     }, [loading, error]);
 
     let message = null;
     if (loading) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
     } else if (results.length === 0) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableNoResults />
             </div>
         );
@@ -276,15 +278,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 transitionLeave>
                 {message}
             </CSSTransitionGroup>
-            {(results.length > 0 || error) && <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />}
-            </>
+        </>
     ) : (
         <div ref={tableRef} className="table-wrapper">
             <Table
@@ -298,6 +292,14 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     return (
         <div ref={tableWrapperRef}>
             <SearchBar setQuery={setQuery} />
+            {(results.length > 0 || error) && <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />}
             {content}
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}

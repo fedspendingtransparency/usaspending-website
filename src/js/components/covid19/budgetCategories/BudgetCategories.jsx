@@ -90,8 +90,8 @@ const BudgetCategories = () => {
         totalOutlays: overview._totalOutlays
     };
 
-    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage) => {
-        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, startPage, endPage, currentPage, moreOptionsTabsRef);
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
     };
 
     return (

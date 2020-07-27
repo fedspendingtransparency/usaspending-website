@@ -249,9 +249,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        const startPage = 1;
-        const endPage = Math.ceil(totalItems / pageSize);
-        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true, startPage, endPage, currentPage);
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
     }, [loading, error]);
 
     useEffect(() => {
@@ -260,22 +258,22 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     let message = null;
     if (loading) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
-        let tableHeight = null;
+        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
         message = (
-            <div className="results-table-message-container" style={{ minHeight: tableHeight }}>
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -291,20 +289,20 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
             </div>
         );
     }
 
     return (
         <div ref={tableWrapperRef}>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
             <div ref={tableRef} className="table-wrapper" >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
