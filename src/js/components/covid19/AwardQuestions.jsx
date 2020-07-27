@@ -4,26 +4,26 @@
  */
 
 import React from 'react';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import ReadMore from './ReadMore';
 
 const AwardQuestion = () => (
     <div className="award-question__container information-body">
         <div className="information-top" />
         <div className="award-question__title">
-            How much has the federal government spent on awards to support the COVID-19 Response?
+            How much has the federal government spent on <span className="color-purple">awards</span> in response to COVID-19?
         </div>
         <div className="award-question__sub-section">
             <p className="award-question__sub-section_paragraph">
-                The Federal Government provides money to the public in many different
-                ways through different types of awards. Some of these award types
-                are contracts, grants, and loans.
+                Award spending is a subset of total spending and refers to money given through contracts <GlossaryLink currentUrl="disaster/covid-19" term="contract" /> or financial assistance <GlossaryLink currentUrl="disaster/covid-19" term="financial-assistance" /> to individuals, organizations, businesses, or state, local, or tribal governments.
+                There are two main categories of awards: contracts and financial assistance. Loan spending is a type of financial assistance with two components: face value <GlossaryLink currentUrl="disaster/covid-19" term="face-value" /> and subsidy cost <GlossaryLink currentUrl="disaster/covid-19" term="subsidy-cost" />.
             </p>
-            <p className="award-question__sub-section_paragraph">
-                Award spending can further be divided into different categories: by
-                recipients who received spending, by agencies who spent spending,
-                and by the different federal assistance programs that were funded
-                by this spending. Insights about award spending can also be
-                identified by charting award spending over time.
-            </p>
+            <ReadMore>
+                <p className="award-question__sub-section_paragraph">
+                    In the following sections, we break down award spending into three categories: recipients of award funds; agencies that gave out award funds; and financial assistance programs supporting these award funds.
+                </p>
+            </ReadMore>
+
         </div>
     </div>
 );
