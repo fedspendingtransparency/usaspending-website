@@ -49,7 +49,7 @@
         @import './sidebar';
         @import './sidebarFooter';
         .body {
-            @import "components/_footerLinkToAdvancedSearch";
+            @import './linkToAdvancedSearch';
             @import './awardSpendingAgency/awardSpendingAgency';
             @import './recipient/recipientContainer';
 
