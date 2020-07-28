@@ -281,7 +281,7 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            <Note message={noteText} />
+            {!loading && !error && results.length > 0 && <Note message={noteText} />}
         </>
     );
 };
