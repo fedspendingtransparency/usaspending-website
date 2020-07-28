@@ -39,11 +39,9 @@ export const DEFTooltip = () => (
            Disaster Emergency Fund Code (DEFC)
         </h3>
         <div className="advanced-search-tt__body">
-            <p>This filter allows you to find awards funded with Disaster Emergency Funds.</p>
-            <p>Any award that is funded with Disaster Emergency Funding is tagged with a Disaster Emergency Fund Code (DEFC), which corresponds to the legislative bill(s) that authorized its funding.</p>
+            <p>Disaster Emergency Fund Code (DEFC) is an accounting attribute used to track the spending of supplemental funding for disasters and emergencies such as COVID-19. Each code corresponds to one or more legislative bills that authorized the funding.</p>
 
-            <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by those DEFC will be displayed in the &quot;Spending by Awards&quot; table.</p>
-            <p>The &quot;COVID-19 Obligations&quot; and &quot;COVID-19 Outlays&quot; columns show specific funding amounts for each award. To view a summary with more information about an award, click on its award ID.</p>
+            <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by DEFC will be displayed in the &quot;Spending by Prime Award&quot; table to the right. The &quot;COVID-19 Obligations&quot; and &quot;COVID-19 Outlays&quot; columns in this table show specific spending amounts for each award.</p>
         </div>
     </div>
 );
