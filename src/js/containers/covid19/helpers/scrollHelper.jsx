@@ -5,17 +5,24 @@ export const isElementVisible = (ref) => {
     return (verticallyVisible && horizontallyVisible);
 };
 
+const isElementVisibleAndRoomExists = (ref) => (
+    isElementVisible(ref) &&
+    window.pageYOffset > 0
+);
+
+const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
 // this function does not work in IE11
 export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, margin, scrollIntoViewOptions, moreOptionsTabsRef) => {
-    const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+    if (isIE11) {
+        return;
+    }
 
-    if ((loading || error) && !isIE11 && wrapperRef.current && moreOptionsTabsRef.current && isElementVisible(wrapperRef) && window.pageYOffset > 0) {
+    if ((loading || error) && wrapperRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperRef)) {
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);
-    }
-    if ((!loading || !error) && !isIE11 && wrapperReadyRef.current && moreOptionsTabsRef.current && isElementVisible(wrapperReadyRef) && window.pageYOffset > 0) {
+    } else if ((!loading || !error) && wrapperReadyRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperReadyRef)) {
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);
