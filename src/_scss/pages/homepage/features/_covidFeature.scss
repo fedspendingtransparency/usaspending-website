@@ -64,7 +64,6 @@
 
         .advanced-search__content-wrapper {
             margin-top: rem(100);
-
             @include media ($medium-screen) {
                 width: 45%;
                 @include display(flex);
@@ -75,7 +74,6 @@
         .advanced-search__content-wrapper-right {
             margin-top: rem(150);
             margin-bottom: rem(100);
-
             @include media ($medium-screen) {
                 width: 45%;
                 margin-top: rem(100);
@@ -90,7 +88,8 @@
         .feature-covid-item__image-wrapper {
             @include display(flex);
             @include justify-content(flex-start);
-
+            // really silly flexbox bug in IE
+            min-height: 1px;
             .feature-covid-item__image-mobile {
                 display: block;
                 width: 100%;
