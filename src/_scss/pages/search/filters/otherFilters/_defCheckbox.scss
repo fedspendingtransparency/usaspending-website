@@ -25,6 +25,7 @@
                         display: none;
                       }
                       .checkbox-tree-label__label {
+                        @include justify-content(center);
                         background: $color-disaster-covid-19;
                         color: white;
                         display: flex;
@@ -37,7 +38,7 @@
                     }
                   }
                   .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
-                    font-weight: $font-bold;
+                    font-weight: $font-semibold;
                     span {
                       font-weight: $font-normal;
                     }
