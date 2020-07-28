@@ -34,6 +34,7 @@ const tabs = [
 const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
+    const [inFlight, setInFlight] = useState(true);
 
     const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
@@ -82,6 +83,15 @@ const BudgetCategories = () => {
         }
     }, [activeTab, defCodes]);
 
+    useEffect(() => {
+        if (!count) {
+            setInFlight(true);
+        }
+        else if (count) {
+            setInFlight(false);
+        }
+    }, [count, setInFlight]);
+
     const amounts = {
         count,
         totalBudgetaryResources: overview._totalBudgetAuthority,
@@ -112,6 +122,10 @@ const BudgetCategories = () => {
                     <OverviewData
                         key={data.label}
                         {...data}
+                        isLoading={(
+                            data.type === 'count' &&
+                            inFlight
+                        )}
                         amount={amounts[data.type]} />
                 ))}
             </div>

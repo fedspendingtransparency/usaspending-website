@@ -5,9 +5,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
@@ -34,6 +36,7 @@ const overviewData = [
 ];
 
 const SpendingByRecipient = () => {
+    const [inFlight, setInFlight] = useState(true);
     const [activeTab, setActiveTab] = useState(awardTypeTabs[0].internal);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
@@ -82,6 +85,16 @@ const SpendingByRecipient = () => {
             });
     }, [defCodes]);
 
+    useEffect(() => {
+        const countState = areCountsDefined(tabCounts);
+        if (!countState) {
+            setInFlight(true);
+        }
+        else if (countState) {
+            setInFlight(false);
+        }
+    }, [tabCounts, setInFlight]);
+
     return (
         <div className="spending-by-recipient">
             <AwardFilterButtons
@@ -93,6 +106,7 @@ const SpendingByRecipient = () => {
                 // pass Recipient count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
+                areCountsLoading={inFlight}
                 overviewData={overviewData} />
             <SpendingByRecipientContainer activeTab={activeTab} />
         </div>
