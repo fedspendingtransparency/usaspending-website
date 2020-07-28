@@ -42,7 +42,7 @@ const Sidebar = ({
     const [sectionPositions, setSectionPositions] = useState([]);
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
-
+    const [activeSection, setActiveSection] = useState(active || sections[0].section);
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
             if (isSidebarSticky && sidebarWidth !== referenceDiv.current.offsetWidth) {
@@ -90,7 +90,7 @@ const Sidebar = ({
         const windowBottom = windowTop + window.innerHeight;
 
         // determine the section to highlight
-        let nextActiveSection = active;
+        let nextActiveSection = activeSection;
         let bottomSectionVisible = false;
         const visibleSections = [];
 
@@ -154,11 +154,12 @@ const Sidebar = ({
             }
         }
 
-        if (nextActiveSection === active) {
+        if (nextActiveSection === activeSection) {
             // no change
             return;
         }
-        detectActiveSection(nextActiveSection);
+        if (typeof detectActiveSection === 'function') detectActiveSection(nextActiveSection);
+        setActiveSection(nextActiveSection);
     }, 100);
 
     useEffect(() => {
@@ -187,16 +188,22 @@ const Sidebar = ({
         sectionPositions.length
     ]);
 
+    const jumpToSectionWrapper = (section) => {
+        if (!active) return jumpToSection(section);
+        jumpToSection(section, activeSection);
+        return setActiveSection(section);
+    };
+
     const buildItems = (section) => {
         let link = (
             <SidebarLink
                 section={section.section}
                 label={section.label}
-                active={active}
-                onClick={jumpToSection} />
+                active={activeSection}
+                onClick={jumpToSectionWrapper} />
         );
         if (section.url) {
-            const activeClass = active === section.section ? 'active' : '';
+            const activeClass = activeSection === section.section ? 'active' : '';
             link = (
                 <a
                     className={`sidebar-link ${activeClass}`}
