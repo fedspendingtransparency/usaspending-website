@@ -18,6 +18,7 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import SearchBar from 'components/covid19/SearchBar';
+import TableDownloadLink from '../TableDownloadLink';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired
@@ -269,7 +270,15 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
 
     return (
         <>
-            <SearchBar setQuery={setQuery} />
+            <div className="table-utility">
+                <div className="table-utility__left">
+                    <SearchBar setQuery={setQuery} />
+                </div>
+                <div className="table-utility__right">
+                    <TableDownloadLink />
+                </div>
+            </div>
+
             {content}
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}

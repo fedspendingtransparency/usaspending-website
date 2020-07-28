@@ -9,10 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
     onClick: PropTypes.func,
-    downloadInFlight: PropTypes.bool
+    downloadInFlight: PropTypes.bool,
+    alternativeStyle: PropTypes.bool
 };
 
-const DownloadIconButton = ({ onClick, downloadInFlight }) => {
+const DownloadIconButton = ({ onClick, downloadInFlight, alternativeStyle }) => {
     const startDownload = (e) => {
         e.preventDefault();
         if (!downloadInFlight) {
@@ -24,6 +25,25 @@ const DownloadIconButton = ({ onClick, downloadInFlight }) => {
     const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
     const icon = downloadInFlight ? 'spinner' : 'download';
 
+
+    if (alternativeStyle) {
+        const disabledAlternativeStyleClass = downloadInFlight ? ' download__button_disabled' : '';
+        return (
+            <div className="download__button-wrapper">
+                <button
+                    className={`download__button${disabledAlternativeStyleClass}`}
+                    title={buttonText}
+                    aria-label={buttonText}
+                    disabled={downloadInFlight}
+                    onClick={startDownload}>
+                    <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
+                    &nbsp;
+                    &nbsp;
+                    <span>Download Data</span>
+                </button>
+            </div>
+        );
+    }
     return (
         <>
             <button
