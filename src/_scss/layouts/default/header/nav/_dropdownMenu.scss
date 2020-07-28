@@ -21,6 +21,19 @@
         font-weight: $font-semibold;
         font-size: rem(15);
         line-height: rem(19);
+        .covid-newbadge {
+            height: rem(24);
+            width: rem(47);
+            border-radius: rem(4);
+            background-color: #b53332;
+            @include display(inline-flex);
+            @include justify-content(center);
+            @include align-items(center);
+            font-size: rem(14);
+            color: #FFF;
+            font-weight: 600;
+            margin-left: rem(10);
+        }
     }
     .nav-dropdown__parent-icon {
         @include flex(0 0 auto);

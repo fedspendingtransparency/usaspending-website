@@ -12,7 +12,7 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.issRequired
 };
 
 export default class Dropdown extends React.Component {
@@ -75,6 +75,12 @@ export default class Dropdown extends React.Component {
                     aria-expanded={this.state.expanded}>
                     <div className="nav-dropdown__parent-label">
                         {this.props.label}
+                        {
+                            this.props.label === "Profiles" &&
+                            <span>
+                                <span className="covid-newbadge"> NEW</span>
+                            </span>
+                        }
                     </div>
                     <div className="nav-dropdown__parent-icon">
                         <AngleDown alt={iconAlt} />
