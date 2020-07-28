@@ -321,7 +321,7 @@ if (kGlobalConstants.CARES_ACT_RELEASED) {
             addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('components/covid19/DataSourcesAndMethodologies').default);
+                    cb(require('components/covid19/DataSourcesAndMethodologiesPage').default);
                 });
             }
         }
