@@ -143,7 +143,6 @@
                     width: 100%;
                     margin-right: auto;
                     li.covid-highlights__highlight {
-                        // border: 1px solid red;
                         list-style-type: none;
                         @include display(flex);
                         @include flex-wrap(wrap);
