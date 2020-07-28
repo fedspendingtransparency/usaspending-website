@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDynamicStickyClass } from '../sharedComponents/stickyHeader/StickyHeader';
 
 const propTypes = {
+    isGoingToBeSticky: PropTypes.bool,
     pageName: PropTypes.string,
     fixedStickyBreakpoint: PropTypes.number
-
 };
 
 const referenceDiv = createRef();
@@ -23,14 +23,25 @@ function SidebarFooter(props) {
     const [sidebarFooterWidth, setSidebarFooterWidth] = useState("auto");
     const [sidebarFooterTop, setSidebarFooterTop] = useState("auto");
 
+
     useEffect(() => {
         const updateSidebarFooterWidthAndTop = throttle(() => {
-            if (isSidebarSticky && sidebarFooterWidth !== referenceDiv.current.offsetWidth) {
-                const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);
+            const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);
+            if (props.isGoingToBeSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
+                setSidebarFooterWidth(`auto`);
+                setSidebarFooterTop(`auto`);
+
+                if (isSidebarSticky) {
+                    setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
+                    setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
+                } else if (!isSidebarSticky) {
+                    setSidebarFooterWidth(`auto`);
+                    setSidebarFooterTop(`auto`);
+                }
+            } else if (isSidebarSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
                 setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
-            }
-            else if (!isSidebarSticky && sidebarFooterWidth !== div.current.offsetWidth) {
+            } else if (!isSidebarSticky && sidebarFooterWidth !== `${div.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`auto`);
                 setSidebarFooterTop(`auto`);
             }

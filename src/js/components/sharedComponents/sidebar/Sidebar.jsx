@@ -12,6 +12,7 @@ import SidebarLink from './SidebarLink';
 import { useDynamicStickyClass } from '../stickyHeader/StickyHeader';
 
 const propTypes = {
+    isGoingToBeSticky: PropTypes.bool,
     active: PropTypes.string,
     pageName: PropTypes.string,
     sections: PropTypes.array,
@@ -28,6 +29,7 @@ const referenceDiv = createRef();
 const div = createRef();
 
 const Sidebar = ({
+    isGoingToBeSticky,
     active,
     pageName,
     sections,
@@ -45,7 +47,9 @@ const Sidebar = ({
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            if (isSidebarSticky && sidebarWidth !== referenceDiv.current.offsetWidth) {
+            if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+                setSidebarWidth(`${div.current.offsetWidth}px`);
+            } else if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
