@@ -303,7 +303,7 @@ export class CovidHighlights extends React.Component {
                                             className="covid-highlights__highlight">
                                             <span className="covid-highlight__description">{highlight.description}</span>
                                             <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
-                                            <span>OUTLAYED AMOUT</span>
+                                            <span>OUTLAYED AMOUNT</span>
                                         </li>
                                     );
                                 })
