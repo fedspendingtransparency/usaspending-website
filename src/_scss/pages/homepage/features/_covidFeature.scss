@@ -56,7 +56,7 @@
 
         @include media ($medium-screen) {
             margin-top: rem(10);
-            margin-left: rem(103);
+            // margin-left: rem(103);
             @include display(flex);
             @include justify-content(center);
 
@@ -111,7 +111,7 @@
                 @include media($medium-screen) {
                     display: block;
 
-                width: 75%;
+                width: 90%;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
                 margin-top: rem(0);
