@@ -5,7 +5,7 @@
     @media(min-width: $tablet-screen) {
       height: rem(446);
     }
-    @media(min-width: $x-large-screen) {
+    @media(min-width: 2350px) {
       height: rem(400);
     }
     .covid-hero__wrapper {
@@ -235,7 +235,7 @@
             background-repeat: no-repeat;
             background-size: cover;
           }
-          @media(min-width: $x-large-screen) {
+          @media(min-width: 2350px) {
             background: url('../../../../img/header-img-people-1280x400@2x.png');
             background-position: right bottom;
             background-repeat: no-repeat;
