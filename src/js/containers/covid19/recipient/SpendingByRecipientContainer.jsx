@@ -18,6 +18,8 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import SearchBar from 'components/covid19/SearchBar';
+import Note from 'components/sharedComponents/Note';
+import noteText from 'dataMapping/covid19/recipient/recipient';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -326,6 +328,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
+            {!loading && !error && results.length > 0 && <Note message={noteText} />}
         </div>
     );
 };

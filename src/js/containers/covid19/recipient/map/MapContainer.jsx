@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
-import AwardFilterButtons from 'components/covid19/recipient/map/AwardFilterButtons';
+import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,12 +17,12 @@ import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
 import {
     centerOfMap,
-    awardTypeFilters,
     filters,
     logMapLayerEvent,
     filtersOnClickHandler,
     tooltipLabels
 } from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
@@ -310,7 +310,7 @@ export class MapContainer extends React.Component {
                     value: parseFloat(data[this.amountTypeKey()])
                 },
                 awards: {
-                    label: `Number of ${awardTypeFilters.find((a) => a.value === this.state.activeFilters.awardType).label}`,
+                    label: `Number of ${awardTypeTabs.find((a) => a.internal === this.state.activeFilters.awardType).label}`,
                     value: data.award_count.toLocaleString('en-US')
                 },
                 x: position.x,
@@ -386,15 +386,14 @@ export class MapContainer extends React.Component {
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
                     onClick={this.updateAwardTypeFilter}
-                    filters={awardTypeFilters}
-                    activeAwardTypeFilter={this.state.activeFilters.awardType}
-                    activeSpendingTypeFilter={this.state.activeFilters.spendingType} />
+                    filters={awardTypeTabs}
+                    activeFilter={this.state.activeFilters.awardType} />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}
                     scope={this.state.scope}
                     renderHash={this.state.renderHash}
-                    awardTypeFilters={awardTypeFilters}
+                    awardTypeFilters={awardTypeTabs}
                     showHover={this.state.showHover}
                     activeFilters={this.state.activeFilters}
                     filters={this.addOnClickToFilters()}
