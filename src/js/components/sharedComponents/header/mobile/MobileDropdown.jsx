@@ -74,6 +74,12 @@ export default class MobileDropdown extends React.Component {
                     onClick={this.toggleDropdown}>
                     <span className="mobile-dropdown__parent-label">
                         {this.props.label}
+                        {
+                            this.props.label === "Profiles" &&
+                            <span>
+                                <span className="covid-newbadge"> NEW</span>
+                            </span>
+                        }
                     </span>
                     <span className="mobile-dropdown__parent-icon">
                         {icon}

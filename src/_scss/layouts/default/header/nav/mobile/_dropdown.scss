@@ -20,6 +20,19 @@
         .mobile-dropdown__parent-label {
             @include flex(0 0 auto);
             margin-right: rem(10);
+            .covid-newbadge {
+                height: rem(24);
+                width: rem(47);
+                border-radius: rem(4);
+                background-color: #b53332;
+                @include display(inline-flex);
+                @include justify-content(center);
+                @include align-items(center);
+                font-size: rem(14);
+                color: #FFF;
+                font-weight: 600;
+                margin-left: rem(10);
+            }
         }
 
         .mobile-dropdown__parent-icon {
