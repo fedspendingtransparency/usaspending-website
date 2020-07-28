@@ -93,7 +93,7 @@
 
             .feature-covid-item__image-mobile {
                 display: block;
-                width: 75%;
+                width: 100%;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
                 background-color: #FFFFFF;
@@ -112,11 +112,11 @@
                     display: block;
 
                 width: 75%;
-                    border: rem(1) solid #D6D7D9;
-                    padding: rem(10);
-                    margin-top: rem(0);
-                    margin-bottom: 5%;
-                    background-color: #FFFFFF;
+                border: rem(1) solid #D6D7D9;
+                padding: rem(10);
+                margin-top: rem(0);
+                margin-bottom: 5%;
+                background-color: #FFFFFF;
                 }
             }
         }

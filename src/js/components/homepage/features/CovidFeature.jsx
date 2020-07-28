@@ -60,7 +60,7 @@ const CovidFeature = () => (
                         className="feature-covid-item__image"
                         src="img/homepage-covid-ss-adv-search.png"
                         srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
-                        alt="Screenshot of State Profile page" />
+                        alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                 </div>
                 <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
                 <div className="feature-covid-item__image-wrapper">
@@ -68,7 +68,7 @@ const CovidFeature = () => (
                         className="feature-covid-item__image-mobile"
                         src="img/homepage-covid-ss-adv-search.png"
                         srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
-                        alt="Screenshot of State Profile page" />
+                        alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                 </div>
                 <div className="homepage-feature-description adv-search-spending-profile__text">
                     <p>Use the new <strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want. Additional columns were also added to the search results table to show <strong className="homepage-feature-description_weight_bold">COVID-19 spending DEFCs, Obligations, </strong> and <strong className="homepage-feature-description_weight_bold">Outlays</strong>.</p>
@@ -90,7 +90,7 @@ const CovidFeature = () => (
                         className="feature-covid-item__image"
                         src="img/homepage-covid-ss-profile.png"
                         srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
-                        alt="Screenshot of State Profile page" />
+                        alt="Screenshot of COVID-19 Spending profile page" />
                 </div>
                 <h2 className="homepage-feature-title">COVID-19 Spending Profile</h2>
                 <div className="feature-covid-item__image-wrapper">
@@ -98,7 +98,7 @@ const CovidFeature = () => (
                         className="feature-covid-item__image-mobile"
                         src="img/homepage-covid-ss-profile.png"
                         srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
-                        alt="Screenshot of State Profile page" />
+                        alt="Screenshot of COVID-19 Spending profile page" />
                 </div>
                 <div className="homepage-feature-description adv-search-spending-profile__text">
                     <p>Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
@@ -123,7 +123,7 @@ const CovidFeature = () => (
                         className="feature-covid-award-summary__image"
                         src="img/homepage-covid-ss-award-summary.png"
                         srcSet="img/homepage-covid-ss-award-summary.png 1x, img/homepage-covid-ss-award-summary.png 2x"
-                        alt="Screenshot of State Profile page" />
+                        alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                 </div>
                 <div className="award-summary__text-wrapper">
                     <div>
@@ -133,7 +133,7 @@ const CovidFeature = () => (
                                 className="feature-covid-award-summary__image-mobile"
                                 src="img/homepage-covid-ss-award-summary.png"
                                 srcSet="img/homepage-covid-ss-award-summary.png 1x, img/homepage-covid-ss-award-summary.png 2x"
-                                alt="Screenshot of State Profile page" />
+                                alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                         </div>
                         <div className="homepage-feature-description">
                             <p><strong className="homepage-feature-description_weight_bold">Purple COVID-19 badges</strong> found on our Award Summary pages have made it easy to identify which awards have been funded through COVID-19 appropriations. You can hover over the badge to see relevant <strong className="homepage-feature-description_weight_bold">DEFCs</strong> associated with that award. The charts found on Award Summary pages now feature <strong className="homepage-feature-description_weight_bold">COVID-19 obligation and outlay amounts.</strong></p>
