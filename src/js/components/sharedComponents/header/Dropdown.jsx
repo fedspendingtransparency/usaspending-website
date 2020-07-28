@@ -12,7 +12,7 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    items: PropTypes.array.issRequired
+    items: PropTypes.array.isRequired
 };
 
 export default class Dropdown extends React.Component {
