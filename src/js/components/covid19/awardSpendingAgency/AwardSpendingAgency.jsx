@@ -47,18 +47,16 @@ const initialTabState = {
     other: null
 };
 
+const initialActiveTabState = {
+    internal: awardTypeTabs[0].internal,
+    subtitle: awardTypeTabs[0].label
+};
+
 const AwardSpendingAgency = () => {
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
-
-    const [activeTab, setActiveTab] = useState(
-        {
-            internal: awardTypeTabs[0].internal,
-            subtitle: awardTypeTabs[0].label
-        }
-    );
-
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -93,7 +91,7 @@ const AwardSpendingAgency = () => {
                     });
                 });
         }
-    }, [defCodes, activeTab]);
+    }, [defCodes]);
 
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
