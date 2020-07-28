@@ -27,6 +27,8 @@ const defaultParams = {
 
 let scrollInterval = null;
 
+const scrollIncrement = 200;
+
 const propTypes = {
     totalSpendingAmount: PropTypes.number,
     setCovidOverview: PropTypes.func,
@@ -68,7 +70,7 @@ export class CovidHighlights extends React.Component {
             .then(() => {
                 if (!document.documentMode) {
                     scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + 115;
+                        const newPosition = this.scrollBar.scrollTop + scrollIncrement;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
                         if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
                             if (this.state.hasNext) {
