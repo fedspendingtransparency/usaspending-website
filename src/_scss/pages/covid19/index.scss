@@ -234,8 +234,7 @@
                             letter-spacing: 0;
                             line-height: 4.5rem;
                             text-align: center;
-                            padding-top: 6.2rem;
-                            padding-bottom: 3.1rem;
+                            padding: 6.2rem 2.5% 3.1rem;
                             @media(min-width: $medium-screen) {
                                 padding: 6.2rem 15% 3.1rem;
                             }
@@ -246,6 +245,7 @@
                             letter-spacing: 0;
                             line-height: 2.2rem;
                             text-align: center;
+                            padding: 0 2.5%;
                             @media(min-width: $medium-screen) {
                                 padding: 0 15% 6.1rem;
                             }
