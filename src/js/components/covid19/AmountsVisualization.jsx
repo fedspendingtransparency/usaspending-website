@@ -64,6 +64,7 @@ const AmountsVisualization = ({
     const [obligationLineDataThreeOverlap, setObligationLineDataThreeOverlap] = useState(false);
     const [obligationLineDataTwoOverlap, setObligationLineDataTwoOverlap] = useState(false);
     const [drawRemainingBalanceItems, setDrawRemainingBalanceItems] = useState(true);
+    const [drawRemainingBalanceText, setDrawRemainingBalanceText] = useState(true);
     const _totalBudgetAuthorityQuestion = useRef(null);
     const _totalBudgetAuthorityLabel = useRef(null);
     const _totalBudgetAuthorityValue = useRef(null);
@@ -154,7 +155,7 @@ const AmountsVisualization = ({
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             let draw = true;
             let adjustedWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0) - offset.right;
-            if (adjustedWidth <= 0) {
+            if (adjustedWidth <= 2) {
                 adjustedWidth = 0;
                 draw = false;
             }
@@ -244,7 +245,7 @@ const AmountsVisualization = ({
                 x1: obligationLineDataOne?.x1 || 0,
                 x2: obligationLineDataOne?.x1 || 0,
                 y1: obligationLineDataOne?.y2 || 0,
-                y2: (obligationLineDataOne?.y2 || 0) + (obligationQuestionData?.height || 0) + (rectangleMapping._remainingBalance.text.offset.y / 2)
+                y2: (obligationLineDataOne?.y2 || 0) + (obligationQuestionData?.height || 0) + (rectangleMapping._remainingBalance.text.offset.y / 2) + 3
             };
             if (!isNaN(scale(amount))) setObligationLineDataTwo(data);
         }
@@ -258,7 +259,7 @@ const AmountsVisualization = ({
                 x1: obligationLineDataTwo?.x1 || 0,
                 x2: obligationLineDataTwo?.x1 || 0,
                 y1: obligationLineDataTwo?.y2 || 0,
-                y2: ((obligationLineDataTwo?.y2 || 0) + (obligationValueData?.height || 0))
+                y2: ((obligationLineDataTwo?.y2 || 0) + (obligationValueData?.height || 0)) - 3
             };
             if (!isNaN(scale(amount))) setObligationLineDataThree(data);
         }
@@ -324,6 +325,18 @@ const AmountsVisualization = ({
             });
         }
     }, [totalQuestionData, totalLineData, totalValueData]);
+    // remainingBalanceQuestionData
+    useLayoutEffect(() => {
+        const { text: textInfo } = rectangleMapping._remainingBalance;
+        const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
+        setRemainingBalanceQuestionData({
+            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (remainingBalanceValueData?.height || 0) + (questionRef?.height || 0),
+            x: width - amountsPadding.right - (questionRef?.width || 0),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
+    }, [obligationLabelData, width]);
     // remainingBalanceValueData
     useLayoutEffect(() => {
         const ref = _remainingBalanceValue.current?.getBoundingClientRect();
@@ -338,31 +351,19 @@ const AmountsVisualization = ({
             text: moneyLabel,
             className: `amounts-text__value ${!ref ? 'white' : ''}`
         });
-    }, [width]);
+    }, [remainingBalanceQuestionData]);
     // remainingBalanceLabelData
     useLayoutEffect(() => {
         const ref = _remainingBalanceLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._remainingBalance;
         setRemainingBalanceLabelData({
-            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + 3 + (ref?.height || 0),
+            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + 5 + (ref?.height || 0),
             x: width - amountsPadding.right - ((ref?.width || 0) + (remainingBalanceValueData?.theWidth || 0) + 4),
             height: ref?.height || 0,
             text: textInfo.label,
             className: `amounts-text__label ${!ref ? 'white' : ''}`
         });
-    }, [width, remainingBalanceValueData, remainingBalanceQuestionData]);
-    // remainingBalanceQuestionData
-    useLayoutEffect(() => {
-        const { text: textInfo } = rectangleMapping._remainingBalance;
-        const questionRef = _remainingBalanceQuestion.current?.getBoundingClientRect();
-        setRemainingBalanceQuestionData({
-            y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (remainingBalanceValueData?.height || 0) + (questionRef?.height || 0),
-            x: width - amountsPadding.right - (questionRef?.width || 0),
-            height: questionRef?.height || 0,
-            text: textInfo.question,
-            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-        });
-    }, [remainingBalanceValueData, width]);
+    }, [width, remainingBalanceValueData]);
     // outlayQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
@@ -585,7 +586,7 @@ const AmountsVisualization = ({
         else {
             setObligationLineDataTwoOverlap(false);
         }
-    }, [obligationLineDataTwo, remainingBalanceLabelData]);
+    }, [obligationLineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
     // obligationLineDataThreeOverlap
     useEffect(() => {
         if (((obligationLineDataThree?.x1 || 0) + (lineStrokeWidth / 2)) >= (remainingBalanceQuestionData?.x || 0)) {
@@ -595,6 +596,17 @@ const AmountsVisualization = ({
             setObligationLineDataThreeOverlap(false);
         }
     }, [obligationLineDataThree, remainingBalanceQuestionData]);
+    // draw remaining balance text
+    useEffect(() => {
+        if (overviewData) {
+            if (overviewData._totalBudgetAuthority - overviewData._remainingBalance <= 0) {
+                setDrawRemainingBalanceText(false);
+            }
+            else {
+                setDrawRemainingBalanceText(true);
+            }
+        }
+    }, [overviewData]);
 
     const dateNoteStyles = {
         position: 'absolute',
@@ -720,7 +732,7 @@ const AmountsVisualization = ({
                                 x2={obligationLineDataTwo.x2}
                                 y1={obligationLineDataTwo.y1}
                                 y2={obligationLineDataTwo.y2}
-                                className={(drawRemainingBalanceItems && obligationLineDataTwoOverlap) ? 'line__opacity' : 'line__obligation'} />
+                                className={(drawRemainingBalanceText && obligationLineDataTwoOverlap) ? 'line__opacity' : 'line__obligation'} />
                         </g>
                     }
                     {
@@ -732,7 +744,7 @@ const AmountsVisualization = ({
                                 x2={obligationLineDataThree.x2}
                                 y1={obligationLineDataThree.y1}
                                 y2={obligationLineDataThree.y2}
-                                className={(drawRemainingBalanceItems && obligationLineDataThreeOverlap) ? 'line__opacity' : 'line__obligation'} />
+                                className={(drawRemainingBalanceText && obligationLineDataThreeOverlap) ? 'line__opacity' : 'line__obligation'} />
                         </g>
                     }
                     {
@@ -788,7 +800,20 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceValueData && drawRemainingBalanceItems &&
+                        remainingBalanceQuestionData && drawRemainingBalanceText &&
+                        <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
+                            <desc>{remainingBalanceQuestionData.text}</desc>
+                            <text
+                                ref={_remainingBalanceQuestion}
+                                className={remainingBalanceQuestionData.className}
+                                x={remainingBalanceQuestionData.x}
+                                y={remainingBalanceQuestionData.y}>
+                                {remainingBalanceQuestionData.text}
+                            </text>
+                        </g>
+                    }
+                    {
+                        remainingBalanceValueData && drawRemainingBalanceText &&
                         <g tabIndex="0" aria-label={remainingBalanceValueData.text}>
                             <desc>{remainingBalanceValueData.text}</desc>
                             <text
@@ -801,7 +826,7 @@ const AmountsVisualization = ({
                         </g>
                     }
                     {
-                        remainingBalanceLabelData && drawRemainingBalanceItems &&
+                        remainingBalanceLabelData && drawRemainingBalanceText &&
                         <g tabIndex="0" aria-label={remainingBalanceLabelData.text}>
                             <desc>{remainingBalanceLabelData.text}</desc>
                             <text
@@ -810,19 +835,6 @@ const AmountsVisualization = ({
                                 x={remainingBalanceLabelData.x}
                                 y={remainingBalanceLabelData.y}>
                                 {remainingBalanceLabelData.text}
-                            </text>
-                        </g>
-                    }
-                    {
-                        remainingBalanceQuestionData && drawRemainingBalanceItems &&
-                        <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
-                            <desc>{remainingBalanceQuestionData.text}</desc>
-                            <text
-                                ref={_remainingBalanceQuestion}
-                                className={remainingBalanceQuestionData.className}
-                                x={remainingBalanceQuestionData.x}
-                                y={remainingBalanceQuestionData.y}>
-                                {remainingBalanceQuestionData.text}
                             </text>
                         </g>
                     }
