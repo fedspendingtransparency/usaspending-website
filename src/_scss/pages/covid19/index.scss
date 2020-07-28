@@ -82,24 +82,18 @@
                 }
                 @import "./tableMessages";
                 .table-wrapper {
-                    height: rem(530);
-                    overflow-y: scroll;
                     overflow-x: auto;
 
-                    .table-header {
-                        position: -webkit-sticky; /* Safari */  
-                        position: sticky;
-                        top: 0;
-                        .table-header__content {
-                            @include align-items(center);
-                            &.table-header__content_right {
-                                text-align: right;
-                            }
-                            .table-header__label {
-                                white-space: nowrap;
-                            }
+                    .table-header__content {
+                        @include align-items(center);
+                        &.table-header__content_right {
+                            text-align: right;
+                        }
+                        .table-header__label {
+                            white-space: nowrap;
                         }
                     }
+
                     .query-matched {
                         font-weight: $font-semibold;
                         text-decoration: underline;

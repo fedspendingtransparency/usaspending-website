@@ -3,7 +3,7 @@
  * Created by James Lee 6/18/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { fetchAgencyCount } from 'helpers/disasterHelper';
@@ -15,6 +15,7 @@ import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingA
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -56,7 +57,10 @@ const AwardSpendingAgency = () => {
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
+
     const [activeTab, setActiveTab] = useState(initialActiveTabState);
+
+    const moreOptionsTabsRef = useRef(null);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -113,6 +117,10 @@ const AwardSpendingAgency = () => {
         });
     };
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
     return (
         <div className="body__content award-spending">
             <DateNote />
@@ -120,14 +128,16 @@ const AwardSpendingAgency = () => {
             <p className="body__narrative-description">
                 Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
             </p>
-            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            </div>
             <SummaryInsightsContainer
                 resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
                 areCountsLoading={inFlight} />
             <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

@@ -3,7 +3,7 @@
  * Created by James Lee 6/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -18,7 +18,8 @@ import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
-    subHeading: PropTypes.string
+    subHeading: PropTypes.string,
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 const awardSpendingAgencyTableColumns = (type) => {
@@ -115,6 +116,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
+    const tableWrapperRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -255,6 +259,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     });
 
+
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
@@ -273,24 +278,47 @@ const AwardSpendingAgencyTableContainer = (props) => {
         fetchSpendingByCategoryCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [document]);
+
     let message = null;
     if (loading) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
     }
-
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -298,13 +326,29 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-            </>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
         );
     }
 
     return (
-        <>
-            <div className="table-wrapper">
+        <div ref={tableWrapperRef} className="table-wrapper">
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <div ref={tableRef}>
                 <Table
                     expandable
                     rows={results}
@@ -321,7 +365,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 
