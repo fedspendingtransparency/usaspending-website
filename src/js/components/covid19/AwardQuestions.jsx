@@ -10,9 +10,9 @@ import ReadMore from './ReadMore';
 const AwardQuestion = () => (
     <div className="award-question__container information-body">
         <div className="information-top" />
-        <div className="award-question__title">
+        <h2 className="award-question__title">
             How much has the federal government spent on <span className="color-purple">awards</span> in response to COVID-19?
-        </div>
+        </h2>
         <div className="award-question__sub-section">
             <p className="award-question__sub-section_paragraph">
                 Award spending is a subset of total spending and refers to money given through <span className="glossary-term">contracts</span> <GlossaryLink currentUrl="disaster/covid-19" term="contract" /> or <span className="glossary-term">financial assistance</span> <GlossaryLink currentUrl="disaster/covid-19" term="financial-assistance" /> to individuals, organizations, businesses, or state, local, or tribal governments.

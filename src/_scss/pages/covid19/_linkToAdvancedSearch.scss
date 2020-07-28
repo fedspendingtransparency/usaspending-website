@@ -1,4 +1,4 @@
-@import "components/_footerLinkToAdvancedSearch";
+@import 'components/_footerLinkToAdvancedSearch';
 
 .footerLinkToAdvancedSearch__content_covid {
     // Match padding in the Data Sources & Methodology section
@@ -11,6 +11,7 @@
         font-size: rem(38);
         line-height: rem(47);
         margin: rem(5) 0;
+        text-align: center;
     }
 
     button {

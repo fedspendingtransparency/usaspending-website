@@ -117,7 +117,7 @@ const AwardSpendingAgency = () => {
     };
 
     return (
-        <div className="body__content award-spending">
+        <div className="body__content spending-by-agency">
             <DateNote />
             <h3 className="body__narrative">
                 <strong>Which federal agencies</strong> issued awards using funds from COVID-19 spending?
@@ -138,7 +138,7 @@ const AwardSpendingAgency = () => {
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
                 areCountsLoading={inFlight} />
-            <div className="award-spending__content">
+            <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
             </div>
         </div>
