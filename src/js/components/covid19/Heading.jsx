@@ -19,7 +19,7 @@ const Heading = () => (
             <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation.</p>
             <ReadMore>
                 <p>
-                    In response to guidance from the Office of Management and Budget (OMB), we updated our data model to capture the journey of COVID-19 dollars from appropriation to <strong>obligation</strong> <GlossaryLink currentUrl="disaster/covid-19" term="obligation" /> and <strong>outlay</strong> <GlossaryLink currentUrl="disaster/covid-19" term="outlay" /> by federal agencies.<sup>1 2</sup> See who received funding, which agencies spent the funds, which programs were funded, and more.
+                    In response to guidance from the Office of Management and Budget (OMB), we updated our data model to capture the journey of COVID-19 dollars from appropriation to <span className="glossary-term">obligation</span> <GlossaryLink currentUrl="disaster/covid-19" term="obligation" /> and <span className="glossary-term">outlay</span> <GlossaryLink currentUrl="disaster/covid-19" term="outlay" /> by federal agencies.<sup>1 2</sup> See who received funding, which agencies spent the funds, which programs were funded, and more.
                 </p>
                 <p>
                     Visit our Data Sources & Methodology and Other Resources sections to learn more about the underlying data and find resources about COVID-19 from other agencies.

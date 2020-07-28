@@ -15,8 +15,8 @@ const AwardQuestion = () => (
         </div>
         <div className="award-question__sub-section">
             <p className="award-question__sub-section_paragraph">
-                Award spending is a subset of total spending and refers to money given through contracts <GlossaryLink currentUrl="disaster/covid-19" term="contract" /> or financial assistance <GlossaryLink currentUrl="disaster/covid-19" term="financial-assistance" /> to individuals, organizations, businesses, or state, local, or tribal governments.
-                There are two main categories of awards: contracts and financial assistance. Loan spending is a type of financial assistance with two components: face value <GlossaryLink currentUrl="disaster/covid-19" term="face-value" /> and subsidy cost <GlossaryLink currentUrl="disaster/covid-19" term="subsidy-cost" />.
+                Award spending is a subset of total spending and refers to money given through <span className="glossary-term">contracts</span> <GlossaryLink currentUrl="disaster/covid-19" term="contract" /> or <span className="glossary-term">financial assistance</span> <GlossaryLink currentUrl="disaster/covid-19" term="financial-assistance" /> to individuals, organizations, businesses, or state, local, or tribal governments.
+                There are two main categories of awards: contracts and financial assistance. Loan spending is a type of financial assistance with two components: <span className="glossary-term">face value</span> <GlossaryLink currentUrl="disaster/covid-19" term="face-value" /> and <span className="glossary-term">subsidy cost</span> <GlossaryLink currentUrl="disaster/covid-19" term="subsidy-cost" />.
             </p>
             <ReadMore>
                 <p className="award-question__sub-section_paragraph">

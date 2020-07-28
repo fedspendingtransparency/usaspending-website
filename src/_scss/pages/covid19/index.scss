@@ -85,6 +85,9 @@
                             font-size: $smallest-font-size;
                         }
                     }
+                    .glossary-term {
+                        font-weight: $font-semibold;
+                    }
                 }
                 @import "./tableMessages";
                 .table-wrapper {
@@ -233,6 +236,9 @@
                                 font-size: $smallest-font-size;
                             }
                         }
+                        .glossary-term {
+                            font-weight: $font-semibold;
+                        }
                     }
                 }
                 .covid__date-note {
@@ -257,6 +263,9 @@
                             height: 0.5rem;
                             width: 100%;
                             border-radius: 0;
+                        }
+                        .glossary-term {
+                            font-weight: $font-semibold;
                         }
                         .award-question__title {
                             font-size: 3.6rem;
