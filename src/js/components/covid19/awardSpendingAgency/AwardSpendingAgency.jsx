@@ -58,12 +58,7 @@ const AwardSpendingAgency = () => {
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
 
-    const [activeTab, setActiveTab] = useState(
-        {
-            internal: awardTypeTabs[0].internal,
-            subtitle: awardTypeTabs[0].label
-        }
-    );
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
     const moreOptionsTabsRef = useRef(null);
 
