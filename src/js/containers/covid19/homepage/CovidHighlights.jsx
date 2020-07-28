@@ -18,7 +18,7 @@ import TotalAmount from 'components/homepage/hero/TotalAmount';
 const defaultParams = {
     pagination: {
         page: 1,
-        limit: 100,
+        limit: 10,
         order: "desc",
         sort: "outlay"
     },
@@ -45,15 +45,22 @@ export class CovidHighlights extends React.Component {
             isHoverActive: false,
             page: 1,
             hasNext: false,
-            isIncrementComplete: false
+            isIncrementComplete: false,
+            imgDimensions: {
+                width: 0,
+                height: 0
+            }
         };
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
         this.fetchDefCodesRequest = null;
         this.scrollBar = null;
+        this.handleResizeWindow = throttle(this.handleResizeWindow, 10);
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.handleResizeWindow);
+        this.handleResizeWindow();
         return this.fetchDefCodes()
             .then(() => (
                 Promise.all([this.fetchHighlights(), this.fetchTotals()])
@@ -112,6 +119,7 @@ export class CovidHighlights extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
+        window.removeEventListener('resize', this.handleResizeWindow);
     }
 
     fetchTotals = () => {
@@ -136,6 +144,17 @@ export class CovidHighlights extends React.Component {
             });
     }
 
+    handleResizeWindow = () => {
+        if (this.scrollBar) {
+            this.setState({
+                imgDimensions: {
+                    width: this.scrollBar.clientWidth,
+                    height: this.scrollBar.clientHeight
+                }
+            });
+        }
+    }
+
     fetchDefCodes = () => {
         if (this.fetchDefCodesRequest) {
             this.fetchDefCodesRequest.cancel();
@@ -147,10 +166,7 @@ export class CovidHighlights extends React.Component {
         }
         return this.fetchDefCodesRequest.promise
             .then(({ data: { codes } }) => {
-                const covidCodes = codes
-                    .filter((code) => code.disaster === 'covid_19')
-                    .map((code) => code.code);
-                this.props.setCovidDefCodes(covidCodes);
+                this.props.setCovidDefCodes(codes);
             });
     }
 
@@ -255,7 +271,7 @@ export class CovidHighlights extends React.Component {
                             </span>
                         </h1>
                         <p>
-                            <strong>USAspending is the official source of federal spending data - including spending in response to COVID-19.</strong> We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
+                            USAspending is the official open data source of federal spending information – including spending in response to COVID-19. We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
                         </p>
                     </div>
                     <div
@@ -274,7 +290,7 @@ export class CovidHighlights extends React.Component {
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
                                         return (
-                                            <li key={uniqueId('loading')}className="covid-highlights__highlight">
+                                            <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
                                                 <FontAwesomeIcon icon="spinner" spin color="white" />
                                             </li>
                                         );
@@ -292,6 +308,13 @@ export class CovidHighlights extends React.Component {
                             }
                         </ul>
                     </div>
+                    <div
+                        className="covid-background"
+                        style={{
+                            width: `${this.state.imgDimensions.width}px`,
+                            height: `${this.state.imgDimensions.height}px`,
+                            zIndex: 9
+                        }} />
                     <HeroButton />
                 </div>
             </section>
@@ -304,6 +327,8 @@ CovidHighlights.propTypes = propTypes;
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
     defCodes: state.covid19.defCodes
+        .filter((code) => code.disaster === 'covid_19')
+        .map((code) => code.code)
 });
 
 const mapDispatchToProps = (dispatch) => ({

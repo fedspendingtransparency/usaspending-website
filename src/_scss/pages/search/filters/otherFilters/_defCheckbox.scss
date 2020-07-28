@@ -1,36 +1,46 @@
 .def-code-filter {
+    margin-bottom: rem(12);
+    padding: rem(12);
     .def-checkbox-tree {
+      margin-bottom: 2rem;
+      border-bottom: rem(1) solid rgb(214, 215, 217);
         .react-checkbox-tree {
             ol {
                 border-left: none;
-                padding-left: rem(34);
-                padding-right: rem(5);
                 .rct-collapse.rct-collapse-btn {
                     display: none;
                 }
                 .rct-node:nth-child(n) ol {
                   border-left: none;
                 }
-                .def-checkbox-label--covid  {
+                .rct-node.def-checkbox-label--covid  {
                   &.rct-node-parent > .rct-text {
                     .rct-checkbox {
                       align-self: center;
                     }
                     .rct-title .checkbox-tree-label {
                       width: auto;
+                      min-width: 55%;
                       .checkbox-tree-label__value-container {
                         display: none;
                       }
                       .checkbox-tree-label__label {
+                        @include justify-content(center);
                         background: $color-disaster-covid-19;
                         color: white;
                         display: flex;
                         align-items: center;
-                        padding: 5px 10px;
-                        font-size: 16px;
+                        padding: rem(5) rem(10);
+                        font-size: rem(16);
                         border: 1px solid #C7C7C7;
                         border-radius: 4px;
                       }
+                    }
+                  }
+                  .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+                    font-weight: $font-semibold;
+                    span {
+                      font-weight: $font-normal;
                     }
                   }
                 }
