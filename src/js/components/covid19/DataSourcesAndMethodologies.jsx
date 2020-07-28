@@ -9,7 +9,7 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
-import { covidPageMetaTags } from 'helpers/metaTagHelper';
+import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 
 require('pages/about/aboutPage.scss');
 
@@ -18,12 +18,12 @@ export default class DataSourcesAndMethodologies extends React.Component {
         return (
             <div className="usa-da-about-page">
                 {/* TODO: Update these meta tags */}
-                <MetaTags {...covidPageMetaTags} />
+                <MetaTags {...covidPageDataSourcesMetaTags} />
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            Data Sources and Methodologies
+                            COVID-19 Spending: Data Sources &amp; Methodology
                         </h1>
                     </div>
                 </StickyHeader>
@@ -31,7 +31,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                     <div className="about-content-wrapper">
                         <div className="about-content">
                             <div className="about-padded-content">
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-datasets">
                                     <h2 className="about-section-title">
                                         Datasets
                                     </h2>
@@ -137,7 +137,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-download-instructions">
                                     <h2 className="about-section-title">
                                         Download Instructions
                                     </h2>
@@ -211,7 +211,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-DEFC">
                                     <h2 className="about-section-title">
                                         Disaster Emergency Fund Code (DEFC)
                                     </h2>
@@ -224,7 +224,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </p>
                                         <ul>
                                             <li>
-                                                DEFC ‘L‘:
+                                                <strong>DEFC ‘L‘</strong>:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -235,7 +235,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEFC ‘M‘:
+                                                <strong>DEFC ‘M‘</strong>:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -246,7 +246,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEFC ‘N‘:
+                                                <strong>DEFC ‘N‘</strong>:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -257,7 +257,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEFC ‘O‘:
+                                                <strong>DEFC ‘O‘</strong>:
                                                 <ul>
                                                     <li>
                                                         Not designated as emergency
@@ -271,7 +271,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                                 </ul>
                                             </li>
                                             <li>
-                                                DEFC ‘P‘:
+                                                <strong>DEFC ‘P‘</strong>:
                                                 <ul>
                                                     <li>
                                                         Designated as emergency
@@ -284,7 +284,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-loan-spending">
                                     <h2 className="about-section-title">
                                         Loan Spending
                                     </h2>
@@ -297,7 +297,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-overview">
                                     <h2 className="about-section-title">
                                         Overview section
                                     </h2>
@@ -362,7 +362,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-total-spending">
                                     <h2 className="about-section-title">
                                         Total Spending by Budget Category
                                     </h2>
@@ -453,7 +453,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-linked-and-unlinked">
                                     <h2 className="about-section-title">
                                         Linked and Unlinked Award Data
                                     </h2>
@@ -470,7 +470,7 @@ export default class DataSourcesAndMethodologies extends React.Component {
                                         As mentioned in the ‘Download Instructions’ section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page.
                                     </p>
                                 </div>
-                                <div className="about-section-wrapper">
+                                <div className="about-section-wrapper" id="data-sources-award-spending">
                                     <h2 className="about-section-title">
                                         Award Spending
                                     </h2>
