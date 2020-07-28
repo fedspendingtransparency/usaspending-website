@@ -1,5 +1,5 @@
 /*
-* CovidFeature.jsx
+* CovidFeatureContainer.jsx
 * Created by Marcy Held 07/22/2020
 */
 
@@ -23,7 +23,7 @@ const clickedHomepageLink = (route) => {
     });
 };
 
-const CovidFeature = ({
+const CovidFeatureContainer = ({
     stageDefCodesForAdvancedSearch,
     clearFilters,
     resetFilters
@@ -171,7 +171,7 @@ const CovidFeature = ({
     );
 };
 
-CovidFeature.propTypes = {
+CovidFeatureContainer.propTypes = {
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func
@@ -183,4 +183,4 @@ const mapDispatchToProps = (dispatch) => ({
     stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters))
 });
 
-export default connect(null, mapDispatchToProps)(CovidFeature);
+export default connect(null, mapDispatchToProps)(CovidFeatureContainer);

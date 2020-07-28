@@ -17,7 +17,7 @@
             margin: rem(-50) rem(10) rem(10) rem(10);
 
             @include media($medium-screen) {
-                max-width: 40%;
+                width: 40%;
                 margin: rem(0) rem(85) rem(60) rem(0);
             }
         }
@@ -168,7 +168,7 @@
         .feature-covid-award-summary__image-wrapper {
             @include display(flex);
             @include justify-content(flex-start);
-            width: 85%;
+            width: 100%;
             margin-left: auto;
             margin-right: auto;
 
