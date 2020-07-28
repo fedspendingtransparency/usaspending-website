@@ -58,16 +58,16 @@ const CovidFeature = () => (
                 <div className="feature-covid-item__image-wrapper">
                     <img
                         className="feature-covid-item__image"
-                        src="img/homepage-covid-ss-adv-search.png"
-                        srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
+                        src="img/AdvancedSearch_HighPass.png"
+                        // srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
                         alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                 </div>
                 <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
                 <div className="feature-covid-item__image-wrapper">
                     <img
                         className="feature-covid-item__image-mobile"
-                        src="img/homepage-covid-ss-adv-search.png"
-                        srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
+                        src="img/AdvancedSearch_HighPass.png"
+                        // srcSet="img/homepage-covid-ss-adv-search.png 1x, img/homepage-covid-ss-adv-search.png 2x"
                         alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                 </div>
                 <div className="homepage-feature-description adv-search-spending-profile__text">
@@ -88,16 +88,16 @@ const CovidFeature = () => (
                 <div className="feature-covid-item__image-wrapper">
                     <img
                         className="feature-covid-item__image"
-                        src="img/homepage-covid-ss-profile.png"
-                        srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
+                        src="img/AdvSearch_IllustratorTest.svg"
+                        // srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
                         alt="Screenshot of COVID-19 Spending profile page" />
                 </div>
                 <h2 className="homepage-feature-title">COVID-19 Spending Profile</h2>
                 <div className="feature-covid-item__image-wrapper">
                     <img
                         className="feature-covid-item__image-mobile"
-                        src="img/homepage-covid-ss-profile.png"
-                        srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
+                        src="img/AdvSearch_IllustratorTest.svg"
+                        // srcSet="img/homepage-covid-ss-profile.png 1x, img/homepage-covid-ss-profile.png 2x"
                         alt="Screenshot of COVID-19 Spending profile page" />
                 </div>
                 <div className="homepage-feature-description adv-search-spending-profile__text">
