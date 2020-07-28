@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from './ReadMore';
@@ -25,7 +26,7 @@ const Heading = () => (
                 </p>
                 <p className="footnotes">
                     <sup>1</sup> <ExternalLink url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">OMB’s memorandum M-20-21 prescribes guidance to agencies on tracking COVID supplemental funds</ExternalLink>.<br />
-                    <sup>2</sup> USAspending’s data model is called the <ExternalLink url="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS)</ExternalLink> and is available to review.
+                    <sup>2</sup> USAspending’s data model is called the <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS) <FontAwesomeIcon icon="external-link-alt" /></a> and is available to review.
                 </p>
             </ReadMore>
         </div>

@@ -22,7 +22,8 @@ const MapFiltersToggle = ({ isOpen, onClick }) => {
             onKeyDown={onKeyDown}
             tabIndex={0}
             onClick={onClick}
-            className={isOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed'}>
+            className={isOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed'}
+            aria-label={`${isOpen ? 'Close' : 'Open'} map filters`} >
             <FontAwesomeIcon icon={isOpen ? 'caret-left' : 'caret-right'} />
         </div>
     );

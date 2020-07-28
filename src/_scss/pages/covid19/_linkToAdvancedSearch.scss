@@ -6,6 +6,11 @@
         padding-right: 8%;
         padding-left: 8%;
     }
+    h2 {
+        font-size: rem(38);
+        line-height: rem(47);
+        margin: rem(5) 0;
+    }
     button {
         @include button-link;
         font-size: 1.8rem;

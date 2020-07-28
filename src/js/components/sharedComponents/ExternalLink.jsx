@@ -11,7 +11,7 @@ import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
 
 const propTypes = {
     url: PropTypes.string.isRequired,
-    children: PropTypes.element
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
 const ExternalLink = ({ url, children }) => {

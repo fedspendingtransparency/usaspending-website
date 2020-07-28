@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const propTypes = { children: PropTypes.element };
+const propTypes = { children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]) };
 
 const ReadMore = ({ children }) => {
     const [expanded, setExpanded] = useState(false);
