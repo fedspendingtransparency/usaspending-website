@@ -18,10 +18,8 @@ const globalConstants = {
     CARES_ACT_RELEASED: (
         process.env.ENV === 'dev' ||
         process.env.ENV === 'sandbox' ||
-        process.env.ENV === 'qat' ||
-        process.env.ENV === 'staging'
+        process.env.ENV === 'qat'
     )
 };
 
 module.exports = globalConstants;
-
