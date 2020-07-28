@@ -28,8 +28,7 @@ function SidebarFooter(props) {
             if (isSidebarSticky && sidebarFooterWidth !== referenceDiv.current.offsetWidth) {
                 const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);
                 setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
-                // minus the header (66px)
-                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint) - 66}px`);
+                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
             }
             else if (!isSidebarSticky && sidebarFooterWidth !== div.current.offsetWidth) {
                 setSidebarFooterWidth(`auto`);
@@ -65,7 +64,7 @@ function SidebarFooter(props) {
                 <div className={`${props.pageName}-sidebar-footer__header`}>Learn more about <b>The Federal Response to COVID-19</b> at Data Lab!</div>
                 <div className={`${props.pageName}-sidebar-footer__content`}>
                     Visit our sister site,&nbsp;
-                    <a href="https://datalab.usaspending.gov/federal-covid-spending/">
+                    <a href="https://datalab.usaspending.gov/federal-covid-funding/" target="_blank" rel="noopener noreferrer">
                         <b>DATA Lab &nbsp;
                             <FontAwesomeIcon size="sm" icon="external-link-alt" />
                         </b>

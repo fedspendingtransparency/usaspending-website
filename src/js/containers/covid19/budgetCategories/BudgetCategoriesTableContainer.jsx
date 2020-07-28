@@ -24,9 +24,7 @@ import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from 'components/award/shared/InfoTooltipContent';
 
 
-const propTypes = {
-    type: PropTypes.string.isRequired
-};
+const propTypes = { type: PropTypes.string.isRequired };
 
 
 const budgetDropdownColumns = {
