@@ -10,11 +10,10 @@ import DownloadHover from 'components/covid19/DownloadHover';
 
 const propTypes = {
     onClick: PropTypes.func,
-    downloadInFlight: PropTypes.bool,
-    alternativeStyle: PropTypes.bool
+    downloadInFlight: PropTypes.bool
 };
 
-const DownloadIconButton = ({ onClick, downloadInFlight, alternativeStyle }) => {
+const DownloadIconButton = ({ onClick, downloadInFlight }) => {
     const [showHover, setShowHover] = useState(false);
     const startDownload = (e) => {
         e.preventDefault();
@@ -35,25 +34,6 @@ const DownloadIconButton = ({ onClick, downloadInFlight, alternativeStyle }) => 
     const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
     const icon = downloadInFlight ? 'spinner' : 'download';
 
-
-    if (alternativeStyle) {
-        const disabledAlternativeStyleClass = downloadInFlight ? ' download__button_disabled' : '';
-        return (
-            <div className="download__button-wrapper">
-                <button
-                    className={`download__button${disabledAlternativeStyleClass}`}
-                    title={buttonText}
-                    aria-label={buttonText}
-                    disabled={downloadInFlight}
-                    onClick={startDownload}>
-                    <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-                    &nbsp;
-                    &nbsp;
-                    <span>Download Data</span>
-                </button>
-            </div>
-        );
-    }
     return (
         <div
             className="download-wrap"
