@@ -74,13 +74,16 @@ export default class Dropdown extends React.Component {
                     onClick={this.clickedButton}
                     aria-expanded={this.state.expanded}>
                     <div className="nav-dropdown__parent-label">
-                        {this.props.label}
                         {
                             this.props.label === "Profiles" &&
-                            <span>
-                                <span className="covid-newbadge"> NEW</span>
-                            </span>
+                            // <span className="covid-newbadge-dot" />
+                            <div className="outter">
+                                <div className="white">
+                                    <div className="inner" />
+                                </div>
+                            </div>
                         }
+                        {this.props.label}
                     </div>
                     <div className="nav-dropdown__parent-icon">
                         <AngleDown alt={iconAlt} />
