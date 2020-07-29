@@ -9,7 +9,7 @@ import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
+import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -25,73 +25,12 @@ const covidParentNode = {
     children: []
 };
 
-const parseAcronym = (str) => {
-    const rtrn = str.replace("P.L.", "Public Law");
-    if (rtrn.includes("P.L.")) return parseAcronym(rtrn);
-    return rtrn;
-};
-
-
-const DEFCheckboxTreeLabel = ({
-    label,
-    subLabel,
-    value
-}) => {
-    if (label.includes('|')) {
-        const labels = label.split('|');
-        const subLabels = subLabel.split('|');
-        return (
-            <div className="checkbox-tree-label">
-                <div className="checkbox-tree-label__value-container">
-                    <div className="checkbox-tree-label__value-container-value">
-                        {value}
-                    </div>
-                </div>
-                {labels.map((_, i) => (
-                    <div className="checkbox-tree-label__label multiple-label">
-                        {labels[i]}
-                            <>
-                                <br />
-                                <span>{parseAcronym(subLabels[i])}</span>
-                                <br />
-                            </>
-                    </div>
-                ))}
-            </div>
-        );
-    }
-    return (
-        <div className="checkbox-tree-label">
-            <div className="checkbox-tree-label__value-container">
-                <div className="checkbox-tree-label__value-container-value">
-                    {value}
-                </div>
-            </div>
-            <div className="checkbox-tree-label__label">
-                {label}
-                {subLabel && (
-                    <>
-                        <br />
-                        <span>{subLabel}</span>
-                    </>
-                )}
-            </div>
-        </div>
-    );
-};
-
-DEFCheckboxTreeLabel.propTypes = {
-    label: PropTypes.string,
-    subLabel: PropTypes.string,
-    value: PropTypes.string
-};
-
 const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'covid_19')
     .reduce((acc, covidCode) => ({
         ...acc,
         children: acc.children.concat([{
             label: covidCode.title,
-            subLabel: parseAcronym(covidCode.public_law),
+            subLabel: covidCode.public_law,
             value: covidCode.code,
             expandDisabled: true
         }])
