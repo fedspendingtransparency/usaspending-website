@@ -16,8 +16,6 @@ import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 
-require('pages/about/aboutPage.scss');
-
 const cookie = 'usaspending_covid_homepage';
 
 const sections = [
