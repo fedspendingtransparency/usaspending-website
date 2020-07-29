@@ -3,14 +3,15 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import OverviewData from '../OverviewData';
-
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const tabs = [
     {
@@ -33,6 +34,8 @@ const tabs = [
 const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
+    const [inFlight, setInFlight] = useState(true);
+    const moreOptionsTabsRef = useRef(null);
 
     const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
@@ -81,11 +84,24 @@ const BudgetCategories = () => {
         }
     }, [activeTab, defCodes]);
 
+    useEffect(() => {
+        if (!count) {
+            setInFlight(true);
+        }
+        else if (count) {
+            setInFlight(false);
+        }
+    }, [count, setInFlight]);
+
     const amounts = {
         count,
         totalBudgetaryResources: overview._totalBudgetAuthority,
         totalObligations: overview._totalObligations,
         totalOutlays: overview._totalOutlays
+    };
+
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
     };
 
     return (
@@ -95,19 +111,26 @@ const BudgetCategories = () => {
             <p className="body__narrative-description">
                 The total federal spending for the COVID-19 Response can be divided into different budget categories, including the different agencies that spent funds, the Federal Spending bills and Federal Accounts that funded the Response, and the different types of items and services that were purchased.
             </p>
-            <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+            </div>
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData
                         key={data.label}
                         {...data}
+                        isLoading={(
+                            data.type === 'count' &&
+                            inFlight
+                        )}
                         amount={amounts[data.type]} />
                 ))}
             </div>
             <div className="budget-categories__content">
                 <BudgetCategoriesTableContainer
                     type={activeTab}
-                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
+                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
+                    scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

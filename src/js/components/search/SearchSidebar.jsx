@@ -39,6 +39,8 @@ import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSideb
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const staticFilters = {
+    // NOTE: if you update the title here
+    // update the switch statement in helpers/sidebarHelper filterHasSelections!
     options: [
         {
             title: 'Keyword',
@@ -78,7 +80,7 @@ const staticFilters = {
             title: 'CFDA Program'
         },
         {
-            title: 'Disaster Emergency Fund (DEF) Code',
+            title: 'Disaster Emergency Fund Code (DEFC)',
             tooltip: withAdvancedSearchTooltip({
                 icon: 'info',
                 tooltipComponent: <DEFTooltip />

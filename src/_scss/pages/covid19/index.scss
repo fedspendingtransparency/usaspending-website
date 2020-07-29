@@ -47,6 +47,7 @@
             }
         }
         @import './sidebar';
+        @import './sidebarFooter';
         .body {
             @import "components/_footerLinkToAdvancedSearch";
             @import './awardSpendingAgency/awardSpendingAgency';
@@ -82,6 +83,7 @@
                 @import "./tableMessages";
                 .table-wrapper {
                     overflow-x: auto;
+
                     .table-header__content {
                         @include align-items(center);
                         &.table-header__content_right {
@@ -91,6 +93,7 @@
                             white-space: nowrap;
                         }
                     }
+
                     .query-matched {
                         font-weight: $font-semibold;
                         text-decoration: underline;

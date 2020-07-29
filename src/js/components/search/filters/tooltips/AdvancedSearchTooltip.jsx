@@ -36,12 +36,12 @@ export const KeyWordTooltip = () => (
 export const DEFTooltip = () => (
     <div className="advanced-search-tt">
         <h3 className="advanced-search-tt__header">
-           Disaster Emergency Fund (DEF) Code
+           Disaster Emergency Fund Code (DEFC)
         </h3>
         <div className="advanced-search-tt__body">
-            <p>
-                <strong>Disaster Emergency Fund (DEF) Code</strong> is an accounting attribute used to track the spending of supplemental funding targeting disasters and emergencies.
-            </p>
+            <p>Disaster Emergency Fund Code (DEFC) is an accounting attribute used to track the spending of supplemental funding for disasters and emergencies such as COVID-19. Each code corresponds to one or more legislative bills that authorized the funding.</p>
+
+            <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by DEFC will be displayed in the &quot;Spending by Prime Award&quot; table to the right. The &quot;COVID-19 Obligations&quot; and &quot;COVID-19 Outlays&quot; columns in this table show specific spending amounts for each award.</p>
         </div>
     </div>
 );

@@ -23,8 +23,8 @@ describe('DEFCheckboxTree', () => {
             promise: Promise.resolve({
                 data: {
                     codes: [
-                        { disaster: 'covid_19', code: 'L', title: 'test' },
-                        { disaster: 'non-covid_19', code: 'M', title: 'test' }
+                        { disaster: 'covid_19', code: 'L', title: 'test', public_law: 'Emergency P.L. 116-93'},
+                        { disaster: 'non-covid_19', code: 'M', title: 'test', public_law: 'Emergency P.L. 116-93'}
                     ]
                 }
             })

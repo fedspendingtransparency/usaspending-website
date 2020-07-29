@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
@@ -22,7 +22,10 @@ import Router from 'containers/router/Router';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
 
-const propTypes = { activeTab: PropTypes.string.isRequired };
+const propTypes = {
+    activeTab: PropTypes.string.isRequired,
+    scrollIntoView: PropTypes.func.isRequired
+};
 
 const columns = [
     {
@@ -45,7 +48,7 @@ const columns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -97,7 +100,7 @@ const loanColumns = [
         right: true
     },
     {
-        title: 'count',
+        title: 'awardCount',
         displayName: (
             <>
                 <div>Number</div>
@@ -108,7 +111,7 @@ const loanColumns = [
     }
 ];
 
-const SpendingByCFDAContainer = ({ activeTab }) => {
+const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -118,6 +121,10 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
+    const tableWrapperRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -177,14 +184,14 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                     rowData.obligation,
                     rowData.outlay,
                     rowData.faceValueOfLoan,
-                    rowData.count
+                    rowData.awardCount
                 ];
             }
             return [
                 link,
                 rowData.obligation,
                 rowData.outlay,
-                rowData.count
+                rowData.awardCount
             ];
         })
     );
@@ -241,16 +248,32 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
         fetchSpendingByCfdaCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [document]);
+
     let message = null;
     if (loading) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -258,19 +281,45 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
 
     if (message) {
         return (
-            <CSSTransitionGroup
-                transitionName="table-message-fade"
-                transitionLeaveTimeout={225}
-                transitionEnterTimeout={195}
-                transitionLeave>
-                {message}
-            </CSSTransitionGroup>
+            <div ref={errorOrLoadingWrapperRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
         );
     }
 
     return (
-        <>
-            <div className="table-wrapper">
+        <div ref={tableWrapperRef}>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <div ref={tableRef} className="table-wrapper" >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}
@@ -285,7 +334,7 @@ const SpendingByCFDAContainer = ({ activeTab }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 
