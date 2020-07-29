@@ -658,4 +658,4 @@ export default () => {
             <Footer />
         </div>
     );
-}
+};
