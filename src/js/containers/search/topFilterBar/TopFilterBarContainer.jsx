@@ -195,7 +195,7 @@ export class TopFilterBarContainer extends React.Component {
         }
         if (selected) {
             filter.code = 'defCodes';
-            filter.name = 'Disaster Emergency Fund (DEF) Codes';
+            filter.name = 'Disaster Emergency Fund Codes (DEFC)';
             return filter;
         }
         return null;

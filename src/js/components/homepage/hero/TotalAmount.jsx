@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { delay } from 'lodash';
 
 import { getTotalSpendingAbbreviated } from 'helpers/covid19Helper';
@@ -35,13 +34,9 @@ const TotalAmount = ({
     ), []);
 
     useEffect(() => {
-        const now = moment();
         const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
             amountUpdate = delay(() => {
                 ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
-                if (amount === total) {
-                    console.log('Time to Increment Total COVID Spending: ', moment.duration(moment().diff(now)).as('seconds'));
-                }
                 resolve();
             }, speedOfUpdate);
         });

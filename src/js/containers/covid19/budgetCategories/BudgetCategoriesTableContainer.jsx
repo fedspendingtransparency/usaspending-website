@@ -3,7 +3,7 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -24,7 +24,11 @@ import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { BudgetCategoriesInfo } from 'components/award/shared/InfoTooltipContent';
 
 
-const propTypes = { type: PropTypes.string.isRequired };
+const propTypes = {
+    type: PropTypes.string.isRequired,
+    subHeading: PropTypes.string,
+    scrollIntoView: PropTypes.func.isRequired
+};
 
 
 const budgetDropdownColumns = {
@@ -133,6 +137,10 @@ const BudgetCategoriesTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
+    const tableWrapperRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const parseSpendingDataAndSetResults = (data) => {
@@ -275,6 +283,10 @@ const BudgetCategoriesTableContainer = (props) => {
         fetchBudgetSpendingCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+    }, [loading, error]);
+
     const renderColumns = () => {
         if (props.type && spendingCategory) {
             if (props.type !== 'object_class' && spendingCategory === 'total_spending') {
@@ -298,14 +310,22 @@ const BudgetCategoriesTableContainer = (props) => {
 
     let message = null;
     if (loading) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -333,8 +353,16 @@ const BudgetCategoriesTableContainer = (props) => {
 
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
                 {spendingViewPicker()}
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -342,14 +370,30 @@ const BudgetCategoriesTableContainer = (props) => {
                     transitionLeave>
                     {message}
                 </CSSTransitionGroup>
-            </>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
         );
     }
 
     return (
-        <>
+        <div ref={tableWrapperRef} className="table-wrapper">
             {spendingViewPicker()}
-            <div className="table-wrapper">
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <div ref={tableRef}>
                 <Table
                     expandable
                     rows={results}
@@ -366,7 +410,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 

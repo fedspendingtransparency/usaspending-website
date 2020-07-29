@@ -4,23 +4,20 @@
         .usa-dt-modal__header {
             background: $color-disaster-covid-19;
             &.covid-header {
-                text-align: center;
                 color: $color-white;
                 @include display(flex);
-                @include justify-content(center);
-                @include align-items(center);
                 h1 {
                     margin-top: rem(17);
                     margin-bottom: rem(17);
-                    margin-right: auto;
                     font-size: rem(30);
                     line-height: rem(35);
                     padding: 0;
-                    padding-left: rem(17);
+                    padding-left: rem(30);
+                    @include align-items(flex-start);
+                    @include justify-content(flex-start);
                 }
             }
             .usa-dt-modal__close-button {
-                padding: rem(10);
                 @include align-self(flex-start);
                 svg {
                     width: rem(20);
@@ -31,16 +28,23 @@
         .usa-dt-modal__body {
             &.covid-modal-body {
                 padding-bottom: 0;
-                padding: rem(10) rem(30) rem(10) rem(30);
+                padding: rem(30) rem(30) rem(15) rem(30);
             }
             .covid-modal-h2 {
                 font-size: rem(19);
-                font-weight: 600;
+                font-weight: 400;
                 text-align: left;
                 line-height: rem(24);
             }
+
+            .covid-modal-bold {
+                font-weight: 600;
+            }
+
             .covid-modal-li {
                 text-align: left;
+                font-size: rem(19);
+                line-height: rem(24);
             }
             .usa-dt-modal__link {
                 @include display(flex);
@@ -50,7 +54,6 @@
                 }
                 &.covid-modal-button {
                     margin-top: rem(45);
-                    margin-bottom: rem(25);
                     @include display(flex);
                     @include justify-content(center);
                 }
@@ -59,21 +62,28 @@
     }
 }
 
-@include media($medium-screen) {
-    .covid-modal {
-        width: rem(1056);
-        .usa-dt-modal__header{
+@include media($tablet-screen) {
+    .usa-dt-modal.covid-modal {
+        width: rem(768);
+        .usa-dt-modal__header {
             &.covid-header {
-                h1{
+                h1 {
                     font-size: rem(34);
                     line-height: rem(42);
+                    padding-left: rem(80);
                 }
             }
         }
-        .usa-dt-modal__body{
-            &.covid-modal-body{
-                padding: rem(30) rem(45) rem(45) rem(45);
+        .usa-dt-modal__body {
+            &.covid-modal-body {
+                padding: rem(10) rem(80) rem(10) rem(80);
             }
         }   
+    }
+}
+
+@include media($large-screen) {
+    .usa-dt-modal.covid-modal {
+        width: rem(1056);
     }
 }

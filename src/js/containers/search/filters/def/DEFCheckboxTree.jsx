@@ -15,10 +15,11 @@ export const NewBadge = () => (
 );
 
 const covidParentNode = {
-    label: "COVID-19 Response",
+    label: "COVID-19 Spending",
     value: "COVID",
     className: "def-checkbox-label--covid",
     expandDisabled: true,
+    isSearchable: false,
     showNodeIcon: false,
     children: []
 };
@@ -28,13 +29,14 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
         ...acc,
         children: acc.children.concat([{
             label: covidCode.title,
+            subLabel: covidCode.public_law.replace("P.L.", "Public Law"),
             value: covidCode.code,
             expandDisabled: true
         }])
     }), covidParentNode);
 
 const defaultExpanded = ['COVID'];
-const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Response' };
+const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
 
 export class DEFCheckboxTree extends React.Component {
     constructor(props) {

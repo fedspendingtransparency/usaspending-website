@@ -1280,10 +1280,10 @@ export const CFDASectionInfo = (
 export const CovidFlagTooltip = ({ codes }) => (
     <div className="award-summary-tooltip covid-19">
         <div className="tooltip__title">
-            COVID-19 Response
+            COVID-19 Spending
         </div>
         <div className="tooltip__text">
-            <p>This award is part of the COVID-19 Response because part of its spending was derived from funds associated with the following <strong>Disaster and Emergency Fund Codes</strong> (DEFC): </p>
+            <p>This award is part of the COVID-19 Spending because part of its spending was derived from funds associated with the following <strong>Disaster Emergency Fund Codes</strong> (DEFC): </p>
             <p style={{ textAlign: 'center' }}>
                 {codes.map((code, i, arr) => {
                     if (i === arr.length - 1) {

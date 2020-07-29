@@ -3,7 +3,7 @@
  * Created by James Lee 6/18/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { fetchAgencyCount } from 'helpers/disasterHelper';
@@ -13,8 +13,10 @@ import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+import ReadMore from '../ReadMore';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -47,18 +49,19 @@ const initialTabState = {
     other: null
 };
 
+const initialActiveTabState = {
+    internal: awardTypeTabs[0].internal,
+    subtitle: awardTypeTabs[0].label
+};
+
 const AwardSpendingAgency = () => {
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
 
-    const [activeTab, setActiveTab] = useState(
-        {
-            internal: awardTypeTabs[0].internal,
-            subtitle: awardTypeTabs[0].label
-        }
-    );
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
+    const moreOptionsTabsRef = useRef(null);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -93,7 +96,7 @@ const AwardSpendingAgency = () => {
                     });
                 });
         }
-    }, [defCodes, activeTab]);
+    }, [defCodes]);
 
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
@@ -115,21 +118,36 @@ const AwardSpendingAgency = () => {
         });
     };
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
     return (
-        <div className="body__content award-spending">
+        <div className="body__content spending-by-agency">
             <DateNote />
-            <h3 className="body__narrative">These are the federal agencies who spent COVID-19 Response funding on <strong>awards.</strong></h3>
-            <p className="body__narrative-description">
-                Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
-            </p>
-            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <h3 className="body__narrative">
+                <strong>Which federal agencies</strong> issued awards using funds from COVID-19 spending?
+            </h3>
+            <div className="body__narrative-description">
+                <p>
+                    Federal agencies receive funding from Congress and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds in response to the COVID-19 pandemic, as well as a breakdown of their obligated and outlayed funds.
+                </p>
+                <ReadMore>
+                    <p>
+                        <em>Please note that agencies without COVID-19 appropriated funds are not represented here. Additionally, award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
+                    </p>
+                </ReadMore>
+            </div>
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            </div>
             <SummaryInsightsContainer
                 resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
                 areCountsLoading={inFlight} />
-            <div className="award-spending__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
+            <div className="spending-by-agency__content">
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

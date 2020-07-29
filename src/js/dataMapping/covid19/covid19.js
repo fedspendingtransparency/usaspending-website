@@ -8,17 +8,14 @@ import { getBaseUrlNoHash } from 'helpers/socialShare';
 export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
-    subject: 'USAspending.gov COVID-19 Response',
-    body: `View the COVID-19 Response on USAspending.gov: ${getBaseUrlNoHash(slug)}`
+    subject: 'USAspending.gov COVID-19 Spending',
+    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
 };
 
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
-
-export const footerTitle = 'Looking for more insight on COVID-19 relief?';
-export const footerDescription = 'for more in-depth analysis on this COVID-19 and more';
 
 export const amountsHeight = 400;
 export const sankeyHeight = 400;
@@ -32,8 +29,9 @@ export const startOfChartY = 160;
 export const rectangleHeight = 45;
 export const lineStrokeWidth = 3;
 export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
+export const heightOfRemainingBalanceLines = 10;
+export const remaniningBalanceLineWidth = 1;
 export const spacingBetweenLineAndText = 10;
-export const remainingBalanceCircleRadius = 3;
 export const labelTextAdjustment = {
     x: 4,
     y: 4
@@ -52,7 +50,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[0],
         text: {
-            question: 'How much is available to be spent?',
+            question: 'This was the total amount made available.',
             questionLeft: 265,
             questionDown: 40,
             valueLeft: 128,
@@ -72,9 +70,9 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[1],
+        lineLength: lineLength[0],
         text: {
-            question: 'How much was promised to be spent?',
+            question: 'This amount has been promised to be spent.',
             label: 'Total Obligations:',
             questionLeft: -10,
             questionDown: 15,
@@ -96,7 +94,7 @@ export const rectangleMapping = {
         line: true,
         lineLength: lineLength[1],
         text: {
-            question: 'How much has been paid out?',
+            question: 'This amount has been paid out.',
             label: 'Total Outlays:',
             questionLeft: -10,
             questionDown: 20,
@@ -117,16 +115,13 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[0],
+        lineLength: lineLength[1],
         text: {
-            question: 'How much is left?',
+            question: 'This amount has not yet been promised to be spent.',
             label: 'Total Remaining Balance:',
-            questionLeft: 138,
-            questionDown: 15,
-            valueLeft: 115,
-            valueDown: 110,
-            labelLeft: 315,
-            labelDown: 110
+            offset: {
+                y: 3
+            }
         }
     }
 };
