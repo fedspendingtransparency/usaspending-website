@@ -14,7 +14,6 @@ export const requestFullDownload = (params, type) => apiRequest({
 });
 
 export const requestFullDownloadRecipient = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/download/disaster/recipients',
     method: 'post',
     data: params
