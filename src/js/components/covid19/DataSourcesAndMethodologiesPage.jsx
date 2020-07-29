@@ -297,7 +297,7 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        In accordance with the Office of Management and Budget (OMB) 
+                                        In accordance with the Office of Management and Budget (OMB)
                                         <ExternalLink
                                             url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             Memorandum M-20-21
