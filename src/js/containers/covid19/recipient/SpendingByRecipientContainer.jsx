@@ -276,7 +276,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     if (message) {
         return (
             <>
-                <SearchBar setQuery={setQuery} />
+                <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -308,7 +308,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         <div ref={tableWrapperRef}>
             <div className="table-utility">
                 <div className="table-utility__left">
-                    <SearchBar setQuery={setQuery} />
+                    <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 </div>
                 <div className="table-utility__right">
                     <TableDownloadLink defCodes={defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} />

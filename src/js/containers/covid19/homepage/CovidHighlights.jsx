@@ -27,6 +27,8 @@ const defaultParams = {
 
 let scrollInterval = null;
 
+const scrollIncrement = 200;
+
 const propTypes = {
     totalSpendingAmount: PropTypes.number,
     setCovidOverview: PropTypes.func,
@@ -68,7 +70,7 @@ export class CovidHighlights extends React.Component {
             .then(() => {
                 if (!document.documentMode) {
                     scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + 115;
+                        const newPosition = this.scrollBar.scrollTop + scrollIncrement;
                         const maxScroll = this.scrollBar.scrollHeight - 446;
                         if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
                             if (this.state.hasNext) {
@@ -166,7 +168,9 @@ export class CovidHighlights extends React.Component {
         }
         return this.fetchDefCodesRequest.promise
             .then(({ data: { codes } }) => {
-                this.props.setCovidDefCodes(codes);
+                const covidDefCodes = codes
+                    .filter((code) => code.disaster === 'covid_19');
+                this.props.setCovidDefCodes(covidDefCodes);
             });
     }
 
@@ -301,7 +305,7 @@ export class CovidHighlights extends React.Component {
                                             className="covid-highlights__highlight">
                                             <span className="covid-highlight__description">{highlight.description}</span>
                                             <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
-                                            <span>OUTLAYED AMOUT</span>
+                                            <span>OUTLAYED AMOUNT</span>
                                         </li>
                                     );
                                 })
@@ -326,9 +330,7 @@ CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
-    defCodes: state.covid19.defCodes
-        .filter((code) => code.disaster === 'covid_19')
-        .map((code) => code.code)
+    defCodes: state.covid19.defCodes.map((code) => code.code)
 });
 
 const mapDispatchToProps = (dispatch) => ({
