@@ -19,7 +19,7 @@ import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
-import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
+import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
@@ -34,7 +34,7 @@ import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } 
 import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
-import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
@@ -216,7 +216,7 @@ const Covid19Container = () => {
                                 onClick={addDefCodesToAdvancedSearchFilter} />
                         </section>
                     </div>
-                    <RedirectModalContainer />
+                    <GlobalModalContainer />
                 </main>
             </LoadingWrapper>
             <Footer />

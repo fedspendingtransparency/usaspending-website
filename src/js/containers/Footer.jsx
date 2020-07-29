@@ -9,7 +9,7 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
-import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
@@ -17,9 +17,9 @@ import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
-import FloatingGlossaryButton from '../components/sharedComponents/FloatingGlossaryButton';
-import FooterExternalLink from '../components/sharedComponents/FooterExternalLink';
-import Subscribe from '../components/sharedComponents/Subscribe';
+import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
+import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
+import Subscribe from 'components/sharedComponents/Subscribe';
 
 const propTypes = {
     filters: PropTypes.object,
