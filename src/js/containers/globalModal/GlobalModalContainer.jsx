@@ -5,19 +5,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as redirectModalActions from 'redux/actions/modal/modalActions';
-
+import { hideModal } from 'redux/actions/modal/modalActions';
 import RedirectModal from 'components/sharedComponents/RedirectModal';
+import CovidModalContainer from 'containers/covid19/CovidModalContainer';
+
+import { globalModalProps } from '../../propTypes';
 
 const propTypes = {
-    globalModal: PropTypes.shape({
-        display: PropTypes.bool,
-        url: PropTypes.string,
-        modal: PropTypes.oneOf(['redirect', '', 'covid'])
-    }),
+    globalModal: globalModalProps,
     hideModal: PropTypes.func
 };
 
@@ -31,6 +28,13 @@ export class GlobalModalContainer extends React.Component {
                     url={this.props.globalModal.url} />
             );
         }
+        if (this.props.globalModal.modal === "covid") {
+            return (
+                <CovidModalContainer
+                    mounted={this.props.globalModal.display}
+                    hideModal={this.props.hideModal} />
+            );
+        }
         return null;
     }
 }
@@ -41,5 +45,7 @@ export default connect(
     (state) => ({
         globalModal: state.modal
     }),
-    (dispatch) => bindActionCreators(redirectModalActions, dispatch)
+    (dispatch) => ({
+        hideModal: () => dispatch(hideModal())
+    })
 )(GlobalModalContainer);
