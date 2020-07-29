@@ -4,6 +4,14 @@
         margin-top: -5%;
     }
 
+    .homepage-feature-title {
+        &.adv-search-profile-title {
+            @include media($medium-screen) {
+                margin-bottom: rem(18);
+            }
+        }
+    }
+
     //ROW 1: OFFICIAL SPENDING DATA
     .official-spending-data__content-wrapper {
 
@@ -56,10 +64,9 @@
 
         @include media ($medium-screen) {
             margin-top: rem(10);
-            // margin-left: rem(103);
             @include display(flex);
             @include justify-content(center);
-
+            margin-left: rem(60);
         }
 
         .advanced-search__content-wrapper {
@@ -67,8 +74,6 @@
 
             @include media ($medium-screen) {
                 width: 45%;
-                @include display(flex);
-                @include flex-direction(column);
             }
         }
 
@@ -81,9 +86,6 @@
                 margin-top: rem(100);
                 margin-left: rem(30);
                 margin-bottom: rem(0);
-
-                display: flex;
-                flex-direction: column;
             }
         }
 
@@ -91,32 +93,21 @@
             @include display(flex);
             @include justify-content(flex-start);
 
-            .feature-covid-item__image-mobile {
+            .feature-covid-item__image {
                 display: block;
                 width: 100%;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
                 background-color: #FFFFFF;
                 margin-top: rem(20);
-                margin-left: auto;
-                margin-right: auto;
-
-                @include media($medium-screen) {
-                    display: none;
-                }
-            }
-            .feature-covid-item__image {
-                display: none;
+                margin-bottom: rem(30);
 
                 @include media($medium-screen) {
                     display: block;
-
-                width: 90%;
-                border: rem(1) solid #D6D7D9;
-                padding: rem(10);
-                margin-top: rem(0);
-                margin-bottom: 5%;
-                background-color: #FFFFFF;
+                    width: 90%;
+                    margin-top: rem(0);
+                    margin-bottom: rem(18);
+                    background-color: #FFFFFF;
                 }
             }
         }
@@ -180,7 +171,7 @@
                 display: block;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
-                margin-bottom: 5%;
+                margin-bottom: rem(30);
                 background-color: #FFFFFF;
                 width: 100%;
                 
@@ -209,7 +200,6 @@
                     z-index: 1;
                 }
             }
-
         }
     
         .award-summary__text-wrapper {

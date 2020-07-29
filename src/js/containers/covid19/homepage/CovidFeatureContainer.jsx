@@ -58,7 +58,6 @@ const CovidFeatureContainer = ({
                         <img
                             className="feature-covid-official-spending-data__image-mobile"
                             src="img/homepage-covid-official-spending-data.png"
-                            srcSet="img/homepage-covid-official-spending-data.png 1x, img/homepage-covid-official-spending-data.png 2x"
                             alt="Illustration of people interacting with data" />
                     </div>
                     <div className="homepage-feature-description">
@@ -78,22 +77,15 @@ const CovidFeatureContainer = ({
                     <img
                         className="feature-covid-official-spending-data__image"
                         src="img/homepage-covid-official-spending-data.png"
-                        srcSet="img/homepage-covid-official-spending-data.png 1x, img/homepage-covid-official-spending-data.png 2x"
                         alt="Illustration of people interacting with data" />
                 </div>
             </div>
             <div className="advanced-search-and-spending-profile__wrapper">
                 <div className="advanced-search__content-wrapper">
+                    <h2 className="homepage-feature-title adv-search-profile-title">COVID-19 Advanced Search Filter</h2>
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image"
-                            src="img/homepage-covid-ss-adv-search.png"
-                            alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
-                    </div>
-                    <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image-mobile"
                             src="img/homepage-covid-ss-adv-search.png"
                             alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                     </div>
@@ -112,16 +104,10 @@ const CovidFeatureContainer = ({
                 </div>
 
                 <div className="advanced-search__content-wrapper-right">
+                    <h2 className="homepage-feature-title adv-search-profile-title">COVID-19 Spending Profile</h2>
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image"
-                            src="img/homepage-covid-ss-profile.png"
-                            alt="Screenshot of COVID-19 Spending profile page" />
-                    </div>
-                    <h2 className="homepage-feature-title">COVID-19 Spending Profile</h2>
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image-mobile"
                             src="img/homepage-covid-ss-profile.png"
                             alt="Screenshot of COVID-19 Spending profile page" />
                     </div>
@@ -147,7 +133,6 @@ const CovidFeatureContainer = ({
                         <img
                             className="feature-covid-award-summary__image"
                             src="img/homepage-covid-ss-award-summary.png"
-                            srcSet="img/homepage-covid-ss-award-summary.png 1x, img/homepage-covid-ss-award-summary.png 2x"
                             alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                     </div>
                     <div className="award-summary__text-wrapper">
@@ -157,7 +142,6 @@ const CovidFeatureContainer = ({
                                 <img
                                     className="feature-covid-award-summary__image-mobile"
                                     src="img/homepage-covid-ss-award-summary.png"
-                                    srcSet="img/homepage-covid-ss-award-summary.png 1x, img/homepage-covid-ss-award-summary.png 2x"
                                     alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                             </div>
                             <div className="homepage-feature-description">
