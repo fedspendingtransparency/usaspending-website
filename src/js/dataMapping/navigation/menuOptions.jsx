@@ -8,7 +8,7 @@ import kGlobalConstants from 'GlobalConstants';
 
 const New = () => (
     <span>
-        COVID-19 Response
+        COVID-19 Spending
         <span className="covid-newbadge"> NEW</span>
     </span>);
 
