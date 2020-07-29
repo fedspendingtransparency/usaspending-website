@@ -92,7 +92,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                         rawValue: data._fileCObligated,
                         denominatorValue: data._totalObligation,
                         value: data.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Response Obligations Amount',
+                        text: 'COVID-19 Obligated Amount',
                         color: covidObligatedColor,
                         lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
                         children: [{
@@ -103,7 +103,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
                             denominatorValue: data._fileCObligated,
                             rawValue: data._fileCOutlay,
                             value: data.fileCOutlayAbbreviated,
-                            text: 'COVID-19 Response Outlay Amount',
+                            text: 'COVID-19 Outlayed Amount',
                             color: covidColor,
                             lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
                         }]
@@ -208,7 +208,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                                 rawValue: data._fileCObligated,
                                 denominatorValue: data._totalObligation,
                                 value: data.fileCObligatedAbbreviated,
-                                text: 'COVID-19 Response Obligations Amount',
+                                text: 'COVID-19 Obligated Amount',
                                 barWidthOverrides: {
                                     rawValue: data._fileCObligated,
                                     denominatorValue: data._baseExercisedOptions
@@ -226,7 +226,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
                                         rawValue: data._fileCOutlay,
                                         denominatorValue: data._fileCObligated
                                     },
-                                    text: 'COVID-19 Response Outlay Amount',
+                                    text: 'COVID-19 Outlayed Amount',
                                     color: covidColor
                                 }]
                             }
@@ -355,7 +355,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                                 rawValue: data._fileCObligated,
                                 denominatorValue: data._totalObligation,
                                 value: data.fileCObligatedAbbreviated,
-                                text: 'COVID-19 Response Obligations Amount',
+                                text: 'COVID-19 Obligated Amount',
                                 barWidthOverrides: {
                                     rawValue: data._fileCObligated,
                                     denominatorValue: data._baseExercisedOptions
@@ -373,7 +373,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
                                         rawValue: data._fileCOutlay,
                                         denominatorValue: data._fileCObligated
                                     },
-                                    text: 'COVID-19 Response Outlay Amount',
+                                    text: 'COVID-19 Outlayed Amount',
                                     color: covidColor
                                 }]
                             }
@@ -480,7 +480,7 @@ const AwardAmountsChart = ({
                         denominatorValue: awardAmounts._totalObligation,
                         value: awardAmounts.fileCObligatedAbbreviated,
                         lineOffset: lineOffsetsBySpendingCategory.fileCAsstObligation,
-                        text: 'COVID-19 Response Obligations Amount',
+                        text: 'COVID-19 Obligated Amount',
                         color: covidObligatedColor,
                         children: [{
                             labelSortOrder: 0,
@@ -491,7 +491,7 @@ const AwardAmountsChart = ({
                             denominatorValue: awardAmounts._fileCObligated,
                             rawValue: awardAmounts._fileCOutlay,
                             value: awardAmounts.fileCOutlayAbbreviated,
-                            text: 'COVID-19 Response Outlay Amount',
+                            text: 'COVID-19 Outlayed Amount',
                             color: covidColor
                         }]
                     }
@@ -537,7 +537,7 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             rawValue: awardAmounts._fileCObligated,
                             value: awardAmounts.fileCObligatedAbbreviated,
-                            text: 'COVID-19 Response Obligations Amount',
+                            text: 'COVID-19 Obligated Amount',
                             className: `loan-file-c-obligated`,
                             denominatorValue: awardAmounts._subsidy,
                             lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
@@ -551,7 +551,7 @@ const AwardAmountsChart = ({
                                 value: awardAmounts.fileCOutlayAbbreviated,
                                 denominatorValue: awardAmounts._fileCObligated,
                                 lineOffset: lineOffsetsBySpendingCategory.loanFileCOutlay,
-                                text: 'COVID-19 Response Outlay Amount',
+                                text: 'COVID-19 Outlayed Amount',
                                 color: covidColor,
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
                             }]

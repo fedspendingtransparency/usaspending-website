@@ -235,7 +235,7 @@ const subawardColumns = [
 ];
 
 const awardColWidth = 280;
-const covidColWidth = 182;
+const covidColWidth = 190;
 const covidColor = '#6E338E';
 
 const defaultContract = [
