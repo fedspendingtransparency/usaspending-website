@@ -14,7 +14,7 @@ const modalReducer = (state = initialState, action) => {
         case 'SHOW_MODAL': {
             return Object.assign({}, state, {
                 display: true,
-                url: action.value,
+                url: action.url,
                 modal: action.modalType
             });
         }

@@ -6,7 +6,7 @@
 // Originally, this was for only the redirect modal, so modalType is by default redirect.
 export const showModal = (url, modalType = "redirect") => ({
     type: 'SHOW_MODAL',
-    value: url,
+    url,
     modalType
 });
 
