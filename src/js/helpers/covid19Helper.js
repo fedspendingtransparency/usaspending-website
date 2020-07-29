@@ -21,10 +21,15 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
     };
 }).sort((a, b) => defaultSortDEF(a.value, b.value));
 
-export const jumpToSection = (section = '', activeSection, setActiveSection) => {
+export const jumpToSection = (
+    section = '',
+    activeSection,
+    setActiveSection,
+    sectionsBySectionTitle = componentByCovid19Section()
+) => {
     // we've been provided a section to jump to
     // check if it's a valid section
-    const matchedSection = Object.keys(componentByCovid19Section()).find((key) => key === section);
+    const matchedSection = Object.keys(sectionsBySectionTitle).find((key) => key === section);
 
     if (!matchedSection) {
         // no matching section
