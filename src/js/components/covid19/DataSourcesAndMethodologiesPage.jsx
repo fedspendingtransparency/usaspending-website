@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { jumpToSection } from 'helpers/covid19Helper';
+import { scrollToY } from 'helpers/scrollToHelper';
 import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
 
 import Footer from 'containers/Footer';
@@ -60,7 +60,32 @@ require('pages/data-sources/index.scss');
 export default () => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
 
-    const jumpToDataSourcesSection = (section) => jumpToSection(section, activeSection, setActiveSection);
+    const jumpToDataSourcesSection = (section) => {
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const matchedSection = sections.find((obj) => obj.section === section);
+
+        if (!matchedSection) {
+            // no matching section
+            return;
+        }
+
+        // scroll to the correct section
+        const sectionDom = document.querySelector(`#data-sources-${section}`);
+
+        if (!sectionDom) {
+            return;
+        }
+        if (activeSection === 'overview') {
+            scrollToY(sectionDom.offsetTop - 150, 700);
+        }
+        else {
+            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
+            scrollToY(sectionDom.offsetTop - 86, 700);
+        }
+
+        setActiveSection(matchedSection);
+    };
 
     return (
         <div className="usa-da-dsm-page">
