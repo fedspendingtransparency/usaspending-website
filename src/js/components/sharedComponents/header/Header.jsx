@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
-import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
+import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -135,7 +135,7 @@ export default class Header extends React.Component {
                     <NavBar />
                 </header>
                 <GlossaryContainer />
-                <RedirectModalContainer />
+                <GlobalModalContainer />
                 <CovidModalContainer showModal={this.state.showCovidModalContainer} closeModal={this.closeCovidModalContainer} />
             </div>
         );

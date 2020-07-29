@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 2/22/18
  */
 
-import redirectModalReducer, { initialState } from 'redux/reducers/redirectModal/redirectModalReducer';
+import redirectModalReducer, { initialState } from 'redux/reducers/modal/modalReducer';
 
 describe('redirectModalReducer', () => {
     describe('SHOW_MODAL', () => {
