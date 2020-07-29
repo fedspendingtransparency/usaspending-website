@@ -74,6 +74,9 @@ const Covid19Container = () => {
             getDefCodesData();
             defCodesRequest.current = null;
         }
+        else {
+            setIsLoading(false);
+        }
     }, [defCodes, dispatch]);
 
     useEffect(() => {
