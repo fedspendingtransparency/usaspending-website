@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -18,10 +18,14 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import SearchBar from 'components/covid19/SearchBar';
-import TableDownloadLink from '../TableDownloadLink';
+import Note from 'components/sharedComponents/Note';
+import noteText from 'dataMapping/covid19/recipient/recipient';
+import TableDownloadLink from 'containers/covid19/TableDownloadLink';
+
 
 const propTypes = {
-    activeTab: PropTypes.string.isRequired
+    activeTab: PropTypes.string.isRequired,
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 const columns = [
@@ -156,7 +160,7 @@ export const parseRows = (rows, activeTab, query) => (
     })
 );
 
-const SpendingByRecipientContainer = ({ activeTab }) => {
+const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -167,6 +171,9 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
     const [order, setOrder] = useState('desc');
     const [query, setQuery] = useState('');
     const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
+    const tableWrapperRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -229,47 +236,76 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
         fetchSpendingByRecipientCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
+    }, [loading, error]);
+
     let message = null;
     if (loading) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
     } else if (results.length === 0) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableNoResults />
             </div>
         );
     }
 
-    const content = message ? (
-        <CSSTransitionGroup
-            transitionName="table-message-fade"
-            transitionLeaveTimeout={225}
-            transitionEnterTimeout={195}
-            transitionLeave>
-            {message}
-        </CSSTransitionGroup>
-    ) : (
-        <div className="table-wrapper">
-            <Table
-                columns={activeTab === 'loans' ? loanColumns : columns}
-                rows={results}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }} />
-        </div>
-    );
+    if (message) {
+        return (
+            <>
+                <SearchBar setQuery={setQuery} />
+                {(results.length > 0 || error) && <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />}
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                {(results.length > 0 || error) && <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />}
+            </>
+        );
+    }
 
     return (
-        <>
+        <div ref={tableWrapperRef}>
             <div className="table-utility">
                 <div className="table-utility__left">
                     <SearchBar setQuery={setQuery} />
@@ -278,8 +314,6 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                     <TableDownloadLink />
                 </div>
             </div>
-
-            {content}
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -288,7 +322,23 @@ const SpendingByRecipientContainer = ({ activeTab }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-        </>
+            <div ref={tableRef} className="table-wrapper">
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={results}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }} />
+            </div>
+            {(results.length > 0 || error) && <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />}
+            {!loading && !error && results.length > 0 && <Note message={noteText} />}
+        </div>
     );
 };
 

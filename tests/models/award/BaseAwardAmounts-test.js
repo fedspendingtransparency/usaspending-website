@@ -229,16 +229,27 @@ describe('BaseAwardAmounts', () => {
         });
     });
     describe('fileC getters', () => {
-        const addCovidSpending = (obj, obligated, outlayed) => ({
-            ...obj,
-            fileC: {
-                obligations: [{ amount: 1, code: 'not-covid' }, { amount: obligated, code: 'M' }],
-                outlays: [{ amount: 1, code: 'not-covid' }, { amount: outlayed, code: 'M' }]
+        const addCovidSpending = (obj, obligated, outlayed, isAgg = false) => {
+            if (isAgg) {
+                return {
+                    ...obj,
+                    child_account_outlays_by_defc: [{ amount: 1, code: 'not-covid' }, { amount: outlayed, code: 'M' }],
+                    child_account_obligations_by_defc: [{ amount: 1, code: 'not-covid' }, { amount: obligated, code: 'M' }]
+                };
             }
-        });
+            return {
+                ...obj,
+                fileC: {
+                    obligations: [{ amount: 1, code: 'not-covid' }, { amount: obligated, code: 'M' }],
+                    outlays: [{ amount: 1, code: 'not-covid' }, { amount: outlayed, code: 'M' }]
+                }
+            };
+        };
+
         it.each([
             ['contract', 'CONT_AWD_N0001917C0001_9700_-NONE-_-NONE-', addCovidSpending(mockContract, 5000000, 2500000)],
             ['idv', 'CONT_IDV_EDFSA09D0012_9100', addCovidSpending(mockIdv, 5000000, 2500000)],
+            ['idv_aggregated', 'CONT_IDV_EDFSA09D0012_9100', addCovidSpending(mockIdv, 5000000, 2500000, true)],
             ['grant', 'ASST_NON_1905CA5MAP_7530', addCovidSpending(mockGrant, 5000000, 2500000)],
             ['loan', 'ASST_NON_13789835_12D2', addCovidSpending(mockLoan, 5000000, 2500000)]
         ])('For %s awards, get formatted and get abbreviated file c data returns as expected', (

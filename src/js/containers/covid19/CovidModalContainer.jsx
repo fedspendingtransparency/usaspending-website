@@ -27,7 +27,7 @@ const CovidModalContainer = ({
             defCodes: new CheckboxTreeSelections({
                 require: defCodes,
                 exclude: [],
-                counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Spending" }]
             })
         });
         Router.history.push('/search');

@@ -19,6 +19,7 @@ const covidParentNode = {
     value: "COVID",
     className: "def-checkbox-label--covid",
     expandDisabled: true,
+    isSearchable: false,
     showNodeIcon: false,
     children: []
 };
@@ -28,6 +29,7 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
         ...acc,
         children: acc.children.concat([{
             label: covidCode.title,
+            subLabel: covidCode.public_law.replace("P.L.", "Public Law"),
             value: covidCode.code,
             expandDisabled: true
         }])
