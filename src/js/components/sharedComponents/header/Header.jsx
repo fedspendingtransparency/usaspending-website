@@ -1,11 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-
 
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
@@ -24,14 +23,12 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showInfoBanner: false,
-            showCovidModalContainer: false
+            showInfoBanner: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
         this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
-        this.closeCovidModalContainer = this.closeCovidModalContainer.bind(this);
     }
     componentWillMount() {
         // check if the info banner cookie exists
@@ -63,12 +60,9 @@ export default class Header extends React.Component {
         });
     }
 
-    openCovidModalContainer() {
-        this.setState({ showCovidModalContainer: true });
-    }
-
-    closeCovidModalContainer() {
-        this.setState({ showCovidModalContainer: false });
+    openCovidModalContainer(e) {
+        e.preventDefault();
+        this.props.showModal(null, 'covid');
     }
 
     render() {
@@ -136,8 +130,11 @@ export default class Header extends React.Component {
                 </header>
                 <GlossaryContainer />
                 <GlobalModalContainer />
-                <CovidModalContainer showModal={this.state.showCovidModalContainer} closeModal={this.closeCovidModalContainer} />
             </div>
         );
     }
 }
+
+Header.propTypes = {
+    showModal: PropTypes.func
+};
