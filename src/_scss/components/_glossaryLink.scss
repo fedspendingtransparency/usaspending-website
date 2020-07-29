@@ -1,0 +1,6 @@
+.usda-glossary-link {
+    color: $color-gray-light;
+    &:hover, &:active, &:focus, &:visited {
+        color: $color-gray-medium;
+    }
+}

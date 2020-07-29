@@ -18,20 +18,16 @@ import { LoadingWrapper } from 'components/sharedComponents/Loading';
 // import { Picker } from 'data-transparency-ui';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
-import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
+import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
 import {
     slug,
     getEmailSocialShareData,
-    scrollPositionOfSiteHeader,
-    footerTitle,
-    footerDescription
+    scrollPositionOfSiteHeader
 } from 'dataMapping/covid19/covid19';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
@@ -74,6 +70,9 @@ const Covid19Container = () => {
             getDefCodesData();
             defCodesRequest.current = null;
         }
+        else {
+            setIsLoading(false);
+        }
     }, [defCodes, dispatch]);
 
     useEffect(() => {
@@ -99,19 +98,6 @@ const Covid19Container = () => {
             }
         };
     }, [defCodes, dispatch]);
-
-    const addDefCodesToAdvancedSearchFilter = () => dispatch(applyStagedFilters(
-        Object.assign(
-            {}, defaultAdvancedSearchFilters,
-            {
-                defCodes: new CheckboxTreeSelections({
-                    require: defCodes.map((code) => code.code),
-                    exclude: [],
-                    counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-                })
-            }
-        )
-    ));
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
@@ -145,7 +131,7 @@ const Covid19Container = () => {
                 <>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            COVID-19 Response
+                            COVID-19 Spending
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
@@ -210,10 +196,7 @@ const Covid19Container = () => {
                         <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />
-                            <FooterLinkToAdvancedSearchContainer
-                                title={footerTitle}
-                                description={footerDescription}
-                                onClick={addDefCodesToAdvancedSearchFilter} />
+                            <LinkToAdvancedSearchContainer />
                         </section>
                     </div>
                     <GlobalModalContainer />

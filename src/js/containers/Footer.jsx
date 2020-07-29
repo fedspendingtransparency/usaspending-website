@@ -171,22 +171,22 @@ const Footer = ({
                             </a>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://twitter.com/usaspending/")}>
+                            <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
                                 <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")}>
+                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
                                 <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")}>
+                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
                                 <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")}>
+                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
                                 <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
