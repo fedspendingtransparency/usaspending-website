@@ -10,7 +10,7 @@ import Footer from 'containers/Footer';
 import GlobalConstants from 'GlobalConstants';
 
 import CovidHighlights from 'containers/covid19/homepage/CovidHighlights';
-
+import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import Header from '../sharedComponents/header/Header';
@@ -39,6 +39,7 @@ export default class Homepage extends React.Component {
                     <Download />
                     <Community />
                 </main>
+                <GlobalModalContainer />
                 <Footer />
             </div>
         );
