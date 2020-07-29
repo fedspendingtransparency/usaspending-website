@@ -50,7 +50,7 @@ const Covid19Container = () => {
     const overviewRequest = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
-    const defCodes = useSelector((state) => state.covid19.defCodes.filter((c) => c.disaster === 'covid_19'), isEqual);
+    const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
     useEffect(() => () => {
         if (defCodesRequest.current) {
@@ -64,7 +64,7 @@ const Covid19Container = () => {
                 defCodesRequest.current = fetchDEFCodes();
                 try {
                     const { data } = await defCodesRequest.current.promise;
-                    dispatch(setDEFCodes(data.codes));
+                    dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
                     setIsLoading(false);
                 }
                 catch (e) {

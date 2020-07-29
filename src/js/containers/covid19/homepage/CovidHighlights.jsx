@@ -168,7 +168,9 @@ export class CovidHighlights extends React.Component {
         }
         return this.fetchDefCodesRequest.promise
             .then(({ data: { codes } }) => {
-                this.props.setCovidDefCodes(codes);
+                const covidDefCodes = codes
+                    .filter((code) => code.disaster === 'covid_19');
+                this.props.setCovidDefCodes(covidDefCodes);
             });
     }
 
@@ -328,9 +330,7 @@ CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
-    defCodes: state.covid19.defCodes
-        .filter((code) => code.disaster === 'covid_19')
-        .map((code) => code.code)
+    defCodes: state.covid19.defCodes.map((code) => code.code)
 });
 
 const mapDispatchToProps = (dispatch) => ({
