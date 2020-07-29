@@ -311,7 +311,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 </div>
                 <div className="table-utility__right">
-                    <TableDownloadLink defCodes={defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
+                    <TableDownloadLink defCodes={defCodes && defCodes.length > 0 && defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
                 </div>
             </div>
             {(results.length > 0 || error) && <Pagination

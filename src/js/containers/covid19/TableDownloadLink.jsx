@@ -25,6 +25,9 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
+    const params = {
+        filters: {}
+    };
 
     const downloadData = async () => {
         dispatch(setDownloadCollapsed(true));
@@ -33,25 +36,18 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
             downloadRequest.cancel();
         }
 
+
+        if (defCodes) {
+            params.filters.def_codes = defCodes;
+        }
         if (awardTypeCodes && awardTypeCodes.length > 0) {
-            // if we have award type codes then the "All" tab is not selected
-            downloadRequest.current = requestFullDownloadRecipient({
-                filters: {
-                    def_codes: defCodes,
-                    award_type_codes: awardTypeCodes,
-                    query
-                }
-            });
-        } else {
-            // if awardTypeCodes is null then the "All" tab was selected
-            downloadRequest.current = requestFullDownloadRecipient({
-                filters: {
-                    def_codes: defCodes,
-                    query
-                }
-            });
+            params.filters.award_type_codes = awardTypeCodes;
+        }
+        if (query) {
+            params.filters.query = query;
         }
 
+        downloadRequest.current = requestFullDownloadRecipient(params);
 
         try {
             const { data } = await downloadRequest.current.promise;
