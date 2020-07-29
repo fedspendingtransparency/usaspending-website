@@ -13,18 +13,22 @@ import * as redirectModalActions from 'redux/actions/modal/modalActions';
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 
 const propTypes = {
-    modal: PropTypes.object,
+    globalModal: PropTypes.shape({
+        display: PropTypes.bool,
+        url: PropTypes.string,
+        modal: PropTypes.oneOf(['redirect', '', 'covid'])
+    }),
     hideModal: PropTypes.func
 };
 
 export class GlobalModalContainer extends React.Component {
     render() {
-        if (this.props.modal === "redirect") {
+        if (this.props.globalModal.modal === "redirect") {
             return (
                 <RedirectModal
-                    mounted={this.props.modal.display}
+                    mounted={this.props.globalModal.display}
                     hideModal={this.props.hideModal}
-                    url={this.props.modal.url} />
+                    url={this.props.globalModal.url} />
             );
         }
         return null;
@@ -35,7 +39,7 @@ GlobalModalContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        modal: state.modal
+        globalModal: state.modal
     }),
     (dispatch) => bindActionCreators(redirectModalActions, dispatch)
 )(GlobalModalContainer);
