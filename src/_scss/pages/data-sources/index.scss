@@ -2,8 +2,7 @@
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
-    $color-gray-border: #D8D8D8;
-    $color-blue-background: #F5FBFC; 
+    $color-gray-border: $color-gray-lighter;
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
@@ -27,6 +26,9 @@
             }
             .about-padded-content {
                 padding: 1rem 4rem;
+            }
+            .about-content {
+                width: 100%;
             }
         }
 
