@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/22/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -13,6 +13,7 @@ import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOpt
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
 
@@ -47,6 +48,8 @@ const initialState = {
 
 const SpendingByCFDA = () => {
     const { defCodes } = useSelector((state) => state.covid19);
+    const moreOptionsTabsRef = useRef(null);
+
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialState);
@@ -87,6 +90,10 @@ const SpendingByCFDA = () => {
         }
     }, [defCodes]);
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
         if (!countState) {
@@ -116,11 +123,13 @@ const SpendingByCFDA = () => {
                     </p>
                 </ReadMore>
             </div>
-            <MoreOptionsTabs
-                tabs={financialAssistanceTabs}
-                tabCounts={tabCounts}
-                pickerLabel="More Award Types"
-                changeActiveTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs
+                    tabs={financialAssistanceTabs}
+                    tabCounts={tabCounts}
+                    pickerLabel="More Award Types"
+                    changeActiveTab={changeActiveTab} />
+            </div>
             <SummaryInsightsContainer
                 // pass CFDA count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
@@ -129,7 +138,8 @@ const SpendingByCFDA = () => {
                 overviewData={overviewData}
                 assistanceOnly />
             <SpendingByCFDAContainer
-                activeTab={activeTab} />
+                activeTab={activeTab}
+                scrollIntoView={scrollIntoViewTable} />
         </div>
     );
 };

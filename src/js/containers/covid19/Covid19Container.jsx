@@ -48,26 +48,32 @@ const Covid19Container = () => {
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
-    useEffect(() => {
-        const getDefCodesData = async () => {
-            defCodesRequest.current = fetchDEFCodes();
-            try {
-                const { data } = await defCodesRequest.current.promise;
-                dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
-                setIsLoading(false);
-            }
-            catch (e) {
-                console.log(' Error DefCodes : ', e.message);
-            }
-        };
-        getDefCodesData();
-        defCodesRequest.current = null;
-        return () => {
-            if (defCodesRequest.current) {
-                defCodesRequest.cancel();
-            }
-        };
+    useEffect(() => () => {
+        if (defCodesRequest.current) {
+            defCodesRequest.cancel();
+        }
     }, []);
+
+    useEffect(() => {
+        if (defCodes.length === 0) {
+            const getDefCodesData = async () => {
+                defCodesRequest.current = fetchDEFCodes();
+                try {
+                    const { data } = await defCodesRequest.current.promise;
+                    dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
+                    setIsLoading(false);
+                }
+                catch (e) {
+                    console.log(' Error DefCodes : ', e.message);
+                }
+            };
+            getDefCodesData();
+            defCodesRequest.current = null;
+        }
+        else {
+            setIsLoading(false);
+        }
+    }, [defCodes, dispatch]);
 
     useEffect(() => {
         const getOverviewData = async () => {
@@ -91,7 +97,7 @@ const Covid19Container = () => {
                 overviewRequest.cancel();
             }
         };
-    }, [defCodes]);
+    }, [defCodes, dispatch]);
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {

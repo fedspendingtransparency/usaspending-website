@@ -3,13 +3,14 @@
  * Created by James Lee 6/5/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import OverviewData from '../OverviewData';
 import ReadMore from '../ReadMore';
 
@@ -35,6 +36,7 @@ const BudgetCategories = () => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
     const [inFlight, setInFlight] = useState(true);
+    const moreOptionsTabsRef = useRef(null);
 
     const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
@@ -99,6 +101,10 @@ const BudgetCategories = () => {
         totalOutlays: overview._totalOutlays
     };
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
     return (
         <div className="body__content budget-categories">
             <DateNote />
@@ -116,7 +122,9 @@ const BudgetCategories = () => {
                     </p>
                 </ReadMore>
             </div>
-            <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+            </div>
             <div className="overview-data-group">
                 {overviewData.map((data) => (
                     <OverviewData
@@ -132,7 +140,8 @@ const BudgetCategories = () => {
             <div className="budget-categories__content">
                 <BudgetCategoriesTableContainer
                     type={activeTab}
-                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading} />
+                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
+                    scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

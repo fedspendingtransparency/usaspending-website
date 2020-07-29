@@ -3,7 +3,7 @@
  * Created by James Lee 6/18/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { fetchAgencyCount } from 'helpers/disasterHelper';
@@ -16,6 +16,7 @@ import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContaine
 import ReadMore from '../ReadMore';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
@@ -48,18 +49,19 @@ const initialTabState = {
     other: null
 };
 
+const initialActiveTabState = {
+    internal: awardTypeTabs[0].internal,
+    subtitle: awardTypeTabs[0].label
+};
+
 const AwardSpendingAgency = () => {
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
 
-    const [activeTab, setActiveTab] = useState(
-        {
-            internal: awardTypeTabs[0].internal,
-            subtitle: awardTypeTabs[0].label
-        }
-    );
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
+    const moreOptionsTabsRef = useRef(null);
 
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
@@ -94,7 +96,7 @@ const AwardSpendingAgency = () => {
                     });
                 });
         }
-    }, [defCodes, activeTab]);
+    }, [defCodes]);
 
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
@@ -116,6 +118,10 @@ const AwardSpendingAgency = () => {
         });
     };
 
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
     return (
         <div className="body__content spending-by-agency">
             <DateNote />
@@ -132,14 +138,16 @@ const AwardSpendingAgency = () => {
                     </p>
                 </ReadMore>
             </div>
-            <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            </div>
             <SummaryInsightsContainer
                 resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
                 areCountsLoading={inFlight} />
             <div className="spending-by-agency__content">
-                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" />
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );

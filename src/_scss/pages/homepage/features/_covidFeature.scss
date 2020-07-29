@@ -1,0 +1,243 @@
+.feature-covid {
+    
+    @include media ($medium-screen) {
+        margin-top: -5%;
+    }
+
+    //ROW 1: OFFICIAL SPENDING DATA
+    .official-spending-data__content-wrapper {
+
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(center);
+        }
+
+        .official-spending-data__text {
+            display: block;
+            margin: rem(-50) rem(10) rem(10) rem(10);
+
+            @include media($medium-screen) {
+                width: 40%;
+                margin: rem(0) rem(85) rem(60) rem(0);
+            }
+        }
+
+        .feature-covid-official-spending-data__image-wrapper {
+            @include display(flex);
+            @include justify-content(center);
+
+            .feature-covid-official-spending-data__image-mobile {
+                display: block;
+                max-width: 75%;
+                margin: rem(20) rem(0) rem(20) rem(0);
+    
+                @include media ($medium-screen) {
+                    display: none;
+                }
+            }
+
+            .feature-covid-official-spending-data__image {
+                display: none;
+    
+                @include media ($medium-screen) {
+                    display: block;
+                    width: 35vw;
+                    height: 25vw;
+                    max-width: none;
+                }
+            }
+        }
+    }
+
+    //ROW 2: ADVANCED SEARCH FILTER + SPENDING PROFILE 
+    .advanced-search-and-spending-profile__wrapper {
+        display: block;
+        margin-top: rem(60);
+
+        @include media ($medium-screen) {
+            margin-top: rem(10);
+            // margin-left: rem(103);
+            @include display(flex);
+            @include justify-content(center);
+
+        }
+
+        .advanced-search__content-wrapper {
+            margin-top: rem(100);
+            @include media ($medium-screen) {
+                width: 45%;
+                @include display(flex);
+                @include flex-direction(column);
+            }
+        }
+
+        .advanced-search__content-wrapper-right {
+            margin-top: rem(150);
+            margin-bottom: rem(100);
+            @include media ($medium-screen) {
+                width: 45%;
+                margin-top: rem(100);
+                margin-left: rem(30);
+                margin-bottom: rem(0);
+
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .feature-covid-item__image-wrapper {
+            @include display(flex);
+            @include justify-content(flex-start);
+            // really silly flexbox bug in IE
+            min-height: 1px;
+            .feature-covid-item__image-mobile {
+                display: block;
+                width: 100%;
+                border: rem(1) solid #D6D7D9;
+                padding: rem(10);
+                background-color: #FFFFFF;
+                margin-top: rem(20);
+                margin-left: auto;
+                margin-right: auto;
+
+                @include media($medium-screen) {
+                    display: none;
+                }
+            }
+            .feature-covid-item__image {
+                display: none;
+
+                @include media($medium-screen) {
+                    display: block;
+
+                width: 90%;
+                border: rem(1) solid #D6D7D9;
+                padding: rem(10);
+                margin-top: rem(0);
+                margin-bottom: 5%;
+                background-color: #FFFFFF;
+                }
+            }
+        }
+
+        .adv-search-spending-profile__text {
+            @include media ($medium-screen) {
+                width: 85%;
+            }
+        }
+
+        .feature-covid__button-wrap {
+            margin-top: auto;
+            padding-top: 3.5rem;
+            width: 19rem;
+            height: 5.7rem;
+            margin-left: 0;
+
+            .feature-covid__button {
+                display: block;
+
+                color: $color-white;
+                background-color: $color-primary;
+                padding: rem(15) rem(20);
+
+                font-size: rem(21);
+
+                &:visited {
+                    color: $color-white;                    
+                }
+
+                &:hover, &:active {
+                    text-decoration: none;
+                    background-color: $color-primary-darker;
+                }
+            }
+        }
+    }
+    //ROW 3: AWARD SUMMARY 
+    .award-summary__wrapper {
+        margin-top: rem(60);
+
+        @include media ($medium-screen) {
+            @include display(flex);
+            @include justify-content(center);
+            padding-left: rem(70);
+            padding-right: rem(70);
+        }
+
+        .feature-covid-award-summary__image-wrapper {
+            @include display(flex);
+            @include justify-content(flex-start);
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+
+            @include media($medium-screen) {
+                width: 50%;
+            }
+
+            .feature-covid-award-summary__image-mobile {
+                display: block;
+                border: rem(1) solid #D6D7D9;
+                padding: rem(10);
+                margin-bottom: 5%;
+                background-color: #FFFFFF;
+                width: 100%;
+                
+                margin-top: rem(20);
+                margin-left: auto;
+                margin-right: auto;
+
+                z-index: 1;
+
+                @include media($medium-screen) {
+                    display: none;
+                }
+
+            }
+
+            .feature-covid-award-summary__image {
+                display: none;
+
+                @include media($medium-screen) {
+                    display: block;
+                    border: rem(1) solid #D6D7D9;
+                    padding: rem(10);
+                    margin-bottom: 5%;
+                    background-color: #FFFFFF;
+                    width: 100%;
+                    z-index: 1;
+                }
+            }
+
+        }
+    
+        .award-summary__text-wrapper {
+            margin-left: 0;
+            z-index: 1;
+            position: relative;
+
+            @include media($medium-screen) {
+                margin-left: rem(55);
+                width: 45%;
+            }
+        }
+
+        .feature-covid__background-flair {
+            position: absolute;
+            top: rem(-30);
+            bottom: rem(-30);
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+
+            background-color: $color-gray-warm-light;
+            opacity: 0.5;
+
+            @include transform(skewY(175deg));
+
+            @include media($medium-screen) {
+                top: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
