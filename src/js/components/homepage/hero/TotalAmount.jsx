@@ -26,6 +26,14 @@ const TotalAmount = ({
 }) => {
     const ref = useRef(null);
 
+    useEffect(() => (
+        () => {
+            if (amountUpdate) {
+                window.clearTimeout(amountUpdate);
+            }
+        }
+    ), []);
+
     useEffect(() => {
         const now = moment();
         const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
