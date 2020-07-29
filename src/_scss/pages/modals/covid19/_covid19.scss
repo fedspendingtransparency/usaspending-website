@@ -18,7 +18,6 @@
                 }
             }
             .usa-dt-modal__close-button {
-                // padding: rem(10);
                 @include align-self(flex-start);
                 svg {
                     width: rem(20);
@@ -55,7 +54,6 @@
                 }
                 &.covid-modal-button {
                     margin-top: rem(45);
-                    // margin-bottom: rem(25);
                     @include display(flex);
                     @include justify-content(center);
                 }
