@@ -45,11 +45,22 @@ const Sidebar = ({
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
+
+    useEffect(() => {
+        if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            setSidebarWidth(`${div.current.offsetWidth}px`);
+        }
+    }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
+
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
-                setSidebarWidth(`${div.current.offsetWidth}px`);
-            } else if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
