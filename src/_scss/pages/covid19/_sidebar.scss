@@ -40,6 +40,9 @@
                     &:last-child {
                         margin-bottom: rem(0);
                     }
+                    &:hover a.sidebar-link {
+                        border-bottom: 5px solid $color-primary;
+                    }
                 }
     
                 a.sidebar-link {
@@ -50,10 +53,6 @@
                     text-decoration: none;
                     border-bottom: 5px solid transparent;
                     @include transition(all 0.15s ease-in-out);
-    
-                    &:hover {
-                        border-bottom: 5px solid $color-primary;
-                    }
     
                     &.active {
                         font-weight: $font-bold;
