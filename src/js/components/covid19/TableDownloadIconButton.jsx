@@ -1,5 +1,5 @@
 /**
- * DownloadIconButton.jsx
+ * TableDownloadIconButton.jsx
  * Created by Lizzie Salita 7/9/20
  **/
 
