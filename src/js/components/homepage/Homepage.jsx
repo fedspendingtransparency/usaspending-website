@@ -10,10 +10,10 @@ import Footer from 'containers/Footer';
 import GlobalConstants from 'GlobalConstants';
 
 import CovidHighlights from 'containers/covid19/homepage/CovidHighlights';
+import Header from 'containers/shared/HeaderContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
-import Header from '../sharedComponents/header/Header';
 
 import Hero from './hero/Hero';
 import Features from './features/Features';

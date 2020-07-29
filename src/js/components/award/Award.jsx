@@ -11,9 +11,9 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
