@@ -17,10 +17,11 @@ import TableDownloadIconButton from 'components/covid19/TableDownloadIconButton'
 
 const propTypes = {
     defCodes: PropTypes.array.isRequired,
-    awardTypeCodes: PropTypes.array
+    awardTypeCodes: PropTypes.array,
+    query: PropTypes.string
 };
 
-const TableDownloadLink = ({ defCodes, awardTypeCodes }) => {
+const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
@@ -37,14 +38,16 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes }) => {
             downloadRequest.current = requestFullDownloadRecipient({
                 filters: {
                     def_codes: defCodes,
-                    award_type_codes: awardTypeCodes
+                    award_type_codes: awardTypeCodes,
+                    query
                 }
             });
         } else {
             // if awardTypeCodes is null then the "All" tab was selected
             downloadRequest.current = requestFullDownloadRecipient({
                 filters: {
-                    def_codes: defCodes
+                    def_codes: defCodes,
+                    query
                 }
             });
         }
