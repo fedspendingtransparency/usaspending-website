@@ -9,6 +9,7 @@ import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -29,7 +30,7 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
         ...acc,
         children: acc.children.concat([{
             label: covidCode.title,
-            subLabel: covidCode.public_law.replace("P.L.", "Public Law"),
+            subLabel: covidCode.public_law,
             value: covidCode.code,
             expandDisabled: true
         }])
@@ -116,6 +117,7 @@ export class DEFCheckboxTree extends React.Component {
                     isLoading={this.state.isLoading}
                     searchText=""
                     noResults={false}
+                    labelComponent={<DEFCheckboxTreeLabel />}
                     onUncheck={this.stageFilter}
                     onCheck={this.stageFilter} />
                 {this.props.counts.length > 0 && (

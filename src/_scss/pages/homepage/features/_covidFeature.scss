@@ -20,6 +20,12 @@
                 width: 40%;
                 margin: rem(0) rem(85) rem(60) rem(0);
             }
+            .homepage-feature-description button {
+                @include button-unstyled;
+                font-size: rem(18);
+                padding-right: rem(5);
+                color: $color-primary;
+            }
         }
 
         .feature-covid-official-spending-data__image-wrapper {

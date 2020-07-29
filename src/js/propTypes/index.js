@@ -125,3 +125,9 @@ export const AWARD_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     idvCount: PropTypes.number,
     ...awardOverviewAwardAmountsSectionBase
 });
+
+export const globalModalProps = PropTypes.shape({
+    display: PropTypes.bool,
+    url: PropTypes.string,
+    modal: PropTypes.oneOf(['redirect', '', 'covid'])
+});

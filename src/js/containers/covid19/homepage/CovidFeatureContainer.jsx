@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 
 import Router from 'containers/router/Router';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
@@ -26,7 +27,8 @@ const clickedHomepageLink = (route) => {
 const CovidFeatureContainer = ({
     stageDefCodesForAdvancedSearch,
     clearFilters,
-    resetFilters
+    resetFilters,
+    showCovidModal
 }) => {
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
@@ -43,6 +45,12 @@ const CovidFeatureContainer = ({
         });
         Router.history.push('/search');
     };
+
+    const triggerModal = (e) => {
+        e.preventDefault();
+        showCovidModal(null, 'covid');
+    };
+
     return (
         <div className="feature-covid">
             <div className="feature-pane">
@@ -62,7 +70,7 @@ const CovidFeatureContainer = ({
                             alt="Illustration of people interacting with data" />
                     </div>
                     <div className="homepage-feature-description">
-                        <p>Official spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. Learn more about the updates made across the site related to COVID-19 spending.</p>
+                        <p>Official spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
                         <p>The new data includes:</p>
                         <ul>
                             <li><strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations</li>
@@ -174,13 +182,15 @@ const CovidFeatureContainer = ({
 CovidFeatureContainer.propTypes = {
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
-    resetFilters: PropTypes.func
+    resetFilters: PropTypes.func,
+    showCovidModal: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
     resetFilters: () => dispatch(resetAppliedFilters()),
     clearFilters: () => dispatch(clearAllFilters()),
-    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters))
+    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
+    showCovidModal: (url, modalType) => dispatch(showModal(url, modalType))
 });
 
 export default connect(null, mapDispatchToProps)(CovidFeatureContainer);
