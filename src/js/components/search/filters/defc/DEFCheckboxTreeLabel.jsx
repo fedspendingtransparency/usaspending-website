@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 const DEFCheckboxTreeLabel = ({
     label,
@@ -16,9 +17,9 @@ const DEFCheckboxTreeLabel = ({
                         {value}
                     </div>
                 </div>
-                {labels.map((_, i) => (
-                    <div className="checkbox-tree-label__label multiple-label">
-                        {labels[i]}
+                {labels.map((lbl, i) => (
+                    <div key={uniqueId(i)} className="checkbox-tree-label__label multiple-label">
+                        {lbl}
                             <>
                                 <br />
                                 <span>{subLabels[i]}</span>
