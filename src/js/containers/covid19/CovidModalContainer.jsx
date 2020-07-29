@@ -12,8 +12,8 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import { defCodes } from 'dataMapping/covid19/covid19';
 
 const CovidModalContainer = ({
-    showModal = false,
-    closeModal,
+    mounted,
+    hideModal,
     stageDefCodesForAdvancedSearch,
     clearFilters,
     resetFilters
@@ -34,8 +34,8 @@ const CovidModalContainer = ({
     };
     return (
         <Modal
-            mounted={showModal}
-            onExit={closeModal}
+            mounted={mounted}
+            onExit={hideModal}
             titleText="New to USAspending: Official COVID-19 Response Data"
             dialogClass="usa-dt-modal"
             verticallyCenter
@@ -45,7 +45,7 @@ const CovidModalContainer = ({
                     <h1>New to USAspending: Official COVID-19 Response Data</h1>
                     <button
                         className="usa-dt-modal__close-button"
-                        onClick={closeModal}
+                        onClick={hideModal}
                         title="Close"
                         aria-label="Close">
                         <FontAwesomeIcon icon="times" size="10x" />
@@ -84,7 +84,7 @@ const CovidModalContainer = ({
                     </div>
                     <h2 className="covid-modal-h2">Keep an eye out for the purple COVID-19 Response badge found throughout the site. These badges indicate that the page contains information about COVID-19 spending.</h2>
                     <div className="usa-dt-modal__link covid-modal-button">
-                        <button onClick={closeModal}>Close</button>
+                        <button onClick={hideModal}>Close</button>
                     </div>
                 </div>
             </div>
@@ -93,8 +93,8 @@ const CovidModalContainer = ({
 };
 
 CovidModalContainer.propTypes = {
-    showModal: PropTypes.bool,
-    closeModal: PropTypes.func,
+    mounted: PropTypes.bool,
+    hideModal: PropTypes.func,
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func
