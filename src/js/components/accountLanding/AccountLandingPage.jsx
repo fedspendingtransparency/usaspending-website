@@ -13,7 +13,7 @@ import Footer from 'containers/Footer';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
 const slug = 'federal_account';

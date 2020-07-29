@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Covid19Section from 'components/covid19/Covid19Section';
