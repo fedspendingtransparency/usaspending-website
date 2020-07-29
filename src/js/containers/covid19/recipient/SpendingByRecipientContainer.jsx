@@ -274,7 +274,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     if (message) {
         return (
             <>
-                <SearchBar setQuery={setQuery} />
+                <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -304,7 +304,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     return (
         <div ref={tableWrapperRef}>
-            <SearchBar setQuery={setQuery} />
+            <SearchBar setQuery={setQuery} currentSearchTerm={query} />
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
