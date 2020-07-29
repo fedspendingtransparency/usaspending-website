@@ -4,14 +4,12 @@
 **/
 
 import React from 'react';
-import { connect } from 'react-redux';
 import Analytics from 'helpers/analytics/Analytics';
 
-import { showModal } from 'redux/actions/modal/modalActions';
 import GlossaryListenerSingleton from './GlossaryListenerSingleton';
 import Router from './Router';
 
-export class RouterContainer extends React.Component {
+export default class RouterContainer extends React.Component {
     static logPageView(path) {
         Analytics.pageview(path);
     }
@@ -96,19 +94,9 @@ export class RouterContainer extends React.Component {
         const ContentComponent = this.state.content;
         return (
             <div>
-                <ContentComponent params={this.state.route.params} {...this.props} />
+                <ContentComponent params={this.state.route.params} />
                 { loadingSpinner }
             </div>
         );
     }
 }
-
-const mapStateToProps = (state) => ({
-    globalModal: state.modal
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    showGlobalModal: (url, modalType) => dispatch(showModal(url, modalType))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RouterContainer);
