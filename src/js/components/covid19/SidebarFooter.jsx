@@ -33,7 +33,7 @@ function SidebarFooter(props) {
                 if (isSidebarSticky) {
                     setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
                     setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
-                } else if (!isSidebarSticky) {
+                } else {
                     setSidebarFooterWidth(`auto`);
                     setSidebarFooterTop(`auto`);
                 }
