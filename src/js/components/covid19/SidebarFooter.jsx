@@ -23,7 +23,6 @@ function SidebarFooter(props) {
     const [sidebarFooterWidth, setSidebarFooterWidth] = useState("auto");
     const [sidebarFooterTop, setSidebarFooterTop] = useState("auto");
 
-
     useEffect(() => {
         const updateSidebarFooterWidthAndTop = throttle(() => {
             const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);

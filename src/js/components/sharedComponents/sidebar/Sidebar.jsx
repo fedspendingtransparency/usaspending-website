@@ -47,18 +47,6 @@ const Sidebar = ({
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
 
     useEffect(() => {
-        if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
-            setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
-            setSidebarWidth(`${div.current.offsetWidth}px`);
-        }
-    }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
-
-    useEffect(() => {
         const updateSidebarWidth = throttle(() => {
             if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
