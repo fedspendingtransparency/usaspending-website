@@ -33,9 +33,6 @@ function SidebarFooter(props) {
                 if (isSidebarSticky) {
                     setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
                     setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
-                } else {
-                    setSidebarFooterWidth(`auto`);
-                    setSidebarFooterTop(`auto`);
                 }
             } else if (isSidebarSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
