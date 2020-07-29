@@ -120,17 +120,8 @@ export const agencyLandingPageMetaTags = {
 };
 
 export const covidPageMetaTags = {
-    og_url: `${productionURL}#/disaster/covid-19`,
+    og_url: `${productionURL}#/covid/`,
     og_title: 'COVID-19 Spending - USAspending.gov',
-    og_description:
-        'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
-    og_site_name: siteName,
-    og_image: `${productionURL}${imgDirectory}${facebookImage}`
-};
-
-export const covidPageDataSourcesMetaTags = {
-    og_url: `${productionURL}#/disaster/covid-19/data-sources`,
-    og_title: 'COVID-19 Spending: Data Sources & Methodology - USAspending.gov',
     og_description:
         'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
     og_site_name: siteName,

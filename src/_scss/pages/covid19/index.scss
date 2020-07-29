@@ -19,24 +19,10 @@
         width: 100%;
     }
 
-    @import "../explorer/detail/sidebar/fyPicker";
     @import './stickyHeader';
-
-    .usda__flex-row {
-        @include display(flex);
-        @include flex-wrap(wrap);
-        width: 100%;
-        .usda__flex-col {
-            @include flex(1 1 auto);
-            .body__content {
-                width: 100%; // Fixes an IE Flexbox bug
-            }
-        }
-    }
 
     .main-content {
         @include display(flex);
-        width: 100%;
         @include flex-grow(1);
         @include flex-wrap(wrap);
         max-width: rem(1600);
@@ -49,11 +35,8 @@
         @import './sidebar';
         @import './sidebarFooter';
         .body {
-            @import "components/_footerLinkToAdvancedSearch";
-            @import './awardSpendingAgency/awardSpendingAgency';
-            @import './recipient/recipientContainer';
-
             @include display(flex);
+            @include flex(1 1 auto);
             width: 100%;
             @include flex-direction(column);
             margin: rem(20) 0 rem(20) 0;
@@ -65,49 +48,21 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
-
-            .body__content {
-                h3.body__narrative {
-                    text-align: center;
-                    font-weight: $font-semibold;
-                    font-size: 3rem;
-                }
-
-                p.body__narrative-description {
-                    font-size: $small-font-size;
-                    text-align: center;
-                    width: 75%;
-                    margin: auto;
-                    padding-bottom: 5rem;
-                }
-                @import "./tableMessages";
-                .table-wrapper {
-                    overflow-x: auto;
-
-                    .table-header__content {
-                        @include align-items(center);
-                        &.table-header__content_right {
-                            text-align: right;
-                        }
-                        .table-header__label {
-                            white-space: nowrap;
-                        }
-                    }
-
-                    .query-matched {
-                        font-weight: $font-semibold;
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            @import './budgetCategoriesTable';
-            @import './spendingOverTime/awardSpendingOverTime';
-            @import './assistanceListing/assistanceListing';
             .body__section {
-                @import "../agency/v2/tabs";
-                @import "./dataSourcesAndMethodology";
+                @import '../agency/v2/tabs';
                 @import './searchBar';
+                @import 'components/moreOptionsTabs';
+                @import 'components/glossaryLink';
+                @import 'components/externalLink';
+                // Import specific styles for each section
+                @import './overviewData';
+                @import './visualizations/amounts';
+                @import './budgetCategoriesTable';
+                @import './recipient/recipientContainer';
+                @import './awardSpendingAgency/awardSpendingAgency';
+                @import './assistanceListing/assistanceListing';
+                @import './linkToAdvancedSearch';
+                @import './dataSourcesAndMethodology';
 
                 @include display(flex);
                 @include flex-wrap(wrap);
@@ -125,7 +80,7 @@
                         @include display(flex);
                         padding-bottom: 0.5rem;
                         @media(min-width: $tablet-screen) {
-                        padding-bottom: 0;
+                            padding-bottom: 0;
                         }
                     }
                     .body__header-right {
@@ -153,16 +108,37 @@
                     margin-bottom: rem(35);
                     margin-top: 0;
                 }
-                .coming-soon-section {
-                    width: 100%;
-                    @include display(flex);
-                    @include flex-direction(column);
-                    @extend %coming-soon-idv;
-                    padding-bottom: 0;
-                    height: 73rem;
-                    h3 {
-                        font-size: $h4-font-size;
+                .body__content {
+                    width: 100%; // Fixes an IE Flexbox bug
+                    h3.body__narrative {
+                        text-align: center;
+                        font-weight: $font-semibold;
+                        font-size: 3rem;
+                        @include media($medium-screen) {
+                            padding-left: 15%;
+                            padding-right: 15%;
+                        }
                     }
+
+                    .body__narrative-description {
+                        font-size: $small-font-size;
+                        text-align: center;
+                        @include media($medium-screen) {
+                            max-width: 70%;
+                        }
+                        margin: auto;
+                        padding-bottom: 5rem;
+                        .footnotes {
+                            font-size: $smallest-font-size;
+                            .usda-external-link {
+                                font-size: $smallest-font-size;
+                            }
+                        }
+                        .glossary-term {
+                            font-weight: $font-semibold;
+                        }
+                    }
+                    @import './tables';
                 }
                 .information-body {
                     background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);
@@ -176,7 +152,12 @@
                 }
                 .color-purple {
                     color: $color-disaster-covid-19;
+                    font-weight: $font-bold;
                 }
+                .read-more-button {
+                    @include button-link;
+                }
+
                 .heading__container {
                     border-radius: 0.5rem 0.5rem 0 0;
                     @include display(flex);
@@ -195,8 +176,8 @@
                         padding-top: 2rem;
                         padding-bottom: 1rem;
                         padding: 1rem;
-                        @media(min-width: $tablet-screen) {
-                        padding: 2rem 12rem 2rem 12rem;
+                        @media(min-width: $medium-screen) {
+                        padding: 2rem 15% 2rem;
                         }
                         width: 100%;
                     }
@@ -206,8 +187,17 @@
                         line-height: 2.2rem;
                         text-align: center;
                         padding: 1rem;
-                        @media(min-width: $tablet-screen) {
-                        padding: 0 12rem 2rem 12rem;
+                        @media(min-width: $medium-screen) {
+                            padding: 0 15% 2rem;
+                        }
+                        .footnotes {
+                            font-size: $smallest-font-size;
+                            .usda-external-link {
+                                font-size: $smallest-font-size;
+                            }
+                        }
+                        .glossary-term {
+                            font-weight: $font-semibold;
                         }
                     }
                 }
@@ -234,16 +224,19 @@
                             width: 100%;
                             border-radius: 0;
                         }
+                        .glossary-term {
+                            font-weight: $font-semibold;
+                        }
                         .award-question__title {
+                            margin: 0;
                             font-size: 3.6rem;
                             font-weight: $font-semibold;
                             letter-spacing: 0;
                             line-height: 4.5rem;
                             text-align: center;
-                            padding-top: 6.2rem;
-                            padding-bottom: 3.1rem;
-                            @media(min-width: $tablet-screen) {
-                                padding: 6.2rem 12rem 3.1rem 12rem;
+                            padding: 6.2rem 2.5% 3.1rem;
+                            @media(min-width: $medium-screen) {
+                                padding: 6.2rem 15% 3.1rem;
                             }
                             width: 100%;
                         }
@@ -252,8 +245,9 @@
                             letter-spacing: 0;
                             line-height: 2.2rem;
                             text-align: center;
-                            @media(min-width: $tablet-screen) {
-                                padding: 0 12rem 6.1rem 12rem;
+                            padding: 0 2.5%;
+                            @media(min-width: $medium-screen) {
+                                padding: 0 15% 6.1rem;
                             }
                             .award-question__sub-section_paragraph:first-of-type {
                                 margin-top: 0;
@@ -261,8 +255,6 @@
                         }
                     }
                 }
-                @import './overviewData';
-                @import './visualizations/amounts';
             }
             .body__section:first-of-type {
               padding: 0;
@@ -277,7 +269,6 @@
                 padding: 0;
             }
         }
+        @import "./covidTooltip";
     }
-    @import "./covidTooltip";
-
 }
