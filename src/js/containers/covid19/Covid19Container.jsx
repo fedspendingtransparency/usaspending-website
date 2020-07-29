@@ -171,7 +171,6 @@ const Covid19Container = () => {
                     <div className="sidebar">
                         <div className="sidebar__content">
                             <Sidebar
-                                isGoingToBeSticky
                                 pageName="covid19"
                                 fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
                                 jumpToSection={jumpToSection}

@@ -12,7 +12,6 @@ import SidebarLink from './SidebarLink';
 import { useDynamicStickyClass } from '../stickyHeader/StickyHeader';
 
 const propTypes = {
-    isGoingToBeSticky: PropTypes.bool,
     active: PropTypes.string,
     pageName: PropTypes.string,
     sections: PropTypes.array,
@@ -29,7 +28,6 @@ const referenceDiv = createRef();
 const div = createRef();
 
 const Sidebar = ({
-    isGoingToBeSticky,
     active,
     pageName,
     sections,
