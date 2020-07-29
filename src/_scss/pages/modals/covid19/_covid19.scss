@@ -66,7 +66,7 @@
 
 @include media($tablet-screen) {
     .usa-dt-modal.covid-modal {
-        width: rem(1056);
+        width: rem(768);
         .usa-dt-modal__header {
             &.covid-header {
                 h1 {
@@ -81,5 +81,11 @@
                 padding: rem(10) rem(80) rem(10) rem(80);
             }
         }   
+    }
+}
+
+@include media($large-screen) {
+    .usa-dt-modal.covid-modal {
+        width: rem(1056);
     }
 }
