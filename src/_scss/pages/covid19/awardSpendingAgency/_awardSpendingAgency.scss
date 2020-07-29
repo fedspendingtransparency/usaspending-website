@@ -1,16 +1,7 @@
-.award-spending {
+.spending-by-agency {
     width: 100%;
 
-    @import 'components/moreOptionsTabs';
-
-    .award-spending__description {
-        font-size: rem(20);
-        line-height: rem(25);
-        font-weight: $font-light;
-        margin-bottom: rem(35)
-    }
-
-    .award-spending__content {
+    .spending-by-agency__content {
         @include display(block);
 
         .usda-table {
@@ -37,7 +28,7 @@
                 }
                 @include span-columns(2 of 12, table);
                 text-align: right;
-        
+
                 &:not(:first-child) {
                     padding-right: rem(40);
                 }
@@ -50,12 +41,12 @@
                     @include flex(0 1 auto);
                     text-align: right;
                 }
-        
+
                 .table-header__sort {
                     margin-top: auto;
                     margin-bottom: auto;
                 }
-        
+
                 &:not(:first-child) {
                     .table-header__content {
                        @include justify-content(flex-end);

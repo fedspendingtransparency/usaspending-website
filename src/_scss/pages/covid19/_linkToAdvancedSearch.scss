@@ -1,0 +1,32 @@
+@import 'components/_footerLinkToAdvancedSearch';
+
+.footerLinkToAdvancedSearch__content_covid {
+    // Match padding in the Data Sources & Methodology section
+    @include media($medium-screen) {
+        padding-right: 8%;
+        padding-left: 8%;
+    }
+
+    h2 {
+        font-size: rem(38);
+        line-height: rem(47);
+        margin: rem(5) 0;
+        text-align: center;
+    }
+
+    button {
+        @include button-link;
+        font-size: 1.8rem;
+        color: $color-white;
+        text-decoration: underline;
+        &:hover {
+            color: $color-white;
+        }
+    }
+
+    a {
+        color: $color-white;
+        font-weight: $font-normal;
+        text-decoration: underline;
+    }
+}

@@ -40,7 +40,7 @@
             @include h3;
             margin: 0;
         }
-    
+
         .map-container {
             height: rem(475);
             width: 100%;
@@ -226,7 +226,6 @@
       }
     }
   }
-  @import '../../agency/v2/tabs';
   .recipient__tabs-container {
     &.count-tabs {
       .count-tabs__buttons {
