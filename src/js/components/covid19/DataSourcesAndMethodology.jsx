@@ -22,80 +22,128 @@ const DataSourcesAndMethodology = ({
         <div className="heading__container information-body">
             <div className="information-top dsm--border-radius" />
             <div className="dsm__container">
-                <h2 className="dsm__topHeading">Data Sources &amp; Methodology</h2>
+                <h2 className="dsm__heading">Data Sources &amp; Methodology</h2>
                 <div className="dsm__topSection">
-                    <div className="topSection__data-sources">
-                        <h3 className="topSection__secondHeading">Data Sources</h3>
-                        <p>Donec id elit non mi porta gravida at eget metus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                    </div>
-                    <div className="topSection__methodology">
-                        <h3 className="topSection__secondHeading">Methodology</h3>
-                        <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Maecenas faucibus mollis interdum. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.</p>
-                    </div>
+                    <p>Government spending funded by COVID-19 supplemental appropriations is tracked through the use of Disaster Emergency Fund Codes (DEFC). This page brings together agency financial and award data submitted monthly, covering activity beginning April 1, 2020. The data in all tables and visualizations are aggregates of all records tagged with an appropriate COVID-19 DEFC.</p>
+                    <p>Learn more about our <a href="#">data sources and calculation methods</a>, including details about our COVID-19 download options.</p>
                 </div>
                 <div className="bottomSection">
-                    <h2 className="dsm__topHeading">Other Resources</h2>
+                    <h2 className="dsm__heading">Other Resources</h2>
                     <ul className="otherResources__list">
                         <li>
-                            Department of Health and Human Services -
+                            Pandemic Response Accountability Committee (PRAC) -
                             <a
-                                href="URLhere.gov"
+                                href=" https://pandemic.oversight.gov/track-the-money "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://pandemic.oversight.gov/track-the-money "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Federal Reserve Board -
+                            <a
+                                href=" https://www.federalreserve.gov/covid-19.htm "
+                                onClick={handleClick}>
+                                {" https://www.federalreserve.gov/covid-19.htm "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Agriculture -
+                            <a
+                                href=" https://www.usda.gov/coronavirus "
+                                onClick={handleClick}>
+                                {" https://www.usda.gov/coronavirus "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Defense -
+                            <a
+                                href=" https://www.defense.gov/Explore/Spotlight/Coronavirus/ "
+                                onClick={handleClick}>
+                                {" https://www.defense.gov/Explore/Spotlight/Coronavirus/ "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Education -
+                            <a
+                                href=" https://www.ed.gov/coronavirus "
+                                onClick={handleClick}>
+                                {" https://www.ed.gov/coronavirus "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Homeland Security -
+                            <a
+                                href=" https://www.dhs.gov/coronavirus/overview-dhs-response "
+                                onClick={handleClick}>
+                                {" https://www.dhs.gov/coronavirus/overview-dhs-response "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
                             Department of Labor -
                             <a
-                                href="URLhere.gov"
+                                href=" https://www.dol.gov/coronavirus "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://www.dol.gov/coronavirus "}
+                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                            </a>
+                        </li>
+                        <li>
+                            Department of Transportation -
+                            <a
+                                href=" https://www.transportation.gov/coronavirus "
+                                onClick={handleClick}>
+                                {" https://www.transportation.gov/coronavirus "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
                             Department of the Treasury -
                             <a
-                                href="URLhere.gov"
+                                href=" https://home.treasury.gov/policy-issues/cares "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://home.treasury.gov/policy-issues/cares "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
-                            Federal Reserve -
+                            Department of Veterans Affairs -
                             <a
-                                href="URLhere.gov"
+                                href=" https://www.publichealth.va.gov/n-coronavirus/ "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://www.publichealth.va.gov/n-coronavirus/ "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
-                            General Services Administration -
+                            Department of Health &amp; Human Services -
                             <a
-                                href="URLhere.gov"
+                                href=" https://www.hhs.gov/coronavirus "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://www.hhs.gov/coronavirus "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
-                            Pandemic Response Accountability Committee -
+                            Housing &amp; Urban Development -
                             <a
-                                href="URLhere.gov"
+                                href=" https://www.hud.gov/coronavirus "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://www.hud.gov/coronavirus "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
                         <li>
                             Small Business Administration -
                             <a
-                                href="URLhere.gov"
+                                href=" https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources "
                                 onClick={handleClick}>
-                                {" URLhere.gov "}
+                                {" https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>

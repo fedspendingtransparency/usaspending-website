@@ -93,6 +93,6 @@ export const componentByCovid19Section = () => ({
     data_sources_and_methodology: {
         showInMenu: true,
         showInMainSection: false,
-        title: 'Data Sources and Methodology'
+        title: 'Data Sources & Methodology'
     }
 });
