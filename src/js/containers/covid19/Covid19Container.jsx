@@ -173,6 +173,7 @@ const Covid19Container = () => {
                         </div>
                         <div className="sidebar-footer">
                             <SidebarFooter
+                                isGoingToBeSticky
                                 pageName="covid19"
                                 fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
                         </div>

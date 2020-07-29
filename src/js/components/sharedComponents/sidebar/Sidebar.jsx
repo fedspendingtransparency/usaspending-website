@@ -43,9 +43,10 @@ const Sidebar = ({
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
+
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            if (isSidebarSticky && sidebarWidth !== referenceDiv.current.offsetWidth) {
+            if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
