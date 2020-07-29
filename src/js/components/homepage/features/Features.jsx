@@ -5,11 +5,11 @@
 
 import React from 'react';
 
+import CovidFeatureContainer from 'containers/covid19/homepage/CovidFeatureContainer';
 import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
 import ProfileFeature from './ProfileFeature';
-import CovidFeatureContainer from '../../../containers/covid19/homepage/CovidFeatureContainer';
 
 const Features = () => (
     <section

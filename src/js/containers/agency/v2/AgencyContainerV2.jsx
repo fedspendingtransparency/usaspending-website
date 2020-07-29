@@ -23,7 +23,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { getBaseUrl } from 'helpers/socialShare';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
