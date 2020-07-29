@@ -40,6 +40,7 @@ const AmountsVisualization = ({
     const [remainingBalanceRectangleData, setRemainingBalanceRectangleData] = useState(null);
     const [totalLineData, setTotalLineData] = useState(null);
     const [outlayLineData, setOutlayLineData] = useState(null);
+    // Four Obligation lines due to overlap with remaining balance text
     const [obligationLineDataOne, setObligationLineDataOne] = useState(null);
     const [obligationLineDataTwo, setObligationLineDataTwo] = useState(null);
     const [obligationLineDataThree, setObligationLineDataThree] = useState(null);
