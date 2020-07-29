@@ -12,7 +12,7 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import DownloadIconButton from 'components/sharedComponents/stickyHeader/DownloadIconButton';
+import TableDownloadIconButton from 'components/covid19/TableDownloadIconButton';
 
 const TableDownloadLink = () => {
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const TableDownloadLink = () => {
     };
 
     return (
-        <DownloadIconButton
+        <TableDownloadIconButton
             downloadInFlight={downloadInFlight}
             onClick={downloadData}
             alternativeStyle />
