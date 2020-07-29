@@ -12,8 +12,8 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import { defCodes } from 'dataMapping/covid19/covid19';
 
 const CovidModalContainer = ({
-    showModal = false,
-    closeModal,
+    mounted,
+    hideModal,
     stageDefCodesForAdvancedSearch,
     clearFilters,
     resetFilters
@@ -34,8 +34,8 @@ const CovidModalContainer = ({
     };
     return (
         <Modal
-            mounted={showModal}
-            onExit={closeModal}
+            mounted={mounted}
+            onExit={hideModal}
             titleText="New to USAspending: Official COVID-19 Response Data"
             dialogClass="usa-dt-modal"
             verticallyCenter
@@ -45,7 +45,7 @@ const CovidModalContainer = ({
                     <h1>New to USAspending: Official COVID-19 Spending Data</h1>
                     <button
                         className="usa-dt-modal__close-button"
-                        onClick={closeModal}
+                        onClick={hideModal}
                         title="Close"
                         aria-label="Close">
                         <FontAwesomeIcon icon="times" size="10x" />
@@ -92,7 +92,7 @@ const CovidModalContainer = ({
                     </div>
                     <h2 className="covid-modal-h2"><span className="covid-modal-bold">We will update the site with new COVID-19 spending data and release more related features in the coming months. <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a></span> to receive email updates about when these new features, and more, are added!</h2>
                     <div className="usa-dt-modal__link covid-modal-button">
-                        <button onClick={closeModal}>Close</button>
+                        <button onClick={hideModal}>Close</button>
                     </div>
                 </div>
             </div>
@@ -101,8 +101,8 @@ const CovidModalContainer = ({
 };
 
 CovidModalContainer.propTypes = {
-    showModal: PropTypes.bool,
-    closeModal: PropTypes.func,
+    mounted: PropTypes.bool,
+    hideModal: PropTypes.func,
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func

@@ -1,25 +1,28 @@
 /**
- * redirectModalReducer.js
+ * modalReducer.js
  * Created by Lizzie Salita 2/22/18
  */
 
 export const initialState = {
     display: false,
-    url: ''
+    url: '',
+    modal: ''
 };
 
-const glossaryReducer = (state = initialState, action) => {
+const modalReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SHOW_MODAL': {
             return Object.assign({}, state, {
                 display: true,
-                url: action.value
+                url: action.url,
+                modal: action.modalType
             });
         }
         case 'HIDE_MODAL': {
             return Object.assign({}, state, {
                 display: false,
-                url: ''
+                url: '',
+                modal: ''
             });
         }
         default:
@@ -27,4 +30,4 @@ const glossaryReducer = (state = initialState, action) => {
     }
 };
 
-export default glossaryReducer;
+export default modalReducer;

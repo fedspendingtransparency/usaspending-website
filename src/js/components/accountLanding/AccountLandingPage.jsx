@@ -9,11 +9,11 @@ import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl } from 'helpers/socialShare';
 
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Header from 'components/sharedComponents/header/Header';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
 const slug = 'federal_account';

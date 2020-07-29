@@ -4,12 +4,10 @@
 **/
 
 import React from 'react';
-
 import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryListenerSingleton from './GlossaryListenerSingleton';
 import Router from './Router';
-
 
 export default class RouterContainer extends React.Component {
     static logPageView(path) {
