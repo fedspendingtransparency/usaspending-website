@@ -15,6 +15,7 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const cookie = 'usaspending_covid_homepage';
 
@@ -296,7 +297,13 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        In accordance with the Office of Management and Budget (OMB) <a href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">Memorandum M-20-21</a>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
+                                        In accordance with the Office of Management and Budget (OMB) 
+                                        <ExternalLink
+                                            url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
+                                            {/* <a href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf"> */}
+                                                Memorandum M-20-21
+                                            {/* </a> */}
+                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
                                     </p>
                                     <p>
                                         The relevant codes for COVID-19 response funding and their associated legislation are as follows:

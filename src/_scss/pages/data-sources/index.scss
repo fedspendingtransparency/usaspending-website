@@ -26,6 +26,16 @@
             }
             .about-padded-content {
                 padding: 1rem 4rem;
+                .about-section-content .usda-external-link {
+                    @include button-unstyled;
+                    display: inline;
+                    padding: 0 rem(5);
+                    font-size: rem(18);
+                    color: $color-primary;
+                    svg {
+                        color: $color-primary;
+                    }
+                }
             }
             .about-content {
                 width: 100%;
