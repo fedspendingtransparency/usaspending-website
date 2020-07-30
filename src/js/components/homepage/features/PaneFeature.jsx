@@ -58,11 +58,11 @@ const PaneFeature = () => {
                             </div>
                             <div className="feature-pane__button-wrapper">
                                 <a
-                                    href="https://datalab.usaspending.gov/federal-covid-spending"
+                                    href="https://datalab.usaspending.gov/federal-covid-funding/"
                                     target="_blank"
                                     role="button"
                                     rel="noopener noreferrer"
-                                    value="https://datalab.usaspending.gov/federal-covid-spending"
+                                    value="https://datalab.usaspending.gov/federal-covid-funding/"
                                     className="feature-pane__button white">
                                     Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                                 </a>
@@ -88,7 +88,7 @@ const PaneFeature = () => {
                             </div>
                             <div className="feature-pane__button-wrapper">
                                 <a
-                                    href="https://datalab.usaspending.gov/federal-covid-funding/"
+                                    href="https://datalab.usaspending.gov/americas-finance-guide/"
                                     target="_blank"
                                     role="button"
                                     rel="noopener noreferrer"
