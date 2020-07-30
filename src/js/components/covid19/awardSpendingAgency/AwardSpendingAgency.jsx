@@ -134,7 +134,10 @@ const AwardSpendingAgency = () => {
                 </p>
                 <ReadMore>
                     <p>
-                        <em>Please note that agencies without COVID-19 appropriated funds are not represented here. Additionally, award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
+                        <em>Please note that agencies without COVID-19 appropriated funds are not represented here.</em>
+                    </p>
+                    <p>
+                    <em>Additionally, award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
                     </p>
                 </ReadMore>
             </div>
