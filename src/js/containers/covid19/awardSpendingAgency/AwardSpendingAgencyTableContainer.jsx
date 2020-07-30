@@ -173,92 +173,47 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (defCodes && defCodes.length > 0) {
             let params = {};
 
-            // if active tab is all, default to all award type codes
-            if (props.type === 'all') {
-                params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code),
-                        award_type_codes: [].concat(...Object.values(awardTypeGroups))
-                    },
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: spendingTableSortFields[sort],
-                        order
-                    },
-                    spending_type: 'award'
-                };
-            } else {
-                params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code),
-                        award_type_codes: awardTypeGroups[props.type]
-                    },
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: spendingTableSortFields[sort],
-                        order
-                    },
-                    spending_type: 'award'
-                };
+            params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code),
+                    award_type_codes: [].concat(...Object.values(awardTypeGroups))
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: spendingTableSortFields[sort],
+                    order
+                },
+                spending_type: 'award'
+            };
+
+            if (props.type !== 'all') {
+                params.filter.award_type_codes = awardTypeGroups[props.type];
             }
 
-            let faceValueOfLoansRequest;
+            let awardSpendingAgencyRequest;
             if (props.type === 'loans') {
-                const faceValueOfLoansParams = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code),
-                        award_type_codes: awardTypeGroups[props.type]
-                    },
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: spendingTableSortFields[sort],
-                        order
-                    },
-                    spending_type: 'award'
-                };
-                faceValueOfLoansRequest = fetchLoansByAgency(faceValueOfLoansParams);
-            }
-
-            if (faceValueOfLoansRequest) {
-                setRequest(faceValueOfLoansRequest);
-                faceValueOfLoansRequest.promise
-                    .then((res) => {
-                        parseAwardSpendingByAgency(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                awardSpendingAgencyRequest = fetchLoansByAgency(params);
             } else {
-                const awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
-                setRequest(awardSpendingAgencyRequest);
-                awardSpendingAgencyRequest.promise
-                    .then((res) => {
-                        parseAwardSpendingByAgency(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
             }
+            setRequest(awardSpendingAgencyRequest);
+            awardSpendingAgencyRequest.promise
+                .then((res) => {
+                    parseAwardSpendingByAgency(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setRequest(null);
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
+                });
         }
     });
-
 
     useEffect(() => {
         // Reset to the first page
