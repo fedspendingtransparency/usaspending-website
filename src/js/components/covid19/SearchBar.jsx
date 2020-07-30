@@ -18,17 +18,23 @@ const minChars = 2;
 const SearchBar = ({ setQuery, currentSearchTerm }) => {
     const [searchString, setSearchString] = useState(currentSearchTerm);
 
+    const resetSearch = () => {
+        setSearchString('');
+        setQuery('');
+    };
+
     const onChange = (e) => {
-        setSearchString(e.target.value);
+        if (currentSearchTerm && !e.target.value) {
+            // auto-reset the search when all input is deleted
+            resetSearch();
+        }
+        else {
+            setSearchString(e.target.value);
+        }
     };
 
     const onSubmit = () => {
         setQuery(searchString);
-    };
-
-    const resetSearch = () => {
-        setSearchString('');
-        setQuery('');
     };
 
     const handleClick = (e) => {
