@@ -3,7 +3,7 @@
  * Created by Kevin Li 6/8/17
  */
 
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
@@ -20,12 +20,11 @@ const propTypes = {
     selectedFy: PropTypes.string,
     pickedYear: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    fixedStickyBreakpoint: PropTypes.number
+    fixedStickyBreakpoint: PropTypes.number,
+    isGoingToBeSticky: PropTypes.bool
 };
 
 const defaultSectionOffsets = { stickyVerticalOffset: 0 };
-const referenceDiv = createRef();
-const div = createRef();
 
 const Sidebar = ({
     active,
@@ -36,9 +35,12 @@ const Sidebar = ({
     selectedFy,
     pickedYear,
     detectActiveSection = false,
-    fixedStickyBreakpoint = null
+    fixedStickyBreakpoint = null,
+    isGoingToBeSticky = false
 }) => {
     // yPosition, in px, of sections referenced in sidebar
+    const referenceDiv = useRef();
+    const div = useRef();
     const [sectionPositions, setSectionPositions] = useState([]);
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
@@ -46,7 +48,11 @@ const Sidebar = ({
 
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            console.log(' Resize ');
+            if (isGoingToBeSticky) {
+                setSidebarWidth(`${div.current.offsetWidth}px`);
+            }
+            else if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
@@ -60,6 +66,12 @@ const Sidebar = ({
             window.removeEventListener('resize', updateSidebarWidth);
         };
     }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
+
+    useLayoutEffect(() => {
+        console.log(' Reference Div : ', referenceDiv.current.offsetWidth);
+        console.log(' Div : ', div.current.offsetWidth);
+        setSidebarWidth(`${div.current.offsetWidth}px`);
+    }, [sidebarWidth, setSidebarWidth, div, referenceDiv]);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
