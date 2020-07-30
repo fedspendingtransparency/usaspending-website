@@ -33,7 +33,7 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
-        this._fileCOutlay = getCovid19Totals(data.child_account_obligations_by_defc);
+        this._fileCOutlay = getCovid19Totals(data.child_account_outlays_by_defc);
         this._fileCObligated = getCovid19Totals(data.child_account_obligations_by_defc);
     },
     populateIdv(data) {

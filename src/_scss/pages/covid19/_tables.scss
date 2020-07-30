@@ -1,3 +1,26 @@
+.table-wrapper {
+    overflow-x: auto;
+
+    .table-header {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+        .table-header__content {
+            @include align-items(center);
+            &.table-header__content_right {
+                text-align: right;
+            }
+            .table-header__label {
+                white-space: nowrap;
+            }
+        }
+    }
+    .query-matched {
+        font-weight: $font-semibold;
+        text-decoration: underline;
+    }
+}
+
 @import "../search/results/table/tableMessages";
 
 .results-table-message-container {

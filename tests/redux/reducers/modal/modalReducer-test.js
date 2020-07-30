@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 2/22/18
  */
 
-import redirectModalReducer, { initialState } from 'redux/reducers/redirectModal/redirectModalReducer';
+import redirectModalReducer, { initialState } from 'redux/reducers/modal/modalReducer';
 
 describe('redirectModalReducer', () => {
     describe('SHOW_MODAL', () => {
@@ -15,14 +15,14 @@ describe('redirectModalReducer', () => {
 
             const action = {
                 type: 'SHOW_MODAL',
-                value: mockUrl
+                url: mockUrl
             };
 
             state = redirectModalReducer(state, action);
 
             expect(state.display).toBeTruthy();
         });
-        it('should set the url value', () => {
+        it('should set the url', () => {
             let state = redirectModalReducer(undefined, {});
             const mockUrl = 'www.google.com';
 
@@ -30,7 +30,7 @@ describe('redirectModalReducer', () => {
 
             const action = {
                 type: 'SHOW_MODAL',
-                value: mockUrl
+                url: mockUrl
             };
 
             state = redirectModalReducer(state, action);
@@ -77,6 +77,26 @@ describe('redirectModalReducer', () => {
             state = redirectModalReducer(state, action);
 
             expect(state.url).toBeFalsy();
+        });
+        it('should reset modal property to an empty string', () => {
+            const mockUrl = 'www.google.com';
+            const startingState = Object.assign({}, initialState, {
+                display: true,
+                url: mockUrl,
+                modal: 'redirect'
+            });
+
+            let state = redirectModalReducer(startingState, {});
+
+            expect(state.url).toBeTruthy();
+
+            const action = {
+                type: 'HIDE_MODAL'
+            };
+
+            state = redirectModalReducer(state, action);
+
+            expect(state.modal).toBeFalsy();
         });
     });
 });

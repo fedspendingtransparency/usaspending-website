@@ -38,6 +38,12 @@
                     }
                   }
                   .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+                    &.multiple-label {
+                      padding-bottom: rem(10);
+                      &:last-of-type {
+                        padding-bottom: 0;
+                      }
+                    }
                     font-weight: $font-semibold;
                     span {
                       font-weight: $font-normal;

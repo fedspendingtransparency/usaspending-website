@@ -5,6 +5,7 @@
 
 import React from 'react';
 
+import CovidFeatureContainer from 'containers/covid19/homepage/CovidFeatureContainer';
 import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
@@ -16,6 +17,7 @@ const Features = () => (
         className="homepage-features"
         aria-label="Web site features">
         <div className="homepage-features__content">
+            <CovidFeatureContainer />
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />

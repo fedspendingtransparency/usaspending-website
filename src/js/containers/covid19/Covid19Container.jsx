@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Covid19Section from 'components/covid19/Covid19Section';
@@ -18,23 +18,19 @@ import { LoadingWrapper } from 'components/sharedComponents/Loading';
 // import { Picker } from 'data-transparency-ui';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 // import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
-import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
-import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
+import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
+import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
 import {
     slug,
     getEmailSocialShareData,
-    scrollPositionOfSiteHeader,
-    footerTitle,
-    footerDescription
+    scrollPositionOfSiteHeader
 } from 'dataMapping/covid19/covid19';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
-import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
@@ -52,26 +48,32 @@ const Covid19Container = () => {
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
-    useEffect(() => {
-        const getDefCodesData = async () => {
-            defCodesRequest.current = fetchDEFCodes();
-            try {
-                const { data } = await defCodesRequest.current.promise;
-                dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
-                setIsLoading(false);
-            }
-            catch (e) {
-                console.log(' Error DefCodes : ', e.message);
-            }
-        };
-        getDefCodesData();
-        defCodesRequest.current = null;
-        return () => {
-            if (defCodesRequest.current) {
-                defCodesRequest.cancel();
-            }
-        };
+    useEffect(() => () => {
+        if (defCodesRequest.current) {
+            defCodesRequest.cancel();
+        }
     }, []);
+
+    useEffect(() => {
+        if (defCodes.length === 0) {
+            const getDefCodesData = async () => {
+                defCodesRequest.current = fetchDEFCodes();
+                try {
+                    const { data } = await defCodesRequest.current.promise;
+                    dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
+                    setIsLoading(false);
+                }
+                catch (e) {
+                    console.log(' Error DefCodes : ', e.message);
+                }
+            };
+            getDefCodesData();
+            defCodesRequest.current = null;
+        }
+        else {
+            setIsLoading(false);
+        }
+    }, [defCodes, dispatch]);
 
     useEffect(() => {
         const getOverviewData = async () => {
@@ -95,20 +97,7 @@ const Covid19Container = () => {
                 overviewRequest.cancel();
             }
         };
-    }, [defCodes]);
-
-    const addDefCodesToAdvancedSearchFilter = () => dispatch(applyStagedFilters(
-        Object.assign(
-            {}, defaultAdvancedSearchFilters,
-            {
-                defCodes: new CheckboxTreeSelections({
-                    require: defCodes.map((code) => code.code),
-                    exclude: [],
-                    counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-                })
-            }
-        )
-    ));
+    }, [defCodes, dispatch]);
 
     useEffect(() => {
         const getAllSubmissionDates = async () => {
@@ -142,7 +131,7 @@ const Covid19Container = () => {
                 <>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            COVID-19 Response
+                            COVID-19 Spending
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
@@ -184,6 +173,7 @@ const Covid19Container = () => {
                         </div>
                         <div className="sidebar-footer">
                             <SidebarFooter
+                                isGoingToBeSticky
                                 pageName="covid19"
                                 fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
                         </div>
@@ -207,13 +197,10 @@ const Covid19Container = () => {
                         <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick} />
-                            <FooterLinkToAdvancedSearchContainer
-                                title={footerTitle}
-                                description={footerDescription}
-                                onClick={addDefCodesToAdvancedSearchFilter} />
+                            <LinkToAdvancedSearchContainer />
                         </section>
                     </div>
-                    <RedirectModalContainer />
+                    <GlobalModalContainer />
                 </main>
             </LoadingWrapper>
             <Footer />

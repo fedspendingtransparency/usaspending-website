@@ -20,6 +20,8 @@ import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults
 import SearchBar from 'components/covid19/SearchBar';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
+import TableDownloadLink from 'containers/covid19/TableDownloadLink';
+
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -274,7 +276,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     if (message) {
         return (
             <>
-                <SearchBar setQuery={setQuery} />
+                <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -304,7 +306,14 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     return (
         <div ref={tableWrapperRef}>
-            <SearchBar setQuery={setQuery} />
+            <div className="table-utility">
+                <div className="table-utility__left">
+                    <SearchBar setQuery={setQuery} currentSearchTerm={query} />
+                </div>
+                <div className="table-utility__right">
+                    <TableDownloadLink defCodes={defCodes && defCodes.length > 0 && defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
+                </div>
+            </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
