@@ -40,10 +40,12 @@ require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [showSidebarFooter, setShowSidebarFooter] = useState(true);
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
+    const lastSectionRef = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
@@ -53,6 +55,22 @@ const Covid19Container = () => {
             defCodesRequest.cancel();
         }
     }, []);
+
+    const sidebarFooterVisibility = () => {
+        if (window.scrollY >= (lastSectionRef.current.offsetTop - 800)) {
+            setShowSidebarFooter(false);
+        }
+        else {
+            setShowSidebarFooter(true);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', sidebarFooterVisibility);
+        return () => {
+            window.removeEventListener('scroll', sidebarFooterVisibility);
+        }
+    });
 
     useEffect(() => {
         if (defCodes.length === 0) {
@@ -172,12 +190,15 @@ const Covid19Container = () => {
                                         label: componentByCovid19Section()[section].title
                                     }))} />
                         </div>
-                        <div className="sidebar-footer">
-                            <SidebarFooter
-                                isGoingToBeSticky
-                                pageName="covid19"
-                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
-                        </div>
+                        {
+                            showSidebarFooter && 
+                            <div className="sidebar-footer">
+                                <SidebarFooter
+                                    isGoingToBeSticky
+                                    pageName="covid19"
+                                    fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                            </div>
+                        }
                     </div>
                     <div className="body usda__flex-col">
                         <section className="body__section">
@@ -204,7 +225,9 @@ const Covid19Container = () => {
                     <GlobalModalContainer />
                 </main>
             </LoadingWrapper>
-            <Footer />
+            <div ref={lastSectionRef}>
+                <Footer />
+            </div>
         </div>
     );
 };

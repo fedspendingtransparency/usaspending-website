@@ -48,9 +48,11 @@ const Sidebar = ({
 
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            console.log(' Resize ');
-            if (isGoingToBeSticky) {
+            if (isGoingToBeSticky && sidebarWidth !== `${div.current.offsetWidth}px`) { // set width so no flicker on load
                 setSidebarWidth(`${div.current.offsetWidth}px`);
+            }
+            if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) { // set width on resize
+                setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
@@ -65,13 +67,7 @@ const Sidebar = ({
         return () => {
             window.removeEventListener('resize', updateSidebarWidth);
         };
-    }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
-
-    useLayoutEffect(() => {
-        console.log(' Reference Div : ', referenceDiv.current.offsetWidth);
-        console.log(' Div : ', div.current.offsetWidth);
-        setSidebarWidth(`${div.current.offsetWidth}px`);
-    }, [sidebarWidth, setSidebarWidth, div, referenceDiv]);
+    }, []);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
@@ -237,8 +233,8 @@ const Sidebar = ({
         : '';
 
     return (
-        <div>
-            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
+        <div ref={referenceDiv}>
+            <div className={`${pageName}-sidebar-reference ${floatSidebar}`}>
                 &nbsp;
             </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
