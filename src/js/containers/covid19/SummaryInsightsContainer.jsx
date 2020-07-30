@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts, fetchAwardCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
 import { useInFlightList } from 'helpers/covid19Helper';
 import { isEqual } from 'lodash';
@@ -30,7 +30,6 @@ const SummaryInsightsContainer = ({
     areCountsLoading,
     assistanceOnly
 }) => {
-    const awardCountRequest = useRef();
     const awardAmountRequest = useRef();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
@@ -43,9 +42,6 @@ const SummaryInsightsContainer = ({
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
-        if (awardCountRequest.current) {
-            awardCountRequest.current.cancel();
-        }
         if (awardAmountRequest.current) {
             awardAmountRequest.current.cancel();
         }
@@ -57,21 +53,16 @@ const SummaryInsightsContainer = ({
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
-        const amountsParams = { ...params };
         if (assistanceOnly && activeTab === 'all') {
-            amountsParams.filter.award_type = 'assistance';
+            params.filter.award_type = 'assistance';
         }
         if (defCodes && defCodes.length > 0) {
-            awardAmountRequest.current = fetchAwardAmounts(amountsParams);
-            awardCountRequest.current = fetchAwardCount(params);
+            awardAmountRequest.current = fetchAwardAmounts(params);
             awardAmountRequest.current.promise
                 .then((res) => {
                     setAwardObligations(res.data.obligation);
                     setAwardOutlays(res.data.outlay);
-                });
-            awardCountRequest.current.promise
-                .then((res) => {
-                    setNumberOfAwards(res.data.count);
+                    setNumberOfAwards(res.data.award_count);
                 });
         }
     }, [defCodes, activeTab]);
