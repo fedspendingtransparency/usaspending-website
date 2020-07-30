@@ -77,20 +77,20 @@ const SummaryInsightsContainer = ({
     }, [defCodes, activeTab]);
 
     useEffect(() => {
-        if (!awardOutlays && !awardObligations && !numberOfAwards) {
+        if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {
             if (!isEqual(inFlightList, initialInFlightState)) {
                 resetInFlight();
             }
         }
         else if (inFlightList) {
             inFlightList.forEach((inFlight) => {
-                if (inFlight === 'awardObligations' && awardObligations) {
+                if (inFlight === 'awardObligations' && awardObligations !== null) {
                     removeFromInFlight('awardObligations');
                 }
-                else if (inFlight === 'awardOutlays' && awardOutlays) {
+                else if (inFlight === 'awardOutlays' && awardOutlays !== null) {
                     removeFromInFlight('awardOutlays');
                 }
-                else if (inFlight === 'numberOfAwards' && numberOfAwards) {
+                else if (inFlight === 'numberOfAwards' && numberOfAwards !== null) {
                     removeFromInFlight('numberOfAwards');
                 }
             });
