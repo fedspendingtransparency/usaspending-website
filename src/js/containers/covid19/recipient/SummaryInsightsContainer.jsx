@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts, fetchAwardCount, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import { useInFlightList } from 'helpers/covid19Helper';
 import OverviewData from 'components/covid19/OverviewData';
 
@@ -42,7 +42,6 @@ const initialInFlightState = overviewData.map((d) => d.type);
 
 const SummaryInsightsContainer = ({ activeFilter }) => {
     const awardAmountRequest = useRef();
-    const awardCountRequest = useRef();
     const recipientCountRequest = useRef();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
@@ -59,9 +58,6 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         if (awardAmountRequest.current) {
             awardAmountRequest.current.cancel();
         }
-        if (awardCountRequest.current) {
-            awardCountRequest.current.cancel();
-        }
         // Reset any existing counts
         setAwardOutlays(null);
         setAwardObligations(null);
@@ -77,17 +73,13 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
             params.filter.award_type_codes = awardTypeGroups[activeFilter];
         }
         awardAmountRequest.current = fetchAwardAmounts(params);
-        awardCountRequest.current = fetchAwardCount(params);
         recipientCountRequest.current = fetchDisasterSpendingCount('recipient', params);
 
         awardAmountRequest.current.promise
             .then((res) => {
                 setAwardObligations(res.data.obligation);
                 setAwardOutlays(res.data.outlay);
-            });
-        awardCountRequest.current.promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
+                setNumberOfAwards(res.data.award_count);
             });
         recipientCountRequest.current.promise
             .then((res) => {
