@@ -12,20 +12,29 @@ const propTypes = {
     currentSearchTerm: PropTypes.string
 };
 
+// the minimum number of characters a user is required to enter before they can perform a search
+const minChars = 2;
+
 const SearchBar = ({ setQuery, currentSearchTerm }) => {
     const [searchString, setSearchString] = useState(currentSearchTerm);
-
-    const onChange = (e) => {
-        setSearchString(e.target.value);
-    };
-
-    const onSubmit = () => {
-        setQuery(searchString);
-    };
 
     const resetSearch = () => {
         setSearchString('');
         setQuery('');
+    };
+
+    const onChange = (e) => {
+        if (currentSearchTerm && !e.target.value) {
+            // auto-reset the search when all input is deleted
+            resetSearch();
+        }
+        else {
+            setSearchString(e.target.value);
+        }
+    };
+
+    const onSubmit = () => {
+        setQuery(searchString);
     };
 
     const handleClick = (e) => {
@@ -33,10 +42,21 @@ const SearchBar = ({ setQuery, currentSearchTerm }) => {
         if (searchString && currentSearchTerm === searchString) {
             resetSearch();
         }
+        else if (currentSearchTerm && searchString.length < minChars) {
+            resetSearch();
+        }
         else {
             onSubmit();
         }
     };
+
+    let icon = 'search';
+    if (searchString && currentSearchTerm === searchString) {
+        icon = 'times';
+    }
+    else if (currentSearchTerm && searchString.length < minChars) {
+        icon = 'times';
+    }
 
     return (
         <form className="search-bar">
@@ -46,11 +66,11 @@ const SearchBar = ({ setQuery, currentSearchTerm }) => {
                 type="text"
                 onChange={onChange} />
             <button
-                disabled={searchString.length < 2}
+                disabled={searchString.length < minChars && !currentSearchTerm}
                 aria-label="Search"
                 onClick={handleClick}
                 className="search-bar__button">
-                <FontAwesomeIcon icon={(searchString && currentSearchTerm === searchString) ? 'times' : 'search'} />
+                <FontAwesomeIcon icon={icon} />
             </button>
         </form>
     );
