@@ -2,7 +2,7 @@
   height: rem(24);
   width: rem(47);
   border-radius: rem(4);
-  background-color: #b53332;
+  background-color: $color-secondary-dark;
   @include display(inline-flex);
   @include justify-content(center);
   @include align-items(center);
@@ -16,7 +16,7 @@
     height: rem(24);
     width: rem(47);
     border-radius: rem(4);
-    background-color: #b53332;
+    background-color: $color-secondary-dark;
     @include display(inline-flex);
     @include justify-content(center);
     @include align-items(center);
@@ -26,4 +26,32 @@
     margin-left: rem(10);
 }
 
+.new-badge-outer {
+  height: rem(14);
+  width: rem(14);
+  background-color: $color-secondary-dark;
+  position: relative;
+  border-radius: 50%;
+  margin-right: rem(7);
+}
 
+.new-badge-middle {
+  height: rem(12);
+  width: rem(12);
+  background-color: #fff;
+  position: absolute;
+  top: rem(1);
+  left: rem(1);
+  border-radius: 50%;
+}
+
+.new-badge-inner {
+  height: rem(8);
+  width: rem(8);
+  background-color: $color-secondary-dark;
+  position: absolute;
+  top: rem(2);
+  left: rem(2);
+  border-radius: 50%;
+
+}
