@@ -206,64 +206,40 @@ const BudgetCategoriesTableContainer = (props) => {
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: apiSortField,
+                    order
+                }
+            };
+
+            let disasterSpendingRequest;
             if (spendingCategory === 'loan_spending') {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    },
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: apiSortField,
-                        order
-                    }
-                };
-                const requestLoanSpending = fetchLoanSpending(props.type, params);
-                setRequest(requestLoanSpending);
-                requestLoanSpending.promise
-                    .then((res) => {
-                        parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                disasterSpendingRequest = fetchLoanSpending(props.type, params);
             } else {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    },
-                    spending_type: apiSpendingTypes[spendingCategory],
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: apiSortField,
-                        order
-                    }
-                };
-                const disasterSpendingRequest = fetchDisasterSpending(props.type, params);
-                setRequest(disasterSpendingRequest);
-                disasterSpendingRequest.promise
-                    .then((res) => {
-                        parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                params.spending_type = apiSpendingTypes[spendingCategory];
+                disasterSpendingRequest = fetchDisasterSpending(props.type, params);
             }
+            setRequest(disasterSpendingRequest);
+            disasterSpendingRequest.promise
+                .then((res) => {
+                    parseSpendingDataAndSetResults(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setRequest(null);
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
+                });
         }
     });
 
