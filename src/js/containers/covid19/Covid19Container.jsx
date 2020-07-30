@@ -225,7 +225,7 @@ const Covid19Container = () => {
                     <GlobalModalContainer />
                 </main>
             </LoadingWrapper>
-            <div ref={lastSectionRef}>
+            <div className="footer-reference" ref={lastSectionRef}>
                 <Footer />
             </div>
         </div>

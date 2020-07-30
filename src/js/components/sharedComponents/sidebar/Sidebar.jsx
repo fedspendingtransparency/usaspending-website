@@ -39,7 +39,7 @@ const Sidebar = ({
     isGoingToBeSticky = false
 }) => {
     // yPosition, in px, of sections referenced in sidebar
-    const outerReferenceDiv = useRef();
+    const outerReferenceDiv = useRef(); // isGoingToBeSticky reference
     const referenceDiv = useRef();
     const div = useRef();
     const [sectionPositions, setSectionPositions] = useState([]);
@@ -70,7 +70,7 @@ const Sidebar = ({
         return () => {
             window.removeEventListener('resize', updateSidebarWidth);
         };
-    }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
+    }, [sidebarWidth, setSidebarWidth, isSidebarSticky, isGoingToBeSticky]);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
