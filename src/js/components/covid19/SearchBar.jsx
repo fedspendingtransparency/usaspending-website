@@ -42,7 +42,7 @@ const SearchBar = ({ setQuery, currentSearchTerm }) => {
         if (searchString && currentSearchTerm === searchString) {
             resetSearch();
         }
-        if (currentSearchTerm && searchString.length < minChars) {
+        else if (currentSearchTerm && searchString.length < minChars) {
             resetSearch();
         }
         else {
