@@ -29,7 +29,7 @@ const sections = [
         section: 'download-instructions'
     },
     {
-        label: 'Disaster Emergency Funding Code (DEFC)',
+        label: 'Disaster Emergency Fund Code (DEFC)',
         section: 'DEFC'
     },
     {
@@ -41,7 +41,7 @@ const sections = [
         section: 'overview'
     },
     {
-        label: 'Total Spending by Budget Category',
+        label: 'Total Spending Section',
         section: 'total-spending'
     },
     {
@@ -49,7 +49,7 @@ const sections = [
         section: 'linked-and-unlinked'
     },
     {
-        label: 'Award Spending',
+        label: 'Award Spending Sections',
         section: 'award-spending'
     }
 ];
@@ -223,9 +223,12 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations. This download includes 8 types of files:
+                                        <strong>Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations.</strong>
                                     </p>
-                                    <ol>
+                                    <p>
+                                        This download includes 8 types of files:
+                                    </p>
+                                    <ul>
                                         <li>
                                             Account Balances (sourced from GTAS)
                                         </li>
@@ -250,17 +253,17 @@ export default () => {
                                         <li>
                                             Data_Dictionary_Crosswalk.xlsx
                                         </li>
-                                    </ol>
+                                    </ul>
                                     <p>
-                                        <strong><em>* See &quot;Linked and Unlinked Award Data&quot; below for information about linked awards</em></strong>
+                                        <em>* See &quot;Linked and Unlinked Award Data&quot; below for information about linked awards</em>
                                     </p>
                                     <p>
                                         This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
                                     </p>
                                     <p>
-                                        Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:
+                                        <strong>Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
                                     </p>
-                                    <ul>
+                                    <ol>
                                         <li>
                                             Go to the <a href="/#/download_center/custom_account_data">Custom Account Data download page</a>
                                         </li>
@@ -288,7 +291,7 @@ export default () => {
                                         <li>
                                             Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
                                         </li>
-                                    </ul>
+                                    </ol>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-DEFC">
@@ -448,7 +451,7 @@ export default () => {
                             </div>
                             <div className="about-section-wrapper" id="data-sources-total-spending">
                                 <h2 className="about-section-title">
-                                    Total Spending by Budget Category
+                                    Total Spending Section
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
@@ -538,25 +541,27 @@ export default () => {
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-linked-and-unlinked">
-                                <h2 className="about-section-title">
-                                    Linked and Unlinked Award Data
-                                </h2>
-                                <p>
-                                    In order to understand the data surfaced in the &quot;Award Spending&quot; sections (detailed below), it is important to understand the concept of <strong>linking between Broker File C and FPDS/FABS award data</strong>. Broker File C serves as a bridge between data sourced from agency financial systems (i.e., the data in Broker File C itself) and award data sourced from FPDS and FABS. The actual link between these two datasets is an <strong>award ID</strong> (also known as <strong>&quot;award unique key&quot;</strong>). For various reasons, not every award ID in Broker File C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a Broker File C row cannot be matched to FPDS or FABS, we call it &quot;unlinked&quot;. Unlinked Broker File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA program, and funding agency).
-                                </p>
-                                <p>
-                                    <strong>The rule of thumb for all award sections is to <em>use complete Broker File C data where possible</em> (containing both linked and unlinked awards); <em>where not possible, only linked data will be used</em> (representing a subset of the authoritative award spending total based on both linked and unlinked data in Broker File C).</strong>
-                                </p>
-                                <p>
-                                    Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
-                                </p>
-                                <p>
-                                    As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page.
-                                </p>
+                                <div className="about-section-content">
+                                    <h2 className="about-section-title">
+                                        Linked and Unlinked Award Data
+                                    </h2>
+                                    <p>
+                                        In order to understand the data surfaced in the &quot;Award Spending&quot; sections (detailed below), it is important to understand the concept of <strong>linking between Broker File C and FPDS/FABS award data</strong>. Broker File C serves as a bridge between data sourced from agency financial systems (i.e., the data in Broker File C itself) and award data sourced from FPDS and FABS. The actual link between these two datasets is an <strong>award ID</strong> (also known as <strong>&quot;award unique key&quot;</strong>). For various reasons, not every award ID in Broker File C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a Broker File C row cannot be matched to FPDS or FABS, we call it &quot;unlinked&quot;. Unlinked Broker File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA program, and funding agency).
+                                    </p>
+                                    <p>
+                                        <strong>The rule of thumb for all award sections is to <em>use complete Broker File C data where possible</em> (containing both linked and unlinked awards); <em>where not possible, only linked data will be used</em> (representing a subset of the authoritative award spending total based on both linked and unlinked data in Broker File C).</strong>
+                                    </p>
+                                    <p>
+                                        Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
+                                    </p>
+                                    <p>
+                                        As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page.
+                                    </p>
+                                </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-award-spending">
                                 <h2 className="about-section-title">
-                                    Award Spending
+                                    Award Spending Sections
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
