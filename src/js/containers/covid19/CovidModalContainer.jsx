@@ -20,6 +20,7 @@ const CovidModalContainer = ({
 }) => {
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
+        hideModal();
         clearFilters();
         resetFilters();
         stageDefCodesForAdvancedSearch({
@@ -32,6 +33,13 @@ const CovidModalContainer = ({
         });
         Router.history.push('/search');
     };
+
+    const handleGoToCovidProfile = (e) => {
+        e.preventDefault();
+        hideModal();
+        Router.history.push('/disaster/covid-19');
+    };
+
     return (
         <Modal
             mounted={mounted}
@@ -66,7 +74,7 @@ const CovidModalContainer = ({
                             </li>
                         </ul>
                     </div>
-                    <h2 className="covid-modal-h2 covid-modal-bold">Visit our new <a href="#/disaster/covid-19">profile page dedicated to the COVID-19 Spending:</a></h2>
+                    <h2 className="covid-modal-h2 covid-modal-bold">Visit our new <a onClick={handleGoToCovidProfile} href="#/disaster/covid-19">profile page dedicated to the COVID-19 Spending:</a></h2>
                     <div>
                         <ul>
                             <li className="covid-modal-li">
