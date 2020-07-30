@@ -47,6 +47,7 @@
     
                 @include media ($medium-screen) {
                     display: block;
+                    margin: auto 0;
                     width: 35vw;
                     height: 25vw;
                     max-width: none;
