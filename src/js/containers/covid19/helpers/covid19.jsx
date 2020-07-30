@@ -56,7 +56,7 @@ export const componentByCovid19Section = () => ({
         headerTextTooltipooltip: totalSpendingTooltip,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Total Spending by Budget Categories'
+        title: 'Total Spending by Budget Category'
     },
     award_question: {
         component: <AwardQuestion />,
@@ -93,6 +93,6 @@ export const componentByCovid19Section = () => ({
     data_sources_and_methodology: {
         showInMenu: true,
         showInMainSection: false,
-        title: 'Data Sources and Methodology'
+        title: 'Data Sources & Methodology'
     }
 });

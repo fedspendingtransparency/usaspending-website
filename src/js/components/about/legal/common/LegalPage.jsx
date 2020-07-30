@@ -14,7 +14,7 @@ import {
 import Footer from 'containers/Footer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 import LegalContent from './LegalContent';

@@ -13,14 +13,13 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import DownloadButton from 'components/search/header/DownloadButton';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
-
 
 import KeywordSearchBar from './KeywordSearchBar';
 

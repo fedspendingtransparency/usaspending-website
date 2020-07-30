@@ -57,8 +57,12 @@ const SummaryInsightsContainer = ({
         if (activeTab !== 'all') {
             params.filter.award_type_codes = awardTypeGroups[activeTab];
         }
+        const amountsParams = { ...params };
+        if (assistanceOnly && activeTab === 'all') {
+            amountsParams.filter.award_type = 'assistance';
+        }
         if (defCodes && defCodes.length > 0) {
-            awardAmountRequest.current = fetchAwardAmounts(params);
+            awardAmountRequest.current = fetchAwardAmounts(amountsParams);
             awardCountRequest.current = fetchAwardCount(params);
             awardAmountRequest.current.promise
                 .then((res) => {

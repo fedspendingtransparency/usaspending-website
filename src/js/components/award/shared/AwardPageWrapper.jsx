@@ -46,7 +46,7 @@ const AwardPageWrapper = ({
                     {covidDefC.length > 0 &&
                         <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefC} />}>
                             <span className="covid-spending-flag">
-                                COVID-19 Response
+                                COVID-19 Spending
                             </span>
                         </TooltipWrapper>
                     }
