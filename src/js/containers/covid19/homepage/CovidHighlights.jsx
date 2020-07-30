@@ -18,7 +18,7 @@ import TotalAmount from 'components/homepage/hero/TotalAmount';
 const defaultParams = {
     pagination: {
         page: 1,
-        limit: 10,
+        limit: 100,
         order: "desc",
         sort: "outlay"
     },
