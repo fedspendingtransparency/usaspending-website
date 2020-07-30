@@ -126,7 +126,7 @@ const AwardSpendingAgency = () => {
         <div className="body__content spending-by-agency">
             <DateNote />
             <h3 className="body__narrative">
-                <strong>Which federal agencies</strong> issued awards using funds from COVID-19 spending?
+                <strong>Which agencies</strong> issued awards using COVID-19 funds?
             </h3>
             <div className="body__narrative-description">
                 <p>

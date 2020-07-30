@@ -108,7 +108,7 @@ const SpendingByCFDA = () => {
         <div className="body__content assistance-listing">
             <DateNote />
             <h3 className="body__narrative">
-                <strong>Which CFDA programs (Assistance Listings)</strong> supported the response to COVID-19?
+                <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
             </h3>
             <div className="body__narrative-description">
                 <p>
