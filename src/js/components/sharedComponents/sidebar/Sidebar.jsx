@@ -3,7 +3,7 @@
  * Created by Kevin Li 6/8/17
  */
 
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
@@ -39,6 +39,7 @@ const Sidebar = ({
     isGoingToBeSticky = false
 }) => {
     // yPosition, in px, of sections referenced in sidebar
+    const outerReferenceDiv = useRef();
     const referenceDiv = useRef();
     const div = useRef();
     const [sectionPositions, setSectionPositions] = useState([]);
@@ -48,17 +49,19 @@ const Sidebar = ({
 
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            if (isGoingToBeSticky && sidebarWidth !== `${div.current.offsetWidth}px`) { // set width so no flicker on load
+            if (isGoingToBeSticky && (sidebarWidth !== `${div.current.offsetWidth}px`)) { // set width so no flicker on load
                 setSidebarWidth(`${div.current.offsetWidth}px`);
             }
-            if (isGoingToBeSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) { // set width on resize
-                setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
+            if (isGoingToBeSticky && (sidebarWidth !== `${outerReferenceDiv.current.offsetWidth}px`)) { // set width on resize
+                setSidebarWidth(`${outerReferenceDiv.current.offsetWidth}px`);
             }
-            else if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
-                setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
-            }
-            else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
-                setSidebarWidth(`auto`);
+            if (!isGoingToBeSticky) {
+                if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+                    setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
+                }
+                else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
+                    setSidebarWidth(`auto`);
+                }
             }
         }, 100);
         updateSidebarWidth();
@@ -67,7 +70,7 @@ const Sidebar = ({
         return () => {
             window.removeEventListener('resize', updateSidebarWidth);
         };
-    }, []);
+    }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
@@ -233,8 +236,8 @@ const Sidebar = ({
         : '';
 
     return (
-        <div ref={referenceDiv}>
-            <div className={`${pageName}-sidebar-reference ${floatSidebar}`}>
+        <div ref={outerReferenceDiv}>
+            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
                 &nbsp;
             </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>

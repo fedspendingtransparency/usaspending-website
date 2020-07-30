@@ -69,7 +69,7 @@ const Covid19Container = () => {
         window.addEventListener('scroll', sidebarFooterVisibility);
         return () => {
             window.removeEventListener('scroll', sidebarFooterVisibility);
-        }
+        };
     });
 
     useEffect(() => {
@@ -191,7 +191,7 @@ const Covid19Container = () => {
                                     }))} />
                         </div>
                         {
-                            showSidebarFooter && 
+                            showSidebarFooter &&
                             <div className="sidebar-footer">
                                 <SidebarFooter
                                     isGoingToBeSticky
