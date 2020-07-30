@@ -34,8 +34,12 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
             value: covidCode.code,
             expandDisabled: true
         }])
+            .sort((a, b) => {
+                if (a.value < b.value) return -1;
+                if (a.value > b.value) return 1;
+                return 0;
+            })
     }), covidParentNode);
-
 const defaultExpanded = ['COVID'];
 const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
 
