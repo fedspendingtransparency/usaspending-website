@@ -125,7 +125,7 @@ export class DEFCheckboxTree extends React.Component {
                         className="selected-filters"
                         role="status">
                         {this.props.counts.map((node) => {
-                            const label = `${node.value} - ${node.label} (${node.count})`;
+                            const label = `${node.label} (${node.count})`;
                             return (
                                 <button
                                     key={uniqueId()}
