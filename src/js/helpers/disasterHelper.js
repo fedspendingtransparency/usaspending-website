@@ -71,12 +71,6 @@ export const fetchNewAwardsOverTime = (params) => apiRequest({
     data: params
 });
 
-export const fetchAwardCount = (params) => apiRequest({
-    url: 'v2/disaster/award/count/',
-    method: 'post',
-    data: params
-});
-
 export const fetchCfdaCount = (params) => apiRequest({
     url: 'v2/disaster/cfda/count/',
     method: 'post',
