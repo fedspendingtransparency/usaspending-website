@@ -26,17 +26,7 @@
     margin-left: rem(10);
 }
 
-.covid-newbadge-dot-mobile {
-  height: rem(15);
-  width: rem(15);
-  margin-left: rem(8);
-  margin-bottom: rem(2);
-  background-color: $color-secondary-dark;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.outter {
+.new-badge-outter {
   height: rem(14);
   width: rem(14);
   background-color: $color-secondary-dark;
@@ -45,7 +35,7 @@
   margin-right: rem(7);
 }
 
-.white {
+.new-badge-middle {
   height: rem(12);
   width: rem(12);
   background-color: #fff;
@@ -55,7 +45,7 @@
   border-radius: 50%;
 }
 
-.inner {
+.new-badge-inner {
   height: rem(8);
   width: rem(8);
   background-color: $color-secondary-dark;

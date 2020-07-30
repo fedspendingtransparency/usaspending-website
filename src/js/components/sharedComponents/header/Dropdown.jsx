@@ -76,10 +76,9 @@ export default class Dropdown extends React.Component {
                     <div className="nav-dropdown__parent-label">
                         {
                             this.props.label === "Profiles" &&
-                            // <span className="covid-newbadge-dot" />
-                            <div className="outter">
-                                <div className="white">
-                                    <div className="inner" />
+                            <div className="new-badge-outter">
+                                <div className="new-badge-middle">
+                                    <div className="new-badge-inner" />
                                 </div>
                             </div>
                         }
