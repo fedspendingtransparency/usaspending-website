@@ -76,7 +76,7 @@ export default class MobileDropdown extends React.Component {
                         {
                             this.props.label === "Profiles" &&
                             <div className="new-badge-outer">
-                                <div className="white">
+                                <div className="new-badge-middle">
                                     <div className="new-badge-inner" />
                                 </div>
                             </div>
