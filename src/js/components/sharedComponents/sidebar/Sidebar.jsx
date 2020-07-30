@@ -26,6 +26,13 @@ const propTypes = {
 
 const defaultSectionOffsets = { stickyVerticalOffset: 0 };
 
+/**
+ * isGoingToBeSticky
+ * - pass this parameter when you know your side bar will be sticky.
+ * This prevents the side bar from a flickering width by setting it's
+ * width instead of using auto.
+ */
+
 const Sidebar = ({
     active,
     pageName,
@@ -39,7 +46,7 @@ const Sidebar = ({
     isGoingToBeSticky = false
 }) => {
     // yPosition, in px, of sections referenced in sidebar
-    const outerReferenceDiv = useRef(); // isGoingToBeSticky reference
+    const outerReferenceDiv = useRef();
     const referenceDiv = useRef();
     const div = useRef();
     const [sectionPositions, setSectionPositions] = useState([]);
