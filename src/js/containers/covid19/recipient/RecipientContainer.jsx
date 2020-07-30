@@ -28,7 +28,7 @@ const RecipientContainer = () => {
                 </p>
                 <ReadMore>
                     <p>
-                        In the map below, you will see a spending breakdown by state, county, or congressional district of recipients who have received awards funded by COVID-19 appropriations. These breakdowns are based on recipients’ addresses. In the case of individual recipients, data is aggregated by county or state to protect personally identifiable information (PII). Data about the location where the award money is used, known as the ‘Primary Place of Performance’, is available through the <strong>download button</strong> at the top right of the page.
+                        In the map below, you will see a spending breakdown by state, county, or congressional district of recipients who have received awards funded by COVID-19 appropriations. These recipient locations shown below reflect the location of organizational offices that were used to register for awards, and do not reflect the actual distribution of funds. In the case of recipients who are individual persons and not organizations, data is aggregated by county or state to protect personally identifiable information (PII). Data about the location where the award money is used, known as the &apos;Primary Place of Performance&apos;, is available in the download at the top right of this page.
                     </p>
                     <p>
                         In the second tab, you will see a spending breakdown by recipient name.
