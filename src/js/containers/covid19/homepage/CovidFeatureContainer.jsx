@@ -106,7 +106,7 @@ const CovidFeatureContainer = ({
                             alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                     </div>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
-                        <p>Use the new <strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want.</p> 
+                        <p>Use the new <strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want.</p>
                         <p>Additional columns were also added to the search results table to show <strong className="homepage-feature-description_weight_bold">COVID-19 obligations</strong> and <strong className="homepage-feature-description_weight_bold">outlays</strong>.</p>
                     </div>
 
