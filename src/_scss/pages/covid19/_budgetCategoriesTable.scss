@@ -69,6 +69,7 @@
                 margin-left: 0;
                 padding-left: rem(1);
                 border-bottom: rem(2) solid $color-cool-blue-light;
+                width: rem(140);
 
                 .usa-dt-picker__button-text {
                     font-size: $base-font-size;
@@ -84,7 +85,17 @@
 
             .usa-dt-picker__list {
                 z-index: 4;
-            }
+                // some styles need to go here to hide the scroll bar in ie
+                -ms-overflow-style: none;
+                .usa-dt-picker__list-item {
+                  border-top: none;
+                  .usa-dt-picker__item {
+                    font-size: 1.4rem;
+                    letter-spacing: 0;
+                    line-height: 1.8rem;
+                  }
+                }
+              }
         }
 
         .budget-categories-tooltip {

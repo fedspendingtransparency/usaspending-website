@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
+
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
     budgetColumns,
@@ -18,6 +19,8 @@ import {
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
+import { handleSort } from 'helpers/covid19Helper';
+
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
@@ -311,10 +314,12 @@ const BudgetCategoriesTableContainer = (props) => {
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
             <Picker
+                sortFn={handleSort}
                 icon=""
-                selectedOption={budgetDropdownFieldValues[spendingCategory]}
+                selectedOption={budgetDropdownFieldValues[spendingCategory].label}
                 options={Object.keys(budgetDropdownFieldValues).map((key) => ({
-                    name: budgetDropdownFieldValues[key],
+                    name: budgetDropdownFieldValues[key].label,
+                    sortOrder: budgetDropdownFieldValues[key].sortOrder,
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />

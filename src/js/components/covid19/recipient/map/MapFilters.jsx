@@ -9,6 +9,7 @@ import { uniqueId } from 'lodash';
 import { Picker } from 'data-transparency-ui';
 
 import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
+import { handleSort } from 'helpers/covid19Helper';
 
 import MapFiltersHeader from './MapFiltersHeader';
 
@@ -16,12 +17,6 @@ const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
     isOpen: PropTypes.bool
-};
-
-const handleSort = (a, b) => {
-    if (a.sortOrder < b.sortOrder) return -1;
-    if (b.sortOrder < a.sortOrder) return 1;
-    return 0;
 };
 
 const MapFilters = ({ filters, activeFilters, isOpen }) => (
