@@ -29,6 +29,7 @@
                 width: 100%;
                 background: #7C5E94;
                 padding: 0 rem(10);
+                z-index: 10; /* This z-index is so that the hero tooltip will appear IN FRONT OF the bg people walking image */
                 @include display(flex);
                 @include flex-direction(column);
                 @include justify-content(center);
@@ -110,14 +111,20 @@
                         }
                     }
                     @import "../../../components/tooltips/index";
-                    .tooltip-wrapper {
-                      .tooltip__hover-wrapper {
-                        svg {
-                          color: $color-covid-19-obligations;
-                        }
-                        &:hover {
+                      .tooltip-wrapper {
+                        display: none;
+
+                        @media (min-width: $medium-screen) {
+                          display: inline-block;
+                          z-index: 9;
+                        .tooltip__hover-wrapper {
                           svg {
-                            color: #3B005B;
+                            color: $color-covid-19-obligations;
+                          }
+                          &:hover {
+                            svg {
+                              color: #3B005B;
+                            }
                           }
                         }
                       }
