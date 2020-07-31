@@ -8,9 +8,9 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
-
+import { Table, Pagination, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import {
     budgetColumns,
     budgetDropdownFieldValues,
@@ -24,8 +24,6 @@ import { handleSort } from 'helpers/covid19Helper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { BudgetCategoriesInfo } from 'components/award/shared/InfoTooltipContent';
-
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -323,12 +321,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
-            <TooltipWrapper
-                className="budget-categories-section-tt"
-                icon="info"
-                tooltipPosition="right"
-                tabIndex={0}
-                tooltipComponent={BudgetCategoriesInfo} />
         </div>
     );
 
