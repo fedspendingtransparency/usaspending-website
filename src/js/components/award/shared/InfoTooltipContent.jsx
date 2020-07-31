@@ -1297,17 +1297,6 @@ export const CovidFlagTooltip = ({ codes }) => (
     </div>
 );
 
-export const BudgetCategoriesInfo = (
-    <div className="budget-categories-tooltip">
-        <div className="tooltip__title">
-            Coming Soon
-        </div>
-        <div className="tooltip__text">
-            <p>The tooltip content for this section is currently under review.</p>
-        </div>
-    </div>
-);
-
 export const recipientOverviewLoanInfo = (
     <div className="recipient-overview-tooltip">
         <div className="tooltip__title">
