@@ -110,6 +110,18 @@
                         }
                     }
                     @import "../../../components/tooltips/index";
+                    .tooltip-wrapper {
+                      .tooltip__hover-wrapper {
+                        svg {
+                          color: $color-covid-19-obligations
+                        }
+                        &:hover {
+                          svg {
+                            color: #3B005B;
+                          }
+                        }
+                      }
+                    }
                 }
                 p {
                     color: white;
