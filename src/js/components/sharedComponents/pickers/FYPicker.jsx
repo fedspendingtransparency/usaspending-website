@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { createRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
@@ -20,7 +20,6 @@ const propTypes = {
     sortFn: PropTypes.func
 };
 
-const pickerRef = createRef();
 const listOfFy = [];
 const currentFY = FiscalYearHelper.defaultFiscalYear();
 
@@ -40,6 +39,7 @@ const FYPicker = ({
     iconColor = "white",
     iconSize = "lg"
 }) => {
+    const pickerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
     const toggleMenu = (e) => {
         e.preventDefault();

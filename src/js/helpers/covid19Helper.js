@@ -92,3 +92,9 @@ export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab
     if (acc === null) return acc;
     return counts[tab];
 }, true);
+
+export const handleSort = (a, b) => {
+    if (a.sortOrder < b.sortOrder) return -1;
+    if (b.sortOrder < a.sortOrder) return 1;
+    return 0;
+};

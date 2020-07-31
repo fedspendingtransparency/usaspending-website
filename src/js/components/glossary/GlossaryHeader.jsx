@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React, { createRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -13,9 +13,9 @@ const propTypes = {
     closeGlossary: PropTypes.func
 };
 
-const closeButtonRef = createRef();
 
 const GlossaryHeader = (props) => {
+    const closeButtonRef = useRef(null);
     useEffect(() => {
         if (closeButtonRef.current) {
             closeButtonRef.current.focus();
