@@ -12,13 +12,6 @@ import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategori
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 
-export const TooltipComponent = () => (
-    <div className="covid19-tt">
-        <h4 className="tooltip__title">Coming Soon</h4>
-        <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
-    </div>
-);
-
 const totalSpendingText = (
     <div className="body__header-text">
       This section covers <strong>Total Spending</strong>
@@ -31,20 +24,11 @@ const awardSpendingText = (
     </div>
 );
 
-const totalSpendingTooltip = (
-    <div>Content is Coming soon</div>
-);
-
-const awardSpedingTooltip = (
-    <div>Content is Coming soon</div>
-);
-
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
         component: <OverviewContainer />,
         headerText: totalSpendingText,
-        headerTextTooltip: totalSpendingTooltip,
         showInMenu: true,
         showInMainSection: true,
         title: 'Overview'
@@ -53,7 +37,6 @@ export const componentByCovid19Section = () => ({
         icon: 'cubes',
         component: <BudgetCategories />,
         headerText: totalSpendingText,
-        headerTextTooltipooltip: totalSpendingTooltip,
         showInMenu: true,
         showInMainSection: true,
         title: 'Total Spending by Budget Category'
@@ -67,7 +50,6 @@ export const componentByCovid19Section = () => ({
         icon: 'building',
         component: <RecipientContainer />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by Recipient'
@@ -76,7 +58,6 @@ export const componentByCovid19Section = () => ({
         icon: 'sitemap',
         component: <AwardSpendingAgency />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by Agency'
@@ -85,7 +66,6 @@ export const componentByCovid19Section = () => ({
         icon: 'plus-circle',
         component: <SpendingByCFDA />,
         headerText: awardSpendingText,
-        headerTextTooltip: awardSpedingTooltip,
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by CFDA Program (Assistance Listing)'
