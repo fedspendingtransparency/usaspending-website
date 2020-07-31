@@ -307,6 +307,9 @@ export default () => {
                                         </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
                                     </p>
                                     <p>
+                                        Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
+                                    </p>
+                                    <p>
                                         The relevant codes for COVID-19 response funding and their associated legislation are as follows:
                                     </p>
                                     <ul>
@@ -397,13 +400,10 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Sum together these two elements:
+                                            Sum together:
                                             <ul>
                                                 <li>
-                                                    Budget Authority Appropriated Amount for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                                <li>
-                                                    Other Budgetary Resources Amount for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
                                                 </li>
                                             </ul>
                                         </li>
@@ -501,13 +501,10 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            In &quot;Account Balances&quot; file, sum together these two elements:
+                                            In &quot;Account Balances&quot; file, sum together:
                                             <ul>
                                                 <li>
-                                                    Budget Authority Appropriated Amount for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEF Code
-                                                </li>
-                                                <li>
-                                                    Other Budgetary Resources Amount for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEF Code
+                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
                                                 </li>
                                             </ul>
                                         </li>
