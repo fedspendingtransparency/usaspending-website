@@ -145,14 +145,14 @@
                     li.covid-highlights__highlight {
                         list-style-type: none;
                         @include display(flex);
+                        @include flex-direction(column);
                         @include flex-wrap(wrap);
-                        @include flex-wrap(column);
                         @include align-items(flex-end);
                         @include justify-content(flex-end);
                         opacity: 0.5;
                         margin: 0;
                         padding: rem(15) 0;
-                        width: 100%;
+                        width: 75%;
                         transition: opacity .5s ease-in;
                         &:hover {
                           opacity: 1;
