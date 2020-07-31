@@ -35,7 +35,8 @@
 
             .feature-covid-official-spending-data__image-mobile {
                 display: block;
-                max-width: 75%;
+                width: 80vw;
+                height: 60vw;
                 margin: rem(20) rem(0) rem(20) rem(0);
     
                 @include media ($medium-screen) {
@@ -44,13 +45,18 @@
             }
 
             .feature-covid-official-spending-data__image {
-                display: none;
-    
-                @include media ($medium-screen) {
+
+                display: none; /* 0 - 991px */
+
+                @include media($medium-screen) { /* 992 - 1899px */
                     display: block;
-                    width: 35vw;
-                    height: 25vw;
-                    max-width: none;
+                    width: 40vw;
+                    height: 31vw;
+                }
+
+                @include media(1900px) { /* 1900px and up */
+                    width: 28vw;
+                    height: 20vw;
                 }
             }
         }
@@ -63,7 +69,6 @@
 
         @include media ($medium-screen) {
             margin-top: rem(10);
-            // margin-left: rem(103);
             @include display(flex);
             @include justify-content(center);
 
@@ -99,7 +104,8 @@
             min-height: 1px;
             .feature-covid-item__image-mobile {
                 display: block;
-                width: 100%;
+                width: 80vw;
+                height: 42vw;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
                 background-color: #FFFFFF;
@@ -112,17 +118,26 @@
                 }
             }
             .feature-covid-item__image {
-                display: none;
+                display: none; /* 0 - 991px */
 
-                @include media($medium-screen) {
+                @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
 
-                width: 90%;
-                border: rem(1) solid #D6D7D9;
-                padding: rem(10);
-                margin-top: rem(0);
-                margin-bottom: 5%;
-                background-color: #FFFFFF;
+                    width: 40vw;
+                    height: 22vw;
+                    border: rem(1) solid #D6D7D9;
+                    padding: rem(10);
+                    margin-top: rem(0);
+                    margin-bottom: 5%;
+                    background-color: #FFFFFF;
+                }
+
+                @include media(1024px) { /* 1024 - 1899px */
+                    height: 21vw;
+                }
+
+                @include media(1900px) { /* 1900 and up */
+                    height: 15vw;
                 }
             }
         }
@@ -184,12 +199,11 @@
 
             .feature-covid-award-summary__image-mobile {
                 display: block;
+                width: 80vw;
+                height: 42vw;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
-                margin-bottom: 5%;
                 background-color: #FFFFFF;
-                width: 100%;
-                
                 margin-top: rem(20);
                 margin-left: auto;
                 margin-right: auto;
@@ -203,16 +217,28 @@
             }
 
             .feature-covid-award-summary__image {
-                display: none;
+                display: none; /* 0 - 991px */
 
-                @include media($medium-screen) {
+                @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
+
+                    width: 40vw;
+                    height: 22vw;
                     border: rem(1) solid #D6D7D9;
                     padding: rem(10);
+                    margin-top: rem(0);
                     margin-bottom: 5%;
                     background-color: #FFFFFF;
-                    width: 100%;
+
                     z-index: 1;
+                }
+
+                @include media(1024px) { /* 1024 - 1899px */
+                    height: 21vw;
+                }
+
+                @include media(1900px) { /* 1900 and up */
+                    height: 15vw;
                 }
             }
 
