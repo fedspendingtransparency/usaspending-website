@@ -217,9 +217,11 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             if (activeTab !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
-            let cfdaRequest = fetchSpendingByCfda(params);
+            let cfdaRequest;
             if (activeTab === 'loans') {
                 cfdaRequest = fetchCfdaLoans(params);
+            } else {
+                cfdaRequest = fetchSpendingByCfda(params);
             }
             setRequest(cfdaRequest);
             cfdaRequest.promise
