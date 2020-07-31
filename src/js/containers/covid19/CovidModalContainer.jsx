@@ -40,6 +40,12 @@ const CovidModalContainer = ({
         Router.history.push('/disaster/covid-19');
     };
 
+    const handleGoToDsm = (e) => {
+        e.preventDefault();
+        hideModal();
+        Router.history.push('/disaster/covid-19/data-sources');
+    };
+
     return (
         <Modal
             mounted={mounted}
@@ -78,7 +84,7 @@ const CovidModalContainer = ({
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
+                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a onClick={handleGoToDsm} href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
                             </li>
                         </ul>
                     </div>
