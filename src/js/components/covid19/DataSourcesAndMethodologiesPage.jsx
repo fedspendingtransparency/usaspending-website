@@ -11,8 +11,8 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
 
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
