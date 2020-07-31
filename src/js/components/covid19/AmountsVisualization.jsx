@@ -617,7 +617,7 @@ const AmountsVisualization = ({
     return (
         <div className="amounts-viz">
             <h3 className="body__narrative amounts-viz__title">
-                This is how much was <strong>spent</strong> in response to COVID-19 so far:
+                This is how much was <strong>spent</strong> so far in response to COVID-19
             </h3>
             {
                 loading &&

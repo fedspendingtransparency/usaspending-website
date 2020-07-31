@@ -64,13 +64,13 @@ const CovidModalContainer = ({
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations
+                                <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations.
                             </li>
                             <li className="covid-modal-li">
-                                <span className="covid-modal-bold">Outlay data</span> for COVID-19 showing what agencies have paid out, in addition to the existing obligation data showing what agencies have promised to pay
+                                <span className="covid-modal-bold">Outlay data</span> for COVID-19 showing what agencies have paid out, in addition to the existing obligation data showing what agencies have promised to pay.
                             </li>
                             <li className="covid-modal-li">
-                                <span className="covid-modal-bold">Breakdown of spending data</span> by federal agency, award recipient, and a variety of budget categories
+                                <span className="covid-modal-bold">Breakdown of spending data</span> by federal agency, award recipient, and a variety of budget categories.
                             </li>
                         </ul>
                     </div>
@@ -78,7 +78,7 @@ const CovidModalContainer = ({
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the page with one click.
+                                Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
                             </li>
                         </ul>
                     </div>
@@ -86,7 +86,7 @@ const CovidModalContainer = ({
                     <div>
                         <ul>
                             <li className="covid-modal-li">
-                                Use the new <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want. Additional columns were also added to the search results table to show <span className="covid-modal-bold">COVID-19 spending DEFCs, Obligations,</span> and <span className="covid-modal-bold">Outlays.</span>
+                                Use the new <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want. Additional columns were also added to the search results table to show <span className="covid-modal-bold">COVID-19 obligations</span> and <span className="covid-modal-bold">outlays.</span>
                             </li>
                         </ul>
                     </div>
