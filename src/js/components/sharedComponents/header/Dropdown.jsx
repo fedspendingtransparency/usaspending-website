@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import kGlobalConstants from 'GlobalConstants';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import DropdownItem from './DropdownItem';
@@ -76,6 +77,7 @@ export default class Dropdown extends React.Component {
                     <div className="nav-dropdown__parent-label">
                         {
                             this.props.label === "Profiles" &&
+                            kGlobalConstants.CARES_ACT_RELEASED &&
                             <div className="new-badge-outer">
                                 <div className="new-badge-middle">
                                     <div className="new-badge-inner" />
