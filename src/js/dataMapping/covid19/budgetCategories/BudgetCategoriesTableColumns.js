@@ -25,9 +25,18 @@ export const budgetColumns = {
 };
 
 export const budgetDropdownFieldValues = {
-    total_spending: 'Total Spending',
-    award_spending: 'Award Spending',
-    loan_spending: 'Loan Spending'
+    total_spending: {
+        label: 'Total Spending',
+        sortOrder: 1
+    },
+    award_spending: {
+        label: 'Award Spending',
+        sortOrder: 2
+    },
+    loan_spending: {
+        label: 'Loan Spending',
+        sortOrder: 3
+    }
 };
 
 export const apiSpendingTypes = {
