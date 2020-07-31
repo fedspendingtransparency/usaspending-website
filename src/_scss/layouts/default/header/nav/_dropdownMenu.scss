@@ -21,7 +21,7 @@
         font-weight: $font-semibold;
         font-size: rem(15);
         line-height: rem(19);
-        display: contents;
+        @include display(flex);
         @import "components/_newBadge.scss";
     }
     .nav-dropdown__parent-icon {
