@@ -15,12 +15,7 @@ const globalConstants = {
     FISCAL_YEAR: 2017,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
     QAT: (process.env.ENV === 'qat'),
-    CARES_ACT_RELEASED: (
-        process.env.ENV === 'dev' ||
-        process.env.ENV === 'sandbox' ||
-        process.env.ENV === 'qat' ||
-        process.env.ENV === 'staging'
-    )
+    CARES_ACT_RELEASED: true
 };
 
 module.exports = globalConstants;
