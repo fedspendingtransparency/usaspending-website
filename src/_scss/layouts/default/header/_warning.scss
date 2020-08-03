@@ -7,9 +7,18 @@
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
+        @media(min-width: $tablet-screen) {
+            margin: rem(10) rem(25);
+        }
+        @media(min-width: $large-screen) {
+            margin: rem(10) rem(40);
+        }
+        @media(min-width: $x-large-screen) {
+            margin: rem(10) auto;
+            max-width: rem(1600);
+        }
         .info-banner__info-circle {
             @include flex(0 0 auto);
-            padding: rem(5) rem(5) rem(5) rem(15);
             color: $color-primary-alt-light;
         }
         .info-banner__hyphen {
@@ -18,7 +27,7 @@
         .info-banner__alert-text {
             @include flex(1 1 auto);
             @include align-self(center);
-            padding-top: rem(5);
+            margin-left: 1rem;
             padding-bottom: rem(8);
             font-size: $small-font-size;
             line-height: rem(22);
