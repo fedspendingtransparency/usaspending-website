@@ -296,6 +296,7 @@
         .info-banner__content {
             @include flex-wrap(wrap);
             margin: rem(10);
+            padding-right: rem(30);
             width: 100%;
             @media(min-width: $tablet-screen) {
                 margin: rem(10) rem(25);
