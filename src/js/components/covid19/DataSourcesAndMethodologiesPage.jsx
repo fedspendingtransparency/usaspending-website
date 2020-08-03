@@ -47,11 +47,11 @@ const sections = [
     {
         label: 'Linked and Unlinked Award Data',
         section: 'linked-and-unlinked'
-    },
-    {
-        label: 'Award Spending Sections',
-        section: 'award-spending'
     }
+    // {
+    //     label: 'Award Spending Sections',
+    //     section: 'award-spending'
+    // }
 ];
 
 require('pages/data-sources/index.scss');
@@ -556,7 +556,7 @@ export default () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-award-spending">
+                            {/* <div className="about-section-wrapper" id="data-sources-award-spending">
                                 <h2 className="about-section-title">
                                     Award Spending Sections
                                 </h2>
@@ -657,7 +657,7 @@ export default () => {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
