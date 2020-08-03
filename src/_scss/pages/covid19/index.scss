@@ -285,20 +285,21 @@
     @import '../../layouts/default/header/warning';
     .info-banner {
         border-top: none;
-        background: linear-gradient(225deg,rgba(220,201,229,.1),rgba(182,153,198,.1) 100%,rgba(182,153,198,.1) 0);
+        background: $color-gold-lightest;
         .info-top {
             width: 100%;
             opacity: 0.2;
             transform: scaleY(-1);
             border-radius: 0 0 0.5rem 0.5rem;
-            background-color: #763E94;
-            height: rem(16)
+            background-color: $color-gold-light;
+            height: rem(6);
         }
         .info-banner__content {
             @include flex-wrap(wrap);
+            margin: auto rem(25);
+            margin-top: rem(14);
             width: 100%;
             svg:not(.fa-times) {
-                opacity: 0.2;
                 @include align-self(center);
             }
             svg.fa-times {
@@ -308,16 +309,19 @@
             }
             h2 {
                 margin: 0;
-                font-size: $h5-font-size;
-                font-weight: $font-bold;
+                font-size: $h6-font-size;
+                font-weight: $font-semibold;
                 margin-left: rem(10);
                 margin-right: auto;
+                line-height: rem(21);
             }
             p {
                 width: 100%;
+                font-size: $small-font-size;
+                margin: rem(14) 0 rem(14) rem(35);
                 a {
                     font-weight: $font-semibold;
-                    color: blue;
+                    color: $color-link;
                 }
             }
         }
