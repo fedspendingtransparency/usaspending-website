@@ -187,10 +187,10 @@ const Covid19Container = () => {
                         <div className="info-banner__content">
                             <div className="info-banner__content--title">
                                 <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
-                                <h2>This page is currently under development and the data presented is not yet final</h2>
+                                <h2>This page is under development and contains preliminary data</h2>
                             </div>
                             <p>
-                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
+                                There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
                             </p>
                         </div>
                     </div>
