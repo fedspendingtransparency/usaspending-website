@@ -288,7 +288,6 @@
         background: $color-gold-lightest;
         .info-top {
             width: 100%;
-            opacity: 0.2;
             transform: scaleY(-1);
             border-radius: 0 0 0.5rem 0.5rem;
             background-color: $color-gold-light;
@@ -310,6 +309,7 @@
             }
             .info-banner__content--title {
                 @include display(flex);
+                margin-top: rem(10);
                 svg {
                     @include align-self(center);
                 }
