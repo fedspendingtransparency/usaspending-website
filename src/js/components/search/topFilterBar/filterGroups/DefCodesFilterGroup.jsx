@@ -39,7 +39,7 @@ export default class DefCodesFilterGroup extends React.Component {
         // check to see if a DEF code is provided
         return this.props.filter.values.map((value) => ({
             value: `${value.value}`,
-            title: `${value.value} - ${value.def_description}`,
+            title: `${value.def_description}`,
             removeFilter: this.removeFilter
         }));
     }

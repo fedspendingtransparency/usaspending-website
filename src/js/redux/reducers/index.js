@@ -17,7 +17,7 @@ import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import recipientReducer from './recipient/recipientReducer';
 import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
-import redirectModalReducer from './redirectModal/redirectModalReducer';
+import modalReducer from './modal/modalReducer';
 import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
 import naicsReducer from './search/naicsReducer';
@@ -40,7 +40,7 @@ const appReducer = combineReducers({
     recipient: recipientReducer,
     explorer: explorerReducer,
     bulkDownload: bulkDownloadReducer,
-    redirectModal: redirectModalReducer,
+    modal: modalReducer,
     stateProfile: stateReducer,
     searchSubAwardTable: searchSubAwardTableReducer,
     // tas/naics/psc filters are outside of redux.filter keyspace b/c

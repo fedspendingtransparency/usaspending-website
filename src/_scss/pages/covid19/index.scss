@@ -19,24 +19,10 @@
         width: 100%;
     }
 
-    @import "../explorer/detail/sidebar/fyPicker";
     @import './stickyHeader';
-
-    .usda__flex-row {
-        @include display(flex);
-        @include flex-wrap(wrap);
-        width: 100%;
-        .usda__flex-col {
-            @include flex(1 1 auto);
-            .body__content {
-                width: 100%; // Fixes an IE Flexbox bug
-            }
-        }
-    }
 
     .main-content {
         @include display(flex);
-        width: 100%;
         @include flex-grow(1);
         @include flex-wrap(wrap);
         max-width: rem(1600);
@@ -47,12 +33,10 @@
             }
         }
         @import './sidebar';
+        @import './sidebarFooter';
         .body {
-            @import "components/_footerLinkToAdvancedSearch";
-            @import './awardSpendingAgency/awardSpendingAgency';
-            @import './recipient/recipientContainer';
-
             @include display(flex);
+            @include flex(1 1 auto);
             width: 100%;
             @include flex-direction(column);
             margin: rem(20) 0 rem(20) 0;
@@ -64,33 +48,33 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
-
-            .body__content {
-                h3.body__narrative {
-                    text-align: center;
-                    font-weight: $font-semibold;
-                    font-size: 3rem;
-                }
-
-                p.body__narrative-description {
-                    font-size: $small-font-size;
-                    text-align: center;
-                    width: 75%;
-                    margin: auto;
-                    padding-bottom: 5rem;
-                }
-                @import "./tableMessages";
-                @import './budgetCategoriesTable';
-            }
-
-            @import './spendingOverTime/awardSpendingOverTime';
-            @import './assistanceListing/assistanceListing';
-
             .body__section {
-                @import "../agency/v2/tabs";
+              .coming-soon-section {
+                  width: 100%;
+                  @include display(flex);
+                  @include flex-direction(column);
+                  @extend %coming-soon-idv;
+                  padding-bottom: 0;
+                  height: 730px;
+              }
+                @import '../agency/v2/tabs';
+                @import './searchBar';
+                @import 'components/moreOptionsTabs';
+                @import 'components/glossaryLink';
+                @import 'components/externalLink';
+                // Import specific styles for each section
+                @import './overviewData';
+                @import './visualizations/amounts';
+                @import './budgetCategoriesTable';
+                @import './recipient/recipientContainer';
+                @import './awardSpendingAgency/awardSpendingAgency';
+                @import './assistanceListing/assistanceListing';
+                @import './linkToAdvancedSearch';
+                @import './dataSourcesAndMethodology';
+
                 @include display(flex);
                 @include flex-wrap(wrap);
-                margin-bottom: $global-mrg;
+                margin-bottom: 10rem;
                 padding: 0 2.5%;
 
                 .body__header {
@@ -104,7 +88,7 @@
                         @include display(flex);
                         padding-bottom: 0.5rem;
                         @media(min-width: $tablet-screen) {
-                        padding-bottom: 0;
+                            padding-bottom: 0;
                         }
                     }
                     .body__header-right {
@@ -132,16 +116,37 @@
                     margin-bottom: rem(35);
                     margin-top: 0;
                 }
-                .coming-soon-section {
-                    width: 100%;
-                    @include display(flex);
-                    @include flex-direction(column);
-                    @extend %coming-soon-idv;
-                    padding-bottom: 0;
-                    height: 73rem;
-                    h3 {
-                        font-size: $h4-font-size;
+                .body__content {
+                    width: 100%; // Fixes an IE Flexbox bug
+                    h3.body__narrative {
+                        text-align: center;
+                        font-weight: $font-semibold;
+                        font-size: 3rem;
+                        @include media($medium-screen) {
+                            padding-left: 15%;
+                            padding-right: 15%;
+                        }
                     }
+
+                    .body__narrative-description {
+                        font-size: $small-font-size;
+                        text-align: center;
+                        @include media($medium-screen) {
+                            max-width: 70%;
+                        }
+                        margin: auto;
+                        padding-bottom: 5rem;
+                        .footnotes {
+                            font-size: $smallest-font-size;
+                            .usda-external-link {
+                                font-size: $smallest-font-size;
+                            }
+                        }
+                        .glossary-term {
+                            font-weight: $font-semibold;
+                        }
+                    }
+                    @import './tables';
                 }
                 .information-body {
                     background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);
@@ -154,8 +159,13 @@
                     background-color: #763E94;
                 }
                 .color-purple {
-                    color: #6E338E;
+                    color: $color-disaster-covid-19;
+                    font-weight: $font-bold;
                 }
+                .read-more-button {
+                    @include button-link;
+                }
+
                 .heading__container {
                     border-radius: 0.5rem 0.5rem 0 0;
                     @include display(flex);
@@ -174,8 +184,8 @@
                         padding-top: 2rem;
                         padding-bottom: 1rem;
                         padding: 1rem;
-                        @media(min-width: $tablet-screen) {
-                        padding: 2rem 12rem 2rem 12rem;
+                        @media(min-width: $medium-screen) {
+                            padding: 2rem 15% 2rem;
                         }
                         width: 100%;
                     }
@@ -185,8 +195,17 @@
                         line-height: 2.2rem;
                         text-align: center;
                         padding: 1rem;
-                        @media(min-width: $tablet-screen) {
-                        padding: 0 12rem 2rem 12rem;
+                        @media(min-width: $medium-screen) {
+                            padding: 0 15% 2rem;
+                        }
+                        .footnotes {
+                            font-size: $smallest-font-size;
+                            .usda-external-link {
+                                font-size: $smallest-font-size;
+                            }
+                        }
+                        .glossary-term {
+                            font-weight: $font-semibold;
                         }
                     }
                 }
@@ -213,16 +232,19 @@
                             width: 100%;
                             border-radius: 0;
                         }
+                        .glossary-term {
+                            font-weight: $font-semibold;
+                        }
                         .award-question__title {
+                            margin: 0;
                             font-size: 3.6rem;
                             font-weight: $font-semibold;
                             letter-spacing: 0;
                             line-height: 4.5rem;
                             text-align: center;
-                            padding-top: 6.2rem;
-                            padding-bottom: 3.1rem;
-                            @media(min-width: $tablet-screen) {
-                                padding: 6.2rem 12rem 3.1rem 12rem;
+                            padding: 6.2rem 2.5% 3.1rem;
+                            @media(min-width: $medium-screen) {
+                                padding: 6.2rem 15% 3.1rem;
                             }
                             width: 100%;
                         }
@@ -231,8 +253,9 @@
                             letter-spacing: 0;
                             line-height: 2.2rem;
                             text-align: center;
-                            @media(min-width: $tablet-screen) {
-                                padding: 0 12rem 6.1rem 12rem;
+                            padding: 0 2.5%;
+                            @media(min-width: $medium-screen) {
+                                padding: 0 15% 6.1rem;
                             }
                             .award-question__sub-section_paragraph:first-of-type {
                                 margin-top: 0;
@@ -240,7 +263,6 @@
                         }
                     }
                 }
-                @import './overviewData';
             }
             .body__section:first-of-type {
               padding: 0;
@@ -255,6 +277,65 @@
                 padding: 0;
             }
         }
+        @import "./covidTooltip";
     }
-    @import "./covidTooltip";
+    .footer-reference {
+      width: 100%;
+    }
+    @import '../../layouts/default/header/warning';
+    .info-banner.data-disclaimer {
+        border-top: none;
+        background: $color-gold-lightest;
+        .info-top {
+            width: 100%;
+            transform: scaleY(-1);
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: $color-gold-light;
+            height: rem(6);
+        }
+        .info-banner__content {
+            @include flex-wrap(wrap);
+            margin: rem(10);
+            padding-right: rem(30);
+            width: 100%;
+            @media(min-width: $tablet-screen) {
+                margin: rem(10) rem(25);
+            }
+            @media(min-width: $large-screen) {
+                margin: rem(10) rem(40);
+            }
+            @media(min-width: $x-large-screen) {
+                margin: auto;
+                max-width: rem(1600);
+            }
+            .info-banner__content--title {
+                @include display(flex);
+                margin-top: rem(10);
+                svg {
+                    @include align-self(center);
+                }
+                h2 {
+                    width: 95%;
+                    @media(min-width: $tablet-screen) {
+                        width: 100%;
+                    }
+                    margin: 0;
+                    font-size: $h6-font-size;
+                    font-weight: $font-semibold;
+                    margin-left: rem(10);
+                    line-height: rem(21);
+                }
+            }
+            p {
+                width: 100%;
+                font-size: $small-font-size;
+                margin: rem(8) 0 rem(14) rem(35);
+                button {
+                    @include button-unstyled;
+                    font-weight: $font-semibold;
+                    color: $color-link;
+                }
+            }
+        }
+    }
 }

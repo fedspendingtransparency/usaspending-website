@@ -1,0 +1,39 @@
+.award-filter__buttons {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    padding: 3rem 0 2.2rem 3rem;
+    .award-filter__button {
+      padding: 0 1.2rem;
+      button {
+        padding: 0 0 0.3rem;
+        margin: 0 0 0.8rem;
+        background-color: transparent;
+        color: $color-base;
+        font-size: 1.6rem;
+        font-weight: $font-normal;
+        letter-spacing: 0;
+        line-height: 2rem;
+        white-space: nowrap;
+        @include display(flex);
+        .count-badge {
+          margin-left: 0.5rem;
+          padding: 0 0.5rem;
+          background-color: $color-gray-lightest;
+          font-size: $smallest-font-size;
+        }
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+      }
+      &.award-filter__button_active {
+        button {
+          font-weight: $font-semibold;
+          border-bottom: 0.3rem solid $color-primary;
+          .count-badge {
+            background-color: $color-gold;
+          }
+        }
+      }
+    }
+  }

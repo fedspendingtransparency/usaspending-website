@@ -19,13 +19,14 @@ const propTypes = {
     label: PropTypes.string.isRequired,
     amount: PropTypes.number,
     dollarAmount: PropTypes.bool,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    isLoading: PropTypes.bool
 };
 
 const OverviewData = (props) => {
     // Generate formatted amount string
     let formattedAmount = props.dollarAmount ? formatMoney(props.amount) : formatNumber(props.amount);
-    if (props.amount > unitValues.MILLION) {
+    if (Math.abs(props.amount) > unitValues.MILLION) {
         const amount = calculateUnitForSingleValue(props.amount);
         formattedAmount = `${props.dollarAmount ? formatMoneyWithPrecision(props.amount / amount.unit, 1) : formatNumberWithPrecision(props.amount / amount.unit, 1)} ${capitalize(amount.longLabel)}`;
     }
@@ -38,8 +39,9 @@ const OverviewData = (props) => {
             <div className="overview-data__subtitle">
                 {props.subtitle}
             </div>
-            <div className="overview-data__amount">
-                {(props.amount || props.amount === 0) ? formattedAmount : '--'}
+            <div className={`overview-data__amount${props.isLoading ? ' loading' : ''}`}>
+                {props.isLoading && <div className="dot-pulse" />}
+                {!props.isLoading && formattedAmount}
             </div>
         </div>
     );

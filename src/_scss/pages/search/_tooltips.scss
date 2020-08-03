@@ -42,6 +42,12 @@ $letter-color: #323A45;
                 font-weight: 400;
                 width: 100%;
             }
+            p {
+                margin: rem(5);
+                &:last-of-type {
+                    margin-bottom: rem(10);
+                }
+            }
             .advanced-search-tt__list {
                 @include align-self(flex-start);
                 padding-left: rem(40);

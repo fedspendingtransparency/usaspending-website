@@ -12,10 +12,10 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from
     'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 import DownloadButton from 'components/search/header/DownloadButton';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';

@@ -52,7 +52,6 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         const { awardAmounts } = this.props;
         const showCaresActViz = (
-            awardAmounts._showFileC &&
             GlobalConstants.CARES_ACT_RELEASED
         );
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
@@ -87,7 +86,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                     icon="table" />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
-                    showFileC={showCaresActViz}
+                    showFileC={(
+                        showCaresActViz &&
+                        (
+                            awardAmounts._fileCObligated !== 0 ||
+                            awardAmounts._fileCOutlay !== 0
+                        )
+                    )}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario} />
             </div>

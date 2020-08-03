@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
+import { uniq, cloneDeep } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -13,10 +13,10 @@ import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipien
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
+import MapFiltersToggle from './MapFiltersToggle';
 
 const propTypes = {
     data: PropTypes.object,
-    scope: PropTypes.string,
     renderHash: PropTypes.string,
     showHover: PropTypes.bool,
     selectedItem: PropTypes.object,
@@ -28,7 +28,9 @@ const propTypes = {
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     filters: PropTypes.object,
-    activeFilters: PropTypes.object
+    activeFilters: PropTypes.object,
+    awardTypeFilters: PropTypes.array,
+    scope: PropTypes.string
 };
 
 const defaultProps = {
@@ -36,7 +38,6 @@ const defaultProps = {
         locations: [],
         values: []
     },
-    scope: 'state',
     showLayerToggle: false,
     children: null
 };
@@ -51,7 +52,8 @@ export default class MapWrapper extends React.Component {
                 segments: [],
                 units: {}
             },
-            mapReady: false
+            mapReady: false,
+            isFiltersOpen: true
         };
 
         this.mapRef = null;
@@ -72,7 +74,7 @@ export default class MapWrapper extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.renderHash !== this.props.renderHash) {
             if (prevProps.scope !== this.props.scope) {
-                // the scope changed, we need to reload the layers
+                // the activeFilter territory changed, we need to reload the layers
                 this.queueMapOperation('displayData', this.displayData);
                 this.prepareMap();
             }
@@ -222,20 +224,19 @@ export default class MapWrapper extends React.Component {
             // something went wrong, the map isn't ready yet
             reject();
         }
-
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[this.props.activeFilters.territory];
         if (!source) {
             reject();
         }
 
         // hide all the other layers
         Object.keys(mapboxSources).forEach((type) => {
-            if (type !== this.props.scope) {
+            if (type !== this.props.activeFilters.territory) {
                 this.hideSource(type);
             }
         });
 
-        this.showSource(this.props.scope);
+        this.showSource(this.props.activeFilters.territory);
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
@@ -273,7 +274,7 @@ export default class MapWrapper extends React.Component {
     });
 
     measureMap = (forced = false) => {
-        // determine which entities (state, counties, etc based on current scope) are in view
+        // determine which entities (state, counties, etc based on current activeFilter territory) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
         // wait for the map to load before continuing
@@ -285,10 +286,10 @@ export default class MapWrapper extends React.Component {
         }
 
         const entities = this.mapRef.map.queryRenderedFeatures({
-            layers: [`base_${this.props.scope}`]
+            layers: [`base_${this.props.activeFilters.territory}`]
         });
 
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[this.props.activeFilters.territory];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
@@ -326,7 +327,7 @@ export default class MapWrapper extends React.Component {
     }
 
     mouseOverLayer = (e) => {
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[this.props.activeFilters.territory];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
         this.props.showTooltip(entityId, {
@@ -359,12 +360,11 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
-        const colors = visualizationColors;
         // prepare a set of blank (false) filters
-        const filterValues = colors.map(() => (
+        const filterValues = visualizationColors.map(() => (
             []
         ));
         this.props.data.locations.forEach((location, index) => {
@@ -379,7 +379,7 @@ export default class MapWrapper extends React.Component {
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${this.props.scope}_group_${index}`;
+            const layerName = `highlight_${this.props.activeFilters.territory}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
@@ -394,6 +394,8 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
@@ -405,12 +407,18 @@ export default class MapWrapper extends React.Component {
     }
 
     filters = () => {
-        const { filters, activeFilters } = this.props;
+        const { activeFilters } = this.props;
+        const filters = cloneDeep(this.props.filters);
         if (!filters || !activeFilters) return null;
+        const awardTypeFilters = this.props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters.includes(activeFilters.awardType)) {
+            filters.spendingType.options.pop();
+        }
         return (
             <MapFilters
-                filters={this.props.filters}
-                activeFilters={this.props.activeFilters} />
+                filters={filters}
+                activeFilters={this.props.activeFilters}
+                isOpen={this.state.isFiltersOpen} />
         );
     }
 
@@ -437,6 +445,7 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
+                <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}

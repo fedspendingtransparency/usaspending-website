@@ -13,10 +13,11 @@ import { getIndexesToDelete, adaptTabs, selectOptionDecision } from '../../../he
 
 const propTypes = {
     tabs: PropTypes.array.isRequired,
-    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    tabCounts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     classes: PropTypes.string,
     pickerLabel: PropTypes.string,
-    changeActiveTab: PropTypes.func
+    changeActiveTab: PropTypes.func,
+    hideCounts: PropTypes.bool
 };
 
 const MoreOptionsTabs = (props) => {
@@ -53,14 +54,14 @@ const MoreOptionsTabs = (props) => {
             onChange={switchTab}
             onKeyDown={switchTab}
             title={`Show ${name}`}
-            aria-label={`Show ${name} - ${props.tabCounts[value]} ${props.tabCounts[value] === 1 ? 'result' : 'results'}`}
+            aria-label={`Show ${name} - ${props.hideCounts ? '' : `${props.tabCounts[value]} ${props.tabCounts[value] === 1 ? 'result' : 'results'}`}`}
             tabIndex={0}>
             <div className="tab-content">
                 <div className="tab-label">
                     {name}
                 </div>
                 <div className={`count-badge ${value === activeTab ? 'active' : ''}`}>
-                    {formatNumber(props.tabCounts[value])}
+                    {props.hideCounts ? '' : formatNumber(props.tabCounts[value])}
                 </div>
             </div>
         </div>
@@ -68,21 +69,56 @@ const MoreOptionsTabs = (props) => {
 
     const previewCountPropTypes = {
         name: PropTypes.string,
-        value: PropTypes.string
+        value: PropTypes.string,
+        index: PropTypes.number
     };
 
-    const PreviewCount = ({ name, value }) => (
-        <div>
-            <div className="more-options__tabs_preview-label">{name}</div>
-            <div className="more-options__tabs_preview-count">{formatNumber(props.tabCounts[value]) ? formatNumber(props.tabCounts[value]) : '0'}</div>
-        </div>
-    );
+    const addDisabled = (preview, value) => {
+        if (props.hideCounts) {
+            return;
+        }
+
+        if (preview && preview.current) {
+            const parent = preview.current.parentNode;
+            const grandParent = parent.parentNode;
+            const parentClasses = parent.className.split(" ");
+            const grandParentClasses = grandParent.className.split(" ");
+            const disabledParentIndex = parentClasses.indexOf('disabled');
+            const disabledGrandParentIndex = grandParentClasses.indexOf('disabled');
+
+            if (!props.hideCounts && (!props.tabCounts[value] || props.tabCounts[value] === 0) && disabledParentIndex === -1 && disabledGrandParentIndex === -1) {
+                parent.disabled = true;
+                grandParent.disabled = true;
+                parent.className += ' disabled';
+                grandParent.className += ' disabled';
+            } else if (!props.hideCounts && props.tabCounts[value] && props.tabCounts[value] > 0) {
+                parent.className = parentClasses.filter((className) => className !== 'disabled').join("");
+                grandParent.className = grandParentClasses.filter((className) => className !== 'disabled').join("");
+            }
+        }
+    };
+
+    const PreviewCount = ({ value, name }) => {
+        const preview = useRef(null);
+
+        useEffect(() => {
+            addDisabled(preview, value);
+        }, [preview]);
+
+        return (
+            <div ref={preview} className="more-options__tabs_preview">
+                <div className="more-options__tabs_preview-label">{name}</div>
+                {props.hideCounts ? '' : <div className="more-options__tabs_preview-count">{props.tabCounts[value] ? formatNumber(props.tabCounts[value]) : '0'}</div>}
+            </div>);
+    };
     PreviewCount.propTypes = previewCountPropTypes;
 
     useEffect(() => {
         const handleResize = () => {
             // reset everything
-            setTabsContainerWidth(tabs.current.offsetWidth);
+            if (tabs && tabs.current && tabs.current.offsetWidth) {
+                setTabsContainerWidth(tabs.current.offsetWidth);
+            }
             setTabTypes(props.tabs);
             setIndexesToDelete([]);
         };
@@ -92,7 +128,7 @@ const MoreOptionsTabs = (props) => {
     }, []);
 
     useEffect(() => {
-        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 200, setShowMoreOptions, setPickerOptions));
+        setIndexesToDelete(getIndexesToDelete(tabs.current.children[0].children, props.tabs, tabs.current.offsetWidth, 190, setShowMoreOptions, setPickerOptions));
         // set class for when js is not available
         setTabClass('more-options__tabs_primary_js');
     }, [tabTypes, tabsContainerWidth]);
@@ -101,18 +137,20 @@ const MoreOptionsTabs = (props) => {
         adaptTabs(indexesToDelete, tabTypes, props.tabs, setShowMoreOptions, setTabTypes, setPickerOptions);
     }, [indexesToDelete]);
 
+
     return (
         <div className={`more-options__tabs more-options__tabs_primary ${tabClass} ${props.classes}`} ref={tabs}>
             <ResultsTableTabs
                 types={tabTypes}
                 active={activeTab}
                 switchTab={switchTab}
-                counts={props.tabCounts} />
+                counts={props.tabCounts}
+                hideCounts={props.hideCounts} />
 
             {showMoreOptions ?
                 <Picker
                     id="more-options__tabs-picker"
-                    className={`table-type-toggle ${filteredSelectedOption && filteredSelectedOption.length > 0 ? 'active' : ''}`}
+                    className={`table-type-toggle${filteredSelectedOption && filteredSelectedOption.length > 0 ? ' active' : ''}`}
                     icon=""
                     selectedOption={selectOptionDecision(filteredSelectedPickerOption, filteredSelectedOption, props.tabs, pickerOptions, activeTab, selectOption, props.pickerLabel)}
                     options={pickerOptions.length > 0 && pickerOptions.map((option) => ({
@@ -122,7 +160,7 @@ const MoreOptionsTabs = (props) => {
                         onClick: () => { switchTab(option.value); }
                     }))} />
                 : null}
-            {pickerOptions.length > 0 && pickerOptions.length === props.tabs.length ? '' : <div className="tab-padding-right" />}
+            {pickerOptions.length > 0 ? <div className="picker-tab-padding-right" /> : <div className="tabs-padding-right" />}
         </div>
     );
 };

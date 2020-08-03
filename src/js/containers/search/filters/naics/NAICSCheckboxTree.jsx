@@ -63,6 +63,7 @@ const propTypes = {
     uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
     countsFromHash: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
+        subLabel: PropTypes.string,
         count: PropTypes.string,
         value: PropTypes.string
     })),

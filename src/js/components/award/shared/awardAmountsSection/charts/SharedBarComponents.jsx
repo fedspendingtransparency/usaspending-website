@@ -37,7 +37,7 @@ const BarLabelAndLine = ({
     labelClassName = 'award-amounts-viz__label'
 }) => (
     <div className={`${labelClassName} ${spendingCategory}`} style={labelStyles}>
-        <div className={`${lineClassName} ${spendingCategory}`} style={lineStyles} />
+        <div className={`${lineClassName} ${spendingCategory}`} style={{ ...lineStyles, minWidth: '4px' }} />
         {children}
     </div>
 );

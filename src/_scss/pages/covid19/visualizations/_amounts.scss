@@ -1,0 +1,49 @@
+.amounts-viz {
+  width: 100%;
+  .line__obligation {
+    shape-rendering: auto;
+    stroke: #558EC6;
+    pointer-events: visible;
+    stroke-width: 3;
+  }
+  .line__opacity {
+    stroke: #558EC6;
+    stroke-width: 3;
+    opacity: 0.25;
+    shape-rendering: auto;
+    pointer-events: visible;
+  }
+  .amounts-text__question {
+    font-size: 1.8rem;
+    font-style: italic;
+    opacity: 0.4;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 2.3rem;
+    &.white {
+      fill: white;
+    }
+  }
+  .amounts-text__value {
+    font-size: 2.1rem;
+    font-weight: $font-semibold;
+    opacity: 0.7;
+    letter-spacing: 0;
+    line-height: 27px;
+    &.bold {
+      font-weight: $font-bold;
+    }
+    &.white {
+      fill: white;
+    }
+  }
+  .amounts-text__label {
+    font-size: 1.6rem;
+    opacity: 0.6;
+    letter-spacing: 0;
+    line-height: 2.7rem;
+    &.white {
+      fill: white;
+    }
+  }
+}

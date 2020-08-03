@@ -5,11 +5,19 @@
 
 import { Set } from 'immutable';
 
-import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { defaultQuarters, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
 
 import * as AwardFilterFunctions from '../search/filters/awardFilterFunctions';
 
 const initialQuarters = defaultQuarters();
+
+const getInitialPeriodByFy = (fy) => {
+    const latestQuarter = Math.max(...initialQuarters.quarters);
+    if (fy >= 2020) {
+        return lastPeriodByQuarter[`${latestQuarter}`];
+    }
+    return `${latestQuarter}`;
+};
 
 export const initialState = {
     dataType: '',
@@ -65,7 +73,10 @@ export const initialState = {
         },
         submissionTypes: ['accountBalances'],
         fy: `${initialQuarters.year}`,
-        quarter: `${Math.max(...initialQuarters.quarters)}`,
+        quarter: initialQuarters.year >= 2020
+            ? ''
+            : `${Math.max(...initialQuarters.quarters)}`,
+        period: getInitialPeriodByFy(initialQuarters.year),
         fileFormat: 'csv'
     },
     download: {

@@ -1,0 +1,270 @@
+.covid-hero {
+    height: rem(400);
+    @include display(flex);
+    @include justify-content(center);
+    @media(min-width: $tablet-screen) {
+      height: rem(446);
+    }
+    @media(min-width: 1750px) {
+      height: rem(400);
+    }
+    .covid-hero__wrapper {
+        @include display(flex);
+        background: #C5B3E6;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        .covid-hero__content {
+            h1,
+            p,
+            ul {
+              max-width: rem(800);
+              margin-left: auto;
+            }
+            overflow: hidden;
+            @media(min-width: $medium-screen) {
+              padding: 0 2rem;
+            }
+            &:first-of-type {
+                width: 100%;
+                background: #7C5E94;
+                padding: 0 rem(10);
+                z-index: 10; /* This z-index is so that the hero tooltip will appear IN FRONT OF the bg people walking image */
+                @include display(flex);
+                @include flex-direction(column);
+                @include justify-content(center);
+                @media(min-width: $tablet-screen) {
+                  padding-left: rem(15);
+                  width: 50%;
+                }
+                @media(min-width: $medium-screen) {
+                  @include justify-content(flex-start);
+                }
+                @media(min-width: $large-screen) {
+                  @include justify-content(flex-start);
+                }
+                h1.covid-hero__headline {
+                    color: white;
+                    @include display(flex);
+                    @include flex-wrap(wrap);
+                    font-size: rem(30);
+                    .covid-hero__headline--amount {
+                        opacity: 0;
+                        position: absolute;
+                        border-bottom: rem(5) solid #DCEFEF;
+                        margin-right: rem(10);
+                        transition: opacity 2s ease-in-out;
+                        &.show-amount {
+                            opacity: 1;
+                            position: static;
+                        }
+                    }
+                    span {
+                        width: 100%;
+                        color: $color-white;
+                        @include display(flex);
+                        @include align-items(center);
+                        @include flex-wrap(wrap);
+                        font-weight: $font-normal;
+                        line-height: rem(34.5);
+                        @media(min-width: $medium-screen) {
+                          line-height: rem(42.5);
+                        }
+                        .pulse-container {
+                            width: rem(40);
+                            margin: 0 rem(40);
+                        }
+                        strong {
+                          font-size: rem(30);
+                            @media(min-width: $medium-screen) {
+                              font-size: rem(40);
+                            }
+                            font-weight: $font-bold;
+                        }
+                        &:first-of-type {
+                          font-size: rem(24);
+                            @media(min-width: $medium-screen) {
+                              font-size: rem(30);
+                            }
+                          font-weight: $font-light;
+                        }
+                        &:nth-of-type(2) {
+                          font-size: rem(30);
+                            @media(min-width: $medium-screen) {
+                              font-size: rem(40);
+                            }
+                        }
+                        &:nth-of-type(3) {
+                          font-size: rem(30);
+                          @media(min-width: $medium-screen) {
+                            font-size: rem(40);
+                          }
+                        }
+                        &:nth-of-type(4) {
+                          width: auto;
+                          strong {
+                            font-size: rem(30);
+                              @media(min-width: $medium-screen) {
+                                font-size: rem(40);
+                              }
+                          }
+                        }
+                    }
+                    @import "../../../components/tooltips/index";
+                      .tooltip-wrapper {
+                        display: none;
+
+                        @media (min-width: $medium-screen) {
+                          display: inline-block;
+                          z-index: 9;
+                        .tooltip__hover-wrapper {
+                          svg {
+                            color: $color-covid-19-obligations;
+                          }
+                          &:hover {
+                            svg {
+                              color: #3B005B;
+                            }
+                          }
+                        }
+                      }
+                    }
+                }
+                p {
+                    color: white;
+                    font-size: rem(14);
+                    font-weight: $font-normal;
+                    margin-top: rem(10);
+                    @media(min-width: $large-screen) {
+                      font-size: rem(18);
+                    }
+                    strong {
+                      font-weight: $font-bold;
+                    }
+                }
+            }
+            &:nth-of-type(2) {
+                display: none;
+                overflow-y: scroll;
+                height: 100%;
+                @media (min-width: $tablet-screen) {
+                  @include display(flex);
+                  width: 50%;
+                }
+                ul.covid-highlights {
+                    @include display(flex);
+                    @include flex-wrap(wrap);
+                    @include align-items(flex-end);
+                    transform: rotateX(30deg) rotateY(-30deg) rotateZ(0deg) perspective(0);
+                    padding: 0;
+                    margin: 0;
+                    color: $color-white;
+                    width: 100%;
+                    margin-right: auto;
+                    li.covid-highlights__highlight {
+                        list-style-type: none;
+                        @include display(flex);
+                        @include flex-direction(column);
+                        @include flex-wrap(wrap);
+                        @include align-items(flex-end);
+                        @include justify-content(flex-end);
+                        opacity: 0.5;
+                        margin: 0;
+                        padding: rem(15) 0;
+                        width: 75%;
+                        transition: opacity .5s ease-in;
+                        &:hover {
+                          opacity: 1;
+                       }
+                        &.loading {
+                          @include align-items(flex-start);
+                          @include justify-content(flex-start);
+                        }
+                        @media(min-width: $large-screen) {
+                          padding: rem(20) 0;
+                        }
+                        @media(min-width: $x-large-screen) {
+                          padding: rem(45) 0;
+                        }
+                        span {
+                            width: 100%;
+                            font-size: rem(12);
+                            @media(min-width: $medium-screen) {
+                              font-size: rem(14);
+                            }
+                            @media(min-width: $large-screen) {
+                              font-size: rem(18);
+                            }
+                            @media(min-width: $x-large-screen) {
+                              font-size: rem(22);
+                            }
+                            &.covid-highlight__description {
+                              font-size: rem(16);
+                              line-height: rem(18);
+                              @media(min-width: $medium-screen) {
+                                line-height: rem(21);
+                                font-size: rem(19);
+                              }
+                              @media(min-width: $large-screen) {
+                                line-height: rem(26);
+                                font-size: rem(24);
+                              }
+                              @media(min-width: $x-large-screen) {
+                                line-height: rem(32);
+                                font-size: rem(30);
+                              }
+                            }
+                            &.covid-highlight__amount {
+                                font-weight: $font-bold;
+                                font-size: rem(20.4);
+                                @media(min-width: $medium-screen) {
+                                  font-size: rem(26.4);
+                                }
+                                @media(min-width: $large-screen) {
+                                  font-size: rem(32);
+                                }
+                                @media(min-width: $x-large-screen) {
+                                  font-size: rem(38);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .covid-background {
+          background: url('../../../../img/header-img-people-384x486@2x.png');
+          background-position: right bottom;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          z-index: 9;
+          pointer-events: none;
+          @media(min-width: $medium-screen) {
+            background: url('../../../../img/header-img-people-512x687@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          @media(min-width: $large-screen) {
+            background: url('../../../../img/header-img-people-720x619@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          @media(min-width: 1750px) {
+            background: url('../../../../img/header-img-people-1000x400@2x.png');
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        }
+        @import "./_heroButton";
+        .hero-button__wrapper {
+          z-index: 10;
+        }
+    }
+    @import "components/loading-pulse-animation";
+}

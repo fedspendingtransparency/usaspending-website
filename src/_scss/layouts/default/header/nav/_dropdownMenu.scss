@@ -21,6 +21,8 @@
         font-weight: $font-semibold;
         font-size: rem(15);
         line-height: rem(19);
+        @include display(flex);
+        @import "components/_newBadge.scss";
     }
     .nav-dropdown__parent-icon {
         @include flex(0 0 auto);
@@ -47,7 +49,7 @@
             @include unstyled-list;
             position: absolute;
             left: 0;
-            width: rem(200);
+            width: rem(230);
             background-color: $color-white;
             box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
 
@@ -85,6 +87,7 @@
                 font-weight: $font-normal;
                 color: $nav-coming-soon;
             }
+            @import "../../../../components/newBadge";
         }
 
         button.nav-children__link {

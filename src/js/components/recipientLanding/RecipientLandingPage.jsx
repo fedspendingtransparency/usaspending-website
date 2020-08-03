@@ -11,7 +11,7 @@ import { getBaseUrl } from 'helpers/socialShare';
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-import Header from 'components/sharedComponents/header/Header';
+import Header from 'containers/shared/HeaderContainer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';

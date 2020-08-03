@@ -15,7 +15,7 @@ export const apiScopes = {
 
 export const filters = {
     territory: {
-        label: 'TERRITORIES',
+        label: 'AREA TYPE',
         options: [
             {
                 value: 'state',
@@ -35,12 +35,16 @@ export const filters = {
         label: 'SPENDING TYPE',
         options: [
             {
-                value: 'obligations',
-                label: 'Obligations'
+                value: 'obligation',
+                label: 'Award Obligations'
             },
             {
-                value: 'outlays',
-                label: 'Outlays'
+                value: 'outlay',
+                label: 'Award Outlays'
+            },
+            {
+                value: 'face_value_of_loan',
+                label: 'Face Value of Loans'
             }
         ]
     },
@@ -53,96 +57,65 @@ export const filters = {
             },
             {
                 value: 'perCapita',
-                label: 'Per Capita'
-            }
-        ]
-    },
-    recipientType: {
-        label: 'RECIPIENT TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Recipient Types'
-            },
-            {
-                value: 'category_business',
-                label: 'Business'
-            },
-            {
-                value: 'minority_owned_business',
-                label: 'Minority Owned Business'
-            },
-            {
-                value: 'woman_owned_business',
-                label: 'Women Owned Business'
-            },
-            {
-                value: 'veteran_owned_business',
-                label: 'Veteran Owned Business'
-            },
-            {
-                value: 'special_designations',
-                label: 'Special Designations'
-            },
-            {
-                value: 'nonprofit',
-                label: 'Nonprofit'
-            },
-            {
-                value: 'higher_education',
-                label: 'Higher Education'
-            },
-            {
-                value: 'government',
-                label: 'Government'
-            },
-            {
-                value: 'individuals',
-                label: 'Individuals'
-            }
-        ]
-    },
-    awardType: {
-        label: 'AWARD TYPE',
-        options: [
-            {
-                value: 'all',
-                label: 'All Award Types'
-            },
-            {
-                value: 'contract',
-                label: 'Contracts'
-            },
-            {
-                value: 'idv',
-                label: 'Indefinite Delivery Vehicle'
-            },
-            {
-                value: 'grants',
-                label: 'Grants'
-            },
-            {
-                value: 'direct_payments',
-                label: 'Direct Payments'
-            },
-            {
-                value: 'loans',
-                label: 'Loans'
-            },
-            {
-                value: 'other',
-                label: 'Other'
+                label: 'Per Capita Spending'
             }
         ]
     }
+    // TODO - uncomment this when filter is ready
+    // recipientType: {
+    //     label: 'RECIPIENT TYPE',
+    //     options: [
+    //         {
+    //             value: 'all',
+    //             label: 'All Recipient Types'
+    //         },
+    //         {
+    //             value: 'category_business',
+    //             label: 'Business'
+    //         },
+    //         {
+    //             value: 'minority_owned_business',
+    //             label: 'Minority Owned Business'
+    //         },
+    //         {
+    //             value: 'woman_owned_business',
+    //             label: 'Women Owned Business'
+    //         },
+    //         {
+    //             value: 'veteran_owned_business',
+    //             label: 'Veteran Owned Business'
+    //         },
+    //         {
+    //             value: 'special_designations',
+    //             label: 'Special Designations'
+    //         },
+    //         {
+    //             value: 'nonprofit',
+    //             label: 'Nonprofit'
+    //         },
+    //         {
+    //             value: 'higher_education',
+    //             label: 'Higher Education'
+    //         },
+    //         {
+    //             value: 'government',
+    //             label: 'Government'
+    //         },
+    //         {
+    //             value: 'individuals',
+    //             label: 'Individuals'
+    //         }
+    //     ]
+    // }
 };
 
 export const filtersOnClickHandler = {
-    territory: 'updateterritoryFilter',
-    spendingType: 'updatespendingTypeFilter',
-    amountType: 'updateamountTypeFilter',
-    recipientType: 'updaterecipientTypeFilter',
-    awardType: 'updateawardTypeFilter'
+    territory: 'updateTerritoryFilter',
+    spendingType: 'updateSpendingTypeFilter',
+    amountType: 'updateAmountTypeFilter',
+    // TODO - uncomment when this filter is ready
+    // recipientType: 'updateRecipientTypeFilter',
+    awardType: 'updateAwardTypeFilter'
 };
 
 export const mapboxSources = {
@@ -159,7 +132,7 @@ export const mapboxSources = {
         layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
-    congressionalDistrict: {
+    district: {
         label: 'congressional district',
         minZoom: 4,
         url: 'mapbox://usaspending.a4bkzui0',
@@ -196,3 +169,16 @@ export const visualizationColors = [
     '#3e5c6a',
     '#083546'
 ];
+
+export const tooltipLabels = {
+    totalSpending: {
+        obligation: 'Total Obligations',
+        outlay: 'Total Outlays',
+        face_value_of_loan: 'Total Face Value of Loans'
+    },
+    perCapita: {
+        obligation: 'Obligations Per Capita',
+        outlay: 'Outlays Per Capita',
+        face_value_of_loan: 'Face Value of Loans Per Capita'
+    }
+};

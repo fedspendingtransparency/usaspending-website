@@ -9,9 +9,9 @@ import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 
 require('pages/errorPage/errorPage.scss');
 

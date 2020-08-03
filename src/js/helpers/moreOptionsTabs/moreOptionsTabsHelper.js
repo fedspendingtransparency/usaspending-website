@@ -17,7 +17,7 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
             setShowMoreOptions(false);
         }
 
-        if (containerWidth >= (stopWidth + width)) {
+        if (containerWidth > stopWidth) {
             stopWidth += width;
         } else {
             indexes.push(i);
@@ -25,10 +25,6 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
     });
 
     if (indexes.length > 0) {
-        // remove an extra element for buffer so columns don't overflow off the page
-        const minIndex = Math.min(...indexes);
-        indexes.push(minIndex - 1);
-
         // set the tabs to delete off the screen
         return indexes.sort((a, b) => a - b);
     }
@@ -38,9 +34,9 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
 export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, setTabTypes, setPickerOptions) => {
     // if we have indexes to delete we want to delete them and add them to the picker options
     if (indexesToDelete && indexesToDelete.length > 0) {
-        setShowMoreOptions(true);
         if (tabTypes.length - indexesToDelete.length <= 0) {
             // if we have a negative difference or a difference equaling zero, we can remove the last tab and just set the picker options to all options
+            setShowMoreOptions(true);
             setTabTypes(tabTypes.slice(0, 0));
             setPickerOptions(tabs.map((col) => ({
                 name: col.label,
@@ -48,8 +44,9 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
             })));
         } else {
             // remove tabs and add the removed tabs to picker options dropdown
-            setTabTypes(tabTypes.slice(0, tabTypes.length - indexesToDelete.length));
-            setPickerOptions(tabTypes.slice(tabTypes.length - indexesToDelete.length, tabTypes.length).map((col) => ({
+            setShowMoreOptions(true);
+            setTabTypes(tabTypes.slice(0, (tabTypes.length - indexesToDelete.length) - 1));
+            setPickerOptions(tabTypes.slice((tabTypes.length - indexesToDelete.length) - 1, tabTypes.length).map((col) => ({
                 name: col.label,
                 value: col.internal
             })));

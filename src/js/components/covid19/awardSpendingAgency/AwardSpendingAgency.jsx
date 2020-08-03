@@ -3,110 +3,163 @@
  * Created by James Lee 6/18/20
  */
 
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { fetchAwardCount, fetchAwardAmounts, fetchAgencyCount } from 'helpers/disasterHelper';
+import React from 'react';
+// import { useSelector } from 'react-redux';
+
+// import { fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
-import { awardSpendingAgencyTableTabs } from 'dataMapping/covid19/awardSpendingAgency/awardSpendingAgencyTableTabs';
-import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
-import OverviewData from '../OverviewData';
+// import { areCountsDefined } from 'helpers/covid19Helper';
+// import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+// import { awardTypeGroups } from 'dataMapping/search/awardType';
+// import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
+// import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+import ReadMore from '../ReadMore';
 
-const overviewData = [
-    {
-        type: 'agencyCount',
-        label: 'Number of Agencies'
-    },
-    {
-        type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
-    },
-    {
-        type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
-    },
-    {
-        type: 'numberOfAwards',
-        label: 'Number of Awards'
-    }
-];
+// import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+// import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
+const ComingSoon = () => (
+    <div className="coming-soon-section">
+        <h4>Coming Soon</h4>
+        <p>This feature is currently under development.</p>
+    </div>
+);
+
+// const overviewData = [
+//     {
+//         type: 'resultsCount',
+//         label: 'Number of Agencies'
+//     },
+//     {
+//         type: 'awardObligations',
+//         label: 'Award Obligations',
+//         dollarAmount: true
+//     },
+//     {
+//         type: 'awardOutlays',
+//         label: 'Award Outlays',
+//         dollarAmount: true
+//     },
+//     {
+//         type: 'numberOfAwards',
+//         label: 'Number of Awards'
+//     }
+// ];
+
+// const initialTabState = {
+//     all: null,
+//     contracts: null,
+//     idvs: null,
+//     grants: null,
+//     direct_payments: null,
+//     loans: null,
+//     other: null
+// };
+
+// const initialActiveTabState = {
+//     internal: awardTypeTabs[0].internal,
+//     subtitle: awardTypeTabs[0].label
+// };
+// eslint-disable-next-line
 const AwardSpendingAgency = () => {
-    const [awardCount, setAwardCount] = useState(null);
-    const [awardOutlays, setAwardOutlays] = useState(null);
-    const [awardObligations, setAwardObligations] = useState(null);
-    const [numberOfAwards, setNumberOfAwards] = useState(null);
-    const [activeTabLabel, setActiveTabLabel] = useState(awardSpendingAgencyTableTabs[0].label);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    // const { defCodes } = useSelector((state) => state.covid19);
+    // const [inFlight, setInFlight] = useState(true);
+    // const [tabCounts, setTabCounts] = useState(initialTabState);
 
-    // TODO - Remove hard coded values
-    const dateString = "June 30, 2020";
+    // const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
-    // TODO - Remove mock counts and replace with API call for counts
-    const mockCounts = {
-        all: 123123123,
-        contracts: 2856942,
-        idvs: 65718,
-        grants: 262180,
-        direct_payments: 3173522,
-        loans: 955562
-    };
+    // const moreOptionsTabsRef = useRef(null);
 
-    useEffect(() => {
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes
-            }
-        };
-        fetchAgencyCount(params).promise
-            .then((res) => {
-                setAwardCount(res.data.count);
-            });
-        fetchAwardAmounts(params).promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-            });
-        fetchAwardCount(params).promise
-            .then((res) => {
-                setNumberOfAwards(res.data.count);
-            });
-    }, [defCodes]);
+    // useEffect(() => {
+    //     if (defCodes && defCodes.length > 0) {
+    //         let params = {};
 
-    const amounts = {
-        awardCount,
-        awardOutlays,
-        awardObligations,
-        numberOfAwards
-    };
+    //         // Make an API request for the count of Agency for each award type
+    //         // Post-MVP this should be updated to use a new endpoint that returns all the counts
+    //         const promises = awardTypeTabs.map((awardType) => {
+    //             params = {
+    //                 filter: {
+    //                     def_codes: defCodes.map((defc) => defc.code)
+    //                 }
+    //             };
+    //             if (awardType.internal === 'all') {
+    //                 params.filter.award_type_codes = [].concat(...Object.values(awardTypeGroups));
+    //             } else {
+    //                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+    //             }
+    //             return fetchAgencyCount(params).promise;
+    //         });
+    //         // Wait for all the requests to complete and then store the results in state
+    //         Promise.all(promises)
+    //             .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractsRes, idvsRes]) => {
+    //                 setTabCounts({
+    //                     all: allRes.data.count,
+    //                     contracts: contractsRes.data.count,
+    //                     idvs: idvsRes.data.count,
+    //                     grants: grantsRes.data.count,
+    //                     direct_payments: directPaymentsRes.data.count,
+    //                     loans: loansRes.data.count,
+    //                     other: otherRes.data.count
+    //                 });
+    //             });
+    //     }
+    // }, [defCodes]);
 
-    const changeActiveTab = (tab) => {
-        // TODO - update counts and amounts based on which tab selected
-        const tabLabel = awardSpendingAgencyTableTabs.filter((item) => item.internal === tab)[0].label;
-        setActiveTabLabel(tabLabel);
-    };
+    // useEffect(() => {
+    //     const countState = areCountsDefined(tabCounts);
+    //     if (!countState) {
+    //         setInFlight(true);
+    //     }
+    //     else if (countState) {
+    //         setInFlight(false);
+    //     }
+    // }, [tabCounts, setInFlight]);
 
+    // const changeActiveTab = (tab) => {
+    //     const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
+    //     const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
+
+    //     setActiveTab({
+    //         internal: tabInternal,
+    //         subtitle: tabSubtitle
+    //     });
+    // };
+
+    // const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+    //     scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    // };
 
     return (
-        <div className="body__content award-spending">
-            <DateNote dateString={dateString} />
-            <h3 className="body__narrative">These are the federal agencies who spent COVID-19 Response funding on <strong>awards.</strong></h3>
-            <p className="body__narrative-description">
-                Federal agencies allocate award funds. Agencies receive funding from the Federal Government, which they award to recipients in order to respond to the COVID-19 pandemic.
-            </p>
-            <MoreOptionsTabs tabs={awardSpendingAgencyTableTabs} tabCounts={mockCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
-            <div className="overview-data-group">
-                {overviewData.map((data) => (
-                    <OverviewData
-                        key={data.label}
-                        {...data}
-                        subtitle={`for all ${activeTabLabel}`}
-                        amount={amounts[data.type]} />
-                ))}
+        <div className="body__content spending-by-agency">
+            <DateNote />
+            <h3 className="body__narrative">
+                <strong>Which agencies</strong> issued awards using COVID-19 funds?
+            </h3>
+            <div className="body__narrative-description">
+                <p>
+                    Federal agencies receive funding from Congress and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds in response to the COVID-19 pandemic, as well as a breakdown of their obligated and outlayed funds.
+                </p>
+                <ReadMore>
+                    <p>
+                        <em>Please note that agencies without COVID-19 appropriated funds are not represented here.</em>
+                    </p>
+                    <p>
+                        <em>Additionally, award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
+                    </p>
+                </ReadMore>
             </div>
-            <div className="award-spending__content" />
+            <ComingSoon />
+            {/* <div ref={moreOptionsTabsRef}>
+                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+            </div>
+            <SummaryInsightsContainer
+                resultsCount={tabCounts[activeTab.internal]}
+                overviewData={overviewData}
+                activeTab={activeTab.internal}
+                areCountsLoading={inFlight} />
+            <div className="spending-by-agency__content">
+                <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
+            </div> */}
         </div>
     );
 };

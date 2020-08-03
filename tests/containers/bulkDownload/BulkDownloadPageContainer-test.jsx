@@ -305,7 +305,6 @@ describe('BulkDownloadPageContainer', () => {
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
         });
-
     });
     describe('startAccountDownload', () => {
         const accountsRedux = Object.assign({}, mockRedux, {
@@ -338,6 +337,42 @@ describe('BulkDownloadPageContainer', () => {
                     submission_types: ['account_balances'],
                     fy: '1989',
                     quarter: '1'
+                },
+                file_format: 'csv'
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAccountDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'accounts');
+        });
+        it('should exclude the quarter param when the period key is defined', () => {
+            const container = shallow(<BulkDownloadPageContainer
+                {...{
+                    ...accountsRedux,
+                    bulkDownload: {
+                        ...accountsRedux.bulkDownload,
+                        accounts: {
+                            ...accountsRedux.bulkDownload.accounts,
+                            quarter: '',
+                            period: '5'
+                        }
+                    }
+                }}
+                {...mockActions} />);
+
+            const expectedParams = {
+                account_level: 'treasury_account',
+                filters: {
+                    budget_function: '300',
+                    budget_subfunction: '123',
+                    agency: '123',
+                    federal_account: '212',
+                    submission_types: ['account_balances'],
+                    fy: '1989',
+                    period: '5'
                 },
                 file_format: 'csv'
             };

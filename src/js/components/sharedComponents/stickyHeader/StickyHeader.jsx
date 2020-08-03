@@ -3,7 +3,7 @@
  * Created by Mike Bray 02/02/2018
  **/
 
-import React, { useState, createRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
@@ -50,11 +50,11 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
     ];
 };
 
-const stickyHeader = createRef();
 
 const StickyHeader = ({
     children
 }) => {
+    const stickyHeader = useRef(null);
     const [
         isSticky,
         ,

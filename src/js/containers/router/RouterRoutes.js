@@ -304,12 +304,24 @@ if (kGlobalConstants.DEV) {
 if (kGlobalConstants.CARES_ACT_RELEASED) {
     routes.routes.push(
         {
-            path: '/covid-19',
-            parent: '/covid-19',
+            path: '/disaster/covid-19',
+            parent: '/disaster',
             addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/covid19/Covid19Container').default);
+                });
+            }
+        }
+    );
+    routes.routes.push(
+        {
+            path: '/disaster/covid-19/data-sources',
+            parent: '/disaster/covid-19',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/covid19/DataSourcesAndMethodologiesPage').default);
                 });
             }
         }

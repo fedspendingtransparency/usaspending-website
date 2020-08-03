@@ -3,26 +3,39 @@
  * Created by Lizzie Salita 6/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector, useDispatch } from 'react-redux';
+import { isCancel } from 'axios';
+import { OrderedMap } from 'immutable';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
-import { cfdaSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda } from 'helpers/disasterHelper';
+import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
+import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+import Router from 'containers/router/Router';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+
 
 const propTypes = {
-    onRedirectModalClick: PropTypes.func.isRequired
+    activeTab: PropTypes.string.isRequired,
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 const columns = [
     {
-        title: 'assistanceListing',
-        displayName: 'CFDA Program (Assistance Listing)'
+        title: 'name',
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
     },
     {
         title: 'obligation',
@@ -35,37 +48,70 @@ const columns = [
         right: true
     },
     {
-        title: 'count',
-        displayName: 'Number of Awards',
+        title: 'awardCount',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
         right: true
     }
 ];
 
-export const parseRows = (rows, onRedirectModalClick) => (
-    rows.map((row) => {
-        const rowData = Object.create(BaseSpendingByCfdaRow);
-        rowData.populate(row);
-        let link = rowData.name;
-        if (rowData._link) {
-            link = (
-                <button
-                    className="assistance-listing__button"
-                    value={rowData._link}
-                    onClick={onRedirectModalClick}>
-                    {rowData.name} <FontAwesomeIcon icon="external-link-alt" />
-                </button>
-            );
-        }
-        return [
-            link,
-            rowData.obligation,
-            rowData.outlay,
-            rowData.count
-        ];
-    })
-);
+const loanColumns = [
+    {
+        title: 'assistanceListing',
+        displayName: (
+            <>
+                <div>CFDA Program</div>
+                <div>(Assistance Listing)</div>
+            </>
+        )
+    },
+    {
+        title: 'obligation',
+        displayName: (
+            <>
+                <div>Award Obligations</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'outlay',
+        displayName: (
+            <>
+                <div>Award Outlays</div>
+                <div>(Loan Subsidy Cost)</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'faceValueOfLoan',
+        displayName: (
+            <>
+                <div>Face Value</div>
+                <div>of Loans</div>
+            </>
+        ),
+        right: true
+    },
+    {
+        title: 'awardCount',
+        displayName: (
+            <>
+                <div>Number</div>
+                <div>of Awards</div>
+            </>
+        ),
+        right: true
+    }
+];
 
-const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
+const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -74,62 +120,162 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [request, setRequest] = useState(null);
+    const tableRef = useRef(null);
+    const tableWrapperRef = useRef(null);
+    const errorOrLoadingWrapperRef = useRef(null);
+
+
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const dispatch = useDispatch();
+
+    const updateAdvancedSearchFilters = (e) => {
+        e.preventDefault();
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        const cfdaData = results.find((cfda) => cfda.code === e.target.value);
+        dispatch(applyStagedFilters(
+            Object.assign(
+                {}, defaultAdvancedSearchFilters,
+                {
+                    defCodes: new CheckboxTreeSelections({
+                        require: defCodes.map((code) => code.code),
+                        exclude: [],
+                        counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                    })
+                },
+                {
+                    selectedCFDA: OrderedMap({
+                        [cfdaData.code]: {
+                            program_number: cfdaData.code,
+                            program_title: cfdaData.description,
+                            popular_name: cfdaData.description,
+                            identifier: cfdaData.code
+                        }
+                    })
+                }
+            )
+        ));
+        Router.history.push('/search');
+    };
+
+    const parseRows = () => (
+        results.map((row) => {
+            const rowData = Object.create(BaseSpendingByCfdaRow);
+            rowData.populate(row);
+            let link = rowData.name;
+            if (rowData._code) {
+                link = (
+                    <button
+                        className="assistance-listing__button"
+                        value={rowData._code}
+                        onClick={updateAdvancedSearchFilters}>
+                        {rowData.name}
+                    </button>
+                );
+            }
+            if (activeTab === 'loans') {
+                return [
+                    link,
+                    rowData.obligation,
+                    rowData.outlay,
+                    rowData.faceValueOfLoan,
+                    rowData.awardCount
+                ];
+            }
+            return [
+                link,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
+            ];
+        })
+    );
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
+        if (request) {
+            request.cancel();
+        }
         setLoading(true);
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code)
-                // TODO - add award type codes based on active tab
-            },
-            spending_type: 'award',
-            pagination: {
-                limit: pageSize,
-                page: currentPage,
-                sort: cfdaSortFields[sort],
-                order
+        if (defCodes && defCodes.length > 0) {
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                spending_type: 'award',
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: spendingTableSortFields[sort],
+                    order
+                }
+            };
+            if (activeTab !== 'all') {
+                params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
-        };
-        const request = fetchSpendingByCfda(params);
-        request.promise
-            .then((res) => {
-                const rows = parseRows(res.data.results, onRedirectModalClick);
-                setResults(rows);
-                setTotalItems(res.data.page_metadata.total);
-                setLoading(false);
-                setError(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
+            let cfdaRequest;
+            if (activeTab === 'loans') {
+                cfdaRequest = fetchCfdaLoans(params);
+            } else {
+                cfdaRequest = fetchSpendingByCfda(params);
+            }
+            setRequest(cfdaRequest);
+            cfdaRequest.promise
+                .then((res) => {
+                    setResults(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
+                });
+        }
     });
 
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCfdaCallback();
-    }, [pageSize, defCodes, sort, order]);
+    }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
     }, [currentPage]);
 
+    useEffect(() => {
+        scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+    }, [loading, error]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [document]);
+
     let message = null;
     if (loading) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableLoadingMessage />
             </div>
         );
     } else if (error) {
+        let tableHeight = 'auto';
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
         message = (
-            <div className="results-table-message-container">
+            <div className="results-table-message-container" style={{ height: tableHeight }}>
                 <ResultsTableErrorMessage />
             </div>
         );
@@ -137,7 +283,15 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
 
     if (message) {
         return (
-            <>
+            <div ref={errorOrLoadingWrapperRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
@@ -153,17 +307,35 @@ const SpendingByCFDAContainer = ({ onRedirectModalClick }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-            </>
+            </div>
         );
     }
 
     return (
-        <div className="table-wrapper">
-            <Table
-                columns={columns}
-                rows={results}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }} />
+        <div ref={tableWrapperRef}>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <div ref={tableRef} className="table-wrapper" >
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={parseRows(results)}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }} />
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </div>
     );
 };

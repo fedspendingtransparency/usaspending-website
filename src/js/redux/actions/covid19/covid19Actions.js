@@ -13,3 +13,8 @@ export const setOverview = (overview) => ({
     overview
 });
 
+export const setLatestSubmissionDate = (latestSubmissionDate) => ({
+    type: 'SET_LATEST_SUBMISSION_DATE',
+    latestSubmissionDate
+});
+

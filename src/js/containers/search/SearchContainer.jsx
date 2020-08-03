@@ -281,7 +281,6 @@ export class SearchContainer extends React.Component {
                 break;
             }
         }
-
         return unfiltered;
     }
 

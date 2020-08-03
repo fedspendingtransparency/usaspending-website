@@ -16,7 +16,7 @@ const fileCProps = {
     title: PropTypes.string
 };
 
-export const FileCOutlayTooltip = ({ total, awardType, title = "COVID-19 Response Outlay Amount" }) => (
+export const FileCOutlayTooltip = ({ total, awardType, title = "COVID-19 Outlayed Amount" }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">{title}</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
@@ -57,7 +57,7 @@ export const FileCOutlayTooltip = ({ total, awardType, title = "COVID-19 Respons
 
 FileCOutlayTooltip.propTypes = totalPropTypes;
 
-export const FileCObligatedTooltip = ({ total, awardType, title = "COVID-19 Response Obligated Amount" }) => (
+export const FileCObligatedTooltip = ({ total, awardType, title = "COVID-19 Obligated Amount" }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">{title}</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
