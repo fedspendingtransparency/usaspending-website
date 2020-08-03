@@ -58,6 +58,16 @@
                     @include justify-content(center);
                 }
             }
+            &.interim-data-modal {
+                p {
+                    text-align: left;
+                }
+                li {
+                    text-align: left;
+                    font-size: rem(14);
+                    line-height: rem(18);
+                }
+            }
         }
     }
 }

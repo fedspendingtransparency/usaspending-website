@@ -140,6 +140,9 @@ const CovidModalContainer = ({
                                     <li className="covid-modal-li">
                                         <span className="covid-modal-bold">Disaster Emergency Fund Code (DEFC)</span> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations.
                                     </li>
+                                    <li className="covid-modal-li">
+                                        <span className="covid-modal-bold">Outlay data</span> for COVID-19 showing what agencies have paid out, in addition to the existing obligation data showing what agencies have promised to pay.
+                                    </li>
                                 </ul>
                             </div>
                             <h2 className="covid-modal-h2 covid-modal-bold">Visit our preliminary <a onClick={handleGoToCovidProfile} href="#/disaster/covid-19">profile page dedicated to COVID-19 Spending:</a></h2>
