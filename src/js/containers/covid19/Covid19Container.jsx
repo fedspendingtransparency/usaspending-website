@@ -190,7 +190,7 @@ const Covid19Container = () => {
                                 <h2>This page is currently under development and the data presented is not yet final</h2>
                             </div>
                             <p>
-                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button> .
+                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
                             </p>
                         </div>
                     </div>

@@ -26,7 +26,7 @@ const InterimDataModal = ({
                 </button>
             </div>
             <div className="usa-dt-modal__body covid-modal-body interim-data-modal">
-                <h2 className="covid-modal-h2">Interim Data</h2>
+                <h2 className="covid-modal-h2 covid-modal-bold">Preliminary Data</h2>
                 <p>At present, the data on this page is contains preliminary data that has not yet been certified.  but will be expanded with future updates in the coming days. Data updates will be released in the coming days.</p>
                 <div>
                     <ul className="interim-data-modal__list">
