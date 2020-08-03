@@ -182,7 +182,7 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <>
-                    <div className="info-banner">
+                    <div className="info-banner data-disclaimer">
                         <div className="info-top" />
                         <div className="info-banner__content">
                             <div className="info-banner__content--title">

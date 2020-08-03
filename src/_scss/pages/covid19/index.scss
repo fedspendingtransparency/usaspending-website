@@ -283,7 +283,7 @@
       width: 100%;
     }
     @import '../../layouts/default/header/warning';
-    .info-banner {
+    .info-banner.data-disclaimer {
         border-top: none;
         background: $color-gold-lightest;
         .info-top {
@@ -328,7 +328,7 @@
             p {
                 width: 100%;
                 font-size: $small-font-size;
-                margin: rem(14) 0 rem(14) rem(35);
+                margin: rem(8) 0 rem(14) rem(35);
                 button {
                     @include button-unstyled;
                     font-weight: $font-semibold;
