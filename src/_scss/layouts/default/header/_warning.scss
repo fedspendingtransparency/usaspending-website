@@ -7,6 +7,16 @@
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
+        @media(min-width: $tablet-screen) {
+            margin: rem(10) rem(25);
+        }
+        @media(min-width: $large-screen) {
+            margin: rem(10) rem(40);
+        }
+        @media(min-width: $x-large-screen) {
+            margin: auto;
+            max-width: rem(1600);
+        }
         .info-banner__info-circle {
             @include flex(0 0 auto);
             padding: rem(5) rem(5) rem(5) rem(15);
