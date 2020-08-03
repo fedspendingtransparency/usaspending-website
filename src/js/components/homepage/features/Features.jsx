@@ -18,7 +18,7 @@ const Features = () => (
         className="homepage-features"
         aria-label="Web site features">
         <div className="homepage-features__content">
-            {kGlobalConstants.CARES_ACT_RELEASED && <CovidFeatureContainer />}
+            {kGlobalConstants.CARES_ACT_RELEASED_2 && <CovidFeatureContainer />}
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />
