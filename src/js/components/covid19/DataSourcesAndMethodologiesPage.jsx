@@ -327,10 +327,10 @@ export default () => {
                                                         Account Breakdown (sourced from Broker File B)
                                                     </li>
                                                     <li>
-                                                        Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C; linked data only)
+                                                        Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C)
                                                     </li>
                                                     <li>
-                                                        Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; linked data only)
+                                                        Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C)
                                                     </li>
                                                     <li>
                                                         Contract Subawards (sourced from FSRS)
@@ -346,7 +346,7 @@ export default () => {
                                                     </li>
                                                 </ul>
                                                 <p>
-                                                    This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
+                                                    This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations.
                                                 </p>
                                                 <p>
                                                     <strong>Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
