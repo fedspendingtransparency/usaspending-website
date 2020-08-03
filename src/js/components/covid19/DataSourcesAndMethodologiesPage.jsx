@@ -19,7 +19,7 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const cookie = 'usaspending_covid_homepage';
 
-const sections = [
+let sections = [
     {
         label: 'Datasets',
         section: 'datasets'
@@ -54,7 +54,7 @@ const sections = [
     }
 ];
 
-if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections.pop();
+if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections = sections.slice(0, -2);
 
 require('pages/data-sources/index.scss');
 
@@ -539,25 +539,28 @@ export default () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-linked-and-unlinked">
-                                <div className="about-section-content">
-                                    <h2 className="about-section-title">
-                                        Linked and Unlinked Award Data
-                                    </h2>
-                                    <p>
-                                        In order to understand the data surfaced in the &quot;Award Spending&quot; sections (detailed below), it is important to understand the concept of <strong>linking between Broker File C and FPDS/FABS award data</strong>. Broker File C serves as a bridge between data sourced from agency financial systems (i.e., the data in Broker File C itself) and award data sourced from FPDS and FABS. The actual link between these two datasets is an <strong>award ID</strong> (also known as <strong>&quot;award unique key&quot;</strong>). For various reasons, not every award ID in Broker File C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a Broker File C row cannot be matched to FPDS or FABS, we call it &quot;unlinked&quot;. Unlinked Broker File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA program, and funding agency).
-                                    </p>
-                                    <p>
-                                        <strong>The rule of thumb for all award sections is to <em>use complete Broker File C data where possible</em> (containing both linked and unlinked awards); <em>where not possible, only linked data will be used</em> (representing a subset of the authoritative award spending total based on both linked and unlinked data in Broker File C).</strong>
-                                    </p>
-                                    <p>
-                                        Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
-                                    </p>
-                                    <p>
-                                        As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page.
-                                    </p>
+                            {
+                                kGlobalConstants.CARES_ACT_RELEASED_2 &&
+                                <div className="about-section-wrapper" id="data-sources-linked-and-unlinked">
+                                    <div className="about-section-content">
+                                        <h2 className="about-section-title">
+                                            Linked and Unlinked Award Data
+                                        </h2>
+                                        <p>
+                                            In order to understand the data surfaced in the &quot;Award Spending&quot; sections (detailed below), it is important to understand the concept of <strong>linking between Broker File C and FPDS/FABS award data</strong>. Broker File C serves as a bridge between data sourced from agency financial systems (i.e., the data in Broker File C itself) and award data sourced from FPDS and FABS. The actual link between these two datasets is an <strong>award ID</strong> (also known as <strong>&quot;award unique key&quot;</strong>). For various reasons, not every award ID in Broker File C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a Broker File C row cannot be matched to FPDS or FABS, we call it &quot;unlinked&quot;. Unlinked Broker File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA program, and funding agency).
+                                        </p>
+                                        <p>
+                                            <strong>The rule of thumb for all award sections is to <em>use complete Broker File C data where possible</em> (containing both linked and unlinked awards); <em>where not possible, only linked data will be used</em> (representing a subset of the authoritative award spending total based on both linked and unlinked data in Broker File C).</strong>
+                                        </p>
+                                        <p>
+                                            Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
+                                        </p>
+                                        <p>
+                                            As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             {
                                 kGlobalConstants.CARES_ACT_RELEASED_2 &&
                                 <div className="about-section-wrapper" id="data-sources-award-spending">
