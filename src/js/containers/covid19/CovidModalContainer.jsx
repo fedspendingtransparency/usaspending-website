@@ -48,7 +48,7 @@ const CovidModalContainer = ({
     };
 
     return (
-        false ? (
+        kGlobalConstants.CARES_ACT_RELEASED_2 ? (
             <Modal
                 mounted={mounted}
                 onExit={hideModal}
