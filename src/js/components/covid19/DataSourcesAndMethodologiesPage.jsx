@@ -22,39 +22,47 @@ const cookie = 'usaspending_covid_homepage';
 let sections = [
     {
         label: 'Datasets',
-        section: 'datasets'
+        section: 'datasets',
+        show: true
     },
     {
         label: 'Download Instructions',
-        section: 'download-instructions'
+        section: 'download-instructions',
+        show: true
     },
     {
         label: 'Disaster Emergency Fund Code (DEFC)',
-        section: 'DEFC'
+        section: 'DEFC',
+        show: true
     },
     {
         label: 'Loan Spending',
-        section: 'loan-spending'
+        section: 'loan-spending',
+        show: kGlobalConstants.CARES_ACT_RELEASED_2
     },
     {
         label: 'Overview Section',
-        section: 'overview'
+        section: 'overview',
+        show: true
     },
     {
         label: 'Total Spending Section',
-        section: 'total-spending'
+        section: 'total-spending',
+        show: true
     },
     {
         label: 'Linked and Unlinked Award Data',
-        section: 'linked-and-unlinked'
+        section: 'linked-and-unlinked',
+        show: kGlobalConstants.CARES_ACT_RELEASED_2
     },
     {
         label: 'Award Spending Sections',
-        section: 'award-spending'
+        section: 'award-spending',
+        show: kGlobalConstants.CARES_ACT_RELEASED_2
     }
 ];
 
-if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections = sections.slice(0, -2);
+if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections = sections.filter((x) => x.show);
 
 require('pages/data-sources/index.scss');
 
@@ -219,83 +227,163 @@ export default () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-download-instructions">
-                                <h2 className="about-section-title">
-                                    Download Instructions
-                                </h2>
-                                <div className="about-section-content">
-                                    <p>
-                                        <strong>Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations.</strong>
-                                    </p>
-                                    <p>
-                                        This download includes 8 types of files:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Account Balances (sourced from GTAS)
-                                        </li>
-                                        <li>
-                                            Account Breakdown (sourced from Broker File B)
-                                        </li>
-                                        <li>
-                                            Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C; <strong>linked data only*</strong>)
-                                        </li>
-                                        <li>
-                                            Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
-                                        </li>
-                                        <li>
-                                            Contract Subawards (sourced from FSRS)
-                                        </li>
-                                        <li>
-                                            Assistance Subawards (sourced from FSRS)
-                                        </li>
-                                        <li>
-                                            COVID-19_download_readme.txt
-                                        </li>
-                                        <li>
-                                            Data_Dictionary_Crosswalk.xlsx
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <em>* See &quot;Linked and Unlinked Award Data&quot; below for information about linked awards</em>
-                                    </p>
-                                    <p>
-                                        This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
-                                    </p>
-                                    <p>
-                                        <strong>Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
-                                    </p>
-                                    <ol>
-                                        <li>
-                                            Go to the <a href="/#/download_center/custom_account_data">Custom Account Data download page</a>
-                                        </li>
-                                        <li>
-                                            Select &quot;All&quot; for Budget Function
-                                        </li>
-                                        <li>
-                                            Select &quot;All&quot; for Agency
-                                        </li>
-                                        <li>
-                                            Select &quot;Treasury Account&quot; for Account Level
-                                        </li>
-                                        <li>
-                                            For File Type: Select &quot;Account Breakdown by Award&quot;
-                                        </li>
-                                        <li>
-                                            Select the latest period of FY20
-                                        </li>
-                                        <li>
-                                            Click &quot;Download&quot;
-                                        </li>
-                                        <li>
-                                            If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
-                                        </li>
-                                        <li>
-                                            Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
+                            {
+                                kGlobalConstants.CARES_ACT_RELEASED_2 ? (
+                                    <div className="about-section-wrapper" id="data-sources-download-instructions">
+                                        <h2 className="about-section-title">
+                                            Download Instructions
+                                        </h2>
+                                        <div className="about-section-content">
+                                            <p>
+                                                <strong>Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations.</strong>
+                                            </p>
+                                            <p>
+                                                This download includes 8 types of files:
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    Account Balances (sourced from GTAS)
+                                                </li>
+                                                <li>
+                                                    Account Breakdown (sourced from Broker File B)
+                                                </li>
+                                                <li>
+                                                    Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C; <strong>linked data only*</strong>)
+                                                </li>
+                                                <li>
+                                                    Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
+                                                </li>
+                                                <li>
+                                                    Contract Subawards (sourced from FSRS)
+                                                </li>
+                                                <li>
+                                                    Assistance Subawards (sourced from FSRS)
+                                                </li>
+                                                <li>
+                                                    COVID-19_download_readme.txt
+                                                </li>
+                                                <li>
+                                                    Data_Dictionary_Crosswalk.xlsx
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <em>* See &quot;Linked and Unlinked Award Data&quot; below for information about linked awards</em>
+                                            </p>
+                                            <p>
+                                                This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
+                                            </p>
+                                            <p>
+                                                <strong>Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
+                                            </p>
+                                            <ol>
+                                                <li>
+                                                    Go to the <a href="/#/download_center/custom_account_data">Custom Account Data download page</a>
+                                                </li>
+                                                <li>
+                                                    Select &quot;All&quot; for Budget Function
+                                                </li>
+                                                <li>
+                                                    Select &quot;All&quot; for Agency
+                                                </li>
+                                                <li>
+                                                    Select &quot;Treasury Account&quot; for Account Level
+                                                </li>
+                                                <li>
+                                                    For File Type: Select &quot;Account Breakdown by Award&quot;
+                                                </li>
+                                                <li>
+                                                    Select the latest period of FY20
+                                                </li>
+                                                <li>
+                                                    Click &quot;Download&quot;
+                                                </li>
+                                                <li>
+                                                    If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
+                                                </li>
+                                                <li>
+                                                    Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                ) :
+                                    (
+                                        <div className="about-section-wrapper" id="data-sources-download-instructions">
+                                            <h2 className="about-section-title">
+                                                Download Instructions
+                                            </h2>
+                                            <div className="about-section-content">
+                                                <p>
+                                                    <strong>Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations.</strong>
+                                                </p>
+                                                <p>
+                                                    This download includes 8 types of files:
+                                                </p>
+                                                <ul>
+                                                    <li>
+                                                        Account Balances (sourced from GTAS)
+                                                    </li>
+                                                    <li>
+                                                        Account Breakdown (sourced from Broker File B)
+                                                    </li>
+                                                    <li>
+                                                        Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C; linked data only)
+                                                    </li>
+                                                    <li>
+                                                        Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; linked data only)
+                                                    </li>
+                                                    <li>
+                                                        Contract Subawards (sourced from FSRS)
+                                                    </li>
+                                                    <li>
+                                                        Assistance Subawards (sourced from FSRS)
+                                                    </li>
+                                                    <li>
+                                                        COVID-19_download_readme.txt
+                                                    </li>
+                                                    <li>
+                                                        Data_Dictionary_Crosswalk.xlsx
+                                                    </li>
+                                                </ul>
+                                                <p>
+                                                    This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
+                                                </p>
+                                                <p>
+                                                    <strong>Broker File C data can be downloaded from the <a href="/#/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
+                                                </p>
+                                                <ol>
+                                                    <li>
+                                                        Go to the <a href="/#/download_center/custom_account_data">Custom Account Data download page</a>
+                                                    </li>
+                                                    <li>
+                                                        Select &quot;All&quot; for Budget Function
+                                                    </li>
+                                                    <li>
+                                                        Select &quot;All&quot; for Agency
+                                                    </li>
+                                                    <li>
+                                                        Select &quot;Treasury Account&quot; for Account Level
+                                                    </li>
+                                                    <li>
+                                                        For File Type: Select &quot;Account Breakdown by Award&quot;
+                                                    </li>
+                                                    <li>
+                                                        Select the latest period of FY20
+                                                    </li>
+                                                    <li>
+                                                        Click &quot;Download&quot;
+                                                    </li>
+                                                    <li>
+                                                        If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
+                                                    </li>
+                                                    <li>
+                                                        Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    )
+                            }
                             <div className="about-section-wrapper" id="data-sources-DEFC">
                                 <h2 className="about-section-title">
                                     Disaster Emergency Fund Code (DEFC)
@@ -376,19 +464,22 @@ export default () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-loan-spending">
-                                <h2 className="about-section-title">
-                                    Loan Spending
-                                </h2>
-                                <div className="about-section-content">
-                                    <p>
-                                        Loan Spending is more complicated than spending for other federal awards like contracts or grants. Loan spending has two components: 1) Face Value of Loans, which is the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees); and 2) Loan Subsidy Cost, which is the calculated net present value of the loan or loan guarantee to the government, taking into account the size of the loan (i.e., its face value), interest rate, and the modeled risk of the recipient failing to pay back the loan in part or full.
-                                    </p>
-                                    <p>
-                                        From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure</strong>. However, <strong>Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when <em>it is positive</em></strong>. Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
-                                    </p>
+                            {
+                                kGlobalConstants.CARES_ACT_RELEASED_2 &&
+                                <div className="about-section-wrapper" id="data-sources-loan-spending">
+                                    <h2 className="about-section-title">
+                                        Loan Spending
+                                    </h2>
+                                    <div className="about-section-content">
+                                        <p>
+                                            Loan Spending is more complicated than spending for other federal awards like contracts or grants. Loan spending has two components: 1) Face Value of Loans, which is the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees); and 2) Loan Subsidy Cost, which is the calculated net present value of the loan or loan guarantee to the government, taking into account the size of the loan (i.e., its face value), interest rate, and the modeled risk of the recipient failing to pay back the loan in part or full.
+                                        </p>
+                                        <p>
+                                            From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure</strong>. However, <strong>Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when <em>it is positive</em></strong>. Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div className="about-section-wrapper" id="data-sources-overview">
                                 <h2 className="about-section-title">
                                     Overview Section
