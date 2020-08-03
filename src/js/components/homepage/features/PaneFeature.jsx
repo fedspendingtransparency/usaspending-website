@@ -26,7 +26,7 @@ const PaneFeature = () => {
     return (
         <div className="feature-pane">
             <div className="feature-pane__wrapper">
-                <h2 className="feature-pane__title">{GlobalConstants.CARES_ACT_RELEASED ? 'OTHER DATA ACT CONTENT' : 'FEATURED CONTENT'}</h2>
+                <h2 className="feature-pane__title">{GlobalConstants.CARES_ACT_RELEASED_2 ? 'OTHER DATA ACT CONTENT' : 'FEATURED CONTENT'}</h2>
                 <div className="feature-pane__content-wrapper">
                     <div className="feature-pane__content feature-pane__content-fiscal-data">
                         <div>
