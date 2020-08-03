@@ -40,10 +40,6 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
-const cookieName = 'covid-profile-disclaimer';
-const cookieValue = 'hide';
-const cookieConfig = { expires: 7 };
-
 const Covid19Container = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showSidebarFooter, setShowSidebarFooter] = useState(true);
@@ -60,7 +56,6 @@ const Covid19Container = () => {
         if (defCodesRequest.current) {
             defCodesRequest.cancel();
         }
-        Cookies.set('');
     }, []);
 
     const sidebarFooterVisibility = () => {
@@ -148,6 +143,11 @@ const Covid19Container = () => {
         dispatch(showModal(url));
     };
 
+    const showInterimDataModal = (e) => {
+        e.preventDefault();
+        dispatch(showModal(null, 'covid-data-disclaimer'));
+    };
+
     return (
         <div className="usa-da-covid19-page">
             <MetaTags {...covidPageMetaTags} />
@@ -188,7 +188,7 @@ const Covid19Container = () => {
                             <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
                             <h2>This page is currently under development and the data presented is not yet final</h2>
                             <p>
-                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <a href="">here</a> .
+                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <a onClick={showInterimDataModal} href="">here</a> .
                             </p>
                         </div>
                     </div>

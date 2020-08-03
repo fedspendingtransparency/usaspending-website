@@ -58,6 +58,14 @@
                     @include justify-content(center);
                 }
             }
+            &.interim-data-modal {
+                p {
+                    text-align: left;
+                }
+                li {
+                    text-align: left;
+                }
+            }
         }
     }
 }
