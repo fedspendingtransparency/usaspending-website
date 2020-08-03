@@ -85,7 +85,7 @@ export default () => {
             scrollToY(sectionDom.offsetTop - 86, 700);
         }
 
-        setActiveSection(matchedSection);
+        setActiveSection(matchedSection.section);
     };
 
     return (
