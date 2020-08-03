@@ -29,7 +29,7 @@ export default class InfoBanner extends React.Component {
     }
 
     render() {
-        const content = kGlobalConstants.CARES_ACT_RELEASED ? (
+        const content = kGlobalConstants.CARES_ACT_RELEASED_2 ? (
         <>
             <div className="info-banner__alert-text">
                 <p className="info-banner__title-text">New to USAspending: Official COVID-19 Spending Data</p>
@@ -50,23 +50,11 @@ export default class InfoBanner extends React.Component {
             (
             <>
                 <div className="info-banner__alert-text">
-                    <div className="info-banner__title-text">
-                        Coming soon to USAspending -- New Tools to Search and Display COVID-19 Spending Data:
-                    </div>
-                    Based on&nbsp;
-                    <a
-                        href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={this.clickedBannerLink}>
-                        OMB Memo M-20-21
-                    </a>
-                    <span className="info-banner__description-external-link">
-                        <FontAwesomeIcon icon="external-link-alt" />
-                    </span>
-                    , Federal agencies will begin supplementing existing reporting of
-                    spending related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act, as
-                    well as other COVID-19 appropriations in July 2020.
+                    <p className="info-banner__title-text">New to USAspending: Preliminary COVID-19 Spending Data</p>
+                    <p>
+                        USAspending now has preliminary spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
+                        <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or check out <a href="#/disaster/covid-19">a preliminary version of the COVID-19 Spending profile page </a> to explore and download the data today!
+                    </p>
                 </div>
                 <button
                     className="info-banner__close-button"
