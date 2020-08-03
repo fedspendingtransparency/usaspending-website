@@ -27,7 +27,7 @@ const InterimDataModal = ({
             </div>
             <div className="usa-dt-modal__body covid-modal-body interim-data-modal">
                 <h2 className="covid-modal-h2 covid-modal-bold">Preliminary Data</h2>
-                <p>At present, this page contains preliminary data submitted to USAspending from federal agencies. The data has not yet been certified, which will take place on on August 14. Agencies may make changes or updates to their data at or before that time.</p>
+                <p>At present, this page contains preliminary data submitted to USAspending from federal agencies. The data has not yet been certified, which will take place on August 14. Agencies may make changes or updates to their data at or before that time.</p>
                 <h2 className="covid-modal-h2 covid-modal-bold">Sections Coming Soon</h2>
                 <p>The following sections are not yet available but will soon be released:</p>
                 <div>
