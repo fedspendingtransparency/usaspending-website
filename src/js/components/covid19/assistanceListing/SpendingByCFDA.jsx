@@ -3,106 +3,113 @@
  * Created by Lizzie Salita 6/22/20
  */
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchCfdaCount } from 'helpers/disasterHelper';
-import { areCountsDefined } from 'helpers/covid19Helper';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
-import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
-import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
+import React from 'react';
+// import { useSelector } from 'react-redux';
+// import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
+// import { awardTypeGroups } from 'dataMapping/search/awardType';
+// import { fetchCfdaCount } from 'helpers/disasterHelper';
+// import { areCountsDefined } from 'helpers/covid19Helper';
+// import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+// import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+// import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
-import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
+// import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
 
-const overviewData = [
-    {
-        type: 'resultsCount',
-        label: 'CFDA Programs'
-    },
-    {
-        type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
-    },
-    {
-        type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
-    },
-    {
-        type: 'numberOfAwards',
-        label: 'Number of Awards'
-    }
-];
+const ComingSoon = () => (
+    <div className="coming-soon-section">
+        <h4>Coming Soon</h4>
+        <p>This feature is currently under development.</p>
+    </div>
+);
 
-const initialState = {
-    all: null,
-    grants: null,
-    direct_payments: null,
-    loans: null,
-    other: null
-};
+// const overviewData = [
+//     {
+//         type: 'resultsCount',
+//         label: 'CFDA Programs'
+//     },
+//     {
+//         type: 'awardObligations',
+//         label: 'Award Obligations',
+//         dollarAmount: true
+//     },
+//     {
+//         type: 'awardOutlays',
+//         label: 'Award Outlays',
+//         dollarAmount: true
+//     },
+//     {
+//         type: 'numberOfAwards',
+//         label: 'Number of Awards'
+//     }
+// ];
 
+// const initialState = {
+//     all: null,
+//     grants: null,
+//     direct_payments: null,
+//     loans: null,
+//     other: null
+// };
+// eslint-disable-next-line
 const SpendingByCFDA = () => {
-    const { defCodes } = useSelector((state) => state.covid19);
-    const moreOptionsTabsRef = useRef(null);
+    // const { defCodes } = useSelector((state) => state.covid19);
+    // const moreOptionsTabsRef = useRef(null);
 
-    const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
-    const [inFlight, setInFlight] = useState(true);
-    const [tabCounts, setTabCounts] = useState(initialState);
+    // const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
+    // const [inFlight, setInFlight] = useState(true);
+    // const [tabCounts, setTabCounts] = useState(initialState);
 
-    const changeActiveTab = (tab) => {
-        const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
-        setActiveTab(selectedTab);
-    };
+    // const changeActiveTab = (tab) => {
+    //     const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
+    //     setActiveTab(selectedTab);
+    // };
 
-    useEffect(() => {
-        if (defCodes && defCodes.length > 0) {
-            // Make an API request for the count of CFDA for each award type
-            // Post-MVP this should be updated to use a new endpoint that returns all the counts
-            setTabCounts(initialState);
-            const promises = financialAssistanceTabs.map((awardType) => {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    }
-                };
-                if (awardType.internal !== 'all') {
-                    // Endpoint defaults to all financial assistance types if award_type_codes is not provided
-                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
-                }
-                return fetchCfdaCount(params).promise;
-            });
-            // Wait for all the requests to complete and then store the results in state
-            Promise.all(promises)
-                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes]) => {
-                    setTabCounts({
-                        all: allRes.data.count,
-                        grants: grantsRes.data.count,
-                        direct_payments: directPaymentsRes.data.count,
-                        loans: loansRes.data.count,
-                        other: otherRes.data.count
-                    });
-                });
-        }
-    }, [defCodes]);
+    // useEffect(() => {
+    //     if (defCodes && defCodes.length > 0) {
+    //         // Make an API request for the count of CFDA for each award type
+    //         // Post-MVP this should be updated to use a new endpoint that returns all the counts
+    //         setTabCounts(initialState);
+    //         const promises = financialAssistanceTabs.map((awardType) => {
+    //             const params = {
+    //                 filter: {
+    //                     def_codes: defCodes.map((defc) => defc.code)
+    //                 }
+    //             };
+    //             if (awardType.internal !== 'all') {
+    //                 // Endpoint defaults to all financial assistance types if award_type_codes is not provided
+    //                 params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+    //             }
+    //             return fetchCfdaCount(params).promise;
+    //         });
+    //         // Wait for all the requests to complete and then store the results in state
+    //         Promise.all(promises)
+    //             .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes]) => {
+    //                 setTabCounts({
+    //                     all: allRes.data.count,
+    //                     grants: grantsRes.data.count,
+    //                     direct_payments: directPaymentsRes.data.count,
+    //                     loans: loansRes.data.count,
+    //                     other: otherRes.data.count
+    //                 });
+    //             });
+    //     }
+    // }, [defCodes]);
 
-    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
-        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
-    };
+    // const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+    //     scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    // };
 
-    useEffect(() => {
-        const countState = areCountsDefined(tabCounts);
-        if (!countState) {
-            setInFlight(true);
-        }
-        else if (countState) {
-            setInFlight(false);
-        }
-    }, [tabCounts, setInFlight]);
+    // useEffect(() => {
+    //     const countState = areCountsDefined(tabCounts);
+    //     if (!countState) {
+    //         setInFlight(true);
+    //     }
+    //     else if (countState) {
+    //         setInFlight(false);
+    //     }
+    // }, [tabCounts, setInFlight]);
 
     return (
         <div className="body__content assistance-listing">
@@ -123,7 +130,8 @@ const SpendingByCFDA = () => {
                     </p>
                 </ReadMore>
             </div>
-            <div ref={moreOptionsTabsRef}>
+            <ComingSoon />
+            {/* <div ref={moreOptionsTabsRef}>
                 <MoreOptionsTabs
                     tabs={financialAssistanceTabs}
                     tabCounts={tabCounts}
@@ -139,7 +147,7 @@ const SpendingByCFDA = () => {
                 assistanceOnly />
             <SpendingByCFDAContainer
                 activeTab={activeTab}
-                scrollIntoView={scrollIntoViewTable} />
+                scrollIntoView={scrollIntoViewTable} /> */}
         </div>
     );
 };

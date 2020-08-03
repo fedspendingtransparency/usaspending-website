@@ -3,19 +3,26 @@
  * Created by Jonathan Hill 06/08/20
  */
 
-import React, { useState } from 'react';
-import tabs from 'containers/covid19/helpers/recipient';
+import React from 'react';
+// import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+// import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import ReadMore from 'components/covid19/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
+const ComingSoon = () => (
+    <div className="coming-soon-section">
+        <h4>Coming Soon</h4>
+        <p>This feature is currently under development.</p>
+    </div>
+);
+// eslint-disable-next-line
 const RecipientContainer = () => {
-    const [activeTab, setActiveTab] = useState('recipient_locations');
-    const changeActiveTab = (tab) => {
-        const tabInternal = tabs.find((item) => item.internal === tab).internal;
-        setActiveTab(tabInternal);
-    };
+    // const [activeTab, setActiveTab] = useState('recipient_locations');
+    // const changeActiveTab = (tab) => {
+    //     const tabInternal = tabs.find((item) => item.internal === tab).internal;
+    //     setActiveTab(tabInternal);
+    // };
     return (
         <div className="body__content recipient__container">
             <DateNote />
@@ -41,12 +48,13 @@ const RecipientContainer = () => {
                     </p>
                 </ReadMore>
             </div>
-            <div className="recipient__tabs-container count-tabs">
+            <ComingSoon />
+            {/* <div className="recipient__tabs-container count-tabs">
                 <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
