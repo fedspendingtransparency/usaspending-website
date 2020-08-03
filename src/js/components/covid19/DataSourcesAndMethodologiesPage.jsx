@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
-
+import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
@@ -54,6 +54,8 @@ const sections = [
     }
 ];
 
+if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections.pop();
+
 require('pages/data-sources/index.scss');
 
 export default () => {
@@ -83,7 +85,7 @@ export default () => {
             scrollToY(sectionDom.offsetTop - 86, 700);
         }
 
-        setActiveSection(matchedSection);
+        setActiveSection(matchedSection.section);
     };
 
     return (
@@ -556,108 +558,111 @@ export default () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-award-spending">
-                                <h2 className="about-section-title">
-                                    Award Spending Sections
-                                </h2>
-                                <div className="about-section-content">
-                                    <p>
-                                        There are several sections devoted to Award Spending. Each &quot;Award Spending&quot; section contains four high-level, boxed calculations. Unlike the &quot;Total Spending by Budget Category&quot; section, these boxed calculations update based on filters chosen (here, award types).
-                                    </p>
-                                    <p>
-                                        The first of these calculations is a count of an award attribute (such as the count of CFDA programs) that uses <strong>linked</strong> data. Records without an award ID (award unique key) that links across the two datasets will not be counted in these calculations.
-                                    </p>
-                                    <p>
-                                        The remaining three calculations use <strong>linked</strong> data when a particular award type is selected (i.e., any selection besides &quot;All Awards&quot;). When &quot;All Awards&quot; is selected, they draw on all Broker File C award data (i.e., <strong>linked and unlinked</strong> data) because no linked data points are required.
-                                    </p>
-                                    <p>
-                                        Across all &quot;Award Spending&quot; sections, <strong>the charts and tables below these four calculations all rely on linked data</strong>. We use linked data here because the award attributes displayed can only be found by linking the two datasets.
-                                    </p>
-                                    <p>
-                                        The &quot;Recipient Location&quot; tab is based on &quot;Recipient Location&quot; data. There is currently no &quot;Primary Place of Performance&quot; data used on the profile page, though it is available in the &quot;Award Summaries&quot; files in the profile page download. Recipient Location is the legal business address of the recipient; Primary Place of Performance refers to where the work of an award is performed as determined by federal award reporting officers.
-                                    </p>
-                                    <p>
-                                        Note that CFDA Programs apply only to financial assistance awards; the CFDA section of the profile page therefore excludes all contract data. If you are looking for CFDA information in the profile page download, see the &quot;Assistance Prime Award Summaries&quot; file.
-                                    </p>
-                                    <p>
-                                        <strong>Number of Recipients</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Count of unique recipients (by Recipient name) for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
-                                            <ul>
-                                                <li>
-                                                    The count of recipients in this section represents the number of distinct recipient names in the dataset. Because some names are anonymized or indicate that the associated award was aggregated from many individual recipients/awards to protect personally identifiable information (PII), the true count of recipients is likely significantly higher. Names that indicate anonymized or aggregated recipients include: Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII.
-                                                </li>
-                                                <li>
-                                                    Note also that these are only direct recipients: often federal awards are given to state, local, or tribal governments and then further redistributed to individual citizens by those governments; in our dataset, only the award to the state, local, or tribal government is noted (though subgrants are tracked in some cases and can be viewed in the &quot;Assistance Subawards&quot; download).
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Number of Agencies</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Count of unique agencies based on Funding Agency Code in the FABS and FPDS data for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
-                                            <ul>
-                                                <li>
-                                                    In contrast to the Number of Agencies in the &quot;Total Spending by Budget Category&quot; section, this count of agencies uses only <strong>linked</strong> data (from FABS/FPDS) rather than <strong>linked and unlinked</strong> data (from Broker File C).
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Number of CFDA Programs</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Count of all distinct CFDA Programs (number or title) for every award ID (award unique key) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Award Obligations</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            For <strong>Award Spending (including Loan Spending)</strong>, sum together:
-                                            <ul>
-                                                <li>
-                                                    Either Transaction Obligated Amount (TOA, for linked and unlinked data) or Obligated Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
-                                                </li>
-                                                <li>
-                                                    Filter by any award type as desired.
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Award Outlays</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            For <strong>Award Spending (including Loan Spending)</strong>, sum together:
-                                            <ul>
-                                                <li>
-                                                    Either Gross Outlay Amount (for linked and unlinked data) or Outlayed Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
-                                                </li>
-                                                <li>
-                                                    Filter by any award type as desired.
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Number of Awards</strong> calculation:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Count of all distinct award IDs (award unique keys) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                        </li>
-                                    </ul>
+                            {
+                                kGlobalConstants.CARES_ACT_RELEASED_2 &&
+                                <div className="about-section-wrapper" id="data-sources-award-spending">
+                                    <h2 className="about-section-title">
+                                        Award Spending Sections
+                                    </h2>
+                                    <div className="about-section-content">
+                                        <p>
+                                            There are several sections devoted to Award Spending. Each &quot;Award Spending&quot; section contains four high-level, boxed calculations. Unlike the &quot;Total Spending by Budget Category&quot; section, these boxed calculations update based on filters chosen (here, award types).
+                                        </p>
+                                        <p>
+                                            The first of these calculations is a count of an award attribute (such as the count of CFDA programs) that uses <strong>linked</strong> data. Records without an award ID (award unique key) that links across the two datasets will not be counted in these calculations.
+                                        </p>
+                                        <p>
+                                            The remaining three calculations use <strong>linked</strong> data when a particular award type is selected (i.e., any selection besides &quot;All Awards&quot;). When &quot;All Awards&quot; is selected, they draw on all Broker File C award data (i.e., <strong>linked and unlinked</strong> data) because no linked data points are required.
+                                        </p>
+                                        <p>
+                                            Across all &quot;Award Spending&quot; sections, <strong>the charts and tables below these four calculations all rely on linked data</strong>. We use linked data here because the award attributes displayed can only be found by linking the two datasets.
+                                        </p>
+                                        <p>
+                                            The &quot;Recipient Location&quot; tab is based on &quot;Recipient Location&quot; data. There is currently no &quot;Primary Place of Performance&quot; data used on the profile page, though it is available in the &quot;Award Summaries&quot; files in the profile page download. Recipient Location is the legal business address of the recipient; Primary Place of Performance refers to where the work of an award is performed as determined by federal award reporting officers.
+                                        </p>
+                                        <p>
+                                            Note that CFDA Programs apply only to financial assistance awards; the CFDA section of the profile page therefore excludes all contract data. If you are looking for CFDA information in the profile page download, see the &quot;Assistance Prime Award Summaries&quot; file.
+                                        </p>
+                                        <p>
+                                            <strong>Number of Recipients</strong> calculations:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                Count of unique recipients (by Recipient name) for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
+                                                <ul>
+                                                    <li>
+                                                        The count of recipients in this section represents the number of distinct recipient names in the dataset. Because some names are anonymized or indicate that the associated award was aggregated from many individual recipients/awards to protect personally identifiable information (PII), the true count of recipients is likely significantly higher. Names that indicate anonymized or aggregated recipients include: Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII.
+                                                    </li>
+                                                    <li>
+                                                        Note also that these are only direct recipients: often federal awards are given to state, local, or tribal governments and then further redistributed to individual citizens by those governments; in our dataset, only the award to the state, local, or tribal government is noted (though subgrants are tracked in some cases and can be viewed in the &quot;Assistance Subawards&quot; download).
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Number of Agencies</strong> calculations:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                Count of unique agencies based on Funding Agency Code in the FABS and FPDS data for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
+                                                <ul>
+                                                    <li>
+                                                        In contrast to the Number of Agencies in the &quot;Total Spending by Budget Category&quot; section, this count of agencies uses only <strong>linked</strong> data (from FABS/FPDS) rather than <strong>linked and unlinked</strong> data (from Broker File C).
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Number of CFDA Programs</strong> calculations:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                Count of all distinct CFDA Programs (number or title) for every award ID (award unique key) tagged with a COVID-19 DEFC. Filter by any award type as desired.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Award Obligations</strong> calculations:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                For <strong>Award Spending (including Loan Spending)</strong>, sum together:
+                                                <ul>
+                                                    <li>
+                                                        Either Transaction Obligated Amount (TOA, for linked and unlinked data) or Obligated Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
+                                                    </li>
+                                                    <li>
+                                                        Filter by any award type as desired.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Award Outlays</strong> calculations:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                For <strong>Award Spending (including Loan Spending)</strong>, sum together:
+                                                <ul>
+                                                    <li>
+                                                        Either Gross Outlay Amount (for linked and unlinked data) or Outlayed Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
+                                                    </li>
+                                                    <li>
+                                                        Filter by any award type as desired.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Number of Awards</strong> calculation:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                Count of all distinct award IDs (award unique keys) tagged with a COVID-19 DEFC. Filter by any award type as desired.
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
