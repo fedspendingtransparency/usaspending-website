@@ -7,6 +7,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { snakeCase, isEqual } from 'lodash';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -174,56 +176,69 @@ const Covid19Container = () => {
                 </>
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
-                <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar">
-                        <div className="sidebar__content">
-                            <Sidebar
-                                pageName="covid19"
-                                isGoingToBeSticky
-                                fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                                jumpToSection={jumpToSection}
-                                detectActiveSection
-                                sections={Object.keys(componentByCovid19Section())
-                                    .filter((section) => componentByCovid19Section()[section].showInMenu)
-                                    .map((section) => ({
-                                        section: snakeCase(section),
-                                        label: componentByCovid19Section()[section].title
-                                    }))} />
+                <>
+                    <div className="info-banner">
+                        <div className="info-top" />
+                        <div className="info-banner__content">
+                            <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#763E94" />
+                            <h2>This page is currently under development and the data presented is not yet final</h2>
+                            <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
+                            <p>
+                            There are limitations to the data on this page and many features are not yet available. Learn more about these limitations and upcoming updates by clicking <a href="">here</a> .
+                            </p>
                         </div>
-                        {
-                            showSidebarFooter &&
-                            <div className="sidebar-footer">
-                                <SidebarFooter
-                                    isGoingToBeSticky
+                    </div>
+                    <main id="main-content" className="main-content usda__flex-row">
+                        <div className="sidebar">
+                            <div className="sidebar__content">
+                                <Sidebar
                                     pageName="covid19"
-                                    fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                                    isGoingToBeSticky
+                                    fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                                    jumpToSection={jumpToSection}
+                                    detectActiveSection
+                                    sections={Object.keys(componentByCovid19Section())
+                                        .filter((section) => componentByCovid19Section()[section].showInMenu)
+                                        .map((section) => ({
+                                            section: snakeCase(section),
+                                            label: componentByCovid19Section()[section].title
+                                        }))} />
                             </div>
-                        }
-                    </div>
-                    <div className="body usda__flex-col">
-                        <section className="body__section">
-                            <Heading />
-                        </section>
-                        {Object.keys(componentByCovid19Section())
-                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
-                            .map((section) => (
-                                <Covid19Section
-                                    key={section}
-                                    section={section}
-                                    icon={componentByCovid19Section()[section].icon}
-                                    headerText={componentByCovid19Section()[section].headerText}
-                                    title={componentByCovid19Section()[section].title}>
-                                    {componentByCovid19Section()[section].component}
-                                </Covid19Section>
-                            ))}
-                        <section className="body__section" id="covid19-data_sources_and_methodology">
-                            <DataSourcesAndMethodology
-                                handleExternalLinkClick={handleExternalLinkClick} />
-                            <LinkToAdvancedSearchContainer />
-                        </section>
-                    </div>
-                    <GlobalModalContainer />
-                </main>
+                            {
+                                showSidebarFooter &&
+                                <div className="sidebar-footer">
+                                    <SidebarFooter
+                                        isGoingToBeSticky
+                                        pageName="covid19"
+                                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                                </div>
+                            }
+                        </div>
+                        <div className="body usda__flex-col">
+                            <section className="body__section">
+                                <Heading />
+                            </section>
+                            {Object.keys(componentByCovid19Section())
+                                .filter((section) => componentByCovid19Section()[section].showInMainSection)
+                                .map((section) => (
+                                    <Covid19Section
+                                        key={section}
+                                        section={section}
+                                        icon={componentByCovid19Section()[section].icon}
+                                        headerText={componentByCovid19Section()[section].headerText}
+                                        title={componentByCovid19Section()[section].title}>
+                                        {componentByCovid19Section()[section].component}
+                                    </Covid19Section>
+                                ))}
+                            <section className="body__section" id="covid19-data_sources_and_methodology">
+                                <DataSourcesAndMethodology
+                                    handleExternalLinkClick={handleExternalLinkClick} />
+                                <LinkToAdvancedSearchContainer />
+                            </section>
+                        </div>
+                        <GlobalModalContainer />
+                    </main>
+                </>
             </LoadingWrapper>
             <div className="footer-reference" ref={lastSectionRef}>
                 <Footer />
