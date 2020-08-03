@@ -10,6 +10,7 @@ import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import kGlobalConstants from 'GlobalConstants';
 
 import {
     budgetColumns,
@@ -327,7 +328,7 @@ const BudgetCategoriesTableContainer = (props) => {
     if (message) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
-                {spendingViewPicker()}
+                {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -357,7 +358,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     return (
         <div ref={tableWrapperRef} className="table-wrapper">
-            {spendingViewPicker()}
+            {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
