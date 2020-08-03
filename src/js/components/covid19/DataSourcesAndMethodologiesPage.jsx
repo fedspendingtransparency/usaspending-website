@@ -47,12 +47,14 @@ const sections = [
     {
         label: 'Linked and Unlinked Award Data',
         section: 'linked-and-unlinked'
+    },
+    {
+        label: 'Award Spending Sections',
+        section: 'award-spending'
     }
-    // {
-    //     label: 'Award Spending Sections',
-    //     section: 'award-spending'
-    // }
 ];
+
+if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections.pop();
 
 require('pages/data-sources/index.scss');
 
