@@ -20,7 +20,9 @@ const globalConstants = {
     // Phase 2 release
     CARES_ACT_RELEASED_2: (
         process.env.ENV === 'dev' ||
-        process.env.ENV === 'sandbox'
+        process.env.ENV === 'sandbox' ||
+        process.env.ENV === 'staging' ||
+        process.env.ENV === 'qat'
     )
 };
 
