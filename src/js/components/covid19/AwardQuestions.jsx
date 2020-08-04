@@ -11,7 +11,7 @@ const AwardQuestion = () => (
     <div className="award-question__container information-body">
         <div className="information-top" />
         <h2 className="award-question__title">
-            How much has the federal government spent on <span className="color-purple">awards</span> in response to COVID-19?
+            Federal Awards in Response to <span className="color-purple">COVID-19</span>
         </h2>
         <div className="award-question__sub-section">
             <p className="award-question__sub-section_paragraph">

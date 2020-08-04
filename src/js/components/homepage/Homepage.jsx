@@ -29,10 +29,10 @@ export default class Homepage extends React.Component {
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
                 <main id="main-content" className="homepage-content">
-                    {GlobalConstants.CARES_ACT_RELEASED && (
+                    {GlobalConstants.CARES_ACT_RELEASED_2 && (
                         <CovidHighlights />
                     )}
-                    {!GlobalConstants.CARES_ACT_RELEASED && (
+                    {!GlobalConstants.CARES_ACT_RELEASED_2 && (
                         <Hero />
                     )}
                     <Features />

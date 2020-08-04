@@ -36,6 +36,20 @@
                         color: $color-primary;
                     }
                 }
+                .about-section-content ol {
+                    font-family: monospace;
+                    padding: 3rem 5rem;
+                    background-color: $color-gray-lightest;
+                }
+                .about-section-content ul {
+                    margin: 0 0 3rem;
+                }
+                .about-section-content ul li {
+                    margin: 1rem 0;
+                }
+                .about-section-content ul li ul{
+                    margin-bottom: 3rem;
+                }
             }
             .about-content {
                 width: 100%;

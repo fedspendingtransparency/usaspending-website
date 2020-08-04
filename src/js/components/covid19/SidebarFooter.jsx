@@ -3,7 +3,7 @@
  * Created by James Lee 7/17/20
  */
 
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,10 +15,9 @@ const propTypes = {
     fixedStickyBreakpoint: PropTypes.number
 };
 
-const referenceDiv = createRef();
-const div = createRef();
-
 function SidebarFooter(props) {
+    const referenceDiv = useRef(null);
+    const div = useRef(null);
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, props.fixedStickyBreakpoint);
     const [sidebarFooterWidth, setSidebarFooterWidth] = useState("auto");
     const [sidebarFooterTop, setSidebarFooterTop] = useState("auto");

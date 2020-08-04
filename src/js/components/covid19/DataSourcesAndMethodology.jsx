@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import kGlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
@@ -25,7 +26,7 @@ const DataSourcesAndMethodology = ({
                 <h2 className="dsm__heading">Data Sources &amp; Methodology</h2>
                 <div className="dsm__topSection">
                     <p>Government spending funded by COVID-19 supplemental appropriations is tracked through the use of Disaster Emergency Fund Codes (DEFC). This page brings together agency financial and award data submitted monthly, covering activity beginning April 1, 2020. The data in all tables and visualizations are aggregates of all records tagged with an appropriate COVID-19 DEFC.</p>
-                    <p>Learn more about our <a href="#/disaster/covid-19/data-sources">data sources and calculation methods</a>, including details about our COVID-19 download options.</p>
+                    <p>Learn more about our <a href="#/disaster/covid-19/data-sources">data sources and calculation methods</a>, including details about our COVID-19 download options. {!kGlobalConstants.CARES_ACT_RELEASED_2 && <strong>Check back for more information in the coming days as we continue to update the data on this page.</strong>}</p>
                 </div>
                 <div className="bottomSection">
                     <h2 className="dsm__heading">Other Resources</h2>

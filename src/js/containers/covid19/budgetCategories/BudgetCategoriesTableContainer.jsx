@@ -8,8 +8,10 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, TooltipWrapper, Picker } from 'data-transparency-ui';
+import { Table, Pagination, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import kGlobalConstants from 'GlobalConstants';
+
 import {
     budgetColumns,
     budgetDropdownFieldValues,
@@ -18,11 +20,11 @@ import {
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
+import { handleSort } from 'helpers/covid19Helper';
+
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { BudgetCategoriesInfo } from 'components/award/shared/InfoTooltipContent';
-
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -206,64 +208,40 @@ const BudgetCategoriesTableContainer = (props) => {
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((defc) => defc.code)
+                },
+                pagination: {
+                    limit: pageSize,
+                    page: currentPage,
+                    sort: apiSortField,
+                    order
+                }
+            };
+
+            let disasterSpendingRequest;
             if (spendingCategory === 'loan_spending') {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    },
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: apiSortField,
-                        order
-                    }
-                };
-                const requestLoanSpending = fetchLoanSpending(props.type, params);
-                setRequest(requestLoanSpending);
-                requestLoanSpending.promise
-                    .then((res) => {
-                        parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                disasterSpendingRequest = fetchLoanSpending(props.type, params);
             } else {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    },
-                    spending_type: apiSpendingTypes[spendingCategory],
-                    pagination: {
-                        limit: pageSize,
-                        page: currentPage,
-                        sort: apiSortField,
-                        order
-                    }
-                };
-                const disasterSpendingRequest = fetchDisasterSpending(props.type, params);
-                setRequest(disasterSpendingRequest);
-                disasterSpendingRequest.promise
-                    .then((res) => {
-                        parseSpendingDataAndSetResults(res.data.results);
-                        setTotalItems(res.data.page_metadata.total);
-                        setLoading(false);
-                        setError(false);
-                    }).catch((err) => {
-                        setRequest(null);
-                        if (!isCancel(err)) {
-                            setError(true);
-                            setLoading(false);
-                            console.error(err);
-                        }
-                    });
+                params.spending_type = apiSpendingTypes[spendingCategory];
+                disasterSpendingRequest = fetchDisasterSpending(props.type, params);
             }
+            setRequest(disasterSpendingRequest);
+            disasterSpendingRequest.promise
+                .then((res) => {
+                    parseSpendingDataAndSetResults(res.data.results);
+                    setTotalItems(res.data.page_metadata.total);
+                    setLoading(false);
+                    setError(false);
+                }).catch((err) => {
+                    setRequest(null);
+                    if (!isCancel(err)) {
+                        setError(true);
+                        setLoading(false);
+                        console.error(err);
+                    }
+                });
         }
     });
 
@@ -335,26 +313,22 @@ const BudgetCategoriesTableContainer = (props) => {
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
             <Picker
+                sortFn={handleSort}
                 icon=""
-                selectedOption={budgetDropdownFieldValues[spendingCategory]}
+                selectedOption={budgetDropdownFieldValues[spendingCategory].label}
                 options={Object.keys(budgetDropdownFieldValues).map((key) => ({
-                    name: budgetDropdownFieldValues[key],
+                    name: budgetDropdownFieldValues[key].label,
+                    sortOrder: budgetDropdownFieldValues[key].sortOrder,
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
-            <TooltipWrapper
-                className="budget-categories-section-tt"
-                icon="info"
-                tooltipPosition="right"
-                tabIndex={0}
-                tooltipComponent={BudgetCategoriesInfo} />
         </div>
     );
 
     if (message) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
-                {spendingViewPicker()}
+                {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -384,7 +358,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     return (
         <div ref={tableWrapperRef} className="table-wrapper">
-            {spendingViewPicker()}
+            {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

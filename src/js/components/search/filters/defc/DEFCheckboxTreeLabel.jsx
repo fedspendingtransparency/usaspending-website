@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
+const parseAcronym = (str) => {
+    const parsedStr = str.replace("P.L.", "Public Law");
+    if (parsedStr.includes("P.L.")) return parseAcronym(parsedStr);
+    return parsedStr;
+};
+
 const DEFCheckboxTreeLabel = ({
     label,
     subLabel,
@@ -22,7 +28,7 @@ const DEFCheckboxTreeLabel = ({
                         {lbl}
                             <>
                                 <br />
-                                <span>{subLabels[i]}</span>
+                                <span>{parseAcronym(subLabels[i])}</span>
                                 <br />
                             </>
                     </div>
@@ -42,7 +48,7 @@ const DEFCheckboxTreeLabel = ({
                 {subLabel && (
                     <>
                         <br />
-                        <span>{subLabel}</span>
+                        <span>{parseAcronym(subLabel)}</span>
                     </>
                 )}
             </div>

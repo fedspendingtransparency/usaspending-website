@@ -15,7 +15,7 @@ export const apiScopes = {
 
 export const filters = {
     territory: {
-        label: 'TERRITORIES',
+        label: 'AREA TYPE',
         options: [
             {
                 value: 'state',
@@ -57,7 +57,7 @@ export const filters = {
             },
             {
                 value: 'perCapita',
-                label: 'Per Capita'
+                label: 'Per Capita Spending'
             }
         ]
     }

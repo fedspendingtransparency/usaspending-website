@@ -18,7 +18,7 @@ const Heading = () => {
         <div className="heading__container information-body">
             <div className="heading__top information-top" />
             <div className="heading__title">
-                The Federal Response to <span className="color-purple">COVID-19</span>.
+                The Federal Response to <span className="color-purple">COVID-19</span>
             </div>
             <div className="heading__description">
                 <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation.</p>
