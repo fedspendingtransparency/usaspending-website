@@ -49,14 +49,6 @@
                 width: 70%;
             }
             .body__section {
-              .coming-soon-section {
-                  width: 100%;
-                  @include display(flex);
-                  @include flex-direction(column);
-                  @extend %coming-soon-idv;
-                  padding-bottom: 0;
-                  height: 730px;
-              }
                 @import '../agency/v2/tabs';
                 @import './searchBar';
                 @import 'components/moreOptionsTabs';
