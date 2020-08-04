@@ -5,10 +5,9 @@
 
 import { defCodeQueryString } from 'helpers/disasterHelper';
 
-const defCodes = ['L', 'M', 'N'];
-
+const defCodes = ['O', 'M', 'P', 'N', 'L'];
 describe('Disaster Helper', () => {
     it('should format an array of def codes to a string', () => {
-        expect(defCodeQueryString(defCodes)).toEqual('L,M,N');
+        expect(defCodeQueryString(defCodes)).toEqual('L,M,N,O,P');
     });
 });
