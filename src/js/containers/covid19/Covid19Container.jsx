@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Footer from 'containers/Footer';
 import Heading from 'components/covid19/Heading';
@@ -48,9 +48,11 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const lastSectionRef = useRef(null);
+    const dataDisclaimerBanner = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
+    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBanner, scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage')));
 
     useEffect(() => () => {
         if (defCodesRequest.current) {
@@ -58,7 +60,8 @@ const Covid19Container = () => {
         }
     }, []);
 
-    const sidebarFooterVisibility = () => {
+    const handleScroll = () => {
+        setBannerStickyOnScroll();
         if (window.scrollY >= (lastSectionRef.current.offsetTop - 800)) {
             setShowSidebarFooter(false);
         }
@@ -68,9 +71,9 @@ const Covid19Container = () => {
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', sidebarFooterVisibility);
+        window.addEventListener('scroll', handleScroll);
         return () => {
-            window.removeEventListener('scroll', sidebarFooterVisibility);
+            window.removeEventListener('scroll', handleScroll);
         };
     });
 
@@ -149,7 +152,7 @@ const Covid19Container = () => {
     };
 
     return (
-        <div className="usa-da-covid19-page">
+        <div className="usa-da-covid19-page" ref={dataDisclaimerBanner}>
             <MetaTags {...covidPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -182,7 +185,7 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <>
-                    <div className="info-banner data-disclaimer">
+                    <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
                         <div className="info-top" />
                         <div className="info-banner__content">
                             <div className="info-banner__content--title">

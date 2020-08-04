@@ -283,9 +283,18 @@
       width: 100%;
     }
     @import '../../layouts/default/header/warning';
+
     .info-banner.data-disclaimer {
         border-top: none;
         background: $color-gold-lightest;
+        &.sticky-banner {
+            @media (min-width: $medium-screen) {
+                position: fixed;
+                // right underneath the site header @ 66px
+                top: rem(66);
+                z-index: 999999999;
+            }
+        }
         .info-top {
             width: 100%;
             transform: scaleY(-1);
@@ -299,10 +308,14 @@
             padding-right: rem(30);
             width: 100%;
             @media(min-width: $tablet-screen) {
-                margin: rem(10) rem(25);
+                margin: rem(0) rem(25) rem(10) rem(25);
+            }
+            @media(min-width: $medium-screen) {
+                // fixed height so we know how much to offset for the sidebar.
+                height: rem(75);
             }
             @media(min-width: $large-screen) {
-                margin: rem(10) rem(40);
+                margin: rem(0) rem(40) rem(10) rem(40);
             }
             @media(min-width: $x-large-screen) {
                 margin: auto;

@@ -22,6 +22,8 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
     };
 }).sort((a, b) => defaultSortDEF(a.value, b.value));
 
+const dataDisclaimerOffset = 75;
+
 export const jumpToSection = (
     section = '',
     activeSection,
@@ -46,9 +48,10 @@ export const jumpToSection = (
     // if the scrollY position is above the covid-19 sticky header
     // use scrollY or window.pageYOffset for IE11
     if ((window.scrollY || window.pageYOffset <= 161) && activeSection === 'overview') {
-        scrollToY(sectionDom.offsetTop - 150, 700);
-    } else {
-        scrollToY(sectionDom.offsetTop - 86, 700);
+        scrollToY(sectionDom.offsetTop - 150 - dataDisclaimerOffset, 700);
+    }
+    else {
+        scrollToY(sectionDom.offsetTop - 86 - dataDisclaimerOffset, 700);
     }
 
     if (setActiveSection) setActiveSection(matchedSection);
