@@ -22,7 +22,7 @@ import AccountLandingPage from 'components/accountLanding/AccountLandingPage';
 import StateLandingPage from 'components/stateLanding/StateLandingPage';
 import StateContainer from 'containers/state/StateContainer';
 import RecipientLandingPage from 'components/recipientLanding/RecipientLandingPage';
-import { RecipientContainer } from 'containers/recipient/RecipientContainer';
+import RecipientContainer from 'containers/recipient/RecipientContainer';
 import AgencyProfileV2 from 'containers/agency/v2/AgencyContainerV2';
 import Covid19Container from 'containers/covid19/Covid19Container';
 import DataSourcesAndMethodologiesPage from 'components/covid19/DataSourcesAndMethodologiesPage';
@@ -148,7 +148,7 @@ export const routes = [
     {
         path: '/recipient/:recipientId',
         addToSitemap: false,
-        component: RecipientLandingPage
+        component: RecipientContainer
     },
     {
         path: '/recipient',

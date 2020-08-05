@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { withRouter } from 'react-router-dom';
 
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
@@ -20,8 +21,9 @@ require('pages/recipient/recipientPage.scss');
 const propTypes = {
     setRecipientOverview: PropTypes.func,
     setRecipientFiscalYear: PropTypes.func,
-    params: PropTypes.shape({ recipientId: PropTypes.string, fy: PropTypes.string }),
-    recipient: PropTypes.object
+    recipient: PropTypes.object,
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class RecipientContainer extends React.Component {
@@ -38,28 +40,27 @@ export class RecipientContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (!Object.keys(this.props.params).includes('fy')) {
-            // TODO: fix for BrowserRouter
-            //Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
+        if (!Object.keys(this.props.match.params).includes('fy')) {
+            this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
         }
-        this.props.setRecipientFiscalYear(this.props.params.fy);
-        this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
+        this.props.setRecipientFiscalYear(this.props.match.params.fy);
+        this.loadRecipientOverview(this.props.match.params.recipientId, this.props.recipient.fy);
     }
 
     componentDidUpdate(prevProps) {
-        if (!Object.keys(this.props.params).includes('fy')) {
-            Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
+        if (!Object.keys(this.props.match.params).includes('fy')) {
+            this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
         }
-        if (this.props.params.recipientId !== prevProps.params.recipientId) {
+        if (this.props.match.params.recipientId !== prevProps.match.params.recipientId) {
             // Reset the FY
-            this.props.setRecipientFiscalYear(this.props.params.fy);
-            this.loadRecipientOverview(this.props.params.recipientId, 'latest');
+            this.props.setRecipientFiscalYear(this.props.match.params.fy);
+            this.loadRecipientOverview(this.props.match.params.recipientId, 'latest');
         }
-        if (prevProps.params.fy !== this.props.params.fy) {
-            this.props.setRecipientFiscalYear(this.props.params.fy);
+        if (prevProps.match.params.fy !== this.props.match.params.fy) {
+            this.props.setRecipientFiscalYear(this.props.match.params.fy);
         }
         if (this.props.recipient.fy !== prevProps.recipient.fy) {
-            this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
+            this.loadRecipientOverview(this.props.match.params.recipientId, this.props.recipient.fy);
         }
     }
 
@@ -103,7 +104,7 @@ export class RecipientContainer extends React.Component {
     }
 
     updateSelectedFy(fy) {
-        Router.history.push(`/recipient/${this.props.recipient.id}/${fy}`);
+        this.props.history.push(`/recipient/${this.props.recipient.id}/${fy}`);
         this.props.setRecipientFiscalYear(fy);
     }
 
@@ -119,11 +120,13 @@ export class RecipientContainer extends React.Component {
     }
 }
 
+RecipientContainer.propTypes = propTypes;
+const RecipientContainerWithRouter = withRouter(RecipientContainer);
+
 export default connect(
     (state) => ({
         recipient: state.recipient
     }),
     (dispatch) => bindActionCreators(recipientActions, dispatch)
-)(RecipientContainer);
+)(RecipientContainerWithRouter);
 
-RecipientContainer.propTypes = propTypes;
