@@ -43,16 +43,17 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showSidebarFooter, setShowSidebarFooter] = useState(true);
+    const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const lastSectionRef = useRef(null);
-    const dataDisclaimerBanner = useRef(null);
+    const dataDisclaimerBannerRef = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
-    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBanner, scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage')));
+    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage')));
 
     useEffect(() => () => {
         if (defCodesRequest.current) {
@@ -151,8 +152,17 @@ const Covid19Container = () => {
         dispatch(showModal(null, 'covid-data-disclaimer'));
     };
 
+    const handleCloseBanner = () => {
+        Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
+        setDataDisclaimerBanner('hide');
+    };
+
+    const handleJumpToSection = (section) => {
+        jumpToSection(section);
+    };
+
     return (
-        <div className="usa-da-covid19-page" ref={dataDisclaimerBanner}>
+        <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
             <MetaTags {...covidPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -185,26 +195,29 @@ const Covid19Container = () => {
             </StickyHeader>
             <LoadingWrapper isLoading={isLoading}>
                 <>
-                    <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
-                        <div className="info-top" />
-                        <div className="info-banner__content">
-                            <div className="info-banner__content--title">
-                                <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
-                                <h2>This page is under development and contains preliminary data</h2>
+                    {dataDisclaimerBanner !== 'hide' && (
+                        <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
+                            <div className="info-top" />
+                            <div className="info-banner__content">
+                                <div className="info-banner__content--title">
+                                    <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
+                                    <h2>This page is under development and contains preliminary data</h2>
+                                    <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
+                                </div>
+                                <p>
+                                    There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
+                                </p>
                             </div>
-                            <p>
-                                There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
-                            </p>
                         </div>
-                    </div>
+                    )}
                     <main id="main-content" className="main-content usda__flex-row">
                         <div className="sidebar">
-                            <div className="sidebar__content">
+                            <div className={`sidebar__content${!dataDisclaimerBanner ? ' covid-banner' : ''}`}>
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
                                     fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
-                                    jumpToSection={jumpToSection}
+                                    jumpToSection={handleJumpToSection}
                                     detectActiveSection
                                     sections={Object.keys(componentByCovid19Section())
                                         .filter((section) => componentByCovid19Section()[section].showInMenu)

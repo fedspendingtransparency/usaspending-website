@@ -29,7 +29,7 @@
             &.float-sidebar {
                 position: fixed;
                 // fixed site header (66px) and banner (75px)
-                top: rem(156);
+                top: rem(96);
             }
             ul {
                 @include unstyled-list;
@@ -60,6 +60,11 @@
                         border-bottom: 5px solid $color-primary;
                     }
                 }
+            }
+        }
+        &.covid-banner {
+            .covid19-sidebar-content.float-sidebar {
+                top: rem(166);
             }
         }
     }
