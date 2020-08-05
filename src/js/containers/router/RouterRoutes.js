@@ -20,7 +20,7 @@ import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadP
 import { KeywordContainer } from 'containers/keyword/KeywordContainer';
 import AccountLandingPage from 'components/accountLanding/AccountLandingPage';
 import StateLandingPage from 'components/stateLanding/StateLandingPage';
-import { StateContainer } from 'containers/state/StateContainer';
+import StateContainer from 'containers/state/StateContainer';
 import RecipientLandingPage from 'components/recipientLanding/RecipientLandingPage';
 import { RecipientContainer } from 'containers/recipient/RecipientContainer';
 import AgencyProfileV2 from 'containers/agency/v2/AgencyContainerV2';
