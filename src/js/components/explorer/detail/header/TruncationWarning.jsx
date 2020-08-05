@@ -16,7 +16,7 @@ const TruncationWarning = () => (
                 Award Display Limit
             </div>
             <div className="truncation-warning__detail">
-                Only the 500 awards with the highest amounts are shown. For further research on individual awards, visit our <a href="#/search">Advanced Search</a>.
+                Only the 500 awards with the highest amounts are shown. For further research on individual awards, visit our <a href="search">Advanced Search</a>.
             </div>
         </div>
     </div>

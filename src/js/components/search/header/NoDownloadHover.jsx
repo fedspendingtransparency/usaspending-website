@@ -20,7 +20,7 @@ const NoDownloadHover = () => (
                     <div className="message">
                         Our Advanced Search limits downloads to 500,000 records.
                         Narrow your search using additional filters, or grab larger files from
-                        our <a href="#/download_center/award_data_archive">Award Data Archive</a>.
+                        our <a href="download_center/award_data_archive">Award Data Archive</a>.
                     </div>
                 </div>
                 <div className="tooltip-pointer right" />

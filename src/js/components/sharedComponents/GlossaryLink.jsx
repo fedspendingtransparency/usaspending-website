@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const GlossaryLink = ({ term, currentUrl }) => (
-    <a className="usda-glossary-link" href={`#/${currentUrl}?glossary=${term}`} aria-label="Open the Glossary">
+    <a className="usda-glossary-link" href={`${currentUrl}?glossary=${term}`} aria-label="Open the Glossary">
         <FontAwesomeIcon icon="book" />
     </a>
 );

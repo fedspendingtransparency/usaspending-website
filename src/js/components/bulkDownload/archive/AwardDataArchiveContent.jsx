@@ -30,7 +30,7 @@ export default class AwardDataArchiveContent extends React.Component {
                 </p>
                 <p>
                     New files are uploaded by the 15th of each month. Check the Data As Of column to see the last time files were generated. <b>Full files</b> feature data for the fiscal year up until the date the file was prepared, and <b>delta files</b> feature only new, modified, and deleted data since the date the last month&apos;s files were generated. The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
-                    To download data prior to FY 2008, visit our <a href="#/download_center/custom_award_data">Custom Award Data</a> page.
+                    To download data prior to FY 2008, visit our <a href="download_center/custom_award_data">Custom Award Data</a> page.
                 </p>
                 <p>
                     Ready to grab your data? Complete the form below.

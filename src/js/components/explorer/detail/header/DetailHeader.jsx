@@ -67,7 +67,7 @@ const heading = (type, title, id) => {
         return (
             <h2 className="detail-header__title">
                 <a
-                    href={`/#/federal_account/${id}`}
+                    href={`/federal_account/${id}`}
                     className="detail-header__title-link"
                     onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
                     {title}
@@ -78,7 +78,7 @@ const heading = (type, title, id) => {
     else if (type === 'Agency') {
         let header = (
             <a
-                href={`/#/agency/${id}`}
+                href={`/agency/${id}`}
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/agency/${id}`)}>
                 {title}

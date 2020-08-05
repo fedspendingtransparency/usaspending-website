@@ -50,7 +50,7 @@ export class BulkDownloadPageContainer extends React.Component {
 
     validateDataType(typeUrl) {
         if (typeUrl) {
-            const dataType = downloadOptions.find((type) => type.url === `#/download_center/${typeUrl}`);
+            const dataType = downloadOptions.find((type) => type.url === `download_center/${typeUrl}`);
 
             if (dataType) {
                 this.props.setDataType(dataType.type);

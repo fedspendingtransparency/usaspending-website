@@ -172,7 +172,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <a
                         className="federal-account-profile__link"
-                        href={`#/federal_account/${code}`}>
+                        href={`federal_account/${code}`}>
                         {budgetCategoryRow.name}
                     </a>
                 );
@@ -180,7 +180,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <a
                         className="agency-profile__link"
-                        href={`#/agency/${id}`}>
+                        href={`agency/${id}`}>
                         {budgetCategoryRow.name}
                     </a>
                 );

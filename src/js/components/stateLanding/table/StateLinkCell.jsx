@@ -29,7 +29,7 @@ export default class StateLinkCell extends React.Component {
 
         return (
             <td className="state-list__body-cell">
-                <a href={`#/state/${this.props.fips}`}>
+                <a href={`state/${this.props.fips}`}>
                     {name}
                 </a>
             </td>

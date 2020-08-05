@@ -36,7 +36,7 @@ export default class MobileTop extends React.Component {
                     <div className="site-logo__wrapper" id="logo-nav">
                         <a
                             className="site-logo__link"
-                            href="#/"
+                            href="/"
                             title="USAspending.gov Home"
                             aria-label="USAspending.gov Home"
                             onClick={this.clickedLink}>

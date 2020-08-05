@@ -113,7 +113,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid__button-wrap">
                         <a
                             className="feature-covid__button"
-                            href="#/search"
+                            href="search"
                             onClick={handleGoToAdvancedSearch}>
                             Search the Data
                         </a>

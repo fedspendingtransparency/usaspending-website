@@ -95,7 +95,7 @@ export default class ExplorerSidebar extends React.Component {
                 <div className="start-over">
                     <a
                         className="start-over-button"
-                        href="#/explorer">
+                        href="explorer">
                         <div className="content">
                             <div className="icon">
                                 <Home alt="Home" />

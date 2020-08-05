@@ -19,7 +19,7 @@ export default class StateFooter extends React.Component {
                     </p>
                     <a
                         className="state-search-button"
-                        href="/#/search">
+                        href="/search">
                         Let&#39;s go!
                     </a>
                 </div>

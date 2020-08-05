@@ -56,7 +56,7 @@ const Footer = ({
                 <div className="footer-container">
                     <div className="footer-logo">
                         <a
-                            href="#/"
+                            href="/"
                             title="USAspending.gov Home"
                             aria-label="USAspending.gov Home"
                             onClick={clickedFooterLink.bind(null, '/')}>
@@ -71,7 +71,7 @@ const Footer = ({
                             <ul className="links">
                                 <li>
                                     <a
-                                        href="#/about"
+                                        href="about"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
                                         About USAspending
                                     </a>
@@ -121,7 +121,7 @@ const Footer = ({
                                         title="Data Lab" />
                                 </li>
                                 <li>
-                                    <a href="/#/download_center/data_dictionary">
+                                    <a href="/download_center/data_dictionary">
                                         Data Dictionary
                                     </a>
                                 </li>
@@ -149,7 +149,7 @@ const Footer = ({
                         <li className="copyright__legal-item">
                             <a
                                 className="copyright__link"
-                                href="#/about/accessibility"
+                                href="about/accessibility"
                                 onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
                                 Accessibility
                             </a>
@@ -157,7 +157,7 @@ const Footer = ({
                         <li className="copyright__legal-item">
                             <a
                                 className="copyright__link"
-                                href="#/about/privacy"
+                                href="about/privacy"
                                 onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                 Privacy Policy
                             </a>
@@ -165,7 +165,7 @@ const Footer = ({
                         <li className="copyright__legal-item">
                             <a
                                 className="copyright__link"
-                                href="#/about/foia"
+                                href="about/foia"
                                 onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                 Freedom of Information Act
                             </a>
@@ -199,7 +199,7 @@ const Footer = ({
                         </div>
                     </div>
                     <div className="copyright__db">
-                        <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
+                        <strong>NOTE:</strong> You must <a href="db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
                     </div>
                 </div>
             </footer>

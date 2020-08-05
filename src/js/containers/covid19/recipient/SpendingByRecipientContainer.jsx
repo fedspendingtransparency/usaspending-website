@@ -124,10 +124,10 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <a href={`#/recipient/${rowData._childId}`}>
+                    <a href={`recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
-                    <a href={`#/recipient/${rowData._recipientId}`}>
+                    <a href={`recipient/${rowData._recipientId}`}>
                         as Recipient
                     </a>
                     )
@@ -137,7 +137,7 @@ export const parseRows = (rows, activeTab, query) => (
         else if (rowData._childId || rowData._recipientId) {
             // there is a single profile page for this recipient
             link = (
-                <a href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <a href={`recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
                 </a>
             );

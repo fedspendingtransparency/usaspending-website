@@ -72,9 +72,9 @@ export default class MobileNav extends React.Component {
                         <li className="mobile-nav-content__list-item">
                             <a
                                 className="mobile-nav-content__link"
-                                href="#/explorer"
+                                href="explorer"
                                 title="Spending Explorer"
-                                name="#/explorer"
+                                name="explorer"
                                 onClick={this.clickedLink}>
                                 Spending Explorer
                             </a>

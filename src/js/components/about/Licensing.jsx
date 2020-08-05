@@ -32,7 +32,7 @@ export default class Licensing extends Component {
                         or for commercial purposes, subject to the Limitation on Permissible
                         Use of Dun &amp; Bradstreet, Inc. Data&nbsp;
                         <a
-                            href="/#/db_info">
+                            href="/db_info">
                             noted on the homepage
                         </a>.
                     </p>

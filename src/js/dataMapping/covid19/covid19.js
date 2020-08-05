@@ -131,7 +131,7 @@ export const otherSankeyNodes = [
         name: '_totalBudgetAuthority',
         label: 'Total Budgetary Resources',
         color: '#AAC6E2',
-        glossary: `#/${slug}?glossary=budget-authority`,
+        glossary: `${slug}?glossary=budget-authority`,
         textWidth: 140,
         textHeight: 31
     },
@@ -139,7 +139,7 @@ export const otherSankeyNodes = [
         name: '_awardObligations',
         label: 'Award Obligations',
         color: '#558EC6',
-        glossary: `#/${slug}?glossary=award-obligations`,
+        glossary: `${slug}?glossary=award-obligations`,
         textWidth: 99,
         textHeight: 31
     },
@@ -147,7 +147,7 @@ export const otherSankeyNodes = [
         name: '_otherObligations',
         label: 'Non-Award Obligations',
         color: '#558EC6',
-        glossary: `#/${slug}?glossary=non-award-obligations`,
+        glossary: `${slug}?glossary=non-award-obligations`,
         textWidth: 123,
         textHeight: 31
     },
@@ -155,7 +155,7 @@ export const otherSankeyNodes = [
         name: '_awardOutlays',
         label: 'Award Outlays',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 79,
         textHeight: 31
     },
@@ -163,7 +163,7 @@ export const otherSankeyNodes = [
         name: '_awardObligationsNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 163,
         textHeight: 31,
         whiteRectangle: true
@@ -172,7 +172,7 @@ export const otherSankeyNodes = [
         name: '_nonAwardOutLays',
         label: 'Other Outlays',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 75,
         textHeight: 31
     },
@@ -180,7 +180,7 @@ export const otherSankeyNodes = [
         name: '_nonAwardNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 163,
         textHeight: 31,
         whiteRectangle: true
@@ -189,7 +189,7 @@ export const otherSankeyNodes = [
         name: '_remainingBalance',
         label: 'Total Unobligated Balance',
         color: '#558EC6',
-        glossary: `#/${slug}?glossary=unobligated-balance`,
+        glossary: `${slug}?glossary=unobligated-balance`,
         textWidth: 109,
         textHeight: 31,
         whiteRectangle: true

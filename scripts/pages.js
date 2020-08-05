@@ -18,7 +18,7 @@ const recipientRequestObject = {
         award_type: "all"
     },
     accessor: 'id',
-    clientRoute: 'https://www.usaspending.gov/#/recipient'
+    clientRoute: 'https://www.usaspending.gov/recipient'
 };
 
 const awardPageInfo = {
@@ -52,7 +52,7 @@ const awardPageInfo = {
         subawards: false
     },
     accessor: 'generated_internal_id',
-    clientRoute: 'https://www.usaspending.gov/#/award'
+    clientRoute: 'https://www.usaspending.gov/award'
 };
 
 const federalAccountPageInfo = {
@@ -69,7 +69,7 @@ const federalAccountPageInfo = {
         limit: 100,
         filters: { fy: "2019" }
     },
-    clientRoute: 'https://www.usaspending.gov/#/federal_account'
+    clientRoute: 'https://www.usaspending.gov/federal_account'
 };
 
 const createPaginatedPages = (defaultObj, numberOfPages) => {
@@ -105,7 +105,7 @@ const pages = [
         url: 'https://api.usaspending.gov/api/v2/recipient/state/',
         method: 'get',
         accessor: 'fips',
-        clientRoute: 'https://www.usaspending.gov/#/state'
+        clientRoute: 'https://www.usaspending.gov/state'
     },
     {
         name: 'agency',
@@ -116,7 +116,7 @@ const pages = [
         url: 'https://api.usaspending.gov/api/v2/references/toptier_agencies/',
         method: 'get',
         accessor: 'agency_id',
-        clientRoute: 'https://www.usaspending.gov/#/agency'
+        clientRoute: 'https://www.usaspending.gov/agency'
     },
     [
         // all federal accounts

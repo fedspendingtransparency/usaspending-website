@@ -36,10 +36,10 @@ const Recipient = ({
 
     const formatRecipientLink = (internalId, name) => {
         if (internalId && name) {
-            return (<a href={`#/recipient/${internalId}`}>{name}</a>);
+            return (<a href={`recipient/${internalId}`}>{name}</a>);
         }
         else if (internalId) {
-            return (<a href={`#/recipient/${internalId}`}>Unknown</a>);
+            return (<a href={`recipient/${internalId}`}>Unknown</a>);
         }
         return name;
     };
@@ -49,7 +49,7 @@ const Recipient = ({
         recordType
     );
     const recipientComponent = () => {
-        const glossaryLink = `/#/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
+        const glossaryLink = `/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
         if (isFinancialAssistance && recordType !== 2) {
             let recipientTitle = '';

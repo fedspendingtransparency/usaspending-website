@@ -19,7 +19,7 @@ const DownloadHover = () => (
                     </div>
                     <div className="message">
                         <div>This download includes all data displayed on this page (as well as many additional data elements), with the exception of a few aspects one would need the more granular Account Breakdown by Award data (File C) to reproduce. If you wish to download this more granular data, visit the{' '}
-                            <a href="/#/download_center/custom_account_data">Custom Account Data</a> download page.
+                            <a href="/download_center/custom_account_data">Custom Account Data</a> download page.
                         </div>
                         <br />
                         <div>See the Data Sources section for more information on how downloadable data maps to this page.</div>

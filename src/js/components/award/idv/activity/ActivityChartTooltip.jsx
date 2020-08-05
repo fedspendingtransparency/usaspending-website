@@ -69,7 +69,7 @@ export default class IdvActivityTooltip extends React.Component {
         return (
             <a
                 title={title}
-                href={`/#/${path}/${id}`}>
+                href={`/${path}/${id}`}>
                 {data}
             </a>
         );

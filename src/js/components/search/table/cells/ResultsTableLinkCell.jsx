@@ -37,7 +37,7 @@ const ResultsTableLinkCell = (props) => {
     return (
         <div className={`award-result-generic-cell ${rowClass}`}>
             <div className="cell-content">
-                <a onClick={props.onClick} href={`/#/${props.column}/${props.id}`}>
+                <a onClick={props.onClick} href={`/${props.column}/${props.id}`}>
                     {content}
                 </a>
             </div>

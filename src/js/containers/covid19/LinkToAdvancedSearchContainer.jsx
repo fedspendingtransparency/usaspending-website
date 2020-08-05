@@ -47,7 +47,7 @@ const FooterLinkToAdvancedSearchContainer = ({ history }) => {
                     Visit our <button onClick={clickedSearch}>Advanced Search</button> page to see individual awards funded through the COVID-19 response and keep an eye out for purple COVID-19 badges found throughout the site.
                 </p>
                 <p>
-                    Visit our <a href="#/download_center/custom_account_data">Custom Account Data</a> download for COVID-19 award spending data with a higher degree of granularity.
+                    Visit our <a href="download_center/custom_account_data">Custom Account Data</a> download for COVID-19 award spending data with a higher degree of granularity.
                 </p>
             </div>
         </div>

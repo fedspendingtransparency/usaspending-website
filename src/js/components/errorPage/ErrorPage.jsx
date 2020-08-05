@@ -33,7 +33,7 @@ const ErrorPage = () => (
                     <div className="error-body">
                         <p>Sorry, the page you are looking for doesn&apos;t exist.</p>
                         <p>
-                            Check the URL for typos or <a href="#/">return to the home page.</a>
+                            Check the URL for typos or <a href="/">return to the home page.</a>
                         </p>
                     </div>
                 </div>

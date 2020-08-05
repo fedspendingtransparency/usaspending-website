@@ -36,7 +36,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                 <a
                     className="recipient-overview__multiparents"
                     key={currentValue.parent_duns}
-                    href={`#/recipient/${currentValue.parent_id}`}>
+                    href={`recipient/${currentValue.parent_id}`}>
                     {currentValue.parent_name}
                     {currentValue.parent_duns ? `(${currentValue.parent_duns})` : ''}
                 </a>
@@ -61,7 +61,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                             This recipient is a child of &nbsp;
                             <a
                                 className="recipient-overview__parent-link"
-                                href={`#/recipient/${initialParent.parent_id}`}>
+                                href={`recipient/${initialParent.parent_id}`}>
                                 {initialParent.parent_name} {initialDuns}
                             </a>
                         </div>
@@ -103,7 +103,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                             <a
                                 key={initialDuns}
                                 className="recipient-overview__multiparents"
-                                href={`#/recipient/${initialParent.parent_id}`}>
+                                href={`recipient/${initialParent.parent_id}`}>
                                 {initialParent.parent_name} {initialDuns}
                             </a>
                             <div className={this.state.open ? '' : 'hide'}>

@@ -32,7 +32,7 @@ export default class AgencyLinkCell extends React.Component {
         return (
             <div className={`agency-link-cell column-${this.props.column}`}>
                 <div className="cell-content">
-                    <a href={`/#/agency/${this.props.id}`}>
+                    <a href={`/agency/${this.props.id}`}>
                         {name}
                     </a>
                 </div>

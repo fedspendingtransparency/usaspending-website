@@ -147,7 +147,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 link = (
                     <a
                         className="agency-profile__link"
-                        href={`#/agency/${id}`}>
+                        href={`agency/${id}`}>
                         {awardSpendingByAgencyRow.description}
                     </a>
                 );

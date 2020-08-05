@@ -138,7 +138,7 @@ export default class RelatedAwards extends React.Component {
             parentLink = (
                 <a
                     className="related-awards__link"
-                    href={`#/award/${overview.parentAwardDetails.awardId}`}>
+                    href={`award/${overview.parentAwardDetails.awardId}`}>
                     {overview.parentAwardDetails.piid}
                 </a>
             );

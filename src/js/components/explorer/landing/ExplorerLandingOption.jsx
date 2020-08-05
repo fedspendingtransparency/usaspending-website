@@ -27,7 +27,7 @@ const ExplorerLandingOption = (props) => {
             </div>
             <h2 className="landing-option__title">
                 {props.title}
-                <a href={`#/explorer/?glossary=${props.term}`}>
+                <a href={`explorer/?glossary=${props.term}`}>
                     <Icons.Glossary />
                 </a>
             </h2>
