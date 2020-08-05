@@ -324,8 +324,13 @@
             .info-banner__content--title {
                 @include display(flex);
                 margin-top: rem(10);
+                width: 100%;
                 svg {
                     @include align-self(center);
+                }
+                .fa-times {
+                    margin-left: auto;
+                    @include align-self(flex-start);
                 }
                 h2 {
                     width: 95%;
