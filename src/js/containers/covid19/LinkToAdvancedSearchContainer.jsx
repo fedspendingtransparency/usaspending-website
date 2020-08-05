@@ -4,19 +4,16 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
-const propTypes = {
-    history: PropTypes.object
-};
-
-const FooterLinkToAdvancedSearchContainer = ({ history }) => {
+const FooterLinkToAdvancedSearchContainer = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
     const addDefCodesToAdvancedSearchFilter = () => dispatch(applyStagedFilters(
@@ -54,5 +51,4 @@ const FooterLinkToAdvancedSearchContainer = ({ history }) => {
     );
 };
 
-FooterLinkToAdvancedSearchContainer.propTypes = propTypes;
 export default FooterLinkToAdvancedSearchContainer;

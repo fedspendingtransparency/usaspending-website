@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
+import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -23,8 +24,7 @@ import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } 
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
-    scrollIntoView: PropTypes.func.isRequired,
-    history: PropTypes.object
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 const columns = [
@@ -111,7 +111,7 @@ const loanColumns = [
     }
 ];
 
-const SpendingByCFDAContainer = ({ activeTab, scrollIntoView, history }) => {
+const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -124,7 +124,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView, history }) => {
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-
+    const history = useHistory();
 
     const updateSort = (field, direction) => {
         setSort(field);

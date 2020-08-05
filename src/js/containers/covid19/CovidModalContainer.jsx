@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import kGlobalConstants from 'GlobalConstants';
@@ -16,9 +17,10 @@ const CovidModalContainer = ({
     hideModal,
     stageDefCodesForAdvancedSearch,
     clearFilters,
-    resetFilters,
-    history
+    resetFilters
 }) => {
+    const history = useHistory();
+
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
         hideModal();
@@ -33,7 +35,6 @@ const CovidModalContainer = ({
             })
         });
         history.push('/search');
-
     };
 
     const handleGoToCovidProfile = (e) => {

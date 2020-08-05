@@ -5,8 +5,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types";
-
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
@@ -27,9 +27,10 @@ const CovidFeatureContainer = ({
     stageDefCodesForAdvancedSearch,
     clearFilters,
     resetFilters,
-    showCovidModal,
-    history
+    showCovidModal
 }) => {
+    const history = useHistory();
+
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
         clickedHomepageLink("search");
@@ -184,8 +185,7 @@ CovidFeatureContainer.propTypes = {
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    showCovidModal: PropTypes.func,
-    history: PropTypes.object
+    showCovidModal: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
