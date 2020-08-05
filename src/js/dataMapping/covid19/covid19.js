@@ -3,13 +3,13 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import { getBaseUrlNoHash } from 'helpers/socialShare';
+import { getBaseUrl } from 'helpers/socialShare';
 
 export const slug = 'covid-19';
 
 export const getEmailSocialShareData = {
     subject: 'USAspending.gov COVID-19 Spending',
-    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
+    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrl(slug)}`
 };
 
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);

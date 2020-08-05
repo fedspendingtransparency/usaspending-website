@@ -32,7 +32,7 @@ const CovidFeatureContainer = ({
 }) => {
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
-        clickedHomepageLink("#/search");
+        clickedHomepageLink("search");
         clearFilters();
         resetFilters();
         stageDefCodesForAdvancedSearch({
@@ -78,7 +78,7 @@ const CovidFeatureContainer = ({
                             <li><strong className="homepage-feature-description_weight_bold">Breakdown of spending data</strong> by federal agency, award recipient, and a variety of budget categories.</li>
                         </ul>
                         <p>Interested in <strong className="homepage-feature-description_weight_bold">downloading all the COVID-19 spending data?</strong> Visit the
-                            <a href="#/disaster/covid-19" onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}> COVID-19 Spending profile page </a> and click the download button!
+                            <a href="disaster/covid-19" onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}> COVID-19 Spending profile page </a> and click the download button!
                         </p>
                     </div>
                 </div>
@@ -136,12 +136,12 @@ const CovidFeatureContainer = ({
                     </div>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
                         <p>Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
-                        <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <a href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page </p>
+                        <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <a href="disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page </p>
                     </div>
                     <div className="feature-covid__button-wrap">
                         <a
                             className="feature-covid__button"
-                            href="#/disaster/covid-19"
+                            href="disaster/covid-19"
                             onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}>
                             Explore the Data
                         </a>

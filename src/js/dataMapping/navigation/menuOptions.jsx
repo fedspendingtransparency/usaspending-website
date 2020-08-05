@@ -48,7 +48,7 @@ export const profileOptions = [
     },
     {
         label: <New />,
-        url: '#/disaster/covid-19',
+        url: '/disaster/covid-19',
         enabled: kGlobalConstants.CARES_ACT_RELEASED
     }
 ];

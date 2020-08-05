@@ -127,7 +127,7 @@ const PaneFeature = () => {
                                     </p>
                                     <div className="feature-pane__button-wrapper">
                                         <a
-                                            href="#/disaster/covid-19/"
+                                            href="disaster/covid-19/"
                                             role="button"
                                             rel="noopener noreferrer"
                                             className="feature-pane__button">

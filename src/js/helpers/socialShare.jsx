@@ -53,19 +53,12 @@ const handlersBySocialMedium = {
     linkedin: (url) => handleShareClickLinkedin(url)
 };
 
-export const getBaseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
+export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
 
-// Currently only used on the COVID profile, since we have a special redirect set
-// up for usaspending.gov/covid-19 --> usaspending.gov/#/disaster/covid-19
-export const getBaseUrlNoHash = (slug) => `https://www.usaspending.gov/${slug}`;
-
-export const getSocialShareFn = (socialMedium, noHash = false) => {
+export const getSocialShareFn = (socialMedium) => {
     const fn = handlersBySocialMedium[socialMedium];
     if (socialMedium === 'email') {
         return (args) => fn(args);
-    }
-    if (noHash) {
-        return (slg) => fn(getBaseUrlNoHash(slg));
     }
     return (slg) => fn(getBaseUrl(slg));
 };
