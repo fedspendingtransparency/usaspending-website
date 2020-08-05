@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
+import { getStickyBreakPointForSidebar } from 'dataMapping/covid19/covid19';
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
@@ -112,7 +112,7 @@ export default () => {
                 <div className="sidebar usda__flex-col">
                     <Sidebar
                         pageName="data-sources"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get(cookie))}
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get(cookie))}
                         active={activeSection}
                         jumpToSection={jumpToDataSourcesSection}
                         detectActiveSection={setActiveSection}

@@ -28,7 +28,8 @@ import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Hel
 import {
     slug,
     getEmailSocialShareData,
-    scrollPositionOfSiteHeader
+    getStickyBreakPointForSidebar,
+    getStickyBreakPointForCovidBanner
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
@@ -53,7 +54,7 @@ const Covid19Container = () => {
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
-    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage')));
+    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
 
     useEffect(() => () => {
         if (defCodesRequest.current) {
@@ -216,7 +217,7 @@ const Covid19Container = () => {
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
-                                    fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))}
+                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection
                                     sections={Object.keys(componentByCovid19Section())
@@ -232,7 +233,7 @@ const Covid19Container = () => {
                                     <SidebarFooter
                                         isGoingToBeSticky
                                         pageName="covid19"
-                                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get('usaspending_covid_homepage'))} />
+                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))} />
                                 </div>
                             }
                         </div>

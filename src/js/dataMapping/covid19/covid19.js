@@ -18,7 +18,9 @@ export const globalBannerHeight = 90;
 // result of document.querySelector('.site-header').clientHeight + sticky header height when not sticky
 export const siteHeaderHeight = 97 + stickyHeaderHeight;
 
-export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
+export const getStickyBreakPointForSidebar = (cookie) => (cookie ? 96 : 187);
+export const getStickyBreakPointForCovidBanner = (cookie) => (cookie ? 66 : 197);
+
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
