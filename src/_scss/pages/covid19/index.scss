@@ -331,6 +331,9 @@
                 .fa-times {
                     margin-left: auto;
                     @include align-self(flex-start);
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
                 h2 {
                     width: 95%;
