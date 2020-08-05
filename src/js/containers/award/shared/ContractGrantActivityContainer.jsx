@@ -35,7 +35,7 @@ const ContractGrantActivityContainer = ({
     // bad dates
     const [badDates, setBadDates] = useState(false);
     // loading
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     // transactions
     const [transactions, updateTransactions] = useState([]);
     // errors

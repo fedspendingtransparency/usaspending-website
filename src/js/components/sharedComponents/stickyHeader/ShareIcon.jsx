@@ -3,20 +3,26 @@ import PropTypes from "prop-types";
 import { Picker } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { debounce } from "lodash";
-
-import { socialShareOptions, getSocialShareFn, getBaseUrl } from 'helpers/socialShare';
+import {
+    socialShareOptions,
+    getSocialShareFn,
+    getBaseUrl,
+    getBaseUrlNoHash
+} from 'helpers/socialShare';
 
 const propTypes = {
     slug: PropTypes.string,
     email: PropTypes.shape({
         subject: PropTypes.string,
         body: PropTypes.string
-    })
+    }),
+    noHash: PropTypes.bool
 };
 
 const ShareIcon = ({
     slug,
-    email: { subject, body }
+    email: { subject, body },
+    noHash
 }) => {
     const [showConfirmationText, setConfirmationText] = useState(false);
     const hideConfirmationText = debounce(() => setConfirmationText(false), 1750);
@@ -42,7 +48,7 @@ const ShareIcon = ({
             };
         }
         if (option.name === 'email') {
-            const onClick = getSocialShareFn(option.name).bind(null, {
+            const onClick = getSocialShareFn(option.name, noHash).bind(null, {
                 subject,
                 body
             });
@@ -53,13 +59,19 @@ const ShareIcon = ({
         }
         return {
             ...option,
-            onClick: getSocialShareFn(option.name).bind(null, slug)
+            onClick: getSocialShareFn(option.name, noHash).bind(null, slug)
         };
     });
 
     return (
         <div className="sticky-header__toolbar-item">
-            <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={getBaseUrl(slug)} readOnly />
+            <input
+                id="slug"
+                type="text"
+                className="text"
+                style={{ position: 'absolute', right: '9999px', opacity: 0 }}
+                value={noHash ? getBaseUrlNoHash(slug) : getBaseUrl(slug)}
+                readOnly />
             <Picker
                 dropdownDirection="left"
                 options={socialSharePickerOptions}

@@ -8,7 +8,7 @@ const tooltipContent = () => ({
         sections: [
             {
                 title: 'Loan Face Value',
-                paragraphs: ['The Face Value of a loan represents how much has actually been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a \'loan guarantee\' to the financial institution and reimbursement in cases where the loan isn\'t paid pack), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan\'s face value is not considered Federal spending, because it does not, in itself, represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.']
+                paragraphs: ['The Face Value of a loan represents how much has actually been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a \'loan guarantee\' to the financial institution and reimbursement in cases where the loan isn\'t paid back), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan\'s face value is not considered Federal spending, because it does not, in itself, represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.']
             },
             {
                 title: 'Loan Subsidy Cost (Total Obligations To Date)',

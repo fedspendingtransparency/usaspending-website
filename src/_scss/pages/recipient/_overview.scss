@@ -30,7 +30,13 @@
 			font-size: rem(19);
 			font-weight: 600;
 			margin: 0;
-		}
+        }
+        h5.recipient-overview__heading-subset {
+            @include h5;
+            font-size: $small-font-size;
+            font-weight: 600;
+            margin: 0;
+        }
         .recipient-overview__parent {
             font-size: $small-font-size;
 			@import "components/visualizations/tooltip/_csstooltip.scss";
@@ -152,7 +158,7 @@
             }
         }
 
-		@import "pages/state/overview/totals";
+        @import "pages/state/overview/totals";
 		@import "pages/state/overview/details";
 	}
 }

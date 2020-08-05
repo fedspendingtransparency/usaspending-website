@@ -7,9 +7,9 @@ import React from 'react';
 
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 
 import AboutContent from './AboutContent';

@@ -59,11 +59,20 @@
           }
           .tooltip__content {
             .tooltip__message {
+              .paginated-tooltip {
+                .tooltip {
+                  .tooltip-body {
+                    max-height: 300px;
+                    min-height: 300px;
+                    overflow-y: scroll;
+                  }
+                }
+              }
               .tooltip__text {
                   padding: 2rem 2rem 0 2rem;
-                  .tooltip__text-section {
-                    padding: 2rem 2rem 0 2rem;
-                  }
+              }
+              .tooltip__text:last-child {
+                padding: 2rem;
               }
             } 
           }
@@ -139,7 +148,7 @@
     }
     .area-path__past-end-line {
       fill: $color-gray-lighter;
-      opacity: 0.3;
+      opacity: 0.4;
     }
     .svg-line {
       stroke-width: 2;

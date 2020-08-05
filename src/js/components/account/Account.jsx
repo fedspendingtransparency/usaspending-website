@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 
 import AccountHeader from './AccountHeader';
 import AccountOverview from './AccountOverview';

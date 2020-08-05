@@ -1,0 +1,58 @@
+// Overwriting the baseModalStyles
+.redirect-modal {
+    background-color: $color-white;
+    // Overrides the default library max width of 100%
+    max-width: rem(1200); 
+    .usa-dt-modal__header {
+        background-color: $color-primary;
+        @include display(flex);
+        @include justify-content(flex-end);
+        .usa-dt-modal__close-button {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+            padding: rem(10);
+            svg {
+                height: rem(16);
+                width: rem(16);
+                fill: $color-white;
+            }
+        }
+    }
+    .usa-dt-modal__body {
+        text-align: center;
+        padding: rem(30) rem(45) rem(45) rem(45);
+        .usa-dt-modal__title {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            .usa-dt-modal__title-icon {
+                @include flex(0 0 rem(35));
+                padding-right: rem(10);
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                    fill: $color-gray;
+                }
+            }
+            .usa-dt-modal__title-text {
+                @include flex(1 1 auto);
+                font-weight: 600;
+                font-size: rem(34);
+            }
+        }
+        .usa-dt-modal__explanation {
+            padding-top: rem(30);
+            padding-bottom: rem(30);
+            font-size: rem(18);
+        }
+        .usa-dt-modal__directions {
+            font-size: $small-font-size;
+            padding-bottom: rem(20);
+            font-weight: 600;
+        }
+        .usa-dt-modal__link {
+            font-weight: 600;
+            font-size: rem(21);
+        }
+    }
+}

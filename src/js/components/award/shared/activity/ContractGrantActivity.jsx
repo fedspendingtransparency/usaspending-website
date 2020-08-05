@@ -109,43 +109,58 @@ const ContractGrantActivity = ({
         };
     };
 
-    const transactionTooltipInfo = (data) => (data.allTransactionsOnTheSameDate.map((transaction) => ({
-        title: `Modification ${transaction.modification_number || ''}`,
-        sections: [
-            {
-                title: 'Action Date',
-                paragraphs: [
-                    `${formatDateData(transaction.action_date)}`
-                ]
-            },
-            {
-                title: 'Obligated Amount',
-                paragraphs: [
-                    `${formatMoney(transaction.federal_action_obligation)}`
-                ]
-            },
-            {
-                title: 'Total Obligations to Date',
-                paragraphs: [
-                    `${formatMoney(transaction.running_obligation_total_to_date)} 
-                    ${totalObligation ? `(${calculateTreemapPercentage(transaction.running_obligation_total_to_date, totalObligation)} of Potential Award Amount)` : ''}`
-                ]
-            },
-            {
-                title: 'Action Type',
-                paragraphs: [
-                    `${transaction.type_description || '--'}`
-                ]
-            },
-            {
-                title: 'Description',
-                paragraphs: [
-                    `${transaction.description || '--'}`
-                ]
-            }
-        ]
-    })
-    ));
+    const transactionTooltipInfo = (data) => (data.allTransactionsOnTheSameDate.map((transaction) => {
+        let actionTypeText;
+        if (transaction.action_type && transaction.action_type_description) {
+            actionTypeText = `${transaction.action_type}: ${transaction.action_type_description}`;
+        }
+        else if (transaction.action_type) {
+            actionTypeText = transaction.action_type;
+        }
+        else if (transaction.action_type_description) {
+            actionTypeText = transaction.action_type_description;
+        }
+        else {
+            actionTypeText = '--';
+        }
+
+        return {
+            title: `Modification ${transaction.modification_number || ''}`,
+            sections: [
+                {
+                    title: 'Action Date',
+                    paragraphs: [
+                        `${formatDateData(transaction.action_date)}`
+                    ]
+                },
+                {
+                    title: 'Obligated Amount',
+                    paragraphs: [
+                        `${formatMoney(transaction.federal_action_obligation)}`
+                    ]
+                },
+                {
+                    title: 'Total Obligations to Date',
+                    paragraphs: [
+                        `${formatMoney(transaction.running_obligation_total_to_date)} 
+                        ${totalObligation ? `(${calculateTreemapPercentage(transaction.running_obligation_total_to_date, totalObligation)} of Potential Award Amount)` : ''}`
+                    ]
+                },
+                {
+                    title: 'Action Type',
+                    paragraphs: [
+                        `${actionTypeText}`
+                    ]
+                },
+                {
+                    title: 'Description',
+                    paragraphs: [
+                        `${transaction.description || '--'}`
+                    ]
+                }
+            ]
+        };
+    }));
 
     const transactionTooltipData = (data) => ({
         styles: { // y position is in the middle of the line

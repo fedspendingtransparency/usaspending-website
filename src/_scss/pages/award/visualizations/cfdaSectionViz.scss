@@ -47,19 +47,19 @@
       }
     }
     .award-amounts-viz {
-      .award-amounts-viz__desc-top--loans {
-        border-left: solid 0.4rem $color-vis-green-darkest;
-        strong {
-          font-size: 2rem;
-        }
+      .award-amounts-viz__bar-wrapper.cfda-viz {
+        height: rem(40);
       }
-      .award-amounts-viz__line-up--loans {
+      .award-amounts-viz__desc.top.cfda-viz {
+        border-left: solid 0.4rem $color-vis-green-darkest;
+      }
+      .award-amounts-viz__line.top.cfda-viz {
         border-bottom: 1px solid $color-vis-green-darkest;
       }
-      .award-amounts-viz__line-up--loans::before {
+      .award-amounts-viz__line.top.cfda-viz::before {
         border-left: 1px solid $color-vis-green-darkest;
       }
-      .award-amounts-viz__line-up--loans::after {
+      .award-amounts-viz__line.top.cfda-viz::after {
         border-left: 1px solid $color-vis-green-darkest;
       }
     }

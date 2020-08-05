@@ -5,22 +5,26 @@
 
 import { easeInOutQuad } from './animation/easingFunctions';
 
-const stepAnimate = (positions, index) => {
+const stepAnimate = (positions, index, element = window) => {
     const newX = positions.xPos[index];
     const newY = positions.yPos[index];
-    window.scrollTo(newX, newY);
+    element.scrollTo(newX, newY);
 
     if ((positions.yPos.length - index) > 1) {
         window.requestAnimationFrame(() => {
-            stepAnimate(positions, index + 1);
+            stepAnimate(positions, index + 1, element);
         });
     }
 };
 
-export const scrollTo = (x = 0, y = 0, time = 150) => {
+export const scrollTo = (x = 0, y = 0, time = 150, element = window) => {
     // get the starting X and Y positions
-    const startY = window.scrollY || window.pageYOffset;
-    const startX = window.scrollX || window.pageXOffset;
+    const startY = element === window
+        ? element.scrollY || element.pageYOffset
+        : element.scrollTop;
+    const startX = element === window
+        ? element.scrollX || element.pageXOffset
+        : element.scrollLeft;
 
     const frameLength = 1000 / 60; // 60fps
     const steps = Math.round(time / frameLength);
@@ -38,10 +42,10 @@ export const scrollTo = (x = 0, y = 0, time = 150) => {
         stepAnimate({
             yPos,
             xPos
-        }, 0);
+        }, 0, element);
     });
 };
 
-export const scrollToX = (x = 0, time = 150) => scrollTo(x, 0, time);
+export const scrollToX = (x = 0, time = 150, element = window) => scrollTo(x, 0, time, element);
 
-export const scrollToY = (y = 0, time = 150) => scrollTo(0, y, time);
+export const scrollToY = (y = 0, time = 150, element = window) => scrollTo(0, y, time, element);

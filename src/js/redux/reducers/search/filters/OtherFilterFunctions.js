@@ -25,24 +25,7 @@ export const updateSelectedCFDA = (state, value) => {
     return updatedSet;
 };
 
-export const updateSelectedNAICS = (state, value) => {
-    let updatedSet = state;
-    const naicsIdentifier = value.naics;
-
-    if (updatedSet.has(naicsIdentifier)) {
-        updatedSet = updatedSet.delete(naicsIdentifier);
-    }
-    else {
-        const naicsObject = Object.assign({}, value, {
-            identifier: naicsIdentifier
-        });
-        updatedSet = updatedSet.set(naicsIdentifier, naicsObject);
-    }
-
-    return updatedSet;
-};
-
-export const updateNAICSV2 = ({ require, exclude, counts }) => require
+export const updateNaics = ({ require, exclude, counts }) => require
     .filter((naicsCode) => naicsCode.length > 2)
     .reduce((acc, naicsCode) => {
         const parentKey = getHighestAncestorNaicsCode(naicsCode);
@@ -71,21 +54,3 @@ export const updateNAICSV2 = ({ require, exclude, counts }) => require
         }
         return acc;
     }, { require, exclude, counts });
-
-export const updateSelectedPSC = (state, value) => {
-    let updatedSet = state;
-
-    const pscIdentifier = value.product_or_service_code;
-
-    if (updatedSet.has(pscIdentifier)) {
-        updatedSet = updatedSet.delete(pscIdentifier);
-    }
-    else {
-        const pscObject = Object.assign({}, value, {
-            identifier: pscIdentifier
-        });
-        updatedSet = updatedSet.set(pscIdentifier, pscObject);
-    }
-
-    return updatedSet;
-};

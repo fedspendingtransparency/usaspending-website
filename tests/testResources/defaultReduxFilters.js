@@ -38,7 +38,8 @@ export const defaultFilters = {
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
-    extentCompeted: new Set()
+    extentCompeted: new Set(),
+    defCodes: new CheckboxTreeSelections()
 };
 
 export const defaultResultsMeta = {

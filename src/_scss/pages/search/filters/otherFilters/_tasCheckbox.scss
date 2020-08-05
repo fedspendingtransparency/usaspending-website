@@ -2,7 +2,7 @@
     @import '../../../../components/_checkboxTree';
     display: block;
     padding-top: rem(15);
-    .tas-checkbox__header {
+    .checkbox-header {
       @include display(flex);
       .tooltip-popover-container .tooltip-popover {
         bottom: rem(45);
@@ -18,19 +18,20 @@
       }
     }
     .autocomplete__input {
+        @include display(flex);
         width: 100%;
         padding-bottom: rem(10);
         position: relative;
         input {
+            // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
             width: 100%;
         }
         .icon {
           @include flex(0 0 auto);
+          @include align-self(center);
           position: absolute;
           width: rem(15);
-          height: rem(15);
-          right: rem(15);
-          top: rem(15);
+          right: rem(5);
         }
     }
     .checkbox-tree {

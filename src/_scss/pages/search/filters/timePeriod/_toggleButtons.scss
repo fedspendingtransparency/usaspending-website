@@ -2,10 +2,9 @@ ul.toggle-buttons {
     list-style-type: none;
     margin-bottom: 0;
     margin-left: -2rem;
-    margin-top: 0 !important;
     li {
         display: inline;
-        button.tab-toggle {
+        .tab-toggle {
             border: 1px solid $color-gray-lighter;
             border-bottom: 1px solid $color-white;
             background-color: $color-white;
@@ -17,7 +16,7 @@ ul.toggle-buttons {
             padding: 0 rem(15);
             z-index: 9000;
         }
-        button.inactive {
+        .inactive {
             background-color: $color-tab-inactive;
             border: 1px solid $color-tab-inactive;
             border-bottom: 1px solid $color-gray-lighter;
@@ -27,11 +26,11 @@ ul.toggle-buttons {
                 background-color: darken($color-tab-inactive, 10%);
             }
         }
-        button.hidden {
+        .hidden {
             display: none;
         }
         @include media($large-screen) {
-            button.tab-toggle {
+            .tab-toggle {
                 font-size: $small-font-size;
             }
         }

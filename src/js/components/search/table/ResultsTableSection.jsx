@@ -24,6 +24,7 @@ const propTypes = {
     columns: PropTypes.object,
     counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
+    updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
     subaward: PropTypes.bool,
     subAwardIdClick: PropTypes.func

@@ -19,7 +19,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2020-05-20';
+export const filterStoreVersion = '2020-06-01';
 
 export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
 
@@ -36,16 +36,14 @@ export const requiredTypes = {
     selectedAwardIDs: OrderedMap,
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
-    selectedNAICS: OrderedMap,
-    naicsCodes: CheckboxTreeSelections,
+    treasuryAccounts: OrderedMap,
     tasCodes: CheckboxTreeSelections,
+    naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
-    selectedPSC: OrderedMap,
+    defCodes: CheckboxTreeSelections,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set,
-    treasuryAccounts: OrderedMap,
-    federalAccounts: OrderedMap
+    extentCompeted: Set
 };
 
 export const initialState = {
@@ -66,14 +64,12 @@ export const initialState = {
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
-    selectedNAICS: new OrderedMap(),
     naicsCodes: new CheckboxTreeSelections(),
-    selectedPSC: new OrderedMap(),
     pscCodes: new CheckboxTreeSelections(),
+    defCodes: new CheckboxTreeSelections(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    federalAccounts: new OrderedMap(),
     treasuryAccounts: new OrderedMap(),
     tasCodes: new CheckboxTreeSelections()
 };
@@ -129,12 +125,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 treasuryAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
                     state.treasuryAccounts, action.source)
-            });
-        }
-        case 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS': {
-            return Object.assign({}, state, {
-                federalAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
-                    state.federalAccounts, action.source)
             });
         }
 
@@ -219,38 +209,22 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // NAICS Filter
-        case 'UPDATE_SELECTED_NAICS': {
-            return Object.assign({}, state, {
-                selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
-                    state.selectedNAICS, action.naics)
-            });
-        }
-
-        // NAICS_V2 Filter
-        case 'UPDATE_NAICS_V2': {
-            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNAICSV2(action.payload));
+        case 'UPDATE_NAICS': {
+            const naicsCodes = new CheckboxTreeSelections(OtherFilterFunctions.updateNaics(action.payload));
             return Object.assign({}, state, {
                 naicsCodes
             });
         }
 
-        // PSC Filter
-        case 'UPDATE_SELECTED_PSC': {
-            return Object.assign({}, state, {
-                selectedPSC: OtherFilterFunctions.updateSelectedPSC(
-                    state.selectedPSC, action.psc)
-            });
-        }
-
         // PSC_V2 Filter
-        case 'UPDATE_PSC_V2': {
+        case 'UPDATE_PSC': {
             return Object.assign({}, state, {
                 pscCodes: action.payload
             });
         }
 
         // TAS_V2 Filter
-        case 'UPDATE_TAS_V2': {
+        case 'UPDATE_TAS': {
             return Object.assign({}, state, {
                 tasCodes: action.payload
             });
@@ -277,6 +251,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 extentCompeted: ContractFilterFunctions.updateContractFilterSet(
                     state.extentCompeted, action.extentCompeted)
+            });
+        }
+
+        // DEF Codes Filter
+        case 'UPDATE_DEF_CODES': {
+            return Object.assign({}, state, {
+                defCodes: action.payload
             });
         }
 

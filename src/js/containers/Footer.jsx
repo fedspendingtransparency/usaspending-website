@@ -9,7 +9,7 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
-import { showModal } from 'redux/actions/redirectModal/redirectModalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
@@ -17,9 +17,9 @@ import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
-import FloatingGlossaryButton from '../components/sharedComponents/FloatingGlossaryButton';
-import FooterExternalLink from '../components/sharedComponents/FooterExternalLink';
-import Subscribe from '../components/sharedComponents/Subscribe';
+import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
+import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
+import Subscribe from 'components/sharedComponents/Subscribe';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -171,22 +171,22 @@ const Footer = ({
                             </a>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://twitter.com/usaspending/")}>
+                            <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
                                 <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")}>
+                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
                                 <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")}>
+                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
                                 <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")}>
+                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
                                 <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                             </button>
                         </li>

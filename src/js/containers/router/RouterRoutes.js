@@ -24,6 +24,8 @@ import { StateContainer } from 'containers/state/StateContainer';
 import RecipientLandingPage from 'components/recipientLanding/RecipientLandingPage';
 import { RecipientContainer } from 'containers/recipient/RecipientContainer';
 import AgencyProfileV2 from 'containers/agency/v2/AgencyContainerV2';
+import Covid19Container from 'containers/covid19/Covid19Container';
+import DataSourcesAndMethodologiesPage from 'components/covid19/DataSourcesAndMethodologiesPage';
 
 /* eslint-disable import/prefer-default-export */
 export const routes = [
@@ -157,6 +159,16 @@ export const routes = [
         path: '/agency_v2/:agencyId',
         addToSitemap: false,
         component: AgencyProfileV2
+    },
+    {
+        path: '/disaster/covid-19/data-sources',
+        addToSitemap: false,
+        component: DataSourcesAndMethodologiesPage
+    },
+    {
+        path: '/disaster/covid-19',
+        addToSitemap: true,
+        component: Covid19Container
     }
 ];
 /* eslint-enable import/prefer-default-export */

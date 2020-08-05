@@ -115,11 +115,6 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedTreasuryAccountFilters);
         }
 
-        const selectedFederalAccountFilters = this.prepareFederalAccounts(props);
-        if (selectedFederalAccountFilters) {
-            filters.push(selectedFederalAccountFilters);
-        }
-
         // prepare Award ID filters
         const selectedAwardIDFilters = this.prepareAwardIDs(props);
         if (selectedAwardIDFilters) {
@@ -168,6 +163,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(extentCompeted);
         }
 
+        const selectedDefCodes = this.prepareSelectedDefCodes(props);
+        if (selectedDefCodes) {
+            filters.push(selectedDefCodes);
+        }
+
         this.setState({
             filters,
             filterCount: this.determineFilterCount(filters)
@@ -176,6 +176,29 @@ export class TopFilterBarContainer extends React.Component {
                 this.props.updateFilterCount(this.state.filterCount);
             }
         });
+    }
+
+    prepareSelectedDefCodes(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+        if (props.defCodes.toObject().require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.defCodes.counts.map((def) => ({
+                    ...def,
+                    def_description: `${def.label} (${def.count})`
+                }))
+            ];
+        }
+        if (selected) {
+            filter.code = 'defCodes';
+            filter.name = 'Disaster Emergency Fund Code (DEFC)';
+            return filter;
+        }
+        return null;
     }
 
     /**
@@ -310,27 +333,6 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
-    prepareFederalAccounts(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.federalAccounts && props.federalAccounts.count() > 0) {
-            // federal account components have been selected
-            selected = true;
-            const identifiers = Object.keys(props.federalAccounts.toObject());
-            filter.values = identifiers;
-        }
-
-        if (selected) {
-            filter.code = 'federalAccounts';
-            filter.name = 'Federal Account';
-            return filter;
-        }
-        return null;
-    }
-
     prepareTreasuryAccounts(props) {
         let selected = false;
         const filter = {
@@ -350,7 +352,7 @@ export class TopFilterBarContainer extends React.Component {
                 ...filter.values,
                 ...props.tasCodes.counts.map((tas) => ({
                     ...tas,
-                    isV2: true,
+                    isCheckbox: true,
                     tas_description: `${tas.label} (${tas.count})`
                 }))
             ];
@@ -624,30 +626,12 @@ export class TopFilterBarContainer extends React.Component {
      * that can be parsed by the top filter bar
      */
     prepareNAICS(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.selectedNAICS.count() > 0) {
-            // NAICS have been selected
-            selected = true;
-            filter.values = props.selectedNAICS.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'selectedNAICS';
-            filter.name = 'NAICS';
-            return filter;
-        }
-
-        else if (props.naicsCodes.require.length > 0) {
+        if (props.naicsCodes.require.length > 0) {
             return {
                 code: 'selectedNAICS',
                 name: 'NAICS',
                 values: props.naicsCodes.counts.map((naics) => ({
                     ...naics,
-                    isV2: true,
                     identifier: naics.value,
                     naics_description: `${naics.label} (${naics.count})`
                 }))
@@ -667,18 +651,12 @@ export class TopFilterBarContainer extends React.Component {
             values: []
         };
 
-        if (props.selectedPSC.count() > 0) {
-            // PSC have been selected
-            selected = true;
-            filter.values = props.selectedPSC.toArray();
-        }
-        else if (props.pscCodes.require.length > 0) {
+        if (props.pscCodes.require.length > 0) {
             selected = true;
             filter.values = [
                 ...filter.values,
                 ...props.pscCodes.counts.map((psc) => ({
                     ...psc,
-                    isV2: true,
                     psc_description: `${psc.value} (${psc.count})`
                 }))
             ];

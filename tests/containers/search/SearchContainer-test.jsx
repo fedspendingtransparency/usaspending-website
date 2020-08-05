@@ -25,7 +25,6 @@ jest.mock('components/search/SearchPage', () =>
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
 jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
 jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
-jest.mock('containers/router/Router', () => require('./mockRouter'));
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
@@ -314,7 +313,7 @@ describe('SearchContainer', () => {
             container.instance().requestDownloadAvailability(blankFilters);
 
             expect(mockParse).toHaveBeenCalledTimes(0);
-            expect(container.state().downloadAvailable).toBeFalsy();            
+            expect(container.state().downloadAvailable).toBeFalsy();
         });
         it('should make an API request for how many transaction rows will be returned', async () => {
             const newFilters = Object.assign({}, initialState, {

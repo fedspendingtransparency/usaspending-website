@@ -7,7 +7,6 @@ const lifecycleFuncs = [
     'componentWillMount',
     'componentDidMount',
     'componentWillReceiveProps',
-    'componentWillUpdate',
     'componentDidUpdate',
     'componentWillUnmount',
     'render'

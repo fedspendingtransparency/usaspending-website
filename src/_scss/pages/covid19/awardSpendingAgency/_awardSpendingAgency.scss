@@ -1,0 +1,30 @@
+.spending-by-agency {
+    width: 100%;
+
+    .spending-by-agency__content {
+        @include display(block);
+
+        .usda-table {
+            margin-top: 0;
+            td {
+                button {
+                    float: left;
+                    margin-top: rem(5);
+                }
+                &:first-child {
+                    @include span-columns(6 of 12, table);
+
+                    p {
+                        a {
+                            // IE11 fix for td not having the correct width
+                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                                max-width: 50%;
+                            }
+                        }
+                    }
+                }
+                @include span-columns(2 of 12, table);
+            }
+        }
+    }
+}

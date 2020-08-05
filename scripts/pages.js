@@ -1,5 +1,6 @@
+import { routes } from 'containers/router/RouterRoutes';
+
 const moment = require('moment');
-const Routes = require('../src/js/containers/router/RouterRoutes.js');
 
 const recipientRequestObject = {
     name: 'recipient',
@@ -89,7 +90,7 @@ const pages = [
     {
         name: 'static-routes',
         isAsync: false,
-        routes: Routes.routes
+        routes
     },
     [
         // 1K awards

@@ -1,0 +1,48 @@
+.results-table-message-container {
+    display: flex;
+    flex-flow: column wrap;
+    position: relative;
+    background-color: $color-gray-lightest;
+    .results-table-loading {
+        display: block;
+        margin-bottom: rem(100);
+    }
+    .no-results-container {
+        text-align: center;
+        margin-top: rem(100);
+        margin-bottom: rem(100);
+        .no-results-title {
+            h4 {
+            margin-bottom: 0;
+            vertical-align: bottom;
+            }
+        }
+        .no-results-message {
+            p {
+            margin-top: 0;
+            vertical-align: top;
+            }
+        }
+        }
+        .loading-animation {
+            @import "../screens/loading";
+        }
+        .results-table-error {
+        .icon {
+            width: rem(36);
+            height: rem(36);
+            svg {
+            width: rem(36);
+            height: rem(36);
+            }
+        }
+        .title {
+            font-size: rem(20);
+        line-height: rem(45);
+        }
+        .description {
+            font-size: rem(16);
+            line-height: rem(10);
+        }
+    }
+}

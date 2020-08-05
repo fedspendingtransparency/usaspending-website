@@ -6,6 +6,8 @@ COPY package-lock.json /node-workspace
 
 WORKDIR /node-workspace
 
+RUN npm i -g npm@6.14.5
+
 RUN npm ci
 
 COPY . /node-workspace

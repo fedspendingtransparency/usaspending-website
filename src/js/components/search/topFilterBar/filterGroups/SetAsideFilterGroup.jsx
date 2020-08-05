@@ -46,7 +46,6 @@ export default class SetAsideFilterGroup extends React.Component {
             const tag = {
                 value: key,
                 title: ContractFields.setAsideDefinitions[key],
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

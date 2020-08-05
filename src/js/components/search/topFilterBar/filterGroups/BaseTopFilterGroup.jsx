@@ -27,7 +27,6 @@ export default class BaseTopFilterGroup extends React.Component {
                 key={`top-tag-${this.props.filter.code}-${tag.value}`}
                 title={tag.title}
                 value={tag.value}
-                isSpecial={tag.isSpecial}
                 code={this.props.filter.code}
                 removeFilter={tag.removeFilter}
                 compressed={this.props.compressed} />

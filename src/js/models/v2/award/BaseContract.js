@@ -5,6 +5,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as pscHelper from 'helpers/pscHelper';
 import CoreLocation from 'models/v2/CoreLocation';
+
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -12,6 +13,7 @@ import BaseContractAdditionalDetails from './additionalDetails/BaseContractAddit
 import CoreAward from './CoreAward';
 import CoreExecutiveDetails from './CoreExecutiveDetails';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
+
 
 const BaseContract = Object.create(CoreAward);
 
@@ -31,7 +33,12 @@ BaseContract.populate = function populate(data) {
         dateSigned: data.date_signed,
         baseAndAllOptions: data.base_and_all_options,
         naics: data.naics_hierarchy,
-        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy)
+        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy),
+        fileC: {
+            obligations: data.account_obligations_by_defc,
+            outlays: data.account_outlays_by_defc
+        },
+        defCodes: data.disaster_emergency_fund_codes
     };
     this.populateCore(coreData);
 

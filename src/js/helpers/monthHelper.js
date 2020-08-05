@@ -28,3 +28,14 @@ export const convertMonthToFY = (m, y) => {
     }
     return parsedYear;
 };
+
+export const convertPeriodToDate = (period, fy) => {
+    const parsedPeriod = isNaN(parseInt(period, 10)) ? 1 : parseInt(period, 10);
+    const parsedFy = isNaN(parseInt(fy, 10))
+        ? FiscalYearHelper.currentFiscalYear()
+        : parseInt(fy, 10);
+    const month = convertNumToMonth(period);
+    // In Oct, Nov, and Dec, subtract 1 from the Fiscal Year for the calendar year
+    const year = (parsedPeriod <= 3) ? parsedFy - 1 : parsedFy;
+    return `${month} ${year}`;
+};

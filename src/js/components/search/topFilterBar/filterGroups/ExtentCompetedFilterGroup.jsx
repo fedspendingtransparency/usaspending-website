@@ -46,7 +46,6 @@ export default class ExtentCompetedFilterGroup extends React.Component {
             const tag = {
                 value: key,
                 title: ContractFields.extentCompetedDefinitions[key],
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

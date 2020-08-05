@@ -51,7 +51,6 @@ export default class LocationFilterGroup extends React.Component {
             const tag = {
                 value: value.identifier,
                 title: `${value.display.entity.toUpperCase()} | ${value.display.standalone}`,
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

@@ -14,7 +14,8 @@ const propTypes = {
     validForm: PropTypes.bool,
     filters: PropTypes.object,
     validDates: PropTypes.bool,
-    dataType: PropTypes.string
+    dataType: PropTypes.string,
+    handleSubmit: PropTypes.func
 };
 
 export default class SubmitButton extends React.Component {
@@ -29,6 +30,7 @@ export default class SubmitButton extends React.Component {
 
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.onClick = this.onClick.bind(this);
         this.measureOffset = throttle(this.measureOffset.bind(this), 16);
     }
 
@@ -53,6 +55,11 @@ export default class SubmitButton extends React.Component {
         this.setState({
             showHover: false
         });
+    }
+
+    onClick(e) {
+        e.preventDefault();
+        this.props.handleSubmit();
     }
 
     measureOffset() {
@@ -100,7 +107,7 @@ export default class SubmitButton extends React.Component {
         if (this.props.validForm && this.props.validDates) {
             submitButton = (
                 <div className="submit-button">
-                    <input type="submit" value="Download" />
+                    <input type="submit" value="Download" onClick={this.props.handleSubmit} />
                 </div>
             );
         }

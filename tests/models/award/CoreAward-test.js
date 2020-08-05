@@ -17,6 +17,11 @@ const awardData = {
     baseAndAllOptions: 20100.00
 };
 
+const fileCData = {
+    outlays: [{ code: 'M', amount: 5 }],
+    obligations: [{ code: 'L', amount: 4 }]
+};
+
 const award = Object.create(CoreAward);
 award.populateCore(awardData);
 
@@ -29,6 +34,15 @@ describe('Core Award Model', () => {
         const noId = Object.create(CoreAward);
         noId.populateCore({ ...awardData, generatedId: null });
         expect(noId.generatedId).toEqual('');
+    });
+    it('should store file c obligations and outlays and return empty array when null', () => {
+        const withFileC = Object.create(CoreAward);
+        withFileC.populateCore({ ...awardData, fileC: fileCData });
+        expect(withFileC.fileC.obligations.length).toEqual(1);
+
+        const withoutFileC = Object.create(CoreAward);
+        withoutFileC.populateCore({ ...awardData, account_obligations_by_def_code: [], account_outlays_by_def_code: [] });
+        expect(withoutFileC.fileC.obligations).toEqual([]);
     });
     describe('Getter functions', () => {
         it('should format the subaward total', () => {

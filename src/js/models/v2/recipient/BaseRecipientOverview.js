@@ -21,6 +21,10 @@ const BaseRecipientOverview = {
         this.parents = data.parents || [];
         this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
         this._totalTransactions = parseFloat(data.total_transactions) || 0;
+
+        // TODO: Update the object keys for face value loan after back end is implemented
+        this._totalLoanFaceValueAmount = parseFloat(data.total_face_value_loan_amount) || 0;
+        this._totalLoanTransactions = parseFloat(data.total_face_value_loan_transactions) || 0;
         this._businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
 
@@ -56,6 +60,16 @@ const BaseRecipientOverview = {
     },
     get totalTransactions() {
         return MoneyFormatter.formatNumberWithPrecision(this._totalTransactions, 0);
+    },
+    get totalLoanFaceValueAmount() {
+        if (this._totalLoanFaceValueAmount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalLoanFaceValueAmount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalLoanFaceValueAmount / units.unit, 1)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalLoanFaceValueAmount, 0);
+    },
+    get totalLoanTransactions() {
+        return MoneyFormatter.formatNumberWithPrecision(this._totalLoanTransactions, 0);
     },
     get businessTypes() {
         return this._businessTypes.reduce((parsed, type) => {

@@ -1,0 +1,63 @@
+@include media($small-screen) {
+    .dsm__container {
+        padding-right: 10%;
+        padding-left: 10%;
+        padding-bottom: 5%;
+    }
+
+    .dsm__heading {
+        font-size: rem(30);
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 1px solid;
+    }
+
+    .dsm__topSection p {
+        font-size: rem(14);
+        margin-top: rem(20);
+        text-align: left;
+    }
+
+    .bottomSection {
+        width: 100%;
+        text-align: left;
+    }
+
+    .otherResources__list {
+        margin-top: rem(25);
+        padding-left: 2%;
+        font-size: rem(14);
+    }
+
+    .otherResources__list > li {
+        list-style: disc;
+        padding-bottom: rem(10);
+    }
+
+    .information-top {
+        height: 0.5rem;
+        width: 100%;
+        &.dsm--border-radius {
+            border-radius: 0;
+        }
+    }
+}
+
+@include media($medium-screen) {
+    .dsm__container {
+        padding-right: 8%;
+        padding-left: 8%; 
+        padding-bottom: 5%;
+    }
+    
+    .dsm__topSection {
+        width: 100%;
+        padding-right: 3%;
+    }
+
+    .bottomSection {
+        padding: 0%;
+    }
+}
+

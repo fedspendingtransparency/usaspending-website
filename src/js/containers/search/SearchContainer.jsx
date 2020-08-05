@@ -119,7 +119,6 @@ const SearchContainer = ({ history }) => {
                 break;
             }
         }
-
         return unfiltered;
     };
 

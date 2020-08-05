@@ -8,9 +8,9 @@ import { forEach } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
+import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
 
 import * as Icons from '../sharedComponents/icons/Icons';
 

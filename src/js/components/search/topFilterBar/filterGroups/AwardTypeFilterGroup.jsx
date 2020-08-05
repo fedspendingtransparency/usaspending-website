@@ -92,7 +92,6 @@ export default class AwardTypeFilterGroup extends React.Component {
             const tag = {
                 value: group,
                 title: `All ${groupLabels[group]}`,
-                isSpecial: true,
                 removeFilter: this.removeGroup
             };
 
@@ -106,7 +105,6 @@ export default class AwardTypeFilterGroup extends React.Component {
             const tag = {
                 value,
                 title: AwardType.awardTypeCodes[value],
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

@@ -123,7 +123,7 @@ export default class ResultsTable extends React.Component {
             }
         }
         else if (
-            (column.columnName === 'COVID-19 Response Obligations' || column.columnName === 'COVID-19 Response Outlays')
+            (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
             && !this.props.results[rowIndex][column.columnName]) {
             props.value = '--';
         }

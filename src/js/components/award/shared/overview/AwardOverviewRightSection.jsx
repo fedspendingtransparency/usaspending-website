@@ -29,7 +29,7 @@ const AwardOverviewRightSection = ({
 }) => {
     const firstSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
         (<CFDAOverview
-            cfdaPropgram={overview.cfdaProgram}
+            cfdaProgram={overview.cfdaProgram}
             cfdaCount={overview.cfdaList.length}
             jumpToSection={jumpToSection}
             updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />) :

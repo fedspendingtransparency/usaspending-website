@@ -5,14 +5,14 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { CFDAOverviewInfo } from '../shared/InfoTooltipContent';
 
 const propTypes = {
-    cfdaPropgram: PropTypes.string,
+    cfdaProgram: PropTypes.string,
     cfdaCount: PropTypes.number,
     jumpToSection: PropTypes.func,
     updateCFDAOverviewLinkClicked: PropTypes.func
 };
 
 const CFDAOverview = ({
-    cfdaPropgram,
+    cfdaProgram,
     cfdaCount,
     jumpToSection,
     updateCFDAOverviewLinkClicked
@@ -34,7 +34,7 @@ const CFDAOverview = ({
             </h6>
             <div className="award-overview__body award-overview__cfda">
                 <span>
-                    {cfdaPropgram}
+                    {cfdaProgram}
                 </span>
                 <div>
                     <button

@@ -16,7 +16,7 @@ import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWr
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
-import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
+import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AgencyOverview from './overview/AgencyOverview';
@@ -119,7 +119,9 @@ const AgencyContent = ({
                         asOfDate={asOfDate} />
                     {disclaimer}
                 </div>
-                <AgencyFooterContainer id={agency.id} />
+                <FooterLinkToAdvancedSearchContainer
+                    title="Looking for more insight?"
+                    description="for more in-depth analysis on this agency and more" />
             </div>
         </div>
     );

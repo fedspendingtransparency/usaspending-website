@@ -1,5 +1,10 @@
-/* eslint-disable quote-props */
+// TODO: [DEV-5665] TECH DEBT: Refactor Results Table to Utilize the Prototypical Inheritance Pattern with Models
+// Refactor this table to use the model pattern?
+// Doing the data parsing at the component level is nice but doesnt really allow for testing.
+// Unless we migrate to snapshot testing?
+
 // disable quote props because a lot of these keys actually do need quotes, so for consistency sake
+/* eslint-disable quote-props */
 // we'll do them all
 export const awardTableColumnTypes = {
     'Award ID': 'string',
@@ -8,6 +13,8 @@ export const awardTableColumnTypes = {
     'End Date': 'date',
     'Last Date to Order': 'date',
     'Award Amount': 'currency',
+    'COVID-19 Outlays': 'currency',
+    'COVID-19 Obligations': 'currency',
     'Funding Agency': 'string',
     'Funding Sub Agency': 'string',
     'Contract Award Type': 'string',

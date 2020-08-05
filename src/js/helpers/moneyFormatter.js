@@ -59,44 +59,53 @@ export const calculateUnits = (data, subdivisions = 6) => {
 
     let unit = 1;
     let unitLabel = '';
+    let longLabel = '';
     if (scaleMax >= unitValues.TRILLION) {
         // the max is at least 1 trillion
         unit = unitValues.TRILLION;
         unitLabel = unitLabels.TRILLION;
+        longLabel = unitWords.TRILLION;
         if (scaleAvg < unitValues.TRILLION) {
             // the average is less than a trillion, drop down to a billion
             unit = unitValues.BILLION;
             unitLabel = unitLabels.BILLION;
+            longLabel = unitWords.BILLION;
         }
     }
     else if (scaleMax >= unitValues.BILLION) {
         // the max is at least 1 billion
         unit = unitValues.BILLION;
         unitLabel = unitLabels.BILLION;
+        longLabel = unitWords.BILLION;
         if (scaleAvg < unitValues.BILLION) {
             // the average is less than a billion, drop down to a million
             unit = unitValues.MILLION;
             unitLabel = unitLabels.MILLION;
+            longLabel = unitWords.MILLION;
         }
     }
     else if (scaleMax >= unitValues.MILLION) {
         // the max is at least 1 million
         unit = unitValues.MILLION;
         unitLabel = unitLabels.MILLION;
+        longLabel = unitWords.MILLION;
         if (scaleAvg < unitValues.MILLION) {
             // the average is less than a billion, drop down to a thousand
             unit = unitValues.THOUSAND;
             unitLabel = unitLabels.THOUSAND;
+            longLabel = unitWords.THOUSAND;
         }
     }
     else if (scaleMax >= unitValues.THOUSAND) {
         // the max is at least 1 thousand
         unit = unitValues.THOUSAND;
         unitLabel = unitLabels.THOUSAND;
+        longLabel = unitWords.THOUSAND;
         if (scaleAvg < unitValues.THOUSAND) {
             // the average is less than a thousand, don't format
             unit = 1;
             unitLabel = '';
+            longLabel = '';
         }
     }
 
@@ -109,7 +118,8 @@ export const calculateUnits = (data, subdivisions = 6) => {
     return {
         precision,
         unit,
-        unitLabel
+        unitLabel,
+        longLabel
     };
 };
 

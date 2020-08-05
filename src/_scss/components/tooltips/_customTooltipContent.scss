@@ -1,7 +1,15 @@
 .award-summary-tooltip {
+    width: 100%;
     .tooltip__title,
     .tooltip__text {
         text-align: left;
+    }
+    &.covid-19 {
+        @include display(flex);
+        @include flex-direction(column);
+        .tooltip__title {
+            @include justify-content(center);
+        }
     }
 }
 
@@ -40,9 +48,9 @@
         margin: 0;
     }
     .info-tooltip__list {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include flex-direction(column);
         &.award-desciption-section {
             // the list in the award description section
             li:last-of-type {
@@ -61,5 +69,25 @@
             margin-right: rem(5);
             padding: 0;
         }
+    }
+}
+
+.homepage__covid-19-tt {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+    h2, p {
+        color: $color-base;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: rem(16);
+        padding: 0;
+    }
+
+    p {
+        font-size: rem(14);
     }
 }

@@ -3,74 +3,9 @@
     @import "../singleSubmit";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    @import "../../tooltips";
 
     padding: 0 $global-pad rem(20);
-
-    @import "../../../../components/visualizations/tooltip/csstooltip";
-
-        .tooltip-popover-container {
-            @include display(flex);
-            @include flex(0 0 auto);
-            @include align-items(center);
-
-            margin-left: rem(5);
-            color: $color-gray-lighter;
-
-            &:hover, &:focus {
-                color: $color-gray-medium;
-                cursor: pointer;
-            }
-
-            &.tooltip-popover-container_description {
-                padding-top: rem(10);
-                font-size: $small-font-size;
-                .tooltip-popover-container__description {
-                    color: $color-gray-medium;
-                    text-decoration: underline;
-                    padding-right: rem(5);
-                }
-                .tooltip-popover {
-                    // override the positioning to be centered over the icon
-                    left: rem(60);
-                    bottom: rem(32);
-                }
-            }
-
-            .tooltip-popover {
-                // override the positioning to be centered over the icon
-                bottom: rem(35);
-                left: rem(-145);
-                padding: 0;
-                font-size: $small-font-size;
-
-                &.program-source-info-tooltip {
-                    box-shadow: $box-shadow;
-                    background-color: $color-white;
-                    border: solid rem(1) $color-gray-light;
-
-                    .program-source-info-tooltip__heading {
-                        background-color: $color-gray-lightest;
-                        border-top-left-radius: rem(5);
-                        border-top-right-radius: rem(5);
-                        padding: rem(10) rem(15);
-                        font-weight: $font-bold;
-                    }
-
-                    .program-source-info-tooltip__definition {
-                        padding: rem(10) rem(15) 0;
-                        a:hover {
-                            cursor: pointer;
-                        }
-                    }
-
-                    .program-source-info-tooltip__example {
-                        font-weight: $font-bold;
-                        font-style: italic;
-                        padding: rem(10) rem(15) rem(15);
-                    }
-                }
-            }
-        }
 
     .program-source-components {
         .program-source-components__heading {

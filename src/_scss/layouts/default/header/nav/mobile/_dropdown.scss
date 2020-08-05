@@ -18,8 +18,10 @@
         }
 
         .mobile-dropdown__parent-label {
+            display: contents;
             @include flex(0 0 auto);
             margin-right: rem(10);
+            @import "components/_newBadge.scss";
         }
 
         .mobile-dropdown__parent-icon {
@@ -51,6 +53,7 @@
                 pointer-events: none;
             }
         }
+        @import "../../../../../components/newBadge";
     }
 
     .mobile-dropdown__coming-soon {

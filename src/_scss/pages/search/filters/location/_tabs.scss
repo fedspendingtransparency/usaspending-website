@@ -1,6 +1,7 @@
 @import 'pages/search/filters/timePeriod/_toggleButtons';
 ul.toggle-buttons {
     padding-left: rem(15);
+    margin-top: rem(10);
     @include media($large-screen) {
         padding-left: rem(30);
     }
@@ -11,11 +12,14 @@ ul.toggle-buttons {
             margin-left: 0;
         }
 
-        button.tab-toggle {
+        .tab-toggle {
             padding: 0 rem(2);
-            font-size: rem(11);            
+            font-size: rem(11);
+            margin: 0 rem(5);
+            width: auto;
+            display: inline-block;         
             @include media(1430px) {
-                padding: 0 rem(8);
+                padding: rem(8) rem(8);
                 font-size: rem(13);
             }
         }

@@ -46,7 +46,6 @@ export default class PricingTypeFilterGroup extends React.Component {
             const tag = {
                 value: key,
                 title: ContractFields.pricingTypeDefinitions[key],
-                isSpecial: false,
                 removeFilter: this.removeFilter
             };
 

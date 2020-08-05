@@ -138,6 +138,7 @@ export const mockRedux = {
             },
             fy: '1989',
             quarter: '1',
+            period: '',
             submissionTypes: ['accountBalances'],
             fileFormat: 'csv'
         },

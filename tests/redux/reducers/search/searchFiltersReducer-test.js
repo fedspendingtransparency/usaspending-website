@@ -8,7 +8,7 @@ import { Set, OrderedMap } from 'immutable';
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 
-import { mockRecipient, mockAgency, mockTreasuryAccount, mockFederalAccount } from './mock/mockFilters';
+import { mockRecipient, mockAgency, mockTreasuryAccount } from './mock/mockFilters';
 
 jest.mock('helpers/fiscalYearHelper', () => require('./mockFiscalYearHelper'));
 
@@ -334,35 +334,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_FEDERAL_ACCOUNT_COMPONENTS', () => {
-        const action = {
-            type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
-            source: mockFederalAccount
-        };
-
-        const component = {
-            '234-5678': {
-                aid: '234',
-                main: '5678'
-            }
-        };
-
-        it('should add the provided TAS components if it does not currently exist', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap(component));
-        });
-
-        it('should remove the provided TAS component if it already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap(component)
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
-        });
-    });
-
     describe('UPDATE_SELECTED_RECIPIENTS', () => {
         const action = {
             type: 'UPDATE_SELECTED_RECIPIENTS',
@@ -646,47 +617,10 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_NAICS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_NAICS',
-            naics: {
-                identifier: '333318',
-                naics: '333318',
-                naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
-            }
-        };
-
-        const naicsNum = '333318';
-
-        const expectedNAICS = {
-            identifier: '333318',
-            naics: '333318',
-            naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
-        };
-
-        it('should add the provided naics if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedNAICS).toEqual(new OrderedMap({
-                [naicsNum]: expectedNAICS
-            }));
-        });
-
-        it('should remove the provided naics if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedNAICS: new OrderedMap({
-                    [naicsNum]: expectedNAICS
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedNAICS).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_NAICS_V2', () => {
+    describe('UPDATE_NAICS', () => {
         it('removes descendants w/ ancestor already in require array', () => {
             const action = {
-                type: "UPDATE_NAICS_V2",
+                type: "UPDATE_NAICS",
                 payload: {
                     exclude: [""],
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"],
@@ -699,7 +633,7 @@ describe('searchFiltersReducer', () => {
         });
         it('does not remove descendants if one ancestor\'s in both require and excluded', () => {
             const action = {
-                type: "UPDATE_NAICS_V2",
+                type: "UPDATE_NAICS",
                 payload: {
                     exclude: ["1111"],
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"]
@@ -710,37 +644,43 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_PSC', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_PSC',
-            psc: {
-                product_or_service_code: '1375'
-            }
-        };
-
-        const pscNum = '1375';
-
-        const expectedPSC = {
-            identifier: '1375',
-            product_or_service_code: '1375'
-        };
-
-        it('should add the provided psc if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedPSC).toEqual(new OrderedMap({
-                [pscNum]: expectedPSC
-            }));
+    describe('UPDATE_PSC', () => {
+        it('updates the relevant test property', () => {
+            // when this action is used, lots of functions are composed
+            // to remove redundancy, placeholder strings etc...
+            // consequently, this test is super basic.
+            const action = {
+                type: "UPDATE_PSC",
+                payload: {
+                    exclude: [["Products", "B", "B5"]],
+                    require: [["children_of_Products", "children_of_B"]],
+                    counts: [{ label: 'test', count: 50, value: 'x' }]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).pscCodes;
+            expect(state.require.length).toEqual(1);
+            expect(state.exclude.length).toEqual(1);
+            expect(state.counts.length).toEqual(1);
         });
+    });
 
-        it('should remove the provided psc if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedPSC: new OrderedMap({
-                    [pscNum]: expectedPSC
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedPSC).toEqual(new OrderedMap());
+    describe('UPDATE_PSC', () => {
+        it('updates the relevant test property', () => {
+            // when this action is used, lots of functions are composed
+            // to remove redundancy, placeholder strings etc...
+            // consequently, this test is super basic.
+            const action = {
+                type: "UPDATE_TAS",
+                payload: {
+                    exclude: [["Products", "B", "B5"]],
+                    require: [["children_of_Products", "children_of_B"]],
+                    counts: [{ label: 'test', count: 50, value: 'x' }]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).tasCodes;
+            expect(state.require.length).toEqual(1);
+            expect(state.exclude.length).toEqual(1);
+            expect(state.counts.length).toEqual(1);
         });
     });
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
     _category: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     generatedId: PropTypes.string,
     type: PropTypes.string,
     typeDescription: PropTypes.string,
@@ -44,11 +44,12 @@ export const TOOLTIP_PROPS = PropTypes.shape({
 
 export const AWARD_SECTION_PROPS = {
     type: PropTypes.oneOf(["row", "column"]),
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     children: PropTypes.node
 };
 
 export const AWARD_PAGE_WRAPPER_PROPS = {
+    defCodes: PropTypes.arrayOf(PropTypes.string),
     awardType: AWARD_TYPE_PROPS,
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,
@@ -77,7 +78,7 @@ const awardOverviewAwardAmountsSectionBase = {
     extremeOverspendingAbbreviated: PropTypes.string,
     extremeOverspendingFormatted: PropTypes.string,
     generatedId: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     nonFederalFundingAbbreviated: PropTypes.string,
     nonFederalFundingFormatted: PropTypes.string,
     overspendingAbbreviated: PropTypes.string,
@@ -86,7 +87,7 @@ const awardOverviewAwardAmountsSectionBase = {
     totalFundingFormatted: PropTypes.string,
     totalObligationAbbreviated: PropTypes.string,
     totalObligationFormatted: PropTypes.string,
-    isMockCares: PropTypes.bool
+    showFileC: PropTypes.bool
 };
 
 const contract = {
@@ -123,4 +124,10 @@ export const AWARD_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     grandchildAwardCount: PropTypes.number,
     idvCount: PropTypes.number,
     ...awardOverviewAwardAmountsSectionBase
+});
+
+export const globalModalProps = PropTypes.shape({
+    display: PropTypes.bool,
+    url: PropTypes.string,
+    modal: PropTypes.oneOf(['redirect', '', 'covid', 'covid-data-disclaimer'])
 });

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import kGlobalConstants from 'GlobalConstants';
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 
@@ -73,6 +74,15 @@ export default class MobileDropdown extends React.Component {
                     title={this.props.title || this.props.label}
                     onClick={this.toggleDropdown}>
                     <span className="mobile-dropdown__parent-label">
+                        {
+                            this.props.label === "Profiles" &&
+                            kGlobalConstants.CARES_ACT_RELEASED &&
+                            <div className="new-badge-outer">
+                                <div className="new-badge-middle">
+                                    <div className="new-badge-inner" />
+                                </div>
+                            </div>
+                        }
                         {this.props.label}
                     </span>
                     <span className="mobile-dropdown__parent-icon">

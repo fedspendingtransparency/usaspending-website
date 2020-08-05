@@ -10,9 +10,9 @@ import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { accountColumns, accountFields } from 'dataMapping/agency/tableColumns';
 import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
-import BaseAccountSpendingRow from '../../../../models/v2/account/BaseAccountSpendingRow';
-import ResultsTableLoadingMessage from '../../../../components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from '../../../../components/search/table/ResultsTableErrorMessage';
+import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
 
 const propTypes = {

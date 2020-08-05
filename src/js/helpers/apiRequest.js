@@ -4,6 +4,7 @@
  **/
 
 import Axios, { CancelToken } from 'axios';
+
 import kGlobalConstants from 'GlobalConstants';
 
 const mockUrl = `http://localhost:5000/api/`;

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
-import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
+import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 
 import InfoBanner from './InfoBanner';
@@ -15,7 +16,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export const CovidHomepageCookie = 'usaspending_covid_homepage';
+export const CovidHomepageCookie = 'usaspending_covid_release';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -27,6 +28,7 @@ export default class Header extends React.Component {
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
+        this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
     }
     componentWillMount() {
         // check if the info banner cookie exists
@@ -58,9 +60,15 @@ export default class Header extends React.Component {
         });
     }
 
+    openCovidModalContainer(e) {
+        e.preventDefault();
+        this.props.showModal(null, 'covid');
+    }
+
     render() {
         let infoBanner = (
             <InfoBanner
+                triggerModal={this.openCovidModalContainer}
                 closeBanner={this.closeBanner} />
         );
 
@@ -121,8 +129,12 @@ export default class Header extends React.Component {
                     <NavBar />
                 </header>
                 <GlossaryContainer />
-                <RedirectModalContainer />
+                <GlobalModalContainer />
             </div>
         );
     }
 }
+
+Header.propTypes = {
+    showModal: PropTypes.func
+};
