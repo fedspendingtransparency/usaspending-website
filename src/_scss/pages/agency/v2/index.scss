@@ -192,7 +192,6 @@
                 width: 70%;
             }
             .body__content {
-                @import '../../search/results/table/tableMessages';
                 @import '../../search/results/table/resultsTableMessageContainer';
                 @import './tables';
             }
