@@ -12,6 +12,12 @@ export const getEmailSocialShareData = {
     body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
 };
 
+export const dataDisclaimerHeight = 75;
+export const stickyHeaderHeight = 66;
+export const globalBannerHeight = 90;
+// result of document.querySelector('.site-header').clientHeight + sticky header height when not sticky
+export const siteHeaderHeight = 97 + stickyHeaderHeight;
+
 export const scrollPositionOfSiteHeader = (cookie) => (cookie ? 96 : 187);
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
