@@ -4,9 +4,8 @@
  */
 
 import { useState } from 'react';
-import { snakeCase } from 'lodash';
+import { snakeCase, min, max } from 'lodash';
 import moment from 'moment';
-import { min, max } from 'lodash';
 import { scalePow } from 'd3-scale';
 
 import { defCodes } from 'dataMapping/covid19/covid19';
