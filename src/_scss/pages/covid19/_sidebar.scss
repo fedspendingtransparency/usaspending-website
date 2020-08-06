@@ -33,7 +33,7 @@
             }
             ul {
                 @include unstyled-list;
-                padding: rem(30);
+                padding: rem(30) rem(20);
     
                 li {
                     margin-bottom: rem(24);
