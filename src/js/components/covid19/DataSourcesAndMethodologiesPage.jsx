@@ -4,18 +4,22 @@
  */
 
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from 'js-cookie';
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
-
+import {
+    scrollPositionOfSiteHeader,
+    getEmailSocialShareData
+} from 'dataMapping/covid19/covid19';
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 const cookie = 'usaspending_covid_homepage';
 
@@ -102,11 +106,19 @@ export default () => {
             <MetaTags {...covidPageDataSourcesMetaTags} />
             <Header />
             <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1} id="main-focus">
-                        COVID-19 Spending: Data Sources &amp; Methodology
-                    </h1>
-                </div>
+                <>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            COVID-19 Spending: Data Sources &amp; Methodology
+                        </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug="#/disaster/covid-19/data-sources"
+                            email={getEmailSocialShareData}
+                            noHash />
+                    </div>
+                </>
             </StickyHeader>
             <main id="main-content" className="main-content">
                 <div className="sidebar usda__flex-col">
@@ -122,6 +134,14 @@ export default () => {
                     <div className="about-content">
                         <div className="about-padded-content">
                             <div className="about-section-wrapper" id="data-sources-datasets">
+                                <div className="back-link">
+                                    <a
+                                        href="/#/disaster/covid-19"
+                                        rel="noopener noreferrer">
+                                        <FontAwesomeIcon icon="arrow-left" />
+                                        Back to the COVID-19 Spending Profile
+                                    </a>
+                                </div>
                                 <h2 className="about-section-title">
                                     Datasets
                                 </h2>
