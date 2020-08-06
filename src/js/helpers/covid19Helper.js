@@ -6,11 +6,13 @@
 import { useState } from 'react';
 import { snakeCase } from 'lodash';
 import moment from 'moment';
+import { min, max } from 'lodash';
+import { scalePow } from 'd3-scale';
 
 import { defCodes } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
 
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
@@ -97,4 +99,37 @@ export const handleSort = (a, b) => {
     if (a.sortOrder < b.sortOrder) return -1;
     if (b.sortOrder < a.sortOrder) return 1;
     return 0;
+};
+
+export const calculateCovidMapRange = (data) => {
+    let dataRange = data;
+    // handle a condition where an empty array is provided
+    if (data.length < 1) {
+        dataRange = [0, 10000];
+    }
+    let minValue = min(dataRange);
+    let maxValue = max(dataRange);
+
+    // determine the best units to use
+    const units = calculateUnits(dataRange);
+
+    // round the minimum down to the cleanest unit point
+    minValue = Math.floor(minValue / units.unit);
+    maxValue = Math.ceil(maxValue / units.unit);
+
+    // determine the current step values, round it to something divisible by
+    const step = Math.ceil((maxValue - minValue) / 6);
+    maxValue = minValue + (6 * step);
+
+    const segments = [];
+    const scale = scalePow().exponent(0.1).domain([minValue * units.unit, maxValue * units.unit]).range([0, 6]);
+    for (let i = 1; i <= 6; i++) {
+        segments.push(scale.invert(i));
+    }
+
+    return {
+        scale,
+        segments,
+        units
+    };
 };
