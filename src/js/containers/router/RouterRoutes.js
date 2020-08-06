@@ -16,7 +16,7 @@ import PrivacyPage from 'components/about/legal/PrivacyPage';
 import FOIAPage from 'components/about/legal/FOIAPage';
 import DBInfo from 'components/about/DBInfo';
 import AgencyLandingPage from 'components/agencyLanding/AgencyLandingPage';
-import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
+import BulkDownloadPageContainer from 'containers/bulkDownload/BulkDownloadPageContainer';
 import { KeywordContainer } from 'containers/keyword/KeywordContainer';
 import AccountLandingPage from 'components/accountLanding/AccountLandingPage';
 import StateLandingPage from 'components/stateLanding/StateLandingPage';

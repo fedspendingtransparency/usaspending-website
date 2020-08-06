@@ -41,7 +41,6 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    params: PropTypes.object,
     award: PropTypes.object,
     isDownloadPending: PropTypes.bool,
     isSubAwardIdClicked: PropTypes.bool,
