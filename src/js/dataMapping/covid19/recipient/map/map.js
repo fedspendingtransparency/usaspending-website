@@ -160,12 +160,12 @@ export const logMapScopeEvent = (scope) => {
 };
 
 export const visualizationColors = [
-    '#dfe5ea',
-    '#dfe5ea',
-    '#c9d2d7',
-    '#6c8a8e',
-    '#3e5c6a',
-    '#083546'
+    'rgba(1, 43, 58, 0.12)',
+    'rgba(1, 43, 58, 0.30)',
+    'rgba(1, 43, 58, 0.48)',
+    'rgba(1, 43, 58, 0.65)',
+    'rgba(1, 43, 58, 0.85)',
+    'rgba(1, 43, 58, 1)'
 ];
 
 export const tooltipLabels = {
