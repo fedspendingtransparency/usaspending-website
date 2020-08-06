@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,gBAAgB,CAAC;EACb,OAAO,EAAE,OAAO;CAInB;;AALD,AAEI,gBAFY,CAEZ,EAAE,CAAC;EACC,UAAU,EAAE,OAAO;CACtB",
-    "sources": [
-        "../mixins/error.scss"
-    ],
-    "names": [],
-    "file": "error.css"
-}

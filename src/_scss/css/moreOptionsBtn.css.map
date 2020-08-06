@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../mixins/moreOptionsBtn.scss"
-    ],
-    "names": [],
-    "file": "moreOptionsBtn.css"
-}

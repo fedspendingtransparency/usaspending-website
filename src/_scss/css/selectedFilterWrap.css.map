@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../mixins/selectedFilterWrap.scss"
-    ],
-    "names": [],
-    "file": "selectedFilterWrap.css"
-}
