@@ -5,14 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withRouter } from 'react-router-dom';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
-
+import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
-import ViewTypeButton from '../../../../sharedComponents/buttons/ViewTypeButton';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -21,10 +20,11 @@ const propTypes = {
     root: PropTypes.string,
     changeSubdivisionType: PropTypes.func,
     changeView: PropTypes.func,
-    viewType: PropTypes.string
+    viewType: PropTypes.string,
+    history: PropTypes.object
 };
 
-export default class BreakdownDropdown extends React.Component {
+export class BreakdownDropdown extends React.Component {
     constructor(props) {
         super(props);
 
@@ -132,7 +132,7 @@ export default class BreakdownDropdown extends React.Component {
         }, () => {
             if (this.props.isRoot && item !== this.props.root) {
                 // TODO redirect to the correct root URL
-                //Router.history.push(`/explorer/${item}`);
+                this.props.history.push(`/explorer/${item}`);
             }
             else if (!this.props.isRoot) {
                 this.props.changeSubdivisionType(item);
@@ -205,3 +205,4 @@ export default class BreakdownDropdown extends React.Component {
 }
 
 BreakdownDropdown.propTypes = propTypes;
+export default withRouter(BreakdownDropdown);

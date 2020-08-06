@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
+import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -29,7 +30,8 @@ const propTypes = {
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    resetExplorerTable: PropTypes.func
+    resetExplorerTable: PropTypes.func,
+    history: PropTypes.object
 };
 
 export class DetailContentContainer extends React.Component {
@@ -299,7 +301,7 @@ export class DetailContentContainer extends React.Component {
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             // TODO: fix for BrowserRouter
-            //Router.history.push(`/award/${id}`);
+            this.props.history.push(`/award/${id}`);
 
             Analytics.event({
                 category: 'Spending Explorer - Exit',
@@ -552,8 +554,9 @@ export class DetailContentContainer extends React.Component {
 }
 
 DetailContentContainer.propTypes = propTypes;
+const DetailContentContainerWithRouter = withRouter(DetailContentContainer);
 
 export default connect(
     (state) => ({ explorer: state.explorer }),
     (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainer);
+)(DetailContentContainerWithRouter);

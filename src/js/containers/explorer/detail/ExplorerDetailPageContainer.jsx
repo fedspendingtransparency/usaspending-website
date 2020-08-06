@@ -7,24 +7,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import * as explorerActions from 'redux/actions/explorer/explorerActions';
 
 import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
 
 const propTypes = {
-    params: PropTypes.object,
-    setExplorerRoot: PropTypes.func
+    setExplorerRoot: PropTypes.func,
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class ExplorerDetailPageContainer extends React.Component {
     componentWillMount() {
-        this.validateRoot(this.props.params.root);
+        this.validateRoot(this.props.match.params.root);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.params.root !== this.props.params.root) {
-            this.validateRoot(nextProps.params.root);
+        if (nextProps.match.params.root !== this.props.match.params.root) {
+            this.validateRoot(nextProps.match.params.root);
         }
     }
 
@@ -32,7 +34,7 @@ export class ExplorerDetailPageContainer extends React.Component {
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
         if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
             // not a valid root, go to to the landing page
-            //Router.history.replace('/explorer');
+            this.props.history.replace('/explorer');
         }
         else {
             // set the root
@@ -48,8 +50,9 @@ export class ExplorerDetailPageContainer extends React.Component {
 }
 
 ExplorerDetailPageContainer.propTypes = propTypes;
+const ExplorerDetailPageContainerWithRouter = withRouter(ExplorerDetailPageContainer);
 
 export default connect(
     null,
     (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(ExplorerDetailPageContainer);
+)(ExplorerDetailPageContainerWithRouter);
