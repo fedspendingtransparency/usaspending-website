@@ -4,7 +4,7 @@
 
     @include media($tablet-screen) {
         @include display(flex);
-        @include justify-content(space-between);
+        @include justify-content(space-between)
         @include align-items(center);
     }
 
@@ -66,7 +66,7 @@
     }
 
     .official-banner__flag {
-        @include flex(0 0 auto);
+        @include flex(0 0 auto)
         width: rem(16);
         height: rem(11);
     }
