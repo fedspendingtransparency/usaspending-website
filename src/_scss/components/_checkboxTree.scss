@@ -11,6 +11,8 @@
   .react-checkbox-tree {
     max-height: 600px;
     overflow-y: scroll;
+    // fix for windows browsers - removes the grayed out scroll bar
+    -ms-overflow-style: none;
     .rct-node-icon {
       display: none;
     }
