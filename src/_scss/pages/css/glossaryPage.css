@@ -1,0 +1,1395 @@
+.usa-da-glossary-animations html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.usa-da-glossary-animations *, .usa-da-glossary-animations *::after, .usa-da-glossary-animations *::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+.usa-da-glossary-animations .usa-sr-only {
+  position: absolute;
+  left: -999em;
+}
+
+.usa-da-glossary-animations .hide {
+  display: none !important;
+}
+
+.usa-da-glossary-animations .show {
+  display: block !important;
+}
+
+.usa-da-glossary-animations .usa-button,
+.usa-da-glossary-animations .usa-button-primary,
+.usa-da-glossary-animations .usa-button:visited,
+.usa-da-glossary-animations .usa-button-primary:visited,
+.usa-da-glossary-animations button,
+.usa-da-glossary-animations [type="button"],
+.usa-da-glossary-animations [type="submit"],
+.usa-da-glossary-animations [type="reset"],
+.usa-da-glossary-animations [type="image"] {
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #0071bc;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1;
+  outline: none;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (min-width: 320px) {
+  .usa-da-glossary-animations .usa-button,
+  .usa-da-glossary-animations .usa-button-primary,
+  .usa-da-glossary-animations .usa-button:visited,
+  .usa-da-glossary-animations .usa-button-primary:visited,
+  .usa-da-glossary-animations button,
+  .usa-da-glossary-animations [type="button"],
+  .usa-da-glossary-animations [type="submit"],
+  .usa-da-glossary-animations [type="reset"],
+  .usa-da-glossary-animations [type="image"] {
+    width: auto;
+  }
+}
+
+.usa-da-glossary-animations .usa-button:hover, .usa-da-glossary-animations .usa-button.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-hover,
+.usa-da-glossary-animations button:hover,
+.usa-da-glossary-animations button.usa-button-hover,
+.usa-da-glossary-animations [type="button"]:hover,
+.usa-da-glossary-animations [type="button"].usa-button-hover,
+.usa-da-glossary-animations [type="submit"]:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-hover,
+.usa-da-glossary-animations [type="reset"]:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-hover,
+.usa-da-glossary-animations [type="image"]:hover,
+.usa-da-glossary-animations [type="image"].usa-button-hover {
+  background-color: #205493;
+  border-bottom: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.usa-da-glossary-animations .usa-button:focus, .usa-da-glossary-animations .usa-button.usa-button-focus,
+.usa-da-glossary-animations .usa-button-primary:focus,
+.usa-da-glossary-animations .usa-button-primary.usa-button-focus,
+.usa-da-glossary-animations .usa-button:visited:focus,
+.usa-da-glossary-animations .usa-button:visited.usa-button-focus,
+.usa-da-glossary-animations .usa-button-primary:visited:focus,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-focus,
+.usa-da-glossary-animations button:focus,
+.usa-da-glossary-animations button.usa-button-focus,
+.usa-da-glossary-animations [type="button"]:focus,
+.usa-da-glossary-animations [type="button"].usa-button-focus,
+.usa-da-glossary-animations [type="submit"]:focus,
+.usa-da-glossary-animations [type="submit"].usa-button-focus,
+.usa-da-glossary-animations [type="reset"]:focus,
+.usa-da-glossary-animations [type="reset"].usa-button-focus,
+.usa-da-glossary-animations [type="image"]:focus,
+.usa-da-glossary-animations [type="image"].usa-button-focus {
+  -webkit-box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+          box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+}
+
+.usa-da-glossary-animations .usa-button:active, .usa-da-glossary-animations .usa-button.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-active,
+.usa-da-glossary-animations button:active,
+.usa-da-glossary-animations button.usa-button-active,
+.usa-da-glossary-animations [type="button"]:active,
+.usa-da-glossary-animations [type="button"].usa-button-active,
+.usa-da-glossary-animations [type="submit"]:active,
+.usa-da-glossary-animations [type="submit"].usa-button-active,
+.usa-da-glossary-animations [type="reset"]:active,
+.usa-da-glossary-animations [type="reset"].usa-button-active,
+.usa-da-glossary-animations [type="image"]:active,
+.usa-da-glossary-animations [type="image"].usa-button-active {
+  background-color: #112e51;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-primary-alt,
+.usa-da-glossary-animations .usa-button-primary.usa-button-primary-alt,
+.usa-da-glossary-animations .usa-button:visited.usa-button-primary-alt,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-primary-alt,
+.usa-da-glossary-animations button.usa-button-primary-alt,
+.usa-da-glossary-animations [type="button"].usa-button-primary-alt,
+.usa-da-glossary-animations [type="submit"].usa-button-primary-alt,
+.usa-da-glossary-animations [type="reset"].usa-button-primary-alt,
+.usa-da-glossary-animations [type="image"].usa-button-primary-alt {
+  background-color: #02bfe7;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-primary-alt:hover, .usa-da-glossary-animations .usa-button.usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-primary-alt:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-primary-alt:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-primary-alt:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-primary-alt:hover,
+.usa-da-glossary-animations button.usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-primary-alt:hover,
+.usa-da-glossary-animations [type="button"].usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-primary-alt:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-primary-alt:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-primary-alt.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-primary-alt:hover,
+.usa-da-glossary-animations [type="image"].usa-button-primary-alt.usa-button-hover {
+  background-color: #00a6d2;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-primary-alt:active, .usa-da-glossary-animations .usa-button.usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-primary-alt:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-primary-alt:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-primary-alt:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations button.usa-button-primary-alt:active,
+.usa-da-glossary-animations button.usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-primary-alt:active,
+.usa-da-glossary-animations [type="button"].usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-primary-alt:active,
+.usa-da-glossary-animations [type="submit"].usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-primary-alt:active,
+.usa-da-glossary-animations [type="reset"].usa-button-primary-alt.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-primary-alt:active,
+.usa-da-glossary-animations [type="image"].usa-button-primary-alt.usa-button-active {
+  background-color: #046b99;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary,
+.usa-da-glossary-animations button.usa-button-secondary,
+.usa-da-glossary-animations [type="button"].usa-button-secondary,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary,
+.usa-da-glossary-animations [type="image"].usa-button-secondary {
+  background-color: #e31c3d;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary:hover, .usa-da-glossary-animations .usa-button.usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-secondary:hover,
+.usa-da-glossary-animations button.usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-secondary:hover,
+.usa-da-glossary-animations [type="button"].usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-secondary:hover,
+.usa-da-glossary-animations [type="image"].usa-button-secondary.usa-button-hover {
+  background-color: #cd2026;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary:active, .usa-da-glossary-animations .usa-button.usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations button.usa-button-secondary:active,
+.usa-da-glossary-animations button.usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-secondary:active,
+.usa-da-glossary-animations [type="button"].usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary:active,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary:active,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-secondary:active,
+.usa-da-glossary-animations [type="image"].usa-button-secondary.usa-button-active {
+  background-color: #981b1e;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary-danger,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary-danger,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary-danger,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary-danger,
+.usa-da-glossary-animations button.usa-button-secondary-danger,
+.usa-da-glossary-animations [type="button"].usa-button-secondary-danger,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary-danger,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary-danger,
+.usa-da-glossary-animations [type="image"].usa-button-secondary-danger {
+  background: transparent;
+  -webkit-box-shadow: inset 0 0 0 1px #cd2026;
+          box-shadow: inset 0 0 0 1px #cd2026;
+  color: #cd2026;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary-danger:hover, .usa-da-glossary-animations .usa-button.usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary-danger:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary-danger:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary-danger:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-secondary-danger:hover,
+.usa-da-glossary-animations button.usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-secondary-danger:hover,
+.usa-da-glossary-animations [type="button"].usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary-danger:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary-danger:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary-danger.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-secondary-danger:hover,
+.usa-da-glossary-animations [type="image"].usa-button-secondary-danger.usa-button-hover {
+  background-color: #e31c3d;
+  -webkit-box-shadow: inset 0 0 0 1px #e31c3d;
+          box-shadow: inset 0 0 0 1px #e31c3d;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-secondary-danger:active, .usa-da-glossary-animations .usa-button.usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary-danger:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary-danger:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary-danger:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations button.usa-button-secondary-danger:active,
+.usa-da-glossary-animations button.usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-secondary-danger:active,
+.usa-da-glossary-animations [type="button"].usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary-danger:active,
+.usa-da-glossary-animations [type="submit"].usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary-danger:active,
+.usa-da-glossary-animations [type="reset"].usa-button-secondary-danger.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-secondary-danger:active,
+.usa-da-glossary-animations [type="image"].usa-button-secondary-danger.usa-button-active {
+  background-color: #981b1e;
+  -webkit-box-shadow: inset 0 0 0 1px #981b1e;
+          box-shadow: inset 0 0 0 1px #981b1e;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-gray,
+.usa-da-glossary-animations .usa-button-primary.usa-button-gray,
+.usa-da-glossary-animations .usa-button:visited.usa-button-gray,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-gray,
+.usa-da-glossary-animations button.usa-button-gray,
+.usa-da-glossary-animations [type="button"].usa-button-gray,
+.usa-da-glossary-animations [type="submit"].usa-button-gray,
+.usa-da-glossary-animations [type="reset"].usa-button-gray,
+.usa-da-glossary-animations [type="image"].usa-button-gray {
+  background-color: #5b616b;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-gray:hover, .usa-da-glossary-animations .usa-button.usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-gray:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-gray:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-gray:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-gray:hover,
+.usa-da-glossary-animations button.usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-gray:hover,
+.usa-da-glossary-animations [type="button"].usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-gray:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-gray:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-gray.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-gray:hover,
+.usa-da-glossary-animations [type="image"].usa-button-gray.usa-button-hover {
+  background-color: #323a45;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-gray:active, .usa-da-glossary-animations .usa-button.usa-button-gray.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-gray:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-gray.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-gray:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-gray.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-gray:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-gray.usa-button-active,
+.usa-da-glossary-animations button.usa-button-gray:active,
+.usa-da-glossary-animations button.usa-button-gray.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-gray:active,
+.usa-da-glossary-animations [type="button"].usa-button-gray.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-gray:active,
+.usa-da-glossary-animations [type="submit"].usa-button-gray.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-gray:active,
+.usa-da-glossary-animations [type="reset"].usa-button-gray.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-gray:active,
+.usa-da-glossary-animations [type="image"].usa-button-gray.usa-button-active {
+  background-color: #555;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline,
+.usa-da-glossary-animations button.usa-button-outline,
+.usa-da-glossary-animations [type="button"].usa-button-outline,
+.usa-da-glossary-animations [type="submit"].usa-button-outline,
+.usa-da-glossary-animations [type="reset"].usa-button-outline,
+.usa-da-glossary-animations [type="image"].usa-button-outline {
+  background-color: transparent;
+  -webkit-box-shadow: inset 0 0 0 1px #0071bc;
+          box-shadow: inset 0 0 0 1px #0071bc;
+  color: #0071bc;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline:hover, .usa-da-glossary-animations .usa-button.usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-outline:hover,
+.usa-da-glossary-animations button.usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-outline:hover,
+.usa-da-glossary-animations [type="button"].usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-outline:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-outline:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-outline.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-outline:hover,
+.usa-da-glossary-animations [type="image"].usa-button-outline.usa-button-hover {
+  background: #e1f3f8;
+  -webkit-box-shadow: inset 0 0 0 1px #205493;
+          box-shadow: inset 0 0 0 1px #205493;
+  color: #205493;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline:active, .usa-da-glossary-animations .usa-button.usa-button-outline.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline.usa-button-active,
+.usa-da-glossary-animations button.usa-button-outline:active,
+.usa-da-glossary-animations button.usa-button-outline.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-outline:active,
+.usa-da-glossary-animations [type="button"].usa-button-outline.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-outline:active,
+.usa-da-glossary-animations [type="submit"].usa-button-outline.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-outline:active,
+.usa-da-glossary-animations [type="reset"].usa-button-outline.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-outline:active,
+.usa-da-glossary-animations [type="image"].usa-button-outline.usa-button-active {
+  -webkit-box-shadow: inset 0 0 0 1px #112e51;
+          box-shadow: inset 0 0 0 1px #112e51;
+  color: #112e51;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline:focus, .usa-da-glossary-animations .usa-button.usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline:focus,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline:focus,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline:focus,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations button.usa-button-outline:focus,
+.usa-da-glossary-animations button.usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations [type="button"].usa-button-outline:focus,
+.usa-da-glossary-animations [type="button"].usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations [type="submit"].usa-button-outline:focus,
+.usa-da-glossary-animations [type="submit"].usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations [type="reset"].usa-button-outline:focus,
+.usa-da-glossary-animations [type="reset"].usa-button-outline.usa-button-focus,
+.usa-da-glossary-animations [type="image"].usa-button-outline:focus,
+.usa-da-glossary-animations [type="image"].usa-button-outline.usa-button-focus {
+  -webkit-box-shadow: inset 0 0 0 1px #112e51, 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+          box-shadow: inset 0 0 0 1px #112e51, 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline-inverse,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline-inverse,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline-inverse,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline-inverse,
+.usa-da-glossary-animations button.usa-button-outline-inverse,
+.usa-da-glossary-animations [type="button"].usa-button-outline-inverse,
+.usa-da-glossary-animations [type="submit"].usa-button-outline-inverse,
+.usa-da-glossary-animations [type="reset"].usa-button-outline-inverse,
+.usa-da-glossary-animations [type="image"].usa-button-outline-inverse {
+  background: transparent;
+  -webkit-box-shadow: inset 0 0 0 1px #fff;
+          box-shadow: inset 0 0 0 1px #fff;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline-inverse:hover, .usa-da-glossary-animations .usa-button.usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline-inverse:hover,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline-inverse:hover,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline-inverse:hover,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations button.usa-button-outline-inverse:hover,
+.usa-da-glossary-animations button.usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations [type="button"].usa-button-outline-inverse:hover,
+.usa-da-glossary-animations [type="button"].usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations [type="submit"].usa-button-outline-inverse:hover,
+.usa-da-glossary-animations [type="submit"].usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations [type="reset"].usa-button-outline-inverse:hover,
+.usa-da-glossary-animations [type="reset"].usa-button-outline-inverse.usa-button-hover,
+.usa-da-glossary-animations [type="image"].usa-button-outline-inverse:hover,
+.usa-da-glossary-animations [type="image"].usa-button-outline-inverse.usa-button-hover {
+  background: #5b616b;
+  -webkit-box-shadow: inset 0 0 0 1px #5b616b;
+          box-shadow: inset 0 0 0 1px #5b616b;
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-outline-inverse:active, .usa-da-glossary-animations .usa-button.usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline-inverse:active,
+.usa-da-glossary-animations .usa-button-primary.usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline-inverse:active,
+.usa-da-glossary-animations .usa-button:visited.usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline-inverse:active,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations button.usa-button-outline-inverse:active,
+.usa-da-glossary-animations button.usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations [type="button"].usa-button-outline-inverse:active,
+.usa-da-glossary-animations [type="button"].usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations [type="submit"].usa-button-outline-inverse:active,
+.usa-da-glossary-animations [type="submit"].usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations [type="reset"].usa-button-outline-inverse:active,
+.usa-da-glossary-animations [type="reset"].usa-button-outline-inverse.usa-button-active,
+.usa-da-glossary-animations [type="image"].usa-button-outline-inverse:active,
+.usa-da-glossary-animations [type="image"].usa-button-outline-inverse.usa-button-active {
+  -webkit-box-shadow: inset 0 0 0 1px #aeb0b5;
+          box-shadow: inset 0 0 0 1px #aeb0b5;
+  color: #d6d7d9;
+}
+
+.usa-da-glossary-animations .usa-button.usa-button-big,
+.usa-da-glossary-animations .usa-button-primary.usa-button-big,
+.usa-da-glossary-animations .usa-button:visited.usa-button-big,
+.usa-da-glossary-animations .usa-button-primary:visited.usa-button-big,
+.usa-da-glossary-animations button.usa-button-big,
+.usa-da-glossary-animations [type="button"].usa-button-big,
+.usa-da-glossary-animations [type="submit"].usa-button-big,
+.usa-da-glossary-animations [type="reset"].usa-button-big,
+.usa-da-glossary-animations [type="image"].usa-button-big {
+  font-size: 1.6rem;
+  line-height: 1.3rem;
+  padding: 16px 24px 15px;
+}
+
+.usa-da-glossary-animations [type="submit"]:disabled,
+.usa-da-glossary-animations .usa-button-disabled {
+  background-color: #d6d7d9;
+  color: #5b616b;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.usa-da-glossary-animations [type="submit"]:disabled:hover, .usa-da-glossary-animations [type="submit"]:disabled.usa-button-hover, .usa-da-glossary-animations [type="submit"]:disabled:active, .usa-da-glossary-animations [type="submit"]:disabled.usa-button-active, .usa-da-glossary-animations [type="submit"]:disabled:focus,
+.usa-da-glossary-animations .usa-button-disabled:hover,
+.usa-da-glossary-animations .usa-button-disabled.usa-button-hover,
+.usa-da-glossary-animations .usa-button-disabled:active,
+.usa-da-glossary-animations .usa-button-disabled.usa-button-active,
+.usa-da-glossary-animations .usa-button-disabled:focus {
+  background-color: #d6d7d9;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #323a45;
+}
+
+.usa-da-glossary-animations [type="submit"]:disabled,
+.usa-da-glossary-animations .usa-button-disabled-outline {
+  background: none;
+  border: 0.1rem solid #d6d7d9;
+  color: #aeb0b5;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.usa-da-glossary-animations [type="submit"]:disabled:hover, .usa-da-glossary-animations [type="submit"]:disabled.usa-button-hover, .usa-da-glossary-animations [type="submit"]:disabled:active, .usa-da-glossary-animations [type="submit"]:disabled.usa-button-active, .usa-da-glossary-animations [type="submit"]:disabled:focus,
+.usa-da-glossary-animations .usa-button-disabled-outline:hover,
+.usa-da-glossary-animations .usa-button-disabled-outline.usa-button-hover,
+.usa-da-glossary-animations .usa-button-disabled-outline:active,
+.usa-da-glossary-animations .usa-button-disabled-outline.usa-button-active,
+.usa-da-glossary-animations .usa-button-disabled-outline:focus {
+  background-color: #d6d7d9;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #323a45;
+}
+
+.usa-da-glossary-animations .usa-button-unstyled {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.usa-da-glossary-animations .usa-button-unstyled:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-button-link {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  color: #0071bc;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.usa-da-glossary-animations .usa-button-link:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-button-link:hover {
+  color: #0071bc;
+}
+
+.usa-da-glossary-animations html {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 10px;
+  color: #555;
+}
+
+.usa-da-glossary-animations body {
+  font-size: 1.6rem;
+}
+
+.usa-da-glossary-animations p {
+  line-height: 1.5;
+}
+
+.usa-da-glossary-animations a {
+  color: #0071bc;
+  text-decoration: none;
+}
+
+.usa-da-glossary-animations a:hover, .usa-da-glossary-animations a:active {
+  color: #205493;
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations a:visited {
+  color: #4c2c92;
+}
+
+.usa-da-glossary-animations a:focus {
+  -webkit-box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+          box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+  outline: 0;
+}
+
+.usa-da-glossary-animations .usa-external-link::after {
+  background: url("./img/external-link.png") no-repeat 0 0;
+  background: url("./img/external-link.svg") no-repeat 0 0;
+  background-size: 100%;
+  content: '';
+  display: inline-block;
+  height: 0.65em;
+  margin-bottom: -1px;
+  margin-left: 4px;
+  width: 0.65em;
+}
+
+.usa-da-glossary-animations .usa-external-link:hover::after {
+  background-image: url("./img/external-link-hover.png");
+  background-image: url("./img/external-link-hover.svg");
+}
+
+.usa-da-glossary-animations .usa-external-link-alt::after {
+  background: url("./img/external-link-alt.png") no-repeat 0 0;
+  background: url("./img/external-link-alt.svg") no-repeat 0 0;
+  background-size: 100%;
+  content: '';
+  display: inline-block;
+  height: 0.65em;
+  margin-bottom: -1px;
+  margin-left: 4px;
+  width: 0.65em;
+}
+
+.usa-da-glossary-animations .usa-external-link-alt:hover::after {
+  background-image: url("./img/external-link-alt-hover.png");
+  background-image: url("./img/external-link-alt-hover.svg");
+}
+
+.usa-da-glossary-animations h1,
+.usa-da-glossary-animations h2,
+.usa-da-glossary-animations h3,
+.usa-da-glossary-animations h4,
+.usa-da-glossary-animations h5,
+.usa-da-glossary-animations h6 {
+  clear: both;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  line-height: 1.2;
+  margin-bottom: .5em;
+  margin-top: 1.5em;
+}
+
+.usa-da-glossary-animations h1 {
+  font-size: 5.9rem;
+  font-weight: 200;
+  line-height: 5.9rem;
+}
+
+.usa-da-glossary-animations h2 {
+  font-size: 4.7rem;
+  font-weight: 200;
+  line-height: 5.217rem;
+}
+
+.usa-da-glossary-animations h3 {
+  font-size: 3.8rem;
+  font-weight: 200;
+  line-height: 5.168rem;
+}
+
+.usa-da-glossary-animations h4 {
+  font-size: 3rem;
+  font-weight: 200;
+  line-height: 3rem;
+}
+
+.usa-da-glossary-animations h5 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 3.12rem;
+}
+
+.usa-da-glossary-animations h6 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 2.66rem;
+}
+
+.usa-da-glossary-animations cite,
+.usa-da-glossary-animations var,
+.usa-da-glossary-animations address,
+.usa-da-glossary-animations dfn {
+  font-style: normal;
+}
+
+.usa-da-glossary-animations .usa-content p:not(.usa-font-lead) {
+  max-width: 53rem;
+}
+
+.usa-da-glossary-animations .usa-content-list {
+  max-width: 53rem;
+}
+
+.usa-da-glossary-animations .usa-sans p,
+.usa-da-glossary-animations .usa-sans a,
+.usa-da-glossary-animations .usa-sans li,
+.usa-da-glossary-animations .usa-sans span {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+.usa-da-glossary-animations .usa-sans a {
+  border-bottom: none;
+  font-weight: 700;
+}
+
+.usa-da-glossary-animations .usa-serif p,
+.usa-da-glossary-animations .usa-serif a,
+.usa-da-glossary-animations .usa-serif li,
+.usa-da-glossary-animations .usa-serif span {
+  font-family: "Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+}
+
+.usa-da-glossary-animations .usa-display {
+  font-size: 3.8rem;
+  font-weight: 200;
+  line-height: 5.168rem;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 320px) {
+  .usa-da-glossary-animations .usa-display {
+    font-size: 5.9rem;
+    font-weight: 200;
+    line-height: 5.9rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .usa-da-glossary-animations .usa-display {
+    font-size: 5.2rem;
+    font-weight: 700;
+  }
+}
+
+.usa-da-glossary-animations .usa-font-lead {
+  font-family: "Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+  font-size: 2rem;
+  line-height: 1.7;
+  max-width: 77rem;
+}
+
+.usa-da-glossary-animations .usa-image-block {
+  position: relative;
+}
+
+.usa-da-glossary-animations .usa-image-text-block {
+  color: #fff;
+  left: 0;
+  margin-left: 8%;
+  position: absolute;
+  top: 0;
+}
+
+.usa-da-glossary-animations .usa-image-text {
+  margin-top: 0;
+}
+
+.usa-da-glossary-animations .usa-drop-text {
+  margin-bottom: 0;
+}
+
+.usa-da-glossary-animations .usa-background-dark {
+  background-color: #323a45;
+}
+
+.usa-da-glossary-animations .usa-background-dark p,
+.usa-da-glossary-animations .usa-background-dark span {
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-background-dark a {
+  color: #d6d7d9;
+}
+
+.usa-da-glossary-animations .usa-background-dark a:hover {
+  color: #fff;
+}
+
+.usa-da-glossary-animations .usa-text-small {
+  font-size: 1.9rem;
+  margin-top: 0;
+}
+
+@-webkit-keyframes slidein {
+  0% {
+    -webkit-transform: translate(300px, 0);
+            transform: translate(300px, 0);
+  }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+}
+
+@keyframes slidein {
+  0% {
+    -webkit-transform: translate(300px, 0);
+            transform: translate(300px, 0);
+  }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+}
+
+@-webkit-keyframes slideout {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(300px, 0);
+            transform: translate(300px, 0);
+  }
+}
+
+@keyframes slideout {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(300px, 0);
+            transform: translate(300px, 0);
+  }
+}
+
+.usa-da-glossary-animations .glossary-slide-enter, .usa-da-glossary-animations .glossary-slide-enter-active {
+  -webkit-animation: slidein 0.5s ease-in forwards;
+  animation: slidein 0.5s ease-in forwards;
+}
+
+.usa-da-glossary-animations .glossary-slide-leave, .usa-da-glossary-animations .glossary-slide-leave-active {
+  -webkit-animation: slideout 0.5s ease-in forwards;
+  animation: slideout 0.5s ease-in forwards;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 310px;
+  height: 100%;
+  z-index: 200;
+  -webkit-box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar {
+  background-color: #205493;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-scrollbar-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-scrollbar-thumb {
+  width: 10px;
+  opacity: 0.3;
+  background-color: #fff;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header {
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  background-color: #112e51;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .close-button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  float: right;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .close-button:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .close-button svg {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 17px;
+  height: 17px;
+  fill: #fff;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .close-button:hover svg, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .close-button:active svg {
+  fill: #fdb81e;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header h1.glossary-title {
+  font-weight: 300;
+  font-size: 3.8rem;
+  line-height: 4.7rem;
+  margin: 0;
+  padding: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-example {
+  font-style: italic;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-search-bar {
+  position: relative;
+  width: 250px;
+  height: 34px;
+  margin: 15px 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-search-bar input.search-field {
+  position: absolute;
+  left: 0;
+  font-size: 14px;
+  line-height: 17px;
+  color: #555;
+  padding: 10px;
+  padding-right: 25px;
+  width: 250px;
+  height: 34px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-search-bar .search-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  width: 14px;
+  height: 14px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-search-bar .search-button:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-header .glossary-search-bar .search-button svg {
+  fill: #5b616b;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results {
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results h2.section-title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group {
+  margin-top: 20px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group h2.group-title {
+  font-size: 3.8rem;
+  font-weight: 200;
+  line-height: 5.168rem;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group hr.group-divider {
+  border: none;
+  border-top: 1px solid #fff;
+  opacity: 0.5;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items > li {
+  margin-bottom: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li {
+  margin-top: 10px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li button.glossary-link {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 18px;
+  color: #fff;
+  width: 100%;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li button.glossary-link:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li button.glossary-link:hover, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li button.glossary-link:active {
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-search-results .glossary-result-group ul.group-items li button.glossary-link .matched-highlight {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition {
+  padding: 20px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  padding-left: 0;
+  border-bottom: 1px solid #4773aa;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs > li {
+  margin-bottom: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs li {
+  display: inline-block;
+  margin-left: 2px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs li:first-child {
+  margin-left: 0px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs .definition-tab {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  width: 129px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  border: 1px solid #4773aa;
+  border-bottom: none;
+  padding: 5px 10px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs .definition-tab:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs .definition-tab:hover, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs .definition-tab:active, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-tabs .definition-tab.active {
+  background-color: #4773aa;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-share-icon:hover {
+  color: #FFF;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition h2.term {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .copy-confirmation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  height: 3.9rem;
+  width: 45%;
+  margin-left: 37%;
+  background: #EEEEEE;
+  border: 0.1rem solid #EEEEEE;
+  border-radius: 0.3rem;
+  color: #555555;
+  margin-right: 1.5rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .copy-confirmation svg {
+  margin: 0 1rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 50%;
+  margin-left: 50%;
+  background: #215493;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+  padding: 1.3rem 0 0.3rem 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+  width: 14.1rem;
+  -webkit-box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.5);
+  border-radius: 0.3rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+  border: none;
+  border-radius: 0.3rem;
+  height: 3.9rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item,
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item .active {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: center;
+  box-align: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+  background: #fff;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: #5b616b;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover,
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item .active:hover {
+  background: #f1f1f1;
+  border: 0.1rem solid #f1f1f1;
+  cursor: pointer;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg,
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item .active svg {
+  margin-right: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .copy-confirmation {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: center;
+  box-align: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+  position: absolute;
+  height: 3.9rem;
+  width: 14rem;
+  background: #f1f1f1;
+  border: 0.1rem solid #f1f1f1;
+  border-radius: 0.3rem;
+  color: #5b616b;
+  margin-right: 1.5rem;
+  top: 3.6rem;
+  right: -0.7rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .usa-dt-picker .usa-dt-picker__dropdown-container .copy-confirmation svg {
+  margin: 0 1rem;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-content a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-content a:hover, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .definition-content a:active {
+  text-decoration: none;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  padding: 5px;
+  padding-left: 0px;
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back:hover {
+  background-color: transparent;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back .back-content {
+  position: relative;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back .back-content svg {
+  position: absolute;
+  top: 1px;
+  height: 16px;
+  width: 16px;
+  fill: #fff;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back .back-content .label {
+  margin-left: 24px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back .back-content:hover {
+  color: #F2B733;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-back .back-content:hover svg {
+  fill: #F2B733;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources h3.title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources hr {
+  border: none;
+  border-top: 1px solid #fff;
+  opacity: 0.5;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul > li {
+  margin-bottom: 0;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul li {
+  margin-top: 5px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul li a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul li a:active, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources ul li a:hover {
+  text-decoration: none;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources a:active, .usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-definition .glossary-resources a:hover {
+  text-decoration: none;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-no-results {
+  padding: 20px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-no-results h2.title {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .glossary-loading-content {
+  padding: 20px;
+}
+
+.usa-da-glossary-animations .usa-da-glossary-wrapper .glossary-sidebar .loading {
+  opacity: 0.2;
+}
+/*# sourceMappingURL=glossaryPage.css.map */

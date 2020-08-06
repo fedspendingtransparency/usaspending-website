@@ -1,0 +1,57 @@
+.ibt-table-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ibt-table-container .ibt-table-body-section {
+  position: relative;
+  overflow: auto;
+}
+
+.ibt-table-container .ibt-table-content {
+  position: relative;
+}
+
+.ibt-table-container .ibt-table-header-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ibt-table-container .ibt-table-header-container .ibt-header {
+  display: block;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.ibt-table-container .ibt-table-header-container .ibt-header .ibt-header-row {
+  display: table;
+  position: absolute;
+}
+
+.ibt-table-container .ibt-table-header-container .ibt-header .ibt-header-row .ibt-header-cell {
+  display: table-cell;
+}
+
+.ibt-table-container .ibt-table-body-container {
+  display: block;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ibt-table-container .ibt-table-body-container .ibt-table-body {
+  position: relative;
+  display: table;
+}
+
+.ibt-table-container .ibt-table-body-container .ibt-table-body .ibt-table-cell {
+  display: table-cell;
+  position: absolute;
+}
+/*# sourceMappingURL=ibTable.css.map */
