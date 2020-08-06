@@ -275,9 +275,19 @@
       width: 100%;
     }
     @import '../../layouts/default/header/warning';
+
     .info-banner.data-disclaimer {
         border-top: none;
         background: $color-gold-lightest;
+        &.sticky-banner {
+            @media (min-width: $medium-screen) {
+                position: fixed;
+                // right underneath the site header @ 66px
+                top: rem(66);
+                z-index: 999999999;
+                left: 0;
+            }
+        }
         .info-top {
             width: 100%;
             transform: scaleY(-1);
@@ -288,13 +298,15 @@
         .info-banner__content {
             @include flex-wrap(wrap);
             margin: rem(10);
-            padding-right: rem(30);
-            width: 100%;
             @media(min-width: $tablet-screen) {
-                margin: rem(10) rem(25);
+                margin: rem(0) rem(25) rem(10) rem(25);
+            }
+            @media(min-width: $medium-screen) {
+                // fixed height so we know how much to offset for the sidebar.
+                height: rem(75);
             }
             @media(min-width: $large-screen) {
-                margin: rem(10) rem(40);
+                margin: rem(0) rem(40) rem(10) rem(40);
             }
             @media(min-width: $x-large-screen) {
                 margin: auto;
@@ -303,14 +315,18 @@
             .info-banner__content--title {
                 @include display(flex);
                 margin-top: rem(10);
+                width: 100%;
                 svg {
                     @include align-self(center);
                 }
-                h2 {
-                    width: 95%;
-                    @media(min-width: $tablet-screen) {
-                        width: 100%;
+                .fa-times {
+                    margin-left: auto;
+                    @include align-self(flex-start);
+                    &:hover {
+                        cursor: pointer;
                     }
+                }
+                h2 {
                     margin: 0;
                     font-size: $h6-font-size;
                     font-weight: $font-semibold;

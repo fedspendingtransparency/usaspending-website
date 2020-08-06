@@ -2,16 +2,61 @@
  * covidHelper.js
  * Created By Jonathan Hill 06/02/20
  */
-
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { snakeCase } from 'lodash';
 import moment from 'moment';
 
-import { defCodes } from 'dataMapping/covid19/covid19';
+import {
+    defCodes,
+    dataDisclaimerHeight,
+    stickyHeaderHeight,
+    globalBannerHeight,
+    siteHeaderHeight
+} from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 
+const getVerticalOffset = () => {
+    const isGlobalBannerHidden = Cookies.get('usaspending_covid_release') === 'hide';
+    const isCovidBannerHidden = Cookies.get('usaspending_data_disclaimer') === 'hide';
+    const isHeaderSticky = window.scrollY || window.pageYOffset >= 161;
+    const defaultVerticalOffset = stickyHeaderHeight + 20;
+    if (isHeaderSticky) {
+        if (isGlobalBannerHidden && isCovidBannerHidden) {
+            // both banners are hidden
+            return defaultVerticalOffset;
+        }
+        if (isCovidBannerHidden) {
+            // only covid banner is hidden
+            return defaultVerticalOffset;
+        }
+        if (isGlobalBannerHidden) {
+            // only global banner is hidden
+            return defaultVerticalOffset + dataDisclaimerHeight;
+        }
+        // neither banner is hidden
+        return defaultVerticalOffset + dataDisclaimerHeight;
+    }
+
+    // ...header is NOT yet sticky...
+
+    if (isGlobalBannerHidden && isCovidBannerHidden) {
+        // both banners are hidden --> minimal offsets!
+        return siteHeaderHeight;
+    }
+    else if (isGlobalBannerHidden) {
+        // only global banner is hidden --> some offsets!
+        return siteHeaderHeight + dataDisclaimerHeight + defaultVerticalOffset;
+    }
+    else if (isCovidBannerHidden) {
+        // only covid banner only is hidden --> some offsets!
+        return siteHeaderHeight + globalBannerHeight;
+    }
+    // neither banner is hidden --> lots of offsets
+    return siteHeaderHeight + globalBannerHeight + dataDisclaimerHeight;
+};
 
 export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
     const onClickHandler = () => setSelectedDEF(year);
@@ -24,8 +69,7 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
 
 export const jumpToSection = (
     section = '',
-    activeSection,
-    setActiveSection
+    verticalOffset = getVerticalOffset()
 ) => {
     // we've been provided a section to jump to
     // check if it's a valid section
@@ -43,15 +87,7 @@ export const jumpToSection = (
         return;
     }
 
-    // if the scrollY position is above the covid-19 sticky header
-    // use scrollY or window.pageYOffset for IE11
-    if ((window.scrollY || window.pageYOffset <= 161) && activeSection === 'overview') {
-        scrollToY(sectionDom.offsetTop - 150, 700);
-    } else {
-        scrollToY(sectionDom.offsetTop - 86, 700);
-    }
-
-    if (setActiveSection) setActiveSection(matchedSection);
+    scrollToY(sectionDom.offsetTop - verticalOffset, 700);
 };
 
 export const getCovidFromFileC = (codes) => codes
