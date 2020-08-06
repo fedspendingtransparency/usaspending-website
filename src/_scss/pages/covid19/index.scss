@@ -306,8 +306,6 @@
         .info-banner__content {
             @include flex-wrap(wrap);
             margin: rem(10);
-            padding-right: rem(30);
-            width: 100%;
             @media(min-width: $tablet-screen) {
                 margin: rem(0) rem(25) rem(10) rem(25);
             }
@@ -337,10 +335,6 @@
                     }
                 }
                 h2 {
-                    width: 95%;
-                    @media(min-width: $tablet-screen) {
-                        width: 100%;
-                    }
                     margin: 0;
                     font-size: $h6-font-size;
                     font-weight: $font-semibold;
