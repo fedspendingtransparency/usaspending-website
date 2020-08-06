@@ -29,7 +29,9 @@ import {
     slug,
     getEmailSocialShareData,
     getStickyBreakPointForSidebar,
-    getStickyBreakPointForCovidBanner
+    getStickyBreakPointForCovidBanner,
+    stickyHeaderHeight,
+    dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
 import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
@@ -207,6 +209,7 @@ const Covid19Container = () => {
                                 </div>
                                 <p>
                                     There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
+                                    <a href="data/CHS_BAH_HACKATHON_2020.pdf">Or click here</a>
                                 </p>
                             </div>
                         </div>
@@ -220,6 +223,9 @@ const Covid19Container = () => {
                                     fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection
+                                    verticalSectionOffset={dataDisclaimerBanner === 'hide'
+                                        ? stickyHeaderHeight
+                                        : stickyHeaderHeight + dataDisclaimerHeight}
                                     sections={Object.keys(componentByCovid19Section())
                                         .filter((section) => componentByCovid19Section()[section].showInMenu)
                                         .map((section) => ({
