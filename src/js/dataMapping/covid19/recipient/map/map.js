@@ -127,16 +127,14 @@ export const mapboxSources = {
     },
     county: {
         label: 'county',
-        minZoom: 5,
-        url: 'mapbox://usaspending.83g94wbo',
-        layer: 'tl_2017_us_county-7dgoe0',
+        url: 'mapbox://usaspending.29sdfmwu',
+        layer: 'tl_2019_us_county',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     district: {
         label: 'congressional district',
-        minZoom: 4,
-        url: 'mapbox://usaspending.a4bkzui0',
-        layer: 'tl_2018_us_cd116-34qpds',
+        url: 'mapbox://usaspending.3kh310z9',
+        layer: 'tl_2018_us_cd116',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
     },
     zip: {
