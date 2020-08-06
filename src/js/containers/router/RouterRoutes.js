@@ -7,7 +7,7 @@ import Homepage from 'components/homepage/Homepage';
 import SearchContainer from 'containers/search/SearchContainer';
 import ExplorerLanding from 'components/explorer/landing/ExplorerLanding';
 import { ExplorerDetailPageContainer } from 'containers/explorer/detail/ExplorerDetailPageContainer';
-import { AwardContainer } from 'containers/award/AwardContainer';
+import AwardContainer from 'containers/award/AwardContainer';
 import AccountContainer from 'containers/account/AccountContainer';
 import AgencyContainer from 'containers/agency/AgencyContainer';
 import About from 'components/about/About';
