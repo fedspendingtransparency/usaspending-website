@@ -209,7 +209,6 @@ const Covid19Container = () => {
                                 </div>
                                 <p>
                                     There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
-                                    <a href="data/CHS_BAH_HACKATHON_2020.pdf">Or click here</a>
                                 </p>
                             </div>
                         </div>
