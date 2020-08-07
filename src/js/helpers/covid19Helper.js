@@ -14,7 +14,6 @@ import {
     stickyHeaderHeight,
     globalBannerHeight,
     siteHeaderHeight,
-    minimumScrollToHeight,
     globalCovidBannerCookie,
     dataDisclaimerBannerCookie
 } from 'dataMapping/covid19/covid19';
@@ -52,7 +51,9 @@ export const getStickyBreakPointForCovidBanner = () => {
 export const getVerticalOffset = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
     const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
-    const isHeaderSticky = window.scrollY || window.pageYOffset >= 161;
+    const stickyHeaderThreshold = isGlobalBannerHidden ? 97 : 97 + globalBannerHeight;
+    const scrollPosition = window.scrollY || window.pageYOffset;
+    const isHeaderSticky = scrollPosition >= stickyHeaderThreshold;
     const defaultVerticalOffset = stickyHeaderHeight + 20;
     if (isHeaderSticky) {
         if (isGlobalBannerHidden && isCovidBannerHidden) {
@@ -72,7 +73,6 @@ export const getVerticalOffset = () => {
     }
 
     // ...header is NOT yet sticky...
-
     if (isGlobalBannerHidden && isCovidBannerHidden) {
         // both banners are hidden --> minimal offsets!
         return siteHeaderHeight;
@@ -85,6 +85,7 @@ export const getVerticalOffset = () => {
         // only covid banner only is hidden --> some offsets!
         return siteHeaderHeight + globalBannerHeight;
     }
+
     // neither banner is hidden --> lots of offsets
     return siteHeaderHeight + globalBannerHeight + dataDisclaimerHeight;
 };
@@ -120,16 +121,7 @@ export const jumpToSection = (
         return;
     }
 
-    const scrollLength = sectionDom.offsetTop - verticalOffset > minimumScrollToHeight
-        ? sectionDom.offsetTop - verticalOffset
-        : minimumScrollToHeight + (sectionDom.offsetTop - verticalOffset);
-
-    if (scrollLength >= minimumScrollToHeight) {
-        scrollToY(scrollLength, 700);
-    }
-    else {
-        scrollToY(minimumScrollToHeight, 700);
-    }
+    scrollToY(sectionDom.offsetTop - verticalOffset, 700);
 };
 
 export const createJumpToSectionForSidebar = (prefix, domSections) => (

@@ -10,12 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import {
-    getStickyBreakPointForSidebar,
     stickyHeaderHeight,
-    dataDisclaimerHeight,
-    getStickyBreakPointForCovidBanner
+    dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
+import {
+    getStickyBreakPointForSidebar,
+    getStickyBreakPointForCovidBanner,
+    createJumpToSectionForSidebar
+} from 'helpers/covid19Helper';
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
@@ -132,7 +134,7 @@ export default () => {
                 </div>
             )}
             <main id="main-content" className="main-content">
-                <div className={`sidebar usda__flex-col${isBannerSticky ? ' covid-sidebar-banner' : ''}`}>
+                <div className={`sidebar usda__flex-col${dataDisclaimerBanner !== 'hide' ? ' covid-sidebar-banner' : ''}`}>
                     <Sidebar
                         pageName="data-sources"
                         fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get(cookie))}
