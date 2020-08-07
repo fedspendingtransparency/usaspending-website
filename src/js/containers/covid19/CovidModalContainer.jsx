@@ -52,13 +52,13 @@ const CovidModalContainer = ({
             <Modal
                 mounted={mounted}
                 onExit={hideModal}
-                titleText="New to USAspending: Official COVID-19 Response Data"
+                titleText="New to USAspending: COVID-19 Response Data"
                 dialogClass="usa-dt-modal"
                 verticallyCenter
                 escapeExits>
                 <div className="usa-dt-modal covid-modal">
                     <div className="usa-dt-modal__header covid-header">
-                        <h1>New to USAspending: Official COVID-19 Spending Data</h1>
+                        <h1>New to USAspending: COVID-19 Spending Data</h1>
                         <button
                             className="usa-dt-modal__close-button"
                             onClick={hideModal}
@@ -68,7 +68,7 @@ const CovidModalContainer = ({
                         </button>
                     </div>
                     <div className="usa-dt-modal__body covid-modal-body">
-                        <h2 className="covid-modal-h2"><span className="covid-modal-bold">Official spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</span></h2>
+                        <h2 className="covid-modal-h2"><span className="covid-modal-bold">Spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</span></h2>
                         <div>
                             <ul>
                                 <li className="covid-modal-li">
@@ -86,7 +86,7 @@ const CovidModalContainer = ({
                         <div>
                             <ul>
                                 <li className="covid-modal-li">
-                                    Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a onClick={handleGoToDsm} href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
+                                    Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a onClick={handleGoToDsm} href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
                                 </li>
                             </ul>
                         </div>
