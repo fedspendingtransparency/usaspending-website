@@ -34,8 +34,7 @@ const RecipientContainer = () => {
                         In the second tab, you will see a spending breakdown by recipient name.
                     </p>
                     <p>
-                        Please note that recipient information for the Small Business Administration (SBA) Paycheck Protection Program (PPP) is not available on USAspending but is available on SBA.gov.
-                        <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer"> Please see the &#34;Known Data Limitations&#34; PDF in the banner above for more information.</a>
+                        Please note that recipient information for the Small Business Administration (SBA) Paycheck Protection Program (PPP) is not available on USAspending but is available on SBA.gov. <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">Please see the &#34;Known Data Limitations&#34; PDF for more information.</a>
                     </p>
                     <p className="footnotes">
                         <sup>3</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
