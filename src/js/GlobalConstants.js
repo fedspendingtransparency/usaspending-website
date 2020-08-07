@@ -2,24 +2,28 @@
  * GlobalConstants.js
  * Created by Maxwell Kendall 7/8/19
 */
+
 const globalConstants = {
-    // DEV
-    API: 'https://dev-api.usaspending.gov/api/',
-    // QAT
-    // API: 'https://qat-api.usaspending.gov/api/',
-    // Mock API
-    // API: 'http://localhost:5000/api/',
-    // Production API
-    // API: 'https://api.usaspending.gov/api/',
+    API: process.env.USASPENDING_API,
     LOCAL_ROOT: "",
     GITHUB: "",
     LOCAL: false,
-    DEV: true,
+    DEV: (process.env.ENV === 'dev' || process.env.ENV === 'sandbox'),
     KEYWORD_AVAILABLE: true,
     PERF_LOG: false,
-    MAPBOX_TOKEN: 'pk.eyJ1IjoidXNhc3BlbmRpbmciLCJhIjoiY2l6ZnZjcmh0MDBtbDMybWt6NDR4cjR6ZSJ9.zsCqjJgrMDOA-i1RcCvGvg',
-    QAT: false,
+    OVERRIDE_FISCAL_YEAR: false,
+    FISCAL_YEAR: 2017,
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
+    QAT: (process.env.ENV === 'qat'),
+    // Phase 1 release
     CARES_ACT_RELEASED: true,
-    CARES_ACT_RELEASED_2: true
+    // Phase 2 release
+    CARES_ACT_RELEASED_2: (
+        process.env.ENV === 'dev' ||
+        process.env.ENV === 'sandbox' ||
+        process.env.ENV === 'staging' ||
+        process.env.ENV === 'qat'
+    )
 };
+
 module.exports = globalConstants;
