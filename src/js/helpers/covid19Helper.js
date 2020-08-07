@@ -13,15 +13,45 @@ import {
     dataDisclaimerHeight,
     stickyHeaderHeight,
     globalBannerHeight,
-    siteHeaderHeight
+    siteHeaderHeight,
+    minimumScrollToHeight,
+    globalCovidBannerCookie,
+    dataDisclaimerBannerCookie
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
 
-const getVerticalOffset = () => {
-    const isGlobalBannerHidden = Cookies.get('usaspending_covid_release') === 'hide';
-    const isCovidBannerHidden = Cookies.get('usaspending_data_disclaimer') === 'hide';
+export const getStickyBreakPointForSidebar = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+
+    if (isGlobalBannerHidden) {
+        return 97;
+    }
+    return 97 + globalBannerHeight;
+};
+
+export const getVerticalOffsetForSidebarFooter = () => {
+    const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
+    const padding = 20;
+    if (isCovidBannerHidden) {
+        return stickyHeaderHeight + padding;
+    }
+
+    return stickyHeaderHeight + dataDisclaimerHeight + padding;
+};
+
+export const getStickyBreakPointForCovidBanner = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+    if (isGlobalBannerHidden) {
+        return 97;
+    }
+    return 97 + globalBannerHeight;
+};
+
+export const getVerticalOffset = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+    const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
     const isHeaderSticky = window.scrollY || window.pageYOffset >= 161;
     const defaultVerticalOffset = stickyHeaderHeight + 20;
     if (isHeaderSticky) {
@@ -70,26 +100,42 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
 
 export const jumpToSection = (
     section = '',
-    verticalOffset = getVerticalOffset()
+    verticalOffset = getVerticalOffset(),
+    idPrefix = 'covid19',
+    sections = componentByCovid19Section()
 ) => {
     // we've been provided a section to jump to
     // check if it's a valid section
-    const matchedSection = Object.keys(componentByCovid19Section()).find((key) => key === section);
+    const matchedSection = Object.keys(sections).find((key) => key === section);
 
     if (!matchedSection) {
         // no matching section
         return;
     }
-
+    const selector = `#${idPrefix}-${snakeCase(section)}`;
     // scroll to the correct section
-    const sectionDom = document.querySelector(`#covid19-${snakeCase(section)}`);
+    const sectionDom = document.querySelector(selector);
 
     if (!sectionDom) {
         return;
     }
 
-    scrollToY(sectionDom.offsetTop - verticalOffset, 700);
+    const scrollLength = sectionDom.offsetTop - verticalOffset > minimumScrollToHeight
+        ? sectionDom.offsetTop - verticalOffset
+        : minimumScrollToHeight + (sectionDom.offsetTop - verticalOffset);
+
+    if (scrollLength >= minimumScrollToHeight) {
+        scrollToY(scrollLength, 700);
+    }
+    else {
+        scrollToY(minimumScrollToHeight, 700);
+    }
 };
+
+export const createJumpToSectionForSidebar = (prefix, domSections) => (
+    section,
+    offset = getVerticalOffset()
+) => jumpToSection(section, offset, prefix, domSections);
 
 export const getCovidFromFileC = (codes) => codes
     .filter((code) => defCodes.includes(code));

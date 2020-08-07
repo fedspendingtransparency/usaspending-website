@@ -24,12 +24,16 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
-import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
+import {
+    jumpToSection,
+    latestSubmissionDateFormatted,
+    getStickyBreakPointForSidebar,
+    getStickyBreakPointForCovidBanner,
+    getVerticalOffsetForSidebarFooter
+} from 'helpers/covid19Helper';
 import {
     slug,
     getEmailSocialShareData,
-    getStickyBreakPointForSidebar,
-    getStickyBreakPointForCovidBanner,
     stickyHeaderHeight,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
@@ -219,7 +223,7 @@ const Covid19Container = () => {
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
-                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))}
+                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection
                                     verticalSectionOffset={dataDisclaimerBanner === 'hide'
@@ -236,9 +240,10 @@ const Covid19Container = () => {
                                 showSidebarFooter &&
                                 <div className="sidebar-footer">
                                     <SidebarFooter
-                                        isGoingToBeSticky
                                         pageName="covid19"
-                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))} />
+                                        isGoingToBeSticky
+                                        verticalOffset={getVerticalOffsetForSidebarFooter()}
+                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
                                 </div>
                             }
                         </div>
