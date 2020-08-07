@@ -12,11 +12,12 @@
         @include display(flex);
         @include flex-grow(1);
         @include flex-wrap(wrap);
-        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         @import "../about/positioning";
         @import "../about/_contentWrap";
         @import "elements/_divider";
         @import "../about/_section";
+        margin: auto;
+        margin-top: 0;
         .about-content-wrapper {
             @media(min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
@@ -119,6 +120,12 @@
                     }
                 }
             }
+
+            &.covid-sidebar-banner .data-sources-sidebar-content.float-sidebar {
+                top: rem(166);
+            }
         }
     }
+
+    @import '../../layouts/default/header/warning';
 }
