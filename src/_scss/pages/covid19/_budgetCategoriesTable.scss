@@ -13,27 +13,29 @@
             }
         }
     }
-    .body__narrative-description {
-      ul:first-of-type {
-        margin-top: 0.7rem;
-      }
-      ul {
-        text-align: left;
-        margin: 0;
-      }
-      .outer-list {
-        padding-left: 8rem;
-      }
-      .inner-list {
-        padding-left: 4rem;
-      }
-      .outer-list:before {
-        content: '•';
-        text-indent: -5px;
-      }
-      .inner-list:before {
-        content: "-";
-      }
+    .body__narrative-description .sba-note-container {
+        display: flex;
+        flex-direction: column;
+        ul:first-of-type {
+            margin-top: 0.7rem;
+        }
+        ul {
+            text-align: left;
+            margin: 0;
+        }
+        .outer-list {
+            padding-left: 8rem;
+        }
+        .inner-list {
+            padding-left: 4rem;
+        }
+        .outer-list:before {
+            content: '•';
+            text-indent: -5px;
+        }
+        .inner-list:before {
+            content: "-";
+        }
     }
 
     .budget-categories__content {
