@@ -451,7 +451,7 @@ export default class MapWrapper extends React.Component {
                 {this.tooltip()}
                 {this.props.children}
                 <div>
-                    <p className="map-data-message">Amounts reported for Utah contain data submitted by HHS. <a href="https://www.usaspending.gov/data/covid_19_data_limitations.pdf">See more information about HHS&apos;s data submission.</a></p>
+                    <p className="map-data-message"><span className="bold-map-data-message">NOTE:</span> Amounts reported for Utah contain data submitted by HHS. <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">See more information about HHS&apos;s data submission.</a></p>
                 </div>
             </div>
         );
