@@ -130,7 +130,7 @@
                 width: 100%;
                 font-size: $small-font-size;
                 margin: rem(8) 0 rem(14) rem(35);
-                button {
+                a {
                     @include button-unstyled;
                     font-weight: $font-semibold;
                     color: $color-link;
