@@ -208,11 +208,11 @@ const Covid19Container = () => {
                             <div className="info-banner__content">
                                 <div className="info-banner__content--title">
                                     <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
-                                    <h2>This page is under development and contains preliminary data</h2>
+                                    <h2>Known Data Limitations</h2>
                                     <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
                                 </div>
                                 <p>
-                                    There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
+                                    USAspending is working with federal agencies to address known limitations in COVID19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
                                 </p>
                             </div>
                         </div>
