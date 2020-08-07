@@ -110,7 +110,7 @@ const CovidModalContainer = ({
                             <FontAwesomeIcon className="modal-disclaimer__icon" icon="exclamation-triangle" />
                             <div className="modal-disclaimer__text">
                                 <h2 className="covid-modal-h2">Known Data Limitations</h2>
-                                <p>USAspending is working with federal agencies to addres known limitations in COVID-19 spending data. See <a href="/" target="_blank" rel="noopener noreferrer">a full description</a> of the issue.</p>
+                                <p>USAspending is working with federal agencies to addres known limitations in COVID-19 spending data. See <a href="https://www.usaspending.gov/data/covid_19_data_limitations.pdf" target="_blank" rel="noopener noreferrer">a full description</a> of the issue.</p>
                             </div>
                         </div>
                         <h2 className="covid-modal-h2"><span className="covid-modal-bold">We will update the site with new COVID-19 spending data and release more related features in the coming months. <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a></span> to receive email updates about when these new features, and more, are added!</h2>
