@@ -154,11 +154,6 @@ const Covid19Container = () => {
         dispatch(showModal(url));
     };
 
-    const showInterimDataModal = (e) => {
-        e.preventDefault();
-        dispatch(showModal(null, 'covid-data-disclaimer'));
-    };
-
     const handleCloseBanner = () => {
         Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
         setDataDisclaimerBanner('hide');
