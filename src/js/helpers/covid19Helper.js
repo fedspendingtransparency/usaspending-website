@@ -134,7 +134,7 @@ export const getCovidFromFileC = (codes) => codes
 
 export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
     .filter((s) => !s.is_quarter)
-    .map((s) => moment.utc(s.submission_reveal_date))
+    .map((s) => moment.utc(s.period_end_date))
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
     .format('MMMM DD[,] YYYY');
