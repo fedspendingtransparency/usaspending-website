@@ -61,7 +61,7 @@ const CovidFeatureContainer = ({
 
             <div className="official-spending-data__content-wrapper">
                 <div className="official-spending-data__text">
-                    <h2 className="homepage-feature-title">Official COVID-19 Spending Data</h2>
+                    <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
                     <div className="feature-covid-official-spending-data__image-wrapper">
                         <img
                             className="feature-covid-official-spending-data__image-mobile"

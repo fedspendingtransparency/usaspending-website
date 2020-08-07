@@ -52,13 +52,13 @@ const CovidModalContainer = ({
             <Modal
                 mounted={mounted}
                 onExit={hideModal}
-                titleText="New to USAspending: Official COVID-19 Response Data"
+                titleText="New to USAspending: COVID-19 Response Data"
                 dialogClass="usa-dt-modal"
                 verticallyCenter
                 escapeExits>
                 <div className="usa-dt-modal covid-modal">
                     <div className="usa-dt-modal__header covid-header">
-                        <h1>New to USAspending: Official COVID-19 Spending Data</h1>
+                        <h1>New to USAspending: COVID-19 Spending Data</h1>
                         <button
                             className="usa-dt-modal__close-button"
                             onClick={hideModal}
