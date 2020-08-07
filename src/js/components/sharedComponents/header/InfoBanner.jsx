@@ -32,9 +32,9 @@ export default class InfoBanner extends React.Component {
         const content = kGlobalConstants.CARES_ACT_RELEASED_2 ? (
         <>
             <div className="info-banner__alert-text">
-                <p className="info-banner__title-text">New to USAspending: Official COVID-19 Spending Data</p>
+                <p className="info-banner__title-text">New to USAspending: COVID-19 Spending Data</p>
                 <p>
-                    USAspending now has official spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
+                    USAspending now has spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
                     <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or <a href="#/disaster/covid-19">visit the profile page</a> to explore and download the data today!
                 </p>
             </div>

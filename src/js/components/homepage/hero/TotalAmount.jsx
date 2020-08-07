@@ -36,7 +36,7 @@ const TotalAmount = ({
     useEffect(() => {
         const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
             amountUpdate = delay(() => {
-                ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
+                if (ref.current) ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
                 resolve();
             }, speedOfUpdate);
         });

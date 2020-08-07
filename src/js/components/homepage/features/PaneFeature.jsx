@@ -13,6 +13,11 @@ const PaneFeature = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
     const [redirectModalURL, setRedirectModalURL] = useState('');
 
+    const onRedirectModalClick = (e) => {
+        setRedirectModalURL(e.currentTarget.value);
+        setIsRedirectModalMounted(true);
+    };
+
     const closeRedirectModal = () => {
         setRedirectModalURL('');
         setIsRedirectModalMounted(false);
@@ -97,21 +102,41 @@ const PaneFeature = () => {
 
                     <hr className="feature-pane__mobile-content-divider" />
                     <div className="feature-pane__content-divider" />
-                    <div className="feature-pane__content">
-                        <h3 className="feature-pane__content-title">COVID-19 Spending Profile Preview</h3>
-                        <p className="feature-pane_content-text">
-                            Check out a preview of our new COVID-19 Spending profile page. Data updates will be released on an ongoing basis.
-                        </p>
-                        <div className="feature-pane__button-wrapper">
-                            <a
-                                href="#/disaster/covid-19/"
-                                role="button"
-                                rel="noopener noreferrer"
-                                className="feature-pane__button">
-                                Explore COVID-19 Spending
-                            </a>
-                        </div>
-                    </div>
+                    {
+                        GlobalConstants.CARES_ACT_RELEASED_2 ? (
+                            <div className="feature-pane__content">
+                                <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
+                                <p className="feature-pane_content-text">
+                                    Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.
+                                </p>
+                                <div className="feature-pane__button-wrapper">
+                                    <button
+                                        onClick={onRedirectModalClick}
+                                        value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
+                                        className="feature-pane__button feature-pane__button-redirect-modal">
+                                        Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                                    </button>
+                                </div>
+                            </div>
+                        ) :
+                            (
+                                <div className="feature-pane__content">
+                                    <h3 className="feature-pane__content-title">COVID-19 Spending Profile Preview</h3>
+                                    <p className="feature-pane_content-text">
+                                        Check out a preview of our new COVID-19 Spending profile page. Data updates will be released on an ongoing basis.
+                                    </p>
+                                    <div className="feature-pane__button-wrapper">
+                                        <a
+                                            href="#/disaster/covid-19/"
+                                            role="button"
+                                            rel="noopener noreferrer"
+                                            className="feature-pane__button">
+                                            Explore COVID-19 Spending
+                                        </a>
+                                    </div>
+                                </div>
+                            )
+                    }
                 </div>
                 <hr className="feature-pane__bottom-divider" />
             </div>

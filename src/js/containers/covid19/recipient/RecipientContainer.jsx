@@ -3,26 +3,19 @@
  * Created by Jonathan Hill 06/08/20
  */
 
-import React from 'react';
-// import tabs from 'containers/covid19/helpers/recipient';
+import React, { useState } from 'react';
+import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
-// import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import ReadMore from 'components/covid19/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
-const ComingSoon = () => (
-    <div className="coming-soon-section">
-        <h4>Coming Soon</h4>
-        <p>This feature is currently under development.</p>
-    </div>
-);
-// eslint-disable-next-line
 const RecipientContainer = () => {
-    // const [activeTab, setActiveTab] = useState('recipient_locations');
-    // const changeActiveTab = (tab) => {
-    //     const tabInternal = tabs.find((item) => item.internal === tab).internal;
-    //     setActiveTab(tabInternal);
-    // };
+    const [activeTab, setActiveTab] = useState('recipient_locations');
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+        setActiveTab(tabInternal);
+    };
     return (
         <div className="body__content recipient__container">
             <DateNote />
@@ -41,20 +34,19 @@ const RecipientContainer = () => {
                         In the second tab, you will see a spending breakdown by recipient name.
                     </p>
                     <p>
-                        <em>Please note that award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
+                        Please note that recipient information for the Small Business Administration (SBA) Paycheck Protection Program (PPP) is not available on USAspending but is available on SBA.gov. <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">Please see the &#34;Known Data Limitations&#34; PDF for more information.</a>
                     </p>
                     <p className="footnotes">
                         <sup>3</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
                     </p>
                 </ReadMore>
             </div>
-            <ComingSoon />
-            {/* <div className="recipient__tabs-container count-tabs">
+            <div className="recipient__tabs-container count-tabs">
                 <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>
-            </div> */}
+            </div>
         </div>
     );
 };

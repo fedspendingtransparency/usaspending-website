@@ -12,31 +12,39 @@ import { useDynamicStickyClass } from '../sharedComponents/stickyHeader/StickyHe
 const propTypes = {
     isGoingToBeSticky: PropTypes.bool,
     pageName: PropTypes.string,
-    fixedStickyBreakpoint: PropTypes.number
+    fixedStickyBreakpoint: PropTypes.number,
+    verticalOffset: PropTypes.number
 };
 
-function SidebarFooter(props) {
+function SidebarFooter({
+    isGoingToBeSticky,
+    pageName,
+    fixedStickyBreakpoint,
+    verticalOffset
+}) {
     const referenceDiv = useRef(null);
     const div = useRef(null);
-    const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, props.fixedStickyBreakpoint);
+    const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [sidebarFooterWidth, setSidebarFooterWidth] = useState("auto");
     const [sidebarFooterTop, setSidebarFooterTop] = useState("auto");
 
     useEffect(() => {
         const updateSidebarFooterWidthAndTop = throttle(() => {
-            const sidebarDomElement = document.getElementsByClassName(`${props.pageName}-sidebar-content`);
-            if (props.isGoingToBeSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            const sidebarDomElement = document.getElementsByClassName(`${pageName}-sidebar-content`);
+            if (isGoingToBeSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`auto`);
                 setSidebarFooterTop(`auto`);
 
                 if (isSidebarSticky) {
                     setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
-                    setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
+                    setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + verticalOffset)}px`);
                 }
-            } else if (isSidebarSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
+            }
+            else if (isSidebarSticky && sidebarFooterWidth !== `${referenceDiv.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`${referenceDiv.current.offsetWidth}px`);
-                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + props.fixedStickyBreakpoint)}px`);
-            } else if (!isSidebarSticky && sidebarFooterWidth !== `${div.current.offsetWidth}px`) {
+                setSidebarFooterTop(`${(sidebarDomElement[0].offsetHeight + verticalOffset)}px`);
+            }
+            else if (!isSidebarSticky && sidebarFooterWidth !== `${div.current.offsetWidth}px`) {
                 setSidebarFooterWidth(`auto`);
                 setSidebarFooterTop(`auto`);
             }
@@ -63,12 +71,12 @@ function SidebarFooter(props) {
 
     return (
         <div>
-            <div className={`${props.pageName}-sidebar-footer-reference ${floatSidebarFooter}`} ref={referenceDiv}>
+            <div className={`${pageName}-sidebar-footer-reference ${floatSidebarFooter}`} ref={referenceDiv}>
                 &nbsp;
             </div>
-            <div ref={div} className={`${props.pageName}-sidebar-footer ${floatSidebarFooter}`} style={{ width: sidebarFooterWidth, top: sidebarFooterTop }}>
-                <div className={`${props.pageName}-sidebar-footer__header`}>Learn more about <b>The Federal Response to COVID-19</b> at Data Lab!</div>
-                <div className={`${props.pageName}-sidebar-footer__content`}>
+            <div ref={div} className={`${pageName}-sidebar-footer ${floatSidebarFooter}`} style={{ width: sidebarFooterWidth, top: sidebarFooterTop }}>
+                <div className={`${pageName}-sidebar-footer__header`}>Learn more about <b>The Federal Response to COVID-19</b> at Data Lab!</div>
+                <div className={`${pageName}-sidebar-footer__content`}>
                     Visit our sister site,&nbsp;
                     <a href="https://datalab.usaspending.gov/federal-covid-funding/" target="_blank" rel="noopener noreferrer">
                         <b>DATA Lab &nbsp;
