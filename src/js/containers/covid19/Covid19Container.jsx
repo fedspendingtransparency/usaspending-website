@@ -24,12 +24,16 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
-import { jumpToSection, latestSubmissionDateFormatted } from 'helpers/covid19Helper';
+import {
+    jumpToSection,
+    latestSubmissionDateFormatted,
+    getStickyBreakPointForSidebar,
+    getStickyBreakPointForCovidBanner,
+    getVerticalOffsetForSidebarFooter
+} from 'helpers/covid19Helper';
 import {
     slug,
     getEmailSocialShareData,
-    getStickyBreakPointForSidebar,
-    getStickyBreakPointForCovidBanner,
     stickyHeaderHeight,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
@@ -150,11 +154,6 @@ const Covid19Container = () => {
         dispatch(showModal(url));
     };
 
-    const showInterimDataModal = (e) => {
-        e.preventDefault();
-        dispatch(showModal(null, 'covid-data-disclaimer'));
-    };
-
     const handleCloseBanner = () => {
         Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
         setDataDisclaimerBanner('hide');
@@ -204,11 +203,11 @@ const Covid19Container = () => {
                             <div className="info-banner__content">
                                 <div className="info-banner__content--title">
                                     <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
-                                    <h2>This page is under development and contains preliminary data</h2>
+                                    <h2>Known Data Limitations</h2>
                                     <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
                                 </div>
                                 <p>
-                                    There are limitations to the data on this page and some features are not yet available. Learn more about these limitations and upcoming updates by clicking <button onClick={showInterimDataModal}>here</button>.
+                                    USAspending is working with federal agencies to address known limitations in COVID19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
                                 </p>
                             </div>
                         </div>
@@ -219,7 +218,7 @@ const Covid19Container = () => {
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
-                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))}
+                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection
                                     verticalSectionOffset={dataDisclaimerBanner === 'hide'
@@ -236,9 +235,10 @@ const Covid19Container = () => {
                                 showSidebarFooter &&
                                 <div className="sidebar-footer">
                                     <SidebarFooter
-                                        isGoingToBeSticky
                                         pageName="covid19"
-                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get('usaspending_covid_homepage'))} />
+                                        isGoingToBeSticky
+                                        verticalOffset={getVerticalOffsetForSidebarFooter()}
+                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
                                 </div>
                             }
                         </div>

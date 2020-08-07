@@ -7,6 +7,9 @@ import { getBaseUrlNoHash } from 'helpers/socialShare';
 
 export const slug = 'covid-19';
 
+export const globalCovidBannerCookie = 'usaspending_covid_release';
+export const dataDisclaimerBannerCookie = 'usaspending_data_disclaimer';
+
 export const getEmailSocialShareData = {
     subject: 'USAspending.gov COVID-19 Spending',
     body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
@@ -17,10 +20,6 @@ export const stickyHeaderHeight = 66;
 export const globalBannerHeight = 90;
 // result of document.querySelector('.site-header').clientHeight + sticky header height when not sticky
 export const siteHeaderHeight = 97 + stickyHeaderHeight;
-
-export const getStickyBreakPointForSidebar = (cookie) => (cookie ? 96 : 187);
-export const getStickyBreakPointForCovidBanner = (cookie) => (cookie ? 66 : 197);
-
 
 export const defCodes = ['L', 'M', 'N', 'O', 'P'];
 export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
