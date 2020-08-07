@@ -13,16 +13,47 @@ import {
     dataDisclaimerHeight,
     stickyHeaderHeight,
     globalBannerHeight,
-    siteHeaderHeight
+    siteHeaderHeight,
+    globalCovidBannerCookie,
+    dataDisclaimerBannerCookie
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
 
-const getVerticalOffset = () => {
-    const isGlobalBannerHidden = Cookies.get('usaspending_covid_release') === 'hide';
-    const isCovidBannerHidden = Cookies.get('usaspending_data_disclaimer') === 'hide';
-    const isHeaderSticky = window.scrollY || window.pageYOffset >= 161;
+export const getStickyBreakPointForSidebar = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+
+    if (isGlobalBannerHidden) {
+        return 97;
+    }
+    return 97 + globalBannerHeight;
+};
+
+export const getVerticalOffsetForSidebarFooter = () => {
+    const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
+    const padding = 20;
+    if (isCovidBannerHidden) {
+        return stickyHeaderHeight + padding;
+    }
+
+    return stickyHeaderHeight + dataDisclaimerHeight + padding;
+};
+
+export const getStickyBreakPointForCovidBanner = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+    if (isGlobalBannerHidden) {
+        return 97;
+    }
+    return 97 + globalBannerHeight;
+};
+
+export const getVerticalOffset = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+    const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
+    const stickyHeaderThreshold = isGlobalBannerHidden ? 97 : 97 + globalBannerHeight;
+    const scrollPosition = window.scrollY || window.pageYOffset;
+    const isHeaderSticky = scrollPosition >= stickyHeaderThreshold;
     const defaultVerticalOffset = stickyHeaderHeight + 20;
     if (isHeaderSticky) {
         if (isGlobalBannerHidden && isCovidBannerHidden) {
@@ -42,7 +73,6 @@ const getVerticalOffset = () => {
     }
 
     // ...header is NOT yet sticky...
-
     if (isGlobalBannerHidden && isCovidBannerHidden) {
         // both banners are hidden --> minimal offsets!
         return siteHeaderHeight;
@@ -55,6 +85,7 @@ const getVerticalOffset = () => {
         // only covid banner only is hidden --> some offsets!
         return siteHeaderHeight + globalBannerHeight;
     }
+
     // neither banner is hidden --> lots of offsets
     return siteHeaderHeight + globalBannerHeight + dataDisclaimerHeight;
 };
@@ -70,19 +101,21 @@ export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((y
 
 export const jumpToSection = (
     section = '',
-    verticalOffset = getVerticalOffset()
+    verticalOffset = getVerticalOffset(),
+    idPrefix = 'covid19',
+    sections = componentByCovid19Section()
 ) => {
     // we've been provided a section to jump to
     // check if it's a valid section
-    const matchedSection = Object.keys(componentByCovid19Section()).find((key) => key === section);
+    const matchedSection = Object.keys(sections).find((key) => key === section);
 
     if (!matchedSection) {
         // no matching section
         return;
     }
-
+    const selector = `#${idPrefix}-${snakeCase(section)}`;
     // scroll to the correct section
-    const sectionDom = document.querySelector(`#covid19-${snakeCase(section)}`);
+    const sectionDom = document.querySelector(selector);
 
     if (!sectionDom) {
         return;
@@ -91,12 +124,17 @@ export const jumpToSection = (
     scrollToY(sectionDom.offsetTop - verticalOffset, 700);
 };
 
+export const createJumpToSectionForSidebar = (prefix, domSections) => (
+    section,
+    offset = getVerticalOffset()
+) => jumpToSection(section, offset, prefix, domSections);
+
 export const getCovidFromFileC = (codes) => codes
     .filter((code) => defCodes.includes(code));
 
 export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
     .filter((s) => !s.is_quarter)
-    .map((s) => moment.utc(s.submission_reveal_date))
+    .map((s) => moment.utc(s.period_end_date))
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
     .format('MMMM DD[,] YYYY');

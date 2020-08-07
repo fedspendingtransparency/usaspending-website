@@ -14,7 +14,7 @@ const DateNote = ({ styles }) => {
     if (!date) return null;
     return (
         <div style={{ ...styles }} className="covid__date-note">
-            Data as of {date}
+            Data through {date}
         </div>
     );
 };
