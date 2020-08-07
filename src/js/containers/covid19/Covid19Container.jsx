@@ -207,7 +207,7 @@ const Covid19Container = () => {
                                     <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
                                 </div>
                                 <p>
-                                    USAspending is working with federal agencies to address known limitations in COVID19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
+                                    USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
                                 </p>
                             </div>
                         </div>
