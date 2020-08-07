@@ -10,9 +10,11 @@ import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import {
-    scrollPositionOfSiteHeader,
-    getEmailSocialShareData
+    slug,
+    getEmailSocialShareData,
+    scrollPositionOfSiteHeader
 } from 'dataMapping/covid19/covid19';
+import { getBaseUrlNoHash } from 'helpers/socialShare';
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -114,9 +116,8 @@ export default () => {
                     </div>
                     <div className="sticky-header__toolbar">
                         <ShareIcon
-                            slug="#/disaster/covid-19/data-sources"
-                            email={getEmailSocialShareData}
-                            noHash />
+                            slug={slug}
+                            email={getEmailSocialShareData} />
                     </div>
                 </>
             </StickyHeader>
@@ -136,7 +137,7 @@ export default () => {
                             <div className="about-section-wrapper" id="data-sources-datasets">
                                 <div className="back-link">
                                     <a
-                                        href="/#/disaster/covid-19"
+                                        href={getBaseUrlNoHash(slug)}
                                         rel="noopener noreferrer">
                                         <FontAwesomeIcon icon="arrow-left" />
                                         Back to the COVID-19 Spending Profile
