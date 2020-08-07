@@ -58,6 +58,35 @@
                     @include justify-content(center);
                 }
             }
+            .modal-disclaimer {
+                margin: rem(14) 0 rem(2);
+                @include usa-alert-warning;
+                @include display(flex);
+                border: solid 1px $color-gold;
+                text-align: left;
+                padding: rem(18) rem(10);
+                .modal-disclaimer__icon {
+                    @include flex(0 0 auto);
+                    color: $color-gold;
+                    font-size: rem(26);
+                    margin-right: rem(10);
+                }
+                .modal-disclaimer__text {
+                    @include flex (1 1 auto);
+                    h2 {
+                        margin: 0 0 rem(6);
+                        font-weight: $font-semibold;
+                        font-size: rem(18);
+                        line-height: rem(22);
+                    }
+                    p {
+                        margin: 0;
+                        a {
+                            font-weight: $font-semibold;
+                        }
+                    }
+                }
+            }
             &.interim-data-modal {
                 p {
                     text-align: left;
@@ -88,7 +117,7 @@
             &.covid-modal-body {
                 padding: rem(10) rem(80) rem(10) rem(80);
             }
-        }   
+        }
     }
 }
 
