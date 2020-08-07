@@ -68,7 +68,7 @@ const CovidModalContainer = ({
                         </button>
                     </div>
                     <div className="usa-dt-modal__body covid-modal-body">
-                        <h2 className="covid-modal-h2"><span className="covid-modal-bold">Official spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</span></h2>
+                        <h2 className="covid-modal-h2"><span className="covid-modal-bold">Spending data from the federal government&apos;s response to COVID-19 is now available to view and download on USAspending. The new data includes:</span></h2>
                         <div>
                             <ul>
                                 <li className="covid-modal-li">
