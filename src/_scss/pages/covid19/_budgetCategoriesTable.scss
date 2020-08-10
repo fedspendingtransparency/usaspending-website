@@ -36,6 +36,14 @@
                 }
                 @include span-columns(2 of 12, table);
             }
+
+            .usda-table__body {
+                tr.usda-table__row {
+                    td.usda-table__cell {
+                        padding-left: rem(15);
+                    }
+                }
+            }
         }
     }
 
