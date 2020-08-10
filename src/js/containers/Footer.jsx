@@ -125,6 +125,11 @@ const Footer = ({
                                         Data Dictionary
                                     </a>
                                 </li>
+                                <li>
+                                    <FooterExternalLink
+                                        link="http://fiscaldata.treasury.gov/"
+                                        title="Fiscal Data" />
+                                </li>
                             </ul>
                         </div>
                         <div className="link-group">
