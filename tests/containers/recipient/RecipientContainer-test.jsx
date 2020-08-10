@@ -8,7 +8,7 @@ import { shallow, mount } from 'enzyme';
 
 import { RecipientContainer } from 'containers/recipient/RecipientContainer';
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
-import { mockActions, mockRedux } from './mockData';
+import { mockActions, mockProps } from './mockData';
 import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
 
 // mock the state helper
@@ -21,7 +21,7 @@ jest.mock('components/recipient/RecipientPage', () => jest.fn(() => null));
 describe('RecipientContainer', () => {
     it('on mount: should make an API call for the selected recipient & set fiscal year based on url params', async () => {
         const container = mount(<RecipientContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadRecipientOverview = jest.fn();
@@ -31,12 +31,12 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
-        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockRedux.params.fy);
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockRedux.match.params.fy);
         expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', 'latest');
     });
     it('should make an API call when the id changes', async () => {
         const container = mount(<RecipientContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadRecipientOverview = jest.fn();
@@ -55,10 +55,10 @@ describe('RecipientContainer', () => {
     });
     it('should reset the fiscal year when the id changes', async () => {
         // Use 'all' for the initial FY
-        const recipient = Object.assign({}, mockRedux.recipient, {
+        const recipient = Object.assign({}, mockProps.recipient, {
             fy: 'all'
         });
-        const updatedRedux = Object.assign({}, mockRedux, {
+        const updatedRedux = Object.assign({}, mockProps, {
             recipient
         });
 
@@ -83,7 +83,7 @@ describe('RecipientContainer', () => {
         // Use 'all' for the initial FY
         jest.clearAllMocks();
         const container = mount(<RecipientContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         container.setProps({
@@ -104,17 +104,17 @@ describe('RecipientContainer', () => {
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<RecipientContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadRecipientOverview = jest.fn();
         container.instance().loadRecipientOverview = loadRecipientOverview;
 
-        const recipient = Object.assign({}, mockRedux.recipient, {
+        const recipient = Object.assign({}, mockProps.recipient, {
             fy: '2018'
         });
 
-        const nextProps = Object.assign({}, mockRedux, {
+        const nextProps = Object.assign({}, mockProps, {
             recipient
         });
 
@@ -128,7 +128,7 @@ describe('RecipientContainer', () => {
     describe('parseOverview', () => {
         it('should update the Redux state with a new BaseRecipientOverview', () => {
             const container = shallow(<RecipientContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // Reset the mock action's call count

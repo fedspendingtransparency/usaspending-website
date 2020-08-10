@@ -5,9 +5,6 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
-
-import { is } from 'immutable';
 
 import { AgencyContainer } from 'containers/agency/AgencyContainer';
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -55,11 +52,6 @@ const mockAgencyHelper = (functionName, event, expectedResponse) => {
             cancel: jest.fn()
         };
     });
-};
-
-const unmockAgencyHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/accountHelper');
 };
 
 describe('AgencyContainer', () => {

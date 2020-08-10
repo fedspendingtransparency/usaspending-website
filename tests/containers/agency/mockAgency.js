@@ -33,8 +33,10 @@ export const mockRedux = {
             budgetAuthority: 30
         })
     },
-    params: {
-        agencyId: '123'
+    match: {
+        params: {
+            agencyId: '123'
+        }
     },
     resetAgency: jest.fn(),
     setAgencyOverview: jest.fn()

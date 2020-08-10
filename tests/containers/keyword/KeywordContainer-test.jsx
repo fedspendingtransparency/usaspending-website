@@ -19,9 +19,7 @@ jest.mock('components/keyword/KeywordPage', () => jest.fn(() => null));
 describe('KeywordContainer', () => {
     describe('updateKeyword', () => {
         it('should set the keyword state', () => {
-            const container = shallow(<KeywordContainer
-                {...mockRedux}
-                {...mockActions} />);
+            const container = shallow(<KeywordContainer {...mockRedux} {...mockActions} />);
 
             container.instance().updateKeyword('blah blah');
 
@@ -29,38 +27,32 @@ describe('KeywordContainer', () => {
         });
     });
 
-    describe('handleInitialUrl', ()=> {
-       it('should update the state if there is a keyword in the url', () => {
-           const modifiedRedux = Object.assign({}, mockRedux, {
-              params: {
-                  keyword: 'test'
-              }
-           });
-           const container = mount(<KeywordContainer
-               {...modifiedRedux}
-               {...mockActions} />);
+    describe('handleInitialUrl', () => {
+        it('should update the state if there is a keyword in the url', () => {
+            const modifiedRedux = Object.assign({}, mockRedux, {
+                params: {
+                    keyword: 'test'
+                }
+            });
+            const container = mount(<KeywordContainer {...modifiedRedux} {...mockActions} />);
 
-           expect(container.state().keyword).toEqual('test');
-       });
-       it('should not update the state if the keyword is less than three characters', () => {
-           const modifiedRedux = Object.assign({}, mockRedux, {
-               params: {
-                   keyword: 'hi'
-               }
-           });
-           const container = mount(<KeywordContainer
-               {...modifiedRedux}
-               {...mockActions} />);
+            expect(container.state().keyword).toEqual('test');
+        });
+        it('should not update the state if the keyword is less than three characters', () => {
+            const modifiedRedux = Object.assign({}, mockRedux, {
+                params: {
+                    keyword: 'hi'
+                }
+            });
+            const container = mount(<KeywordContainer {...modifiedRedux} {...mockActions} />);
 
-           expect(container.state().keyword).toEqual('');
-       });
+            expect(container.state().keyword).toEqual('');
+        });
     });
 
     describe('fetchSummary', () => {
         it('should set the summary state', async () => {
-            const container = shallow(<KeywordContainer
-                {...mockRedux}
-                {...mockActions} />);
+            const container = shallow(<KeywordContainer {...mockRedux} {...mockActions} />);
 
             const expectedState = {
                 primeCount: 111111,
@@ -78,9 +70,7 @@ describe('KeywordContainer', () => {
 
     describe('startDownload', () => {
         it('should make an API call with the given keyword filter', () => {
-            const container = shallow(<KeywordContainer
-                {...mockActions}
-                {...mockRedux} />);
+            const container = shallow(<KeywordContainer {...mockActions} {...mockRedux} />);
 
             container.setState({
                 keyword: 'test'
@@ -104,9 +94,7 @@ describe('KeywordContainer', () => {
 
     describe('requestDownload', () => {
         it('should set the expected file and url', async () => {
-            const container = shallow(<KeywordContainer
-                {...mockActions}
-                {...mockRedux} />);
+            const container = shallow(<KeywordContainer {...mockActions} {...mockRedux} />);
 
             container.setState({
                 keyword: 'test'

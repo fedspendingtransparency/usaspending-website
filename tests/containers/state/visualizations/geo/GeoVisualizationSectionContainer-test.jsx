@@ -9,7 +9,7 @@ import { mount } from 'enzyme';
 import { GeoVisualizationSectionContainer } from
         'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { mockActions, mockRedux, mockGeoApi } from "../../mockData";
+import { mockActions, mockProps, mockGeoApi } from "../../mockData";
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/state/visualizations/geo/GeoVisualizationSection', () =>
@@ -20,7 +20,7 @@ describe('GeoVisualizationSectionContainer', () => {
         jest.useFakeTimers();
 
         const container = mount(<GeoVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const fetchData = jest.fn();
@@ -43,7 +43,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
     it('should remeasure the map in preparation of an API change whenever the Redux filters change', () => {
         const container = mount(<GeoVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const prepareFetch = jest.fn();
@@ -52,7 +52,7 @@ describe('GeoVisualizationSectionContainer', () => {
         expect(prepareFetch).toHaveBeenCalledTimes(0);
 
         // now update the props
-        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+        const stateProfile = Object.assign({}, mockProps.stateProfile, {
             fy: '2014'
         });
 
@@ -66,7 +66,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
     it('should reset the map layer when the state id changes', () => {
         const container = mount(<GeoVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const changeMapLayer = jest.fn();
@@ -80,7 +80,7 @@ describe('GeoVisualizationSectionContainer', () => {
         expect(changeMapLayer).toHaveBeenCalledTimes(0);
 
         // update the props
-        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+        const stateProfile = Object.assign({}, mockProps.stateProfile, {
             id: '13'
         });
 
@@ -95,7 +95,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('mapLoaded', () => {
         it('should set the loadingTiles state to false', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             container.instance().mapLoaded();
 
@@ -104,7 +104,7 @@ describe('GeoVisualizationSectionContainer', () => {
         it('should call the prepareFetch method', () => {
             jest.useFakeTimers();
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockPrepare = jest.fn();
             container.instance().prepareFetch = mockPrepare;
@@ -122,7 +122,7 @@ describe('GeoVisualizationSectionContainer', () => {
             const attached = MapBroadcaster.on('measureMap', mockListener);
 
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             container.setState({
                 loadingTiles: true
@@ -140,7 +140,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('parseData', () => {
         it('should properly parse the API response for the map visualization', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             container.instance().parseData(mockGeoApi);
@@ -166,7 +166,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('changeMapLayer', () => {
         it('should update the mapLayer state when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             expect(container.state().mapLayer).toEqual('county');
 
@@ -175,7 +175,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should make a new renderHash when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const originalHash = `${container.state().renderHash}`;
 
@@ -184,7 +184,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should update the mapLayer state when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             container.setState({
                 loadingTiles: false
@@ -197,7 +197,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should request a map measurement operation', () => {
             const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockPrepare = jest.fn();
             container.instance().prepareFetch = mockPrepare;

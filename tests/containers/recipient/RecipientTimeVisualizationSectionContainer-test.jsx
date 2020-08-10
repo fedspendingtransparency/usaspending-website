@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { RecipientTimeVisualizationSectionContainer } from
     'containers/recipient/RecipientTimeVisualizationSectionContainer';
 
-import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths, mockTrendline } from './mockData';
+import { mockActions, mockProps, mockTimes, mockYears, mockQuarters, mockMonths, mockTrendline } from './mockData';
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
@@ -18,7 +18,7 @@ jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
 describe('RecipientTimeVisualizationSectionContainer', () => {
     it('should make an API call for the selected recipient on mount', async () => {
         const container = mount(<RecipientTimeVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const fetchData = jest.fn();
@@ -32,7 +32,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
 
     it('should make an API call for the new awards data on mount', async () => {
         const container = mount(<RecipientTimeVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const fetchTrendlineData = jest.fn();
@@ -47,7 +47,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
     describe('updateVisualizationPeriod', () => {
         it('should change the component state and make 2 API calls', () => {
             const container = mount(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             const fetchData = jest.fn();
@@ -69,7 +69,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<RecipientTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.instance().parseData(mockYears, 'fiscal_year');
@@ -93,7 +93,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<RecipientTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.setState({
@@ -126,7 +126,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<RecipientTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.setState({
@@ -160,7 +160,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             // mount the container
             const container = shallow (
                 <RecipientTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.instance().parseTrendlineData(mockTrendline);
@@ -175,7 +175,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
     describe('generateTime', () => {
         it('should return a fiscal year when fiscal year is selected and the type is label', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -187,7 +187,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
         it('should return an object with a null period a year that matches the fiscal year when fiscal year is selected and the type is raw', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -202,7 +202,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
         it('should return a quarter with fiscal year when quarter is selected and the type is label', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -214,7 +214,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
         it('should return an object with the given quarter and a fiscal year when quarter is selected and the type is raw', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -229,7 +229,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
         it('should return a short month and fiscal year when month is selected and the type is label', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -241,7 +241,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
         it('should return a short month and fiscal year object when month is selected and the type is raw', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated

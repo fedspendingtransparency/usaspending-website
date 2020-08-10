@@ -1,6 +1,6 @@
 /**
  * DetailContentContainer-test.jsx
- * 
+ *
  */
 
 import React from 'react';
@@ -97,11 +97,7 @@ describe('DetailContentContainer', () => {
     });
     describe('prepareRootRequest', () => {
         it('should create a filterset that consists of the provided fiscal year and quarter', () => {
-            const container = shallow(
-                <DetailContentContainer
-                    {...mockActions}
-                    explorer={mockReducerRoot} />
-            );
+            const container = shallow(<DetailContentContainer {...mockActions} explorer={mockReducerRoot} />);
 
             container.instance().loadData = jest.fn();
 
@@ -146,7 +142,7 @@ describe('DetailContentContainer', () => {
             expect(mockActions.overwriteExplorerTrail).toHaveBeenCalledWith(mockTrail);
             expect(container.state().data).toEqual(new List(mockApiResponse.results));
         });
-        it ('should trigger the exit animation if there is going to be a transition', () => {
+        it('should trigger the exit animation if there is going to be a transition', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockReducerRoot} />);
@@ -272,7 +268,7 @@ describe('DetailContentContainer', () => {
             container.instance().loadData = mockLoadData;
 
             container.setState({
-               inFlight: false
+                inFlight: false
             });
             container.instance().goDeeper('2', mockLevelData);
 
@@ -345,7 +341,7 @@ describe('DetailContentContainer', () => {
         });
     });
     describe('rewindToFilter', () => {
-        it ('should not rewind if it is called with the current filter', () => {
+        it('should not rewind if it is called with the current filter', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
@@ -357,7 +353,7 @@ describe('DetailContentContainer', () => {
 
             expect(container.instance().state.transitionSteps).toEqual(expectedSteps);
         });
-        it ('should call prepareRootRequest if going back to the start', () => {
+        it('should call prepareRootRequest if going back to the start', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
@@ -371,7 +367,7 @@ describe('DetailContentContainer', () => {
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
             expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '2');
         });
-        it ('should overwrite the explorer trail and update the transition steps', () => {
+        it('should overwrite the explorer trail and update the transition steps', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
