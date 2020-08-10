@@ -61,8 +61,81 @@
             color: $color-base;
         }
     }
+
     &.info-banner_warning {
         background: $color-warning;
         border-top: none;
+    }
+
+    // Data Disclaimer Banner for COVID Profile
+    &.data-disclaimer {
+        border-top: none;
+        background: $color-gold-lightest;
+        &.sticky-banner {
+            @media (min-width: $medium-screen) {
+                position: fixed;
+                // right underneath the site header @ 66px
+                top: rem(66);
+                z-index: 3;
+                left: 0;
+            }
+        }
+        .info-top {
+            width: 100%;
+            transform: scaleY(-1);
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: $color-gold-light;
+            height: rem(6);
+        }
+        .info-banner__content {
+            @include flex-wrap(wrap);
+            margin: rem(10);
+            @media(min-width: $tablet-screen) {
+                margin: rem(0) rem(25) rem(10) rem(25);
+            }
+            @media(min-width: $medium-screen) {
+                // fixed height so we know how much to offset for the sidebar.
+                height: rem(75);
+            }
+            @media(min-width: $large-screen) {
+                margin: rem(0) rem(40) rem(10) rem(40);
+            }
+            @media(min-width: $x-large-screen) {
+                margin: auto;
+                max-width: rem(1600);
+            }
+            .info-banner__content--title {
+                @include display(flex);
+                margin-top: rem(10);
+                width: 100%;
+                svg {
+                    @include align-self(center);
+                }
+                .fa-times {
+                    margin-left: auto;
+                    @include align-self(flex-start);
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                h2 {
+                    margin: 0;
+                    font-size: $h6-font-size;
+                    font-weight: $font-semibold;
+                    margin-left: rem(10);
+                    line-height: rem(21);
+                }
+            }
+            p {
+                width: 100%;
+                font-size: $small-font-size;
+                margin: rem(8) 0 rem(14) rem(35);
+                a {
+                    @include button-unstyled;
+                    font-weight: $font-semibold;
+                    color: $color-link;
+                }
+            }
+        }
     }
 }
