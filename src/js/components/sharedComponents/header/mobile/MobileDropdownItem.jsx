@@ -15,7 +15,7 @@ const propTypes = {
     active: PropTypes.bool,
     comingSoon: PropTypes.bool,
     url: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     hideMobileNav: PropTypes.func,
     externalLink: PropTypes.bool
 };
@@ -35,7 +35,7 @@ export default class MobileDropdownItem extends React.Component {
     }
 
     clickedLink() {
-        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
+        clickedHeaderLink(this.props.url);
         this.props.hideMobileNav();
         if (this.props.externalLink) {
             redirectHelper.showRedirectModal(this.props.url);

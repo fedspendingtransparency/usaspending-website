@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -24,10 +25,11 @@ const clickedHeaderLink = (route) => {
 };
 
 const propTypes = {
-    hideMobileNav: PropTypes.func
+    hideMobileNav: PropTypes.func,
+    location: PropTypes.object
 };
 
-export default class MobileNav extends React.Component {
+export class MobileNav extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,12 +52,10 @@ export default class MobileNav extends React.Component {
 
     checkCurrentProfile() {
         // determine if we need to highlight a dropdown menu option
-        // TODO - fix for BrowserRouter
-        //const currentUrl = Router.history.location.pathname;
-        const formattedUrl = ``;
-        if (this.state.url !== formattedUrl) {
+        const currentUrl = this.props.location.pathname;
+        if (this.state.url !== currentUrl) {
             this.setState({
-                url: formattedUrl
+                url: currentUrl
             });
         }
     }
@@ -118,3 +118,4 @@ export default class MobileNav extends React.Component {
 }
 
 MobileNav.propTypes = propTypes;
+export default withRouter(MobileNav);

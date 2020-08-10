@@ -5,15 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 const propTypes = {
     section: PropTypes.string,
     label: PropTypes.string,
     active: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    location: PropTypes.object
 };
 
-export default class SidebarLink extends React.Component {
+export class SidebarLink extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,10 +32,9 @@ export default class SidebarLink extends React.Component {
 
     prepareLink() {
         // the URL base should be the current route
-        //const currentRoute = Router.state.path;
+        const currentRoute = this.props.location.pathname;
         // append the section as a query param
-        // TODO: fix for BrowserRouter
-        const url = `?section=${this.props.section}`;
+        const url = `${currentRoute}?section=${this.props.section}`;
 
         this.setState({
             url
@@ -63,3 +64,4 @@ export default class SidebarLink extends React.Component {
 }
 
 SidebarLink.propTypes = propTypes;
+export default withRouter(SidebarLink);

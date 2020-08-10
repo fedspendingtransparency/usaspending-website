@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
@@ -33,7 +33,7 @@ import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
-import Error from '../../../components/sharedComponents/Error';
+import Error from 'components/sharedComponents/Error';
 
 require('pages/agency/v2/index.scss');
 
