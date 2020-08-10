@@ -57,7 +57,7 @@ const columns = [
 
 const loanColumns = [
     {
-        title: 'recipient',
+        title: 'name',
         displayName: 'Recipient'
     },
     {
@@ -204,10 +204,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             if (query) {
                 params.filter.query = query;
             }
-            let recipientRequest = fetchDisasterSpending('recipient', params);
-            if (activeTab === 'loans') {
-                recipientRequest = fetchLoanSpending('recipient', params);
-            }
+            const recipientRequest = activeTab === 'loans' ? fetchLoanSpending('recipient', params) : fetchDisasterSpending('recipient', params);
             setRequest(recipientRequest);
             recipientRequest.promise
                 .then((res) => {

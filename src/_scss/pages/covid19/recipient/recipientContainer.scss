@@ -1,5 +1,6 @@
 .recipient__container {
   width: 100%;
+  @import "../search/results/table/tableMessages";
   .count-tabs {
     &.recipient__tabs-container {
       width: 100%;
@@ -44,6 +45,12 @@
         .map-container {
             height: rem(475);
             width: 100%;
+        }
+        .map-data-message {
+          font-size: rem(14);
+        }
+        .bold-map-data-message {
+          font-weight: 600;
         }
         @import "pages/search/results/visualizations/geo/map/map";
         .map-container {
