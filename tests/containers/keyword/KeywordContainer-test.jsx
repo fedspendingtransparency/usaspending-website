@@ -29,21 +29,27 @@ describe('KeywordContainer', () => {
 
     describe('handleInitialUrl', () => {
         it('should update the state if there is a keyword in the url', () => {
-            const modifiedRedux = Object.assign({}, mockRedux, {
-                params: {
-                    keyword: 'test'
+            const modifiedRedux = {
+                ...mockRedux,
+                match: {
+                    params: {
+                        keyword: 'test'
+                    }
                 }
-            });
+            };
             const container = mount(<KeywordContainer {...modifiedRedux} {...mockActions} />);
 
             expect(container.state().keyword).toEqual('test');
         });
         it('should not update the state if the keyword is less than three characters', () => {
-            const modifiedRedux = Object.assign({}, mockRedux, {
-                params: {
-                    keyword: 'hi'
+            const modifiedRedux = {
+                ...mockRedux,
+                match: {
+                    params: {
+                        keyword: 'hi'
+                    }
                 }
-            });
+            };
             const container = mount(<KeywordContainer {...modifiedRedux} {...mockActions} />);
 
             expect(container.state().keyword).toEqual('');

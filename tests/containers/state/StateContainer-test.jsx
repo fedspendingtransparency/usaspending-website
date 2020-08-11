@@ -54,9 +54,11 @@ describe('StateContainer', () => {
         container.instance().loadStateOverview = loadStateOverview;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
@@ -74,9 +76,11 @@ describe('StateContainer', () => {
         container.instance().setStateCenter = setStateCenter;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
@@ -102,16 +106,18 @@ describe('StateContainer', () => {
         container.instance().loadStateOverview = loadStateOverview;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
         await container.instance().request.promise;
         expect(loadStateOverview).toHaveBeenLastCalledWith('02', 'latest');
 
-        container.setProps({ params: { stateId: '02', fy: '2008' } });
+        container.setProps({ match: { params: { stateId: '02', fy: '2008' } } });
         expect(mockActions.setStateFiscalYear).toHaveBeenLastCalledWith('2008');
     });
     it('should make an API call when the fiscal year changes', async () => {

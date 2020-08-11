@@ -78,11 +78,14 @@ describe('AgencyContainer', () => {
         const mockLoad = jest.fn();
         container.instance().loadAgencyOverview = mockLoad;
 
-        const prevProps = Object.assign({}, mockRedux, {
-            params: {
-                agencyId: '232'
+        const prevProps = {
+            ...mockRedux,
+            match: {
+                params: {
+                    agencyId: '232'
+                }
             }
-        });
+        };
 
         container.instance().componentDidUpdate(prevProps);
         jest.runAllTicks();

@@ -31,7 +31,7 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
-        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockRedux.match.params.fy);
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockProps.match.params.fy);
         expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', 'latest');
     });
     it('should make an API call when the id changes', async () => {
@@ -43,8 +43,10 @@ describe('RecipientContainer', () => {
         container.instance().loadRecipientOverview = loadRecipientOverview;
 
         container.setProps({
-            params: {
-                recipientId: '098765-XYZ-P'
+            match: {
+                params: {
+                    recipientId: '098765-XYZ-P'
+                }
             }
         });
 
@@ -70,8 +72,10 @@ describe('RecipientContainer', () => {
         container.instance().loadRecipientOverview = loadRecipientOverview;
 
         container.setProps({
-            params: {
-                recipientId: '876543-ABC-R'
+            match: {
+                params: {
+                    recipientId: '876543-ABC-R'
+                }
             }
         });
 
@@ -87,16 +91,20 @@ describe('RecipientContainer', () => {
             {...mockActions} />);
 
         container.setProps({
-            params: {
-                recipientId: '876543-ABC-R'
+            match: {
+                params: {
+                    recipientId: '876543-ABC-R'
+                }
             }
         });
 
         expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith('latest');
 
         container.setProps({
-            params: {
-                fy: '2009'
+            match: {
+                params: {
+                    fy: '2009'
+                }
             }
         });
 
