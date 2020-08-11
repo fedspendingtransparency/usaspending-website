@@ -5,7 +5,7 @@
 
 import { apiRequest } from 'helpers/apiRequest';
 
-export const defCodeQueryString = (defCodes) => defCodes.reduce((acc, code, i, array) => {
+export const defCodeQueryString = (defCodes) => defCodes.sort().reduce((acc, code, i, array) => {
     let currentString = acc;
     currentString += code;
     if (i + 1 !== array.length) currentString += ',';

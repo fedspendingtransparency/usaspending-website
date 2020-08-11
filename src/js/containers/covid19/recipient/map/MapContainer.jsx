@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
+import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -15,6 +16,7 @@ import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import {
     centerOfMap,
     filters,
@@ -337,7 +339,14 @@ export class MapContainer extends React.Component {
 
     render() {
         let message = null;
-        if (this.state.loading) {
+
+        if (!MapboxGL.supported()) {
+            return (
+                <div className="results-table-message-container">
+                    <ResultsTableErrorMessage title="WebGL Required." description="Please enable WebGL in your browser settings to view this visualization." />
+                </div>
+            );
+        } else if (this.state.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">
