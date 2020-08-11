@@ -62,3 +62,17 @@ The USAspending website expects a certain number of environment variables to be 
 | `npm test`   | executes unit tests                                 |
 | `npm sass`   | dev server w/ scss source maps                      |
 | `npm travis` | executes travis validation script                   |
+
+### Deployment Build Step with DockerFile
+When deploying we use the dockerfile for our build step. We can simulate that process as follows:
+
+```
+# from usaspending-website root, build the container image
+docker build -t usaspending-website .
+# generate static artifacts in ./public
+docker run -i --rm=true -v $(pwd)/public:/node-workspace/public usaspending-website /bin/sh -c 'npm run dev'
+# mount the static artifacts to an nginx image and run
+docker run -p 8020:80 -v $(pwd)/public:/usr/share/nginx/html:ro nginx
+```
+
+The app should now be running at `http://localhost:8020`.
