@@ -118,9 +118,6 @@ const SpendingByCFDA = () => {
                     <p>
                         In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
                     </p>
-                    <p>
-                        <em>Please note that award amounts do not include the Small Business Administration (SBA)&apos;s Paycheck Protection Program.</em>
-                    </p>
                 </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>

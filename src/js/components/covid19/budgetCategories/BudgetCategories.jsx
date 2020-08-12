@@ -123,6 +123,18 @@ const BudgetCategories = () => {
                     <p>
                         In the chart below, see how much is available to be spent (Total Budgetary Resources), how much has been promised to be spent (Total Obligations), and how much has actually been paid out (Total Outlays).
                     </p>
+                    <div className="sba-note-container">
+                        <p>Please note that Small Business Administration (SBA) loan programs are categorized as follows:</p>
+                        <ul>
+                            <li className="outer-list">&#32;Federal Account 073-1154 Business Loans Program Account, Small Business Administration:
+                                (1) &#32;Paycheck Protection Program (PPP) loans constitute the majority of this account
+                                (2) &#32;EIDL loans constitute the minority of this account
+                            </li>
+                            <li className="outer-list">&#32;Federal Account 073-1152 Disaster Loans Program Account, Small Business Administration:
+                                &#32;EIDL loans constitute the entirety of this account
+                            </li>
+                        </ul>
+                    </div>
                 </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>
