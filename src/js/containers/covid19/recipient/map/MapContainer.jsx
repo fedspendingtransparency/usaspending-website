@@ -343,7 +343,7 @@ export class MapContainer extends React.Component {
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">
-                    <ResultsTableErrorMessage title="WebGL Required." description="Please enable WebGL in your browser settings to view this visualization." />
+                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
         } else if (this.state.loading) {
