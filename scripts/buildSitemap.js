@@ -5,7 +5,7 @@ const tunnel = require('tunnel');
 
 const pages = require('./pages');
 
-const siteUrl = 'https://www.usaspending.gov:443';
+const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 const indexedSitemapXmlStart = `<?xml version="1.0" encoding="UTF-8"?>
@@ -31,7 +31,7 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
     * * @param {string} clientRoute client side route for page
     * * @param {string} priority how important the page is on scale of 0.1 - 0.9
     * * @param {string} updatedFrequency how frequently google should crawl this page
-* @returns {string} looks like this <url><loc>https://www.usaspending.gov:443/#/award/CONT_IDV_GS35F0045K_4730</loc><changefreq>weekly</changefreq><priority>1</priority></url>
+* @returns {string} looks like this <url><loc>https://www.usaspending.gov/#/award/CONT_IDV_GS35F0045K_4730</loc><changefreq>weekly</changefreq><priority>1</priority></url>
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
@@ -108,7 +108,7 @@ const buildIndividualSitemaps = () => {
         .filter((route) => route.addToSitemap)
         .map((route) => ({
             ...route,
-            clientRoute: `https://www.usaspending.gov:443/#${route.path}`,
+            clientRoute: `https://www.usaspending.gov/#${route.path}`,
             accessor: ''
         }))
         .forEach((route) => {
