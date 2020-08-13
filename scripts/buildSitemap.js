@@ -19,7 +19,7 @@ const agent = (process.env.PROXY_HOST && proxess.env.PROXY_PORT) ?
     tunnel.httpsOverHttp({
         proxy: {
             host: process.env.PROXY_HOST,
-            port: proxess.env.PROXY_PORT
+            port: process.env.PROXY_PORT
         },
     }) : null;
 
