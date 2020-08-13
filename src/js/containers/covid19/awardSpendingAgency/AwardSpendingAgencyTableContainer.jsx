@@ -191,12 +191,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 params.filter.award_type_codes = awardTypeGroups[props.type];
             }
 
-            let awardSpendingAgencyRequest;
-            if (props.type === 'loans') {
-                awardSpendingAgencyRequest = fetchLoansByAgency(params);
-            } else {
-                awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
-            }
+            const awardSpendingAgencyRequest = props.type === 'loans' ? fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
+
             setRequest(awardSpendingAgencyRequest);
             awardSpendingAgencyRequest.promise
                 .then((res) => {

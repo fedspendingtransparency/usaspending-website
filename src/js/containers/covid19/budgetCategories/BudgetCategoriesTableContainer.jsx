@@ -224,6 +224,7 @@ const BudgetCategoriesTableContainer = (props) => {
             if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
             }
+
             const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
 
             setRequest(disasterSpendingRequest);
@@ -248,6 +249,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
         // In this particular case, we want to fetch from api.
         if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
+            changeCurrentPage(1);
             fetchBudgetSpendingCallback();
         }
         // Reset to default sort when the active tab or spending category changes
