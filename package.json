@@ -120,6 +120,7 @@
         "regenerator-runtime": "^0.13.2",
         "svg4everybody": "^2.0.3",
         "tinycolor2": "^1.3.0",
+        "tunnel": "^0.0.6",
         "xmldoc": "^0.4.0"
     }
 }
