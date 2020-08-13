@@ -15,7 +15,7 @@ const xmlEnd = `</urlset>`;
 const indexedSitemapXmlEnd = `</sitemapindex>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
-const agent = (process.env.PROXY_HOST && proxess.env.PROXY_PORT) ?
+const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
     tunnel.httpsOverHttp({
         proxy: {
             host: process.env.PROXY_HOST,
