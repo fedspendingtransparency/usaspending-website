@@ -211,19 +211,30 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     });
 
-    useEffect(() => {
-        // Reset to the first page
-        changeCurrentPage(1);
-        fetchSpendingByCategoryCallback();
-    }, [props.type, pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         if (props.type === 'loans') {
+            if (sort === 'faceValueOfLoan' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('faceValueOfLoan', 'desc');
         } else {
+            if (sort === 'obligation' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('obligation', 'desc');
         }
     }, [props.type]);
+
+    useEffect(() => {
+        // Reset to the first page
+        changeCurrentPage(1);
+        if (currentPage === 1) {
+            fetchSpendingByCategoryCallback();
+        }
+    }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

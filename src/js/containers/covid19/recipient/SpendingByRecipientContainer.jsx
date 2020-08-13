@@ -226,7 +226,9 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
-        fetchSpendingByRecipientCallback();
+        if (currentPage === 1) {
+            fetchSpendingByRecipientCallback();
+        }
     }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {

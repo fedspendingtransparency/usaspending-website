@@ -243,7 +243,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     useEffect(() => {
         // Reset to the first page
         changeCurrentPage(1);
-        fetchSpendingByCfdaCallback();
+        if (currentPage === 1) {
+            fetchSpendingByCfdaCallback();
+        }
     }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
