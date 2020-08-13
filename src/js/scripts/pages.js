@@ -1,6 +1,25 @@
-import { routes } from 'containers/router/RouterRoutes';
+import moment from 'moment';
 
-const moment = require('moment');
+const routes = [
+    // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel
+    '/',
+    '/search',
+    '/recipient',
+    '/explorer',
+    '/about/accessibility',
+    '/about/privacy',
+    '/about/foia',
+    '/about',
+    '/db-info',
+    '/agency',
+    '/download_center',
+    '/keyword-search',
+    '/federal_account',
+    '/state',
+    '/recipient',
+    '/disaster/covid-19',
+    '/disaster/covid-19/data-sources'
+];
 
 const recipientRequestObject = {
     name: 'recipient',

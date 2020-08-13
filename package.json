@@ -10,8 +10,8 @@
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
-        "dev": "node ./scripts/buildSitemap.js && webpack --progress --config ./webpack/webpack.dev.config.js",
-        "prod": "node ./scripts/buildSitemap.js && webpack --progress --config ./webpack/webpack.prod.config.js",
+        "dev": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.dev.config.js",
+        "prod": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
     },
     "author": "",
@@ -21,7 +21,8 @@
     },
     "license": "SEE LICENSE IN LICENSE.MD",
     "devDependencies": {
-        "@babel/core": "^7.4.0",
+        "@babel/cli": "^7.10.5",
+        "@babel/core": "^7.11.1",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/plugin-proposal-optional-chaining": "^7.8.3",
         "@babel/plugin-transform-runtime": "^7.4.3",
@@ -63,6 +64,7 @@
         "webpack-merge": "^4.1.0"
     },
     "dependencies": {
+        "@babel/node": "^7.10.5",
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
         "@fortawesome/free-brands-svg-icons": "^5.13.0",
         "@fortawesome/free-regular-svg-icons": "^5.13.0",

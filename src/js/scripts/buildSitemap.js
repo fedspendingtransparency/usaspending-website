@@ -1,8 +1,8 @@
-const fs = require('fs');
-const axios = require('axios');
-const path = require('path');
+import fs from 'fs';
+import axios from 'axios';
+import path from 'path';
 
-const pages = require('./pages');
+import pages from './pages';
 
 const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
@@ -51,7 +51,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 
 const createRobots = () => {
     fs.writeFile(
-        path.resolve(__dirname, `../robots.txt`),
+        path.resolve(__dirname, `../../../robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
         () => console.log("robots.txt successfully created!")
     );
@@ -59,7 +59,7 @@ const createRobots = () => {
 
 const createIndexedSitemap = (xmlRoutes) => {
     fs.writeFile(
-        path.resolve(__dirname, `../sitemap.xml`),
+        path.resolve(__dirname, `../../../sitemap.xml`),
         `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
         () => console.log(`Sitemap sitemap.xml successfully created!`)
     );
@@ -69,7 +69,7 @@ const createIndexedSitemap = (xmlRoutes) => {
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../${siteMapName}.xml`),
+        path.resolve(__dirname, `../../../${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
     );
@@ -96,10 +96,9 @@ const buildIndividualSitemaps = () => {
     let staticRoutesXml = '';
     pages
         .find((page) => page.name === 'static-routes').routes
-        .filter((route) => route.addToSitemap)
         .map((route) => ({
             ...route,
-            clientRoute: `https://www.usaspending.gov/#${route.path}`,
+            clientRoute: `https://www.usaspending.gov/#${route}`,
             accessor: ''
         }))
         .forEach((route) => {
