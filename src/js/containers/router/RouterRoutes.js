@@ -31,15 +31,6 @@ import DataSourcesAndMethodologiesPage from 'components/covid19/DataSourcesAndMe
 // Please add any new routes to the scripts/pages.js routes file.
 export const routes = [
     {
-        path: '/#',
-        component: ({ location, history }) => {
-            const urlWithNoHash = location.hash.split('#')[1];
-            history.replace(urlWithNoHash);
-            return null;
-        },
-        exact: false
-    },
-    {
         path: '/',
         component: Homepage,
         exact: true
