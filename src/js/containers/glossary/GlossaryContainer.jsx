@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import GlossaryListenerSingleton from 'containers/router/GlossaryListenerSingleton';
+
 import * as GlossaryHelper from 'helpers/glossaryHelper';
 
 import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
