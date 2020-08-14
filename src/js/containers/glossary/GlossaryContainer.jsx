@@ -37,16 +37,13 @@ export class GlossaryContainer extends React.Component {
             error: false
         };
 
-        this.queuedOperations = [];
-
         this.request = null;
 
         this.performSearch = this.performSearch.bind(this);
         this.populateGlossaryWithAllTerms = this.populateGlossaryWithAllTerms.bind(this);
     }
-    componentDidMount() {
-        GlossaryListenerSingleton.subscribe(this);
 
+    componentDidMount() {
         // on the first load, populate the cache
         if (this.props.glossary.cache.count() === 0) {
             // no cache set yet, populate it
@@ -203,15 +200,7 @@ export class GlossaryContainer extends React.Component {
 
     parseTerms(data) {
         const terms = data.map((result) => new Definition(result));
-
         this.props.setGlossaryResults(terms);
-
-        if (this.queuedOperations.length > 0) {
-            // there are operations that were waiting for the data load, run them now
-            this.queuedOperations.forEach((operation) => {
-                operation();
-            });
-        }
     }
 
     writeCache(data) {
@@ -220,18 +209,6 @@ export class GlossaryContainer extends React.Component {
         }), {});
 
         this.props.setGlossaryCache(terms);
-    }
-
-    detectedUrlChange(value) {
-        // we've received a special URL param for a specific glossary term
-        if (this.state.loading) {
-            // still loading, queue this operation up for later
-            const operation = this.jumpToTerm.bind(this, value);
-            this.queuedOperations.push(operation);
-            return;
-        }
-
-        this.jumpToTerm(value);
     }
 
     jumpToTerm(slug) {

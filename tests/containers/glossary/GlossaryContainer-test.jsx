@@ -185,58 +185,6 @@ describe('GlossaryContainer', () => {
         });
     });
 
-    describe('detectedUrlChange', () => {
-        it('should queue any jump operations if the component is still loading', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
-
-            const container = shallow(<GlossaryContainer
-                {...mockActions}
-                glossary={mockData} />);
-
-            container.instance().setState({
-                loading: true
-            });
-
-            // override the jumpToTerm class function
-            const mockedJump = jest.fn();
-            container.instance().jumpToTerm = mockedJump;
-
-            // it should be queued, not called
-            container.instance().detectedUrlChange('blerg');
-            expect(mockedJump).toHaveBeenCalledTimes(0);
-
-            container.instance().setState({
-                loading: false
-            });
-            container.instance().parseTerms(mockSearch.matched_objects.term);
-
-            // once the API response has come back it can be called
-            expect(mockedJump).toHaveBeenCalledTimes(1);
-        });
-
-        it('should trigger jumpToTerm if the data has already loaded', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
-
-            const container = shallow(<GlossaryContainer
-                {...mockActions}
-                glossary={mockData} />);
-
-            container.instance().setState({
-                loading: false
-            });
-
-            // override the jumpToTerm class function
-            const mockedJump = jest.fn();
-            container.instance().jumpToTerm = mockedJump;
-
-            // it should be queued, not called
-            container.instance().detectedUrlChange('blerg');
-            expect(mockedJump).toHaveBeenCalledTimes(1);
-        });
-    });
-
     describe('jumpToTerm', () => {
         it('should show the glossary and load the specified term when a term with a matching slug exists', () => {
             mockGlossaryHelper('populateCache', 'resolve', mockCache);
