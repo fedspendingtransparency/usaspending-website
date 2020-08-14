@@ -3,17 +3,26 @@
  * 07/23/2020
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
-import { scrollPositionOfSiteHeader } from 'dataMapping/covid19/covid19';
+import {
+    stickyHeaderHeight,
+    dataDisclaimerHeight
+} from 'dataMapping/covid19/covid19';
+import {
+    getStickyBreakPointForSidebar,
+    getStickyBreakPointForCovidBanner,
+    createJumpToSectionForSidebar
+} from 'helpers/covid19Helper';
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
@@ -27,17 +36,17 @@ let sections = [
     },
     {
         label: 'Download Instructions',
-        section: 'download-instructions',
+        section: 'download_instructions',
         show: true
     },
     {
         label: 'Disaster Emergency Fund Code (DEFC)',
-        section: 'DEFC',
+        section: 'defc',
         show: true
     },
     {
         label: 'Loan Spending',
-        section: 'loan-spending',
+        section: 'loan_spending',
         show: kGlobalConstants.CARES_ACT_RELEASED_2
     },
     {
@@ -47,17 +56,17 @@ let sections = [
     },
     {
         label: 'Total Spending Section',
-        section: 'total-spending',
+        section: 'total_spending',
         show: true
     },
     {
         label: 'Linked and Unlinked Award Data',
-        section: 'linked-and-unlinked',
+        section: 'linked_and_unlinked',
         show: kGlobalConstants.CARES_ACT_RELEASED_2
     },
     {
         label: 'Award Spending Sections',
-        section: 'award-spending',
+        section: 'award_spending',
         show: kGlobalConstants.CARES_ACT_RELEASED_2
     }
 ];
@@ -66,38 +75,39 @@ if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections = sections.filter((x) => x.
 
 require('pages/data-sources/index.scss');
 
+const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
+    ...acc,
+    [obj.section]: { title: obj.label }
+}), {}));
+
 export default () => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
+    const dataDisclaimerBannerRef = useRef(null);
+    const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
+    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
+
+    useEffect(() => {
+        window.addEventListener('scroll', setBannerStickyOnScroll);
+        return () => {
+            window.removeEventListener('scroll', setBannerStickyOnScroll);
+        };
+    });
+
+    const handleCloseBanner = () => {
+        Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
+        setDataDisclaimerBanner('hide');
+    };
 
     const jumpToDataSourcesSection = (section) => {
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = sections.find((obj) => obj.section === section);
-
-        if (!matchedSection) {
-            // no matching section
-            return;
-        }
-
-        // scroll to the correct section
-        const sectionDom = document.querySelector(`#data-sources-${section}`);
-
-        if (!sectionDom) {
-            return;
-        }
-        if (activeSection === 'overview') {
-            scrollToY(sectionDom.offsetTop - 150, 700);
-        }
-        else {
-            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - 86, 700);
-        }
-
+        jumpToSection(section);
         setActiveSection(matchedSection.section);
     };
 
     return (
-        <div className="usa-da-dsm-page">
+        <div className="usa-da-dsm-page" ref={dataDisclaimerBannerRef}>
             {/* TODO: Update these meta tags */}
             <MetaTags {...covidPageDataSourcesMetaTags} />
             <Header />
@@ -108,11 +118,29 @@ export default () => {
                     </h1>
                 </div>
             </StickyHeader>
+            {dataDisclaimerBanner !== 'hide' && (
+                <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
+                    <div className="info-top" />
+                    <div className="info-banner__content">
+                        <div className="info-banner__content--title">
+                            <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
+                            <h2>Known Data Limitations</h2>
+                            <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
+                        </div>
+                        <p>
+                            USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
+                        </p>
+                    </div>
+                </div>
+            )}
             <main id="main-content" className="main-content">
-                <div className="sidebar usda__flex-col">
+                <div className={`sidebar usda__flex-col${dataDisclaimerBanner !== 'hide' ? ' covid-sidebar-banner' : ''}`}>
                     <Sidebar
                         pageName="data-sources"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader(Cookies.get(cookie))}
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get(cookie))}
+                        verticalSectionOffset={dataDisclaimerBanner === 'hide'
+                            ? stickyHeaderHeight
+                            : stickyHeaderHeight + dataDisclaimerHeight}
                         active={activeSection}
                         jumpToSection={jumpToDataSourcesSection}
                         detectActiveSection={setActiveSection}
@@ -229,7 +257,7 @@ export default () => {
                             </div>
                             {
                                 kGlobalConstants.CARES_ACT_RELEASED_2 ? (
-                                    <div className="about-section-wrapper" id="data-sources-download-instructions">
+                                    <div className="about-section-wrapper" id="data-sources-download_instructions">
                                         <h2 className="about-section-title">
                                             Download Instructions
                                         </h2>
@@ -308,7 +336,7 @@ export default () => {
                                     </div>
                                 ) :
                                     (
-                                        <div className="about-section-wrapper" id="data-sources-download-instructions">
+                                        <div className="about-section-wrapper" id="data-sources-download_instructions">
                                             <h2 className="about-section-title">
                                                 Download Instructions
                                             </h2>
@@ -384,7 +412,7 @@ export default () => {
                                         </div>
                                     )
                             }
-                            <div className="about-section-wrapper" id="data-sources-DEFC">
+                            <div className="about-section-wrapper" id="data-sources-defc">
                                 <h2 className="about-section-title">
                                     Disaster Emergency Fund Code (DEFC)
                                 </h2>
@@ -466,7 +494,7 @@ export default () => {
                             </div>
                             {
                                 kGlobalConstants.CARES_ACT_RELEASED_2 &&
-                                <div className="about-section-wrapper" id="data-sources-loan-spending">
+                                <div className="about-section-wrapper" id="data-sources-loan_spending">
                                     <h2 className="about-section-title">
                                         Loan Spending
                                     </h2>
@@ -542,7 +570,7 @@ export default () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="about-section-wrapper" id="data-sources-total-spending">
+                            <div className="about-section-wrapper" id="data-sources-total_spending">
                                 <h2 className="about-section-title">
                                     Total Spending Section
                                 </h2>
@@ -632,7 +660,7 @@ export default () => {
                             </div>
                             {
                                 kGlobalConstants.CARES_ACT_RELEASED_2 &&
-                                <div className="about-section-wrapper" id="data-sources-linked-and-unlinked">
+                                <div className="about-section-wrapper" id="data-sources-linked_and_unlinked">
                                     <div className="about-section-content">
                                         <h2 className="about-section-title">
                                             Linked and Unlinked Award Data
@@ -654,7 +682,7 @@ export default () => {
                             }
                             {
                                 kGlobalConstants.CARES_ACT_RELEASED_2 &&
-                                <div className="about-section-wrapper" id="data-sources-award-spending">
+                                <div className="about-section-wrapper" id="data-sources-award_spending">
                                     <h2 className="about-section-title">
                                         Award Spending Sections
                                     </h2>

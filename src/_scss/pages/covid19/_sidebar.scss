@@ -28,11 +28,12 @@
             border-radius: rem(5);
             &.float-sidebar {
                 position: fixed;
+                // fixed site header (66px) and banner (75px)
                 top: rem(96);
             }
             ul {
                 @include unstyled-list;
-                padding: rem(30);
+                padding: rem(30) rem(20);
     
                 li {
                     margin-bottom: rem(24);
@@ -59,6 +60,11 @@
                         border-bottom: 5px solid $color-primary;
                     }
                 }
+            }
+        }
+        &.covid-banner {
+            .covid19-sidebar-content.float-sidebar {
+                top: rem(166);
             }
         }
     }

@@ -127,16 +127,14 @@ export const mapboxSources = {
     },
     county: {
         label: 'county',
-        minZoom: 5,
-        url: 'mapbox://usaspending.83g94wbo',
-        layer: 'tl_2017_us_county-7dgoe0',
+        url: 'mapbox://usaspending.29sdfmwu',
+        layer: 'tl_2019_us_county',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     district: {
         label: 'congressional district',
-        minZoom: 4,
-        url: 'mapbox://usaspending.a4bkzui0',
-        layer: 'tl_2018_us_cd116-34qpds',
+        url: 'mapbox://usaspending.3kh310z9',
+        layer: 'tl_2018_us_cd116',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
     },
     zip: {
@@ -162,12 +160,12 @@ export const logMapScopeEvent = (scope) => {
 };
 
 export const visualizationColors = [
-    '#dfe5ea',
-    '#dfe5ea',
-    '#c9d2d7',
-    '#6c8a8e',
-    '#3e5c6a',
-    '#083546'
+    'rgba(1, 43, 58, 0.12)',
+    'rgba(1, 43, 58, 0.30)',
+    'rgba(1, 43, 58, 0.48)',
+    'rgba(1, 43, 58, 0.65)',
+    'rgba(1, 43, 58, 0.85)',
+    'rgba(1, 43, 58, 1)'
 ];
 
 export const tooltipLabels = {
