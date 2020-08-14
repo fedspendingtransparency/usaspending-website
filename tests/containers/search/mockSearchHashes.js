@@ -42,6 +42,9 @@ export const mockFilters = {
 export const mockRedux = {
     filters: initialState,
     appliedFilters: initialApplied,
+    history: {
+        location: ''
+    },
     match: {
         params: {
             hash: ''

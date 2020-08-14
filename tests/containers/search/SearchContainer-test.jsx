@@ -7,9 +7,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 
-import { SearchContainer } from 'containers/search/SearchContainer';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
+import SearchContainer from 'containers/search/SearchContainer';
 
 import { mockFilters, mockRedux, mockActions } from './mockSearchHashes';
 import Router from './mockRouter';
@@ -25,6 +25,22 @@ jest.mock('components/search/SearchPage', () =>
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
 jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
 jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useParams: jest.fn().mockReturnValue({ environment: 'dev', service: 'fakeService' })
+}));
+
+jest.mock('react-redux', () => {
+    const ActualReactRedux = require.requireActual('react-redux');
+    return {
+        ...ActualReactRedux,
+        useDispatch: jest.fn(),
+        useSelector: jest.fn().mockImplementation(() => {
+            return mockRedux;
+        })
+    };
+});
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
