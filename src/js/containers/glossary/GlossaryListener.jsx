@@ -16,7 +16,7 @@ const GlossaryListener = ({
     useEffect(() => {
         if (location.hash) {
             const urlWithNoHash = location.hash.split("#").length > 1
-                ? location.hash.split("#")[1]
+                ? location.hash.split("#!")[1]
                 : '';
             history.replace(urlWithNoHash);
         }
