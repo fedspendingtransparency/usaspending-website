@@ -9,7 +9,7 @@ import sinon from 'sinon';
 
 import { GlossaryContainer } from 'containers/glossary/GlossaryContainer';
 import * as GlossaryHelper from 'helpers/glossaryHelper';
-import { Definition, initialState } from 'redux/reducers/glossary/glossaryReducer';
+import { initialState } from 'redux/reducers/glossary/glossaryReducer';
 
 import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGlossary';
 

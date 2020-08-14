@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
 import GlossaryListenerSingleton from 'containers/router/GlossaryListenerSingleton';
 import * as GlossaryHelper from 'helpers/glossaryHelper';
 
@@ -24,7 +23,8 @@ const propTypes = {
     setGlossaryResults: PropTypes.func,
     showGlossary: PropTypes.func,
     setGlossaryTerm: PropTypes.func,
-    setGlossaryCache: PropTypes.func
+    setGlossaryCache: PropTypes.func,
+    setTermFromUrl: PropTypes.func
 };
 
 export class GlossaryContainer extends React.Component {
@@ -57,6 +57,14 @@ export class GlossaryContainer extends React.Component {
         else {
             // we have a cache set, just do a search
             this.performSearch();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const { termFromUrl, cache } = this.props.glossary;
+        if (prevProps.glossary.cache.count() !== cache.count() && termFromUrl) {
+            this.props.setGlossaryTerm(cache.get(termFromUrl));
+            this.props.setTermFromUrl('');
         }
     }
 
