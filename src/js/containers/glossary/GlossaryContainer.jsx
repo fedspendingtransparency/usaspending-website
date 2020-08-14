@@ -69,7 +69,6 @@ export class GlossaryContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
-        GlossaryListenerSingleton.unsubscribe(this);
     }
 
     populateCache() {

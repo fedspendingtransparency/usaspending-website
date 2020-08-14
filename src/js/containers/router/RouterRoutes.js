@@ -31,117 +31,154 @@ import DataSourcesAndMethodologiesPage from 'components/covid19/DataSourcesAndMe
 // Please add any new routes to the scripts/pages.js routes file.
 export const routes = [
     {
+        path: '/#',
+        component: ({ location, history }) => {
+            const urlWithNoHash = location.hash.split('#')[1];
+            history.replace(urlWithNoHash);
+            return null;
+        },
+        exact: false
+    },
+    {
         path: '/',
-        component: Homepage
+        component: Homepage,
+        exact: true
     },
     {
         path: '/search',
-        component: SearchContainer
+        component: SearchContainer,
+        exact: true
     },
     {
         path: '/search/:urlHash',
-        component: SearchContainer
+        component: SearchContainer,
+        exact: true
     },
     {
         path: '/explorer',
-        component: ExplorerLanding
+        component: ExplorerLanding,
+        exact: true
     },
     {
         path: '/explorer/:root',
-        component: ExplorerDetailPageContainer
+        component: ExplorerDetailPageContainer,
+        exact: true
     },
     {
         path: '/award/:awardId',
-        component: AwardContainer
+        component: AwardContainer,
+        exact: true
     },
     {
         path: '/federal_account/:accountNumber',
-        component: AccountContainer
+        component: AccountContainer,
+        exact: true
     },
     {
         path: '/agency/:agencyId',
-        component: AgencyContainer
+        component: AgencyContainer,
+        exact: true
     },
     {
         path: '/about/accessibility',
-        component: AccessibilityPage
+        component: AccessibilityPage,
+        exact: true
     },
     {
         path: '/about/privacy',
-        component: PrivacyPage
+        component: PrivacyPage,
+        exact: true
     },
     {
         path: '/about/foia',
-        component: FOIAPage
+        component: FOIAPage,
+        exact: true
     },
     {
         path: '/about',
-        component: About
+        component: About,
+        exact: true
     },
     {
         path: '/db_info',
-        component: DBInfo
+        component: DBInfo,
+        exact: true
     },
     {
         path: '/agency',
         parent: '/agency',
-        component: AgencyLandingPage
+        component: AgencyLandingPage,
+        exact: true
     },
     {
         path: '/download_center/:type',
-        component: BulkDownloadPageContainer
+        component: BulkDownloadPageContainer,
+        exact: true
     },
     {
         path: '/download_center',
-        component: BulkDownloadPageContainer
+        component: BulkDownloadPageContainer,
+        exact: true
     },
     {
         path: '/keyword_search/:keyword',
-        component: KeywordContainer
+        component: KeywordContainer,
+        exact: true
     },
     {
         path: '/keyword_search',
-        component: KeywordContainer
+        component: KeywordContainer,
+        exact: true
     },
     {
         path: '/federal_account',
-        component: AccountLandingPage
+        component: AccountLandingPage,
+        exact: true
     },
     {
         path: '/state/:stateId/:fy',
-        component: StateContainer
+        component: StateContainer,
+        exact: true
     },
     {
         path: '/state/:stateId',
-        component: StateContainer
+        component: StateContainer,
+        exact: true
     },
     {
         path: '/state',
-        component: StateLandingPage
+        component: StateLandingPage,
+        exact: true
     },
     {
         path: '/recipient/:recipientId/:fy',
-        component: RecipientContainer
+        component: RecipientContainer,
+        exact: true
     },
     {
         path: '/recipient/:recipientId',
-        component: RecipientContainer
+        component: RecipientContainer,
+        exact: true
     },
     {
         path: '/recipient',
-        component: RecipientLandingPage
+        component: RecipientLandingPage,
+        exact: true
     },
     {
         path: '/agency_v2/:agencyId',
-        component: AgencyProfileV2
+        component: AgencyProfileV2,
+        exact: true
     },
     {
         path: '/disaster/covid-19/data-sources',
-        component: DataSourcesAndMethodologiesPage
+        component: DataSourcesAndMethodologiesPage,
+        exact: true
     },
     {
         path: '/disaster/covid-19',
-        component: Covid19Container
+        component: Covid19Container,
+        exact: true
     }
 ];
 /* eslint-enable import/prefer-default-export */
