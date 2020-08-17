@@ -6,7 +6,7 @@ const recipientRequestObject = {
     updatedFrequency: 'daily',
     priority: '0.8',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/recipient/duns/',
+    url: 'https://api.usaspending.gov:443/api/v2/recipient/duns/',
     method: 'post',
     requestObject: {
         name: 'recipient',
@@ -25,7 +25,7 @@ const awardPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.9',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/search/spending_by_award/',
+    url: 'https://api.usaspending.gov:443/api/v2/search/spending_by_award/',
     method: 'post',
     requestObject: {
         filters: {
@@ -59,7 +59,7 @@ const federalAccountPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.7',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/federal_accounts/',
+    url: 'https://api.usaspending.gov:443/api/v2/federal_accounts/',
     method: 'post',
     accessor: 'account_number',
     requestObject: {
@@ -101,7 +101,7 @@ const pages = [
         updatedFrequency: 'daily',
         priority: '0.5',
         // all states
-        url: 'https://api.usaspending.gov/api/v2/recipient/state/',
+        url: 'https://api.usaspending.gov:443/api/v2/recipient/state/',
         method: 'get',
         accessor: 'fips',
         clientRoute: 'https://www.usaspending.gov/#/state'
@@ -112,7 +112,7 @@ const pages = [
         updatedFrequency: 'monthly',
         priority: '0.5',
         // all agencies
-        url: 'https://api.usaspending.gov/api/v2/references/toptier_agencies/',
+        url: 'https://api.usaspending.gov:443/api/v2/references/toptier_agencies/',
         method: 'get',
         accessor: 'agency_id',
         clientRoute: 'https://www.usaspending.gov/#/agency'
