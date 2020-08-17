@@ -7,8 +7,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { Glossary } from 'components/sharedComponents/icons/Icons';
-import { TooltipComponent } from 'containers/covid19/helpers/covid19';
+// import { Glossary } from 'components/sharedComponents/icons/Icons';
+// import { TooltipComponent } from 'containers/covid19/helpers/covid19';
 import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
     otherSankeyNodes,
@@ -17,6 +17,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
+import { lineStrokeWidth } from '../../../dataMapping/covid19/covid19';
 
 const isIE = !!document.documentMode;
 const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
@@ -51,7 +52,7 @@ const SankeyViz = ({
         spendingTextStart: 0,
         spendingTextEnd: 0
     });
-    const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
+    // const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
     const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
         const newNode = node;
         if (node.name === '_remainingBalance' && !isIE) {
@@ -62,36 +63,38 @@ const SankeyViz = ({
         }
         return newNode;
     });
-    // create data for def code nodes
+    const defCodesSortedByValue = () => defCodes
+        .map((code) => ({ ...code, value: overview[`_defCode_${code.code}_funding`] || 0 }))
+        .sort((a, b) => b.value - a.value);
+    // create data for def code nodes and add value to other nodes
     useEffect(() => {
-        const dataForNodes = defCodes.map((code) => {
-            const emergencyText = code.public_law.startsWith('Emergency') ? 'Emergency' : 'Non-Emergency';
-            const lawCode = code.public_law.split(' ').pop();
-            const publicLaw = `${emergencyText} Public Law ${lawCode}`;
-            return {
-                name: `_defCode_${code.code}_funding`,
-                publicLaw,
-                label: `DEF Code: ${code.code}`,
-                color: defCodeColor,
-                tooltip: <TooltipWrapper icon="info" />,
-                textWidth: 63,
-                textHeight: 29
-            };
-        }).concat(otherSankeyNodes);
-        // put O def code first
-        const oDefCode = dataForNodes.splice(3, 1)[0];
-        dataForNodes.unshift(oDefCode);
-        setNodeData(dataForNodes);
-    }, [defCodes]);
+        if (overview && defCodes) {
+            const dataForNodes = defCodesSortedByValue().map((code) => {
+                const emergencyText = code.public_law.startsWith('Emergency') ? 'Emergency' : 'Non-Emergency';
+                const lawCode = code.public_law.split(' ').pop();
+                const publicLaw = `${emergencyText} Public Law ${lawCode}`;
+                return {
+                    name: `_defCode_${code.code}_funding`,
+                    publicLaw,
+                    label: `DEF Code: ${code.code}`,
+                    color: defCodeColor,
+                    tooltip: <TooltipWrapper icon="info" />,
+                    textWidth: 63,
+                    textHeight: 29,
+                    value: code.value
+                };
+            }).concat(otherSankeyNodes.map((node) => ({ ...node, value: overview[node.name] })));
+            setNodeData(dataForNodes);
+        }
+    }, [defCodes, overview]);
     // create data for links
     useEffect(() => {
-        // TODO - once the over api is done use this code
-        // const links = nodeData.reduce((acc, node, i) => {
-        //     acc[i].value = overview[node.name];
-        // }, [dataForLinks]);
-        // setLinkData(links);
-        setLinkData(dataForLinks);
-    }, [nodeData, overview]);
+        if (overview && defCodes) {
+            console.log(' Links : ', nodeData);
+            const data = nodeData.filter((node) => node.name !== '_totalBudgetAuthority');
+            setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
+        }        
+    }, [nodeData, overview, defCodes]);
     // set the data used for the d3 sankey method
     useEffect(() => {
         setSankeyData(Object.assign({}, { nodes: nodeData, links: linkData }));
@@ -123,57 +126,59 @@ const SankeyViz = ({
         }
     }, [sankeyNodes, width]);
 
-    useEffect(() => {
-        const ttAndGlossaryIcons = sankeyNodes.map((node) => {
-            const {
-                tooltip,
-                label,
-                glossary,
-                x0,
-                y0,
-                textWidth,
-                textHeight
-            } = node;
-            if (tooltip) {
-                return (
-                    <TooltipWrapper
-                        key={uniqueId()}
-                        icon="info"
-                        styles={
-                            {
-                                position: 'abosolute',
-                                transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
-                            }
-                        }
+    // TODO - Uncomment this when tooltips and glossary content is ready
+    // useEffect(() => {
+    //     const ttAndGlossaryIcons = sankeyNodes.map((node) => {
+    //         const {
+    //             tooltip,
+    //             label,
+    //             glossary,
+    //             x0,
+    //             y0,
+    //             textWidth,
+    //             textHeight
+    //         } = node;
+    //         if (tooltip) {
+    //             return (
+    //                 <TooltipWrapper
+    //                     key={uniqueId()}
+    //                     icon="info"
+    //                     styles={
+    //                         {
+    //                             position: 'abosolute',
+    //                             transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
+    //                         }
+    //                     }
 
-                        tooltipComponent={<TooltipComponent />}
-                        className="covid19-tt sankey__tooltip" />
-                );
-            }
-            return (
-                <div
-                    key={uniqueId()}
-                    style={
-                        {
-                            position: 'absolute',
-                            width: '1.2rem',
-                            height: '1.2rem',
-                            transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
-                        }
-                    }
-                    className="sankey__glossary">
-                    <a href={glossary}>
-                        <Glossary alt={`View Glossary Definition of ${label}`} />
-                    </a>
-                </div>
-            );
-        });
-        setTooltipsAndGlossaryIcons(ttAndGlossaryIcons);
-    }, [sankeyNodes, width]);
+    //                     tooltipComponent={<TooltipComponent />}
+    //                     className="covid19-tt sankey__tooltip" />
+    //             );
+    //         }
+    //         return (
+    //             <div
+    //                 key={uniqueId()}
+    //                 style={
+    //                     {
+    //                         position: 'absolute',
+    //                         width: '1.2rem',
+    //                         height: '1.2rem',
+    //                         transform: `translate(${x0 + textWidth}px,${(y0 - textHeight)}px)`
+    //                     }
+    //                 }
+    //                 className="sankey__glossary">
+    //                 <a href={glossary}>
+    //                     <Glossary alt={`View Glossary Definition of ${label}`} />
+    //                 </a>
+    //             </div>
+    //         );
+    //     });
+    //     setTooltipsAndGlossaryIcons(ttAndGlossaryIcons);
+    // }, [sankeyNodes, width]);
 
     return (
         <div className="sankey">
-            {tooltipsAndGlossaryIcons}
+            {/* TODO - Uncomment this when tooltips and glossary content is ready */}
+            {/* {tooltipsAndGlossaryIcons} */}
             <svg height={height} width={width}>
                 <g style={{ mixBlendMode: 'multiply' }}>
                     {/* funding text and line */}

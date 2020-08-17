@@ -202,66 +202,55 @@ export const otherSankeyNodes = [
         whiteRectangle: true
     }
 ];
+
 export const dataForLinks = [
     {
         source: 0, // O to total
-        target: 5,
-        value: 1800000000000
+        target: 5
     },
     {
         source: 1, // L to total
-        target: 5,
-        value: 7400000000
+        target: 5
     },
     {
         source: 2, // M to total
-        target: 5,
-        value: 11100000000
+        target: 5
     },
     {
         source: 3, // N to total
-        target: 5,
-        value: 327700000000
+        target: 5
     },
     {
         source: 4, // P to total
-        target: 5,
-        value: 125100000000
+        target: 5
     },
     {
         source: 5, // total to award obligations
-        target: 6,
-        value: 866700000000
+        target: 6
     },
     {
         source: 5, // total to non award obligations
-        target: 7,
-        value: 96300000000
+        target: 7
     },
     {
         source: 6, // award to award outlays
-        target: 8,
-        value: 413100000000
+        target: 8
     },
     {
         source: 6, // award to not yet outlayed
-        target: 9,
-        value: 453600000000
+        target: 9
     },
     {
         source: 7, // non award to non award outlays
-        target: 10,
-        value: 45900000000
+        target: 10
     },
     {
         source: 7, // non award to non award not yet outlayed
-        target: 11,
-        value: 50400000000
+        target: 11
     },
     {
         source: 5, // total to unobligated balance
-        target: 12,
-        value: 1400000000000
+        target: 12
     }
 ];
 
