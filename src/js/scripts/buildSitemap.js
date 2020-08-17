@@ -20,7 +20,7 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
         proxy: {
             host: process.env.PROXY_HOST,
             port: process.env.PROXY_PORT
-        },
+        }
     }) : null;
 
 /**
@@ -35,7 +35,12 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
-    const { accessor, clientRoute, priority, updatedFrequency } = pageInfo;
+    const {
+        accessor,
+        clientRoute,
+        priority,
+        updatedFrequency
+    } = pageInfo;
     return pageData
         .map((page) => ({ value: page[accessor], name: page.name }))
         .filter((page) => {
@@ -74,7 +79,7 @@ const createIndexedSitemap = (xmlRoutes) => {
     );
 
     sitemapsWritten.push('sitemap');
-}
+};
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
@@ -89,12 +94,12 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
 const handleApiResponse = (resp) => {
     // flatten massive arrays returned from Promise.all();
     if (Array.isArray(resp)) {
-        return resp.reduce((acc, result) => {
-            return [
+        return resp.reduce((acc, result) => (
+            [
                 ...acc,
                 ...result.data.results
-            ];
-        }, []);
+            ]
+        ), []);
     }
     // return array in results/data namespace (res.data is for the states api response :shrug:)
     return resp.data.results || resp.data;

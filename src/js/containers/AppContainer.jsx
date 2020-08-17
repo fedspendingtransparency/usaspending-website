@@ -25,7 +25,7 @@ if (kGlobalConstants.DEV) {
 
 if (kGlobalConstants.PERF_LOG) {
     // enable performance logging
-    const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);  
+    const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
     store = createStoreWithMiddleware(reducers, devExtension);
 }
 else {
