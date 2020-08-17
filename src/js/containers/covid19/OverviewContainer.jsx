@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
 import AmountsVisualization from 'components/covid19/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
+import SankeyVisualization from 'components/covid19/sankey/SankeyVisualization';
 
 const OverviewContainer = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -15,6 +16,7 @@ const OverviewContainer = () => {
     // reference to the div - using to get the current div width
     const divReference = useRef(null);
     const overviewData = useSelector((state) => state.covid19.overview);
+    const defCodes = useSelector((s) => s.covid19.defCodes);
     /**
      * handleWindowResize
      * - updates window and visualization width based on current window width.
@@ -43,6 +45,10 @@ const OverviewContainer = () => {
         <div ref={divReference} className="body__content overview">
             <DateNote />
             <AmountsVisualization overviewData={overviewData} width={visualizationsWidth} />
+            <SankeyVisualization
+                defCodes={defCodes}
+                overview={overviewData}
+                width={visualizationsWidth} />
         </div>
     );
 };
