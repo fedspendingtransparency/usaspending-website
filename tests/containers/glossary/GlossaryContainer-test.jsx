@@ -166,23 +166,6 @@ describe('GlossaryContainer', () => {
             expect(mockedSetGlossaryResults).toHaveBeenCalledTimes(1);
             expect(mockedSetGlossaryResults).toHaveBeenCalledWith([standardTerm]);
         });
-
-        it('should run any queued operations prepared before the API call finished', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
-
-            const container = shallow(<GlossaryContainer
-                {...mockActions}
-                glossary={mockData} />);
-
-            const mockOperation = jest.fn();
-            container.instance().queuedOperations = [mockOperation];
-            expect(mockOperation).toHaveBeenCalledTimes(0);
-
-            container.instance().parseTerms(mockSearch.matched_objects.term);
-
-            expect(mockOperation).toHaveBeenCalledTimes(1);
-        });
     });
 
     describe('jumpToTerm', () => {
