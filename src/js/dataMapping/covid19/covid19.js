@@ -210,15 +210,6 @@ export const otherSankeyNodes = [
         textHeight: 0,
         whiteRectangle: false
     }
-    // {
-    //     name: '_remainingBalance',
-    //     label: 'Remaining Balance',
-    //     color: '#558EC6',
-    //     glossary: `#/${slug}?glossary=unobligated-balance`,
-    //     textWidth: 109,
-    //     textHeight: 31,
-    //     whiteRectangle: true
-    // }
 ];
 
 export const dataForLinks = [
@@ -274,10 +265,6 @@ export const dataForLinks = [
         source: 8, // remaining balance to fake data
         target: 13
     }
-    // {
-    //     source: 5, // total to unobligated balance
-    //     target: 12
-    // }
 ];
 
 export const defCodeColor = '#B699C6';

@@ -20,7 +20,6 @@ import {
 } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
-import { lineStrokeWidth } from '../../../dataMapping/covid19/covid19';
 
 const isIE = !!document.documentMode;
 const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
@@ -94,13 +93,11 @@ const SankeyViz = ({
     // create sankey data
     useEffect(() => {
         if (sankeyData.nodes.length && sankeyData.links.length) {
-            console.log(' Sankey Data : ', sankeyData);
             const { nodes, links } = Sankey.sankey()
                 .nodeWidth(width / 5)
                 .nodePadding(60)
                 .extent([[1, startOfSankeyY], [width - 1, height - 5]])
                 .nodeSort(null)(sankeyData);
-            // setSankeyNodes(manuallyPositionOtherObligations(nodes));
             setSankeyNodes(nodes);
             setSankeyLinks(links);
         }
