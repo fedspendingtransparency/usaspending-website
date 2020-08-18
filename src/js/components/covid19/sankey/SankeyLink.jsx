@@ -19,7 +19,7 @@ const SankeyLink = ({ link, color }) => (
             fill: 'none',
             strokeOpacity: '.3',
             stroke: color,
-            strokeWidth: Math.max(1, link.width)
+            strokeWidth: Math.max(1, link.width) || 0
         }} />
 );
 

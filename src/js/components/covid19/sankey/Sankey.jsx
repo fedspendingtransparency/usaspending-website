@@ -5,9 +5,12 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId, uniq } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+// TODO - Uncomment this when tooltips and glossary content is ready
 // import { Glossary } from 'components/sharedComponents/icons/Icons';
+// TODO - Uncomment this when tooltips and glossary content is ready
 // import { TooltipComponent } from 'containers/covid19/helpers/covid19';
 import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
@@ -17,7 +20,6 @@ import {
 } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
-import { lineStrokeWidth } from '../../../dataMapping/covid19/covid19';
 
 const isIE = !!document.documentMode;
 const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
@@ -41,6 +43,7 @@ const SankeyViz = ({
     defCodes,
     overview
 }) => {
+    const [loading, setLoading] = useState(true);
     const [nodeData, setNodeData] = useState([]);
     const [linkData, setLinkData] = useState([]);
     const [sankeyData, setSankeyData] = useState({ nodes: [], links: [] });
@@ -52,6 +55,8 @@ const SankeyViz = ({
         spendingTextStart: 0,
         spendingTextEnd: 0
     });
+    useEffect(() => setLoading(!sankeyNodes.length && !sankeyLinks.length), [sankeyNodes, sankeyLinks]);
+    // TODO - Uncomment this when tooltips and glossary content is ready
     // const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
     const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
         const newNode = node;
@@ -66,31 +71,26 @@ const SankeyViz = ({
     const defCodesSortedByValue = () => defCodes
         .map((code) => ({ ...code, value: overview[`_defCode_${code.code}_funding`] || 0 }))
         .sort((a, b) => b.value - a.value);
+    const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
     // create data for def code nodes and add value to other nodes
     useEffect(() => {
         if (overview && defCodes) {
-            const dataForNodes = defCodesSortedByValue().map((code) => {
-                const emergencyText = code.public_law.startsWith('Emergency') ? 'Emergency' : 'Non-Emergency';
-                const lawCode = code.public_law.split(' ').pop();
-                const publicLaw = `${emergencyText} Public Law ${lawCode}`;
-                return {
-                    name: `_defCode_${code.code}_funding`,
-                    publicLaw,
-                    label: `DEF Code: ${code.code}`,
-                    color: defCodeColor,
-                    tooltip: <TooltipWrapper icon="info" />,
-                    textWidth: 63,
-                    textHeight: 29,
-                    value: code.value
-                };
-            }).concat(otherSankeyNodes.map((node) => ({ ...node, value: overview[node.name] })));
+            const dataForNodes = defCodesSortedByValue().map((code) => ({
+                name: `_defCode_${code.code}_funding`,
+                publicLaw: parsePublicLaws(code.public_law),
+                label: `DEF Code: ${code.code}`,
+                color: defCodeColor,
+                tooltip: <TooltipWrapper icon="info" />,
+                textWidth: 63,
+                textHeight: 29,
+                value: code.value
+            })).concat(otherSankeyNodes.map((node) => ({ ...node, value: overview[node.name] })));
             setNodeData(dataForNodes);
         }
     }, [defCodes, overview]);
     // create data for links
     useEffect(() => {
         if (overview && defCodes) {
-            console.log(' Links : ', nodeData);
             const data = nodeData.filter((node) => node.name !== '_totalBudgetAuthority');
             setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
         }        
@@ -179,81 +179,90 @@ const SankeyViz = ({
         <div className="sankey">
             {/* TODO - Uncomment this when tooltips and glossary content is ready */}
             {/* {tooltipsAndGlossaryIcons} */}
-            <svg height={height} width={width}>
-                <g style={{ mixBlendMode: 'multiply' }}>
-                    {/* funding text and line */}
-                    <text
-                        className="text"
-                        x={fundingSpendingTextData.fundingTextStart}
-                        y={20}>
-                        FUNDING
-                    </text>
-                    <line
-                        className="text__line"
-                        x1={fundingSpendingTextData.fundingTextStart}
-                        y1={25}
-                        x2={fundingSpendingTextData.fundingTextEnd}
-                        y2={25} />
-                    {/* spending text and line */}
-                    <text
-                        className="text"
-                        x={fundingSpendingTextData.spendingTextStart}
-                        y={20}>
-                        SPENDING
-                    </text>
-                    <line
-                        className="text__line"
-                        x1={fundingSpendingTextData.spendingTextStart}
-                        y1={25}
-                        x2={fundingSpendingTextData.spendingTextEnd}
-                        y2={25} />
-                    {sankeyNodes.map((node) => {
-                        const {
-                            x0,
-                            y0,
-                            color,
-                            value,
-                            publicLaw
-                        } = node;
-                        const units = calculateUnits([value]);
-                        units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
-                        return (
-                            <g key={uniqueId()}>
-                                {
-                                    node.publicLaw &&
+            {
+                loading &&
+                <div className="results-table-message-container">
+                    <ResultsTableLoadingMessage />
+                </div>
+            }
+            {
+                !loading &&
+                <svg height={height} width={width}>
+                    <g style={{ mixBlendMode: 'multiply' }}>
+                        {/* funding text and line */}
+                        <text
+                            className="text"
+                            x={fundingSpendingTextData.fundingTextStart}
+                            y={20}>
+                            FUNDING
+                        </text>
+                        <line
+                            className="text__line"
+                            x1={fundingSpendingTextData.fundingTextStart}
+                            y1={25}
+                            x2={fundingSpendingTextData.fundingTextEnd}
+                            y2={25} />
+                        {/* spending text and line */}
+                        <text
+                            className="text"
+                            x={fundingSpendingTextData.spendingTextStart}
+                            y={20}>
+                            SPENDING
+                        </text>
+                        <line
+                            className="text__line"
+                            x1={fundingSpendingTextData.spendingTextStart}
+                            y1={25}
+                            x2={fundingSpendingTextData.spendingTextEnd}
+                            y2={25} />
+                        {sankeyNodes.map((node) => {
+                            const {
+                                x0,
+                                y0,
+                                color,
+                                value,
+                                publicLaw
+                            } = node;
+                            const units = calculateUnits([value]);
+                            units.longLabel = units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1);
+                            return (
+                                <g key={uniqueId()}>
+                                    {
+                                        node.publicLaw &&
+                                        <text
+                                            className="sankey__text sankey__text__public-law"
+                                            x={x0}
+                                            y={y0 - 34 || 0}>
+                                            {publicLaw}
+                                        </text>
+                                    }
                                     <text
-                                        className="sankey__text sankey__text__public-law"
+                                        className="sankey__text"
                                         x={x0}
-                                        y={y0 - 34}>
-                                        {publicLaw}
+                                        y={y0 - 19 || 0}>
+                                        {node.label}
                                     </text>
-                                }
-                                <text
-                                    className="sankey__text"
-                                    x={x0}
-                                    y={y0 - 19}>
-                                    {node.label}
-                                </text>
-                                <text
-                                    className="sankey__text sankey__text-money"
-                                    x={x0}
-                                    y={y0 - 4}>
-                                    {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
-                                </text>
-                                <SankeyNode
-                                    {...node}
-                                    color={color} />
-                            </g>
-                        );
-                    })}
-                    {sankeyLinks.map((link) => (
-                        <SankeyLink
-                            key={uniqueId()}
-                            link={link}
-                            color={link.target.color} />
-                    ))}
-                </g>
-            </svg>
+                                    <text
+                                        className="sankey__text sankey__text-money"
+                                        x={x0}
+                                        y={y0 - 4 || 0}>
+                                        {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
+                                    </text>
+                                    <SankeyNode
+                                        {...node}
+                                        color={color} />
+                                </g>
+                            );
+                        })}
+                        {sankeyLinks.map((link) => (
+                            <SankeyLink
+                                key={uniqueId()}
+                                link={link}
+                                color={link.target.color} />
+                        ))}
+                    </g>
+                </svg>
+            }
         </div>
     );
 };
