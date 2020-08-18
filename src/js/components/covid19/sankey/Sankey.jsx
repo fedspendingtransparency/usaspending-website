@@ -20,6 +20,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import SankeyNode from './SankeyNode';
 import SankeyLink from './SankeyLink';
+import { lineStrokeWidth } from '../../../dataMapping/covid19/covid19';
 
 const isIE = !!document.documentMode;
 const Sankey = isIE ? require('d3-sankey') : require('d3-sankey0.12.3');
@@ -58,23 +59,14 @@ const SankeyViz = ({
     useEffect(() => setLoading(!sankeyNodes.length && !sankeyLinks.length), [sankeyNodes, sankeyLinks]);
     // TODO - Uncomment this when tooltips and glossary content is ready
     // const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
-    const manuallyPositionOtherObligations = (nodes) => nodes.map((node, i, array) => {
-        const newNode = node;
-        if (node.name === '_remainingBalance' && !isIE) {
-            const { x1, x0 } = array.find((n) => n.name === '_awardObligations');
-            newNode.x0 = x0;
-            newNode.x1 = x1;
-            return newNode;
-        }
-        return newNode;
-    });
+
     const defCodesSortedByValue = () => defCodes
         .map((code) => ({ ...code, value: overview[`_defCode_${code.code}_funding`] || 0 }))
         .sort((a, b) => b.value - a.value);
     const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
     // create data for def code nodes and add value to other nodes
     useEffect(() => {
-        if (overview && defCodes) {
+        if (Object.keys(overview).length && defCodes.length) {
             const dataForNodes = defCodesSortedByValue().map((code) => ({
                 name: `_defCode_${code.code}_funding`,
                 publicLaw: parsePublicLaws(code.public_law),
@@ -90,23 +82,26 @@ const SankeyViz = ({
     }, [defCodes, overview]);
     // create data for links
     useEffect(() => {
-        if (overview && defCodes) {
+        if (Object.keys(overview).length && defCodes.length) {
             const data = nodeData.filter((node) => node.name !== '_totalBudgetAuthority');
             setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
         }        
     }, [nodeData, overview, defCodes]);
     // set the data used for the d3 sankey method
     useEffect(() => {
-        setSankeyData(Object.assign({}, { nodes: nodeData, links: linkData }));
+        if (nodeData.length && linkData.length) setSankeyData(Object.assign({}, { nodes: nodeData, links: linkData }));
     }, [nodeData, linkData]);
     // create sankey data
     useEffect(() => {
         if (sankeyData.nodes.length && sankeyData.links.length) {
+            console.log(' Sankey Data : ', sankeyData);
             const { nodes, links } = Sankey.sankey()
                 .nodeWidth(width / 5)
                 .nodePadding(60)
-                .extent([[1, startOfSankeyY], [width - 1, height - 5]])(sankeyData);
-            setSankeyNodes(manuallyPositionOtherObligations(nodes));
+                .extent([[1, startOfSankeyY], [width - 1, height - 5]])
+                .nodeSort(null)(sankeyData);
+            // setSankeyNodes(manuallyPositionOtherObligations(nodes));
+            setSankeyNodes(nodes);
             setSankeyLinks(links);
         }
     }, [sankeyData, height, width]);
@@ -174,7 +169,6 @@ const SankeyViz = ({
     //     });
     //     setTooltipsAndGlossaryIcons(ttAndGlossaryIcons);
     // }, [sankeyNodes, width]);
-
     return (
         <div className="sankey">
             {/* TODO - Uncomment this when tooltips and glossary content is ready */}
@@ -246,7 +240,7 @@ const SankeyViz = ({
                                         className="sankey__text sankey__text-money"
                                         x={x0}
                                         y={y0 - 4 || 0}>
-                                        {`${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
+                                        {node.name === 'fakeData' ? '' : `${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
                                     </text>
                                     <SankeyNode
                                         {...node}

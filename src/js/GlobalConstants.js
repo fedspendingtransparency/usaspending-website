@@ -4,7 +4,8 @@
 */
 
 const globalConstants = {
-    API: process.env.USASPENDING_API,
+    // API: process.env.USASPENDING_API,
+    API: 'https://api.usaspending.gov/api/',
     LOCAL_ROOT: "",
     GITHUB: "",
     LOCAL: false,

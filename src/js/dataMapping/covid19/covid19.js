@@ -152,11 +152,20 @@ export const otherSankeyNodes = [
     },
     {
         name: '_otherObligations',
-        label: 'Non-Award Obligations',
+        label: 'Other Obligations',
         color: '#558EC6',
         glossary: `#/${slug}?glossary=non-award-obligations`,
         textWidth: 123,
         textHeight: 31
+    },
+    {
+        name: '_remainingBalance',
+        label: 'Remaining Balance',
+        color: '#558EC6',
+        glossary: `#/${slug}?glossary=unobligated-balance`,
+        textWidth: 109,
+        textHeight: 31,
+        whiteRectangle: true
     },
     {
         name: '_awardOutlays',
@@ -193,14 +202,23 @@ export const otherSankeyNodes = [
         whiteRectangle: true
     },
     {
-        name: '_remainingBalance',
-        label: 'Total Unobligated Balance',
-        color: '#558EC6',
-        glossary: `#/${slug}?glossary=unobligated-balance`,
-        textWidth: 109,
-        textHeight: 31,
-        whiteRectangle: true
+        name: 'fakeData',
+        label: null,
+        color: 'transparent',
+        glossary: null,
+        textWidth: 0,
+        textHeight: 0,
+        whiteRectangle: false
     }
+    // {
+    //     name: '_remainingBalance',
+    //     label: 'Remaining Balance',
+    //     color: '#558EC6',
+    //     glossary: `#/${slug}?glossary=unobligated-balance`,
+    //     textWidth: 109,
+    //     textHeight: 31,
+    //     whiteRectangle: true
+    // }
 ];
 
 export const dataForLinks = [
@@ -233,25 +251,33 @@ export const dataForLinks = [
         target: 7
     },
     {
-        source: 6, // award to award outlays
+        source: 5, // total to remaining balance
         target: 8
     },
     {
-        source: 6, // award to not yet outlayed
+        source: 6, // award to award outlays
         target: 9
     },
     {
-        source: 7, // non award to non award outlays
+        source: 6, // award to not yet outlayed
         target: 10
     },
     {
-        source: 7, // non award to non award not yet outlayed
+        source: 7, // non award to non award outlays
         target: 11
     },
     {
-        source: 5, // total to unobligated balance
+        source: 7, // non award to non award not yet outlayed
         target: 12
+    },
+    {
+        source: 8, // remaining balance to fake data
+        target: 13
     }
+    // {
+    //     source: 5, // total to unobligated balance
+    //     target: 12
+    // }
 ];
 
 export const defCodeColor = '#B699C6';
