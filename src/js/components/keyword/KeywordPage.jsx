@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -158,7 +159,7 @@ export default class KeywordPage extends React.Component {
                                 keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
-                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://usaspending-help.zendesk.com/hc/en-us/articles/360001255774-Keyword-Search-Question-How-does-the-Keyword-Search-work-" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <a href="/search">Advanced Search tool</a>,
+                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://usaspending-help.zendesk.com/hc/en-us/articles/360001255774-Keyword-Search-Question-How-does-the-Keyword-Search-work-" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <Link to="/search">Advanced Search tool</Link>,
                                 whose extensive filters let you find more precise data sets.
                             </div>
                         </div>

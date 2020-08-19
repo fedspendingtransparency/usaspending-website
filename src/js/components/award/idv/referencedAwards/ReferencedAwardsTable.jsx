@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'data-transparency-ui';
+import { Link } from 'react-router-dom';
 
 import { referencedAwardsColumns } from 'dataMapping/award/referencedAwards';
 
@@ -60,10 +61,10 @@ export default class ReferencedAwardsTable extends React.Component {
                     {columns.map((col) => {
                         let data = row[col.name];
                         if (col.name === 'piid') {
-                            data = (<a href={`/award/${row.internalId}`}>{row[col.name]}</a>);
+                            data = (<Link to={`/award/${row.internalId}`}>{row[col.name]}</Link>);
                         }
                         if (col.name === 'awardingAgency' && row.awardingAgencyId) {
-                            data = (<a href={`/agency/${row.awardingAgencyId}`}>{row[col.name]}</a>);
+                            data = (<Link to={`/agency/${row.awardingAgencyId}`}>{row[col.name]}</Link>);
                         }
                         return (
                             <td

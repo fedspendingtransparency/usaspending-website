@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
@@ -301,11 +302,11 @@ export default () => {
                                                 This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
                                             </p>
                                             <p>
-                                                <strong>Broker File C data can be downloaded from the <a href="/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
+                                                <strong>Broker File C data can be downloaded from the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page in the following manner:</strong>
                                             </p>
                                             <ol>
                                                 <li>
-                                                    Go to the <a href="/download_center/custom_account_data">Custom Account Data download page</a>
+                                                    Go to the <Link to="/download_center/custom_account_data">Custom Account Data download page</Link>
                                                 </li>
                                                 <li>
                                                     Select &quot;All&quot; for Budget Function
@@ -377,11 +378,11 @@ export default () => {
                                                     This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations.
                                                 </p>
                                                 <p>
-                                                    <strong>Broker File C data can be downloaded from the <a href="/download_center/custom_account_data">Custom Account Data</a> page in the following manner:</strong>
+                                                    <strong>Broker File C data can be downloaded from the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page in the following manner:</strong>
                                                 </p>
                                                 <ol>
                                                     <li>
-                                                        Go to the <a href="/download_center/custom_account_data">Custom Account Data download page</a>
+                                                        Go to the <Link to="/download_center/custom_account_data">Custom Account Data download page</Link>
                                                     </li>
                                                     <li>
                                                         Select &quot;All&quot; for Budget Function
@@ -422,7 +423,7 @@ export default () => {
                                         <ExternalLink
                                             url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             Memorandum M-20-21
-                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <a href="/download_center/custom_account_data">Custom Account Data</a> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
+                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
                                     </p>
                                     <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
@@ -675,7 +676,7 @@ export default () => {
                                             Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
                                         </p>
                                         <p>
-                                            As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <a href="/download_center/custom_account_data">Custom Account Data</a> page.
+                                            As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page.
                                         </p>
                                     </div>
                                 </div>

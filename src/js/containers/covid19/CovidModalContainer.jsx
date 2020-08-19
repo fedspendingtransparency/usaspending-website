@@ -84,15 +84,15 @@ const CovidModalContainer = ({
                                 </li>
                             </ul>
                         </div>
-                        <h2 className="covid-modal-h2 covid-modal-bold">Visit our new <a onClick={handleGoToCovidProfile} href="disaster/covid-19">profile page dedicated to the COVID-19 Spending:</a></h2>
+                        <h2 className="covid-modal-h2 covid-modal-bold">Visit our new <Link onClick={handleGoToCovidProfile} to="/disaster/covid-19">profile page dedicated to the COVID-19 Spending:</Link></h2>
                         <div>
                             <ul>
                                 <li className="covid-modal-li">
-                                    Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <a onClick={handleGoToDsm} href="disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
+                                    Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <span className="covid-modal-bold">who received funding, which agencies outlayed funds,</span> and <span className="covid-modal-bold">which programs were funded.</span> All COVID-19 spending data is <span className="covid-modal-bold">available for download</span> on the profile page with one click. Read about our datasets and calculations on the <Link onClick={handleGoToDsm} to="/disaster/covid-19/data-sources">Data Sources &amp; Methodology</Link> page.
                                 </li>
                             </ul>
                         </div>
-                        <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <a onClick={handleGoToAdvancedSearch} href="search">Advanced Search</a> Filter for COVID-19:</h2>
+                        <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link> Filter for COVID-19:</h2>
                         <div>
                             <ul>
                                 <li className="covid-modal-li">
@@ -154,15 +154,15 @@ const CovidModalContainer = ({
                                     </li>
                                 </ul>
                             </div>
-                            <h2 className="covid-modal-h2 covid-modal-bold">Visit our preliminary <a onClick={handleGoToCovidProfile} href="disaster/covid-19">profile page dedicated to COVID-19 Spending:</a></h2>
+                            <h2 className="covid-modal-h2 covid-modal-bold">Visit our preliminary <Link onClick={handleGoToCovidProfile} to="/disaster/covid-19">profile page dedicated to COVID-19 Spending:</Link></h2>
                             <div>
                                 <ul>
                                     <li className="covid-modal-li">
-                                        Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Read about our datasets and calculations on the <a onClick={handleGoToDsm} href="disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page.
+                                        Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Read about our datasets and calculations on the <Link onClick={handleGoToDsm} to="/disaster/covid-19/data-sources">Data Sources &amp; Methodology</Link> page.
                                     </li>
                                 </ul>
                             </div>
-                            <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <a onClick={handleGoToAdvancedSearch} href="search">Advanced Search</a> Filter for COVID-19:</h2>
+                            <h2 className="covid-modal-h2 covid-modal-bold">Try out our new <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link> Filter for COVID-19:</h2>
                             <div>
                                 <ul>
                                     <li className="covid-modal-li">

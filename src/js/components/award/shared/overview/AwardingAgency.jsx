@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import AwardSection from '../AwardSection';
 
@@ -16,9 +17,9 @@ const AwardingAgency = ({ awardingAgency }) => {
     let innerComponent = awardingAgency.formattedToptier;
     if (awardingAgency.hasAgencyPage && awardingAgency.id) {
         innerComponent = (
-            <a href={`/agency/${awardingAgency.id}`}>
+            <Link to={`/agency/${awardingAgency.id}`}>
                 {innerComponent}
-            </a>
+            </Link>
         );
     }
     return (

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     name: PropTypes.string,
@@ -32,9 +33,9 @@ export default class AccountLinkCell extends React.Component {
         return (
             <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
                 <div className="results-table-cell__content">
-                    <a href={`/federal_account/${this.props.accountNumber}`}>
+                    <Link to={`/federal_account/${this.props.accountNumber}`}>
                         {name}
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     term: PropTypes.string.isRequired,
@@ -13,9 +14,9 @@ const propTypes = {
 };
 
 const GlossaryLink = ({ term, currentUrl }) => (
-    <a className="usda-glossary-link" href={`${currentUrl}?glossary=${term}`} aria-label="Open the Glossary">
+    <Link className="usda-glossary-link" to={`/${currentUrl}?glossary=${term}`} aria-label="Open the Glossary">
         <FontAwesomeIcon icon="book" />
-    </a>
+    </Link>
 );
 
 GlossaryLink.propTypes = propTypes;

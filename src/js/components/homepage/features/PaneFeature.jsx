@@ -4,7 +4,9 @@
  */
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 
 import GlobalConstants from "GlobalConstants";
@@ -126,13 +128,13 @@ const PaneFeature = () => {
                                         Check out a preview of our new COVID-19 Spending profile page. Data updates will be released on an ongoing basis.
                                     </p>
                                     <div className="feature-pane__button-wrapper">
-                                        <a
-                                            href="disaster/covid-19/"
+                                        <Link
+                                            to="/disaster/covid-19/"
                                             role="button"
                                             rel="noopener noreferrer"
                                             className="feature-pane__button">
                                             Explore COVID-19 Spending
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             )

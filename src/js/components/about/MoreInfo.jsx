@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 const MoreInfo = () => (
     <div
@@ -22,10 +24,9 @@ const MoreInfo = () => (
                     FAQs
                 </a>
                 &nbsp;and the&nbsp;
-                <a
-                    href="/download_center/data_dictionary">
+                <Link to="/download_center/data_dictionary">
                     Data Dictionary
-                </a>
+                </Link>
                 .
             </p>
             <p>

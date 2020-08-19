@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import moment from 'moment';
 import Analytics from 'helpers/analytics/Analytics';
@@ -66,23 +67,23 @@ const heading = (type, title, id) => {
     if (type === 'Federal Account') {
         return (
             <h2 className="detail-header__title">
-                <a
-                    href={`/federal_account/${id}`}
+                <Link
+                    to={`/federal_account/${id}`}
                     className="detail-header__title-link"
                     onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
                     {title}
-                </a>
+                </Link>
             </h2>
         );
     }
     else if (type === 'Agency') {
         let header = (
-            <a
-                href={`/agency/${id}`}
+            <Link
+                to={`/agency/${id}`}
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/agency/${id}`)}>
                 {title}
-            </a>);
+            </Link>);
         if (title === "Unreported Data") {
             header = (
                 <span className="detail-header__title">

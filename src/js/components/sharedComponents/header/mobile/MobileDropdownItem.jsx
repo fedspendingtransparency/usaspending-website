@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
@@ -61,12 +62,12 @@ export default class MobileDropdownItem extends React.Component {
 
         let link = (
             <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-                <a
-                    href={this.props.url}
+                <Link
+                    to={this.props.url}
                     className={`mobile-dropdown__link ${activeClass}`}
                     onClick={this.clickedLink}>
                     {this.props.title}
-                </a>
+                </Link>
                 {comingSoonDecorator}
             </li>
         );

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
@@ -117,9 +118,9 @@ export default class AwardDataContent extends React.Component {
                             </div>
                             <div>
                                 Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                                <a href="/download_center/award_data_archive">
+                                <Link to="/download_center/award_data_archive">
                                     Award Data Archive
-                                </a>
+                                </Link>
                                 &nbsp;page.
                             </div>
                         </div>

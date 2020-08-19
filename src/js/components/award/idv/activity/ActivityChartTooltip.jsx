@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { Link } from 'react-router-dom';
+
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -67,11 +69,11 @@ export default class IdvActivityTooltip extends React.Component {
             title = params;
         }
         return (
-            <a
+            <Link
                 title={title}
-                href={`/${path}/${id}`}>
+                to={`/${path}/${id}`}>
                 {data}
-            </a>
+            </Link>
         );
     }
 

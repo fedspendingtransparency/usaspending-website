@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class StateFooter extends React.Component {
     render() {
@@ -17,11 +18,11 @@ export default class StateFooter extends React.Component {
                         Check out the <strong>Advanced Search</strong> page <br />
                         for more in-depth analysis on this state and more
                     </p>
-                    <a
+                    <Link
                         className="state-search-button"
-                        href="/search">
+                        to="/search">
                         Let&#39;s go!
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

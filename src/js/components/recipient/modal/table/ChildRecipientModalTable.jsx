@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Sorter from 'components/stateLanding/table/StateLandingTableSorter';
 
@@ -25,7 +26,7 @@ export default class ChildRecipientModalTable extends React.Component {
                 className="recipients-list__body-row"
                 key={child.duns}>
                 <td className="recipients-list__body-cell">
-                    <a href={`/recipient/${child.id}/latest`} onClick={this.props.hideModal}>{child.name}</a>
+                    <Link to={`/recipient/${child.id}/latest`} onClick={this.props.hideModal}>{child.name}</Link>
                 </td>
                 <td className="recipients-list__body-cell">
                     {child.duns}

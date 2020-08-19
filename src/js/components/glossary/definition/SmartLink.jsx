@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const propTypes = {
     href: PropTypes.string,
@@ -59,10 +59,10 @@ export class SmartLink extends React.Component {
     render() {
         if (this.state.isLocal) {
             return (
-                <a
-                    href={this.state.href}>
+                <Link
+                    to={this.state.href}>
                     {this.props.children}
-                </a>
+                </Link>
             );
         }
 

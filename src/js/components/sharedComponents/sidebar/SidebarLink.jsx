@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const propTypes = {
     section: PropTypes.string,
@@ -53,12 +53,12 @@ export class SidebarLink extends React.Component {
         }
 
         return (
-            <a
+            <Link
                 className={`sidebar-link ${active}`}
-                href={this.state.url}
+                to={this.state.url}
                 onClick={this.clickedLink}>
                 {this.props.label}
-            </a>
+            </Link>
         );
     }
 }

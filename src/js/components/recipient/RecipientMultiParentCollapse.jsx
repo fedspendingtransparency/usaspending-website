@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { InfoCircle, AngleDown } from 'components/sharedComponents/icons/Icons';
 
@@ -33,13 +34,13 @@ export default class RecipientMultiParentCollapse extends React.Component {
         for (let i = 1; i < this.props.parents.length; i++) {
             const currentValue = this.props.parents[i];
             drawnArray.push(
-                <a
+                <Link
                     className="recipient-overview__multiparents"
                     key={currentValue.parent_duns}
-                    href={`recipient/${currentValue.parent_id}`}>
+                    to={`/recipient/${currentValue.parent_id}`}>
                     {currentValue.parent_name}
                     {currentValue.parent_duns ? `(${currentValue.parent_duns})` : ''}
-                </a>
+                </Link>
             );
         }
         return drawnArray;
@@ -59,11 +60,11 @@ export default class RecipientMultiParentCollapse extends React.Component {
                         // Render only top level parent if there's only 1 parent
                         <div className="recipient-overview__parent">
                             This recipient is a child of &nbsp;
-                            <a
+                            <Link
                                 className="recipient-overview__parent-link"
-                                href={`recipient/${initialParent.parent_id}`}>
+                                to={`/recipient/${initialParent.parent_id}`}>
                                 {initialParent.parent_name} {initialDuns}
-                            </a>
+                            </Link>
                         </div>
                         :
                         // Render top level parent, then allow hide/show of other parents
@@ -100,12 +101,12 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                     </div>
                                 </span>
                             </span> &nbsp;
-                            <a
+                            <Link
                                 key={initialDuns}
                                 className="recipient-overview__multiparents"
-                                href={`recipient/${initialParent.parent_id}`}>
+                                to={`/recipient/${initialParent.parent_id}`}>
                                 {initialParent.parent_name} {initialDuns}
-                            </a>
+                            </Link>
                             <div className={this.state.open ? '' : 'hide'}>
                                 {this.renderMultipleParents()}
                             </div>

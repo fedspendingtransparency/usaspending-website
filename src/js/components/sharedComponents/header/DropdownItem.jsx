@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
@@ -59,14 +60,14 @@ export default class DropdownItem extends React.Component {
         }
 
         let link = (
-            <a
+            <Link
                 className={`nav-children__link ${className}`}
-                href={this.props.url}
+                to={this.props.url}
                 onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
                 {...newTabProps}>
                 {this.props.label}
                 {comingSoon}
-            </a>
+            </Link>
         );
 
         if (this.props.enabled && this.props.externalLink) {
@@ -77,6 +78,19 @@ export default class DropdownItem extends React.Component {
                     className="nav-children__link">
                     {this.props.label}
                 </button>
+            );
+        }
+
+        if (this.props.url.includes('http')) {
+            link = (
+                <a
+                    className={`nav-children__link ${className}`}
+                    href={this.props.url}
+                    onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
+                    {...newTabProps}>
+                    {this.props.label}
+                    {comingSoon}
+                </a>
             );
         }
 

@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import * as redirectHelper from 'helpers/redirectHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -43,13 +45,13 @@ export default class DownloadDetail extends React.Component {
             linkProps.rel = 'noopener noreferrer';
         }
         let link = (
-            <a
+            <Link
                 className="download-detail__link"
-                href={this.props.url}
+                to={this.props.url}
                 {...linkProps}
                 onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
                 {this.props.callToAction}
-            </a>
+            </Link>
         );
         if (this.props.externalLink) {
             link = (

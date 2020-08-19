@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     name: PropTypes.string,
@@ -26,9 +27,9 @@ export default class RecipientLinkCell extends React.Component {
         return (
             <td className="recipient-list__body-cell">
                 <span className={labelType}>{this.props.type}</span>
-                <a href={`recipient/${this.props.id}/latest`}>
+                <Link to={`/recipient/${this.props.id}/latest`}>
                     {this.props.name}
-                </a>
+                </Link>
             </td>
         );
     }

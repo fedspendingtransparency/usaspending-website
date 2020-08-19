@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
@@ -33,7 +34,7 @@ const ErrorPage = () => (
                     <div className="error-body">
                         <p>Sorry, the page you are looking for doesn&apos;t exist.</p>
                         <p>
-                            Check the URL for typos or <a href="/">return to the home page.</a>
+                            Check the URL for typos or <Link to="/">return to the home page.</Link>
                         </p>
                     </div>
                 </div>

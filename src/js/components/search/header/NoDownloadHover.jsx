@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const NoDownloadHover = () => (
@@ -20,7 +22,7 @@ const NoDownloadHover = () => (
                     <div className="message">
                         Our Advanced Search limits downloads to 500,000 records.
                         Narrow your search using additional filters, or grab larger files from
-                        our <a href="download_center/award_data_archive">Award Data Archive</a>.
+                        our <Link to="/download_center/award_data_archive">Award Data Archive</Link>.
                     </div>
                 </div>
                 <div className="tooltip-pointer right" />

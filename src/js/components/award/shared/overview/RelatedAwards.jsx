@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { Link } from 'react-router-dom';
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
@@ -136,11 +137,11 @@ export default class RelatedAwards extends React.Component {
         let parentLink = 'N/A';
         if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
-                <a
+                <Link
                     className="related-awards__link"
                     href={`award/${overview.parentAwardDetails.awardId}`}>
                     {overview.parentAwardDetails.piid}
-                </a>
+                </Link>
             );
         }
 

@@ -6,6 +6,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
@@ -55,13 +56,13 @@ const Footer = ({
                 aria-label="Footer">
                 <div className="footer-container">
                     <div className="footer-logo">
-                        <a
-                            href="/"
+                        <Link
+                            to="/"
                             title="USAspending.gov Home"
                             aria-label="USAspending.gov Home"
                             onClick={clickedFooterLink.bind(null, '/')}>
                             <img src="img/footer_logo.png" alt="USAspending.gov" />
-                        </a>
+                        </Link>
                     </div>
                     <div className="footer-links">
                         <div className="link-group">
@@ -70,11 +71,11 @@ const Footer = ({
                             </div>
                             <ul className="links">
                                 <li>
-                                    <a
-                                        href="about"
+                                    <Link
+                                        to="/about"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
                                         About USAspending
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -121,9 +122,9 @@ const Footer = ({
                                         title="Data Lab" />
                                 </li>
                                 <li>
-                                    <a href="/download_center/data_dictionary">
+                                    <Link to="/download_center/data_dictionary">
                                         Data Dictionary
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <FooterExternalLink
@@ -152,28 +153,28 @@ const Footer = ({
                     </div>
                     <ul className="legal-and-social-links">
                         <li className="copyright__legal-item">
-                            <a
+                            <Link
                                 className="copyright__link"
-                                href="about/accessibility"
+                                to="/about/accessibility"
                                 onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
                                 Accessibility
-                            </a>
+                            </Link>
                         </li>
                         <li className="copyright__legal-item">
-                            <a
+                            <Link
                                 className="copyright__link"
-                                href="about/privacy"
+                                to="/about/privacy"
                                 onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                 Privacy Policy
-                            </a>
+                            </Link>
                         </li>
                         <li className="copyright__legal-item">
-                            <a
+                            <Link
                                 className="copyright__link"
-                                href="about/foia"
+                                to="/about/foia"
                                 onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                 Freedom of Information Act
-                            </a>
+                            </Link>
                         </li>
                         <li className="social-link">
                             <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
@@ -204,7 +205,7 @@ const Footer = ({
                         </div>
                     </div>
                     <div className="copyright__db">
-                        <strong>NOTE:</strong> You must <a href="db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
+                        <strong>NOTE:</strong> You must <Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</Link> for very important D&amp;B information.
                     </div>
                 </div>
             </footer>

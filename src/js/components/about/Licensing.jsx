@@ -4,6 +4,8 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import { showRedirectModal } from 'helpers/redirectHelper';
 
 export default class Licensing extends Component {
@@ -31,10 +33,9 @@ export default class Licensing extends Component {
                         to copy, adapt, redistribute, or otherwise use for non-commercial
                         or for commercial purposes, subject to the Limitation on Permissible
                         Use of Dun &amp; Bradstreet, Inc. Data&nbsp;
-                        <a
-                            href="/db_info">
+                        <Link to="/db_info">
                             noted on the homepage
-                        </a>.
+                        </Link>.
                     </p>
                     <p>
                         The code in our&nbsp;

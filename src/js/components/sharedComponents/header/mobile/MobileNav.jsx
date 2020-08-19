@@ -70,14 +70,14 @@ export class MobileNav extends React.Component {
                     <ul
                         className="mobile-nav-content__list">
                         <li className="mobile-nav-content__list-item">
-                            <a
+                            <Link
                                 className="mobile-nav-content__link"
-                                href="explorer"
+                                to="/explorer"
                                 title="Spending Explorer"
                                 name="explorer"
                                 onClick={this.clickedLink}>
                                 Spending Explorer
-                            </a>
+                            </Link>
                             <hr className="mobile-nav-content__divider" />
                         </li>
                         <li className="mobile-nav-content__list-item">
