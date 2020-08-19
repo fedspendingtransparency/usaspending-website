@@ -10,13 +10,9 @@ import { isCancel } from 'axios';
 import { is } from 'immutable';
 import { useParams } from 'react-router-dom';
 
-import { filterStoreVersion, requiredTypes, initialState } from
-    'redux/reducers/search/searchFiltersReducer';
+import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import {
-    setAppliedFilterEmptiness,
-    setAppliedFilterCompletion
-} from 'redux/actions/search/appliedFilterActions';
+import { setAppliedFilterEmptiness, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
@@ -36,44 +32,44 @@ const propTypes = {
     history: PropTypes.object
 };
 
-export const areFiltersBlank = (filters, appliedFilters = initialState) => {
-    // check to see if we are applying any filters
-    // if there are no filters, we shouldn't generate a hash
-    let unfiltered = true;
-
-    // make a copy of the initial and actual Redux filter states
-    const currentState = Object.assign({}, filters);
-    const unfilteredState = Object.assign({}, appliedFilters);
-    if (currentState.timePeriodType === 'fy') {
+/**
+ * Equality Comparison of two objects:
+ * @param {Object} filters object to be measured for equality
+ * @param {Object} filterReference object by which equality is measured  against
+ * @returns {boolean}
+ */
+export const areFiltersEqual = (filters, filterReference = initialState) => {
+    const referenceObject = Object.assign({}, filterReference);
+    const comparisonObject = Object.assign({}, filters);
+    if (referenceObject.timePeriodType === 'fy') {
         // if the time period is fiscal year, we don't care about the date range values, even
         // if they're provided because the date range tab isn't selected
-        delete unfilteredState.timePeriodStart;
-        delete unfilteredState.timePeriodEnd;
-        delete currentState.timePeriodStart;
-        delete currentState.timePeriodEnd;
+        delete comparisonObject.timePeriodStart;
+        delete comparisonObject.timePeriodEnd;
+        delete referenceObject.timePeriodStart;
+        delete referenceObject.timePeriodEnd;
     }
-    else if (currentState.timePeriodEnd === 'dr') {
+    else if (referenceObject.timePeriodEnd === 'dr') {
         // if the time period is date range, we don't care about the fiscal year values, even
         // if they're provided because the fiscal year tab isn't selected
-        delete unfilteredState.timePeriodFY;
-        delete currentState.timePeriodFY;
+        delete comparisonObject.timePeriodFY;
+        delete referenceObject.timePeriodFY;
     }
 
     // we need to iterate through each of the filter Redux keys in order to perform equality
     // comparisons on Immutable children (via the Immutable is() function)
-    const filterKeys = Object.keys(unfilteredState);
+    const filterKeys = Object.keys(comparisonObject);
 
     for (let i = 0; i < filterKeys.length; i++) {
         const key = filterKeys[i];
-        const unfilteredValue = unfilteredState[key];
-        const currentValue = currentState[key];
+        const unfilteredValue = comparisonObject[key];
+        const currentValue = referenceObject[key];
         if (!is(unfilteredValue, currentValue)) {
             // it doesn't match, we can stop looping - filters have been applied
-            unfiltered = false;
-            break;
+            return false;
         }
     }
-    return unfiltered;
+    return true;
 };
 
 export const parseRemoteFilters = (data) => {
@@ -117,64 +113,8 @@ const SearchContainer = ({ history }) => {
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [inFlight, setInFlight] = useState(false);
 
-    const fetchFiltersFromHash = useCallback(() => {
-        if (!urlHash || urlHash === '') {
-            setInFlight(false);
-            history.push('/search');
-            return;
-        }
-        // this is a hash that has been provided to the search page via the URL. The filters have
-        // not yet been applied, so update the container's state and then parse the hash into its
-        // original filter set.
-        setInFlight(true);
-        // POST an API request to retrieve the corresponding filter selections.
-        SearchHelper.restoreUrlHash({
-            hash: urlHash
-        }).promise
-            .then((res) => {
-                dispatch(setAppliedFilterEmptiness(false));
-                const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-                if (filtersInImmutableStructure) {
-                    // apply the filters to both the staged and applied stores
-                    dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                }
-                setInFlight(false);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // eslint-disable-next-line no-console
-                    console.error('Error fetching filters from hash: ', err);
-                    setInFlight(false);
-                    // remove hash since corresponding filter selections aren't retrievable.
-                    dispatch(setAppliedFilterEmptiness(true));
-                    dispatch(setAppliedFilterCompletion(true));
-                    history.push('/search');
-                }
-            });
-    }, [history, dispatch, urlHash]);
-
-    const setNewHash = useCallback((newHash) => {
-        // this is a hash that represents the current filter set. The filters are already applied
-        // by way of user interaction. Now update the component state and URL with the hash so the
-        // URL can be shared with others. Update the state first (to prevent the hash from being
-        // re-parsed as an inbound/received hash), then replace the URL instead of pushing to
-        // prevent hash changes from being added to the browser history. This keeps the back button
-        // working as expected.
-        dispatch(setAppliedFilterEmptiness(false));
-        setInFlight(false);
-        history.push(`/search/${newHash}`);
-    }, [dispatch, history]);
-
     const generateHash = useCallback(() => {
-        const unfiltered = areFiltersBlank(appliedFilters.filters);
-        if (unfiltered) {
-            // all the filters were cleared, reset to a blank hash
-            dispatch(setAppliedFilterEmptiness(true));
-            dispatch(setAppliedFilterCompletion(true));
-            history.push('/search');
-            return;
-        }
-
+        setInFlight(true);
         // POST an API request to retrieve the Redux state
         SearchHelper.generateUrlHash({
             filters: appliedFilters.filters,
@@ -183,17 +123,18 @@ const SearchContainer = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
-                setNewHash(newHash);
+                dispatch(setAppliedFilterEmptiness(false));
+                history.replace(`/search/${newHash}`);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
                 }
             });
-    }, [dispatch, history, setNewHash, appliedFilters.filters]);
+    }, [dispatch, history, appliedFilters.filters]);
 
     const setDownloadAvailability = useCallback(() => {
-        if (areFiltersBlank(appliedFilters.filters)) {
+        if (areFiltersEqual(filters, appliedFilters.filters)) {
             // don't make an API call when it's a blank state
             setDownloadAvailable(false);
             setDownloadInFlight(false);
@@ -223,17 +164,51 @@ const SearchContainer = ({ history }) => {
     }, [filters, appliedFilters.filters]);
 
     useEffect(() => {
-        if (!inFlight) {
-            // applied filters changed, create a hash.
+        const areAppliedFiltersEmpty = areFiltersEqual(appliedFilters.filters, initialState);
+        if (areAppliedFiltersEmpty) {
+            // all the filters were cleared, reset to a blank hash
+            dispatch(setAppliedFilterEmptiness(true));
+            dispatch(setAppliedFilterCompletion(true));
+            history.replace('/search');
+            return;
+        }
+        else if (!areAppliedFiltersEmpty && !inFlight) {
+            // generate hash for filter selections
             generateHash();
         }
         setDownloadAvailability();
-    }, [appliedFilters.filters, generateHash, inFlight, setDownloadAvailability]);
+    }, [dispatch, history, generateHash, setDownloadAvailability, appliedFilters.filters, inFlight]);
 
     useEffect(() => {
-        // url changed, apply filters.
-        fetchFiltersFromHash(urlHash);
-    }, [urlHash, fetchFiltersFromHash]);
+        if (!urlHash) {
+            setInFlight(false);
+            return;
+        }
+        // url has a hash apply filters retrieve filter selections via hash if necessary.
+        SearchHelper.restoreUrlHash({
+            hash: urlHash
+        }).promise
+            .then((res) => {
+                dispatch(setAppliedFilterEmptiness(false));
+                const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+                if (filtersInImmutableStructure) {
+                    // apply the filters to both the staged and applied stores
+                    dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                }
+                setInFlight(false);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    // eslint-disable-next-line no-console
+                    console.error('Error fetching filters from hash: ', err);
+                    setInFlight(false);
+                    // remove hash since corresponding filter selections aren't retrievable.
+                    dispatch(setAppliedFilterEmptiness(true));
+                    dispatch(setAppliedFilterCompletion(true));
+                    history.push('/search');
+                }
+            });
+    }, [dispatch, history, urlHash]);
 
     return (
         <SearchPage
