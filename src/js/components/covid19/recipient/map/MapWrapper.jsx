@@ -10,7 +10,7 @@ import { uniq, cloneDeep } from 'lodash';
 import { calculateCovidMapRange } from 'helpers/covid19Helper';
 import { calculateRange } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipient/map/map';
+import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
@@ -199,11 +199,11 @@ export default class MapWrapper extends React.Component {
         const numCountyColors = 2000;
         if (this.props.activeFilters.territory === 'state') {
             for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * 0.02})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
             }
         } else {
             for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * 0.002})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
             }
         }
         colors.forEach((color, index) => {
@@ -374,21 +374,20 @@ export default class MapWrapper extends React.Component {
 
         const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
-        let scale = calculateRange(this.props.data.values);
-        if (this.props.activeFilters.awardType === "all") {
-            scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
-        }
+        const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
+        console.log( Math.min.apply(null, this.props.data.values) )
 
         const colors = [];
         const numStateColors = 49;
         const numCountyColors = 2000;
         if (this.props.activeFilters.territory === 'state') {
             for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * 0.02})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
             }
-        } else {
+        }
+        else {
             for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * 0.002})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
             }
         }
 

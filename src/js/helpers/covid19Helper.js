@@ -17,9 +17,10 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import moment from 'moment';
-import { scaleQuantile } from 'd3-scale';
+import { snakeCase } from 'lodash';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
 
-import * as MoneyFormatter from './moneyFormatter';
+import { scaleQuantile } from 'd3-scale';
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
@@ -182,7 +183,7 @@ export const calculateCovidMapRange = (data, territory) => {
     }
 
     // determine the best units to use
-    const units = MoneyFormatter.calculateUnits(dataRange);
+    const units = calculateUnits(dataRange);
 
     const rangeArray = [];
     const numStateRange = 49;
