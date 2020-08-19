@@ -6,14 +6,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import {
     stickyHeaderHeight,
-    dataDisclaimerHeight,
-    getEmailSocialShareData,
-    slug
+    dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
 import {
     getStickyBreakPointForSidebar,
@@ -109,6 +106,11 @@ export default () => {
         setActiveSection(matchedSection.section);
     };
 
+    const getEmailSocialShareData = {
+        subject: "COVID-19 Spending: Data Sources & Methodology",
+        body: `View COVID-19 Spending: Data Sources & Methodology on USAspending.gov: ${"https://www.usaspending.gov/#/disaster/covid-19/data-sources"}`
+    };
+
     return (
         <div className="usa-da-dsm-page" ref={dataDisclaimerBannerRef}>
             {/* TODO: Update these meta tags */}
@@ -123,7 +125,7 @@ export default () => {
                     </div>
                     <div className="sticky-header__toolbar">
                         <ShareIcon
-                            slug={slug}
+                            slug="disaster/covid-19/data-sources"
                             email={getEmailSocialShareData} />
                     </div>
                 </>
