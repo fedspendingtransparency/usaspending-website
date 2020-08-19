@@ -374,7 +374,6 @@ export default class MapWrapper extends React.Component {
         const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
         const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
-        
         const colors = [];
         const numStateColors = 49;
         const numCountyColors = 2000;
