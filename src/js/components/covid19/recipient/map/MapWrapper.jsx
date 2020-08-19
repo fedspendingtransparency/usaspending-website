@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash';
 
 import { calculateCovidMapRange } from 'helpers/covid19Helper';
-import { calculateRange } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
@@ -375,8 +374,7 @@ export default class MapWrapper extends React.Component {
         const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
         const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
-        console.log( Math.min.apply(null, this.props.data.values) )
-
+        
         const colors = [];
         const numStateColors = 49;
         const numCountyColors = 2000;
