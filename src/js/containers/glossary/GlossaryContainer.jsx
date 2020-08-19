@@ -57,10 +57,11 @@ export class GlossaryContainer extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         const { termFromUrl, cache } = this.props.glossary;
-        if (prevProps.glossary.cache.count() !== cache.count() && termFromUrl) {
-            this.props.setGlossaryTerm(cache.get(termFromUrl));
+        if (cache.count() > 0 && termFromUrl) {
+            const term = cache.get(termFromUrl);
+            this.props.setGlossaryTerm(term);
             this.props.setTermFromUrl('');
         }
     }
