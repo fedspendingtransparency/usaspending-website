@@ -21,10 +21,9 @@ const propTypes = {
     pickedYear: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     fixedStickyBreakpoint: PropTypes.number,
-    isGoingToBeSticky: PropTypes.bool
+    isGoingToBeSticky: PropTypes.bool,
+    verticalSectionOffset: PropTypes.number
 };
-
-const defaultSectionOffsets = { stickyVerticalOffset: 0 };
 
 /**
  * isGoingToBeSticky
@@ -43,7 +42,8 @@ const Sidebar = ({
     pickedYear,
     detectActiveSection = false,
     fixedStickyBreakpoint = null,
-    isGoingToBeSticky = false
+    isGoingToBeSticky = false,
+    verticalSectionOffset = 0
 }) => {
     // yPosition, in px, of sections referenced in sidebar
     const outerReferenceDiv = useRef();
@@ -82,7 +82,6 @@ const Sidebar = ({
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
         const newSectionPositions = sections
-            .map((section) => ({ ...defaultSectionOffsets, ...section }))
             .map((section) => {
                 const sectionCode = section.section;
                 const domElement = document.getElementById(`${pageName}-${sectionCode}`);
@@ -91,8 +90,8 @@ const Sidebar = ({
                     return null;
                 }
                 // Subtracting summed height of elements w/ fixed positioning
-                const topPos = domElement.offsetTop - section.stickyVerticalOffset;
-                const bottomPos = (domElement.offsetHeight + topPos) - section.stickyVerticalOffset;
+                const topPos = domElement.offsetTop - verticalSectionOffset;
+                const bottomPos = (domElement.offsetHeight + topPos) - verticalSectionOffset;
 
                 return {
                     section: sectionCode,
@@ -153,7 +152,7 @@ const Sidebar = ({
         // select the first section we saw
         if (visibleSections.length > 0) {
             nextActiveSection = visibleSections[0].section;
-            if (visibleSections[0].amount < 0.50 && visibleSections.length > 1) {
+            if (visibleSections[0].amount < 0.25 && visibleSections.length > 1) {
                 // less than 15% of the first section is visible and we have more than 1 section,
                 // select the next section
                 nextActiveSection = visibleSections[1].section;

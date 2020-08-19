@@ -67,7 +67,7 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
             if (this.hint) {
                 this.hint.showHint();
             }

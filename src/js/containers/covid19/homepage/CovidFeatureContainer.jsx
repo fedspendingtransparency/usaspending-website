@@ -61,7 +61,7 @@ const CovidFeatureContainer = ({
 
             <div className="official-spending-data__content-wrapper">
                 <div className="official-spending-data__text">
-                    <h2 className="homepage-feature-title">Official COVID-19 Spending Data</h2>
+                    <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
                     <div className="feature-covid-official-spending-data__image-wrapper">
                         <img
                             className="feature-covid-official-spending-data__image-mobile"
@@ -70,7 +70,7 @@ const CovidFeatureContainer = ({
                             alt="Illustration of people interacting with data" />
                     </div>
                     <div className="homepage-feature-description">
-                        <p>Official spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
+                        <p>Spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
                         <p>The new data includes:</p>
                         <ul>
                             <li><strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations.</li>
@@ -135,7 +135,7 @@ const CovidFeatureContainer = ({
                             alt="Screenshot of COVID-19 Spending profile page" />
                     </div>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
-                        <p>Our newest profile page shows you official COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
+                        <p>Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
                         <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <a href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page </p>
                     </div>
                     <div className="feature-covid__button-wrap">
