@@ -22,7 +22,7 @@ const GlossaryListener = ({
         }
     }, [location, history]);
     useEffect(() => {
-        if (glossary.display === false && history.location.search.includes('glossary')) {
+        if (history.location.search.includes('glossary')) {
             const termStr = history.location.search.split('glossary=')[1];
             showGlossary();
             setTermFromUrl(termStr);
