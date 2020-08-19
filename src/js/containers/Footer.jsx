@@ -125,7 +125,6 @@ const Footer = ({
                                         link="https://datalab.usaspending.gov"
                                         title="Data Lab" />
                                 </li>
-                                
                                 <li>
                                     <FooterExternalLink
                                         link="http://fiscaldata.treasury.gov/"
