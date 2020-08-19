@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes, { node } from 'prop-types';
+import PropTypes from 'prop-types';
 import { sankeyLinkHorizontal } from 'd3-sankey';
 
 const propTypes = {
@@ -15,14 +15,17 @@ const propTypes = {
 const SankeyLink = ({ link, color }) => {
     if (color === 'transparent') return null; // do not draw fake data path
     return (
-        <path
-            d={sankeyLinkHorizontal()(link)}
-            style={{
-                fill: 'none',
-                strokeOpacity: '.3',
-                stroke: color,
-                strokeWidth: Math.max(1, link.width) || 0
-            }} />
+        <g tabIndex="0" aria-label={`A path linking ${link.source.label} to ${link.target.label}`}>
+            <desc>{`A path linking ${link.source.label} to ${link.target.label}`}</desc>
+            <path
+                d={sankeyLinkHorizontal()(link)}
+                style={{
+                    fill: 'none',
+                    strokeOpacity: '.3',
+                    stroke: color,
+                    strokeWidth: Math.max(1, link.width) || 0
+                }} />
+        </g>
     );
 };
 

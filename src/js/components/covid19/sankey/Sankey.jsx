@@ -3,7 +3,8 @@
  * Created By Jonathan Hill 06/05/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { uniqueId, uniq } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -12,7 +13,7 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 // import { Glossary } from 'components/sharedComponents/icons/Icons';
 // TODO - Uncomment this when tooltips and glossary content is ready
 // import { TooltipComponent } from 'containers/covid19/helpers/covid19';
-import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { calculateUnits, formatMoneyWithPrecision, formatMoney } from 'helpers/moneyFormatter';
 import {
     otherSankeyNodes,
     dataForLinks,
@@ -55,6 +56,8 @@ const SankeyViz = ({
         spendingTextStart: 0,
         spendingTextEnd: 0
     });
+    const [dateNoteStyles, setDateNoteStyles] = useState({ x: 0, y: 0 });
+    const date = useSelector((state) => state.covid19.latestSubmissionDate);
     useEffect(() => setLoading(!sankeyNodes.length && !sankeyLinks.length), [sankeyNodes, sankeyLinks]);
     // TODO - Uncomment this when tooltips and glossary content is ready
     // const [tooltipsAndGlossaryIcons, setTooltipsAndGlossaryIcons] = useState(null);
@@ -62,7 +65,7 @@ const SankeyViz = ({
     const defCodesSortedByValue = () => defCodes
         .map((code) => ({ ...code, value: overview[`_defCode_${code.code}_funding`] || 0 }))
         .sort((a, b) => b.value - a.value);
-    const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
+    const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', publicLawString.includes('|') ? 'Public Laws' : 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
     // create data for def code nodes and add value to other nodes
     useEffect(() => {
         if (Object.keys(overview).length && defCodes.length) {
@@ -74,8 +77,13 @@ const SankeyViz = ({
                 tooltip: <TooltipWrapper icon="info" />,
                 textWidth: 63,
                 textHeight: 29,
-                value: code.value
-            })).concat(otherSankeyNodes.map((node) => ({ ...node, value: overview[node.name] })));
+                value: code.value,
+                description: `A rectangle representing ${formatMoney(overview[`_defCode_${code.code}_funding`])} in funding for ${parsePublicLaws(code.public_law)}, DEF Code: ${code.code}`
+            })).concat(otherSankeyNodes.map((node) => ({
+                ...node,
+                value: overview[node.name],
+                description: `A rectangle representing ${formatMoney(overview[node.name])} in spending for ${node.label}`
+            })));
             setNodeData(dataForNodes);
         }
     }, [defCodes, overview]);
@@ -84,7 +92,7 @@ const SankeyViz = ({
         if (Object.keys(overview).length && defCodes.length) {
             const data = nodeData.filter((node) => node.name !== '_totalBudgetAuthority');
             setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
-        }        
+        }
     }, [nodeData, overview, defCodes]);
     // set the data used for the d3 sankey method
     useEffect(() => {
@@ -166,6 +174,17 @@ const SankeyViz = ({
     //     });
     //     setTooltipsAndGlossaryIcons(ttAndGlossaryIcons);
     // }, [sankeyNodes, width]);
+
+    const dateNoteRef = useCallback((div) => {
+        if (div) {
+            const dateNoteDiv = div.getBoundingClientRect();
+            setDateNoteStyles({
+                x: width - (dateNoteDiv?.width) || 0,
+                y: sankeyNodes[sankeyNodes?.length - 2].y1 + 35
+            });
+        }
+    }, [sankeyNodes, width]);
+
     return (
         <div className="sankey">
             {/* TODO - Uncomment this when tooltips and glossary content is ready */}
@@ -181,31 +200,45 @@ const SankeyViz = ({
                 <svg height={height} width={width}>
                     <g style={{ mixBlendMode: 'multiply' }}>
                         {/* funding text and line */}
-                        <text
-                            className="text"
-                            x={fundingSpendingTextData.fundingTextStart}
-                            y={20}>
-                            FUNDING
-                        </text>
-                        <line
-                            className="text__line"
-                            x1={fundingSpendingTextData.fundingTextStart}
-                            y1={25}
-                            x2={fundingSpendingTextData.fundingTextEnd}
-                            y2={25} />
+                        <g tabIndex="0" aria-label={`Data through ${date}`}>
+                            <desc>{`Data through ${date}`}</desc>
+                            <text className="sankey__date-note" ref={dateNoteRef} {...dateNoteStyles}>Data through {date}</text>
+                        </g>
+                        <g tabIndex="0" aria-label="Funding, signifying the portion of funding for COVID-19">
+                            <desc>FUNDING, signifying the portion of funding for COVID-19</desc>
+                            <text
+                                className="text"
+                                x={fundingSpendingTextData.fundingTextStart}
+                                y={20}>
+                                FUNDING
+                            </text>
+                        </g>
+                        <g tabIndex="0" aria-label="A line representing the funding portion of COVID-19">
+                            <desc>A line representing the funding portion of COVID-19</desc>
+                            <line
+                                className="text__line"
+                                x1={fundingSpendingTextData.fundingTextStart}
+                                y1={25}
+                                x2={fundingSpendingTextData.fundingTextEnd}
+                                y2={25} />
+                        </g>
                         {/* spending text and line */}
-                        <text
-                            className="text"
-                            x={fundingSpendingTextData.spendingTextStart}
-                            y={20}>
-                            SPENDING
-                        </text>
-                        <line
-                            className="text__line"
-                            x1={fundingSpendingTextData.spendingTextStart}
-                            y1={25}
-                            x2={fundingSpendingTextData.spendingTextEnd}
-                            y2={25} />
+                        <g tabIndex="0" aria-label="Spending, signifying the portion of funding for COVID-19">
+                            <text
+                                className="text"
+                                x={fundingSpendingTextData.spendingTextStart}
+                                y={20}>
+                                SPENDING
+                            </text>
+                        </g>
+                        <g tabIndex="0" aria-label="A line representing the spending portion of COVID-19">
+                            <line
+                                className="text__line"
+                                x1={fundingSpendingTextData.spendingTextStart}
+                                y1={25}
+                                x2={fundingSpendingTextData.spendingTextEnd}
+                                y2={25} />
+                        </g>
                         {sankeyNodes.map((node) => {
                             const {
                                 x0,
@@ -220,25 +253,34 @@ const SankeyViz = ({
                                 <g key={uniqueId()}>
                                     {
                                         node.publicLaw &&
-                                        <text
-                                            className="sankey__text sankey__text__public-law"
-                                            x={x0}
-                                            y={y0 - 34 || 0}>
-                                            {publicLaw}
-                                        </text>
+                                        <g tabIndex="0" aria-label={publicLaw}>
+                                            <desc>{publicLaw}</desc>
+                                            <text
+                                                className="sankey__text sankey__text__title"
+                                                x={x0}
+                                                y={y0 - 36 || 0}>
+                                                {publicLaw}
+                                            </text>
+                                        </g>
                                     }
-                                    <text
-                                        className="sankey__text"
-                                        x={x0}
-                                        y={y0 - 19 || 0}>
-                                        {node.label}
-                                    </text>
-                                    <text
-                                        className="sankey__text sankey__text-money"
-                                        x={x0}
-                                        y={y0 - 4 || 0}>
-                                        {node.name === 'fakeData' ? '' : `${formatMoneyWithPrecision(value / units.unit, units.precision)} ${units.longLabel}`}
-                                    </text>
+                                    <g tabIndex="0" aria-label={node.label}>
+                                        <desc>{node.label}</desc>
+                                        <text
+                                            className={node.publicLaw ? 'sankey__text' : 'sankey__text sankey__text__title'}
+                                            x={x0}
+                                            y={y0 - 20 || 0}>
+                                            {node.label}
+                                        </text>
+                                    </g>
+                                    <g tabIndex="0" aria-label={node.name === 'fakeData' ? '' : `${formatMoneyWithPrecision(value / units.unit, 1)} ${units.longLabel}`}>
+                                        <desc>{node.name === 'fakeData' ? '' : `${formatMoneyWithPrecision(value / units.unit, 1)} ${units.longLabel}`}</desc>
+                                        <text
+                                            className="sankey__text sankey__text-money"
+                                            x={x0}
+                                            y={y0 - 4 || 0}>
+                                            {node.name === 'fakeData' ? '' : `${formatMoneyWithPrecision(value / units.unit, 1)} ${units.longLabel}`}
+                                        </text>
+                                    </g>
                                     <SankeyNode
                                         {...node}
                                         color={color} />

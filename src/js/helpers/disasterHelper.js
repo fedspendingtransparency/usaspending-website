@@ -3,7 +3,6 @@
  * Created by Jonathan Hill 06/11/20
  */
 
-import { uniq } from 'lodash';
 import { apiRequest } from 'helpers/apiRequest';
 
 export const defCodeQueryString = (defCodes) => defCodes.sort().reduce((acc, code, i, array) => {
