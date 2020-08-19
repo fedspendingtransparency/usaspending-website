@@ -14,7 +14,6 @@ import {
     getEmailSocialShareData,
     scrollPositionOfSiteHeader
 } from 'dataMapping/covid19/covid19';
-import { getBaseUrlNoHash } from 'helpers/socialShare';
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -137,7 +136,7 @@ export default () => {
                             <div className="about-section-wrapper" id="data-sources-datasets">
                                 <div className="back-link">
                                     <a
-                                        href={getBaseUrlNoHash(slug)}
+                                        href="/#/disaster/covid-19"
                                         rel="noopener noreferrer">
                                         <FontAwesomeIcon icon="arrow-left" />
                                         Back to the COVID-19 Spending Profile
