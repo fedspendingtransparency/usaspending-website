@@ -194,7 +194,18 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = visualizationColors;
+        const colors = [];
+        const numStateColors = 49;
+        const numCountyColors = 2000;
+        if (this.props.activeFilters.territory === 'state') {
+            for (let i = 0; i < numStateColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * 0.02})`);
+            }
+        } else {
+            for (let i = 0; i < numCountyColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * 0.002})`);
+            }
+        }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({
@@ -365,11 +376,24 @@ export default class MapWrapper extends React.Component {
         // calculate the range of data
         let scale = calculateRange(this.props.data.values);
         if (this.props.activeFilters.awardType === "all") {
-            scale = calculateCovidMapRange(this.props.data.values);
+            scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
+        }
+
+        const colors = [];
+        const numStateColors = 49;
+        const numCountyColors = 2000;
+        if (this.props.activeFilters.territory === 'state') {
+            for (let i = 0; i < numStateColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * 0.02})`);
+            }
+        } else {
+            for (let i = 0; i < numCountyColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * 0.002})`);
+            }
         }
 
         // prepare a set of blank (false) filters
-        const filterValues = visualizationColors.map(() => (
+        const filterValues = colors.map(() => (
             []
         ));
         this.props.data.locations.forEach((location, index) => {

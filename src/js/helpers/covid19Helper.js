@@ -2,12 +2,6 @@
  * covidHelper.js
  * Created By Jonathan Hill 06/02/20
  */
-import Cookies from 'js-cookie';
-import { useState } from 'react';
-import { snakeCase, min, max } from 'lodash';
-import moment from 'moment';
-import { scalePow } from 'd3-scale';
-
 import {
     defCodes,
     dataDisclaimerHeight,
@@ -19,7 +13,13 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import moment from 'moment';
+import { scaleQuantile } from 'd3-scale';
+
+import * as MoneyFormatter from './moneyFormatter';
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
@@ -174,31 +174,31 @@ export const handleSort = (a, b) => {
     return 0;
 };
 
-export const calculateCovidMapRange = (data) => {
+export const calculateCovidMapRange = (data, territory) => {
     let dataRange = data;
     // handle a condition where an empty array is provided
     if (data.length < 1) {
         dataRange = [0, 10000];
     }
-    let minValue = min(dataRange);
-    let maxValue = max(dataRange);
 
     // determine the best units to use
-    const units = calculateUnits(dataRange);
+    const units = MoneyFormatter.calculateUnits(dataRange);
 
-    // round the minimum down to the cleanest unit point
-    minValue = Math.floor(minValue / units.unit);
-    maxValue = Math.ceil(maxValue / units.unit);
-
-    // determine the current step values, round it to something divisible by
-    const step = Math.ceil((maxValue - minValue) / 6);
-    maxValue = minValue + (6 * step);
-
-    const segments = [];
-    const scale = scalePow().exponent(0.1).domain([minValue * units.unit, maxValue * units.unit]).range([0, 6]);
-    for (let i = 1; i <= 6; i++) {
-        segments.push(scale.invert(i));
+    const rangeArray = [];
+    const numStateRange = 49;
+    const numCountyRange = 2000;
+    if (territory === 'state') {
+        for (let i = 0; i < numStateRange; i++) {
+            rangeArray.push(i);
+        }
+    } else {
+        for (let i = 0; i < numCountyRange; i++) {
+            rangeArray.push(i);
+        }
     }
+
+    const scale = scaleQuantile().domain(data).range(rangeArray);
+    const segments = scale.quantiles();
 
     return {
         scale,

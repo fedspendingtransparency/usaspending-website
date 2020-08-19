@@ -71,4 +71,14 @@
             }
         }
     }
+    .map-legend-body-covid19 {
+      @include unstyled-list;
+      padding: 0.65rem $global-pad;
+      height: rem(200);
+      .map-legend-gradient {
+        background: linear-gradient(#FFF, rgba(1, 43, 58, 1));
+        height: rem(100);
+        width: rem(20);
+      }
+  }
 }
