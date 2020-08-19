@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
@@ -66,7 +68,14 @@ export default class GeoVisualizationSection extends React.Component {
 
     render() {
         let message = null;
-        if (this.props.loading) {
+
+        if (!MapboxGL.supported()) {
+            return (
+                <div className="results-table-message-container">
+                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
+                </div>
+            );
+        } else if (this.props.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">
@@ -114,6 +123,7 @@ export default class GeoVisualizationSection extends React.Component {
             // of the United States so that we don't generate a MapBox error
             center = [-95.569430, 38.852892];
         }
+
 
         return (
             <div className="geo__map-section">
