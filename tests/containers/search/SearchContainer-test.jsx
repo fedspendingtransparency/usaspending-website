@@ -5,7 +5,7 @@
 import { Set } from 'immutable';
 
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
-import { parseRemoteFilters, areFiltersBlank } from 'containers/search/SearchContainer';
+import { parseRemoteFilters, areFiltersEqual } from 'containers/search/SearchContainer';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';
 
@@ -57,10 +57,10 @@ describe('SearchContainer', () => {
     });
     describe('areFiltersBlank', () => {
         it('should return true when selected filters are effectively blank', () => {
-            expect(areFiltersBlank(initialState)).toBeTruthy();
+            expect(areFiltersEqual(initialState, initialState)).toBeTruthy();
         });
         it('should return false when filters are selected', () => {
-            expect(areFiltersBlank({
+            expect(areFiltersEqual(initialState, {
                 ...initialState,
                 timePeriodFY: new Set(['2020'])
             })).toBeFalsy();

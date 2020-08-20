@@ -72,6 +72,11 @@ export const areFiltersEqual = (filters, filterReference = initialState) => {
     return true;
 };
 
+/**
+ * Takes Filter Object from API and transforms it to Immutable Data Structures
+ * @param {Object} data object to be transformed
+ * @returns {Object} Object where every property is an immutable data structure
+ */
 export const parseRemoteFilters = (data) => {
     const newFilters = data.filters;
     const version = data.version;
