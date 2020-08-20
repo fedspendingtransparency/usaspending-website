@@ -42,7 +42,7 @@ const ShareIcon = ({
     };
 
     const handleShareClick = () => {
-        Analytics.event({ category: slug, action: 'Share' });
+        Analytics.event({ category: slug, action: 'profile - share' });
     };
 
     const socialSharePickerOptions = socialShareOptions.map((option) => {
