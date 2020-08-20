@@ -262,6 +262,7 @@ export const dataForLinks = [
         target: 12
     },
     {
+        name: 'fakeData',
         source: 8, // remaining balance to fake data
         target: 13
     }

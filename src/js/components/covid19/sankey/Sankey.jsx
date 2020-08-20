@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { uniqueId, uniq } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
+import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 // TODO - Uncomment this when tooltips and glossary content is ready
 // import { Glossary } from 'components/sharedComponents/icons/Icons';
@@ -84,14 +85,24 @@ const SankeyViz = ({
                 value: overview[node.name],
                 description: `A rectangle representing ${formatMoney(overview[node.name])} in spending for ${node.label}`
             })));
-            setNodeData(dataForNodes);
+            if (isIE) {
+                setNodeData(dataForNodes.filter((node) => node.name !== 'fakeData'));
+            }
+            else {
+                setNodeData(dataForNodes);
+            }
         }
     }, [defCodes, overview]);
     // create data for links
     useEffect(() => {
         if (Object.keys(overview).length && defCodes.length) {
             const data = nodeData.filter((node) => node.name !== '_totalBudgetAuthority');
-            setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
+            if (isIE) {
+                setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })).filter((link) => link.name !== 'fakeData'));
+            }
+            else {
+                setLinkData(dataForLinks.map((link, i) => ({ ...link, value: data[i]?.value })));
+            }
         }
     }, [nodeData, overview, defCodes]);
     // set the data used for the d3 sankey method
@@ -101,13 +112,23 @@ const SankeyViz = ({
     // create sankey data
     useEffect(() => {
         if (sankeyData.nodes.length && sankeyData.links.length) {
-            const { nodes, links } = Sankey.sankey()
-                .nodeWidth(width / 5)
-                .nodePadding(60)
-                .extent([[1, startOfSankeyY], [width - 1, height - 5]])
-                .nodeSort(null)(sankeyData);
-            setSankeyNodes(nodes);
-            setSankeyLinks(links);
+            if (!isIE) {
+                const { nodes, links } = Sankey.sankey()
+                    .nodeWidth(width / 5)
+                    .nodePadding(60)
+                    .extent([[1, startOfSankeyY], [width - 1, height - 5]])
+                    .nodeSort(null)(sankeyData);
+                setSankeyNodes(nodes);
+                setSankeyLinks(links);
+            }
+            else {
+                const { nodes, links } = Sankey.sankey()
+                    .nodeWidth(width / 5)
+                    .nodePadding(60)
+                    .extent([[1, startOfSankeyY], [width - 1, height - 5]])(sankeyData);
+                setSankeyNodes(nodes);
+                setSankeyLinks(links);
+            }
         }
     }, [sankeyData, height, width]);
 
@@ -202,7 +223,7 @@ const SankeyViz = ({
                         {/* funding text and line */}
                         <g tabIndex="0" aria-label={`Data through ${date}`}>
                             <desc>{`Data through ${date}`}</desc>
-                            <text className="sankey__date-note" ref={dateNoteRef} {...dateNoteStyles}>Data through {date}</text>
+                            { !isIE && <text className="sankey__date-note" ref={dateNoteRef} {...dateNoteStyles}>Data through {date}</text>}
                         </g>
                         <g tabIndex="0" aria-label="Funding, signifying the portion of funding for COVID-19">
                             <desc>FUNDING, signifying the portion of funding for COVID-19</desc>
@@ -296,6 +317,7 @@ const SankeyViz = ({
                     </g>
                 </svg>
             }
+            { isIE && <DateNote />}
         </div>
     );
 };
