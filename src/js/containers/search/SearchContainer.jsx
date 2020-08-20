@@ -172,7 +172,7 @@ const SearchContainer = ({ history }) => {
             history.replace('/search');
             return;
         }
-        else if (!areAppliedFiltersEmpty && !inFlight) {
+        else if (!inFlight) {
             // generate hash for filter selections
             generateHash();
         }
@@ -184,6 +184,8 @@ const SearchContainer = ({ history }) => {
             setInFlight(false);
             return;
         }
+
+        if (areFiltersEqual(filters, appliedFilters.filters)) return;
         // url has a hash apply filters retrieve filter selections via hash if necessary.
         SearchHelper.restoreUrlHash({
             hash: urlHash
@@ -208,7 +210,7 @@ const SearchContainer = ({ history }) => {
                     history.push('/search');
                 }
             });
-    }, [dispatch, history, urlHash]);
+    }, [dispatch, history, urlHash, appliedFilters.filters]);
 
     return (
         <SearchPage
