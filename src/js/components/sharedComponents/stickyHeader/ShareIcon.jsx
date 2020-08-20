@@ -9,6 +9,7 @@ import {
     getBaseUrl,
     getBaseUrlNoHash
 } from 'helpers/socialShare';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     slug: PropTypes.string,
@@ -38,6 +39,10 @@ const ShareIcon = ({
         document.getElementById('slug').select();
         document.execCommand("copy");
         setConfirmationText(true);
+    };
+
+    const handleShareClick = () => {
+        Analytics.event({ category: slug, action: 'Share' });
     };
 
     const socialSharePickerOptions = socialShareOptions.map((option) => {
@@ -78,7 +83,7 @@ const ShareIcon = ({
                 selectedOption="copy"
                 backgroundColor="#4A4A4A"
                 sortFn={() => 1}>
-                <FontAwesomeIcon icon="share-alt" size="lg" />
+                <FontAwesomeIcon onClick={handleShareClick} icon="share-alt" size="lg" />
             </Picker>
             <span>Share</span>
             {showConfirmationText && (

@@ -44,6 +44,7 @@ import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodol
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 import SidebarFooter from '../../components/covid19/SidebarFooter';
+import Analytics from 'helpers/analytics/Analytics';
 
 require('pages/covid19/index.scss');
 
@@ -163,6 +164,10 @@ const Covid19Container = () => {
         jumpToSection(section);
     };
 
+    const handleDownloadClick = () => {
+        Analytics.event({ category: 'COVID-19 - Profile', action: 'Download' });
+    };
+
     return (
         <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
             <MetaTags {...covidPageMetaTags} />
@@ -189,7 +194,7 @@ const Covid19Container = () => {
                             slug={slug}
                             email={getEmailSocialShareData}
                             noHash />
-                        <div className="sticky-header__toolbar-item">
+                        <div onClick={handleDownloadClick} className="sticky-header__toolbar-item">
                             <DownloadButtonContainer />
                         </div>
                     </div>
