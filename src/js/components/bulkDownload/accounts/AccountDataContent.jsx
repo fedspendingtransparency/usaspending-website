@@ -15,6 +15,7 @@ import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
+import DefCodeFilter from './filters/DefCodeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
 import SubmitButton from '../awards/SubmitButton';
@@ -108,6 +109,7 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
+                        <DefCodeFilter />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}
