@@ -27,7 +27,8 @@ const propTypes = {
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func
+    setDownloadExpectedUrl: PropTypes.func,
+    setDefCodes: PropTypes.func
 };
 
 export class BulkDownloadPageContainer extends React.Component {
@@ -152,7 +153,8 @@ export class BulkDownloadPageContainer extends React.Component {
                 budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
                 submission_types: submissionTypes,
-                fy: formState.fy
+                fy: formState.fy,
+                defCodes: formState.defCodes
             },
             file_format: 'csv'
         };
@@ -234,6 +236,10 @@ export class BulkDownloadPageContainer extends React.Component {
 BulkDownloadPageContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ bulkDownload: state.bulkDownload }),
+    // connects reduxStore to component as props (this.props.bulkDownload === reduxStore.bulkdDownload)
+    (state) => ({
+        bulkDownload: state.bulkDownload
+    }),
+    // connects "action creator" fns which update the reduxStore via dispatch to the component as props (this.props.setDefcodes will invoke)
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadPageContainer);

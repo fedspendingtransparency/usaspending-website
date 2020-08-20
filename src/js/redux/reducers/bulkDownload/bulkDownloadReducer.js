@@ -63,6 +63,7 @@ export const initialState = {
             code: '',
             title: 'Select a Budget Sub-Function'
         },
+        defCodes: [],
         agency: {
             id: '',
             name: 'Select an Agency'
@@ -107,6 +108,22 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 [action.dataType]: dataType
             });
         }
+
+        case 'SET_BULK_DOWNLOAD_DEFC': {
+            const { downloadType, defCodes } = action;
+            // replacing existing state of redux.bulkDownload with a brand new object, with a new reference value in memory.
+            return {
+                // copying redux.bulkDownload.award
+                ...state,
+                [downloadType]: {
+                    // copying redux.bulkDownload.account
+                    ...state[downloadType],
+                    // an array of strings "L", "M" etc...
+                    defCodes
+                }
+            };
+        }
+
         case 'UPDATE_DOWNLOAD_FILTER': {
             const { dataType, name, value } = action;
             if (name === 'submissionTypes') {

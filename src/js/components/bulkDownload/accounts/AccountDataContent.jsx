@@ -32,7 +32,8 @@ const propTypes = {
     setFederalAccountList: PropTypes.func,
     budgetFunctions: PropTypes.array,
     setBudgetSubfunctionList: PropTypes.func,
-    budgetSubfunctions: PropTypes.array
+    budgetSubfunctions: PropTypes.array,
+    setDefCodes: PropTypes.func
 };
 
 export default class AccountDataContent extends React.Component {
@@ -109,7 +110,8 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
-                        <DefCodeFilter />
+                        <DefCodeFilter
+                            setDefCodes={this.props.setDefCodes} />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}

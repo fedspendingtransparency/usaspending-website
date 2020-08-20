@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DEFCheckboxTreeDownload from './DEFCheckboxTreeDownload';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     submissionTypes: PropTypes.array,
     currentSubmissionTypes: PropTypes.array,
     updateFilter: PropTypes.func,
-    valid: PropTypes.bool
+    valid: PropTypes.bool,
+    setDefCodes: PropTypes.func
 };
 
 export default class SubmissionTypeFilter extends React.Component {
@@ -22,16 +24,15 @@ export default class SubmissionTypeFilter extends React.Component {
     }
 
     render() {
-
-
         return (
             <div className="download-filter">
                 <h3 className="download-filter__title">
                     Select <span className="download-filter__title_em">Disaster Emergency Fund Codes (DEFCs).</span>.
                 </h3>
-                <div className="download-filter__content">
-                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> This file links agency financial data to award data. Columns related to award data will be blank when this linkage cannot be made.</p>
-                </div>
+                <p className="download-filter__info">The Federal Government tracks spending funded by supplemental appropriations bills targeting disasters and emergencies. You can select codes related to disaster spending here.</p>
+                <DEFCheckboxTreeDownload setDefCodes={this.props.setDefCodes} />
+
+                <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> COVID-19 Spending account data is only available starting FY2020 P07.</p>
             </div>
         );
     }
