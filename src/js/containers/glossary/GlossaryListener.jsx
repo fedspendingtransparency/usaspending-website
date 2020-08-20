@@ -39,7 +39,7 @@ GlossaryListener.propTypes = {
     glossary: PropTypes.object,
     showGlossary: PropTypes.func,
     setTermFromUrl: PropTypes.func,
-    Child: PropTypes.object
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
 };
 
 const GlossaryListenerContainer = connect(

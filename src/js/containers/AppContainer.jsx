@@ -3,12 +3,12 @@
  * Created by Emily Gullo 9/26/2016
  **/
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 
 import storeSingleton from 'redux/storeSingleton';
 import withGlossaryListener from 'containers/glossary/GlossaryListener';
@@ -35,18 +35,31 @@ else {
 // hold a reference to the store from the store singleton
 storeSingleton.setStore(store);
 
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+};
+
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
-            <Switch>
-                {routes.map(({ path, component }) => (
-                    <Route
-                        exact
-                        path={path}
-                        component={(routerProps) => withGlossaryListener(component, routerProps)}
-                        key={path} />
-                ))}
-            </Switch>
+            <>
+                <ScrollToTop />
+                <Switch>
+                    {routes.map(({ path, component }) => (
+                        <Route
+                            exact
+                            path={path}
+                            component={(routerProps) => withGlossaryListener(component, routerProps)}
+                            key={path} />
+                    ))}
+                </Switch>
+            </>
         </BrowserRouter>
     </Provider>
 );
