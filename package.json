@@ -65,6 +65,7 @@
     },
     "dependencies": {
         "@babel/node": "^7.10.5",
+        "@babel/polyfill": "^7.10.4",
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
         "@fortawesome/free-brands-svg-icons": "^5.13.0",
         "@fortawesome/free-regular-svg-icons": "^5.13.0",
