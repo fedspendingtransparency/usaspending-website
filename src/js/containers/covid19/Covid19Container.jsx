@@ -162,11 +162,11 @@ const Covid19Container = () => {
 
     const handleJumpToSection = (section) => {
         jumpToSection(section);
-        Analytics.event({ category: 'covid-19 - sidebar', action: `profile - ${section} - click` }); 
+        Analytics.event({ category: 'covid-19 - profile', action: `${section} - click` }); 
     };
 
     const handleDownloadClick = () => {
-        Analytics.event({ category: 'covid-19', action: 'profile - download' });
+        Analytics.event({ category: 'covid-19 - profile', action: 'download' });
     };
 
     return (

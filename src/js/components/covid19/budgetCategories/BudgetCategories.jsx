@@ -14,6 +14,7 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import OverviewData from '../OverviewData';
 import ReadMore from '../ReadMore';
+import Analytics from 'helpers/analytics/Analytics';
 
 const tabs = [
     {
@@ -66,6 +67,7 @@ const BudgetCategories = () => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
         setActiveTab(tabInternal);
+        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${activeTab}` });
     };
 
     useEffect(() => {

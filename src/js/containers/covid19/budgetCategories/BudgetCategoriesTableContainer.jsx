@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import kGlobalConstants from 'GlobalConstants';
+import Analytics from 'helpers/analytics/Analytics';
+
 
 import {
     budgetColumns,
@@ -284,6 +286,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const spendingCategoryOnChange = (key) => {
         setSpendingCategory(key);
+        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
     let message = null;
