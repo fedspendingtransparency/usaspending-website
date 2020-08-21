@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Header from 'components/sharedComponents/header/Header';
-import NavBar from 'components/sharedComponents/header/NavBar';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
 
@@ -74,5 +73,7 @@ export const LoadingWrapper = ({
 LoadingWrapper.propTypes = {
     msg: PropTypes.string,
     isLoading: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    includeFooter: PropTypes.bool,
+    includeHeader: PropTypes.bool
 };
