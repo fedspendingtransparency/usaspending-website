@@ -112,6 +112,11 @@ const Footer = ({
                             </div>
                             <ul className="links">
                                 <li>
+                                    <a href="/download_center/data_dictionary">
+                                        Data Dictionary
+                                    </a>
+                                </li>
+                                <li>
                                     <FooterExternalLink
                                         link="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                                         title="Data Model" />

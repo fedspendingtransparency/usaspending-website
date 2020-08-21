@@ -26,6 +26,7 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 const cookie = 'usaspending_covid_homepage';
 
@@ -107,17 +108,29 @@ export default () => {
         setActiveSection(matchedSection.section);
     };
 
+    const getEmailSocialShareData = {
+        subject: "COVID-19 Spending: Data Sources & Methodology",
+        body: `View COVID-19 Spending: Data Sources & Methodology on USAspending.gov: ${"https://www.usaspending.gov/#/disaster/covid-19/data-sources"}`
+    };
+
     return (
         <div className="usa-da-dsm-page" ref={dataDisclaimerBannerRef}>
             {/* TODO: Update these meta tags */}
             <MetaTags {...covidPageDataSourcesMetaTags} />
             <Header />
             <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1} id="main-focus">
-                        COVID-19 Spending: Data Sources &amp; Methodology
-                    </h1>
-                </div>
+                <>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            COVID-19 Spending: Data Sources &amp; Methodology
+                        </h1>
+                    </div>
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon
+                            slug="disaster/covid-19/data-sources"
+                            email={getEmailSocialShareData} />
+                    </div>
+                </>
             </StickyHeader>
             {dataDisclaimerBanner !== 'hide' && (
                 <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
@@ -151,6 +164,14 @@ export default () => {
                     <div className="about-content">
                         <div className="about-padded-content">
                             <div className="about-section-wrapper" id="data-sources-datasets">
+                                <div className="back-link">
+                                    <a
+                                        href="/#/disaster/covid-19"
+                                        rel="noopener noreferrer">
+                                        <FontAwesomeIcon icon="arrow-left" />
+                                        Back to the COVID-19 Spending Profile
+                                    </a>
+                                </div>
                                 <h2 className="about-section-title">
                                     Datasets
                                 </h2>
