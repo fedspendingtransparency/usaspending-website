@@ -47,7 +47,7 @@ describe('DetailContentContainer', () => {
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4', undefined);
         });
         it('should reload from root when the fy prop changes', () => {
             const mockPrepareRoot = jest.fn();
@@ -64,7 +64,7 @@ describe('DetailContentContainer', () => {
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4', undefined);
         });
         it('should reload from root when the quarter prop changes', () => {
             const mockPrepareRoot = jest.fn();
@@ -81,7 +81,24 @@ describe('DetailContentContainer', () => {
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4', undefined);
+        });
+        it('should reload from root when the period prop changes', () => {
+            const mockPrepareRoot = jest.fn();
+
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+            container.instance().prepareRootRequest = mockPrepareRoot;
+
+            container.instance().componentDidUpdate({
+                explorer: Object.assign({}, mockReducerRoot, {
+                    period: '5'
+                })
+            });
+
+            expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4', undefined);
         });
     });
     it('should make an API call on mount', async () => {
@@ -105,7 +122,7 @@ describe('DetailContentContainer', () => {
 
             container.instance().loadData = jest.fn();
 
-            container.instance().prepareRootRequest('agency', '1984', '4');
+            container.instance().prepareRootRequest('agency', '1984', '4', undefined);
             expect(container.state().filters.fy).toEqual('1984');
             expect(container.state().filters.quarter).toEqual('4');
         });
@@ -118,7 +135,7 @@ describe('DetailContentContainer', () => {
 
             container.instance().loadData = jest.fn();
 
-            container.instance().prepareRootRequest('agency', '1984', '4');
+            container.instance().prepareRootRequest('agency', '1984', '4', undefined);
             expect(container.instance().loadData).toHaveBeenCalledTimes(1);
             expect(container.instance().loadData).toHaveBeenCalledWith({
                 within: 'root',
@@ -369,7 +386,7 @@ describe('DetailContentContainer', () => {
             container.instance().rewindToFilter(0);
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '2');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '2', undefined);
         });
         it ('should overwrite the explorer trail and update the transition steps', () => {
             const container = mount(<DetailContentContainer
