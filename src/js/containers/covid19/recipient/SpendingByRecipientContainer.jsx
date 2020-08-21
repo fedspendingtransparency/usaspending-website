@@ -106,7 +106,7 @@ const loanColumns = [
 const clickedRecipientProfile = (recipientName) => {
     Analytics.event({
         category: 'covid-19 - award spending by recipient - recipients',
-        action: 'recipients - recipient profile click',
+        action: 'recipient profile click',
         label: recipientName
     });
 
@@ -134,10 +134,10 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._childId}`)} href={`#/recipient/${rowData._childId}`}>
+                    <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
-                    <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._recipientId}`)} href={`#/recipient/${rowData._recipientId}`}>
+                    <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._recipientId}`}>
                         as Recipient
                     </a>
                     )
@@ -147,7 +147,7 @@ export const parseRows = (rows, activeTab, query) => (
         else if (rowData._childId || rowData._recipientId) {
             // there is a single profile page for this recipient
             link = (
-                <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._childId || rowData._recipientId}`)} href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
                 </a>
             );
@@ -312,7 +312,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     }
 
     const handleDownloadClick = () => {
-        Analytics.event({ category: 'covid-19 - profile - award spending by recipient', action: 'download' });
+        Analytics.event({ category: 'covid-19 - award spending by recipient', action: 'download' });
     };
 
     return (

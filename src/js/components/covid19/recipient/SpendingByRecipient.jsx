@@ -14,6 +14,7 @@ import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContaine
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 const overviewData = [
     {
@@ -55,6 +56,7 @@ const SpendingByRecipient = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
+        Analytics.event({ category: 'covid-19 - award spending by recipient - recipients', action: `${activeTab} - click` });
     };
 
     useEffect(() => {
