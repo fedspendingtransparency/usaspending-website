@@ -41,7 +41,7 @@ storeSingleton.setStore(store);
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
-    
+
     useEffect(() => {
         if (window?.history?.scrollRestoration) {
             window.history.scrollRestoration = 'manual';

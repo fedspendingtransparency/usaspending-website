@@ -26,7 +26,11 @@ const GlossaryListener = ({
             const termStr = history.location.search.split('glossary=')[1];
             showGlossary();
             setTermFromUrl(termStr);
-            history.replace(history.location.path);
+            const path = history.location.pathname;
+            const previousUrl = path[path.length - 1] === '/'
+                ? path.substr(0, path.length - 1)
+                : path;
+            history.replace(previousUrl);
         }
     }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary]);
     return <Child {...{ history, match, location }} />;
