@@ -21,6 +21,7 @@ import SearchBar from 'components/covid19/SearchBar';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const propTypes = {
@@ -301,13 +302,17 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         );
     }
 
+    const handleDownloadClick = () => {
+        Analytics.event({ category: 'covid-19 - profile - award spending by recipient', action: 'download' });
+    };
+
     return (
         <div ref={tableWrapperRef}>
             <div className="table-utility">
                 <div className="table-utility__left">
                     <SearchBar setQuery={setQuery} currentSearchTerm={query} />
                 </div>
-                <div className="table-utility__right">
+                <div onClick={handleDownloadClick} className="table-utility__right">
                     <TableDownloadLink defCodes={defCodes && defCodes.length > 0 && defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
                 </div>
             </div>
