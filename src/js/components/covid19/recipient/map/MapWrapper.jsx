@@ -42,7 +42,7 @@ const defaultProps = {
     children: null
 };
 
-export default class MapWrapper extends React.Component {
+export default class MapWrapper extends React.Component {    
     constructor(props) {
         super(props);
 
@@ -164,6 +164,22 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    getColors = () => {
+        const colors = [];
+        const numStateColors = 49;
+        const numCountyColors = 2000;
+        if (this.props.activeFilters.territory === 'state') {
+            for (let i = 0; i < numStateColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
+            }
+        } else {
+            for (let i = 0; i < numCountyColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
+            }
+        }
+        return colors;
+    }
+
     loadSource = (type) => {
         const baseLayer = `base_${type}`;
         const sourceRef = {
@@ -193,18 +209,7 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = [];
-        const numStateColors = 49;
-        const numCountyColors = 2000;
-        if (this.props.activeFilters.territory === 'state') {
-            for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
-            }
-        } else {
-            for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
-            }
-        }
+        const colors = this.getColors();
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({
@@ -374,19 +379,7 @@ export default class MapWrapper extends React.Component {
         const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
         const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
-        const colors = [];
-        const numStateColors = 49;
-        const numCountyColors = 2000;
-        if (this.props.activeFilters.territory === 'state') {
-            for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
-            }
-        }
-        else {
-            for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
-            }
-        }
+        const colors = this.getColors();
 
         // prepare a set of blank (false) filters
         const filterValues = colors.map(() => (

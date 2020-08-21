@@ -2,6 +2,12 @@
  * covidHelper.js
  * Created By Jonathan Hill 06/02/20
  */
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import moment from 'moment';
+import { snakeCase } from 'lodash';
+import { scaleQuantile } from 'd3-scale';
+
 import {
     defCodes,
     dataDisclaimerHeight,
@@ -13,14 +19,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-
-import Cookies from 'js-cookie';
-import { useState } from 'react';
-import moment from 'moment';
-import { snakeCase } from 'lodash';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
-
-import { scaleQuantile } from 'd3-scale';
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
