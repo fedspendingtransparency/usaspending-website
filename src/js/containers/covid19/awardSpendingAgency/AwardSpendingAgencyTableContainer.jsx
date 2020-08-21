@@ -127,9 +127,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             action: 'agency profile click',
             label: agencyName
         });
-    
     };
-
+    
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);

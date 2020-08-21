@@ -13,8 +13,8 @@ import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import AwardFilterButtons from './AwardFilterButtons';
-import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
     {
