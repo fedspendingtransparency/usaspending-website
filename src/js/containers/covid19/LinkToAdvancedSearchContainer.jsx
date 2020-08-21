@@ -10,6 +10,7 @@ import { isEqual } from 'lodash';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import Analytics from 'helpers/analytics/Analytics';
 
 const FooterLinkToAdvancedSearchContainer = () => {
     const dispatch = useDispatch();
@@ -33,6 +34,18 @@ const FooterLinkToAdvancedSearchContainer = () => {
         dispatch(resetAppliedFilters());
         addDefCodesToAdvancedSearchFilter();
         Router.history.push('/search');
+        Analytics.event({
+            category: 'covid-19 - more information',
+            action: 'advanced search click'
+        });
+    };
+
+    const clickedCustomAcctData = () => {
+        Analytics.event({
+            category: 'covid-19 - more information',
+            action: 'custom account data click'
+        });
+    
     };
 
     return (
@@ -43,7 +56,7 @@ const FooterLinkToAdvancedSearchContainer = () => {
                     Visit our <button onClick={clickedSearch}>Advanced Search</button> page to see individual awards funded through the COVID-19 response and keep an eye out for purple COVID-19 badges found throughout the site.
                 </p>
                 <p>
-                    Visit our <a href="#/download_center/custom_account_data">Custom Account Data</a> download for COVID-19 award spending data with a higher degree of granularity.
+                    Visit our <a onClick={clickedCustomAcctData} href="#/download_center/custom_account_data">Custom Account Data</a> download for COVID-19 award spending data with a higher degree of granularity.
                 </p>
             </div>
         </div>
