@@ -108,10 +108,22 @@ const AmountsVisualization = ({
             setScale(() => s);
         }
     }, [width, overviewData]);
-    const setMouseData = (e) => setMouseValue({ x: e.offsetX, y: e.offsetY });
+    const setMouseData = (e) => {
+        console.log(' E : ', e);
+        console.log(' Offset : ', { x: e.offsetX, y: e.offsetY });
+        console.log(' Client : ', { x: e.clientX, y: e.clientY });
+        console.log(' Screen : ', parseInt(e?.target?.attributes[2]?.nodeValue || 0, 10));
+        console.log(' E Target : ', e?.target.attributes);
+        console.log(' Doc : ', document.getElementById('amounts-viz_id'));
+        // setMouseValue({ x: (!e.offsetX) ? (e.clientX) : e.offsetX, y: (!e.offsetY) ? (e.clientY) : e.offsetY });
+        setMouseValue({ x: window.navigator.userAgent.indexOf("Chrome") !== -1 ? e.offsetX : e.clientX - document.getElementById('amounts-viz_id').offsetLeft, y: window.navigator.userAgent.indexOf("Chrome") !== -1 ? e.offsetY : parseInt(e?.target?.attributes[2]?.nodeValue || 0, 10) + e.offsetY });
+        // setMouseValue({ x: e.offsetX, y: e.offsetY });
+    }
     useEffect(() => {
-        window.addEventListener('mousemove', setMouseData);
-        return () => window.removeEventListener('mousemove', setMouseData);
+        // window.addEventListener('mousemove', setMouseData);
+        // return () => window.removeEventListener('mousemove', setMouseData);
+        document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
+        return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
     }, []);
     // totalRectangleData
     useEffect(() => {
@@ -633,6 +645,7 @@ const AmountsVisualization = ({
     }, [overviewData]);
 
     const displayTotalTooltip = () => {
+        console.log('================ Mouse Value : ================', mouseValue);
         setTotalTooltipData({
             tooltipPosition: 'bottom',
             styles: {
@@ -745,7 +758,7 @@ const AmountsVisualization = ({
     };
 
     return (
-        <div className="amounts-viz award-amounts-viz">
+        <div className="amounts-viz award-amounts-viz"  id="amounts-viz_id">
             <h3 className="body__narrative amounts-viz__title">
                 This is how much was <strong>spent</strong> so far in response to COVID-19
             </h3>

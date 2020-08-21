@@ -2,7 +2,7 @@
   width: 100%;
   @import '../../award/shared/awardAmountsSection/charts';
   .highlight {
-      stroke: #763E94;
+      stroke: $color-active;
       stroke-width: 3;
   }
   .tooltip-wrapper {
@@ -42,6 +42,7 @@
     pointer-events: visible;
   }
   .amounts-text__question {
+    cursor: default;
     font-size: 1.8rem;
     font-style: italic;
     opacity: 0.4;
@@ -53,6 +54,7 @@
     }
   }
   .amounts-text__value {
+    cursor: default;
     font-size: 2.1rem;
     font-weight: $font-semibold;
     opacity: 0.7;
@@ -66,6 +68,7 @@
     }
   }
   .amounts-text__label {
+    cursor: default;
     font-size: 1.6rem;
     opacity: 0.6;
     letter-spacing: 0;
