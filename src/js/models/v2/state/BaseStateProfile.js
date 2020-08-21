@@ -19,6 +19,9 @@ const BaseStateProfile = {
         this._population = data.population || 0;
         this._awardAmountPerCapita = data.award_amount_per_capita || 0;
         this._medianHouseholdIncome = data.median_household_income || 0;
+        /**
+         * TODO: Add state overview data for face value of loan
+         */
     },
     get totalAmount() {
         if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
