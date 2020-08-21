@@ -28,6 +28,7 @@ const RecipientContainer = React.lazy(() => import('containers/recipient/Recipie
 const AgencyProfileV2 = React.lazy(() => import('containers/agency/v2/AgencyContainerV2').then((comp) => comp));
 const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -172,6 +173,10 @@ export const routes = [
         path: '/disaster/covid-19',
         component: Covid19Container,
         exact: true
+    },
+    {
+        path: '*',
+        component: ErrorPage
     }
 ];
 /* eslint-enable import/prefer-default-export */
