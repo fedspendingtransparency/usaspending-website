@@ -147,6 +147,24 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
+    const clickedAgencyProfile = (agencyName) => {
+        Analytics.event({
+            category: `covid-19 - total spending by budget category - ${props.type}`,
+            action: `${spendingCategory} - agency profile click`,
+            label: agencyName
+        });
+    
+    };
+
+    const clickedFedAcctProfile = (accountName) => {
+        Analytics.event({
+            category: `covid-19 - total spending by budget category - ${props.type}`,
+            action: `${spendingCategory} - federal account profile click`,
+            label: accountName
+        });
+    
+    };
+
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
@@ -174,6 +192,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <a
                         className="federal-account-profile__link"
+                        onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
                         href={`#/federal_account/${code}`}>
                         {budgetCategoryRow.name}
                     </a>
@@ -182,6 +201,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <a
                         className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
                         href={`#/agency/${id}`}>
                         {budgetCategoryRow.name}
                     </a>
