@@ -43,7 +43,7 @@ const ShareIcon = ({
     };
 
     const handleShareClick = () => {
-        Analytics.event({ category: slug, action: 'share' });
+        Analytics.event({ category: slug, action: 'share options click' });
     };
 
     const socialSharePickerOptions = socialShareOptions.map((option) => {
