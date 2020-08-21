@@ -3,29 +3,31 @@
  * Created by Kevin Li 5/26/17
  **/
 
-import Homepage from 'components/homepage/Homepage';
-import SearchContainer from 'containers/search/SearchContainer';
-import ExplorerLanding from 'components/explorer/landing/ExplorerLanding';
-import ExplorerDetailPageContainer from 'containers/explorer/detail/ExplorerDetailPageContainer';
-import AwardContainer from 'containers/award/AwardContainer';
-import AccountContainer from 'containers/account/AccountContainer';
-import AgencyContainer from 'containers/agency/AgencyContainer';
-import About from 'components/about/About';
-import AccessibilityPage from 'components/about/legal/AccessibilityPage';
-import PrivacyPage from 'components/about/legal/PrivacyPage';
-import FOIAPage from 'components/about/legal/FOIAPage';
-import DBInfo from 'components/about/DBInfo';
-import AgencyLandingPage from 'components/agencyLanding/AgencyLandingPage';
-import BulkDownloadPageContainer from 'containers/bulkDownload/BulkDownloadPageContainer';
-import KeywordContainer from 'containers/keyword/KeywordContainer';
-import AccountLandingPage from 'components/accountLanding/AccountLandingPage';
-import StateLandingPage from 'components/stateLanding/StateLandingPage';
-import StateContainer from 'containers/state/StateContainer';
-import RecipientLandingPage from 'components/recipientLanding/RecipientLandingPage';
-import RecipientContainer from 'containers/recipient/RecipientContainer';
-import AgencyProfileV2 from 'containers/agency/v2/AgencyContainerV2';
-import Covid19Container from 'containers/covid19/Covid19Container';
-import DataSourcesAndMethodologiesPage from 'components/covid19/DataSourcesAndMethodologiesPage';
+import React from 'react';
+
+const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
+const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
+const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
+const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
+const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
+const AccountContainer = React.lazy(() => import('containers/account/AccountContainer').then((comp) => comp));
+const AgencyContainer = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
+const About = React.lazy(() => import('components/about/About').then((comp) => comp));
+const AccessibilityPage = React.lazy(() => import('components/about/legal/AccessibilityPage').then((comp) => comp));
+const PrivacyPage = React.lazy(() => import('components/about/legal/PrivacyPage').then((comp) => comp));
+const FOIAPage = React.lazy(() => import('components/about/legal/FOIAPage').then((comp) => comp));
+const DBInfo = React.lazy(() => import('components/about/DBInfo').then((comp) => comp));
+const AgencyLandingPage = React.lazy(() => import('components/agencyLanding/AgencyLandingPage').then((comp) => comp));
+const BulkDownloadPageContainer = React.lazy(() => import('containers/bulkDownload/BulkDownloadPageContainer').then((comp) => comp));
+const KeywordContainer = React.lazy(() => import('containers/keyword/KeywordContainer').then((comp) => comp));
+const AccountLandingPage = React.lazy(() => import('components/accountLanding/AccountLandingPage').then((comp) => comp));
+const StateLandingPage = React.lazy(() => import('components/stateLanding/StateLandingPage').then((comp) => comp));
+const StateContainer = React.lazy(() => import('containers/state/StateContainer').then((comp) => comp));
+const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
+const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
+const AgencyProfileV2 = React.lazy(() => import('containers/agency/v2/AgencyContainerV2').then((comp) => comp));
+const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
+const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.

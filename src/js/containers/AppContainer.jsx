@@ -3,7 +3,7 @@
  * Created by Emily Gullo 9/26/2016
  **/
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
@@ -13,6 +13,10 @@ import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import storeSingleton from 'redux/storeSingleton';
 import withGlossaryListener from 'containers/glossary/GlossaryListener';
 import reducers from 'redux/reducers/index';
+
+import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
+
+import '_global.scss';
 
 import { routes } from './router/RouterRoutes';
 
@@ -55,7 +59,7 @@ const ScrollToTop = () => {
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
-            <>
+            <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
                 <Switch>
                     {routes.map(({ path, component }) => (
@@ -66,7 +70,7 @@ const AppContainer = () => (
                             key={path} />
                     ))}
                 </Switch>
-            </>
+            </Suspense>
         </BrowserRouter>
     </Provider>
 );
