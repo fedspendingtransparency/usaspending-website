@@ -12,8 +12,8 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
-import AwardFilterButtons from './AwardFilterButtons';
 import Analytics from 'helpers/analytics/Analytics';
+import AwardFilterButtons from './AwardFilterButtons';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [

@@ -41,6 +41,7 @@ import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/d
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
+import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 import SidebarFooter from '../../components/covid19/SidebarFooter';
@@ -161,7 +162,7 @@ const Covid19Container = () => {
 
     const handleJumpToSection = (section) => {
         jumpToSection(section);
-        Analytics.event({category: 'COVID-19 - Profile', action: `${section} - click`});
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
 
     return (

@@ -123,12 +123,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
-            category: `covid-19 - total spending by agency - ${props.type}`,
+            category: `COVID-19 - Total Spending by Agency - ${props.type}`,
             action: 'agency profile click',
             label: agencyName
         });
     };
-    
+
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);

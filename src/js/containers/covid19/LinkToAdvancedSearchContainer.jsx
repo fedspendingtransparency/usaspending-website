@@ -35,17 +35,16 @@ const FooterLinkToAdvancedSearchContainer = () => {
         addDefCodesToAdvancedSearchFilter();
         Router.history.push('/search');
         Analytics.event({
-            category: 'covid-19 - more information',
+            category: 'COVID-19 - More Information',
             action: 'advanced search click'
         });
     };
 
     const clickedCustomAcctData = () => {
         Analytics.event({
-            category: 'covid-19 - more information',
+            category: 'COVID-19 - More Information',
             action: 'custom account data click'
         });
-    
     };
 
     return (

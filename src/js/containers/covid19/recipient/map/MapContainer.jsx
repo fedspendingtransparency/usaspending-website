@@ -160,7 +160,6 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
-       
         Analytics.event({
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `award type - ${value}`

@@ -14,7 +14,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from '../ReadMore'
+import ReadMore from '../ReadMore';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';

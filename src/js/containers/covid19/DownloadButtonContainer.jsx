@@ -41,7 +41,7 @@ const DownloadButtonContainer = () => {
             console.log(err);
             downloadRequest.current = null;
         }
-        Analytics.event({category: 'COVID-19 - Profile', action: 'download'});
+        Analytics.event({ category: 'COVID-19 - Profile', action: 'download' });
     };
 
     return (
