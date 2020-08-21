@@ -42,7 +42,7 @@ const defaultProps = {
     children: null
 };
 
-export default class MapWrapper extends React.Component {    
+export default class MapWrapper extends React.Component {
     constructor(props) {
         super(props);
 
@@ -93,6 +93,22 @@ export default class MapWrapper extends React.Component {
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
+    }
+
+    getColors = () => {
+        const colors = [];
+        const numStateColors = 49;
+        const numCountyColors = 2000;
+        if (this.props.activeFilters.territory === 'state') {
+            for (let i = 0; i < numStateColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
+            }
+        } else {
+            for (let i = 0; i < numCountyColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
+            }
+        }
+        return colors;
     }
 
     mapReady = () => {
@@ -162,22 +178,6 @@ export default class MapWrapper extends React.Component {
             // iterate through all the highlight layers and enable them
             this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
         });
-    }
-
-    getColors = () => {
-        const colors = [];
-        const numStateColors = 49;
-        const numCountyColors = 2000;
-        if (this.props.activeFilters.territory === 'state') {
-            for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
-            }
-        } else {
-            for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
-            }
-        }
-        return colors;
     }
 
     loadSource = (type) => {
