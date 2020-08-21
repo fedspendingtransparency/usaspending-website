@@ -14,6 +14,14 @@ const GlossaryListener = ({
     Child
 }) => {
     useEffect(() => {
+        if (location.hash) {
+            const urlWithNoHash = location.hash.split("#").length > 1
+                ? location.hash.split("#!")[1]
+                : '';
+            history.replace(urlWithNoHash);
+        }
+    }, [location, history]);
+    useEffect(() => {
         if (history.location.search.includes('glossary')) {
             const termStr = history.location.search.split('glossary=')[1];
             showGlossary();
