@@ -103,6 +103,15 @@ const loanColumns = [
     }
 ];
 
+const clickedRecipientProfile = (recipientName) => {
+    Analytics.event({
+        category: 'covid-19 - award spending by recipient - recipients',
+        action: 'recipients - recipient profile click',
+        label: recipientName
+    });
+
+};
+
 export const parseRows = (rows, activeTab, query) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByRecipientRow);
@@ -125,10 +134,10 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <a href={`#/recipient/${rowData._childId}`}>
+                    <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._childId}`)} href={`#/recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
-                    <a href={`#/recipient/${rowData._recipientId}`}>
+                    <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._recipientId}`)} href={`#/recipient/${rowData._recipientId}`}>
                         as Recipient
                     </a>
                     )
@@ -138,7 +147,7 @@ export const parseRows = (rows, activeTab, query) => (
         else if (rowData._childId || rowData._recipientId) {
             // there is a single profile page for this recipient
             link = (
-                <a href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <a onClick={clickedRecipientProfile.bind(null, `#/recipient/${rowData._childId || rowData._recipientId}`)} href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
                 </a>
             );
@@ -149,7 +158,7 @@ export const parseRows = (rows, activeTab, query) => (
                 rowData.obligation,
                 rowData.outlay,
                 rowData.faceValueOfLoan,
-                rowData.awardCount
+                rowData.awardCount,
             ];
         }
         return [
