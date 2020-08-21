@@ -15,6 +15,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -120,6 +121,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
 
+    const clickedAgencyProfile = (agencyName) => {
+        Analytics.event({
+            category: `covid-19 - total spending by agency - ${props.type}`,
+            action: 'agency profile click',
+            label: agencyName
+        });
+    
+    };
+
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
@@ -147,6 +157,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 link = (
                     <a
                         className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
                         href={`#/agency/${id}`}>
                         {awardSpendingByAgencyRow.description}
                     </a>

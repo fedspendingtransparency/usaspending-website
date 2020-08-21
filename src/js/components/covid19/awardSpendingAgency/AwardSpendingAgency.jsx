@@ -14,6 +14,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import ReadMore from '../ReadMore';
+import Analytics from 'helpers/analytics/Analytics';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
@@ -116,6 +117,8 @@ const AwardSpendingAgency = () => {
             internal: tabInternal,
             subtitle: tabSubtitle
         });
+
+        Analytics.event({ category: 'covid-19 - award spending by agency', action: `${tabSubtitle} - click` });
     };
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
