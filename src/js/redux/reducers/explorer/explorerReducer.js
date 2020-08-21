@@ -35,7 +35,8 @@ const explorerReducer = (state = initialState, action) => {
         case 'SET_EXPLORER_PERIOD': {
             return Object.assign({}, state, {
                 fy: action.fy,
-                quarter: action.quarter
+                quarter: action.quarter,
+                period: action.period
             });
         }
         case 'SET_EXPLORER_ROOT': {

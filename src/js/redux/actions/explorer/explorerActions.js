@@ -11,7 +11,8 @@ export const setExplorerRoot = (state) => ({
 export const setExplorerPeriod = (state) => ({
     type: 'SET_EXPLORER_PERIOD',
     fy: state.fy,
-    quarter: state.quarter
+    quarter: state.quarter,
+    period: state.period
 });
 
 export const setExplorerActive = (state) => ({

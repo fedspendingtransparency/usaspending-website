@@ -59,30 +59,34 @@ export class DetailContentContainer extends React.Component {
         this.prepareRootRequest(
             this.props.explorer.root,
             this.props.explorer.fy,
-            this.props.explorer.quarter
+            this.props.explorer.quarter,
+            this.props.explorer.period
         );
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.explorer.root !== this.props.explorer.root ||
             prevProps.explorer.fy !== this.props.explorer.fy ||
-            prevProps.explorer.quarter !== this.props.explorer.quarter) {
+            prevProps.explorer.quarter !== this.props.explorer.quarter ||
+            prevProps.explorer.period !== this.props.explorer.period) {
             // root changed, reload everything
             this.prepareRootRequest(
                 this.props.explorer.root,
                 this.props.explorer.fy,
-                this.props.explorer.quarter
+                this.props.explorer.quarter,
+                this.props.explorer.period
             );
         }
     }
 
-    prepareRootRequest(rootType, fy, quarter) {
+    prepareRootRequest(rootType, fy, quarter, period) {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
         // in fact, just to be safe, let's overwrite the filter props
         const resetFilters = {
             fy,
-            quarter
+            quarter,
+            period
         };
 
         // make the request
@@ -411,7 +415,7 @@ export class DetailContentContainer extends React.Component {
             this.setState({
                 transitionSteps: steps
             }, () => {
-                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter);
+                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter, this.props.explorer.period);
             });
             return;
         }
@@ -419,7 +423,8 @@ export class DetailContentContainer extends React.Component {
         // iterate through the trail to rebuild the filter set
         const newFilters = {
             fy: this.props.explorer.fy,
-            quarter: this.props.explorer.quarter
+            quarter: this.props.explorer.quarter,
+            period: this.props.explorer.period
         };
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding
@@ -524,6 +529,7 @@ export class DetailContentContainer extends React.Component {
                 <ExplorerSidebar
                     fy={this.props.explorer.fy}
                     quarter={this.props.explorer.quarter}
+                    period={this.props.explorer.period}
                     trail={this.props.explorer.trail}
                     setExplorerPeriod={this.props.setExplorerPeriod}
                     rewindToFilter={this.rewindToFilter} />

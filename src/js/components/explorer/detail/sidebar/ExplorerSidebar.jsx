@@ -17,6 +17,7 @@ import VerticalTrail from './VerticalTrail';
 const propTypes = {
     fy: PropTypes.string,
     quarter: PropTypes.string,
+    period: PropTypes.string,
     trail: PropTypes.object,
     setExplorerPeriod: PropTypes.func,
     rewindToFilter: PropTypes.func
