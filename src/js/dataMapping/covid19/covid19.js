@@ -342,3 +342,5 @@ export const mapFilterSortOrderByValue = {
     totalSpending: 0,
     perCapita: 1
 };
+
+export const defaultTooltipWidth = 375;

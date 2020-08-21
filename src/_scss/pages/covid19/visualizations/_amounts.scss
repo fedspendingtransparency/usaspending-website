@@ -1,5 +1,33 @@
 .amounts-viz {
   width: 100%;
+  @import '../../award/shared/awardAmountsSection/charts';
+  .highlight {
+      stroke: #763E94;
+      stroke-width: 3;
+  }
+  .tooltip-wrapper {
+    .tooltip__content {
+      .tooltip__message {
+        .tooltip__text {
+            padding: 2rem 2rem 0 2rem;
+            .tooltip__text-section {
+                font-weight: $font-semibold;
+            }
+            .tooltip__text-section:last-of-type {
+              font-weight: $font-normal;
+            }
+        }
+        .tooltip__text:last-child {
+          padding: 2rem;
+        }
+      } 
+    }
+    .tooltip-pagination-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
   .line__obligation {
     shape-rendering: auto;
     stroke: #558EC6;
