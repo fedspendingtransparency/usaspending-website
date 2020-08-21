@@ -39,6 +39,7 @@ const ShareIcon = ({
         document.getElementById('slug').select();
         document.execCommand("copy");
         setConfirmationText(true);
+        Analytics.event({ category: slug, action: 'copied link' });
     };
 
     const handleShareClick = () => {

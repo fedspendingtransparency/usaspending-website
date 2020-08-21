@@ -163,7 +163,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         ));
         Router.history.push('/search');
         Analytics.event({
-            category: `covid-19 - award spending by CFDA - ${activeTab}`,
+            category: `COVID-19 - Award Spending by CFDA - ${activeTab}`,
             action: 'CFDA listing click',
             label: cfdaData.description
         });

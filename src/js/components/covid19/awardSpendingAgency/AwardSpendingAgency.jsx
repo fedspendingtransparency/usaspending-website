@@ -118,7 +118,7 @@ const AwardSpendingAgency = () => {
             subtitle: tabSubtitle
         });
 
-        Analytics.event({ category: 'covid-19 - award spending by agency', action: `${tabSubtitle} - click` });
+        Analytics.event({ category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
     };
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {

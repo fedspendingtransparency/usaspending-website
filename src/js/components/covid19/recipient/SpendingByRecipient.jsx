@@ -56,7 +56,7 @@ const SpendingByRecipient = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
-        Analytics.event({ category: 'covid-19 - award spending by recipient - recipients', action: `${activeTab} - click` });
+        Analytics.event({ category: 'COVID-19 - Award Spending by Recipient - Recipients', action: `${activeTab} - click` });
     };
 
     useEffect(() => {

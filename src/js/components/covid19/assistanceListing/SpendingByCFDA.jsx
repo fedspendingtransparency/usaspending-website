@@ -58,7 +58,7 @@ const SpendingByCFDA = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
-        Analytics.event({ category: 'covid-19 - award spending by CFDA', action: `${activeTab} - click` });
+        Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
     };
 
     useEffect(() => {

@@ -67,7 +67,7 @@ const BudgetCategories = () => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
         setActiveTab(tabInternal);
-        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${activeTab}` });
+        Analytics.event({ category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
     };
 
     useEffect(() => {
