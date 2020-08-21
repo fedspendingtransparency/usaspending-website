@@ -43,8 +43,8 @@ export default class FilterSidebar extends React.Component {
                 const glossarySlug = this.props.glossaryEntries[i];
                 let glossaryUrl;
                 if (glossarySlug) {
-                    const hash = this.props.hash ? `/${this.props.hash}` : '';
-                    glossaryUrl = `search${hash}/?glossary=${glossarySlug}`;
+                    const hash = this.props.hash ? `/search/${this.props.hash}` : '/search';
+                    glossaryUrl = `${hash}/?glossary=${glossarySlug}`;
                 }
                 return (<FilterOption
                     name={title}
