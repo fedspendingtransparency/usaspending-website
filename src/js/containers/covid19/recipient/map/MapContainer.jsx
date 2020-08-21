@@ -28,6 +28,7 @@ import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     defCodes: PropTypes.array
@@ -143,6 +144,11 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+       
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - award type',
+            action: value
+        });
     }
 
     mapLoaded = () => {
