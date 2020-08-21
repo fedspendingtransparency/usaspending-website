@@ -27,8 +27,8 @@ import {
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
-import SummaryInsightsContainer from '../SummaryInsightsContainer';
 import Analytics from 'helpers/analytics/Analytics';
+import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {
     defCodes: PropTypes.array

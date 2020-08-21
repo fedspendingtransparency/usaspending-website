@@ -41,10 +41,10 @@ import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/d
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
+import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 import SidebarFooter from '../../components/covid19/SidebarFooter';
-import Analytics from 'helpers/analytics/Analytics';
 
 require('pages/covid19/index.scss');
 

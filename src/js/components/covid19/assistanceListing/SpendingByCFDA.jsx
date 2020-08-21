@@ -14,9 +14,9 @@ import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContaine
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
+import Analytics from 'helpers/analytics/Analytics';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
-import Analytics from 'helpers/analytics/Analytics';
 
 const overviewData = [
     {
