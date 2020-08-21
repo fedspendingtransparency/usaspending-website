@@ -2,12 +2,11 @@ import React from 'react';
 import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { uniqueId, get } from 'lodash';
+import { get } from 'lodash';
 
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 import { setDefCodes } from '../../../../redux/actions/bulkDownload/bulkDownloadActions';
 

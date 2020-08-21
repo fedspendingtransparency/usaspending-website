@@ -31,7 +31,6 @@ export default class SubmissionTypeFilter extends React.Component {
                 </h3>
                 <p className="download-filter__info">The Federal Government tracks spending funded by supplemental appropriations bills targeting disasters and emergencies. You can select codes related to disaster spending here.</p>
                 <DEFCheckboxTreeDownload setDefCodes={this.props.setDefCodes} />
-
                 <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> COVID-19 Spending account data is only available starting FY2020 P07.</p>
             </div>
         );
