@@ -16,6 +16,7 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
+import Analytics from 'helpers/analytics/Analytics';
 
 const overviewData = [
     {
@@ -57,6 +58,7 @@ const SpendingByCFDA = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
+        Analytics.event({ category: 'covid-19 - award spending by CFDA', action: `${activeTab} - click` });
     };
 
     useEffect(() => {

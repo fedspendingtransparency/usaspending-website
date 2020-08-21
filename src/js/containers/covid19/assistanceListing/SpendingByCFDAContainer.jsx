@@ -20,6 +20,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import Router from 'containers/router/Router';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const propTypes = {
@@ -161,7 +162,13 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             )
         ));
         Router.history.push('/search');
+        Analytics.event({
+            category: `covid-19 - award spending by CFDA - ${activeTab}`,
+            action: 'CFDA listing click',
+            label: cfdaData.description
+        });
     };
+
 
     const parseRows = () => (
         results.map((row) => {
