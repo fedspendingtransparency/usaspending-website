@@ -33,6 +33,7 @@ const MapLegend = ({ units, min, max }) => {
         <div className="map-legend">
             <ul className="map-legend-body-covid19">
                 <span className="legend-number">{maxCurrencyValue}</span>
+                <br />
                 <div className="map-legend-gradient" />
                 <span className="legend-number">{minCurrencyValue}</span>
             </ul>

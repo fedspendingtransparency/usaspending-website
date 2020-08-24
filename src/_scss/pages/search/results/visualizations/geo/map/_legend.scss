@@ -74,17 +74,15 @@
         }
     }
     .map-legend-body-covid19 {
+      text-align: center;
       @include unstyled-list;
       padding: 0.65rem $global-pad;
-      height: rem(150);
       .map-legend-gradient {
         background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
         height: rem(100);
         width: rem(20);
-        margin: auto;
+        margin: rem(7) auto;
+        border: rem(0.1) solid lightslategray;
       };
-      .legend-number {
-        font-weight: bold;
-      }
   }
 }
