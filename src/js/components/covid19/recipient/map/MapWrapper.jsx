@@ -445,7 +445,8 @@ export default class MapWrapper extends React.Component {
         return (
             <MapLegend
                 segments={spendingScale.segments}
-                units={spendingScale.units} />
+                units={spendingScale.units}
+                data={this.props.data.values} />
         );
     }
 

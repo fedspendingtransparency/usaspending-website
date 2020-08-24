@@ -1,4 +1,6 @@
 .map-legend {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
     background-color: $color-white;
     bottom: rem(80);
     @include media($tablet-screen) {
@@ -15,8 +17,8 @@
         display: flex;
         align-items: center;
         .map-legend-header__title-text {
-          font-size: 1.4rem;
           margin: 0;
+          font-size: 1.4rem;
           font-weight: $font-semibold;
           padding-bottom: 0.6rem;
         }
@@ -74,11 +76,15 @@
     .map-legend-body-covid19 {
       @include unstyled-list;
       padding: 0.65rem $global-pad;
-      height: rem(200);
+      height: rem(150);
       .map-legend-gradient {
         background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
-        height: rem(150);
+        height: rem(100);
         width: rem(20);
+        margin: auto;
+      };
+      .legend-number {
+        font-weight: bold;
       }
   }
 }
