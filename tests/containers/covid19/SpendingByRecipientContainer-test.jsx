@@ -32,10 +32,10 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockResults[0].description}&nbsp;(
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
                                 as Child
                             </a>,&nbsp;
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
                                 as Recipient
                             </a>
                             )
@@ -47,7 +47,7 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <a href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
                             RECIPIENT 2
                         </a>
                     ),
@@ -87,10 +87,10 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockLoanResults[0].description}&nbsp;(
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
                                 as Child
                             </a>,&nbsp;
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
                                 as Recipient
                             </a>
                             )
@@ -103,7 +103,7 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <a href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
                             RECIPIENT 2
                         </a>
                     ),
