@@ -161,16 +161,13 @@ export default class NavBar extends React.Component {
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
-                                <Link className="full-menu__link" to="/explorer" onClick={clickedHeaderLink.bind(null, '/explorer')}>
-                                    Spending Explorer
-                                </Link>
-                                {/* <a
+                                <Link
                                     className="full-menu__link"
-                                    href="/explorer"
+                                    to="/explorer"
                                     title="Spending Explorer: Navigate the levels of government spending from top to bottom"
                                     onClick={clickedHeaderLink.bind(null, '/explorer')}>
-                                    <span>Spending Explorer</span>
-                                </a> */}
+                                    Spending Explorer
+                                </Link>
                             </li>
                             <li
                                 className="full-menu__item"

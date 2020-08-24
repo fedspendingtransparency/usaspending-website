@@ -37,7 +37,7 @@ export default class DropdownItem extends React.Component {
 
     redirect() {
         redirectHelper.showRedirectModal(this.props.url);
-        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
+        clickedHeaderLink(`${this.props.url}`);
     }
 
     render() {
@@ -63,7 +63,7 @@ export default class DropdownItem extends React.Component {
             <Link
                 className={`nav-children__link ${className}`}
                 to={this.props.url}
-                onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
+                onClick={clickedHeaderLink.bind(null, `${this.props.url}`)}
                 {...newTabProps}>
                 {this.props.label}
                 {comingSoon}
@@ -86,7 +86,7 @@ export default class DropdownItem extends React.Component {
                 <a
                     className={`nav-children__link ${className}`}
                     href={this.props.url}
-                    onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
+                    onClick={clickedHeaderLink.bind(null, `${this.props.url}`)}
                     {...newTabProps}>
                     {this.props.label}
                     {comingSoon}
