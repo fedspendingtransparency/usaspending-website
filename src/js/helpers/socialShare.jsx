@@ -22,31 +22,31 @@ const openShareWindow = (url) => {
 const handleShareClickFacebook = (url) => {
     const finalUrl = `${socialUrls.facebook}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share click', label: 'facebook'});
+    Analytics.event({ category: `${url}`, action: 'share click', label: 'facebook' });
 };
 
 const handleShareClickTwitter = (url) => {
     const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share click', label: 'twitter'});
+    Analytics.event({ category: `${url}`, action: 'share click', label: 'twitter' });
 };
 
 const handleShareClickLinkedin = (url) => {
     const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share click', label: 'linkedIn'});
+    Analytics.event({ category: `${url}`, action: 'share click', label: 'linkedIn' });
 };
 
 const handleShareClickReddit = (url) => {
     const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share click', label: 'reddit'});
+    Analytics.event({ category: `${url}`, action: 'share click', label: 'reddit' });
 };
 
 const handleShareClickEmail = (subject, body) => {
     const finalUrl = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = finalUrl;
-    Analytics.event({ category: `${subject}`, action: 'share click', label: 'email'});
+    Analytics.event({ category: `${subject}`, action: 'share click', label: 'email' });
 };
 
 const handlersBySocialMedium = {
