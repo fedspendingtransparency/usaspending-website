@@ -98,7 +98,7 @@ export default class MapWrapper extends React.Component {
     getColors = () => {
         const colors = [];
         const numStateColors = 49;
-        const numCountyColors = 2000;
+        const numCountyColors = 500;
         if (this.props.activeFilters.territory === 'state') {
             for (let i = 0; i < numStateColors; i++) {
                 colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
@@ -444,9 +444,9 @@ export default class MapWrapper extends React.Component {
         const { spendingScale } = this.state;
         return (
             <MapLegend
-                segments={spendingScale.segments}
                 units={spendingScale.units}
-                data={this.props.data.values} />
+                min={Math.min(...this.props.data.values)}
+                max={Math.max(...this.props.data.values)} />
         );
     }
 

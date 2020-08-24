@@ -186,7 +186,7 @@ export const calculateCovidMapRange = (data, territory) => {
 
     const rangeArray = [];
     const numStateRange = 49;
-    const numCountyRange = 2000;
+    const numCountyRange = 500;
     if (territory === 'state') {
         for (let i = 0; i < numStateRange; i++) {
             rangeArray.push(i);
