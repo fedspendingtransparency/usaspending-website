@@ -41,7 +41,7 @@ const ContractContent = ({
 
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
-        ? `/#/award/${awardId}?glossary=${glossarySlug}`
+        ? `/award/${awardId}?glossary=${glossarySlug}`
         : null;
     const jumpToFederalAccountsHistory = () => {
         setActiveTab('federal_account');

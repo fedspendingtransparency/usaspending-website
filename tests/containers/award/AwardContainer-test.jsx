@@ -54,8 +54,10 @@ describe('awardContainer', () => {
         expect(getSelectedAward).toHaveBeenCalledWith('1234');
 
         const prevProps = Object.assign({}, mockParams, {
-            params: {
-                awardId: '222'
+            match: {
+                params: {
+                    awardId: '222'
+                }
             }
         });
 

@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
 
@@ -52,10 +54,10 @@ export default class SidebarButton extends React.Component {
         }
 
         let button = (
-            <a
-                href={this.props.url}>
+            <Link
+                to={this.props.url}>
                 {this.props.label}
-            </a>
+            </Link>
         );
         if (this.props.disabled) {
             button = (

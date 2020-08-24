@@ -1,5 +1,6 @@
 import React from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { Link } from 'react-router-dom';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { getCovidFromFileC } from 'helpers/covid19Helper';
@@ -35,9 +36,9 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <a href={glossaryLink}>
+                        <Link to={glossaryLink}>
                             <Glossary alt={glossaryTitleText} />
-                        </a>
+                        </Link>
                     </div>
                     <div className="award__heading-id">
                         <h3>{idLabel}</h3>

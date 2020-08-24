@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import {
     getAwardTypeByRecordtypeCountyAndState,
     isAwardFinancialAssistance
@@ -36,10 +38,10 @@ const Recipient = ({
 
     const formatRecipientLink = (internalId, name) => {
         if (internalId && name) {
-            return (<a href={`#/recipient/${internalId}`}>{name}</a>);
+            return (<Link to={`/recipient/${internalId}`}>{name}</Link>);
         }
         else if (internalId) {
-            return (<a href={`#/recipient/${internalId}`}>Unknown</a>);
+            return (<Link to={`/recipient/${internalId}`}>Unknown</Link>);
         }
         return name;
     };
@@ -49,7 +51,7 @@ const Recipient = ({
         recordType
     );
     const recipientComponent = () => {
-        const glossaryLink = `/#/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
+        const glossaryLink = `/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
         if (isFinancialAssistance && recordType !== 2) {
             let recipientTitle = '';
@@ -60,9 +62,9 @@ const Recipient = ({
                     className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
                     {recipientTitle}
                     <div className="award__heading-icon">
-                        <a href={glossaryLink}>
+                        <Link to={glossaryLink}>
                             <Glossary alt={glossaryLinkText} />
-                        </a>
+                        </Link>
                     </div>
                 </h5>
             );

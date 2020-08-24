@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Analytics from 'helpers/analytics/Analytics';
+import { Link } from 'react-router-dom';
 
 const clickedHomepageLink = (route) => {
     Analytics.event({
@@ -45,12 +46,12 @@ const SpendingExplorerFeature = () => (
                     </p>
                 </div>
                 <div className="feature-spending-explorer__button-wrap">
-                    <a
+                    <Link
                         className="feature-spending-explorer__button"
-                        href="#/explorer"
+                        to="/explorer"
                         onClick={clickedHomepageLink.bind(null, '/explorer')}>
                         Try our <strong className="feature-spending-explorer__button-text feature-spending-explorer__button-text_weight_bold">Spending Explorer</strong>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

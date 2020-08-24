@@ -9,20 +9,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import moment from 'moment';
-
+import { withRouter } from 'react-router-dom';
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/agency/agencyActions';
-
 import AgencyPage from 'components/agency/AgencyPage';
 
 require('pages/agency/agencyPage.scss');
 
 const propTypes = {
-    params: PropTypes.object,
     agency: PropTypes.object,
-    setAgencyOverview: PropTypes.func
+    setAgencyOverview: PropTypes.func,
+    match: PropTypes.object
 };
 
 export class AgencyContainer extends React.Component {
@@ -40,13 +39,13 @@ export class AgencyContainer extends React.Component {
         this.updateRequest = null;
     }
     componentDidMount() {
-        this.loadAgencyOverview(this.props.params.agencyId);
+        this.loadAgencyOverview(this.props.match.params.agencyId);
         this.loadUpdateDate();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.agencyId !== prevProps.params.agencyId) {
-            this.loadAgencyOverview(this.props.params.agencyId);
+        if (this.props.match.params.agencyId !== prevProps.match.params.agencyId) {
+            this.loadAgencyOverview(this.props.match.params.agencyId);
         }
     }
 
@@ -138,6 +137,12 @@ export class AgencyContainer extends React.Component {
     }
 }
 
-export default connect((state) => ({ agency: state.agency }), (dispatch) => bindActionCreators(agencyActions, dispatch))(AgencyContainer);
-
 AgencyContainer.propTypes = propTypes;
+const AgencyContainerWithRouter = withRouter(AgencyContainer);
+export default connect(
+    (state) => ({
+        agency: state.agency
+    }),
+    (dispatch) => bindActionCreators(agencyActions, dispatch)
+)(AgencyContainerWithRouter);
+

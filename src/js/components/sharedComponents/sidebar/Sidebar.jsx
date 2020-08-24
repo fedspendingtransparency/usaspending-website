@@ -6,6 +6,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import FYPicker from 'components/state/RecipientFYPicker';
 import SidebarLink from './SidebarLink';
@@ -223,11 +224,11 @@ const Sidebar = ({
         if (section.url) {
             const activeClass = activeSection === section.section ? 'active' : '';
             link = (
-                <a
+                <Link
                     className={`sidebar-link ${activeClass}`}
-                    href={section.url}>
+                    to={section.url}>
                     {section.label}
-                </a>
+                </Link>
             );
         }
         return (
