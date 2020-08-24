@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { lastCompletedQuarterInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
 
