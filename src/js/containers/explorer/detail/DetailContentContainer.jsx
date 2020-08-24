@@ -118,9 +118,16 @@ export class DetailContentContainer extends React.Component {
         }
 
         // perform the API request
+        const requestFilters = Object.assign({}, this.state.filters);
+        if (requestFilters.quarter == null) {
+            delete requestFilters.quarter;
+        }
+        if (requestFilters.period == null) {
+            delete requestFilters.period;
+        }
         this.request = ExplorerHelper.fetchBreakdown({
             type: request.subdivision,
-            filters: this.state.filters
+            filters: requestFilters
         });
 
         this.request.promise

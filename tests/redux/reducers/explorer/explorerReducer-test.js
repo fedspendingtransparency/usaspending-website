@@ -5,31 +5,33 @@ jest.mock('helpers/fiscalYearHelper', () => require('./mockCurrentFiscalYear'));
 jest.mock('containers/explorer/detail/helpers/explorerQuarters', () => require('./mockQuarterHelper'));
 
 describe('explorerReducer', () => {
-    describe('SET_EXPLORER_PERIOD', () => {
+    describe('SET_EXPLORER_TIME_PERIOD', () => {
         it('should update the FY and quarter to the given value', () => {
             const action = {
-                type: 'SET_EXPLORER_PERIOD',
+                type: 'SET_EXPLORER_TIME_PERIOD',
                 fy: '1984',
-                quarter: '3'
+                quarter: '3',
+                period: null
             };
             const state = explorerReducer(undefined, action);
             expect(state.fy).toEqual('1984');
             expect(state.quarter).toEqual('3');
-            expect(state.period).toEqual(undefined);
+            expect(state.period).toEqual(null);
         });
     });
 
     describe('SET_EXPLORER_PERIOD', () => {
         it('should update the FY and period to the given value', () => {
             const action = {
-                type: 'SET_EXPLORER_PERIOD',
+                type: 'SET_EXPLORER_TIME_PERIOD',
                 fy: '1984',
-                period: '3'
+                period: '3',
+                quarter: null
             };
             const state = explorerReducer(undefined, action);
             expect(state.fy).toEqual('1984');
             expect(state.period).toEqual('3');
-            expect(state.quarter).toEqual(undefined);
+            expect(state.quarter).toEqual(null);
         });
     });
 

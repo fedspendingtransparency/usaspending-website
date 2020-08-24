@@ -66,18 +66,11 @@ export default class ExplorerSidebar extends React.Component {
         // Log analytic event
         this.logTimePeriodEvent(lastQuarter.quarter, lastQuarter.year);
 
-        if (year >= 2020) {
-            this.props.setExplorerPeriod({
-                fy: `${lastQuarter.year}`,
-                period: `${lastPeriodByQuarter(lastQuarter.quarter)}`
-            });
-        }
-        else {
-            this.props.setExplorerPeriod({
-                fy: `${lastQuarter.year}`,
-                quarter: `${lastQuarter.quarter}`
-            });
-        }
+        this.props.setExplorerPeriod({
+            fy: `${lastQuarter.year}`,
+            quarter: `${lastQuarter.quarter}`,
+            period: null
+        });
         this.setState({
             showFYMenu: false
         });
@@ -94,13 +87,15 @@ export default class ExplorerSidebar extends React.Component {
         if (this.props.fy >= 2020) {
             this.props.setExplorerPeriod({
                 period: quarter,
-                fy: this.props.fy
+                fy: this.props.fy,
+                quarter: null
             });
         }
         else {
             this.props.setExplorerPeriod({
                 quarter,
-                fy: this.props.fy
+                fy: this.props.fy,
+                period: null
             });
         }
     }

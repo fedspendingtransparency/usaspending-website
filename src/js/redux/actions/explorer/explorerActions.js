@@ -9,7 +9,7 @@ export const setExplorerRoot = (state) => ({
 });
 
 export const setExplorerPeriod = (state) => ({
-    type: 'SET_EXPLORER_PERIOD',
+    type: 'SET_EXPLORER_TIME_PERIOD',
     fy: state.fy,
     quarter: state.quarter,
     period: state.period

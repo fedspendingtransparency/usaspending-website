@@ -32,11 +32,11 @@ export const initialState = {
 
 const explorerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_EXPLORER_PERIOD': {
+        case 'SET_EXPLORER_TIME_PERIOD': {
             return Object.assign({}, state, {
                 fy: action.fy,
-                quarter: action.quarter,
-                period: action.period
+                period: action.period,
+                quarter: action.quarter
             });
         }
         case 'SET_EXPLORER_ROOT': {
