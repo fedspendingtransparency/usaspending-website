@@ -115,10 +115,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -166,8 +166,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
@@ -193,7 +193,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
             const awardSpendingAgencyRequest = props.type === 'loans' ? fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
 
-            setRequest(awardSpendingAgencyRequest);
+            request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise
                 .then((res) => {
                     parseAwardSpendingByAgency(res.data.results);
@@ -201,10 +201,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setRequest(null);
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -230,10 +230,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
-        changeCurrentPage(1);
         if (currentPage === 1) {
             fetchSpendingByCategoryCallback();
         }
+        changeCurrentPage(1);
     }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {

@@ -120,10 +120,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
 
     const updateSort = (field, direction) => {
@@ -197,8 +197,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     );
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
@@ -223,7 +223,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             } else {
                 cfdaRequest = fetchSpendingByCfda(params);
             }
-            setRequest(cfdaRequest);
+            request.current = cfdaRequest;
             cfdaRequest.promise
                 .then((res) => {
                     setResults(res.data.results);
@@ -234,6 +234,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -242,10 +243,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     useEffect(() => {
         // Reset to the first page
-        changeCurrentPage(1);
         if (currentPage === 1) {
             fetchSpendingByCfdaCallback();
         }
+        changeCurrentPage(1);
     }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
