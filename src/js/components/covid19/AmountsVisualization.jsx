@@ -103,19 +103,21 @@ const AmountsVisualization = ({
         }
     }, [width, overviewData]);
     const setMouseData = (e) => {
-        console.log(' E : ', e);
         let mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
         if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
-
+            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
+            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
         }
-        else if (window.navigator.userAgent.indexOf("Safari") !== -1) {
-
+        if (window.navigator.userAgent.indexOf("Safari") !== -1) {
+            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
+            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+        }
+        if (window.navigator.userAgent.indexOf("Chrome") !== -1) {
+            mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
         }
         setMouseValue(mousePosition);
-    }
+    };
     useEffect(() => {
-        // window.addEventListener('mousemove', setMouseData);
-        // return () => window.removeEventListener('mousemove', setMouseData);
         document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
     }, []);
@@ -638,51 +640,30 @@ const AmountsVisualization = ({
         }
     }, [overviewData]);
 
-    const tooltipData = () => {
-        let tooltipYPosition = mouseValue.y + 10;
-        let tooltipXPosition = mouseValue.x - (defaultTooltipWidth / 2);
-        if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
-            console.log(' Firefox ');
-            if (!showTooltip.line && !showTooltip.text) {
-                console.log(' Rectangle : ', tooltipMapping[showTooltip.value].data);
-                tooltipXPosition += [`${tooltipMapping[showTooltip.value].data}`].x;
+    const tooltipData = () => ({
+        tooltipPosition: 'bottom',
+        styles: {
+            position: 'absolute',
+            transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
+        },
+        tooltipComponent: <PaginatedTooltipContainer
+            data={[{
+                title: tooltipMapping[showTooltip].title,
+                sections: [
+                    {
+                        paragraphs: [
+                            `${formatMoney(overviewData[showTooltip])}`,
+                            `${calculateTreemapPercentage(overviewData[showTooltip], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
+                            tooltipMapping[showTooltip].paragraph
+                        ]
+                    }
+                ]
+            }]
             }
-        }
-        else if (window.navigator.userAgent.indexOf("Safari") !== -1) {
-            console.log(' Safari ');
-            // tooltipXPosition += [`${tooltipMapping[showTooltip.value].data}`].x;
-        }
-        return {
-            tooltipPosition: 'bottom',
-            styles: {
-                position: 'absolute',
-                transform: `translate(${tooltipXPosition}px,${tooltipYPosition}px)`
-            },
-            tooltipComponent: <PaginatedTooltipContainer
-                data={[{
-                    title: tooltipMapping[showTooltip.value].title,
-                    sections: [
-                        {
-                            paragraphs: [
-                                `${formatMoney(overviewData[showTooltip.value])}`,
-                                `${calculateTreemapPercentage(overviewData[showTooltip.value], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
-                                tooltipMapping[showTooltip.value].paragraph
-                            ]
-                        }
-                    ]
-                }]
-                }
-                tooltipElement={<Tooltip />} />
-        };
-    };
-    const displayTooltip = (e) => (
-        setShowTooltip({
-            value: e.target.dataset.id,
-            text: e.target.dataset?.text || false,
-            line: e.target.dataset?.line || false
-        })
-    );
-    const hideTooltip = () => setShowTooltip(false);
+            tooltipElement={<Tooltip />} />
+    });
+    const displayTooltip = (e) => setShowTooltip(e.target.getAttribute('data-id'));
+    const hideTooltip = () => setShowTooltip('');
 
     const dateNoteStyles = {
         position: 'absolute',
@@ -728,7 +709,7 @@ const AmountsVisualization = ({
                                 {totalRectangleData.description}
                             </desc>
                             <rect
-                                className={showTooltip?.value === '_totalBudgetAuthority' ? 'highlight' : ''}
+                                className={showTooltip === '_totalBudgetAuthority' ? 'highlight' : ''}
                                 data-id="_totalBudgetAuthority"
                                 x={totalRectangleData.x}
                                 y={totalRectangleData.y}
@@ -772,7 +753,8 @@ const AmountsVisualization = ({
                                 {obligationRectangleData.description}
                             </desc>
                             <rect
-                                className={showTooltip?.value === '_totalObligations' ? 'highlight' : ''}
+                                id="amounts-viz__obligations__id"
+                                className={showTooltip === '_totalObligations' ? 'highlight' : ''}
                                 data-id="_totalObligations"
                                 x={obligationRectangleData.x}
                                 y={obligationRectangleData.y}
@@ -795,7 +777,7 @@ const AmountsVisualization = ({
                                 {outlayRectangleData.description}
                             </desc>
                             <rect
-                                className={showTooltip?.value === '_totalOutlays' ? 'highlight' : ''}
+                                className={showTooltip === '_totalOutlays' ? 'highlight' : ''}
                                 data-id="_totalOutlays"
                                 x={outlayRectangleData.x}
                                 y={outlayRectangleData.y}
@@ -818,7 +800,7 @@ const AmountsVisualization = ({
                                 {remainingBalanceRectangleData.description}
                             </desc>
                             <rect
-                                className={showTooltip?.value === '_remainingBalance' ? 'highlight' : ''}
+                                className={showTooltip === '_remainingBalance' ? 'highlight' : ''}
                                 data-id="_remainingBalance"
                                 x={remainingBalanceRectangleData.x}
                                 y={remainingBalanceRectangleData.y}

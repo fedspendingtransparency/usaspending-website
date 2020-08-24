@@ -15,6 +15,9 @@
   text {
     pointer-events: visible;
   }
+  g {
+    pointer-events: visible;
+  }
   .tooltip-wrapper {
     .tooltip__content {
       .tooltip__message {
@@ -41,9 +44,9 @@
       } 
     }
     .tooltip-pagination-container {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-around;
+      @include display(inline-flex);
+      @include align-items(center);
+      @include justify-content(space-around);
     }
   }
   .line__obligation {
