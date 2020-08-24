@@ -15,6 +15,21 @@ describe('explorerReducer', () => {
             const state = explorerReducer(undefined, action);
             expect(state.fy).toEqual('1984');
             expect(state.quarter).toEqual('3');
+            expect(state.period).toEqual(undefined);
+        });
+    });
+
+    describe('SET_EXPLORER_PERIOD', () => {
+        it('should update the FY and period to the given value', () => {
+            const action = {
+                type: 'SET_EXPLORER_PERIOD',
+                fy: '1984',
+                period: '3'
+            };
+            const state = explorerReducer(undefined, action);
+            expect(state.fy).toEqual('1984');
+            expect(state.period).toEqual('3');
+            expect(state.quarter).toEqual(undefined);
         });
     });
 
