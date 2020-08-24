@@ -4,21 +4,34 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
-const ResultsTableErrorMessage = () => (
+const defaultProps = {
+    title: 'An error occurred.',
+    description: 'Something went wrong while gathering your data.'
+};
+
+const propTypes = {
+    title: PropTypes.string,
+    description: PropTypes.string
+};
+const ResultsTableErrorMessage = ({ title, description }) => (
     <div className="results-table-error">
         <div className="icon">
             <ExclamationTriangle alt="An error occurred" />
         </div>
         <div className="title">
-            An error occurred.
+            {title}
         </div>
         <div className="description">
-            Something went wrong while gathering your data.
+            {description}
         </div>
     </div>
 );
 
+
+ResultsTableErrorMessage.propTypes = propTypes;
+ResultsTableErrorMessage.defaultProps = defaultProps;
 export default ResultsTableErrorMessage;

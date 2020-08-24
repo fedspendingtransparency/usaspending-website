@@ -19,12 +19,6 @@
         font-weight: $font-semibold;
         text-decoration: underline;
     }
-
-    .usda-table__row {
-        .usda-table__cell:last-of-type {
-            @include span-columns(1 of 12, table);
-        }
-    }
 }
 
 @import "../search/results/table/tableMessages";
