@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { is } from 'immutable';
 import { useParams } from 'react-router-dom';
 
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -30,46 +29,6 @@ require('pages/search/searchPage.scss');
 
 const propTypes = {
     history: PropTypes.object
-};
-
-/**
- * Equality Comparison of two objects:
- * @param {Object} filters object to be measured for equality
- * @param {Object} filterReference object by which equality is measured  against
- * @returns {boolean}
- */
-export const areFiltersEqual = (filters, filterReference = initialState) => {
-    const referenceObject = Object.assign({}, filterReference);
-    const comparisonObject = Object.assign({}, filters);
-    if (referenceObject.timePeriodType === 'fy') {
-        // if the time period is fiscal year, we don't care about the date range values, even
-        // if they're provided because the date range tab isn't selected
-        delete comparisonObject.timePeriodStart;
-        delete comparisonObject.timePeriodEnd;
-        delete referenceObject.timePeriodStart;
-        delete referenceObject.timePeriodEnd;
-    }
-    else if (referenceObject.timePeriodEnd === 'dr') {
-        // if the time period is date range, we don't care about the fiscal year values, even
-        // if they're provided because the fiscal year tab isn't selected
-        delete comparisonObject.timePeriodFY;
-        delete referenceObject.timePeriodFY;
-    }
-
-    // we need to iterate through each of the filter Redux keys in order to perform equality
-    // comparisons on Immutable children (via the Immutable is() function)
-    const filterKeys = Object.keys(comparisonObject);
-
-    for (let i = 0; i < filterKeys.length; i++) {
-        const key = filterKeys[i];
-        const unfilteredValue = comparisonObject[key];
-        const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
-            // it doesn't match, we can stop looping - filters have been applied
-            return false;
-        }
-    }
-    return true;
 };
 
 /**
@@ -139,7 +98,7 @@ const SearchContainer = ({ history }) => {
     }, [dispatch, history, appliedFilters.filters]);
 
     const setDownloadAvailability = useCallback(() => {
-        if (areFiltersEqual(filters, appliedFilters.filters)) {
+        if (SearchHelper.areFiltersEqual(filters, appliedFilters.filters)) {
             // don't make an API call when it's a blank state
             setDownloadAvailable(false);
             setDownloadInFlight(false);
@@ -169,7 +128,7 @@ const SearchContainer = ({ history }) => {
     }, [filters, appliedFilters.filters]);
 
     useEffect(() => {
-        const areAppliedFiltersEmpty = areFiltersEqual(appliedFilters.filters, initialState);
+        const areAppliedFiltersEmpty = SearchHelper.areFiltersEqual(appliedFilters.filters, initialState);
         if (areAppliedFiltersEmpty) {
             // all the filters were cleared, reset to a blank hash
             dispatch(setAppliedFilterEmptiness(true));
@@ -190,7 +149,7 @@ const SearchContainer = ({ history }) => {
             return;
         }
 
-        if (areFiltersEqual(filters, appliedFilters.filters)) return;
+        if (SearchHelper.areFiltersEqual(filters, appliedFilters.filters)) return;
         // url has a hash apply filters retrieve filter selections via hash if necessary.
         SearchHelper.restoreUrlHash({
             hash: urlHash

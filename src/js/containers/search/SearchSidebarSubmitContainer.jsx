@@ -13,7 +13,7 @@ import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/sear
 import { setCheckedNaics, setUncheckedNaics } from 'redux/actions/search/naicsActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
-import { areFiltersEqual } from 'containers/search/SearchContainer';
+import { areFiltersEqual } from 'helpers/searchHelper';
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
 import {
