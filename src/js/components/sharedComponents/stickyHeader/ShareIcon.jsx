@@ -42,10 +42,6 @@ const ShareIcon = ({
         Analytics.event({ category: slug, action: 'copied link' });
     };
 
-    const handleShareClick = () => {
-        Analytics.event({ category: slug, action: 'share options click' });
-    };
-
     const socialSharePickerOptions = socialShareOptions.map((option) => {
         if (option.name === 'copy') {
             return {
@@ -84,7 +80,7 @@ const ShareIcon = ({
                 selectedOption="copy"
                 backgroundColor="#4A4A4A"
                 sortFn={() => 1}>
-                <FontAwesomeIcon onClick={handleShareClick} icon="share-alt" size="lg" />
+                <FontAwesomeIcon icon="share-alt" size="lg" />
             </Picker>
             <span>Share</span>
             {showConfirmationText && (
