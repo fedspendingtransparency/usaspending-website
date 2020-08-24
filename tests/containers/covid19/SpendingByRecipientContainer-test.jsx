@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 7/17/20
  * */
 
-import { parseRows, generateDescription } from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import React from 'react';
+import { parseRows } from 'containers/covid19/recipient/SpendingByRecipientContainer';
 
 describe('SpendingByRecipientContainer', () => {
     const mockResults = [
@@ -25,6 +25,7 @@ describe('SpendingByRecipientContainer', () => {
             outlay: 0.0
         }
     ];
+
     describe('parseRows', () => {
         it('should parse returned recipient data', () => {
             const expected = [
@@ -56,9 +57,11 @@ describe('SpendingByRecipientContainer', () => {
                     '1'
                 ]
             ];
-
+    
             const parsed = parseRows(mockResults, 'all', '');
-            expect(parsed).toEqual(expected);
+            // using toMatchObject for equality comparison that is more lenient than toEqual https://jestjs.io/docs/en/expect#tomatchobjectobject
+            expect([...parsed]).toMatchObject(expected);
+            
         });
         it('should parse returned recipient loans data', () => {
             const mockLoanResults = [
@@ -113,9 +116,9 @@ describe('SpendingByRecipientContainer', () => {
                     '1'
                 ]
             ];
-
+            
             const parsed = parseRows(mockLoanResults, 'loans', '');
-            expect(parsed).toEqual(expected);
+            expect([...parsed]).toMatchObject(expected);
         });
     });
 });

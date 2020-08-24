@@ -130,13 +130,14 @@ export const parseRows = (rows, activeTab, query) => (
         }
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
+            const handleClick = () => clickedRecipientProfile(`${description}`);
             link = (
                 <>
                     {description}&nbsp;(
-                    <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._childId}`}>
+                    <a onClick={handleClick} href={`#/recipient/${rowData._childId}`}>
                         as Child
                     </a>,&nbsp;
-                    <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._recipientId}`}>
+                    <a onClick={handleClick} href={`#/recipient/${rowData._recipientId}`}>
                         as Recipient
                     </a>
                     )
@@ -144,9 +145,10 @@ export const parseRows = (rows, activeTab, query) => (
             );
         }
         else if (rowData._childId || rowData._recipientId) {
+            const handleClick = clickedRecipientProfile(`${description}`);
             // there is a single profile page for this recipient
             link = (
-                <a onClick={clickedRecipientProfile.bind(null, `${description}`)} href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <a onClick={handleClick} href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
                 </a>
             );
