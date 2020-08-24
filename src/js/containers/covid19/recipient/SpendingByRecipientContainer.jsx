@@ -172,10 +172,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [query, setQuery] = useState('');
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -184,8 +184,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingByRecipientCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
@@ -207,7 +207,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 params.filter.query = query;
             }
             const recipientRequest = activeTab === 'loans' ? fetchLoanSpending('recipient', params) : fetchDisasterSpending('recipient', params);
-            setRequest(recipientRequest);
+            request.current = recipientRequest;
             recipientRequest.promise
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
@@ -219,6 +219,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -227,8 +228,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     useEffect(() => {
         // Reset to the first page
+        if (currentPage === 1) {
+            fetchSpendingByRecipientCallback();
+        }
         changeCurrentPage(1);
-        fetchSpendingByRecipientCallback();
     }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {

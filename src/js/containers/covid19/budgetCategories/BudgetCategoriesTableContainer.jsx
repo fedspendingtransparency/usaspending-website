@@ -140,10 +140,10 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
@@ -203,8 +203,8 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
 
         setLoading(true);
@@ -222,14 +222,14 @@ const BudgetCategoriesTableContainer = (props) => {
                 }
             };
 
-            let disasterSpendingRequest;
-            if (spendingCategory === 'loan_spending') {
-                disasterSpendingRequest = fetchLoanSpending(props.type, params);
-            } else {
+
+            if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
-                disasterSpendingRequest = fetchDisasterSpending(props.type, params);
             }
-            setRequest(disasterSpendingRequest);
+
+            const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
+
+            request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
                     parseSpendingDataAndSetResults(res.data.results);
@@ -237,10 +237,10 @@ const BudgetCategoriesTableContainer = (props) => {
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setRequest(null);
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -248,6 +248,12 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
+        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+        // In this particular case, we want to fetch from api.
+        if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
+            changeCurrentPage(1);
+            fetchBudgetSpendingCallback();
+        }
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
@@ -255,9 +261,11 @@ const BudgetCategoriesTableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
+        if (currentPage === 1) {
+            fetchBudgetSpendingCallback();
+        }
         changeCurrentPage(1);
-        fetchBudgetSpendingCallback();
-    }, [props.type, spendingCategory, pageSize, defCodes, sort, order]);
+    }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
