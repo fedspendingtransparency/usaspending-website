@@ -21,6 +21,7 @@ import SearchBar from 'components/covid19/SearchBar';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const propTypes = {
