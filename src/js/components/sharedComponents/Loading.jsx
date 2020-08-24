@@ -44,7 +44,7 @@ export const LoadingWrapper = ({
 
     if (isLoading) {
         return (
-            // Not spending too much time w/ styles here, will have scope to improve later.
+            // TODO: [DEV-5940] Make a nice App Level Loading Component.
             <>
                 {includeHeader && (
                     <>
