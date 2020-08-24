@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { AccountDataContainer } from 'containers/bulkDownload/accounts/AccountDataContainer';
-import { mockActions, mockAgencies, mockFederalAccounts, mockBudgetFunctions, mockRedux } from '../mockData';
+import { mockActions, mockAgencies, mockFederalAccounts, mockBudgetFunctions, mockProps } from '../mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
@@ -18,7 +18,7 @@ describe('AccountDataContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
         const container = mount(<AccountDataContainer
             {...mockActions}
-            bulkDownload={mockRedux} />);
+            bulkDownload={mockProps} />);
 
         const expectedState = {
             cfoAgencies: mockAgencies.cfo_agencies,
@@ -33,7 +33,7 @@ describe('AccountDataContainer', () => {
         it('should make an API request when called and update state', async () => {
             const container = shallow(<AccountDataContainer
                 {...mockActions}
-                bulkDownload={mockRedux} />);
+                bulkDownload={mockProps} />);
 
             const expectedState = mockFederalAccounts;
             container.instance().setFederalAccountList('02');
@@ -44,7 +44,7 @@ describe('AccountDataContainer', () => {
         it('should append the results to the existing result state if the page number is greater than 1', async () => {
             const container = shallow(<AccountDataContainer
                 {...mockActions}
-                bulkDownload={mockRedux} />);
+                bulkDownload={mockProps} />);
 
             container.setState({
                 federalAccounts: [{}, {}, {}]
@@ -58,7 +58,7 @@ describe('AccountDataContainer', () => {
     it('should make an API call for the budget functions on mount', async () => {
         const container = mount(<AccountDataContainer
             {...mockActions}
-            bulkDownload={mockRedux} />);
+            bulkDownload={mockProps} />);
 
         const expectedState = mockBudgetFunctions;
 

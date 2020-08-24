@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     hideArrow: PropTypes.bool,
@@ -77,7 +78,7 @@ export default class FilterExpandButton extends React.Component {
         if (this.props.glossaryUrl) {
             glossaryLink = (
                 <div className="filter-toggle__glossary">
-                    <a href={this.props.glossaryUrl}><FontAwesomeIcon icon="book" /></a>
+                    <Link to={this.props.glossaryUrl}><FontAwesomeIcon icon="book" /></Link>
                 </div>
             );
         }

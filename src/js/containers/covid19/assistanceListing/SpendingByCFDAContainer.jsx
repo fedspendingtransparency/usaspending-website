@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
+import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -18,7 +19,6 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
-import Router from 'containers/router/Router';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
 
@@ -125,6 +125,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
 
+    const history = useHistory();
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -160,7 +161,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 }
             )
         ));
-        Router.history.push('/search');
+        history.push('/search');
     };
 
     const parseRows = () => (

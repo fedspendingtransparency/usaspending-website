@@ -10,6 +10,8 @@ import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from 'react-router-dom';
+
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -124,12 +126,12 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <a href={`#/recipient/${rowData._childId}`}>
+                    <Link to={`/recipient/${rowData._childId}`}>
                         as Child
-                    </a>,&nbsp;
-                    <a href={`#/recipient/${rowData._recipientId}`}>
+                    </Link>,&nbsp;
+                    <Link to={`/recipient/${rowData._recipientId}`}>
                         as Recipient
-                    </a>
+                    </Link>
                     )
                 </>
             );
@@ -137,9 +139,9 @@ export const parseRows = (rows, activeTab, query) => (
         else if (rowData._childId || rowData._recipientId) {
             // there is a single profile page for this recipient
             link = (
-                <a href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <Link to={`/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
-                </a>
+                </Link>
             );
         }
         if (activeTab === 'loans') {

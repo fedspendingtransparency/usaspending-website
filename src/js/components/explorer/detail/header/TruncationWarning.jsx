@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { Link } from 'react-router-dom';
 
 const TruncationWarning = () => (
     <div className="truncation-warning detail-header__truncation">
@@ -16,7 +17,7 @@ const TruncationWarning = () => (
                 Award Display Limit
             </div>
             <div className="truncation-warning__detail">
-                Only the 500 awards with the highest amounts are shown. For further research on individual awards, visit our <a href="#/search">Advanced Search</a>.
+                Only the 500 awards with the highest amounts are shown. For further research on individual awards, visit our <Link to="/search">Advanced Search</Link>.
             </div>
         </div>
     </div>

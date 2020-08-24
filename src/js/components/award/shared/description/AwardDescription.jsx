@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
@@ -44,9 +46,9 @@ const AwardDescription = ({
                                 <span>
                                     {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
                                     Code
-                                    <a href={`#/award/${awardId}/?glossary=naics`}>
+                                    <Link to={`/award/${awardId}/?glossary=naics`}>
                                         <Glossary alt="View glossary definition of NAICS" />
-                                    </a>
+                                    </Link>
                                 </span>
                             </div>
                             <LineTree type="naics" data={naics} />
@@ -58,9 +60,9 @@ const AwardDescription = ({
                                     <span>
                                         {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
                                         (PSC)
-                                        <a href={`#/award/${awardId}/?glossary=product-or-service-code-psc`}>
+                                        <Link to={`/award/${awardId}/?glossary=product-or-service-code-psc`}>
                                             <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
-                                        </a>
+                                        </Link>
                                     </span>
                                 </div>
                                 <LineTree type="psc" data={psc} />

@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { StateTimeVisualizationSectionContainer } from
     'containers/state/StateTimeVisualizationSectionContainer';
 
-import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths } from './mockData';
+import { mockActions, mockProps, mockTimes, mockYears, mockQuarters, mockMonths } from './mockData';
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 
@@ -17,7 +17,7 @@ jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 describe('StateTimeVisualizationSectionContainer', () => {
     it('should make an API call for the selected state on mount', async () => {
         const container = mount(<StateTimeVisualizationSectionContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const fetchData = jest.fn();
@@ -34,7 +34,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<StateTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.instance().parseData(mockYears, 'fiscal_year');
@@ -57,7 +57,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<StateTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.setState({
@@ -85,7 +85,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
             // mount the container
             const container =
                 shallow(<StateTimeVisualizationSectionContainer
-                    {...mockRedux}
+                    {...mockProps}
                     {...mockActions} />);
 
             container.setState({
@@ -112,7 +112,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
     describe('generateTime', () => {
         it('should return a fiscal year when fiscal year is selected and the type is label', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -125,7 +125,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
         });
         it('should return an object with a null period a year that matches the fiscal year when fiscal year is selected and the type is raw', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -141,7 +141,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
         });
         it('should return a quarter with fiscal year when quarter is selected and the type is label', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -154,7 +154,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
         });
         it('should return an object with the given quarter and a fiscal year when quarter is selected and the type is raw', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -170,7 +170,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
         });
         it('should return a short month and fiscal year when month is selected and the type is label', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
@@ -183,7 +183,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
         });
         it('should return a short month and fiscal year object when month is selected and the type is raw', () => {
             const container = shallow(<StateTimeVisualizationSectionContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // validates a valid label is generated
