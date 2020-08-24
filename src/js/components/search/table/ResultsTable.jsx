@@ -100,7 +100,7 @@ export default class ResultsTable extends React.Component {
             // for Sub-Awards
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].prime_award_recipient_id;
-            props.column = 'award';
+            props.column = 'recipient';
         }
         else if (column.columnName === 'Awarding Agency' && this.props.results[rowIndex].awarding_agency_id) {
             cellClass = ResultsTableLinkCell;

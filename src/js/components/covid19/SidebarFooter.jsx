@@ -79,7 +79,7 @@ function SidebarFooter({
                 <div className={`${pageName}-sidebar-footer__content`}>
                     Visit our sister site,&nbsp;
                     <a href="https://datalab.usaspending.gov/federal-covid-funding/" target="_blank" rel="noopener noreferrer">
-                        <b>DATA Lab &nbsp;
+                        <b>Data Lab &nbsp;
                             <FontAwesomeIcon size="sm" icon="external-link-alt" />
                         </b>
                     </a>, to see more ways the government is providing financial relief and explore how funding makes its way from Congress to the economy.

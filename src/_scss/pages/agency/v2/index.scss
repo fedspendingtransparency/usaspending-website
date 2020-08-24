@@ -192,31 +192,8 @@
                 width: 70%;
             }
             .body__content {
-                @import '../../search/results/table/tableMessages';
                 @import '../../search/results/table/resultsTableMessageContainer';
-                .usda-table {
-                    td {
-                        &:first-child {
-                            @include span-columns(6 of 12, table);
-                            text-align: left;
-                        }
-                        @include span-columns(2 of 12, table);
-                        text-align: right;
-                        word-break: break-word;
-                    }
-
-                    .table-header {
-                        .table-header__label {
-                            @include flex(0 1 auto);
-                            text-align: right;
-                        }
-    
-                        .table-header__sort {
-                            margin-top: auto;
-                            margin-bottom: auto;
-                        }
-                    }
-                }
+                @import './tables';
             }
             .body__section {
                 @import './tabs';

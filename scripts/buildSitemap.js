@@ -1,6 +1,7 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
+const tunnel = require('tunnel');
 
 const pages = require('./pages');
 
@@ -13,6 +14,14 @@ const sitemapsWritten = [];
 const xmlEnd = `</urlset>`;
 const indexedSitemapXmlEnd = `</sitemapindex>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
+
+const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
+    tunnel.httpsOverHttp({
+        proxy: {
+            host: process.env.PROXY_HOST,
+            port: process.env.PROXY_PORT
+        },
+    }) : null;
 
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
@@ -123,6 +132,8 @@ const buildIndividualSitemaps = () => {
                 }
                 if (Array.isArray(page)) {
                     const nestedPages = page.map((nestedPage) => axios({
+                        httpsAgent: agent,
+                        proxy: false,
                         method: nestedPage.method,
                         data: nestedPage.requestObject || null,
                         url: nestedPage.url,
@@ -131,6 +142,8 @@ const buildIndividualSitemaps = () => {
                     return Promise.all([...nestedPages]);
                 }
                 return axios({
+                    httpsAgent: agent,
+                    proxy: false,
                     method: page.method,
                     data: page.requestObject || null,
                     url: page.url,
