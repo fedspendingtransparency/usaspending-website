@@ -36,7 +36,7 @@ const ShareIcon = ({
         document.getElementById('slug').select();
         document.execCommand("copy");
         setConfirmationText(true);
-        Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}`});
+        Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}` });
     };
 
     const socialSharePickerOptions = socialShareOptions.map((option) => {
