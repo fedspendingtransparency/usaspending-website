@@ -5,7 +5,9 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { isCancel } from 'axios';
+
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
@@ -154,12 +156,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
-                    <a
+                    <Link
                         className="agency-profile__link"
                         onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
-                        href={`#/agency/${id}`}>
+                        to={`/agency/${id}`}>
                         {awardSpendingByAgencyRow.description}
-                    </a>
+                    </Link>
                 );
             }
             return {

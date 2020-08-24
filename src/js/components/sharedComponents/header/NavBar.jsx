@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Modal from 'react-aria-modal';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
@@ -111,9 +112,9 @@ export default class NavBar extends React.Component {
                 <div className="site-navigation__wrapper">
                     <div className="site-navigation__logo site-logo">
                         <div className="site-logo__wrapper" id="logo">
-                            <a
+                            <Link
                                 className="site-logo__link"
-                                href="#/"
+                                to="/"
                                 title="USAspending.gov Home"
                                 aria-label="USAspending.gov Home"
                                 onClick={clickedHeaderLink.bind(null, '/')}>
@@ -122,7 +123,7 @@ export default class NavBar extends React.Component {
                                     src="img/logo.png"
                                     srcSet="img/logo.png 1x, img/logo@2x.png 2x"
                                     alt="USAspending.gov" />
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="site-navigation__mobile mobile-hamburger">
@@ -160,13 +161,13 @@ export default class NavBar extends React.Component {
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
-                                <a
+                                <Link
                                     className="full-menu__link"
-                                    href="#/explorer"
+                                    to="/explorer"
                                     title="Spending Explorer: Navigate the levels of government spending from top to bottom"
                                     onClick={clickedHeaderLink.bind(null, '/explorer')}>
-                                    <span>Spending Explorer</span>
-                                </a>
+                                    Spending Explorer
+                                </Link>
                             </li>
                             <li
                                 className="full-menu__item"

@@ -6,8 +6,10 @@
 import { mockContract, mockIdv } from '../../models/award/mockAwardApi';
 
 export const mockParams = {
-    params: {
-        awardId: '1234'
+    match: {
+        params: {
+            awardId: '1234'
+        }
     },
     award: {
         id: '1234',

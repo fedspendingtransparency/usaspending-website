@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { StateContainer } from 'containers/state/StateContainer';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
-import { mockActions, mockRedux, mockStateOverview } from './mockData';
+import { mockActions, mockProps, mockStateOverview } from './mockData';
 
 // mock the state helper
 jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
@@ -18,7 +18,7 @@ jest.mock('components/state/StatePage', () => jest.fn(() => null));
 describe('StateContainer', () => {
     it('should make an API call for the selected state on mount', async () => {
         const container = mount(<StateContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadStateOverview = jest.fn();
@@ -33,7 +33,7 @@ describe('StateContainer', () => {
     });
     it('should update the center coordinates for the selected state on mount', async () => {
         const container = mount(<StateContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const setStateCenter = jest.fn();
@@ -47,16 +47,18 @@ describe('StateContainer', () => {
     });
     it('should make an API call when the state id changes', async () => {
         const container = mount(<StateContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadStateOverview = jest.fn();
         container.instance().loadStateOverview = loadStateOverview;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
@@ -67,16 +69,18 @@ describe('StateContainer', () => {
     });
     it('should update the center coordinates when the state id changes', async () => {
         const container = mount(<StateContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const setStateCenter = jest.fn();
         container.instance().setStateCenter = setStateCenter;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
@@ -87,10 +91,10 @@ describe('StateContainer', () => {
     });
     it('should reset the fiscal year when the state id changes or the fy param changes', async () => {
         // Use 'all' for the initial FY
-        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+        const stateProfile = Object.assign({}, mockProps.stateProfile, {
             fy: 'all'
         });
-        const updatedRedux = Object.assign({}, mockRedux, {
+        const updatedRedux = Object.assign({}, mockProps, {
             stateProfile
         });
 
@@ -102,31 +106,33 @@ describe('StateContainer', () => {
         container.instance().loadStateOverview = loadStateOverview;
 
         container.setProps({
-            params: {
-                stateId: '02',
-                fy: 'latest'
+            match: {
+                params: {
+                    stateId: '02',
+                    fy: 'latest'
+                }
             }
         });
 
         await container.instance().request.promise;
         expect(loadStateOverview).toHaveBeenLastCalledWith('02', 'latest');
 
-        container.setProps({ params: { stateId: '02', fy: '2008' } });
+        container.setProps({ match: { params: { stateId: '02', fy: '2008' } } });
         expect(mockActions.setStateFiscalYear).toHaveBeenLastCalledWith('2008');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<StateContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
 
         const loadStateOverview = jest.fn();
         container.instance().loadStateOverview = loadStateOverview;
 
-        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+        const stateProfile = Object.assign({}, mockProps.stateProfile, {
             fy: '2018'
         });
 
-        const nextProps = Object.assign({}, mockRedux, {
+        const nextProps = Object.assign({}, mockProps, {
             stateProfile
         });
 
@@ -140,7 +146,7 @@ describe('StateContainer', () => {
     describe('parseOverview', () => {
         it('should update the Redux state with a new BaseStateProfile', () => {
             const container = shallow(<StateContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             // Reset the mock action's call count
@@ -156,13 +162,13 @@ describe('StateContainer', () => {
         });
     });
     describe('setStateCenter', () => {
-       it('should update the Redux state with an array of center coordinates for the given state', () => {
-           const container = mount(<StateContainer
-               {...mockRedux}
-               {...mockActions} />);
+        it('should update the Redux state with an array of center coordinates for the given state', () => {
+            const container = mount(<StateContainer
+                {...mockProps}
+                {...mockActions} />);
 
-           // Expect the center coords for state with id '01'
-           expect(mockActions.setStateCenter).toHaveBeenLastCalledWith([-86.703052, 32.525772]);
-       });
+            // Expect the center coords for state with id '01'
+            expect(mockActions.setStateCenter).toHaveBeenLastCalledWith([-86.703052, 32.525772]);
+        });
     });
 });

@@ -5,14 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router from 'containers/router/Router';
+import { withRouter, Link } from 'react-router-dom';
 
 const propTypes = {
     href: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    location: PropTypes.object
 };
 
-export default class SmartLink extends React.Component {
+export class SmartLink extends React.Component {
     constructor(props) {
         super(props);
 
@@ -39,11 +40,11 @@ export default class SmartLink extends React.Component {
         // check if the link is a local glossary reference
         if (url.indexOf('?glossary=') > -1) {
             // it is a local glossary reference, get the current URL
-            const currentPath = Router.state.path;
-            href = `#${currentPath}${url}`;
+            const currentPath = this.props.location.pathname;
+            href = `${currentPath}${url}`;
             isLocal = true;
         }
-        else if (url.indexOf('#') === 0 || url.indexOf('/') === 0) {
+        else if (url.indexOf('/') === 0) {
             // link internal to the web site but not a glossary reference
             // don't open these in a new window, but keep the URL as provided
             isLocal = true;
@@ -58,10 +59,10 @@ export default class SmartLink extends React.Component {
     render() {
         if (this.state.isLocal) {
             return (
-                <a
-                    href={this.state.href}>
+                <Link
+                    to={this.state.href}>
                     {this.props.children}
-                </a>
+                </Link>
             );
         }
 
@@ -78,3 +79,4 @@ export default class SmartLink extends React.Component {
 }
 
 SmartLink.propTypes = propTypes;
+export default withRouter(SmartLink);

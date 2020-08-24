@@ -10,6 +10,8 @@ import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from 'react-router-dom';
+
 import kGlobalConstants from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -188,21 +190,21 @@ const BudgetCategoriesTableContainer = (props) => {
             const code = budgetCategoryRow._code;
             if (link && code && props.type === 'federal_account') {
                 link = (
-                    <a
+                    <Link
                         className="federal-account-profile__link"
                         onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        href={`#/federal_account/${code}`}>
+                        href={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             } else if (link && id && props.type === 'agency') {
                 link = (
-                    <a
+                    <Link
                         className="agency-profile__link"
                         onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        href={`#/agency/${id}`}>
+                        to={`/agency/${id}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             }
 

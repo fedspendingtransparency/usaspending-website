@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     name: PropTypes.string,
@@ -29,9 +30,9 @@ export default class StateLinkCell extends React.Component {
 
         return (
             <td className="state-list__body-cell">
-                <a href={`#/state/${this.props.fips}`}>
+                <Link to={`/state/${this.props.fips}`}>
                     {name}
-                </a>
+                </Link>
             </td>
         );
     }

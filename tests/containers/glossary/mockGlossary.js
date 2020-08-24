@@ -13,7 +13,8 @@ export const mockActions = {
     setGlossaryResults: jest.fn(),
     showGlossary: jest.fn(),
     setGlossaryTerm: jest.fn(),
-    setGlossaryCache: jest.fn()
+    setGlossaryCache: jest.fn(),
+    setGlossaryTermFromUrl: jest.fn()
 };
 
 export const mockData = {

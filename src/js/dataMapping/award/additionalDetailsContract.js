@@ -17,42 +17,42 @@ const additionalDetailsContracts = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardingAgency.id && awardingAgency.hasAgencyPage) ? `/#/agency/${awardingAgency.id}` : null,
+                    path: (awardingAgency.id && awardingAgency.hasAgencyPage) ? `/agency/${awardingAgency.id}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
             'Awarding Sub-Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgency.subtierId ? `/#/agency/${awardingAgency.subtierId}` : null,
+                    path: awardingAgency.subtierId ? `/agency/${awardingAgency.subtierId}` : null,
                     title: awardingAgency.subtierName
                 }
             },
             'Awarding Office': {
                 type: 'link',
                 data: {
-                    path: awardingAgency.officeId ? `/#/agency/${awardingAgency.officeId}` : null,
+                    path: awardingAgency.officeId ? `/agency/${awardingAgency.officeId}` : null,
                     title: awardingAgency.officeName
                 }
             },
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (fundingAgency.id && fundingAgency.hasAgencyPage) ? `/#/agency/${fundingAgency.id}` : null,
+                    path: (fundingAgency.id && fundingAgency.hasAgencyPage) ? `/agency/${fundingAgency.id}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
             'Funding Sub-Agency': {
                 type: 'link',
                 data: {
-                    path: fundingAgency.subtierId ? `/#/agency/${fundingAgency.subtierId}` : null,
+                    path: fundingAgency.subtierId ? `/agency/${fundingAgency.subtierId}` : null,
                     title: fundingAgency.subtierName
                 }
             },
             'Funding Office': {
                 type: 'link',
                 data: {
-                    path: fundingAgency.officeId ? `/#/agency/${fundingAgency.officeId}` : null,
+                    path: fundingAgency.officeId ? `/agency/${fundingAgency.officeId}` : null,
                     title: fundingAgency.officeName
                 }
             }
@@ -61,7 +61,7 @@ const additionalDetailsContracts = (awardData) => {
             'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
-                    path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,
+                    path: parentAwardDetails.awardId ? `/award/${parentAwardDetails.awardId}` : null,
                     title: parentAwardDetails.piid
                 }
             },
@@ -70,7 +70,7 @@ const additionalDetailsContracts = (awardData) => {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.agencyId ?
-                        `/#/agency/${parentAwardDetails.agencyId}` : null,
+                        `/agency/${parentAwardDetails.agencyId}` : null,
                     title: parentAwardDetails.agencyName
                 }
             },
@@ -102,7 +102,7 @@ const additionalDetailsContracts = (awardData) => {
             Recipient: {
                 type: 'link',
                 data: {
-                    path: recipient.internalId ? `/#/recipient/${recipient.internalId}/latest` : null,
+                    path: recipient.internalId ? `/recipient/${recipient.internalId}/latest` : null,
                     title: recipient._name
                 }
             },
@@ -111,7 +111,7 @@ const additionalDetailsContracts = (awardData) => {
                 type: 'link',
                 data: {
                     path: recipient.parentInternalId ?
-                        `/#/recipient/${recipient.parentInternalId}/latest` : null,
+                        `/recipient/${recipient.parentInternalId}/latest` : null,
                     title: recipient.parentName
                 }
             },

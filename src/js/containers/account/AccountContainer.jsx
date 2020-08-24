@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { withRouter } from 'react-router-dom';
 
 import * as AccountHelper from 'helpers/accountHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
@@ -25,7 +26,7 @@ require('pages/account/accountPage.scss');
 
 const propTypes = {
     account: PropTypes.object,
-    params: PropTypes.object,
+    match: PropTypes.object,
     setSelectedAccount: PropTypes.func
 };
 
@@ -49,12 +50,12 @@ export class AccountContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData(this.props.params.accountNumber);
+        this.loadData(this.props.match.params.accountNumber);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params.accountNumber !== this.props.params.accountNumber) {
-            this.loadData(this.props.params.accountNumber);
+        if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
+            this.loadData(this.props.match.params.accountNumber);
         }
     }
 
@@ -171,6 +172,7 @@ export class AccountContainer extends React.Component {
 }
 
 AccountContainer.propTypes = propTypes;
+const AccountContainerWithRouter = withRouter(AccountContainer);
 
 export default connect(
     (state) => ({
@@ -178,4 +180,4 @@ export default connect(
         tas: state.account.tas
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(AccountContainer);
+)(AccountContainerWithRouter);

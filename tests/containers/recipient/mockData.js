@@ -7,10 +7,15 @@ export const mockActions = {
     setRecipientFiscalYear: jest.fn()
 };
 
-export const mockRedux = {
-    params: {
-        recipientId: '0123456-ABC-P',
-        fy: 'latest'
+export const mockProps = {
+    match: {
+        params: {
+            recipientId: '0123456-ABC-P',
+            fy: 'latest'
+        }
+    },
+    history: {
+        replace: jest.fn()
     },
     recipient: initialState
 };
