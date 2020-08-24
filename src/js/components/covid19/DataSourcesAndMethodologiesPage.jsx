@@ -165,12 +165,12 @@ export default () => {
                         <div className="about-padded-content">
                             <div className="about-section-wrapper" id="data-sources-datasets">
                                 <div className="back-link">
-                                    <a
-                                        href="/#/disaster/covid-19"
+                                    <Link
+                                        to="/disaster/covid-19"
                                         rel="noopener noreferrer">
                                         <FontAwesomeIcon icon="arrow-left" />
                                         Back to the COVID-19 Spending Profile
-                                    </a>
+                                    </Link>
                                 </div>
                                 <h2 className="about-section-title">
                                     Datasets
@@ -192,7 +192,7 @@ export default () => {
                                             <strong>Frequency of updates:</strong> monthly
                                         </li>
                                         <li>
-                                            <strong>Details:</strong> The Broker contains financial data sourced from agency financial systems. This information is submitted directly by federal agencies to the Broker on a monthly basis and is packaged with related award and subaward data by the Broker and certified by a Senior Accountable Official. Directly submitted financial data files cover: 1) Treasury Account Symbol (TAS) balances (in Broker File A); 2) breakdowns of TAS-level spending by several dimensions (in Broker File B); and 3) a further breakdown of the award component of that spending by each federal award (in Broker File C). The latter two of these files are used on this page; visit our <a href="/download_center/custom_account_data">Custom Account Data</a> page to download them: &quot;Account Breakdown by Program Activity &amp; Object Class&quot; (for File B) and &quot;Account Breakdown by Award&quot; (for File C).
+                                            <strong>Details:</strong> The Broker contains financial data sourced from agency financial systems. This information is submitted directly by federal agencies to the Broker on a monthly basis and is packaged with related award and subaward data by the Broker and certified by a Senior Accountable Official. Directly submitted financial data files cover: 1) Treasury Account Symbol (TAS) balances (in Broker File A); 2) breakdowns of TAS-level spending by several dimensions (in Broker File B); and 3) a further breakdown of the award component of that spending by each federal award (in Broker File C). The latter two of these files are used on this page; visit our <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download them: &quot;Account Breakdown by Program Activity &amp; Object Class&quot; (for File B) and &quot;Account Breakdown by Award&quot; (for File C).
                                         </li>
                                     </ul>
                                 </div>
