@@ -69,7 +69,7 @@ export default class ExplorerSidebar extends React.Component {
         if (year >= 2020) {
             this.props.setExplorerPeriod({
                 fy: `${lastQuarter.year}`,
-                period: `${lastPeriodByQuarter(lastQuarter.quarter)}`,
+                period: `${lastPeriodByQuarter[lastQuarter.quarter]}`,
                 quarter: null
             });
         }
