@@ -4,7 +4,7 @@
  **/
 
 import { List, Record } from 'immutable';
-import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { defaultQuarters, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
 
 export const ActiveScreen = new Record({
     within: '', // within is the data type that the total is a slice WITHIN
@@ -18,7 +18,8 @@ const initialQuarters = defaultQuarters();
 export const initialState = {
     root: 'object_class',
     fy: `${initialQuarters.year}`,
-    quarter: `${Math.max(...initialQuarters.quarters)}`,
+    quarter: initialQuarters.year >= 2020 ? null : `${Math.max(...initialQuarters.quarters)}`,
+    period: initialQuarters.year >= 2020 ? `${lastPeriodByQuarter[Math.max(...initialQuarters.quarters)]}` : null,
     active: new ActiveScreen(),
     trail: new List([]),
     table: {
