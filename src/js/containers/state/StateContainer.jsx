@@ -8,23 +8,24 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { withRouter } from 'react-router-dom';
 
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import Router from 'containers/router/Router';
 
 import StatePage from 'components/state/StatePage';
 
 require('pages/state/statePage.scss');
 
 const propTypes = {
-    params: PropTypes.shape({ stateId: PropTypes.string, fy: PropTypes.string }),
     stateProfile: PropTypes.object,
     setStateOverview: PropTypes.func,
     setStateFiscalYear: PropTypes.func,
-    setStateCenter: PropTypes.func
+    setStateCenter: PropTypes.func,
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class StateContainer extends React.Component {
@@ -41,9 +42,9 @@ export class StateContainer extends React.Component {
     }
 
     componentDidMount() {
-        const { fy, stateId } = this.props.params;
-        if (!Object.keys(this.props.params).includes('fy')) {
-            Router.history.replace(`/state/${stateId}/latest`);
+        const { fy, stateId } = this.props.match.params;
+        if (!Object.keys(this.props.match.params).includes('fy')) {
+            this.props.history.replace(`/state/${stateId}/latest`);
         }
         this.props.setStateFiscalYear(fy);
         this.loadStateOverview(stateId, fy);
@@ -51,26 +52,26 @@ export class StateContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.stateId !== prevProps.params.stateId) {
+        if (this.props.match.params.stateId !== prevProps.match.params.stateId) {
             // Reset the FY
-            this.props.setStateFiscalYear(this.props.params.fy);
-            this.loadStateOverview(this.props.params.stateId, this.props.params.fy);
+            this.props.setStateFiscalYear(this.props.match.params.fy);
+            this.loadStateOverview(this.props.match.params.stateId, this.props.match.params.fy);
             // Update the map center
-            this.setStateCenter(this.props.params.stateId);
+            this.setStateCenter(this.props.match.params.stateId);
         }
         if (
-            (!prevProps.params.fy && this.props.params.fy) ||
-            (prevProps.params.fy !== this.props.params.fy)) {
+            (!prevProps.match.params.fy && this.props.match.params.fy) ||
+            (prevProps.match.params.fy !== this.props.match.params.fy)) {
             // we just redirected the user or to the new url which includes the fy selection
-            this.props.setStateFiscalYear(this.props.params.fy);
+            this.props.setStateFiscalYear(this.props.match.params.fy);
         }
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
-            this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
+            this.loadStateOverview(this.props.match.params.stateId, this.props.stateProfile.fy);
         }
     }
 
     onClickFy(fy) {
-        Router.history.push(`/state/${this.props.params.stateId}/${fy}`);
+        this.props.history.push(`/state/${this.props.match.params.stateId}/${fy}`);
         this.props.setStateFiscalYear(fy);
     }
 
@@ -129,11 +130,12 @@ export class StateContainer extends React.Component {
     }
 }
 
+StateContainer.propTypes = propTypes;
+const StateContainerWithRouter = withRouter(StateContainer);
+
 export default connect(
     (state) => ({
         stateProfile: state.stateProfile
     }),
     (dispatch) => bindActionCreators(stateActions, dispatch)
-)(StateContainer);
-
-StateContainer.propTypes = propTypes;
+)(StateContainerWithRouter);

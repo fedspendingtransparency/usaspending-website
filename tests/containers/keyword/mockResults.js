@@ -49,8 +49,13 @@ export const mockTableProps = {
 };
 
 export const mockRedux = {
-    params: {
-        keyword: ''
+    match: {
+        params: {
+            keyword: ''
+        }
+    },
+    history: {
+        replace: jest.fn()
     },
     bulkDownload: {
         download: {

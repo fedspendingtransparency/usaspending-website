@@ -3,331 +3,181 @@
  * Created by Kevin Li 5/26/17
  **/
 
+import React from 'react';
 
-// defining the routes outside of the component because React Router cannot handle state/prop
-// changes that Redux causes
-/* eslint-disable global-require */
+const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
+const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
+const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
+const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
+const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
+const AccountContainer = React.lazy(() => import('containers/account/AccountContainer').then((comp) => comp));
+const AgencyContainer = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
+const About = React.lazy(() => import('components/about/About').then((comp) => comp));
+const AccessibilityPage = React.lazy(() => import('components/about/legal/AccessibilityPage').then((comp) => comp));
+const PrivacyPage = React.lazy(() => import('components/about/legal/PrivacyPage').then((comp) => comp));
+const FOIAPage = React.lazy(() => import('components/about/legal/FOIAPage').then((comp) => comp));
+const DBInfo = React.lazy(() => import('components/about/DBInfo').then((comp) => comp));
+const AgencyLandingPage = React.lazy(() => import('components/agencyLanding/AgencyLandingPage').then((comp) => comp));
+const BulkDownloadPageContainer = React.lazy(() => import('containers/bulkDownload/BulkDownloadPageContainer').then((comp) => comp));
+const KeywordContainer = React.lazy(() => import('containers/keyword/KeywordContainer').then((comp) => comp));
+const AccountLandingPage = React.lazy(() => import('components/accountLanding/AccountLandingPage').then((comp) => comp));
+const StateLandingPage = React.lazy(() => import('components/stateLanding/StateLandingPage').then((comp) => comp));
+const StateContainer = React.lazy(() => import('containers/state/StateContainer').then((comp) => comp));
+const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
+const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
+const AgencyProfileV2 = React.lazy(() => import('containers/agency/v2/AgencyContainerV2').then((comp) => comp));
+const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
+const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
 
-const kGlobalConstants = require("../../GlobalConstants");
-
-const routes = {
-    routes: [
-        {
-            path: '/',
-            parent: '/',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/homepage/Homepage').default);
-                });
-            }
-        },
-        {
-            path: '/search',
-            parent: '/search',
-            addToSitemap: true,
-            silentlyUpdate: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/search/SearchContainer').default);
-                });
-            }
-        },
-        {
-            path: '/search/:hash',
-            parent: '/search',
-            addToSitemap: false,
-            silentlyUpdate: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/search/SearchContainer').default);
-                });
-            }
-        },
-        {
-            path: '/explorer',
-            parent: '/explorer',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/explorer/landing/ExplorerLanding').default);
-                });
-            }
-        },
-        {
-            path: '/explorer/:root',
-            parent: '/explorer',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/explorer/detail/ExplorerDetailPageContainer').default);
-                });
-            }
-        },
-        {
-            path: '/award/:awardId',
-            parent: '/award',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/award/AwardContainer').default);
-                });
-            }
-        },
-        {
-            path: '/federal_account/:accountNumber',
-            parent: '/federal_account',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/account/AccountContainer').default);
-                });
-            }
-        },
-        {
-            path: '/agency/:agencyId',
-            parent: '/agency',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/agency/AgencyContainer').default);
-                });
-            }
-        },
-        {
-            path: '/about',
-            parent: '/about',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/about/About').default);
-                });
-            }
-        },
-        {
-            path: '/about/accessibility',
-            parent: '/about',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/about/legal/AccessibilityPage').default);
-                });
-            }
-        },
-        {
-            path: '/about/privacy',
-            parent: '/about',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/about/legal/PrivacyPage').default);
-                });
-            }
-        },
-        {
-            path: '/about/foia',
-            parent: '/about',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/about/legal/FOIAPage').default);
-                });
-            }
-        },
-        {
-            path: '/db_info',
-            parent: '/db_info',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/about/DBInfo').default);
-                });
-            }
-        },
-        {
-            path: '/style',
-            parent: '/style',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/testStyles/TestStylePage').default);
-                });
-            }
-        },
-        {
-            path: '/agency',
-            parent: '/agency',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/agencyLanding/AgencyLandingPage').default);
-                });
-            }
-        },
-        {
-            path: '/download_center',
-            parent: '/download_center',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
-                });
-            }
-        },
-        {
-            path: '/download_center/:type',
-            parent: '/download_center',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
-                });
-            }
-        },
-        {
-            path: '/keyword_search',
-            parent: '/keyword_search',
-            addToSitemap: true,
-            silentlyUpdate: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/keyword/KeywordContainer').default);
-                });
-            }
-        },
-        {
-            path: '/keyword_search/:keyword',
-            parent: '/keyword_search',
-            addToSitemap: false,
-            silentlyUpdate: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/keyword/KeywordContainer').default);
-                });
-            }
-        },
-        {
-            path: '/federal_account',
-            parent: '/federal_account',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/accountLanding/AccountLandingPage').default);
-                });
-            }
-        },
-        {
-            path: '/state',
-            parent: '/state',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/stateLanding/StateLandingPage').default);
-                });
-            }
-        },
-        {
-            path: '/state/:stateId',
-            parent: '/state',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/state/StateContainer').default);
-                });
-            }
-        },
-        {
-            path: '/state/:stateId/:fy',
-            parent: '/state',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/state/StateContainer').default);
-                });
-            }
-        },
-        {
-            path: '/recipient',
-            parent: '/recipient',
-            addToSitemap: true,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/recipientLanding/RecipientLandingPage').default);
-                });
-            }
-        },
-        {
-            path: '/recipient/:recipientId',
-            parent: '/recipient',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/recipient/RecipientContainer').default);
-                });
-            }
-        },
-        {
-            path: '/recipient/:recipientId/:fy',
-            parent: '/recipient',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/recipient/RecipientContainer').default);
-                });
-            }
-        }
-    ],
-    notFound: {
-        component: (cb) => {
-            require.ensure([], (require) => {
-                cb(require('components/errorPage/ErrorPage').default);
-            });
-        }
+// /* eslint-disable import/prefer-default-export */
+// Please add any new routes to the scripts/pages.js routes file.
+export const routes = [
+    {
+        path: '/',
+        component: Homepage,
+        exact: true
+    },
+    {
+        path: '/search',
+        component: SearchContainer,
+        exact: true
+    },
+    {
+        path: '/search/:urlHash',
+        component: SearchContainer,
+        exact: true
+    },
+    {
+        path: '/explorer',
+        component: ExplorerLanding,
+        exact: true
+    },
+    {
+        path: '/explorer/:root',
+        component: ExplorerDetailPageContainer,
+        exact: true
+    },
+    {
+        path: '/award/:awardId',
+        component: AwardContainer,
+        exact: true
+    },
+    {
+        path: '/federal_account/:accountNumber',
+        component: AccountContainer,
+        exact: true
+    },
+    {
+        path: '/agency/:agencyId',
+        component: AgencyContainer,
+        exact: true
+    },
+    {
+        path: '/about/accessibility',
+        component: AccessibilityPage,
+        exact: true
+    },
+    {
+        path: '/about/privacy',
+        component: PrivacyPage,
+        exact: true
+    },
+    {
+        path: '/about/foia',
+        component: FOIAPage,
+        exact: true
+    },
+    {
+        path: '/about',
+        component: About,
+        exact: true
+    },
+    {
+        path: '/db_info',
+        component: DBInfo,
+        exact: true
+    },
+    {
+        path: '/agency',
+        parent: '/agency',
+        component: AgencyLandingPage,
+        exact: true
+    },
+    {
+        path: '/download_center/:type',
+        component: BulkDownloadPageContainer,
+        exact: true
+    },
+    {
+        path: '/download_center',
+        component: BulkDownloadPageContainer,
+        exact: true
+    },
+    {
+        path: '/keyword_search/:keyword',
+        component: KeywordContainer,
+        exact: true
+    },
+    {
+        path: '/keyword_search',
+        component: KeywordContainer,
+        exact: true
+    },
+    {
+        path: '/federal_account',
+        component: AccountLandingPage,
+        exact: true
+    },
+    {
+        path: '/state/:stateId/:fy',
+        component: StateContainer,
+        exact: true
+    },
+    {
+        path: '/state/:stateId',
+        component: StateContainer,
+        exact: true
+    },
+    {
+        path: '/state',
+        component: StateLandingPage,
+        exact: true
+    },
+    {
+        path: '/recipient/:recipientId/:fy',
+        component: RecipientContainer,
+        exact: true
+    },
+    {
+        path: '/recipient/:recipientId',
+        component: RecipientContainer,
+        exact: true
+    },
+    {
+        path: '/recipient',
+        component: RecipientLandingPage,
+        exact: true
+    },
+    {
+        path: '/agency_v2/:agencyId',
+        component: AgencyProfileV2,
+        exact: true
+    },
+    {
+        path: '/disaster/covid-19/data-sources',
+        component: DataSourcesAndMethodologiesPage,
+        exact: true
+    },
+    {
+        path: '/disaster/covid-19',
+        component: Covid19Container,
+        exact: true
+    },
+    {
+        path: '*',
+        component: ErrorPage
     }
-};
+];
+/* eslint-enable import/prefer-default-export */
 
-if (kGlobalConstants.DEV) {
-    routes.routes.push(
-        {
-            path: '/agency_v2/:agencyId',
-            parent: '/agency',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/agency/v2/AgencyContainerV2').default);
-                });
-            }
-        }
-    );
-}
-
-if (kGlobalConstants.CARES_ACT_RELEASED) {
-    routes.routes.push(
-        {
-            path: '/disaster/covid-19',
-            parent: '/disaster',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/covid19/Covid19Container').default);
-                });
-            }
-        }
-    );
-    routes.routes.push(
-        {
-            path: '/disaster/covid-19/data-sources',
-            parent: '/disaster/covid-19',
-            addToSitemap: false,
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/covid19/DataSourcesAndMethodologiesPage').default);
-                });
-            }
-        }
-    );
-}
-
-module.exports = routes;
-
-/* eslint-enable global-require */

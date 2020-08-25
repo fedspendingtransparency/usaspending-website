@@ -5,7 +5,9 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { isCancel } from 'axios';
+
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
@@ -115,10 +117,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
@@ -145,11 +147,11 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
-                    <a
+                    <Link
                         className="agency-profile__link"
-                        href={`#/agency/${id}`}>
+                        to={`/agency/${id}`}>
                         {awardSpendingByAgencyRow.description}
-                    </a>
+                    </Link>
                 );
             }
             return {
@@ -166,8 +168,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
@@ -191,13 +193,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 params.filter.award_type_codes = awardTypeGroups[props.type];
             }
 
-            let awardSpendingAgencyRequest;
-            if (props.type === 'loans') {
-                awardSpendingAgencyRequest = fetchLoansByAgency(params);
-            } else {
-                awardSpendingAgencyRequest = fetchAwardSpendingByAgency(params);
-            }
-            setRequest(awardSpendingAgencyRequest);
+            const awardSpendingAgencyRequest = props.type === 'loans' ? fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
+
+            request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise
                 .then((res) => {
                     parseAwardSpendingByAgency(res.data.results);
@@ -205,29 +203,40 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setRequest(null);
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
         }
     });
 
-    useEffect(() => {
-        // Reset to the first page
-        changeCurrentPage(1);
-        fetchSpendingByCategoryCallback();
-    }, [props.type, pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         if (props.type === 'loans') {
+            if (sort === 'faceValueOfLoan' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('faceValueOfLoan', 'desc');
         } else {
+            if (sort === 'obligation' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('obligation', 'desc');
         }
     }, [props.type]);
+
+    useEffect(() => {
+        // Reset to the first page
+        if (currentPage === 1) {
+            fetchSpendingByCategoryCallback();
+        }
+        changeCurrentPage(1);
+    }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

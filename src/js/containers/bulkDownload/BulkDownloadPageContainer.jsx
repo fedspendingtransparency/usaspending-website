@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
-import Router from 'containers/router/Router';
+import { withRouter } from 'react-router-dom';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
@@ -22,12 +21,13 @@ import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytic
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
-    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func
+    setDownloadExpectedUrl: PropTypes.func,
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class BulkDownloadPageContainer extends React.Component {
@@ -41,31 +41,30 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.validateDataType(this.props.params.type);
+        this.validateDataType(this.props.match.params.type);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params.type !== this.props.params.type) {
-            this.validateDataType(this.props.params.type);
+        if (prevProps.match.params.type !== this.props.match.params.type) {
+            this.validateDataType(this.props.match.params.type);
         }
     }
 
-    validateDataType(typeUrl) {
-        if (typeUrl) {
-            const dataType = downloadOptions.find((type) => type.url === `#/download_center/${typeUrl}`);
-
+    validateDataType(typeParam) {
+        if (typeParam) {
+            const dataType = downloadOptions.find((type) => type.url === `/download_center/${typeParam}`);
             if (dataType) {
                 this.props.setDataType(dataType.type);
             }
 
             else {
                 // Invalid url, go to the error page
-                Router.history.replace('/error');
+                this.props.history.replace('/error');
             }
         }
         else {
             // If no type param is specified, default to award data
-            Router.history.replace('/download_center/custom_award_data');
+            this.props.history.replace('/download_center/custom_award_data');
         }
     }
 
@@ -230,8 +229,9 @@ export class BulkDownloadPageContainer extends React.Component {
 }
 
 BulkDownloadPageContainer.propTypes = propTypes;
+const BulkDownloadPageContainerWithRouter = withRouter(BulkDownloadPageContainer);
 
 export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(BulkDownloadPageContainer);
+)(BulkDownloadPageContainerWithRouter);

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import Router from 'containers/router/Router';
+import { useHistory } from 'react-router-dom';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
 import FooterLinkToAdvancedSearch from 'components/sharedComponents/FooterLinkToAdvancedSearch';
@@ -17,13 +17,17 @@ const propTypes = {
     onClick: PropTypes.func
 };
 
-const FooterLinkToAdvancedSearchContainer = ({ title, description, onClick }) => {
+const FooterLinkToAdvancedSearchContainer = ({
+    title, description, onClick
+}) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const clickedSearch = () => {
         dispatch(clearAllFilters());
         dispatch(resetAppliedFilters());
         if (onClick) onClick();
-        Router.history.push('/search');
+        history.push('/search');
     };
 
     return (

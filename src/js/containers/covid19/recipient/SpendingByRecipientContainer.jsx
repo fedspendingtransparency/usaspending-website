@@ -10,6 +10,8 @@ import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from 'react-router-dom';
+
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -124,12 +126,12 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <a href={`#/recipient/${rowData._childId}`}>
+                    <Link to={`/recipient/${rowData._childId}`}>
                         as Child
-                    </a>,&nbsp;
-                    <a href={`#/recipient/${rowData._recipientId}`}>
+                    </Link>,&nbsp;
+                    <Link to={`/recipient/${rowData._recipientId}`}>
                         as Recipient
-                    </a>
+                    </Link>
                     )
                 </>
             );
@@ -137,9 +139,9 @@ export const parseRows = (rows, activeTab, query) => (
         else if (rowData._childId || rowData._recipientId) {
             // there is a single profile page for this recipient
             link = (
-                <a href={`#/recipient/${rowData._childId || rowData._recipientId}`}>
+                <Link to={`/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
-                </a>
+                </Link>
             );
         }
         if (activeTab === 'loans') {
@@ -170,10 +172,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [query, setQuery] = useState('');
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -182,8 +184,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const fetchSpendingByRecipientCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
@@ -205,7 +207,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 params.filter.query = query;
             }
             const recipientRequest = activeTab === 'loans' ? fetchLoanSpending('recipient', params) : fetchDisasterSpending('recipient', params);
-            setRequest(recipientRequest);
+            request.current = recipientRequest;
             recipientRequest.promise
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
@@ -217,6 +219,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -225,8 +228,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     useEffect(() => {
         // Reset to the first page
+        if (currentPage === 1) {
+            fetchSpendingByRecipientCallback();
+        }
         changeCurrentPage(1);
-        fetchSpendingByRecipientCallback();
     }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {
