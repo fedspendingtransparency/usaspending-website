@@ -104,7 +104,7 @@ const SpendingByRecipient = () => {
         <div className="spending-by-recipient">
             <div ref={awardFilterButtonsRef}>
                 <AwardFilterButtons
-                    filters={awardTypeTabs.map((tab) => ({ ...tab, isDisabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal]}))}
+                    filters={awardTypeTabs.map((tab) => ({ ...tab, isDisabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal] }))}
                     onClick={changeActiveTab}
                     activeFilter={activeTab}
                     tabCounts={tabCounts} />
