@@ -72,7 +72,6 @@ export const componentByCovid19Section = () => ({
         title: 'Award Spending by CFDA Program (Assistance Listing)'
     },
     data_sources_and_methodology: {
-        component: <DataSourcesAndMethodology />,
         showInMenu: true,
         showInMainSection: false,
         title: 'Data Sources & Methodology'
