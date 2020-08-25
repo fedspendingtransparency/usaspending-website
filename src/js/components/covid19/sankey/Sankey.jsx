@@ -34,6 +34,8 @@ const propTypes = {
 };
 
 const startOfSankeyY = 100;
+const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', publicLawString.includes('|') ? 'Public Laws' : 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
+
 
 /**
  * Node Padding - Space between nodes (rectangles)
@@ -66,30 +68,30 @@ const SankeyViz = ({
     const defCodesSortedByValue = () => defCodes
         .map((code) => ({ ...code, value: overview[`_defCode_${code.code}_funding`] || 0 }))
         .sort((a, b) => b.value - a.value);
-    const parsePublicLaws = (publicLawString) => uniq(publicLawString.replaceAll('Non-emergency', 'Non-Emergency').replaceAll('P.L.', publicLawString.includes('|') ? 'Public Laws' : 'Public Law').split(' ')).join(' ').replaceAll('|', 'and');
+    const dataForNodes = () => defCodesSortedByValue().map((code) => ({
+        name: `_defCode_${code.code}_funding`,
+        publicLaw: parsePublicLaws(code.public_law),
+        label: `DEF Code: ${code.code}`,
+        color: defCodeColor,
+        tooltip: <TooltipWrapper icon="info" />,
+        textWidth: 63,
+        textHeight: 29,
+        value: code.value,
+        description: `A rectangle representing ${formatMoney(overview[`_defCode_${code.code}_funding`])} in funding for ${parsePublicLaws(code.public_law)}, DEF Code: ${code.code}`
+    })).concat(otherSankeyNodes.map((node) => ({
+        ...node,
+        value: overview[node.name],
+        description: `A rectangle representing ${formatMoney(overview[node.name])} in spending for ${node.label}`
+    })));
     // create data for def code nodes and add value to other nodes
     useEffect(() => {
         if (Object.keys(overview).length && defCodes.length) {
-            const dataForNodes = defCodesSortedByValue().map((code) => ({
-                name: `_defCode_${code.code}_funding`,
-                publicLaw: parsePublicLaws(code.public_law),
-                label: `DEF Code: ${code.code}`,
-                color: defCodeColor,
-                tooltip: <TooltipWrapper icon="info" />,
-                textWidth: 63,
-                textHeight: 29,
-                value: code.value,
-                description: `A rectangle representing ${formatMoney(overview[`_defCode_${code.code}_funding`])} in funding for ${parsePublicLaws(code.public_law)}, DEF Code: ${code.code}`
-            })).concat(otherSankeyNodes.map((node) => ({
-                ...node,
-                value: overview[node.name],
-                description: `A rectangle representing ${formatMoney(overview[node.name])} in spending for ${node.label}`
-            })));
+            const data = dataForNodes();
             if (isIE) {
-                setNodeData(dataForNodes.filter((node) => node.name !== 'fakeData'));
+                setNodeData(data.filter((node) => node.name !== 'fakeData'));
             }
             else {
-                setNodeData(dataForNodes);
+                setNodeData(data);
             }
         }
     }, [defCodes, overview]);

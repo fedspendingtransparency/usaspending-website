@@ -18,6 +18,7 @@ const propTypes = {
 };
 
 const smallerRectangle = 2;
+const whiteRectangleHeight = (y1, y0) => (((y1 - y0) - (smallerRectangle * 2)).toString().startsWith('-') || isNaN((y1 - y0) - (smallerRectangle * 2)) ? 0 : (y1 - y0) - (smallerRectangle * 2));
 
 const SankeyNode = ({
     name,
@@ -47,7 +48,7 @@ const SankeyNode = ({
                     x={x0 + smallerRectangle || 0}
                     y={y0 + smallerRectangle || 0}
                     width={(x1 - x0) - (smallerRectangle * 2) || 0}
-                    height={((y1 - y0) - (smallerRectangle * 2)).toString().startsWith('-') || isNaN((y1 - y0) - (smallerRectangle * 2)) ? 0 : (y1 - y0) - (smallerRectangle * 2)}
+                    height={whiteRectangleHeight(y1, y0)}
                     fill="white">
                     <title>{name}</title>
                 </rect>
