@@ -11,6 +11,7 @@ import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpe
 import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
+import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 
 const totalSpendingText = (
     <div className="body__header-text">
@@ -71,8 +72,15 @@ export const componentByCovid19Section = () => ({
         title: 'Award Spending by CFDA Program (Assistance Listing)'
     },
     data_sources_and_methodology: {
+        component: <DataSourcesAndMethodology />,
         showInMenu: true,
         showInMainSection: false,
         title: 'Data Sources & Methodology'
+    },
+    other_resources: {
+        showInMenu: true,
+        showInMainSection: false,
+        title: 'Other Resources'
     }
+
 });

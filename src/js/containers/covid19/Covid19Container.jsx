@@ -41,6 +41,7 @@ import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/d
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
+import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
@@ -262,6 +263,9 @@ const Covid19Container = () => {
                             <section className="body__section" id="covid19-data_sources_and_methodology">
                                 <DataSourcesAndMethodology
                                     handleExternalLinkClick={handleExternalLinkClick} />
+                            </section>
+                            <section className="body__section" id="covid19-other_resources">
+                                <OtherResources />
                                 <LinkToAdvancedSearchContainer />
                             </section>
                         </div>
