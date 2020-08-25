@@ -12,6 +12,7 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
+import Analytics from 'helpers/analytics/Analytics';
 import AwardFilterButtons from './AwardFilterButtons';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
@@ -55,6 +56,7 @@ const SpendingByRecipient = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
+        Analytics.event({ category: 'COVID-19 - Award Spending by Recipient - Recipients', action: `${activeTab} - click` });
     };
 
     useEffect(() => {

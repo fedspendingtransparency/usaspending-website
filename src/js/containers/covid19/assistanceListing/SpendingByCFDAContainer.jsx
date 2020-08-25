@@ -20,6 +20,7 @@ import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorM
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const propTypes = {
@@ -162,7 +163,13 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             )
         ));
         history.push('/search');
+        Analytics.event({
+            category: `COVID-19 - Award Spending by CFDA - ${activeTab}`,
+            action: 'CFDA listing click',
+            label: cfdaData.description
+        });
     };
+
 
     const parseRows = () => (
         results.map((row) => {

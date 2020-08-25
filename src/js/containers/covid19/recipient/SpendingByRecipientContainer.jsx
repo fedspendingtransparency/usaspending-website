@@ -23,6 +23,7 @@ import SearchBar from 'components/covid19/SearchBar';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const propTypes = {
@@ -104,6 +105,14 @@ const loanColumns = [
     }
 ];
 
+const clickedRecipientProfile = (recipientName) => {
+    Analytics.event({
+        category: 'COVID-19 - Award Spending by Recipient - Recipients',
+        action: 'recipient profile click',
+        label: recipientName
+    });
+};
+
 export const parseRows = (rows, activeTab, query) => (
     rows.map((row) => {
         const rowData = Object.create(BaseSpendingByRecipientRow);
@@ -123,13 +132,14 @@ export const parseRows = (rows, activeTab, query) => (
         }
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
+            const handleClick = () => clickedRecipientProfile(`${description}`);
             link = (
                 <>
                     {description}&nbsp;(
-                    <Link to={`/recipient/${rowData._childId}`}>
+                    <Link onClick={handleClick} to={`/recipient/${rowData._childId}`}>
                         as Child
                     </Link>,&nbsp;
-                    <Link to={`/recipient/${rowData._recipientId}`}>
+                    <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}`}>
                         as Recipient
                     </Link>
                     )
@@ -137,9 +147,10 @@ export const parseRows = (rows, activeTab, query) => (
             );
         }
         else if (rowData._childId || rowData._recipientId) {
+            const handleClick = clickedRecipientProfile(`${description}`);
             // there is a single profile page for this recipient
             link = (
-                <Link to={`/recipient/${rowData._childId || rowData._recipientId}`}>
+                <Link onClick={handleClick} to={`/recipient/${rowData._childId || rowData._recipientId}`}>
                     {description}
                 </Link>
             );

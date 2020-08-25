@@ -13,6 +13,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
+import Analytics from 'helpers/analytics/Analytics';
+
 
 import {
     budgetColumns,
@@ -147,6 +149,22 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
+    const clickedAgencyProfile = (agencyName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - agency profile click`,
+            label: agencyName
+        });
+    };
+
+    const clickedFedAcctProfile = (accountName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - federal account profile click`,
+            label: accountName
+        });
+    };
+
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
@@ -174,6 +192,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <Link
                         className="federal-account-profile__link"
+                        onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
                         href={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
                     </Link>
@@ -182,6 +201,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 link = (
                     <Link
                         className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
                         to={`/agency/${id}`}>
                         {budgetCategoryRow.name}
                     </Link>
@@ -294,6 +314,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const spendingCategoryOnChange = (key) => {
         setSpendingCategory(key);
+        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
     let message = null;
