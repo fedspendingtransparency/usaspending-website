@@ -342,3 +342,28 @@ export const mapFilterSortOrderByValue = {
     totalSpending: 0,
     perCapita: 1
 };
+
+export const defaultTooltipWidth = 375;
+
+export const tooltipMapping = {
+    _totalBudgetAuthority: {
+        data: 'totalRectangleData',
+        title: 'Total Budgetary Resources',
+        paragraph: 'This amount represents all congressional appropriations and other available budgetary resources.'
+    },
+    _totalOutlays: {
+        data: 'outlayRectangleData',
+        title: 'Total Outlays',
+        paragraph: 'This amount represents all outlays, or actual payments, made by agencies.'
+    },
+    _totalObligations: {
+        data: 'obligationRectangleData',
+        title: 'Total Obligations',
+        paragraph: 'This amount represents all obligations, or promises of payment, made by agencies.'
+    },
+    _remainingBalance: {
+        data: 'remainingBalanceRectangleData',
+        title: 'Total Remaining Balance',
+        paragraph: 'This amount represents how much is left to be obligated, or promised to be paid, by agencies. '
+    }
+};

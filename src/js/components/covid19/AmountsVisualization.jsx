@@ -9,6 +9,9 @@ import { upperFirst } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import { TooltipWrapper } from 'data-transparency-ui';
+import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
+import Tooltip from 'components/award/shared/activity/Tooltip';
 import {
     amountsHeight,
     amountsPadding,
@@ -19,9 +22,16 @@ import {
     spacingBetweenLineAndText,
     remaniningBalanceLineWidth,
     labelTextAdjustment,
-    heightOfRemainingBalanceLines
+    heightOfRemainingBalanceLines,
+    defaultTooltipWidth,
+    tooltipMapping
 } from 'dataMapping/covid19/covid19';
-import { calculateUnits, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import {
+    calculateUnits,
+    formatMoneyWithPrecision,
+    formatMoney,
+    calculateTreemapPercentage
+} from 'helpers/moneyFormatter';
 
 const propTypes = {
     overviewData: PropTypes.object,
@@ -66,6 +76,8 @@ const AmountsVisualization = ({
     const [obligationLineDataTwoOverlap, setObligationLineDataTwoOverlap] = useState(false);
     const [drawRemainingBalanceItems, setDrawRemainingBalanceItems] = useState(true);
     const [drawRemainingBalanceText, setDrawRemainingBalanceText] = useState(true);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const _totalBudgetAuthorityQuestion = useRef(null);
     const _totalBudgetAuthorityLabel = useRef(null);
     const _totalBudgetAuthorityValue = useRef(null);
@@ -90,6 +102,25 @@ const AmountsVisualization = ({
             setScale(() => s);
         }
     }, [width, overviewData]);
+    const setMouseData = (e) => {
+        let mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
+        if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
+            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
+            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+        }
+        if (window.navigator.userAgent.indexOf("Safari") !== -1) {
+            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
+            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+        }
+        if (window.navigator.userAgent.indexOf("Chrome") !== -1) {
+            mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
+        }
+        setMouseValue(mousePosition);
+    };
+    useEffect(() => {
+        document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
+        return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
+    }, []);
     // totalRectangleData
     useEffect(() => {
         if (scale && Object.keys(overviewData).length > 0) {
@@ -609,13 +640,38 @@ const AmountsVisualization = ({
         }
     }, [overviewData]);
 
+    const tooltipData = () => ({
+        tooltipPosition: 'bottom',
+        styles: {
+            position: 'absolute',
+            transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
+        },
+        tooltipComponent: <PaginatedTooltipContainer
+            data={[{
+                title: tooltipMapping[showTooltip].title,
+                sections: [
+                    {
+                        paragraphs: [
+                            `${formatMoney(overviewData[showTooltip])}`,
+                            `${calculateTreemapPercentage(overviewData[showTooltip], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
+                            tooltipMapping[showTooltip].paragraph
+                        ]
+                    }
+                ]
+            }]
+            }
+            tooltipElement={<Tooltip />} />
+    });
+    const displayTooltip = (e) => setShowTooltip(e.target.getAttribute('data-id'));
+    const hideTooltip = () => setShowTooltip('');
+
     const dateNoteStyles = {
         position: 'absolute',
         transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`
     };
 
     return (
-        <div className="amounts-viz">
+        <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
             <h3 className="body__narrative amounts-viz__title">
                 This is how much was <strong>spent</strong> so far in response to COVID-19
             </h3>
@@ -627,292 +683,485 @@ const AmountsVisualization = ({
             }
             <DateNote styles={dateNoteStyles} />
             {
+                showTooltip &&
+                <TooltipWrapper
+                    className="award-section-tt"
+                    {...tooltipData()}
+                    wide={false}
+                    width={defaultTooltipWidth}
+                    controlledProps={{
+                        isControlled: true,
+                        isVisible: !!showTooltip
+                    }} />
+            }
+            {
                 !loading &&
                 <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                     {
-                        totalRectangleData &&
-                        <g tabIndex="0" aria-label={totalRectangleData.description}>
-                            <desc>
-                                {totalRectangleData.description}
-                            </desc>
-                            <rect
-                                x={totalRectangleData.x}
-                                y={totalRectangleData.y}
-                                width={totalRectangleData.width}
-                                height={totalRectangleData.height}
-                                fill={totalRectangleData.fill} />
-                        </g>
-                    }
-                    {
                         totalLineData &&
-                        <g tabIndex="0" aria-label="A line linking a rectangle to text">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line linking a rectangle to text"
+                            data-id="_totalBudgetAuthority"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line linking a rectangle to text</desc>
                             <line
+                                data-id="_totalBudgetAuthority"
                                 x1={totalLineData.x1}
                                 x2={totalLineData.x2}
                                 y1={totalLineData.y1}
                                 y2={totalLineData.y2}
                                 stroke={totalLineData.lineColor}
-                                strokeWidth={lineStrokeWidth} />
+                                strokeWidth={lineStrokeWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
-                        obligationRectangleData &&
-                        <g tabIndex="0" aria-label={obligationRectangleData.description}>
+                        totalRectangleData &&
+                        <g
+                            tabIndex="0"
+                            aria-label={totalRectangleData.description}
+                            data-id="_totalBudgetAuthority"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>
-                                {obligationRectangleData.description}
+                                {totalRectangleData.description}
                             </desc>
                             <rect
-                                x={obligationRectangleData.x}
-                                y={obligationRectangleData.y}
-                                width={obligationRectangleData.width}
-                                height={obligationRectangleData.height}
-                                fill={obligationRectangleData.fill} />
-                        </g>
-                    }
-                    {
-                        outlayRectangleData &&
-                        <g tabIndex="0" aria-label={outlayRectangleData.description}>
-                            <desc>
-                                {outlayRectangleData.description}
-                            </desc>
-                            <rect
-                                x={outlayRectangleData.x}
-                                y={outlayRectangleData.y}
-                                width={outlayRectangleData.width}
-                                height={outlayRectangleData.height}
-                                fill={outlayRectangleData.fill} />
-                        </g>
-                    }
-                    {
-                        remainingBalanceRectangleData && drawRemainingBalanceItems &&
-                        <g tabIndex="0" aria-label={remainingBalanceRectangleData.description}>
-                            <desc>
-                                {remainingBalanceRectangleData.description}
-                            </desc>
-                            <rect
-                                x={remainingBalanceRectangleData.x}
-                                y={remainingBalanceRectangleData.y}
-                                width={remainingBalanceRectangleData.width}
-                                height={remainingBalanceRectangleData.height}
-                                fill={remainingBalanceRectangleData.fill} />
-                        </g>
-                    }
-                    {
-                        outlayLineData &&
-                        <g tabIndex="0" aria-label="A line linking a rectangle to text">
-                            <desc>A line linking a rectangle to text</desc>
-                            <line
-                                x1={outlayLineData.x1}
-                                x2={outlayLineData.x2}
-                                y1={outlayLineData.y1}
-                                y2={outlayLineData.y2}
-                                stroke={outlayLineData.lineColor}
-                                strokeWidth={lineStrokeWidth} />
+                                className={showTooltip === '_totalBudgetAuthority' ? 'highlight' : ''}
+                                data-id="_totalBudgetAuthority"
+                                x={totalRectangleData.x}
+                                y={totalRectangleData.y}
+                                width={totalRectangleData.width}
+                                height={totalRectangleData.height}
+                                fill={totalRectangleData.fill}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         obligationLineDataOne &&
-                        <g tabIndex="0" aria-label="A line linking a rectangle to text">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line linking a rectangle to text"
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line linking a rectangle to text</desc>
                             <line
                                 className="line__obligation"
                                 x1={obligationLineDataOne.x1}
+                                data-id="_totalObligations"
                                 x2={obligationLineDataOne.x2}
                                 y1={obligationLineDataOne.y1}
                                 y2={obligationLineDataOne.y2}
-                                strokeWidth={lineStrokeWidth} />
+                                strokeWidth={lineStrokeWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         obligationLineDataTwo &&
-                        <g tabIndex="0" aria-label="A line 2 linking a rectangle to text">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line 2 linking a rectangle to text"
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line linking a rectangle to text</desc>
                             <line
                                 x1={obligationLineDataTwo.x1}
+                                data-id="_totalObligations"
                                 x2={obligationLineDataTwo.x2}
                                 y1={obligationLineDataTwo.y1}
                                 y2={obligationLineDataTwo.y2}
-                                className={(drawRemainingBalanceText && obligationLineDataTwoOverlap) ? 'line__opacity' : 'line__obligation'} />
+                                className={(drawRemainingBalanceText && obligationLineDataTwoOverlap) ? 'line__opacity' : 'line__obligation'}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         obligationLineDataThree &&
-                        <g tabIndex="0" aria-label="A line 3 linking a rectangle to text">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line 3 linking a rectangle to text"
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line linking a rectangle to text</desc>
                             <line
                                 x1={obligationLineDataThree.x1}
+                                data-id="_totalObligations"
                                 x2={obligationLineDataThree.x2}
                                 y1={obligationLineDataThree.y1}
                                 y2={obligationLineDataThree.y2}
-                                className={(drawRemainingBalanceText && obligationLineDataThreeOverlap) ? 'line__opacity' : 'line__obligation'} />
+                                className={(drawRemainingBalanceText && obligationLineDataThreeOverlap) ? 'line__opacity' : 'line__obligation'}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         obligationLineDataFour &&
-                        <g tabIndex="0" aria-label="A line 4 linking a rectangle to text">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line 4 linking a rectangle to text"
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line linking a rectangle to text</desc>
                             <line
                                 className="line__obligation"
+                                data-id="_totalObligations"
                                 x1={obligationLineDataFour.x1}
                                 x2={obligationLineDataFour.x2}
                                 y1={obligationLineDataFour.y1}
                                 y2={obligationLineDataFour.y2}
-                                strokeWidth={lineStrokeWidth} />
+                                strokeWidth={lineStrokeWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
+                        </g>
+                    }
+                    {
+                        obligationRectangleData &&
+                        <g
+                            tabIndex="0"
+                            aria-label={obligationRectangleData.description}
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
+                            <desc>
+                                {obligationRectangleData.description}
+                            </desc>
+                            <rect
+                                id="amounts-viz__obligations__id"
+                                className={showTooltip === '_totalObligations' ? 'highlight' : ''}
+                                data-id="_totalObligations"
+                                x={obligationRectangleData.x}
+                                y={obligationRectangleData.y}
+                                width={obligationRectangleData.width}
+                                height={obligationRectangleData.height}
+                                fill={obligationRectangleData.fill}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
+                        </g>
+                    }
+                    {
+                        outlayLineData &&
+                        <g
+                            tabIndex="0"
+                            aria-label="A line linking a rectangle to text"
+                            data-id="_totalOutlays"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
+                            <desc>A line linking a rectangle to text</desc>
+                            <line
+                                x1={outlayLineData.x1}
+                                data-id="_totalOutlays"
+                                x2={outlayLineData.x2}
+                                y1={outlayLineData.y1}
+                                y2={outlayLineData.y2}
+                                stroke={outlayLineData.lineColor}
+                                strokeWidth={lineStrokeWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
+                        </g>
+                    }
+                    {
+                        outlayRectangleData &&
+                        <g
+                            tabIndex="0"
+                            aria-label={outlayRectangleData.description}
+                            data-id="_totalOutlays"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
+                            <desc>
+                                {outlayRectangleData.description}
+                            </desc>
+                            <rect
+                                className={showTooltip === '_totalOutlays' ? 'highlight' : ''}
+                                data-id="_totalOutlays"
+                                x={outlayRectangleData.x}
+                                y={outlayRectangleData.y}
+                                width={outlayRectangleData.width}
+                                height={outlayRectangleData.height}
+                                fill={outlayRectangleData.fill}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
+                        </g>
+                    }
+                    {
+                        remainingBalanceRectangleData && drawRemainingBalanceItems &&
+                        <g
+                            tabIndex="0"
+                            aria-label={remainingBalanceRectangleData.description}
+                            data-id="_remainingBalance"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
+                            <desc>
+                                {remainingBalanceRectangleData.description}
+                            </desc>
+                            <rect
+                                className={showTooltip === '_remainingBalance' ? 'highlight' : ''}
+                                data-id="_remainingBalance"
+                                x={remainingBalanceRectangleData.x}
+                                y={remainingBalanceRectangleData.y}
+                                width={remainingBalanceRectangleData.width}
+                                height={remainingBalanceRectangleData.height}
+                                fill={remainingBalanceRectangleData.fill}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         totalQuestionData &&
-                        <g tabIndex="0" aria-label={totalQuestionData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={totalQuestionData.text}
+                            data-id="_totalBudgetAuthority"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{totalQuestionData.text}</desc>
                             <text
                                 ref={_totalBudgetAuthorityQuestion}
+                                data-id="_totalBudgetAuthority"
                                 className={totalQuestionData.className}
                                 x={totalQuestionData.x}
-                                y={totalQuestionData.y}>
+                                y={totalQuestionData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {totalQuestionData.text}
                             </text>
                         </g>
                     }
                     {
                         totalValueData &&
-                        <g tabIndex="0" aria-label={totalValueData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={totalValueData.text}
+                            data-id="_totalBudgetAuthority"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{totalValueData.text}</desc>
                             <text
                                 ref={_totalBudgetAuthorityValue}
+                                data-id="_totalBudgetAuthority"
                                 className={totalValueData.className}
                                 x={totalValueData.x}
-                                y={totalValueData.y}>
+                                y={totalValueData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {totalValueData.text}
                             </text>
                         </g>
                     }
                     {
                         totalLabelData &&
-                        <g tabIndex="0" aria-label={totalLabelData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={totalLabelData.text}
+                            data-id="_totalBudgetAuthority"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{totalLabelData.text}</desc>
                             <text
                                 ref={_totalBudgetAuthorityLabel}
+                                data-id="_totalBudgetAuthority"
                                 className={totalLabelData.className}
                                 x={totalLabelData.x}
-                                y={totalLabelData.y}>
+                                y={totalLabelData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {totalLabelData.text}
                             </text>
                         </g>
                     }
                     {
                         remainingBalanceQuestionData && drawRemainingBalanceText &&
-                        <g tabIndex="0" aria-label={remainingBalanceQuestionData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={remainingBalanceQuestionData.text}
+                            data-id="_remainingBalance"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{remainingBalanceQuestionData.text}</desc>
                             <text
                                 ref={_remainingBalanceQuestion}
+                                data-id="_remainingBalance"
                                 className={remainingBalanceQuestionData.className}
                                 x={remainingBalanceQuestionData.x}
-                                y={remainingBalanceQuestionData.y}>
+                                y={remainingBalanceQuestionData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {remainingBalanceQuestionData.text}
                             </text>
                         </g>
                     }
                     {
                         remainingBalanceValueData && drawRemainingBalanceText &&
-                        <g tabIndex="0" aria-label={remainingBalanceValueData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={remainingBalanceValueData.text}
+                            data-id="_remainingBalance"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{remainingBalanceValueData.text}</desc>
                             <text
                                 ref={_remainingBalanceValue}
+                                data-id="_remainingBalance"
                                 className={remainingBalanceValueData.className}
                                 x={remainingBalanceValueData.x}
-                                y={remainingBalanceValueData.y}>
+                                y={remainingBalanceValueData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {remainingBalanceValueData.text}
                             </text>
                         </g>
                     }
                     {
                         remainingBalanceLabelData && drawRemainingBalanceText &&
-                        <g tabIndex="0" aria-label={remainingBalanceLabelData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={remainingBalanceLabelData.text}
+                            data-id="_remainingBalance"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{remainingBalanceLabelData.text}</desc>
                             <text
                                 ref={_remainingBalanceLabel}
+                                data-id="_remainingBalance"
                                 className={remainingBalanceLabelData.className}
                                 x={remainingBalanceLabelData.x}
-                                y={remainingBalanceLabelData.y}>
+                                y={remainingBalanceLabelData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {remainingBalanceLabelData.text}
                             </text>
                         </g>
                     }
                     {
                         outlayQuestionData &&
-                        <g tabIndex="0" aria-label={outlayQuestionData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={outlayQuestionData.text}
+                            onFocus={displayTooltip}
+                            data-id="_totalOutlays"
+                            onBlur={hideTooltip}>
                             <desc>{outlayQuestionData.text}</desc>
                             <text
                                 ref={_outlayQuestion}
+                                data-id="_totalOutlays"
                                 className={outlayQuestionData.className}
                                 x={outlayQuestionData.x}
-                                y={outlayQuestionData.y}>
+                                y={outlayQuestionData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {outlayQuestionData.text}
                             </text>
                         </g>
                     }
                     {
                         outlayValueData &&
-                        <g tabIndex="0" aria-label={outlayValueData.text}>
+                        <g
+                            tabIndex="0"
+                            data-id="_totalOutlays"
+                            aria-label={outlayValueData.text}
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{outlayValueData.text}</desc>
                             <text
                                 ref={_outlayValue}
+                                data-id="_totalOutlays"
                                 className={outlayValueData.className}
                                 x={outlayValueData.x}
-                                y={outlayValueData.y}>
+                                y={outlayValueData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {outlayValueData.text}
                             </text>
                         </g>
                     }
                     {
                         outlayLabelData &&
-                        <g tabIndex="0" aria-label={outlayLabelData.text}>
+                        <g
+                            tabIndex="0"
+                            data-id="_totalOutlays"
+                            aria-label={outlayLabelData.text}
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{outlayLabelData.text}</desc>
                             <text
                                 ref={_outlayLabel}
+                                data-id="_totalOutlays"
                                 className={outlayLabelData.className}
                                 x={outlayLabelData.x}
-                                y={outlayLabelData.y}>
+                                y={outlayLabelData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {outlayLabelData.text}
                             </text>
                         </g>
                     }
                     {
                         obligationQuestionData &&
-                        <g tabIndex="0" aria-label={obligationQuestionData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={obligationQuestionData.text}
+                            onFocus={displayTooltip}
+                            data-id="_totalObligations"
+                            onBlur={hideTooltip}>
                             <desc>{obligationQuestionData.text}</desc>
                             <text
                                 ref={_obligationQuestion}
+                                data-id="_totalObligations"
                                 className={obligationQuestionData.className}
                                 x={obligationQuestionData.x}
-                                y={obligationQuestionData.y}>
+                                y={obligationQuestionData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {obligationQuestionData.text}
                             </text>
                         </g>
                     }
                     {
                         obligationValueData &&
-                        <g tabIndex="0" aria-label={obligationValueData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={obligationValueData.text}
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{obligationValueData.text}</desc>
                             <text
                                 ref={_obligationValue}
+                                data-id="_totalObligations"
                                 className={obligationValueData.className}
                                 x={obligationValueData.x}
-                                y={obligationValueData.y}>
+                                y={obligationValueData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {obligationValueData.text}
                             </text>
                         </g>
                     }
                     {
                         obligationLabelData &&
-                        <g tabIndex="0" aria-label={obligationLabelData.text}>
+                        <g
+                            tabIndex="0"
+                            aria-label={obligationLabelData.text}
+                            data-id="_totalObligations"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>{obligationLabelData.text}</desc>
                             <text
                                 ref={_obligationLabel}
+                                data-id="_totalObligations"
                                 className={obligationLabelData.className}
                                 x={obligationLabelData.x}
-                                y={obligationLabelData.y}>
+                                y={obligationLabelData.y}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip}>
                                 {obligationLabelData.text}
                             </text>
                         </g>
@@ -943,41 +1192,65 @@ const AmountsVisualization = ({
                     }
                     {
                         leftRemainingBalanceVerticalLineData &&
-                        <g tabIndex="0" aria-label="A line representing the start of the remaining balance">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line representing the start of the remaining balance"
+                            onFocus={displayTooltip}
+                            data-id="_remainingBalance"
+                            onBlur={hideTooltip}>
                             <desc>A line representing the start of the remaining balance</desc>
                             <line
                                 x1={leftRemainingBalanceVerticalLineData.x1}
+                                data-id="_remainingBalance"
                                 x2={leftRemainingBalanceVerticalLineData.x2}
                                 y1={leftRemainingBalanceVerticalLineData.y1}
                                 y2={leftRemainingBalanceVerticalLineData.y2}
                                 stroke={leftRemainingBalanceVerticalLineData.lineColor}
-                                strokeWidth={remaniningBalanceLineWidth} />
+                                strokeWidth={remaniningBalanceLineWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         rightRemainingBalanceVerticalLineData &&
-                        <g tabIndex="0" aria-label="A line representing the end of the remaining balance">
+                        <g
+                            tabIndex="0"
+                            aria-label="A line representing the end of the remaining balance"
+                            onFocus={displayTooltip}
+                            data-id="_remainingBalance"
+                            onBlur={hideTooltip}>
                             <desc>A line representing the end of the remaining balance</desc>
                             <line
                                 x1={rightRemainingBalanceVerticalLineData.x1}
                                 x2={rightRemainingBalanceVerticalLineData.x2}
                                 y1={rightRemainingBalanceVerticalLineData.y1}
                                 y2={rightRemainingBalanceVerticalLineData.y2}
+                                data-id="_remainingBalance"
                                 stroke={rightRemainingBalanceVerticalLineData.lineColor}
-                                strokeWidth={remaniningBalanceLineWidth} />
+                                strokeWidth={remaniningBalanceLineWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                     {
                         remainingBalanceHorizontalLineData &&
-                        <g tabIndex="0" aria-label="A line representing the width of the remanining balance">
+                        <g
+                            tabIndex="0"
+                            data-id="_remainingBalance"
+                            aria-label="A line representing the width of the remanining balance"
+                            onFocus={displayTooltip}
+                            onBlur={hideTooltip}>
                             <desc>A line representing the width of the remanining balance</desc>
                             <line
                                 x1={remainingBalanceHorizontalLineData.x1}
+                                data-id="_remainingBalance"
                                 x2={remainingBalanceHorizontalLineData.x2}
                                 y1={remainingBalanceHorizontalLineData.y1}
                                 y2={remainingBalanceHorizontalLineData.y2}
                                 stroke={remainingBalanceHorizontalLineData.lineColor}
-                                strokeWidth={remaniningBalanceLineWidth} />
+                                strokeWidth={remaniningBalanceLineWidth}
+                                onMouseMove={displayTooltip}
+                                onMouseLeave={hideTooltip} />
                         </g>
                     }
                 </svg>
