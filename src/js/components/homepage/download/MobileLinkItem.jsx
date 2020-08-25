@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as redirectHelper from 'helpers/redirectHelper';
 import Analytics from 'helpers/analytics/Analytics';
@@ -49,9 +50,9 @@ export default class MobileLinkItem extends React.Component {
         }
 
         let link = (
-            <a
+            <Link
                 className={`mobile-download__link ${disabledLink}`}
-                href={this.props.url}
+                to={this.props.url}
                 {...linkParams}
                 onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
                 <div className="mobile-download__link-icon">
@@ -60,7 +61,7 @@ export default class MobileLinkItem extends React.Component {
                 <div className="mobile-download__link-label">
                     {this.props.label}
                 </div>
-            </a>
+            </Link>
         );
 
         if (this.props.externalLink) {

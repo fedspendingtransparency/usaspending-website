@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { BulkDownloadBottomBarContainer } from 'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
-import { mockRedux, mockActions, mockStatusResponse } from '../mockData';
+import { mockProps, mockActions, mockStatusResponse } from '../mockData';
 
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -19,7 +19,7 @@ jest.mock('components/search/modals/fullDownload/DownloadBottomBar', () =>
 describe('BulkDownloadBottomBarContainer', () => {
     it('should not display the bottom bar if a download is not pending', () => {
         const container = shallow(<BulkDownloadBottomBarContainer
-            {...mockRedux}
+            {...mockProps}
             {...mockActions} />);
         const mockDisplay = jest.fn();
         container.instance().displayBar = mockDisplay;
@@ -28,15 +28,15 @@ describe('BulkDownloadBottomBarContainer', () => {
         expect(mockDisplay).toHaveBeenCalledTimes(0);
     });
     it('should display the bottom bar if a download is pending', () => {
-        const startingDownload = Object.assign({}, mockRedux.bulkDownload.download, {
+        const startingDownload = Object.assign({}, mockProps.bulkDownload.download, {
             pendingDownload: true,
             showCollapsedProgress: true,
             expectedFile: ''
         });
-        const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
+        const bulkDownload = Object.assign({}, mockProps.bulkDownload, {
             download: startingDownload
         });
-        const redux = Object.assign({}, mockRedux, {
+        const redux = Object.assign({}, mockProps, {
             bulkDownload
         });
         const container = shallow(<BulkDownloadBottomBarContainer
@@ -52,7 +52,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('displayBar', () => {
         it('should set the visible state to true', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             expect(container.state().visible).toBeFalsy();
@@ -67,7 +67,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('checkStatus', () => {
         it('should do nothing if no file is expected', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockParse = jest.fn();
             container.instance().parseStatus = mockParse;
@@ -77,12 +77,12 @@ describe('BulkDownloadBottomBarContainer', () => {
             expect(mockParse).toHaveBeenCalledTimes(0);
         });
         it('should continue call the parseStatus function upon receiving an API response', async () => {
-            const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
-                download: Object.assign({}, mockRedux.bulkDownload.download, {
+            const bulkDownload = Object.assign({}, mockProps.bulkDownload, {
+                download: Object.assign({}, mockProps.bulkDownload.download, {
                     expectedFile: 'blerg.zip'
                 })
             });
-            const redux = Object.assign({}, mockRedux, {
+            const redux = Object.assign({}, mockProps, {
                 bulkDownload
             });
             const container = shallow(<BulkDownloadBottomBarContainer
@@ -105,7 +105,7 @@ describe('BulkDownloadBottomBarContainer', () => {
                 file_url: 'http://www.google.com'
             });
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockDownload = jest.fn();
             container.instance().downloadFile = mockDownload;
@@ -120,7 +120,7 @@ describe('BulkDownloadBottomBarContainer', () => {
                 message: 'Fake error message'
             });
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockError = jest.fn();
             container.instance().displayError = mockError;
@@ -134,7 +134,7 @@ describe('BulkDownloadBottomBarContainer', () => {
                 status: 'running'
             });
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockSchedule = jest.fn();
             container.instance().scheduleNextStatus = mockSchedule;
@@ -147,7 +147,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('scheduleNextStatus', () => {
         it('should perform an API call every 15 seconds for the first 4 status calls', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockStatus = jest.fn();
             container.instance().checkStatus = mockStatus;
@@ -161,7 +161,7 @@ describe('BulkDownloadBottomBarContainer', () => {
         });
         it('should perform an API call every 30 seconds after that', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockStatus = jest.fn();
             container.instance().checkStatus = mockStatus;
@@ -180,7 +180,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('displayError', () => {
         it('should set the showError state to true and display a message', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             container.instance().displayError('error message');
             expect(container.state().showError).toBeTruthy();
@@ -191,7 +191,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('downloadFile', () => {
         it('should open the file URL', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const download = jest.fn();
             global.open = download;
@@ -208,7 +208,7 @@ describe('BulkDownloadBottomBarContainer', () => {
             });
 
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...actions} />);
             container.instance().downloadFile('http://www.google.com');
             expect(mockReset).toHaveBeenCalledTimes(1);
@@ -216,7 +216,7 @@ describe('BulkDownloadBottomBarContainer', () => {
 
         it('should set the state to success and display such a message', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             container.instance().downloadFile('http://www.google.com');
 
@@ -225,7 +225,7 @@ describe('BulkDownloadBottomBarContainer', () => {
 
         it('should close the download bar after 5 seconds', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
             const mockClose = jest.fn();
             container.instance().closeBar = mockClose;
@@ -240,7 +240,7 @@ describe('BulkDownloadBottomBarContainer', () => {
     describe('closeBar', () => {
         it('closes the bar', () => {
             const container = shallow(<BulkDownloadBottomBarContainer
-                {...mockRedux}
+                {...mockProps}
                 {...mockActions} />);
 
             container.instance().closeBar();

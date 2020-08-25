@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 import Analytics from 'helpers/analytics/Analytics';
@@ -59,12 +60,12 @@ export default class FeatureDropdown extends React.Component {
                         key={item.url}
                         tabIndex={-1}
                         className="feature-dropdown-item">
-                        <a
-                            href={item.url}
+                        <Link
+                            to={item.url}
                             className="feature-dropdown-item__link"
                             onClick={clickedHomepageLink.bind(null, item.url.replace('#', ''))}>
                             {item.label}
-                        </a>
+                        </Link>
                     </li>
                 );
             }

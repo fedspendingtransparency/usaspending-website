@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
+import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
-import Router from 'containers/router/Router';
 
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
 
@@ -30,7 +30,8 @@ const propTypes = {
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    resetExplorerTable: PropTypes.func
+    resetExplorerTable: PropTypes.func,
+    history: PropTypes.object
 };
 
 export class DetailContentContainer extends React.Component {
@@ -59,30 +60,34 @@ export class DetailContentContainer extends React.Component {
         this.prepareRootRequest(
             this.props.explorer.root,
             this.props.explorer.fy,
-            this.props.explorer.quarter
+            this.props.explorer.quarter,
+            this.props.explorer.period
         );
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.explorer.root !== this.props.explorer.root ||
             prevProps.explorer.fy !== this.props.explorer.fy ||
-            prevProps.explorer.quarter !== this.props.explorer.quarter) {
+            prevProps.explorer.quarter !== this.props.explorer.quarter ||
+            prevProps.explorer.period !== this.props.explorer.period) {
             // root changed, reload everything
             this.prepareRootRequest(
                 this.props.explorer.root,
                 this.props.explorer.fy,
-                this.props.explorer.quarter
+                this.props.explorer.quarter,
+                this.props.explorer.period
             );
         }
     }
 
-    prepareRootRequest(rootType, fy, quarter) {
+    prepareRootRequest(rootType, fy, quarter, period) {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
         // in fact, just to be safe, let's overwrite the filter props
         const resetFilters = {
             fy,
-            quarter
+            quarter,
+            period
         };
 
         // make the request
@@ -114,9 +119,16 @@ export class DetailContentContainer extends React.Component {
         }
 
         // perform the API request
+        const requestFilters = Object.assign({}, this.state.filters);
+        if (requestFilters.quarter == null) {
+            delete requestFilters.quarter;
+        }
+        if (requestFilters.period == null) {
+            delete requestFilters.period;
+        }
         this.request = ExplorerHelper.fetchBreakdown({
             type: request.subdivision,
-            filters: this.state.filters
+            filters: requestFilters
         });
 
         this.request.promise
@@ -299,7 +311,8 @@ export class DetailContentContainer extends React.Component {
         const filterBy = this.props.explorer.active.subdivision;
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
-            Router.history.push(`/award/${id}`);
+            // TODO: fix for BrowserRouter
+            this.props.history.push(`/award/${id}`);
 
             Analytics.event({
                 category: 'Spending Explorer - Exit',
@@ -411,7 +424,7 @@ export class DetailContentContainer extends React.Component {
             this.setState({
                 transitionSteps: steps
             }, () => {
-                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter);
+                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter, this.props.explorer.period);
             });
             return;
         }
@@ -419,7 +432,8 @@ export class DetailContentContainer extends React.Component {
         // iterate through the trail to rebuild the filter set
         const newFilters = {
             fy: this.props.explorer.fy,
-            quarter: this.props.explorer.quarter
+            quarter: this.props.explorer.quarter,
+            period: this.props.explorer.period
         };
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding
@@ -524,6 +538,7 @@ export class DetailContentContainer extends React.Component {
                 <ExplorerSidebar
                     fy={this.props.explorer.fy}
                     quarter={this.props.explorer.quarter}
+                    period={this.props.explorer.period}
                     trail={this.props.explorer.trail}
                     setExplorerPeriod={this.props.setExplorerPeriod}
                     rewindToFilter={this.rewindToFilter} />
@@ -552,8 +567,9 @@ export class DetailContentContainer extends React.Component {
 }
 
 DetailContentContainer.propTypes = propTypes;
+const DetailContentContainerWithRouter = withRouter(DetailContentContainer);
 
 export default connect(
     (state) => ({ explorer: state.explorer }),
     (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainer);
+)(DetailContentContainerWithRouter);

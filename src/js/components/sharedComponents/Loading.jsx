@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import Header from 'components/sharedComponents/header/Header';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Footer from 'containers/Footer';
+
 // eslint-disable-next-line import/prefer-default-export
 export const LoadingWrapper = ({
     msg = "Loading",
     isLoading,
-    children
+    includeHeader = false,
+    children,
+    includeFooter = false
 }) => {
     const [dots, updateDots] = useState("...");
     const timeouts = [];
@@ -38,11 +44,26 @@ export const LoadingWrapper = ({
 
     if (isLoading) {
         return (
-            // Not spending too much time w/ styles here, will have scope to improve later.
-            <div className="page__loading">
-                <FontAwesomeIcon icon="spinner" spin size="lg" />
-                <h4>{`${msg}${dots}`}</h4>
-            </div>
+            // TODO: [DEV-5940] Make a nice App Level Loading Component.
+            <>
+                {includeHeader && (
+                    <>
+                        <Header />
+                        <StickyHeader>
+                            <div className="sticky-header__title">
+                                <h1 tabIndex={-1} id="main-focus">
+                                    --
+                                </h1>
+                            </div>
+                        </StickyHeader>
+                    </>
+                )}
+                <div className="page__loading">
+                    <FontAwesomeIcon icon="spinner" spin size="lg" />
+                    <h4>{`${msg}${dots}`}</h4>
+                </div>
+                {includeFooter && (<Footer />)}
+            </>
         );
     }
 
@@ -52,5 +73,7 @@ export const LoadingWrapper = ({
 LoadingWrapper.propTypes = {
     msg: PropTypes.string,
     isLoading: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    includeFooter: PropTypes.bool,
+    includeHeader: PropTypes.bool
 };

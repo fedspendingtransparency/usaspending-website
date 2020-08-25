@@ -44,7 +44,7 @@ const FinancialAssistanceContent = ({
     };
 
     const glossaryLink = glossaryLinks[overview.type]
-        ? `/#/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
+        ? `/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
         : null;
 
     const jumpToTransactionHistoryTable = () => {
