@@ -337,6 +337,15 @@ export class MapContainer extends React.Component {
         return acc;
     }, {});
 
+    handleDisabledAwardTypeTabs = () => (
+        awardTypeTabs.map((tab) => {
+            if (this.state.activeFilters.spendingType === 'face_value_of_loan') {
+                return { ...tab, isDisabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
+            }
+            return { ...tab, isDisabled: false };
+        })
+    );
+
     render() {
         let message = null;
 
@@ -395,7 +404,7 @@ export class MapContainer extends React.Component {
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
                     onClick={this.updateAwardTypeFilter}
-                    filters={awardTypeTabs}
+                    filters={this.handleDisabledAwardTypeTabs()}
                     activeFilter={this.state.activeFilters.awardType} />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
