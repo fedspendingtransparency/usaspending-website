@@ -10,14 +10,15 @@ import { Link } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
-
+import { lastCompletedQuarterInFY, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
+import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
-import QuarterPicker from './QuarterPicker';
+
 
 const propTypes = {
     fy: PropTypes.string,
     quarter: PropTypes.string,
+    period: PropTypes.string,
     trail: PropTypes.object,
     setExplorerPeriod: PropTypes.func,
     rewindToFilter: PropTypes.func
@@ -66,10 +67,20 @@ export default class ExplorerSidebar extends React.Component {
         // Log analytic event
         this.logTimePeriodEvent(lastQuarter.quarter, lastQuarter.year);
 
-        this.props.setExplorerPeriod({
-            fy: `${lastQuarter.year}`,
-            quarter: `${lastQuarter.quarter}`
-        });
+        if (year >= 2020) {
+            this.props.setExplorerPeriod({
+                fy: `${lastQuarter.year}`,
+                period: `${lastPeriodByQuarter[lastQuarter.quarter]}`,
+                quarter: null
+            });
+        }
+        else {
+            this.props.setExplorerPeriod({
+                fy: `${lastQuarter.year}`,
+                quarter: `${lastQuarter.quarter}`,
+                period: null
+            });
+        }
         this.setState({
             showFYMenu: false
         });
@@ -83,11 +94,20 @@ export default class ExplorerSidebar extends React.Component {
 
         // Log analytic event
         this.logTimePeriodEvent(quarter, this.props.fy);
-
-        this.props.setExplorerPeriod({
-            quarter,
-            fy: this.props.fy
-        });
+        if (this.props.fy >= 2020) {
+            this.props.setExplorerPeriod({
+                period: quarter,
+                fy: this.props.fy,
+                quarter: null
+            });
+        }
+        else {
+            this.props.setExplorerPeriod({
+                quarter,
+                fy: this.props.fy,
+                period: null
+            });
+        }
     }
 
     render() {
@@ -108,12 +128,11 @@ export default class ExplorerSidebar extends React.Component {
                     </Link>
                 </div>
 
-                <QuarterPicker
-                    fy={this.props.fy}
-                    quarter={this.props.quarter}
-                    pickedQuarter={this.pickedQuarter}
-                    pickedYear={this.pickedYear} />
-
+                <QuarterPickerWithFY
+                    selectedFy={this.props.fy}
+                    handleQuarterPickerSelection={this.pickedQuarter}
+                    handlePickedYear={this.pickedYear}
+                    latestSelectedTimeInterval={this.props.period == null ? this.props.quarter : this.props.period} />
                 <VerticalTrail
                     trail={this.props.trail.toArray()}
                     rewindToFilter={this.props.rewindToFilter} />
