@@ -90,6 +90,15 @@ export class MapContainer extends React.Component {
         });
     }
 
+    getAwardTypeFilterTabs = () => (
+        awardTypeTabs.map((tab) => {
+            if (this.state.activeFilters.spendingType === 'face_value_of_loan') {
+                return { ...tab, isDisabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
+            }
+            return { ...tab, isDisabled: false };
+        })
+    );
+
     updateAmountTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -336,15 +345,6 @@ export class MapContainer extends React.Component {
         acc[filter] = filterWithOnClick;
         return acc;
     }, {});
-
-    getAwardTypeFilterTabs = () => (
-        awardTypeTabs.map((tab) => {
-            if (this.state.activeFilters.spendingType === 'face_value_of_loan') {
-                return { ...tab, isDisabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
-            }
-            return { ...tab, isDisabled: false };
-        })
-    );
 
     render() {
         let message = null;
