@@ -11,7 +11,6 @@ import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpe
 import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
-import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 
 const totalSpendingText = (
     <div className="body__header-text">

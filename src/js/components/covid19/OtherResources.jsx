@@ -23,7 +23,6 @@ const OtherResources = ({
     };
     return (
         <div className="heading__container information-body">
-            <div className="information-top dsm--border-radius" />
             <div className="dsm__container">
                 <div className="bottomSection">
                     <h2 className="dsm__heading">Other Resources</h2>
