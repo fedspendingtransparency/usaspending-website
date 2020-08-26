@@ -13,8 +13,7 @@ const propTypes = {
     handleExternalLinkClick: PropTypes.func
 };
 
-const DataSourcesAndMethodology = () => {
-    return (
+const DataSourcesAndMethodology = () => (
         <div className="heading__container information-body">
             <div className="information-top dsm--border-radius" />
             <div className="dsm__container">
@@ -25,8 +24,8 @@ const DataSourcesAndMethodology = () => {
                 </div>
             </div>
         </div>
-    );
-};
+);
+
 
 DataSourcesAndMethodology.propTypes = propTypes;
 
