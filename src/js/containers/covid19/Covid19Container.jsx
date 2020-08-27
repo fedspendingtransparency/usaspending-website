@@ -265,8 +265,8 @@ const Covid19Container = () => {
                                     handleExternalLinkClick={handleExternalLinkClick} />
                             </section>
                             <section className="body__section" id="covid19-other_resources">
-                                <OtherResources 
-                                    handleExternalLinkClick={handleExternalLinkClick}/>
+                                <OtherResources
+                                    handleExternalLinkClick={handleExternalLinkClick} />
                                 <LinkToAdvancedSearchContainer />
                             </section>
                         </div>
