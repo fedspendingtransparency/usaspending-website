@@ -11,6 +11,7 @@ import { OrderedMap } from 'immutable';
 import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -178,12 +179,14 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             let link = rowData.name;
             if (rowData._code) {
                 link = (
-                    <button
-                        className="assistance-listing__button"
-                        value={rowData._code}
-                        onClick={updateAdvancedSearchFilters}>
-                        {rowData.name}
-                    </button>
+                    <div className="assistance-listing__button__container">
+                        <button
+                            className="assistance-listing__button"
+                            value={rowData._code}
+                            onClick={updateAdvancedSearchFilters}>
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore"/></span>
+                        </button>
+                    </div>
                 );
             }
             if (activeTab === 'loans') {
