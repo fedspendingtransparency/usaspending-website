@@ -2,7 +2,14 @@
     .dsm__container {
         padding-right: 10%;
         padding-left: 10%;
+        padding-bottom: 0%;
+    }
+
+    .resources__container {
+        padding-right: 10%;
+        padding-left: 10%; 
         padding-bottom: 5%;
+        width: 100%;
     }
 
     .dsm__heading {
@@ -48,7 +55,14 @@
     .dsm__container {
         padding-right: 8%;
         padding-left: 8%; 
+        padding-bottom: 0%;
+    }
+
+    .resources__container {
+        padding-right: 8%;
+        padding-left: 8%; 
         padding-bottom: 5%;
+        width: 100%;
     }
     
     .dsm__topSection {
@@ -57,7 +71,8 @@
     }
 
     .bottomSection {
-        padding: 0%;
+        width: 100%;
+        padding-bottom: 5%;
     }
 }
 

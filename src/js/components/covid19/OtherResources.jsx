@@ -20,7 +20,7 @@ const OtherResources = ({
     };
     return (
         <div className="heading__container information-body">
-            <div className="dsm__container">
+            <div className="resources__container">
                 <div className="bottomSection">
                     <h2 className="dsm__heading">Other Resources</h2>
                     <ul className="otherResources__list">
