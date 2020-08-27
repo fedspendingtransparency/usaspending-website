@@ -142,9 +142,9 @@ export default class AccountDataContent extends React.Component {
                         </p>
                         <p>
                             The data is available on two different levels, <strong>federal account</strong>&nbsp;
-                            <Link to="/download_center/custom_account_data/?glossary=federal-account"><Glossary /></Link>
+                            <Link to="/download_center/custom_account_data?glossary=federal-account"><Glossary /></Link>
                             and <strong>treasury account</strong>&nbsp;
-                            <Link to="/download_center/custom_account_data/?glossary=treasury-account-symbol-tas"><Glossary /></Link>
+                            <Link to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas"><Glossary /></Link>
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                         </p>
                         <p>
