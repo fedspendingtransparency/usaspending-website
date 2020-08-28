@@ -35,21 +35,13 @@ describe('idvHelper', () => {
     describe('getAllNetPositiveIdvFileCDefCodes', () => {
         it('only returns non-zero items & de-dupes items in array', () => {
             const parentIdv = {
-                fileC: {
-                    obligations: mockData
-                        .child_account_obligations_by_defc
-                        .concat([createMockArrayItem('N', 0)]),
-                    outlays: mockData
-                        .child_account_outlays_by_defc
-                        .concat([createMockArrayItem('N', 0)])
-                }
+                defCodes: ['O']
             };
             const childIdv = {
-                child_file_c: [createMockArrayItem('O', 0), createMockArrayItem('O', -1)]
+                child_file_c: [createMockArrayItem('O', 0), createMockArrayItem('P', 1), createMockArrayItem('N', 0)]
             };
             const result = getAllNetPositiveIdvFileCDefCodes(parentIdv, childIdv);
-            console.log('result', result);
-            expect(result).toEqual(['L', 'O']);
+            expect(result).toEqual(['O', 'P']);
         });
     });
 });

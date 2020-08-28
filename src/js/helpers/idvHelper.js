@@ -56,14 +56,12 @@ export const fetchIdvActivity = (data) => apiRequest({
 });
 
 export const getAllNetPositiveIdvFileCDefCodes = (parentIdv, childIdv) => {
-    if (parentIdv && childIdv) {
-        return parentIdv
-            .fileC.obligations
-            .concat(parentIdv.fileC.outlays)
-            .concat(childIdv.child_file_c)
+    if (childIdv) {
+        return childIdv
+            .child_file_c
             .filter(({ amount }) => amount !== 0)
             .map(({ code }) => code)
-            .reduce((arr, item) => ([...new Set(arr.concat([item]))]), []);
+            .reduce((arr, item) => ([...new Set(arr.concat([item]))]), [...parentIdv.defCodes]);
     }
     return [];
 };
