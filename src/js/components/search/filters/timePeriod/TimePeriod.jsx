@@ -45,7 +45,8 @@ export default class TimePeriod extends React.Component {
             description: '',
             isActive: false,
             selectedFY: new Set(),
-            allFY: false
+            allFY: false,
+            clearHint: false
         };
 
         // bind functions
@@ -56,6 +57,7 @@ export default class TimePeriod extends React.Component {
         this.toggleFilters = this.toggleFilters.bind(this);
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
+        this.clearHint = this.clearHint.bind(this);
     }
 
     componentDidMount() {
@@ -67,11 +69,20 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (this.state.clearHint) {
+            this.clearHint(false);
+        }
         if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
             if (this.hint) {
                 this.hint.showHint();
             }
         }
+    }
+
+    clearHint(val) {
+        this.setState({
+            clearHint: val
+        });
     }
 
     prepopulateDatePickers() {
@@ -134,7 +145,9 @@ export default class TimePeriod extends React.Component {
         }
     }
 
+
     toggleFilters(e) {
+        this.clearHint(true);
         this.props.changeTab(e.target.value);
     }
 
@@ -206,6 +219,7 @@ export default class TimePeriod extends React.Component {
     }
 
     removeDateRange() {
+        this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',
             startDate: null,
@@ -316,10 +330,12 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
+                    {!this.state.clearHint &&
+                        <SubmitHint
+                            ref={(component) => {
+                                this.hint = component;
+                            }} />
+                    }
                 </div>
             </div>
         );
