@@ -36,15 +36,13 @@ describe('awardReducer', () => {
             const action = {
                 type: 'SET_IDV_DETAILS',
                 details: {
-                    idvs: 42,
-                    contracts: 55
+                    test: 42
                 }
             };
 
             state = awardReducer(state, action);
 
-            expect(state.details.idvs).toEqual(42);
-            expect(state.details.contracts).toEqual(55);
+            expect(state.idvDetails.test).toEqual(42);
         });
     });
     describe('SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT', () => {
