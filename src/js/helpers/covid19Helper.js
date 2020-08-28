@@ -129,9 +129,6 @@ export const createJumpToSectionForSidebar = (prefix, domSections) => (
     offset = getVerticalOffset()
 ) => jumpToSection(section, offset, prefix, domSections);
 
-export const getCovidFromFileC = (codes) => codes
-    .filter((code) => defCodes.includes(code));
-
 export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
     .filter((s) => !s.is_quarter)
     .map((s) => moment.utc(s.period_end_date))
