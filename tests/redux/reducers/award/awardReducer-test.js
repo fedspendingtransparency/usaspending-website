@@ -29,13 +29,13 @@ describe('awardReducer', () => {
             expect(state.category).toEqual('contract');
         });
     });
-    describe('SET_COUNTS', () => {
+    describe('SET_IDV_DETAILS', () => {
         it('should set the referenced award counts to the provided object', () => {
             let state = awardReducer(undefined, {});
 
             const action = {
-                type: 'SET_COUNTS',
-                counts: {
+                type: 'SET_IDV_DETAILS',
+                details: {
                     idvs: 42,
                     contracts: 55
                 }
@@ -43,8 +43,8 @@ describe('awardReducer', () => {
 
             state = awardReducer(state, action);
 
-            expect(state.counts.idvs).toEqual(42);
-            expect(state.counts.contracts).toEqual(55);
+            expect(state.details.idvs).toEqual(42);
+            expect(state.details.contracts).toEqual(55);
         });
     });
     describe('SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT', () => {
