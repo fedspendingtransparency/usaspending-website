@@ -169,7 +169,7 @@ export default () => {
                                         to="/disaster/covid-19"
                                         rel="noopener noreferrer">
                                         <FontAwesomeIcon icon="arrow-left" />
-                                        Back to the COVID-19 Spending Profile
+                                        Back to the COVID-19 Spending profile
                                     </Link>
                                 </div>
                                 <h2 className="about-section-title">
