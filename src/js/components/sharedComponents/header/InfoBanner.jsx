@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
+import { Link } from 'react-router-dom';
+
 import kGlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -35,7 +37,7 @@ export default class InfoBanner extends React.Component {
                 <p className="info-banner__title-text">New to USAspending: COVID-19 Spending Data</p>
                 <p>
                     USAspending now has spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
-                    <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or <a href="#/disaster/covid-19">visit the profile page</a> to explore and download the data today!
+                    <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or <Link to="/disaster/covid-19">visit the profile page</Link> to explore and download the data today!
                 </p>
             </div>
             <button
@@ -53,7 +55,7 @@ export default class InfoBanner extends React.Component {
                     <p className="info-banner__title-text">New to USAspending: Preliminary COVID-19 Spending Data</p>
                     <p>
                         USAspending now has preliminary spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
-                        <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or check out <a href="#/disaster/covid-19">a preliminary version of the COVID-19 Spending profile page </a> to explore and download the data.
+                        <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or check out <Link to="/disaster/covid-19">a preliminary version of the COVID-19 Spending profile page </Link> to explore and download the data.
                     </p>
                 </div>
                 <button

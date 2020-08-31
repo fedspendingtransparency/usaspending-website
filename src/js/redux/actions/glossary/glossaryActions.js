@@ -38,3 +38,8 @@ export const setGlossaryCache = (state) => ({
     type: 'SET_GLOSSARY_FULL_CACHE',
     cache: state
 });
+
+export const setTermFromUrl = (term) => ({
+    type: 'SET_GLOSSARY_TERM_FROM_URL',
+    term
+});

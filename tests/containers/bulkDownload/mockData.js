@@ -81,9 +81,14 @@ export const mockSubAgencies = [
     }
 ];
 
-export const mockRedux = {
-    params: {
-        type: ''
+export const mockProps = {
+    match: {
+        params: {
+            type: ''
+        }
+    },
+    history: {
+        replace: jest.fn()
     },
     bulkDownload: {
         dataType: 'awards',

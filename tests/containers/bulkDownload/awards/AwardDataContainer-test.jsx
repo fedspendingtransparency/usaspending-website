@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { AwardDataContainer } from 'containers/bulkDownload/awards/AwardDataContainer';
-import {mockActions, mockAgencies, mockRedux} from '../mockData';
+import { mockActions, mockAgencies, mockProps } from '../mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
@@ -18,7 +18,7 @@ describe('AwardDataContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
         const container = mount(<AwardDataContainer
             {...mockActions}
-            bulkDownload={mockRedux} />);
+            bulkDownload={mockProps} />);
 
         const expectedState = {
             cfoAgencies: mockAgencies.cfo_agencies,

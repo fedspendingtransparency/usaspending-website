@@ -11,11 +11,11 @@ describe('AwardingAgency', () => {
     it('Should wrap agency name in a link', () => {
         const awardingAgency = { id: 1, hasAgencyPage: true, formattedToptier: "Agency Name" };
         const wrapper = shallow(<AwardingAgency awardingAgency={awardingAgency} />);
-        expect(wrapper.find('a').exists()).toBeTruthy();
+        expect(wrapper.find('Link').exists()).toBeTruthy();
     });
     it('Should not wrap agency name in a link', () => {
         const awardingAgency = { id: 1, hasAgencyPage: false, formattedToptier: "Agency Name" };
         const wrapper = shallow(<AwardingAgency awardingAgency={awardingAgency} />);
-        expect(wrapper.find('a').exists()).toBeFalsy();
+        expect(wrapper.find('Link').exists()).toBeFalsy();
     });
 });

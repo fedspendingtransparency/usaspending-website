@@ -34,8 +34,7 @@ const AwardFilterButtons = ({
                     active={activeFilter === button.internal}
                     showCount={!!tabCounts}
                     count={tabCounts && tabCounts[button.internal]}
-                    // Disable the tab if we know there are zero results
-                    disabled={tabCounts && button.internal !== 'all' && !tabCounts[button.internal]} />
+                    disabled={button.isDisabled} />
             ))
         }
     </div>

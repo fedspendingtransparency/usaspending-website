@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { Link } from 'react-router-dom';
+
 import kGlobalConstants from 'GlobalConstants';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -140,9 +142,9 @@ export default class AccountDataContent extends React.Component {
                         </p>
                         <p>
                             The data is available on two different levels, <strong>federal account</strong>&nbsp;
-                            <a href="#/download_center/custom_account_data/?glossary=federal-account"><Glossary /></a>
+                            <Link to="/download_center/custom_account_data?glossary=federal-account"><Glossary /></Link>
                             and <strong>treasury account</strong>&nbsp;
-                            <a href="#/download_center/custom_account_data/?glossary=treasury-account-symbol-tas"><Glossary /></a>
+                            <Link to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas"><Glossary /></Link>
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                         </p>
                         <p>

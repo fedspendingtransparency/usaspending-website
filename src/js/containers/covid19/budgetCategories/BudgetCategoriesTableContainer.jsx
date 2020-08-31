@@ -10,7 +10,11 @@ import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from 'react-router-dom';
+
 import kGlobalConstants from 'GlobalConstants';
+import Analytics from 'helpers/analytics/Analytics';
+
 
 import {
     budgetColumns,
@@ -138,11 +142,28 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
+
     const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const clickedAgencyProfile = (agencyName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - agency profile click`,
+            label: agencyName
+        });
+    };
+
+    const clickedFedAcctProfile = (accountName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - federal account profile click`,
+            label: accountName
+        });
+    };
 
     const addUnlinkedData = (parsedData) => {
         let unlinkedName = '';
@@ -187,7 +208,6 @@ const BudgetCategoriesTableContainer = (props) => {
         setResults(parsedData);
     };
 
-
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
@@ -213,19 +233,21 @@ const BudgetCategoriesTableContainer = (props) => {
             const code = budgetCategoryRow._code;
             if (link && code && props.type === 'federal_account') {
                 link = (
-                    <a
+                    <Link
                         className="federal-account-profile__link"
-                        href={`#/federal_account/${code}`}>
+                        onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
+                        href={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             } else if (link && id && props.type === 'agency') {
                 link = (
-                    <a
+                    <Link
                         className="agency-profile__link"
-                        href={`#/agency/${id}`}>
+                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                        to={`/agency/${id}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             }
 
@@ -245,8 +267,8 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
 
         setLoading(true);
@@ -264,14 +286,14 @@ const BudgetCategoriesTableContainer = (props) => {
                 }
             };
 
-            let disasterSpendingRequest;
-            if (spendingCategory === 'loan_spending') {
-                disasterSpendingRequest = fetchLoanSpending(props.type, params);
-            } else {
+
+            if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
-                disasterSpendingRequest = fetchDisasterSpending(props.type, params);
             }
-            setRequest(disasterSpendingRequest);
+
+            const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
+
+            request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
                     parseSpendingDataAndSetResults(res.data.results);
@@ -279,10 +301,10 @@ const BudgetCategoriesTableContainer = (props) => {
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setRequest(null);
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -290,6 +312,12 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
+        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+        // In this particular case, we want to fetch from api.
+        if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
+            changeCurrentPage(1);
+            fetchBudgetSpendingCallback();
+        }
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
@@ -297,9 +325,11 @@ const BudgetCategoriesTableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
+        if (currentPage === 1) {
+            fetchBudgetSpendingCallback();
+        }
         changeCurrentPage(1);
-        fetchBudgetSpendingCallback();
-    }, [props.type, spendingCategory, pageSize, defCodes, sort, order]);
+    }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
@@ -328,6 +358,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const spendingCategoryOnChange = (key) => {
         setSpendingCategory(key);
+        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
     let message = null;

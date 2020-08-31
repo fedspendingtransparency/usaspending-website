@@ -3,8 +3,10 @@
  * Created by Lizzie Salita 7/17/20
  * */
 
-import { parseRows, generateDescription } from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { parseRows, generateDescription } from 'containers/covid19/recipient/SpendingByRecipientContainer';
 
 describe('SpendingByRecipientContainer', () => {
     const mockResults = [
@@ -25,6 +27,7 @@ describe('SpendingByRecipientContainer', () => {
             outlay: 0.0
         }
     ];
+
     describe('parseRows', () => {
         it('should parse returned recipient data', () => {
             const expected = [
@@ -32,12 +35,12 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockResults[0].description}&nbsp;(
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
                                 as Child
-                            </a>,&nbsp;
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            </Link>,&nbsp;
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
                                 as Recipient
-                            </a>
+                            </Link>
                             )
                         </>
                     ),
@@ -47,18 +50,20 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <a href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
                             RECIPIENT 2
-                        </a>
+                        </Link>
                     ),
                     '$20',
                     '$0',
                     '1'
                 ]
             ];
-
+    
             const parsed = parseRows(mockResults, 'all', '');
-            expect(parsed).toEqual(expected);
+            // using toMatchObject for equality comparison that is more lenient than toEqual https://jestjs.io/docs/en/expect#tomatchobjectobject
+            expect([...parsed]).toMatchObject(expected);
+            
         });
         it('should parse returned recipient loans data', () => {
             const mockLoanResults = [
@@ -87,12 +92,12 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockLoanResults[0].description}&nbsp;(
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
                                 as Child
-                            </a>,&nbsp;
-                            <a href="#/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            </Link>,&nbsp;
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
                                 as Recipient
-                            </a>
+                            </Link>
                             )
                         </>
                     ),
@@ -103,9 +108,9 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <a href="#/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
                             RECIPIENT 2
-                        </a>
+                        </Link>
                     ),
                     '$20',
                     '$0',
@@ -113,9 +118,9 @@ describe('SpendingByRecipientContainer', () => {
                     '1'
                 ]
             ];
-
+            
             const parsed = parseRows(mockLoanResults, 'loans', '');
-            expect(parsed).toEqual(expected);
+            expect([...parsed]).toMatchObject(expected);
         });
     });
 });
