@@ -8,7 +8,7 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Picker } from 'data-transparency-ui';
+import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import kGlobalConstants from 'GlobalConstants';
 
@@ -142,8 +142,51 @@ const BudgetCategoriesTableContainer = (props) => {
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-
     const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const addUnlinkedData = (parsedData) => {
+        let unlinkedName = '';
+
+        // TODO - DEV-5625 Remove placeholder values
+        const unlinkedData = {
+            obligation: null,
+            outlay: null,
+            awardCount: null,
+            name: unlinkedName
+        };
+
+        const table = document.getElementsByClassName('budget-categories')[0];
+
+        if (props.type === 'agency' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Agency (Unlinked Data)';
+            unlinkedData.obligation = 0;
+            unlinkedData.outlay = 0;
+            unlinkedData.awardCount = 0;
+        } else if (spendingCategory === 'award_spending') {
+            unlinkedName = 'Unlinked Awards';
+            unlinkedData.awardCount = 0;
+        }
+
+        if (unlinkedName && unlinkedData) {
+            table.classList.add('unlinked-data');
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                    <TooltipWrapper
+                        className="unlinked-tt"
+                        tooltipPosition="left"
+                        icon="info" />
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+            parsedData.push(unlinkedData);
+        } else {
+            table.classList.remove('unlinked-data');
+        }
+
+        setResults(parsedData);
+    };
+
 
     const parseSpendingDataAndSetResults = (data) => {
         const parsedData = data.map((item) => {
@@ -197,7 +240,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 name: link
             };
         });
-        setResults(parsedData);
+
+        addUnlinkedData(parsedData);
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {

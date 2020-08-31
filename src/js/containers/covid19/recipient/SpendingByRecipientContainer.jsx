@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
@@ -181,6 +181,41 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
+    const addUnlinkedData = (rows) => {
+        const table = document.getElementsByClassName('spending-by-recipient')[0];
+        // add unlinked data if activeTab is all
+        if (activeTab === 'all') {
+            table.classList.add('unlinked-data');
+            const unlinkedName = (
+                <div className="unlinked-data">
+                    Unknown Recipient (Unlinked Data)
+                    <TooltipWrapper
+                        className="unlinked-tt"
+                        tooltipPosition="left"
+                        icon="info" />
+                </div>
+            );
+            const rowData = Object.create(BaseSpendingByRecipientRow);
+
+            // TODO - DEV-5625 Remove placeholder 0s
+            rowData.populate({
+                obligation: 0,
+                outlay: 0,
+                award_count: 0
+            });
+
+            rows.push([
+                unlinkedName,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
+            ]);
+        } else {
+            table.classList.remove('unlinked-data');
+        }
+        return rows;
+    };
+
     const fetchSpendingByRecipientCallback = useCallback(() => {
         if (request) {
             request.cancel();
@@ -209,7 +244,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             recipientRequest.promise
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
-                    setResults(rows);
+                    setResults(addUnlinkedData(rows));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);

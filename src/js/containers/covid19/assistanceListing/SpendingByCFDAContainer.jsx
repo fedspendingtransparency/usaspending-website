@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
@@ -163,6 +163,34 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         Router.history.push('/search');
     };
 
+    const addUnlinkedData = (rows) => {
+        // add unlinked data if activeTab is all
+        const table = document.getElementsByClassName('assistance-listing')[0];
+        if (activeTab === 'all') {
+            table.classList.add('unlinked-data');
+            const unlinkedName = (
+                <div className="unlinked-data">
+                    Unknown CFDA Program (Unlinked Data)
+                    <TooltipWrapper
+                        className="unlinked-tt"
+                        tooltipPosition="left"
+                        icon="info" />
+                </div>
+            );
+
+            // TODO - DEV-5625 Remove placeholder 0s
+            rows.push({
+                description: unlinkedName,
+                obligation: 0,
+                outlay: 0,
+                award_count: 0
+            });
+        } else {
+            table.classList.remove('unlinked-data');
+        }
+        return rows;
+    };
+
     const parseRows = () => (
         results.map((row) => {
             const rowData = Object.create(BaseSpendingByCfdaRow);
@@ -226,7 +254,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             setRequest(cfdaRequest);
             cfdaRequest.promise
                 .then((res) => {
-                    setResults(res.data.results);
+                    const rows = res.data.results;
+                    setResults(addUnlinkedData(rows));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);

@@ -9,7 +9,7 @@ import { isCancel } from 'axios';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import PropTypes from 'prop-types';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, TooltipWrapper } from 'data-transparency-ui';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -120,6 +120,50 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
 
+    const addUnlinkedData = (parsedData) => {
+        let unlinkedName = '';
+        // TODO - DEV-5625 Remove placeholder values
+        const unlinkedData = {
+            obligation: null,
+            outlay: null,
+            awardCount: null,
+            name: unlinkedName
+        };
+
+        const table = document.getElementsByClassName('spending-by-agency')[0];
+
+        if (props.type === 'all') {
+            unlinkedName = 'Unknown Agency (Missing Linkage)';
+            unlinkedData.obligation = 0;
+            unlinkedData.outlay = 0;
+            unlinkedData.awardCount = 0;
+        } else {
+            unlinkedName = 'Unreported Funding Agency Name';
+            unlinkedData.obligation = 0;
+            unlinkedData.outlay = 0;
+            unlinkedData.awardCount = 0;
+        }
+
+        if (unlinkedName && unlinkedData) {
+            table.classList.add('unlinked-data');
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                    <TooltipWrapper
+                        className="unlinked-tt"
+                        tooltipPosition="left"
+                        icon="info" />
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+            parsedData.push(unlinkedData);
+        } else {
+            table.classList.remove('unlinked-data');
+        }
+
+        setResults(parsedData);
+    };
+
     const parseAwardSpendingByAgency = (data) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
@@ -162,7 +206,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 name: link
             };
         });
-        setResults(parsedData);
+
+        addUnlinkedData(parsedData);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
