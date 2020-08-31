@@ -22,6 +22,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
+import DetailModal from './DetailModal/DetailModal';
 
 
 const propTypes = {
@@ -122,6 +123,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [modalData, setModalData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -135,6 +138,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
     const dispatch = useDispatch();
+
+    const launchModal = (e) => {
+        e.preventDefault();
+        console.log(' E : ', e.target.value);
+        setModalData(results.find((cfda) => cfda._code === e.target.value));
+        setShowModal(true);
+    };
+    const closeModal = () => {
+        setShowModal(false);
+        setModalData(null);
+    };
 
     const updateAdvancedSearchFilters = (e) => {
         e.preventDefault();
@@ -174,17 +188,15 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const parseRows = () => (
         results.map((row) => {
-            const rowData = Object.create(BaseSpendingByCfdaRow);
-            rowData.populate(row);
-            let link = rowData.name;
-            if (rowData._code) {
+            let link = row.name;
+            if (row._code) {
                 link = (
                     <div className="assistance-listing__button__container">
                         <button
                             className="assistance-listing__button"
-                            value={rowData._code}
-                            onClick={updateAdvancedSearchFilters}>
-                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore"/></span>
+                            value={row._code}
+                            onClick={launchModal}>
+                            {row.name.split(' ').slice(0, -1).join(' ')} <span>{row.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore"/></span>
                         </button>
                     </div>
                 );
@@ -192,17 +204,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             if (activeTab === 'loans') {
                 return [
                     link,
-                    rowData.obligation,
-                    rowData.outlay,
-                    rowData.faceValueOfLoan,
-                    rowData.awardCount
+                    row.obligation,
+                    row.outlay,
+                    row.faceValueOfLoan,
+                    row.awardCount
                 ];
             }
             return [
                 link,
-                rowData.obligation,
-                rowData.outlay,
-                rowData.awardCount
+                row.obligation,
+                row.outlay,
+                row.awardCount
             ];
         })
     );
@@ -237,7 +249,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current = cfdaRequest;
             cfdaRequest.promise
                 .then((res) => {
-                    setResults(res.data.results);
+                    const data = res.data.results.map((cfda) => {
+                        const cfdaObject = Object.create(BaseSpendingByCfdaRow);
+                        cfdaObject.populate(cfda);
+                        return cfdaObject;
+                    });
+                    setResults(data);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -350,6 +367,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            <DetailModal mounted={showModal} closeModal={closeModal} data={modalData} />
         </div>
     );
 };
