@@ -53,11 +53,6 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.applyStagedFilters = this.applyStagedFilters.bind(this);
     }
 
-    componentDidMount() {
-        console.log('search sidebar onmount', this.props.stagedFilters.naicsCodes);
-        console.log('search sidebar tas', this.props.stagedFilters.tasCodes);
-    }
-
     componentDidUpdate(prevProps) {
         const areStagedAndAppliedFiltersEquivalent = (
             areFiltersEqual(this.props.stagedFilters, prevProps.stagedFilters) &&
@@ -94,7 +89,6 @@ export class SearchSidebarSubmitContainer extends React.Component {
 
     applyStagedFilters() {
         this.props.setAppliedFilterCompletion(false);
-        console.log('search sidebar s ubmit', this.props.stagedFilters);
         this.props.applyStagedFilters(this.props.stagedFilters);
         this.setState({
             filtersChanged: false

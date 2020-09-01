@@ -167,8 +167,6 @@ export const areFiltersEqual = (filters, filterReference = initialState) => {
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
         if (!is(unfilteredValue, currentValue)) {
-            console.log('referenceObject', referenceObject[key]);
-            console.log('comparisonObject', comparisonObject[key]);
             // it doesn't match, we can stop looping - filters have been applied
             return false;
         }
