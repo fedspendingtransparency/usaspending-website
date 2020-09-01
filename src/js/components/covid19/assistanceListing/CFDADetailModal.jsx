@@ -54,7 +54,7 @@ const CFDADetailModal = ({
                                 <h6>Administrative Agency</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <p className="administrative-agency">{data.cfda_federal_agency}</p>
+                                <p className="administrative-agency">{data.cfda_federal_agency || '--'}</p>
                             </div>
                         </div>
                         <div className="usa-dt-modal__section">
@@ -62,7 +62,7 @@ const CFDADetailModal = ({
                                 <h6>Objectives</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <ReadMore text={data.cfda_objectives} />
+                                <ReadMore text={data.cfda_objectives || '--'} />
                             </div>
                         </div>
                         <div className="usa-dt-modal__section">
@@ -73,7 +73,7 @@ const CFDADetailModal = ({
                                 <button
                                     onClick={displayRedirectModal}
                                     value={data.cfda_website}>
-                                    {data.cfda_website}
+                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
                                 </button>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const CFDADetailModal = ({
                                 <button
                                     onClick={displayRedirectModal}
                                     value={data.cfda_website}>
-                                    {data.cfda_website}
+                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
                                 </button>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ const CFDADetailModal = ({
                                 <button
                                     onClick={displayRedirectModal}
                                     value={`https://www.grants.gov/search-grants.html?cfda=${data.code}`}>
-                                    {`https://www.grants.gov/search-grants.html?cfda=${data.code}`}
+                                    {`https://www.grants.gov/search-grants.html?cfda=${data.code}`} <FontAwesomeIcon icon="external-link-alt" />
                                 </button>
                                 {data.code && <CFDAOpportunityTotals code={data.code} />}
                             </div>
@@ -109,7 +109,7 @@ const CFDADetailModal = ({
                                 <h6>Applicant Elligibility</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <ReadMore text={data.applicant_eligibility} />
+                                <ReadMore text={data.applicant_eligibility || '--'} />
                             </div>
                         </div>
                         <div className="usa-dt-modal__section">
@@ -117,7 +117,7 @@ const CFDADetailModal = ({
                                 <h6>Beneficiary Eligibility</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <ReadMore text={data.beneficiary_eligibility} />
+                                <ReadMore text={data.beneficiary_eligibility || '--'} />
                             </div>
                         </div>
                     </div>
