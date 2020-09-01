@@ -16,6 +16,7 @@ import {
     setAsideDefinitions,
     extentCompetedDefinitions
 } from 'dataMapping/search/contractFields';
+import { defCodeQueryString } from "helpers/disasterHelper";
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -166,6 +167,12 @@ export const convertFilter = (type, value) => {
                 value,
                 'CFDA Program',
                 (cfda) => `${cfda.program_number} - ${cfda.program_title}`
+            );
+        case 'defCodes':
+            return convertReducibleValue(
+                value,
+                'DEFC Filter',
+                defCodeQueryString
             );
         case 'selectedNAICS':
             return convertReducibleValue(
