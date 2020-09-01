@@ -1,5 +1,5 @@
 /**
- * CFDAOpportunitiesTotals.jsx
+ * CFDAOpportunityTotals.jsx
  * Created By Jonathan Hill 08/31/20
  */
 
@@ -12,7 +12,7 @@ const propTypes = {
     code: PropTypes.string
 };
 
-const CFDAOpportunitiesTotals = ({ code }) => {
+const CFDAOpportunityTotals = ({ code }) => {
     const [loading, setLoading] = useState(true);
     const [totals, setTotals] = useState(null);
     const [error, setError] = useState({ error: false, message: '' });
@@ -78,5 +78,5 @@ const CFDAOpportunitiesTotals = ({ code }) => {
     );
 };
 
-CFDAOpportunitiesTotals.propTypes = propTypes;
-export default CFDAOpportunitiesTotals;
+CFDAOpportunityTotals.propTypes = propTypes;
+export default CFDAOpportunityTotals;

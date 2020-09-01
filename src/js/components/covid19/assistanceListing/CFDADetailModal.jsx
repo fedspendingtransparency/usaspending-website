@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReadMore from 'components/covid19/ReadMore';
-import CFDAOpportunitiesTotals from 'containers/covid19/assistanceListing/CFDAOpportunitiesTotals';
+import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOpportunityTotals';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -101,7 +101,7 @@ const CFDADetailModal = ({
                                     value={`https://www.grants.gov/search-grants.html?cfda=${data.code}`}>
                                     {`https://www.grants.gov/search-grants.html?cfda=${data.code}`}
                                 </button>
-                                {data.code && <CFDAOpportunitiesTotals code={data.code} />}
+                                {data.code && <CFDAOpportunityTotals code={data.code} />}
                             </div>
                         </div>
                         <div className="usa-dt-modal__section">
