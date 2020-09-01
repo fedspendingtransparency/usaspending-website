@@ -83,7 +83,7 @@ const SearchContainer = ({ history }) => {
     } = useSelector((state) => state);
     const [downloadAvailable, setDownloadAvailable] = useState(false);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
-    const [inFlight, setInFlight] = useState(true);
+    const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
     useEffect(() => {
         // receiving filters from previous search via hash.
@@ -102,13 +102,11 @@ const SearchContainer = ({ history }) => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                     }
-                    setInFlight(false);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
-                        setInFlight(false);
                         // remove hash since corresponding filter selections aren't retrievable.
                         dispatch(setAppliedFilterEmptiness(true));
                         dispatch(setAppliedFilterCompletion(true));
@@ -116,26 +114,23 @@ const SearchContainer = ({ history }) => {
                     }
                 });
         }
-        else {
-            setInFlight(false);
-        }
     }, []);
 
     useEffect(() => {
-        if (areAppliedFiltersEmpty && !inFlight) {
+        if (areAppliedFiltersEmpty) {
             // all the filters were cleared, reset to a blank hash
             dispatch(setAppliedFilterEmptiness(true));
             dispatch(setAppliedFilterCompletion(true));
             history.replace('/search');
         }
-    }, [areAppliedFiltersEmpty, inFlight]);
+    }, [areAppliedFiltersEmpty]);
 
     const generateHash = useCallback(() => {
         // POST an API request to retrieve the Redux state
-        if (inFlight) {
+        if (generateHashInFlight) {
             return;
         }
-        setInFlight(true);
+        setGenerateHashInFlight(true);
         SearchHelper.generateUrlHash({
             filters: appliedFilters,
             version: filterStoreVersion
@@ -146,15 +141,15 @@ const SearchContainer = ({ history }) => {
                 dispatch(setAppliedFilterEmptiness(false));
                 dispatch(setAppliedFilterCompletion(true));
                 history.replace(`/search/${newHash}`);
-                setInFlight(false);
+                setGenerateHashInFlight(false);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
-                    setInFlight(false);
+                    setGenerateHashInFlight(false);
                 }
             });
-    }, [appliedFilters, inFlight]);
+    }, [appliedFilters, generateHashInFlight]);
 
     const setDownloadAvailability = useCallback(() => {
         if (SearchHelper.areFiltersEqual(stagedFilters, appliedFilters)) {
