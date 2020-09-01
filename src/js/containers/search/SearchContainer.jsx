@@ -87,7 +87,7 @@ const SearchContainer = ({ history }) => {
 
     useEffect(() => {
         // receiving filters from previous search via hash.
-        if (urlHash) {
+        if (urlHash && !SearchHelper.areFiltersEqual(stagedFilters, appliedFilters)) {
             SearchHelper.restoreUrlHash({
                 hash: urlHash
             }).promise
@@ -118,11 +118,6 @@ const SearchContainer = ({ history }) => {
     }, []);
 
     useEffect(() => {
-        // const shouldClearHash = (
-        //     SearchHelper.areFiltersEqual(appliedFilters, initialState) &&
-        //     urlHash
-        // );
-        // console.log("Empty: ", appliedFilters._empty);
         if (areAppliedFiltersEmpty && !inFlight) {
             // all the filters were cleared, reset to a blank hash
             dispatch(setAppliedFilterEmptiness(true));
@@ -132,8 +127,11 @@ const SearchContainer = ({ history }) => {
     }, [areAppliedFiltersEmpty, inFlight]);
 
     const generateHash = useCallback(() => {
-        setInFlight(true);
         // POST an API request to retrieve the Redux state
+        if (inFlight) {
+            return;
+        }
+        setInFlight(true);
         SearchHelper.generateUrlHash({
             filters: appliedFilters,
             version: filterStoreVersion
@@ -141,8 +139,8 @@ const SearchContainer = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
-                // dispatch(setAppliedFilterEmptiness(false));
-                // dispatch(setAppliedFilterCompletion(true));
+                dispatch(setAppliedFilterEmptiness(false));
+                dispatch(setAppliedFilterCompletion(true));
                 history.replace(`/search/${newHash}`);
             })
             .catch((err) => {
@@ -150,7 +148,7 @@ const SearchContainer = ({ history }) => {
                     console.log(err);
                 }
             });
-    }, [appliedFilters]);
+    }, [appliedFilters, inFlight]);
 
     const setDownloadAvailability = useCallback(() => {
         if (SearchHelper.areFiltersEqual(stagedFilters, appliedFilters)) {
@@ -184,16 +182,11 @@ const SearchContainer = ({ history }) => {
 
     useEffect(() => {
         const areFiltersCleared = SearchHelper.areFiltersEqual(appliedFilters, initialState);
-        // const areAllFiltersApplied = SearchHelper.areFiltersEqual(appliedFilters, filters);
-        console.log('areFiltersCleared', areFiltersCleared);
-        // console.log('areAllFiltersApplied', areAllFiltersApplied);
         const shouldResetHash = (
             !areFiltersCleared
-            // areAllFiltersApplied
         );
         if (shouldResetHash) {
             // generate hash for filter selections
-            console.log("RESETTING HASH!");
             generateHash();
             setDownloadAvailability();
         }

@@ -117,14 +117,12 @@ export class ResultsTableContainer extends React.Component {
         // row rendering
         this.loadColumns();
         this.pickDefaultTab();
-        console.log("didMount", this.props.filters.naicsCodes);
-
     }
 
     componentDidUpdate(prevProps) {
-        if (!SearchHelper.areFiltersEqual(prevProps.filters, this.props.filters) && !this.props.noApplied) {
+        const filtersChanged = !SearchHelper.areFiltersEqual(prevProps.filters, this.props.filters);
+        if (filtersChanged && !this.props.noApplied) {
             // filters changed, update the search object
-            console.log("ResultsTableContainer", prevProps.filters.naicsCodes, this.props.filters.naicsCodes);
             this.pickDefaultTab();
         }
         else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
