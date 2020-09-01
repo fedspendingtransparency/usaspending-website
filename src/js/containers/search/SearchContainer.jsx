@@ -87,7 +87,11 @@ const SearchContainer = ({ history }) => {
 
     useEffect(() => {
         // receiving filters from previous search via hash.
-        if (urlHash && !SearchHelper.areFiltersEqual(stagedFilters, appliedFilters)) {
+        const shouldFetchRemoteFilters = (
+            urlHash &&
+            SearchHelper.areFiltersEqual(stagedFilters, initialState)
+        );
+        if (shouldFetchRemoteFilters) {
             SearchHelper.restoreUrlHash({
                 hash: urlHash
             }).promise
@@ -142,10 +146,12 @@ const SearchContainer = ({ history }) => {
                 dispatch(setAppliedFilterEmptiness(false));
                 dispatch(setAppliedFilterCompletion(true));
                 history.replace(`/search/${newHash}`);
+                setInFlight(false);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
+                    setInFlight(false);
                 }
             });
     }, [appliedFilters, inFlight]);
