@@ -66,14 +66,14 @@ export const initialState = {
     selectedAwardIDs: OrderedMap(),
     awardAmounts: OrderedMap(),
     selectedCFDA: OrderedMap(),
-    naicsCodes: new CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    pscCodes: new CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    defCodes: new CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
-    tasCodes: new CheckboxTreeSelections(defaultCheckboxTreeSelections)
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
