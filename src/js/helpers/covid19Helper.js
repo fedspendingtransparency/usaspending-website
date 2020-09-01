@@ -7,7 +7,7 @@ import { useState } from 'react';
 import moment from 'moment';
 import { snakeCase } from 'lodash';
 import { scaleQuantile } from 'd3-scale';
-
+import { apiRequest } from 'helpers/apiRequest';
 import {
     defCodes,
     dataDisclaimerHeight,
@@ -20,6 +20,10 @@ import {
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+
+export const fetchOpportunityTotals = (code) => apiRequest({
+    url: code ? `v2/references/cfda/opportunities/totals/{?cfda_code=${code}}/` : `v2/references/cfda/opportunities/totals/`
+});
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';

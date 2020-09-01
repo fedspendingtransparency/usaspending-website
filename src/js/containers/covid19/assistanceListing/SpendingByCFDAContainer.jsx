@@ -22,8 +22,8 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
-import DetailModal from './DetailModal/DetailModal';
-
+import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
+import RedirectModal from 'components/sharedComponents/RedirectModal';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -125,6 +125,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [order, setOrder] = useState('desc');
     const [modalData, setModalData] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [redirectModalURL, setRedirectModalURL] = useState('');
+    const [showRedirectModal, setShowRedirectModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -141,13 +143,38 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const launchModal = (e) => {
         e.preventDefault();
-        console.log(' E : ', e.target.value);
-        setModalData(results.find((cfda) => cfda._code === e.target.value));
+        setModalData(() => {
+            const d = results.find((cfda) => cfda.code === e.target.value);
+            // TODO - remove these when API is done, keeping for design review
+            d.cfda_federal_agency = "OFFICE OF FEDERAL STUDENT AID, EDUCATION, DEPARTMENT OF";
+            d.cfda_objectives = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+            d.cfda_website = 'https://google.com';
+            d.applicant_eligibility = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+            d.beneficiary_eligibility = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+            return d;
+        });
         setShowModal(true);
     };
     const closeModal = () => {
+        if (showRedirectModal) {
+            setShowModal(false);
+        }
+        else {
+            setShowModal(false);
+            setModalData(null);
+        }
+    };
+
+    const displayRedirectModal = (e) => {
+        e.preventDefault();
+        setRedirectModalURL(e.target.value);
+        setShowRedirectModal(true);
         setShowModal(false);
-        setModalData(null);
+    };
+    const hideRedirectModal = () => {
+        setRedirectModalURL('');
+        setShowRedirectModal(false);
+        setShowModal(true);
     };
 
     const updateAdvancedSearchFilters = (e) => {
@@ -188,15 +215,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const parseRows = () => (
         results.map((row) => {
-            let link = row.name;
-            if (row._code) {
+            const rowData = Object.create(BaseSpendingByCfdaRow);
+            rowData.populate(row);
+            let link = rowData.name;
+            if (rowData._code) {
                 link = (
                     <div className="assistance-listing__button__container">
                         <button
                             className="assistance-listing__button"
-                            value={row._code}
+                            value={rowData._code}
                             onClick={launchModal}>
-                            {row.name.split(' ').slice(0, -1).join(' ')} <span>{row.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore"/></span>
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore" /></span>
                         </button>
                     </div>
                 );
@@ -204,17 +233,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             if (activeTab === 'loans') {
                 return [
                     link,
-                    row.obligation,
-                    row.outlay,
-                    row.faceValueOfLoan,
-                    row.awardCount
+                    rowData.obligation,
+                    rowData.outlay,
+                    rowData.faceValueOfLoan,
+                    rowData.awardCount
                 ];
             }
             return [
                 link,
-                row.obligation,
-                row.outlay,
-                row.awardCount
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
             ];
         })
     );
@@ -249,12 +278,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current = cfdaRequest;
             cfdaRequest.promise
                 .then((res) => {
-                    const data = res.data.results.map((cfda) => {
-                        const cfdaObject = Object.create(BaseSpendingByCfdaRow);
-                        cfdaObject.populate(cfda);
-                        return cfdaObject;
-                    });
-                    setResults(data);
+                    setResults(res.data.results);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -367,7 +391,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <DetailModal mounted={showModal} closeModal={closeModal} data={modalData} />
+            <CFDADetailModal
+                mounted={showModal}
+                closeModal={closeModal}
+                data={modalData}
+                updateAdvancedSearchFilters={updateAdvancedSearchFilters}
+                displayRedirectModal={displayRedirectModal}
+                showRedirectModal={showRedirectModal} />
+            <RedirectModal
+                url={redirectModalURL}
+                mounted={showRedirectModal}
+                hideModal={hideRedirectModal} />
         </div>
     );
 };
