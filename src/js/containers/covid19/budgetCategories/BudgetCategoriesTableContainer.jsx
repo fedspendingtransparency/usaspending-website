@@ -29,11 +29,19 @@ import { handleSort } from 'helpers/covid19Helper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
+import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
+
 
 const propTypes = {
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
-    scrollIntoView: PropTypes.func.isRequired
+    scrollIntoView: PropTypes.func.isRequired,
+    totals: PropTypes.shape({
+        count: PropTypes.number,
+        totalBudgetaryResources: PropTypes.number,
+        totalObligations: PropTypes.number,
+        totalOutlays: PropTypes.number
+    })
 };
 
 
@@ -165,30 +173,21 @@ const BudgetCategoriesTableContainer = (props) => {
         });
     };
 
-    const addUnlinkedData = (parsedData) => {
+    const addUnlinkedData = (parsedData, totals) => {
         let unlinkedName = '';
 
-        // TODO - DEV-5625 Remove placeholder values
-        const unlinkedData = {
-            obligation: null,
-            outlay: null,
-            awardCount: null,
-            name: unlinkedName
-        };
-
         const table = document.getElementsByClassName('budget-categories')[0];
+        console.log(props.totals);
+        console.log(totals);
+        const unlinkedData = calculateUnlinkedTotals(props.totals, totals);
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
-            unlinkedData.obligation = 0;
-            unlinkedData.outlay = 0;
-            unlinkedData.awardCount = 0;
         } else if (spendingCategory === 'award_spending') {
             unlinkedName = 'Unlinked Awards';
-            unlinkedData.awardCount = 0;
         }
 
-        if (unlinkedName && unlinkedData) {
+        if (unlinkedName && unlinkedData && props.totals) {
             table.classList.add('unlinked-data');
             const unlinkedColumn = (
                 <div>
@@ -208,7 +207,7 @@ const BudgetCategoriesTableContainer = (props) => {
         setResults(parsedData);
     };
 
-    const parseSpendingDataAndSetResults = (data) => {
+    const parseSpendingDataAndSetResults = (data, totals) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
             budgetCategoryRow.populate(item, props.type);
@@ -263,7 +262,7 @@ const BudgetCategoriesTableContainer = (props) => {
             };
         });
 
-        addUnlinkedData(parsedData);
+        addUnlinkedData(parsedData, totals);
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
@@ -272,7 +271,8 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && props.totals) {
+            console.log(props.totals);
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -296,7 +296,7 @@ const BudgetCategoriesTableContainer = (props) => {
             request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
-                    parseSpendingDataAndSetResults(res.data.results);
+                    parseSpendingDataAndSetResults(res.data.results, res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -329,7 +329,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes]);
+    }, [pageSize, sort, order, defCodes, props.totals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

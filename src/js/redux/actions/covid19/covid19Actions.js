@@ -18,3 +18,7 @@ export const setLatestSubmissionDate = (latestSubmissionDate) => ({
     latestSubmissionDate
 });
 
+export const setTotals = (awardType, totals) => ({
+    type: `SET_COVID_AWARD_AMOUNTS_${awardType}`,
+    totals
+});

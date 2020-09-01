@@ -18,6 +18,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -118,6 +119,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const spendingByAgencyTotals = useSelector((state) => state.covid19.spendingByAgencyTotals);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -131,28 +133,16 @@ const AwardSpendingAgencyTableContainer = (props) => {
         });
     };
 
-    const addUnlinkedData = (parsedData) => {
-        let unlinkedName = '';
-        // TODO - DEV-5625 Remove placeholder values
-        const unlinkedData = {
-            obligation: null,
-            outlay: null,
-            awardCount: null,
-            name: unlinkedName
-        };
-
+    const addUnlinkedData = (parsedData, totals) => {
         const table = document.getElementsByClassName('spending-by-agency')[0];
+
+        let unlinkedName = '';
+        const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
 
         if (props.type === 'all') {
             unlinkedName = 'Unknown Agency (Missing Linkage)';
-            unlinkedData.obligation = 0;
-            unlinkedData.outlay = 0;
-            unlinkedData.awardCount = 0;
         } else {
             unlinkedName = 'Unreported Funding Agency Name';
-            unlinkedData.obligation = 0;
-            unlinkedData.outlay = 0;
-            unlinkedData.awardCount = 0;
         }
 
         if (unlinkedName && unlinkedData) {
@@ -167,7 +157,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 </div>
             );
             unlinkedData.name = unlinkedColumn;
-            parsedData.push(unlinkedData);
+            const unlinkedRow = Object.create(CoreSpendingTableRow);
+            unlinkedRow.populateCore(unlinkedData);
+            parsedData.push(unlinkedRow);
         } else {
             table.classList.remove('unlinked-data');
         }
@@ -175,7 +167,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         setResults(parsedData);
     };
 
-    const parseAwardSpendingByAgency = (data) => {
+    const parseAwardSpendingByAgency = (data, totals) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
             awardSpendingByAgencyRow.populateCore(item);
@@ -219,7 +211,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             };
         });
 
-        addUnlinkedData(parsedData);
+        addUnlinkedData(parsedData, totals);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
@@ -227,7 +219,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && spendingByAgencyTotals) {
             let params = {};
 
             params = {
@@ -253,7 +245,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise
                 .then((res) => {
-                    parseAwardSpendingByAgency(res.data.results);
+                    parseAwardSpendingByAgency(res.data.results, res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -291,7 +283,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             fetchSpendingByCategoryCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes]);
+    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

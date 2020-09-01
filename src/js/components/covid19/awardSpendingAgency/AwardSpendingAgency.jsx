@@ -148,7 +148,8 @@ const AwardSpendingAgency = () => {
                 resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
-                areCountsLoading={inFlight} />
+                areCountsLoading={inFlight}
+                spendingByAgencyOnly />
             <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>

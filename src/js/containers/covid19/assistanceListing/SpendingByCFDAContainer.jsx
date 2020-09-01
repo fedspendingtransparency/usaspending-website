@@ -21,6 +21,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
 
 
 const propTypes = {
@@ -133,6 +134,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
     const dispatch = useDispatch();
 
     const updateAdvancedSearchFilters = (e) => {
@@ -170,10 +172,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
-    const addUnlinkedData = (rows) => {
+    const addUnlinkedData = (rows, totals) => {
         // add unlinked data if activeTab is all
         const table = document.getElementsByClassName('assistance-listing')[0];
+
         if (activeTab === 'all') {
+            const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
             table.classList.add('unlinked-data');
             const unlinkedName = (
                 <div className="unlinked-data">
@@ -188,9 +192,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             // TODO - DEV-5625 Remove placeholder 0s
             rows.push({
                 description: unlinkedName,
-                obligation: 0,
-                outlay: 0,
-                award_count: 0
+                obligation: unlinkedData.obligation,
+                outlay: unlinkedData.outlay,
+                award_count: unlinkedData.award_count
             });
         } else {
             table.classList.remove('unlinked-data');
@@ -236,7 +240,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && assistanceTotals) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -262,7 +266,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             cfdaRequest.promise
                 .then((res) => {
                     const rows = res.data.results;
-                    setResults(addUnlinkedData(rows));
+                    const totals = res.data.totals;
+                    setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -283,7 +288,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab]);
+    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
