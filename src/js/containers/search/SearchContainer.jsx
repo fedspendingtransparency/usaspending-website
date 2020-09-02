@@ -77,6 +77,7 @@ const SearchContainer = ({ history }) => {
         download,
         appliedFilters: {
             filters: appliedFilters,
+            // TODO: Possibly rename these redux properties?
             _empty: areAppliedFiltersEmpty,
             _complete: areFiltersApplied
         }
@@ -182,11 +183,8 @@ const SearchContainer = ({ history }) => {
     }, [stagedFilters, appliedFilters]);
 
     useEffect(() => {
-        const areFiltersCleared = SearchHelper.areFiltersEqual(appliedFilters, initialState);
-        const shouldResetHash = (
-            !areFiltersCleared
-        );
-        if (shouldResetHash) {
+        // if applied filters are not empty, generate hash
+        if (!SearchHelper.areFiltersEqual(appliedFilters, initialState)) {
             // generate hash for filter selections
             generateHash();
             setDownloadAvailability();
