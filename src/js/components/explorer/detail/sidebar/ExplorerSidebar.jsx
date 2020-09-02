@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { lastCompletedQuarterInFY, lastPeriodByQuarter, lastCompletedPeriodInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
 
@@ -61,15 +61,16 @@ export default class ExplorerSidebar extends React.Component {
     }
 
     pickedYear(year) {
-        const lastQuarter = lastCompletedQuarterInFY(year);
 
+        const lastQuarter = lastCompletedQuarterInFY(year);
+        const lastPeriod = lastCompletedPeriodInFY(year);
         // Log analytic event
         this.logTimePeriodEvent(lastQuarter.quarter, lastQuarter.year);
 
         if (year >= 2020) {
             this.props.setExplorerPeriod({
-                fy: `${lastQuarter.year}`,
-                period: `${lastPeriodByQuarter[lastQuarter.quarter]}`,
+                fy: `${lastPeriod.year}`,
+                period: `${lastPeriod.period}`,
                 quarter: null
             });
         }

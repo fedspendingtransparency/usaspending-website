@@ -150,3 +150,48 @@ export const defaultQuarters = () => {
     const current = mostRecentQuarter();
     return availableQuartersInFY(current.year);
 };
+
+
+export const mostRecentPeriod = () => {
+    // go back 30 days prior to today
+    const todayAdjusted = moment().add(3, 'months');
+    // determine what month that was
+    let period = todayAdjusted.month();
+
+    const year = FiscalYearHelper.defaultFiscalYear();
+
+    // now go back one additional quarter (so we go to the most recently closed quarter, rather than
+    // the active in-progress quarter)
+    period -= 1;
+    if (period === 0) {
+        period = 12;
+    }
+
+    return {
+        period,
+        year
+    };
+};
+
+
+export const lastCompletedPeriodInFY = (fy) => {
+    // get the most recent available quarter and year
+    const current = mostRecentPeriod();
+    const sanitizedFY = handlePotentialStrings(fy);
+
+    if (sanitizedFY < current.year) {
+        // user wants a previous year's periods
+        // since we are no longer on that year, it must be completed
+        return {
+            period: 12,
+            year: sanitizedFY
+        };
+    }
+    // otherwise, return the current year's quarter
+    return current;
+};
+
+export const defaultPeriod = () => {
+    const current = mostRecentPeriod();
+    return lastCompletedPeriodInFY(current.year);
+};
