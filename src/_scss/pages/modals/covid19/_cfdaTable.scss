@@ -54,7 +54,7 @@
             .cfda-opportunities__totals {
               @include display(flex);
               width: 100%;
-              padding: 1.2rem;
+              padding: 1.2rem 0;
               .cfda-opportunities__total {
                 @include display(flex);
                 @include flex-direction(column);
@@ -73,7 +73,7 @@
                   line-height: 2.3rem;
                   @import 'components/loading-pulse-animation';
                   .dot-pulse {
-                    margin: 0 5rem;
+                    margin: 1rem 0 0 5.5rem;
                   }
                 }
               }
