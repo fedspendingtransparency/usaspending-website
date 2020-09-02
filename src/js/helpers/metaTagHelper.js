@@ -84,11 +84,11 @@ export const dbInfoPageMetaTags = {
 };
 
 export const awardPageMetaTags = ({
-    category: awardType,
-    recipient: { name: recipientName },
-    dateSigned,
+    _category: awardType,
+    recipient: { _name: recipientName },
+    _dateSigned: dateSigned,
     generatedId: id,
-    agency: { name: agencyName }
+    awardingAgency: { officeName: agencyName }
 }) => ({
     og_url: `${productionURL}award/${id}`,
     og_title: `${awardType.toUpperCase()} to ${recipientName} | USAspending.gov`,
@@ -202,7 +202,7 @@ export const statePageMetaTags = ({
     og_url: `${productionURL}state/${id}/latest`,
     og_title: `${name} | Spending Profile | USAspending.gov`,
     og_description:
-        'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+        `View the federal spending activity for the state of ${name} in this profile page. `,
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });

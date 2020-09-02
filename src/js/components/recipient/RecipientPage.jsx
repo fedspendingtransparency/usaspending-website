@@ -65,7 +65,7 @@ export default class RecipientPage extends React.Component {
 
         return (
             <div className="usa-da-recipient-page">
-                <MetaTags {...recipientPageMetaTags(this.props.recipient.overview)} />
+                {this.props.recipient.overview && <MetaTags {...recipientPageMetaTags(this.props.recipient.overview)} />}
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">

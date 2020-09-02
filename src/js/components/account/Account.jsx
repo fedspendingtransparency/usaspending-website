@@ -25,7 +25,7 @@ export default class Account extends React.Component {
     render() {
         return (
             <div className="usa-da-account-page">
-                <MetaTags {...MetaTagHelper.federalAccountPageMetaTags(this.props.account)} />
+                {this.props.account && <MetaTags {...MetaTagHelper.federalAccountPageMetaTags(this.props.account)} />}
                 <Header />
                 <AccountHeader account={this.props.account} />
                 <main

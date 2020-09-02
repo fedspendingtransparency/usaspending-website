@@ -148,7 +148,7 @@ export default class Award extends React.Component {
         const emailSubject = `${overview?.awardingAgency?.formattedToptier} to ${overview?.recipient?._name}`;
         return (
             <div className="usa-da-award-v2-page">
-                <MetaTags {...MetaTagHelper.awardPageMetaTags(overview)} />
+                {overview && <MetaTags {...MetaTagHelper.awardPageMetaTags(overview)} />}
                 <Header />
                 <StickyHeader>
                     <SummaryBar
