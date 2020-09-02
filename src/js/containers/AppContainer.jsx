@@ -24,7 +24,7 @@ let devExtension;
 let store;
 if (kGlobalConstants.DEV) {
     // only enable Redux debugging in dev mode
-    devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : undefined;
+    devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }) : undefined;
 }
 
 if (kGlobalConstants.PERF_LOG) {
