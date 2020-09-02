@@ -43,7 +43,7 @@ export default class StatePage extends React.Component {
         }
         return (
             <div className="usa-da-state-page">
-                <MetaTags {...statePageMetaTags} />
+                <MetaTags {...statePageMetaTags(stateProfile.overview)} />
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
