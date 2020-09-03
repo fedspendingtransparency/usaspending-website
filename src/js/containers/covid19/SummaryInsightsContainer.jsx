@@ -23,8 +23,7 @@ const propTypes = {
     areCountsLoading: PropTypes.bool,
     assistanceOnly: PropTypes.bool,
     spendingByAgencyOnly: PropTypes.bool,
-    recipientOnly: PropTypes.bool,
-    setAwardAmounts: PropTypes.func
+    recipientOnly: PropTypes.bool
 
 };
 
@@ -35,8 +34,7 @@ const SummaryInsightsContainer = ({
     areCountsLoading,
     assistanceOnly,
     spendingByAgencyOnly,
-    recipientOnly,
-    setAwardAmounts
+    recipientOnly
 }) => {
     const awardAmountRequest = useRef();
     const dispatch = useDispatch();
