@@ -29,6 +29,8 @@ import { handleSort } from 'helpers/covid19Helper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
+import { TooltipWrapper } from 'data-transparency-ui';
+import SpendingTypesTooltip from 'components/covid19/SpendingTypesTooltip';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -353,6 +355,12 @@ const BudgetCategoriesTableContainer = (props) => {
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
+            <TooltipWrapper
+                className="homepage__covid-19-tt"
+                icon="info"
+                wide
+                tooltipPosition="right"
+                tooltipComponent={<SpendingTypesTooltip />} />
         </div>
     );
 
