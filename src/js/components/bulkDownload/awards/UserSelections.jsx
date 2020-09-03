@@ -18,6 +18,7 @@ export default class UserSelections extends React.Component {
         super(props);
 
         this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
+        this.generateAgencyTypeString = this.generateAgencyTypeString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
         this.generateLocationString = this.generateLocationString.bind(this);
@@ -86,6 +87,16 @@ export default class UserSelections extends React.Component {
         }
         return (
             <div className="selection__content selection__content-required">required</div>
+        );
+    }
+
+    generateAgencyTypeString() {
+        const options = awardDownloadOptions.agencyTypes;
+        const selectedOption = options.find((option) =>
+            option.name === this.props.awards.agencyType
+        );
+        return (
+            <div className="selection__content">{selectedOption.label}</div>
         );
     }
 
@@ -182,6 +193,7 @@ export default class UserSelections extends React.Component {
                 <div className="download-user-selections__left-col">
                     <div className="selection">
                         <div className="selection__heading">Agency</div>
+                        {this.generateAgencyTypeString()}
                         {this.generateAgencyString()}
                     </div>
                     <div className="selection">
