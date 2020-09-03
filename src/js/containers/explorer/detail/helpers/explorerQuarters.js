@@ -153,15 +153,15 @@ export const defaultQuarters = () => {
 
 
 export const mostRecentPeriod = () => {
-    // go back 30 days prior to today
+    // get current "fiscal period", which is three months ahead of the current month
     const todayAdjusted = moment().add(3, 'months');
     // determine what month that was
     let period = todayAdjusted.month();
 
     const year = FiscalYearHelper.defaultFiscalYear();
 
-    // now go back one additional quarter (so we go to the most recently closed quarter, rather than
-    // the active in-progress quarter)
+    // now go back one additional month (so we go to the most recently closed month, rather than
+    // the active in-progress month)
     period -= 1;
     if (period === 0) {
         period = 12;

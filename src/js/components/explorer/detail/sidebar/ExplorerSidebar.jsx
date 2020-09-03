@@ -62,7 +62,6 @@ export default class ExplorerSidebar extends React.Component {
     }
 
     pickedYear(year) {
-
         const lastQuarter = lastCompletedQuarterInFY(year);
         const lastPeriod = lastCompletedPeriodInFY(year);
         // Log analytic event
