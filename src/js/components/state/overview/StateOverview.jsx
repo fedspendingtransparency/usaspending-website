@@ -127,7 +127,7 @@ export default class StateOverview extends React.PureComponent {
                                 {/**
                                  * TODO - Add actual amounts and # of transactions from overview api once it's ready
                                  */}
-                                <FaceValueOfLoans amount="0" transactions="0" heading="Total Loan Face Value Dollars Received" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
+                                <FaceValueOfLoans amount="0" transactions="0" primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
                         <div className="state-section__viz details">
