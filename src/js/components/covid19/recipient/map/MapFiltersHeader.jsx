@@ -8,10 +8,10 @@ const MapLegendHeader = () => (
             Show on Map
         </div>
         <TooltipWrapper
-                className="spending_types-tt"
-                icon="info"
-                tooltipPosition="right"
-                tooltipComponent={<SpendingByRecipientMapTT />} />
+            className="spending_types-tt"
+            icon="info"
+            tooltipPosition="right"
+            tooltipComponent={<SpendingByRecipientMapTT />} />
     </div>
 );
 

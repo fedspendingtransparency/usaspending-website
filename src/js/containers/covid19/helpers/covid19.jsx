@@ -21,34 +21,32 @@ import AwardSpendingCfdaTT from 'components/covid19/AwardSpendingCfdaTT';
 const totalSpendingText = (
     <div className="body__header-text">
       This section covers
-      <span>
-        <strong> Total Spending</strong>
-        <div style={{ float: 'right' }}>
-            <TooltipWrapper
-                className="homepage__covid-19-tt"
-                icon="info"
-                tooltipPosition="left"
-                tooltipComponent={<TotalSpendingTooltip />} />
-        </div>
-      </span>
-      
+        <span>
+            <strong> Total Spending</strong>
+            <div style={{ float: 'right' }}>
+                <TooltipWrapper
+                    className="homepage__covid-19-tt"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={<TotalSpendingTooltip />} />
+            </div>
+        </span>
     </div>
-    
 );
 
 const awardSpendingText = (
     <div className="body__header-text">
       This section covers
-      <span>
-        <strong> Award Spending</strong>
-        <div style={{ float: 'right' }}>
-            <TooltipWrapper
-                className="homepage__covid-19-tt"
-                icon="info"
-                tooltipPosition="left"
-                tooltipComponent={<AwardSpendingTooltip />} />
-        </div>
-      </span>
+        <span>
+            <strong> Award Spending</strong>
+            <div style={{ float: 'right' }}>
+                <TooltipWrapper
+                    className="homepage__covid-19-tt"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={<AwardSpendingTooltip />} />
+            </div>
+        </span>
     </div>
 );
 
@@ -59,7 +57,6 @@ const spendingByRecipientTT = (
         wide
         tooltipPosition="right"
         tooltipComponent={<SpendingByRecipientHeaderTT />} />
-       
 );
 
 const spendingByAgencyTT = (
@@ -69,7 +66,6 @@ const spendingByAgencyTT = (
         wide
         tooltipPosition="right"
         tooltipComponent={<AwardSpendingAgencyTT />} />
-       
 );
 
 const spendingByCfdaTT = (
@@ -79,7 +75,6 @@ const spendingByCfdaTT = (
         wide
         tooltipPosition="right"
         tooltipComponent={<AwardSpendingCfdaTT />} />
-       
 );
 
 export const componentByCovid19Section = () => ({
