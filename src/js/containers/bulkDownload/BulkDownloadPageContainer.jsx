@@ -102,7 +102,6 @@ export class BulkDownloadPageContainer extends React.Component {
             filters: {
                 prime_award_types: primeAwardTypes,
                 sub_award_types: subAwardTypes,
-                agency_type: formState.agencyType,
                 agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
                 date_type: formState.dateType,
@@ -130,7 +129,7 @@ export class BulkDownloadPageContainer extends React.Component {
 
         if (formState.agencyType) {
             delete params.filters.agency;
-            const agencyParams = { type: formState.agencyType, tier: "toptier", name: formState.agency.name };
+            const agencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
             if (formState.subAgency.name) {
                 agencyParams.tier = 'subtier';
             }
