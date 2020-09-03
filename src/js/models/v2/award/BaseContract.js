@@ -37,8 +37,7 @@ BaseContract.populate = function populate(data) {
         fileC: {
             obligations: data.account_obligations_by_defc,
             outlays: data.account_outlays_by_defc
-        },
-        defCodes: data.disaster_emergency_fund_codes
+        }
     };
     this.populateCore(coreData);
 
