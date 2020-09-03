@@ -9,7 +9,8 @@ const initialState = {
     latestSubmissionDate: '',
     assistanceTotals: {},
     spendingByAgencyTotals: {},
-    recipientTotals: {}
+    recipientTotals: {},
+    budgetCategoriesCount: 0
 };
 
 const covid19Reducer = (state = initialState, action) => {
@@ -31,6 +32,9 @@ const covid19Reducer = (state = initialState, action) => {
         }
         case 'SET_COVID_AWARD_AMOUNTS_RECIPIENT': {
             return Object.assign({}, state, { recipientTotals: action.totals });
+        }
+        case 'SET_BUDGET_CATEGORIES_COUNT': {
+            return Object.assign({}, state, { budgetCategoriesCount: action.count });
         }
         default: return state;
     }

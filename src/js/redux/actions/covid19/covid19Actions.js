@@ -22,3 +22,8 @@ export const setTotals = (awardType, totals) => ({
     type: `SET_COVID_AWARD_AMOUNTS_${awardType}`,
     totals
 });
+
+export const setBudgetCategoriesCount = (count) => ({
+    type: "SET_BUDGET_CATEGORIES_COUNT",
+    count
+});

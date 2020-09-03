@@ -156,6 +156,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
 
+    const budgetCategoriesCount = useSelector((state) => state.covid19.budgetCategoriesCount);
     const overview = useSelector((state) => state.covid19.overview);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
@@ -180,8 +181,9 @@ const BudgetCategoriesTableContainer = (props) => {
 
         const table = document.getElementsByClassName('budget-categories')[0];
         const overviewTotals = {
-            obligation: overview.totalObligations,
-            outlay: overview.totalOutlays
+            obligation: overview._totalObligations,
+            outlay: overview._totalOutlays,
+            awardCount: budgetCategoriesCount
         };
 
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
@@ -278,7 +280,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview && budgetCategoriesCount) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -335,7 +337,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview]);
+    }, [pageSize, sort, order, defCodes, overview, budgetCategoriesCount]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
