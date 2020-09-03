@@ -106,9 +106,9 @@ describe('SearchSidebarSubmitContainer', () => {
         });
     });
     describe('applyStagedFilters', () => {
-        it('should tell Redux to copy the staged filter set to the applied filter set', () => {
+        it('should call reset filters when staged filters are empty', () => {
             const actions = Object.assign({}, mockActions, {
-                applyStagedFilters: jest.fn()
+                clearStagedFilters: jest.fn()
             });
 
             const container = shallow(
@@ -116,6 +116,29 @@ describe('SearchSidebarSubmitContainer', () => {
                     {...mockRedux}
                     {...actions} />
             );
+
+            container.instance().applyStagedFilters();
+
+            expect(actions.clearStagedFilters).toHaveBeenCalledTimes(1);
+        });
+        it('should call applied filters when staged filters are non-empty', () => {
+            const actions = Object.assign({}, mockActions, {
+                applyStagedFilters: jest.fn()
+            });
+
+            const container = shallow(
+                <SearchSidebarSubmitContainer
+                    {...mockRedux}
+                    {...actions}
+                    stagedFilters={{
+                        ...mockRedux.stagedFilters,
+                        filters: {
+                            ...mockRedux.stagedFilters,
+                            timePeriodFY: mockRedux.stagedFilters.timePeriodFY.add('2020')
+                        }
+                    }} />
+            );
+
             container.instance().applyStagedFilters();
 
             expect(actions.applyStagedFilters).toHaveBeenCalledTimes(1);
