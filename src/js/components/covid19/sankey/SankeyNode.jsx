@@ -13,10 +13,12 @@ const propTypes = {
     y0: PropTypes.number,
     y1: PropTypes.number,
     color: PropTypes.string,
-    whiteRectangle: PropTypes.bool
+    whiteRectangle: PropTypes.bool,
+    description: PropTypes.string
 };
 
 const smallerRectangle = 2;
+const whiteRectangleHeight = (y1, y0) => (((y1 - y0) - (smallerRectangle * 2)).toString().startsWith('-') || isNaN((y1 - y0) - (smallerRectangle * 2)) ? 0 : (y1 - y0) - (smallerRectangle * 2));
 
 const SankeyNode = ({
     name,
@@ -25,27 +27,32 @@ const SankeyNode = ({
     y0,
     y1,
     color,
-    whiteRectangle
+    whiteRectangle,
+    description
 }) => (
-    <g>
+    <g tabIndex="0" aria-label={description}>
+        <desc>{description}</desc>
         <rect
-            x={x0}
-            y={y0}
-            width={x1 - x0}
-            height={y1 - y0}
+            x={x0 || 0}
+            y={y0 || 0}
+            width={x1 - x0 || 0}
+            height={(y1 - y0).toString().startsWith('-') || isNaN(y1 - y0) ? 0 : y1 - y0}
             fill={color}>
             <title>{name}</title>
         </rect>
         {
             whiteRectangle &&
-            <rect
-                x={x0 + smallerRectangle}
-                y={y0 + smallerRectangle}
-                width={(x1 - x0) - (smallerRectangle * 2)}
-                height={(y1 - y0) - (smallerRectangle * 2)}
-                fill="white">
-                <title>{name}</title>
-            </rect>
+            <g tabIndex="0" aria-label="A white rectangle">
+                <desc>A white rectangle</desc>
+                <rect
+                    x={x0 + smallerRectangle || 0}
+                    y={y0 + smallerRectangle || 0}
+                    width={(x1 - x0) - (smallerRectangle * 2) || 0}
+                    height={whiteRectangleHeight(y1, y0)}
+                    fill="white">
+                    <title>{name}</title>
+                </rect>
+            </g>
         }
     </g>
 );

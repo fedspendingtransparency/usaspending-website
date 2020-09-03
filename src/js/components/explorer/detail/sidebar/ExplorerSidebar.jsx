@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY, lastPeriodByQuarter, lastCompletedPeriodInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { lastCompletedQuarterInFY, lastCompletedPeriodInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
 
@@ -114,9 +115,9 @@ export default class ExplorerSidebar extends React.Component {
         return (
             <div className="explorer-sidebar">
                 <div className="start-over">
-                    <a
+                    <Link
                         className="start-over-button"
-                        href="#/explorer">
+                        to="/explorer">
                         <div className="content">
                             <div className="icon">
                                 <Home alt="Home" />
@@ -125,7 +126,7 @@ export default class ExplorerSidebar extends React.Component {
                                 Start Over
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
 
                 <QuarterPickerWithFY

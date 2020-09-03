@@ -120,7 +120,8 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.filters !== this.props.filters && !this.props.noApplied) {
+        const filtersChanged = !SearchHelper.areFiltersEqual(prevProps.filters, this.props.filters);
+        if (filtersChanged && !this.props.noApplied) {
             // filters changed, update the search object
             this.pickDefaultTab();
         }

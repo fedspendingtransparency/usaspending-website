@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { is } from 'immutable';
 
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { setCheckedNaics, setUncheckedNaics } from 'redux/actions/search/naicsActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
+import { areFiltersEqual } from 'helpers/searchHelper';
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
 import {
@@ -54,10 +54,11 @@ export class SearchSidebarSubmitContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stagedFilters !== this.props.stagedFilters) {
-            this.stagingChanged();
-        }
-        else if (prevProps.appliedFilters !== this.props.appliedFilters) {
+        const areStagedAndAppliedFiltersEquivalent = (
+            areFiltersEqual(this.props.stagedFilters, prevProps.stagedFilters) &&
+            areFiltersEqual(this.props.appliedFilters, prevProps.appliedFilters)
+        );
+        if (!areStagedAndAppliedFiltersEquivalent) {
             this.stagingChanged();
         }
     }
@@ -69,13 +70,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
             // key lengths do not match, there's a difference so fail immediately
             return false;
         }
-
-        // check that the key exists in the appliedFilters object and also that it
-        // is equal (using Immutable's equality check utilty function) in both stores
-        return storeKeys.every((key) => (
-            {}.hasOwnProperty.call(this.props.appliedFilters, key) &&
-                is(this.props.appliedFilters[key], this.props.stagedFilters[key])
-        ));
+        return areFiltersEqual(this.props.stagedFilters, this.props.appliedFilters);
     }
 
     stagingChanged() {

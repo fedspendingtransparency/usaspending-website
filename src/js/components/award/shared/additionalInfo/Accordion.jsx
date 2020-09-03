@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compact } from 'lodash';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
@@ -38,8 +39,8 @@ export default class Accordion extends React.Component {
         const { path, title } = pathAndTitle;
         if (!path && !title) return '--';
         if (!path) return title;
-        if (title && path) return (<a href={path}>{title}</a>);
-        return (<a href={path}>Unkown</a>);
+        if (title && path) return (<Link to={path}>{title}</Link>);
+        return (<Link to={path}>Unknown</Link>);
     }
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']

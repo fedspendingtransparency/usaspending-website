@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
@@ -23,19 +24,19 @@ const propTypes = {
 const dataNote = (
     <React.Fragment>
         This filter uses Account Breakdown by Award data (available&nbsp;
-        <a
-            href="/#/download_center/custom_account_data"
+        <Link
+            to="/download_center/custom_account_data"
             target="_blank"
             rel="noopener noreferrer">
             here
-        </a>
+        </Link>
         &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
-        <a
-            href="/#/download_center/custom_account_data"
+        <Link
+            to="/download_center/custom_account_data"
             target="_blank"
             rel="noopener noreferrer">
             Custom Account Data
-        </a>
+        </Link>
         &nbsp;section.
     </React.Fragment>
 );

@@ -5,9 +5,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types";
-
-import Router from 'containers/router/Router';
+import PropTypes from 'prop-types';
+import { useHistory, Link } from 'react-router-dom';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
@@ -30,9 +29,11 @@ const CovidFeatureContainer = ({
     resetFilters,
     showCovidModal
 }) => {
+    const history = useHistory();
+
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
-        clickedHomepageLink("#/search");
+        clickedHomepageLink("search");
         clearFilters();
         resetFilters();
         stageDefCodesForAdvancedSearch({
@@ -43,7 +44,7 @@ const CovidFeatureContainer = ({
                 counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Spending" }]
             })
         });
-        Router.history.push('/search');
+        history.push('/search');
     };
 
     const triggerModal = (e) => {
@@ -78,7 +79,7 @@ const CovidFeatureContainer = ({
                             <li><strong className="homepage-feature-description_weight_bold">Breakdown of spending data</strong> by federal agency, award recipient, and a variety of budget categories.</li>
                         </ul>
                         <p>Interested in <strong className="homepage-feature-description_weight_bold">downloading all the COVID-19 spending data?</strong> Visit the
-                            <a href="#/disaster/covid-19" onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}> COVID-19 Spending profile page </a> and click the download button!
+                            <Link to="/disaster/covid-19" onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}> COVID-19 Spending profile page </Link> and click the download button!
                         </p>
                     </div>
                 </div>
@@ -111,12 +112,12 @@ const CovidFeatureContainer = ({
                     </div>
 
                     <div className="feature-covid__button-wrap">
-                        <a
+                        <Link
                             className="feature-covid__button"
-                            href="#/search"
+                            to="/search"
                             onClick={handleGoToAdvancedSearch}>
                             Search the Data
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -136,15 +137,15 @@ const CovidFeatureContainer = ({
                     </div>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
                         <p>Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
-                        <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <a href="#/disaster/covid-19/data-sources">Data Sources &amp; Methodology</a> page </p>
+                        <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources &amp; Methodology</Link> page </p>
                     </div>
                     <div className="feature-covid__button-wrap">
-                        <a
+                        <Link
                             className="feature-covid__button"
-                            href="#/disaster/covid-19"
+                            to="/disaster/covid-19"
                             onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}>
                             Explore the Data
-                        </a>
+                        </Link>
                     </div>
 
                 </div>

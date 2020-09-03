@@ -41,9 +41,7 @@ describe('ResultsTableContainer', () => {
         const newFilters = Object.assign({}, mockRedux.filters, {
             timePeriodFY: new Set(['1987'])
         });
-        container.setProps({
-            filters: newFilters
-        });
+        container.setProps({ filters: newFilters });
 
         await container.instance().tabCountRequest.promise;
 

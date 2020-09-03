@@ -1,6 +1,6 @@
 /**
  * DetailContentContainer-test.jsx
- * 
+ *
  */
 
 import React from 'react';
@@ -114,6 +114,15 @@ describe('DetailContentContainer', () => {
     });
     describe('prepareRootRequest', () => {
         it('should create a filterset that consists of the provided fiscal year and quarter', () => {
+            const container = shallow(<DetailContentContainer {...mockActions} explorer={mockReducerRoot} />);
+
+            container.instance().loadData = jest.fn();
+
+            container.instance().prepareRootRequest('agency', '1984', '4', null);
+            expect(container.state().filters.fy).toEqual('1984');
+            expect(container.state().filters.quarter).toEqual('4');
+        });
+        it('should create a filterset that consists of the provided fiscal year and period', () => {
             const container = shallow(
                 <DetailContentContainer
                     {...mockActions}
@@ -121,10 +130,16 @@ describe('DetailContentContainer', () => {
             );
 
             container.instance().loadData = jest.fn();
+            
+            container.instance().componentDidUpdate({
+                explorer: Object.assign({}, mockReducerRoot, {
+                    period: '5'
+                })
+            });
 
-            container.instance().prepareRootRequest('agency', '1984', '4', null);
+            container.instance().prepareRootRequest('agency', '1984', null, '5');
             expect(container.state().filters.fy).toEqual('1984');
-            expect(container.state().filters.quarter).toEqual('4');
+            expect(container.state().filters.period).toEqual('5');
         });
         it('should create a filterset that consists of the provided fiscal year and period', () => {
             const container = shallow(
@@ -182,7 +197,7 @@ describe('DetailContentContainer', () => {
             expect(mockActions.overwriteExplorerTrail).toHaveBeenCalledWith(mockTrail);
             expect(container.state().data).toEqual(new List(mockApiResponse.results));
         });
-        it ('should trigger the exit animation if there is going to be a transition', () => {
+        it('should trigger the exit animation if there is going to be a transition', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockReducerRoot} />);
@@ -308,7 +323,7 @@ describe('DetailContentContainer', () => {
             container.instance().loadData = mockLoadData;
 
             container.setState({
-               inFlight: false
+                inFlight: false
             });
             container.instance().goDeeper('2', mockLevelData);
 
@@ -381,7 +396,7 @@ describe('DetailContentContainer', () => {
         });
     });
     describe('rewindToFilter', () => {
-        it ('should not rewind if it is called with the current filter', () => {
+        it('should not rewind if it is called with the current filter', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
@@ -393,7 +408,7 @@ describe('DetailContentContainer', () => {
 
             expect(container.instance().state.transitionSteps).toEqual(expectedSteps);
         });
-        it ('should call prepareRootRequest if going back to the start', () => {
+        it('should call prepareRootRequest if going back to the start', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
@@ -407,7 +422,7 @@ describe('DetailContentContainer', () => {
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
             expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '2', null);
         });
-        it ('should overwrite the explorer trail and update the transition steps', () => {
+        it('should overwrite the explorer trail and update the transition steps', () => {
             const container = mount(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);

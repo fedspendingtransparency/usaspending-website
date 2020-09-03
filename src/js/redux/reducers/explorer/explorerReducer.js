@@ -4,7 +4,7 @@
  **/
 
 import { List, Record } from 'immutable';
-import { defaultQuarters, lastPeriodByQuarter, defaultPeriod } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { defaultQuarters, defaultPeriod } from 'containers/explorer/detail/helpers/explorerQuarters';
 
 export const ActiveScreen = new Record({
     within: '', // within is the data type that the total is a slice WITHIN

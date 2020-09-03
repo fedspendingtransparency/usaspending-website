@@ -12,6 +12,7 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
+import Analytics from 'helpers/analytics/Analytics';
 import OverviewData from '../OverviewData';
 import ReadMore from '../ReadMore';
 
@@ -66,6 +67,7 @@ const BudgetCategories = () => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
         setActiveTab(tabInternal);
+        Analytics.event({ category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
     };
 
     useEffect(() => {

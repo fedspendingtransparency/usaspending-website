@@ -10,10 +10,15 @@ export const mockActions = {
 const stateProfile = Object.create(BaseStateProfile);
 stateProfile.populate({});
 
-export const mockRedux = {
-    params: {
-        stateId: '01',
-        fy: 'latest'
+export const mockProps = {
+    match: {
+        params: {
+            stateId: '01',
+            fy: 'latest'
+        }
+    },
+    history: {
+        replace: jest.fn()
     },
     stateProfile: {
         id: '',

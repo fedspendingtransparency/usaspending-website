@@ -1,5 +1,5 @@
 const axios = require('axios');
-const pages = require('./pages');
+const pages = require('../../src/js/scripts/pages');
 
 describe('Array used for building sitemaps', () => {
     it(`each page with a site map reliant on an api end point returns a 200 status`, () => {

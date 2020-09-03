@@ -207,6 +207,9 @@ export const mockActions = {
     setExplorerTableOrder: jest.fn(),
     setExplorerTablePage: jest.fn(),
     resetExplorerTable: jest.fn(),
-    resetExplorer: jest.fn()
+    resetExplorer: jest.fn(),
+    history: {
+        push: jest.fn()
+    }
 };
 

@@ -16,8 +16,13 @@ describe('ExplorerDetailPageContainer', () => {
     describe('validateRoot', () => {
         it('should allow a root type of agency', () => {
             const mockParams = {
-                params: {
-                    root: 'agency'
+                match: {
+                    params: {
+                        root: 'agency'
+                    }
+                },
+                history: {
+                    replace: jest.fn()
                 }
             };
 
@@ -33,8 +38,13 @@ describe('ExplorerDetailPageContainer', () => {
 
         it('should allow a root type of budget_function', () => {
             const mockParams = {
-                params: {
-                    root: 'budget_function'
+                match: {
+                    params: {
+                        root: 'budget_function'
+                    }
+                },
+                history: {
+                    replace: jest.fn()
                 }
             };
 
@@ -50,8 +60,13 @@ describe('ExplorerDetailPageContainer', () => {
 
         it('should allow a root type of object_class', () => {
             const mockParams = {
-                params: {
-                    root: 'object_class'
+                match: {
+                    params: {
+                        root: 'object_class'
+                    }
+                },
+                history: {
+                    replace: jest.fn()
                 }
             };
 
@@ -68,8 +83,13 @@ describe('ExplorerDetailPageContainer', () => {
 
         it('should not allow any other root type', () => {
             const mockParams = {
-                params: {
-                    root: 'fake_thing'
+                match: {
+                    params: {
+                        root: 'fake_thing'
+                    }
+                },
+                history: {
+                    replace: jest.fn()
                 }
             };
 
