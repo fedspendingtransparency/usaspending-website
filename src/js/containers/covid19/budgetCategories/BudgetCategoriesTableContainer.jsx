@@ -30,6 +30,7 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
+import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
 
 const propTypes = {
@@ -155,6 +156,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
 
+    const overview = useSelector((state) => state.covid19.overview);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const clickedAgencyProfile = (agencyName) => {
@@ -177,9 +179,12 @@ const BudgetCategoriesTableContainer = (props) => {
         let unlinkedName = '';
 
         const table = document.getElementsByClassName('budget-categories')[0];
-        console.log(props.totals);
-        console.log(totals);
-        const unlinkedData = calculateUnlinkedTotals(props.totals, totals);
+        const overviewTotals = {
+            obligation: overview.totalObligations,
+            outlay: overview.totalOutlays
+        };
+
+        const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
@@ -187,7 +192,7 @@ const BudgetCategoriesTableContainer = (props) => {
             unlinkedName = 'Unlinked Awards';
         }
 
-        if (unlinkedName && unlinkedData && props.totals) {
+        if (unlinkedName && unlinkedData && overview) {
             table.classList.add('unlinked-data');
             const unlinkedColumn = (
                 <div>
@@ -199,7 +204,9 @@ const BudgetCategoriesTableContainer = (props) => {
                 </div>
             );
             unlinkedData.name = unlinkedColumn;
-            parsedData.push(unlinkedData);
+            const unlinkedRow = Object.create(CoreSpendingTableRow);
+            unlinkedRow.populateCore(unlinkedData);
+            parsedData.push(unlinkedRow);
         } else {
             table.classList.remove('unlinked-data');
         }
@@ -271,8 +278,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && props.totals) {
-            console.log(props.totals);
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -329,7 +335,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, props.totals]);
+    }, [pageSize, sort, order, defCodes, overview]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

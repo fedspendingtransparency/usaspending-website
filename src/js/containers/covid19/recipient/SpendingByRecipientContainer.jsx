@@ -199,7 +199,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const addUnlinkedData = (rows, totals) => {
         const table = document.getElementsByClassName('spending-by-recipient')[0];
         // add unlinked data if activeTab is all
-        if (activeTab === 'all') {
+        if (activeTab === 'all' && !query) {
             const unlinkedData = calculateUnlinkedTotals(recipientTotals, totals);
 
             table.classList.add('unlinked-data');

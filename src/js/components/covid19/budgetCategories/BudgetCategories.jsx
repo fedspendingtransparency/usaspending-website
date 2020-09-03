@@ -97,16 +97,12 @@ const BudgetCategories = () => {
         }
     }, [count, setInFlight]);
 
-    console.log(overview);
     const amounts = {
         count,
         totalBudgetaryResources: overview._totalBudgetAuthority,
         totalObligations: overview._totalObligations,
         totalOutlays: overview._totalOutlays
     };
-
-
-    console.log(amounts);
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
         scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
@@ -162,8 +158,7 @@ const BudgetCategories = () => {
                 <BudgetCategoriesTableContainer
                     type={activeTab}
                     subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
-                    scrollIntoView={scrollIntoViewTable}
-                    totals={amounts} />
+                    scrollIntoView={scrollIntoViewTable} />
             </div>
         </div>
     );
