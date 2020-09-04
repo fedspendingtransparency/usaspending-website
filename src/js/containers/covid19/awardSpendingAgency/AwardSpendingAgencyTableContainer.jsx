@@ -150,10 +150,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const unlinkedColumn = (
                 <div>
                     {unlinkedName}
-                    <TooltipWrapper
-                        className="unlinked-tt"
-                        tooltipPosition="left"
-                        icon="info" />
                 </div>
             );
             unlinkedData.name = unlinkedColumn;

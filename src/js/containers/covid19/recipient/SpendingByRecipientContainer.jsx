@@ -206,10 +206,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             const unlinkedName = (
                 <div className="unlinked-data">
                     Unknown Recipient (Unlinked Data)
-                    <TooltipWrapper
-                        className="unlinked-tt"
-                        tooltipPosition="left"
-                        icon="info" />
                 </div>
             );
             const rowData = Object.create(BaseSpendingByRecipientRow);

@@ -182,10 +182,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             const unlinkedName = (
                 <div className="unlinked-data">
                     Unknown CFDA Program (Unlinked Data)
-                    <TooltipWrapper
-                        className="unlinked-tt"
-                        tooltipPosition="left"
-                        icon="info" />
                 </div>
             );
 
