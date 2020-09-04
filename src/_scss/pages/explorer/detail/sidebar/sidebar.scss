@@ -16,6 +16,12 @@
             @include flex-wrap(nowrap);
         }
     }
+    .usa-dt-quarter-picker__list li:first-child ul li:first-child {
+        border-radius: rem(30) 0 0 rem(30);
+    }
+    .usa-dt-quarter-picker__list li:last-child ul li:last-child {
+        border-radius: 0 rem(30) rem(30) 0;
+    }
     .usa-dt-quarter-picker__period-list-container {
         p {
             font-weight: 600;
@@ -23,6 +29,7 @@
         .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
             // the generic period styles
             margin: rem(0) rem(1);
+            // background-color: $color-white;
             .usa-dt-quarter-picker__quarter {
                 width: rem(24);
                 font-weight: $font-bold;
