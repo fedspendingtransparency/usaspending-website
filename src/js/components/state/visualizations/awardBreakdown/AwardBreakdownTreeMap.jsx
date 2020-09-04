@@ -247,7 +247,6 @@ export default class AwardBreakdownTreeMap extends React.Component {
             <div className="award-breakdown__treemap">
                 <div className="usa-da-treemap-section">
                     <div className="treemap-inner-wrap">
-                        {greatThanOneHundredDescription}
                         { this.createTooltip() }
                         <div
                             className="tree-wrapper"
@@ -260,6 +259,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
                                 className="treemap-svg overlay">
                                 {cells}
                             </svg>
+                            {greatThanOneHundredDescription}
                         </div>
                     </div>
                 </div>

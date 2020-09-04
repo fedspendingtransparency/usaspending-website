@@ -19,8 +19,8 @@ const BaseStateProfile = {
         this._population = data.population || 0;
         this._awardAmountPerCapita = data.award_amount_per_capita || 0;
         this._medianHouseholdIncome = data.median_household_income || 0;
-        this._faceValueLoanGuarantee = data.face_value_loan_guarantee || 0;
-        this._loanCount = data.loan_count || 0;
+        this._totalFaceValueLoanAmount = data.total_face_value_loan_amount || 0;
+        this._totalFaceValueLoanPrimeAwards = data.total_face_value_loan_prime_awards || 0;
     },
     get totalAmount() {
         if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
@@ -56,15 +56,15 @@ const BaseStateProfile = {
         }
         return '';
     },
-    get faceValueLoanGuarantee() {
-        if (this._faceValueLoanGuarantee >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValueLoanGuarantee);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValueLoanGuarantee / units.unit, 1)} ${units.longLabel}`;
+    get totalFaceValueLoanAmount() {
+        if (this._totalFaceValueLoanAmount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFaceValueLoanAmount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFaceValueLoanAmount / units.unit, 1)} ${units.longLabel}`;
         }
-        return MoneyFormatter.formatMoneyWithPrecision(this._faceValueLoanGuarantee, 0);
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalFaceValueLoanAmount, 0);
     },
-    get loanCount() {
-        return MoneyFormatter.formatNumberWithPrecision(this._loanCount, 0);
+    get totalFaceValueLoanPrimeAwards() {
+        return MoneyFormatter.formatNumberWithPrecision(this._totalFaceValueLoanPrimeAwards, 0);
     }
 };
 

@@ -125,7 +125,7 @@ export default class StateOverview extends React.PureComponent {
                                 </div>
                             </div>
                             <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.faceValueLoanGuarantee} transactions={this.props.stateProfile.loanCount} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
+                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
                         <div className="state-section__viz details">

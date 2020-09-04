@@ -19,10 +19,10 @@ describe('BaseStateProfile', () => {
     });
 
     it('should format the face value loan guarantee', () => {
-        expect(state.faceValueLoanGuarantee).toEqual('$399.2 billion');
+        expect(state.totalFaceValueLoanAmount).toEqual('$399.2 billion');
     });
     it('should format the loan count', () => {
-        expect(state.loanCount).toEqual('123,123');
+        expect(state.totalFaceValueLoanPrimeAwards).toEqual('123,123');
     });
     describe('Census data', () => {
         it('should format the population', () => {
