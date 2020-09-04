@@ -74,5 +74,11 @@ export const componentByCovid19Section = () => ({
         showInMenu: true,
         showInMainSection: false,
         title: 'Data Sources & Methodology'
+    },
+    other_resources: {
+        showInMenu: true,
+        showInMainSection: false,
+        title: 'Other Resources'
     }
+
 });

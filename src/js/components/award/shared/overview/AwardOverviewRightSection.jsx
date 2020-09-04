@@ -14,7 +14,7 @@ const propTypes = {
     jumpToSubAwardHistoryTable: PropTypes.func,
     setRelatedAwardsTab: PropTypes.func,
     jumpToSection: PropTypes.func,
-    counts: PropTypes.object,
+    details: PropTypes.object,
     overview: PropTypes.object,
     updateCFDAOverviewLinkClicked: PropTypes.func
 };
@@ -23,7 +23,7 @@ const AwardOverviewRightSection = ({
     jumpToSubAwardHistoryTable,
     setRelatedAwardsTab,
     jumpToSection,
-    counts,
+    details,
     overview,
     updateCFDAOverviewLinkClicked
 }) => {
@@ -37,7 +37,7 @@ const AwardOverviewRightSection = ({
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
             setRelatedAwardsTab={setRelatedAwardsTab}
             jumpToSection={jumpToSection}
-            counts={counts}
+            details={details}
             overview={overview} />);
     const dates = overview.category === 'idv' ? overview.dates : overview.periodOfPerformance;
     return (
