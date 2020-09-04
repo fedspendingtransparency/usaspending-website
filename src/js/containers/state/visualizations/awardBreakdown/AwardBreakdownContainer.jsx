@@ -133,7 +133,7 @@ export class AwardBreakdownContainer extends React.Component {
                 <AwardBreakdownTreeMap
                     activeFY={this.props.stateProfile.fy}
                     awardBreakdown={this.state.awardBreakdown}
-                    totalAmount={this.state.totalAmount}/>
+                    totalAmount={this.state.totalAmount} />
                 <AwardBreakdownTable
                     awardBreakdown={this.state.rows}
                     hasNegatives={this.state.hasNegatives} />
