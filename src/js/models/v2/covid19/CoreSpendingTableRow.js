@@ -17,9 +17,15 @@ const CoreSpendingTableRow = {
         this._faceValueOfLoan = data.face_value_of_loan || 0;
     },
     get obligation() {
+        if (this._obligation === null) {
+            return null;
+        }
         return formatMoney(this._obligation);
     },
     get outlay() {
+        if (this._outlay === null) {
+            return null;
+        }
         return formatMoney(this._outlay);
     },
     get awardCount() {
@@ -27,6 +33,12 @@ const CoreSpendingTableRow = {
     },
     get faceValueOfLoan() {
         return formatMoney(this._faceValueOfLoan);
+    },
+    set outlay(val) {
+        this._outlay = val;
+    },
+    set obligation(val) {
+        this._obligation = val;
     }
 };
 

@@ -142,7 +142,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (props.type === 'all') {
             unlinkedName = 'Unknown Agency (Missing Linkage)';
         } else {
-            unlinkedName = 'Unreported Funding Agency Name';
+            unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
         }
 
         if (unlinkedName && unlinkedData) {

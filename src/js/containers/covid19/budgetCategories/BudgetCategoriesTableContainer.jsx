@@ -191,7 +191,7 @@ const BudgetCategoriesTableContainer = (props) => {
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
         } else if (spendingCategory === 'award_spending') {
-            unlinkedName = 'Unlinked Awards';
+            unlinkedName = 'Number of Unlinked Awards';
         }
 
         if (unlinkedName && unlinkedData && overview) {
@@ -206,8 +206,15 @@ const BudgetCategoriesTableContainer = (props) => {
                 </div>
             );
             unlinkedData.name = unlinkedColumn;
+
             const unlinkedRow = Object.create(CoreSpendingTableRow);
             unlinkedRow.populateCore(unlinkedData);
+
+            if (spendingCategory === 'award_spending') {
+                unlinkedRow.obligation = null;
+                unlinkedRow.outlay = null;
+                console.log(unlinkedRow);
+            }
             parsedData.push(unlinkedRow);
         } else {
             table.classList.remove('unlinked-data');
