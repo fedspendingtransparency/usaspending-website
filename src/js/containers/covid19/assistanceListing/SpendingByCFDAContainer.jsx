@@ -143,16 +143,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const launchModal = (e) => {
         e.preventDefault();
-        setModalData(() => {
-            const d = results.find((cfda) => cfda.code === e.target.value);
-            // TODO - remove these when API is done, keeping for design review
-            d.cfda_federal_agency = "OFFICE OF FEDERAL STUDENT AID, EDUCATION, DEPARTMENT OF";
-            d.cfda_objectives = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
-            d.cfda_website = 'https://google.com';
-            d.applicant_eligibility = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
-            d.beneficiary_eligibility = 'simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
-            return d;
-        });
+        setModalData(() => results.find((cfda) => cfda.code === e.target.value));
         setShowModal(true);
     };
     const closeModal = () => {

@@ -22,7 +22,7 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
 
 export const fetchOpportunityTotals = (code) => apiRequest({
-    url: code ? `v2/references/cfda/opportunities/totals/{?cfda_code=${code}}/` : `v2/references/cfda/opportunities/totals/`
+    url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
 });
 
 export const getStickyBreakPointForSidebar = () => {

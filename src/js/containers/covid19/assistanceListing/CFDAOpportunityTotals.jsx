@@ -21,8 +21,8 @@ const CFDAOpportunityTotals = ({ code }) => {
         apiRequest.current = fetchOpportunityTotals(code);
         const asyncFunc = async () => {
             try {
-                const { cfdas } = await apiRequest.current.promise;
-                setTotals(cfdas[0]);
+                const { data } = await apiRequest.current.promise;
+                setTotals(data);
                 setLoading(false);
             }
             catch (e) {

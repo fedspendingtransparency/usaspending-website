@@ -70,11 +70,14 @@ const CFDADetailModal = ({
                                 <h6>Program Website</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.cfda_website}>
-                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
+                                {data.cfda_website ?
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.cfda_website}>
+                                        {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                    : '--'
+                                }
                             </div>
                         </div>
                         <div className="usa-dt-modal__section">
@@ -82,11 +85,14 @@ const CFDADetailModal = ({
                                 <h6>Assistance Listing on SAM.gov</h6>
                             </div>
                             <div className="usa-dt-modal__section__description">
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.cfda_website}>
-                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
+                                {data.resource_link ?
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.resource_link}>
+                                        {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                    : '--'
+                                }
                             </div>
                         </div>
                     </div>
