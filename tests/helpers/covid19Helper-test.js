@@ -4,8 +4,7 @@
  */
 import {
     latestSubmissionDateFormatted,
-    areCountsDefined,
-    useInFlightList
+    areCountsDefined
 } from 'helpers/covid19Helper';
 import mockSubmissions from '../testResources/covid19MockData';
 

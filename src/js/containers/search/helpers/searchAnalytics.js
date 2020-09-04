@@ -21,6 +21,15 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const eventCategory = 'Advanced Search - Search Filter';
 
+const getStringFromArray = (arrOfStr) => arrOfStr
+    .sort()
+    .reduce((acc, code, i, array) => {
+        if (array.length - 1 === i) {
+            return `${acc}${code}`;
+        }
+        return `${acc}${code}, `;
+    }, '');
+
 export const convertDateRange = (range) => {
     if (range.length !== 2) {
         // this must be an array of length 2
@@ -125,6 +134,12 @@ export const combineAwardTypeGroups = (filters) => {
     return fullTypes.concat(remainingFilters);
 };
 
+export const handleCheckboxTreeSelection = (value, label) => {
+    const selectedValues = value.get('require');
+    if (selectedValues.length) return convertReducibleValue([selectedValues], label, getStringFromArray);
+    return null;
+};
+
 export const convertFilter = (type, value) => {
     switch (type) {
         case 'keyword':
@@ -167,17 +182,26 @@ export const convertFilter = (type, value) => {
                 'CFDA Program',
                 (cfda) => `${cfda.program_number} - ${cfda.program_title}`
             );
-        case 'selectedNAICS':
-            return convertReducibleValue(
+        case 'defCodes': {
+            return handleCheckboxTreeSelection(
                 value,
-                'NAICS Code',
-                (naics) => `${naics.naics} - ${naics.naics_description}`
+                'DEFC Filter'
             );
-        case 'selectedPSC':
-            return convertReducibleValue(
+        }
+        case 'naicsCodes':
+            return handleCheckboxTreeSelection(
                 value,
-                'Product or Service Code (PSC)',
-                (psc) => `${psc.product_or_service_code} - ${psc.psc_description}`
+                'NAICS Codes'
+            );
+        case 'pscCodes':
+            return handleCheckboxTreeSelection(
+                value,
+                'Product or Service Code (PSC)'
+            );
+        case 'tasCodes':
+            return handleCheckboxTreeSelection(
+                value,
+                'Treasury Account Symbol (TAS)'
             );
         case 'pricingType':
             return convertReducibleValue(

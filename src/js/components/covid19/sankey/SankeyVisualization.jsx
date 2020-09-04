@@ -14,7 +14,7 @@ const propTypes = {
     width: PropTypes.number
 };
 
-const SankeyContainer = ({ defCodes, overview, width }) => (
+const SankeyVisualization = ({ defCodes, overview, width }) => (
     <div className="body__content covid19__sankey-container">
         <h3 className="body__narrative covid19__sankey-title">
               This is how the <strong>total spending</strong> was funded and spent.
@@ -46,5 +46,5 @@ const SankeyContainer = ({ defCodes, overview, width }) => (
     </div>
 );
 
-SankeyContainer.propTypes = propTypes;
-export default SankeyContainer;
+SankeyVisualization.propTypes = propTypes;
+export default SankeyVisualization;

@@ -8,9 +8,8 @@ import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash';
 
 import { calculateCovidMapRange } from 'helpers/covid19Helper';
-import { calculateRange } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { mapboxSources, visualizationColors } from 'dataMapping/covid19/recipient/map/map';
+import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';
@@ -94,6 +93,22 @@ export default class MapWrapper extends React.Component {
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
+    }
+
+    getColors = () => {
+        const colors = [];
+        const numStateColors = 49;
+        const numCountyColors = 500;
+        if (this.props.activeFilters.territory === 'state') {
+            for (let i = 0; i < numStateColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
+            }
+        } else {
+            for (let i = 0; i < numCountyColors; i++) {
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
+            }
+        }
+        return colors;
     }
 
     mapReady = () => {
@@ -194,7 +209,7 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = visualizationColors;
+        const colors = this.getColors();
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({
@@ -363,13 +378,11 @@ export default class MapWrapper extends React.Component {
 
         const source = mapboxSources[this.props.activeFilters.territory];
         // calculate the range of data
-        let scale = calculateRange(this.props.data.values);
-        if (this.props.activeFilters.awardType === "all") {
-            scale = calculateCovidMapRange(this.props.data.values);
-        }
+        const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
+        const colors = this.getColors();
 
         // prepare a set of blank (false) filters
-        const filterValues = visualizationColors.map(() => (
+        const filterValues = colors.map(() => (
             []
         ));
         this.props.data.locations.forEach((location, index) => {
@@ -431,8 +444,9 @@ export default class MapWrapper extends React.Component {
         const { spendingScale } = this.state;
         return (
             <MapLegend
-                segments={spendingScale.segments}
-                units={spendingScale.units} />
+                units={spendingScale.units}
+                min={Math.min(...this.props.data.values)}
+                max={Math.max(...this.props.data.values)} />
         );
     }
 

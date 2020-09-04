@@ -1,5 +1,25 @@
-const moment = require('moment');
-const Routes = require('../src/js/containers/router/RouterRoutes.js');
+import moment from 'moment';
+
+const routes = [
+    // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel
+    '/',
+    '/search',
+    '/recipient',
+    '/explorer',
+    '/about/accessibility',
+    '/about/privacy',
+    '/about/foia',
+    '/about',
+    '/db-info',
+    '/agency',
+    '/download_center',
+    '/keyword-search',
+    '/federal_account',
+    '/state',
+    '/recipient',
+    '/disaster/covid-19',
+    '/disaster/covid-19/data-sources'
+];
 
 const recipientRequestObject = {
     name: 'recipient',
@@ -17,7 +37,7 @@ const recipientRequestObject = {
         award_type: "all"
     },
     accessor: 'id',
-    clientRoute: 'https://www.usaspending.gov/#/recipient'
+    clientRoute: 'https://www.usaspending.gov/recipient'
 };
 
 const awardPageInfo = {
@@ -51,7 +71,7 @@ const awardPageInfo = {
         subawards: false
     },
     accessor: 'generated_internal_id',
-    clientRoute: 'https://www.usaspending.gov/#/award'
+    clientRoute: 'https://www.usaspending.gov/award'
 };
 
 const federalAccountPageInfo = {
@@ -68,7 +88,7 @@ const federalAccountPageInfo = {
         limit: 100,
         filters: { fy: "2019" }
     },
-    clientRoute: 'https://www.usaspending.gov/#/federal_account'
+    clientRoute: 'https://www.usaspending.gov/federal_account'
 };
 
 const createPaginatedPages = (defaultObj, numberOfPages) => {
@@ -89,7 +109,7 @@ const pages = [
     {
         name: 'static-routes',
         isAsync: false,
-        routes: Routes.routes
+        routes
     },
     [
         // 1K awards
@@ -104,7 +124,7 @@ const pages = [
         url: 'https://api.usaspending.gov:443/api/v2/recipient/state/',
         method: 'get',
         accessor: 'fips',
-        clientRoute: 'https://www.usaspending.gov/#/state'
+        clientRoute: 'https://www.usaspending.gov/state'
     },
     {
         name: 'agency',
@@ -115,7 +135,7 @@ const pages = [
         url: 'https://api.usaspending.gov:443/api/v2/references/toptier_agencies/',
         method: 'get',
         accessor: 'agency_id',
-        clientRoute: 'https://www.usaspending.gov/#/agency'
+        clientRoute: 'https://www.usaspending.gov/agency'
     },
     [
         // all federal accounts

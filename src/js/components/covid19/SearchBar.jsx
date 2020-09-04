@@ -34,7 +34,9 @@ const SearchBar = ({ setQuery, currentSearchTerm }) => {
     };
 
     const onSubmit = () => {
-        setQuery(searchString);
+        const trimmedSearchString = searchString.trim();
+        setQuery(trimmedSearchString);
+        setSearchString(trimmedSearchString);
     };
 
     const handleClick = (e) => {

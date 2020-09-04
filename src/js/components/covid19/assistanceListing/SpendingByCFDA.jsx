@@ -14,6 +14,7 @@ import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContaine
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
+import Analytics from 'helpers/analytics/Analytics';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
 
@@ -57,6 +58,7 @@ const SpendingByCFDA = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
+        Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
     };
 
     useEffect(() => {

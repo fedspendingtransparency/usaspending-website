@@ -163,7 +163,7 @@ const TableContainer = (props) => {
     }
 
     return (
-        <>
+        <div className="table-wrapper">
             <Table
                 expandable
                 rows={results}
@@ -179,7 +179,7 @@ const TableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 

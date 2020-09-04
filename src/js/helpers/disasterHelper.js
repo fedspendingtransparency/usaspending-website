@@ -110,4 +110,3 @@ export const fetchLoanSpending = (type, params) => apiRequest({
     method: 'post',
     data: params
 });
-

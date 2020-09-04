@@ -125,7 +125,7 @@ export default class FederalAccountChart extends React.Component {
                     labelWidth={this.props.labelWidth}
                     selectItem={this.showTooltip}
                     deselectItem={this.hideTooltip}
-                    urlRoot="#/federal_account/" />
+                    urlRoot="federal_account/" />
                 <svg className="horizontal-bar">
                     <g className="legend-container">
                         <BarChartLegend legend={legend} />

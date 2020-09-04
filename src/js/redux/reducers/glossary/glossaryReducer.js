@@ -11,7 +11,8 @@ export const Definition = Record({
     slug: '',
     plain: '',
     official: '',
-    resources: ''
+    resources: '',
+    termFromUrl: ''
 });
 
 export const initialState = {
@@ -21,7 +22,8 @@ export const initialState = {
     search: {
         input: '',
         results: []
-    }
+    },
+    termFromUrl: ''
 };
 
 const glossaryReducer = (state = initialState, action) => {
@@ -70,8 +72,15 @@ const glossaryReducer = (state = initialState, action) => {
         }
         case 'CLEAR_GLOSSARY_TERM': {
             return Object.assign({}, state, {
-                term: new Definition()
+                term: new Definition(),
+                termFromUrl: ''
             });
+        }
+        case 'SET_GLOSSARY_TERM_FROM_URL': {
+            return {
+                ...state,
+                termFromUrl: action.term
+            };
         }
         default:
             return state;

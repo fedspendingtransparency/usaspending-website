@@ -6,6 +6,7 @@ import {
     faTwitter,
     faRedditSquare
 } from "@fortawesome/free-brands-svg-icons";
+import Analytics from 'helpers/analytics/Analytics';
 
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
@@ -21,26 +22,31 @@ const openShareWindow = (url) => {
 const handleShareClickFacebook = (url) => {
     const finalUrl = `${socialUrls.facebook}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
+    Analytics.event({ category: `${url}`, action: 'share link click', label: 'facebook' });
 };
 
 const handleShareClickTwitter = (url) => {
     const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
+    Analytics.event({ category: `${url}`, action: 'share link click', label: 'twitter' });
 };
 
 const handleShareClickLinkedin = (url) => {
     const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
+    Analytics.event({ category: `${url}`, action: 'share link click', label: 'linkedIn' });
 };
 
 const handleShareClickReddit = (url) => {
     const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
+    Analytics.event({ category: `${url}`, action: 'share link click', label: 'reddit' });
 };
 
 const handleShareClickEmail = (subject, body) => {
     const finalUrl = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = finalUrl;
+    Analytics.event({ category: `${subject}`, action: 'share link click', label: 'email' });
 };
 
 const handlersBySocialMedium = {
@@ -53,19 +59,12 @@ const handlersBySocialMedium = {
     linkedin: (url) => handleShareClickLinkedin(url)
 };
 
-export const getBaseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
+export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
 
-// Currently only used on the COVID profile, since we have a special redirect set
-// up for usaspending.gov/covid-19 --> usaspending.gov/#/disaster/covid-19
-export const getBaseUrlNoHash = (slug) => `https://www.usaspending.gov/${slug}`;
-
-export const getSocialShareFn = (socialMedium, noHash = false) => {
+export const getSocialShareFn = (socialMedium) => {
     const fn = handlersBySocialMedium[socialMedium];
     if (socialMedium === 'email') {
         return (args) => fn(args);
-    }
-    if (noHash) {
-        return (slg) => fn(getBaseUrlNoHash(slg));
     }
     return (slg) => fn(getBaseUrl(slg));
 };

@@ -13,6 +13,7 @@ import {
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import DownloadIconButton from 'components/sharedComponents/stickyHeader/DownloadIconButton';
+import Analytics from 'helpers/analytics/Analytics';
 
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const DownloadButtonContainer = () => {
             console.log(err);
             downloadRequest.current = null;
         }
+        Analytics.event({ category: 'COVID-19 - Profile', action: 'download' });
     };
 
     return (

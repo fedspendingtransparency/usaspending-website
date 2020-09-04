@@ -53,6 +53,7 @@ export const mockReducerRoot = {
     root: 'agency',
     fy: '1984',
     quarter: '4',
+    period: null,
     active: new ActiveScreen({
         within: 'root',
         subdivision: 'agency',
@@ -107,6 +108,7 @@ export const mockDeeperRoot = {
     root: 'agency',
     fy: '1984',
     quarter: '2',
+    period: null,
     active: new ActiveScreen({
         within: 'federal_account',
         subdivision: 'award',
@@ -205,6 +207,9 @@ export const mockActions = {
     setExplorerTableOrder: jest.fn(),
     setExplorerTablePage: jest.fn(),
     resetExplorerTable: jest.fn(),
-    resetExplorer: jest.fn()
+    resetExplorer: jest.fn(),
+    history: {
+        push: jest.fn()
+    }
 };
 
