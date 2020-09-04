@@ -153,13 +153,6 @@ const SearchContainer = ({ history }) => {
     }, [appliedFilters, generateHashInFlight]);
 
     const setDownloadAvailability = useCallback(() => {
-        if (SearchHelper.areFiltersEqual(stagedFilters, appliedFilters)) {
-            // don't make an API call when it's a blank state
-            setDownloadAvailable(false);
-            setDownloadInFlight(false);
-            return;
-        }
-
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
