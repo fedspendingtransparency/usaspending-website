@@ -213,7 +213,6 @@ const BudgetCategoriesTableContainer = (props) => {
             if (spendingCategory === 'award_spending') {
                 unlinkedRow.obligation = null;
                 unlinkedRow.outlay = null;
-                console.log(unlinkedRow);
             }
             parsedData.push(unlinkedRow);
         } else {
