@@ -11,7 +11,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
-import { stateOverviewLoanInfo } from 'components/award/shared/InfoTooltipContent';
+import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import DetailsTooltip from './DetailsTooltip';
 
 const propTypes = {
