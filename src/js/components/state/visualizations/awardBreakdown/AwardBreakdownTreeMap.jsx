@@ -17,8 +17,7 @@ import AwardTypeTooltip from './AwardTypeTooltip';
 
 const propTypes = {
     awardBreakdown: PropTypes.array,
-    totalAmount: PropTypes.number,
-    hasNegatives: PropTypes.bool
+    totalAmount: PropTypes.number
 };
 
 export default class AwardBreakdownTreeMap extends React.Component {
@@ -222,16 +221,6 @@ export default class AwardBreakdownTreeMap extends React.Component {
     }
 
     render() {
-        let greatThanOneHundredDescription = null;
-        if (this.props.hasNegatives) {
-            greatThanOneHundredDescription = (
-                <p>
-                    <em><strong>Note:</strong> The award types below add up to more
-                        than 100% due to negative values not shown here.
-                    </em>
-                </p>
-            );
-        }
         const cells = this.state.virtualChart.map((cell) => (
             <AwardTypeCell
                 {...cell}
@@ -259,7 +248,6 @@ export default class AwardBreakdownTreeMap extends React.Component {
                                 className="treemap-svg overlay">
                                 {cells}
                             </svg>
-                            {greatThanOneHundredDescription}
                         </div>
                     </div>
                 </div>
