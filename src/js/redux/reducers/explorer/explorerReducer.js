@@ -14,7 +14,7 @@ export const ActiveScreen = new Record({
 });
 
 const initialQuarters = defaultQuarters();
-const initalPeriods = defaultPeriod();
+const initalPeriods = defaultPeriod;
 export const initialState = {
     root: 'object_class',
     fy: `${initialQuarters.year}`,
