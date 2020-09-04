@@ -32,7 +32,10 @@ const Covid19Section = ({
                 <div className="body__header-icon">
                     <FontAwesomeIcon size="lg" icon={icon} />
                 </div>
-                <h2>{title}{tooltip}</h2>
+                <h2>{title}</h2>
+                <div className="body__header-tooltip">
+                    {tooltip}
+                </div>
             </div>
             <div className="body__header-right">
                 {headerText}
