@@ -12,11 +12,13 @@ import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategori
 import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 import { TooltipWrapper } from 'data-transparency-ui';
-import TotalSpendingTooltip from 'components/covid19/TotalSpendingTooltip';
-import AwardSpendingTooltip from 'components/covid19/AwardSpendingTooltip';
-import SpendingByRecipientHeaderTT from 'components/covid19/SpendingByRecipientHeaderTT';
-import AwardSpendingAgencyTT from 'components/covid19/AwardSpendingAgencyTT';
-import AwardSpendingCfdaTT from 'components/covid19/AwardSpendingCfdaTT';
+import {
+    AwardSpendingAgencyTT,
+    AwardSpendingCfdaTT,
+    AwardSpendingTT,
+    SpendingByRecipientTT,
+    TotalSpendingTT
+} from 'components/covid19/Covid19Tooltips';
 
 const totalSpendingText = (
     <div className="body__header-text">
@@ -28,7 +30,7 @@ const totalSpendingText = (
                     className="homepage__covid-19-tt"
                     icon="info"
                     tooltipPosition="left"
-                    tooltipComponent={<TotalSpendingTooltip />} />
+                    tooltipComponent={<TotalSpendingTT />} />
             </div>
         </span>
     </div>
@@ -44,7 +46,7 @@ const awardSpendingText = (
                     className="homepage__covid-19-tt"
                     icon="info"
                     tooltipPosition="left"
-                    tooltipComponent={<AwardSpendingTooltip />} />
+                    tooltipComponent={<AwardSpendingTT />} />
             </div>
         </span>
     </div>
@@ -56,7 +58,7 @@ const spendingByRecipientTT = (
         icon="info"
         wide
         tooltipPosition="right"
-        tooltipComponent={<SpendingByRecipientHeaderTT />} />
+        tooltipComponent={<SpendingByRecipientTT />} />
 );
 
 const spendingByAgencyTT = (

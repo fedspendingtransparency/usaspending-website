@@ -1,6 +1,6 @@
 import React from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import SpendingByRecipientMapTT from 'components/covid19/SpendingByRecipientMapTT';
+import { SpendingByRecipientMapTT } from 'components/covid19/Covid19Tooltips';
 
 const MapLegendHeader = () => (
     <div className="map__filters-header__title">

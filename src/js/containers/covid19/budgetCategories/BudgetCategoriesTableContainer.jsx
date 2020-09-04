@@ -29,7 +29,7 @@ import { handleSort } from 'helpers/covid19Helper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import SpendingTypesTooltip from 'components/covid19/SpendingTypesTooltip';
+import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -359,7 +359,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 icon="info"
                 wide
                 tooltipPosition="right"
-                tooltipComponent={<SpendingTypesTooltip />} />
+                tooltipComponent={<SpendingTypesTT />} />
         </div>
     );
 
