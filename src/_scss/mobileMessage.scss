@@ -1,10 +1,10 @@
 .mobile-message__container {
     position: fixed;
-    bottom: 18px;
+    bottom: 9px;
     background-color: $color-gray-dark;
     color: $color-white;
     z-index: 9999999999999999999;
-    margin: 0 1.7rem;
+    margin: 0 0.9rem;
     border-radius: 3px;
     box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.21);
     .mobile-message {
@@ -14,6 +14,9 @@
         height: 22px;
         width: 23px;
         margin: 0 1rem;
+        img {
+          opacity: 0.6;
+        }
       }
       .mobile-message__text {
         font-size: 1.4rem;
@@ -31,5 +34,6 @@
       font-weight: $font-semibold;
       letter-spacing: 0;
       line-height: 1.8rem;
+      color: $color-primary-alt-light;
     }
 }

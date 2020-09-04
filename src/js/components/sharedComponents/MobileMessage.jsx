@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 09/03/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { withRouter } from 'react-router-dom';
@@ -18,6 +18,27 @@ const MobileMessage = ({ location }) => {
         Cookies.set(cookie, { expires: 1 });
         setHideMessage('hide');
     };
+    // remove disclaimer if user switches out of mobile viewport
+    const watchWidth = () => {
+        if (window.outerWidth >= 568) {
+            Cookies.set(cookie, { expires: 1 });
+            setHideMessage('hide');
+        }
+    };
+    // remove disclaimer after 5 seconds
+    useEffect(() => {
+        if (Cookies.get(cookie) !== 'hide') {
+            setTimeout(() => {
+                Cookies.set(cookie, { expires: 1 });
+                setHideMessage('hide');
+            }, 10000);
+        }
+    }, []);
+    // remove disclaimer if user switches out of mobile viewport
+    useEffect(() => {
+        window.addEventListener('resize', watchWidth);
+        return () => window.removeEventListener('resize', watchWidth);
+    }, []);
     if (hideMessage) return null;
     return (
         <div style={location.pathname === '/disaster/covid-19' ? { bottom: '110px' } : {}} className="mobile-message__container">
