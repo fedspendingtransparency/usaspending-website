@@ -76,6 +76,7 @@ export default class StateOverview extends React.PureComponent {
     }
 
     render() {
+        console.log(this.props.stateProfile);
         let populationSourceYear = '';
         let incomeSourceYear = '';
 
@@ -124,10 +125,7 @@ export default class StateOverview extends React.PureComponent {
                                 </div>
                             </div>
                             <div className="state-section__viz loan">
-                                {/**
-                                 * TODO - Add actual amounts and # of transactions from overview api once it's ready
-                                 */}
-                                <FaceValueOfLoans amount="0" transactions="0" primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
+                                <FaceValueOfLoans amount={this.props.stateProfile.faceValueLoanGuarantee} transactions={this.props.stateProfile.loanCount} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
                         <div className="state-section__viz details">
