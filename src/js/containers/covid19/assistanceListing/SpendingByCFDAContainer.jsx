@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
-import { Table, Pagination, TooltipWrapper } from 'data-transparency-ui';
+import { Table, Pagination } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
