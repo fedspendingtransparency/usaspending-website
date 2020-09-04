@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash';
+import { scaleQuantile, scaleLinear } from 'd3-scale';
 
-import { calculateCovidMapRange } from 'helpers/covid19Helper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
@@ -41,6 +41,9 @@ const defaultProps = {
     showLayerToggle: false,
     children: null
 };
+
+//
+const numCountyQuantiles = 200;
 
 export default class MapWrapper extends React.Component {
     constructor(props) {
@@ -78,7 +81,7 @@ export default class MapWrapper extends React.Component {
                 this.queueMapOperation('displayData', this.displayData);
                 this.prepareMap();
             }
-            else {
+            else {                
                 // only the data changed
                 this.displayData();
             }
@@ -95,18 +98,12 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    getColors = () => {
+    getColors = (numQuantiles) => {
         const colors = [];
-        const numStateColors = 49;
-        const numCountyColors = 500;
-        if (this.props.activeFilters.territory === 'state') {
-            for (let i = 0; i < numStateColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
-            }
-        } else {
-            for (let i = 0; i < numCountyColors; i++) {
-                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
-            }
+        for (let i = 0; i < numQuantiles; i++) {
+            // get the color for the map, we use the base color and an opacity attached to it
+            // if we have n quantiles we need n distinct colors
+            colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
         }
         return colors;
     }
@@ -119,6 +116,8 @@ export default class MapWrapper extends React.Component {
             this.prepareMap();
         });
     }
+
+    countUnique = (iterable) => new Set(iterable).size
 
     mapRemoved = () => {
         // map is about to be removed
@@ -209,7 +208,16 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = this.getColors();
+        let colors = [];
+        if (this.props.data.values.length !== 0) {
+            if (this.props.activeFilters.territory === 'state') {
+                colors = this.getColors(this.props.data.values.length);
+            } else {
+                colors = this.getColors(numCountyQuantiles); // 
+            }
+        } else {
+            colors = this.getColors(49); // in the case when the map has not recieved data yet 
+        }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({
@@ -266,8 +274,7 @@ export default class MapWrapper extends React.Component {
         else {
             this.mapRef.map.setMinZoom(0);
         }
-
-
+        
         const parentMap = this.mapRef.map;
         function renderResolver() {
             parentMap.off('render', renderResolver);
@@ -376,20 +383,43 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
+        // load the data source
         const source = mapboxSources[this.props.activeFilters.territory];
-        // calculate the range of data
-        const scale = calculateCovidMapRange(this.props.data.values, this.props.activeFilters.territory);
-        const colors = this.getColors();
+
+        // the d3 function takes a range array for the key/index for each quantile or segment in the case of a linear scale
+        let rangeArray = [];
+        let colors = [];
+        if (this.props.activeFilters.territory === 'state') {
+            colors = this.getColors(this.props.data.values.length);
+            rangeArray = [...Array(this.props.data.values.length).keys()];
+        } else {
+            colors = this.getColors(numCountyQuantiles); // 
+            rangeArray = [...Array(numCountyQuantiles).keys()];
+        }
 
         // prepare a set of blank (false) filters
         const filterValues = colors.map(() => (
             []
         ));
+
+        let scale = {};
+
+        // in the cases where we have minimal reported data modeling the data with a quantile scale does not work as well as using a linear scale this is because   
+        if (this.countUnique(this.props.data.values) < 10 && this.props.data.values.length !== 0) {
+            console.log("edge case")
+            scale = scaleLinear().domain(this.props.data.values).range(rangeArray);
+        }
+        else {
+            // we are using scaleQuantile from D3 to map the this.props.data.values input domain to a discrete range
+            scale = scaleQuantile().domain(this.props.data.values).range(rangeArray);
+        }
+
         this.props.data.locations.forEach((location, index) => {
             let value = this.props.data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
-            let group = Math.floor(scale.scale(value));
+            let group = 0;
+            group = Math.floor(scale(value));
             if (group.toString().startsWith('-')) group = 0;
             // add it to the filter list
             filterValues[group].push(location);

@@ -173,36 +173,3 @@ export const handleSort = (a, b) => {
     if (b.sortOrder < a.sortOrder) return 1;
     return 0;
 };
-
-export const calculateCovidMapRange = (data, territory) => {
-    let dataRange = data;
-    // handle a condition where an empty array is provided
-    if (data.length < 1) {
-        dataRange = [0, 10000];
-    }
-
-    // determine the best units to use
-    const units = calculateUnits(dataRange);
-
-    const rangeArray = [];
-    const numStateRange = 49;
-    const numCountyRange = 500;
-    if (territory === 'state') {
-        for (let i = 0; i < numStateRange; i++) {
-            rangeArray.push(i);
-        }
-    } else {
-        for (let i = 0; i < numCountyRange; i++) {
-            rangeArray.push(i);
-        }
-    }
-
-    const scale = scaleQuantile().domain(data).range(rangeArray);
-    const segments = scale.quantiles();
-
-    return {
-        scale,
-        segments,
-        units
-    };
-};
