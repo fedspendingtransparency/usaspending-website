@@ -29,7 +29,7 @@
         .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
             // the generic period styles
             margin: rem(0) rem(1);
-            // background-color: $color-white;
+            background-color: $color-white;
             .usa-dt-quarter-picker__quarter {
                 width: rem(24);
                 font-weight: $font-bold;
@@ -47,6 +47,18 @@
             // period representing three periods w/ two-digit integers (10-12)
             &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
                 width: rem(72);
+            }
+        }
+    }
+    .quarter-picker {
+        ul.quarter-picker__list {
+            button.quarter-picker__quarter {
+                &[disabled] {
+                    background-color: $color-gray;
+                    cursor: not-allowed;
+                    color: $color-gray-dark;
+                    opacity: 0.90;
+                }
             }
         }
     }

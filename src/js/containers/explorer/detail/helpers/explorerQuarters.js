@@ -173,9 +173,8 @@ export const mostRecentPeriod = () => {
     };
 };
 
-
 export const lastCompletedPeriodInFY = (fy) => {
-    // get the most recent available quarter and year
+    // get the most recent available period and year
     const current = mostRecentPeriod();
     const sanitizedFY = handlePotentialStrings(fy);
 
@@ -187,7 +186,7 @@ export const lastCompletedPeriodInFY = (fy) => {
             year: sanitizedFY
         };
     }
-    // otherwise, return the current year's quarter
+    // otherwise, return the current year's period
     return current;
 };
 
