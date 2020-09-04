@@ -279,6 +279,7 @@ export default class AgencyFilter extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> Prior to FY19, Financial Assistance awards only sporadically include Funding Agency data. Financial Assistance awards include: grants, direct payments, loans, insurance, and other financial assistance.</p>
                 </div>
             </div>
         );
