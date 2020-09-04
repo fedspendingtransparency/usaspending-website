@@ -16,12 +16,12 @@
             @include flex-wrap(nowrap);
         }
     }
-        .usa-dt-quarter-picker__list li:first-child ul li:first-child {
-            border-radius: rem(30) 0 0 rem(30);
-        }
-        .usa-dt-quarter-picker__list li:last-child ul li:last-child {
-            border-radius: 0 rem(30) rem(30) 0;
-        }
+    .usa-dt-quarter-picker__list li:first-child ul li:first-child {
+        border-radius: rem(30) 0 0 rem(30);
+    }
+    .usa-dt-quarter-picker__list li:last-child ul li:last-child {
+        border-radius: 0 rem(30) rem(30) 0;
+    }
     .usa-dt-quarter-picker__period-list-container {
         p {
             font-weight: 600;
@@ -47,14 +47,6 @@
             // period representing three periods w/ two-digit integers (10-12)
             &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
                 width: rem(72);
-            }
-        }
-        button.quarter-picker__quarter {
-            &[disabled] {
-                background-color: $color-gray;
-                cursor: not-allowed;
-                color: $color-gray-dark;
-                opacity: 0.90;
             }
         }
     }

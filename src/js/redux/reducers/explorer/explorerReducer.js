@@ -14,12 +14,12 @@ export const ActiveScreen = new Record({
 });
 
 const initialQuarters = defaultQuarters();
-const initalPeriods = defaultPeriod;
+const initalPeriod = defaultPeriod();
 export const initialState = {
     root: 'object_class',
     fy: `${initialQuarters.year}`,
     quarter: initialQuarters.year >= 2020 ? null : `${Math.max(...initialQuarters.quarters)}`,
-    period: initialQuarters.year >= 2020 ? `${Math.max(initalPeriods.period)}` : null,
+    period: initialQuarters.year >= 2020 ? `${initalPeriod.period}` : null,
     active: new ActiveScreen(),
     trail: new List([]),
     table: {
