@@ -102,7 +102,6 @@ export class BulkDownloadPageContainer extends React.Component {
             filters: {
                 prime_award_types: primeAwardTypes,
                 sub_award_types: subAwardTypes,
-                agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
                 date_type: formState.dateType,
                 date_range: {
@@ -127,15 +126,13 @@ export class BulkDownloadPageContainer extends React.Component {
             }
         }
 
-        if (formState.agencyType) {
-            delete params.filters.agency;
-            const topTierAgencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
-            params.filters.agencies = [topTierAgencyParams];
-            if (formState.subAgency.name && formState.subAgency.name !== 'Select a Sub-Agency') {
-                const subTierAgencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "subtier", name: formState.subAgency.name };
-                params.filters.agencies = [topTierAgencyParams, subTierAgencyParams];
-            }
+        const agencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
+        if (formState.subAgency.name && formState.subAgency.name !== 'Select a Sub-Agency') {
+            agencyParams.name = formState.subAgency.name;
+            agencyParams.tier = 'subtier';
+            agencyParams.toptier_name = formState.agency.name;
         }
+        params.filters.agencies = [agencyParams];
 
         this.requestDownload(params, 'awards');
 
