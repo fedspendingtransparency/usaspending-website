@@ -7,7 +7,7 @@ import { useState } from 'react';
 import moment from 'moment';
 import { snakeCase } from 'lodash';
 import { scaleQuantile } from 'd3-scale';
-
+import { apiRequest } from 'helpers/apiRequest';
 import {
     defCodes,
     dataDisclaimerHeight,
@@ -20,6 +20,10 @@ import {
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+
+export const fetchOpportunityTotals = (code) => apiRequest({
+    url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
+});
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
@@ -129,9 +133,6 @@ export const createJumpToSectionForSidebar = (prefix, domSections) => (
     offset = getVerticalOffset()
 ) => jumpToSection(section, offset, prefix, domSections);
 
-export const getCovidFromFileC = (codes) => codes
-    .filter((code) => defCodes.includes(code));
-
 export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
     .filter((s) => !s.is_quarter)
     .map((s) => moment.utc(s.period_end_date))
@@ -206,3 +207,21 @@ export const calculateCovidMapRange = (data, territory) => {
         units
     };
 };
+
+/* eslint-disable camelcase */
+export const calculateUnlinkedTotals = (overviewTotal, aggregatedTotal) => {
+    const unlinkedObligation = overviewTotal?.obligation - aggregatedTotal?.obligation;
+    const unlinkedOutlay = overviewTotal?.outlay - aggregatedTotal?.outlay;
+    const unlinkedAwardCount = overviewTotal?.awardCount - aggregatedTotal?.award_count;
+    const unlinkedFaceValueOfLoans = overviewTotal?.faceValueOfLoan - aggregatedTotal?.face_value_of_loan;
+    const unlinkedBudgetaryResources = overviewTotal?.totalBudgetaryResources - aggregatedTotal?.total_budgetary_resources;
+
+    return {
+        obligation: unlinkedObligation,
+        outlay: unlinkedOutlay,
+        award_count: unlinkedAwardCount,
+        face_value_of_loan: unlinkedFaceValueOfLoans,
+        total_budgetary_resources: unlinkedBudgetaryResources
+    };
+};
+

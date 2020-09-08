@@ -10,6 +10,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     agencies: PropTypes.object,
+    agencyTypes: PropTypes.array,
+    currentAgencyType: PropTypes.string,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     currentAgencies: PropTypes.object,
@@ -26,10 +28,16 @@ export default class AgencyFilter extends React.Component {
             showSubAgencyPicker: false
         };
 
+        this.onChange = this.onChange.bind(this);
         this.toggleAgencyPicker = this.toggleAgencyPicker.bind(this);
         this.toggleSubAgencyPicker = this.toggleSubAgencyPicker.bind(this);
         this.handleAgencySelect = this.handleAgencySelect.bind(this);
         this.handleSubAgencySelect = this.handleSubAgencySelect.bind(this);
+    }
+
+    onChange(e) {
+        const target = e.target;
+        this.props.updateFilter('agencyType', target.value);
     }
 
     toggleAgencyPicker(e) {
@@ -168,12 +176,27 @@ export default class AgencyFilter extends React.Component {
             subAgencyDisabledClass = 'disabled';
         }
 
+        const agencyTypes = this.props.agencyTypes.map((agencyType) => (
+            <div
+                className="radio"
+                key={agencyType.name}>
+                <input
+                    type="radio"
+                    value={agencyType.name}
+                    name="agencyType"
+                    checked={this.props.currentAgencyType === agencyType.name}
+                    onChange={this.onChange} />
+                <label className="radio-label" htmlFor="locationType">{agencyType.label}</label>
+            </div>
+        ));
+
         return (
             <div className="download-filter">
                 <h3 className="download-filter__title">
-                    {icon} Select an awarding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
+                    {icon} Select an awarding or funding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
                 </h3>
                 <div className="download-filter__content">
+                    {agencyTypes}
                     <div className="filter-picker">
                         <label className="select-label" htmlFor="agency-select">
                             Agency
@@ -256,6 +279,7 @@ export default class AgencyFilter extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> Prior to FY19, Financial Assistance awards (grants, direct payments, loans, insurance, and other financial assistance) only sporadically include Funding Agency data.</p>
                 </div>
             </div>
         );

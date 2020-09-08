@@ -53,6 +53,7 @@
         @import "details";
         .award-breakdown {
             @import "../visualizations/awardBreakdown/awardBreakdownVisualization";
+            margin-right: rem(10);
         }
         .geo {
             @import "../visualizations/geo/geoVisualization";

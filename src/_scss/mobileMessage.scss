@@ -1,0 +1,39 @@
+.mobile-message__container {
+    position: fixed;
+    bottom: 9px;
+    background-color: $color-gray-dark;
+    color: $color-white;
+    z-index: 9999999999999999999;
+    margin: 0 0.9rem;
+    border-radius: 3px;
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.21);
+    .mobile-message {
+      @include display(inline-flex);
+      padding-top: 1rem;
+      .mobile-message__image {
+        height: 22px;
+        width: 23px;
+        margin: 0 1rem;
+        img {
+          opacity: 0.6;
+        }
+      }
+      .mobile-message__text {
+        font-size: 1.4rem;
+        letter-spacing: 0;
+        line-height: 1.8rem;
+        padding-right: 3.9rem;
+      }
+    }
+    .mobile-message__button {
+      float: right;
+      margin: 0 1rem 1rem 0;
+      background: transparent;
+      padding: 0;
+      font-size: 1.4rem;
+      font-weight: $font-semibold;
+      letter-spacing: 0;
+      line-height: 1.8rem;
+      color: $color-primary-alt-light;
+    }
+}

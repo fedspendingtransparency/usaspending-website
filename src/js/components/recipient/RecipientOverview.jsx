@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
-import { recipientOverviewLoanInfo } from '../award/shared/InfoTooltipContent';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
 const propTypes = {

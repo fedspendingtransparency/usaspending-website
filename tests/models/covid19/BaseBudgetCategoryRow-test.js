@@ -104,8 +104,8 @@ describe('BaseBudgetCategoryRow', () => {
                         });
                     }
                     else if (type === 'object_class') {
-                        it('should re-format the code and store the name as a combination of code and description for Object Classes', () => {
-                            expect(childBudgetCategoryRow.name).toEqual('01.2: Description text of 012, for humans');
+                        it('should store the name as a combination of code and description for Object Classes', () => {
+                            expect(childBudgetCategoryRow.name).toEqual('012: Description text of 012, for humans');
                         });
                     }
                 });

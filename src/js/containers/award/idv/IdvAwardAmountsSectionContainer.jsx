@@ -16,7 +16,7 @@ import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAward
 
 const propTypes = {
     award: PropTypes.object,
-    setCounts: PropTypes.func,
+    setIdvDetails: PropTypes.func,
     jumpToSection: PropTypes.func
 };
 
@@ -95,7 +95,9 @@ export class IdvAmountsContainer extends React.Component {
 
         // Store the counts in Redux for use in the referenced awards table
         // and related awards section
-        this.props.setCounts({
+        this.props.setIdvDetails({
+            // api currently returns only defc associated with covid19
+            child_file_c: IdvHelper.getChildAwardFileCDetails(data),
             child_awards: data.child_award_count,
             child_idvs: data.child_idv_count,
             grandchild_awards: data.grandchild_award_count,

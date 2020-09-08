@@ -13,7 +13,8 @@ const propTypes = {
     icon: PropTypes.string,
     children: PropTypes.element,
     headerText: PropTypes.element,
-    title: PropTypes.string
+    title: PropTypes.string,
+    tooltip: PropTypes.element
 };
 
 // eslint-disable-next-line react/prop-types
@@ -22,7 +23,8 @@ const Covid19Section = ({
     icon = "chart-area",
     headerText,
     children,
-    title
+    title,
+    tooltip
 }) => (
     <section id={`covid19-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
         <div className="body__header">
@@ -31,6 +33,9 @@ const Covid19Section = ({
                     <FontAwesomeIcon size="lg" icon={icon} />
                 </div>
                 <h2>{title}</h2>
+                <div className="body__header-tooltip">
+                    {tooltip}
+                </div>
             </div>
             <div className="body__header-right">
                 {headerText}
