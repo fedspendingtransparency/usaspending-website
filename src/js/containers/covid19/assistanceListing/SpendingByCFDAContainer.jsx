@@ -11,6 +11,7 @@ import { OrderedMap } from 'immutable';
 import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -21,7 +22,8 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
-
+import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -121,6 +123,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [modalData, setModalData] = useState(null);
+    const [cfdaModal, showCFDAModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -133,7 +137,20 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
+
+    const launchModal = (e) => {
+        e.persist();
+        setModalData(() => results.find((cfda) => cfda.code === e.target.value));
+        showCFDAModal(true);
+    };
+    const closeModal = () => showCFDAModal(false);
+
+    const displayRedirectModal = (e) => {
+        e.persist();
+        dispatch(showModal(e.target.value, 'redirect'));
+    };
 
     const updateAdvancedSearchFilters = (e) => {
         e.preventDefault();
@@ -178,12 +195,14 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             let link = rowData.name;
             if (rowData.code) {
                 link = (
-                    <button
-                        className="assistance-listing__button"
-                        value={rowData.code}
-                        onClick={updateAdvancedSearchFilters}>
-                        {rowData.name}
-                    </button>
+                    <div className="assistance-listing__button__container">
+                        <button
+                            className="assistance-listing__button"
+                            value={rowData.code}
+                            onClick={launchModal}>
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore" /></span>
+                        </button>
+                    </div>
                 );
             }
             if (activeTab === 'loans') {
@@ -347,6 +366,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            <CFDADetailModal
+                mounted={currentModalData.modal !== 'redirect' && cfdaModal}
+                closeModal={closeModal}
+                data={modalData}
+                updateAdvancedSearchFilters={updateAdvancedSearchFilters}
+                displayRedirectModal={displayRedirectModal} />
         </div>
     );
 };
