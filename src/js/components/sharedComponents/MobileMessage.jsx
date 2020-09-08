@@ -4,15 +4,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
-import { withRouter } from 'react-router-dom';
-
-const propTypes = { location: PropTypes.object };
 
 const cookie = 'usaspending_mobile_view_disclaimer';
 
-const MobileMessage = ({ location }) => {
+const MobileMessage = () => {
     const [hideMessage, setHideMessage] = useState(Cookies.get(cookie));
     const onClick = () => {
         Cookies.set(cookie, { expires: 1 });
@@ -55,5 +51,4 @@ const MobileMessage = ({ location }) => {
     );
 };
 
-MobileMessage.propTypes = propTypes;
-export default withRouter(MobileMessage);
+export default MobileMessage;
