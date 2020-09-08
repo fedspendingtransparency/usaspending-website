@@ -27,10 +27,15 @@ const CFDAOpportunityTotals = ({ code }) => {
             }
             catch (e) {
                 if (!isCancel(e)) {
-                    setError({ error: true, message: e.message });
-                    setLoading(false);
+                    if (e.response.status === 404) {
+                        setError({ error: true, message: 'There is no data for this CFDA' });
+                        setLoading(false);
+                    }
+                    else {
+                        setError({ error: true, message: e.message });
+                        setLoading(false);
+                    }
                 }
-                console.log(' Error CFDA Opportunities Totals : ', e.message);
             }
         };
         asyncFunc();

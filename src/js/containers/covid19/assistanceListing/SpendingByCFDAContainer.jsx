@@ -23,7 +23,7 @@ import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/ap
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
 import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
-import RedirectModal from 'components/sharedComponents/RedirectModal';
+import { showModal, hideModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -124,9 +124,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [modalData, setModalData] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [redirectModalURL, setRedirectModalURL] = useState('');
-    const [showRedirectModal, setShowRedirectModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -139,33 +136,27 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
     const launchModal = (e) => {
-        e.preventDefault();
+        e.persist();
         setModalData(() => results.find((cfda) => cfda.code === e.target.value));
-        setShowModal(true);
+        dispatch(showModal(null, 'cfda-detail'));
     };
     const closeModal = () => {
-        if (showRedirectModal) {
-            setShowModal(false);
+        if (currentModalData.modal === 'redirect' && currentModalData.display) {
+            dispatch(showModal(null, 'cfda-detail'));
         }
         else {
-            setShowModal(false);
+            dispatch(hideModal());
             setModalData(null);
         }
     };
 
     const displayRedirectModal = (e) => {
-        e.preventDefault();
-        setRedirectModalURL(e.target.value);
-        setShowRedirectModal(true);
-        setShowModal(false);
-    };
-    const hideRedirectModal = () => {
-        setRedirectModalURL('');
-        setShowRedirectModal(false);
-        setShowModal(true);
+        e.persist();
+        dispatch(showModal(e.target.value, 'redirect'));
     };
 
     const updateAdvancedSearchFilters = (e) => {
@@ -383,16 +374,11 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 pageSize={pageSize}
                 totalItems={totalItems} />
             <CFDADetailModal
-                mounted={showModal}
+                mounted={currentModalData.modal === 'cfda-detail' && currentModalData.display}
                 closeModal={closeModal}
                 data={modalData}
                 updateAdvancedSearchFilters={updateAdvancedSearchFilters}
-                displayRedirectModal={displayRedirectModal}
-                showRedirectModal={showRedirectModal} />
-            <RedirectModal
-                url={redirectModalURL}
-                mounted={showRedirectModal}
-                hideModal={hideRedirectModal} />
+                displayRedirectModal={displayRedirectModal} />
         </div>
     );
 };
