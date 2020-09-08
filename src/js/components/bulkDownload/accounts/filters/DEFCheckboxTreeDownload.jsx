@@ -58,7 +58,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
     }
 
     stageFilter = (newChecked) => {
-        setDefCodes("account", newChecked)
+        setDefCodes("account", newChecked);
         this.props.stageDef(
             [],
             [],
