@@ -8,7 +8,7 @@ const tableMapping = {
         displayName: 'Federal Account',
         field: 'account_title',
         classname: 'federal-accounts-table__body-cell',
-        href: '/#/federal_account/'
+        href: '/federal_account/'
     },
     obligatedAmount: {
         displayName: 'Combined Obligated Amount',
@@ -23,7 +23,7 @@ const tableMapping = {
     fundingAgencyName: {
         displayName: 'Funding Agency',
         classname: 'federal-accounts-table__body-cell offset-left',
-        href: '/#/agency/'
+        href: '/agency/'
     }
 };
 

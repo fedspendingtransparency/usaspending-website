@@ -21,7 +21,9 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 
 export const filterStoreVersion = '2020-06-01';
 
-export const CheckboxTreeSelections = Record({ require: [], exclude: [], counts: [] });
+const defaultCheckboxTreeSelections = { require: [], exclude: [], counts: [] };
+
+export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -47,31 +49,31 @@ export const requiredTypes = {
 };
 
 export const initialState = {
-    keyword: new OrderedMap(),
+    keyword: OrderedMap(),
     timePeriodType: 'fy',
-    timePeriodFY: new Set(),
+    timePeriodFY: Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    selectedLocations: new OrderedMap(),
+    selectedLocations: OrderedMap(),
     locationDomesticForeign: 'all',
-    selectedFundingAgencies: new OrderedMap(),
-    selectedAwardingAgencies: new OrderedMap(),
-    selectedRecipients: new Set(),
+    selectedFundingAgencies: OrderedMap(),
+    selectedAwardingAgencies: OrderedMap(),
+    selectedRecipients: Set(),
     recipientDomesticForeign: 'all',
-    recipientType: new Set(),
-    selectedRecipientLocations: new OrderedMap(),
-    awardType: new Set(),
-    selectedAwardIDs: new OrderedMap(),
-    awardAmounts: new OrderedMap(),
-    selectedCFDA: new OrderedMap(),
-    naicsCodes: new CheckboxTreeSelections(),
-    pscCodes: new CheckboxTreeSelections(),
-    defCodes: new CheckboxTreeSelections(),
-    pricingType: new Set(),
-    setAside: new Set(),
-    extentCompeted: new Set(),
-    treasuryAccounts: new OrderedMap(),
-    tasCodes: new CheckboxTreeSelections()
+    recipientType: Set(),
+    selectedRecipientLocations: OrderedMap(),
+    awardType: Set(),
+    selectedAwardIDs: OrderedMap(),
+    awardAmounts: OrderedMap(),
+    selectedCFDA: OrderedMap(),
+    naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pricingType: Set(),
+    setAside: Set(),
+    extentCompeted: Set(),
+    treasuryAccounts: OrderedMap(),
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
 };
 
 const searchFiltersReducer = (state = initialState, action) => {

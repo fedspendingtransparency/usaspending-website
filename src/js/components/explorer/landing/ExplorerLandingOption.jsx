@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { icons } from 'dataMapping/explorer/dropdownScopes';
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -27,19 +28,19 @@ const ExplorerLandingOption = (props) => {
             </div>
             <h2 className="landing-option__title">
                 {props.title}
-                <a href={`#/explorer/?glossary=${props.term}`}>
+                <Link to={`/explorer?glossary=${props.term}`}>
                     <Icons.Glossary />
-                </a>
+                </Link>
             </h2>
             <div className="landing-option__description">
                 {props.description}
             </div>
 
-            <a
+            <Link
                 className="landing-option__button"
-                href={props.url}>
+                to={props.url}>
                 Start
-            </a>
+            </Link>
         </div>
     );
 };

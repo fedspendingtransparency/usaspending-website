@@ -1,12 +1,32 @@
-const moment = require('moment');
-const Routes = require('../src/js/containers/router/RouterRoutes.js');
+import moment from 'moment';
+
+const routes = [
+    // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel
+    '/',
+    '/search',
+    '/recipient',
+    '/explorer',
+    '/about/accessibility',
+    '/about/privacy',
+    '/about/foia',
+    '/about',
+    '/db-info',
+    '/agency',
+    '/download_center',
+    '/keyword-search',
+    '/federal_account',
+    '/state',
+    '/recipient',
+    '/disaster/covid-19',
+    '/disaster/covid-19/data-sources'
+];
 
 const recipientRequestObject = {
     name: 'recipient',
     updatedFrequency: 'daily',
     priority: '0.8',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/recipient/duns/',
+    url: 'https://api.usaspending.gov:443/api/v2/recipient/duns/',
     method: 'post',
     requestObject: {
         name: 'recipient',
@@ -17,7 +37,7 @@ const recipientRequestObject = {
         award_type: "all"
     },
     accessor: 'id',
-    clientRoute: 'https://www.usaspending.gov/#/recipient'
+    clientRoute: 'https://www.usaspending.gov/recipient'
 };
 
 const awardPageInfo = {
@@ -25,7 +45,7 @@ const awardPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.9',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/search/spending_by_award/',
+    url: 'https://api.usaspending.gov:443/api/v2/search/spending_by_award/',
     method: 'post',
     requestObject: {
         filters: {
@@ -51,7 +71,7 @@ const awardPageInfo = {
         subawards: false
     },
     accessor: 'generated_internal_id',
-    clientRoute: 'https://www.usaspending.gov/#/award'
+    clientRoute: 'https://www.usaspending.gov/award'
 };
 
 const federalAccountPageInfo = {
@@ -59,7 +79,7 @@ const federalAccountPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.7',
     isAsync: true,
-    url: 'https://api.usaspending.gov/api/v2/federal_accounts/',
+    url: 'https://api.usaspending.gov:443/api/v2/federal_accounts/',
     method: 'post',
     accessor: 'account_number',
     requestObject: {
@@ -68,7 +88,7 @@ const federalAccountPageInfo = {
         limit: 100,
         filters: { fy: "2019" }
     },
-    clientRoute: 'https://www.usaspending.gov/#/federal_account'
+    clientRoute: 'https://www.usaspending.gov/federal_account'
 };
 
 const createPaginatedPages = (defaultObj, numberOfPages) => {
@@ -89,7 +109,7 @@ const pages = [
     {
         name: 'static-routes',
         isAsync: false,
-        routes: Routes.routes
+        routes
     },
     [
         // 1K awards
@@ -101,10 +121,10 @@ const pages = [
         updatedFrequency: 'daily',
         priority: '0.5',
         // all states
-        url: 'https://api.usaspending.gov/api/v2/recipient/state/',
+        url: 'https://api.usaspending.gov:443/api/v2/recipient/state/',
         method: 'get',
         accessor: 'fips',
-        clientRoute: 'https://www.usaspending.gov/#/state'
+        clientRoute: 'https://www.usaspending.gov/state'
     },
     {
         name: 'agency',
@@ -112,10 +132,10 @@ const pages = [
         updatedFrequency: 'monthly',
         priority: '0.5',
         // all agencies
-        url: 'https://api.usaspending.gov/api/v2/references/toptier_agencies/',
+        url: 'https://api.usaspending.gov:443/api/v2/references/toptier_agencies/',
         method: 'get',
         accessor: 'agency_id',
-        clientRoute: 'https://www.usaspending.gov/#/agency'
+        clientRoute: 'https://www.usaspending.gov/agency'
     },
     [
         // all federal accounts

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -92,12 +93,12 @@ export default class Header extends React.Component {
                         <ul
                             className="official-banner__site-list">
                             <li>
-                                <a
+                                <Link
                                     className="official-banner__site-link"
-                                    href="https://www.usaspending.gov"
+                                    to="/"
                                     onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
                                     USAspending.gov
-                                </a>
+                                </Link>
                             </li>
                             <li
                                 className="official-banner__site-item official-banner__site-item_spacer"

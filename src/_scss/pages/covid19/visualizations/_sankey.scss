@@ -2,18 +2,23 @@
   width: 100%;
   .sankey__text {
     font-size: 1.2rem;
-    font-weight: $font-semibold;
     fill: $color-gray-medium;
   }
   .text {
     font-size: 1.4rem;
   }
+  .sankey__date-note {
+    font-size: 1.2rem;
+    font-style: italic;
+    fill: #335565;
+  }
   .sankey__text-money {
     font-size: 1.4rem;
-    font-weight: $font-normal;
+    font-weight: $font-light;
   }
-  .sankey__text__public-law {
+  .sankey__text__title {
     font-size: 1.4rem;
+    font-weight: $font-semibold;
   }
   .text__line {
     stroke: $color-gray-lighter;
@@ -30,7 +35,7 @@
         height: 1.5rem;
         width: 1.5rem;
         border-radius: 20px;
-        margin: 0.7rem 0.7rem 0 0;
+        margin: 0.3rem 0.7rem 0 0;
       }
       .covid19-sankey-legend__item__circle-budget-source {
         background-color: #B699C6;
