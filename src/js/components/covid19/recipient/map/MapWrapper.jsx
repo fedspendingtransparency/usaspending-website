@@ -42,8 +42,8 @@ const defaultProps = {
     children: null
 };
 
-//
-const numCountyQuantiles = 200;
+const numCountyQuantiles = 200; 
+const numStateQuantiles = 49;
 
 export default class MapWrapper extends React.Component {
     constructor(props) {
@@ -77,11 +77,13 @@ export default class MapWrapper extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.renderHash !== this.props.renderHash) {
             if (prevProps.scope !== this.props.scope) {
-                // the activeFilter territory changed, we need to reload the layers
+                // if the activeFilter territory changed, we need to reload the layers
+                this.showSource(this.props.activeFilters.territory);
+
                 this.queueMapOperation('displayData', this.displayData);
                 this.prepareMap();
             }
-            else {                
+            else {
                 // only the data changed
                 this.displayData();
             }
@@ -211,12 +213,12 @@ export default class MapWrapper extends React.Component {
         let colors = [];
         if (this.props.data.values.length !== 0) {
             if (this.props.activeFilters.territory === 'state') {
-                colors = this.getColors(this.props.data.values.length);
+                colors = this.getColors(numStateQuantiles);
             } else {
-                colors = this.getColors(numCountyQuantiles); // 
+                colors = this.getColors(numCountyQuantiles);
             }
         } else {
-            colors = this.getColors(49); // in the case when the map has not recieved data yet 
+            colors = this.getColors(numStateQuantiles); // in the case when the map has not recieved data yet
         }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
@@ -390,10 +392,10 @@ export default class MapWrapper extends React.Component {
         let rangeArray = [];
         let colors = [];
         if (this.props.activeFilters.territory === 'state') {
-            colors = this.getColors(this.props.data.values.length);
-            rangeArray = [...Array(this.props.data.values.length).keys()];
+            colors = this.getColors(numStateQuantiles);
+            rangeArray = [...Array(numStateQuantiles).keys()];
         } else {
-            colors = this.getColors(numCountyQuantiles); // 
+            colors = this.getColors(numCountyQuantiles);
             rangeArray = [...Array(numCountyQuantiles).keys()];
         }
 
@@ -406,7 +408,6 @@ export default class MapWrapper extends React.Component {
 
         // in the cases where we have minimal reported data modeling the data with a quantile scale does not work as well as using a linear scale this is because   
         if (this.countUnique(this.props.data.values) < 10 && this.props.data.values.length !== 0) {
-            console.log("edge case")
             scale = scaleLinear().domain(this.props.data.values).range(rangeArray);
         }
         else {
