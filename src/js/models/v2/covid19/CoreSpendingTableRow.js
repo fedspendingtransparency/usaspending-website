@@ -8,7 +8,7 @@ import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 const CoreSpendingTableRow = {
     populateCore(data) {
         this._id = data.id || '';
-        this._code = data.code || '';
+        this.code = data.code || '';
         this.description = data.description || '';
         this._awardCount = data.award_count || 0;
         this._obligation = data.obligation || 0;

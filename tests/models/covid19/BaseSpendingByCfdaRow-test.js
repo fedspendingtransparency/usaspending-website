@@ -13,7 +13,7 @@ describe('COVID-19 spending by CFDA row', () => {
     describe('CoreSpendingTableRow properties', () => {
         describe('name column properties', () => {
             it('should store the code (CFDA number)', () => {
-                expect(row._code).toEqual('43.090');
+                expect(row.code).toEqual('43.090');
             });
             it('should store the description', () => {
                 expect(row.description).toEqual('Description text');
