@@ -30,7 +30,6 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
-import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
@@ -182,15 +181,19 @@ const BudgetCategoriesTableContainer = (props) => {
 
         const table = document.getElementsByClassName('budget-categories')[0];
         const overviewTotals = {
+            totalBudgetaryResources: overview._totalBudgetAuthority,
             obligation: overview._totalObligations,
             outlay: overview._totalOutlays,
             awardCount: budgetCategoriesCount
         };
-
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
+        } else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Federal Account (Unlinked Data)';
+        } else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Object Class (Unlinked Data)';
         } else if (spendingCategory === 'award_spending') {
             unlinkedName = 'Number of Unlinked Awards';
         }
@@ -204,12 +207,13 @@ const BudgetCategoriesTableContainer = (props) => {
             );
             unlinkedData.name = unlinkedColumn;
 
-            const unlinkedRow = Object.create(CoreSpendingTableRow);
-            unlinkedRow.populateCore(unlinkedData);
+            const unlinkedRow = Object.create(BaseBudgetCategoryRow);
+            unlinkedRow.populate(unlinkedData);
 
             if (spendingCategory === 'award_spending') {
                 unlinkedRow.obligation = null;
                 unlinkedRow.outlay = null;
+                unlinkedRow.totalBudgetaryResources = null;
             }
             parsedData.push(unlinkedRow);
         } else {

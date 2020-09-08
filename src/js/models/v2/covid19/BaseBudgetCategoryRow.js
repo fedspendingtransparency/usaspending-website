@@ -12,10 +12,10 @@ BaseBudgetCategoryRow.populate = function populate(data, rowType, isChild = fals
     // Generate generic object properties using the core model
     this.populateCore(data);
     // Add properties specific to Budget Categories
-    this._totalBudgetaryResources = data.total_budgetary_resources || 0;
-    this.totalBudgetaryResources = formatMoney(this._totalBudgetaryResources);
+    this._totalBudgetaryResources = isNaN(data.total_budgetary_resources) ? '--' : data.total_budgetary_resources || 0;
+    this.totalBudgetaryResources = this._totalBudgetaryResources === '--' ? '--' : formatMoney(this._totalBudgetaryResources);
 
-    let name = this.description;
+    let name = this.description || this.name;
 
     if (rowType === 'object_class' || rowType === 'federal_account') {
         if (isChild && rowType === 'federal_account') {
