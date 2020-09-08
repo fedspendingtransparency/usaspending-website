@@ -21,7 +21,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
-import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 
 const propTypes = {

@@ -24,7 +24,7 @@ import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
-import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 
 const propTypes = {
