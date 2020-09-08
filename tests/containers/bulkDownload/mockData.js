@@ -104,6 +104,7 @@ export const mockProps = {
             subAgency: {
                 name: 'Mock Sub-Agency'
             },
+            agencyType: 'funding_agency',
             locationType: 'recipient_location',
             location: {
                 country: {
@@ -171,7 +172,7 @@ export const mockAwardDownloadResponse = {
     file_name: 'mock_file.zip',
     file_url: 'mockurl/mock_file.zip',
     status_url: 'download/status?file_name=mock_file.zip',
-    download_request: {download_details: 'for award'}
+    download_request: { download_details: 'for award' }
 };
 
 export const mockArchiveResponse = {

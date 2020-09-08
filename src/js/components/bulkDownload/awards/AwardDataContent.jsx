@@ -135,6 +135,8 @@ export default class AwardDataContent extends React.Component {
                             bulkAwardTypeChange={this.props.bulkAwardTypeChange}
                             toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                         <AgencyFilter
+                            currentAgencyType={awards.agencyType}
+                            agencyTypes={awardDownloadOptions.agencyTypes}
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
                             currentAgencies={currentAgencies}
@@ -167,7 +169,9 @@ export default class AwardDataContent extends React.Component {
                         <UserSelections
                             awards={awards}
                             agencies={this.props.agencies}
-                            subAgencies={this.props.subAgencies} />
+                            subAgencies={this.props.subAgencies}
+                            updateFilter={this.props.updateFilter}
+                            currentAgencyType={awards.agencyType} />
                         <SubmitButton
                             filters={awards}
                             validForm={this.state.validForm}
