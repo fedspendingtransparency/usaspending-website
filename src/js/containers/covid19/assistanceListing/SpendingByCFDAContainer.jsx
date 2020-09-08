@@ -23,7 +23,7 @@ import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/ap
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
 import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
-import { showModal, hideModal } from 'redux/actions/modal/modalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -124,6 +124,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
     const [modalData, setModalData] = useState(null);
+    const [cfdaModal, showCFDAModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -142,17 +143,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const launchModal = (e) => {
         e.persist();
         setModalData(() => results.find((cfda) => cfda.code === e.target.value));
-        dispatch(showModal(null, 'cfda-detail'));
+        showCFDAModal(true);
     };
-    const closeModal = () => {
-        if (currentModalData.modal === 'redirect' && currentModalData.display) {
-            dispatch(showModal(null, 'cfda-detail'));
-        }
-        else {
-            dispatch(hideModal());
-            setModalData(null);
-        }
-    };
+    const closeModal = () => showCFDAModal(false);
 
     const displayRedirectModal = (e) => {
         e.persist();
@@ -374,7 +367,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 pageSize={pageSize}
                 totalItems={totalItems} />
             <CFDADetailModal
-                mounted={currentModalData.modal === 'cfda-detail' && currentModalData.display}
+                mounted={currentModalData.modal !== 'redirect' && cfdaModal}
                 closeModal={closeModal}
                 data={modalData}
                 updateAdvancedSearchFilters={updateAdvancedSearchFilters}
