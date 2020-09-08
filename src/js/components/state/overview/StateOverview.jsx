@@ -10,6 +10,8 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
+import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
+import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import DetailsTooltip from './DetailsTooltip';
 
 const propTypes = {
@@ -109,15 +111,20 @@ export default class StateOverview extends React.PureComponent {
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
                     <div className="state-section__row">
-                        <div className="state-section__viz totals">
-                            <h3 className="state-overview__heading">
+                        <div className="state-section__viz totals-container">
+                            <div className="state-section__viz totals">
+                                <h3 className="state-overview__heading">
                                 Total Awarded Amount
-                            </h3>
-                            <div className="totals__amount">
-                                {this.props.stateProfile.totalAmount}
-                            </div>
-                            <div className="totals__awards">
+                                </h3>
+                                <div className="totals__amount">
+                                    {this.props.stateProfile.totalAmount}
+                                </div>
+                                <div className="totals__awards">
                                 from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
+                                </div>
+                            </div>
+                            <div className="state-section__viz loan">
+                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
                         <div className="state-section__viz details">
