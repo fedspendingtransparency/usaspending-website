@@ -501,6 +501,9 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
     else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
         return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
     }
+    else if (areChildrenPartial(existingParent.count, parentFromSearch.children)) {
+        return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
+    }
     return [];
 };
 

@@ -7,6 +7,11 @@ import { mockPSC } from './psc/mockPSC';
 
 import { mockHash, mockFilters } from '../mockSearchHashes';
 
+// import { areFiltersEqual as realFn } from '../../../../src/js/helpers/searchHelper';
+
+// This helper fn has its own unit test.
+export const areFiltersEqual = (param1, param2) => param1 === param2;
+
 // Fetch Recipients
 export const fetchRecipients = () => (
     {
@@ -34,7 +39,6 @@ export const fetchAwardingAgencies = () => (
         cancel: jest.fn()
     }
 );
-
 export const fetchFundingAgencies = () => (
     {
         promise: new Promise((resolve) => {

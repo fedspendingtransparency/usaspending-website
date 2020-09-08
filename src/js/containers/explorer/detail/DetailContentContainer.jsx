@@ -366,7 +366,8 @@ export class DetailContentContainer extends React.Component {
             subdivision: nextSubdivision,
             title: data.name,
             id: data.id,
-            accountNumber: data.account_number || ''
+            accountNumber: data.account_number || '',
+            link: data.link
         };
 
         this.props.resetExplorerTable();

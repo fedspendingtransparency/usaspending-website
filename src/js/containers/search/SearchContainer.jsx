@@ -72,43 +72,91 @@ export const parseRemoteFilters = (data) => {
 const SearchContainer = ({ history }) => {
     const { urlHash } = useParams();
     const dispatch = useDispatch();
-    const { filters, download, appliedFilters } = useSelector((state) => state);
+    const {
+        filters: stagedFilters,
+        download,
+        appliedFilters: {
+            filters: appliedFilters,
+            // TODO: Possibly rename these redux properties?
+            _empty: areAppliedFiltersEmpty,
+            _complete: areFiltersApplied
+        }
+    } = useSelector((state) => state);
     const [downloadAvailable, setDownloadAvailable] = useState(false);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
-    const [inFlight, setInFlight] = useState(false);
+    const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
+
+    useEffect(() => {
+        // receiving filters from previous search via hash.
+        const shouldFetchRemoteFilters = (
+            urlHash &&
+            SearchHelper.areFiltersEqual(stagedFilters, initialState)
+        );
+        if (shouldFetchRemoteFilters) {
+            SearchHelper.restoreUrlHash({
+                hash: urlHash
+            }).promise
+                .then((res) => {
+                    dispatch(setAppliedFilterEmptiness(false));
+                    const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+                    if (filtersInImmutableStructure) {
+                        // apply the filters to both the staged and applied stores
+                        dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                    }
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        // eslint-disable-next-line no-console
+                        console.error('Error fetching filters from hash: ', err);
+                        // remove hash since corresponding filter selections aren't retrievable.
+                        dispatch(setAppliedFilterEmptiness(true));
+                        dispatch(setAppliedFilterCompletion(true));
+                        history.push('/search');
+                    }
+                });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (areAppliedFiltersEmpty) {
+            // all the filters were cleared, reset to a blank hash
+            dispatch(setAppliedFilterEmptiness(true));
+            dispatch(setAppliedFilterCompletion(true));
+            history.replace('/search');
+        }
+    }, [areAppliedFiltersEmpty]);
 
     const generateHash = useCallback(() => {
-        setInFlight(true);
         // POST an API request to retrieve the Redux state
+        if (generateHashInFlight) {
+            return;
+        }
+        setGenerateHashInFlight(true);
         SearchHelper.generateUrlHash({
-            filters: appliedFilters.filters,
+            filters: appliedFilters,
             version: filterStoreVersion
         }).promise
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
                 dispatch(setAppliedFilterEmptiness(false));
+                dispatch(setAppliedFilterCompletion(true));
                 history.replace(`/search/${newHash}`);
+                setGenerateHashInFlight(false);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
+                    setGenerateHashInFlight(false);
                 }
             });
-    }, [dispatch, history, appliedFilters.filters]);
+    }, [appliedFilters, generateHashInFlight]);
 
     const setDownloadAvailability = useCallback(() => {
-        if (SearchHelper.areFiltersEqual(filters, appliedFilters.filters)) {
-            // don't make an API call when it's a blank state
-            setDownloadAvailable(false);
-            setDownloadInFlight(false);
-            return;
-        }
-
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
+        operation.fromState(stagedFilters);
         const searchParams = operation.toParams();
 
         // generate the API parameters
@@ -125,66 +173,26 @@ const SearchContainer = ({ history }) => {
             .catch(() => {
                 setDownloadInFlight(false);
             });
-    }, [filters, appliedFilters.filters]);
+    }, [stagedFilters, appliedFilters]);
 
     useEffect(() => {
-        const areAppliedFiltersEmpty = SearchHelper.areFiltersEqual(appliedFilters.filters, initialState);
-        if (areAppliedFiltersEmpty) {
-            // all the filters were cleared, reset to a blank hash
-            dispatch(setAppliedFilterEmptiness(true));
-            dispatch(setAppliedFilterCompletion(true));
-            history.replace('/search');
-            return;
-        }
-        else if (!inFlight) {
+        // if applied filters are not empty, generate hash
+        if (!SearchHelper.areFiltersEqual(appliedFilters, initialState)) {
             // generate hash for filter selections
             generateHash();
+            setDownloadAvailability();
         }
-        setDownloadAvailability();
-    }, [dispatch, history, generateHash, setDownloadAvailability, appliedFilters.filters, inFlight]);
-
-    useEffect(() => {
-        if (!urlHash) {
-            setInFlight(false);
-            return;
-        }
-
-        if (SearchHelper.areFiltersEqual(filters, appliedFilters.filters)) return;
-        // url has a hash apply filters retrieve filter selections via hash if necessary.
-        SearchHelper.restoreUrlHash({
-            hash: urlHash
-        }).promise
-            .then((res) => {
-                dispatch(setAppliedFilterEmptiness(false));
-                const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-                if (filtersInImmutableStructure) {
-                    // apply the filters to both the staged and applied stores
-                    dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                }
-                setInFlight(false);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // eslint-disable-next-line no-console
-                    console.error('Error fetching filters from hash: ', err);
-                    setInFlight(false);
-                    // remove hash since corresponding filter selections aren't retrievable.
-                    dispatch(setAppliedFilterEmptiness(true));
-                    dispatch(setAppliedFilterCompletion(true));
-                    history.push('/search');
-                }
-            });
-    }, [dispatch, history, urlHash, appliedFilters.filters]);
+    }, [appliedFilters]);
 
     return (
         <SearchPage
             hash={urlHash}
-            filters={filters}
-            noFiltersApplied={appliedFilters._empty}
+            filters={stagedFilters}
+            noFiltersApplied={areAppliedFiltersEmpty}
             downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
             download={download}
-            requestsComplete={appliedFilters._complete} />
+            requestsComplete={areFiltersApplied} />
     );
 };
 

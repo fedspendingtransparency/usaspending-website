@@ -241,7 +241,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(greatGrandNotOverwritten).toEqual(true);
             expect(greatGrandPlaceholderNotOverwritten).toEqual(true);
         });
-        it('adds a placeholder for nodes without all children if they dont have it (PSC Depth)', () => {
+        it('adds a placeholder for nodes without all children if they don\'t have it (PSC Depth)', () => {
             const existingNodes = cleanPscData(pscMockData.topTierResponse.results);
             const searchResults = addSearchResultsToTree(existingNodes, [pscMockData.reallyBigTree[0]], getPscNodeFromTree);
             const secondTierWithPlaceholder = getPscNodeFromTree(searchResults, 'AA');
@@ -251,6 +251,17 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(secondTierWithPlaceholder.children[0].isPlaceHolder).toEqual(true);
             expect(secondTierWithPartialChildrenAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
             expect(thirdTierWithPartialResultsAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
+        });
+        it('adds a placeholder for nodes without zero children if they should have them', () => {
+            const existingNodes = cleanPscData(pscMockData.topTierResponse.results);
+            const topTierSearchResponseWithNoMatchingChildren = [{
+                ...pscMockData.topTierResponse.results[0],
+                children: []
+            }];
+            const searchResults = addSearchResultsToTree(existingNodes, topTierSearchResponseWithNoMatchingChildren, getPscNodeFromTree);
+            const topTierNode = getPscNodeFromTree(searchResults, 'Research and Development');
+
+            expect(topTierNode.children[0].isPlaceHolder).toEqual(true);
         });
     });
     describe('expandNodeAndAllDescendantParents', () => {
