@@ -155,6 +155,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const budgetCategoriesCount = useSelector((state) => state.covid19.budgetCategoriesCount);
     const overview = useSelector((state) => state.covid19.overview);
@@ -179,7 +180,6 @@ const BudgetCategoriesTableContainer = (props) => {
     const addUnlinkedData = (parsedData, totals) => {
         let unlinkedName = '';
 
-        const table = document.getElementsByClassName('budget-categories')[0];
         const overviewTotals = {
             totalBudgetaryResources: overview._totalBudgetAuthority,
             obligation: overview._totalObligations,
@@ -199,7 +199,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         if (unlinkedName && unlinkedData && overview) {
-            table.classList.add('unlinked-data');
+            setUnlinkedDataClass(true);
             const unlinkedColumn = (
                 <div>
                     {unlinkedName}
@@ -217,7 +217,7 @@ const BudgetCategoriesTableContainer = (props) => {
             }
             parsedData.push(unlinkedRow);
         } else {
-            table.classList.remove('unlinked-data');
+            setUnlinkedDataClass(false);
         }
 
         setResults(parsedData);
@@ -463,7 +463,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
                 <Table
                     expandable
                     rows={results}

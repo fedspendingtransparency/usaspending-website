@@ -126,6 +126,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const history = useHistory();
 
@@ -174,11 +175,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const addUnlinkedData = (rows, totals) => {
         // add unlinked data if activeTab is all
-        const table = document.getElementsByClassName('assistance-listing')[0];
-
         if (activeTab === 'all') {
             const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
-            table.classList.add('unlinked-data');
+            setUnlinkedDataClass(true);
             const unlinkedName = (
                 <div className="unlinked-data">
                     Unknown CFDA Program (Unlinked Data)
@@ -193,7 +192,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 award_count: unlinkedData.award_count
             });
         } else {
-            table.classList.remove('unlinked-data');
+            setUnlinkedDataClass(false);
         }
         return rows;
     };
@@ -361,7 +360,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef} className="table-wrapper" >
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}

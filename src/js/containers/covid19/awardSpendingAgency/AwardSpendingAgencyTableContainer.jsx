@@ -124,6 +124,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -134,8 +136,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const addUnlinkedData = (parsedData, totals) => {
-        const table = document.getElementsByClassName('spending-by-agency')[0];
-
         let unlinkedName = '';
         const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
 
@@ -146,7 +146,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
 
         if (unlinkedName && unlinkedData) {
-            table.classList.add('unlinked-data');
+            setUnlinkedDataClass(true);
             const unlinkedColumn = (
                 <div>
                     {unlinkedName}
@@ -157,7 +157,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             unlinkedRow.populateCore(unlinkedData);
             parsedData.push(unlinkedRow);
         } else {
-            table.classList.remove('unlinked-data');
+            setUnlinkedDataClass(false);
         }
 
         setResults(parsedData);
@@ -355,7 +355,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
                 <Table
                     expandable
                     rows={results}

@@ -188,6 +188,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -197,12 +198,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const addUnlinkedData = (rows, totals) => {
-        const table = document.getElementsByClassName('spending-by-recipient')[0];
         // add unlinked data if activeTab is all
         if (activeTab === 'all' && !query) {
             const unlinkedData = calculateUnlinkedTotals(recipientTotals, totals);
-
-            table.classList.add('unlinked-data');
+            setUnlinkedDataClass(true);
             const unlinkedName = (
                 <div className="unlinked-data">
                     Unknown Recipient (Unlinked Data)
@@ -224,7 +223,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 rowData.awardCount
             ]);
         } else {
-            table.classList.remove('unlinked-data');
+            setUnlinkedDataClass(false);
         }
         return rows;
     };
@@ -371,7 +370,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            <div ref={tableRef} className="table-wrapper">
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={results}
