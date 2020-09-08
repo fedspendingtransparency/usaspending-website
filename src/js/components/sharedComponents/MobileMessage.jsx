@@ -41,7 +41,7 @@ const MobileMessage = ({ location }) => {
     }, []);
     if (hideMessage) return null;
     return (
-        <div style={location.pathname === '/disaster/covid-19' ? { bottom: '110px' } : {}} className="mobile-message__container">
+        <div className="mobile-message__container">
             <div className="mobile-message">
                 <div className="mobile-message__image">
                     <img src="img/icon--flipMobile.png" alt="Rotate to landscape view" />
