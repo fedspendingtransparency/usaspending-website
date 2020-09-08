@@ -42,7 +42,7 @@ const defaultProps = {
     children: null
 };
 
-const numCountyQuantiles = 200; 
+const numCountyQuantiles = 200;
 const numStateQuantiles = 49;
 
 export default class MapWrapper extends React.Component {

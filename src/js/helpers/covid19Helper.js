@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import moment from 'moment';
 import { snakeCase } from 'lodash';
-import { scaleQuantile } from 'd3-scale';
 
 import {
     defCodes,
@@ -19,7 +18,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
