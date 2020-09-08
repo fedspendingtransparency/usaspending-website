@@ -15,13 +15,6 @@ BaseBudgetCategoryRow.populate = function populate(data, rowType, isChild = fals
     this._totalBudgetaryResources = data.total_budgetary_resources || 0;
     this.totalBudgetaryResources = formatMoney(this._totalBudgetaryResources);
 
-    let code = this._code;
-    if (this._code && rowType === 'object_class' && isChild) {
-        // Add a period before the last digit of Object Class codes
-        code = `${code.slice(0, -1)}.${code.slice(-1)}`;
-    }
-    this.code = code;
-
     let name = this.description;
 
     if (rowType === 'object_class' || rowType === 'federal_account') {

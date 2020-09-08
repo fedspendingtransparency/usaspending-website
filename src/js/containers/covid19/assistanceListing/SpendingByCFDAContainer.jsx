@@ -203,11 +203,11 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             const rowData = Object.create(BaseSpendingByCfdaRow);
             rowData.populate(row);
             let link = rowData.name;
-            if (rowData._code) {
+            if (rowData.code) {
                 link = (
                     <button
                         className="assistance-listing__button"
-                        value={rowData._code}
+                        value={rowData.code}
                         onClick={updateAdvancedSearchFilters}>
                         {rowData.name}
                     </button>
