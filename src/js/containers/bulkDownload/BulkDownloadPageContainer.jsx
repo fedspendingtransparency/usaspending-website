@@ -129,11 +129,12 @@ export class BulkDownloadPageContainer extends React.Component {
 
         if (formState.agencyType) {
             delete params.filters.agency;
-            const agencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
-            if (formState.subAgency.name) {
-                agencyParams.tier = 'subtier';
+            const topTierAgencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
+            params.filters.agencies = [topTierAgencyParams];
+            if (formState.subAgency.name && formState.subAgency.name !== 'Select a Sub-Agency') {
+                const subTierAgencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "subtier", name: formState.subAgency.name };
+                params.filters.agencies = [topTierAgencyParams, subTierAgencyParams];
             }
-            params.filters.agencies = [agencyParams];
         }
 
         this.requestDownload(params, 'awards');
