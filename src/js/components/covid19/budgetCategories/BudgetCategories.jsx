@@ -130,10 +130,10 @@ const BudgetCategories = () => {
                         <ul>
                             <li className="outer-list">&#32;Federal Account 073-1154 Business Loans Program Account, Small Business Administration:
                                 (1) &#32;Paycheck Protection Program (PPP) loans constitute the majority of this account
-                                (2) &#32;EIDL loans constitute the minority of this account
+                                (2) &#32;CARES Act Section 1112 Debt Relief and non-COVID business loan programs are included in this account.
                             </li>
                             <li className="outer-list">&#32;Federal Account 073-1152 Disaster Loans Program Account, Small Business Administration:
-                                &#32;EIDL loans constitute the entirety of this account
+                                (1) &#32; COVID EIDL loans constitute the majority of this account (2) Non-COVID EIDL and Physical Disaster loans are included in this account.
                             </li>
                         </ul>
                     </div>

@@ -40,7 +40,9 @@ describe('BulkDownloadPageContainer', () => {
                 filters: {
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     recipient_locations: [
                         {
                             country: 'USA',
@@ -91,7 +93,9 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     recipient_scope: 'foreign',
@@ -139,7 +143,9 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     date_range: {
@@ -186,7 +192,9 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     recipient_locations: [
@@ -229,13 +237,15 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     place_of_performance_locations: [
                         {
                             country: 'USA',
-                            state: 'HI',
+                            state: 'HI'
                         }
                     ],
                     date_range: {
@@ -283,7 +293,9 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    agency: '123',
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     place_of_performance_scope: 'foreign',

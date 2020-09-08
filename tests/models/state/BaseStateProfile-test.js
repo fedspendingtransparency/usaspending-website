@@ -4,8 +4,8 @@
  */
 
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
-import { mockStateApi } from './mockStateApi';
 import kGlobalConstants from 'GlobalConstants';
+import { mockStateApi } from './mockStateApi';
 
 const state = Object.create(BaseStateProfile);
 state.populate(mockStateApi);
@@ -16,6 +16,13 @@ describe('BaseStateProfile', () => {
     });
     it('should format the total awards', () => {
         expect(state.totalAwards).toEqual('555,555');
+    });
+
+    it('should format the face value loan guarantee', () => {
+        expect(state.totalFaceValueLoanAmount).toEqual('$399.2 billion');
+    });
+    it('should format the loan count', () => {
+        expect(state.totalFaceValueLoanPrimeAwards).toEqual('123,123');
     });
     describe('Census data', () => {
         it('should format the population', () => {

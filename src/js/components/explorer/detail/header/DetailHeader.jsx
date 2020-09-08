@@ -23,6 +23,7 @@ const propTypes = {
     total: PropTypes.number,
     title: PropTypes.string,
     id: PropTypes.string,
+    link: PropTypes.bool,
     parent: PropTypes.string,
     isTruncated: PropTypes.bool,
     isLoading: PropTypes.bool
@@ -63,7 +64,7 @@ const dataType = (type, parent) => {
     );
 };
 
-const heading = (type, title, id) => {
+const heading = (type, title, id, link) => {
     if (type === 'Federal Account') {
         return (
             <h2 className="detail-header__title">
@@ -84,7 +85,7 @@ const heading = (type, title, id) => {
                 onClick={exitExplorer.bind(null, `/agency/${id}`)}>
                 {title}
             </Link>);
-        if (title === "Unreported Data") {
+        if (title === "Unreported Data" || link === false) {
             header = (
                 <span className="detail-header__title">
                     {title}
@@ -120,7 +121,7 @@ const DetailHeader = (props) => {
                     <div className="detail-header__subtitle">
                         You&apos;ve chosen
                     </div>
-                    {heading(type, props.title, props.id)}
+                    {heading(type, props.title, props.id, props.link)}
                     {dataType(type, props.parent)}
                 </div>
                 <div className="right-side">

@@ -141,6 +141,25 @@ describe('DetailContentContainer', () => {
             expect(container.state().filters.fy).toEqual('1984');
             expect(container.state().filters.period).toEqual('5');
         });
+        it('should create a filterset that consists of the provided fiscal year and period', () => {
+            const container = shallow(
+                <DetailContentContainer
+                    {...mockActions}
+                    explorer={mockReducerRoot} />
+            );
+
+            container.instance().loadData = jest.fn();
+            
+            container.instance().componentDidUpdate({
+                explorer: Object.assign({}, mockReducerRoot, {
+                    period: '5'
+                })
+            });
+
+            container.instance().prepareRootRequest('agency', '1984', null, '5');
+            expect(container.state().filters.fy).toEqual('1984');
+            expect(container.state().filters.period).toEqual('5');
+        });
         it('should make a root-level API call with the provided subdivision type', () => {
             const container = shallow(
                 <DetailContentContainer

@@ -2,7 +2,7 @@
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
-    @import "pages/covid19/_stickyHeader";
+
     $color-gray-border: $color-gray-lighter;
 
     .main-content {
@@ -124,6 +124,15 @@
 
             &.covid-sidebar-banner .data-sources-sidebar-content.float-sidebar {
                 top: rem(166);
+            }
+        }
+    }
+
+    .sticky-header {
+        .sticky-header__toolbar {
+            .copy-confirmation {
+                right: rem(83);
+                z-index: 1;
             }
         }
     }

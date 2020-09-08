@@ -10,7 +10,6 @@ import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
-import Analytics from 'helpers/analytics/Analytics';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -76,10 +75,6 @@ export class DEFCheckboxTree extends React.Component {
                 []
             );
         }
-        Analytics.event({
-            category: 'covid-19 - advanced search',
-            action: `DEFC filter - ${this.props.checked}`
-        });
     };
 
     fetchCodes = async () => {

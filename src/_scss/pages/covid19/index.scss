@@ -84,6 +84,9 @@
                             padding-bottom: 0;
                         }
                     }
+                    .body__header-tooltip {
+                        margin-top: rem(5);
+                    }
                     .body__header-right {
                         @include display(flex);
                     }
@@ -258,10 +261,15 @@
                 }
             }
             .body__section:first-of-type {
-              padding: 0;
+                padding: 0;
             }
 
             .body__section:nth-child(4) {
+                padding: 0;
+            }
+
+            .body__section:nth-last-child(2) {
+                margin-bottom: 0;
                 padding: 0;
             }
 

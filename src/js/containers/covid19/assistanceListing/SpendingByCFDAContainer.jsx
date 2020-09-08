@@ -193,12 +193,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             const rowData = Object.create(BaseSpendingByCfdaRow);
             rowData.populate(row);
             let link = rowData.name;
-            if (rowData._code) {
+            if (rowData.code) {
                 link = (
                     <div className="assistance-listing__button__container">
                         <button
                             className="assistance-listing__button"
-                            value={rowData._code}
+                            value={rowData.code}
                             onClick={launchModal}>
                             {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore" /></span>
                         </button>
