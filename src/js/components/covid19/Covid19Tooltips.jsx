@@ -1,5 +1,4 @@
 import React from 'react';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 export const AwardSpendingAgencyTT = () => (
     <div className="homepage__covid-19-tt">
@@ -38,7 +37,7 @@ export const AwardSpendingCfdaTT = () => (
         <h2 className="tooltip__title">Award Spending by CFDA Program (Assistance Listing)</h2>
         <div className="tooltip__text ul-override">
             <p>
-                This section shows a breakdown of award spending according to <span className="glossary-term">CFDA Program</span> <GlossaryLink currentUrl="disaster/covid-19" term="cfda-program" />.
+                This section shows a breakdown of award spending according to CFDA Program.
             </p><br />
             <p>
                 When counts appear next to the award type filters (e.g., ‘All Assistance Awards’, ‘Grants’, etc.), they refer to the number of CFDA Programs associated with that type of award. Note that the count associated with ‘All Assistance Awards’ is not necessarily the sum of the remaining counts. For example, a given CFDA Program may be counted individually across two award type categories (such as ‘Loans’ and ‘Direct Payments’), but would only be counted once under ‘All Assistance Awards’ (rather than twice, once for each of those two categories).
