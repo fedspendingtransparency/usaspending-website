@@ -76,7 +76,6 @@ export default class StateOverview extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props.stateProfile);
         let populationSourceYear = '';
         let incomeSourceYear = '';
 
