@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
-import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
+import { useHistory } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -22,6 +22,8 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+
 import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -129,6 +131,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const history = useHistory();
 
@@ -137,6 +140,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
     const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
@@ -187,6 +191,29 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
+    const addUnlinkedData = (rows, totals) => {
+        // add unlinked data if activeTab is all
+        if (activeTab === 'all') {
+            const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
+            setUnlinkedDataClass(true);
+            const unlinkedName = (
+                <div className="unlinked-data">
+                    Unknown CFDA Program (Unlinked Data)
+                </div>
+            );
+
+            // TODO - DEV-5625 Remove placeholder 0s
+            rows.push({
+                description: unlinkedName,
+                obligation: unlinkedData.obligation,
+                outlay: unlinkedData.outlay,
+                award_count: unlinkedData.award_count
+            });
+        } else {
+            setUnlinkedDataClass(false);
+        }
+        return rows;
+    };
 
     const parseRows = () => (
         results.map((row) => {
@@ -228,7 +255,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && assistanceTotals) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -253,7 +280,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current = cfdaRequest;
             cfdaRequest.promise
                 .then((res) => {
-                    setResults(res.data.results);
+                    const rows = res.data.results;
+                    const totals = res.data.totals;
+                    setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -274,7 +303,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab]);
+    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -351,7 +380,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef} className="table-wrapper" >
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}

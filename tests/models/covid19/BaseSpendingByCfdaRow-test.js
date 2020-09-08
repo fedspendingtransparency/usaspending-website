@@ -60,4 +60,21 @@ describe('COVID-19 spending by CFDA row', () => {
             expect(row._link).toEqual('https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view');
         });
     });
+    describe('set name property to description if it exists and there is no code', () => {
+        it('should set the name to description', () => {
+            const data = {
+                code: null,
+                description: 'Description text',
+                children: [],
+                award_count: 5400,
+                obligation: 89000000.01,
+                outlay: 70000000.98,
+                resource_link: 'https://beta.sam.gov/fal/25b529f3b5f94b6c939bc0ae8424ae6c/view',
+                face_value_of_loan: 56000001.02
+            };
+
+            row.populate(data);
+            expect(row.name).toEqual(data.description);
+        });
+    });
 });

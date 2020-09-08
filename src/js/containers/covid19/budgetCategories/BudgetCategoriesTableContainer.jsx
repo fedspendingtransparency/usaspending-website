@@ -24,17 +24,24 @@ import {
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
-import { handleSort } from 'helpers/covid19Helper';
+import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
+
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
-    scrollIntoView: PropTypes.func.isRequired
+    scrollIntoView: PropTypes.func.isRequired,
+    totals: PropTypes.shape({
+        count: PropTypes.number,
+        totalBudgetaryResources: PropTypes.number,
+        totalObligations: PropTypes.number,
+        totalOutlays: PropTypes.number
+    })
 };
 
 
@@ -147,7 +154,10 @@ const BudgetCategoriesTableContainer = (props) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
+    const budgetCategoriesCount = useSelector((state) => state.covid19.budgetCategoriesCount);
+    const overview = useSelector((state) => state.covid19.overview);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const clickedAgencyProfile = (agencyName) => {
@@ -166,7 +176,53 @@ const BudgetCategoriesTableContainer = (props) => {
         });
     };
 
-    const parseSpendingDataAndSetResults = (data) => {
+    const addUnlinkedData = (parsedData, totals) => {
+        let unlinkedName = '';
+
+        const overviewTotals = {
+            totalBudgetaryResources: overview._totalBudgetAuthority,
+            obligation: overview._totalObligations,
+            outlay: overview._totalOutlays,
+            awardCount: budgetCategoriesCount
+        };
+        const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
+
+        if (props.type === 'agency' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Agency (Unlinked Data)';
+        } else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Federal Account (Unlinked Data)';
+        } else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Object Class (Unlinked Data)';
+        } else if (spendingCategory === 'award_spending') {
+            unlinkedName = 'Number of Unlinked Awards';
+        }
+
+        if (unlinkedName && unlinkedData && overview) {
+            setUnlinkedDataClass(true);
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+
+            const unlinkedRow = Object.create(BaseBudgetCategoryRow);
+            unlinkedRow.populate(unlinkedData);
+
+            if (spendingCategory === 'award_spending') {
+                unlinkedRow.obligation = null;
+                unlinkedRow.outlay = null;
+                unlinkedRow.totalBudgetaryResources = null;
+            }
+            parsedData.push(unlinkedRow);
+        } else {
+            setUnlinkedDataClass(false);
+        }
+
+        setResults(parsedData);
+    };
+
+    const parseSpendingDataAndSetResults = (data, totals) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
             budgetCategoryRow.populate(item, props.type);
@@ -220,7 +276,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 name: link
             };
         });
-        setResults(parsedData);
+
+        addUnlinkedData(parsedData, totals);
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
@@ -229,7 +286,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview && budgetCategoriesCount) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -253,7 +310,7 @@ const BudgetCategoriesTableContainer = (props) => {
             request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
-                    parseSpendingDataAndSetResults(res.data.results);
+                    parseSpendingDataAndSetResults(res.data.results, res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -286,7 +343,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes]);
+    }, [pageSize, sort, order, defCodes, overview, budgetCategoriesCount]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
@@ -405,7 +462,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
                 <Table
                     expandable
                     rows={results}

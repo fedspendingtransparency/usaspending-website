@@ -15,8 +15,10 @@ BaseSpendingByCfdaRow.populate = function populate(data) {
     if (this.code && this.description) {
         this.name = `${this.code}: ${this.description}`;
     }
-    else {
-        this.name = `${this.code}${this.description}` || '--';
+    else if (this.description && !this._code) {
+        this.name = this.description || '--';
+    } else {
+        this.name = `${this._code}${this.description}` || '--';
     }
 };
 
