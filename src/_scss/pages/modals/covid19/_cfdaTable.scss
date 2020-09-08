@@ -1,0 +1,135 @@
+.usa-dt-modal {
+  .usa-dt-modal__header {
+    h1.usa-dt-modal__title {
+      font-size: 2.1rem;
+      font-weight: $font-semibold;
+      letter-spacing: 0;
+      line-height: 2.7rem;
+      padding: 3rem 0 3rem 2rem;
+      @include justify-content(flex-start);
+    }
+  }
+  .usa-dt-modal__body-covid19-cfda {
+    @include display(flex);
+    padding: 1rem;
+    @media (min-width: $tablet-screen) {
+      padding: 3rem 2rem;
+    }
+    .usa-dt-modal__column {
+      @include display(flex);
+      @include flex-direction(column);
+      @include flex-basis(50%);
+      .usa-dt-modal__section {
+        padding-bottom: 3rem;
+        .usa-dt-modal__section__title {
+          h6 {
+            font-size: 1.6rem;
+            font-weight: $font-semibold;
+            letter-spacing: 0;
+            line-height: 2rem;
+            margin: 0;
+          }
+        }
+        .usa-dt-modal__section__description {
+          p {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 2.5rem;
+            margin: 0;
+          }
+          .administrative-agency {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 1.8rem;
+          }
+          button {
+            @include button-link;
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 1.8rem;
+          }
+          .cfda-opportunities__container {
+            background-color: $color-gray-lightest;
+            margin-top: 2rem;
+            .cfda-opportunities__totals {
+              @include display(flex);
+              width: 100%;
+              padding: 1.2rem 0;
+              .cfda-opportunities__total {
+                @include display(flex);
+                @include flex-direction(column);
+                @include flex-basis(25%);
+                text-align: center;
+                border-left: 1px solid $color-gray-light;
+                .cfda-opportunities__total__title {
+                  font-size: 1.4rem;
+                  font-weight: $font-semibold;
+                  letter-spacing: 0;
+                  line-height: 1.8rem;
+                }
+                .cfda-opportunities__total__count {
+                  font-size: 1.8rem;
+                  letter-spacing: 0;
+                  line-height: 2.3rem;
+                  @import 'components/loading-pulse-animation';
+                  .dot-pulse {
+                    margin: 1rem 0 0 5.5rem;
+                  }
+                }
+              }
+              .cfda-opportunities__total:first-of-type {
+                border: none;
+              }
+            }
+          }
+        }
+      }
+      .usa-dt-modal__section:last-of-type {
+        padding-bottom: 0;
+      }
+    }
+    .usa-dt-modal__column:first-of-type {
+      padding-right: 1rem;
+    }
+    .usa-dt-modal__column:last-of-type {
+      padding-left: 1rem;
+    }
+  }
+  .usa-dt-modal__footer {
+    padding: 0 2rem;
+    .usa-dt-modal__footer__body {
+      border-top: 1px solid $color-gray-light;
+      padding: 3rem 0;
+      text-align: center;
+      .usa-dt-modal__footer__title {
+        h5 {
+          font-size: 2.1rem;
+          font-weight: $font-semibold;
+          letter-spacing: 0;
+          line-height: 2.7rem;
+          margin: 0;
+        }
+      }
+      .usa-dt-modal__footer__description {
+        p {
+          margin: 0;
+          font-size: 1.4rem;
+          letter-spacing: 0;
+          line-height: 1.8rem;
+          padding: 1rem 0 2rem 0;
+        }
+      }
+      .usa-dt-modal__footer__button {
+        button {
+          font-size: 1.4rem;
+          font-weight: $font-semibold;
+          letter-spacing: 0;
+          line-height: 1.8rem;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
