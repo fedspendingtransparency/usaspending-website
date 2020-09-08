@@ -8,7 +8,7 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Picker } from 'data-transparency-ui';
+import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { calculateUnlinkedTotals } from 'helpers/covid19CalculateUnlinkedTotalsHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 
+import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -407,6 +408,12 @@ const BudgetCategoriesTableContainer = (props) => {
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
+            <TooltipWrapper
+                className="homepage__covid-19-tt"
+                icon="info"
+                wide
+                tooltipPosition="right"
+                tooltipComponent={<SpendingTypesTT />} />
         </div>
     );
 
