@@ -53,4 +53,14 @@ describe('COVID-19 spending table row', () => {
             expect(row.faceValueOfLoan).toEqual('$56,000,001');
         });
     });
+    describe('setters work correctly', () => {
+        it('should set the outlay', () => {
+            row.outlay = null;
+            expect(row._outlay).toEqual(null);
+        });
+        it('should set the obligation', () => {
+            row.obligation = null;
+            expect(row._obligation).toEqual(null);
+        });
+    });
 });
