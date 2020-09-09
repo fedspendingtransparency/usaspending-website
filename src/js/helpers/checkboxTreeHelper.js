@@ -524,7 +524,6 @@ export const addSearchResultsToTree = (
             if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 const newChildren = appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn);
-                debugger;
                 return {
                     ...nodeFromSearch,
                     children: newChildren
