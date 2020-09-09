@@ -15,6 +15,7 @@ import withGlossaryListener from 'containers/glossary/GlossaryListener';
 import reducers from 'redux/reducers/index';
 
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
+import MobileMessage from 'components/sharedComponents/MobileMessage';
 
 import '_global.scss';
 
@@ -70,6 +71,7 @@ const AppContainer = () => (
                             key={path} />
                     ))}
                 </Switch>
+                {window.outerWidth < 768 && <MobileMessage />}
             </Suspense>
         </BrowserRouter>
     </Provider>

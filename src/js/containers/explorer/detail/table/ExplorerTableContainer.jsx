@@ -110,7 +110,8 @@ export class ExplorerTableContainer extends React.Component {
                     name: item.name,
                     obligated_amount: formattedCurrency,
                     percent_of_total: percent
-                }
+                },
+                link: item.link
             };
             results.push(result);
         });

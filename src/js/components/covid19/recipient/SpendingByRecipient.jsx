@@ -116,7 +116,8 @@ const SpendingByRecipient = () => {
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 areCountsLoading={inFlight}
-                overviewData={overviewData} />
+                overviewData={overviewData}
+                recipientOnly />
             <SpendingByRecipientContainer activeTab={activeTab} scrollIntoView={scrollIntoViewTable} />
         </div>
     );

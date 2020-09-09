@@ -18,6 +18,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -118,10 +119,13 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const spendingByAgencyTotals = useSelector((state) => state.covid19.spendingByAgencyTotals);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -131,7 +135,35 @@ const AwardSpendingAgencyTableContainer = (props) => {
         });
     };
 
-    const parseAwardSpendingByAgency = (data) => {
+    const addUnlinkedData = (parsedData, totals) => {
+        let unlinkedName = '';
+        const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
+
+        if (props.type === 'all') {
+            unlinkedName = 'Unknown Agency (Missing Linkage)';
+        } else {
+            unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
+        }
+
+        if (unlinkedName && unlinkedData) {
+            setUnlinkedDataClass(true);
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+            const unlinkedRow = Object.create(CoreSpendingTableRow);
+            unlinkedRow.populateCore(unlinkedData);
+            parsedData.push(unlinkedRow);
+        } else {
+            setUnlinkedDataClass(false);
+        }
+
+        setResults(parsedData);
+    };
+
+    const parseAwardSpendingByAgency = (data, totals) => {
         const parsedData = data.map((item) => {
             const awardSpendingByAgencyRow = Object.create(CoreSpendingTableRow);
             awardSpendingByAgencyRow.populateCore(item);
@@ -174,7 +206,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 name: link
             };
         });
-        setResults(parsedData);
+
+        addUnlinkedData(parsedData, totals);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
@@ -182,7 +215,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && spendingByAgencyTotals) {
             let params = {};
 
             params = {
@@ -208,7 +241,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise
                 .then((res) => {
-                    parseAwardSpendingByAgency(res.data.results);
+                    parseAwardSpendingByAgency(res.data.results, res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -246,7 +279,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             fetchSpendingByCategoryCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes]);
+    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
@@ -322,7 +355,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
                 <Table
                     expandable
                     rows={results}

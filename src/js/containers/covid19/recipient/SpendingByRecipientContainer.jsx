@@ -24,6 +24,7 @@ import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 
 const propTypes = {
@@ -187,19 +188,52 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
+    const recipientTotals = useSelector((state) => state.covid19.recipientTotals);
     const defCodes = useSelector((state) => state.covid19.defCodes);
+
+    const addUnlinkedData = (rows, totals) => {
+        // add unlinked data if activeTab is all
+        if (activeTab === 'all' && !query) {
+            const unlinkedData = calculateUnlinkedTotals(recipientTotals, totals);
+            setUnlinkedDataClass(true);
+            const unlinkedName = (
+                <div className="unlinked-data">
+                    Unknown Recipient (Unlinked Data)
+                </div>
+            );
+            const rowData = Object.create(BaseSpendingByRecipientRow);
+
+            // TODO - DEV-5625 Remove placeholder 0s
+            rowData.populate({
+                obligation: unlinkedData.obligation,
+                outlay: unlinkedData.outlay,
+                award_count: unlinkedData.award_count
+            });
+
+            rows.push([
+                unlinkedName,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
+            ]);
+        } else {
+            setUnlinkedDataClass(false);
+        }
+        return rows;
+    };
 
     const fetchSpendingByRecipientCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && recipientTotals) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -222,7 +256,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             recipientRequest.promise
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
-                    setResults(rows);
+                    const totals = res.data.totals;
+                    setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -243,7 +278,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByRecipientCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, query]);
+    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
@@ -335,7 +370,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            <div ref={tableRef} className="table-wrapper">
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={results}

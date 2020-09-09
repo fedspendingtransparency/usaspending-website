@@ -81,9 +81,9 @@ const OtherResources = ({
                         <li>
                             Department of Labor -
                             <a
-                                href=" https://www.dol.gov/coronavirus "
+                                href=" https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html "
                                 onClick={handleClick}>
-                                {" https://www.dol.gov/coronavirus "}
+                                {" https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html "}
                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                             </a>
                         </li>
