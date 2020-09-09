@@ -112,7 +112,7 @@ const buildIndividualSitemaps = () => {
         .find((page) => page.name === 'static-routes').routes
         .map((route) => ({
             ...route,
-            clientRoute: `https://www.usaspending.gov/#${route}`,
+            clientRoute: `https://www.usaspending.gov/${route}`,
             accessor: ''
         }))
         .forEach((route) => {
