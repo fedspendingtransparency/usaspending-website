@@ -56,12 +56,22 @@ export class DEFCheckboxTreeDownload extends React.Component {
         this.fetchCodes();
     }
 
-    stageFilter = () => {
-        this.props.stageDef(
-            [],
-            [],
-            []
-        );
+    stageFilter = (newChecked) => {
+        const newCount = newChecked.reduce((acc) => acc + 1, 0);
+        if (newCount > 0) {
+            this.props.stageDef(
+                newChecked,
+                [],
+                []
+            );
+        }
+        else {
+            this.props.stageDef(
+                [],
+                [],
+                []
+            );
+        }
     };
 
     fetchCodes = async () => {
@@ -125,11 +135,12 @@ DEFCheckboxTreeDownload.propTypes = {
 
 const mapStateToProps = (state) => ({
     counts: state.filters.defCodes.toObject().counts,
-    checked: state.filters.defCodes.toObject().require
+    //checked: state.filters.defCodes.toObject().require
+    checked: state.filters.defCodes
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    stageDef: (require, checked) => dispatch(setDefCodes("account", checked))
+    stageDef: (require, checked, count) => dispatch(setDefCodes("account", checked, count))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DEFCheckboxTreeDownload);

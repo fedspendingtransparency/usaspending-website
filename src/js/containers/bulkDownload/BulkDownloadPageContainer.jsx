@@ -154,12 +154,12 @@ export class BulkDownloadPageContainer extends React.Component {
                 agency: formState.agency.id,
                 submission_types: submissionTypes,
                 fy: formState.fy,
-                defCodes: formState.defCodes
+                def_codes: formState.defCodes
             },
             file_format: 'csv'
         };
 
-        console.log(params);
+        console.log(params); // for testing
 
         if (formState.federalAccount.id !== '' && formState.federalAccount.id !== 'all') {
             params.filters.federal_account = formState.federalAccount.id;
