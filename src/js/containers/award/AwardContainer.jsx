@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
+import { withRouter } from 'react-router-dom';
 import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -27,7 +28,7 @@ import {
     fetchIdvDownloadFile,
     fetchContractDownloadFile,
     fetchAssistanceDownloadFile
-} from '../../helpers/downloadHelper';
+} from 'helpers/downloadHelper';
 
 require('pages/award/awardPage.scss');
 
@@ -40,10 +41,10 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    params: PropTypes.object,
     award: PropTypes.object,
     isDownloadPending: PropTypes.bool,
-    isSubAwardIdClicked: PropTypes.bool
+    isSubAwardIdClicked: PropTypes.bool,
+    match: PropTypes.object
 };
 
 export class AwardContainer extends React.Component {
@@ -62,12 +63,12 @@ export class AwardContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.params.awardId);
+        this.getSelectedAward(this.props.match.params.awardId);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.awardId !== prevProps.params.awardId) {
-            this.getSelectedAward(this.props.params.awardId);
+        if (this.props.match.params.awardId !== prevProps.match.params.awardId) {
+            this.getSelectedAward(this.props.match.params.awardId);
         }
     }
 
@@ -147,7 +148,7 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
+    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
         if (awardCategory === 'idv') {
             return fetchIdvDownloadFile(awardId);
         }
@@ -158,7 +159,7 @@ export class AwardContainer extends React.Component {
         return fetchAssistanceDownloadFile(awardId);
     }
 
-    async downloadData(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
+    async downloadData(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
         // don't show a modal about the download
         this.props.setDownloadCollapsed(true);
 
@@ -189,7 +190,7 @@ export class AwardContainer extends React.Component {
                 isSubAwardIdClicked={this.props.isSubAwardIdClicked}
                 isDownloadPending={this.props.isDownloadPending}
                 downloadData={this.downloadData}
-                awardId={this.props.params.awardId}
+                awardId={this.props.match.params.awardId}
                 award={this.props.award}
                 isLoading={this.state.inFlight}
                 noAward={this.state.noAward} />
@@ -198,6 +199,7 @@ export class AwardContainer extends React.Component {
 }
 
 AwardContainer.propTypes = propTypes;
+const AwardContainerWithRouter = withRouter(AwardContainer);
 
 export default connect(
     (state) => ({
@@ -214,4 +216,4 @@ export default connect(
         subAwardIdClicked,
         resetAward
     }, dispatch)
-)(AwardContainer);
+)(AwardContainerWithRouter);

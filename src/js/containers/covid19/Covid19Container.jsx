@@ -41,6 +41,8 @@ import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/d
 import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
+import OtherResources from 'components/covid19/OtherResources';
+import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 import SidebarFooter from '../../components/covid19/SidebarFooter';
@@ -161,6 +163,7 @@ const Covid19Container = () => {
 
     const handleJumpToSection = (section) => {
         jumpToSection(section);
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
 
     return (
@@ -187,8 +190,7 @@ const Covid19Container = () => {
                         {/* <hr /> */}
                         <ShareIcon
                             slug={slug}
-                            email={getEmailSocialShareData}
-                            noHash />
+                            email={getEmailSocialShareData} />
                         <div className="sticky-header__toolbar-item">
                             <DownloadButtonContainer />
                         </div>
@@ -254,12 +256,17 @@ const Covid19Container = () => {
                                         section={section}
                                         icon={componentByCovid19Section()[section].icon}
                                         headerText={componentByCovid19Section()[section].headerText}
-                                        title={componentByCovid19Section()[section].title}>
+                                        title={componentByCovid19Section()[section].title}
+                                        tooltip={componentByCovid19Section()[section].tooltip}>
                                         {componentByCovid19Section()[section].component}
                                     </Covid19Section>
                                 ))}
                             <section className="body__section" id="covid19-data_sources_and_methodology">
                                 <DataSourcesAndMethodology
+                                    handleExternalLinkClick={handleExternalLinkClick} />
+                            </section>
+                            <section className="body__section" id="covid19-other_resources">
+                                <OtherResources
                                     handleExternalLinkClick={handleExternalLinkClick} />
                                 <LinkToAdvancedSearchContainer />
                             </section>

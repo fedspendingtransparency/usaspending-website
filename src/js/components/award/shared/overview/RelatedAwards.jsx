@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { Link } from 'react-router-dom';
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
@@ -20,7 +21,7 @@ const propTypes = {
     jumpToSection: PropTypes.func,
     setRelatedAwardsTab: PropTypes.func,
     jumpToSubAwardHistoryTable: PropTypes.func,
-    counts: PropTypes.object
+    details: PropTypes.object
 };
 
 export default class RelatedAwards extends React.Component {
@@ -53,38 +54,38 @@ export default class RelatedAwards extends React.Component {
     }
 
     referencedAwardCounts() {
-        const { counts, overview } = this.props;
-        if (!counts) return null;
+        const { details, overview } = this.props;
+        if (!details) return null;
         let childData = [];
         if (overview.category === 'idv') {
             childData = [
                 {
-                    count: formatNumber(counts.child_awards),
+                    count: formatNumber(details.child_awards),
                     name: 'Child Award',
                     funcName: 'jumpToReferencedAwardsTableChildAwardsTab',
                     glossary: 'contract',
-                    postText: counts.child_awards === 1 ? 'Order' : 'Orders'
+                    postText: details.child_awards === 1 ? 'Order' : 'Orders'
                 },
                 {
-                    count: formatNumber(counts.child_idvs),
+                    count: formatNumber(details.child_idvs),
                     name: 'Child IDV',
                     funcName: 'jumpToReferencedAwardsTableChildIDVsTab',
                     glossary: 'IDV',
-                    postText: counts.child_idvs === 1 ? 'Order' : 'Orders'
+                    postText: details.child_idvs === 1 ? 'Order' : 'Orders'
                 },
                 {
-                    count: formatNumber(counts.grandchild_awards),
+                    count: formatNumber(details.grandchild_awards),
                     name: 'Grandchild Award',
                     funcName: 'jumpToReferencedAwardsTableGrandchildAwardsTab',
                     glossary: 'award',
-                    postText: counts.grandchild_awards === 1 ? 'Order' : 'Orders'
+                    postText: details.grandchild_awards === 1 ? 'Order' : 'Orders'
                 }
             ];
         }
         else {
             childData = [
                 {
-                    count: formatNumber(counts.subawardCount),
+                    count: formatNumber(details.subawardCount),
                     name: 'Sub-Awards',
                     funcName: 'jumpToAwardHistoryTableSubAwardsTab',
                     glossary: 'contract',
@@ -136,11 +137,11 @@ export default class RelatedAwards extends React.Component {
         let parentLink = 'N/A';
         if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
-                <a
+                <Link
                     className="related-awards__link"
-                    href={`#/award/${overview.parentAwardDetails.awardId}`}>
+                    href={`award/${overview.parentAwardDetails.awardId}`}>
                     {overview.parentAwardDetails.piid}
-                </a>
+                </Link>
             );
         }
 

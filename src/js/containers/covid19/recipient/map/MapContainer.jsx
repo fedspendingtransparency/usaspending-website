@@ -27,6 +27,7 @@ import {
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
+import Analytics from 'helpers/analytics/Analytics';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {
@@ -90,6 +91,15 @@ export class MapContainer extends React.Component {
         });
     }
 
+    getAwardTypeFilterTabs = () => (
+        awardTypeTabs.map((tab) => {
+            if (this.state.activeFilters.spendingType === 'face_value_of_loan') {
+                return { ...tab, isDisabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
+            }
+            return { ...tab, isDisabled: false };
+        })
+    );
+
     updateAmountTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -99,6 +109,10 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - recipient locations',
+            action: `${this.state.activeFilters.awardType} - amount type - ${value}`
+        });
     }
 
     updateTerritoryFilter = (value) => {
@@ -113,6 +127,10 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - recipient locations',
+            action: `${this.state.activeFilters.awardType} - area type - ${value}`
+        });
     }
     updateSpendingTypeFilter = (value) => {
         this.setState(
@@ -123,6 +141,10 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - recipient locations',
+            action: `${this.state.activeFilters.awardType} - spending type - ${value}`
+        });
     }
     updateRecipientTypeFilter = (value) => {
         this.setState(
@@ -133,6 +155,10 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - recipient locations',
+            action: `${this.state.activeFilters.awardType} - recipient type - ${value}`
+        });
     }
     updateAwardTypeFilter = (value) => {
         this.setState(
@@ -143,6 +169,10 @@ export class MapContainer extends React.Component {
             }),
             () => this.prepareFetch(true)
         );
+        Analytics.event({
+            category: 'covid-19 - award spending by recipient - recipient locations',
+            action: `award type - ${value}`
+        });
     }
 
     mapLoaded = () => {
@@ -343,7 +373,7 @@ export class MapContainer extends React.Component {
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">
-                    <ResultsTableErrorMessage title="WebGL Required." description="Please enable WebGL in your browser settings to view this visualization." />
+                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
         } else if (this.state.loading) {
@@ -395,7 +425,7 @@ export class MapContainer extends React.Component {
                 aria-label="Spending by Geography">
                 <AwardFilterButtons
                     onClick={this.updateAwardTypeFilter}
-                    filters={awardTypeTabs}
+                    filters={this.getAwardTypeFilterTabs()}
                     activeFilter={this.state.activeFilters.awardType} />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper

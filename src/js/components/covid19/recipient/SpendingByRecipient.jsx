@@ -12,6 +12,7 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
+import Analytics from 'helpers/analytics/Analytics';
 import AwardFilterButtons from './AwardFilterButtons';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
@@ -55,6 +56,7 @@ const SpendingByRecipient = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
+        Analytics.event({ category: 'COVID-19 - Award Spending by Recipient - Recipients', action: `${activeTab} - click` });
     };
 
     useEffect(() => {
@@ -104,7 +106,7 @@ const SpendingByRecipient = () => {
         <div className="spending-by-recipient">
             <div ref={awardFilterButtonsRef}>
                 <AwardFilterButtons
-                    filters={awardTypeTabs}
+                    filters={awardTypeTabs.map((tab) => ({ ...tab, isDisabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal] }))}
                     onClick={changeActiveTab}
                     activeFilter={activeTab}
                     tabCounts={tabCounts} />
@@ -114,7 +116,8 @@ const SpendingByRecipient = () => {
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 areCountsLoading={inFlight}
-                overviewData={overviewData} />
+                overviewData={overviewData}
+                recipientOnly />
             <SpendingByRecipientContainer activeTab={activeTab} scrollIntoView={scrollIntoViewTable} />
         </div>
     );

@@ -7,9 +7,9 @@ export const setAward = (overview) => ({
     overview
 });
 
-export const setCounts = (counts) => ({
-    type: 'SET_COUNTS',
-    counts
+export const setIdvDetails = (details) => ({
+    type: 'SET_IDV_DETAILS',
+    details
 });
 
 export const setTotalTransactionObligatedAmount = (total) => ({

@@ -43,7 +43,7 @@ export default class AgencyPage extends React.Component {
 
         return (
             <div className="usa-da-agency-page">
-                <MetaTags {...agencyPageMetaTags} />
+                <MetaTags {...agencyPageMetaTags(overview)} />
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">

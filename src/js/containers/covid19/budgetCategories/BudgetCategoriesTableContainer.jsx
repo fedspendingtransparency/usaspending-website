@@ -8,9 +8,13 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Picker } from 'data-transparency-ui';
+import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from 'react-router-dom';
+
 import kGlobalConstants from 'GlobalConstants';
+import Analytics from 'helpers/analytics/Analytics';
+
 
 import {
     budgetColumns,
@@ -20,16 +24,24 @@ import {
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
-import { handleSort } from 'helpers/covid19Helper';
+import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 
+import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
+
 const propTypes = {
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
-    scrollIntoView: PropTypes.func.isRequired
+    scrollIntoView: PropTypes.func.isRequired,
+    totals: PropTypes.shape({
+        count: PropTypes.number,
+        totalBudgetaryResources: PropTypes.number,
+        totalObligations: PropTypes.number,
+        totalOutlays: PropTypes.number
+    })
 };
 
 
@@ -138,14 +150,79 @@ const BudgetCategoriesTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
-    const [request, setRequest] = useState(null);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
+    const budgetCategoriesCount = useSelector((state) => state.covid19.budgetCategoriesCount);
+    const overview = useSelector((state) => state.covid19.overview);
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    const parseSpendingDataAndSetResults = (data) => {
+    const clickedAgencyProfile = (agencyName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - agency profile click`,
+            label: agencyName
+        });
+    };
+
+    const clickedFedAcctProfile = (accountName) => {
+        Analytics.event({
+            category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
+            action: `${spendingCategory} - federal account profile click`,
+            label: accountName
+        });
+    };
+
+    const addUnlinkedData = (parsedData, totals) => {
+        let unlinkedName = '';
+
+        const overviewTotals = {
+            totalBudgetaryResources: overview._totalBudgetAuthority,
+            obligation: overview._totalObligations,
+            outlay: overview._totalOutlays,
+            awardCount: budgetCategoriesCount
+        };
+        const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
+
+        if (props.type === 'agency' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Agency (Unlinked Data)';
+        } else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Federal Account (Unlinked Data)';
+        } else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+            unlinkedName = 'Unknown Object Class (Unlinked Data)';
+        } else if (spendingCategory === 'award_spending') {
+            unlinkedName = 'Number of Unlinked Awards';
+        }
+
+        if (unlinkedName && unlinkedData && overview) {
+            setUnlinkedDataClass(true);
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+
+            const unlinkedRow = Object.create(BaseBudgetCategoryRow);
+            unlinkedRow.populate(unlinkedData);
+
+            if (spendingCategory === 'award_spending') {
+                unlinkedRow.obligation = null;
+                unlinkedRow.outlay = null;
+                unlinkedRow.totalBudgetaryResources = null;
+            }
+            parsedData.push(unlinkedRow);
+        } else {
+            setUnlinkedDataClass(false);
+        }
+
+        setResults(parsedData);
+    };
+
+    const parseSpendingDataAndSetResults = (data, totals) => {
         const parsedData = data.map((item) => {
             const budgetCategoryRow = Object.create(BaseBudgetCategoryRow);
             budgetCategoryRow.populate(item, props.type);
@@ -167,22 +244,24 @@ const BudgetCategoriesTableContainer = (props) => {
 
             let link = budgetCategoryRow.name;
             const id = budgetCategoryRow._id;
-            const code = budgetCategoryRow._code;
+            const code = budgetCategoryRow.code;
             if (link && code && props.type === 'federal_account') {
                 link = (
-                    <a
+                    <Link
                         className="federal-account-profile__link"
-                        href={`#/federal_account/${code}`}>
+                        onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
+                        href={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             } else if (link && id && props.type === 'agency') {
                 link = (
-                    <a
+                    <Link
                         className="agency-profile__link"
-                        href={`#/agency/${id}`}>
+                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                        to={`/agency/${id}`}>
                         {budgetCategoryRow.name}
-                    </a>
+                    </Link>
                 );
             }
 
@@ -197,16 +276,17 @@ const BudgetCategoriesTableContainer = (props) => {
                 name: link
             };
         });
-        setResults(parsedData);
+
+        addUnlinkedData(parsedData, totals);
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
-        if (request) {
-            request.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview && budgetCategoriesCount) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -220,25 +300,25 @@ const BudgetCategoriesTableContainer = (props) => {
                 }
             };
 
-            let disasterSpendingRequest;
-            if (spendingCategory === 'loan_spending') {
-                disasterSpendingRequest = fetchLoanSpending(props.type, params);
-            } else {
+
+            if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
-                disasterSpendingRequest = fetchDisasterSpending(props.type, params);
             }
-            setRequest(disasterSpendingRequest);
+
+            const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
+
+            request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
-                    parseSpendingDataAndSetResults(res.data.results);
+                    parseSpendingDataAndSetResults(res.data.results, res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
                 }).catch((err) => {
-                    setRequest(null);
                     if (!isCancel(err)) {
                         setError(true);
                         setLoading(false);
+                        request.current = null;
                         console.error(err);
                     }
                 });
@@ -246,6 +326,12 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
+        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+        // In this particular case, we want to fetch from api.
+        if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
+            changeCurrentPage(1);
+            fetchBudgetSpendingCallback();
+        }
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
@@ -253,9 +339,11 @@ const BudgetCategoriesTableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
+        if (currentPage === 1) {
+            fetchBudgetSpendingCallback();
+        }
         changeCurrentPage(1);
-        fetchBudgetSpendingCallback();
-    }, [props.type, spendingCategory, pageSize, defCodes, sort, order]);
+    }, [pageSize, sort, order, defCodes, overview, budgetCategoriesCount]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
@@ -284,6 +372,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const spendingCategoryOnChange = (key) => {
         setSpendingCategory(key);
+        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
     let message = null;
@@ -322,6 +411,12 @@ const BudgetCategoriesTableContainer = (props) => {
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
+            <TooltipWrapper
+                className="homepage__covid-19-tt"
+                icon="info"
+                wide
+                tooltipPosition="right"
+                tooltipComponent={<SpendingTypesTT />} />
         </div>
     );
 
@@ -367,7 +462,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
                 <Table
                     expandable
                     rows={results}

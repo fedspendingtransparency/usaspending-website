@@ -15,7 +15,8 @@ const propTypes = {
     tooltipComponent: PropTypes.element,
     tooltipClasses: PropTypes.string,
     tooltipPosition: PropTypes.string,
-    tooltipIcon: PropTypes.string
+    tooltipIcon: PropTypes.string,
+    primeAwards: PropTypes.bool
 };
 
 const FaceValueOfLoans = (props) => (
@@ -38,7 +39,11 @@ const FaceValueOfLoans = (props) => (
         </div>
 
         <div className="totals__awards">
-from <span className="state-overview__total">{`${props.transactions}`}</span> {props.transactions === "1" ? 'transaction' : 'transactions'}
+            from {props.primeAwards ?
+            <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "prime award" : "prime awards"}</>
+                :
+            <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "transaction" : "transactions"}</>
+            }
         </div>
     </div>
 );

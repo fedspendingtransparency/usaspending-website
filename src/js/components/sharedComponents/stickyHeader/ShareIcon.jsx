@@ -6,23 +6,21 @@ import { debounce } from "lodash";
 import {
     socialShareOptions,
     getSocialShareFn,
-    getBaseUrl,
-    getBaseUrlNoHash
+    getBaseUrl
 } from 'helpers/socialShare';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     slug: PropTypes.string,
     email: PropTypes.shape({
         subject: PropTypes.string,
         body: PropTypes.string
-    }),
-    noHash: PropTypes.bool
+    })
 };
 
 const ShareIcon = ({
     slug,
-    email: { subject, body },
-    noHash
+    email: { subject, body }
 }) => {
     const [showConfirmationText, setConfirmationText] = useState(false);
     const hideConfirmationText = debounce(() => setConfirmationText(false), 1750);
@@ -38,6 +36,7 @@ const ShareIcon = ({
         document.getElementById('slug').select();
         document.execCommand("copy");
         setConfirmationText(true);
+        Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}` });
     };
 
     const socialSharePickerOptions = socialShareOptions.map((option) => {
@@ -48,7 +47,7 @@ const ShareIcon = ({
             };
         }
         if (option.name === 'email') {
-            const onClick = getSocialShareFn(option.name, noHash).bind(null, {
+            const onClick = getSocialShareFn(option.name).bind(null, {
                 subject,
                 body
             });
@@ -59,7 +58,7 @@ const ShareIcon = ({
         }
         return {
             ...option,
-            onClick: getSocialShareFn(option.name, noHash).bind(null, slug)
+            onClick: getSocialShareFn(option.name).bind(null, slug)
         };
     });
 
@@ -70,7 +69,7 @@ const ShareIcon = ({
                 type="text"
                 className="text"
                 style={{ position: 'absolute', right: '9999px', opacity: 0 }}
-                value={noHash ? getBaseUrlNoHash(slug) : getBaseUrl(slug)}
+                value={getBaseUrl(slug)}
                 readOnly />
             <Picker
                 dropdownDirection="left"

@@ -1,8 +1,9 @@
-const fs = require('fs');
-const axios = require('axios');
-const path = require('path');
+import fs from 'fs';
+import axios from 'axios';
+import path from 'path';
+import tunnel from 'tunnel';
 
-const pages = require('./pages');
+import pages from './pages';
 
 const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
@@ -14,6 +15,14 @@ const xmlEnd = `</urlset>`;
 const indexedSitemapXmlEnd = `</sitemapindex>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
+const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
+    tunnel.httpsOverHttp({
+        proxy: {
+            host: process.env.PROXY_HOST,
+            port: process.env.PROXY_PORT
+        }
+    }) : null;
+
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
  * @param {Array.object} pageData data w/ the url param needed to the page
@@ -22,11 +31,16 @@ const forbiddenChars = ['&', "'", '"', '<', '>'];
     * * @param {string} clientRoute client side route for page
     * * @param {string} priority how important the page is on scale of 0.1 - 0.9
     * * @param {string} updatedFrequency how frequently google should crawl this page
-* @returns {string} looks like this <url><loc>https://www.usaspending.gov/#/award/CONT_IDV_GS35F0045K_4730</loc><changefreq>weekly</changefreq><priority>1</priority></url>
+* @returns {string} looks like this <url><loc>https://www.usaspending.gov/award/CONT_IDV_GS35F0045K_4730</loc><changefreq>weekly</changefreq><priority>1</priority></url>
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
-    const { accessor, clientRoute, priority, updatedFrequency } = pageInfo;
+    const {
+        accessor,
+        clientRoute,
+        priority,
+        updatedFrequency
+    } = pageInfo;
     return pageData
         .map((page) => ({ value: page[accessor], name: page.name }))
         .filter((page) => {
@@ -51,7 +65,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 
 const createRobots = () => {
     fs.writeFile(
-        path.resolve(__dirname, `../robots.txt`),
+        path.resolve(__dirname, `../../../robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
         () => console.log("robots.txt successfully created!")
     );
@@ -59,17 +73,17 @@ const createRobots = () => {
 
 const createIndexedSitemap = (xmlRoutes) => {
     fs.writeFile(
-        path.resolve(__dirname, `../sitemap.xml`),
+        path.resolve(__dirname, `../../../sitemap.xml`),
         `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
         () => console.log(`Sitemap sitemap.xml successfully created!`)
     );
 
     sitemapsWritten.push('sitemap');
-}
+};
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../${siteMapName}.xml`),
+        path.resolve(__dirname, `../../../${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
     );
@@ -80,12 +94,12 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
 const handleApiResponse = (resp) => {
     // flatten massive arrays returned from Promise.all();
     if (Array.isArray(resp)) {
-        return resp.reduce((acc, result) => {
-            return [
+        return resp.reduce((acc, result) => (
+            [
                 ...acc,
                 ...result.data.results
-            ];
-        }, []);
+            ]
+        ), []);
     }
     // return array in results/data namespace (res.data is for the states api response :shrug:)
     return resp.data.results || resp.data;
@@ -96,10 +110,9 @@ const buildIndividualSitemaps = () => {
     let staticRoutesXml = '';
     pages
         .find((page) => page.name === 'static-routes').routes
-        .filter((route) => route.addToSitemap)
         .map((route) => ({
             ...route,
-            clientRoute: `https://www.usaspending.gov/#${route.path}`,
+            clientRoute: `https://www.usaspending.gov${route}`,
             accessor: ''
         }))
         .forEach((route) => {
@@ -123,6 +136,8 @@ const buildIndividualSitemaps = () => {
                 }
                 if (Array.isArray(page)) {
                     const nestedPages = page.map((nestedPage) => axios({
+                        httpsAgent: agent,
+                        proxy: false,
                         method: nestedPage.method,
                         data: nestedPage.requestObject || null,
                         url: nestedPage.url,
@@ -131,6 +146,8 @@ const buildIndividualSitemaps = () => {
                     return Promise.all([...nestedPages]);
                 }
                 return axios({
+                    httpsAgent: agent,
+                    proxy: false,
                     method: page.method,
                     data: page.requestObject || null,
                     url: page.url,

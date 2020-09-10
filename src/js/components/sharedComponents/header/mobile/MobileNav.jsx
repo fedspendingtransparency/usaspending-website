@@ -5,11 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import Router from 'containers/router/Router';
 
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
@@ -25,10 +25,11 @@ const clickedHeaderLink = (route) => {
 };
 
 const propTypes = {
-    hideMobileNav: PropTypes.func
+    hideMobileNav: PropTypes.func,
+    location: PropTypes.object
 };
 
-export default class MobileNav extends React.Component {
+export class MobileNav extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,11 +52,10 @@ export default class MobileNav extends React.Component {
 
     checkCurrentProfile() {
         // determine if we need to highlight a dropdown menu option
-        const currentUrl = Router.history.location.pathname;
-        const formattedUrl = `#${currentUrl}`;
-        if (this.state.url !== formattedUrl) {
+        const currentUrl = this.props.location.pathname;
+        if (this.state.url !== currentUrl) {
             this.setState({
-                url: formattedUrl
+                url: currentUrl
             });
         }
     }
@@ -70,14 +70,14 @@ export default class MobileNav extends React.Component {
                     <ul
                         className="mobile-nav-content__list">
                         <li className="mobile-nav-content__list-item">
-                            <a
+                            <Link
                                 className="mobile-nav-content__link"
-                                href="#/explorer"
+                                to="/explorer"
                                 title="Spending Explorer"
-                                name="#/explorer"
+                                name="explorer"
                                 onClick={this.clickedLink}>
                                 Spending Explorer
-                            </a>
+                            </Link>
                             <hr className="mobile-nav-content__divider" />
                         </li>
                         <li className="mobile-nav-content__list-item">
@@ -118,3 +118,4 @@ export default class MobileNav extends React.Component {
 }
 
 MobileNav.propTypes = propTypes;
+export default withRouter(MobileNav);

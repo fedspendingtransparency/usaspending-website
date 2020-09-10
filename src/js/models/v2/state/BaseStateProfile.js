@@ -19,6 +19,8 @@ const BaseStateProfile = {
         this._population = data.population || 0;
         this._awardAmountPerCapita = data.award_amount_per_capita || 0;
         this._medianHouseholdIncome = data.median_household_income || 0;
+        this._totalFaceValueLoanAmount = data.total_face_value_loan_amount || 0;
+        this._totalFaceValueLoanPrimeAwards = data.total_face_value_loan_prime_awards || 0;
     },
     get totalAmount() {
         if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
@@ -53,6 +55,16 @@ const BaseStateProfile = {
             return `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state_flags/${this.id}.png`;
         }
         return '';
+    },
+    get totalFaceValueLoanAmount() {
+        if (this._totalFaceValueLoanAmount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFaceValueLoanAmount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFaceValueLoanAmount / units.unit, 1)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalFaceValueLoanAmount, 0);
+    },
+    get totalFaceValueLoanPrimeAwards() {
+        return MoneyFormatter.formatNumberWithPrecision(this._totalFaceValueLoanPrimeAwards, 0);
     }
 };
 

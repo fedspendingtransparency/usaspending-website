@@ -30,6 +30,7 @@ export const initialState = {
             id: '',
             name: 'Select an Agency'
         },
+        agencyType: 'awarding_agency',
         subAgency: {
             id: '',
             name: 'Select a Sub-Agency'

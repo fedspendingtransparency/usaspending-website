@@ -4,8 +4,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
 import {
@@ -32,7 +33,7 @@ import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 import AccountSpending from 'components/agency/v2/accountSpending/AccountSpending';
-import Error from '../../../components/sharedComponents/Error';
+import Error from 'components/sharedComponents/Error';
 
 require('pages/agency/v2/index.scss');
 
@@ -76,9 +77,8 @@ const propTypes = {
     })
 };
 
-export const AgencyProfileV2 = ({
-    params
-}) => {
+export const AgencyProfileV2 = () => {
+    const { agencyId } = useParams();
     const dispatch = useDispatch();
     const [activeSection, setActiveSection] = useState('overview');
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
@@ -88,7 +88,7 @@ export const AgencyProfileV2 = ({
     useEffect(() => {
         setLoading(true);
         // request budgetary resources data for this agency
-        const budgetaryResourcesRequest = fetchBudgetaryResources(params.agencyId);
+        const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId);
         budgetaryResourcesRequest.promise
             .then((res) => {
                 // parse the response using our data model
@@ -102,11 +102,11 @@ export const AgencyProfileV2 = ({
                 setLoading(false);
                 console.error(err);
             });
-    }, [params.agencyId]);
+    }, [agencyId]);
 
     const componentByAgencySection = {
         overview: <ComingSoon />,
-        account_spending: <AccountSpending fy={`${selectedFy}`} agencyId={params.agencyId} />,
+        account_spending: <AccountSpending fy={`${selectedFy}`} agencyId={agencyId} />,
         award_spending: <ComingSoon />,
         sub_agency_spending: <ComingSoon />,
         award_recipients: <ComingSoon />,
@@ -151,7 +151,7 @@ export const AgencyProfileV2 = ({
         })
         .sort((a, b) => defaultSortFy(a.value, b.value));
 
-    const slug = `agency_v2/${params.agencyId}`;
+    const slug = `agency_v2/${agencyId}`;
 
     return (
         <div className="usa-da-agency-page-v2">
