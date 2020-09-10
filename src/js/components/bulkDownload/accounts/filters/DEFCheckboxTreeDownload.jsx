@@ -6,9 +6,8 @@ import { get } from 'lodash';
 
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
-import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
-import { setDefCodes } from '../../../../redux/actions/bulkDownload/bulkDownloadActions';
+import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import DEFCheckboxTreeLabelDownload from './DEFCheckboxTreeLabelDownload';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -57,8 +56,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
         this.fetchCodes();
     }
 
-    stageFilter = (newChecked) => {
-        setDefCodes("account", newChecked);
+    stageFilter = () => {
         this.props.stageDef(
             [],
             [],
@@ -99,7 +97,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
 
     render() {
         return (
-            <div className="def-code-filter">
+            <div className="def-code-filter-download">
                 <CheckboxTree
                     className="def-checkbox-tree"
                     checked={this.props.checked}
@@ -110,7 +108,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
                     isLoading={this.state.isLoading}
                     searchText=""
                     noResults={false}
-                    labelComponent={<DEFCheckboxTreeLabel />}
+                    labelComponent={<DEFCheckboxTreeLabelDownload />}
                     onUncheck={this.stageFilter}
                     onCheck={this.stageFilter} />
             </div>
@@ -131,7 +129,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    stageDef: (require, exclude, counts) => dispatch(updateDefCodes(require, exclude, counts))
+    stageDef: (require, checked) => dispatch(setDefCodes("account", checked))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DEFCheckboxTreeDownload);
