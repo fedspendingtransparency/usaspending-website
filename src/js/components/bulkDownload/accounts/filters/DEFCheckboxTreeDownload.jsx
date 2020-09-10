@@ -17,7 +17,7 @@ const covidParentNode = {
     label: "COVID-19 Spending",
     value: "COVID",
     className: "def-checkbox-label--covid",
-    expandDisabled: true,
+    expandDisabled: false,
     isSearchable: false,
     showNodeIcon: false,
     children: []
