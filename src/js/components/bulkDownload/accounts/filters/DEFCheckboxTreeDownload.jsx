@@ -47,13 +47,30 @@ export class DEFCheckboxTreeDownload extends React.Component {
             nodes: [],
             isLoading: false,
             isError: false,
-            errorMessage: null
+            errorMessage: null,
+            expanded: []
         };
         this.request = null;
     }
 
     componentDidMount() {
         this.fetchCodes();
+    }
+
+    onCollapse = (newExpandedArray) => {
+        this.setState(
+            {
+                expanded: [newExpandedArray]
+            }
+        );
+    }
+
+    onExpand = (newExpandedArray) => {
+        this.setState(
+            {
+                expanded: [newExpandedArray]
+            }
+        );
     }
 
     stageFilter = (newChecked) => {
@@ -111,7 +128,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
                 <CheckboxTree
                     className="def-checkbox-tree"
                     checked={this.props.checked}
-                    expanded={defaultExpanded}
+                    expanded={this.state.expanded}
                     data={this.state.nodes}
                     isError={this.state.isError}
                     errorMessage={this.state.errorMessage}
@@ -120,7 +137,9 @@ export class DEFCheckboxTreeDownload extends React.Component {
                     noResults={false}
                     labelComponent={<DEFCheckboxTreeLabel />}
                     onUncheck={this.stageFilter}
-                    onCheck={this.stageFilter} />
+                    onCheck={this.stageFilter}
+                    onCollapse={this.onCollapse}
+                    onExpand={this.onExpand} />
             </div>
         );
     }
