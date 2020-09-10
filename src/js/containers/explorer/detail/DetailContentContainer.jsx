@@ -218,14 +218,8 @@ export class DetailContentContainer extends React.Component {
         let isTruncated = false;
         let parsedResults = data.results;
 
-        // set a safety limit of 1,000 cells to prevent the browser from crashing due to too many
-        // DOM elements
-        if (data.results.length > 1000) {
-            parsedResults = data.results.slice(0, 1000);
-        }
-        if (request.subdivision === 'award') {
-            const resultTotal = data.results
-                .reduce((sum, item) => sum + item.amount, 0);
+        if (request.subdivision === 'award' || request.subdivision === 'recipient') {
+            const resultTotal = data.results.reduce((sum, item) => sum + item.amount, 0);
             // link to award page using new human readable id
             parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
 

@@ -90,6 +90,7 @@ export default class ExplorerVisualization extends React.Component {
         let visualization = (
             <div className={`treemap-loading-transition ${loadingTreemapClass}`}>
                 <ExplorerTreemap
+                    activeSubdivision={this.props.active.subdivision}
                     isLoading={this.props.isLoading}
                     width={this.state.width}
                     data={this.props.data}
