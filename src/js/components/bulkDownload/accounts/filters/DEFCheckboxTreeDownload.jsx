@@ -7,7 +7,7 @@ import { get } from 'lodash';
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import DEFCheckboxTreeLabelDownload from './DEFCheckboxTreeLabelDownload';
+import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -108,7 +108,7 @@ export class DEFCheckboxTreeDownload extends React.Component {
                     isLoading={this.state.isLoading}
                     searchText=""
                     noResults={false}
-                    labelComponent={<DEFCheckboxTreeLabelDownload />}
+                    labelComponent={<DEFCheckboxTreeLabel />}
                     onUncheck={this.stageFilter}
                     onCheck={this.stageFilter} />
             </div>
