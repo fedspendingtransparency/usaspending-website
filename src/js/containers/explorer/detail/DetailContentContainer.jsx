@@ -225,6 +225,8 @@ export class DetailContentContainer extends React.Component {
 
             // allow a $10 leeway to account for JS float bugs before triggering a truncation
             // message
+            // parsedResults are not really what we pass to the treemap. They're fully populated aka well over 500 for recipients.
+            debugger;
             isTruncated = Math.abs(total - resultTotal) > 10;
         }
 
