@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
-import { DEFCheckboxTreeDownload } from './DEFCheckboxTreeDownload';
+import { CheckCircle } from 'components/sharedComponents/icons/Icons';
+import DEFCheckboxTreeDownload from './DEFCheckboxTreeDownload';
 
 const propTypes = {
     submissionTypes: PropTypes.array,
@@ -19,19 +19,12 @@ export default class DefCodeFilter extends React.Component {
     }
 
     render() {
-        let icon = (
+        const icon = (
             <div className="icon valid">
                 <CheckCircle />
             </div>
         );
 
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
-                </div>
-            );
-        }
 
         return (
             <div className="download-filter">
