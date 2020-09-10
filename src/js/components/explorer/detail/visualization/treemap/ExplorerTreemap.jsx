@@ -59,12 +59,13 @@ export default class ExplorerTreemap extends React.Component {
     buildVirtualChart(props) {
         const dataForTree = props.data.toJS()
             .sort((a, b) => b.amount - a.amount)
+            .filter((item) => item.amount >= 0)
             .slice(0, 500);
 
         const total = props.total;
         // remove the negative values from the data because they can't be displayed in the treemap
         const data = appendCellForDataOutsideTree(dataForTree, total, props.activeSubdivision)
-            .filter((item) => item.amount >= 0);
+            .sort((a, b) => b.amount - a.amount);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({ children: data })
