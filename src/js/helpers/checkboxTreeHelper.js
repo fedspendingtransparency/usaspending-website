@@ -523,10 +523,9 @@ export const addSearchResultsToTree = (
             const nodeKey = existingNode.value;
             if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
-                const newChildren = appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn);
                 return {
                     ...nodeFromSearch,
-                    children: newChildren
+                    children: appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)
                 };
             }
             return { ...existingNode, className: 'hide' };
