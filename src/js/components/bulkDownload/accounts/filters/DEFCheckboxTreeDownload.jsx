@@ -17,7 +17,7 @@ const covidParentNode = {
     label: "COVID-19 Spending",
     value: "COVID",
     className: "def-checkbox-label--covid",
-    expandDisabled: false,
+    expandDisabled: true,
     isSearchable: false,
     showNodeIcon: false,
     children: []
@@ -38,7 +38,6 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
                 return 0;
             })
     }), covidParentNode);
-const defaultExpanded = ['COVID'];
 
 export class DEFCheckboxTreeDownload extends React.Component {
     constructor(props) {
