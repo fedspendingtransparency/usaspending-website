@@ -667,7 +667,8 @@ const AmountsVisualization = ({
 
     const dateNoteStyles = {
         position: 'absolute',
-        transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`
+        transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`,
+        width: width / 2
     };
 
     return (

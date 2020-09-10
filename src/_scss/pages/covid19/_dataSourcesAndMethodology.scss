@@ -40,8 +40,13 @@
     .otherResources__list > li {
         list-style: disc;
         padding-bottom: rem(10);
-        a {
-          word-break: break-word;
+        .other-resources__link__container {
+          .other-resources__link__text {
+            padding-right: 0.3rem;
+          }
+          a {
+            word-break: break-word;
+          }
         }
     }
 
