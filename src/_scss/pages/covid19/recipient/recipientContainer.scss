@@ -10,6 +10,13 @@
         .results-visualization-geo-section {
           position: relative;
           @import "pages/search/results/visualizations/geo/_topSection";
+          .map-container {
+            .map-message-container {
+              .map-message {
+                  flex: 0 1 auto;
+              }
+            }
+          }
           h2.visualization-title {
               @include h3;
               margin: 0;
@@ -48,6 +55,8 @@
         }
         .map-data-message {
           font-size: rem(14);
+          margin: 0;
+          padding-top: 1.4rem;
         }
         .bold-map-data-message {
           font-weight: 600;

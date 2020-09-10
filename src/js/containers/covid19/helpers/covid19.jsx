@@ -138,5 +138,4 @@ export const componentByCovid19Section = () => ({
         showInMainSection: false,
         title: 'Other Resources'
     }
-
 });
