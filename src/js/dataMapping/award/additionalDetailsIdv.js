@@ -39,6 +39,7 @@ const additionalDetails = (awardData) => {
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
+            'Parent Award Unique Key': parentAwardDetails.awardId,
             'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {

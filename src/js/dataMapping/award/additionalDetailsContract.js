@@ -12,7 +12,7 @@ const additionalDetailsContracts = (awardData) => {
         placeOfPerformance,
         recipient,
     } = awardData;
-    console.log(parentAwardDetails.idvAgencyId);
+    
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
@@ -67,6 +67,7 @@ const additionalDetailsContracts = (awardData) => {
             }
         },
         parentAwardDetails: {
+            'Parent Award Unique Key': parentAwardDetails.awardId,
             'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
