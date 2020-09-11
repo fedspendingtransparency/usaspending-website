@@ -3,6 +3,24 @@
  * Created by Jonathan Hill 09/19/19
  */
 
+import { isAwardAggregate } from 'helpers/awardSummaryHelper';
+
+const getUriOrFain = ({
+    generatedId,
+    uri,
+    fain
+}) => {
+    if (isAwardAggregate(generatedId)) {
+        return {
+            // aggregate  awards are identified by their "Unique Record Identifier"
+            'Unique Record Identifier (URI)': uri
+        }
+    }
+    // non aggregate awards are identified by their "FAIN"
+    return {
+        'Federal Award Identification Number (FAIN)': fain
+    };
+};
 
 const additionalDetailsFinancialAssistance = (awardData) => {
     const {
@@ -13,6 +31,14 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         recipient
     } = awardData;
     const data = {
+        uniqueAwardKey: {
+            'Unique Award Key': awardData.generatedId,
+            'Record Type': isAwardAggregate(awardData.generatedId)
+                ? 'Financial Assistance, Aggregated'
+                : 'Financial Assistance, Non-Aggregated',
+            'Unique Record Identifier (URI)': awardData.uri,
+            ...getUriOrFain(awardData)
+        },
         agencyDetails: {
             'Awarding Agency': {
                 type: 'link',

@@ -1,10 +1,10 @@
-import moment from "moment";
-import { apiRequest } from "./apiRequest";
-
 /**
  * awardSummaryHelper.js
  * Created by Lizzie Salita 8/16/19
 **/
+
+import moment from "moment";
+import { apiRequest } from "./apiRequest";
 
 export const fetchAwardFundingSummary = (awardId) => apiRequest({
     url: 'v2/awards/funding_rollup/',

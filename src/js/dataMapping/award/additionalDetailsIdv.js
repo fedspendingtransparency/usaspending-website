@@ -12,7 +12,7 @@ const additionalDetails = (awardData) => {
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
-            'Award or IDV Flag': awardData.category,
+            'Award or IDV Flag': 'Contract IDV',
             'Procurement Instrument Identifier (PIID)': awardData.piid,
             'Submitting Agency Identifier Code': awardData.additionalDetails.idvAgencyId,
             'Parent Award ID (Parent PIID)': parentAwardDetails.piid,
