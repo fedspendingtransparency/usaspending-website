@@ -216,17 +216,16 @@ export class DetailContentContainer extends React.Component {
         const total = data.total;
 
         let isTruncated = false;
-        let parsedResults = data.results;
-
-        if (request.subdivision === 'award' || request.subdivision === 'recipient') {
-            const resultTotal = data.results.reduce((sum, item) => sum + item.amount, 0);
+        let parsedResults = ExplorerHelper.truncateDataForTreemap(data.results);
+        if (request.subdivision === 'award') {
             // link to award page using new human readable id
             parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
+        }
 
+        if (request.subdivision === 'award' || request.subdivision === 'recipient') {
+            const resultTotal = parsedResults.reduce((sum, item) => sum + item.amount, 0);
             // allow a $10 leeway to account for JS float bugs before triggering a truncation
             // message
-            // parsedResults are not really what we pass to the treemap. They're fully populated aka well over 500 for recipients.
-            debugger;
             isTruncated = Math.abs(total - resultTotal) > 10;
         }
 

@@ -14,9 +14,12 @@ export const fetchBreakdown = (params) => apiRequest({
 });
 
 /**
- * @param {Array} rawData an array of objects from api representing spending explorer tree cells
+ * @param {Array} dataForTree an array of objects from api representing spending explorer tree cells
  * @param {Int} total integer representing total spending amount for selected criteria
- * @param {String} activeSubdivision string indicating the selected activeSubdivision: award/recipient/etc...
+ * @param {String} activeSubdivision string indicating the selected activeSubdivision: award/
+ *  recipient/etc...
+ * @returns {Array} the dataForTree array with new object appended representing total spending data
+ * not shown
  */
 export const appendCellForDataOutsideTree = (dataForTree, overallTotal, activeSubdivision) => {
     const totalNotShown = overallTotal - dataForTree.reduce((sum, item) => sum + item.amount, 0);
@@ -30,3 +33,8 @@ export const appendCellForDataOutsideTree = (dataForTree, overallTotal, activeSu
     }]
         .concat(dataForTree);
 };
+
+export const truncateDataForTreemap = (data, limit = 500) => data
+    .sort((a, b) => b.amount - a.amount)
+    .filter((item) => item.amount >= 0)
+    .slice(0, limit);

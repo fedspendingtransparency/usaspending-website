@@ -57,10 +57,7 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     buildVirtualChart(props) {
-        const dataForTree = props.data.toJS()
-            .sort((a, b) => b.amount - a.amount)
-            .filter((item) => item.amount >= 0)
-            .slice(0, 500);
+        const dataForTree = props.data.toJS();
 
         const total = props.total;
         // remove the negative values from the data because they can't be displayed in the treemap
