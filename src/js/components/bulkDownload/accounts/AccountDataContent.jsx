@@ -15,7 +15,7 @@ import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
-import DefCodeFilter from './filters/DefCodeFilter';
+import { DefCodeFilter } from './filters/DefCodeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
 import SubmitButton from '../awards/SubmitButton';
