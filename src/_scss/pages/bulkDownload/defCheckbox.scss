@@ -1,6 +1,7 @@
 .def-code-filter-download {
     margin-bottom: rem(12);
     padding: rem(12);
+    padding-left: 0;
     .def-checkbox-tree {
       margin-bottom: 2rem;
       border-bottom: rem(1) solid rgb(214, 215, 217);
@@ -12,6 +13,9 @@
                   border-left: none;
                 }
                 .rct-node.def-checkbox-label--covid  {
+                  &.rct-node-parent {
+                    margin-left: 0;
+                  }
                   &.rct-node-parent > .rct-text {
                     .rct-title .checkbox-tree-label {
                       .checkbox-tree-label__value-container {
@@ -50,18 +54,23 @@
                         @include display(inline-flex);
                         button {
                           margin: 0;
-                          padding: 0.5rem;
+                          padding: 0rem 0.5rem 0.5rem 0.5rem;
                           background-color: $color-white;
                           color: $color-primary;
+                        }
+                        .rct-node-icon {
+                            padding: 0;
                         }
                         .rct-collapse {
                             color: $color-primary;
                             background-color: $color-white;
                             svg {
-                              opacity: 1;
-                              &:focus {
-                                outline: none;
-                              }
+                                width: 1.5rem;
+                                height: 2.2rem;
+                                opacity: 1;
+                                &:focus {
+                                    outline: none;
+                                }
                             }
                           }
                         .rct-bare-label,
@@ -73,8 +82,10 @@
                           @include display(flex);
                           margin-bottom: rem(8);
                           .rct-checkbox {
+                            @include display(flex);
                             @include flex-direction(column);
                             @include align-items(top);
+                            padding: rem(2.5) rem(5) rem(2.5) rem(5);
                             .rct-icon-uncheck {
                                 color: white;
                                 border: 1px solid $color-gray-medium;
@@ -101,7 +112,7 @@
                           .rct-title {
                             width: 100%;
                             @include display(flex);
-                            align-items: flex-end;
+                            align-items: flex-start;
                           }
                           .checkbox-tree-label {
                             @include display(flex);
@@ -111,7 +122,7 @@
                                 @include display(inline-flex);
                                 .checkbox-tree-label__value-container-value {
                                     text-align: center;
-                                    padding: 0 rem(3);
+                                    padding: 0;
                                     border-radius: 2px;
                                     font-weight: $font-bold;
                                     font-size: rem(14);
