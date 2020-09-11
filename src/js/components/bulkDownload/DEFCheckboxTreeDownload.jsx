@@ -49,7 +49,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
     const request = useRef(null);
     const dispatch = useDispatch();
 
-    const { defCodes } = useSelector((state) => state.bulkDownload.accounts);
+    const { defCodes } = useSelector((state) => state.bulkDownload[type]);
 
 
     const fetchCodes = async () => {
@@ -77,6 +77,11 @@ const DEFCheckboxTreeDownload = ({ type }) => {
 
     useEffect(() => {
         fetchCodes();
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, []);
 
     const onCollapse = (newExpandedArray) => {

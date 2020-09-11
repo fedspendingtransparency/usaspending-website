@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
-import DEFCheckboxTreeDownload from './DEFCheckboxTreeDownload';
+import DEFCheckboxTreeDownload from 'components/bulkDownload/DEFCheckboxTreeDownload';
 
 const DefCodeFilter = ({ type }) => {
     const icon = (

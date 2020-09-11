@@ -58,6 +58,15 @@ export class AwardDataContainer extends React.Component {
         this.loadStates();
     }
 
+    componentWillUnmount() {
+        if (this.agencyListRequest) {
+            this.agencyListRequest.cancel();
+        }
+        if (this.statesRequest) {
+            this.statesRequest.cancel();
+        }
+    }
+
     setAgencyList() {
         this.setState({
             inFlight: true

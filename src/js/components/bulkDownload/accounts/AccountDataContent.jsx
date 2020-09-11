@@ -12,12 +12,12 @@ import kGlobalConstants from 'GlobalConstants';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
+import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
-import DefCodeFilter from './filters/DefCodeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
 import SubmitButton from '../awards/SubmitButton';

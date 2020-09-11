@@ -51,6 +51,7 @@ export const initialState = {
             startDate: '',
             endDate: ''
         },
+        defCodes: [],
         columns: [],
         fileFormat: 'csv'
     },

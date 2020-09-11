@@ -107,7 +107,8 @@ export class BulkDownloadPageContainer extends React.Component {
                 date_range: {
                     start_date: startDate,
                     end_date: endDate
-                }
+                },
+                def_codes: formState.defCodes
             },
             columns: [],
             file_format: formState.fileFormat

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
 
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -149,6 +150,7 @@ export default class AwardDataContent extends React.Component {
                             currentLocation={awards.location}
                             updateFilter={this.props.updateFilter}
                             currentLocationType={awards.locationType} />
+                        <DefCodeFilter type="awards" />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
                             currentDateType={awards.dateType}
