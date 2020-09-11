@@ -26,14 +26,21 @@
                         padding-bottom: 0;
                       }
                     }
-                    font-weight: $font-semibold;
+                    font-weight: $font-normal;
                     span {
-                      font-weight: $font-normal;
+                      font-weight: $font-light;
                     }
                   }
                 }
 
+                .rct-node:nth-child(1) {
+                    .checkbox-tree-label__label {
+                        font-weight: $font-bold;
+                    }
+                }
+
                 .rct-node:nth-child(n) {
+                    margin-left: rem(20);
                     .rct-text {
                         width: 100%;
                         @include align-items(flex-start);
@@ -106,7 +113,7 @@
                                     text-align: center;
                                     padding: 0 rem(3);
                                     border-radius: 2px;
-                                    font-weight: $font-semibold;
+                                    font-weight: $font-bold;
                                     font-size: rem(14);
                                     .highlight {
                                     background-color: rgb(252, 227, 160);
@@ -125,7 +132,6 @@
                                 }   
                                 .checkbox-tree-label__label {
                                     @include flex-basis(100%);
-                                    font-weight: $font-semibold;
                                     line-height: rem(18);
                                     .highlight {
                                         background-color: rgb(252, 227, 160);

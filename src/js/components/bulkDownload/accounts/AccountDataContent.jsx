@@ -110,8 +110,7 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
-                        <DefCodeFilter
-                            setDefCodes={this.props.setDefCodes} />
+                        <DefCodeFilter />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}
