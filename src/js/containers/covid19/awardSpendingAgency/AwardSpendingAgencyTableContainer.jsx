@@ -346,7 +346,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }
 
     return (
-        <div ref={tableWrapperRef} className="table-wrapper">
+        <div ref={tableWrapperRef}>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -355,7 +355,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef} className={unlinkedDataClass ? 'unlinked-data' : ''}>
+            <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
                 <Table
                     expandable
                     rows={results}

@@ -488,15 +488,11 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
                 .map((node) => ({ ...node, className: 'hide' })));
     }
     else if (doesNodeHaveGenuineChildren(existingParent) && !doesNodeHaveGenuineChildren(parentFromSearch)) {
-        return {
-            ...existingParent,
-            className: 'hide',
-            children: addChildrenAndPossiblyPlaceholder(
-                existingParent.children.map((child) => ({ ...child, className: 'hide' })),
-                existingParent,
-                true
-            )
-        };
+        return addChildrenAndPossiblyPlaceholder(
+            existingParent.children.map((child) => ({ ...child, className: 'hide' })),
+            existingParent,
+            true
+        );
     }
     else if (!doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
         return addChildrenAndPossiblyPlaceholder(parentFromSearch.children, parentFromSearch);
@@ -529,7 +525,7 @@ export const addSearchResultsToTree = (
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 return {
                     ...nodeFromSearch,
-                    children: [...appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
+                    children: appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)
                 };
             }
             return { ...existingNode, className: 'hide' };
