@@ -36,8 +36,8 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Record Type': isAwardAggregate(awardData.generatedId)
                 ? 'Financial Assistance, Aggregated'
                 : 'Financial Assistance, Non-Aggregated',
-            'Unique Record Identifier (URI)': awardData.uri,
-            ...getUriOrFain(awardData)
+            ...getUriOrFain(awardData),
+            'Awarding Sub-Agency Code': awardingAgency.subtierId
         },
         agencyDetails: {
             'Awarding Agency': {
