@@ -10,6 +10,7 @@ const parentAwardDetails = {
             : '';
         this.idvType = data.idv_type_description || '';
         this.idcType = data.type_of_idc_description || '';
+        this.idvAgencyId = data.referenced_idv_agency_iden || '';
         this.agencyId = data.agency_id || '';
         this.agencyName = data.agency_name || '';
         this.subAgencyId = data.sub_agency_id || '';

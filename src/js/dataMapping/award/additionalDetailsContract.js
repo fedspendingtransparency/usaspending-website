@@ -10,9 +10,18 @@ const additionalDetailsContracts = (awardData) => {
         parentAwardDetails,
         periodOfPerformance,
         placeOfPerformance,
-        recipient
+        recipient,
     } = awardData;
+    console.log(parentAwardDetails.idvAgencyId);
     const data = {
+        uniqueAwardKey: {
+            'Unique Award Key': awardData.generatedId,
+            'Award or IDV Flag': awardData.category,
+            'Procurement Instrument Identifier (PIID)': awardData.piid,
+            'Submitting Agency Identifier Code': parentAwardDetails.internalId,
+            'Parent Award ID (Parent PIID)': parentAwardDetails.piid,
+            'Parent Agency Identifier Code': awardData.additionalDetails.idvAgencyId
+        },
         agencyDetails: {
             'Awarding Agency': {
                 type: 'link',

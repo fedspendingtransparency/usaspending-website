@@ -133,7 +133,7 @@ export default class RelatedAwards extends React.Component {
     render() {
         const { overview } = this.props;
         const tooltipInfo = this.tooltipInfo();
-        const awardTitle = 'Parent Award';
+        const awardTitle = 'Parent Award Unique Key';
         let parentLink = 'N/A';
         if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
