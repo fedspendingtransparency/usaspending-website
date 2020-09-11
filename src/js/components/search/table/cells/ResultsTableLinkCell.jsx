@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     rowIndex: PropTypes.number,
@@ -37,9 +38,9 @@ const ResultsTableLinkCell = (props) => {
     return (
         <div className={`award-result-generic-cell ${rowClass}`}>
             <div className="cell-content">
-                <a onClick={props.onClick} href={`/#/${props.column}/${props.id}`}>
+                <Link onClick={props.onClick} to={`/${props.column}/${props.id}`}>
                     {content}
-                </a>
+                </Link>
             </div>
         </div>
     );

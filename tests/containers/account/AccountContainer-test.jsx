@@ -20,7 +20,9 @@ const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
 const loadFiscalYearSnapshotSpy = sinon.spy(AccountContainer.prototype, 'loadFiscalYearSnapshot');
 
 const parameters = {
-    accountNumber: '123-4567'
+    params: {
+        accountNumber: '123-4567'
+    }
 };
 
 // mock the child component by replacing it with a function that returns a null element
@@ -54,7 +56,7 @@ describe('AccountContainer', () => {
         };
 
         const container = mount(<AccountContainer
-            params={parameters}
+            match={parameters}
             setSelectedAccount={jest.fn()}
             account={mockRedux} />);
 
@@ -74,7 +76,7 @@ describe('AccountContainer', () => {
         };
 
         const container = mount(<AccountContainer
-            params={parameters}
+            match={parameters}
             setSelectedAccount={jest.fn()}
             account={mockRedux} />);
 
@@ -85,8 +87,10 @@ describe('AccountContainer', () => {
         expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
 
         container.setProps({
-            params: {
-                accountNumber: '765-4321'
+            match: {
+                params: {
+                    accountNumber: '765-4321'
+                }
             }
         });
 
@@ -110,11 +114,7 @@ describe('AccountContainer', () => {
             expect(reduxAction).toHaveBeenCalledTimes(1);
 
             const args = reduxAction.mock.calls[0][0];
-            expect(
-                stripModelId(args)
-            ).toEqual(
-                stripModelId(expected)
-            );
+            expect(stripModelId(args)).toEqual(stripModelId(expected));
         });
     });
 

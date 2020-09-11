@@ -44,8 +44,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         fileC: {
             obligations: data.account_obligations_by_defc,
             outlays: data.account_outlays_by_defc
-        },
-        defCodes: data.disaster_emergency_fund_codes
+        }
     };
     this.populateCore(coreData);
     if (data.cfda_info && data.cfda_info.length) {

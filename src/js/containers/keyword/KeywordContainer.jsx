@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
-import Router from 'containers/router/Router';
+import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -22,11 +21,12 @@ import KeywordPage from 'components/keyword/KeywordPage';
 require('pages/keyword/keywordPage.scss');
 
 const propTypes = {
-    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func
+    setDownloadExpectedUrl: PropTypes.func,
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class KeywordContainer extends React.Component {
@@ -49,12 +49,12 @@ export class KeywordContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.handleUrl(this.props.params.keyword);
+        this.handleUrl(this.props.match.params.keyword);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.keyword !== prevProps.params.keyword) {
-            this.handleUrl(this.props.params.keyword);
+        if (this.props.match.params.keyword !== prevProps.match.params.keyword) {
+            this.handleUrl(this.props.match.params.keyword);
         }
     }
 
@@ -164,7 +164,7 @@ export class KeywordContainer extends React.Component {
             keyword
         }, () => {
             // update the url
-            Router.history.replace(`/keyword_search/${slug}`);
+            this.props.history.replace(`/keyword_search/${slug}`);
             Analytics.event({
                 category: 'Keyword Search - Keyword',
                 action: keyword
@@ -188,7 +188,9 @@ export class KeywordContainer extends React.Component {
 }
 
 KeywordContainer.propTypes = propTypes;
+const KeywordContainerWithRouter = withRouter(KeywordContainer);
+
 export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(KeywordContainer);
+)(KeywordContainerWithRouter);

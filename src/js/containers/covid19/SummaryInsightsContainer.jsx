@@ -5,7 +5,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setTotals } from 'redux/actions/covid19/covid19Actions';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts } from 'helpers/disasterHelper';
 import OverviewData from 'components/covid19/OverviewData';
@@ -20,7 +21,10 @@ const propTypes = {
         label: PropTypes.string
     })),
     areCountsLoading: PropTypes.bool,
-    assistanceOnly: PropTypes.bool
+    assistanceOnly: PropTypes.bool,
+    spendingByAgencyOnly: PropTypes.bool,
+    recipientOnly: PropTypes.bool
+
 };
 
 const SummaryInsightsContainer = ({
@@ -28,9 +32,12 @@ const SummaryInsightsContainer = ({
     resultsCount,
     overviewData,
     areCountsLoading,
-    assistanceOnly
+    assistanceOnly,
+    spendingByAgencyOnly,
+    recipientOnly
 }) => {
     const awardAmountRequest = useRef();
+    const dispatch = useDispatch();
     const [awardOutlays, setAwardOutlays] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
@@ -63,6 +70,23 @@ const SummaryInsightsContainer = ({
                     setAwardObligations(res.data.obligation);
                     setAwardOutlays(res.data.outlay);
                     setNumberOfAwards(res.data.award_count);
+
+                    /* eslint-disable camelcase */
+                    // set totals in redux, we can use totals elsewhere to calculate unlinked data
+                    const totals = {
+                        obligation: res.data?.obligation,
+                        outlay: res.data?.outlay,
+                        awardCount: res.data?.award_count,
+                        faceValueOfLoan: res.data?.face_value_of_loan
+                    };
+
+                    if (spendingByAgencyOnly) {
+                        dispatch(setTotals('SPENDING_BY_AGENCY', totals));
+                    } else if (assistanceOnly) {
+                        dispatch(setTotals('ASSISTANCE', totals));
+                    } else if (recipientOnly) {
+                        dispatch(setTotals('RECIPIENT', totals));
+                    }
                 });
         }
     }, [defCodes, activeTab]);

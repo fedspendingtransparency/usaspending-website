@@ -3,12 +3,10 @@
  * Created by Jonathan Hill 06/24/20
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { visualizationColors } from 'dataMapping/covid19/recipient/map/map';
-import MapLegendItem from './MapLegendItem';
+import { calculateUnitForSingleValue } from '../../../../helpers/moneyFormatter';
 
 const propTypes = {
     units: PropTypes.shape({
@@ -16,7 +14,8 @@ const propTypes = {
         precision: PropTypes.number,
         unitLabel: PropTypes.string
     }),
-    segments: PropTypes.arrayOf(PropTypes.number)
+    min: PropTypes.number,
+    max: PropTypes.number
 };
 
 const defaultProps = {
@@ -27,57 +26,16 @@ const defaultProps = {
     }
 };
 
-const MapLegend = ({ units, segments }) => {
-    const [items, setItems] = useState([]);
-    const prepareItems = useCallback(() => {
-        const newItems = segments.map((segment, i, array) => {
-            let label = '';
-
-            const color = visualizationColors[i];
-
-            const currencyValue =
-                MoneyFormatter.formatMoneyWithPrecision(segment / units.unit,
-                    units.precision) + units.unitLabel;
-
-            let previousValue = '';
-
-            if (i > 0) {
-                const previous = array[i - 1];
-                previousValue =
-                    MoneyFormatter.formatMoneyWithPrecision(previous / units.unit,
-                        units.precision) + units.unitLabel;
-            }
-
-            if (i === 0) {
-                // first item
-                label = `Less than ${currencyValue}`;
-            }
-            else if (i + 1 === array.length) {
-                // last item
-                label = `More than ${previousValue}`;
-            }
-            else {
-                // remaining items
-                label = `${previousValue} to ${currencyValue}`;
-            }
-
-            return (<MapLegendItem
-                key={uniqueId()}
-                label={label}
-                color={color} />);
-        });
-
-        setItems(newItems);
-    }, [segments, units]);
-    // mount
-    useEffect(() => prepareItems(), []);
-    // segments updates
-    useEffect(() => prepareItems(), [segments, prepareItems]);
-
+const MapLegend = ({ units, min, max }) => {
+    const maxCurrencyValue = MoneyFormatter.formatMoneyWithPrecision(max / calculateUnitForSingleValue(max).unit, units.precision) + calculateUnitForSingleValue(max).unitLabel;
+    const minCurrencyValue = MoneyFormatter.formatMoneyWithPrecision(min / calculateUnitForSingleValue(min).unit, units.precision) + calculateUnitForSingleValue(min).unitLabel;
     return (
         <div className="map-legend">
-            <ul className="map-legend-body">
-                {items}
+            <ul className="map-legend-body-covid19">
+                <span className="legend-number">{maxCurrencyValue}</span>
+                <br />
+                <div className="map-legend-gradient" />
+                <span className="legend-number">{minCurrencyValue}</span>
             </ul>
         </div>
     );

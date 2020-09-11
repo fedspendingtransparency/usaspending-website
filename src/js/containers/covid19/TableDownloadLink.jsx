@@ -14,6 +14,7 @@ import {
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import TableDownloadIconButton from 'components/covid19/TableDownloadIconButton';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     defCodes: PropTypes.array.isRequired,
@@ -61,6 +62,7 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
             console.log(err);
             downloadRequest.current = null;
         }
+        Analytics.event({ category: 'COVID-19 - Spending by Recipient', action: 'download' });
     };
 
     return (

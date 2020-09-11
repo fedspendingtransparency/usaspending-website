@@ -9,12 +9,14 @@ import DateNote from 'components/covid19/DateNote';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import ReadMore from 'components/covid19/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import Analytics from 'helpers/analytics/Analytics';
 
 const RecipientContainer = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.find((item) => item.internal === tab).internal;
         setActiveTab(tabInternal);
+        Analytics.event({ category: 'covid-19 - profile', action: `award spending by recipient - ${activeTab}` });
     };
     return (
         <div className="body__content recipient__container">

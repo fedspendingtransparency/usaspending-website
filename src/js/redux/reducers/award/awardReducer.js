@@ -7,7 +7,7 @@ export const initialState = {
     id: '',
     category: '',
     overview: null,
-    counts: null,
+    idvDetails: null,
     totalTransactionObligatedAmount: 0
 };
 
@@ -20,9 +20,9 @@ const awardReducer = (state = initialState, action) => {
                 overview: action.overview
             });
         }
-        case 'SET_COUNTS': {
+        case 'SET_IDV_DETAILS': {
             return Object.assign({}, state, {
-                counts: action.counts
+                idvDetails: action.details
             });
         }
         case 'SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT': {

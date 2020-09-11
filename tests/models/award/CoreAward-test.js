@@ -44,6 +44,21 @@ describe('Core Award Model', () => {
         withoutFileC.populateCore({ ...awardData, account_obligations_by_def_code: [], account_outlays_by_def_code: [] });
         expect(withoutFileC.fileC.obligations).toEqual([]);
     });
+    it('should populate DefCodes', () => {
+        const withFileC = Object.create(CoreAward);
+        withFileC.populateCore({
+            ...awardData,
+            fileC: {
+                ...fileCData,
+                outlays: fileCData.outlays.concat([{ code: 'N', amount: 0 }])
+            }
+        });
+        expect(withFileC.defCodes.includes('N')).toEqual(false);
+
+        const withoutFileC = Object.create(CoreAward);
+        withoutFileC.populateCore(awardData);
+        expect(withoutFileC.defCodes).toEqual([]);
+    });
     describe('Getter functions', () => {
         it('should format the subaward total', () => {
             expect(award.subawardTotal).toEqual('$12,005');

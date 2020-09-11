@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="22px" viewBox="0 0 24 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon</title>
+    <g id="Mobile-view" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="snackbar_COVIDprofile" transform="translate(-27.000000, -482.000000)">
+            <g id="snackbar" transform="translate(18.000000, 472.000000)">
+                <g id="icon" transform="translate(10.000000, 10.000000)">
+                    <text id="" transform="translate(13.589611, 15.675952) rotate(90.000000) translate(-13.589611, -15.675952) " font-family="FontAwesome5Free-Solid, Font Awesome 5 Free" font-size="18" font-weight="700" fill="#FFFFFF">
+                        <tspan x="7.58961095" y="22.6759518"></tspan>
+                    </text>
+                    <g id="arrow" stroke="#FFFFFF">
+                        <path d="M9.8737547,5.45910459 L11.3190418,7.37507965 L8.80017164,7.59862836 L9.8737547,5.45910459 Z" id="Triangle" fill="#FFFFFF" transform="translate(10.000000, 6.175952) rotate(180.000000) translate(-10.000000, -6.175952) "></path>
+                        <path d="M0,6.67022973 C0.0428338098,2.67022973 1.70950048,0.670229725 5,0.670229725 C8.29049952,0.670229725 9.95716619,2.21020086 10,5.29014314" id="Line" stroke-linecap="square"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

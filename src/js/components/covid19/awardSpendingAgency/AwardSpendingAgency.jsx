@@ -13,6 +13,7 @@ import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+import Analytics from 'helpers/analytics/Analytics';
 import ReadMore from '../ReadMore';
 
 import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
@@ -116,6 +117,8 @@ const AwardSpendingAgency = () => {
             internal: tabInternal,
             subtitle: tabSubtitle
         });
+
+        Analytics.event({ category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
     };
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
@@ -145,7 +148,8 @@ const AwardSpendingAgency = () => {
                 resultsCount={tabCounts[activeTab.internal]}
                 overviewData={overviewData}
                 activeTab={activeTab.internal}
-                areCountsLoading={inFlight} />
+                areCountsLoading={inFlight}
+                spendingByAgencyOnly />
             <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
             </div>

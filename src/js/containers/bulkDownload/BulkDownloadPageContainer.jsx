@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
-import Router from 'containers/router/Router';
+import { withRouter } from 'react-router-dom';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
@@ -22,13 +21,13 @@ import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytic
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
-    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    setDefCodes: PropTypes.func
+    match: PropTypes.object,
+    history: PropTypes.object
 };
 
 export class BulkDownloadPageContainer extends React.Component {
@@ -42,31 +41,30 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.validateDataType(this.props.params.type);
+        this.validateDataType(this.props.match.params.type);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params.type !== this.props.params.type) {
-            this.validateDataType(this.props.params.type);
+        if (prevProps.match.params.type !== this.props.match.params.type) {
+            this.validateDataType(this.props.match.params.type);
         }
     }
 
-    validateDataType(typeUrl) {
-        if (typeUrl) {
-            const dataType = downloadOptions.find((type) => type.url === `#/download_center/${typeUrl}`);
-
+    validateDataType(typeParam) {
+        if (typeParam) {
+            const dataType = downloadOptions.find((type) => type.url === `/download_center/${typeParam}`);
             if (dataType) {
                 this.props.setDataType(dataType.type);
             }
 
             else {
                 // Invalid url, go to the error page
-                Router.history.replace('/error');
+                this.props.history.replace('/error');
             }
         }
         else {
             // If no type param is specified, default to award data
-            Router.history.replace('/download_center/custom_award_data');
+            this.props.history.replace('/download_center/custom_award_data');
         }
     }
 
@@ -104,7 +102,6 @@ export class BulkDownloadPageContainer extends React.Component {
             filters: {
                 prime_award_types: primeAwardTypes,
                 sub_award_types: subAwardTypes,
-                agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
                 date_type: formState.dateType,
                 date_range: {
@@ -128,6 +125,14 @@ export class BulkDownloadPageContainer extends React.Component {
                 params.filters[locationType.apiName] = [locations];
             }
         }
+
+        const agencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
+        if (formState.subAgency.name && formState.subAgency.name !== 'Select a Sub-Agency') {
+            agencyParams.name = formState.subAgency.name;
+            agencyParams.tier = 'subtier';
+            agencyParams.toptier_name = formState.agency.name;
+        }
+        params.filters.agencies = [agencyParams];
 
         this.requestDownload(params, 'awards');
 
@@ -232,6 +237,7 @@ export class BulkDownloadPageContainer extends React.Component {
 }
 
 BulkDownloadPageContainer.propTypes = propTypes;
+const BulkDownloadPageContainerWithRouter = withRouter(BulkDownloadPageContainer);
 
 export default connect(
     // connects reduxStore to component as props (this.props.bulkDownload === reduxStore.bulkdDownload)
@@ -240,4 +246,4 @@ export default connect(
     }),
     // connects "action creator" fns which update the reduxStore via dispatch to the component as props (this.props.setDefcodes will invoke)
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(BulkDownloadPageContainer);
+)(BulkDownloadPageContainerWithRouter);

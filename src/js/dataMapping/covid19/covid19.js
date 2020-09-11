@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import { getBaseUrlNoHash } from 'helpers/socialShare';
+import { getBaseUrl } from 'helpers/socialShare';
 
 export const slug = 'covid-19';
 
@@ -12,7 +12,7 @@ export const dataDisclaimerBannerCookie = 'usaspending_data_disclaimer';
 
 export const getEmailSocialShareData = {
     subject: 'USAspending.gov COVID-19 Spending',
-    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrlNoHash(slug)}`
+    body: `View COVID-19 Spending on USAspending.gov: ${getBaseUrl(slug)}`
 };
 
 export const dataDisclaimerHeight = 75;
@@ -138,7 +138,7 @@ export const otherSankeyNodes = [
         name: '_totalBudgetAuthority',
         label: 'Total Budgetary Resources',
         color: '#AAC6E2',
-        glossary: `#/${slug}?glossary=budget-authority`,
+        glossary: `${slug}?glossary=budget-authority`,
         textWidth: 140,
         textHeight: 31
     },
@@ -146,23 +146,32 @@ export const otherSankeyNodes = [
         name: '_awardObligations',
         label: 'Award Obligations',
         color: '#558EC6',
-        glossary: `#/${slug}?glossary=award-obligations`,
+        glossary: `${slug}?glossary=award-obligations`,
         textWidth: 99,
         textHeight: 31
     },
     {
         name: '_otherObligations',
-        label: 'Non-Award Obligations',
+        label: 'Other Obligations',
         color: '#558EC6',
-        glossary: `#/${slug}?glossary=non-award-obligations`,
+        glossary: `${slug}?glossary=non-award-obligations`,
         textWidth: 123,
         textHeight: 31
+    },
+    {
+        name: '_remainingBalance',
+        label: 'Remaining Balance',
+        color: '#558EC6',
+        glossary: `#/${slug}?glossary=unobligated-balance`,
+        textWidth: 109,
+        textHeight: 31,
+        whiteRectangle: true
     },
     {
         name: '_awardOutlays',
         label: 'Award Outlays',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 79,
         textHeight: 31
     },
@@ -170,7 +179,7 @@ export const otherSankeyNodes = [
         name: '_awardObligationsNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 163,
         textHeight: 31,
         whiteRectangle: true
@@ -179,7 +188,7 @@ export const otherSankeyNodes = [
         name: '_nonAwardOutLays',
         label: 'Other Outlays',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 75,
         textHeight: 31
     },
@@ -187,81 +196,75 @@ export const otherSankeyNodes = [
         name: '_nonAwardNotOutlayed',
         label: 'Obligated But Not Yet Outlayed',
         color: '#0A2F5A',
-        glossary: `#/${slug}?glosary=outlay`,
+        glossary: `${slug}?glosary=outlay`,
         textWidth: 163,
         textHeight: 31,
         whiteRectangle: true
     },
     {
-        name: '_remainingBalance',
-        label: 'Total Unobligated Balance',
-        color: '#558EC6',
-        glossary: `#/${slug}?glossary=unobligated-balance`,
-        textWidth: 109,
-        textHeight: 31,
-        whiteRectangle: true
+        name: 'fakeData',
+        label: null,
+        color: 'transparent',
+        glossary: null,
+        textWidth: 0,
+        textHeight: 0,
+        whiteRectangle: false
     }
 ];
+
 export const dataForLinks = [
     {
         source: 0, // O to total
-        target: 5,
-        value: 1800000000000
+        target: 5
     },
     {
         source: 1, // L to total
-        target: 5,
-        value: 7400000000
+        target: 5
     },
     {
         source: 2, // M to total
-        target: 5,
-        value: 11100000000
+        target: 5
     },
     {
         source: 3, // N to total
-        target: 5,
-        value: 327700000000
+        target: 5
     },
     {
         source: 4, // P to total
-        target: 5,
-        value: 125100000000
+        target: 5
     },
     {
         source: 5, // total to award obligations
-        target: 6,
-        value: 866700000000
+        target: 6
     },
     {
         source: 5, // total to non award obligations
-        target: 7,
-        value: 96300000000
+        target: 7
+    },
+    {
+        source: 5, // total to remaining balance
+        target: 8
     },
     {
         source: 6, // award to award outlays
-        target: 8,
-        value: 413100000000
+        target: 9
     },
     {
         source: 6, // award to not yet outlayed
-        target: 9,
-        value: 453600000000
+        target: 10
     },
     {
         source: 7, // non award to non award outlays
-        target: 10,
-        value: 45900000000
+        target: 11
     },
     {
         source: 7, // non award to non award not yet outlayed
-        target: 11,
-        value: 50400000000
+        target: 12
     },
     {
-        source: 5, // total to unobligated balance
-        target: 12,
-        value: 1400000000000
+        name: 'fakeData',
+        source: 8, // remaining balance to fake data
+        target: 13
     }
 ];
 
@@ -341,4 +344,29 @@ export const mapFilterSortOrderByValue = {
     outlays: 1,
     totalSpending: 0,
     perCapita: 1
+};
+
+export const defaultTooltipWidth = 375;
+
+export const tooltipMapping = {
+    _totalBudgetAuthority: {
+        data: 'totalRectangleData',
+        title: 'Total Budgetary Resources',
+        paragraph: 'This amount represents all congressional appropriations and other available budgetary resources.'
+    },
+    _totalOutlays: {
+        data: 'outlayRectangleData',
+        title: 'Total Outlays',
+        paragraph: 'This amount represents all outlays, or actual payments, made by agencies.'
+    },
+    _totalObligations: {
+        data: 'obligationRectangleData',
+        title: 'Total Obligations',
+        paragraph: 'This amount represents all obligations, or promises of payment, made by agencies.'
+    },
+    _remainingBalance: {
+        data: 'remainingBalanceRectangleData',
+        title: 'Total Remaining Balance',
+        paragraph: 'This amount represents how much is left to be obligated, or promised to be paid, by agencies. '
+    }
 };

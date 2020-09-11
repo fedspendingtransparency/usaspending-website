@@ -6,7 +6,11 @@
 const initialState = {
     defCodes: [],
     overview: {},
-    latestSubmissionDate: ''
+    latestSubmissionDate: '',
+    assistanceTotals: {},
+    spendingByAgencyTotals: {},
+    recipientTotals: {},
+    budgetCategoriesCount: 0
 };
 
 const covid19Reducer = (state = initialState, action) => {
@@ -19,6 +23,18 @@ const covid19Reducer = (state = initialState, action) => {
         }
         case 'SET_LATEST_SUBMISSION_DATE': {
             return Object.assign({}, state, { latestSubmissionDate: action.latestSubmissionDate });
+        }
+        case 'SET_COVID_AWARD_AMOUNTS_ASSISTANCE': {
+            return Object.assign({}, state, { assistanceTotals: action.totals });
+        }
+        case 'SET_COVID_AWARD_AMOUNTS_SPENDING_BY_AGENCY': {
+            return Object.assign({}, state, { spendingByAgencyTotals: action.totals });
+        }
+        case 'SET_COVID_AWARD_AMOUNTS_RECIPIENT': {
+            return Object.assign({}, state, { recipientTotals: action.totals });
+        }
+        case 'SET_BUDGET_CATEGORIES_COUNT': {
+            return Object.assign({}, state, { budgetCategoriesCount: action.count });
         }
         default: return state;
     }

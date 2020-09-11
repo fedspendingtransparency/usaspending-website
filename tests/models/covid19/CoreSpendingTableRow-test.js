@@ -15,7 +15,7 @@ describe('COVID-19 spending table row', () => {
             expect(row._id).toEqual('43');
         });
         it('should store the code', () => {
-            expect(row._code).toEqual('090');
+            expect(row.code).toEqual('090');
         });
         it('should store the description', () => {
             expect(row.description).toEqual('Description text');
@@ -51,6 +51,16 @@ describe('COVID-19 spending table row', () => {
         });
         it('should store the formatted face value', () => {
             expect(row.faceValueOfLoan).toEqual('$56,000,001');
+        });
+    });
+    describe('setters work correctly', () => {
+        it('should set the outlay', () => {
+            row.outlay = null;
+            expect(row._outlay).toEqual(null);
+        });
+        it('should set the obligation', () => {
+            row.obligation = null;
+            expect(row._obligation).toEqual(null);
         });
     });
 });

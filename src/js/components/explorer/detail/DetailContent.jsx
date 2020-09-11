@@ -192,6 +192,7 @@ export default class DetailContent extends React.Component {
                 isLoading={this.props.isLoading}
                 within={lastFilter.within}
                 title={lastFilter.title}
+                link={lastFilter.link}
                 id={id}
                 fy={this.props.fy}
                 lastUpdate={this.props.lastUpdate}

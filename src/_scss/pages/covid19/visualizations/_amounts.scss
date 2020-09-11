@@ -1,10 +1,60 @@
 .amounts-viz {
   width: 100%;
+  @import '../../award/shared/awardAmountsSection/charts';
+  .highlight {
+      stroke: $color-active;
+      stroke-width: 3;
+  }
+  pointer-events: visible;
+  line {
+    pointer-events: visible;
+  }
+  rectangle {
+    pointer-events: visible;
+  }
+  text {
+    pointer-events: visible;
+  }
+  g {
+    pointer-events: visible;
+  }
+  .tooltip-wrapper {
+    .tooltip__content {
+      .tooltip__message {
+        .tooltip__text {
+            padding: 2rem 2rem 0 2rem;
+            .tooltip__text-section {
+                font-weight: $font-normal;
+            }
+            .tooltip__text-section:first-of-type {
+              padding-bottom: 0.5rem;
+              line-height: 1;
+              font-size: 2.8rem;
+            }
+            .tooltip__text-section:nth-child(2) {
+              margin-top: 0;
+            }
+            .tooltip__text-section:last-of-type {
+              padding-top: 2rem;
+            }
+        }
+        .tooltip__text:last-child {
+          padding: 2rem;
+        }
+      } 
+    }
+    .tooltip-pagination-container {
+      @include display(inline-flex);
+      @include align-items(center);
+      @include justify-content(space-around);
+    }
+  }
   .line__obligation {
     shape-rendering: auto;
     stroke: #558EC6;
     pointer-events: visible;
     stroke-width: 3;
+    pointer-events: visible;
   }
   .line__opacity {
     stroke: #558EC6;
@@ -14,6 +64,7 @@
     pointer-events: visible;
   }
   .amounts-text__question {
+    cursor: default;
     font-size: 1.8rem;
     font-style: italic;
     opacity: 0.4;
@@ -23,8 +74,10 @@
     &.white {
       fill: white;
     }
+    pointer-events: visible;
   }
   .amounts-text__value {
+    cursor: default;
     font-size: 2.1rem;
     font-weight: $font-semibold;
     opacity: 0.7;
@@ -36,8 +89,10 @@
     &.white {
       fill: white;
     }
+    pointer-events: visible;
   }
   .amounts-text__label {
+    cursor: default;
     font-size: 1.6rem;
     opacity: 0.6;
     letter-spacing: 0;
@@ -45,5 +100,6 @@
     &.white {
       fill: white;
     }
+    pointer-events: visible;
   }
 }

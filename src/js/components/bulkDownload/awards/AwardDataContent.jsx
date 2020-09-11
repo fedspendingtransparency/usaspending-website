@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
@@ -117,9 +118,9 @@ export default class AwardDataContent extends React.Component {
                             </div>
                             <div>
                                 Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                                <a href="/#/download_center/award_data_archive">
+                                <Link to="/download_center/award_data_archive">
                                     Award Data Archive
-                                </a>
+                                </Link>
                                 &nbsp;page.
                             </div>
                         </div>
@@ -134,6 +135,8 @@ export default class AwardDataContent extends React.Component {
                             bulkAwardTypeChange={this.props.bulkAwardTypeChange}
                             toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                         <AgencyFilter
+                            currentAgencyType={awards.agencyType}
+                            agencyTypes={awardDownloadOptions.agencyTypes}
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
                             currentAgencies={currentAgencies}
@@ -166,7 +169,9 @@ export default class AwardDataContent extends React.Component {
                         <UserSelections
                             awards={awards}
                             agencies={this.props.agencies}
-                            subAgencies={this.props.subAgencies} />
+                            subAgencies={this.props.subAgencies}
+                            updateFilter={this.props.updateFilter}
+                            currentAgencyType={awards.agencyType} />
                         <SubmitButton
                             filters={awards}
                             validForm={this.state.validForm}
