@@ -159,8 +159,6 @@ export class BulkDownloadPageContainer extends React.Component {
             file_format: 'csv'
         };
 
-        console.log(params); // for testing
-
         if (formState.federalAccount.id !== '' && formState.federalAccount.id !== 'all') {
             params.filters.federal_account = formState.federalAccount.id;
         }
@@ -199,8 +197,6 @@ export class BulkDownloadPageContainer extends React.Component {
         else if (type === 'accounts') {
             this.request = BulkDownloadHelper.requestAccountsDownload(params);
         }
-
-        console.log(this.request);
 
         this.request.promise
             .then((res) => {

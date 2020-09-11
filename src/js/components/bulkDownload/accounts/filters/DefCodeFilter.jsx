@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 import DEFCheckboxTreeDownload from './DEFCheckboxTreeDownload';
 
-export const DefCodeFilter = () => {
+const DefCodeFilter = ({ type }) => {
     const icon = (
         <div className="icon valid">
             <CheckCircle />
@@ -19,9 +20,15 @@ export const DefCodeFilter = () => {
                 <span>Filter your data with codes related to supplemental appropriation bills targeting disasters and emergencies. </span>
             </div>
             <div className="download-filter__content">
-                <DEFCheckboxTreeDownload />
+                <DEFCheckboxTreeDownload type={type} />
                 <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> COVID-19 Spending account data is only available starting FY2020 P07.</p>
             </div>
         </div>
     );
 };
+
+DefCodeFilter.propTypes = {
+    type: PropTypes.string.isRequired // either "accounts" or "awards"
+};
+
+export default DefCodeFilter;

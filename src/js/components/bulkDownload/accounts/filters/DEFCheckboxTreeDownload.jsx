@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
 
 import { fetchDEFCodes } from 'helpers/disasterHelper';
@@ -39,123 +39,87 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
             })
     }), covidParentNode);
 
-export class DEFCheckboxTreeDownload extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            nodes: [],
-            isLoading: false,
-            isError: false,
-            errorMessage: null,
-            expanded: []
-        };
-        this.request = null;
-    }
+const DEFCheckboxTreeDownload = ({ type }) => {
+    const [nodes, setNodes] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [expanded, setExpanded] = useState([]);
 
-    componentDidMount() {
-        this.fetchCodes();
-    }
+    const request = useRef(null);
+    const dispatch = useDispatch();
 
-    onCollapse = (newExpandedArray) => {
-        this.setState(
-            {
-                expanded: [newExpandedArray]
-            }
-        );
-    }
+    const { defCodes } = useSelector((state) => state.bulkDownload.accounts);
 
-    onExpand = (newExpandedArray) => {
-        this.setState(
-            {
-                expanded: [newExpandedArray]
-            }
-        );
-    }
 
-    stageFilter = (newChecked) => {
-        const newCount = newChecked.reduce((acc) => acc + 1, 0);
-        if (newCount > 0) {
-            this.props.stageDef(
-                newChecked,
-                [],
-                []
-            );
+    const fetchCodes = async () => {
+        if (request.current) {
+            request.current.cancel();
         }
-        else {
-            this.props.stageDef(
-                [],
-                [],
-                []
-            );
-        }
-    };
-
-    fetchCodes = async () => {
-        if (this.request) {
-            this.request.cancel();
-        }
-        this.request = fetchDEFCodes();
-        this.setState({ isLoading: true });
+        request.current = fetchDEFCodes();
+        setLoading(true);
         try {
-            const { data: { codes: allDisasterCodes } } = await this.request.promise;
+            const { data: { codes: allDisasterCodes } } = await request.current.promise;
             const covidCodes = parseCovidCodes(allDisasterCodes);
-            this.setState({
-                nodes: [covidCodes],
-                isLoading: false
-            });
+            setNodes([covidCodes]);
+            setLoading(false);
         }
         catch (e) {
             console.log('Error fetching Def Codes ', e);
             if (!isCancel(e)) {
-                this.setState({
-                    isLoading: false,
-                    isError: true,
-                    errorMessage: get(e, 'message', 'There was an error, please refresh the browser.')
-                });
+                setLoading(false);
+                setError(true);
+                setErrorMessage(get(e, 'message', 'There was an error, please refresh the browser.'));
+                request.current = null;
             }
         }
     };
 
-    removeSelectedFilter = (e) => {
-        e.preventDefault();
-        this.props.stageDef([], [], []);
+    useEffect(() => {
+        fetchCodes();
+    }, []);
+
+    const onCollapse = (newExpandedArray) => {
+        setExpanded([newExpandedArray]);
     };
 
-    render() {
-        return (
-            <div className="def-code-filter-download">
-                <CheckboxTree
-                    className="def-checkbox-tree"
-                    checked={this.props.checked}
-                    expanded={this.state.expanded}
-                    data={this.state.nodes}
-                    isError={this.state.isError}
-                    errorMessage={this.state.errorMessage}
-                    isLoading={this.state.isLoading}
-                    searchText=""
-                    noResults={false}
-                    labelComponent={<DEFCheckboxTreeLabel />}
-                    onUncheck={this.stageFilter}
-                    onCheck={this.stageFilter}
-                    onCollapse={this.onCollapse}
-                    onExpand={this.onExpand} />
-            </div>
-        );
-    }
+    const onExpand = (newExpandedArray) => {
+        setExpanded([newExpandedArray]);
+    };
+
+    const stageFilter = (newChecked) => {
+        const newCount = newChecked.reduce((acc) => acc + 1, 0);
+        if (newCount > 0) {
+            dispatch(setDefCodes(type, newChecked));
+        }
+        else {
+            dispatch(setDefCodes(type, []));
+        }
+    };
+
+    return (
+        <div className="def-code-filter-download">
+            <CheckboxTree
+                className="def-checkbox-tree"
+                checked={defCodes}
+                expanded={expanded}
+                data={nodes}
+                isError={error}
+                errorMessage={errorMessage}
+                isLoading={loading}
+                searchText=""
+                noResults={false}
+                labelComponent={<DEFCheckboxTreeLabel />}
+                onUncheck={stageFilter}
+                onCheck={stageFilter}
+                onCollapse={onCollapse}
+                onExpand={onExpand} />
+        </div>
+    );
 };
 
 DEFCheckboxTreeDownload.propTypes = {
-    checked: PropTypes.arrayOf(PropTypes.string),
-    stageDef: PropTypes.func,
-    setDefCodes: PropTypes.func
+    type: PropTypes.string.isRequired // either "accounts" or "awards"
 };
 
-const mapStateToProps = (state) => ({
-    checked: state.bulkDownload.accounts.defCodes
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    stageDef: (checked) => dispatch(setDefCodes("accounts", checked))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DEFCheckboxTreeDownload);
+export default DEFCheckboxTreeDownload;
