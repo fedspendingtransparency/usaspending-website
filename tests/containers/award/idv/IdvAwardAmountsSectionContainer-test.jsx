@@ -23,12 +23,12 @@ describe('IdvAwardAmountsSectionContainer', () => {
             {...mockActions}
             {...mockRedux} />);
 
-        const parseAward = jest.fn();
-        container.instance().parseAward = parseAward;
+        const parseChildAwardAmounts = jest.fn();
+        container.instance().parseChildAwardAmounts = parseChildAwardAmounts;
         await container.instance().componentDidMount();
 
 
-        expect(parseAward).toHaveBeenCalled();
+        expect(parseChildAwardAmounts).toHaveBeenCalled();
     });
 
     it('should make an API call when the award ID props changes', async () => {
@@ -57,7 +57,7 @@ describe('IdvAwardAmountsSectionContainer', () => {
         expect(getIdvChildAwardAmounts).toHaveBeenLastCalledWith('1234');
     });
 
-    describe('parseAward', () => {
+    describe('parseChildAwardAmounts', () => {
         it('should parse returned award amounts data and set data as the award amounts state', () => {
             const container = shallow(<IdvAmountsContainer
                 {...mockRedux}
@@ -66,7 +66,7 @@ describe('IdvAwardAmountsSectionContainer', () => {
             const expectedAwardAmounts = Object.create(BaseAwardAmounts);
             expectedAwardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
-            container.instance().parseAward(mockAwardAmounts);
+            container.instance().parseChildAwardAmounts(mockAwardAmounts);
 
             expect(container.state().awardAmounts).toEqual(expectedAwardAmounts);
         });
