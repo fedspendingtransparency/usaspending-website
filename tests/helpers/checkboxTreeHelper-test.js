@@ -262,6 +262,14 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const topTierNode = getPscNodeFromTree(searchResults, 'Research and Development');
 
             expect(topTierNode.children[0].isPlaceHolder).toEqual(true);
+
+            // same test where the existingNodes have children
+            const existingNodesWithChildren = cleanPscData(pscMockData.reallyBigTree);
+            const searchResult = [{ ...pscMockData.topTierResponse.results[0], children: [] }];
+            const result = addSearchResultsToTree(existingNodesWithChildren, searchResult, getPscNodeFromTree);
+            const node = getPscNodeFromTree(result, 'Research and Development');
+
+            expect(node.children.every((child) => child.className === 'hide')).toEqual(true);
         });
     });
     describe('expandNodeAndAllDescendantParents', () => {
