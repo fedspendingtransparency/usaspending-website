@@ -25,7 +25,7 @@ export const AwardSpendingAgencyTT = () => (
                     <strong> Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when it is positive.</strong> Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
                 </li>
                 <li>
-                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees).From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
+                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees). From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
                 </li>
             </ul>
         </div>
@@ -57,7 +57,7 @@ export const AwardSpendingCfdaTT = () => (
                     <strong> Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when it is positive.</strong> Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
                 </li>
                 <li>
-                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees).From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
+                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees). From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
                 </li>
             </ul>
         </div>
@@ -69,7 +69,10 @@ export const AwardSpendingTT = () => (
         <h2 className="tooltip__title">Award Spending</h2>
         <div className="tooltip__text">
             <p>
-                Award Spending refers to money given through contracts or financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. It stands in contrast to Total Spending, also known as Account Spending, which refers to the totality of agency obligations and outlays, including agency expenses.
+                Award Spending refers to money given through contracts or financial assistance to individuals, organizations, businesses, or state, local, or tribal governments.
+            </p><br />
+            <p>
+                Award Spending stands in contrast to Total Spending, also known as Account Spending, which refers to the totality of agency obligations and outlays, including agency expenses.
             </p>
         </div>
     </div>
@@ -100,7 +103,7 @@ export const SpendingByRecipientTT = () => (
                     <strong> Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when it is positive.</strong> Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
                 </li>
                 <li>
-                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees).From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
+                    The ‘Face Value of Loans’ column represents the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees). From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong>
                 </li>
             </ul>
         </div>
@@ -149,7 +152,7 @@ export const SpendingTypesTT = () => (
             <p>
                 From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government.
                 As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure.</strong> However,
-                <strong> Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when it is positive.</strong>
+                <strong> Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when it is positive. </strong>
                 Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan).
                 Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
             </p>
