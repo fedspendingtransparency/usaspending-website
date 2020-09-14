@@ -11,11 +11,11 @@ import ReferencedAwardsContainer from 'containers/award/idv/ReferencedAwardsCont
 import IdvActivityContainer from 'containers/award/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
+import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import AwardDescription from '../shared/description/AwardDescription';
-import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import { AWARD_OVERVIEW_PROPS, AWARD_COUNTS_PROPS } from '../../../propTypes';
@@ -69,7 +69,7 @@ const IdvContent = ({
                     setRelatedAwardsTab={setRelatedAwardsTab} />
             </AwardSection>
             <AwardSection type="row">
-                <AwardAmounts
+                <IdvAwardAmountsSectionContainer
                     jumpToSection={jumpToSection}
                     awardId={awardId}
                     overview={overview} />
