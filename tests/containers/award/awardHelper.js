@@ -65,3 +65,5 @@ export const fetchAssistanceDownloadFile = () => ({
     }),
     cancel: jest.fn()
 });
+
+export const getChildAwardFileCDetails = (data) => data;

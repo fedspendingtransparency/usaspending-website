@@ -4,15 +4,13 @@
  * */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import { IdvAwardAmountsSectionContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
+import { IdvAmountsContainer } from '../../../../src/js/containers/award/idv/IdvAwardAmountsSectionContainer';
+import BaseAwardAmounts from '../../../../src/js/models/v2/award/BaseAwardAmounts';
 
 import { mockRedux, mockActions } from '../mockAward';
 import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
-
-import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
-
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 
@@ -21,26 +19,27 @@ jest.mock('components/award/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.
 
 describe('IdvAwardAmountsSectionContainer', () => {
     it('should make an API call for the award amounts on mount', async () => {
-        const container = mount(<IdvAwardAmountsSectionContainer
+        const container = shallow(<IdvAmountsContainer
             {...mockActions}
             {...mockRedux} />);
 
         const parseAward = jest.fn();
         container.instance().parseAward = parseAward;
-        await container.instance().awardRequest.promise;
+        await container.instance().componentDidMount();
+
 
         expect(parseAward).toHaveBeenCalled();
     });
 
-    it('should make an API call when the award ID props changes', () => {
-        const container = shallow(<IdvAwardAmountsSectionContainer
+    it('should make an API call when the award ID props changes', async () => {
+        const container = shallow(<IdvAmountsContainer
             {...mockActions}
             {...mockRedux} />);
 
         const getIdvChildAwardAmounts = jest.fn();
         container.instance().getIdvChildAwardAmounts = getIdvChildAwardAmounts;
 
-        container.instance().componentDidMount();
+        await container.instance().componentDidMount();
         expect(getIdvChildAwardAmounts).toHaveBeenCalledTimes(1);
         expect(getIdvChildAwardAmounts).toHaveBeenCalledWith('1234');
 
@@ -52,7 +51,7 @@ describe('IdvAwardAmountsSectionContainer', () => {
             award: updatedAward
         });
 
-        container.instance().componentDidUpdate(prevProps);
+        await container.instance().componentDidUpdate(prevProps);
 
         expect(getIdvChildAwardAmounts).toHaveBeenCalledTimes(2);
         expect(getIdvChildAwardAmounts).toHaveBeenLastCalledWith('1234');
@@ -60,12 +59,12 @@ describe('IdvAwardAmountsSectionContainer', () => {
 
     describe('parseAward', () => {
         it('should parse returned award amounts data and set data as the award amounts state', () => {
-            const container = shallow(<IdvAwardAmountsSectionContainer
+            const container = shallow(<IdvAmountsContainer
                 {...mockRedux}
                 {...mockActions} />);
 
             const expectedAwardAmounts = Object.create(BaseAwardAmounts);
-            expectedAwardAmounts.populate(mockAwardAmounts);
+            expectedAwardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
             container.instance().parseAward(mockAwardAmounts);
 
