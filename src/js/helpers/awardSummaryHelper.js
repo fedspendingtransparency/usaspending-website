@@ -6,6 +6,24 @@
 import moment from "moment";
 import { apiRequest } from "./apiRequest";
 
+/**
+//  * https://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.mdhttps://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.md
+ * @param {String} awardId - human readable generated unique award ID
+ * @param {String} pid - PIID
+ * @returns {String} parsedString representing submitting agency ID code
+ */
+
+export const getSubmittingAgencyId = (awardId) => {
+    if (awardId) {
+        const splitAwardId = awardId.split("_");
+        if (splitAwardId.length >= 4) {
+            return awardId.split("_")[3];
+        }
+        return '--';
+    }
+    return '--';
+};
+
 export const fetchAwardFundingSummary = (awardId) => apiRequest({
     url: 'v2/awards/funding_rollup/',
     method: 'post',
