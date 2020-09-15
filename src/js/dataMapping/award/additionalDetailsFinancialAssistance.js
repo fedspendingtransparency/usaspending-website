@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 09/19/19
  */
 
-import { isAwardAggregate } from 'helpers/awardSummaryHelper';
+import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
 
 const getUriOrFain = ({
     generatedId,
@@ -37,7 +37,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 ? 'Financial Assistance, Aggregated'
                 : 'Financial Assistance, Non-Aggregated',
             ...getUriOrFain(awardData),
-            'Awarding Sub-Agency Code': awardingAgency.subtierId
+            'Awarding Sub-Agency Code': getSubmittingAgencyId(awardData.generatedId)
         },
         agencyDetails: {
             'Awarding Agency': {
