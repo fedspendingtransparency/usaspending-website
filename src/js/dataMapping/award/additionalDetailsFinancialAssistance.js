@@ -14,7 +14,7 @@ const getUriOrFain = ({
         return {
             // aggregate  awards are identified by their "Unique Record Identifier"
             'Unique Record Identifier (URI)': uri
-        }
+        };
     }
     // non aggregate awards are identified by their "FAIN"
     return {

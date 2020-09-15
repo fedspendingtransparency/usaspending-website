@@ -3,8 +3,8 @@
  * Created by Kwadwo Opoku-Debrah 12/17/18
  */
 export const getSubmittingAgencyId = (generatedString, substring, piid) => {
-    var tempString = generatedString.substring(generatedString.indexOf(substring) + substring.length);
-    var parsedString = tempString.substring(0, tempString.indexOf(piid)).replaceAll('_','');
+    const tempString = generatedString.substring(generatedString.indexOf(substring) + substring.length);
+    const parsedString = tempString.substring(0, tempString.indexOf(piid)).replaceAll('_', '');
     return parsedString;
 };
 
@@ -17,7 +17,7 @@ const additionalDetailsContracts = (awardData) => {
         placeOfPerformance,
         recipient
     } = awardData;
-    
+
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
