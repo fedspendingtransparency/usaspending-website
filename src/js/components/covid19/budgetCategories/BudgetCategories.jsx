@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import kGlobalConstants from 'GlobalConstants';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
@@ -12,7 +12,6 @@ import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
-import { setBudgetCategoriesCount } from 'redux/actions/covid19/covid19Actions';
 import Analytics from 'helpers/analytics/Analytics';
 import OverviewData from '../OverviewData';
 import ReadMore from '../ReadMore';
@@ -40,7 +39,6 @@ const BudgetCategories = () => {
     const [count, setCount] = useState(null);
     const [inFlight, setInFlight] = useState(true);
     const moreOptionsTabsRef = useRef(null);
-    const dispatch = useDispatch();
 
     const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
@@ -86,7 +84,6 @@ const BudgetCategories = () => {
             countRequest.promise
                 .then((res) => {
                     setCount(res.data.count);
-                    dispatch(setBudgetCategoriesCount(res.data.count));
                 });
         }
     }, [activeTab, defCodes]);

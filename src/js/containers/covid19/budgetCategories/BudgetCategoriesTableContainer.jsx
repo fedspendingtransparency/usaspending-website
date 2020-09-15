@@ -156,9 +156,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
-    const budgetCategoriesCount = useSelector((state) => state.covid19.budgetCategoriesCount);
-    const overview = useSelector((state) => state.covid19.overview);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { overview, defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19);
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -183,7 +181,7 @@ const BudgetCategoriesTableContainer = (props) => {
             totalBudgetaryResources: overview._totalBudgetAuthority,
             obligation: overview._totalObligations,
             outlay: overview._totalOutlays,
-            awardCount: budgetCategoriesCount
+            awardCount: allAwardTypeTotals.awardCount
         };
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
@@ -286,7 +284,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview && budgetCategoriesCount) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview && allAwardTypeTotals.awardCount) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
@@ -343,7 +341,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, budgetCategoriesCount]);
+    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
