@@ -15,7 +15,7 @@ const additionalDetailsContracts = (awardData) => {
         parentAwardDetails,
         periodOfPerformance,
         placeOfPerformance,
-        recipient,
+        recipient
     } = awardData;
     
     const data = {
