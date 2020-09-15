@@ -105,6 +105,9 @@
                           flex: 1;
                           font-weight: $font-light;
                           padding-left: rem(40);
+                          &.generated-id {
+                            word-break: break-word;
+                          }
                           .accordion-table__list {
                             list-style-type: none;
                             margin: 0;
