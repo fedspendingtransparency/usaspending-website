@@ -102,19 +102,19 @@ export default class MapWrapper extends React.Component {
         const numCountyColors = 500;
         if (this.props.activeFilters.territory === 'state') {
             for (let i = 0; i < numStateColors; i++) {
-                colors.push(this.RGBAToHex(i, true));
+                // colors.push(this.RGBAToHex(i, true));
                 // colors.push(`rgb(${((1 * (i * (1 / numStateColors))) + 255) * 0.6},${((43 * (i * (1 / numStateColors))) + 255) * 0.6},${((58 * (i * (1 / numStateColors))) + 255) * 0.6})`);
                 // colors.push(`hsla(${calculateTreemapPercentage(1, 255)}, ${calculateTreemapPercentage(43, 255)}, ${calculateTreemapPercentage(58, 255)}, ${((i * (1 / numStateColors)) * 100).toFixed(1)}%)`);
                 // colors.push(this.RGBAToHexA(1, 43, 58, i * (1 / numStateColors)));
-                // colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numStateColors)})`);
             }
         } else {
             for (let i = 0; i < numCountyColors; i++) {
-                colors.push(this.RGBAToHex(i));
+                // colors.push(this.RGBAToHex(i));
                 // colors.push(`rgb(${((1 * (i * (1 / numCountyColors))) + 255) * 0.6},${((43 * (i * (1 / numCountyColors))) + 255) * 0.6},${((58 * (i * (1 / numCountyColors))) + 255) * 0.6})`);
                 // colors.push(`hsla(${calculateTreemapPercentage(1, 255)}, ${calculateTreemapPercentage(43, 255)}, ${calculateTreemapPercentage(58, 255)}, ${((i * (1 / numCountyColors)) * 100).toFixed(1)}%)`);
                 // colors.push(this.RGBAToHexA(1, 43, 58, i * (1 / numCountyColors)));
-                // colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
+                colors.push(`rgba(1, 43, 58, ${i * (1 / numCountyColors)})`);
             }
         }
         console.log(' colors : ', colors);
@@ -125,9 +125,9 @@ export default class MapWrapper extends React.Component {
         const opacity = i * (1 / numberOfColors);
         const baseColor = 255;
         const reverseAlpha = 1 - opacity;
-        return `rgb(${((1 * opacity) + baseColor) * reverseAlpha},
-        ${((77 * opacity) + baseColor) * reverseAlpha},
-        ${((125 * opacity) + baseColor) * reverseAlpha})`;
+        return `rgb(${((25 * opacity) + baseColor) * reverseAlpha},
+        ${((160 * opacity) + baseColor) * reverseAlpha},
+        ${((170 * opacity) + baseColor) * reverseAlpha})`;
     }
 
     mapReady = () => {
@@ -180,18 +180,23 @@ export default class MapWrapper extends React.Component {
             // iterate through all the highlight layers and enable them
             this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'visible');
         });
-        this.mapRef.map.addLayer({
-            id: 'update-states',
-            source: "state",
-            'source-layer': "base_state",
-            type: "symbol",
-            paint: {
-                'text-color': 'blue',
-                'text-halo-color': 'red',
-                'text-halo-width': 3
-            }
-        });
-        this.mapRef.map.setLayoutProperty('update-states', 'visibility', 'visible');
+        // this.mapRef.map.addLayer({
+        //     id: 'update-states',
+        //     source: "state",
+        //     'source-layer': "base_state",
+        //     type: "symbol",
+        //     paint: {
+        //         opacity: 1,
+        //         fill: 'rgb(255, 255, 255)'
+        //     },
+        //     // paint: {
+        //     //     'text-color': 'blue',
+        //     //     'text-halo-color': 'red',
+        //     //     'text-halo-width': 3
+        //     // }
+        //     filter: ["==", "icon", 'symbol']
+        // });
+        // this.mapRef.map.setLayoutProperty('update-states', 'visibility', 'visible');
     }
 
     hideSource = (type) => {
@@ -240,6 +245,15 @@ export default class MapWrapper extends React.Component {
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
         const colors = this.getColors();
+        const layers = this.mapRef.map.getStyle().layers;
+        // Find the index of the first symbol layer in the map style
+        let firstSymbolId = null;
+        for (let i = 0; i < layers.length; i++) {
+            if (layers[i].type === 'symbol') {
+                firstSymbolId = layers[i].id;
+                break;
+            }
+        }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.map.addLayer({
@@ -252,7 +266,7 @@ export default class MapWrapper extends React.Component {
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            });
+            }, firstSymbolId);
 
             // setup mouseover events
             this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));

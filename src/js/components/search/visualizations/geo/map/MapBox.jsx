@@ -21,7 +21,8 @@ const propTypes = {
 const delta = 100;
 
 // define map sources
-const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
+// const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
+const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm/draft';
 
 export default class MapBox extends React.Component {
     constructor(props) {
