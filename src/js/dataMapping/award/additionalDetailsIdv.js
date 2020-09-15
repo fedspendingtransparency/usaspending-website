@@ -3,6 +3,8 @@
  * Created by Lizzie Salita 6/20/19
  */
 
+import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
+
 const additionalDetails = (awardData) => {
     const {
         recipient,
@@ -10,6 +12,12 @@ const additionalDetails = (awardData) => {
         parentAwardDetails
     } = awardData;
     const data = {
+        uniqueAwardKey: {
+            'Unique Award Key': awardData.generatedId,
+            'Award or IDV Flag': 'Contract IDV',
+            'Procurement Instrument Identifier (PIID)': awardData.piid,
+            'Submitting Agency Identifier Code': getSubmittingAgencyId(awardData.generatedId)
+        },
         agencyDetails: {
             'Awarding Agency': {
                 type: 'link',
@@ -31,6 +39,7 @@ const additionalDetails = (awardData) => {
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
+            'Parent Award Unique Key': parentAwardDetails.awardId,
             'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
