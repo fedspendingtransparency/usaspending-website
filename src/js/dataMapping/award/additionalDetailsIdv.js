@@ -3,6 +3,8 @@
  * Created by Lizzie Salita 6/20/19
  */
 
+import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
+
 const additionalDetails = (awardData) => {
     const {
         recipient,
@@ -14,9 +16,7 @@ const additionalDetails = (awardData) => {
             'Unique Award Key': awardData.generatedId,
             'Award or IDV Flag': 'Contract IDV',
             'Procurement Instrument Identifier (PIID)': awardData.piid,
-            'Submitting Agency Identifier Code': awardData.additionalDetails.idvAgencyId,
-            'Parent Award ID (Parent PIID)': parentAwardDetails.piid,
-            'Parent Agency Identifier Code': parentAwardDetails.agencyId
+            'Submitting Agency Identifier Code': getSubmittingAgencyId(awardData.generatedId)
         },
         agencyDetails: {
             'Awarding Agency': {
