@@ -499,7 +499,6 @@ export default class MapWrapper extends React.Component {
     }
 
     render() {
-        console.log(' Map Ref : ', this.mapRef);
         return (
             <div
                 className="map-container"
