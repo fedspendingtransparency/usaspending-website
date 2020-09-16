@@ -14,7 +14,7 @@ const DefCodeFilter = ({ type }) => {
     return (
         <div className="download-filter def-code-filter">
             <h3 className="download-filter__title">
-                {icon} Filter by <span className="download-filter__title_em">Disaster Emergency Fund Codes (DEFCs).</span>
+                Filter by <span className="download-filter__title_em">Disaster Emergency Fund Codes (DEFCs).</span>
             </h3>
             <p className="download-filter__subtitle">(Optional)</p>
             <div className="download-filter__info">
