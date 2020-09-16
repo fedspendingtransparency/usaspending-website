@@ -23,6 +23,66 @@
                     padding: 0;
                     margin: 0;
                 }
+
+                .cfda-grants-gov-opportunities__section {
+                  button.award-expandable-btn {
+                    display: none;
+                  }
+                }
+
+                .cfda-grants-gov-opportunities__container {
+                  p {
+                    font-size: 1.4rem;
+                    letter-spacing: 0;
+                    line-height: 2.5rem;
+                    margin: 0;
+                  }
+                  .administrative-agency {
+                    font-size: 1.4rem;
+                    letter-spacing: 0;
+                    line-height: 1.8rem;
+                  }
+                  button {
+                    @include button-link;
+                    font-size: 1.4rem;
+                    letter-spacing: 0;
+                    line-height: 1.8rem;
+                  }
+                  .cfda-opportunities__container {
+                    background-color: $color-gray-lightest;
+                    margin-top: 2rem;
+                    .cfda-opportunities__totals {
+                      @include display(flex);
+                      width: 100%;
+                      padding: 1.2rem 0;
+                      .cfda-opportunities__total {
+                        @include display(flex);
+                        @include flex-direction(column);
+                        @include flex-basis(25%);
+                        text-align: center;
+                        border-left: 1px solid $color-gray-light;
+                        .cfda-opportunities__total__title {
+                          font-size: 1.4rem;
+                          font-weight: $font-semibold;
+                          letter-spacing: 0;
+                          line-height: 1.8rem;
+                        }
+                        .cfda-opportunities__total__count {
+                          font-size: 1.8rem;
+                          letter-spacing: 0;
+                          line-height: 2.3rem;
+                          @import 'components/loading-pulse-animation';
+                          .dot-pulse {
+                            margin: 1rem 0 0 5.5rem;
+                          }
+                        }
+                      }
+                      .cfda-opportunities__total:first-of-type {
+                        border: none;
+                      }
+                    }
+                  }
+                }
             }
               width: 100%;
               .visualization-tooltip {
