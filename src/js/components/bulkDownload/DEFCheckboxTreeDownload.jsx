@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
-import { get } from 'lodash';
 
 import { fetchDEFCodes } from 'helpers/disasterHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
@@ -45,6 +46,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const [expanded, setExpanded] = useState([]);
+    const validDefCodes = useSelector((state) => state.covid19.defCodes);
 
     const request = useRef(null);
     const dispatch = useDispatch();
@@ -56,11 +58,19 @@ const DEFCheckboxTreeDownload = ({ type }) => {
         if (request.current) {
             request.current.cancel();
         }
-        request.current = fetchDEFCodes();
         setLoading(true);
+        let covidCodes;
+
+        if (validDefCodes && validDefCodes.length > 0) {
+            covidCodes = parseCovidCodes(validDefCodes);
+        } else {
+            request.current = fetchDEFCodes();
+            const res = await request.current.promise;
+            covidCodes = res.data.codes;
+            dispatch(setDEFCodes(covidCodes.filter((c) => c.disaster === 'covid_19')));
+        }
+
         try {
-            const { data: { codes: allDisasterCodes } } = await request.current.promise;
-            const covidCodes = parseCovidCodes(allDisasterCodes);
             setNodes([covidCodes]);
             setLoading(false);
         }
@@ -69,7 +79,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
             if (!isCancel(e)) {
                 setLoading(false);
                 setError(true);
-                setErrorMessage(get(e, 'message', 'There was an error, please refresh the browser.'));
+                setErrorMessage(e?.messsage || 'There was an error, please refresh the browser.');
                 request.current = null;
             }
         }
@@ -82,7 +92,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
                 request.current.cancel();
             }
         };
-    }, []);
+    }, [validDefCodes]);
 
     const onCollapse = (newExpandedArray) => {
         setExpanded([newExpandedArray]);
