@@ -10,6 +10,7 @@ const DefCodeFilter = ({ type }) => {
             <CheckCircle />
         </div>
     );
+    
     return (
         <div className="download-filter def-code-filter">
             <h3 className="download-filter__title">
@@ -21,7 +22,10 @@ const DefCodeFilter = ({ type }) => {
             </div>
             <div className="download-filter__content">
                 <DEFCheckboxTreeDownload type={type} />
-                <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> COVID-19 Spending account data is only available starting FY2020 P07.</p>
+                {type === "accounts"
+                    ? <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> COVID-19 Spending account data is only available starting FY2020 P07.</p>
+                    : <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> COVID-19 Spending data is only available for award and sub-award actions with an Action Date on or after 4/1/2020.</p>
+                }
             </div>
         </div>
     );
