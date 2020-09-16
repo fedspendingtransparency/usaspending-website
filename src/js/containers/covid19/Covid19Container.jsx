@@ -135,14 +135,20 @@ const Covid19Container = () => {
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
             awardAmountRequest.current.promise
-                .then((res) => {
-                    /* eslint-disable camelcase */
+                .then(({
+                    data: {
+                        obligation,
+                        outlay,
+                        award_count: awardCount,
+                        face_value_of_loan: faceValueOfLoan
+                    }
+                }) => {
                     // set totals in redux, we can use totals elsewhere to calculate unlinked data
                     const totals = {
-                        obligation: res.data?.obligation,
-                        outlay: res.data?.outlay,
-                        awardCount: res.data?.award_count,
-                        faceValueOfLoan: res.data?.face_value_of_loan
+                        obligation,
+                        outlay,
+                        awardCount,
+                        faceValueOfLoan
                     };
                     dispatch(setTotals('', totals));
                 });

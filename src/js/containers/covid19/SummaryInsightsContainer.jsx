@@ -85,18 +85,24 @@ const SummaryInsightsContainer = ({
                 }
                 awardAmountRequest.current = fetchAwardAmounts(params);
                 awardAmountRequest.current.promise
-                    .then((res) => {
-                        setAwardObligations(res.data.obligation);
-                        setAwardOutlays(res.data.outlay);
-                        setNumberOfAwards(res.data.award_count);
+                    .then(({
+                        data: {
+                            obligation,
+                            outlay,
+                            award_count: awardCount,
+                            face_value_of_loan: faceValueOfLoan
+                        }
+                    }) => {
+                        setAwardObligations(obligation);
+                        setAwardOutlays(outlay);
+                        setNumberOfAwards(awardCount);
 
-                        /* eslint-disable camelcase */
                         // set totals in redux, we can use totals elsewhere to calculate unlinked data
                         const totals = {
-                            obligation: res.data?.obligation,
-                            outlay: res.data?.outlay,
-                            awardCount: res.data?.award_count,
-                            faceValueOfLoan: res.data?.face_value_of_loan
+                            obligation,
+                            outlay,
+                            awardCount,
+                            faceValueOfLoan
                         };
 
                         if (spendingByAgencyOnly) {

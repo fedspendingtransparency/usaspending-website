@@ -16,12 +16,15 @@ describe('Covid 19 Helper', () => {
         });
     });
     describe('areCountsDefined', () => {
-        it('should return null/falsy when count object has null', () => {
-            expect(areCountsDefined({ test: null, test2: 5 })).toBeFalsy();
+        it('should return false when count object has null', () => {
+            expect(areCountsDefined({ test: null, test2: 5 })).toEqual(false);
         });
-        it('should return truthy when count object is totally defined', () => {
-            expect(areCountsDefined({ test: 5, test2: 3 })).toBeTruthy();
+        it('should return true when count object is totally defined', () => {
+            expect(areCountsDefined({ test: 5, test2: 3 })).toEqual(true);
         });
+        it('should return true when last count is 0', () => {
+            expect(areCountsDefined({ test: 1, test2: 7, test3: 0 })).toEqual(true);
+        })
     });
 
     describe('calculateUnlinkedTotals', () => {
