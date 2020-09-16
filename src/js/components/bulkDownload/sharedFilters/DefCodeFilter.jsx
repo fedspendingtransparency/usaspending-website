@@ -10,7 +10,7 @@ const DefCodeFilter = ({ type }) => {
             <CheckCircle />
         </div>
     );
-    
+
     return (
         <div className="download-filter def-code-filter">
             <h3 className="download-filter__title">
