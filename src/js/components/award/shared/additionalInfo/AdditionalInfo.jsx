@@ -77,6 +77,12 @@ export default class AdditionalInfo extends React.Component {
         }
         const columnOne = [
             (<Accordion
+                key="UniqueAwardKey"
+                globalToggle={this.state.globalToggle}
+                accordionName="Unique Award Key"
+                accordionIcon="fingerprint"
+                accordionData={data.uniqueAwardKey} />),
+            (<Accordion
                 key="AgencyDetails"
                 globalToggle={this.state.globalToggle}
                 accordionName="Agency Details"
@@ -137,6 +143,12 @@ export default class AdditionalInfo extends React.Component {
         const { overview } = this.props;
         const data = this.data();
         const columnOne = [
+            (<Accordion
+                key="UniqueAwardKey"
+                globalToggle={this.state.globalToggle}
+                accordionName="Unique Award Key"
+                accordionIcon="fingerprint"
+                accordionData={data.uniqueAwardKey} />),
             (<Accordion
                 key="AgencyDetails"
                 globalToggle={this.state.globalToggle}

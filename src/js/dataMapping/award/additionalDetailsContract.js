@@ -2,6 +2,7 @@
  * additionalDetails.js -> additonalDetailsContracts.js
  * Created by Kwadwo Opoku-Debrah 12/17/18
  */
+import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
 
 const additionalDetailsContracts = (awardData) => {
     const {
@@ -12,7 +13,16 @@ const additionalDetailsContracts = (awardData) => {
         placeOfPerformance,
         recipient
     } = awardData;
+
     const data = {
+        uniqueAwardKey: {
+            'Unique Award Key': awardData.generatedId,
+            'Award or IDV Flag': 'Contract Award',
+            'Procurement Instrument Identifier (PIID)': awardData.piid,
+            'Submitting Agency Identifier Code': getSubmittingAgencyId(awardData.generatedId),
+            'Parent Award ID (Parent PIID)': parentAwardDetails.piid,
+            'Parent Agency Identifier Code': awardData.additionalDetails.idvAgencyId
+        },
         agencyDetails: {
             'Awarding Agency': {
                 type: 'link',
@@ -58,6 +68,7 @@ const additionalDetailsContracts = (awardData) => {
             }
         },
         parentAwardDetails: {
+            'Parent Award Unique Key': parentAwardDetails.awardId,
             'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
