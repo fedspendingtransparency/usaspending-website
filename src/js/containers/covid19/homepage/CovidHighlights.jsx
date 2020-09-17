@@ -45,6 +45,7 @@ export class CovidHighlights extends React.Component {
         super(props);
         this.state = {
             isAmountLoading: true,
+            isDateLoading: true,
             areHighlightsLoading: true,
             highlights: [],
             isHoverActive: false,
@@ -134,11 +135,13 @@ export class CovidHighlights extends React.Component {
             const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
             this.props.updateSubmissionDate(latestSubmissionDateFormatted(availablePeriods));
             this.allSubmissionDatesRequest = null;
+            this.setState({ isDateLoading: false });
             return Promise.resolve();
         }
         catch (e) {
             console.log(' Error Submission Periods : ', e.message);
             this.allSubmissionDatesRequest = null;
+            this.setState({ isDateLoading: false });
             return Promise.resolve();
         }
     }
@@ -262,6 +265,7 @@ export class CovidHighlights extends React.Component {
     render() {
         const {
             isAmountLoading,
+            isDateLoading,
             hasNext
         } = this.state;
         const { totalSpendingAmount, submissionMonth } = this.props;
@@ -273,7 +277,7 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of {submissionMonth},</span>
+                            <span>As of {isDateLoading ? <div className="dot-pulse" /> : `${submissionMonth},`}</span>
                             <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}

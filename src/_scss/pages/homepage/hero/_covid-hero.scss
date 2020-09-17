@@ -1,3 +1,4 @@
+$dot-color: #dcefef;
 .covid-hero {
     height: rem(400);
     @include display(flex);
@@ -267,4 +268,7 @@
         }
     }
     @import "components/loading-pulse-animation";
+    .dot-pulse {
+      opacity: 0.5;
+    }
 }
