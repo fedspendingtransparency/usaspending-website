@@ -4,14 +4,9 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
-
-const propTypes = {
-    handleExternalLinkClick: PropTypes.func
-};
 
 const DataSourcesAndMethodology = () => (
     <div className="heading__container information-body">
@@ -25,8 +20,5 @@ const DataSourcesAndMethodology = () => (
         </div>
     </div>
 );
-
-
-DataSourcesAndMethodology.propTypes = propTypes;
 
 export default DataSourcesAndMethodology;

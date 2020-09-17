@@ -254,7 +254,7 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of June 2020,</span>
+                            <span>As of July 2020,</span>
                             <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
