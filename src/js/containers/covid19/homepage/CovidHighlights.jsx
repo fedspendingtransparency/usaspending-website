@@ -67,7 +67,7 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResizeWindow);
         this.handleResizeWindow();
-        return this.fetchDefCodes()
+        return Promise.all([this.fetchDefCodes(), this.fetchSubmissionMonth() ])
             .then(() => (
                 Promise.all([this.fetchSubmissionMonth(), this.fetchHighlights(), this.fetchTotals()])
             ))
