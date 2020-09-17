@@ -50,7 +50,6 @@ export class CovidHighlights extends React.Component {
             isHoverActive: false,
             page: 1,
             hasNext: false,
-            asOfDate: '',
             isIncrementComplete: false,
             imgDimensions: {
                 width: 0,
@@ -70,7 +69,7 @@ export class CovidHighlights extends React.Component {
         this.handleResizeWindow();
         return this.fetchDefCodes()
             .then(() => (
-                Promise.all([this.fetchHighlights(), this.fetchTotals(), this.fetchSubmissionMonth()])
+                Promise.all([this.fetchSubmissionMonth(), this.fetchHighlights(), this.fetchTotals()])
             ))
             .then(() => {
                 if (!document.documentMode) {
