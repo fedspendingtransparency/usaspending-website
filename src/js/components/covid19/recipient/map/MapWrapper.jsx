@@ -155,7 +155,6 @@ export default class MapWrapper extends React.Component {
             this.loadSource(type);
             return;
         }
-
         // enable the base layer
         this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
@@ -171,7 +170,6 @@ export default class MapWrapper extends React.Component {
             // we haven't loaded the layer yet, stop
             return;
         }
-
         // hide the base layer
         this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
@@ -179,6 +177,23 @@ export default class MapWrapper extends React.Component {
             this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
         });
     }
+    /**
+     * firstSymbolId
+     * - finds the first symbol ( text to mapbox ) layer.
+     * @returns {string} first symbol layer id.
+     */
+    firstSymbolId = () => {
+        const layers = this.mapRef.map.getStyle().layers;
+        // Find the index of the first symbol layer in the map style
+        let firstSymbolId = null;
+        for (let i = 0; i < layers.length; i++) {
+            if (layers[i].type === 'symbol') {
+                firstSymbolId = layers[i].id;
+                break;
+            }
+        }
+        return firstSymbolId;
+    };
 
     loadSource = (type) => {
         const baseLayer = `base_${type}`;
@@ -222,7 +237,7 @@ export default class MapWrapper extends React.Component {
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            });
+            }, this.firstSymbolId());
 
             // setup mouseover events
             this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
