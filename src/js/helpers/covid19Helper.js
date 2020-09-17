@@ -163,10 +163,13 @@ export const getTotalSpendingAbbreviated = (totalSpending) => {
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
 
-export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => {
-    if (acc === null) return acc;
-    return counts[tab];
-}, true);
+export const areCountsDefined = (counts) => {
+    const countTabs = Object.keys(counts);
+    if (countTabs.length === 0) {
+        return false;
+    }
+    return countTabs.reduce((acc, tab) => acc && counts[tab] !== null, true);
+};
 
 export const handleSort = (a, b) => {
     if (a.sortOrder < b.sortOrder) return -1;

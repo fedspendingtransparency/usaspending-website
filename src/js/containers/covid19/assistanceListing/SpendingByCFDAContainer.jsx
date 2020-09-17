@@ -201,8 +201,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     Unknown CFDA Program (Unlinked Data)
                 </div>
             );
-
-            // TODO - DEV-5625 Remove placeholder 0s
             rows.push({
                 description: unlinkedName,
                 obligation: unlinkedData.obligation,
