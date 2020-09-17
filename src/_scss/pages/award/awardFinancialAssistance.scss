@@ -71,9 +71,10 @@
                           font-size: 1.8rem;
                           letter-spacing: 0;
                           line-height: 2.3rem;
+                          $dot-color: $color-gray-light;
                           @import 'components/loading-pulse-animation';
                           .dot-pulse {
-                            margin: 1rem 0 0 5.5rem;
+                            margin: 1rem 0 0 8rem;
                           }
                         }
                       }
