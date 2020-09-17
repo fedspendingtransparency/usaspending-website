@@ -50,7 +50,6 @@ export class CovidHighlights extends React.Component {
             isHoverActive: false,
             page: 1,
             hasNext: false,
-            asOfDate: '',
             isIncrementComplete: false,
             imgDimensions: {
                 width: 0,
