@@ -51,7 +51,6 @@ require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [showSidebarFooter, setShowSidebarFooter] = useState(true);
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     // const [selectedDEF, setselectedDEF] = useState('All');
     // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
@@ -72,12 +71,6 @@ const Covid19Container = () => {
 
     const handleScroll = () => {
         setBannerStickyOnScroll();
-        if (window.scrollY >= (lastSectionRef.current.offsetTop - 800)) {
-            setShowSidebarFooter(false);
-        }
-        else {
-            setShowSidebarFooter(true);
-        }
     };
 
     useEffect(() => {
@@ -231,18 +224,16 @@ const Covid19Container = () => {
                                         .map((section) => ({
                                             section: snakeCase(section),
                                             label: componentByCovid19Section()[section].title
-                                        }))} />
+                                        }))} >
+                                    <div className="sidebar-footer">
+                                        <SidebarFooter
+                                            pageName="covid19"
+                                            isGoingToBeSticky
+                                            verticalOffset={getVerticalOffsetForSidebarFooter()}
+                                            fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+                                    </div>
+                                </Sidebar>
                             </div>
-                            {
-                                showSidebarFooter &&
-                                <div className="sidebar-footer">
-                                    <SidebarFooter
-                                        pageName="covid19"
-                                        isGoingToBeSticky
-                                        verticalOffset={getVerticalOffsetForSidebarFooter()}
-                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-                                </div>
-                            }
                         </div>
                         <div className="body usda__flex-col">
                             <section className="body__section">

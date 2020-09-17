@@ -19,13 +19,15 @@
         }
     
         .covid19-sidebar-content {
-            background-color: $color-white;
-            box-shadow: $container-shadow;
-            color: $color-base;
-            border-top: 1px solid $color-gray-border;
-            border-right: 1px solid $color-gray-border;
-            border-bottom: 1px solid $color-gray-border;
-            border-radius: rem(5);
+            .covid19-sidebar-content-background {
+              background-color: $color-white;
+              box-shadow: $container-shadow;
+              color: $color-base;
+              border-top: 1px solid $color-gray-border;
+              border-right: 1px solid $color-gray-border;
+              border-bottom: 1px solid $color-gray-border;
+              border-radius: rem(5);
+            }
             &.float-sidebar {
                 position: fixed;
                 // fixed site header (66px) and banner (75px)
