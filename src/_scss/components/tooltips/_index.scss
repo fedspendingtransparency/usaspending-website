@@ -1,6 +1,9 @@
 .tooltip-wrapper {
     div:first-of-type {
         @include display(flex);
+        .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
+            left: rem(-8);
+        }
     }
     &.award-amounts-tt__wrapper div:first-of-type {
         width: 100%;
