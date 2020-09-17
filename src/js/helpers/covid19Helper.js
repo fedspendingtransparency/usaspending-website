@@ -138,7 +138,7 @@ export const latestSubmissionDateFormatted = (availablePeriods) => availablePeri
     .map((s) => moment.utc(s.period_end_date))
     .sort((a, b) => b.valueOf() - a.valueOf())
     .find((s) => Date.now() >= s.valueOf())
-    .format('MMMM Do[,] YYYY');
+    .format('MMMM DD[,] YYYY');
 
 export const useInFlightList = (initialState) => {
     const [inFlightList, updateInFlightList] = useState(initialState);
