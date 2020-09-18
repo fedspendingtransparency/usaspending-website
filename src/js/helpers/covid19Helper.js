@@ -6,8 +6,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import moment from 'moment';
 import { snakeCase } from 'lodash';
-import { scaleQuantile } from 'd3-scale';
-
+import { apiRequest } from 'helpers/apiRequest';
 import {
     defCodes,
     dataDisclaimerHeight,
@@ -19,7 +18,11 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
+
+export const fetchOpportunityTotals = (code) => apiRequest({
+    url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
+});
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
@@ -129,9 +132,6 @@ export const createJumpToSectionForSidebar = (prefix, domSections) => (
     offset = getVerticalOffset()
 ) => jumpToSection(section, offset, prefix, domSections);
 
-export const getCovidFromFileC = (codes) => codes
-    .filter((code) => defCodes.includes(code));
-
 export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
     .filter((s) => !s.is_quarter)
     .map((s) => moment.utc(s.period_end_date))
@@ -163,10 +163,13 @@ export const getTotalSpendingAbbreviated = (totalSpending) => {
     return `${abbreviatedValue} ${unit.longLabel}`;
 };
 
-export const areCountsDefined = (counts) => Object.keys(counts).reduce((acc, tab) => {
-    if (acc === null) return acc;
-    return counts[tab];
-}, true);
+export const areCountsDefined = (counts) => {
+    const countTabs = Object.keys(counts);
+    if (countTabs.length === 0) {
+        return false;
+    }
+    return countTabs.reduce((acc, tab) => acc && counts[tab] !== null, true);
+};
 
 export const handleSort = (a, b) => {
     if (a.sortOrder < b.sortOrder) return -1;
@@ -174,35 +177,19 @@ export const handleSort = (a, b) => {
     return 0;
 };
 
-export const calculateCovidMapRange = (data, territory) => {
-    let dataRange = data;
-    // handle a condition where an empty array is provided
-    if (data.length < 1) {
-        dataRange = [0, 10000];
-    }
-
-    // determine the best units to use
-    const units = calculateUnits(dataRange);
-
-    const rangeArray = [];
-    const numStateRange = 49;
-    const numCountyRange = 500;
-    if (territory === 'state') {
-        for (let i = 0; i < numStateRange; i++) {
-            rangeArray.push(i);
-        }
-    } else {
-        for (let i = 0; i < numCountyRange; i++) {
-            rangeArray.push(i);
-        }
-    }
-
-    const scale = scaleQuantile().domain(data).range(rangeArray);
-    const segments = scale.quantiles();
+/* eslint-disable camelcase */
+export const calculateUnlinkedTotals = (overviewTotal, aggregatedTotal) => {
+    const unlinkedObligation = overviewTotal?.obligation - aggregatedTotal?.obligation;
+    const unlinkedOutlay = overviewTotal?.outlay - aggregatedTotal?.outlay;
+    const unlinkedAwardCount = overviewTotal?.awardCount - aggregatedTotal?.award_count;
+    const unlinkedFaceValueOfLoans = overviewTotal?.faceValueOfLoan - aggregatedTotal?.face_value_of_loan;
+    const unlinkedBudgetaryResources = overviewTotal?.totalBudgetaryResources - aggregatedTotal?.total_budgetary_resources;
 
     return {
-        scale,
-        segments,
-        units
+        obligation: unlinkedObligation,
+        outlay: unlinkedOutlay,
+        award_count: unlinkedAwardCount,
+        face_value_of_loan: unlinkedFaceValueOfLoans,
+        total_budgetary_resources: unlinkedBudgetaryResources
     };
 };

@@ -16,7 +16,7 @@ describe('COVID-19 Spending by Recipient row', () => {
                 expect(row._id).toEqual(['hash-R', 'hash-C']);
             });
             it('should store the code', () => {
-                expect(row._code).toEqual('090');
+                expect(row.code).toEqual('090');
             });
             it('should store the description', () => {
                 expect(row.description).toEqual('Description text');
