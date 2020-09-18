@@ -26,8 +26,7 @@ import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 const propTypes = {
     award: PropTypes.object,
     setIdvDetails: PropTypes.func,
-    jumpToSection: PropTypes.func,
-    thisIdvHasFileC: PropTypes.bool
+    jumpToSection: PropTypes.func
 };
 
 const tabTypes = [
