@@ -31,7 +31,7 @@ export const searchPageMetaTags = {
 
 export const explorerPageMetaTags = {
     og_url: `${productionURL}explorer`,
-    og_title: 'Government Spending Explorer | USAspending.gov',
+    og_title: 'Government Spending Explorer | USAspending',
     og_description:
         'Spending Explorer lets you explore the federal spending landscape through the lens of three accounting categories: Budget Function (spending purpose), Agency (spending source), and Object Class (purchased item or service).',
     og_site_name: siteName,
@@ -40,7 +40,7 @@ export const explorerPageMetaTags = {
 
 export const aboutPageMetaTags = {
     og_url: `${productionURL}about`,
-    og_title: 'About | USAspending.gov',
+    og_title: 'About | USAspending',
     og_description:
         'Learn about our mission, background, and data sources by visiting this page. ',
     og_site_name: siteName,
@@ -49,7 +49,7 @@ export const aboutPageMetaTags = {
 
 export const accessibilityPageMetaTags = {
     og_url: `${productionURL}about/accessibility`,
-    og_title: 'Accessibility | USAspending.gov',
+    og_title: 'Accessibility | USAspending',
     og_description:
         'Learn about our commitment to accessibility on this page.',
     og_site_name: siteName,
@@ -58,7 +58,7 @@ export const accessibilityPageMetaTags = {
 
 export const privacyPageMetaTags = {
     og_url: `${productionURL}about/privacy`,
-    og_title: 'Privacy | USAspending.gov',
+    og_title: 'Privacy | USAspending',
     og_description:
         'Learn about our privacy policy on this page. ',
     og_site_name: siteName,
@@ -92,7 +92,7 @@ export const awardPageMetaTags = ({
     awardingAgency: { toptierName: asstAggAgencyName }
 }) => ({
     og_url: `${productionURL}award/${id}`,
-    og_title: `${awardType.toUpperCase()} to ${recipientName} | USAspending.gov`,
+    og_title: `${awardType.toUpperCase()} to ${recipientName} | USAspending`,
     og_description:
         `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from the ${agencyName || asstAggAgencyName}.`,
     og_site_name: siteName,
