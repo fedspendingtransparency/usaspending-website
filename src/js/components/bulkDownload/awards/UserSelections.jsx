@@ -27,17 +27,6 @@ export default class UserSelections extends React.Component {
         this.generateDateRangeString = this.generateDateRangeString.bind(this);
     }
 
-    generateDefCodesString() {
-        if (this.props.awards.defCodes && this.props.awards.defCodes.length > 0) {
-            return (
-                <div className="selection__content">{this.props.awards.defCodes.toString()}</div>
-            );
-        }
-        return (
-            <div className="selection__content">&mdash;</div>
-        );
-    }
-
     generateAwardTypeString() {
         // Build an array of labels for the current selections
         const options = Object.assign(
@@ -211,12 +200,6 @@ export default class UserSelections extends React.Component {
                         <div className="selection__heading">Location</div>
                         {this.generateLocationTypeString()}
                         {this.generateLocationString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">Disaster Emergency Fund Codes</div>
-                        <div className="selection__content">
-                            {this.generateDefCodesString()}
-                        </div>
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Date Type</div>

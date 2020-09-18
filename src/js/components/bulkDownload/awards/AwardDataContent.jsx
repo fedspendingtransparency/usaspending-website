@@ -150,7 +150,6 @@ export default class AwardDataContent extends React.Component {
                             currentLocation={awards.location}
                             updateFilter={this.props.updateFilter}
                             currentLocationType={awards.locationType} />
-                        <DefCodeFilter type="awards" />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
                             currentDateType={awards.dateType}
