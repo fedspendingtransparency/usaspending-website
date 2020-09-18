@@ -12,3 +12,4 @@ export const fetchBreakdown = () => ({
 });
 
 export const truncateDataForTreemap = (data) => data;
+export const appendCellForDataOutsideTree = (data) => data;
