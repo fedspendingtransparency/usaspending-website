@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 
-import { appendCellForDataOutsideTree } from 'helpers/explorerHelper';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 
 
@@ -57,12 +56,9 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     buildVirtualChart(props) {
-        const dataForTree = props.data.toJS();
+        const data = props.data.toJS();
 
         const total = props.total;
-        // remove the negative values from the data because they can't be displayed in the treemap
-        const data = appendCellForDataOutsideTree(dataForTree, total, props.activeSubdivision)
-            .sort((a, b) => b.amount - a.amount);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({ children: data })

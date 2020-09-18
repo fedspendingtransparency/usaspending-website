@@ -24,7 +24,7 @@ export const fetchBreakdown = (params) => apiRequest({
 export const appendCellForDataOutsideTree = (dataForTree, overallTotal, activeSubdivision) => {
     const totalNotShown = overallTotal - dataForTree.reduce((sum, item) => sum + item.amount, 0);
     return [{
-        id: 'N/A',
+        id: null,
         link: false,
         code: "N/A",
         type: '',

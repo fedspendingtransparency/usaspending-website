@@ -217,6 +217,7 @@ export class DetailContentContainer extends React.Component {
 
         let isTruncated = false;
         let parsedResults = ExplorerHelper.truncateDataForTreemap(data.results);
+
         if (request.subdivision === 'award') {
             // link to award page using new human readable id
             parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
@@ -228,6 +229,9 @@ export class DetailContentContainer extends React.Component {
             // message
             isTruncated = Math.abs(total - resultTotal) > 10;
         }
+
+        parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
+            .sort((a, b) => b.amount - a.amount);
 
         // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {
