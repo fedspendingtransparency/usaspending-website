@@ -31,9 +31,9 @@ export const searchPageMetaTags = {
 
 export const explorerPageMetaTags = {
     og_url: `${productionURL}explorer`,
-    og_title: 'Spending Explorer - USAspending.gov',
+    og_title: 'Government Spending Explorer | USAspending.gov',
     og_description:
-        'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+        'Spending Explorer lets you explore the federal spending landscape through the lens of three accounting categories: Budget Function (spending purpose), Agency (spending source), and Object Class (purchased item or service).',
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
@@ -88,12 +88,13 @@ export const awardPageMetaTags = ({
     recipient: { _name: recipientName },
     _dateSigned: dateSigned,
     generatedId: id,
-    fundingAgency: { toptierName: agencyName }
+    fundingAgency: { toptierName: agencyName },
+    awardingAgency: { toptierName: asstAggAgencyName }
 }) => ({
     og_url: `${productionURL}award/${id}`,
     og_title: `${awardType.toUpperCase()} to ${recipientName} | USAspending.gov`,
     og_description:
-        `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from the ${agencyName}.`,
+        `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from the ${agencyName || asstAggAgencyName}.`,
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });
@@ -134,7 +135,7 @@ export const agencyLandingPageMetaTags = {
 
 export const covidPageMetaTags = {
     og_url: `${productionURL}disaster/covid-19`,
-    og_title: 'COVID Relief Spending | USAspending.gov',
+    og_title: 'COVID Relief Spending | USAspending',
     og_description:
         'Federal agencies that have received COVID-19 supplemental appropriations are required by the Office of Management and Budget (OMB) to report obligations and expenditures on a monthly basis to USAspending.gov. Visit the COVID-19 Spending profile page for an overview of this data.',
     og_site_name: siteName,
@@ -143,7 +144,7 @@ export const covidPageMetaTags = {
 
 export const stylePageMetaTags = {
     og_url: `${productionURL}style`,
-    og_title: 'Style Guide - USAspending.gov',
+    og_title: 'Style Guide | USAspending',
     og_description:
         'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
     og_site_name: siteName,
@@ -152,7 +153,7 @@ export const stylePageMetaTags = {
 
 export const downloadArchivePageMetaTags = {
     og_url: `${productionURL}download_center/award_data_archive`,
-    og_title: 'Award Data Archive | USAspending.gov',
+    og_title: 'Award Data Archive | USAspending',
     og_description:
         'Instantly download an archive of award spending data from federal agencies. ',
     og_site_name: siteName,
@@ -161,7 +162,7 @@ export const downloadArchivePageMetaTags = {
 
 export const downloadAwardPageMetaTags = {
     og_url: `${productionURL}download_center/custom_award_data`,
-    og_title: 'Custom Award Data | USAspending.gov',
+    og_title: 'Custom Award Data | USAspending',
     og_description:
         'Customize your download of federal awards (prime awards and sub-awards) using the filters on this page. ',
     og_site_name: siteName,
@@ -170,7 +171,7 @@ export const downloadAwardPageMetaTags = {
 
 export const downloadAccountPageMetaTags = {
     og_url: `${productionURL}download_center/custom_account_data`,
-    og_title: 'Custom Account Data | USAspending.gov',
+    og_title: 'Custom Account Data | USAspending',
     og_description:
         'Customize your download of federal spending data (both award and non-award spending) using the filters on this page. ',
     og_site_name: siteName,
@@ -179,7 +180,7 @@ export const downloadAccountPageMetaTags = {
 
 export const dataDictionaryPageMetaTags = {
     og_url: `${productionURL}download_center/data_dictionary`,
-    og_title: 'Data Dictionary | USAspending.gov',
+    og_title: 'Data Dictionary | USAspending',
     og_description:
         'Learn about the data elements in our download packages by visiting this page.',
     og_site_name: siteName,
@@ -200,7 +201,7 @@ export const statePageMetaTags = ({
     id
 }) => ({
     og_url: `${productionURL}state/${id}/latest`,
-    og_title: `${name} | Spending Profile | USAspending.gov`,
+    og_title: `${name} | Spending Profile | USAspending`,
     og_description:
         `View the federal spending activity for the state of ${name} in this profile page. `,
     og_site_name: siteName,
@@ -209,7 +210,7 @@ export const statePageMetaTags = ({
 
 export const errorPageMetaTags = {
     og_url: productionURL,
-    og_title: '404 | USAspending.gov',
+    og_title: '404 | USAspending',
     og_description:
         'The requested page cannot be found. Please visit our homepage to re-start your search or send us an inquiry.',
     og_site_name: siteName,
@@ -239,7 +240,7 @@ export const recipientPageMetaTags = ({
     name
 }) => ({
     og_url: `${productionURL}recipient/${id}/latest`,
-    og_title: `${name} | Federal Award Recipient Profile | USAspending.gov`,
+    og_title: `${name} | Federal Award Recipient Profile | USAspending`,
     og_description:
         `View the federal spending activity for ${name} in this profile page.`,
     og_site_name: siteName,
