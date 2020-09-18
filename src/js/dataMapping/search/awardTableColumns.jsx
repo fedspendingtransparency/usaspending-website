@@ -337,9 +337,9 @@ const tabsWithCovidCols = [
 if (kGlobalConstants.CARES_ACT_RELEASED) {
     // Insert columns for COVID-19
     tabsWithCovidCols.forEach((tab) => {
-        tab.splice(4, 0, covidDefCCol);
-        tab.splice(5, 0, covidObligationsCol);
-        tab.splice(6, 0, covidOutlaysCol);
+        tab.splice(5, 0, covidDefCCol);
+        tab.splice(6, 0, covidObligationsCol);
+        tab.splice(7, 0, covidOutlaysCol);
     });
 }
 
