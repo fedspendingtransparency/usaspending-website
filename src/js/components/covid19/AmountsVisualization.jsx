@@ -400,26 +400,14 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
         const questionRef = _outlayQuestion.current?.getBoundingClientRect();
-        if (((outlayLineData?.x1 || 0) + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - amountsPadding.right - 1)) {
-            // text to the left of the line
-            setOutlayQuestionData({
-                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
-                x: (outlayLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
-                left: true
-            });
-        }
-        else { // text to the right of the line
-            setOutlayQuestionData({
-                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
-                x: (outlayLineData?.x1 || 0) + spacingBetweenLineAndText,
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-            });
-        }
+        // text to the left of the line
+        setOutlayQuestionData({
+            y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
+            x: (outlayLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
     }, [outlayLineData]);
     // outlayValueData
     useLayoutEffect(() => {
@@ -428,55 +416,31 @@ const AmountsVisualization = ({
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (outlayLineData) {
-            if (outlayQuestionData?.left || 0) {
-                setOutlayValueData({
-                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
-                    x: outlayLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
-                    height: ref?.height || 0,
-                    theWidth: ref?.width || 0,
-                    text: moneyLabel,
-                    className: `amounts-text__value ${!ref ? 'white' : ''}`
-                });
-            }
-            else { // text to the right of the line
-                setOutlayValueData({
-                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
-                    x: outlayLineData.x1 + (outlayLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
-                    height: ref?.height || 0,
-                    theWidth: ref?.width || 0,
-                    text: moneyLabel,
-                    className: `amounts-text__value ${!ref ? 'white' : ''}`
-                });
-            }
+            setOutlayValueData({
+                y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
+                x: outlayLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
+                height: ref?.height || 0,
+                theWidth: ref?.width || 0,
+                text: moneyLabel,
+                className: `amounts-text__value ${!ref ? 'white' : ''}`
+            });
         }
-    }, [outlayLabelData]);
+    }, [outlayLineData, outlayQuestionData]);
     // outlayLabelData
     useLayoutEffect(() => {
         const ref = _outlayLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._totalOutlays;
         if (outlayLineData && outlayQuestionData) {
-            if (outlayQuestionData.left) {
-                setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                    x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
-                    height: ref?.height || 0,
-                    text: textInfo.label,
-                    theWidth: ref?.width || 0,
-                    className: `amounts-text__label ${!ref ? 'white' : ''}`
-                });
-            }
-            else { // text to the right of line
-                setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                    x: outlayLineData.x1 + spacingBetweenLineAndText,
-                    height: ref?.height || 0,
-                    text: textInfo.label,
-                    theWidth: ref?.width || 0,
-                    className: `amounts-text__label ${!ref ? 'white' : ''}`
-                });
-            }
+            setOutlayLabelData({
+                y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
+                x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
+                height: ref?.height || 0,
+                text: textInfo.label,
+                theWidth: ref?.width || 0,
+                className: `amounts-text__label ${!ref ? 'white' : ''}`
+            });
         }
-    }, [outlayLineData, outlayQuestionData]);
+    }, [outlayValueData]);
     // obligationQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalObligations;
