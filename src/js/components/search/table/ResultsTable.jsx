@@ -132,7 +132,7 @@ export default class ResultsTable extends React.Component {
                 props.value = '--';
             }
             else {
-                props.value = this.props.results[rowIndex].def_codes;
+                props.value = this.props.results[rowIndex].def_codes.join(", ");
             }
         }
         return React.createElement(
