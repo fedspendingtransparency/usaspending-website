@@ -140,7 +140,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
 
         if (props.type === 'all') {
-            unlinkedName = 'Unknown Agency (Missing Linkage)';
+            unlinkedName = 'Unknown Agency (Unlinked Data)';
         } else {
             unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
         }

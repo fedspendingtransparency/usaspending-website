@@ -61,6 +61,13 @@ const SpendingByCFDA = () => {
         Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
     };
 
+    // Keep track of previous tab to prevent duplicate requests in summary
+    const prevTabRef = useRef();
+    useEffect(() => {
+        prevTabRef.current = activeTab;
+    });
+    const prevTab = prevTabRef.current;
+
     useEffect(() => {
         if (defCodes && defCodes.length > 0) {
             // Make an API request for the count of CFDA for each award type
@@ -133,6 +140,7 @@ const SpendingByCFDA = () => {
                 // pass CFDA count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
+                prevTab={prevTab}
                 areCountsLoading={inFlight}
                 overviewData={overviewData}
                 assistanceOnly />
