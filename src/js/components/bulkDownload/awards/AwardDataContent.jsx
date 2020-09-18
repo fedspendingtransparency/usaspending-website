@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
 
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
