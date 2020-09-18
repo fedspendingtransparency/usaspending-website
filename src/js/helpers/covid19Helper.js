@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import moment from 'moment';
 import { snakeCase } from 'lodash';
-import { scaleQuantile } from 'd3-scale';
 import { apiRequest } from 'helpers/apiRequest';
 import {
     defCodes,
@@ -19,7 +18,7 @@ import {
 } from 'dataMapping/covid19/covid19';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue, calculateUnits } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 
 export const fetchOpportunityTotals = (code) => apiRequest({
     url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
@@ -178,39 +177,6 @@ export const handleSort = (a, b) => {
     return 0;
 };
 
-export const calculateCovidMapRange = (data, territory) => {
-    let dataRange = data;
-    // handle a condition where an empty array is provided
-    if (data.length < 1) {
-        dataRange = [0, 10000];
-    }
-
-    // determine the best units to use
-    const units = calculateUnits(dataRange);
-
-    const rangeArray = [];
-    const numStateRange = 49;
-    const numCountyRange = 500;
-    if (territory === 'state') {
-        for (let i = 0; i < numStateRange; i++) {
-            rangeArray.push(i);
-        }
-    } else {
-        for (let i = 0; i < numCountyRange; i++) {
-            rangeArray.push(i);
-        }
-    }
-
-    const scale = scaleQuantile().domain(data).range(rangeArray);
-    const segments = scale.quantiles();
-
-    return {
-        scale,
-        segments,
-        units
-    };
-};
-
 /* eslint-disable camelcase */
 export const calculateUnlinkedTotals = (overviewTotal, aggregatedTotal) => {
     const unlinkedObligation = overviewTotal?.obligation - aggregatedTotal?.obligation;
@@ -227,4 +193,3 @@ export const calculateUnlinkedTotals = (overviewTotal, aggregatedTotal) => {
         total_budgetary_resources: unlinkedBudgetaryResources
     };
 };
-
