@@ -19,6 +19,14 @@
         }
     
         .covid19-sidebar-content {
+            height: 654px;
+            overflow-y: scroll;
+
+            @media (min-width: 1244px) {
+                height: auto;
+                overflow-y: auto;
+            }
+
             .covid19-sidebar-content-background {
               background-color: $color-white;
               box-shadow: $container-shadow;
