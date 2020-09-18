@@ -88,12 +88,12 @@ export const awardPageMetaTags = ({
     recipient: { _name: recipientName },
     _dateSigned: dateSigned,
     generatedId: id,
-    awardingAgency: { officeName: agencyName }
+    fundingAgency: { toptierName: agencyName }
 }) => ({
     og_url: `${productionURL}award/${id}`,
     og_title: `${awardType.toUpperCase()} to ${recipientName} | USAspending.gov`,
     og_description:
-        `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from ${agencyName}.`,
+        `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from the ${agencyName}.`,
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });
