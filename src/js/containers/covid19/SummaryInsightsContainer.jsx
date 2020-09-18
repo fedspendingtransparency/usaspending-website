@@ -52,9 +52,18 @@ const SummaryInsightsContainer = ({
             // Make sure CFDA does not fire off multiple requests for 'all' tab
             return;
         }
+        // Clear out old values
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
+        if (spendingByAgencyOnly) {
+            dispatch(setTotals('SPENDING_BY_AGENCY', {}));
+        } else if (assistanceOnly) {
+            dispatch(setTotals('ASSISTANCE', {}));
+        } else if (recipientOnly) {
+            dispatch(setTotals('RECIPIENT', {}));
+        }
+
         if (awardAmountRequest.current) {
             awardAmountRequest.current.cancel();
         }
