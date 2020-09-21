@@ -1,4 +1,7 @@
 .usa-dt-modal {
+  @media(min-width: $large-screen) {
+    min-width: 120rem;
+  }
   .usa-dt-modal__header {
     h1.usa-dt-modal__title {
       font-size: 2.1rem;
