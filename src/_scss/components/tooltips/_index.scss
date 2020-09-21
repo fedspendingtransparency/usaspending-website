@@ -1,4 +1,8 @@
 .tooltip-wrapper {
+    display: none;
+    @include media($tablet-screen) {
+        @include display(flex);
+    }
     div:first-of-type {
         @include display(flex);
         .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
