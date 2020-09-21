@@ -408,7 +408,7 @@ export default class MapWrapper extends React.Component {
 
         // in the cases where we have minimal reported data modeling the data with a quantile scale does not work as well as using a linear scale        if (this.countUnique(this.props.data.values) < 10 && this.props.data.values.length !== 0) {
         if (this.countUnique(this.props.data.values) < 10 && this.props.data.values.length !== 0) {
-            scale = scaleLinear().domain(this.props.data.values).range(rangeArray);
+            scale = scaleLinear().domain([Math.min(...this.props.data.values), Math.max(...this.props.data.values)]).range([0, rangeArray.length - 1]);
         }
         else {
             // we are using scaleQuantile from D3 to map the this.props.data.values input domain to a discrete range
