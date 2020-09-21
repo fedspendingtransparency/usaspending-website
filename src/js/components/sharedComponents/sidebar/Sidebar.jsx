@@ -23,7 +23,8 @@ const propTypes = {
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     fixedStickyBreakpoint: PropTypes.number,
     isGoingToBeSticky: PropTypes.bool,
-    verticalSectionOffset: PropTypes.number
+    verticalSectionOffset: PropTypes.number,
+    children: PropTypes.node
 };
 
 /**
@@ -44,7 +45,8 @@ const Sidebar = ({
     detectActiveSection = false,
     fixedStickyBreakpoint = null,
     isGoingToBeSticky = false,
-    verticalSectionOffset = 0
+    verticalSectionOffset = 0,
+    children
 }) => {
     // yPosition, in px, of sections referenced in sidebar
     const outerReferenceDiv = useRef();
@@ -248,14 +250,17 @@ const Sidebar = ({
                 &nbsp;
             </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
-                {fyPicker && (
-                    <FYPicker
-                        selectedFy={selectedFy}
-                        pickedYear={pickedYear} />
-                )}
-                <ul>
-                    {sections.map(buildItems)}
-                </ul>
+                <div className={`${pageName}-sidebar-content-background`}>
+                    {fyPicker && (
+                        <FYPicker
+                            selectedFy={selectedFy}
+                            pickedYear={pickedYear} />
+                    )}
+                    <ul>
+                        {sections.map(buildItems)}
+                    </ul>
+                </div>
+                {children}
             </div>
         </div>
     );
