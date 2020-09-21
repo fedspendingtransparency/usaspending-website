@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
-import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'data-transparency-ui';
+import { useHistory } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -21,7 +22,10 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
+import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -121,10 +125,13 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [modalData, setModalData] = useState(null);
+    const [cfdaModal, showCFDAModal] = useState(false);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
+    const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
     const history = useHistory();
 
@@ -133,7 +140,21 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setOrder(direction);
     };
     const defCodes = useSelector((state) => state.covid19.defCodes);
+    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
+    const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
+
+    const launchModal = (e) => {
+        e.persist();
+        setModalData(() => results.find((cfda) => cfda.code === e.target.value));
+        showCFDAModal(true);
+    };
+    const closeModal = () => showCFDAModal(false);
+
+    const displayRedirectModal = (e) => {
+        e.persist();
+        dispatch(showModal(e.target.value, 'redirect'));
+    };
 
     const updateAdvancedSearchFilters = (e) => {
         e.preventDefault();
@@ -170,20 +191,43 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
+    const addUnlinkedData = (rows, totals) => {
+        // add unlinked data if activeTab is all
+        if (activeTab === 'all') {
+            const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
+            setUnlinkedDataClass(true);
+            const unlinkedName = (
+                <div className="unlinked-data">
+                    Unknown CFDA Program (Unlinked Data)
+                </div>
+            );
+            rows.push({
+                description: unlinkedName,
+                obligation: unlinkedData.obligation,
+                outlay: unlinkedData.outlay,
+                award_count: unlinkedData.award_count
+            });
+        } else {
+            setUnlinkedDataClass(false);
+        }
+        return rows;
+    };
 
     const parseRows = () => (
         results.map((row) => {
             const rowData = Object.create(BaseSpendingByCfdaRow);
             rowData.populate(row);
             let link = rowData.name;
-            if (rowData._code) {
+            if (rowData.code) {
                 link = (
-                    <button
-                        className="assistance-listing__button"
-                        value={rowData._code}
-                        onClick={updateAdvancedSearchFilters}>
-                        {rowData.name}
-                    </button>
+                    <div className="assistance-listing__button__container">
+                        <button
+                            className="assistance-listing__button"
+                            value={rowData.code}
+                            onClick={launchModal}>
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore" /></span>
+                        </button>
+                    </div>
                 );
             }
             if (activeTab === 'loans') {
@@ -209,7 +253,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && assistanceTotals) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -234,7 +278,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current = cfdaRequest;
             cfdaRequest.promise
                 .then((res) => {
-                    setResults(res.data.results);
+                    const rows = res.data.results;
+                    const totals = res.data.totals;
+                    setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -255,7 +301,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab]);
+    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -332,7 +378,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            <div ref={tableRef} className="table-wrapper" >
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}
@@ -347,6 +393,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            <CFDADetailModal
+                mounted={currentModalData.modal !== 'redirect' && cfdaModal}
+                closeModal={closeModal}
+                data={modalData}
+                updateAdvancedSearchFilters={updateAdvancedSearchFilters}
+                displayRedirectModal={displayRedirectModal} />
         </div>
     );
 };

@@ -37,10 +37,16 @@ import {
     stickyHeaderHeight,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import { fetchDEFCodes, fetchOverview, fetchAllSubmissionDates } from 'helpers/disasterHelper';
-import { setDEFCodes, setOverview, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
+import {
+    fetchDEFCodes,
+    fetchOverview,
+    fetchAllSubmissionDates,
+    fetchAwardAmounts
+} from 'helpers/disasterHelper';
+import { setDEFCodes, setOverview, setLatestSubmissionDate, setTotals } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
+import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
@@ -57,6 +63,7 @@ const Covid19Container = () => {
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const lastSectionRef = useRef(null);
+    const awardAmountRequest = useRef(null);
     const dataDisclaimerBannerRef = useRef(null);
     const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
@@ -120,13 +127,44 @@ const Covid19Container = () => {
                 console.log(' Error Overview : ', e.message);
             }
         };
+        const getAllAwardTypesAmount = async () => {
+            const params = {
+                filter: {
+                    def_codes: defCodes.map((code) => code.code)
+                }
+            };
+            awardAmountRequest.current = fetchAwardAmounts(params);
+            awardAmountRequest.current.promise
+                .then(({
+                    data: {
+                        obligation,
+                        outlay,
+                        award_count: awardCount,
+                        face_value_of_loan: faceValueOfLoan
+                    }
+                }) => {
+                    // set totals in redux, we can use totals elsewhere to calculate unlinked data
+                    const totals = {
+                        obligation,
+                        outlay,
+                        awardCount,
+                        faceValueOfLoan
+                    };
+                    dispatch(setTotals('', totals));
+                });
+        };
         if (defCodes.length) {
             getOverviewData();
+            getAllAwardTypesAmount();
             overviewRequest.current = null;
+            awardAmountRequest.current = null;
         }
         return () => {
             if (overviewRequest.current) {
                 overviewRequest.cancel();
+            }
+            if (awardAmountRequest.current) {
+                awardAmountRequest.cancel();
             }
         };
     }, [defCodes, dispatch]);
@@ -255,12 +293,17 @@ const Covid19Container = () => {
                                         section={section}
                                         icon={componentByCovid19Section()[section].icon}
                                         headerText={componentByCovid19Section()[section].headerText}
-                                        title={componentByCovid19Section()[section].title}>
+                                        title={componentByCovid19Section()[section].title}
+                                        tooltip={componentByCovid19Section()[section].tooltip}>
                                         {componentByCovid19Section()[section].component}
                                     </Covid19Section>
                                 ))}
                             <section className="body__section" id="covid19-data_sources_and_methodology">
                                 <DataSourcesAndMethodology
+                                    handleExternalLinkClick={handleExternalLinkClick} />
+                            </section>
+                            <section className="body__section" id="covid19-other_resources">
+                                <OtherResources
                                     handleExternalLinkClick={handleExternalLinkClick} />
                                 <LinkToAdvancedSearchContainer />
                             </section>

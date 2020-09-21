@@ -14,7 +14,9 @@ export const mockStateApi = {
     total_prime_amount: 300200000000,
     total_prime_awards: 555555,
     award_amount_per_capita: 900000.08,
-    median_household_income: 68000
+    median_household_income: 68000,
+    total_face_value_loan_amount: 399200000000,
+    total_face_value_loan_prime_awards: 123123
 };
 
 export const mockStateCategoryApi = {

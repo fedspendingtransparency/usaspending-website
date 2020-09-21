@@ -2,7 +2,14 @@
     .dsm__container {
         padding-right: 10%;
         padding-left: 10%;
+        padding-bottom: 0%;
+    }
+
+    .resources__container {
+        padding-right: 10%;
+        padding-left: 10%; 
         padding-bottom: 5%;
+        width: 100%;
     }
 
     .dsm__heading {
@@ -33,6 +40,14 @@
     .otherResources__list > li {
         list-style: disc;
         padding-bottom: rem(10);
+        .other-resources__link__container {
+          .other-resources__link__text {
+            padding-right: 0.3rem;
+          }
+          a {
+            word-break: break-word;
+          }
+        }
     }
 
     .information-top {
@@ -48,7 +63,14 @@
     .dsm__container {
         padding-right: 8%;
         padding-left: 8%; 
+        padding-bottom: 0%;
+    }
+
+    .resources__container {
+        padding-right: 8%;
+        padding-left: 8%; 
         padding-bottom: 5%;
+        width: 100%;
     }
     
     .dsm__topSection {
@@ -57,7 +79,8 @@
     }
 
     .bottomSection {
-        padding: 0%;
+        width: 100%;
+        padding-bottom: 5%;
     }
 }
 

@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { getAllNetPositiveIdvFileCDefCodes } from 'helpers/idvHelper';
 import ReferencedAwardsContainer from 'containers/award/idv/ReferencedAwardsContainer';
 import IdvActivityContainer from 'containers/award/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
@@ -23,14 +24,14 @@ import AwardSection from '../shared/AwardSection';
 
 const propTypes = {
     awardId: PropTypes.string,
-    counts: AWARD_COUNTS_PROPS,
+    details: AWARD_COUNTS_PROPS,
     overview: AWARD_OVERVIEW_PROPS,
     jumpToSection: PropTypes.func
 };
 
 const IdvContent = ({
     awardId,
-    counts,
+    details,
     overview,
     jumpToSection
 }) => {
@@ -50,7 +51,7 @@ const IdvContent = ({
     return (
         <AwardPageWrapper
             awardType="idv"
-            defCodes={overview.defCodes}
+            defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
             title={overview.title}
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
@@ -63,7 +64,7 @@ const IdvContent = ({
                     recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
-                    counts={counts}
+                    counts={details}
                     overview={overview}
                     setRelatedAwardsTab={setRelatedAwardsTab} />
             </AwardSection>

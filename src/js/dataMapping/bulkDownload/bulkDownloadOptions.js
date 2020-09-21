@@ -81,6 +81,20 @@ export const awardDownloadOptions = {
             description: 'When the details of a reported award action were last updated'
         }
     ],
+    agencyTypes: [
+        {
+            name: 'awarding_agency',
+            label: 'Awarding Agency',
+            apiName: 'awarding',
+            apiScopeName: 'awarding_agency_scope'
+        },
+        {
+            name: 'funding_agency',
+            label: 'Funding Agency',
+            apiName: 'funding',
+            apiScopeName: 'funding_agency_scope'
+        }
+    ],
     locationTypes: [
         {
             name: 'recipient_location',
