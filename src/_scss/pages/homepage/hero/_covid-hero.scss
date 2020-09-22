@@ -112,11 +112,8 @@
                     }
                     @import "../../../components/tooltips/index";
                       .tooltip-wrapper {
-                        display: none;
-
-                        @media (min-width: $medium-screen) {
-                          display: inline-block;
-                          z-index: 9;
+                        display: inline-block;
+                        z-index: 9;
                         .tooltip__hover-wrapper {
                           svg {
                             color: $color-covid-19-obligations;
@@ -127,7 +124,6 @@
                             }
                           }
                         }
-                      }
                     }
                 }
                 p {
