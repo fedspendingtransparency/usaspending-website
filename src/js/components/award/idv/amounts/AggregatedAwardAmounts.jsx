@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import GlobalConstants from "GlobalConstants";
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
@@ -20,6 +19,7 @@ const propTypes = {
     awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
+    showFileC: PropTypes.bool,
     jumpToSection: PropTypes.func
 };
 
@@ -51,16 +51,13 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const showCaresActViz = (
-            GlobalConstants.CARES_ACT_RELEASED
-        );
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 <AwardAmountsChart
-                    showCaresActViz={showCaresActViz}
+                    showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}
                     awardType="idv"
                     spendingScenario={spendingScenario} />
@@ -86,13 +83,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                     icon="table" />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
-                    showFileC={(
-                        showCaresActViz &&
-                        (
-                            awardAmounts._fileCObligated !== 0 ||
-                            awardAmounts._fileCOutlay !== 0
-                        )
-                    )}
+                    showFileC={this.props.showFileC}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario} />
             </div>
