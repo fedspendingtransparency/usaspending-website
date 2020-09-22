@@ -12,6 +12,7 @@ import kGlobalConstants from 'GlobalConstants';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
+import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -33,7 +34,8 @@ const propTypes = {
     setFederalAccountList: PropTypes.func,
     budgetFunctions: PropTypes.array,
     setBudgetSubfunctionList: PropTypes.func,
-    budgetSubfunctions: PropTypes.array
+    budgetSubfunctions: PropTypes.array,
+    setDefCodes: PropTypes.func
 };
 
 export default class AccountDataContent extends React.Component {
@@ -110,6 +112,7 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
+                        <DefCodeFilter type="accounts" />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}

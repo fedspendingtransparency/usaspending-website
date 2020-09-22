@@ -24,6 +24,17 @@ export default class UserSelections extends React.Component {
         this.generateFyString = this.generateFyString.bind(this);
     }
 
+    generateDefCodesString() {
+        if (this.props.accounts.defCodes && this.props.accounts.defCodes.length > 0) {
+            return (
+                <div className="selection__content">{this.props.accounts.defCodes.toString()}</div>
+            );
+        }
+        return (
+            <div className="selection__content">&mdash;</div>
+        );
+    }
+
     generateAccountLevelString() {
         if (this.props.accounts.accountLevel) {
             const options = accountDownloadOptions.accountLevels;
@@ -153,6 +164,12 @@ export default class UserSelections extends React.Component {
                         <div className="selection__heading">Account Level</div>
                         <div className="selection__content">
                             {this.generateAccountLevelString()}
+                        </div>
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Disaster Emergency Fund Codes</div>
+                        <div className="selection__content">
+                            {this.generateDefCodesString()}
                         </div>
                     </div>
                 </div>
