@@ -26,7 +26,6 @@ import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { summaryRelatedAwardsInfoIdv } from '../../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -228,7 +227,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                             className="assistance-listing__button"
                             data-code={rowData.code}
                             onClick={launchModal}>
-                            {rowData.name.split(' ').slice(0, -1).join(' ')} {rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" />
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
                         </button>
                     </div>
                 );
