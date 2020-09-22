@@ -51,11 +51,18 @@
       .contract-grant-activity-visualization {
         @import '../shared/awardAmountsSection/charts';
         .tooltip-wrapper {
+          display: none;
+          @media (min-width: $tablet-screen) {
+            @include display(flex);            
+          }
           z-index: 214748364;
           pointer-events: visible;
           .tooltip-pointer {
             height: 1.6rem;
             width: 1.6rem;
+            &.bottom {
+              top: rem(-8);
+            }
           }
           .tooltip__content {
             .tooltip__message {
