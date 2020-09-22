@@ -18,6 +18,12 @@ export const updateCheckbox = (state) => ({
     dataType: state.dataType
 });
 
+export const setDefCodes = (downloadType, defCodes) => ({
+    type: 'SET_BULK_DOWNLOAD_DEFC',
+    downloadType,
+    defCodes
+});
+
 export const setDataType = (state) => ({
     type: 'SET_DATA_TYPE',
     dataType: state

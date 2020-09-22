@@ -17,8 +17,11 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
 
-import { defaultColumns, defaultSort } from
-    'dataMapping/search/awardTableColumns';
+import {
+    defaultColumns,
+    defaultSort,
+    apiFieldByTableColumnName
+} from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -314,7 +317,12 @@ export class ResultsTableContainer extends React.Component {
         columnVisibility.forEach((field) => {
             if (!requestFields.includes(field)) {
                 // Prevent duplicates in the list of fields to request
-                requestFields.push(field);
+                if (Object.keys(apiFieldByTableColumnName).includes(field)) {
+                    requestFields.push(apiFieldByTableColumnName[field]);
+                }
+                else {
+                    requestFields.push(field);
+                }
             }
         });
 

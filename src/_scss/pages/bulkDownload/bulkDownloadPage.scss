@@ -27,6 +27,7 @@
             @import "downloadData";
             @import "archive/archive";
             @import "dictionary/dictionary";
+            @import "defCheckbox";
             @include span-columns(16);
             @include media($medium-screen) {
                 @include span-columns(12);

@@ -107,7 +107,8 @@ export class BulkDownloadPageContainer extends React.Component {
                 date_range: {
                     start_date: startDate,
                     end_date: endDate
-                }
+                },
+                def_codes: formState.defCodes
             },
             columns: [],
             file_format: formState.fileFormat
@@ -158,7 +159,8 @@ export class BulkDownloadPageContainer extends React.Component {
                 budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
                 submission_types: submissionTypes,
-                fy: formState.fy
+                fy: formState.fy,
+                def_codes: formState.defCodes
             },
             file_format: 'csv'
         };
@@ -239,6 +241,10 @@ BulkDownloadPageContainer.propTypes = propTypes;
 const BulkDownloadPageContainerWithRouter = withRouter(BulkDownloadPageContainer);
 
 export default connect(
-    (state) => ({ bulkDownload: state.bulkDownload }),
+    // connects reduxStore to component as props (this.props.bulkDownload === reduxStore.bulkdDownload)
+    (state) => ({
+        bulkDownload: state.bulkDownload
+    }),
+    // connects "action creator" fns which update the reduxStore via dispatch to the component as props (this.props.setDefcodes will invoke)
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadPageContainerWithRouter);

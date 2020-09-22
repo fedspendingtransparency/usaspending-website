@@ -3,11 +3,28 @@ import {
     isAwardFinancialAssistance,
     getAwardTypeByRecordtypeCountyAndState,
     isBadDates,
-    isUSAAward
+    isUSAAward,
+    getSubmittingAgencyId
 } from 'helpers/awardSummaryHelper';
 import moment from 'moment';
 
-describe('', () => {
+
+describe('awardSummaryHelper', () => {
+    describe('getSubmittingAgencyId', () => {
+        it('returns submitting agency ID when parent PIID is defined ', () => {
+            const mockAwardId = "CONT_AWD_DEAC5206NA25396_8900_ASDF";
+            expect(getSubmittingAgencyId(mockAwardId)).toEqual("8900");
+        });
+        it('returns submitting agency ID when parent PIID is undefined ', () => {
+            const mockAwardId = "CONT_AWD_DEAC5206NA25396_8900_-NONE-_-NONE-";
+            expect(getSubmittingAgencyId(mockAwardId)).toEqual("8900");
+        });
+        it('returns \'--\' when awardId is undefined ', () => {
+            const mockAwardId = null;
+            expect(getSubmittingAgencyId(mockAwardId)).toEqual("--");
+        });
+    });
+
     describe('isAwardAggregate', () => {
         it('returns true when string (ASST_AGG) is included in input ', () => {
             expect(isAwardAggregate("alskdjf_asdf_ASST_AGG_asdfa")).toEqual(true);

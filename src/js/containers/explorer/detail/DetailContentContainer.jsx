@@ -216,23 +216,22 @@ export class DetailContentContainer extends React.Component {
         const total = data.total;
 
         let isTruncated = false;
-        let parsedResults = data.results;
+        let parsedResults = ExplorerHelper.truncateDataForTreemap(data.results);
 
-        // set a safety limit of 1,000 cells to prevent the browser from crashing due to too many
-        // DOM elements
-        if (data.results.length > 1000) {
-            parsedResults = data.results.slice(0, 1000);
-        }
         if (request.subdivision === 'award') {
-            const resultTotal = data.results
-                .reduce((sum, item) => sum + item.amount, 0);
             // link to award page using new human readable id
             parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
+        }
 
+        if (request.subdivision === 'award' || request.subdivision === 'recipient') {
+            const resultTotal = parsedResults.reduce((sum, item) => sum + item.amount, 0);
             // allow a $10 leeway to account for JS float bugs before triggering a truncation
             // message
             isTruncated = Math.abs(total - resultTotal) > 10;
         }
+
+        parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
+            .sort((a, b) => b.amount - a.amount);
 
         // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {

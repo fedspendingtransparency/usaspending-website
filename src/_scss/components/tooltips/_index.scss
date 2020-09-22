@@ -1,6 +1,16 @@
 .tooltip-wrapper {
-    div:first-of-type {
+    @include media($tablet-screen) {
         @include display(flex);
+    }
+    div:first-of-type {
+        .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
+            &.left {
+                left: rem(-8);
+            }
+            &.right {
+                right: rem(-8);
+            }
+        }
     }
     &.award-amounts-tt__wrapper div:first-of-type {
         width: 100%;

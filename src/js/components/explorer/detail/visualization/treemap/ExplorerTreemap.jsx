@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
-import { remove } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
+
+
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
 
@@ -22,7 +23,8 @@ const propTypes = {
     goDeeper: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    goToUnreported: PropTypes.func
+    goToUnreported: PropTypes.func,
+    activeSubdivision: PropTypes.object
 };
 
 const defaultProps = {
@@ -56,17 +58,11 @@ export default class ExplorerTreemap extends React.Component {
     buildVirtualChart(props) {
         const data = props.data.toJS();
 
-        // remove the negative values from the data because they can't be displayed in the treemap
-        remove(data, (v) => v.amount <= 0);
-
         const total = props.total;
 
         // parse the inbound data into D3's treemap hierarchy structure
-        const treemapData = hierarchy({
-            children: data
-        })
-            .sum((d) => d.amount) // tell D3 how to extract the monetary value out of the object
-            .sort((a, b) => b.height - a.height || b.value - a.value); // sort the objects
+        const treemapData = hierarchy({ children: data })
+            .sum((d) => d.amount); // tell D3 how to extract the monetary value out of the object
 
         // set up a function for generating the treemap of the specified size and style
         const tree = treemap()

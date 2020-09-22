@@ -8,17 +8,39 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { TooltipWrapper } from 'data-transparency-ui';
 
+import GlobalConstants from 'GlobalConstants';
 import * as IdvHelper from 'helpers/idvHelper';
+import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
+
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
+
 import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmounts';
+import AwardAmountsTable from 'components/award/shared/awardAmountsSection/AwardAmountsTable';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
+import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 
 const propTypes = {
     award: PropTypes.object,
     setIdvDetails: PropTypes.func,
     jumpToSection: PropTypes.func
 };
+
+const tabTypes = [
+    {
+        enabled: true,
+        internal: 'awards',
+        label: 'Award Orders Under this IDV'
+    },
+    {
+        enabled: true,
+        internal: 'idv',
+        label: 'This IDV'
+    }
+];
 
 export class IdvAmountsContainer extends React.Component {
     constructor(props) {
@@ -29,17 +51,19 @@ export class IdvAmountsContainer extends React.Component {
         this.state = {
             error: false,
             inFlight: true,
-            awardAmounts: null
+            awardAmounts: null,
+            active: 'awards'
         };
+        this.switchTab = this.switchTab.bind(this);
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.award.id);
+        return this.getIdvChildAwardAmounts(this.props.award.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
-            this.getSelectedAward(this.props.award.id);
+            this.getIdvChildAwardAmounts(this.props.award.id);
         }
     }
 
@@ -49,7 +73,7 @@ export class IdvAmountsContainer extends React.Component {
         }
     }
 
-    getSelectedAward(id) {
+    getIdvChildAwardAmounts(id) {
         if (this.awardRequest) {
             // A request is currently in-flight, cancel it
             this.awardRequest.cancel();
@@ -57,9 +81,9 @@ export class IdvAmountsContainer extends React.Component {
 
         this.awardRequest = IdvHelper.fetchAwardAmounts(id);
 
-        this.awardRequest.promise
+        return this.awardRequest.promise
             .then((res) => {
-                this.parseAward(res.data);
+                this.parseChildAwardAmounts(res.data);
 
                 // operation has resolved
                 this.awardRequest = null;
@@ -84,7 +108,7 @@ export class IdvAmountsContainer extends React.Component {
             });
     }
 
-    parseAward(data) {
+    parseChildAwardAmounts(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
         awardAmounts.populate(data, 'idv_aggregated');
         this.setState({
@@ -105,10 +129,67 @@ export class IdvAmountsContainer extends React.Component {
         });
     }
 
+    switchTab(tab) {
+        this.setState({
+            active: tab
+        });
+    }
+
     render() {
+        const thisIdv = Object.create(BaseAwardAmounts);
+        thisIdv.populate(this.props.award.overview, 'idv');
+        const tabsClassName = 'idv-award-amounts-tabs';
+        const thisIdvHasFileC = (
+            thisIdv._fileCObligated !== 0 ||
+            thisIdv._fileCOutlay !== 0
+        );
+
+        const childAwardsHaveFileC = (
+            this.state.awardAmounts?._fileCObligated !== 0 ||
+            this.state.awardAmounts?._fileCOutlay !== 0
+        );
+
+        const showFileC = (
+            (thisIdvHasFileC || childAwardsHaveFileC) &&
+            GlobalConstants.CARES_ACT_RELEASED
+        );
+
         return (
-            <div>
-                <AggregatedAwardAmounts {...this.state} jumpToSection={this.props.jumpToSection} />
+            <div className="award__col award-viz award-amounts">
+                <div className="award-viz__heading">
+                    <h3 className="award-viz__title">$ Award Amounts</h3>
+                    <TooltipWrapper
+                        className="award-section-tt"
+                        icon="info"
+                        wide
+                        tooltipComponent={awardAmountsInfo} />
+                </div>
+                <hr />
+                <div className="award-viz__tabs">
+                    <ResultsTableTabs
+                        types={tabTypes}
+                        active={this.state.active}
+                        switchTab={this.switchTab}
+                        tabsClassName={tabsClassName}
+                        hideCounts />
+                    <ResultsTablePicker
+                        types={tabTypes}
+                        active={this.state.active}
+                        switchTab={this.switchTab} />
+                </div>
+                {this.state.active === 'awards' && (
+                    <AggregatedAwardAmounts
+                        {...this.state}
+                        jumpToSection={this.props.jumpToSection}
+                        showFileC={showFileC} />
+                )}
+                {this.state.active !== 'awards' && (
+                    <AwardAmountsTable
+                        showFileC={showFileC}
+                        awardData={thisIdv}
+                        awardAmountType="idv"
+                        spendingScenario={determineSpendingScenarioByAwardType("idv", thisIdv)} />
+                )}
             </div>
         );
     }

@@ -212,7 +212,7 @@ describe('DetailContentContainer', () => {
         });
     });
     describe('parseData', () => {
-        it('should set the isTruncated state to true only at the award level', () => {
+        it('should set the isTruncated state to true at the award/recipient level', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockReducerRoot} />);
@@ -224,8 +224,17 @@ describe('DetailContentContainer', () => {
 
             container.instance().parseData(mockAwardResponse, request);
             expect(container.state().isTruncated).toBeTruthy();
+
+
+            const request2 = {
+                within: 'agency',
+                subdivision: 'recipient'
+            };
+
+            container.instance().parseData(mockAwardResponse, request2);
+            expect(container.state().isTruncated).toBeTruthy();
         });
-        it('should never set the isTruncated state to true if not at the award level', () => {
+        it('should never set the isTruncated state to true if not at the award/recipient level', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockReducerRoot} />);
@@ -267,24 +276,6 @@ describe('DetailContentContainer', () => {
 
             container.instance().parseData(mockAward, request);
             expect(container.state().isTruncated).toBeFalsy();
-        });
-
-        it('should limit the API response to the first 1,000 items as a safety check', () => {
-            const container = shallow(<DetailContentContainer
-                {...mockActions}
-                explorer={mockReducerRoot} />);
-
-            const request = {
-                within: 'recipient',
-                subdivision: 'award'
-            };
-
-            const mockAPI = Object.assign({}, mockAPI, {
-                results: new Array(15000).fill('filler', 0, 15000)
-            });
-
-            container.instance().parseData(mockAPI, request);
-            expect(container.state().data.count()).toEqual(1000);
         });
 
         it('should encode generated_unique_award_ids w/ special characters', () => {

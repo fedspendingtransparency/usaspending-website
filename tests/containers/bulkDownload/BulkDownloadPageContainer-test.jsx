@@ -54,7 +54,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -104,7 +105,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -153,7 +155,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -207,7 +210,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -253,7 +257,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -304,7 +309,8 @@ describe('BulkDownloadPageContainer', () => {
                         start_date: '11-01-2016'
                     },
                     date_type: 'action_date',
-                    sub_agency: 'Mock Sub-Agency'
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 }
             };
 
@@ -346,7 +352,8 @@ describe('BulkDownloadPageContainer', () => {
                     federal_account: '212',
                     submission_types: ['account_balances'],
                     fy: '1989',
-                    quarter: '1'
+                    quarter: '1',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 },
                 file_format: 'csv'
             };
@@ -382,7 +389,8 @@ describe('BulkDownloadPageContainer', () => {
                     federal_account: '212',
                     submission_types: ['account_balances'],
                     fy: '1989',
-                    period: '5'
+                    period: '5',
+                    def_codes: ["L", "M", "N", "O", "P"]
                 },
                 file_format: 'csv'
             };

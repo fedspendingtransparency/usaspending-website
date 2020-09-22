@@ -80,15 +80,19 @@
         color: $color-base;
         margin: 0;
     }
-
+    
     h2 {
         text-align: center;
         font-size: rem(16);
-        padding-left: rem(16);
+        padding: 0;
     }
 
     p {
         font-size: rem(14);
+        a {
+            color: $color-primary;
+            font-weight: $font-semibold;
+        }
     }
 }
 

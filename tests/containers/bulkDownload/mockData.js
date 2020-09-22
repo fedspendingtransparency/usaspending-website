@@ -121,6 +121,7 @@ export const mockProps = {
                 startDate: '11-01-2016',
                 endDate: '11-01-2017'
             },
+            defCodes: ["L", "M", "N", "O", "P"],
             columns: [],
             fileFormat: 'csv'
         },
@@ -143,6 +144,7 @@ export const mockProps = {
                 name: 'Mock Agency'
             },
             fy: '1989',
+            defCodes: ["L", "M", "N", "O", "P"],
             quarter: '1',
             period: '',
             submissionTypes: ['accountBalances'],
