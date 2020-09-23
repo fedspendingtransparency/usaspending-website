@@ -8,7 +8,7 @@ import { defCodes } from 'dataMapping/covid19/covid19';
 
 const getCovid19Totals = (arr) => arr
     .filter((obj) => defCodes.includes(obj?.code))
-    .reduce((acc, obj) => acc + obj?.amount, 0);
+    .reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
