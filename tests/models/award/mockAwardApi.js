@@ -447,7 +447,9 @@ export const mockAwardAmounts = {
     child_award_total_obligation: 811660.51,
     grandchild_award_total_obligation: 811660.51,
     child_account_obligations_by_defc: [],
-    child_account_outlays_by_defc: []
+    child_account_outlays_by_defc: [],
+    grandchild_account_obligations_by_defc: [{ code: 'N', amount: 100 }],
+    grandchild_account_outlays_by_defc: [{ code: 'N', amount: 100 }]
 };
 
 export const mockReferencedAwards = {

@@ -155,6 +155,10 @@ describe('BaseAwardAmounts', () => {
         it('should format the amount overspent with units', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
         });
+        it('should aggregate child/grandchild file-c award amounts', () => {
+            expect(awardAmounts._fileCObligated).toEqual(100);
+            expect(awardAmounts._fileCOutlay).toEqual(100);
+        });
     });
     describe('IDVs - Non Aggregated Award Amounts', () => {
         it('should successfully return spending data for the IDV itself (non-combined)', () => {
