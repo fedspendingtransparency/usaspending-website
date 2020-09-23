@@ -7,8 +7,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { defCodes } from 'dataMapping/covid19/covid19';
 
 const getCovid19Totals = (arr) => arr
-    .filter((obj) => defCodes.includes(obj.code))
-    .reduce((acc, obj) => acc + obj.amount, 0);
+    .filter((obj) => defCodes.includes(obj?.code))
+    .reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
@@ -33,8 +33,14 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
-        this._fileCOutlay = getCovid19Totals(data.child_account_outlays_by_defc);
-        this._fileCObligated = getCovid19Totals(data.child_account_obligations_by_defc);
+        this._fileCOutlay = getCovid19Totals(
+            data.child_account_outlays_by_defc
+                .concat(data.grandchild_account_outlays_by_defc)
+        );
+        this._fileCObligated = getCovid19Totals(
+            data.child_account_obligations_by_defc
+                .concat(data.grandchild_account_obligations_by_defc)
+        );
     },
     populateIdv(data) {
         this._totalObligation = data._totalObligation;

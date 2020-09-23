@@ -146,8 +146,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     const launchModal = (e) => {
         e.persist();
-        setModalData(() => results.find((cfda) => cfda.code === e.target.value));
-        showCFDAModal(true);
+        if (e?.target) {
+            setModalData(() => results.find((cfda) => cfda.code === (e.target.parentNode.getAttribute('data-code') || e.target.getAttribute('data-code'))));
+            showCFDAModal(true);
+        }
     };
     const closeModal = () => showCFDAModal(false);
 
@@ -223,9 +225,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     <div className="assistance-listing__button__container">
                         <button
                             className="assistance-listing__button"
-                            value={rowData.code}
+                            data-code={rowData.code}
                             onClick={launchModal}>
-                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon icon="window-restore" /></span>
+                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
                         </button>
                     </div>
                 );
