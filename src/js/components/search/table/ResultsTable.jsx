@@ -127,7 +127,7 @@ export default class ResultsTable extends React.Component {
             && !this.props.results[rowIndex][column.columnName]) {
             props.value = '--';
         }
-        else if (column.columnName === 'DEFC') {
+        else if (column.columnName === 'def_codes') {
             if (!this.props.results[rowIndex].def_codes) {
                 props.value = '--';
             }
