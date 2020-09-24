@@ -58,14 +58,14 @@ export default class FederalAccountsTable extends React.Component {
                     let cellData = account[key];
                     if (key === 'federalAccountName') {
                         cellData = (
-                            <Link to={`/${header.href}${account.federalAccount}`}>
+                            <Link to={`/federal_account/${account.federalAccount}`}>
                                 {account[key]}
                             </Link>
                         );
                     }
                     else if (key === 'fundingAgencyName') {
                         cellData = (
-                            <Link to={`/${header.href}${account._fundingAgencyId}`}>
+                            <Link to={`/agency/${account._fundingAgencyId}`}>
                                 {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
                             </Link>
                         );
