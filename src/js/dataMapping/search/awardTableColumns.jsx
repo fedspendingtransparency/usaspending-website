@@ -322,7 +322,8 @@ const covidOutlaysCol = {
 };
 
 const covidDefCCol = {
-    title: 'DEFC'
+    title: 'def_codes',
+    displayName: 'DEFC'
 };
 
 const tabsWithCovidCols = [
