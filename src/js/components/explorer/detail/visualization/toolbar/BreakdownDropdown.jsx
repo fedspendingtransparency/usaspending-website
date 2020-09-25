@@ -40,7 +40,7 @@ export class BreakdownDropdown extends React.Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.prepareOptions(this.props);
     }
 
