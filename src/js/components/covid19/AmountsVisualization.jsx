@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import { upperFirst } from 'lodash';
+import { upperFirst, throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -102,21 +102,21 @@ const AmountsVisualization = ({
             setScale(() => s);
         }
     }, [width, overviewData]);
-    const setMouseData = (e) => {
-        let mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
-        if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
-            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
-            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+    const setMouseData = throttle((e) => {
+        const browser = window.navigator.userAgent;
+        if (browser.includes('Chrome')) {
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 40
+            })
         }
-        if (window.navigator.userAgent.indexOf("Safari") !== -1) {
-            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
-            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+        else {
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5
+            });
         }
-        if (window.navigator.userAgent.indexOf("Chrome") !== -1) {
-            mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
-        }
-        setMouseValue(mousePosition);
-    };
+    }, 100);
     useEffect(() => {
         document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);

@@ -60,9 +60,6 @@
           .tooltip-pointer {
             height: 1.6rem;
             width: 1.6rem;
-            &.bottom {
-              top: rem(-8);
-            }
           }
           .tooltip__content {
             .tooltip__message {
