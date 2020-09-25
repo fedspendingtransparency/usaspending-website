@@ -49,12 +49,16 @@ export default class TreemapCell extends React.Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.color !== this.props.color) {
-            const textColor = labelColorFromBackground(nextProps.color);
+    componentDidUpdate(prevProps) {
+        this.updateSetColor(prevProps);
+    }
+
+    updateSetColor(prevProps) {
+        if (prevProps.color !== this.props.color) {
+            const textColor = labelColorFromBackground(prevProps.color);
             this.setState({
                 textColor,
-                backgroundColor: nextProps.color
+                backgroundColor: prevProps.color
             });
         }
     }

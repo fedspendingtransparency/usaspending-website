@@ -30,8 +30,8 @@ export default class HorizontalXAxis extends React.Component {
         this.generateLabels(this.props);
     }
 
-    componentWillReceiveProps(props) {
-        this.generateLabels(props);
+    componentDidUpdate(prevProps) {
+        this.generateLabels(prevProps);
     }
 
     generateLabels(props) {

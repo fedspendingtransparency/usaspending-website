@@ -26,7 +26,7 @@ export default class SankeyFlow extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
         this.calculatePath(nextProps);
     }
 

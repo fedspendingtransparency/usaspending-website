@@ -56,8 +56,8 @@ export default class HorizontalChart extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.generateChart(nextProps);
+    componentDidUpdate(prevProps) {
+        this.generateChart(prevProps);
     }
 
     generateChart(props) {

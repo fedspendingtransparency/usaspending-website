@@ -48,7 +48,7 @@ export default class MinorObjectClasses extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
         if (nextProps.minorObjectClasses.children.length > 0) {
             this.buildTree(nextProps);
         }
@@ -56,14 +56,18 @@ export default class MinorObjectClasses extends React.Component {
         // This will occur when the treemap has previously rendered and we're loading
         // a different set of minorObjectClasses from the API.
         else if (this.state.finalNodes.length > 0) {
-            this.setState({
-                finalNodes: []
-            });
+            this.clearFinalNodes();
         }
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    clearFinalNodes() {
+        this.setState({
+            finalNodes: []
+        });
     }
 
     handleWindowResize() {

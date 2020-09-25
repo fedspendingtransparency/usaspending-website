@@ -44,8 +44,8 @@ export default class GlossaryDefinition extends React.Component {
         this.checkDefinitions(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.checkDefinitions(nextProps);
+    componentDidUpdate(prevProps) {
+        this.checkDefinitions(prevProps);
     }
 
     componentWillUnmount() {
