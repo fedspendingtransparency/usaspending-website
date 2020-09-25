@@ -46,7 +46,7 @@ export class BreakdownDropdown extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.active !== this.props.active) {
-            this.prepareOptions(nextProps);
+            this.prepareOptions(prevProps);
         }
         else if (prevProps.root !== this.props.root) {
             this.prepareOptions(prevProps);
