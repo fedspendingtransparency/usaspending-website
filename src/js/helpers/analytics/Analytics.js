@@ -36,18 +36,11 @@ const Analytics = {
             args.nonInteraction || undefined
         );
     },
-    pageview(args) {
-        let path = args;
-        let title;
-        // Use the test tracker for non-prod environments
-        if (typeof args === 'object') {
-            ({ path, title } = args);
-        }
+    pageview(path) {
         this._execute(
             'send',
             'pageview',
-            path,
-            title
+            path
         );
     }
 };
