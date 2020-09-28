@@ -65,7 +65,7 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.synchronizeDatePickers(prevProps);
+        this.synchronizeDatePickers(this.props);
         if (this.state.clearHint) {
             this.clearHint(false);
         }

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { min, max } from 'lodash';
+import { min, max, isEqual } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import HorizontalXAxis from './HorizontalXAxis';
@@ -57,7 +57,9 @@ export default class HorizontalChart extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.generateChart(prevProps);
+        if (!isEqual(prevProps, this.props)) {
+            this.generateChart(this.props);
+        }
     }
 
     generateChart(props) {

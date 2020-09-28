@@ -83,7 +83,7 @@ export default class BarChart extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps, this.props)) {
-            this.generateChart(prevProps);
+            this.generateChart(this.props);
         }
     }
 

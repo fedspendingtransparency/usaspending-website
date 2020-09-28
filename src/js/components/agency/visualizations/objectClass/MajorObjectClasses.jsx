@@ -50,7 +50,7 @@ export default class MajorObjectClasses extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.majorObjectClasses.children.length > 0) {
-            this.buildTree(prevProps);
+            this.buildTree(this.props);
         }
     }
 

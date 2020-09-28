@@ -49,13 +49,13 @@ export class TimePeriodContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
-            this.setUpdateState(prevProps);
+            this.setUpdateState(this.props);
         }
     }
 
-    setUpdateState(prevProps) {
+    setUpdateState(props) {
         this.setState({
-            activeTab: prevProps.filterTimePeriodType
+            activeTab: props.filterTimePeriodType
         });
     }
 

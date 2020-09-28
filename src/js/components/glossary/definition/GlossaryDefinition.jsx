@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { startCase } from "lodash";
+import { startCase, isEqual } from "lodash";
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
@@ -45,7 +45,9 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.checkDefinitions(prevProps);
+        if (!isEqual(prevProps, this.props)) {
+            this.checkDefinitions(this.props);
+        }
     }
 
     componentWillUnmount() {

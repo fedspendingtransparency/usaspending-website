@@ -48,10 +48,10 @@ export default class ExplorerTreemap extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.data !== this.props.data) {
-            this.buildVirtualChart(prevProps);
+            this.buildVirtualChart(this.props);
         }
         else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-            this.buildVirtualChart(prevProps);
+            this.buildVirtualChart(this.props);
         }
     }
 

@@ -59,13 +59,13 @@ export default class DetailContent extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.transitionSteps !== 0 && prevProps.transition !== this.props.transition) {
             if (prevProps.transition === 'start') {
-                this.startTransition(prevProps.transitionSteps);
+                this.startTransition(this.props.transitionSteps);
             }
             else if (prevProps.transition === 'end') {
                 this.finishTransition();
             }
             else if (prevProps.data !== this.props.data) {
-                this.updateChart(prevProps.data);
+                this.updateChart(this.props.data);
             }
         }
     }

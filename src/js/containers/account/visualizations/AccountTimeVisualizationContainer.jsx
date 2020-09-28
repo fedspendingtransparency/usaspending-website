@@ -57,18 +57,18 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
     }
 
     componentDidUpdate(prevProps) {
-        this.setUpdateStateAndFetch(prevProps);
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+            this.setUpdateStateAndFetch(this.props);
+        }
     }
 
-    setUpdateStateAndFetch(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.setState({
-                hasFilteredObligated: (((prevProps.reduxFilters.objectClass.count() > 0)
-                || (prevProps.reduxFilters.programActivity.count() > 0)))
-            }, () => {
-                this.fetchData();
-            });
-        }
+    setUpdateStateAndFetch(props) {
+        this.setState({
+            hasFilteredObligated: (((props.reduxFilters.objectClass.count() > 0)
+            || (props.reduxFilters.programActivity.count() > 0)))
+        }, () => {
+            this.fetchData();
+        });
     }
 
     changePeriod(period) {

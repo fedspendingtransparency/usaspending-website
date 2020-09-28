@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { interpolateNumber } from 'd3-interpolate';
+import { isEqual } from 'lodash';
 
 const propTypes = {
     height: PropTypes.number,
@@ -27,7 +28,7 @@ export default class SankeyFlow extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
+        if (!isEqual(prevProps, this.props)) {
             this.calculatePath(this.props);
         }
     }

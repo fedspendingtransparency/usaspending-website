@@ -45,9 +45,9 @@ export default class AwardBreakdownTreeMap extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentDidUpdate(nextProps) {
-        if (nextProps.awardBreakdown.length > 0) {
-            this.buildVirtualTree(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.awardBreakdown.length > 0) {
+            this.buildVirtualTree(this.props);
         }
     }
 

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -31,7 +32,9 @@ export default class HorizontalXAxis extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.generateLabels(prevProps);
+        if (!isEqual(prevProps, this.props)) {
+            this.generateLabels(this.props);
+        }
     }
 
     generateLabels(props) {

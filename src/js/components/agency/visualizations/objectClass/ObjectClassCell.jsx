@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { truncate } from 'lodash';
+import { isEqual, truncate } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -55,7 +55,9 @@ export default class ObjectClassCell extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.initialRender(prevProps.label);
+        if (!isEqual(prevProps, this.props)) {
+            this.initialRender(this.props.label);
+        }
         if (!this.state.didProcess) {
             this.truncateText();
         }
