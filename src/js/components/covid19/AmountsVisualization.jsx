@@ -108,7 +108,7 @@ const AmountsVisualization = ({
             setMouseValue({
                 x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
                 y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 40
-            })
+            });
         }
         else {
             setMouseValue({
