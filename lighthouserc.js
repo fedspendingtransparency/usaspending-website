@@ -5,6 +5,7 @@ module.exports = {
         },
         collect: {
             staticDistDir: './public', // location of static files for lighthouse CI to serve
+            isSinglePageApplication: true, // 
             url: [ // the urls to run lighthouse against
                 // 'http://localhost/',
                 // 'http://localhost/search'
