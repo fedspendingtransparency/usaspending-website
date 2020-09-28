@@ -75,17 +75,17 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.award.id && this.props.award.counts) {
+        if (this.props.award.id && this.props.award.idvDetails) {
             this.pickDefaultTab();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if ((this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) && this.props.award.counts) {
+        if ((this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.idvDetails, prevProps.award.idvDetails)) && this.props.award.idvDetails) {
             this.pickDefaultTab();
         }
 
-        if (this.props.tableType !== prevProps.tableType && this.props.award.counts) this.loadResults();
+        if (this.props.tableType !== prevProps.tableType && this.props.award.idvDetails) this.loadResults();
     }
 
     componentWillUnmount() {
@@ -136,7 +136,7 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        const { counts } = this.props.award;
+        const { idvDetails: counts } = this.props.award;
         const tableKeys = tableTypes.map((type) => type.internal);
         const tableCounts = pick(counts, tableKeys);
         const defaultTab = findKey(tableCounts, (count) => count !== 0);
@@ -199,7 +199,7 @@ export class ReferencedAwardsContainer extends React.Component {
         return (
             <ReferencedAwardsSection
                 {...this.state}
-                counts={this.props.award.counts}
+                counts={this.props.award.idvDetails}
                 switchTab={this.switchTab}
                 changePage={this.changePage}
                 updateSort={this.updateSort}
