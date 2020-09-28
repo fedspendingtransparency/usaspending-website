@@ -47,17 +47,17 @@ export default class RecipientContainer extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        this.setUpdateState(prevProps);
+        if (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) {
+            this.setUpdateState(this.props);
+        }
     }
 
-    setUpdateState(prevProps) {
-        if (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) {
-            this.setState({
-                isInitialLoad: true
-            }, () => {
-                this.loadData(prevProps.id, prevProps.activeFY, 1);
-            });
-        }
+    setUpdateState(props) {
+        this.setState({
+            isInitialLoad: true
+        }, () => {
+            this.loadData(props.id, props.activeFY, 1);
+        });
     }
 
     loadData(id, fy, pageNumber = 1) {
