@@ -48,9 +48,9 @@ export default class MajorObjectClasses extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentDidUpdate(nextProps) {
-        if (nextProps.majorObjectClasses.children.length > 0) {
-            this.buildTree(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.majorObjectClasses.children.length > 0) {
+            this.buildTree(prevProps);
         }
     }
 

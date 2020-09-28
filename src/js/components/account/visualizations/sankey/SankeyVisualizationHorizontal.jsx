@@ -88,8 +88,10 @@ export default class SankeyVisualizationHorizontal extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentDidUpdate(nextProps) {
-        this.generateChart(nextProps);
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.generateChart(this.props);
+        }
     }
 
     generateLabel(amount, total) {

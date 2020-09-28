@@ -26,8 +26,10 @@ export default class SankeyFlow extends React.Component {
         };
     }
 
-    componentDidUpdate(nextProps) {
-        this.calculatePath(nextProps);
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.calculatePath(this.props);
+        }
     }
 
     calculatePath(props) {
