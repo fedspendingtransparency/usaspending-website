@@ -33,7 +33,7 @@ export const mockRedux = {
         id: '1234',
         category: 'idv',
         overview: mockIdv,
-        counts: {
+        idvDetails: {
             idvs: 45,
             contracts: 52
         }
