@@ -5,7 +5,7 @@ module.exports = {
         },
         collect: {
             staticDistDir: './public', // location of static files for lighthouse CI to serve
-            urls: [ // the urls to run lighthouse against
+            url: [ // the urls to run lighthouse against
                 'http://localhost/',
                 'http://localhost/search',
                 'http://localhost/disaster/covid-19'
