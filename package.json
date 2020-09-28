@@ -13,7 +13,7 @@
         "dev": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.dev.config.js",
         "prod": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
-        "lh": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.prod.config.js && lhci autorun"
+        "lh": "npx babel-node --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.prod.config.js && lhci autorun"
     },
     "author": "",
     "engines": {
