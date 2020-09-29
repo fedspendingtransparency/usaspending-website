@@ -110,10 +110,16 @@ const AmountsVisualization = ({
                 y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 40
             });
         }
-        else {
+        else if (browser.includes('Firefox') || browser.includes('Safari')) {
             setMouseValue({
                 x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
                 y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5
+            });
+        }
+        else {
+            setMouseValue({
+                x: e.offsetX || e.clientX,
+                y: e.offsetY || e.clientY
             });
         }
     }, 100);
