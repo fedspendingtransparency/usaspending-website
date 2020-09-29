@@ -15,22 +15,17 @@ const propTypes = {
 
 export default class AnimatedGlossaryWrapper extends React.Component {
     render() {
-        let content = (<Glossary {...this.props} />);
-
-        if (!this.props.glossary.display) {
-            content = <div />;
-        }
-
         return (
             <div className="usa-da-glossary-animations">
                 <TransitionGroup>
-                    <CSSTransition
-                        classNames="glossary-slide"
-                        transitionLeaveTimeout={500}
-                        transitionEnterTimeout={500}
-                        exit>
-                        {content}
-                    </CSSTransition>
+                    {this.props.glossary.display && (
+                        <CSSTransition
+                            classNames="glossary-slide"
+                            timeout={500}
+                            exit>
+                            <Glossary {...this.props} />
+                        </CSSTransition>
+                    )}
                 </TransitionGroup>
             </div>
         );
