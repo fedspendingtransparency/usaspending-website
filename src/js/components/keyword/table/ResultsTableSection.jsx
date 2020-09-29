@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
@@ -116,13 +116,15 @@ export default class ResultsTableSection extends React.Component {
                     switchTab={this.props.switchTab}
                     disabled={this.props.inFlight} />
                 <div className="results-table-content">
-                    <CSSTransitionGroup
-                        transitionName="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
-                        transitionLeave>
-                        {message}
-                    </CSSTransitionGroup>
+                    <TransitionGroup>
+                        <CSSTransition
+                            classNames="table-message-fade"
+                            transitionLeaveTimeout={225}
+                            transitionEnterTimeout={195}
+                            exit>
+                            {message}
+                        </CSSTransition>
+                    </TransitionGroup>
                     <div
                         className="results-table-width-master"
                         ref={(div) => {

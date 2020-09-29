@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default class SubmitHint extends React.Component {
     constructor(props) {
@@ -75,15 +75,17 @@ export default class SubmitHint extends React.Component {
         }
 
         return (
-            <CSSTransitionGroup
-                transitionName="hint-fade"
-                transitionLeaveTimeout={200}
-                transitionEnterTimeout={200}
-                transitionAppearTimeout={200}
-                transitionAppear
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="hint-fade"
+                    transitionLeaveTimeout={200}
+                    transitionEnterTimeout={200}
+                    transitionAppearTimeout={200}
+                    appear
+                    exit>
+                    {content}
+                </CSSTransition>
+            </TransitionGroup>
         );
     }
 }

@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { accountColumns, accountFields } from 'dataMapping/agency/tableColumns';
 import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
 import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
@@ -119,11 +119,11 @@ const TableContainer = (props) => {
         // Reset to the first page
         changeCurrentPage(1);
         fetchSpendingByCategoryCallback();
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
+    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation, fetchSpendingByCategoryCallback]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByCategoryCallback]);
 
     let message = null;
     if (loading) {
@@ -132,7 +132,8 @@ const TableContainer = (props) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         message = (
             <div className="results-table-message-container">
                 <ResultsTableErrorMessage />
@@ -143,13 +144,15 @@ const TableContainer = (props) => {
     if (message) {
         return (
             <>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

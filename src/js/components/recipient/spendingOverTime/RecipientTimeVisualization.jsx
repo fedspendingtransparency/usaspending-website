@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
 import ChartLoadingMessage from 'components/search/visualizations/ChartLoadingMessage';
@@ -136,13 +136,15 @@ export default class RecipientTimeVisualization extends React.Component {
 
         return (
             <div className="recipient-visualization__time-wrapper">
-                <CSSTransitionGroup
-                    transitionName="visualization-content-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {chart}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {chart}
+                    </CSSTransition>
+                </TransitionGroup>
                 {tooltip}
             </div>
         );

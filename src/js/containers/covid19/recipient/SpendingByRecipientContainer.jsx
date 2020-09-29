@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -222,7 +222,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 rowData.outlay,
                 rowData.awardCount
             ]);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
         return rows;
@@ -278,15 +279,15 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByRecipientCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals]);
+    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals, currentPage, fetchSpendingByRecipientCallback]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByRecipientCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     let message = null;
     if (loading) {
@@ -299,7 +300,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
@@ -309,7 +311,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 <ResultsTableErrorMessage />
             </div>
         );
-    } else if (results.length === 0) {
+    }
+    else if (results.length === 0) {
         let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
@@ -333,13 +336,15 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />}
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/disasterHelper';
 import { convertPeriodToDate } from 'helpers/monthHelper';
@@ -127,7 +127,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         else {
             fetchNewAwardsCallback();
         }
-    }, [activeTab, pageSize, defCodes]);
+    }, [activeTab, pageSize, defCodes, fetchSpendingOverTimeCallback, fetchNewAwardsCallback]);
 
     useEffect(() => {
         if (activeTab !== 'newAwards') {
@@ -136,7 +136,7 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         else {
             fetchNewAwardsCallback();
         }
-    }, [currentPage]);
+    }, [activeTab, currentPage, fetchNewAwardsCallback, fetchSpendingOverTimeCallback]);
 
     let message = null;
     if (loading) {
@@ -145,7 +145,8 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         message = (
             <div className="results-table-message-container">
                 <ResultsTableErrorMessage />
@@ -156,13 +157,15 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
     if (message) {
         return (
             <>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
             </>
         );
     }

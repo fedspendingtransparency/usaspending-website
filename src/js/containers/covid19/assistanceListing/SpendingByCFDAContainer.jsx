@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
 import { Table, Pagination } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
@@ -209,7 +209,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 outlay: unlinkedData.outlay,
                 award_count: unlinkedData.award_count
             });
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
         return rows;
@@ -274,7 +275,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             let cfdaRequest;
             if (activeTab === 'loans') {
                 cfdaRequest = fetchCfdaLoans(params);
-            } else {
+            }
+            else {
                 cfdaRequest = fetchSpendingByCfda(params);
             }
             request.current = cfdaRequest;
@@ -303,19 +305,19 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
+    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals, currentPage, fetchSpendingByCfdaCallback]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByCfdaCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [document]);
+    }, []);
 
     let message = null;
     if (loading) {
@@ -328,7 +330,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
@@ -351,13 +354,15 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

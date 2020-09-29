@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { rootTypes, sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -68,13 +68,15 @@ const TrailItem = (props) => {
                 onClick={clickedItem}>
                 <div className={`item-decorator ${specialClass}`}>
                     <div className="main-dot" />
-                    <CSSTransitionGroup
-                        transitionName="explorer-dots-animation"
-                        transitionLeaveTimeout={550}
-                        transitionEnterTimeout={350}
-                        transitionLeave>
-                        {trailingDots}
-                    </CSSTransitionGroup>
+                    <TransitionGroup>
+                        <CSSTransition
+                            classNames="explorer-dots-animation"
+                            transitionLeaveTimeout={550}
+                            transitionEnterTimeout={350}
+                            exit>
+                            {trailingDots}
+                        </CSSTransition>
+                    </TransitionGroup>
                 </div>
                 <div className="item-content">
                     <div className="type">

@@ -31,6 +31,6 @@
     @include animation(expandDescription 0.195s ease-in forwards);
 }
 
-.explorer-description-slide-leave, .explorer-description-slide-leave-active {
+.explorer-description-slide-exit, .explorer-description-slide-exit-active {
     @include animation(collapseDescription 0.195s ease-in forwards);
 }

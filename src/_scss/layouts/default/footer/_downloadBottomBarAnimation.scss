@@ -21,6 +21,6 @@
     @include animation(download-slidein 0.5s ease-in forwards);
 }
 
-.download-slide-leave, .download-slide-leave-active {
+.download-slide-exit, .download-slide-exit-active {
     @include animation(download-slideout 0.5s ease-in forwards);
 }

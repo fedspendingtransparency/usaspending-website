@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
@@ -187,11 +187,14 @@ const BudgetCategoriesTableContainer = (props) => {
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
-        } else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
+        }
+        else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Federal Account (Unlinked Data)';
-        } else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+        }
+        else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Object Class (Unlinked Data)';
-        } else if (spendingCategory === 'award_spending') {
+        }
+        else if (spendingCategory === 'award_spending') {
             unlinkedName = 'Number of Unlinked Awards';
         }
 
@@ -213,7 +216,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 unlinkedRow.totalBudgetaryResources = null;
             }
             parsedData.push(unlinkedRow);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
 
@@ -252,7 +256,8 @@ const BudgetCategoriesTableContainer = (props) => {
                         {budgetCategoryRow.name}
                     </Link>
                 );
-            } else if (link && id && props.type === 'agency') {
+            }
+            else if (link && id && props.type === 'agency') {
                 link = (
                     <Link
                         className="agency-profile__link"
@@ -333,7 +338,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [props.type, spendingCategory]);
+    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
 
     useEffect(() => {
         // Reset to the first page
@@ -341,15 +346,15 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals, currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
@@ -384,7 +389,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
@@ -430,13 +436,15 @@ const BudgetCategoriesTableContainer = (props) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

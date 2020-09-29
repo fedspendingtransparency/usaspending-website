@@ -23,7 +23,7 @@
     @include animation(trailItemFadeIn 0.2s 0.55s ease-in forwards);
 }
 
-.explorer-item-animation-leave, .explorer-item-animation-leave-active {
+.explorer-item-animation-exit, .explorer-item-animation-exit-active {
     @include animation(trailItemFadeOut 0.2s ease-in forwards);
 }
 
@@ -57,6 +57,6 @@
     }
 }
 
-.explorer-dots-animation-leave, .explorer-dots-animation-leave-active {
+.explorer-dots-animation-exit, .explorer-dots-animation-exit-active {
     @include animation(trailItemFadeOut 0.2s 0.15s ease-in forwards);
 }

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
@@ -200,13 +200,15 @@ will no longer download to your computer. Are you sure you want to do this?`;
         }
 
         return (
-            <CSSTransitionGroup
-                transitionName="download-slide"
-                transitionLeaveTimeout={500}
-                transitionEnterTimeout={500}
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="download-slide"
+                    transitionLeaveTimeout={500}
+                    transitionEnterTimeout={500}
+                    exit>
+                    {content}
+                </CSSTransition>
+            </TransitionGroup>
         );
     }
 }

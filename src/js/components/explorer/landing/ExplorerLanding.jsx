@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
@@ -66,13 +66,15 @@ export default class ExplorerLanding extends React.Component {
                                     The Spending Explorer makes it easy to understand the big picture of federal spending.
                                 </h3>
                                 <div className="explorer-description__animations">
-                                    <CSSTransitionGroup
-                                        transitionName="explorer-description-slide"
-                                        transitionLeaveTimeout={195}
-                                        transitionEnterTimeout={195}
-                                        transitionLeave>
-                                        {content}
-                                    </CSSTransitionGroup>
+                                    <TransitionGroup>
+                                        <CSSTransition
+                                            classNames="explorer-description-slide"
+                                            transitionLeaveTimeout={195}
+                                            transitionEnterTimeout={195}
+                                            exit>
+                                            {content}
+                                        </CSSTransition>
+                                    </TransitionGroup>
                                 </div>
                                 <button
                                     className="explorer-description__expand"

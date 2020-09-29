@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import BarChart from './chart/BarChart';
 import Tooltip from './TimeVisualizationTooltip';
@@ -105,13 +105,15 @@ export default class TimeVisualization extends React.Component {
 
         return (
             <div className="results-visualization-time-container">
-                <CSSTransitionGroup
-                    transitionName="visualization-content-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {chart}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {chart}
+                    </CSSTransition>
+                </TransitionGroup>
                 {tooltip}
             </div>
         );

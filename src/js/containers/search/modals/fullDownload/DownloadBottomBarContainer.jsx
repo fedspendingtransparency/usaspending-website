@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
@@ -248,7 +248,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
     }
 
     render() {
-        let content = null;
+        let content = <div />;
         if (this.state.visible) {
             content = (<DownloadBottomBar
                 {...this.props}
@@ -259,13 +259,14 @@ will no longer download to your computer. Are you sure you want to do this?`;
         }
 
         return (
-            <CSSTransitionGroup
-                transitionName="download-slide"
-                transitionLeaveTimeout={500}
-                transitionEnterTimeout={500}
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="download-slide"
+                    timeout={{ enter: 500, exit: 500 }}
+                    exit>
+                    {content}
+                </CSSTransition>
+            </TransitionGroup>
         );
     }
 }

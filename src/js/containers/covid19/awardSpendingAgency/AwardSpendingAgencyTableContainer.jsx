@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
@@ -141,7 +141,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
         if (props.type === 'all') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
-        } else {
+        }
+        else {
             unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
         }
 
@@ -156,7 +157,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const unlinkedRow = Object.create(CoreSpendingTableRow);
             unlinkedRow.populateCore(unlinkedData);
             parsedData.push(unlinkedRow);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
 
@@ -264,14 +266,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 fetchSpendingByCategoryCallback();
             }
             updateSort('faceValueOfLoan', 'desc');
-        } else {
+        }
+        else {
             if (sort === 'obligation' && order === 'desc') {
                 changeCurrentPage(1);
                 fetchSpendingByCategoryCallback();
             }
             updateSort('obligation', 'desc');
         }
-    }, [props.type]);
+    }, [fetchSpendingByCategoryCallback, order, props.type, sort]);
 
     useEffect(() => {
         // Reset to the first page
@@ -279,19 +282,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
             fetchSpendingByCategoryCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
+    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals, currentPage, fetchSpendingByCategoryCallback]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByCategoryCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [document]);
+    }, []);
 
     let message = null;
     if (loading) {
@@ -304,7 +307,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 <ResultsTableLoadingMessage />
             </div>
         );
-    } else if (error) {
+    }
+    else if (error) {
         let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
@@ -326,13 +330,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        exit>
+                        {message}
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

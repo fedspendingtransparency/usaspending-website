@@ -21,7 +21,7 @@
     @include animation(mobileFilterSlideIn 0.195s ease-in forwards);
 }
 
-.mobile-filter-leave, .mobile-filter-leave-active {
+.mobile-filter-exit, .mobile-filter-exit-active {
     @keyframes mobileFilterSlideOut {
         0% {
             transform: scale(1,1);
