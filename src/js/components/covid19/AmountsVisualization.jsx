@@ -38,6 +38,8 @@ const propTypes = {
     width: PropTypes.number
 };
 
+const stickyHeaderHeight = 66;
+
 const AmountsVisualization = ({
     overviewData,
     width = null
@@ -105,15 +107,23 @@ const AmountsVisualization = ({
     const setMouseData = throttle((e) => {
         const browser = window.navigator.userAgent;
         if (browser.includes('Chrome')) {
+            // vertical offsets from trial/error. Not sure which element's height requires this?
+            const verticalOffset = window.innerWidth >= 1600
+                ? 40
+                : 80;
             setMouseValue({
                 x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
-                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 40
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - verticalOffset
             });
         }
         else if (browser.includes('Firefox') || browser.includes('Safari')) {
+            // vertical offsets from trial/error. Not sure which element's height requires this?
+            const verticalOffset = window.innerWidth >= 1600
+                ? 0 + stickyHeaderHeight
+                : 29.5 + stickyHeaderHeight;
             setMouseValue({
                 x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
-                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - verticalOffset
             });
         }
         else {
@@ -632,8 +642,14 @@ const AmountsVisualization = ({
             }
             tooltipElement={<Tooltip />} />
     });
-    const displayTooltip = (e) => setShowTooltip(e.target.getAttribute('data-id'));
-    const hideTooltip = () => setShowTooltip('');
+
+    const displayTooltip = (e) => {
+        setShowTooltip(e.target.getAttribute('data-id'));
+    };
+
+    const hideTooltip = () => {
+        setShowTooltip('');
+    };
 
     const dateNoteStyles = {
         position: 'absolute',
@@ -662,7 +678,9 @@ const AmountsVisualization = ({
                     width={defaultTooltipWidth}
                     controlledProps={{
                         isControlled: true,
-                        isVisible: !!showTooltip
+                        isVisible: !!showTooltip,
+                        showTooltip: () => {},
+                        closeTooltip: () => {}
                     }} />
             }
             {
