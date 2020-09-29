@@ -1,6 +1,36 @@
 @mixin usa-input-checkbox {
+    height: rem(14);
+    width: rem(14);
     margin: 0;
-    border-radius: 0 !important;
+    position: relative;
+    top: 2px;
+    box-sizing: content-box;
+    margin: 0 5px 0 0;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 2px;
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    outline: none;
+      
+    &:before {
+        content: '';
+        display: block;
+    }
+
+    &:checked {
+        background-color: $color-primary;
+        border-color: $color-primary;
+    }
+      
+    &:checked:before {
+        width: 4px;
+        height: 9px;
+        margin: 0px 4px;
+        border-bottom: 2px solid $color-white;
+        border-right: 2px solid $color-white;
+        transform: rotate(45deg);
+    }
 
     &:disabled {
         cursor: not-allowed;

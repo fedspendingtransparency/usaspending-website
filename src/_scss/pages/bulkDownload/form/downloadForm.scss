@@ -68,6 +68,14 @@
             @include media($medium-screen) {
                 padding-left: rem(30);
             }
+            .radio {
+                input[type=radio] {
+                    @include usa-input-radio;
+                }
+            }
+            input[type=checkbox] {
+                @include usa-input-checkbox;
+            }
             .download-filter__fy {
                 @import "fyPicker";
                 .quarter-picker .quarter-picker__fy {
@@ -155,6 +163,9 @@
             }
             input {
                 margin-right: rem(5);
+            }
+            input[type=checkbox] {
+                @include usa-input-checkbox;
             }
         }
         @import "agencyPicker";
