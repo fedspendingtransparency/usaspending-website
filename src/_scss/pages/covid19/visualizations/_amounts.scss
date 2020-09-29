@@ -19,6 +19,10 @@
     pointer-events: visible;
   }
   .tooltip-wrapper {
+    display: none;
+    @include media($medium-screen) {
+      @include display(flex);
+    }
     .tooltip__content {
       .tooltip__message {
         .tooltip__text {
