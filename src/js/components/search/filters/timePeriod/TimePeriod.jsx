@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
+import { isEqual } from 'lodash';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
@@ -65,7 +66,9 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.synchronizeDatePickers(this.props);
+        if (!isEqual(prevProps, this.props)) {
+            this.synchronizeDatePickers(this.props);
+        }
         if (this.state.clearHint) {
             this.clearHint(false);
         }

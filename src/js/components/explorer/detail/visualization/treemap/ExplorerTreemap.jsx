@@ -14,6 +14,7 @@ import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasureme
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
+import { isEqual } from 'lodash';
 
 const propTypes = {
     isLoading: PropTypes.bool,
@@ -47,7 +48,7 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data) {
+        if (!isEqual(prevProps.data, this.props.data)) {
             this.buildVirtualChart(this.props);
         }
         else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {

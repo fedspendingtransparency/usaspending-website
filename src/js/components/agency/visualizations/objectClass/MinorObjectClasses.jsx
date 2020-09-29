@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { throttle, remove, orderBy, find } from 'lodash';
+import { throttle, remove, orderBy, find, isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
@@ -49,7 +49,7 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.minorObjectClasses.children.length > 0) {
+        if (!isEqual(prevProps, this.props) && this.props.minorObjectClasses.children.length > 0) {
             this.buildTree(this.props);
         }
         // Clear out the finalNodes if props change and there are no minorObjectClasses.
