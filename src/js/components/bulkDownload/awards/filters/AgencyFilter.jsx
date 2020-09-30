@@ -182,6 +182,7 @@ export default class AgencyFilter extends React.Component {
                 key={agencyType.name}>
                 <input
                     type="radio"
+                    aria-label={agencyType.name}
                     value={agencyType.name}
                     name="agencyType"
                     checked={this.props.currentAgencyType === agencyType.name}
