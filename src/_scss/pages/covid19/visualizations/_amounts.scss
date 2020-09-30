@@ -51,6 +51,7 @@
       @include display(inline-flex);
       @include align-items(center);
       @include justify-content(space-around);
+      width: 100%;
     }
   }
   .line__obligation {
