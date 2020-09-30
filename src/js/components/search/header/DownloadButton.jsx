@@ -76,7 +76,6 @@ export default class DownloadButton extends React.Component {
                     className={`download-button ${disabled}`}
                     title="Download your data"
                     aria-label="Download your data"
-                    aria-describedby="no-download-hover"
                     aria-disabled={!this.props.downloadAvailable}
                     onClick={this.onClick}>
                     <div className="label">{buttonText}</div>
