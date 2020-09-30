@@ -55,11 +55,6 @@ const TrailItem = (props) => {
         filterName = sidebarTypes[props.within];
     }
 
-    let trailingDots = null;
-    if (!props.isLast) {
-        trailingDots = <TrailDecorator />;
-    }
-
     return (
         <li className="trail-item">
             <button
@@ -69,13 +64,14 @@ const TrailItem = (props) => {
                 <div className={`item-decorator ${specialClass}`}>
                     <div className="main-dot" />
                     <TransitionGroup>
-                        <CSSTransition
-                            classNames="explorer-dots-animation"
-                            transitionLeaveTimeout={550}
-                            transitionEnterTimeout={350}
-                            exit>
-                            {trailingDots}
-                        </CSSTransition>
+                        {!props.isLast && (
+                            <CSSTransition
+                                classNames="explorer-dots-animation"
+                                timeout={{ exit: 550, enter: 330 }}
+                                exit>
+                                <TrailDecorator />
+                            </CSSTransition>
+                        )}
                     </TransitionGroup>
                 </div>
                 <div className="item-content">

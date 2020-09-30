@@ -24,39 +24,32 @@ const propTypes = {
 
 export default class AccountLandingResultsSection extends React.Component {
     render() {
-        let message = null;
-        let table = (
-            <AccountLandingTable
-                {...this.props} />
-        );
-        if (this.props.inFlight) {
-            message = (
-                <div className="results-table-message-container">
-                    <ResultsTableLoadingMessage />
-                </div>
-            );
-        }
-        else if (this.props.error) {
-            table = null;
-            message = (
-                <div className="results-table-message-container full">
-                    <ResultsTableErrorMessage />
-                </div>
-            );
-        }
-
         return (
             <div className="results-table-section" id="account-landing-results">
                 <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
-                        exit>
-                        {message}
-                    </CSSTransition>
+                    {(this.props.error || this.props.inFlight) && (
+                        <CSSTransition
+                            classNames="table-message-fade"
+                            timeout={{ exit: 225, enter: 195 }}
+                            exit>
+                                <>
+                                    {this.props.error && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableErrorMessage />
+                                        </div>
+                                    )}
+                                    {this.props.inFlight && (
+                                        <div className="results-table-message-container">
+                                            <ResultsTableLoadingMessage />
+                                        </div>
+                                    )}
+                                </>
+                        </CSSTransition>
+                    )}
                 </TransitionGroup>
-                {table}
+                {!this.props.inFlight && !this.props.error && (
+                    <AccountLandingTable {...this.props} />
+                )}
             </div>
         );
     }

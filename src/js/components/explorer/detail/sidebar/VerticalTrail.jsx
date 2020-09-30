@@ -32,10 +32,11 @@ export default class VerticalTrail extends React.Component {
                     <TransitionGroup>
                         <CSSTransition
                             classNames="explorer-item-animation"
-                            transitionLeaveTimeout={750}
-                            transitionEnterTimeout={200}
+                            timeout={{ exit: 750, enter: 200 }}
                             exit>
-                            {trail}
+                                <>
+                                    {trail}
+                                </>
                         </CSSTransition>
                     </TransitionGroup>
                 </ul>

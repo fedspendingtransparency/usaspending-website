@@ -18,27 +18,22 @@ const propTypes = {
 
 export default class MobileFilters extends React.Component {
     render() {
-        let content = null;
-        if (this.props.showMobileFilters) {
-            content = (
-                <div className="mobile-filter-content">
-                    <SearchSidebar
-                        filters={this.props.filters}
-                        toggleMobileFilters={this.props.toggleMobileFilters}
-                        filterCount={this.props.filterCount}
-                        mobile />
-                </div>);
-        }
-
         return (
             <TransitionGroup>
-                <CSSTransition
-                    classNames="mobile-filter"
-                    transitionLeaveTimeout={195}
-                    transitionEnterTimeout={195}
-                    exit>
-                    {content}
-                </CSSTransition>
+                {this.props.showMobileFilters && (
+                    <CSSTransition
+                        classNames="mobile-filter"
+                        timeout={195}
+                        exit>
+                        <div className="mobile-filter-content">
+                            <SearchSidebar
+                                filters={this.props.filters}
+                                toggleMobileFilters={this.props.toggleMobileFilters}
+                                filterCount={this.props.filterCount}
+                                mobile />
+                        </div>
+                    </CSSTransition>
+                )}
             </TransitionGroup>
         );
     }
