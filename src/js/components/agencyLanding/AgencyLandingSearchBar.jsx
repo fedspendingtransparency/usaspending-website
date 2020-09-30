@@ -26,6 +26,7 @@ export default class AgencyLandingSearchBar extends React.Component {
                 <form className="search-section__form">
                     <input
                         className="search-section__input"
+                        aria-label="Search Input"
                         type="text"
                         onChange={this.onChange.bind(this)}
                         placeholder={this.props.placeholder} />
