@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { throttle, remove, find } from 'lodash';
+import { throttle, remove, find, isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
@@ -45,9 +45,9 @@ export default class AwardBreakdownTreeMap extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.awardBreakdown.length > 0) {
-            this.buildVirtualTree(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props) && this.props.awardBreakdown.length > 0) {
+            this.buildVirtualTree(this.props);
         }
     }
 
