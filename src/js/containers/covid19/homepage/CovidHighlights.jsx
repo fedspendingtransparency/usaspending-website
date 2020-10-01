@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isCancel } from 'axios';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { get, uniqueId, throttle, isEqual } from 'lodash';
@@ -108,10 +109,13 @@ export class CovidHighlights extends React.Component {
                 }
             })
             .catch((e) => {
-                this.setState({
-                    isError: true,
-                    errorMessage: get(e, 'message', 'Error fetching data.')
-                });
+                if (!isCancel(e)) {
+                    console.log('error', e);
+                    this.setState({
+                        isError: true,
+                        errorMessage: get(e, 'message', 'Error fetching data.')
+                    });
+                }
             });
     }
 
@@ -127,6 +131,18 @@ export class CovidHighlights extends React.Component {
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
         window.removeEventListener('resize', this.handleResizeWindow);
+        if (this.fetchTotalsRequest) {
+            this.fetchTotalsRequest.cancel();
+        }
+        if (this.fetchTotalsByCfdaRequest) {
+            this.fetchTotalsByCfdaRequest.cancel();
+        }
+        if (this.allSubmissionDatesRequest) {
+            this.allSubmissionDatesRequest.cancel();
+        }
+        if (this.fetchDefCodesRequest) {
+            this.fetchDefCodesRequest.cancel();
+        }
     }
 
     fetchSubmissionMonth = async () => {
@@ -139,9 +155,11 @@ export class CovidHighlights extends React.Component {
             return Promise.resolve();
         }
         catch (e) {
-            console.log(' Error Submission Periods : ', e.message);
-            this.allSubmissionDatesRequest = null;
-            this.setState({ isDateLoading: false });
+            if (!isCancel(e)) {
+                console.log(' Error Submission Periods : ', e.message);
+                this.allSubmissionDatesRequest = null;
+                this.setState({ isDateLoading: false });
+            }
             return Promise.resolve();
         }
     }
@@ -165,6 +183,11 @@ export class CovidHighlights extends React.Component {
             .then((data) => {
                 this.parseSpendingTotals(data);
                 this.fetchTotalsRequest = null;
+            })
+            .catch((e) => {
+                if (!isCancel(e)) {
+                    console.log('error', e);
+                }
             });
     }
 
@@ -218,10 +241,13 @@ export class CovidHighlights extends React.Component {
                 this.fetchTotalsByCfdaRequest = null;
             })
             .catch((e) => {
-                this.setState({
-                    isError: true,
-                    errorMessage: get(e, 'message', 'Error fetching data.')
-                });
+                if (!isCancel(e)) {
+                    console.log('error', e);
+                    this.setState({
+                        isError: true,
+                        errorMessage: get(e, 'message', 'Error fetching data.')
+                    });
+                }
             });
     }
 

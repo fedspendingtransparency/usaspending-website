@@ -59,7 +59,7 @@ const propTypes = {
     countsFromHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    counts: PropTypes.arrayOf(PropTypes.shape({})),
+    counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
 const SearchTooltip = () => (
