@@ -15,7 +15,7 @@
     }
     &.right {
         left: auto;
-        right: rem(7);
+        right: rem(-9);
         &:after {
             transform: rotate(225deg);
         }
@@ -70,5 +70,8 @@
         &:after {
             transform: rotate(225deg);
         }
+    }
+    &.bottom {
+        top: rem(-8);
     }
 }
