@@ -47,6 +47,7 @@ export default class SubmissionTypeFilter extends React.Component {
                 key={type.name}>
                 <input
                     type="checkbox"
+                    aria-label={type.name}
                     value={type.name}
                     name="submission-type"
                     checked={this.props.currentSubmissionTypes.includes(type.name)}
