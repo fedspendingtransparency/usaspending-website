@@ -70,6 +70,7 @@ export default class DataDictionarySearchBar extends React.Component {
                 <form className="dictionary-search__form">
                     <input
                         className="dictionary-search__input"
+                        aria-label="Dictionary Search Input"
                         type="text"
                         value={this.state.term}
                         onChange={this.onChange}
