@@ -71,14 +71,6 @@ export default class NavBar extends React.Component {
     }
 
     render() {
-        let mobileNav = <div />;
-        if (this.state.showMobileNav) {
-            mobileNav = (
-                <MobileNav
-                    hideMobileNav={this.hideMobileNav} />
-            );
-        }
-
         return (
             <nav
                 className="site-navigation"
@@ -137,12 +129,14 @@ export default class NavBar extends React.Component {
                     </div>
                     <div className="mobile-nav-animations">
                         <TransitionGroup>
-                            <CSSTransition
-                                classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 195 }}
-                                exit>
-                                {mobileNav}
-                            </CSSTransition>
+                            {this.state.showMobileNav && (
+                                <CSSTransition
+                                    classNames="mobile-nav-slide"
+                                    timeout={{ enter: 225, exit: 195 }}
+                                    exit>
+                                    <MobileNav hideMobileNav={this.hideMobileNav} />
+                                </CSSTransition>
+                            )}
                         </TransitionGroup>
                     </div>
                     <div className="site-navigation__menu full-menu">

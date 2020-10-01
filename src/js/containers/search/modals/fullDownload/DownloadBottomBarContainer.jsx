@@ -248,26 +248,24 @@ will no longer download to your computer. Are you sure you want to do this?`;
     }
 
     render() {
-        let content = <div />;
         if (this.state.visible) {
-            content = (<DownloadBottomBar
-                {...this.props}
-                showError={this.state.showError}
-                showSuccess={this.state.showSuccess}
-                title={this.state.title}
-                description={this.state.description} />);
+            return (
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="download-slide"
+                        timeout={500}
+                        exit>
+                        <DownloadBottomBar
+                            {...this.props}
+                            showError={this.state.showError}
+                            showSuccess={this.state.showSuccess}
+                            title={this.state.title}
+                            description={this.state.description} />
+                    </CSSTransition>
+                </TransitionGroup>
+            );
         }
-
-        return (
-            <TransitionGroup>
-                <CSSTransition
-                    classNames="download-slide"
-                    timeout={{ enter: 500, exit: 500 }}
-                    exit>
-                    {content}
-                </CSSTransition>
-            </TransitionGroup>
-        );
+        return null;
     }
 }
 

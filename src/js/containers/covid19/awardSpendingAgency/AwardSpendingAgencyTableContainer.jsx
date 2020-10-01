@@ -26,6 +26,8 @@ const propTypes = {
     scrollIntoView: PropTypes.func.isRequired
 };
 
+let tableHeight = 'auto';
+
 const awardSpendingAgencyTableColumns = (type) => {
     if (type === 'loans') {
         return (
@@ -213,6 +215,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
+        console.log("UMMMMMMMM");
         if (request.current) {
             request.current.cancel();
         }
@@ -274,7 +277,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             }
             updateSort('obligation', 'desc');
         }
-    }, [fetchSpendingByCategoryCallback, order, props.type, sort]);
+    }, [props.type]);
 
     useEffect(() => {
         // Reset to the first page
@@ -282,44 +285,32 @@ const AwardSpendingAgencyTableContainer = (props) => {
             fetchSpendingByCategoryCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals, currentPage, fetchSpendingByCategoryCallback]);
+    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
-    }, [currentPage, fetchSpendingByCategoryCallback]);
+    }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, props]);
+    }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
     }
     else if (error) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
-    if (message) {
+    if (loading || error) {
+        console.log('heyo');
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
@@ -333,10 +324,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
+                        timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        {message}
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 <Pagination

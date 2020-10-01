@@ -44,6 +44,7 @@ const propTypes = {
     })
 };
 
+let tableHeight = 'auto';
 
 const budgetDropdownColumns = {
     total_spending: [
@@ -338,7 +339,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
+    }, [props.type, spendingCategory]);
 
     useEffect(() => {
         // Reset to the first page
@@ -346,15 +347,15 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals, currentPage, fetchBudgetSpendingCallback]);
+    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage, fetchBudgetSpendingCallback]);
+    }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, props]);
+    }, [loading, error]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
@@ -378,28 +379,15 @@ const BudgetCategoriesTableContainer = (props) => {
         Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
     }
     else if (error) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
 
     const spendingViewPicker = () => (
@@ -424,7 +412,7 @@ const BudgetCategoriesTableContainer = (props) => {
         </div>
     );
 
-    if (message) {
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
@@ -439,10 +427,12 @@ const BudgetCategoriesTableContainer = (props) => {
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
+                        timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        {message}
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 <Pagination

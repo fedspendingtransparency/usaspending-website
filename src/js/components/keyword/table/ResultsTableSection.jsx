@@ -94,14 +94,14 @@ export default class ResultsTableSection extends React.Component {
                                 timeout={{ exit: 225, enter: 195 }}
                                 exit>
                                     <>
-                                        {this.props.results.length === 0 && !this.props.inFlight && !this.props.error && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableNoResults />
-                                            </div>
-                                        )}
                                         {!this.props.keyword && (
                                             <div className="results-table-message-container full">
                                                 <ResultsTableBeginMessage />
+                                            </div>
+                                        )}
+                                        {this.props.keyword && this.props.results.length === 0 && !this.props.inFlight && !this.props.error && (
+                                            <div className="results-table-message-container full">
+                                                <ResultsTableNoResults />
                                             </div>
                                         )}
                                         {this.props.inFlight && (

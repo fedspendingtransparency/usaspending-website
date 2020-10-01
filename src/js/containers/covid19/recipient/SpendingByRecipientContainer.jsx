@@ -26,11 +26,12 @@ import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
-
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const columns = [
     {
@@ -279,52 +280,33 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByRecipientCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals, currentPage, fetchSpendingByRecipientCallback]);
+    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage, fetchSpendingByRecipientCallback]);
+    }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error, scrollIntoView]);
+    }, [loading, error]);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
     }
     else if (error) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
     else if (results.length === 0) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableNoResults />
-            </div>
-        );
     }
 
-    if (message) {
+    if (error || loading || (!error && !loading && results.length === 0)) {
         return (
             <>
                 <SearchBar setQuery={setQuery} currentSearchTerm={query} />
@@ -339,10 +321,13 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
+                        timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        {message}
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 {(results.length > 0 || error) && <Pagination

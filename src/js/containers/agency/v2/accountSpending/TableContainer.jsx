@@ -125,32 +125,18 @@ const TableContainer = (props) => {
         fetchSpendingByCategoryCallback();
     }, [currentPage, fetchSpendingByCategoryCallback]);
 
-    let message = null;
-    if (loading) {
-        message = (
-            <div className="results-table-message-container">
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    }
-    else if (error) {
-        message = (
-            <div className="results-table-message-container">
-                <ResultsTableErrorMessage />
-            </div>
-        );
-    }
-
-    if (message) {
+    if (loading || error) {
         return (
             <>
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
+                        timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        {message}
+                        <div className="results-table-message-container">
+                            {loading && <ResultsTableLoadingMessage />}
+                            {error && <ResultsTableErrorMessage />}
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 <Pagination

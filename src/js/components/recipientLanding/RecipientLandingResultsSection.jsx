@@ -24,39 +24,30 @@ const propTypes = {
 
 export default class RecipientLandingResultsSection extends React.Component {
     render() {
-        let message = null;
-        let table = (
-            <RecipientLandingTable
-                {...this.props} />
-        );
-        if (this.props.inFlight) {
-            message = (
-                <div className="results-table-message-container">
-                    <ResultsTableLoadingMessage />
-                </div>
-            );
-        }
-        else if (this.props.error) {
-            table = null;
-            message = (
-                <div className="results-table-message-container full">
-                    <ResultsTableErrorMessage />
-                </div>
-            );
-        }
-
         return (
             <div className="results-table-section">
                 <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
-                        exit>
-                        {message}
-                    </CSSTransition>
+                    {(this.props.inFlight || this.props.error) && (
+                        <CSSTransition
+                            classNames="table-message-fade"
+                            timeout={{ exit: 225, enter: 195 }}
+                            exit>
+                            <>
+                                {this.props.inFlight && (
+                                    <div className="results-table-message-container">
+                                        <ResultsTableLoadingMessage />
+                                    </div>
+                                )}
+                                {this.props.error && (
+                                    <div className="results-table-message-container full">
+                                        <ResultsTableErrorMessage />
+                                    </div>
+                                )}
+                            </>
+                        </CSSTransition>
+                    )}
                 </TransitionGroup>
-                {table}
+                <RecipientLandingTable {...this.props} />
             </div>
         );
     }

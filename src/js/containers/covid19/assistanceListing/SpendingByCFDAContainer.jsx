@@ -32,6 +32,8 @@ const propTypes = {
     scrollIntoView: PropTypes.func.isRequired
 };
 
+let tableHeight = 'auto';
+
 const columns = [
     {
         title: 'name',
@@ -305,45 +307,32 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals, currentPage, fetchSpendingByCfdaCallback]);
+    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
-    }, [currentPage, fetchSpendingByCfdaCallback]);
+    }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, scrollIntoView]);
+    }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [document]);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
     }
     else if (error) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
 
-    if (message) {
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
@@ -357,10 +346,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
-                        transitionLeaveTimeout={225}
-                        transitionEnterTimeout={195}
+                        timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        {message}
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 <Pagination
