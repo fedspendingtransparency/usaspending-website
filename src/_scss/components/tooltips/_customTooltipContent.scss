@@ -72,7 +72,8 @@
     }
 }
 
-.homepage__covid-19-tt {
+.homepage__covid-19-tt,
+.covid-profile-tt {
     @include display(flex);
     @include flex-direction(column);
     @include justify-content(center);
@@ -84,9 +85,12 @@
     h2 {
         text-align: center;
         font-size: rem(16);
-        padding: 0;
     }
-
+    
+    &.homepage__covid-19-tt h2 {
+        padding: 0;
+        margin: 0;
+    }
     p {
         font-size: rem(14);
         a {

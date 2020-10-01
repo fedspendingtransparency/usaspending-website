@@ -293,6 +293,9 @@ export class CovidHighlights extends React.Component {
                                 <div style={{ width: '20px' }}>
                                     <TooltipWrapper
                                         icon="info"
+                                        offsetAdjustments={{
+                                            top: 0
+                                        }}
                                         tooltipComponent={<HomePageTooltip />} />
                                 </div>
                             </span>
