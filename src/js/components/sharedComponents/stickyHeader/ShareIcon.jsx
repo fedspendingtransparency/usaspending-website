@@ -66,6 +66,7 @@ const ShareIcon = ({
         <div className="sticky-header__toolbar-item">
             <input
                 id="slug"
+                aria-label="Share Input Link"
                 type="text"
                 className="text"
                 style={{ position: 'absolute', right: '9999px', opacity: 0 }}

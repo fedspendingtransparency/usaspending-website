@@ -71,6 +71,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                 <form className="search-section__form">
                     <input
                         className="search-section__input"
+                        aria-label="Search Input"
                         type="text"
                         name="recipient"
                         value={this.state.recipient}

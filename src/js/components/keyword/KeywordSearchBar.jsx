@@ -72,6 +72,7 @@ export default class KeywordSearchBar extends React.Component {
                 <input
                     id="search"
                     type="text"
+                    aria-label="Search Input"
                     className="keyword-search-bar__input"
                     value={this.state.searchString}
                     onChange={this.changedInput}

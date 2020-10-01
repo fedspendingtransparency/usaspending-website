@@ -60,9 +60,6 @@
           .tooltip-pointer {
             height: 1.6rem;
             width: 1.6rem;
-            &.bottom {
-              top: rem(-8);
-            }
           }
           .tooltip__content {
             .tooltip__message {
@@ -87,6 +84,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: space-around;
+            width: 100%;
             .pagination-text {
               font-style: italic;
             }
