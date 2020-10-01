@@ -24,7 +24,8 @@ import {
     labelTextAdjustment,
     heightOfRemainingBalanceLines,
     defaultTooltipWidth,
-    tooltipMapping
+    tooltipMapping,
+    stickyHeaderHeight
 } from 'dataMapping/covid19/covid19';
 import {
     calculateUnits,
@@ -37,8 +38,6 @@ const propTypes = {
     overviewData: PropTypes.object,
     width: PropTypes.number
 };
-
-const stickyHeaderHeight = 66;
 
 const AmountsVisualization = ({
     overviewData,
