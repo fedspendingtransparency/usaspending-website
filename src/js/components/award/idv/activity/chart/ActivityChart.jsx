@@ -82,7 +82,6 @@ export default class ActivityChart extends React.Component {
 
     createBars() {
         if (!this.state.bars) return null;
-        // testing travis lighthouse
         // Map each award to a "bar" component
         return this.state.bars.map((bar, index) => {
             const {
