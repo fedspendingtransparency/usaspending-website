@@ -15,7 +15,6 @@ cache:
   directories:
     - node_modules
 script:
-  - npm audit --audit-level=moderate
   - npm run dev
   - npm run travis
 after_success:
