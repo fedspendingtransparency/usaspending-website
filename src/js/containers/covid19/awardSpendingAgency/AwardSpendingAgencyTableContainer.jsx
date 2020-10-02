@@ -215,7 +215,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
-        console.log("UMMMMMMMM");
         if (request.current) {
             request.current.cancel();
         }
@@ -310,7 +309,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     }
     if (loading || error) {
-        console.log('heyo');
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
