@@ -297,7 +297,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (request.current) {
             request.current.cancel();
         }
-    }, [request]);
+    }, []);
 
     let message = null;
     if (loading) {
