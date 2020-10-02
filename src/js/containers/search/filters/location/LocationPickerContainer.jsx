@@ -123,7 +123,9 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        this.listRequest.cancel();
+        if (this.listRequest) {
+            this.listRequest.cancel();
+        }
     }
 
     setCitySearchString(citySearchString, performFetch = true) {
