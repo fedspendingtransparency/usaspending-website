@@ -92,7 +92,7 @@ export default class ActivityChart extends React.Component {
                 description
             } = bar;
             // bar styling normal
-            let style = { fill: `url(#normal${index}` };
+            let style = { fill: `url(#normal${index})` };
             // handle overspending style
             if (bar._obligatedAmount > bar._awardedAmount) {
                 style = { fill: "url(#diagonalHatch)" };
