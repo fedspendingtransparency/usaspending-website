@@ -126,12 +126,6 @@ const SearchContainer = ({ history }) => {
         }
     }, [areAppliedFiltersEmpty]);
 
-    useEffect(() => {
-        if (areAppliedFiltersEmpty) {
-            setDownloadInFlight(false);
-        }
-    }, [areAppliedFiltersEmpty]);
-
     const generateHash = useCallback(() => {
         // POST an API request to retrieve the Redux state
         if (generateHashInFlight) {
