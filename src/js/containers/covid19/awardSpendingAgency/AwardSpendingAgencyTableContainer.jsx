@@ -293,6 +293,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
         window.scrollTo(0, 0);
     }, [document]);
 
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, [request]);
+
     let message = null;
     if (loading) {
         let tableHeight = 'auto';

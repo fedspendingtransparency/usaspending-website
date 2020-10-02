@@ -126,6 +126,12 @@ const SearchContainer = ({ history }) => {
         }
     }, [areAppliedFiltersEmpty]);
 
+    useEffect(() => {
+        if (areAppliedFiltersEmpty) {
+            setDownloadInFlight(false);
+        }
+    }, [areAppliedFiltersEmpty]);
+
     const generateHash = useCallback(() => {
         // POST an API request to retrieve the Redux state
         if (generateHashInFlight) {
@@ -183,6 +189,15 @@ const SearchContainer = ({ history }) => {
             setDownloadAvailability();
         }
     }, [appliedFilters]);
+
+    useEffect(() => {
+        if (generateHashInFlight) {
+            setGenerateHashInFlight(false);
+        }
+        if (downloadInFlight) {
+            setDownloadInFlight(false);
+        }
+    }, [generateHashInFlight, downloadInFlight]);
 
     return (
         <SearchPage
