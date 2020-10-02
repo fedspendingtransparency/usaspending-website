@@ -59,6 +59,12 @@ export class DEFCheckboxTree extends React.Component {
         this.fetchCodes();
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
         if (newCount > 0) {
@@ -92,14 +98,15 @@ export class DEFCheckboxTree extends React.Component {
             });
         }
         catch (e) {
-            console.log('Error fetching Def Codes ', e);
             if (!isCancel(e)) {
+                console.log('Error fetching Def Codes ', e);
                 this.setState({
                     isLoading: false,
                     isError: true,
                     errorMessage: get(e, 'message', 'There was an error, please refresh the browser.')
                 });
             }
+            this.request = null;
         }
     };
 
