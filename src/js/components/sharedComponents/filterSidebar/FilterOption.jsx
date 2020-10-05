@@ -32,8 +32,8 @@ export default class FilterOption extends React.Component {
 
         this.state = {
             isDirty: false,
-            showFilter: true,
-            arrowState: 'expanded'
+            showFilter: false,
+            arrowState: 'collapsed'
         };
 
         // bind functions
@@ -51,11 +51,11 @@ export default class FilterOption extends React.Component {
     }
 
     setArrowAndFilterState() {
-        if (!this.props.defaultExpand) {
+        if (this.props.defaultExpand) {
             // check if filter is supposed to be collapsed by default
             this.setState({
-                arrowState: 'collapsed',
-                showFilter: false
+                arrowState: 'expanded',
+                showFilter: true
             });
         }
     }

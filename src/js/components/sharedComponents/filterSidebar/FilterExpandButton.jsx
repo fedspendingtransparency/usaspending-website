@@ -94,7 +94,7 @@ export default class FilterExpandButton extends React.Component {
                     title={this.props.name}
                     aria-label={this.props.name}
                     aria-expanded={this.props.arrowState === 'expanded'}
-                    aria-describedby={ariaDescription}>
+                    aria-describedby={this.props.accessory ? ariaDescription : ''}>
                     {icon}
                     <div className={`filter-toggle__name${filterClassName}`}>
                         <span>{this.props.name}</span>

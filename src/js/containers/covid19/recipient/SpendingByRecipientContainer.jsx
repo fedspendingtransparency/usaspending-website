@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -26,11 +26,12 @@ import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
-
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const columns = [
     {
@@ -222,7 +223,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 rowData.outlay,
                 rowData.awardCount
             ]);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
         return rows;
@@ -288,40 +290,23 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
     }, [loading, error]);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
+    }
+    else if (error) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
-    } else if (results.length === 0) {
-        let tableHeight = 'auto';
+    }
+    else if (results.length === 0) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableNoResults />
-            </div>
-        );
     }
 
-    if (message) {
+    if (error || loading || (!error && !loading && results.length === 0)) {
         return (
             <>
                 <SearchBar setQuery={setQuery} currentSearchTerm={query} />
@@ -333,13 +318,18 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />}
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

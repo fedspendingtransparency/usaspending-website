@@ -128,6 +128,12 @@ export class TASCheckboxTree extends React.Component {
             });
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         if (shouldFetchChildren && !this.state.isSearch) {
             if (selectedNode.treeDepth === 1) {
@@ -319,14 +325,15 @@ export class TASCheckboxTree extends React.Component {
                 this.request = null;
             })
             .catch((e) => {
-                console.log("error fetching TAS", e);
                 if (!isCancel(e)) {
+                    console.log("error fetching TAS", e);
                     this.setState({
                         isError: true,
                         isLoading: false,
                         errorMessage: get(e, 'message', 'Error fetching TAS.')
                     });
                 }
+                this.request = null;
             });
     }
 

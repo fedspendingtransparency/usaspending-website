@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -88,8 +89,10 @@ export default class SankeyVisualizationHorizontal extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.generateChart(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.generateChart(this.props);
+        }
     }
 
     generateLabel(amount, total) {

@@ -79,7 +79,7 @@ const StickyHeader = ({
     return (
         <div className="sticky-header" ref={stickyHeader}>
             <div className={`sticky-header__container ${stickyClass}`}>
-                <div className="sticky-header__header" aria-labelledby="main-focus">
+                <div className="sticky-header__header" id="main-focus">
                     {children}
                 </div>
             </div>

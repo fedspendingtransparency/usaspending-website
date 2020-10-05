@@ -70,6 +70,7 @@ export default class AccountLandingSearchBar extends React.Component {
                 <form className="search-section__form">
                     <input
                         className="search-section__input"
+                        aria-label="Search Input"
                         name="keyword"
                         value={this.state.keyword}
                         type="text"

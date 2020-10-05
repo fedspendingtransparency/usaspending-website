@@ -273,17 +273,17 @@ export default class EntityDropdown extends React.Component {
             // even if this is enabled, still showWarning b/c we're also showingDisclaimer now
             hideWarning = '';
         }
-
+        const uniqueIdentifier = uniqueId();
         return (
             <div
                 className="geo-entity-item">
                 <label
                     className={`location-label ${disabled}`}
-                    htmlFor={`${field}-${type}`}>
+                    htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
                     {this.props.title}
                 </label>
                 <div
-                    id={`${field}-${type}`}
+                    id={`${field}-${type}-${uniqueIdentifier}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
                     onMouseOver={this.mouseEnter}
                     onFocus={this.mouseEnter}

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
@@ -44,6 +44,7 @@ const propTypes = {
     })
 };
 
+let tableHeight = 'auto';
 
 const budgetDropdownColumns = {
     total_spending: [
@@ -187,11 +188,14 @@ const BudgetCategoriesTableContainer = (props) => {
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
-        } else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
+        }
+        else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Federal Account (Unlinked Data)';
-        } else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
+        }
+        else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Object Class (Unlinked Data)';
-        } else if (spendingCategory === 'award_spending') {
+        }
+        else if (spendingCategory === 'award_spending') {
             unlinkedName = 'Number of Unlinked Awards';
         }
 
@@ -213,7 +217,8 @@ const BudgetCategoriesTableContainer = (props) => {
                 unlinkedRow.totalBudgetaryResources = null;
             }
             parsedData.push(unlinkedRow);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
 
@@ -252,7 +257,8 @@ const BudgetCategoriesTableContainer = (props) => {
                         {budgetCategoryRow.name}
                     </Link>
                 );
-            } else if (link && id && props.type === 'agency') {
+            }
+            else if (link && id && props.type === 'agency') {
                 link = (
                     <Link
                         className="agency-profile__link"
@@ -373,27 +379,15 @@ const BudgetCategoriesTableContainer = (props) => {
         Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
+    }
+    else if (error) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
 
     const spendingViewPicker = () => (
@@ -418,7 +412,7 @@ const BudgetCategoriesTableContainer = (props) => {
         </div>
     );
 
-    if (message) {
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
@@ -430,13 +424,17 @@ const BudgetCategoriesTableContainer = (props) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

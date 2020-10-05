@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const AwardSpendingAgencyTT = () => (
-    <div className="homepage__covid-19-tt">
+    <div className="covid-profile-tt">
         <h2 className="tooltip__title">Award Spending by Agency</h2>
         <div className="tooltip__text ul-override">
             <p>
@@ -33,7 +33,7 @@ export const AwardSpendingAgencyTT = () => (
 );
 
 export const AwardSpendingCfdaTT = () => (
-    <div className="homepage__covid-19-tt">
+    <div className="covid-profile-tt">
         <h2 className="tooltip__title">Award Spending by CFDA Program (Assistance Listing)</h2>
         <div className="tooltip__text ul-override">
             <p>
@@ -65,7 +65,7 @@ export const AwardSpendingCfdaTT = () => (
 );
 
 export const AwardSpendingTT = () => (
-    <div className="homepage__covid-19-tt">
+    <div className="covid-profile-tt">
         <h2 className="tooltip__title">Award Spending</h2>
         <div className="tooltip__text">
             <p>
@@ -79,7 +79,7 @@ export const AwardSpendingTT = () => (
 );
 
 export const SpendingByRecipientTT = () => (
-    <div className="homepage__covid-19-tt">
+    <div className="covid-profile-tt">
         <h2 className="tooltip__title">Award Spending by Recipient</h2>
         <div className="tooltip__text ul-override">
             <p>
@@ -161,7 +161,7 @@ export const SpendingTypesTT = () => (
 );
 
 export const TotalSpendingTT = () => (
-    <div className="homepage__covid-19-tt">
+    <div className="covid-profile-tt">
         <h2 className="tooltip__title"> Total Spending</h2>
         <div className="tooltip__text">
             <p>

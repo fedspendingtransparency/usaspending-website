@@ -22,4 +22,8 @@
     .tooltip__content {
         @import './customTooltipContent';
     }
+
+    .tooltip .tooltip__interior .tooltip-pointer.bottom {
+        top: rem(-8);
+    }
 }
