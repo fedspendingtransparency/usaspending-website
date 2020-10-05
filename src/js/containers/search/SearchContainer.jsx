@@ -118,11 +118,6 @@ const SearchContainer = ({ history }) => {
                     }
                 });
         }
-        return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
-        };
     }, []);
 
     useEffect(() => {
@@ -132,11 +127,6 @@ const SearchContainer = ({ history }) => {
             dispatch(setAppliedFilterCompletion(true));
             history.replace('/search');
         }
-        return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
-        };
     }, [areAppliedFiltersEmpty]);
 
     const generateHash = useCallback(() => {
@@ -200,12 +190,13 @@ const SearchContainer = ({ history }) => {
             generateHash();
             setDownloadAvailability();
         }
-        return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
-        };
     }, [appliedFilters]);
+
+    useEffect(() => () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, []);
 
     return (
         <SearchPage
