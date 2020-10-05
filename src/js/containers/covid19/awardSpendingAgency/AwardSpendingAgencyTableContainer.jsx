@@ -298,6 +298,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, []);
+
     if (loading) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;

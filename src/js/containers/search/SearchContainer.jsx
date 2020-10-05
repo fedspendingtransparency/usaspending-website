@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/30/17
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -85,6 +85,7 @@ const SearchContainer = ({ history }) => {
     const [downloadAvailable, setDownloadAvailable] = useState(false);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
+    const request = useRef(null);
 
     useEffect(() => {
         // receiving filters from previous search via hash.
@@ -93,9 +94,10 @@ const SearchContainer = ({ history }) => {
             SearchHelper.areFiltersEqual(stagedFilters, initialState)
         );
         if (shouldFetchRemoteFilters) {
-            SearchHelper.restoreUrlHash({
+            request.current = SearchHelper.restoreUrlHash({
                 hash: urlHash
-            }).promise
+            });
+            request.current.promise
                 .then((res) => {
                     dispatch(setAppliedFilterEmptiness(false));
                     const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
@@ -112,6 +114,7 @@ const SearchContainer = ({ history }) => {
                         dispatch(setAppliedFilterEmptiness(true));
                         dispatch(setAppliedFilterCompletion(true));
                         history.push('/search');
+                        request.current = null;
                     }
                 });
         }
@@ -132,10 +135,12 @@ const SearchContainer = ({ history }) => {
             return;
         }
         setGenerateHashInFlight(true);
-        SearchHelper.generateUrlHash({
+
+        request.current = SearchHelper.generateUrlHash({
             filters: appliedFilters,
             version: filterStoreVersion
-        }).promise
+        });
+        request.current.promise
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
@@ -148,6 +153,7 @@ const SearchContainer = ({ history }) => {
                 if (!isCancel(err)) {
                     console.log(err);
                     setGenerateHashInFlight(false);
+                    request.current = null;
                 }
             });
     }, [appliedFilters, generateHashInFlight]);
@@ -165,13 +171,15 @@ const SearchContainer = ({ history }) => {
             auditTrail: 'Download Availability Count'
         };
 
-        DownloadHelper.requestDownloadCount(apiParams).promise
+        request.current = DownloadHelper.requestDownloadCount(apiParams);
+        request.current.promise
             .then((res) => {
                 setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setDownloadInFlight(false);
             })
             .catch(() => {
                 setDownloadInFlight(false);
+                request.current = null;
             });
     }, [stagedFilters, appliedFilters]);
 
@@ -183,6 +191,12 @@ const SearchContainer = ({ history }) => {
             setDownloadAvailability();
         }
     }, [appliedFilters]);
+
+    useEffect(() => () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, []);
 
     return (
         <SearchPage
