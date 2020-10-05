@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
@@ -188,25 +188,23 @@ will no longer download to your computer. Are you sure you want to do this?`;
     }
 
     render() {
-        let content = null;
-        if (this.state.visible) {
-            content = (<DownloadBottomBar
-                {...this.props}
-                download={this.props.bulkDownload.download}
-                showError={this.state.showError}
-                showSuccess={this.state.showSuccess}
-                title={this.state.title}
-                description={this.state.description} />);
-        }
-
         return (
-            <CSSTransitionGroup
-                transitionName="download-slide"
-                transitionLeaveTimeout={500}
-                transitionEnterTimeout={500}
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                {this.state.visible && (
+                    <CSSTransition
+                        classNames="download-slide"
+                        timeout={500}
+                        exit>
+                        <DownloadBottomBar
+                            {...this.props}
+                            download={this.props.bulkDownload.download}
+                            showError={this.state.showError}
+                            showSuccess={this.state.showSuccess}
+                            title={this.state.title}
+                            description={this.state.description} />
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         );
     }
 }

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { throttle, remove, orderBy, find } from 'lodash';
+import { throttle, remove, orderBy, find, isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
@@ -48,22 +48,26 @@ export default class MinorObjectClasses extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.minorObjectClasses.children.length > 0) {
-            this.buildTree(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props) && this.props.minorObjectClasses.children.length > 0) {
+            this.buildTree(this.props);
         }
         // Clear out the finalNodes if props change and there are no minorObjectClasses.
         // This will occur when the treemap has previously rendered and we're loading
         // a different set of minorObjectClasses from the API.
         else if (this.state.finalNodes.length > 0) {
-            this.setState({
-                finalNodes: []
-            });
+            this.clearFinalNodes();
         }
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    clearFinalNodes() {
+        this.setState({
+            finalNodes: []
+        });
     }
 
     handleWindowResize() {

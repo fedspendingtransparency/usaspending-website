@@ -424,6 +424,7 @@ const AwardAmountsChart = ({
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
+            const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0 && isCaresActReleased;
             const chartProps = {
                 denominator: {
@@ -449,23 +450,25 @@ const AwardAmountsChart = ({
                     text: 'Obligated Amount',
                     color: obligatedColor
                 },
-                numerator2: {
-                    className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
-                    labelSortOrder: 1,
-                    labelPosition: 'bottom',
-                    // fudging this for to get the correct tooltip position.
-                    rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
-                    denominatorValue: awardAmounts._totalFunding,
-                    lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
-                    barWidthOverrides: {
-                        applyToLine: true,
-                        rawValue: awardAmounts._nonFederalFunding,
-                        denominatorValue: awardAmounts._totalFunding
-                    },
-                    value: awardAmounts.nonFederalFundingAbbreviated,
-                    color: nonFederalFundingColor,
-                    text: "Non Federal Funding",
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'nonFederalFunding', awardAmounts)
+                ...isNffZero ? {} : {
+                    numerator2: {
+                        className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
+                        labelSortOrder: 1,
+                        labelPosition: 'bottom',
+                        // fudging this for to get the correct tooltip position.
+                        rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
+                        denominatorValue: awardAmounts._totalFunding,
+                        lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
+                        barWidthOverrides: {
+                            applyToLine: true,
+                            rawValue: awardAmounts._nonFederalFunding,
+                            denominatorValue: awardAmounts._totalFunding
+                        },
+                        value: awardAmounts.nonFederalFundingAbbreviated,
+                        color: nonFederalFundingColor,
+                        text: "Non Federal Funding",
+                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'nonFederalFunding', awardAmounts)
+                    }
                 }
             };
             if (showFileC) {

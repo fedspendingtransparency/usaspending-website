@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { truncate } from 'lodash';
+import { isEqual, truncate } from 'lodash';
 
 const propTypes = {
     label: PropTypes.string,
@@ -32,11 +32,10 @@ export default class ChartGroup extends React.Component {
         this.initialRender(this.props.label);
     }
 
-    componentWillReceiveProps(props) {
-        this.initialRender(props.label);
-    }
-
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.initialRender(this.props.label);
+        }
         if (!this.state.didProcess) {
             // the label changed and needs to be reprocessed
             this.truncateText();

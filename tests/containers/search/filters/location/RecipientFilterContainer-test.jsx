@@ -11,7 +11,7 @@ import { RecipientFilterContainer } from 'containers/search/filters/location/Rec
 
 import { mockRedux } from './mockLocations';
 
-global.Promise = require.requireActual('promise');
+global.Promise = jest.requireActual('promise');
 
 jest.mock('components/search/filters/location/SelectedLocations', () =>
     jest.fn(() => null));

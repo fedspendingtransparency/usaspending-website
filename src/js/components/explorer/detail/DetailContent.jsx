@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import RootHeader from './header/RootHeader';
@@ -56,16 +57,16 @@ export default class DetailContent extends React.Component {
         this.updateChart(this.props.data);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.transitionSteps !== 0 && nextProps.transition !== this.props.transition) {
-            if (nextProps.transition === 'start') {
-                this.startTransition(nextProps.transitionSteps);
+    componentDidUpdate(prevProps) {
+        if (this.props.transitionSteps !== 0 && prevProps.transition !== this.props.transition) {
+            if (this.props.transition === 'start') {
+                this.startTransition(this.props.transitionSteps);
             }
-            else if (nextProps.transition === 'end') {
+            else if (this.props.transition === 'end') {
                 this.finishTransition();
             }
-            else if (nextProps.data !== this.props.data) {
-                this.updateChart(nextProps.data);
+            else if (!isEqual(prevProps.data, this.props.data)) {
+                this.updateChart(this.props.data);
             }
         }
     }

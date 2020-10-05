@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { throttle, remove, orderBy, find } from 'lodash';
+import { throttle, remove, orderBy, find, isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
@@ -48,9 +48,9 @@ export default class MajorObjectClasses extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.majorObjectClasses.children.length > 0) {
-            this.buildTree(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props) && this.props.majorObjectClasses.children.length > 0) {
+            this.buildTree(this.props);
         }
     }
 

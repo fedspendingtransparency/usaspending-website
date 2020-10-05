@@ -48,6 +48,7 @@ export default class FileFormatFilter extends React.Component {
                 key={fileFormat.name}>
                 <input
                     type="radio"
+                    aria-label={fileFormat.name}
                     value={fileFormat.name}
                     name="fileFormat"
                     checked={this.props.currentFileFormat === fileFormat.name}

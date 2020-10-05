@@ -46,6 +46,7 @@ export default class DateTypeFilter extends React.Component {
                 key={dateType.name}>
                 <input
                     type="radio"
+                    aria-label={dateType.name}
                     value={dateType.name}
                     name="dateType"
                     checked={this.props.currentDateType === dateType.name}

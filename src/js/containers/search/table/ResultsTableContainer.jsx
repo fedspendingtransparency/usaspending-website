@@ -134,6 +134,15 @@ export class ResultsTableContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.searchRequest) {
+            this.searchRequest.cancel();
+        }
+        if (this.tabCountRequest) {
+            this.tabCountRequest.cancel();
+        }
+    }
+
     loadColumns() {
         // in the future, this will be an API call, but for now, read the local data file
         // load every possible table column up front, so we don't need to deal with this when

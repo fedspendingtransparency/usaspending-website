@@ -56,7 +56,7 @@ const propTypes = {
     unchecked: PropTypes.arrayOf(PropTypes.string),
     checkedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     uncheckedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    countsFropmHash: PropTypes.arrayOf(PropTypes.shape({})),
+    countsFromHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
@@ -86,7 +86,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         this.request = null;
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const {
             nodes,
             uncheckedFromHash,
@@ -127,6 +127,12 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 // just do this for consistent return.
                 return Promise.resolve();
             });
+    }
+
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
@@ -324,14 +330,15 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 this.request = null;
             })
             .catch((e) => {
-                console.log("error fetching TAS", e);
                 if (!isCancel(e)) {
+                    console.log("error fetching PSC", e);
                     this.setState({
                         isError: true,
                         isLoading: false,
                         errorMessage: get(e, 'message', 'Error fetching PSC.')
                     });
                 }
+                this.request = null;
             });
     }
 
