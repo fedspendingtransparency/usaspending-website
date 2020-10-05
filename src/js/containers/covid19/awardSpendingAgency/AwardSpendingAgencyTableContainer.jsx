@@ -271,6 +271,11 @@ const AwardSpendingAgencyTableContainer = (props) => {
             }
             updateSort('obligation', 'desc');
         }
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [props.type]);
 
     useEffect(() => {
@@ -279,10 +284,20 @@ const AwardSpendingAgencyTableContainer = (props) => {
             fetchSpendingByCategoryCallback();
         }
         changeCurrentPage(1);
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [currentPage]);
 
     useEffect(() => {
@@ -292,12 +307,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [document]);
-
-    useEffect(() => {
-        if (request.current) {
-            request.current.cancel();
-        }
-    }, []);
 
     let message = null;
     if (loading) {

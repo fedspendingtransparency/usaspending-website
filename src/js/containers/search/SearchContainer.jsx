@@ -94,11 +94,10 @@ const SearchContainer = ({ history }) => {
             SearchHelper.areFiltersEqual(stagedFilters, initialState)
         );
         if (shouldFetchRemoteFilters) {
-            const restoreUrlHashRequest = SearchHelper.restoreUrlHash({
+            request.current = SearchHelper.restoreUrlHash({
                 hash: urlHash
             });
-            request.current = restoreUrlHashRequest;
-            restoreUrlHashRequest.promise
+            request.current.promise
                 .then((res) => {
                     dispatch(setAppliedFilterEmptiness(false));
                     const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
@@ -115,10 +114,15 @@ const SearchContainer = ({ history }) => {
                         dispatch(setAppliedFilterEmptiness(true));
                         dispatch(setAppliedFilterCompletion(true));
                         history.push('/search');
+                        request.current = null;
                     }
-                    request.current = null;
                 });
         }
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, []);
 
     useEffect(() => {
@@ -128,6 +132,11 @@ const SearchContainer = ({ history }) => {
             dispatch(setAppliedFilterCompletion(true));
             history.replace('/search');
         }
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [areAppliedFiltersEmpty]);
 
     const generateHash = useCallback(() => {
@@ -137,13 +146,11 @@ const SearchContainer = ({ history }) => {
         }
         setGenerateHashInFlight(true);
 
-        const generateUrlHashRequest = SearchHelper.generateUrlHash({
+        request.current = SearchHelper.generateUrlHash({
             filters: appliedFilters,
             version: filterStoreVersion
         });
-
-        request.current = generateUrlHashRequest;
-        generateUrlHashRequest.promise
+        request.current.promise
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
@@ -174,10 +181,8 @@ const SearchContainer = ({ history }) => {
             auditTrail: 'Download Availability Count'
         };
 
-        const downloadCountRequest = DownloadHelper.requestDownloadCount(apiParams);
-
-        request.current = downloadCountRequest;
-        downloadCountRequest.promise
+        request.current = DownloadHelper.requestDownloadCount(apiParams);
+        request.current.promise
             .then((res) => {
                 setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setDownloadInFlight(false);
@@ -195,13 +200,12 @@ const SearchContainer = ({ history }) => {
             generateHash();
             setDownloadAvailability();
         }
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [appliedFilters]);
-
-    useEffect(() => {
-        if (request.current) {
-            request.current.cancel();
-        }
-    }, []);
 
     return (
         <SearchPage
