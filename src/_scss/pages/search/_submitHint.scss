@@ -20,7 +20,7 @@
     @include animation(submitFadeIn 0.2s linear forwards);
 }
 
-.hint-fade-leave, .hint-fade-leave-active {
+.hint-fade-exit, .hint-fade-exit-active {
     @include animation(submitFadeOut 0.2s linear forwards);
 }
 

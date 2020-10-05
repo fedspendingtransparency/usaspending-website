@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
@@ -25,6 +25,8 @@ const propTypes = {
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const awardSpendingAgencyTableColumns = (type) => {
     if (type === 'loans') {
@@ -141,7 +143,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
         if (props.type === 'all') {
             unlinkedName = 'Unknown Agency (Unlinked Data)';
-        } else {
+        }
+        else {
             unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
         }
 
@@ -156,7 +159,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const unlinkedRow = Object.create(CoreSpendingTableRow);
             unlinkedRow.populateCore(unlinkedData);
             parsedData.push(unlinkedRow);
-        } else {
+        }
+        else {
             setUnlinkedDataClass(false);
         }
 
@@ -264,7 +268,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 fetchSpendingByCategoryCallback();
             }
             updateSort('faceValueOfLoan', 'desc');
-        } else {
+        }
+        else {
             if (sort === 'obligation' && order === 'desc') {
                 changeCurrentPage(1);
                 fetchSpendingByCategoryCallback();
@@ -291,31 +296,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [document]);
+    }, []);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
-    if (message) {
+    else if (error) {
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
+    }
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
@@ -326,13 +319,17 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

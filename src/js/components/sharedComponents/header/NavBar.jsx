@@ -1,5 +1,5 @@
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Modal from 'react-aria-modal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -71,14 +71,6 @@ export default class NavBar extends React.Component {
     }
 
     render() {
-        let mobileNav = null;
-        if (this.state.showMobileNav) {
-            mobileNav = (
-                <MobileNav
-                    hideMobileNav={this.hideMobileNav} />
-            );
-        }
-
         return (
             <nav
                 className="site-navigation"
@@ -136,13 +128,16 @@ export default class NavBar extends React.Component {
                         </div>
                     </div>
                     <div className="mobile-nav-animations">
-                        <CSSTransitionGroup
-                            transitionName="mobile-nav-slide"
-                            transitionLeaveTimeout={195}
-                            transitionEnterTimeout={225}
-                            transitionLeave>
-                            {mobileNav}
-                        </CSSTransitionGroup>
+                        <TransitionGroup>
+                            {this.state.showMobileNav && (
+                                <CSSTransition
+                                    classNames="mobile-nav-slide"
+                                    timeout={{ enter: 225, exit: 195 }}
+                                    exit>
+                                    <MobileNav hideMobileNav={this.hideMobileNav} />
+                                </CSSTransition>
+                            )}
+                        </TransitionGroup>
                     </div>
                     <div className="site-navigation__menu full-menu">
                         <ul

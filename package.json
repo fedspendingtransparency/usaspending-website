@@ -12,7 +12,8 @@
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
         "dev": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.dev.config.js",
         "prod": "npx babel-node --no-babelrc src/js/scripts/buildSitemap.js --only 'src/js/scripts/**' && webpack --progress --config ./webpack/webpack.prod.config.js",
-        "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
+        "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
+        "light-house": "npx webpack --progress --config ./webpack/webpack.prod.config.js && lhci autorun"
     },
     "author": "",
     "engines": {
@@ -90,7 +91,7 @@
         "d3-sankey0.12.3": "npm:d3-sankey@0.12.3",
         "d3-scale": "^1.0.4",
         "d3-time": "^1.0.11",
-        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v1.1.7",
+        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v1.1.8",
         "file-loader": "^3.0.1",
         "fixed-data-table": "0.6.3",
         "history": "^4.6.1",
@@ -123,7 +124,7 @@
         "react-redux": "^7.0.1",
         "react-router-dom": "^5.1.2",
         "react-string-replace": "^0.4.0",
-        "react-transition-group": "^1.1.2",
+        "react-transition-group": "^4.4.1",
         "redux": "^4.0.1",
         "redux-perf-middleware": "^1.2.2",
         "regenerator-runtime": "^0.13.2",

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Glossary from './Glossary';
 
@@ -15,21 +15,18 @@ const propTypes = {
 
 export default class AnimatedGlossaryWrapper extends React.Component {
     render() {
-        let content = (<Glossary {...this.props} />);
-
-        if (!this.props.glossary.display) {
-            content = null;
-        }
-
         return (
             <div className="usa-da-glossary-animations">
-                <CSSTransitionGroup
-                    transitionName="glossary-slide"
-                    transitionLeaveTimeout={500}
-                    transitionEnterTimeout={500}
-                    transitionLeave>
-                    {content}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    {this.props.glossary.display && (
+                        <CSSTransition
+                            classNames="glossary-slide"
+                            timeout={500}
+                            exit>
+                            <Glossary {...this.props} />
+                        </CSSTransition>
+                    )}
+                </TransitionGroup>
             </div>
         );
     }

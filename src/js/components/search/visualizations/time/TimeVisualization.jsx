@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import BarChart from './chart/BarChart';
 import Tooltip from './TimeVisualizationTooltip';
@@ -87,31 +87,26 @@ export default class TimeVisualization extends React.Component {
                 barWidth={this.state.barWidth} />);
         }
 
-        let chart = (<ChartNoResults />);
-        if (this.props.loading) {
-            // API request is still pending
-            chart = (<ChartLoadingMessage />);
-        }
-        else if (this.props.error) {
-            chart = (<ChartError />);
-        }
-        else if (this.props.groups.length > 0) {
-            // only mount the chart component if there is data to display
-            chart = (<BarChart
-                {...this.props}
-                showTooltip={this.showTooltip}
-                activeLabel={this.state.tooltipData} />);
-        }
-
         return (
             <div className="results-visualization-time-container">
-                <CSSTransitionGroup
-                    transitionName="visualization-content-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {chart}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <>
+                            {!this.props.loading && !this.props.error && this.props.groups.length === 0 && <ChartNoResults />}
+                            {this.props.loading && <ChartLoadingMessage />};
+                            {this.props.error && <ChartError />}
+                            {!this.props.loading && !this.props.error && this.props.groups.length > 0 && (
+                                <BarChart
+                                    {...this.props}
+                                    showTooltip={this.showTooltip}
+                                    activeLabel={this.state.tooltipData} />
+                            )}
+                        </>
+                    </CSSTransition>
+                </TransitionGroup>
                 {tooltip}
             </div>
         );

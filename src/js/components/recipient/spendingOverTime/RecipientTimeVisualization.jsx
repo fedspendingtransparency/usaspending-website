@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
 import ChartLoadingMessage from 'components/search/visualizations/ChartLoadingMessage';
@@ -70,8 +70,6 @@ export default class RecipientTimeVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartNoResults />);
-
         const legend = [
             {
                 color: '#141D3B',
@@ -86,29 +84,6 @@ export default class RecipientTimeVisualization extends React.Component {
                 offset: 120
             }
         ];
-
-        if (this.props.loading) {
-            // API request is still pending
-            chart = (<ChartLoadingMessage />);
-        }
-        else if (this.props.error) {
-            chart = (<ChartError />);
-        }
-        else if (this.props.data.groups.length > 0) {
-            // only mount the chart component if there is data to display
-            chart = (<BarChartTrendline
-                height={this.props.height}
-                width={this.props.width}
-                ySeries={this.props.data.ySeries}
-                xSeries={this.props.data.xSeries}
-                zSeries={this.props.data.zSeries}
-                groups={this.props.data.groups}
-                rawLabels={this.props.data.rawLabels}
-                legend={legend}
-                showTooltip={this.showTooltip}
-                visualizationPeriod={this.props.visualizationPeriod}
-                activeLabel={this.state.tooltipData} />);
-        }
 
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
@@ -136,13 +111,32 @@ export default class RecipientTimeVisualization extends React.Component {
 
         return (
             <div className="recipient-visualization__time-wrapper">
-                <CSSTransitionGroup
-                    transitionName="visualization-content-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {chart}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <>
+                            {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
+                                <BarChartTrendline
+                                    height={this.props.height}
+                                    width={this.props.width}
+                                    ySeries={this.props.data.ySeries}
+                                    xSeries={this.props.data.xSeries}
+                                    zSeries={this.props.data.zSeries}
+                                    groups={this.props.data.groups}
+                                    rawLabels={this.props.data.rawLabels}
+                                    legend={legend}
+                                    showTooltip={this.showTooltip}
+                                    visualizationPeriod={this.props.visualizationPeriod}
+                                    activeLabel={this.state.tooltipData} />
+                            )}
+                            {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
+                            {this.props.error && <ChartError />}
+                            {this.props.loading && <ChartLoadingMessage />}
+                        </>
+                    </CSSTransition>
+                </TransitionGroup>
                 {tooltip}
             </div>
         );

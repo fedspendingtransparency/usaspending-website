@@ -25,6 +25,6 @@
     @include animation(slidein 0.5s ease-in forwards);
 }
 
-.glossary-slide-leave, .glossary-slide-leave-active {
+.glossary-slide-exit, .glossary-slide-exit-active {
     @include animation(slideout 0.5s ease-in forwards);
 }

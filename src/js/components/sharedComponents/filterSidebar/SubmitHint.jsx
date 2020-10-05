@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default class SubmitHint extends React.Component {
     constructor(props) {
@@ -52,38 +52,30 @@ export default class SubmitHint extends React.Component {
     }
 
     render() {
-        let content = (
-            <div
-                className="filter-submit-hint"
-                aria-hidden="true">
-                <div className="hint-icon">
-                    <CheckCircle alt="Filter selected" />
-                </div>
-                <div className="hint-text">
-                    <div className="hint-title">
-                        Filter Selected.
-                    </div>
-                    <div className="hint-description">
-                        Submit your search to see results.
-                    </div>
-                </div>
-            </div>
-        );
-
-        if (this.state.hideHint) {
-            content = null;
-        }
-
         return (
-            <CSSTransitionGroup
-                transitionName="hint-fade"
-                transitionLeaveTimeout={200}
-                transitionEnterTimeout={200}
-                transitionAppearTimeout={200}
-                transitionAppear
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                {!this.state.hideHint && (
+                    <CSSTransition
+                        classNames="hint-fade"
+                        timeout={200}
+                        appear
+                        exit>
+                        <div className="filter-submit-hint" aria-hidden="true">
+                            <div className="hint-icon">
+                                <CheckCircle alt="Filter selected" />
+                            </div>
+                            <div className="hint-text">
+                                <div className="hint-title">
+                                    Filter Selected.
+                                </div>
+                                <div className="hint-description">
+                                    Submit your search to see results.
+                                </div>
+                            </div>
+                        </div>
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         );
     }
 }

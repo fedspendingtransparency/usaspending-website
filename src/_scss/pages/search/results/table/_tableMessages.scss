@@ -21,7 +21,7 @@
     @include animation(tableFadeIn 0.225s ease-in forwards);
 }
 
-.table-message-fade-leave, .table-message-fade-leave-active {
+.table-message-fade-exit, .table-message-fade-exit-active {
     @include animation(tableFadeOut 0.195s ease-in forwards);
 }
 
