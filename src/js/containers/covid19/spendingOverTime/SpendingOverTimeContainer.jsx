@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/disasterHelper';
 import { convertPeriodToDate } from 'helpers/monthHelper';
@@ -138,31 +138,20 @@ const SpendingOverTimeContainer = ({ activeTab }) => {
         }
     }, [currentPage]);
 
-    let message = null;
-    if (loading) {
-        message = (
-            <div className="results-table-message-container">
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        message = (
-            <div className="results-table-message-container">
-                <ResultsTableErrorMessage />
-            </div>
-        );
-    }
-
-    if (message) {
+    if (error || loading) {
         return (
             <>
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container">
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
             </>
         );
     }
