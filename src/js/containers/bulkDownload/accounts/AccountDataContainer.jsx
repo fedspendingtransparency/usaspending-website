@@ -17,7 +17,8 @@ const propTypes = {
     updateDownloadFilter: PropTypes.func,
     clearDownloadFilters: PropTypes.func,
     bulkDownload: PropTypes.object,
-    clickedDownload: PropTypes.func
+    clickedDownload: PropTypes.func,
+    setDefCodes: PropTypes.func
 };
 
 export class AccountDataContainer extends React.Component {
@@ -196,6 +197,7 @@ export class AccountDataContainer extends React.Component {
     render() {
         return (
             <AccountDataContent
+                setDefCodes={this.props.setDefCodes}
                 accounts={this.props.bulkDownload.accounts}
                 federalAccounts={this.state.federalAccounts}
                 setFederalAccountList={this.setFederalAccountList}

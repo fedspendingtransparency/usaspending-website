@@ -18,6 +18,7 @@ import TruncationWarning from './TruncationWarning';
 
 const propTypes = {
     within: PropTypes.string,
+    activeSubdivision: PropTypes.string,
     fy: PropTypes.string,
     lastUpdate: PropTypes.string,
     total: PropTypes.number,
@@ -110,7 +111,7 @@ const DetailHeader = (props) => {
     let truncationWarning = null;
     if (props.isTruncated) {
         truncationWarning = (
-            <TruncationWarning />
+            <TruncationWarning activeSubdivision={props.activeSubdivision} />
         );
     }
 

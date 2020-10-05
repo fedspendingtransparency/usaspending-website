@@ -37,8 +37,24 @@ describe('bulkDownloadReducer', () => {
             // inserting new...
             expect(state.accounts.submissionTypes).toEqual(['accountBalances', 'accountBreakdown']);
             // toggle when value is already present in the array
-            state = bulkDownloadReducer(initialState, { ...action, value: 'accountBalances'});
+            state = bulkDownloadReducer(initialState, { ...action, value: 'accountBalances' });
             expect(state.accounts.submissionTypes).toEqual([]);
+        });
+    });
+
+    describe('SET_BULK_DOWNLOAD_DEFC', () => {
+        it('should update the defCodes filter for awards and accounts download types', () => {
+            const action = {
+                type: 'SET_BULK_DOWNLOAD_DEFC',
+                downloadType: 'awards',
+                defCodes: ["L", "M", "N", "O", "P"]
+            };
+            let state = bulkDownloadReducer(initialState, action);
+            expect(state.awards.defCodes).toEqual(["L", "M", "N", "O", "P"]);
+            action.downloadType = 'accounts';
+            action.defCodes = ["L", "O"];
+            state = bulkDownloadReducer(initialState, action);
+            expect(state.accounts.defCodes).toEqual(["L", "O"]);
         });
     });
 
@@ -219,8 +235,7 @@ describe('bulkDownloadReducer', () => {
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.awardTypes.primeAwards).toEqual(
-                new Set(['contracts']));
+            expect(state.awards.awardTypes.primeAwards).toEqual(new Set(['contracts']));
         });
 
         it('should add to the sub award type set', () => {
@@ -231,9 +246,7 @@ describe('bulkDownloadReducer', () => {
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.awardTypes.subAwards).toEqual(
-                new Set(['sub_grants']));
+            expect(state.awards.awardTypes.subAwards).toEqual(new Set(['sub_grants']));
         });
-
     });
 });

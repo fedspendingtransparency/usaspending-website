@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import { upperFirst } from 'lodash';
+import { upperFirst, throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -24,7 +24,8 @@ import {
     labelTextAdjustment,
     heightOfRemainingBalanceLines,
     defaultTooltipWidth,
-    tooltipMapping
+    tooltipMapping,
+    stickyHeaderHeight
 } from 'dataMapping/covid19/covid19';
 import {
     calculateUnits,
@@ -102,21 +103,35 @@ const AmountsVisualization = ({
             setScale(() => s);
         }
     }, [width, overviewData]);
-    const setMouseData = (e) => {
-        let mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
-        if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
-            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
-            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+    const setMouseData = throttle((e) => {
+        const browser = window.navigator.userAgent;
+        if (browser.includes('Chrome')) {
+            // vertical offsets from trial/error. Not sure which element's height requires this?
+            const verticalOffset = window.innerWidth >= 1600
+                ? 40
+                : 80;
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - verticalOffset
+            });
         }
-        if (window.navigator.userAgent.indexOf("Safari") !== -1) {
-            mousePosition.x = e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left;
-            mousePosition.y = e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - 66 - 29.5;
+        else if (browser.includes('Firefox') || browser.includes('Safari')) {
+            // vertical offsets from trial/error. Not sure which element's height requires this?
+            const verticalOffset = window.innerWidth >= 1600
+                ? 0 + stickyHeaderHeight
+                : 29.5 + stickyHeaderHeight;
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top - verticalOffset
+            });
         }
-        if (window.navigator.userAgent.indexOf("Chrome") !== -1) {
-            mousePosition = { x: e.offsetX || e.clientX, y: e.offsetY || e.clientY };
+        else {
+            setMouseValue({
+                x: e.offsetX || e.clientX,
+                y: e.offsetY || e.clientY
+            });
         }
-        setMouseValue(mousePosition);
-    };
+    }, 100);
     useEffect(() => {
         document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
@@ -400,26 +415,14 @@ const AmountsVisualization = ({
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalOutlays;
         const questionRef = _outlayQuestion.current?.getBoundingClientRect();
-        if (((outlayLineData?.x1 || 0) + spacingBetweenLineAndText + (questionRef?.width || 0)) > (width - amountsPadding.right - 1)) {
-            // text to the left of the line
-            setOutlayQuestionData({
-                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
-                x: (outlayLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
-                left: true
-            });
-        }
-        else { // text to the right of the line
-            setOutlayQuestionData({
-                y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
-                x: (outlayLineData?.x1 || 0) + spacingBetweenLineAndText,
-                height: questionRef?.height || 0,
-                text: textInfo.question,
-                className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-            });
-        }
+        // text to the left of the line
+        setOutlayQuestionData({
+            y: (outlayLineData?.y1 || 0) + (questionRef?.height || 0),
+            x: (outlayLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
+            height: questionRef?.height || 0,
+            text: textInfo.question,
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
+        });
     }, [outlayLineData]);
     // outlayValueData
     useLayoutEffect(() => {
@@ -428,55 +431,31 @@ const AmountsVisualization = ({
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
         if (outlayLineData) {
-            if (outlayQuestionData?.left || 0) {
-                setOutlayValueData({
-                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
-                    x: outlayLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
-                    height: ref?.height || 0,
-                    theWidth: ref?.width || 0,
-                    text: moneyLabel,
-                    className: `amounts-text__value ${!ref ? 'white' : ''}`
-                });
-            }
-            else { // text to the right of the line
-                setOutlayValueData({
-                    y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
-                    x: outlayLineData.x1 + (outlayLabelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
-                    height: ref?.height || 0,
-                    theWidth: ref?.width || 0,
-                    text: moneyLabel,
-                    className: `amounts-text__value ${!ref ? 'white' : ''}`
-                });
-            }
+            setOutlayValueData({
+                y: outlayLineData.y1 + (outlayQuestionData?.height || 0) + (ref?.height || 0),
+                x: outlayLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
+                height: ref?.height || 0,
+                theWidth: ref?.width || 0,
+                text: moneyLabel,
+                className: `amounts-text__value ${!ref ? 'white' : ''}`
+            });
         }
-    }, [outlayLabelData]);
+    }, [outlayLineData, outlayQuestionData]);
     // outlayLabelData
     useLayoutEffect(() => {
         const ref = _outlayLabel.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._totalOutlays;
         if (outlayLineData && outlayQuestionData) {
-            if (outlayQuestionData.left) {
-                setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                    x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
-                    height: ref?.height || 0,
-                    text: textInfo.label,
-                    theWidth: ref?.width || 0,
-                    className: `amounts-text__label ${!ref ? 'white' : ''}`
-                });
-            }
-            else { // text to the right of line
-                setOutlayLabelData({
-                    y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                    x: outlayLineData.x1 + spacingBetweenLineAndText,
-                    height: ref?.height || 0,
-                    text: textInfo.label,
-                    theWidth: ref?.width || 0,
-                    className: `amounts-text__label ${!ref ? 'white' : ''}`
-                });
-            }
+            setOutlayLabelData({
+                y: outlayLineData.y1 + outlayQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
+                x: outlayLineData.x1 - ((ref?.width || 0) + (outlayValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
+                height: ref?.height || 0,
+                text: textInfo.label,
+                theWidth: ref?.width || 0,
+                className: `amounts-text__label ${!ref ? 'white' : ''}`
+            });
         }
-    }, [outlayLineData, outlayQuestionData]);
+    }, [outlayValueData]);
     // obligationQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalObligations;
@@ -662,8 +641,14 @@ const AmountsVisualization = ({
             }
             tooltipElement={<Tooltip />} />
     });
-    const displayTooltip = (e) => setShowTooltip(e.target.getAttribute('data-id'));
-    const hideTooltip = () => setShowTooltip('');
+
+    const displayTooltip = (e) => {
+        setShowTooltip(e.target.getAttribute('data-id'));
+    };
+
+    const hideTooltip = () => {
+        setShowTooltip('');
+    };
 
     const dateNoteStyles = {
         position: 'absolute',
@@ -692,7 +677,9 @@ const AmountsVisualization = ({
                     width={defaultTooltipWidth}
                     controlledProps={{
                         isControlled: true,
-                        isVisible: !!showTooltip
+                        isVisible: !!showTooltip,
+                        showTooltip: () => {},
+                        closeTooltip: () => {}
                     }} />
             }
             {

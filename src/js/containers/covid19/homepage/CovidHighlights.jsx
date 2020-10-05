@@ -6,10 +6,11 @@ import { get, uniqueId, throttle, isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { setOverview, setDEFCodes, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
-import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
+import { fetchOverview, fetchDisasterSpending, fetchDEFCodes, fetchAllSubmissionDates } from 'helpers/disasterHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { latestSubmissionDateFormatted } from 'helpers/covid19Helper';
 import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
 import HeroButton from 'components/homepage/hero/HeroButton';
 import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
@@ -34,6 +35,8 @@ const propTypes = {
     setCovidOverview: PropTypes.func,
     setCovidDefCodes: PropTypes.func,
     completeIncrement: PropTypes.func,
+    updateSubmissionDate: PropTypes.func,
+    submissionMonth: PropTypes.string,
     defCodes: PropTypes.arrayOf(PropTypes.string)
 };
 
@@ -42,6 +45,7 @@ export class CovidHighlights extends React.Component {
         super(props);
         this.state = {
             isAmountLoading: true,
+            isDateLoading: true,
             areHighlightsLoading: true,
             highlights: [],
             isHoverActive: false,
@@ -53,6 +57,7 @@ export class CovidHighlights extends React.Component {
                 height: 0
             }
         };
+        this.allSubmissionDatesRequest = null;
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
         this.fetchDefCodesRequest = null;
@@ -63,7 +68,7 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResizeWindow);
         this.handleResizeWindow();
-        return this.fetchDefCodes()
+        return Promise.all([this.fetchDefCodes(), this.fetchSubmissionMonth()])
             .then(() => (
                 Promise.all([this.fetchHighlights(), this.fetchTotals()])
             ))
@@ -122,6 +127,23 @@ export class CovidHighlights extends React.Component {
     componentWillUnmount() {
         window.clearInterval(scrollInterval);
         window.removeEventListener('resize', this.handleResizeWindow);
+    }
+
+    fetchSubmissionMonth = async () => {
+        this.allSubmissionDatesRequest = fetchAllSubmissionDates();
+        try {
+            const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
+            this.props.updateSubmissionDate(latestSubmissionDateFormatted(availablePeriods));
+            this.allSubmissionDatesRequest = null;
+            this.setState({ isDateLoading: false });
+            return Promise.resolve();
+        }
+        catch (e) {
+            console.log(' Error Submission Periods : ', e.message);
+            this.allSubmissionDatesRequest = null;
+            this.setState({ isDateLoading: false });
+            return Promise.resolve();
+        }
     }
 
     fetchTotals = () => {
@@ -243,9 +265,10 @@ export class CovidHighlights extends React.Component {
     render() {
         const {
             isAmountLoading,
+            isDateLoading,
             hasNext
         } = this.state;
-        const { totalSpendingAmount } = this.props;
+        const { totalSpendingAmount, submissionMonth } = this.props;
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
@@ -254,7 +277,7 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of July 2020,</span>
+                            <span>As of {isDateLoading ? <div className="dot-pulse" /> : `${submissionMonth},`}</span>
                             <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
@@ -270,6 +293,9 @@ export class CovidHighlights extends React.Component {
                                 <div style={{ width: '20px' }}>
                                     <TooltipWrapper
                                         icon="info"
+                                        offsetAdjustments={{
+                                            top: 0
+                                        }}
                                         tooltipComponent={<HomePageTooltip />} />
                                 </div>
                             </span>
@@ -330,12 +356,14 @@ CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
-    defCodes: state.covid19.defCodes.map((code) => code.code)
+    defCodes: state.covid19.defCodes.map((code) => code.code),
+    submissionMonth: state.covid19.latestSubmissionDate
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setCovidOverview: (overview) => dispatch(setOverview(overview)),
-    setCovidDefCodes: (codes) => dispatch(setDEFCodes(codes))
+    setCovidDefCodes: (codes) => dispatch(setDEFCodes(codes)),
+    updateSubmissionDate: (date) => dispatch(setLatestSubmissionDate(date))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CovidHighlights);

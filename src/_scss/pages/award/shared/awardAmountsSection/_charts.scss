@@ -18,6 +18,12 @@ $proc-current-offset: rem(5);
 
 .award-amounts-viz {
     // Tooltip rules.
+    .tooltip-wrapper {
+        display: none;
+        @media (min-width: $tablet-screen) {
+          @include display(flex);
+        }
+    }
     .award-amounts-tt__wrapper {
         position: relative;
         z-index: 4;

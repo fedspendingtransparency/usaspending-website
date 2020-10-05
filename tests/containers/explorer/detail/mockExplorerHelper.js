@@ -10,3 +10,6 @@ export const fetchBreakdown = () => ({
     }),
     cancel: jest.fn()
 });
+
+export const truncateDataForTreemap = (data) => data;
+export const appendCellForDataOutsideTree = (data) => data;

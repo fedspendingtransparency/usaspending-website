@@ -189,6 +189,7 @@ export default class DetailContent extends React.Component {
             }
 
             header = (<DetailHeader
+                activeSubdivision={this.props.active.subdivision}
                 isLoading={this.props.isLoading}
                 within={lastFilter.within}
                 title={lastFilter.title}

@@ -18,6 +18,8 @@ const propTypes = {
     globalToggle: PropTypes.bool
 };
 
+const awardIdField = 'Unique Award Key';
+
 export default class Accordion extends React.Component {
     constructor(props) {
         super(props);
@@ -96,7 +98,7 @@ export default class Accordion extends React.Component {
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className="accordion-row__data">{data}</div>
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
                 </div>
             );
         });
