@@ -15,7 +15,7 @@ import { mockCount } from './mockResponses';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+global.Promise = jest.requireActual('promise');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/table/ResultsTableSection', () =>

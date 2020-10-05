@@ -17,7 +17,7 @@ import { defaultFilters } from '../defaultFilters';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+global.Promise = jest.requireActual('promise');
 
 const fetchDataSpy = sinon.spy(AccountRankVisualizationContainer.prototype, 'fetchData');
 

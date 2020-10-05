@@ -20,7 +20,7 @@ Author:
 - [ ] Verified cross-browser compatibility: Chrome, Safari, Firefox, Internet Explorer, Edge
 - [ ] Verified mobile/tablet/desktop/monitor responsiveness
 - [ ] Verified that this PR does not create any *new* accessibility issues (via Axe Chrome extension)
-- [ ] Added Unit Tests for methods in Container Components, reducers, helper functions, and models `if applicable`
+- [ ] Added Unit Tests for helper functions, reducers, models and Container/Component Interactivity Expectations `if applicable` [React Testing Library](react-testing-library.md)
 - [ ] [API contract](https://github.com/fedspendingtransparency/usaspending-api/tree/dev/usaspending_api/api_contracts) updated `if applicable`
 - [ ] [Component Library Integration Status Report](https://github.com/fedspendingtransparency/data-act-documentation/blob/data-transparency-ui/frontend_apps/component-library-integration-status.md) updated `if applicable`
 

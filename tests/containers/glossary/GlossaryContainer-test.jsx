@@ -15,7 +15,7 @@ import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mo
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+global.Promise = jest.requireActual('promise');
 
 // spy on specific functions inside the component
 const populateCacheSpy = sinon.spy(GlossaryContainer.prototype, 'populateCache');
