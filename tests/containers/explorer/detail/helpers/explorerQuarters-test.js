@@ -187,3 +187,30 @@ describe('explorerQuarters', () => {
         });
     });
 });
+
+describe('mostRecentPeriod', () => {
+    it('should the latest closed fiscal period in a given fiscal year', () => {
+        mockDate('2020-06-01');
+        const output = explorerQuarters.defaultPeriod();
+        expect(output).toEqual({
+            period: 7,
+            year: 2020
+        });
+    });
+    it('should return the latest closed period even if the latest ended period has not closed yet', () => {
+        mockDate('2020-10-01');
+        const output = explorerQuarters.defaultPeriod();
+        expect(output).toEqual({
+            period: 11,
+            year: 2020
+        });
+    });
+    it('should return the last period of the fiscal year after it has closed', () => {
+        mockDate('2020-11-20');
+        const output = explorerQuarters.defaultPeriod();
+        expect(output).toEqual({
+            period: 12,
+            year: 2020
+        });
+    });
+});
