@@ -5,7 +5,7 @@ const BarValue = ({
     spendingCategory,
     className = 'award-amounts-viz__desc',
     onEnter,
-    onLeave,
+    onLeave = () => {},
     style,
     title,
     number
@@ -19,7 +19,9 @@ const BarValue = ({
         onBlur={onLeave}
         onFocus={onEnter}
         onKeyPress={onEnter}
+        onMouseMove={onEnter}
         onMouseEnter={onEnter}
+        onMousedown={onEnter}
         onMouseLeave={onLeave}
         onClick={onEnter}>
         <div className="award-amounts-viz__desc-text">
