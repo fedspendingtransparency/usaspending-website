@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import SearchSidebar from '../SearchSidebar';
 
@@ -18,26 +18,23 @@ const propTypes = {
 
 export default class MobileFilters extends React.Component {
     render() {
-        let content = null;
-        if (this.props.showMobileFilters) {
-            content = (
-                <div className="mobile-filter-content">
-                    <SearchSidebar
-                        filters={this.props.filters}
-                        toggleMobileFilters={this.props.toggleMobileFilters}
-                        filterCount={this.props.filterCount}
-                        mobile />
-                </div>);
-        }
-
         return (
-            <CSSTransitionGroup
-                transitionName="mobile-filter"
-                transitionLeaveTimeout={195}
-                transitionEnterTimeout={195}
-                transitionLeave>
-                {content}
-            </CSSTransitionGroup>
+            <TransitionGroup>
+                {this.props.showMobileFilters && (
+                    <CSSTransition
+                        classNames="mobile-filter"
+                        timeout={195}
+                        exit>
+                        <div className="mobile-filter-content">
+                            <SearchSidebar
+                                filters={this.props.filters}
+                                toggleMobileFilters={this.props.toggleMobileFilters}
+                                filterCount={this.props.filterCount}
+                                mobile />
+                        </div>
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         );
     }
 }

@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  # latest in each series
-  - "10"
+  # latest LTS as of 10/01/2020
+  - "12.18.4"
 # Need a C++ compiler
 addons:
   apt:
@@ -9,14 +9,18 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+  chrome: stable
 env:
   - CXX=g++-4.8
 cache:
   directories:
     - node_modules
+before_install:
+  - npm install -g @lhci/cli@0.4.x
 script:
   - npm run dev
   - npm run travis
+  - npm run light-house
 after_success:
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info

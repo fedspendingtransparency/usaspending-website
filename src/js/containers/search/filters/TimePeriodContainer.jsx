@@ -47,12 +47,16 @@ export class TimePeriodContainer extends React.Component {
         this.generateTimePeriods();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
-            this.setState({
-                activeTab: nextProps.filterTimePeriodType
-            });
+    componentDidUpdate(prevProps) {
+        if (prevProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
+            this.setUpdateState(this.props);
         }
+    }
+
+    setUpdateState(props) {
+        this.setState({
+            activeTab: props.filterTimePeriodType
+        });
     }
 
     generateTimePeriods() {

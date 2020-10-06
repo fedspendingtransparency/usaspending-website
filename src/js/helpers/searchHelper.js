@@ -119,13 +119,13 @@ export const performSubawardSearch = (data) => apiRequest({
 });
 
 export const generateUrlHash = (data) => apiRequest({
-    url: 'v1/references/filter/',
+    url: 'v2/references/filter/',
     method: 'post',
     data
 });
 
 export const restoreUrlHash = (data) => apiRequest({
-    url: 'v1/references/hash/',
+    url: 'v2/references/hash/',
     method: 'post',
     data
 });

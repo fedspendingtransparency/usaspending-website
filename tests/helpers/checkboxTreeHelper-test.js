@@ -33,6 +33,7 @@ import {
     cleanPscData,
     getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
+import { isEqual } from 'lodash';
 
 import * as mockData from '../containers/search/filters/naics/mockNAICS';
 import * as pscMockData from '../containers/search/filters/psc/mockPSC';
@@ -865,7 +866,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             ];
             const leanArray = trimCheckedToCommonAncestors(initialArray);
             expect(leanArray.length).toEqual(6);
-            expect(leanArray).toEqual([
+            const expectedArray = [
                 ['Product'],
                 ['Research and Development', 'AA'],
                 // "AB" ancestor not included, so it includes the partial list of 'AB's descendants.
@@ -873,7 +874,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 ['Research and Development', 'AB', 'AB05'],
                 ['Service', 'B', 'B5'],
                 ['Service', 'D', 'D3']
-            ]);
+            ];
+            expectedArray.forEach((arr) => {
+                const result = leanArray.some((expectedArr) => isEqual(arr, expectedArr));
+                expect(result).toEqual(true);
+            });
         });
         it('handles arrays with a length of one', () => {
             const initialArray = [

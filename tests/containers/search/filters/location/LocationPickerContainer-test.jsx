@@ -11,7 +11,7 @@ import LocationPickerContainer from 'containers/search/filters/location/Location
 import { mockPickerRedux } from './mockLocations';
 import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip, mockCityAutocompleteResponse } from './mockMapHelper';
 
-global.Promise = require.requireActual('promise');
+global.Promise = jest.requireActual('promise');
 
 jest.mock('components/search/filters/location/LocationPicker', () =>
     jest.fn(() => null));

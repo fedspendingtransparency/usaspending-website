@@ -174,6 +174,12 @@ export class NAICSCheckboxTree extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
         return this.setState({ requestType: 'search' }, this.fetchNAICS);
@@ -363,8 +369,8 @@ export class NAICSCheckboxTree extends React.Component {
                 this.request = null;
             })
             .catch((e) => {
-                console.log('Error NAICS Reponse : ', e);
                 if (!isCancel(e)) {
+                    console.log('Error NAICS Reponse : ', e);
                     this.setState({
                         isError: true,
                         errorMessage: e.message,

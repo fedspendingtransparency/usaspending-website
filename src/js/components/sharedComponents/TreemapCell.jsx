@@ -41,22 +41,22 @@ export default class TreemapCell extends React.Component {
         this.exitedCell = this.exitedCell.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.setTextAndBackgroundColor();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.color !== this.props.color) {
+            this.setTextAndBackgroundColor();
+        }
+    }
+
+    setTextAndBackgroundColor() {
         const textColor = labelColorFromBackground(this.props.color);
         this.setState({
             textColor,
             backgroundColor: this.props.color
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.color !== this.props.color) {
-            const textColor = labelColorFromBackground(nextProps.color);
-            this.setState({
-                textColor,
-                backgroundColor: nextProps.color
-            });
-        }
     }
 
     clickedCell() {

@@ -29,6 +29,6 @@
     @include animation(visualizationFadeIn 0.225s ease-in forwards);
 }
 
-.visualization-message-fade-leave, .visualization-message-fade-leave-active {
+.visualization-message-fade-exit, .visualization-message-fade-exit-active {
     @include animation(visualizationFadeOut 0.195s ease-in forwards);
 }
