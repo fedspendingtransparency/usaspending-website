@@ -2,10 +2,12 @@
  * SearchContainer-test.jsx
  * Created by Kevin Li 6/2/17
  */
+import React from 'react';
+import { render, screen } from 'test-utils';
 import { Set } from 'immutable';
 
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
-import { parseRemoteFilters, areFiltersEqual } from 'containers/search/SearchContainer';
+import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';
 
@@ -14,16 +16,17 @@ import { mockFilters, mockRedux } from './mockSearchHashes';
 global.Promise = jest.requireActual('promise');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/search/SearchPage', () =>
-    jest.fn(() => null));
+// jest.mock('components/search/SearchPage', () => (
+//     jest.fn(() => null)
+// ));
 
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
-jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
+// jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
 jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn().mockReturnValue({ environment: 'dev', service: 'fakeService' })
+    useParams: jest.fn().mockReturnValue({ hash: '123' })
 }));
 
 jest.mock('react-redux', () => {
@@ -55,5 +58,19 @@ describe('SearchContainer', () => {
             expect(parseRemoteFilters(mockFilters.filter).timePeriodFY).toEqual(expectedFilter);
         });
     });
+    // it('applied filters show a confirmation pill', () => {
+    //     const withAppliedFilters = {
+    //         ...mockRedux.appliedFilters,
+    //         timePeriodFY: new Set(["2021"])
+    //     };
+    //     render(<SearchContainer {...mockRedux} appliedFilters={withAppliedFilters} />);
+    //     expect(screen.queryByRole('listitem')).toBeFalsy();
+    // });
+    // condition x: url hash exists
+    // html exists showing confirmation pill
+    
+    // describe('a hashed url renders results and a confirmation pill', () => {
+
+    // });
 });
 
