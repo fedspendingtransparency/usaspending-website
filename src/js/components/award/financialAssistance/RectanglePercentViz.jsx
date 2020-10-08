@@ -124,8 +124,7 @@ const RectanglePercentViz = ({
         setIsTooltipVisible(false);
     };
 
-    const showNumeratorTooltip = (e) => {
-        e.stopPropagation();
+    const showNumeratorTooltip = () => {
         const width = numerator.rawValue > 0
             ? generatePercentage(numerator.rawValue / denominator.rawValue)
             : numeratorZeroToolTipPositions.horizontal;
@@ -134,8 +133,8 @@ const RectanglePercentViz = ({
             : numeratorZeroToolTipPositions.vertical;
         showTooltip(numerator.tooltipData, width, height);
     };
-    const showDenominatorTooltip = (e) => {
-        e.stopPropagation();
+
+    const showDenominatorTooltip = () => {
         showTooltip(denominator.tooltipData, '100%');
     };
 
@@ -152,9 +151,7 @@ const RectanglePercentViz = ({
                     ? generatePercentage(data.barWidthOverrides.rawValue / data.barWidthOverrides.denominatorValue)
                     : generatePercentage(data.rawValue / data.denominatorValue)
             },
-            onLeave: closeTooltip,
-            onEnter: (e) => {
-                e.stopPropagation();
+            onEnter: () => {
                 showTooltip(
                     data.tooltipData,
                     // absolute width
@@ -347,7 +344,7 @@ const RectanglePercentViz = ({
                             <Bar
                                 spendingCategory={`${numerator.improper ? numerator.improper.className : numerator.className}`}
                                 barWrapperStyles={{ width: generatePercentage(numerator.rawValue / denominator.rawValue) }}
-                                onLeave={closeTooltip}
+                                onMouseMove={showNumeratorTooltip}
                                 onEnter={showNumeratorTooltip}
                                 barStyles={{ width: '100%', backgroundColor: numerator.color }}>
                                 {numeratorHasChildren &&
