@@ -236,6 +236,7 @@ const subawardColumns = [
 
 const awardColWidth = 280;
 const covidColWidth = 190;
+const descWidth = 380;
 const covidColor = '#6E338E';
 
 const defaultContract = [
@@ -326,6 +327,12 @@ const covidDefCCol = {
     displayName: 'DEFC'
 };
 
+const descriptionCol = {
+    title: 'Description',
+    displayName: 'Description',
+    customWidth: descWidth
+};
+
 const tabsWithCovidCols = [
     defaultContract,
     defaultGrant,
@@ -338,9 +345,10 @@ const tabsWithCovidCols = [
 if (kGlobalConstants.CARES_ACT_RELEASED) {
     // Insert columns for COVID-19
     tabsWithCovidCols.forEach((tab) => {
-        tab.splice(5, 0, covidDefCCol);
-        tab.splice(6, 0, covidObligationsCol);
-        tab.splice(7, 0, covidOutlaysCol);
+        tab.splice(5, 0, descriptionCol);
+        tab.splice(6, 0, covidDefCCol);
+        tab.splice(7, 0, covidObligationsCol);
+        tab.splice(8, 0, covidOutlaysCol);
     });
 }
 
@@ -401,5 +409,6 @@ export const defaultSort = (type) => {
 };
 
 export const apiFieldByTableColumnName = {
-    DEFC: 'def_codes'
+    DEFC: 'def_codes',
+    Description: 'Description'
 };
