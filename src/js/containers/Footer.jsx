@@ -112,9 +112,9 @@ const Footer = ({
                             </div>
                             <ul className="links">
                                 <li>
-                                    <a href="/download_center/data_dictionary">
+                                    <Link to="/download_center/data_dictionary">
                                         Data Dictionary
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <FooterExternalLink
@@ -125,11 +125,6 @@ const Footer = ({
                                     <FooterExternalLink
                                         link="https://datalab.usaspending.gov"
                                         title="Data Lab" />
-                                </li>
-                                <li>
-                                    <Link to="/download_center/data_dictionary">
-                                        Data Dictionary
-                                    </Link>
                                 </li>
                                 <li>
                                     <FooterExternalLink
