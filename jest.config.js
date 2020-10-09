@@ -26,7 +26,6 @@ module.exports = {
         "<rootDir>/__mocks__/fileMock.js",
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
         "\\.(css|less|scss)$": "identity-obj-proxy",
-        "react-router-dom": "<rootDir>/tests/testResources/mockComponent.js",
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
     },
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
