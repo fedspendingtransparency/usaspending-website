@@ -123,6 +123,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
+    const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
@@ -134,6 +135,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
+    const currentModalData = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
 
     const history = useHistory();
 
@@ -141,10 +146,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setSort(field);
         setOrder(direction);
     };
-    const defCodes = useSelector((state) => state.covid19.defCodes);
-    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
-    const currentModalData = useSelector((state) => state.modal);
-    const dispatch = useDispatch();
 
     const launchModal = (e) => {
         e.persist();
@@ -195,27 +196,23 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
-    const addUnlinkedData = (rows, totals) => {
-        // add unlinked data if activeTab is all
-        if (activeTab === 'all') {
-            const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
-            setUnlinkedDataClass(true);
-            const unlinkedName = (
-                <div className="unlinked-data">
-                    Unknown CFDA Program (Unlinked Data)
-                </div>
-            );
-            rows.push({
-                description: unlinkedName,
-                obligation: unlinkedData.obligation,
-                outlay: unlinkedData.outlay,
-                award_count: unlinkedData.award_count
-            });
-        }
-        else {
+    const addUnlinkedData = (rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
+        debugger;
+        if (Object.keys(overallAsstAwardTotals).length === 0 || activeTab !== 'all') {
             setUnlinkedDataClass(false);
+            return rows;
         }
-        return rows;
+        setUnlinkedDataClass(true);
+        return rows
+            .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
+            .concat([{
+                isUnlinkedRow: true,
+                description: (
+                    <div className="unlinked-data">
+                        Unknown CFDA Program (Unlinked Data)
+                    </div>),
+                ...calculateUnlinkedTotals(overallAsstAwardTotals, cfdaTotals)
+            }]);
     };
 
     const parseRows = () => (
@@ -258,7 +255,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && assistanceTotals) {
+        if (defCodes && defCodes.length > 0) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -287,6 +284,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     const rows = res.data.results;
                     const totals = res.data.totals;
                     setResults(addUnlinkedData(rows, totals));
+                    setResultTotal(totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -302,12 +300,20 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
+        if (Object.keys(assistanceTotals).length !== 0) {
+            setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
+        }
+    }, [assistanceTotals, resultTotal]);
+
+    useEffect(() => {
         // Reset to the first page
         if (currentPage === 1) {
             fetchSpendingByCfdaCallback();
         }
-        changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
+        else {
+            changeCurrentPage(1);
+        }
+    }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
