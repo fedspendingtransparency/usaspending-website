@@ -333,7 +333,7 @@ const descriptionCol = {
     customWidth: descWidth
 };
 
-const tabsWithCovidCols = [
+const tabsWithAdditionalCols = [
     defaultContract,
     defaultGrant,
     defaultDirectPayment,
@@ -343,8 +343,8 @@ const tabsWithCovidCols = [
 ];
 
 if (kGlobalConstants.CARES_ACT_RELEASED) {
-    // Insert columns for COVID-19
-    tabsWithCovidCols.forEach((tab) => {
+    // Insert columns
+    tabsWithAdditionalCols.forEach((tab) => {
         tab.splice(5, 0, descriptionCol);
         tab.splice(6, 0, covidDefCCol);
         tab.splice(7, 0, covidObligationsCol);
