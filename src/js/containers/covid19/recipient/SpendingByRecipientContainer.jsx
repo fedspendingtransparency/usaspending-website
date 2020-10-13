@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import reactStringReplace from 'react-string-replace';
+import replaceString from 'helpers/replaceString';
 import { Table, Pagination } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
@@ -121,17 +121,18 @@ export const parseRows = (rows, activeTab, query) => (
         rowData.populate(row);
         let description = rowData.description;
         let link = description;
-        if (query) {
-            // wrap the part of the recipient name matching the search string
-            // with a span for styling
-            description = reactStringReplace(description, query, (match, i) => (
-                <span
-                    className="query-matched"
-                    key={match + i}>
-                    {match}
-                </span>
-            ));
-        }
+        // if (query) {
+        //     // wrap the part of the recipient name matching the search string
+        //     // with a span for styling
+        //     description = reactStringReplace(description, query, (match, i) => (
+        //         <span
+        //             className="query-matched"
+        //             key={match + i}>
+        //             {match}
+        //         </span>
+        //     ));
+        // }
+        if (query) description = replaceString(description, query, "query-matched");
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
             const handleClick = () => clickedRecipientProfile(`${description}`);

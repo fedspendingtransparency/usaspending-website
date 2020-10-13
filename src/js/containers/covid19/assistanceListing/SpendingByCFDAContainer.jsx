@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +18,7 @@ import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
@@ -127,6 +128,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
     const [order, setOrder] = useState('desc');
+    const [query, setQuery] = useState('');
     const [modalData, setModalData] = useState(null);
     const [cfdaModal, showCFDAModal] = useState(false);
     const tableRef = useRef(null);
@@ -253,6 +255,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         })
     );
 
+    const updateQuery = (input) => setQuery(input);
+
     const fetchSpendingByCfdaCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
@@ -273,6 +277,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             };
             if (activeTab !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[activeTab];
+            }
+            if (query) {
+                params.filter.query = query;
             }
             let cfdaRequest;
             if (activeTab === 'loans') {
@@ -307,7 +314,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             fetchSpendingByCfdaCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
+    }, [pageSize, defCodes, sort, order, activeTab, query, assistanceTotals]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -332,42 +339,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         }
     }
 
-    if (loading || error) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
+            <SearchBar setQuery={updateQuery} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -376,13 +350,28 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            {(loading || error || results.length === 0) &&
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
+            }
+            {!loading && !error && results.length > 0 &&
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
-            </div>
+            </div>}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
