@@ -197,7 +197,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     };
 
     const addUnlinkedData = (rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
-        debugger;
         if (Object.keys(overallAsstAwardTotals).length === 0 || activeTab !== 'all') {
             setUnlinkedDataClass(false);
             return rows;

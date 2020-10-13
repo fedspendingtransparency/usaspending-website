@@ -177,13 +177,19 @@ export const handleSort = (a, b) => {
     return 0;
 };
 
+const calculateDifferenceSafely = (x, y) => {
+    // These should never be zero, and if either is undefined, we ignore the calculation altogther.
+    if (!x || !y) return null;
+    return x - y;
+};
+
 /* eslint-disable camelcase */
 export const calculateUnlinkedTotals = (overviewTotal, aggregatedTotal) => {
-    const unlinkedObligation = overviewTotal?.obligation - aggregatedTotal?.obligation;
-    const unlinkedOutlay = overviewTotal?.outlay - aggregatedTotal?.outlay;
-    const unlinkedAwardCount = overviewTotal?.awardCount - aggregatedTotal?.award_count;
-    const unlinkedFaceValueOfLoans = overviewTotal?.faceValueOfLoan - aggregatedTotal?.face_value_of_loan;
-    const unlinkedBudgetaryResources = overviewTotal?.totalBudgetaryResources - aggregatedTotal?.total_budgetary_resources;
+    const unlinkedObligation = calculateDifferenceSafely(overviewTotal?.obligation, aggregatedTotal?.obligation);
+    const unlinkedOutlay = calculateDifferenceSafely(overviewTotal?.outlay, aggregatedTotal?.outlay);
+    const unlinkedAwardCount = calculateDifferenceSafely(overviewTotal?.awardCount, aggregatedTotal?.award_count);
+    const unlinkedFaceValueOfLoans = calculateDifferenceSafely(overviewTotal?.faceValueOfLoan, aggregatedTotal?.face_value_of_loan);
+    const unlinkedBudgetaryResources = calculateDifferenceSafely(overviewTotal?.totalBudgetaryResources, aggregatedTotal?.total_budgetary_resources);
 
     return {
         obligation: unlinkedObligation,
