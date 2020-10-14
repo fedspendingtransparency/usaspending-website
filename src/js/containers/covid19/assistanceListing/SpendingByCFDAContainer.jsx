@@ -235,8 +235,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                             data-code={rowData.code}
                             onClick={launchModal}>
                             {link}
-                            <span><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
-                            {/* {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span> */}
+                            <span className="assistance-listing__button__icon"><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
                         </button>
                     </div>
                 );
@@ -258,8 +257,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             ];
         })
     );
-
-    const updateQuery = (input) => setQuery(input);
 
     const fetchSpendingByCfdaCallback = useCallback(() => {
         if (request.current) {
@@ -345,7 +342,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     return (
         <div ref={tableWrapperRef}>
-            <SearchBar setQuery={updateQuery} />
+            <SearchBar setQuery={setQuery} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

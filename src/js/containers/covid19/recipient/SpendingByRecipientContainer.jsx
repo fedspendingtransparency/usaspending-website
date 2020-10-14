@@ -121,17 +121,6 @@ export const parseRows = (rows, activeTab, query) => (
         rowData.populate(row);
         let description = rowData.description;
         let link = description;
-        // if (query) {
-        //     // wrap the part of the recipient name matching the search string
-        //     // with a span for styling
-        //     description = reactStringReplace(description, query, (match, i) => (
-        //         <span
-        //             className="query-matched"
-        //             key={match + i}>
-        //             {match}
-        //         </span>
-        //     ));
-        // }
         if (query) description = replaceString(description, query, "query-matched");
         if (rowData._childId && rowData._recipientId) {
             // there are two profile pages for this recipient
