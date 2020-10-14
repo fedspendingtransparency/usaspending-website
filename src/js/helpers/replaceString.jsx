@@ -8,7 +8,7 @@ import { uniqueId } from 'lodash';
 import reactStringReplace from 'react-string-replace';
 
 const replaceString = (data, query, className) => (
-    reactStringReplace(data, query, (match, i) => (
+    reactStringReplace(data, query, (match) => (
         <span
             className={className}
             key={uniqueId()}>
