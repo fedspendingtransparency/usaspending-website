@@ -303,7 +303,7 @@ const defaultIdvColumns = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
     { title: 'Start Date', customWidth: datesWidth },
-    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 220 },
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
