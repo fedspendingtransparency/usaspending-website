@@ -135,7 +135,7 @@ export const generateUrlHash = () => (
     }
 );
 
-export const restoreUrlHash = () => (
+export const restoreUrlHash = jest.fn(() => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
@@ -146,7 +146,7 @@ export const restoreUrlHash = () => (
         }),
         cancel: jest.fn()
     }
-);
+));
 
 export const fetchLastUpdate = () => (
     {
