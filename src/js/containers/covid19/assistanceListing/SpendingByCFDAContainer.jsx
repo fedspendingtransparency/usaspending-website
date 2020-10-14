@@ -12,6 +12,7 @@ import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import replaceString from 'helpers/replaceString';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
@@ -225,6 +226,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             const rowData = Object.create(BaseSpendingByCfdaRow);
             rowData.populate(row);
             let link = rowData.name;
+            if (query) link = replaceString(link, query, "query-matched");
             if (rowData.code) {
                 link = (
                     <div className="assistance-listing__button__container">
@@ -232,7 +234,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                             className="assistance-listing__button"
                             data-code={rowData.code}
                             onClick={launchModal}>
-                            {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
+                            {link}
+                            <span><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
+                            {/* {rowData.name.split(' ').slice(0, -1).join(' ')} <span>{rowData.name.split(' ').pop() || ''} <FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span> */}
                         </button>
                     </div>
                 );
