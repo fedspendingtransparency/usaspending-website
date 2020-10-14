@@ -74,16 +74,20 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         }
         awardAmountRequest.current = fetchAwardAmounts(params);
         recipientCountRequest.current = fetchDisasterSpendingCount('recipient', params);
-
-        awardAmountRequest.current.promise
-            .then((res) => {
-                setAwardObligations(res.data.obligation);
-                setAwardOutlays(res.data.outlay);
-                setNumberOfAwards(res.data.award_count);
-            });
-        recipientCountRequest.current.promise
-            .then((res) => {
-                setNumberOfRecipients(res.data.count);
+        Promise.all([
+            awardAmountRequest.current.promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                    setNumberOfAwards(res.data.award_count);
+                }),
+            recipientCountRequest.current.promise
+                .then((res) => {
+                    setNumberOfRecipients(res.data.count);
+                })
+        ])
+            .catch((e) => {
+                console.error('Error Fetching recipient data', e);
             });
     }, [defCodes, activeFilter]);
 
