@@ -237,13 +237,14 @@ const subawardColumns = [
 const awardColWidth = 280;
 const covidColWidth = 190;
 const descWidth = 380;
+const datesWidth = 120;
 const covidColor = '#6E338E';
 
 const defaultContract = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date' },
-    { title: 'End Date' },
+    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'End Date', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -253,8 +254,8 @@ const defaultContract = [
 const defaultGrant = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date' },
-    { title: 'End Date' },
+    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'End Date', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -264,8 +265,8 @@ const defaultGrant = [
 const defaultDirectPayment = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date' },
-    { title: 'End Date' },
+    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'End Date', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -291,8 +292,8 @@ const defaultLoan = [
 const defaultOther = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date' },
-    { title: 'End Date' },
+    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'End Date', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -302,8 +303,8 @@ const defaultOther = [
 const defaultIdvColumns = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date' },
-    { title: 'Last Date to Order', displayName: 'Ordering Period End Date' },
+    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },

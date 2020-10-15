@@ -14,7 +14,7 @@ const dropdownLabels = ['Trailing 12 Months', 'All Fiscal Years'];
 export const getDropdownLabelsByApiValue = () => {
     const yearsSinceEarliestFY = currentFY.diff(earliestFY, 'y');
 
-    for (let i = 0; i < yearsSinceEarliestFY; i++) {
+    for (let i = 0; i <= yearsSinceEarliestFY; i++) {
         const nextFY = earliestFiscalYear + i;
         dropdownLabels.push(`FY ${nextFY}`);
     }
