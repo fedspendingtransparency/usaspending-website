@@ -221,7 +221,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             };
         });
         if (!parsedData.length) return setResults([]);
-        addUnlinkedData(parsedData, totals);
+        return addUnlinkedData(parsedData, totals);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
