@@ -176,12 +176,18 @@ const AwardSpendingAgencyTableContainer = (props) => {
             awardSpendingByAgencyRow.populateCore(item);
 
             let rowChildren = [];
+            let expanded = false;
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
                     const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
                     awardSpendingByAgencyChildRow.populateCore(childItem);
                     awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
-                    if (query) awardSpendingByAgencyChildRow.name = replaceString(awardSpendingByAgencyChildRow.name, query, 'query-matched');
+                    if (query) {
+                        awardSpendingByAgencyChildRow.name = replaceString(awardSpendingByAgencyChildRow.name, query, 'query-matched');
+                        if (!expanded) {
+                            expanded = awardSpendingByAgencyChildRow.name.length > 1;
+                        }
+                    }
                     return awardSpendingByAgencyChildRow;
                 });
             }
@@ -212,11 +218,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
-                name: query ? (<p className="query-matched-text">{link}</p>) : link
+                expanded,
+                name: query ? (<span className="query-matched-text">{link}</span>) : link
             };
         });
         if (!parsedData.length) return setResults([]);
-        addUnlinkedData(parsedData, totals);
+        return addUnlinkedData(parsedData, totals);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
