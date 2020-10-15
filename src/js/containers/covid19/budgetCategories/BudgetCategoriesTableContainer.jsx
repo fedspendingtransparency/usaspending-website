@@ -8,11 +8,10 @@ import { snakeCase } from 'lodash';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
+import { Table, Pagination, Picker, TooltipWrapper, SearchBar } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
-import kGlobalConstants from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 
@@ -25,9 +24,11 @@ import {
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import replaceString from 'helpers/replaceString';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
@@ -150,6 +151,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [query, setQuery] = useState('');
     const [spendingCategory, setSpendingCategory] = useState("total_spending");
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
@@ -231,10 +233,15 @@ const BudgetCategoriesTableContainer = (props) => {
             budgetCategoryRow.populate(item, props.type);
 
             let rowChildren = [];
+            let expanded = false;
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
                     const budgetCategoryChildRow = Object.create(BaseBudgetCategoryRow);
                     budgetCategoryChildRow.populate(childItem, props.type, true);
+                    if (query && spendingCategory === 'total_spending') {
+                        budgetCategoryChildRow.name = replaceString(budgetCategoryChildRow.name, query, 'query-matched');
+                        expanded = budgetCategoryChildRow.name.length > 1;
+                    }
                     return budgetCategoryChildRow;
                 });
             }
@@ -246,6 +253,7 @@ const BudgetCategoriesTableContainer = (props) => {
             }
 
             let link = budgetCategoryRow.name;
+            if (query && spendingCategory === 'total_spending') link = replaceString(link, query, 'query-matched');
             const id = budgetCategoryRow._id;
             const code = budgetCategoryRow.code;
             if (link && code && props.type === 'federal_account') {
@@ -254,7 +262,7 @@ const BudgetCategoriesTableContainer = (props) => {
                         className="federal-account-profile__link"
                         onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
                         href={`/federal_account/${code}`}>
-                        {budgetCategoryRow.name}
+                        {link}
                     </Link>
                 );
             }
@@ -264,7 +272,7 @@ const BudgetCategoriesTableContainer = (props) => {
                         className="agency-profile__link"
                         onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
                         to={`/agency/${id}`}>
-                        {budgetCategoryRow.name}
+                        {link}
                     </Link>
                 );
             }
@@ -277,18 +285,20 @@ const BudgetCategoriesTableContainer = (props) => {
                 faceValueOfLoan: budgetCategoryRow.faceValueOfLoan,
                 awardCount: budgetCategoryRow.awardCount,
                 children: budgetCategoryRow.children,
-                name: link
+                expanded,
+                name: (query && spendingCategory === 'total_spending') ? (<span className="query-matched-text">{link}</span>) : link
             };
         });
 
-        addUnlinkedData(parsedData, totals);
+        if (!parsedData.length) return setResults([]);
+        return addUnlinkedData(parsedData, totals);
     };
 
     const fetchBudgetSpendingCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
-
+        if (error) setError(false);
         setLoading(true);
         if (defCodes && defCodes.length > 0 && spendingCategory && overview && allAwardTypeTotals.awardCount) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
@@ -308,7 +318,7 @@ const BudgetCategoriesTableContainer = (props) => {
             if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
             }
-
+            if (query && spendingCategory === 'total_spending') params.filter.query = query;
             const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
 
             request.current = disasterSpendingRequest;
@@ -347,7 +357,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, defCodes, overview, query, allAwardTypeTotals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
@@ -390,66 +400,34 @@ const BudgetCategoriesTableContainer = (props) => {
         }
     }
 
-    const spendingViewPicker = () => (
-        <div className="budget-categories-table__header">
-            <label htmlFor="usa-dt-picker">Show amounts based on: </label>
-            <Picker
-                sortFn={handleSort}
-                icon=""
-                selectedOption={budgetDropdownFieldValues[spendingCategory].label}
-                options={Object.keys(budgetDropdownFieldValues).map((key) => ({
-                    name: budgetDropdownFieldValues[key].label,
-                    sortOrder: budgetDropdownFieldValues[key].sortOrder,
-                    value: key,
-                    onClick: spendingCategoryOnChange
-                }))} />
-            <TooltipWrapper
-                className="homepage__covid-19-tt"
-                icon="info"
-                wide
-                tooltipPosition="right"
-                tooltipComponent={<SpendingTypesTT />} />
-        </div>
-    );
-
-    if (loading || error) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
-            {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
+            <div className="toolkit">
+                <div className="toolkit-one">
+                    <SearchBar isDisabled={spendingCategory !== 'total_spending'} setQuery={setQuery} />
+                </div>
+                <div className="toolkit-two">
+                    <div className="budget-categories-table__header">
+                        <label htmlFor="usa-dt-picker">Show amounts based on: </label>
+                        <Picker
+                            sortFn={handleSort}
+                            icon=""
+                            selectedOption={budgetDropdownFieldValues[spendingCategory].label}
+                            options={Object.keys(budgetDropdownFieldValues).map((key) => ({
+                                name: budgetDropdownFieldValues[key].label,
+                                sortOrder: budgetDropdownFieldValues[key].sortOrder,
+                                value: key,
+                                onClick: spendingCategoryOnChange
+                            }))} />
+                        <TooltipWrapper
+                            className="homepage__covid-19-tt"
+                            icon="info"
+                            wide
+                            tooltipPosition="right"
+                            tooltipComponent={<SpendingTypesTT />} />
+                    </div>
+                </div>
+            </div>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -458,6 +436,20 @@ const BudgetCategoriesTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            {(error || loading || !results.length) &&
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="table-message-fade"
+                    timeout={{ exit: 225, enter: 195 }}
+                    exit>
+                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                        {!loading && error && <ResultsTableErrorMessage />}
+                        {!error && loading && <ResultsTableLoadingMessage />}
+                        {!loading && !error && !results.length && <ResultsTableNoResults />}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>}
+            {!loading && !error && results.length &&
             <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
                 <Table
                     expandable
@@ -466,7 +458,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
                     divider={props.subHeading} />
-            </div>
+            </div>}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

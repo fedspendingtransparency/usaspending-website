@@ -81,59 +81,69 @@
             }
         }
     }
-
-    .budget-categories-table__header {
+    .toolkit {
         @include display(flex);
-        @include justify-content(left);
-        @include align-items(center);
-        margin-top: rem(20);
-
-        label {
-            padding-right: rem(6);
-        }
-
-        .usa-dt-picker {
-
-            .usa-dt-picker__button {
-                margin-right: 0;
-                padding-bottom: 0;
-                padding-top: 0;
-                margin-left: 0;
-                padding-left: rem(1);
-                border-bottom: rem(2) solid $color-cool-blue-light;
-                width: rem(140);
-
-                .usa-dt-picker__button-text {
-                    font-size: $base-font-size;
-                    white-space: nowrap;
-                    margin-right: rem(6);
-                }
-                .usa-dt-picker__button-icon svg {
-                    height: rem(12);
-                    margin-bottom: rem(3);
-                    color: $color-cool-blue-light;
-                }
-            }
-
-            .usa-dt-picker__list {
-                z-index: 4;
-                // some styles need to go here to hide the scroll bar in ie
-                -ms-overflow-style: none;
-                .usa-dt-picker__list-item {
-                  border-top: none;
-                  .usa-dt-picker__item {
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
+        @include flex(1 1 auto);
+        @include flex-wrap(wrap);
+      .toolkit-one {
+        padding-right: rem(28);
+        min-width: rem(400);
+      }
+      .toolkit-two {
+        .budget-categories-table__header {
+          @include display(flex);
+          @include justify-content(left);
+          @include align-items(center);
+          margin-top: rem(20);
+  
+          label {
+              padding-right: rem(6);
+          }
+  
+          .usa-dt-picker {
+  
+              .usa-dt-picker__button {
+                  margin-right: 0;
+                  padding-bottom: 0;
+                  padding-top: 0;
+                  margin-left: 0;
+                  padding-left: rem(1);
+                  border-bottom: rem(2) solid $color-cool-blue-light;
+                  width: rem(140);
+  
+                  .usa-dt-picker__button-text {
+                      font-size: $base-font-size;
+                      white-space: nowrap;
+                      margin-right: rem(6);
+                  }
+                  .usa-dt-picker__button-icon svg {
+                      height: rem(12);
+                      margin-bottom: rem(3);
+                      color: $color-cool-blue-light;
+                  }
+              }
+  
+              .usa-dt-picker__list {
+                  z-index: 4;
+                  // some styles need to go here to hide the scroll bar in ie
+                  -ms-overflow-style: none;
+                  .usa-dt-picker__list-item {
+                    border-top: none;
+                    .usa-dt-picker__item {
+                      font-size: 1.4rem;
+                      letter-spacing: 0;
+                      line-height: 1.8rem;
+                    }
                   }
                 }
-              }
+          }
+  
+          .budget-categories-tooltip {
+              display: block;
+              width: 100%;
+          }
         }
-
-        .budget-categories-tooltip {
-            display: block;
-            width: 100%;
-        }
+      }
     }
 }
 @import 'pages/covid19/_unlinkedData';
