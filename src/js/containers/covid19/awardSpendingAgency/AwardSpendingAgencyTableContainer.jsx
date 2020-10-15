@@ -184,7 +184,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
                     if (query) {
                         awardSpendingByAgencyChildRow.name = replaceString(awardSpendingByAgencyChildRow.name, query, 'query-matched');
-                        expanded = awardSpendingByAgencyChildRow.name.length > 1;
+                        if (!expanded) {
+                            expanded = awardSpendingByAgencyChildRow.name.length > 1;
+                        }
                     }
                     return awardSpendingByAgencyChildRow;
                 });

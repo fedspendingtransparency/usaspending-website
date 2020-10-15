@@ -240,7 +240,9 @@ const BudgetCategoriesTableContainer = (props) => {
                     budgetCategoryChildRow.populate(childItem, props.type, true);
                     if (query && spendingCategory === 'total_spending') {
                         budgetCategoryChildRow.name = replaceString(budgetCategoryChildRow.name, query, 'query-matched');
-                        expanded = budgetCategoryChildRow.name.length > 1;
+                        if (!expanded) {
+                            expanded = budgetCategoryChildRow.name.length > 1;
+                        }
                     }
                     return budgetCategoryChildRow;
                 });
