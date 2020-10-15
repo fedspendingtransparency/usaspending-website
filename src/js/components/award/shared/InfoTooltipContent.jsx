@@ -255,6 +255,7 @@ export const transactionHistoryInfoFinancialAssistance = (
     </div>
 );
 
+// DEV-5905
 export const federalAccountFundingInfoIDV = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
@@ -268,7 +269,7 @@ export const federalAccountFundingInfoIDV = (
             </p>
             <ul>
                 <li>
-                    <strong>Submission Date</strong> – When the transaction from
+                    <strong>Submission Period</strong> – When the transaction from
                     the awarding agency was submitted to our system.
                 </li>
                 <li>
@@ -315,7 +316,7 @@ export const federalAccountFundingInfoGeneric = (
             </p>
             <ul>
                 <li>
-                    <strong>Submission Date</strong> – The fiscal year and quarter of
+                    <strong>Submission Period</strong> – The fiscal year and quarter of
                     the date when the transaction occurred.
                 </li>
                 <li>
