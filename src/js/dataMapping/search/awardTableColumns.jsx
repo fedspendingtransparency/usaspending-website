@@ -4,7 +4,9 @@
  */
 
 import kGlobalConstants from '../../GlobalConstants';
-
+/**
+ * TODO: Refactor the way columns are being created to reduce repetitive code
+ */
 const contractColumns = [
     'Award ID',
     'Recipient Name',
