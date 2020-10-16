@@ -111,7 +111,7 @@ export const tasReducer = (state = initialState, action) => {
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return {
                 ...initialState,
-                tas: state.tas
+                tas: new List(showAllNodes(state.tas.toJS()))
             };
         }
 
