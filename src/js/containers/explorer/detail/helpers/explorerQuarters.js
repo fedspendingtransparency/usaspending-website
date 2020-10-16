@@ -166,6 +166,9 @@ export const mostRecentPeriod = () => {
     if (period === 0) {
         period = 12;
     }
+    else if (period === -1) {
+        period = 11;
+    }
 
     return {
         period,

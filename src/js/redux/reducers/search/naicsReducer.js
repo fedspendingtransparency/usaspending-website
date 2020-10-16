@@ -99,6 +99,12 @@ export const naicsReducer = (state = initialState, action) => {
                 counts: new List(action.payload)
             };
         }
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return {
+                ...initialState,
+                naics: new List(showAllNodes(state.naics.toJS()))
+            };
+        }
         default:
             return state;
     }

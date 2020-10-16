@@ -178,6 +178,7 @@ export class NAICSCheckboxTree extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+        this.props.showNaicsTree();
     }
 
     onSearchChange = debounce(() => {

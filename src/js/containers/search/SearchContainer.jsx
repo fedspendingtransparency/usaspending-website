@@ -86,6 +86,13 @@ const SearchContainer = ({ history }) => {
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
     const request = useRef(null);
+    const areAppliedFiltersEmptyRef = useRef();
+
+    useEffect(() => {
+        areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
+    }, [areAppliedFiltersEmpty]);
+
+    const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
 
     useEffect(() => {
         // receiving filters from previous search via hash.
@@ -94,6 +101,9 @@ const SearchContainer = ({ history }) => {
             SearchHelper.areFiltersEqual(stagedFilters, initialState)
         );
         if (shouldFetchRemoteFilters) {
+            if (request.current) {
+                request.current.cancel();
+            }
             request.current = SearchHelper.restoreUrlHash({
                 hash: urlHash
             });
@@ -105,6 +115,7 @@ const SearchContainer = ({ history }) => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                     }
+                    request.current = null;
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -118,13 +129,17 @@ const SearchContainer = ({ history }) => {
                     }
                 });
         }
+
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, []);
 
     useEffect(() => {
-        if (areAppliedFiltersEmpty) {
+        if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            dispatch(setAppliedFilterEmptiness(true));
-            dispatch(setAppliedFilterCompletion(true));
             history.replace('/search');
         }
     }, [areAppliedFiltersEmpty]);
@@ -184,19 +199,12 @@ const SearchContainer = ({ history }) => {
     }, [stagedFilters, appliedFilters]);
 
     useEffect(() => {
-        // if applied filters are not empty, generate hash
-        if (!SearchHelper.areFiltersEqual(appliedFilters, initialState)) {
-            // generate hash for filter selections
+        // if applied filters are not empty & they've changed -- generate a hash to represent filter selections
+        if (!SearchHelper.areFiltersEqual(appliedFilters, initialState) && !areFiltersApplied) {
             generateHash();
             setDownloadAvailability();
         }
-    }, [appliedFilters]);
-
-    useEffect(() => () => {
-        if (request.current) {
-            request.current.cancel();
-        }
-    }, []);
+    }, [areFiltersApplied]);
 
     return (
         <SearchPage

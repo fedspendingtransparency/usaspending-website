@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
-import { setCheckedNaics, setUncheckedNaics } from 'redux/actions/search/naicsActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
 import { areFiltersEqual } from 'helpers/searchHelper';
@@ -107,7 +106,6 @@ export class SearchSidebarSubmitContainer extends React.Component {
     resetFilters() {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
-        this.props.resetNaicsTree();
         this.props.resetMapLegendToggle();
     }
 
@@ -130,11 +128,7 @@ export default connect(
         appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => ({
-        ...bindActionCreators(combinedActions, dispatch),
-        resetNaicsTree: () => {
-            dispatch(setCheckedNaics([]));
-            dispatch(setUncheckedNaics([]));
-        }
+        ...bindActionCreators(combinedActions, dispatch)
     })
 )(SearchSidebarSubmitContainer);
 
