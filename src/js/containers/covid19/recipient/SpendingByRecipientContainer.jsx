@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
@@ -20,7 +20,6 @@ import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
-import SearchBar from 'components/covid19/SearchBar';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
@@ -324,51 +323,16 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         }
     }
 
-    if (error || loading || (!error && !loading && results.length === 0)) {
-        return (
-            <>
-                <SearchBar setQuery={setQuery} currentSearchTerm={query} />
-                {(results.length > 0 || error) && <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />}
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                {(results.length > 0 || error) && <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />}
-            </>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
             <div className="table-utility">
                 <div className="table-utility__left">
-                    <SearchBar setQuery={setQuery} currentSearchTerm={query} />
+                    <SearchBar onSearch={setQuery} />
                 </div>
+                {(!error && !loading && results.length > 0) &&
                 <div className="table-utility__right">
                     <TableDownloadLink defCodes={defCodes && defCodes.length > 0 && defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
-                </div>
+                </div>}
             </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
@@ -378,13 +342,27 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
+            {(error || loading || (!error && !loading && results.length === 0)) &&
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="table-message-fade"
+                    timeout={{ exit: 225, enter: 195 }}
+                    exit>
+                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                        {error && <ResultsTableErrorMessage />}
+                        {loading && <ResultsTableLoadingMessage />}
+                        {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>}
+            {(!error && !loading && results.length > 0) &&
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={results}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
-            </div>
+            </div>}
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
