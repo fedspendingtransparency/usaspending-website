@@ -285,7 +285,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
-        if (Object.keys(recipientTotals).length > 0 && results.length > 0 && !isEqual(results, previousResults)) {
+        if (!Object.keys(recipientTotals).length && results.length > 0 && !isEqual(results, previousResults)) {
             setResults(addUnlinkedData());
         }
     }, [recipientTotals, resultTotal, results]);

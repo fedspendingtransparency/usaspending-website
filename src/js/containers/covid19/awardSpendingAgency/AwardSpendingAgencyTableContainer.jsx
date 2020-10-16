@@ -144,25 +144,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
             ? 'Unknown Agency (Unlinked Data)'
             : 'Unknown Agency (Linked but Missing Funding Agency)';
 
-        if (unlinkedName && unlinkedData) {
-            setUnlinkedDataClass(true);
-            const unlinkedColumn = (
-                <div>
-                    {unlinkedName}
-                </div>
-            );
-            unlinkedData.name = unlinkedColumn;
-            const unlinkedRow = Object.create(CoreSpendingTableRow);
-            unlinkedRow.populateCore(unlinkedData);
-            const parsedDataWithUnlinked = parsedData
-                .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
-                .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
-            setResults(parsedDataWithUnlinked);
-        }
-        else {
-            setUnlinkedDataClass(false);
-            setResults(parsedData);
-        }
+        setUnlinkedDataClass(true);
+        const unlinkedColumn = (
+            <div>
+                {unlinkedName}
+            </div>
+        );
+        unlinkedData.name = unlinkedColumn;
+        const unlinkedRow = Object.create(CoreSpendingTableRow);
+        unlinkedRow.populateCore(unlinkedData);
+        const parsedDataWithUnlinked = parsedData
+            .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
+            .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
+        setResults(parsedDataWithUnlinked);
     };
 
     const parseAwardSpendingByAgency = (data, totals) => {
@@ -260,12 +254,13 @@ const AwardSpendingAgencyTableContainer = (props) => {
     });
 
     useEffect(() => {
-        if (Object.keys(spendingByAgencyTotals).length > 0 && resultsTotal) {
+        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
     }, [spendingByAgencyTotals, resultsTotal]);
 
     useEffect(() => {
+        // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
         if (props.type === 'loans' && sort === 'faceValueOfLoan' && order === 'desc') {
             changeCurrentPage(1);
             fetchSpendingByCategoryCallback();
