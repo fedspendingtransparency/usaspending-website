@@ -327,7 +327,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         <div ref={tableWrapperRef}>
             <div className="table-utility">
                 <div className="table-utility__left">
-                    <SearchBar setQuery={setQuery} />
+                    <SearchBar onSearch={setQuery} />
                 </div>
                 {(!error && !loading && results.length > 0) &&
                 <div className="table-utility__right">
