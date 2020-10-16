@@ -406,7 +406,10 @@ const BudgetCategoriesTableContainer = (props) => {
         <div ref={tableWrapperRef}>
             <div className="toolkit">
                 <div className="toolkit-one">
-                    <SearchBar isDisabled={spendingCategory !== 'total_spending'} setQuery={setQuery} />
+                    <SearchBar
+                        isDisabled={spendingCategory !== 'total_spending'}
+                        inputTitle={spendingCategory !== 'total_spending' ? 'Search filtering is only available for amounts based on total spending.' : ''}
+                        onSearch={setQuery} />
                 </div>
                 <div className="toolkit-two">
                     <div className="budget-categories-table__header">

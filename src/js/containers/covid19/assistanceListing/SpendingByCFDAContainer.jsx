@@ -342,7 +342,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
 
     return (
         <div ref={tableWrapperRef}>
-            <SearchBar setQuery={setQuery} />
+            <SearchBar onSearch={setQuery} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

@@ -330,7 +330,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }
     return (
         <div ref={tableWrapperRef}>
-            <SearchBar setQuery={setQuery} />
+            <SearchBar onSearch={setQuery} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
