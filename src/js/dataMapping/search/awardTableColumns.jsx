@@ -4,7 +4,9 @@
  */
 
 import kGlobalConstants from '../../GlobalConstants';
-
+/**
+ * TODO: Refactor the way columns are being created to reduce repetitive code
+ */
 const contractColumns = [
     'Award ID',
     'Recipient Name',
@@ -236,6 +238,7 @@ const subawardColumns = [
 
 const awardColWidth = 280;
 const covidColWidth = 190;
+const descWidth = 380;
 const datesWidth = 120;
 const covidColor = '#6E338E';
 
@@ -327,7 +330,13 @@ const covidDefCCol = {
     displayName: 'DEFC'
 };
 
-const tabsWithCovidCols = [
+const descriptionCol = {
+    title: 'Description',
+    displayName: 'Description',
+    customWidth: descWidth
+};
+
+const tabsWithAdditionalCols = [
     defaultContract,
     defaultGrant,
     defaultDirectPayment,
@@ -337,11 +346,12 @@ const tabsWithCovidCols = [
 ];
 
 if (kGlobalConstants.CARES_ACT_RELEASED) {
-    // Insert columns for COVID-19
-    tabsWithCovidCols.forEach((tab) => {
-        tab.splice(5, 0, covidDefCCol);
-        tab.splice(6, 0, covidObligationsCol);
-        tab.splice(7, 0, covidOutlaysCol);
+    // Insert columns
+    tabsWithAdditionalCols.forEach((tab) => {
+        tab.splice(5, 0, descriptionCol);
+        tab.splice(6, 0, covidDefCCol);
+        tab.splice(7, 0, covidObligationsCol);
+        tab.splice(8, 0, covidOutlaysCol);
     });
 }
 
@@ -402,5 +412,6 @@ export const defaultSort = (type) => {
 };
 
 export const apiFieldByTableColumnName = {
-    DEFC: 'def_codes'
+    DEFC: 'def_codes',
+    Description: 'Description'
 };
