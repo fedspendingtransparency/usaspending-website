@@ -135,6 +135,14 @@ export default class ResultsTable extends React.Component {
                 props.value = this.props.results[rowIndex].def_codes.join(", ");
             }
         }
+        else if (column.columnName === 'Description') {
+            if (!this.props.results[rowIndex].Description) {
+                props.value = '--';
+            }
+            else {
+                props.value = this.props.results[rowIndex].Description;
+            }
+        }
         return React.createElement(
             cellClass,
             props

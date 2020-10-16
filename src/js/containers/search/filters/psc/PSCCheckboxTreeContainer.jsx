@@ -133,6 +133,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+        this.props.showPscTree();
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
