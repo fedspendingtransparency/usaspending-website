@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
@@ -25,6 +25,8 @@ const propTypes = {
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const awardSpendingAgencyTableColumns = (type) => {
     if (type === 'loans') {
@@ -116,6 +118,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         setOrder(direction);
     };
     const [results, setResults] = useState([]);
+    const [resultsTotal, setResultsTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
@@ -126,7 +129,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
-
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
             category: `COVID-19 - Total Spending by Agency - ${props.type}`,
@@ -135,32 +137,26 @@ const AwardSpendingAgencyTableContainer = (props) => {
         });
     };
 
-    const addUnlinkedData = (parsedData, totals) => {
-        let unlinkedName = '';
-        const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
+    const addUnlinkedData = (parsedData, totals = resultsTotal, totalAgencySpending = spendingByAgencyTotals) => {
+        const unlinkedData = calculateUnlinkedTotals(totalAgencySpending, totals);
 
-        if (props.type === 'all') {
-            unlinkedName = 'Unknown Agency (Unlinked Data)';
-        } else {
-            unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
-        }
+        const unlinkedName = (props.type === 'all')
+            ? 'Unknown Agency (Unlinked Data)'
+            : 'Unknown Agency (Linked but Missing Funding Agency)';
 
-        if (unlinkedName && unlinkedData) {
-            setUnlinkedDataClass(true);
-            const unlinkedColumn = (
-                <div>
-                    {unlinkedName}
-                </div>
-            );
-            unlinkedData.name = unlinkedColumn;
-            const unlinkedRow = Object.create(CoreSpendingTableRow);
-            unlinkedRow.populateCore(unlinkedData);
-            parsedData.push(unlinkedRow);
-        } else {
-            setUnlinkedDataClass(false);
-        }
-
-        setResults(parsedData);
+        setUnlinkedDataClass(true);
+        const unlinkedColumn = (
+            <div>
+                {unlinkedName}
+            </div>
+        );
+        unlinkedData.name = unlinkedColumn;
+        const unlinkedRow = Object.create(CoreSpendingTableRow);
+        unlinkedRow.populateCore(unlinkedData);
+        const parsedDataWithUnlinked = parsedData
+            .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
+            .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
+        setResults(parsedDataWithUnlinked);
     };
 
     const parseAwardSpendingByAgency = (data, totals) => {
@@ -215,7 +211,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingByAgencyTotals) {
+        if (defCodes && defCodes.length > 0) {
             let params = {};
 
             params = {
@@ -242,6 +238,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             awardSpendingAgencyRequest.promise
                 .then((res) => {
                     parseAwardSpendingByAgency(res.data.results, res.data.totals);
+                    setResultsTotal(res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -256,19 +253,26 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     });
 
+    useEffect(() => {
+        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
+            addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
+        }
+    }, [spendingByAgencyTotals, resultsTotal]);
 
     useEffect(() => {
-        if (props.type === 'loans') {
-            if (sort === 'faceValueOfLoan' && order === 'desc') {
-                changeCurrentPage(1);
-                fetchSpendingByCategoryCallback();
-            }
+        // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
+        if (props.type === 'loans' && sort === 'faceValueOfLoan' && order === 'desc') {
+            changeCurrentPage(1);
+            fetchSpendingByCategoryCallback();
+        }
+        else if (props.type === 'loans') {
             updateSort('faceValueOfLoan', 'desc');
-        } else {
-            if (sort === 'obligation' && order === 'desc') {
-                changeCurrentPage(1);
-                fetchSpendingByCategoryCallback();
-            }
+        }
+        else if (sort === 'obligation' && order === 'desc') {
+            changeCurrentPage(1);
+            fetchSpendingByCategoryCallback();
+        }
+        else {
             updateSort('obligation', 'desc');
         }
     }, [props.type]);
@@ -278,8 +282,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (currentPage === 1) {
             fetchSpendingByCategoryCallback();
         }
-        changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
+        else {
+            changeCurrentPage(1);
+        }
+    }, [pageSize, sort, order, defCodes]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
@@ -291,31 +297,25 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [document]);
+    }, []);
 
-    let message = null;
+    useEffect(() => () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, []);
+
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
-    if (message) {
+    else if (error) {
+        if (tableRef.current) {
+            tableHeight = tableRef.current.offsetHeight;
+        }
+    }
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
@@ -326,13 +326,17 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

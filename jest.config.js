@@ -26,7 +26,7 @@ module.exports = {
         "<rootDir>/__mocks__/fileMock.js",
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
         "\\.(css|less|scss)$": "identity-obj-proxy",
-        ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js"
+        ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
     },
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
     transform: {
@@ -34,5 +34,6 @@ module.exports = {
     },
     transformIgnorePatterns: [
         "node_modules/(?!(data-transparency-ui))"
-    ]
+    ],
+    modulePaths: ["<rootDir>/tests/testResources"]
 };

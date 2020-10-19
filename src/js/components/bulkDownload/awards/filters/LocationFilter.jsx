@@ -102,6 +102,7 @@ export default class LocationFilter extends React.Component {
                 key={locationType.name}>
                 <input
                     type="radio"
+                    aria-label={locationType.name}
                     value={locationType.name}
                     name="locationType"
                     checked={this.props.currentLocationType === locationType.name}

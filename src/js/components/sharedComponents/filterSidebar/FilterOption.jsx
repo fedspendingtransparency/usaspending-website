@@ -32,27 +32,31 @@ export default class FilterOption extends React.Component {
 
         this.state = {
             isDirty: false,
-            showFilter: true,
-            arrowState: 'expanded'
+            showFilter: false,
+            arrowState: 'collapsed'
         };
 
         // bind functions
         this.toggleFilter = this.toggleFilter.bind(this);
     }
 
-    componentWillMount() {
-        if (!this.props.defaultExpand) {
-            // check if filter is supposed to be collapsed by default
-            this.setState({
-                arrowState: 'collapsed',
-                showFilter: false
-            });
-        }
+    componentDidMount() {
+        this.setArrowAndFilterState();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
             this.checkIfAutoExpanded(this.props);
+        }
+    }
+
+    setArrowAndFilterState() {
+        if (this.props.defaultExpand) {
+            // check if filter is supposed to be collapsed by default
+            this.setState({
+                arrowState: 'expanded',
+                showFilter: true
+            });
         }
     }
 

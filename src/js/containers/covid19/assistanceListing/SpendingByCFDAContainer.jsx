@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
 import { Table, Pagination } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
@@ -31,6 +31,8 @@ const propTypes = {
     activeTab: PropTypes.string.isRequired,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const columns = [
     {
@@ -121,6 +123,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
+    const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
@@ -132,6 +135,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
+    const currentModalData = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
 
     const history = useHistory();
 
@@ -139,10 +146,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         setSort(field);
         setOrder(direction);
     };
-    const defCodes = useSelector((state) => state.covid19.defCodes);
-    const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
-    const currentModalData = useSelector((state) => state.modal);
-    const dispatch = useDispatch();
 
     const launchModal = (e) => {
         e.persist();
@@ -193,26 +196,22 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
-    const addUnlinkedData = (rows, totals) => {
-        // add unlinked data if activeTab is all
-        if (activeTab === 'all') {
-            const unlinkedData = calculateUnlinkedTotals(assistanceTotals, totals);
-            setUnlinkedDataClass(true);
-            const unlinkedName = (
-                <div className="unlinked-data">
-                    Unknown CFDA Program (Unlinked Data)
-                </div>
-            );
-            rows.push({
-                description: unlinkedName,
-                obligation: unlinkedData.obligation,
-                outlay: unlinkedData.outlay,
-                award_count: unlinkedData.award_count
-            });
-        } else {
+    const addUnlinkedData = (rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
+        if (Object.keys(overallAsstAwardTotals).length === 0 || activeTab !== 'all') {
             setUnlinkedDataClass(false);
+            return rows;
         }
-        return rows;
+        setUnlinkedDataClass(true);
+        return rows
+            .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
+            .concat([{
+                isUnlinkedRow: true,
+                description: (
+                    <div className="unlinked-data">
+                        Unknown CFDA Program (Unlinked Data)
+                    </div>),
+                ...calculateUnlinkedTotals(overallAsstAwardTotals, cfdaTotals)
+            }]);
     };
 
     const parseRows = () => (
@@ -255,7 +254,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && assistanceTotals) {
+        if (defCodes && defCodes.length > 0) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -274,7 +273,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             let cfdaRequest;
             if (activeTab === 'loans') {
                 cfdaRequest = fetchCfdaLoans(params);
-            } else {
+            }
+            else {
                 cfdaRequest = fetchSpendingByCfda(params);
             }
             request.current = cfdaRequest;
@@ -283,6 +283,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     const rows = res.data.results;
                     const totals = res.data.totals;
                     setResults(addUnlinkedData(rows, totals));
+                    setResultTotal(totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -298,12 +299,20 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
+        if (!Object.keys(assistanceTotals).length) {
+            setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
+        }
+    }, [assistanceTotals, resultTotal]);
+
+    useEffect(() => {
         // Reset to the first page
         if (currentPage === 1) {
             fetchSpendingByCfdaCallback();
         }
-        changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, assistanceTotals]);
+        else {
+            changeCurrentPage(1);
+        }
+    }, [pageSize, defCodes, sort, order, activeTab]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
@@ -317,30 +326,18 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         window.scrollTo(0, 0);
     }, [document]);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
+    }
+    else if (error) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
     }
 
-    if (message) {
+    if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
                 <Pagination
@@ -351,13 +348,17 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}

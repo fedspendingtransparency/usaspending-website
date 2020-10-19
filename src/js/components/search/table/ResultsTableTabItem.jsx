@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { formatNumber } from 'helpers/moneyFormatter';
+import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
 const propTypes = {
     label: PropTypes.string,
@@ -64,12 +65,13 @@ export default class ResultsTableTabItem extends React.Component {
             );
         }
         const className = `table-type-toggle${activeClass} ${this.props.className}${disabledClass}`;
+        const onKeyDownHandler = createOnKeyDownHandler(this.clickedTab);
         return (
             <div className={`table-type-toggle__wrapper${disabledClass}`}>
                 <div
                     className={className}
                     onClick={this.clickedTab}
-                    onKeyDown={this.clickedTab}
+                    onKeyDown={onKeyDownHandler}
                     role="menuitemradio"
                     aria-checked={this.props.active}
                     title={`Show ${this.props.label}`}

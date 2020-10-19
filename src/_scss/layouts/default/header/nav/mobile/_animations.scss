@@ -22,7 +22,7 @@
         @include animation(mobileNavEnter 0.225s ease-in forwards);
     }
 
-    .mobile-nav-slide-leave, .mobile-nav-slide-leave-active {
+    .mobile-nav-slide-exit, .mobile-nav-slide-exit-active {
         @include animation(mobileNavExit 0.195s ease-in forwards);
     }
 }

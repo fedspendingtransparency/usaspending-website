@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 const propTypes = {
     item: PropTypes.object,
@@ -27,8 +28,10 @@ export default class ResultItem extends React.Component {
         this.prepareLabel(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.prepareLabel(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.prepareLabel(this.props);
+        }
     }
 
     prepareLabel(props) {

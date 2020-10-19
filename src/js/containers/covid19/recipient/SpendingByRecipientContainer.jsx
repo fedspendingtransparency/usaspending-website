@@ -9,8 +9,9 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
+import { isEqual } from 'lodash';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
@@ -26,11 +27,12 @@ import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
-
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
     scrollIntoView: PropTypes.func.isRequired
 };
+
+let tableHeight = 'auto';
 
 const columns = [
     {
@@ -179,6 +181,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
+    const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
@@ -187,20 +190,26 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
+    const previousResultsRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const { recipientTotals, defCodes } = useSelector((state) => state.covid19);
 
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
-    const recipientTotals = useSelector((state) => state.covid19.recipientTotals);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    const addUnlinkedData = (rows, totals) => {
+    useEffect(() => {
+        previousResultsRef.current = results;
+    }, [results]);
+
+    const { current: previousResults } = previousResultsRef;
+
+    const addUnlinkedData = (rows = results, totals = resultTotal, totalRecipient = recipientTotals) => {
         // add unlinked data if activeTab is all
-        if (activeTab === 'all' && !query) {
-            const unlinkedData = calculateUnlinkedTotals(recipientTotals, totals);
+        if (activeTab === 'all' && !query && Object.keys(totalRecipient).length > 0) {
+            const unlinkedData = calculateUnlinkedTotals(totalRecipient, totals);
             setUnlinkedDataClass(true);
             const unlinkedName = (
                 <div className="unlinked-data">
@@ -216,15 +225,17 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 award_count: unlinkedData.award_count
             });
 
-            rows.push([
-                unlinkedName,
-                rowData.obligation,
-                rowData.outlay,
-                rowData.awardCount
-            ]);
-        } else {
-            setUnlinkedDataClass(false);
+            return rows
+                .filter((row) => !row.includes('isUnlinkedRow'))
+                .concat([[
+                    unlinkedName,
+                    rowData.obligation,
+                    rowData.outlay,
+                    rowData.awardCount,
+                    'isUnlinkedRow'
+                ]]);
         }
+        setUnlinkedDataClass(false);
         return rows;
     };
 
@@ -233,7 +244,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && recipientTotals) {
+        if (defCodes && defCodes.length > 0) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -257,6 +268,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
                     const totals = res.data.totals;
+                    setResultTotal(totals);
                     setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
@@ -273,12 +285,20 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
+        if (!Object.keys(recipientTotals).length && results.length > 0 && !isEqual(results, previousResults)) {
+            setResults(addUnlinkedData());
+        }
+    }, [recipientTotals, resultTotal, results]);
+
+    useEffect(() => {
         // Reset to the first page
         if (currentPage === 1) {
             fetchSpendingByRecipientCallback();
         }
-        changeCurrentPage(1);
-    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals]);
+        else {
+            changeCurrentPage(1);
+        }
+    }, [pageSize, defCodes, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
@@ -288,40 +308,23 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
     }, [loading, error]);
 
-    let message = null;
     if (loading) {
-        let tableHeight = 'auto';
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableLoadingMessage />
-            </div>
-        );
-    } else if (error) {
-        let tableHeight = 'auto';
+    }
+    else if (error) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableErrorMessage />
-            </div>
-        );
-    } else if (results.length === 0) {
-        let tableHeight = 'auto';
+    }
+    else if (results.length === 0) {
         if (tableRef.current) {
             tableHeight = tableRef.current.offsetHeight;
         }
-        message = (
-            <div className="results-table-message-container" style={{ height: tableHeight }}>
-                <ResultsTableNoResults />
-            </div>
-        );
     }
 
-    if (message) {
+    if (error || loading || (!error && !loading && results.length === 0)) {
         return (
             <>
                 <SearchBar setQuery={setQuery} currentSearchTerm={query} />
@@ -333,13 +336,18 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     resultsText
                     pageSize={pageSize}
                     totalItems={totalItems} />}
-                <CSSTransitionGroup
-                    transitionName="table-message-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {message}
-                </CSSTransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
                 {(results.length > 0 || error) && <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
