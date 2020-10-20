@@ -118,7 +118,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
         setOrder(direction);
     };
     const [results, setResults] = useState([]);
-    const [resultsTotal, setResultsTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const defCodes = useSelector((state) => state.covid19.defCodes);
@@ -129,6 +128,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
+
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
             category: `COVID-19 - Total Spending by Agency - ${props.type}`,
@@ -137,26 +137,34 @@ const AwardSpendingAgencyTableContainer = (props) => {
         });
     };
 
-    const addUnlinkedData = (parsedData, totals = resultsTotal, totalAgencySpending = spendingByAgencyTotals) => {
-        const unlinkedData = calculateUnlinkedTotals(totalAgencySpending, totals);
+    const addUnlinkedData = (parsedData, totals) => {
+        let unlinkedName = '';
+        const unlinkedData = calculateUnlinkedTotals(spendingByAgencyTotals, totals);
 
-        const unlinkedName = (props.type === 'all')
-            ? 'Unknown Agency (Unlinked Data)'
-            : 'Unknown Agency (Linked but Missing Funding Agency)';
+        if (props.type === 'all') {
+            unlinkedName = 'Unknown Agency (Unlinked Data)';
+        }
+        else {
+            unlinkedName = 'Unknown Agency (Linked but Missing Funding Agency)';
+        }
 
-        setUnlinkedDataClass(true);
-        const unlinkedColumn = (
-            <div>
-                {unlinkedName}
-            </div>
-        );
-        unlinkedData.name = unlinkedColumn;
-        const unlinkedRow = Object.create(CoreSpendingTableRow);
-        unlinkedRow.populateCore(unlinkedData);
-        const parsedDataWithUnlinked = parsedData
-            .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
-            .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
-        setResults(parsedDataWithUnlinked);
+        if (unlinkedName && unlinkedData) {
+            setUnlinkedDataClass(true);
+            const unlinkedColumn = (
+                <div>
+                    {unlinkedName}
+                </div>
+            );
+            unlinkedData.name = unlinkedColumn;
+            const unlinkedRow = Object.create(CoreSpendingTableRow);
+            unlinkedRow.populateCore(unlinkedData);
+            parsedData.push(unlinkedRow);
+        }
+        else {
+            setUnlinkedDataClass(false);
+        }
+
+        setResults(parsedData);
     };
 
     const parseAwardSpendingByAgency = (data, totals) => {
@@ -211,7 +219,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && spendingByAgencyTotals) {
             let params = {};
 
             params = {
@@ -238,7 +246,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
             awardSpendingAgencyRequest.promise
                 .then((res) => {
                     parseAwardSpendingByAgency(res.data.results, res.data.totals);
-                    setResultsTotal(res.data.totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -253,26 +260,20 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     });
 
-    useEffect(() => {
-        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
-            addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
-        }
-    }, [spendingByAgencyTotals, resultsTotal]);
 
     useEffect(() => {
-        // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
-        if (props.type === 'loans' && sort === 'faceValueOfLoan' && order === 'desc') {
-            changeCurrentPage(1);
-            fetchSpendingByCategoryCallback();
-        }
-        else if (props.type === 'loans') {
+        if (props.type === 'loans') {
+            if (sort === 'faceValueOfLoan' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('faceValueOfLoan', 'desc');
         }
-        else if (sort === 'obligation' && order === 'desc') {
-            changeCurrentPage(1);
-            fetchSpendingByCategoryCallback();
-        }
         else {
+            if (sort === 'obligation' && order === 'desc') {
+                changeCurrentPage(1);
+                fetchSpendingByCategoryCallback();
+            }
             updateSort('obligation', 'desc');
         }
     }, [props.type]);
@@ -282,10 +283,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (currentPage === 1) {
             fetchSpendingByCategoryCallback();
         }
-        else {
-            changeCurrentPage(1);
-        }
-    }, [pageSize, sort, order, defCodes]);
+        changeCurrentPage(1);
+    }, [pageSize, sort, order, defCodes, spendingByAgencyTotals]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

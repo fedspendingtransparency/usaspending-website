@@ -11,7 +11,6 @@ import reactStringReplace from 'react-string-replace';
 import { Table, Pagination } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import { isEqual } from 'lodash';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
@@ -181,7 +180,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
-    const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [sort, setSort] = useState('obligation');
@@ -190,26 +188,20 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-    const previousResultsRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const { recipientTotals, defCodes } = useSelector((state) => state.covid19);
 
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
+    const recipientTotals = useSelector((state) => state.covid19.recipientTotals);
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
-    useEffect(() => {
-        previousResultsRef.current = results;
-    }, [results]);
-
-    const { current: previousResults } = previousResultsRef;
-
-    const addUnlinkedData = (rows = results, totals = resultTotal, totalRecipient = recipientTotals) => {
+    const addUnlinkedData = (rows, totals) => {
         // add unlinked data if activeTab is all
-        if (activeTab === 'all' && !query && Object.keys(totalRecipient).length > 0) {
-            const unlinkedData = calculateUnlinkedTotals(totalRecipient, totals);
+        if (activeTab === 'all' && !query) {
+            const unlinkedData = calculateUnlinkedTotals(recipientTotals, totals);
             setUnlinkedDataClass(true);
             const unlinkedName = (
                 <div className="unlinked-data">
@@ -225,17 +217,16 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 award_count: unlinkedData.award_count
             });
 
-            return rows
-                .filter((row) => !row.includes('isUnlinkedRow'))
-                .concat([[
-                    unlinkedName,
-                    rowData.obligation,
-                    rowData.outlay,
-                    rowData.awardCount,
-                    'isUnlinkedRow'
-                ]]);
+            rows.push([
+                unlinkedName,
+                rowData.obligation,
+                rowData.outlay,
+                rowData.awardCount
+            ]);
         }
-        setUnlinkedDataClass(false);
+        else {
+            setUnlinkedDataClass(false);
+        }
         return rows;
     };
 
@@ -244,7 +235,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defCodes && defCodes.length > 0 && recipientTotals) {
             const params = {
                 filter: {
                     def_codes: defCodes.map((defc) => defc.code)
@@ -268,7 +259,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 .then((res) => {
                     const rows = parseRows(res.data.results, activeTab, query);
                     const totals = res.data.totals;
-                    setResultTotal(totals);
                     setResults(addUnlinkedData(rows, totals));
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
@@ -285,20 +275,12 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
-        if (!Object.keys(recipientTotals).length && results.length > 0 && !isEqual(results, previousResults)) {
-            setResults(addUnlinkedData());
-        }
-    }, [recipientTotals, resultTotal, results]);
-
-    useEffect(() => {
         // Reset to the first page
         if (currentPage === 1) {
             fetchSpendingByRecipientCallback();
         }
-        else {
-            changeCurrentPage(1);
-        }
-    }, [pageSize, defCodes, sort, order, activeTab, query]);
+        changeCurrentPage(1);
+    }, [pageSize, defCodes, sort, order, activeTab, query, recipientTotals]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
