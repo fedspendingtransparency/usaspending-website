@@ -94,7 +94,7 @@ export class IdvActivityContainer extends React.Component {
             const idvActivityBar = Object.create(BaseIdvActivityBar);
             idvActivityBar.populate(award);
             return idvActivityBar;
-        });
+        }).filter((award) => award._startDate && award._endDate);
         const startDates = awards.map((award) => award._startDate.valueOf());
         const endDates = awards.map((award) => award._endDate.valueOf());
         const xSeries = startDates.concat(endDates);
