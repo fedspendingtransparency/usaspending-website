@@ -262,40 +262,8 @@ export const federalAccountFundingInfoIDV = (
         </div>
         <div className="tooltip__text">
             <p>
-                Each row in this table represents a submission of a transaction
-                by the awarding agency  that commits a specific amount of funding
-                to this award. The columns in this table represent the following:
+                Each row in this table shows a transaction in the awarding agency&rsquo;s financial system that promises spending for the award from a federal account (a rollup of TAS, or Treasury accounts), broken down by program activity and object class.
             </p>
-            <ul>
-                <li>
-                    <strong>Submission Date</strong> – When the transaction from
-                    the awarding agency was submitted to our system.
-                </li>
-                <li>
-                    <strong>Award ID</strong> – The ID number of the award that
-                    is being funded in this transaction.
-                </li>
-                <li>
-                    <strong>Agency</strong> – The awarding agency reporting the
-                    funding transaction.
-                </li>
-                <li>
-                    <strong>Federal Account</strong> –The Treasury account group
-                    that is providing the funds of the transaction.
-                </li>
-                <li>
-                    <strong>Program Activity</strong> – The specific activity or
-                    project (program) that this transaction&apos;s funds are for.
-                </li>
-                <li>
-                    <strong>Object Class</strong> – A broad category of spending
-                    this transaction has been categorized in.
-                </li>
-                <li>
-                    <strong>Funding Obligated</strong> – The amount funded in this
-                    transaction by the awarding agency.
-                </li>
-            </ul>
         </div>
     </div>
 );
@@ -307,38 +275,8 @@ export const federalAccountFundingInfoGeneric = (
         </div>
         <div className="tooltip__text">
             <p>
-                Each row in this table represents a transaction in the awarding
-                agency&apos;s financial system that commits a specific amount of
-                funding to this award from a federal account
-                (a rollup of Treasury accounts), broken down by program
-                activity and object class. The columns in this table represent the following:
+                Each row in this table shows a transaction in the awarding agency&rsquo;s financial system that promises spending for the award from a federal account (a rollup of TAS, or Treasury accounts), broken down by program activity and object class.
             </p>
-            <ul>
-                <li>
-                    <strong>Submission Date</strong> – The fiscal year and quarter of
-                    the date when the transaction occurred.
-                </li>
-                <li>
-                    <strong>Agency</strong> – The awarding agency reporting the
-                    funding transaction.
-                </li>
-                <li>
-                    <strong>Federal Account</strong> – The Federal Account that
-                    is providing the funds for the transaction.
-                </li>
-                <li>
-                    <strong>Program Activity</strong> – The specific activity or
-                    project (program) that this transaction&apos;s funds are for.
-                </li>
-                <li>
-                    <strong>Object Class</strong> – The broad category of spending
-                    this transaction has been categorized in.
-                </li>
-                <li>
-                    <strong>Funding Obligated</strong> – The amount funded in this
-                    transaction by the awarding agency.
-                </li>
-            </ul>
         </div>
     </div>
 );
@@ -417,10 +355,10 @@ export const summaryRelatedAwardsInfo = (
             Related Awards
         </div>
         <div className="tooltip__text">
-            <strong>Parent IDV</strong>
-            <p className="tooltip__text-section">A parent IDV, or parent indefinite delivery vehicle, is any award that has other prime awards made under it.</p>
+            <strong>Parent Award</strong>
+            <p className="tooltip__text-section">A parent award, or parent indefinite delivery vehicle (IDV), is any award that has other prime awards made under it.</p>
             <p className="tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
-            <p className="tooltip__text-section">Click on the award ID to view the summary page of this award&apos;s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
+            <p className="tooltip__text-section">Click on the parent award ID to view the summary page of this award&apos;s parent award, which details all of that parent award&apos;s “child” and “grandchild” awards.</p>
             <strong>Sub-Awards</strong>
             <p className="tooltip__text-section">
                 This is the count of sub-awards (in this case, sub-contracts to furnish supplies or services to advance the prime contract) issued and reported directly

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import reactStringReplace from 'react-string-replace';
+import replaceString from 'helpers/replaceString';
 import { Link } from 'react-router-dom';
 
 const propTypes = {
@@ -21,13 +21,7 @@ export default class AgencyLinkCell extends React.Component {
         let name = this.props.name;
         // highlight the matched string if applicable
         if (this.props.agencySearchString !== '') {
-            name = reactStringReplace(this.props.name, this.props.agencySearchString, (match, i) => (
-                <span
-                    className="matched"
-                    key={match + i}>
-                    {match}
-                </span>
-            ));
+            name = replaceString(this.props.name, this.props.agencySearchString, "matched");
         }
 
         return (

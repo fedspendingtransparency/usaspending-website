@@ -103,7 +103,7 @@ export const pscReducer = (state = initialState, action) => {
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return {
                 ...initialState,
-                psc: state.psc
+                psc: new List(showAllNodes(state.psc.toJS()))
             };
         }
         default:

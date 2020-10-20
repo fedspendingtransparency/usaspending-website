@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import reactStringReplace from 'react-string-replace';
+import replaceString from 'helpers/replaceString';
 
 const propTypes = {
     data: PropTypes.string,
@@ -19,13 +19,7 @@ export default class HighlightedCell extends React.Component {
         let data = this.props.data;
         // highlight the matched string if applicable
         if (this.props.searchString) {
-            data = reactStringReplace(this.props.data, this.props.searchString, (match, i) => (
-                <span
-                    className="results-table-cell__matched results-table-cell__matched_highlight"
-                    key={match + i}>
-                    {match}
-                </span>
-            ));
+            data = replaceString(this.props.data, this.props.searchString, "results-table-cell__matched results-table-cell__matched_highlight");
         }
         return (
             <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>

@@ -667,7 +667,7 @@ const AmountsVisualization = ({
                     <ResultsTableLoadingMessage />
                 </div>
             }
-            <DateNote styles={dateNoteStyles} />
+            {!loading && <DateNote styles={dateNoteStyles} />}
             {
                 showTooltip &&
                 <TooltipWrapper

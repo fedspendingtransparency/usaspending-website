@@ -12,7 +12,7 @@
                       .assistance-listing__button {
                           @include button-link;
                           font-size: 1.8rem;
-                          span {
+                          .assistance-listing__button__icon {
                             margin-left: 0.3rem;
                             white-space: nowrap;
                           }

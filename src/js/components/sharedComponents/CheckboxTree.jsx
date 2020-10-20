@@ -7,7 +7,7 @@ import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
 import { difference } from 'lodash';
-import reactStringReplace from 'react-string-replace';
+import replaceString from 'helpers/replaceString';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
@@ -155,13 +155,7 @@ export default class CheckboxTree extends Component {
      * @returns {element|string} - returns a span element with a highlight class
      * or string if no match is found.
      */
-    highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => (
-        <span
-            className={this.props.modifyLabelTextClassname || 'highlight'}
-            key={match + i}>
-            {match}
-        </span>
-    ));
+    highlightText = (text) => replaceString(text, this.props.searchText, this.props.modifyLabelTextClassname || 'highlight');
     /**
       ** createLabels
       * maps data labels from strings to html
