@@ -59,6 +59,7 @@
         "node-sass": "^4.5.3",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
         "react-test-renderer": "^15.6.0",
+        "resolve-url-loader": "^3.1.2",
         "sass-loader": "^6.0.6",
         "sinon": "^2.3.8",
         "style-loader": "^0.18.2",
