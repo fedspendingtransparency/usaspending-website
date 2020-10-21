@@ -15,6 +15,9 @@
             }
         }
     }
+    .query-matched-text {
+      display: block;
+    }
     .query-matched {
         font-weight: $font-semibold;
         text-decoration: underline;
