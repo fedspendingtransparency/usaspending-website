@@ -254,7 +254,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     });
 
     useEffect(() => {
-        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
+        if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
     }, [spendingByAgencyTotals, resultsTotal]);
@@ -315,6 +315,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             tableHeight = tableRef.current.offsetHeight;
         }
     }
+
     if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
