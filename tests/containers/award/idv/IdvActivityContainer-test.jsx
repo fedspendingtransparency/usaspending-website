@@ -1,7 +1,7 @@
 /**
  * IdvActivityContainer-test.js
  * Created by Jonathan Hill 6/26/2019
-**/
+* */
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
@@ -53,6 +53,49 @@ describe('IdvActivityContainer', () => {
         container.instance().parseAwards(mockIdvActivity.results);
 
         expect(container.state().awards).toEqual(awards);
+    });
+
+    it('should parse returned awards and remove any award with no start date and set the state', () => {
+        const container = shallow(<IdvActivityContainer awardId="1234" />);
+
+        const awards = mockIdvActivity.results.map((award) => {
+            const idvActivityBar = Object.create(BaseIdvActivityBar);
+            idvActivityBar.populate(award);
+            return idvActivityBar;
+        });
+        mockIdvActivity.results[0].period_of_performance_start_date = null;
+        container.instance().parseAwards(mockIdvActivity.results);
+
+        expect(container.state().awards.length).toEqual(awards.length - 1);
+    });
+
+    it('should parse returned awards and remove any award with no end date and set the state', () => {
+        const container = shallow(<IdvActivityContainer awardId="1234" />);
+
+        const awards = mockIdvActivity.results.map((award) => {
+            const idvActivityBar = Object.create(BaseIdvActivityBar);
+            idvActivityBar.populate(award);
+            return idvActivityBar;
+        });
+        mockIdvActivity.results[0].period_of_performance_start_date = '2016-01-14';
+        mockIdvActivity.results[0].period_of_performance_potential_end_date = null;
+        container.instance().parseAwards(mockIdvActivity.results);
+
+        expect(container.state().awards.length).toEqual(awards.length - 1);
+    });
+
+    it('should parse returned awards and remove any award with no start and no end date and set the state', () => {
+        const container = shallow(<IdvActivityContainer awardId="1234" />);
+
+        const awards = mockIdvActivity.results.map((award) => {
+            const idvActivityBar = Object.create(BaseIdvActivityBar);
+            idvActivityBar.populate(award);
+            return idvActivityBar;
+        });
+        mockIdvActivity.results[0].period_of_performance_start_date = null;
+        container.instance().parseAwards(mockIdvActivity.results);
+
+        expect(container.state().awards.length).toEqual(awards.length - 1);
     });
 
     it('should change the page and update state and call api', () => {

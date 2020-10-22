@@ -269,7 +269,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     });
 
     useEffect(() => {
-        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
+        if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
     }, [spendingByAgencyTotals, resultsTotal]);
@@ -330,6 +330,44 @@ const AwardSpendingAgencyTableContainer = (props) => {
             tableHeight = tableRef.current.offsetHeight;
         }
     }
+<<<<<<< HEAD
+=======
+
+    if (loading || error) {
+        return (
+            <div ref={errorOrLoadingWrapperRef}>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container" style={{ height: tableHeight }}>
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            </div>
+        );
+    }
+
+>>>>>>> master
     return (
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
