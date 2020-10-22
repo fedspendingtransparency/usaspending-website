@@ -269,7 +269,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     });
 
     useEffect(() => {
-        if (!Object.keys(spendingByAgencyTotals).length && resultsTotal) {
+        if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
     }, [spendingByAgencyTotals, resultsTotal]);
