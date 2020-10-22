@@ -308,7 +308,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
-        if (!Object.keys(assistanceTotals).length) {
+        if (Object.keys(assistanceTotals).length) {
             setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
         }
     }, [assistanceTotals, resultTotal]);
