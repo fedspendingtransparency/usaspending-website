@@ -30,7 +30,7 @@ export const defaultSortFy = (a, b) => {
 
 const FYPicker = ({
     sortFn = defaultSortFy,
-    latestFy = FiscalYearHelper.defaultFiscalYear(),
+    latestFy = FiscalYearHelper.currentFiscalYear(),
     fy,
     onClick,
     earliestFY = FiscalYearHelper.earliestExplorerYear,
