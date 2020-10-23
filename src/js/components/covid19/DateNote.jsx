@@ -10,11 +10,11 @@ import { useSelector } from 'react-redux';
 const propTypes = { styles: PropTypes.object };
 
 const DateNote = ({ styles }) => {
-    const date = useSelector((state) => state.covid19.latestSubmissionDate);
+    const date = useSelector((state) => state.account.dataAsOf);
     if (!date) return null;
     return (
         <div style={{ ...styles }} className="covid__date-note">
-            Data through {date}
+            Data through {date.format('MMMM DD[,] YYYY')}
         </div>
     );
 };
