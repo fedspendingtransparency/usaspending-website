@@ -56,7 +56,7 @@ export default class DataSources extends React.Component {
                     <h3>Exhibit 1</h3>
                 </div>
                 <div className="about-section-content">
-                    <img src="img/data-sources.png" alt="Data Sources" />
+                    <img src="img/daims-information-flow-diagram-v2.0.jpg" alt="Data Sources" />
                 </div>
             </div>
         );
