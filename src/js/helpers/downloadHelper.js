@@ -57,11 +57,6 @@ export const fetchIdvDownloadFile = (awardId) => apiRequest({
     data: { award_id: awardId }
 });
 
-export const fetchActivePeriods = () => apiRequest({
-    url: 'v2/references/submission_periods/',
-    method: 'get'
-});
-
 export const getLatestSubmissionPeriodInFy = (fy, availablePeriods) => availablePeriods
     .filter((period) => period.submission_fiscal_year === parseInt(fy, 10))
     .filter((period) => moment(period.submission_reveal_date).isSameOrBefore(moment()))

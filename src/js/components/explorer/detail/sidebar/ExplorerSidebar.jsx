@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY, lastCompletedPeriodInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
 
@@ -61,25 +60,25 @@ export default class ExplorerSidebar extends React.Component {
         }, 10 * 1000);
     }
 
-    pickedYear(year) {
-        const lastQuarter = lastCompletedQuarterInFY(year);
-        const lastPeriod = lastCompletedPeriodInFY(year);
-        // Log analytic event
-        this.logTimePeriodEvent(lastQuarter.quarter, lastQuarter.year);
-
+    pickedYear(year, period = null) {
+        debugger;
         if (year >= 2020) {
             this.props.setExplorerPeriod({
-                fy: `${lastQuarter.year}`,
-                period: `${lastPeriod.period}`,
+                fy: `${year}`,
+                period: `${period}`,
                 quarter: null
             });
+            // Log analytic event
+            this.logTimePeriodEvent(period, year);
         }
         else {
             this.props.setExplorerPeriod({
-                fy: `${lastQuarter.year}`,
-                quarter: `${lastQuarter.quarter}`,
+                fy: `${year}`,
+                quarter: `4`,
                 period: null
             });
+            // Log analytic event
+            this.logTimePeriodEvent('4', year);
         }
         this.setState({
             showFYMenu: false
