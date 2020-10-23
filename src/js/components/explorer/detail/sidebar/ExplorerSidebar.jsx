@@ -61,7 +61,6 @@ export default class ExplorerSidebar extends React.Component {
     }
 
     pickedYear(year, period = null) {
-        debugger;
         if (year >= 2020) {
             this.props.setExplorerPeriod({
                 fy: `${year}`,

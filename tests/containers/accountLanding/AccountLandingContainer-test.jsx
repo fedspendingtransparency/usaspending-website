@@ -7,20 +7,26 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
+import { AccountLandingContainer } from 'containers/accountLanding/AccountLandingContainer';
 
 import { mockData, mockParsed } from './mockFederalAccounts';
 
 jest.mock('helpers/accountLandingHelper', () => require('./accountLandingHelper'));
+jest.mock('react-redux', () => ({
+    useSelector: (cb) => (cb({ account: { dataAsOf: null } })),
+    useDispatch: (cb) => () => cb()
+}));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/accountLanding/AccountLandingContent', () =>
     jest.fn(() => null));
 
+const fy = `${FiscalYearHelper.currentFiscalYear()}`;
+
 describe('AccountLandingContainer', () => {
     it('should make an API request on mount', async () => {
         // mount the container
-        const container = mount(<AccountLandingContainer />);
+        const container = mount(<AccountLandingContainer fy={fy} />);
         const parseAccounts = jest.fn();
         container.instance().parseAccounts = parseAccounts;
 
@@ -31,12 +37,11 @@ describe('AccountLandingContainer', () => {
 
     describe('showColumns', () => {
         it('should build the table', () => {
-            const container = shallow(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer fy={fy} />);
 
             container.instance().showColumns();
 
             // validate the state contains the correctly parsed values
-            const fy = FiscalYearHelper.defaultFiscalYear();
             const expectedState = [
                 {
                     columnName: "accountNumber",
@@ -67,7 +72,7 @@ describe('AccountLandingContainer', () => {
     describe('setSearchString', () => {
         it('should update the setAccountSearchString state value to the provided input', () => {
             const container = shallow(
-                <AccountLandingContainer />
+                <AccountLandingContainer fy={fy} />
             );
 
             container.instance().fetchAccounts = jest.fn();
@@ -77,7 +82,7 @@ describe('AccountLandingContainer', () => {
         });
         it('should trigger a fetch operation after setRecipientSearchString gets a value', () => {
             const container = shallow(
-                <AccountLandingContainer />
+                <AccountLandingContainer fy={fy} />
             );
 
             container.instance().fetchAccounts = jest.fn();
@@ -89,7 +94,7 @@ describe('AccountLandingContainer', () => {
 
     describe('parseAccounts', () => {
         it('should parse the API response and update the container state', () => {
-            const container = shallow(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer fy={fy} />);
 
             container.instance().parseAccounts(mockData.data);
             expect(container.state().results).toEqual(mockParsed);
@@ -98,7 +103,7 @@ describe('AccountLandingContainer', () => {
 
     describe('updateSort', () => {
         it('should update the container state and reset the page number to 1', () => {
-            const container = shallow(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer fy={fy} />);
 
             // change the sort order
             container.instance().updateSort('managing_agency', 'asc');
@@ -114,7 +119,7 @@ describe('AccountLandingContainer', () => {
 
     describe('onChangePage', () => {
         it('should update the page number when in range', () => {
-            const container = shallow(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer fy={fy} />);
             // Give the container enough items for two pages
             container.setState({
                 totalItems: 75
@@ -125,7 +130,7 @@ describe('AccountLandingContainer', () => {
             expect(container.state().pageNumber).toEqual(2);
         });
         it('should not update the page number when out of range', () => {
-            const container = shallow(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer fy={fy} />);
             // Give the container enough items for two pages
             container.setState({
                 totalItems: 75

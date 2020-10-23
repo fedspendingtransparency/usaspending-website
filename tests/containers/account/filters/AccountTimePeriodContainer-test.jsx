@@ -18,38 +18,11 @@ const defaultFilters = {
     filterTimePeriodType: 'fy',
     filterTimePeriodFY: new Set(),
     filterTimePeriodStart: null,
-    filterTimePeriodEnd: null
+    filterTimePeriodEnd: null,
+    latestFy: moment()
 };
 
 describe('AccountTimePeriodContainer', () => {
-    describe('generateTimePeriods', () => {
-        it('generates the current available fiscal years', () => {
-            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const container = shallow(<AccountTimePeriodContainer />);
-            container.instance().generateTimePeriods();
-
-            // override the moment's library's internal time to a known mocked date
-            const expectedYears = ['2018', '2017'];
-
-            expect(container.state().timePeriods).toEqual(expectedYears);
-        });
-
-        it('waits on the current fiscal year until February 15', () => {
-            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const container = shallow(<AccountTimePeriodContainer />);
-            container.instance().generateTimePeriods();
-
-            // override the moment's library's internal time to a known mocked date
-            const expectedYears = ['2017'];
-
-            expect(container.state().timePeriods).toEqual(expectedYears);
-        });
-    });
-
     describe('updateFilter', () => {
         it('should trigger a Redux action with the new filter values', (done) => {
             const expected = {

@@ -18,7 +18,7 @@ import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccou
 
 require('pages/accountLanding/accountLandingPage.scss');
 
-class AccountLandingContainer extends React.Component {
+export class AccountLandingContainer extends React.Component {
     constructor(props) {
         super(props);
 
