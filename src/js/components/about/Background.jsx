@@ -32,8 +32,12 @@ export default class Background extends React.Component {
                     <p>
                         The transparency efforts of FFATA were expanded with the enactment of
                         the Digital Accountability and Transparency Act (DATA Act) Pub. L.
-                        113-101 on May 9, 2014. The purpose of the DATA Act, as directed
-                        by Congress, is to:
+                        113-101 on May 9, 2014.
+                    </p>
+                    <p>
+                        <strong>
+                            The purpose of the DATA Act, as directed by Congress, is to:
+                        </strong>
                     </p>
                     <ul>
                         <li>
