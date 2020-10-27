@@ -36,12 +36,14 @@ const Analytics = {
             args.nonInteraction || undefined
         );
     },
-    pageview(path) {
-        this._execute(
-            'send',
-            'pageview',
-            path
-        );
+    pageview(pagename) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'pageview',
+            page: {
+                title: pagename
+            }
+        });
     }
 };
 

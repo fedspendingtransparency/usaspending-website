@@ -62,11 +62,14 @@ const LogPageView = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        Analytics.pageview(pathname);
+        setTimeout(() => {
+            Analytics.pageview(window.document.title);
+        }, 1000);
     }, [pathname]);
 
     return null;
 };
+
 
 const AppContainer = () => (
     <Provider store={store}>
