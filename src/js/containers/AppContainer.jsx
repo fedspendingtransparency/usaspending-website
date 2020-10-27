@@ -62,9 +62,7 @@ const LogPageView = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        setTimeout(() => {
-            Analytics.pageview(window.document.title);
-        }, 1000);
+        Analytics.pageview(window.document.title, pathname);
     }, [pathname]);
 
     return null;
