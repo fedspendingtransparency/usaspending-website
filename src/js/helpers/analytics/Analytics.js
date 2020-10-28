@@ -26,15 +26,17 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        this._execute(
-            'send',
-            'event',
-            `${this._prefix}${args.category}`,
-            args.action,
-            args.label || undefined,
-            args.value || undefined,
-            args.nonInteraction || undefined
-        );
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'event',
+            eventProps: {
+                category: `${this._prefix}${args.category}`,
+                action: args.action,
+                label: args.label || undefined,
+                value: args.value || undefined,
+                nonInteraction: args.nonInteraction || undefined
+            }
+        });
     },
     pageview(pathname) {
         window.dataLayer = window.dataLayer || [];
