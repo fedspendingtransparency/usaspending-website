@@ -36,12 +36,11 @@ const Analytics = {
             args.nonInteraction || undefined
         );
     },
-    pageview(pagename, pathname) {
+    pageview(pathname) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: 'pageview',
             page: {
-                title: pagename,
                 url: pathname
             }
         });
