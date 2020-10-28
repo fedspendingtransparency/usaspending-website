@@ -75,7 +75,10 @@ const AppContainer = () => (
                 <ScrollToTop />
                 <LogPageView />
                 <Switch>
-                    {routes.map(({ path, component }) => (
+                    {routes.filter((route) => {
+                        console.log(' Route : ', route.path, route.hide);
+                        return !route.hide;
+                    }).map(({ path, component }) => (
                         <Route
                             exact
                             path={path}
