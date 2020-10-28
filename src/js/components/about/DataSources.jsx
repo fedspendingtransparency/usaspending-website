@@ -68,7 +68,7 @@ const DataSources = () => {
                 </p>
             </div>
             <div className="about-section-content">
-                <img src="img/data-sources.png" alt="Data Sources" />
+                <img src="img/daims-information-flow-diagram-v2.0.jpg" alt="Data Sources" />
                 <div className="center"><i>Exhibit 1</i></div>
             </div>
             <p>The timing of data updates is summarized below:</p>
@@ -106,8 +106,7 @@ const DataSources = () => {
                             title="https://fiscal.treasury.gov/data-transparency/resources.html">
                             here
                             <span className="usa-button-link__icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                        </a>
-                        .
+                        </a>.
                     </li>
                 </ul>
                 <p><strong>Award and Sub-Award data:</strong></p>
