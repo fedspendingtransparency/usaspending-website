@@ -26,6 +26,12 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
+        if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
+            // use GTM.
+        }
+        else {
+            // we're in production, use GA.
+        }
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: 'event',
