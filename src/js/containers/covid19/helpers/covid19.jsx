@@ -116,7 +116,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Award Spending by Agency',
+        title: 'Award Spending by Sub-Agency',
         tooltip: spendingByAgencyTT
     },
     award_spending_by_assistance_listing: {
