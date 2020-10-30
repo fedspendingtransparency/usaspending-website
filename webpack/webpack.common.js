@@ -17,7 +17,7 @@ module.exports = {
         app: "./index.js"
     },
     output: {
-    // https://webpack.js.org/guides/caching/
+        // https://webpack.js.org/guides/caching/
         publicPath: "/",
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "../public")
@@ -96,7 +96,13 @@ module.exports = {
             template: path.resolve(__dirname, "../src/index.ejs"),
             chunksSortMode: "none",
             templateParameters: {
-                GA_TRACKING_ID: process.env.GA_TRACKING_ID || ''
+                GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
+                USE_GTM: (
+                    process.env.ENV === 'dev' ||
+                    process.env.ENV === 'qat' ||
+                    process.env.ENV === 'sandbox'
+                ),
+                GTM_ID: process.env.GTM_ID
             }
         }),
         new MiniCssExtractPlugin({
