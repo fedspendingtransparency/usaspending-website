@@ -6,13 +6,23 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { get, uniqueId, throttle, isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { setOverview, setDEFCodes, setLatestSubmissionDate } from 'redux/actions/covid19/covid19Actions';
+// redux
+import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+import { setAccountDataAsOfDate as setLatestSubmissionDate } from 'redux/actions/account/accountActions';
+
+// models
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
-import { fetchOverview, fetchDisasterSpending, fetchDEFCodes, fetchAllSubmissionDates } from 'helpers/disasterHelper';
+
+// helpers
+import { getLatestPeriodAsMoment, fetchAllSubmissionDates } from 'helpers/accountHelper';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { latestSubmissionDateFormatted } from 'helpers/covid19Helper';
+
+// datamapping
 import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
+
+// components
 import HeroButton from 'components/homepage/hero/HeroButton';
 import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
 import TotalAmount from 'components/homepage/hero/TotalAmount';
@@ -37,7 +47,7 @@ const propTypes = {
     setCovidDefCodes: PropTypes.func,
     completeIncrement: PropTypes.func,
     updateSubmissionDate: PropTypes.func,
-    submissionMonth: PropTypes.string,
+    latestSubmissionPeriod: PropTypes.string,
     defCodes: PropTypes.arrayOf(PropTypes.string)
 };
 
@@ -69,7 +79,7 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResizeWindow);
         this.handleResizeWindow();
-        return Promise.all([this.fetchDefCodes(), this.fetchSubmissionMonth()])
+        return Promise.all([this.fetchDefCodes(), this.fetchlatestSubmissionPeriod()])
             .then(() => (
                 Promise.all([this.fetchHighlights(), this.fetchTotals()])
             ))
@@ -145,11 +155,11 @@ export class CovidHighlights extends React.Component {
         }
     }
 
-    fetchSubmissionMonth = async () => {
+    fetchlatestSubmissionPeriod = async () => {
         this.allSubmissionDatesRequest = fetchAllSubmissionDates();
         try {
             const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
-            this.props.updateSubmissionDate(latestSubmissionDateFormatted(availablePeriods));
+            this.props.updateSubmissionDate(getLatestPeriodAsMoment(availablePeriods));
             this.allSubmissionDatesRequest = null;
             this.setState({ isDateLoading: false });
             return Promise.resolve();
@@ -294,7 +304,10 @@ export class CovidHighlights extends React.Component {
             isDateLoading,
             hasNext
         } = this.state;
-        const { totalSpendingAmount, submissionMonth } = this.props;
+        const { totalSpendingAmount, latestSubmissionPeriod } = this.props;
+        const parsedDate = latestSubmissionPeriod
+            ? latestSubmissionPeriod.format('MMMM DD[,] YYYY')
+            : null;
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
@@ -303,7 +316,7 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of {isDateLoading ? <div className="dot-pulse" /> : `${submissionMonth},`}</span>
+                            <span>As of {isDateLoading ? <div className="dot-pulse" /> : `${parsedDate},`}</span>
                             <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
@@ -383,7 +396,7 @@ CovidHighlights.propTypes = propTypes;
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
     defCodes: state.covid19.defCodes.map((code) => code.code),
-    submissionMonth: state.covid19.latestSubmissionDate
+    latestSubmissionPeriod: state.account.dataAsOf
 });
 
 const mapDispatchToProps = (dispatch) => ({

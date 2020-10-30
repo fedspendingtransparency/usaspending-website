@@ -4,7 +4,6 @@
  */
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import moment from 'moment';
 import { snakeCase } from 'lodash';
 import { apiRequest } from 'helpers/apiRequest';
 import {
@@ -131,13 +130,6 @@ export const createJumpToSectionForSidebar = (prefix, domSections) => (
     section,
     offset = getVerticalOffset()
 ) => jumpToSection(section, offset, prefix, domSections);
-
-export const latestSubmissionDateFormatted = (availablePeriods) => availablePeriods
-    .filter((s) => !s.is_quarter)
-    .map((s) => moment.utc(s.period_end_date))
-    .sort((a, b) => b.valueOf() - a.valueOf())
-    .find((s) => Date.now() >= s.valueOf())
-    .format('MMMM DD[,] YYYY');
 
 export const useInFlightList = (initialState) => {
     const [inFlightList, updateInFlightList] = useState(initialState);

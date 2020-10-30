@@ -120,7 +120,7 @@ export default class AccountDataContent extends React.Component {
                             valid={accounts.submissionTypes.length !== 0} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
-                            latestSelectedTimePeriod={accounts.period === '' ? accounts.quarter : accounts.period}
+                            latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
                             updateFilter={this.props.updateFilter}
                             valid={(accounts.fy && (accounts.quarter || accounts.period))} />
                         <UserSelections

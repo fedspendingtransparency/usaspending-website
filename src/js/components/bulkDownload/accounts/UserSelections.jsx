@@ -120,10 +120,10 @@ export default class UserSelections extends React.Component {
 
     generateFyString() {
         const { fy, quarter, period } = this.props.accounts;
-        const quarterSelection = quarter === '' ? `P${period}` : `Q${quarter}`;
-        if (fy && quarterSelection) {
+        const timePeriodSelection = quarter ? `Q${quarter}` : `P${period}`;
+        if (fy) {
             return (
-                <div className="selection__content">{fy} - {quarterSelection}</div>
+                <div className="selection__content">{fy} - {timePeriodSelection}</div>
             );
         }
 

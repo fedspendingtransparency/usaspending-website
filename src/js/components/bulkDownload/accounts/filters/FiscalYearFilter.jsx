@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
-import { lastCompletedQuarterInFY, handlePotentialStrings, lastPeriodByQuarter } from 'containers/explorer/detail/helpers/explorerQuarters';
+import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 
 const propTypes = {
@@ -28,23 +28,24 @@ export default class FiscalYearFilter extends React.Component {
     quarterPickerSelection(selectedOption) {
         if (parseInt(this.props.currentFy, 10) >= 2020) {
             this.props.updateFilter('period', `${selectedOption}`);
-            this.props.updateFilter('quarter', ``);
+            this.props.updateFilter('quarter', null);
         }
         else {
             this.props.updateFilter('quarter', `${selectedOption}`);
-            this.props.updateFilter('period', ``);
+            this.props.updateFilter('period', null);
         }
     }
 
-    pickedYear(year) {
-        const lastQuarter = lastCompletedQuarterInFY(year);
-        this.props.updateFilter('fy', `${lastQuarter.year}`);
+    pickedYear(year, period = null) {
+        this.props.updateFilter('fy', `${year}`);
 
         if (handlePotentialStrings(year) >= 2020) {
-            this.props.updateFilter('period', lastPeriodByQuarter[lastQuarter.quarter]);
+            this.props.updateFilter('period', period);
+            this.props.updateFilter('quarter', null);
         }
         else {
-            this.props.updateFilter('quarter', `${lastQuarter.quarter}`);
+            this.props.updateFilter('quarter', `4`);
+            this.props.updateFilter('period', null);
         }
     }
 
