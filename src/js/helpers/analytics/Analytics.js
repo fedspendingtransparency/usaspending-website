@@ -27,31 +27,47 @@ const Analytics = {
             return;
         }
         if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
-            // use GTM.
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'event',
+                eventProps: {
+                    category: `${this._prefix}${args.category}`,
+                    action: args.action,
+                    label: args.label || undefined,
+                    value: args.value || undefined,
+                    nonInteraction: args.nonInteraction || undefined
+                }
+            });
         }
         else {
-            // we're in production, use GA.
+            this._execute(
+                'send',
+                'event',
+                `${this._prefix}${args.category}`,
+                args.action,
+                args.label || undefined,
+                args.value || undefined,
+                args.nonInteraction || undefined
+            );
         }
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: 'event',
-            eventProps: {
-                category: `${this._prefix}${args.category}`,
-                action: args.action,
-                label: args.label || undefined,
-                value: args.value || undefined,
-                nonInteraction: args.nonInteraction || undefined
-            }
-        });
     },
     pageview(pathname) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: 'pageview',
-            page: {
-                url: pathname
-            }
-        });
+        if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'pageview',
+                page: {
+                    url: pathname
+                }
+            });
+        }
+        else {
+            this._execute(
+                'send',
+                'pageview',
+                pathname
+            );
+        }
     }
 };
 
