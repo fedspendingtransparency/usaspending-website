@@ -30,20 +30,18 @@ export default class DataQuality extends React.Component {
                     <h3>How we achieve this:</h3>
                 </div>
                 <div className="about-section-content">
+                    <p><strong>Agency Quarterly Data Certification</strong></p>
                     <ul>
                         <li>
-                            <span className="about-section-list-item-title">
-                                Agency Quarterly Data Certification
-                            </span>
                             Every agency has a Senior Accountable Official who must officially
                             certify that the quarterly financial data submitted by their agency
                             is accurate and complete. The agency&apos;s data is published on
                             USAspending.gov only after it has been certified.
                         </li>
+                    </ul>
+                    <p><strong>Data Validation</strong></p>
+                    <ul>
                         <li>
-                            <span className="about-section-list-item-title">
-                                Data Validation
-                            </span>
                             Every grant, loan, direct payment, and other financial assistance
                             record submitted to the Financial Assistance Broker Submission
                             system must pass a series of validations before the data is
