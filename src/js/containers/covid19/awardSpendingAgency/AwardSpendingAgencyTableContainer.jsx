@@ -10,8 +10,10 @@ import { isCancel } from 'axios';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import PropTypes from 'prop-types';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Table, Pagination, SearchBar } from 'data-transparency-ui';
+import replaceString from 'helpers/replaceString';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -121,6 +123,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [resultsTotal, setResultsTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [query, setQuery] = useState('');
     const defCodes = useSelector((state) => state.covid19.defCodes);
     const spendingByAgencyTotals = useSelector((state) => state.covid19.spendingByAgencyTotals);
     const tableRef = useRef(null);
@@ -138,6 +141,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     };
 
     const addUnlinkedData = (parsedData, totals = resultsTotal, totalAgencySpending = spendingByAgencyTotals) => {
+        if (!parsedData.length) return setResults([]);
         const unlinkedData = calculateUnlinkedTotals(totalAgencySpending, totals);
 
         const unlinkedName = (props.type === 'all')
@@ -156,7 +160,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         const parsedDataWithUnlinked = parsedData
             .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
             .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
-        setResults(parsedDataWithUnlinked);
+        return setResults(parsedDataWithUnlinked);
     };
 
     const parseAwardSpendingByAgency = (data, totals) => {
@@ -165,11 +169,18 @@ const AwardSpendingAgencyTableContainer = (props) => {
             awardSpendingByAgencyRow.populateCore(item);
 
             let rowChildren = [];
+            let expanded = false;
             if (item.children && item.children.length > 0) {
                 rowChildren = item.children.map((childItem) => {
                     const awardSpendingByAgencyChildRow = Object.create(CoreSpendingTableRow);
                     awardSpendingByAgencyChildRow.populateCore(childItem);
                     awardSpendingByAgencyChildRow.name = awardSpendingByAgencyChildRow.description;
+                    if (query) {
+                        awardSpendingByAgencyChildRow.name = replaceString(awardSpendingByAgencyChildRow.name, query, 'query-matched');
+                        if (!expanded) {
+                            expanded = awardSpendingByAgencyChildRow.name.length > 1;
+                        }
+                    }
                     return awardSpendingByAgencyChildRow;
                 });
             }
@@ -181,6 +192,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             }
 
             let link = awardSpendingByAgencyRow.description;
+            if (query) link = replaceString(link, query, 'query-matched');
             const id = awardSpendingByAgencyRow._id;
             if (link && id) {
                 link = (
@@ -188,7 +200,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                         className="agency-profile__link"
                         onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
                         to={`/agency/${id}`}>
-                        {awardSpendingByAgencyRow.description}
+                        {link}
                     </Link>
                 );
             }
@@ -199,17 +211,19 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 faceValueOfLoan: awardSpendingByAgencyRow.faceValueOfLoan,
                 ...awardSpendingByAgencyRow,
                 children: awardSpendingByAgencyRow.children,
-                name: link
+                expanded,
+                name: query ? (<span className="query-matched-text">{link}</span>) : link
             };
         });
-
-        addUnlinkedData(parsedData, totals);
+        if (!parsedData.length) return setResults([]);
+        return addUnlinkedData(parsedData, totals);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
+        if (error) setError(false);
         setLoading(true);
         if (defCodes && defCodes.length > 0) {
             let params = {};
@@ -231,6 +245,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (props.type !== 'all') {
                 params.filter.award_type_codes = awardTypeGroups[props.type];
             }
+            if (query) params.filter.query = query;
 
             const awardSpendingAgencyRequest = props.type === 'loans' ? fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
 
@@ -285,7 +300,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defCodes]);
+    }, [pageSize, sort, order, defCodes, query]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
@@ -315,43 +330,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
             tableHeight = tableRef.current.offsetHeight;
         }
     }
-
-    if (loading || error) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
+            <SearchBar onSearch={setQuery} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
@@ -360,6 +341,20 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
+            {(loading || error || results.length === 0) &&
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="table-message-fade"
+                    timeout={{ exit: 225, enter: 195 }}
+                    exit>
+                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                        {error && <ResultsTableErrorMessage />}
+                        {loading && <ResultsTableLoadingMessage />}
+                        {!loading && !error && results.length === 0 && <ResultsTableNoResults />}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>}
+            {!loading && !error && results.length > 0 &&
             <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
                 <Table
                     expandable
@@ -368,7 +363,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
                     divider={props.subHeading} />
-            </div>
+            </div>}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

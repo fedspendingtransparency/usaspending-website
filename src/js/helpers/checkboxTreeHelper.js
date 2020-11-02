@@ -679,15 +679,10 @@ export const showAllNodes = (tree) => tree
         ...node,
         className: '',
         children: node.children
-            ? node.children
-                .map((child) => ({
-                    ...child,
-                    className: '',
-                    children: child?.children?.length > 0 ? showAllNodes(child.children) : []
-                }))
-                .sort(sortNodesByValue)
+            ? showAllNodes(node.children)
             : []
-    }));
+    }))
+    .sort(sortNodesByValue);
 /**
  * @param checkedAncestorPaths 2d array, each item an ancestryPath with the last item in the array representing a checkedNode; ie, [[11, 1111, 111110]] to represented checked state for 111110
  * @param uncheckedAncestorPaths same as @param checkedAncestorPaths except for unchecked nodes

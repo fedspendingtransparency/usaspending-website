@@ -132,6 +132,7 @@ export class TASCheckboxTree extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+        this.props.showTasTree();
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
