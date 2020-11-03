@@ -11,7 +11,7 @@ import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
 
 const propTypes = {
     account: PropTypes.object,
-    fy: PropTypes.string
+    currentFiscalYear: PropTypes.string
 };
 
 export default class AccountOverview extends React.Component {
@@ -180,7 +180,7 @@ ${authority} has been obligated.`;
                     </div>
                 </div>
 
-                <h3>FY {this.props.fy} Snapshot</h3>
+                <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
                 <hr
                     className="results-divider"
                     ref={(div) => {
