@@ -57,12 +57,14 @@ export class DetailContentContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.prepareRootRequest(
-            this.props.explorer.root,
-            this.props.explorer.fy,
-            this.props.explorer.quarter,
-            this.props.explorer.period
-        );
+        if (this.props.explorer.fy && (this.props.explorer.period || this.props.explorer.quarter)) {
+            this.prepareRootRequest(
+                this.props.explorer.root,
+                this.props.explorer.fy,
+                this.props.explorer.quarter,
+                this.props.explorer.period
+            );
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -118,6 +120,10 @@ export class DetailContentContainer extends React.Component {
             this.request.cancel();
         }
 
+        if (!this.props.explorer.fy || (!this.props.explorer.period && !this.props.explorer.quarter)) {
+            return Promise.resolve();
+        }
+
         // perform the API request
         const requestFilters = Object.assign({}, this.state.filters);
         if (requestFilters.quarter == null) {
@@ -131,7 +137,7 @@ export class DetailContentContainer extends React.Component {
             filters: requestFilters
         });
 
-        this.request.promise
+        return this.request.promise
             .then((res) => {
                 if (isRoot) {
                     this.parseRootData(res.data);

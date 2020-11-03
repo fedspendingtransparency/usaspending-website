@@ -26,7 +26,6 @@ import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     jumpToSection,
-    latestSubmissionDateFormatted,
     getStickyBreakPointForSidebar,
     getStickyBreakPointForCovidBanner,
     getVerticalOffsetForSidebarFooter
@@ -40,10 +39,11 @@ import {
 import {
     fetchDEFCodes,
     fetchOverview,
-    fetchAllSubmissionDates,
     fetchAwardAmounts
 } from 'helpers/disasterHelper';
-import { setDEFCodes, setOverview, setLatestSubmissionDate, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { getLatestPeriodAsMoment, fetchAllSubmissionDates } from 'helpers/accountHelper';
+import { setDEFCodes, setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { setAccountDataAsOfDate as setLatestSubmissionDate } from 'redux/actions/account/accountActions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
@@ -167,7 +167,7 @@ const Covid19Container = () => {
             allSubmissionDatesRequest.current = fetchAllSubmissionDates();
             try {
                 const data = await allSubmissionDatesRequest.current.promise;
-                dispatch(setLatestSubmissionDate(latestSubmissionDateFormatted(data.data.available_periods)));
+                dispatch(setLatestSubmissionDate(getLatestPeriodAsMoment(data.data.available_periods)));
             }
             catch (e) {
                 console.log(' Error Submission Periods : ', e.message);

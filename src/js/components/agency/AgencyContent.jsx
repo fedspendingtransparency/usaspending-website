@@ -6,18 +6,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
+
 import { scrollToY } from 'helpers/scrollToHelper';
-import moment from 'moment';
-import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
-import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { convertDateToQuarter } from 'helpers/fiscalYearHelper';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-
+import WithLatestFy from 'containers/account/WithLatestFy';
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 
+import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AgencyOverview from './overview/AgencyOverview';
 import TreasuryDisclaimer from './TreasuryDisclaimer';
@@ -43,12 +43,14 @@ const agencySections = [
 
 const propTypes = {
     agency: PropTypes.object,
-    isTreasury: PropTypes.bool
+    isTreasury: PropTypes.bool,
+    dataAsOf: PropTypes.object
 };
 
 const AgencyContent = ({
     agency,
-    isTreasury
+    isTreasury,
+    dataAsOf
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
@@ -74,9 +76,13 @@ const AgencyContent = ({
         setActiveSection(section);
     };
 
-    const qtr = parseFloat(agency.overview.activeFQ);
-    const endOfQuarter = convertQuarterToDate(qtr, agency.overview.activeFY);
-    const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
+    const asOfDate = dataAsOf
+        ? dataAsOf.format("MMMM D, YYYY")
+        : "";
+
+    const activeFy = dataAsOf
+        ? `${dataAsOf.year()}`
+        : "";
 
     let disclaimer = null;
     if (isTreasury) {
@@ -98,23 +104,25 @@ const AgencyContent = ({
                 <div className="agency-padded-content overview">
                     <GlossaryButtonWrapperContainer
                         child={AgencyOverview}
+                        activeFy={activeFy}
+                        asOfDate={asOfDate}
                         agency={agency.overview} />
                 </div>
                 <div className="agency-padded-content data">
                     <ObligatedContainer
                         agencyName={agency.overview.name}
-                        activeFY={agency.overview.activeFY}
-                        activeQuarter={agency.overview.activeFQ}
+                        activeFY={activeFy}
+                        activeQuarter={convertDateToQuarter(dataAsOf)}
                         id={agency.id}
                         asOfDate={asOfDate} />
                     <ObjectClassContainer
                         id={agency.id}
-                        activeFY={agency.overview.activeFY}
+                        activeFY={activeFy}
                         displayedTotalObligation={agency.overview.obligatedAmount}
                         asOfDate={asOfDate} />
                     <FederalAccountContainer
                         id={agency.id}
-                        activeFY={agency.overview.activeFY}
+                        activeFY={activeFy}
                         obligatedAmount={agency.overview.obligatedAmount}
                         asOfDate={asOfDate} />
                     {disclaimer}
@@ -129,4 +137,8 @@ const AgencyContent = ({
 
 AgencyContent.propTypes = propTypes;
 
-export default AgencyContent;
+export default (props) => (
+    <WithLatestFy propName="dataAsOf">
+        <AgencyContent {...props} />
+    </WithLatestFy>
+);

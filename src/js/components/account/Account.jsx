@@ -18,7 +18,8 @@ import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
 const propTypes = {
-    account: PropTypes.object
+    account: PropTypes.object,
+    currentFiscalYear: PropTypes.object
 };
 
 export default class Account extends React.Component {
@@ -31,7 +32,7 @@ export default class Account extends React.Component {
                 <main
                     id="main-content"
                     className="main-content">
-                    <AccountOverview account={this.props.account} />
+                    <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
                     <div className="filter-results">
                         <SearchSidebar />
                         <SearchResults />

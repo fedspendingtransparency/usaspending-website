@@ -65,45 +65,6 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
-    describe('defaultFiscalYear', () => {
-        it('should use the previous fiscal year as the fiscal year on February 14', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2017);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-
-        it('should use the current fiscal year as the fiscal year on February 15', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2018);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-
-
-        it('should use the previous fiscal year as the fiscal year on October 1st', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2018-10-01', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2018);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-    });
-
     describe('convertFYtoDateRange', () => {
         it('should convert a given fiscal year to an array of start, end date strings', () => {
             const fy = '2016';
@@ -185,6 +146,14 @@ describe('Fiscal Year helper functions', () => {
                 const expectedDate = moment('10-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
+        });
+    });
+    describe('allFiscalYears', () => {
+        it('returns the years within the range provided including the min/max of the range', () => {
+            const years = FiscalYearHelper.allFiscalYears(1990, 2000);
+            expect(years.length).toEqual(11);
+            expect(years.includes(1990)).toBe(true);
+            expect(years.includes(2000)).toBe(true);
         });
     });
 });

@@ -81,7 +81,8 @@ export const AgencyProfileV2 = () => {
     const { agencyId } = useParams();
     const dispatch = useDispatch();
     const [activeSection, setActiveSection] = useState('overview');
-    const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.defaultFiscalYear());
+    // currentFiscalYear is wrong. We need to ask the api for the current FY as this is account level data.
+    const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.currentFiscalYear());
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 

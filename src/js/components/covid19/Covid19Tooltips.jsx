@@ -2,7 +2,7 @@ import React from 'react';
 
 export const AwardSpendingAgencyTT = () => (
     <div className="covid-profile-tt">
-        <h2 className="tooltip__title">Award Spending by Agency</h2>
+        <h2 className="tooltip__title">Award Spending by Sub-Agency</h2>
         <div className="tooltip__text ul-override">
             <p>
                 This section shows a breakdown of award spending according to agency and sub-agency.
