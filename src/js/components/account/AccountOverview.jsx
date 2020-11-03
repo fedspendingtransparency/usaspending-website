@@ -74,7 +74,7 @@ export default class AccountOverview extends React.Component {
 
     generateSummary(account) {
         // determine the current fiscal year and get the associated values
-        const { fy } = this.props;
+        const { currentFiscalYear: fy } = this.props;
         const fiscalYearAvailable = account.totals.available;
         const summary = {
             flow: `No data is available for the current fiscal year (FY ${fy}).`,
