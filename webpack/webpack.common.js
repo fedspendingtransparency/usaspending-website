@@ -125,7 +125,10 @@ module.exports = {
             'process.env': {
                 ENV: process.env.ENV
                     ? JSON.stringify(process.env.ENV)
-                    : JSON.stringify('dev')
+                    : JSON.stringify('dev'),
+                FILES_SERVER_BASE_URL: process.env.FILES_SERVER_BASE_URL
+                    ? JSON.stringify(process.env.FILES_SERVER_BASE_URL)
+                    : JSON.stringify('https://files-nonprod.usaspending.gov')
             }
         })
     ]

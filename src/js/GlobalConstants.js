@@ -18,7 +18,8 @@ const globalConstants = {
     // Phase 1 release
     CARES_ACT_RELEASED: true,
     // Phase 2 release
-    CARES_ACT_RELEASED_2: true
+    CARES_ACT_RELEASED_2: true,
+    FILES_SERVER_BASE_URL: process.env.FILES_SERVER_BASE_URL
 };
 
 module.exports = globalConstants;

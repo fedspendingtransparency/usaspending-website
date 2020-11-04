@@ -63,7 +63,7 @@ export default class DataQuality extends React.Component {
                         raw quarterly submission files, including Quarterly Assurance Statements from Senior Accountable Officials of each agency about known data quality issues, are&nbsp;
                         <a
                             target="_blank"
-                            href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`}
+                            href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/`}
                             rel="noopener noreferrer"
                             aria-label="Raw quarterly submission files">
                             available here
