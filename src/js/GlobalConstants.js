@@ -11,7 +11,7 @@ const filesServerUrlByEnv = {
     qat: `https://files-nonprod.${isDti ? 'dti.' : ''}usaspending.gov`,
     staging: `https://files-staging.${isDti ? 'dti.' : ''}usaspending.gov`,
     prod: `https://files.${isDti ? 'dti.' : ''}usaspending.gov`
-}
+};
 
 const globalConstants = {
     API: process.env.USASPENDING_API,
