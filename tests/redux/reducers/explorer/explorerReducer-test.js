@@ -193,8 +193,9 @@ describe('explorerReducer', () => {
 
             const newState = explorerReducer(state, action);
 
-            expect(newState.fy).toEqual('1984');
-            expect(newState.quarter).toEqual('2');
+            expect(newState.fy).toEqual(null);
+            expect(newState.quarter).toEqual(null);
+            expect(newState.period).toEqual(null);
             expect(newState.root).toEqual('object_class');
             expect(newState.active).toEqual(new ActiveScreen());
             expect(newState.trail.count()).toEqual(0);

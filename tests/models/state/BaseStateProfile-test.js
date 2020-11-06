@@ -70,7 +70,7 @@ describe('BaseStateProfile', () => {
     });
     describe('State flag image', () => {
         it('should determine the filename based on FIPS', () => {
-            expect(state.flag).toEqual(`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state_flags/06.png`);
+            expect(state.flag).toEqual(`${kGlobalConstants.FILES_SERVER_BASE_URL}/state_flags/06.png`);
         });
     });
 });

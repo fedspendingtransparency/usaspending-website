@@ -21,7 +21,7 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { resetAppliedFilters, applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+import { resetAppliedFilters, applyStagedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
@@ -169,6 +169,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         dispatch(clearAllFilters());
         dispatch(resetAppliedFilters());
         const cfdaData = results.find((cfda) => cfda.code === e.target.value);
+        dispatch(setAppliedFilterCompletion(false));
         dispatch(applyStagedFilters(
             Object.assign(
                 {}, defaultAdvancedSearchFilters,

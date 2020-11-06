@@ -4,6 +4,8 @@
  **/
 
 import React from 'react';
+import kGlobalConstants from 'GlobalConstants';
+
 
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
@@ -28,6 +30,7 @@ const RecipientContainer = React.lazy(() => import('containers/recipient/Recipie
 const AgencyProfileV2 = React.lazy(() => import('containers/agency/v2/AgencyContainerV2').then((comp) => comp));
 const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const AgenciesContainer = React.lazy(() => import('containers/aboutTheData/AgenciesContainer').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
@@ -163,6 +166,12 @@ export const routes = [
         path: '/agency_v2/:agencyId',
         component: AgencyProfileV2,
         exact: true
+    },
+    {
+        path: '/about-the-data/agencies',
+        component: AgenciesContainer,
+        exact: true,
+        hide: !kGlobalConstants.DEV
     },
     {
         path: '/disaster/covid-19/data-sources',

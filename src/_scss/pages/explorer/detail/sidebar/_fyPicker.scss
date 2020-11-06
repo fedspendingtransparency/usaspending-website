@@ -40,6 +40,9 @@
             font-weight: $font-semibold;
             font-size: rem(20);
             line-height: rem(25);
+            svg {
+                margin-left: $global-mrg;
+            }
         }
 
         .fy-picker__button-icon {

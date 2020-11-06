@@ -39,6 +39,9 @@
                         font-size: rem(32);
                         font-weight: 300;
                         line-height: rem(34);
+                        svg {
+                            margin-left: $global-mrg;
+                        }
                     }
 
                     .fy-picker__button-icon {

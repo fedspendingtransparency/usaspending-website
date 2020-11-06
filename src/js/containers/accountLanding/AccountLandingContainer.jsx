@@ -4,20 +4,21 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { inRange } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import * as AccountLandingHelper from 'helpers/accountLandingHelper';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
+import WithLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
-export default class AccountLandingContainer extends React.Component {
+export class AccountLandingContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,7 +44,15 @@ export default class AccountLandingContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.showColumns();
+        if (this.props.fy) {
+            this.showColumns();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.fy && this.props.fy) {
+            this.showColumns();
+        }
     }
 
     componentWillUnmount() {
@@ -89,6 +98,7 @@ export default class AccountLandingContainer extends React.Component {
     }
 
     showColumns() {
+        const { fy } = this.props;
         const columns = [];
         const sortOrder = AccountsTableFields.defaultSortDirection;
 
@@ -96,7 +106,6 @@ export default class AccountLandingContainer extends React.Component {
             let displayName = AccountsTableFields[col];
             if (col === 'budgetaryResources') {
                 // Add default fiscal year to Budgetary Resources column header
-                const fy = FiscalYearHelper.defaultFiscalYear();
                 displayName = `${fy} ${displayName}`;
             }
             const column = {
@@ -127,13 +136,12 @@ export default class AccountLandingContainer extends React.Component {
 
         // generate the params
         const pageSize = 50;
-        const fy = `${FiscalYearHelper.defaultFiscalYear()}`;
         const params = {
             sort: this.state.order,
             page: this.state.pageNumber,
             limit: pageSize,
             filters: {
-                fy
+                fy: this.props.fy
             }
         };
 
@@ -196,3 +204,13 @@ export default class AccountLandingContainer extends React.Component {
         );
     }
 }
+
+AccountLandingContainer.propTypes = {
+    fy: PropTypes.string
+};
+
+export default () => (
+    <WithLatestFy propName="fy" format="YYYY">
+        <AccountLandingContainer />
+    </WithLatestFy>
+);

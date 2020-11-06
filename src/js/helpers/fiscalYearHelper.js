@@ -4,7 +4,6 @@
  */
 
 import moment from 'moment';
-import kGlobalConstants from 'GlobalConstants';
 
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
@@ -25,30 +24,6 @@ export const currentFiscalYear = () => {
     }
 
     return currentFY;
-};
-
-// The default fiscal year is used on the Spending Explorer and Federal Account pages
-export const defaultFiscalYear = () => {
-    // Building in emergency override for the current fiscal year into the config
-    if (kGlobalConstants.OVERRIDE_FISCAL_YEAR && kGlobalConstants.FISCAL_YEAR) {
-        return kGlobalConstants.FISCAL_YEAR;
-    }
-
-    // Calculate the configurable delay for Q1 close so that we aren't requesting data
-    // for a new FY when no data exists in it yet
-    const today = moment();
-
-    const newFiscalYearStartDate = moment()
-        .startOf('year')
-        .add(quarterCloseWindow, 'days');
-    // momentjs has zero-based months (https://momentjs.com/docs/#/get-set/month/)
-    const newFiscalYearEndDate = moment([moment().year(), '8', '30']);
-
-    if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
-        return currentFiscalYear();
-    }
-
-    return currentFiscalYear() - 1;
 };
 
 export const convertFYToDateRange = (fy) => {
@@ -97,7 +72,9 @@ export const convertQuarterToDate = (qtr, year) => {
 export const convertDateToQuarter = (date) => {
     // Returns the fiscal quarter that the date falls in
     let quarter = 0;
-    const month = moment(date).month();
+    const month = moment.isMoment(date)
+        ? date.month()
+        : moment(date).month();
 
     if (month >= 9 && month <= 11) {
         quarter = 1;
@@ -166,8 +143,8 @@ export const getTrailingTwelveMonths = () => {
     return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
 };
 
-export const allFiscalYears = (earliestYear = earliestFiscalYear) => {
-    const years = [...new Array(defaultFiscalYear() - earliestYear)];
+export const allFiscalYears = (earliestYear = earliestFiscalYear, latestYear = currentFiscalYear()) => {
+    const years = [...new Array(latestYear - earliestYear)];
     return years
         .reduce((listOfYears, _, i) => {
             listOfYears.push(earliestYear + i + 1);

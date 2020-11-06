@@ -52,7 +52,7 @@ const BaseStateProfile = {
     },
     get flag() {
         if (this.id) {
-            return `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state_flags/${this.id}.png`;
+            return `${kGlobalConstants.FILES_SERVER_BASE_URL}/state_flags/${this.id}.png`;
         }
         return '';
     },

@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
 
 const propTypes = {
-    account: PropTypes.object
+    account: PropTypes.object,
+    currentFiscalYear: PropTypes.string
 };
 
 export default class AccountOverview extends React.Component {
@@ -74,7 +74,7 @@ export default class AccountOverview extends React.Component {
 
     generateSummary(account) {
         // determine the current fiscal year and get the associated values
-        const fy = FiscalYearHelper.defaultFiscalYear();
+        const { currentFiscalYear: fy } = this.props;
         const fiscalYearAvailable = account.totals.available;
         const summary = {
             flow: `No data is available for the current fiscal year (FY ${fy}).`,
@@ -180,7 +180,7 @@ ${authority} has been obligated.`;
                     </div>
                 </div>
 
-                <h3>FY {FiscalYearHelper.defaultFiscalYear()} Snapshot</h3>
+                <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
                 <hr
                     className="results-divider"
                     ref={(div) => {

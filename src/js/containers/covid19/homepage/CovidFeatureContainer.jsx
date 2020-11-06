@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
 import { defCodes } from 'dataMapping/covid19/covid19';
@@ -27,7 +27,8 @@ const CovidFeatureContainer = ({
     stageDefCodesForAdvancedSearch,
     clearFilters,
     resetFilters,
-    showCovidModal
+    showCovidModal,
+    setAppliedFilters
 }) => {
     const history = useHistory();
 
@@ -36,6 +37,7 @@ const CovidFeatureContainer = ({
         clickedHomepageLink("search");
         clearFilters();
         resetFilters();
+        setAppliedFilters(false);
         stageDefCodesForAdvancedSearch({
             ...defaultFilters,
             defCodes: new CheckboxTreeSelections({
@@ -185,14 +187,16 @@ CovidFeatureContainer.propTypes = {
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    showCovidModal: PropTypes.func
+    showCovidModal: PropTypes.func,
+    setAppliedFilters: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
     resetFilters: () => dispatch(resetAppliedFilters()),
     clearFilters: () => dispatch(clearAllFilters()),
     stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
-    showCovidModal: (url, modalType) => dispatch(showModal(url, modalType))
+    showCovidModal: (url, modalType) => dispatch(showModal(url, modalType)),
+    setAppliedFilters: (areApplied) => dispatch(setAppliedFilterCompletion(areApplied))
 });
 
 export default connect(null, mapDispatchToProps)(CovidFeatureContainer);

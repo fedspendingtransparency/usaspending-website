@@ -120,7 +120,7 @@ export default class AccountDataContent extends React.Component {
                             valid={accounts.submissionTypes.length !== 0} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
-                            latestSelectedTimePeriod={accounts.period === '' ? accounts.quarter : accounts.period}
+                            latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
                             updateFilter={this.props.updateFilter}
                             valid={(accounts.fy && (accounts.quarter || accounts.period))} />
                         <UserSelections
@@ -151,7 +151,7 @@ export default class AccountDataContent extends React.Component {
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                         </p>
                         <p>
-                            The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found in our <a href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx`}>Custom Account Data Dictionary</a>.
+                            The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found in our <a href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/Custom+Account+Data+Dictionary.xlsx`}>Custom Account Data Dictionary</a>.
                         </p>
                     </div>
                     <div className="download-info__section">
