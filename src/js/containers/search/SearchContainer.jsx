@@ -11,7 +11,8 @@ import { useParams } from 'react-router-dom';
 
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { setAppliedFilterEmptiness, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { setAppliedFilterEmptiness, setAppliedFilterCompletion, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
@@ -88,6 +89,31 @@ const SearchContainer = ({ history }) => {
     const request = useRef(null);
     const areAppliedFiltersEmptyRef = useRef();
 
+    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
+        setDownloadInFlight(true);
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            auditTrail: 'Download Availability Count'
+        };
+
+        request.current = DownloadHelper.requestDownloadCount(apiParams);
+        request.current.promise
+            .then((res) => {
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
+                setDownloadInFlight(false);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                request.current = null;
+            });
+    }, [stagedFilters, appliedFilters]);
+
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
     }, [areAppliedFiltersEmpty]);
@@ -114,6 +140,8 @@ const SearchContainer = ({ history }) => {
                     if (filtersInImmutableStructure) {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        // set download availability
+                        setDownloadAvailability(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
@@ -128,6 +156,10 @@ const SearchContainer = ({ history }) => {
                         request.current = null;
                     }
                 });
+        }
+        else if (!urlHash) {
+            dispatch(resetAppliedFilters());
+            dispatch(clearAllFilters());
         }
 
         return () => {
@@ -172,31 +204,6 @@ const SearchContainer = ({ history }) => {
                 }
             });
     }, [appliedFilters, generateHashInFlight]);
-
-    const setDownloadAvailability = useCallback(() => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(stagedFilters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters, appliedFilters]);
 
     useEffect(() => {
         // if applied filters are not empty & they've changed -- generate a hash to represent filter selections

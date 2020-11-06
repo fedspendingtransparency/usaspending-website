@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import kGlobalConstants from 'GlobalConstants';
 
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { applyStagedFilters, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
 import { defCodes } from 'dataMapping/covid19/covid19';
@@ -17,7 +17,8 @@ const CovidModalContainer = ({
     hideModal,
     stageDefCodesForAdvancedSearch,
     clearFilters,
-    resetFilters
+    resetFilters,
+    setAppliedFilters
 }) => {
     const history = useHistory();
 
@@ -26,6 +27,7 @@ const CovidModalContainer = ({
         hideModal();
         clearFilters();
         resetFilters();
+        setAppliedFilters(false);
         stageDefCodesForAdvancedSearch({
             ...defaultFilters,
             defCodes: new CheckboxTreeSelections({
@@ -195,13 +197,15 @@ CovidModalContainer.propTypes = {
     stageDefCodesForAdvancedSearch: PropTypes.func,
     clearFilters: PropTypes.func,
     resetFilters: PropTypes.func,
+    setAppliedFilters: PropTypes.func,
     history: PropTypes.object
 };
 
 const mapDispatchToProps = (dispatch) => ({
     resetFilters: () => dispatch(resetAppliedFilters()),
     clearFilters: () => dispatch(clearAllFilters()),
-    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters))
+    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
+    setAppliedFilters: (areApplied) => dispatch(setAppliedFilterCompletion(areApplied))
 });
 
 export default connect(null, mapDispatchToProps)(CovidModalContainer);
