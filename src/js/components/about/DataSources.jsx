@@ -113,7 +113,7 @@ const DataSources = () => {
                 <ul>
                     <li>
                       Procurement data from the General Service Administration’s (GSA) Federal Procurement Data System (FPDS)
-                        is generally made available on USAspending.gov within five days of when an contract award or modification is made.&nbsp;
+                        is generally made available on USAspending.gov within five days of when a contract award or modification is made.&nbsp;
                         <button
                             className="usa-button-link"
                             role="link"

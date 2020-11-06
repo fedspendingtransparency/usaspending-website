@@ -156,7 +156,7 @@ const additionalDetailsContracts = (awardData) => {
             'Extent Completed': awardData.additionalDetails.extentCompeted,
             'Other Than Full and Open Competition': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
-            'Commercial Item Aquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
+            'Commercial Item Acquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
             'Simplified Procedures for Certain Commercial Items': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
