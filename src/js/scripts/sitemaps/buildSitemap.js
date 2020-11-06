@@ -65,7 +65,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 
 const createRobots = () => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../robots.txt`),
+        path.resolve(__dirname, `./robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
         () => console.log("robots.txt successfully created!")
     );
@@ -73,7 +73,7 @@ const createRobots = () => {
 
 const createIndexedSitemap = (xmlRoutes) => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../sitemap.xml`),
+        path.resolve(__dirname, `./sitemap.xml`),
         `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
         () => console.log(`Sitemap sitemap.xml successfully created!`)
     );
@@ -83,7 +83,7 @@ const createIndexedSitemap = (xmlRoutes) => {
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../${siteMapName}.xml`),
+        path.resolve(__dirname, `./${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
     );
