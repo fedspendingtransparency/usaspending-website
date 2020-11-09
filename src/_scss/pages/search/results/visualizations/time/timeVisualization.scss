@@ -18,14 +18,17 @@
   .visualization-top {
     .download {
       float: right;
-      margin-top: 2rem;
-      color: $color-primary;
-      background: transparent;
-      text-align: right;
+
+      button {
+        color: $color-primary;
+        background: transparent;
+        padding-right: 0;
+      }
 
       .text {
-        padding: 0 1rem;
+        margin-left: 1rem;
       }
+
       .info {
         color: $color-gray-lighter;
       }
