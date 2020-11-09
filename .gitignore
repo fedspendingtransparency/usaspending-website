@@ -57,6 +57,8 @@ usa_spending.sh
 # sitemaps
 /robots.txt
 /*.xml
+/scripts/sitemaps/robots.txt
+/scripts/sitemaps/*.xml
 
 # direnv
 .envrc
