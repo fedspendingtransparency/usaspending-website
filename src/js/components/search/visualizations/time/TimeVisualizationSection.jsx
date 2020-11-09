@@ -104,16 +104,16 @@ export default class TimeVisualizationSection extends React.Component {
                 </li>
               </ul>
             </div>
-            <div className="download">
-              <FontAwesomeIcon icon="download" />
+            <button className="download">
+              <FontAwesomeIcon icon="download" size="lg" />
               <span className="text">
                 Download data by{" "}
                 {this.props.data.visualizationPeriod === "fiscal_year"
                   ? "year"
                   : this.props.data.visualizationPeriod}
               </span>
-              <FontAwesomeIcon icon="info-circle" className="info" />
-            </div>
+              <FontAwesomeIcon icon="info-circle" size="lg" className="info" />
+            </button>
           </div>
         </div>
         <TimeVisualization
