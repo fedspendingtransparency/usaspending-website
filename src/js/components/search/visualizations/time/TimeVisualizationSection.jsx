@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
     data: PropTypes.object,
@@ -96,12 +97,17 @@ export default class TimeVisualizationSection extends React.Component {
                                 </li>
                             </ul>
                         </div>
+                        <div className='download'>
+                            <FontAwesomeIcon icon='download' />
+                            <span className='text'>Download data by</span>
+                            <FontAwesomeIcon icon='info-circle' />
+                        </div>
                     </div>
                 </div>
                 <TimeVisualization
                     {...this.props.data}
                     width={this.state.visualizationWidth} />
-            </section>
+            </section >
         );
     }
 }
