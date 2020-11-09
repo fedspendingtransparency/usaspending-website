@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
+import { isEqual } from 'lodash';
 
 const propTypes = {
     og_url: PropTypes.string,
@@ -36,9 +38,14 @@ export default class MetaTags extends React.Component {
         this.generateTags();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps !== this.props) {
             this.generateTags();
+        }
+        if (!isEqual(prevState.tags, this.state.tags)) {
+            if (this.props.og_title !== undefined) {
+                Analytics.pageview(this.props.og_url, this.props.og_title);
+            }
         }
     }
 
