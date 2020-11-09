@@ -64,6 +64,10 @@ const Analytics = {
         }
         else {
             this._execute(
+                'set',
+                { title: pagename }
+            );
+            this._execute(
                 'send',
                 'pageview',
                 pathname
