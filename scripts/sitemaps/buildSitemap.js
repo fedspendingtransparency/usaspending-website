@@ -70,9 +70,9 @@ const createRobots = () => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                throw e.message;
+                return new Error(e.message);
             }
-            console.log("robots.txt successfully created!");
+            return console.log("robots.txt successfully created!");
         }
     );
 };
@@ -84,7 +84,7 @@ const createIndexedSitemap = (xmlRoutes) => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                throw e.message;
+                return new Error(e.message);
             }
             console.log(`Sitemap sitemap.xml successfully created!`);
         }
@@ -102,7 +102,7 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                throw e.message;
+                return new Error(e.message);
             }
             console.log(`Sitemap ${siteMapName}.xml successfully created!`);
         }
@@ -176,7 +176,7 @@ const buildIndividualSitemaps = () => {
             })
             .catch((e) => {
                 console.log("error", e);
-                throw e.message;
+                return new Error(e.message);
             })
             , Promise.resolve('first'));
 
@@ -198,7 +198,7 @@ const buildIndividualSitemaps = () => {
         })
         .catch((e) => {
             console.log(`error on sitemap ${e}`);
-            throw e.message;
+            return new Error(e.message);
         });
 };
 
@@ -211,22 +211,23 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     createIndexedSitemap(xml);
 };
 
-const createSitemapDirectory = new Promise((res, rej) => {
-    fs.mkdir(path.resolve(__dirname, '/sitemapFiles'), {}, (e) => {
-        if (e) {
-            rej(e);
-        }
-        res();
-    });
-});
+const createSitemapDirectory = () => new Promise(
+    (resolve, reject) => fs.mkdir(
+        path.resolve(__dirname, '/sitemapFiles'), {}, (e) => {
+            if (e) {
+                reject(e);
+            }
+            resolve();
+        })
+);
 
 createSitemapDirectory()
-    .buildIndividualSitemaps()
+    .then(() => buildIndividualSitemaps())
     .then((individalSiteMaps) => {
         buildIndexedSitemap(individalSiteMaps);
         createRobots();
     })
     .catch((e) => {
         console.log(`error build site maps: ${e}`);
-        throw e.message;
+        return new Error(e.message);
     });
