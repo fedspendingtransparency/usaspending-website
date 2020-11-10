@@ -94,6 +94,8 @@ const createIndexedSitemap = (xmlRoutes) => {
 };
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
+    console.log(' Dir Name : ', __dirname);
+    console.log(' process : ', process.cwd());
     fs.writeFile(
         path.resolve(__dirname, `./sitemapFiles/${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
