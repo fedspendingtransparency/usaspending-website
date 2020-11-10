@@ -4,7 +4,7 @@ RUN mkdir /node-workspace
 # set workspace, where our frontend code lives in the docker container
 WORKDIR /node-workspace
 # copy sitemaps directory to the docker containers working directory
-COPY ./usaspending-website/scripts/sitemaps /node-workspace
+# COPY ./usaspending-website/scripts/sitemaps /node-workspace
 # install sitemaps dependencies
 RUN npm ci
 
