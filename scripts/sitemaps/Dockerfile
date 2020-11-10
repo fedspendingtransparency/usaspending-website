@@ -1,14 +1,11 @@
 FROM node:12.18.4
-
+# create folder
 RUN mkdir /node-workspace
-COPY package.json /node-workspace
-COPY package-lock.json /node-workspace
-
+# set workspace, where our frontend code lives in the docker container
 WORKDIR /node-workspace
-
-RUN cd scripts/sitemaps
+# copy sitemaps directory to the docker containers working directory
+COPY ./scripts/sitemaps /node-workspace
+# install sitemaps dependencies
 RUN npm ci
-
-COPY . /node-workspace
 
 VOLUME /node-workspace
