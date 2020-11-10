@@ -211,7 +211,17 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     createIndexedSitemap(xml);
 };
 
-buildIndividualSitemaps()
+const createSitemapDirectory = new Promise((res, rej) => {
+    fs.mkdir(path.resolve(__dirname, '/sitemapFiles'), {}, (e) => {
+        if (e) {
+            rej(e);
+        }
+        res();
+    });
+});
+
+createSitemapDirectory()
+    .buildIndividualSitemaps()
     .then((individalSiteMaps) => {
         buildIndexedSitemap(individalSiteMaps);
         createRobots();
