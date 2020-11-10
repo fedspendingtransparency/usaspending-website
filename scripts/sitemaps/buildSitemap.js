@@ -70,9 +70,9 @@ const createRobots = () => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                return new Error(e.message);
+                throw e.message;
             }
-            return console.log("robots.txt successfully created!");
+            console.log("robots.txt successfully created!");
         }
     );
 };
@@ -84,7 +84,7 @@ const createIndexedSitemap = (xmlRoutes) => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                return new Error(e.message);
+                throw e.message;
             }
             console.log(`Sitemap sitemap.xml successfully created!`);
         }
@@ -102,7 +102,7 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
-                return new Error(e.message);
+                throw e.message;
             }
             console.log(`Sitemap ${siteMapName}.xml successfully created!`);
         }
@@ -176,7 +176,7 @@ const buildIndividualSitemaps = () => {
             })
             .catch((e) => {
                 console.log("error", e);
-                return new Error(e.message);
+                throw e.message;
             })
             , Promise.resolve('first'));
 
@@ -198,7 +198,7 @@ const buildIndividualSitemaps = () => {
         })
         .catch((e) => {
             console.log(`error on sitemap ${e}`);
-            return new Error(e.message);
+            throw e.message;
         });
 };
 
@@ -213,7 +213,7 @@ const buildIndexedSitemap = (individualSiteMaps) => {
 
 const createSitemapDirectory = () => new Promise(
     (resolve, reject) => fs.mkdir(
-        path.resolve(__dirname, '/sitemapFiles'), {}, (e) => {
+        path.resolve('./sitemapFiles'), {}, (e) => {
             if (e) {
                 reject(e);
             }
@@ -229,5 +229,5 @@ createSitemapDirectory()
     })
     .catch((e) => {
         console.log(`error build site maps: ${e}`);
-        return new Error(e.message);
+        throw e.message;
     });
