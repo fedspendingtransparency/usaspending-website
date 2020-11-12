@@ -32,6 +32,14 @@
             .info {
                 color: $color-gray-lighter;
             }
+
+            .tooltip-wrapper {
+              display: inline-block;
+
+              .tooltip-pointer::after {
+                background: white;
+              }
+            }
         }
     }
     .results-visualization-time-container {

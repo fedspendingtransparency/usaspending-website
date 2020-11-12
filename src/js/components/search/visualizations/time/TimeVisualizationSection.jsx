@@ -11,12 +11,20 @@ import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     data: PropTypes.object,
     updateVisualizationPeriod: PropTypes.func,
     visualizationPeriod: PropTypes.string
 };
+
+const downloadTooltip = (
+    <div>
+        <div className='tooltip__text'>title?</div>
+        <div className='tooltip__text'>words</div>
+    </div>
+);
 
 export default class TimeVisualizationSection extends React.Component {
     constructor(props) {
@@ -58,7 +66,7 @@ export default class TimeVisualizationSection extends React.Component {
         } else {
             periodLabel = capitalize(this.props.data.visualizationPeriod);
         }
-        return `Download Data by ${periodLabel}`;
+        return `Download data by ${periodLabel}`;
     }
 
     render() {
@@ -113,7 +121,7 @@ export default class TimeVisualizationSection extends React.Component {
                                 <FontAwesomeIcon icon='download' size='lg' />
                                 <span className='text'>{this.downloadLabel()}</span>
                             </button>
-                            <FontAwesomeIcon icon='info-circle' size='lg' className='info' />
+                            <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
                         </div>
                     </div>
                 </div>
