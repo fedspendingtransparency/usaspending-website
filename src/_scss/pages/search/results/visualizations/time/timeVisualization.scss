@@ -1,40 +1,40 @@
 .results-visualization-time-section {
-  @import "./chart/barChart";
-  @import "./_topSection";
+    @import './chart/barChart';
+    @import './_topSection';
 
-  h2.visualization-title {
-    @include h3;
-    margin: 0;
-  }
-  .visualization-tooltip {
-    @import "components/visualizations/tooltip/_tooltip";
-  }
-  .results-visualization-message {
-    margin-top: rem(10);
-    font-size: $small-font-size;
-    color: $color-base;
-    text-align: center;
-  }
-  .visualization-top {
-    .download {
-      float: right;
-
-      button {
-        color: $color-primary;
-        background: transparent;
-        padding-right: 0;
-      }
-
-      .text {
-        margin-left: 1rem;
-      }
-
-      .info {
-        color: $color-gray-lighter;
-      }
+    h2.visualization-title {
+        @include h3;
+        margin: 0;
     }
-  }
-  .results-visualization-time-container {
-    min-height: rem(304);
-  }
+    .visualization-tooltip {
+        @import 'components/visualizations/tooltip/_tooltip';
+    }
+    .results-visualization-message {
+        margin-top: rem(10);
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+    .visualization-top {
+        .download {
+            float: right;
+
+            button {
+                color: $color-primary;
+                background: transparent;
+                padding-right: 0;
+            }
+
+            .text {
+                margin-left: 1rem;
+            }
+
+            .info {
+                color: $color-gray-lighter;
+            }
+        }
+    }
+    .results-visualization-time-container {
+        min-height: rem(304);
+    }
 }
