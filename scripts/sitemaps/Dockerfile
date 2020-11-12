@@ -11,6 +11,6 @@ COPY . /node-workspace
 
 WORKDIR /node-workspace/scripts/sitemaps
 # install sitemaps dependencies
-RUN cd /node-workspace/scripts/sitemaps && npm ci
+# RUN npm ci
 
-VOLUME /node-workspace/scripts/sitemaps
+VOLUME /node-workspace
