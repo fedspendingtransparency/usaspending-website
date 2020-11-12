@@ -104,8 +104,7 @@ export default class TimeVisualizationSection extends React.Component {
                                         value="month"
                                         label="Months"
                                         active={this.props.data.visualizationPeriod === 'month'}
-                                        changePeriod={this.props.updateVisualizationPeriod}
-                                    />
+                                        changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                             </ul>
                         </div>
