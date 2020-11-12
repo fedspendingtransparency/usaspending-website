@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
+import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
@@ -55,8 +56,7 @@ export default class TimeVisualizationSection extends React.Component {
 		if (this.props.data.visualizationPeriod === 'fiscal_year') {
 			periodLabel = 'Year';
 		} else {
-			let period = this.props.data.visualizationPeriod;
-			periodLabel = period.charAt(0).toUpperCase() + period.slice(1);
+			periodLabel = capitalize(this.props.data.visualizationPeriod);
 		}
 		return `Download Data by ${periodLabel}`;
 	}
