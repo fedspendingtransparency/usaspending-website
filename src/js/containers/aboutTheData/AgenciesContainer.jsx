@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Table, TooltipComponent, TooltipWrapper } from "data-transparency-ui";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
+import { useDynamicStickyClass } from "../../components/sharedComponents/stickyHeader/StickyHeader";
+import { throttle } from "lodash";
 
 require("pages/aboutTheData/agenciesPage.scss");
 
-const Tooltip = (title) => (
+const Tooltip = ({ title }) => (
   <TooltipComponent title={title}>
     <p>Place holder for tooltip component.</p>
   </TooltipComponent>
@@ -17,11 +19,11 @@ const Tooltip = (title) => (
 const columns = [
   {
     title: "name",
-    displayName: "Budget Function",
+    displayName: "Agency Name",
   },
   {
     title: "total",
-    displayName: "Amount",
+    displayName: "Total Budgetary Resources",
   },
   {
     title: "publication_date",
@@ -83,6 +85,126 @@ const mockAPIResponse = {
       discrepancy_count: 10,
       obligation_difference: 436376232652.87,
     },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    },
+    {
+      name: "Department of Treasury",
+      abbreviation: "DOT",
+      code: "021",
+      fiscal_year: 2020,
+      fiscal_period: 9,
+      current_total_budget_authority_amount: 8361447130497.72,
+      recent_publication_date: null,
+      recent_publication_date_certified: true,
+      discrepancy_count: 10,
+      obligation_difference: 436376232652.87,
+    }
   ],
 };
 
@@ -93,14 +215,14 @@ const rows = mockAPIResponse.results.map(
     current_total_budget_authority_amount: total,
     recent_publication_date: publicationDate,
     discrepancy_count: GtasNotInFileA,
-    obligation_difference: differenceInFileAAndB
+    obligation_difference: differenceInFileAAndB,
   }) => {
     return [
       `${name} (${abbreviation})`,
       total,
       publicationDate,
       GtasNotInFileA,
-      differenceInFileAAndB
+      differenceInFileAAndB,
     ];
   }
 );
@@ -110,6 +232,16 @@ const message =
 
 const AgenciesContainer = () => {
   const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
+  const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+  const tableRef = useRef(null);
+  const handleScroll = throttle((e) => {
+    console.log("e", tableRef.current.scrollTop);
+    const { scrollLeft: horizontal, scrollTop: vertical} = tableRef.current;
+    setIsSticky({ vertical: vertical, horizontal: horizontal });
+  }, 100);
+
+  const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
+  const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
   return (
     <div className="usa-da__about-the-data__agencies-page">
@@ -120,17 +252,19 @@ const AgenciesContainer = () => {
         </div>
       </StickyHeader>
       <main id="main-content" className="main-content">
-        <div className="heading-container">
-          <h2 className="header">Submission Data</h2>
-          <h3 className="sub-header">All Agencies</h3>
-          <Table
-            rows={rows}
-            classNames="usda-table-w-grid"
-            columns={columns}
-            updateSort={updateSort}
-            currentSort={sortStatus} />
+          <div className="heading-container">
+            <h2 className="header">Submission Data</h2>
+            <h3 className="sub-header">All Agencies</h3>
+          </div>
+          <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+            <Table
+              rows={rows}
+              classNames={`usda-table-w-grid test ${verticalStickyClass} ${horizontalStickyClass}`}
+              columns={columns}
+              updateSort={updateSort}
+              currentSort={sortStatus} />
+          </div>
           <Note message={message} />
-        </div>
       </main>
       <Footer />
     </div>

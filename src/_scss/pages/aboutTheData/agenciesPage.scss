@@ -6,8 +6,10 @@
     @include display(flex);
     margin: rem(40) rem(20);
     background: $color-white;
+    @include flex-wrap(wrap);
     border-radius: 0.5rem 0.5rem 0 0;
     .heading-container {
+        width: 100%;
         padding-left: rem(20);
         .header {
           margin-top: rem(30);
@@ -25,14 +27,57 @@
           letter-spacing: 0;
           line-height: rem(59);
         }
-        @import 'components/Note';
-        .default-note {
-          font-style: italic;
-          margin: 0;
-          padding: 0;
-          letter-spacing: 0;
-          line-height: rem(22);
+    }
+    .table-container  {
+      width: rem(1400);
+      height: rem(500);
+      overflow: scroll;
+      margin: 0 auto;
+      .usda-table.usda-table-w-grid {
+        thead {
+          tr th {
+            min-width: rem(300);
+          }
         }
+        &.sticky-y-table {
+          thead {
+            th {
+              position: sticky;
+              top: -3px;
+              border-top: 1px solid $color-gray-lightest;
+            }
+          }
+        }
+        &.sticky-x-table {
+          thead {
+            .table-header:first-of-type {
+              position: sticky;
+              left: -2px;
+              z-index: 10;
+              box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+              border-right: 1px solid $color-gray-lightest;
+            }
+          }
+          tbody {
+            .usda-table__row .usda-table__cell {
+              &:first-of-type {
+                position: sticky;
+                left: -2px;
+                box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+                border-right: 1px solid $color-gray-lightest;
+              }
+            }
+          }
+        }
+      }
+    }
+    @import 'components/Note';
+    .default-note {
+      font-style: italic;
+      margin: 0;
+      padding: 0;
+      letter-spacing: 0;
+      line-height: rem(22);
     }
   }
 }
