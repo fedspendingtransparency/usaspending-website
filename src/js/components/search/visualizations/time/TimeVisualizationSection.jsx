@@ -11,6 +11,7 @@ import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CSVLink } from 'react-csv';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
@@ -69,6 +70,52 @@ export default class TimeVisualizationSection extends React.Component {
         return `Download data by ${periodLabel}`;
     }
 
+    downloadData() {
+        let data = this.props.data;
+        if (!data.rawLabels) {
+            return []; // no data
+        } else {
+            let ret = [];
+
+    console.log(data);
+
+            if (data.visualizationPeriod === 'fiscal_year') {
+                ret[0] = ['fiscal_year', 'total_obligations'];
+            } else {
+
+
+// timing issue here                
+
+
+                if (!data.rawLabels.period) {
+                    return []; // data still settling; wait
+                } else {
+                    if (data.visualizationPeriod === 'quarter') {
+                        ret[0] = ['fiscal_year', 'fiscal_quarter', 'total_obligations'];
+                    } else {
+                        ret[0] = ['fiscal_year', 'month', 'total_obligations'];
+                    }
+                }
+            }
+
+console.log(ret);
+
+            for (let i = 0; i < data.rawLabels.length; i++) {
+                if (data.visualizationPeriod === 'fiscal_year') {
+                    ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i]];
+                } else if (data.visualizationPeriod === 'quarter') {
+                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period, data.ySeries[i]];
+                } else {
+                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period, data.ySeries[i]];
+                }
+            }
+
+            console.log(ret);
+                        
+            return ret;
+        }
+    }
+
     render() {
         return (
             <section
@@ -119,7 +166,7 @@ export default class TimeVisualizationSection extends React.Component {
                         <div className='download'>
                             <button>
                                 <FontAwesomeIcon icon='download' size='lg' />
-                                <span className='text'>{this.downloadLabel()}</span>
+                                <CSVLink data={this.downloadData()} filename='my-file.csv' className='text'>{this.downloadLabel()}</CSVLink>
                             </button>
                             <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
                         </div>

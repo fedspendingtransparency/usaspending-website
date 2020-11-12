@@ -113,6 +113,7 @@
         "react-aria-modal": "^2.7.0",
         "react-checkbox-tree": "1.5.1",
         "react-copy-to-clipboard": "^5.0.1",
+        "react-csv": "^2.0.3",
         "react-custom-scrollbars": "^4.1.2",
         "react-day-picker": "^7.0.2",
         "react-dnd-html5-backend": "^2.4.1",
