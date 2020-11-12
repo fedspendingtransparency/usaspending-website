@@ -8,6 +8,8 @@ RUN mkdir /node-workspace
 WORKDIR /node-workspace
 # copy sitemaps directory to the docker containers working directory
 COPY . /node-workspace
+
+WORKDIR /node-workspace/scripts/sitemaps
 # install sitemaps dependencies
 RUN npm ci
 
