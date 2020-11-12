@@ -1,13 +1,13 @@
 .results-visualization-time-section {
-    @import './chart/barChart';
-    @import './_topSection';
+    @import "./chart/barChart";
+    @import "./_topSection";
 
     h2.visualization-title {
         @include h3;
         margin: 0;
     }
     .visualization-tooltip {
-        @import 'components/visualizations/tooltip/_tooltip';
+        @import "components/visualizations/tooltip/_tooltip";
     }
     .results-visualization-message {
         margin-top: rem(10);
