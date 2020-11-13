@@ -9,6 +9,7 @@ import { fetchAgencyOverview } from 'helpers/agencyHelper';
 import { setAgencyOverview } from 'redux/actions/agency/agencyActions';
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as agencyActions from 'redux/actions/agency/agencyActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 import { bindActionCreators } from 'redux';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -30,6 +31,13 @@ const propTypes = {
 export const AgenciesDetailContainer = (props) => {
     const { agencyId } = useParams();
     const dispatch = useDispatch();
+
+    const onClick = (e) => {
+        e.persist();
+        if (e?.target) {
+            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
+        }
+    };
 
     useEffect(() => {
         // request overview for agency
@@ -70,13 +78,20 @@ export const AgenciesDetailContainer = (props) => {
                             <h5>Agency Contact Information</h5>
                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                             <div className="agency-website">
-                                <a
-                                    href={props.agency.overview.website}
-                                    target="_blank"
-                                    rel="noopener noreferrer">
+                                <button
+                                    className="usa-button-link"
+                                    role="link"
+                                    value={props.agency.overview.website}
+                                    onClick={onClick}>
                                     {props.agency.overview.website}
-                                    <FontAwesomeIcon icon="external-link-alt" />
-                                </a>
+                                    <span
+                                        data-href={props.agency.overview.website}
+                                        className="usa-button-link__icon">
+                                        <FontAwesomeIcon
+                                            data-href={props.agency.overview.website}
+                                            icon="external-link-alt" />
+                                    </span>
+                                </button>
                             </div>
                         </div>
                         <div className="agency-info-group">
