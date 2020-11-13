@@ -70,7 +70,13 @@ export const AgenciesDetailContainer = (props) => {
                             <h5>Agency Contact Information</h5>
                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                             <div className="agency-website">
-                                <a href={props.agency.overview.website}>{props.agency.overview.website}<FontAwesomeIcon icon="external-link-alt" /></a>
+                                <a
+                                    href={props.agency.overview.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    {props.agency.overview.website}
+                                    <FontAwesomeIcon icon="external-link-alt" />
+                                </a>
                             </div>
                         </div>
                         <div className="agency-info-group">
