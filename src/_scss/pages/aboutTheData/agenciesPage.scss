@@ -34,6 +34,7 @@
       overflow: scroll;
       margin: 0 auto;
       .usda-table.usda-table-w-grid {
+        border-collapse: separate;
         thead {
           tr th {
             min-width: rem(300);
