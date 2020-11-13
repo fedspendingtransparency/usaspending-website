@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
+import { fullMonthFromAbbr } from 'helpers/monthHelper';
 import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CSVLink } from 'react-csv';
@@ -22,8 +23,9 @@ const propTypes = {
 
 const downloadTooltip = (
     <div>
-        <div className='tooltip__text'>title?</div>
-        <div className='tooltip__text'>words</div>
+        <div className='tooltip__text'>
+            Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart(i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
+        </div>
     </div>
 );
 
@@ -60,7 +62,7 @@ export default class TimeVisualizationSection extends React.Component {
         }
     }
 
-    downloadLabel() {
+    downloadLabel = () => {
         let periodLabel;
         if (this.props.data.visualizationPeriod === 'fiscal_year') {
             periodLabel = 'Year';
@@ -70,24 +72,16 @@ export default class TimeVisualizationSection extends React.Component {
         return `Download data by ${periodLabel}`;
     }
 
-    downloadData() {
+    downloadData = () => {
         let data = this.props.data;
         if (!data.rawLabels) {
             return []; // no data
         } else {
             let ret = [];
-
-    console.log(data);
-
             if (data.visualizationPeriod === 'fiscal_year') {
                 ret[0] = ['fiscal_year', 'total_obligations'];
             } else {
-
-
-// timing issue here                
-
-
-                if (!data.rawLabels.period) {
+                if (!data.rawLabels[0].period) {
                     return []; // data still settling; wait
                 } else {
                     if (data.visualizationPeriod === 'quarter') {
@@ -97,21 +91,19 @@ export default class TimeVisualizationSection extends React.Component {
                     }
                 }
             }
-
-console.log(ret);
-
             for (let i = 0; i < data.rawLabels.length; i++) {
                 if (data.visualizationPeriod === 'fiscal_year') {
-                    ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i]];
+                    ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i][0]];
                 } else if (data.visualizationPeriod === 'quarter') {
-                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period, data.ySeries[i]];
+                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period[1], data.ySeries[i][0]];
                 } else {
-                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period, data.ySeries[i]];
+                    let month = data.rawLabels[i].period;
+                    ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
+                    if (["Oct", "Nov", "Dec"].indexOf(month) > -1) { // correct FY
+                        ret[i + 1][0] = parseInt(ret[i + 1][0]) + 1;
+                    }
                 }
             }
-
-            console.log(ret);
-                        
             return ret;
         }
     }
@@ -166,7 +158,9 @@ console.log(ret);
                         <div className='download'>
                             <button>
                                 <FontAwesomeIcon icon='download' size='lg' />
-                                <CSVLink data={this.downloadData()} filename='my-file.csv' className='text'>{this.downloadLabel()}</CSVLink>
+                                <CSVLink data={this.downloadData()} filename='spending-over-time.csv' className='text'>
+                                    {this.downloadLabel()}
+                                </CSVLink>
                             </button>
                             <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
                         </div>
