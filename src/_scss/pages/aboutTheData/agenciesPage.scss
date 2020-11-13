@@ -41,31 +41,37 @@
           }
         }
         &.sticky-y-table {
-          thead {
-            th {
-              position: sticky;
-              top: -3px;
-              border-top: 1px solid $color-gray-lightest;
+          @media(min-width: $medium-screen) {
+            thead {
+              th {
+                position: sticky;
+                position: -webkit-sticky;
+                top: -3px;
+                border-top: 1px solid $color-gray-lightest;
+              }
             }
           }
         }
         &.sticky-x-table {
-          thead {
-            .table-header:first-of-type {
-              position: sticky;
-              left: -2px;
-              z-index: 10;
-              box-shadow: 2px 1px 4px rgba(0,0,0,.20);
-              border-right: 1px solid $color-gray-lightest;
-            }
-          }
-          tbody {
-            .usda-table__row .usda-table__cell {
-              &:first-of-type {
+          @media(min-width: $medium-screen) {
+            thead {
+              .table-header:first-of-type {
                 position: sticky;
+                position: -webkit-sticky;
                 left: -2px;
+                z-index: 10;
                 box-shadow: 2px 1px 4px rgba(0,0,0,.20);
                 border-right: 1px solid $color-gray-lightest;
+              }
+            }
+            tbody {
+              .usda-table__row .usda-table__cell {
+                &:first-of-type {
+                  position: sticky;
+                  left: -2px;
+                  box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+                  border-right: 1px solid $color-gray-lightest;
+                }
               }
             }
           }
