@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 
 const propTypes = {
@@ -34,6 +35,8 @@ export default class MetaTags extends React.Component {
 
     componentDidMount() {
         this.generateTags();
+        const pathname = new URL(this.props.og_url).pathname;
+        Analytics.pageview(pathname, this.props.og_title);
     }
 
     componentDidUpdate(prevProps) {
