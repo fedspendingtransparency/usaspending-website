@@ -36,15 +36,13 @@ export default class MetaTags extends React.Component {
 
     componentDidMount() {
         this.generateTags();
+        const pathname = new URL(this.props.og_url).pathname;
+        Analytics.pageview(pathname, this.props.og_title);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
             this.generateTags();
-        }
-        if (!isEqual(prevState.tags, this.state.tags)) {
-            const pathname = new URL(this.props.og_url).pathname;
-            Analytics.pageview(pathname, this.props.og_title);
         }
     }
 
