@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
-import { isEqual } from 'lodash';
 
 const propTypes = {
     og_url: PropTypes.string,
