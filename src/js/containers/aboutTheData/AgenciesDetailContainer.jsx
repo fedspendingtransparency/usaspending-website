@@ -16,7 +16,7 @@ import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
-import { AngleLeft } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 require('pages/aboutTheData/agenciesDetailPage.scss');
 
@@ -60,25 +60,20 @@ export const AgenciesDetailContainer = (props) => {
             </StickyHeader>
             <main id="main-content" className="main-content">
                 <div className="heading-container">
-                    <div className="back-button">
-                        <div className="icon">
-                            <AngleLeft alt="Back" />
-                        </div>
-                        <div className="back-link">
-                            <a href="/about-the-data/agencies">&nbsp;Back to All Agencies</a>
-                        </div>
+                    <div className="back-link">
+                        <a href="/about-the-data/agencies"><FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies</a>
                     </div>
                     <h2 className="header">Submission Data</h2>
                     <h2 className="sub-header">{props.agency.overview.name}</h2>
                     <div className="lower-details">
-                        <div className="group">
+                        <div className="agency-info-group">
                             <h5>Agency Contact Information</h5>
                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                             <div className="agency-website">
-                                <a href={props.agency.overview.website}>{props.agency.overview.website}</a>
+                                <a href={props.agency.overview.website}>{props.agency.overview.website}<FontAwesomeIcon icon="external-link-alt" /></a>
                             </div>
                         </div>
-                        <div className="group">
+                        <div className="agency-info-group">
                             <h5>Agency Profile Page</h5>
                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                             <div className="agency-website">

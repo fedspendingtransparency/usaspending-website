@@ -7,10 +7,6 @@
       margin: rem(40) rem(20);
       background: $color-white;
       border-radius: 0.5rem 0.5rem 0 0;
-      a {
-        color: $color-primary;
-        text-decoration: none;
-      }
       .heading-container {
           padding-left: rem(20);
           .header {
@@ -21,19 +17,16 @@
             letter-spacing: 0;
             line-height: rem(59);
           }
-          .back-button {
-            display: flex;
-            .icon {
-                margin-top: rem(30);
-                width: rem(20);
-            }
-            .back-link {
-                margin-top: rem(10);
-                margin-bottom: 0;
-                font-size: rem(20);
-                font-weight: 300;
-                letter-spacing: 0;
-                line-height: rem(59);
+          .back-link {
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            font-size: rem(18);
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: rem(23);
+            a {
+              color: $color-primary;
+              text-decoration: none;
             }
           }
           .sub-header {
@@ -57,10 +50,11 @@
               margin: 0;
               padding: 0;
               letter-spacing: 0;
-              line-height: rem(15);
+              font-size: rem(14);
+              line-height: rem(18);
             }
 
-            .group {
+            .agency-info-group {
                 &:first-of-type {
                   padding-right: rem(60);
                 }
@@ -79,6 +73,10 @@
                     svg.svg-inline--fa {
                       font-size: rem(14);
                       width: 0.8em;
+                    }
+                    a {
+                      color: $color-primary;
+                      text-decoration: underline;
                     }
                 }
 
