@@ -1,0 +1,108 @@
+import React, { useEffect } from 'react';
+import { useParams, withRouter, Link } from "react-router-dom";
+import { useDispatch, connect } from "react-redux";
+import PropTypes from 'prop-types';
+
+
+import { agencyPageMetaTags } from 'helpers/metaTagHelper';
+import { fetchAgencyOverview } from 'helpers/agencyHelper';
+import { setAgencyOverview } from 'redux/actions/agency/agencyActions';
+import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
+import * as agencyActions from 'redux/actions/agency/agencyActions';
+import { bindActionCreators } from 'redux';
+
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'containers/shared/HeaderContainer';
+import Footer from 'containers/Footer';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Note from 'components/sharedComponents/Note';
+import { AngleLeft } from 'components/sharedComponents/icons/Icons';
+
+require('pages/aboutTheData/agenciesDetailPage.scss');
+
+const message = 'Data in this table will be updated whenever the underlying data submissions change or new submissions are added.';
+
+const propTypes = {
+    agency: PropTypes.object,
+    agencyId: PropTypes.string
+};
+
+export const AgenciesDetailContainer = (props) => {
+    const { agencyId } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // request overview for agency
+        const agencyOverviewRequest = fetchAgencyOverview(agencyId);
+        agencyOverviewRequest.promise
+            .then((res) => {
+                // parse the response using our data model
+                const agency = new AgencyOverviewModel(Object.assign({}, res.data.results, {
+                    agency_id: agencyId
+                }), true);
+                // store the data model object in Redux
+                dispatch(setAgencyOverview(agency));
+            }).catch((err) => {
+                console.error(err);
+            });
+    }, [agencyId]);
+
+    return (
+        <div className="usa-da__about-the-data__agencies-page">
+            <MetaTags {...agencyPageMetaTags} />
+            <Header />
+            <StickyHeader>
+                <div className="sticky-header__title">
+                    <h1 tabIndex={-1}>
+                        Agency Submission Data
+                    </h1>
+                </div>
+            </StickyHeader>
+            <main id="main-content" className="main-content">
+                <div className="heading-container">
+                    <div className="back-button">
+                        <div className="icon">
+                            <AngleLeft alt="Back" />
+                        </div>
+                        <div className="back-link">
+                            <a href="/about-the-data/agencies">&nbsp;Back to All Agencies</a>
+                        </div>
+                    </div>
+                    <h2 className="header">Submission Data</h2>
+                    <h2 className="sub-header">{props.agency.overview.name}</h2>
+                    <div className="lower-details">
+                        <div className="group">
+                            <h5>Agency Contact Information</h5>
+                            <div className="more-info-note">Contact this Agency with questions about their submissions</div>
+                            <div className="agency-website">
+                                <a href={props.agency.overview.website}>{props.agency.overview.website}</a>
+                            </div>
+                        </div>
+                        <div className="group">
+                            <h5>Agency Profile Page</h5>
+                            <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
+                            <div className="agency-website">
+                                <Link to={`/agency/${agencyId}`}>
+                                    {props.agency.overview.name}
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <Note message={message} />
+                </div>
+            </main>
+            <Footer />
+        </div>
+    );
+};
+
+AgenciesDetailContainer.propTypes = propTypes;
+
+
+const AgencyDetailContainerWithRouter = withRouter(AgenciesDetailContainer);
+export default connect(
+    (state) => ({
+        agency: state.agency
+    }),
+    (dispatch) => bindActionCreators(agencyActions, dispatch)
+)(AgencyDetailContainerWithRouter);

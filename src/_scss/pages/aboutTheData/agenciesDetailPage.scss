@@ -1,0 +1,99 @@
+.usa-da__about-the-data__agencies-page {
+    @import "all";
+    @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
+    .main-content {
+      @include display(flex);
+      margin: rem(40) rem(20);
+      background: $color-white;
+      border-radius: 0.5rem 0.5rem 0 0;
+      a {
+        color: $color-primary;
+        text-decoration: none;
+      }
+      .heading-container {
+          padding-left: rem(20);
+          .header {
+            margin-top: rem(10);
+            margin-bottom: 0;
+            font-weight: $font-semibold;
+            font-size: rem(32);
+            letter-spacing: 0;
+            line-height: rem(59);
+          }
+          .back-button {
+            display: flex;
+            .icon {
+                margin-top: rem(30);
+                width: rem(20);
+            }
+            .back-link {
+                margin-top: rem(10);
+                margin-bottom: 0;
+                font-size: rem(20);
+                font-weight: 300;
+                letter-spacing: 0;
+                line-height: rem(59);
+            }
+          }
+          .sub-header {
+            margin-top: 0;
+            margin-bottom: rem(30);
+            font-size: rem(47);
+            font-weight: 300;
+            letter-spacing: 0;
+            line-height: rem(59);
+          }
+          .lower-details {
+            width: 100%;
+            @include display(inline-flex);
+            @include flex-wrap(wrap);
+            margin-top: rem(0);
+            @media (max-width: $tablet-screen) {
+                margin-top: rem(10);
+                margin-bottom: rem(30);
+            }
+            .more-info-note {
+              margin: 0;
+              padding: 0;
+              letter-spacing: 0;
+              line-height: rem(15);
+            }
+
+            .group {
+                &:first-of-type {
+                  padding-right: rem(60);
+                }
+                h5 {
+                    @include flex-wrap(wrap);
+                    font-size: rem(16);
+                    font-weight: 600;
+                    line-height: rem(20);
+                    margin: rem(5) 0;
+                }
+
+                .agency-website {
+                    font-size: rem(14);
+                    line-height: rem(20);
+                    margin: rem(14) 0;
+                    svg.svg-inline--fa {
+                      font-size: rem(14);
+                      width: 0.8em;
+                    }
+                }
+
+            }
+        }
+          
+        @import 'components/Note';
+        .default-note {
+          font-style: italic;
+          margin: 0;
+          padding: 0;
+          letter-spacing: 0;
+          line-height: rem(22);
+        }
+      }
+    }
+  }
+  
