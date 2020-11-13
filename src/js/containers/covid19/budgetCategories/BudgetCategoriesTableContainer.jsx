@@ -199,7 +199,9 @@ const BudgetCategoriesTableContainer = (props) => {
             unlinkedName = 'Number of Unlinked Awards';
         }
 
-        if (unlinkedName && unlinkedData && overview) {
+        // Falsy allAwardTypeTotals.awardCount indicates an error with the disaster/award/amount request,
+        // so don't display the Unlinked Data row
+        if (allAwardTypeTotals.awardCount && unlinkedName && unlinkedData && overview) {
             setUnlinkedDataClass(true);
             const unlinkedColumn = (
                 <div>
@@ -290,7 +292,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview && allAwardTypeTotals.awardCount) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
