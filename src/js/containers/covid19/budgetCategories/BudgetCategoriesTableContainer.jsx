@@ -195,13 +195,8 @@ const BudgetCategoriesTableContainer = (props) => {
         else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Object Class (Unlinked Data)';
         }
-        else if (spendingCategory === 'award_spending') {
-            unlinkedName = 'Number of Unlinked Awards';
-        }
 
-        // Falsy allAwardTypeTotals.awardCount indicates an error with the disaster/award/amount request,
-        // so don't display the Unlinked Data row
-        if (allAwardTypeTotals.awardCount && unlinkedName && unlinkedData && overview) {
+        if (unlinkedName && unlinkedData && overview) {
             setUnlinkedDataClass(true);
             const unlinkedColumn = (
                 <div>
