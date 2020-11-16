@@ -158,7 +158,7 @@ export default class TimeVisualizationSection extends React.Component {
                         <div className='download'>
                             <button>
                                 <FontAwesomeIcon icon='download' size='lg' />
-                                <CSVLink data={this.downloadData()} filename='spending-over-time.csv' className='text'>
+                                <CSVLink data={this.downloadData()} filename='spending-over-time.csv' className='text' onClick='navigator.msSaveOrOpenBlob(blob, defaultName)'>
                                     {this.downloadLabel()}
                                 </CSVLink>
                             </button>
