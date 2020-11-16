@@ -23,7 +23,8 @@ const propTypes = {
     callToAction: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     newTab: PropTypes.bool,
-    externalLink: PropTypes.bool
+    externalLink: PropTypes.bool,
+    filesLink: PropTypes.bool
 };
 
 export default class DownloadDetail extends React.Component {
@@ -60,6 +61,17 @@ export default class DownloadDetail extends React.Component {
                     onClick={this.redirect}>
                     {this.props.callToAction}
                 </button>
+            );
+        }
+        else if (this.props.filesLink) {
+            link = (
+                <a
+                    className="download-detail__link"
+                    href={this.props.url}
+                    {...linkProps}
+                    onClick={clickedHomepageLink.bind(null, this.props.url)}>
+                    {this.props.callToAction}
+                </a>
             );
         }
 
