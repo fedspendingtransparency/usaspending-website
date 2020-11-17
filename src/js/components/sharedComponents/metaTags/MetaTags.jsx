@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/25/17.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const defaultProps = {
     og_image: 'https://usaspending.gov/img/FacebookOG.png'
 };
 
-const isTitleLegit = (title = "USAspending.gov") => {
+const isCustomPageTitleDefined = (title = "USAspending.gov") => {
     if (title === "USAspending.gov") return false;
     if (title.split('|')[0] === ' ') return false;
     return true;
@@ -41,9 +41,6 @@ const MetaTags = ({
 }) => {
     const { pathname } = useLocation();
     const [tags, setTags] = useState([]);
-
-    const previousTitleRef = useRef(null);
-    const { current: previousTitle } = previousTitleRef;
 
     const generateTags = () => {
         const newTags = [];
@@ -85,9 +82,8 @@ const MetaTags = ({
     };
 
     useEffect(() => {
-        previousTitleRef.current = title;
         generateTags();
-        if (isTitleLegit(title) && title !== previousTitle) {
+        if (isCustomPageTitleDefined(title)) {
             Analytics.pageview(pathname, title);
         }
     }, [title]);
