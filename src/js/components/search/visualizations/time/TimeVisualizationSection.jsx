@@ -10,9 +10,9 @@ import { throttle } from 'lodash';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
+import { isIe } from  'helpers/general';
 import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CSVLink } from 'react-csv';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
@@ -70,7 +70,7 @@ export default class TimeVisualizationSection extends React.Component {
             periodLabel = capitalize(this.props.data.visualizationPeriod);
         }
         return `Download data by ${periodLabel}`;
-    }
+    };
 
     downloadData = () => {
         let data = this.props.data;
@@ -99,35 +99,29 @@ export default class TimeVisualizationSection extends React.Component {
                 } else {
                     let month = data.rawLabels[i].period;
                     ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
-                    if (["Oct", "Nov", "Dec"].indexOf(month) > -1) { // correct FY
+                    if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) {
+                        // correct FY
                         ret[i + 1][0] = parseInt(ret[i + 1][0]) + 1;
                     }
                 }
             }
             return ret;
         }
-    }
+    };
 
-
-    function download(text, name, type)
-    {
-        var file = new Blob([text], {type: type});
-        var isIE = /*@cc_on!@*/false || !!document.documentMode;
-        if (isIE)
-        {
-            window.navigator.msSaveOrOpenBlob(file, name);
-        }
-        else
-        {
-            var a = document.createElement('a');
+    downloadCsv = () => {
+        let contents = this.downloadData();
+        contents = contents.map(row => row.join(',')).join('\n');
+        const file = new Blob([contents], { type: 'text/csv;charset=utf-8;' });
+        if (isIe()) {
+            window.navigator.msSaveOrOpenBlob(file, 'spending-over-time.csv');
+        } else {
+            const a = document.createElement('a');
             a.href = URL.createObjectURL(file);
-            a.download = name;
+            a.download = 'spending-over-time.csv';
             a.click();
         }
-     }
-
-
-
+    };
 
     render() {
         return (
@@ -177,11 +171,9 @@ export default class TimeVisualizationSection extends React.Component {
                             </ul>
                         </div>
                         <div className='download'>
-                            <button>
+                            <button onClick={this.downloadCsv}>
                                 <FontAwesomeIcon icon='download' size='lg' />
-                                <CSVLink data={this.downloadData()} filename='spending-over-time.csv' className='text' onClick='navigator.msSaveOrOpenBlob(blob, defaultName)'>
-                                    {this.downloadLabel()}
-                                </CSVLink>
+                                {this.downloadLabel()}
                             </button>
                             <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
                         </div>
