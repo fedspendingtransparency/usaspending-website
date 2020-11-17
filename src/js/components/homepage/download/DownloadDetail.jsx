@@ -24,7 +24,7 @@ const propTypes = {
     url: PropTypes.string.isRequired,
     newTab: PropTypes.bool,
     externalLink: PropTypes.bool,
-    filesLink: PropTypes.bool
+    internalDomain: PropTypes.bool
 };
 
 export default class DownloadDetail extends React.Component {
@@ -63,7 +63,7 @@ export default class DownloadDetail extends React.Component {
                 </button>
             );
         }
-        else if (this.props.filesLink) {
+        else if (this.props.internalDomain) {
             link = (
                 <a
                     className="download-detail__link"
