@@ -49,7 +49,7 @@ export default class RecipientPage extends React.Component {
     hideChildRecipientModal = () => this.setState({ showChildRecipientModal: false });
 
     render() {
-        const { id, recipient } = this.props;
+        const { id, recipient, loading } = this.props;
         const slug = `recipient/${id}/${recipient.fy}`;
         let content = (
             <RecipientContent
@@ -65,7 +65,7 @@ export default class RecipientPage extends React.Component {
 
         return (
             <div className="usa-da-recipient-page">
-                {this.props.recipient.overview && <MetaTags {...recipientPageMetaTags(this.props.recipient.overview)} />}
+                {recipient.overview.id && !loading && <MetaTags {...recipientPageMetaTags(this.props.recipient.overview)} />}
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
@@ -104,3 +104,10 @@ export default class RecipientPage extends React.Component {
 }
 
 RecipientPage.propTypes = propTypes;
+RecipientPage.defaultProps = {
+    loading: true,
+    error: false,
+    id: '',
+    recipient: {},
+    pickedFy: () => { }
+};

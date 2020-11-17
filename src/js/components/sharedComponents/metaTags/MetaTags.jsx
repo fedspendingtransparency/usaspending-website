@@ -3,8 +3,10 @@
  * Created by michaelbray on 5/25/17.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 
@@ -24,76 +26,86 @@ const defaultProps = {
     og_image: 'https://usaspending.gov/img/FacebookOG.png'
 };
 
-export default class MetaTags extends React.Component {
-    constructor(props) {
-        super(props);
+const isCustomPageTitleDefined = (title = "USAspending.gov") => {
+    if (title === "USAspending.gov") return false;
+    if (title.split('|')[0] === ' ') return false;
+    return true;
+};
 
-        this.state = {
-            tags: []
-        };
-    }
+const MetaTags = ({
+    og_url: url,
+    og_title: title,
+    og_description: description,
+    og_site_name: siteName,
+    og_image: image
+}) => {
+    const { pathname } = useLocation();
+    const [tags, setTags] = useState([]);
 
-    componentDidMount() {
-        this.generateTags();
-        const pathname = new URL(this.props.og_url).pathname;
-        Analytics.pageview(pathname, this.props.og_title);
-    }
+    const generateTags = () => {
+        const newTags = [];
 
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
-            this.generateTags();
-        }
-    }
-
-    generateTags() {
-        const tags = [];
-
-        if (this.props.og_url !== '') {
-            tags.push(<meta
+        if (url !== '') {
+            newTags.push(<meta
                 property="og:url"
-                content={this.props.og_url}
+                content={url}
                 key="og_url" />);
         }
-        if (this.props.og_title !== '') {
-            tags.push(<meta
+        if (title !== '') {
+            newTags.push(<meta
                 property="og:title"
-                content={this.props.og_title}
+                content={title}
                 key="og_title" />);
-            tags.push(<title key="title">{this.props.og_title}</title>);
+            newTags.push(<title key="title">{title}</title>);
         }
-        if (this.props.og_description !== '') {
-            tags.push(<meta
+        if (description !== '') {
+            newTags.push(<meta
                 name="description"
                 property="og:description"
-                content={this.props.og_description}
+                content={description}
                 key="og_description" />);
         }
-        if (this.props.og_site_name !== '') {
-            tags.push(<meta
+        if (siteName !== '') {
+            newTags.push(<meta
                 property="og:site_name"
-                content={this.props.og_site_name}
+                content={siteName}
                 key="og_site_name" />);
         }
-        if (this.props.og_image !== '') {
-            tags.push(<meta
+        if (image !== '') {
+            newTags.push(<meta
                 property="og:image"
-                content={this.props.og_image}
+                content={image}
                 key="og_image" />);
         }
 
-        this.setState({
-            tags
-        });
-    }
+        setTags(newTags);
+    };
 
-    render() {
-        return (
-            <Helmet>
-                {this.state.tags}
-            </Helmet>
-        );
-    }
-}
+    useEffect(() => {
+        generateTags();
+        if (isCustomPageTitleDefined(title)) {
+            Analytics.pageview(pathname, title);
+        }
+    }, [title]);
+
+    useEffect(() => {
+        generateTags();
+    }, [
+        url,
+        title,
+        description,
+        siteName,
+        image
+    ]);
+
+    return (
+        <Helmet>
+            {tags}
+        </Helmet>
+    );
+};
 
 MetaTags.propTypes = propTypes;
 MetaTags.defaultProps = defaultProps;
+
+export default MetaTags;
