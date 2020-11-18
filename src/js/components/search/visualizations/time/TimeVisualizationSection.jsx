@@ -74,39 +74,29 @@ export default class TimeVisualizationSection extends React.Component {
 
     downloadData = () => {
         let data = this.props.data;
-        if (!data.rawLabels) {
-            return []; // no data
+        let ret = [];
+        if (data.visualizationPeriod === 'fiscal_year') {
+            ret[0] = ['fiscal_year', 'total_obligations'];
+        } else if (data.visualizationPeriod === 'quarter') {
+            ret[0] = ['fiscal_year', 'fiscal_quarter', 'total_obligations'];
         } else {
-            let ret = [];
-            if (data.visualizationPeriod === 'fiscal_year') {
-                ret[0] = ['fiscal_year', 'total_obligations'];
-            } else {
-                if (!data.rawLabels[0].period) {
-                    return []; // data still settling; wait
-                } else {
-                    if (data.visualizationPeriod === 'quarter') {
-                        ret[0] = ['fiscal_year', 'fiscal_quarter', 'total_obligations'];
-                    } else {
-                        ret[0] = ['fiscal_year', 'month', 'total_obligations'];
-                    }
-                }
-            }
-            for (let i = 0; i < data.rawLabels.length; i++) {
-                if (data.visualizationPeriod === 'fiscal_year') {
-                    ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i][0]];
-                } else if (data.visualizationPeriod === 'quarter') {
-                    ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period[1], data.ySeries[i][0]];
-                } else {
-                    let month = data.rawLabels[i].period;
-                    ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
-                    if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) {
-                        // correct FY
-                        ret[i + 1][0] = parseInt(ret[i + 1][0]) + 1;
-                    }
-                }
-            }
-            return ret;
+            ret[0] = ['fiscal_year', 'month', 'total_obligations'];
         }
+        for (let i = 0; i < data.rawLabels.length; i++) {
+            if (data.visualizationPeriod === 'fiscal_year') {
+                ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i][0]];
+            } else if (data.visualizationPeriod === 'quarter') {
+                ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period[1], data.ySeries[i][0]];
+            } else {
+                let month = data.rawLabels[i].period;
+                ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
+                if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) {
+                    // correct FY
+                    ret[i + 1][0] = parseInt(ret[i + 1][0]) + 1;
+                }
+            }
+        }
+        return ret;
     };
 
     downloadCsv = () => {
