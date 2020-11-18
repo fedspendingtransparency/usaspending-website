@@ -171,7 +171,7 @@ export const routes = [
         path: '/about-the-data/agencies',
         component: AgenciesContainer,
         exact: true,
-        hide: !kGlobalConstants.DEV
+        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
     },
     {
         path: '/disaster/covid-19/data-sources',
