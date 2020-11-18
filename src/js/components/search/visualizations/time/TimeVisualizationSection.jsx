@@ -163,7 +163,7 @@ export default class TimeVisualizationSection extends React.Component {
                         <div className='download'>
                             <button onClick={this.downloadCsv}>
                                 <FontAwesomeIcon icon='download' size='lg' />
-                                {this.downloadLabel()}
+                                <span class="text">{this.downloadLabel()}</span>
                             </button>
                             <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
                         </div>
