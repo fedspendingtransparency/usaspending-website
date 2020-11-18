@@ -5,9 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { capitalize, throttle } from 'lodash';
-import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -18,7 +16,9 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
 const propTypes = {
-    agency: PropTypes.object
+    agency: PropTypes.object,
+    activeFy: PropTypes.string,
+    asOfDate: PropTypes.string
 };
 
 export default class AgencyOverview extends React.PureComponent {
@@ -31,7 +31,6 @@ export default class AgencyOverview extends React.PureComponent {
             mission: '',
             website: '',
             congressionalJustificationUrl: '',
-            asOfDate: '',
             formattedBudgetAuthority: '',
             percentageElement: '',
             visualizationWidth: 0,
@@ -106,13 +105,6 @@ export default class AgencyOverview extends React.PureComponent {
 
         const federalBudget = agency.federalBudget;
 
-        const fy = parseInt(agency.activeFY, 10);
-        const quarter = parseInt(agency.activeFQ, 10);
-
-        // Generate "as of" date
-        const endOfQuarter = convertQuarterToDate(quarter, fy);
-        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
-
         // Generate Budget Authority string
         const budgetAuthorityAmount = MoneyFormatter
             .calculateUnitForSingleValue(budgetAuthority);
@@ -139,7 +131,6 @@ export default class AgencyOverview extends React.PureComponent {
             mission,
             website,
             cjUrl,
-            asOfDate,
             formattedBudgetAuthority,
             percentageElement,
             visualizationWidth
@@ -222,12 +213,12 @@ export default class AgencyOverview extends React.PureComponent {
                             <a href={`agency/${this.props.agency.id}?glossary=budgetary-resources`}>
                                 <Glossary />
                             </a>
-                            for FY {this.props.agency.activeFY}
+                            for FY {this.props.activeFy}
                         </h4>
                         <div className="budget-authority-date">
                             <em>
-                                FY {this.props.agency.activeFY} data reported
-                                through {this.state.asOfDate}
+                                FY {this.props.activeFy} data reported
+                                through {this.props.asOfDate}
                             </em>
                         </div>
                         <div className="authority-amount">
@@ -235,7 +226,7 @@ export default class AgencyOverview extends React.PureComponent {
                         </div>
                         <div className="authority-statement">
                             This is {this.state.percentageElement} of the total U.S.
-                            federal budgetary resources for FY {this.props.agency.activeFY}.
+                            federal budgetary resources for FY {this.props.activeFy}.
                         </div>
                         <svg className="horizontal-bar">
                             <g>

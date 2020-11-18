@@ -5,9 +5,9 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -17,11 +17,10 @@ const propTypes = {
     altText: PropTypes.string,
     iconColor: PropTypes.string,
     iconSize: PropTypes.string,
-    sortFn: PropTypes.func
+    sortFn: PropTypes.func,
+    latestFy: PropTypes.object,
+    isLoading: PropTypes.bool
 };
-
-const listOfFy = [];
-const currentFY = FiscalYearHelper.defaultFiscalYear();
 
 export const defaultSortFy = (a, b) => {
     if (a > b) return -1;
@@ -31,13 +30,15 @@ export const defaultSortFy = (a, b) => {
 
 const FYPicker = ({
     sortFn = defaultSortFy,
+    latestFy = FiscalYearHelper.currentFiscalYear(),
     fy,
     onClick,
     earliestFY = FiscalYearHelper.earliestExplorerYear,
     icon = "calendar-alt",
     altText = "Fiscal Year",
     iconColor = "white",
-    iconSize = "lg"
+    iconSize = "lg",
+    isLoading
 }) => {
     const pickerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
@@ -66,9 +67,24 @@ const FYPicker = ({
         setExpanded(false);
     };
 
-    for (let year = earliestFY; year <= currentFY; year++) {
-        if (!listOfFy.includes(`${year}`)) listOfFy.push(`${year}`);
-    }
+    const getActiveYears = () => {
+        if (latestFy) {
+            return FiscalYearHelper.allFiscalYears(earliestFY, latestFy.year())
+                .sort(sortFn)
+                .map((year) => (
+                    <li key={year} className="fy-picker__list-item">
+                        <button
+                            className={`fy-picker__item ${year === fy ? 'active' : ''}`}
+                            value={`${year}`}
+                            onClick={handleClick}>
+                            FY {year}
+                        </button>
+                    </li>
+                ));
+        }
+
+        return <li>Loading...</li>;
+    };
 
     return (
         <div className="fy-picker" ref={pickerRef}>
@@ -79,26 +95,14 @@ const FYPicker = ({
                 <div className="fy-picker__dropdown-container">
                     <button className="fy-picker__button" onClick={toggleMenu}>
                         <span className="fy-picker__button-text">
-                            FY {fy}
+                            FY {isLoading ? <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin /> : fy}
                         </span>
                         <div className="fy-picker__button-icon">
                             <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
                         </div>
                     </button>
                     <ul className={`fy-picker__list ${expanded ? '' : 'hide'}`}>
-                        {listOfFy
-                            .sort(sortFn)
-                            .map((year) => (
-                                <li key={year} className="fy-picker__list-item">
-                                    <button
-                                        className={`fy-picker__item ${year === fy ? 'active' : ''}`}
-                                        value={`${year}`}
-                                        onClick={handleClick}>
-                                        FY {year}
-                                    </button>
-                                </li>
-                            ))
-                        }
+                        {getActiveYears()}
                     </ul>
                 </div>
             </div>

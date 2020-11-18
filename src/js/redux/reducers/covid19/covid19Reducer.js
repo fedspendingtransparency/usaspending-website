@@ -6,7 +6,6 @@
 const initialState = {
     defCodes: [],
     overview: {},
-    latestSubmissionDate: '',
     allAwardTypeTotals: {},
     assistanceTotals: {},
     spendingByAgencyTotals: {},
@@ -20,9 +19,6 @@ const covid19Reducer = (state = initialState, action) => {
         }
         case 'SET_COVID_OVERVIEW': {
             return Object.assign({}, state, { overview: action.overview });
-        }
-        case 'SET_LATEST_SUBMISSION_DATE': {
-            return Object.assign({}, state, { latestSubmissionDate: action.latestSubmissionDate });
         }
         case 'SET_COVID_AWARD_AMOUNTS': {
             return Object.assign({}, state, { allAwardTypeTotals: action.totals });

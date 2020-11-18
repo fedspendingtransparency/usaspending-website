@@ -113,7 +113,7 @@ const additionalDetails = (awardData) => {
             'Extent Completed': awardData.additionalDetails.extentCompeted,
             'Not Completed Reason': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
-            'Commercial Item Aquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
+            'Commercial Item Acquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
             'Simplified Procedures for Certain Commercial Items': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,

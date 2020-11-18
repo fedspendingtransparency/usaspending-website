@@ -90,35 +90,35 @@ export const downloadOptions = [
     {
         label: 'Agency Submission Files',
         type: 'snapshots',
-        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`,
+        url: `${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/`,
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'Database Download',
         type: '',
-        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/database_download/`,
+        url: `${kGlobalConstants.FILES_SERVER_BASE_URL}/database_download/`,
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'API',
         type: '',
-        url: 'https://api.usaspending.gov',
+        url: kGlobalConstants.API.replace("api/", ""),
         code: 'api',
         description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
         callToAction: 'Explore Our API',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'Data Dictionary',
