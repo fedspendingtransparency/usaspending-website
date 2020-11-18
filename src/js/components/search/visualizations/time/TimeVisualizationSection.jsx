@@ -22,10 +22,8 @@ const propTypes = {
 };
 
 const downloadTooltip = (
-    <div>
-        <div className='tooltip__text'>
-            Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart(i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
-        </div>
+    <div className='tooltip__text'>
+        Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart(i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
     </div>
 );
 
