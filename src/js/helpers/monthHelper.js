@@ -40,7 +40,7 @@ export const convertPeriodToDate = (period, fy) => {
     return `${month} ${year}`;
 };
 
-export const fullMonthFromAbbr = abbr => {
+export const fullMonthFromAbbr = (abbr) => {
     switch (abbr) {
         case 'Jan': return 'January';
         case 'Feb': return 'February';
@@ -54,6 +54,6 @@ export const fullMonthFromAbbr = abbr => {
         case 'Oct': return 'October';
         case 'Nov': return 'November';
         case 'Dec': return 'December';
+        default: return '';
     }
-    return '';
 };
