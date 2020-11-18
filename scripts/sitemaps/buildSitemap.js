@@ -72,7 +72,7 @@ const createRobots = () => {
                 console.log(' Error : ', e);
                 throw e.message;
             }
-            console.log(`Sitemap sitemap.xml successfully created!`);
+            console.log("robots.txt successfully created!");
         }
     );
 };
@@ -81,7 +81,13 @@ const createIndexedSitemap = (xmlRoutes) => {
     fs.writeFile(
         path.resolve(__dirname, `./sitemapFiles/sitemap.xml`),
         `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
-        () => console.log(`Sitemap sitemap.xml successfully created!`)
+        (e) => {
+            if (e) {
+                console.log(' Error : ', e);
+                throw e.message;
+            }
+            console.log("Sitemap sitemap.xml successfully created!");
+        }
     );
 
     sitemapsWritten.push('sitemap');
@@ -91,7 +97,13 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
         path.resolve(__dirname, `./sitemapFiles/${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
-        () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
+        (e) => {
+            if (e) {
+                console.log(' Error : ', e);
+                throw e.message;
+            }
+            console.log(`Sitemap ${siteMapName}.xml successfully created!`);
+        }
     );
 
     sitemapsWritten.push(siteMapName);
@@ -160,7 +172,10 @@ const buildIndividualSitemaps = () => {
                     headers: { 'X-Requested-With': 'USASpendingFrontend' }
                 });
             })
-            .catch((e) => console.log("error", e))
+            .catch((e) => {
+                console.log("error", e);
+                throw e.message;
+            })
             , Promise.resolve('first'));
 
     return asyncPages
@@ -181,7 +196,7 @@ const buildIndividualSitemaps = () => {
         })
         .catch((e) => {
             console.log(`error on sitemap ${e}`);
-            return Promise.resolve(sitemapsWritten);
+            throw e.message;
         });
 };
 
@@ -194,11 +209,23 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     createIndexedSitemap(xml);
 };
 
-buildIndividualSitemaps()
+const createSitemapDirectory = () => new Promise(
+    (resolve, reject) => fs.mkdir(
+        path.resolve('./sitemapFiles'), {}, (e) => {
+            if (e) {
+                reject(e);
+            }
+            resolve();
+        })
+);
+
+createSitemapDirectory()
+    .then(() => buildIndividualSitemaps())
     .then((individalSiteMaps) => {
         buildIndexedSitemap(individalSiteMaps);
         createRobots();
     })
     .catch((e) => {
         console.log(`error build site maps: ${e}`);
+        throw e.message;
     });
