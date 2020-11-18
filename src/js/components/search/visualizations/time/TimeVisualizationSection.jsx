@@ -5,13 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, capitalize } from 'lodash';
 
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
 import { isIe } from  'helpers/general';
-import { capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 
