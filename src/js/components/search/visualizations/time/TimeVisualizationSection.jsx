@@ -7,12 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle, capitalize } from 'lodash';
 
-import TimeVisualization from './TimeVisualization';
-import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
-import { fullMonthFromAbbr } from 'helpers/monthHelper';
-import { isIe } from  'helpers/general';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { fullMonthFromAbbr } from 'helpers/monthHelper';
+import { isIe } from 'helpers/general';
+import TimeVisualization from './TimeVisualization';
+import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
 const propTypes = {
     data: PropTypes.object,
@@ -21,7 +21,7 @@ const propTypes = {
 };
 
 const downloadTooltip = (
-    <div className='tooltip__text'>
+    <div className="tooltip__text">
         Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart(i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
     </div>
 );
@@ -63,33 +63,38 @@ export default class TimeVisualizationSection extends React.Component {
         let periodLabel;
         if (this.props.data.visualizationPeriod === 'fiscal_year') {
             periodLabel = 'Year';
-        } else {
+        }
+        else {
             periodLabel = capitalize(this.props.data.visualizationPeriod);
         }
         return `Download data by ${periodLabel}`;
     };
 
     downloadData = () => {
-        let data = this.props.data;
-        let ret = [];
+        const data = this.props.data;
+        const ret = [];
         if (data.visualizationPeriod === 'fiscal_year') {
             ret[0] = ['fiscal_year', 'total_obligations'];
-        } else if (data.visualizationPeriod === 'quarter') {
+        }
+        else if (data.visualizationPeriod === 'quarter') {
             ret[0] = ['fiscal_year', 'fiscal_quarter', 'total_obligations'];
-        } else {
+        }
+        else {
             ret[0] = ['fiscal_year', 'month', 'total_obligations'];
         }
         for (let i = 0; i < data.rawLabels.length; i++) {
             if (data.visualizationPeriod === 'fiscal_year') {
                 ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i][0]];
-            } else if (data.visualizationPeriod === 'quarter') {
+            }
+            else if (data.visualizationPeriod === 'quarter') {
                 ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period[1], data.ySeries[i][0]];
-            } else {
-                let month = data.rawLabels[i].period;
+            }
+            else {
+                const month = data.rawLabels[i].period;
                 ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
                 if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) {
                     // correct FY
-                    ret[i + 1][0] = parseInt(ret[i + 1][0]) + 1;
+                    ret[i + 1][0] = parseInt(ret[i + 1][0], 10) + 1;
                 }
             }
         }
@@ -98,11 +103,13 @@ export default class TimeVisualizationSection extends React.Component {
 
     downloadCsv = () => {
         let contents = this.downloadData();
-        contents = contents.map(row => row.join(',')).join('\n');
+        contents = contents.map((row) => row.join(',')).join('\n');
+        // eslint-disable-next-line no-undef
         const file = new Blob([contents], { type: 'text/csv;charset=utf-8;' });
         if (isIe()) {
             window.navigator.msSaveOrOpenBlob(file, 'spending-over-time.csv');
-        } else {
+        }
+        else {
             const a = document.createElement('a');
             a.href = URL.createObjectURL(file);
             a.download = 'spending-over-time.csv';
@@ -157,12 +164,12 @@ export default class TimeVisualizationSection extends React.Component {
                                 </li>
                             </ul>
                         </div>
-                        <div className='download'>
+                        <div className="download">
                             <button onClick={this.downloadCsv}>
-                                <FontAwesomeIcon icon='download' size='lg' />
-                                <span class="text">{this.downloadLabel()}</span>
+                                <FontAwesomeIcon icon="download" size="lg" />
+                                <span className="text">{this.downloadLabel()}</span>
                             </button>
-                            <TooltipWrapper className='tooltip-wrapper' icon='info' tooltipPosition='left' tooltipComponent={downloadTooltip} />
+                            <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={downloadTooltip} />
                         </div>
                     </div>
                 </div>
