@@ -3,38 +3,57 @@
   @import "layouts/default/default";
   @import "layouts/default/stickyHeader/header";
   .main-content {
+    @import "../../mixins/fullSectionWrap";
     @include display(flex);
+    @include flex-wrap(wrap);
+    @include flex-direction(column);
     margin: rem(40) rem(20);
     background: $color-white;
-    @include flex-wrap(wrap);
     border-radius: 0.5rem 0.5rem 0 0;
+    padding-left: rem(20);
+    max-width: 160rem;
+    margin: auto;
     .heading-container {
         width: 100%;
-        padding-left: rem(20);
         .header {
           margin-top: rem(30);
           margin-bottom: 0;
           font-weight: $font-semibold;
-          font-size: rem(32);
+          font-size: rem(24);
           letter-spacing: 0;
           line-height: rem(59);
         }
         .sub-header {
-          margin-top: 0;
-          margin-bottom: rem(30);
-          font-size: rem(47);
+          color: #555555;
+          font-size: rem(16);
           font-weight: 300;
           letter-spacing: 0;
-          line-height: rem(59);
+          line-height: rem(24);
+          margin-top: 0;
+          margin-bottom: rem(30);
+          max-width: rem(769);
         }
     }
+    .table-container,
+    .table-controls {
+      width: rem(1560);
+    }
+    .table-controls {
+      .table-type-toggle:focus {
+        outline: none;
+      }
+      .table-tab-label {
+        @include display(flex);
+      }
+    }
     .table-container  {
-      width: rem(1400);
       height: rem(500);
       overflow: scroll;
-      margin: 0 auto;
+      margin: 0;
+      border: rem(1) solid $color-gray-border;
       .usda-table.usda-table-w-grid {
         border-collapse: separate;
+        margin-top:0;
         thead {
           tr th {
             min-width: rem(300);
@@ -46,8 +65,8 @@
               th {
                 position: sticky;
                 position: -webkit-sticky;
-                top: -3px;
-                border-top: 1px solid $color-gray-lightest;
+                top: 0;
+                border: rem(1) solid $color-gray-lighter;
               }
             }
           }
@@ -55,22 +74,24 @@
         &.sticky-x-table {
           @media(min-width: $medium-screen) {
             thead {
-              .table-header:first-of-type {
-                position: sticky;
-                position: -webkit-sticky;
-                left: -2px;
-                z-index: 10;
-                box-shadow: 2px 1px 4px rgba(0,0,0,.20);
-                border-right: 1px solid $color-gray-lightest;
+              tr:first-of-type {
+                .table-header:first-of-type {
+                  position: sticky;
+                  position: -webkit-sticky;
+                  left: 0px;
+                  z-index: 10;
+                  box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+                  border-right: 1px solid $color-gray-lightest;
+                }
               }
             }
             tbody {
               .usda-table__row .usda-table__cell {
                 &:first-of-type {
                   position: sticky;
-                  left: -2px;
+                  left: 0px;
                   box-shadow: 2px 1px 4px rgba(0,0,0,.20);
-                  border-right: 1px solid $color-gray-lightest;
+                  border-right: rem(1) solid $color-gray-lightest;
                 }
               }
             }
@@ -84,8 +105,10 @@
       margin: 0;
       padding: 0;
       letter-spacing: 0;
+      max-width: rem(873);
       line-height: rem(22);
-      margin-top: $global-pad * 3;
+      margin: $global-pad * 3 0;
+      font-size: rem(14);
     }
   }
 }
