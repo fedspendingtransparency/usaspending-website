@@ -74,6 +74,7 @@ export default class TimeVisualizationSection extends React.Component {
                     ret[i + 1][0] = parseInt(ret[i + 1][0], 10) + 1;
                 }
             }
+            return null; // required by linter
         });
         return ret;
     };
