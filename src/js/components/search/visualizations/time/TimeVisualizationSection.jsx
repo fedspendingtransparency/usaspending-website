@@ -71,16 +71,17 @@ export default class TimeVisualizationSection extends React.Component {
         else {
             ret[0] = ['fiscal_year', 'month', 'total_obligations'];
         }
+
         data.rawLabels.map((label, i) => {
             if (data.visualizationPeriod === 'fiscal_year') {
-                ret[i + 1] = [label[i].year, data.ySeries[i][0]];
+                ret[i + 1] = [label.year, data.ySeries[i][0]];
             }
             else if (data.visualizationPeriod === 'quarter') {
-                ret[i + 1] = [label[i].year, label[i].period[1], data.ySeries[i][0]];
+                ret[i + 1] = [label.year, label.period[1], data.ySeries[i][0]];
             }
             else {
-                const month = label[i].period;
-                ret[i + 1] = [label[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
+                const month = label.period;
+                ret[i + 1] = [label.year, fullMonthFromAbbr(month), data.ySeries[i][0]];
                 if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) { // correct the FY
                     ret[i + 1][0] = parseInt(ret[i + 1][0], 10) + 1;
                 }
