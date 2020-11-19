@@ -47,19 +47,7 @@ export default class TimeVisualizationSection extends React.Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth
-            });
-        }
-    }
-
-    downloadData = () => {
+    getDownloadData = () => {
         const data = this.props.data;
         const ret = [];
         if (data.visualizationPeriod === 'fiscal_year') {
@@ -90,8 +78,20 @@ export default class TimeVisualizationSection extends React.Component {
         return ret;
     };
 
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: this.sectionHr.offsetWidth
+            });
+        }
+    }
+
     downloadCsv = () => {
-        const contents = this.downloadData().map((row) => row.join(',')).join('\n');
+        const contents = this.getDownloadData().map((row) => row.join(',')).join('\n');
         // eslint-disable-next-line no-undef
         const file = new Blob([contents], { type: 'text/csv;charset=utf-8;' });
         if (isIe()) {
