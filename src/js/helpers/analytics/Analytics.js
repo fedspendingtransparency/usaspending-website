@@ -51,17 +51,22 @@ const Analytics = {
             );
         }
     },
-    pageview(pathname) {
+    pageview(pathname, pagename) {
         if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'pageview',
                 page: {
-                    url: pathname
+                    url: pathname,
+                    title: pagename
                 }
             });
         }
         else {
+            this._execute(
+                'set',
+                { title: pagename }
+            );
             this._execute(
                 'send',
                 'pageview',

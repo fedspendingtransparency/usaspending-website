@@ -22,6 +22,7 @@ require('pages/state/statePage.scss');
 const propTypes = {
     stateProfile: PropTypes.object,
     setStateOverview: PropTypes.func,
+    resetState: PropTypes.func,
     setStateFiscalYear: PropTypes.func,
     setStateCenter: PropTypes.func,
     match: PropTypes.object,
@@ -68,6 +69,10 @@ export class StateContainer extends React.Component {
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
             this.loadStateOverview(this.props.match.params.stateId, this.props.stateProfile.fy);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.resetState();
     }
 
     onClickFy(fy) {
