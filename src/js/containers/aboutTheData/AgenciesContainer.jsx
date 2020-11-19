@@ -296,7 +296,7 @@ const message = "All numeric figures in this table are calculated based on the s
 
 const AgenciesContainer = () => {
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
-    const [activeTab, setActiveTab] = useState('details'); // details or dates
+    const [activeTab, setActiveTab] = useState('dates'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
@@ -306,6 +306,10 @@ const AgenciesContainer = () => {
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
+    const handleSwitchTab = (tab) => {
+        setActiveTab(tab);
+    };
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
@@ -323,7 +327,7 @@ const AgenciesContainer = () => {
                 <div className="table-controls">
                     <Tabs
                         active={activeTab}
-                        switchTab={(tab) => setActiveTab(tab)}
+                        switchTab={handleSwitchTab}
                         types={[
                             { internal: 'details', label: <TableTabLabel label="Statistics by Reporting Period" /> },
                             { internal: 'dates', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
