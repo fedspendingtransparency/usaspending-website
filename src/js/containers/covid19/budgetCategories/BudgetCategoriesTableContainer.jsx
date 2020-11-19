@@ -181,8 +181,7 @@ const BudgetCategoriesTableContainer = (props) => {
         const overviewTotals = {
             totalBudgetaryResources: overview._totalBudgetAuthority,
             obligation: overview._totalObligations,
-            outlay: overview._totalOutlays,
-            awardCount: allAwardTypeTotals.awardCount
+            outlay: overview._totalOutlays
         };
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
