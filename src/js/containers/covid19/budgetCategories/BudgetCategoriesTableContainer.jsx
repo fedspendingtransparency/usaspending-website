@@ -250,7 +250,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     <Link
                         className="federal-account-profile__link"
                         onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        href={`/federal_account/${code}`}>
+                        to={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
                     </Link>
                 );

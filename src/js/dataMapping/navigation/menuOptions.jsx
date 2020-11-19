@@ -96,7 +96,7 @@ export const downloadOptions = [
         callToAction: 'Download Raw Files',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'Database Download',
@@ -107,7 +107,7 @@ export const downloadOptions = [
         callToAction: 'Explore Database Download',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'API',
@@ -118,7 +118,7 @@ export const downloadOptions = [
         callToAction: 'Explore Our API',
         newTab: true,
         enabled: true,
-        externalLink: false
+        internalDomain: true
     },
     {
         label: 'Data Dictionary',
