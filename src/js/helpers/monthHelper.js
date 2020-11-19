@@ -41,19 +41,19 @@ export const convertPeriodToDate = (period, fy) => {
 };
 
 export const fullMonthFromAbbr = (abbr) => {
-    switch (abbr) {
-        case 'Jan': return 'January';
-        case 'Feb': return 'February';
-        case 'Mar': return 'March';
-        case 'Apr': return 'April';
-        case 'May': return 'May';
-        case 'Jun': return 'June';
-        case 'Jul': return 'July';
-        case 'Aug': return 'August';
-        case 'Sep': return 'September';
-        case 'Oct': return 'October';
-        case 'Nov': return 'November';
-        case 'Dec': return 'December';
-        default: return '';
-    }
+    const mapping = [];
+    mapping.Jan = 'January';
+    mapping.Feb = 'February';
+    mapping.Mar = 'March';
+    mapping.Apr = 'April';
+    mapping.May = 'May';
+    mapping.Jun = 'June';
+    mapping.Jul = 'July';
+    mapping.Aug = 'August';
+    mapping.Sep = 'September';
+    mapping.Oct = 'October';
+    mapping.Nov = 'November';
+    mapping.Dec = 'December';
+
+    return mapping[abbr];
 };

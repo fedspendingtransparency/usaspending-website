@@ -10,7 +10,7 @@ import { throttle, capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
-import { isIe } from 'helpers/general';
+import { isIe } from 'helpers/browser';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
@@ -59,17 +59,6 @@ export default class TimeVisualizationSection extends React.Component {
         }
     }
 
-    downloadLabel = () => {
-        let periodLabel;
-        if (this.props.data.visualizationPeriod === 'fiscal_year') {
-            periodLabel = 'Year';
-        }
-        else {
-            periodLabel = capitalize(this.props.data.visualizationPeriod);
-        }
-        return `Download data by ${periodLabel}`;
-    };
-
     downloadData = () => {
         const data = this.props.data;
         const ret = [];
@@ -82,28 +71,26 @@ export default class TimeVisualizationSection extends React.Component {
         else {
             ret[0] = ['fiscal_year', 'month', 'total_obligations'];
         }
-        for (let i = 0; i < data.rawLabels.length; i++) {
+        data.rawLabels.map((label, i) => {
             if (data.visualizationPeriod === 'fiscal_year') {
-                ret[i + 1] = [data.rawLabels[i].year, data.ySeries[i][0]];
+                ret[i + 1] = [label[i].year, data.ySeries[i][0]];
             }
             else if (data.visualizationPeriod === 'quarter') {
-                ret[i + 1] = [data.rawLabels[i].year, data.rawLabels[i].period[1], data.ySeries[i][0]];
+                ret[i + 1] = [label[i].year, label[i].period[1], data.ySeries[i][0]];
             }
             else {
-                const month = data.rawLabels[i].period;
-                ret[i + 1] = [data.rawLabels[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
-                if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) {
-                    // correct FY
+                const month = label[i].period;
+                ret[i + 1] = [label[i].year, fullMonthFromAbbr(month), data.ySeries[i][0]];
+                if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) { // correct the FY
                     ret[i + 1][0] = parseInt(ret[i + 1][0], 10) + 1;
                 }
             }
-        }
+        });
         return ret;
     };
 
     downloadCsv = () => {
-        let contents = this.downloadData();
-        contents = contents.map((row) => row.join(',')).join('\n');
+        const contents = this.downloadData().map((row) => row.join(',')).join('\n');
         // eslint-disable-next-line no-undef
         const file = new Blob([contents], { type: 'text/csv;charset=utf-8;' });
         if (isIe()) {
@@ -167,7 +154,9 @@ export default class TimeVisualizationSection extends React.Component {
                         <div className="download">
                             <button onClick={this.downloadCsv}>
                                 <FontAwesomeIcon icon="download" size="lg" />
-                                <span className="text">{this.downloadLabel()}</span>
+                                <span className="text">
+                                    {`Download data by ${this.props.data.visualizationPeriod === 'fiscal_year' ? 'Year' : capitalize(this.props.data.visualizationPeriod)}`}
+                                </span>
                             </button>
                             <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={downloadTooltip} />
                         </div>
