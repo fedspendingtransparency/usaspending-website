@@ -21,6 +21,7 @@ require('pages/agency/agencyPage.scss');
 const propTypes = {
     agency: PropTypes.object,
     setAgencyOverview: PropTypes.func,
+    resetAgency: PropTypes.func,
     match: PropTypes.object
 };
 
@@ -47,6 +48,10 @@ export class AgencyContainer extends React.Component {
         if (this.props.match.params.agencyId !== prevProps.match.params.agencyId) {
             this.loadAgencyOverview(this.props.match.params.agencyId);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.resetAgency();
     }
 
     loadAgencyOverview(id) {

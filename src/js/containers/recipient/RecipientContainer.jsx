@@ -21,6 +21,7 @@ require('pages/recipient/recipientPage.scss');
 const propTypes = {
     setRecipientOverview: PropTypes.func,
     setRecipientFiscalYear: PropTypes.func,
+    resetRecipient: PropTypes.func,
     recipient: PropTypes.object,
     match: PropTypes.object,
     history: PropTypes.object
@@ -67,6 +68,7 @@ export class RecipientContainer extends React.Component {
     componentWillUnmount() {
         // Reset the FY
         this.props.setRecipientFiscalYear('latest');
+        this.props.resetRecipient();
     }
 
     loadRecipientOverview(id, year) {

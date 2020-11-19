@@ -6,7 +6,7 @@
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 
 const recipientOverview = Object.create(BaseRecipientOverview);
-recipientOverview.populate({});
+recipientOverview.populate({ name: ' ' });
 
 export const initialState = {
     id: '',
@@ -30,6 +30,8 @@ const recipientReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 children: action.children
             });
+        case 'RESET_RECIPIENT':
+            return Object.assign({}, initialState);
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
         default:
