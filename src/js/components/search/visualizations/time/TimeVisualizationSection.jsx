@@ -22,7 +22,7 @@ const propTypes = {
 
 const downloadTooltip = (
     <div className="tooltip__text">
-        Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart(i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
+        Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart (i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
     </div>
 );
 
@@ -48,36 +48,26 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     getDownloadData = () => {
+        const headers = [];
+        headers.fiscal_year = 'fiscal_year,total_obligations\n';
+        headers.quarter = 'fiscal_year,fiscal_quarter,total_obligations\n';
+        headers.month = 'fiscal_year,month,total_obligations\n';
         const data = this.props.data;
-        const ret = [];
-        if (data.visualizationPeriod === 'fiscal_year') {
-            ret[0] = ['fiscal_year', 'total_obligations'];
-        }
-        else if (data.visualizationPeriod === 'quarter') {
-            ret[0] = ['fiscal_year', 'fiscal_quarter', 'total_obligations'];
-        }
-        else {
-            ret[0] = ['fiscal_year', 'month', 'total_obligations'];
-        }
 
-        data.rawLabels.map((label, i) => {
-            if (data.visualizationPeriod === 'fiscal_year') {
-                ret[i + 1] = [label.year, data.ySeries[i][0]];
-            }
-            else if (data.visualizationPeriod === 'quarter') {
-                ret[i + 1] = [label.year, label.period[1], data.ySeries[i][0]];
-            }
-            else {
-                const month = label.period;
-                ret[i + 1] = [label.year, fullMonthFromAbbr(month), data.ySeries[i][0]];
-                if (['Oct', 'Nov', 'Dec'].indexOf(month) > -1) { // correct the FY
-                    ret[i + 1][0] = parseInt(ret[i + 1][0], 10) + 1;
+        return headers[data.visualizationPeriod].concat(
+            data.rawLabels.map((label, i) => {
+                if (data.visualizationPeriod === 'fiscal_year') {
+                    return `${label.year},${data.ySeries[i][0]}`;
                 }
-            }
-            return null; // required by linter
-        });
-        return ret;
-    };
+                else if (data.visualizationPeriod === 'quarter') {
+                    return `${label.year},${label.period[1]},${data.ySeries[i][0]}`;
+                }
+                const month = fullMonthFromAbbr(label.period);
+                return `${['Oct', 'Nov', 'Dec'].indexOf(label.period) > -1 ? parseInt(label.year, 10) + 1 : label.year},${month},${data.ySeries[i][0]}`;
+            })
+                .join('\n')
+        );
+    }
 
     handleWindowResize() {
         // determine if the width changed
@@ -92,9 +82,8 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     downloadCsv = () => {
-        const contents = this.getDownloadData().map((row) => row.join(',')).join('\n');
         // eslint-disable-next-line no-undef
-        const file = new Blob([contents], { type: 'text/csv;charset=utf-8;' });
+        const file = new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
         if (isIe()) {
             window.navigator.msSaveOrOpenBlob(file, 'spending-over-time.csv');
         }
