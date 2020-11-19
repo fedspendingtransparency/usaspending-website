@@ -330,14 +330,5 @@ describe('Month helper functions', () => {
         it('should convert "Dec" to "December"', () => {
             expect(MonthHelper.fullMonthFromAbbr("Dec")).toEqual("December");
         });
-
-        it('should convert anything else to ""', () => {
-            expect(MonthHelper.fullMonthFromAbbr(389)).toEqual("");
-        });
-
-        it('should convert null to ""', () => {
-            expect(MonthHelper.fullMonthFromAbbr()).toEqual("");
-        });
-
     });
 });
