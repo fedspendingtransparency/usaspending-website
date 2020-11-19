@@ -6,6 +6,7 @@ import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
+import AboutTheDataModal from "components/aboutTheData/modals/AboutTheDataModal";
 
 import { throttle } from "lodash";
 
@@ -243,6 +244,13 @@ const AgenciesContainer = () => {
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+    // TODO - Modal Buttons - DELETE THIS CODE
+    const [showModal, setShowModal] = useState('');
+    const publicationDatesClick = (e) => {
+        e.preventDefault();
+        setShowModal(e.target.value);
+    };
+    const closeModal = () => setShowModal('');
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
@@ -250,6 +258,8 @@ const AgenciesContainer = () => {
             <StickyHeader>
                 <div className="sticky-header__title">
                     <h1 tabIndex={-1}>Agency Submission Data</h1>
+                    {/* TODO - Modal Buttons - DELETE THIS CODE */}
+                    <button value="publicationDates" onClick={publicationDatesClick}>Publication Dates</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -266,6 +276,9 @@ const AgenciesContainer = () => {
                         currentSort={sortStatus} />
                 </div>
                 <Note message={message} />
+                <PublicationDatesModal
+                    mounted={!!showModal.length}
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>
