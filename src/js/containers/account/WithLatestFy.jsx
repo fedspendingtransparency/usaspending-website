@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -10,6 +10,7 @@ const WithLatestFy = ({
     propName = 'dataAsOf',
     format = null
 }) => {
+    const [submissionPeriods, setSubmissionPeriods] = useState([]);
     const { dataAsOf } = useSelector((state) => state.account);
     const request = useRef();
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const WithLatestFy = ({
             request.current = fetchAllSubmissionDates();
             request.current.promise
                 .then(({ data: { available_periods: periods } }) => {
+                    setSubmissionPeriods(periods);
                     dispatch(setAccountDataAsOfDate(getLatestPeriodAsMoment(periods)));
                     request.current = null;
                 })
@@ -43,7 +45,7 @@ const WithLatestFy = ({
         });
     }
 
-    return React.cloneElement(children, { [propName]: dataAsOf });
+    return React.cloneElement(children, { [propName]: dataAsOf, submissionPeriods });
 };
 
 WithLatestFy.propTypes = {

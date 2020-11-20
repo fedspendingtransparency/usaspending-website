@@ -27,10 +27,13 @@ const propTypes = {
 
 const AgenciesContainer = ({ activeTab, openModal }) => {
     const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
-    const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [loading] = useState(false);
     const [error] = useState(false);
     const tableRef = useRef(null);
+    const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
+    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
         setIsSticky({ vertical, horizontal });
@@ -39,9 +42,6 @@ const AgenciesContainer = ({ activeTab, openModal }) => {
     const handleUpdateSort = (field, direction) => {
         updateSort({ field, direction });
     };
-
-    const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
-    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
     // TODO - create a data model for agency row
     const rows = mockAPI.details.results.map(

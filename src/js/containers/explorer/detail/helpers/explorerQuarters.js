@@ -3,8 +3,6 @@
  * Created by Kevin Li 2/12/18
  */
 
-import moment from 'moment';
-
 export const handlePotentialStrings = (input) => {
     if (typeof input === 'string') {
         return parseInt(input, 10);
@@ -73,26 +71,4 @@ export const getPeriodsPerQuarterByFy = (fy) => {
     if (fy > 2020) return periodsPerQuarterPost2020;
     if (fy === 2020) return periodsPerQuarterDuring2020;
     return periodsPerQuarterPre2020;
-};
-
-
-export const mostRecentPeriod = () => {
-    // get current "fiscal period", which is three months ahead of the current month
-    const todayAdjusted = moment().add(3, 'months');
-    // determine what month that was
-    let period = todayAdjusted.month();
-
-    // now go back one additional month (so we go to the most recently closed month, rather than
-    // the active in-progress month)
-    period -= 1;
-    if (period === 0) {
-        period = 12;
-    }
-    else if (period === -1) {
-        period = 11;
-    }
-
-    return {
-        period
-    };
 };
