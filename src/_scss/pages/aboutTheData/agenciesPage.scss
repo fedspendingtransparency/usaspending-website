@@ -40,9 +40,34 @@
       width: rem(1560);
     }
     .table-controls {
+      .table-controls__time-and-search {
+        padding-left: rem(25);
+        .usa-dt-picker__button-icon svg {
+          color:  #0074BE;
+        }
+        .fy-loading {
+          svg {
+            margin-left: rem(10);
+          }
+        }
+        .usa-dt-picker__list {
+          z-index: 1;
+        }
+        .usa-dt-picker__button {
+          border-bottom: rem(2) solid #0074BE;
+          margin-bottom: rem(20);
+          padding-bottom: rem(2);
+          .usa-dt-picker__button-text {
+            font-size: rem(18);
+            font-weight: 500;
+            line-height: rem(23);
+            color: $color-base;
+          }
+        }
+      }
       .table-type-toggle:focus {
         outline: none;
-      }
+      } 
       .table-tab-label {
         @include display(flex);
       }
