@@ -296,7 +296,7 @@ const message = "All numeric figures in this table are calculated based on the s
 
 const AgenciesContainer = () => {
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
-    const [activeTab, setActiveTab] = useState('dates'); // details or dates
+    const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
@@ -340,7 +340,7 @@ const AgenciesContainer = () => {
                     {activeTab === 'details' && (
                         <Table
                             rows={rows}
-                            classNames={`usda-table-w-grid test ${verticalStickyClass} ${horizontalStickyClass}`}
+                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                             columns={columns}
                             updateSort={updateSort}
                             currentSort={sortStatus} />
@@ -348,7 +348,7 @@ const AgenciesContainer = () => {
                     {activeTab === 'dates' && (
                         <Table
                             rows={dateRows}
-                            classNames={`usda-table-w-grid test ${verticalStickyClass} ${horizontalStickyClass}`}
+                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                             columns={[
                                 { title: 'name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
                                 { title: 'total', displayName: 'Total Budgetary  Resources' },
