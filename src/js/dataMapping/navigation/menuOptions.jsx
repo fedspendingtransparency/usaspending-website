@@ -130,5 +130,16 @@ export const downloadOptions = [
         newTab: false,
         enabled: true,
         externalLink: false
+    },
+    {
+        label: 'Metadata Download',
+        type: 'metadata_download',
+        url: '/download_center/metadata_download',
+        code: 'metadata',
+        description: '',
+        callToAction: 'Explore Metadata Download',
+        newTab: false,
+        enabled: true,
+        externalLink: false
     }
 ];
