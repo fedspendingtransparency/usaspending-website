@@ -20,11 +20,6 @@ const propTypes = {
     visualizationPeriod: PropTypes.string
 };
 
-const downloadTooltip = (
-    <div className="tooltip__text">
-        Download a CSV of award spending that matches your search criteria, broken down by the selected time unit as shown in the chart (i.e., “Years,” “Quarters,” or “Months”). Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
-    </div>
-);
 
 export default class TimeVisualizationSection extends React.Component {
     constructor(props) {
@@ -41,6 +36,13 @@ export default class TimeVisualizationSection extends React.Component {
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+        this.downloadPeriodWord = this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.data.visualizationPeriod !== this.props.data.visualizationPeriod) {
+            this.downloadPeriodWord = this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod;
+        }
     }
 
     componentWillUnmount() {
@@ -68,6 +70,15 @@ export default class TimeVisualizationSection extends React.Component {
                 .join('\n')
         );
     }
+
+    downloadTooltip = () => (
+        <>
+            <div className="tooltip__title">Download data by {capitalize(this.downloadPeriodWord)}</div>
+            <div className="tooltip__text">
+                Download a CSV of award spending that matches your search criteria, broken down by {this.downloadPeriodWord}. Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
+            </div>
+        </>
+    );
 
     handleWindowResize() {
         // determine if the width changed
@@ -146,10 +157,10 @@ export default class TimeVisualizationSection extends React.Component {
                             <button onClick={this.downloadCsv}>
                                 <FontAwesomeIcon icon="download" size="lg" />
                                 <span className="text">
-                                    {`Download data by ${this.props.data.visualizationPeriod === 'fiscal_year' ? 'Year' : capitalize(this.props.data.visualizationPeriod)}`}
+                                    Download data by {capitalize(this.downloadPeriodWord)}
                                 </span>
                             </button>
-                            <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={downloadTooltip} />
+                            <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />
                         </div>
                     </div>
                 </div>

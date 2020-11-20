@@ -6,9 +6,6 @@
         @include h3;
         margin: 0;
     }
-    .visualization-tooltip {
-        @import "components/visualizations/tooltip/_tooltip";
-    }
     .results-visualization-message {
         margin-top: rem(10);
         font-size: $small-font-size;
@@ -34,11 +31,11 @@
             }
 
             .tooltip-wrapper {
-              display: inline-block;
+                display: inline-block;
 
-              .tooltip-pointer::after {
-                background: white;
-              }
+                .tooltip__title {
+                    border-bottom: solid thin #aeb8b5;
+                }
             }
         }
     }
