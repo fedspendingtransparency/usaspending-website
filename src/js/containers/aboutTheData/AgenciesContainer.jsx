@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import { Table, TooltipComponent, TooltipWrapper } from "data-transparency-ui";
+import { throttle } from "lodash";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
-import AboutTheDataModal from "components/aboutTheData/modals/AboutTheDataModal";
-
-import { throttle } from "lodash";
+import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
+import { modalTitles } from 'dataMapping/aboutTheData/modals';
 
 require("pages/aboutTheData/agenciesPage.scss");
 
@@ -236,6 +236,7 @@ const message =
 const AgenciesContainer = () => {
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [showModal, setShowModal] = useState('');
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -244,9 +245,8 @@ const AgenciesContainer = () => {
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
-    // TODO - Modal Buttons - DELETE THIS CODE
-    const [showModal, setShowModal] = useState('');
-    const publicationDatesClick = (e) => {
+    // Modal Logic
+    const modalClick = (e) => {
         e.preventDefault();
         setShowModal(e.target.value);
     };
@@ -259,7 +259,7 @@ const AgenciesContainer = () => {
                 <div className="sticky-header__title">
                     <h1 tabIndex={-1}>Agency Submission Data</h1>
                     {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                    <button value="publicationDates" onClick={publicationDatesClick}>Publication Dates</button>
+                    <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -276,8 +276,13 @@ const AgenciesContainer = () => {
                         currentSort={sortStatus} />
                 </div>
                 <Note message={message} />
-                <PublicationDatesModal
+                <AboutTheDataModal
                     mounted={!!showModal.length}
+                    type={showModal}
+                    title={modalTitles[showModal]}
+                    agencyName={`${rows[0][0]}`}
+                    fiscalYear={2020}
+                    fiscalPeriod={8}
                     closeModal={closeModal} />
             </main>
             <Footer />

@@ -8,29 +8,46 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { periodToQuarterMapping } from 'dataMapping/aboutTheData/periodToQuarterMapping';
+import { modalContentMapping } from './dataMapping/modals/modalContentMapping';
+
 const propTypes = {
     mounted: PropTypes.bool,
     closeModal: PropTypes.func,
-    title: PropTypes.string
+    type: PropTypes.string,
+    title: PropTypes.string,
+    agencyCode: PropTypes.string,
+    agencyName: PropTypes.string,
+    fiscalYear: PropTypes.number,
+    fiscalPeriod: PropTypes.number
 };
 
 const AboutTheDataModal = ({
     mounted,
     closeModal,
-    title
+    type,
+    title,
+    agencyCode,
+    agencyName,
+    fiscalYear,
+    fiscalPeriod
 }) => (
     <Modal
         mounted={mounted}
         onExit={closeModal}
-        titleText="PublicationDatesModal"
+        titleText={title}
         dialogClass="usa-dt-modal"
         verticallyCenter
         escapeExits>
         <div className="usa-dt-modal">
             <div className="usa-dt-modal__header">
+                <div className="about-the-data-modal__agency-name">{agencyName}</div>
                 <h1 className="usa-dt-modal__title">
                     {title}
                 </h1>
+                <div className="about-the-data-modal__fiscal-year-quarter-period">
+                    {`FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}`}
+                </div>
                 <button
                     className="usa-dt-modal__close-button"
                     onClick={closeModal}
@@ -40,12 +57,7 @@ const AboutTheDataModal = ({
                 </button>
             </div>
             <div className="usa-dt-modal__section">
-                <div className="usa-dt-modal__section__title">
-                    <h6>Administrative Agency</h6>
-                </div>
-                <div className="usa-dt-modal__section__description">
-                    <p className="administrative-agency">--</p>
-                </div>
+                {modalContentMapping({ agencyCode, fiscalYear, fiscalPeriod })[type]}
             </div>
         </div>
     </Modal>
