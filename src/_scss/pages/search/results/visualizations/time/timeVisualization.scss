@@ -6,6 +6,9 @@
         @include h3;
         margin: 0;
     }
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
     .results-visualization-message {
         margin-top: rem(10);
         font-size: $small-font-size;
