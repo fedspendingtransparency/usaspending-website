@@ -4,22 +4,20 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIPublicationDates } from 'dataMapping/aboutTheData/modals';
-import { formatPublicationDates } from 'helpers/aboutTheDataHelper';
+import { mockAPIPublicationDates, publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
+import { formatPublicationDates, dateFormattedMonthDayYear } from 'helpers/aboutTheDataHelper';
+import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
+import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
 const propTypes = {
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
     agencyCode: PropTypes.string
 };
-
-const columns = [
-    { displayName: 'Publication Date', title: 'publication_date' },
-    { displayName: 'Certification Date', title: 'certification_date' }
-];
 
 const PublicationDatesContainer = ({
     fiscalYear,
@@ -34,16 +32,35 @@ const PublicationDatesContainer = ({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ error: false, message: '' });
     const [rows, setRows] = useState([]);
-    const request = useRef(null);
+    const [submissionDeadlines, setSubmissionDeadlines] = useState(null);
+    const { submissionPeriods } = useSelector((state) => state.account);
+    const subPeriodsRequest = useRef(null);
+    const pubDatesRequest = useRef(null);
+    const dispatch = useDispatch();
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
 
+    const submissionPeriodsRequest = async () => {
+        if (subPeriodsRequest.current) subPeriodsRequest.current.cancel();
+        try {
+            subPeriodsRequest.current = fetchAllSubmissionDates();
+            const { data } = await subPeriodsRequest.current.promise;
+            dispatch(setSubmissionPeriods(data.available_periods));
+            subPeriodsRequest.current = null;
+        }
+        catch (e) {
+            console.log(e);
+            if (!isCancel(e)) console.error(e);
+            subPeriodsRequest.current = null;
+        }
+    };
+
     const publicationDatesRequest = async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
-        if (request.current) request.current.cancel();
+        if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         const params = {
             page,
             limit,
@@ -51,11 +68,12 @@ const PublicationDatesContainer = ({
             order
         };
         try {
-            request.current = mockAPIPublicationDates(params);
-            const { data } = await request.current.promise;
+            pubDatesRequest.current = mockAPIPublicationDates(params);
+            const { data } = await pubDatesRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatPublicationDates(data.results));
             setLoading(false);
+            pubDatesRequest.current = null;
         }
         catch (e) {
             console.error(e);
@@ -63,19 +81,45 @@ const PublicationDatesContainer = ({
                 setLoading(false);
                 setError({ error: true, message: e.message });
             }
+            pubDatesRequest.current = null;
         }
     };
-    // on mount fetch data, and unmount cleanup request
+    // get submission periods if we do not have them
+    useEffect(() => {
+        if (!submissionPeriods.size) {
+            submissionPeriodsRequest();
+        }
+        else {
+            setSubmissionDeadlines(getSubmissionDeadlines(fiscalYear, fiscalPeriod, submissionPeriods.toJS()));
+        }
+    }, [submissionPeriods]);
+    // on mount fetch data, and unmount cleanup pubDatesRequest
     useEffect(() => {
         publicationDatesRequest();
         return () => {
-            if (request.current) request.current.cancel();
+            if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         };
     }, []);
     // on page, sort, order, or limit change fetch new data
     useEffect(() => {
         publicationDatesRequest();
     }, [sort, order, page, limit]);
+    // do not show deadlines in column headers if we do not have the data
+    const columns = publicationDatesColumns.map((column) => ({
+        displayName: (
+            <div className="publication-dates__column-header-container">
+                <div className="publication-dates__column-header-title">
+                    {column.displayName}
+                </div>
+                <div className="publication-dates__column-header-sub-title">
+                    <i>{`Deadline: ${column.title === 'publication_date' ?
+                        dateFormattedMonthDayYear(submissionDeadlines?.submissionDueDate) || '--' : dateFormattedMonthDayYear(submissionDeadlines?.certificationDueDate) || '--'}`}
+                    </i>
+                </div>
+            </div>
+        ),
+        title: column.title
+    }));
 
     return (
         <>

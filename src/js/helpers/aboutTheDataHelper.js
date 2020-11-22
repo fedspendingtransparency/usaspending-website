@@ -21,16 +21,20 @@ export const fetchPublishDates = (params) => apiRequest({
     url: `v2/reporting/agencies/${params.agencyCode}/publish_dates${aboutTheDataQueryString(params)}`
 });
 
+export const dateFormattedMonthDayYear = (date) => {
+    if (!date) return null;
+    const newDate = new Date(date);
+    return `${newDate.getMonth() + 1}/${newDate.getDate()}/${newDate.getFullYear()}`;
+};
+
 export const formatPublicationDates = (dates) => dates.map((date) => {
     let publicationDate = '--';
     let certificationDate = '--';
     if (date.publication_date) {
-        publicationDate = new Date(date.publication_date);
-        publicationDate = `${publicationDate.getMonth() + 1}/${publicationDate.getDate()}/${publicationDate.getFullYear()}`;
+        publicationDate = dateFormattedMonthDayYear(date.publication_date);
     }
     if (date.certification_date) {
-        certificationDate = new Date(date.publication_date);
-        certificationDate = `${certificationDate.getMonth() + 1}/${certificationDate.getDate()}/${certificationDate.getFullYear()}`;
+        certificationDate = dateFormattedMonthDayYear(date.certification_date);
     }
     return [publicationDate, certificationDate];
 });

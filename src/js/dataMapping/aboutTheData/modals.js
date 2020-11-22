@@ -9,13 +9,18 @@ export const modalTitles = {
     missingAccountBalance: 'Number of TASs Missing from Account Balance Data'
 };
 
+export const publicationDatesColumns = [
+    { displayName: 'Publication Date', title: 'publication_date' },
+    { displayName: 'Certification Date', title: 'certification_date' }
+];
+
 const mockDataPublicationDates = [
     {
         publication_date: "2020-12-11T11:59:21Z",
         certification_date: "2020-12-22T11:59:21Z"
     },
     {
-        publication_date: "2020-11-10T11:59:21Z",
+        publication_date: null,
         certification_date: "2020-11-11T11:59:21Z"
     },
     {
@@ -24,15 +29,15 @@ const mockDataPublicationDates = [
     },
     {
         publication_date: "2020-09-10T11:59:21Z",
-        certification_date: "2020-09-11T11:59:21Z"
+        certification_date: null
     },
     {
         publication_date: "2020-08-11T11:59:21Z",
         certification_date: "2020-08-22T11:59:21Z"
     },
     {
-        publication_date: "2020-07-10T11:59:21Z",
-        certification_date: "2020-07-11T11:59:21Z"
+        publication_date: null,
+        certification_date: null
     },
     {
         publication_date: "2020-06-11T11:59:21Z",
@@ -75,7 +80,7 @@ const mockDataPublicationDates = [
         certification_date: "2019-09-11T11:59:21Z"
     }
 ];
-
+// TODO - delete this when API is integrated
 export const mockAPIPublicationDates = (params) => {
     const pageMetaData = {
         page: 1,
