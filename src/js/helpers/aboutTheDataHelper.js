@@ -25,7 +25,7 @@ export const fetchPublishDates = (params) => apiRequest({
 export const dateFormattedMonthDayYear = (date) => {
     if (!date) return null;
     const newDate = new Date(date);
-    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth().length + 1;
+    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth() + 1;
     const dayOfTheMonth = (newDate.getUTCDate()).toString().length === 1 ? `0${newDate.getUTCDate()}` : newDate.getUTCDate();
     return `${month}/${dayOfTheMonth}/${newDate.getUTCFullYear()}`;
 };
