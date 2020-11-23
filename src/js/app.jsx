@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
+    faAngleDoubleDown,
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
@@ -67,6 +68,7 @@ require('helpers/rafPolyfill');
 
 library.add(
     faAngleDown,
+    faAngleDoubleDown,
     faAngleRight,
     faAngleLeft,
     faArrowLeft,

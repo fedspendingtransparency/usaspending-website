@@ -21,7 +21,7 @@ const DrilldownCell = ({ name, id }) => (
             {name}
         </span>
         <span className="drilldown-cell__icon">
-            <FontAwesomeIcon icon="chevron-down" />
+            <FontAwesomeIcon icon="angle-double-down" />
         </span>
     </Link>
 );
