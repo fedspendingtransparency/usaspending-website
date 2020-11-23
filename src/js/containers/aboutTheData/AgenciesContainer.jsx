@@ -6,6 +6,7 @@ import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
+import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 
 import { throttle } from "lodash";
 
@@ -212,16 +213,18 @@ const mockAPIResponse = {
     ]
 };
 
+// TODO - create a data model for agency row
 const rows = mockAPIResponse.results.map(
     ({
         name,
         abbreviation,
+        code,
         current_total_budget_authority_amount: total,
         recent_publication_date: publicationDate,
         discrepancy_count: GtasNotInFileA,
         obligation_difference: differenceInFileAAndB
     }) => [
-        `${name} (${abbreviation})`,
+        (<DrilldownCell name={`${name} (${abbreviation})`} id={code} />),
         total,
         publicationDate,
         GtasNotInFileA,

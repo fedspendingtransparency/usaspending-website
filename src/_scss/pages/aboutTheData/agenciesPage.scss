@@ -28,7 +28,7 @@
           line-height: rem(59);
         }
     }
-    .table-container  {
+    .table-container {
       width: rem(1400);
       height: rem(500);
       overflow: scroll;
@@ -38,6 +38,15 @@
         thead {
           tr th {
             min-width: rem(300);
+          }
+        }
+        tbody {
+          .usda-table__row .usda-table__cell {
+            font-size: 1.4rem;
+            &:first-of-type {
+              padding: 0; // makes the whole cell clickable
+              @import './drilldownCell';
+            }
           }
         }
         &.sticky-y-table {

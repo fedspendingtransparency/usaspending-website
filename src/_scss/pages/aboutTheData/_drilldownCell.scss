@@ -1,0 +1,27 @@
+.drilldown-cell {
+    @include display(flex);
+    @include justify-content(space-between);
+    color: $color-base;
+    padding: 1.5rem;
+    .drilldown-cell__text {
+        padding-right: .8rem;
+    }
+    .drilldown-cell__icon {
+        @include align-self(center);
+        color: $color-primary;
+        width: 1.4rem; // ensures the width of the text doesn't change on hover
+        svg {
+            display: none;
+        }
+    }
+    &:hover {
+        border: solid 3px $color-primary;
+        padding: 1.2rem; // ensures the border doesn't change the size of the cell
+        text-decoration: none;
+        .drilldown-cell__icon {
+            svg {
+                @include display(flex);
+            }
+        }
+    }
+}
