@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Table, TooltipComponent, TooltipWrapper, Tabs, Picker } from "data-transparency-ui";
 import { throttle } from "lodash";
@@ -297,35 +298,43 @@ const dateRows = mockDatesApiResponse.results
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
 
 const AgenciesContainer = ({
-    dataAsOf
+    dataAsOf,
+    history
 }) => {
-    const latestFy = dataAsOf ? dataAsOf.format('YYYY') : null;
+    const { fy: urlFy } = useParams();
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
-    const [selectedFy, setSelectedFy] = useState(latestFy);
+    const [selectedFy, setSelectedFy] = useState(null);
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const tableRef = useRef(null);
+    const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
+    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
         setIsSticky({ vertical, horizontal });
     }, 100);
 
-    const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
-    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
-
     const handleSwitchTab = (tab) => {
         setActiveTab(tab);
     };
 
-    const handleFyChange = (fy) => {
-        setSelectedFy(fy);
-    };
-
     useEffect(() => {
         if (dataAsOf) {
-            setSelectedFy(dataAsOf.year());
+            if (allFiscalYears(2017, dataAsOf.year()).includes(parseInt(urlFy, 10))) {
+                setSelectedFy(urlFy);
+            }
+            else {
+                setSelectedFy(`${dataAsOf.year()}`);
+                history.push('latest');
+            }
         }
     }, [dataAsOf]);
+
+    const handleFyChange = (fy) => {
+        history.push(`${fy}`);
+        setSelectedFy(fy);
+    };
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
@@ -349,8 +358,10 @@ const AgenciesContainer = ({
                             { internal: 'dates', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
                         ]} />
                     <div className="table-controls__time-and-search">
+                        <span className="fy-picker-title">FISCAL YEAR</span>
                         <Picker
                             icon=""
+                            isFixedWidth
                             selectedOption={selectedFy
                                 ? `FY ${selectedFy}`
                                 : (
@@ -358,8 +369,8 @@ const AgenciesContainer = ({
                                         FY <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
                                     </div>
                                 )}
-                            options={latestFy
-                                ? allFiscalYears(2017, latestFy).map((year) => ({ name: `${year}`, value: `${year}`, onClick: handleFyChange }))
+                            options={dataAsOf
+                                ? allFiscalYears(2017, dataAsOf.year()).map((year) => ({ name: `${year}`, value: `${year}`, onClick: handleFyChange }))
                                 : [{ name: 'Loading...', value: null, onClick: () => {} }]
                             } />
                     </div>
@@ -432,11 +443,12 @@ const AgenciesContainer = ({
 };
 
 AgenciesContainer.propTypes = {
-    dataAsOf: PropTypes.object
+    dataAsOf: PropTypes.object,
+    history: PropTypes.object
 };
 
-export default () => (
+export default (props) => (
     <WithLatestFy propName="dataAsOf">
-        <AgenciesContainer />
+        <AgenciesContainer {...props} />
     </WithLatestFy>
 );

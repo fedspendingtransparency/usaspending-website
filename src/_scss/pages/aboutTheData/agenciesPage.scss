@@ -42,6 +42,7 @@
     .table-controls {
       .table-controls__time-and-search {
         padding-left: rem(25);
+        margin-top: rem(25);
         .usa-dt-picker__button-icon svg {
           color:  #0074BE;
         }
@@ -63,6 +64,11 @@
             line-height: rem(23);
             color: $color-base;
           }
+        }
+        .fy-picker-title {
+          font-size: rem(14);
+          margin-left: rem(15);
+          color: #8C8C8C;
         }
       }
       .table-type-toggle:focus {
