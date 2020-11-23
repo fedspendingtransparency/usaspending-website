@@ -10,8 +10,6 @@
 
 .usa-dt-modal.about-the-data-modal {
     font-size: rem(14);
-    // width: rem(483);
-    // height: rem(539);
     .about-the-data-modal__header-data {
       padding: rem(30) rem(75) rem(30) rem(30);
       .about-the-data-modal__agency-name {
@@ -32,7 +30,7 @@
       }
     }
     .usa-dt-modal__section {
-      padding: 0 3em;
+      padding: 0 3em 3em 3em;
       .usda-table {
         margin: 3em 0;
         .usda-table__head {
@@ -61,6 +59,28 @@
         }
         .usda-table__body {
           font-size: rem(12);
+        }
+      }
+    }
+    // missing account balances specific
+    &.missing-account-balance-modal {
+      @include media($tablet-screen) {
+        max-width: rem(609);
+      }
+      @include media($large-screen) {
+        max-width: rem(609);
+        min-width: rem(609);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          .usda-table__body {
+            .usda-table__row {
+              .usda-table__cell:not(:first-child) {
+                text-align: right;
+                padding-right: rem(35);
+              }
+            }
+          }
         }
       }
     }
@@ -94,7 +114,6 @@
             }
           }
           .usda-table__body {
-            font-size: rem(12);
             .usda-table__row {
               .usda-table__cell:nth-child(2n+1) {
                 text-align: right;

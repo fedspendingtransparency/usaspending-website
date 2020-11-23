@@ -75,6 +75,7 @@ export const AgenciesDetailContainer = (props) => {
                     </h1>
                     {/* TODO - Modal Buttons - DELETE THIS CODE */}
                     <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -125,7 +126,8 @@ export const AgenciesDetailContainer = (props) => {
                     agencyName={props.agency.overview.name}
                     fiscalYear={2020}
                     fiscalPeriod={8}
-                    closeModal={closeModal} />
+                    closeModal={closeModal}
+                    totalObligationsNotInGTAS={45999} />
             </main>
             <Footer />
         </div>

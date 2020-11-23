@@ -20,7 +20,8 @@ const propTypes = {
     agencyName: PropTypes.string,
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    totalObligationsNotInGTAS: PropTypes.number
 };
 
 const AboutTheDataModal = ({
@@ -32,7 +33,8 @@ const AboutTheDataModal = ({
     agencyName,
     fiscalYear,
     fiscalPeriod,
-    className
+    className,
+    totalObligationsNotInGTAS
 }) => (
     <Modal
         mounted={mounted}
@@ -61,7 +63,12 @@ const AboutTheDataModal = ({
                 </button>
             </div>
             <div className="usa-dt-modal__section">
-                {modalContentMapping({ agencyCode, fiscalYear, fiscalPeriod })[type]}
+                {modalContentMapping({
+                    agencyCode,
+                    fiscalYear,
+                    fiscalPeriod,
+                    totalObligationsNotInGTAS
+                })[type]}
             </div>
         </div>
     </Modal>

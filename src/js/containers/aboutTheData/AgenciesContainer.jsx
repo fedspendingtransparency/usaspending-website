@@ -260,6 +260,7 @@ const AgenciesContainer = () => {
                     <h1 tabIndex={-1}>Agency Submission Data</h1>
                     {/* TODO - Modal Buttons - DELETE THIS CODE */}
                     <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -284,7 +285,8 @@ const AgenciesContainer = () => {
                     agencyName={`${rows[0][0]}`}
                     fiscalYear={2020}
                     fiscalPeriod={8}
-                    closeModal={closeModal} />
+                    closeModal={closeModal}
+                    totalObligationsNotInGTAS={45999} />
             </main>
             <Footer />
         </div>

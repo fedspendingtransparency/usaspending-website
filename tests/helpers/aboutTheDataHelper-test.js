@@ -1,4 +1,11 @@
-import { aboutTheDataQueryString, dateFormattedMonthDayYear, formatPublicationDates } from 'helpers/aboutTheDataHelper';
+import {
+    aboutTheDataQueryString,
+    dateFormattedMonthDayYear,
+    formatPublicationDates,
+    formatMissingAccountBalancesData
+} from 'helpers/aboutTheDataHelper';
+
+import { mockBalanceData, mockBadGTASTotal, mockBadResultsBalanceData } from '../mockData';
 
 const defaultParams = {
     fiscalYear: 2020,
@@ -80,6 +87,33 @@ describe('About The Data Helper', () => {
             expect(data[0][0]).toBe('05/01/2020');
             expect(data[1][0]).toBe('08/01/2020');
             expect(data[1][1]).toBe('08/31/2020');
+        });
+    });
+    describe('formatMissingAccountBalancesData', () => {
+        it('should handle no amount, or string amount being passed in results', () => {
+            const badResultsData = formatMissingAccountBalancesData(mockBadResultsBalanceData);
+            expect(badResultsData[0][1]).toBe('--');
+            expect(badResultsData[0][2]).toBe('--');
+            expect(badResultsData[1][1]).toBe('--');
+            expect(badResultsData[1][2]).toBe('--');
+        });
+        it('should handle GTAS total being 0', () => {
+            const badGTASData = formatMissingAccountBalancesData(mockBadGTASTotal);
+            expect(badGTASData[0][2]).toBe('--');
+            expect(badGTASData[1][2]).toBe('--');
+        });
+        it('should handle GTAS total being null', () => {
+            mockBadGTASTotal.totalObligationsNotInGTAS = null;
+            const badGTASData = formatMissingAccountBalancesData(mockBadGTASTotal);
+            expect(badGTASData[0][2]).toBe('--');
+            expect(badGTASData[1][2]).toBe('--');
+        });
+        it('should handle percent and money formatting', () => {
+            const data = formatMissingAccountBalancesData(mockBalanceData);
+            expect(data[0][1]).toBe('$2,323');
+            expect(data[0][2]).toBe('5.2%');
+            expect(data[1][1]).toBe('$0');
+            expect(data[1][2]).toBe('0.0%');
         });
     });
 });

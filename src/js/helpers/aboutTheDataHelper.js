@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/20/20
  */
 
-
+import { calculateTreemapPercentage, formatMoney } from 'helpers/moneyFormatter';
 import { apiRequest } from './apiRequest';
 
 export const aboutTheDataQueryString = (params) => {
@@ -22,10 +22,14 @@ export const fetchPublishDates = (params) => apiRequest({
     url: `v2/reporting/agencies/${params.agencyCode}/publish_dates${aboutTheDataQueryString(params)}`
 });
 
+export const fetchMissingAccountBalances = (params) => apiRequest({
+    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies${aboutTheDataQueryString(params)}`
+});
+
 export const dateFormattedMonthDayYear = (date) => {
     if (!date) return null;
     const newDate = new Date(date);
-    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth().length + 1;
+    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth() + 1;
     const dayOfTheMonth = (newDate.getUTCDate()).toString().length === 1 ? `0${newDate.getUTCDate()}` : newDate.getUTCDate();
     return `${month}/${dayOfTheMonth}/${newDate.getUTCFullYear()}`;
 };
@@ -41,3 +45,14 @@ export const formatPublicationDates = (dates) => dates.map((date) => {
     }
     return [publicationDate, certificationDate];
 });
+
+export const formatMissingAccountBalancesData = (data) => {
+    const weHaveTotalData = data.totalObligationsNotInGTAS && data.totalObligationsNotInGTAS > 0;
+    return data.results.map((tasData) => {
+        let amount = '--';
+        let percent = '--';
+        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculateTreemapPercentage(tasData.amount, data.totalObligationsNotInGTAS);
+        if (typeof tasData.amount === 'number') amount = formatMoney(tasData.amount);
+        return [tasData.tas, amount, percent];
+    });
+};

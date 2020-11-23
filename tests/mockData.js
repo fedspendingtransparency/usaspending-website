@@ -88,3 +88,44 @@ export const mockSubmissions = [
         is_quarter: true
     }
 ];
+
+export const mockBalanceData = {
+    totalObligationsNotInGTAS: 45000,
+    results: [
+        {
+            tas: '2323-X-34/3434',
+            amount: 2323
+        },
+        {
+            tas: '2323-X-34/3434',
+            amount: 0
+        }
+    ]
+};
+
+export const mockBadGTASTotal = {
+    totalObligationsNotInGTAS: 0,
+    results: [
+        {
+            tas: '2323-X-34/3434',
+            amount: 2323
+        },
+        {
+            tas: '2323-X-34/3434',
+            amount: 3434
+        }
+    ]
+};
+export const mockBadResultsBalanceData = {
+    totalObligationsNotInGTAS: 45000,
+    results: [
+        {
+            tas: '2323-X-34/3434',
+            amount: null
+        },
+        {
+            tas: '2323-X-34/3434',
+            amount: '3434'
+        }
+    ]
+};
