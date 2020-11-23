@@ -40,10 +40,10 @@ const columns = [
     {
         title: 'name',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>CFDA Program</div>
                 <div>(Assistance Listing)</div>
-            </>
+            </div>
         )
     },
     {
@@ -59,10 +59,10 @@ const columns = [
     {
         title: 'awardCount',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>Number</div>
                 <div>of Awards</div>
-            </>
+            </div>
         ),
         right: true
     }
@@ -72,49 +72,49 @@ const loanColumns = [
     {
         title: 'assistanceListing',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>CFDA Program</div>
                 <div>(Assistance Listing)</div>
-            </>
+            </div>
         )
     },
     {
         title: 'obligation',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>Award Obligations</div>
                 <div>(Loan Subsidy Cost)</div>
-            </>
+            </div>
         ),
         right: true
     },
     {
         title: 'outlay',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>Award Outlays</div>
                 <div>(Loan Subsidy Cost)</div>
-            </>
+            </div>
         ),
         right: true
     },
     {
         title: 'faceValueOfLoan',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>Face Value</div>
                 <div>of Loans</div>
-            </>
+            </div>
         ),
         right: true
     },
     {
         title: 'awardCount',
         displayName: (
-            <>
+            <div className="table-header-label__title">
                 <div>Number</div>
                 <div>of Awards</div>
-            </>
+            </div>
         ),
         right: true
     }
