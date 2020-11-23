@@ -43,15 +43,6 @@
               .table-header__label {
                 font-size: rem(14);
                 line-height: rem(18);
-                .table-header__icon {
-                  font-size: rem(10);
-                  height: rem(10);
-                }
-                .table-header__icon:nth-child(2) {
-                  svg {
-                    margin-top: -11px;
-                  }
-                }
                 .publication-dates__column-header-sub-title {
                   font-size: rem(12);
                   line-height: rem(15);
@@ -94,7 +85,7 @@
         }
       }
     }
-    // pulication dates modal specific
+    // publication dates modal specific
     &.publication-dates-modal {
       @include media($tablet-screen) {
         max-width: rem(483);
