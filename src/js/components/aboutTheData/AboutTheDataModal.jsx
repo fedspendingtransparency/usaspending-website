@@ -19,7 +19,8 @@ const propTypes = {
     agencyCode: PropTypes.string,
     agencyName: PropTypes.string,
     fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number
+    fiscalPeriod: PropTypes.number,
+    className: PropTypes.string
 };
 
 const AboutTheDataModal = ({
@@ -30,7 +31,8 @@ const AboutTheDataModal = ({
     agencyCode,
     agencyName,
     fiscalYear,
-    fiscalPeriod
+    fiscalPeriod,
+    className
 }) => (
     <Modal
         mounted={mounted}
@@ -39,14 +41,16 @@ const AboutTheDataModal = ({
         dialogClass="usa-dt-modal"
         verticallyCenter
         escapeExits>
-        <div className="usa-dt-modal">
+        <div className={`usa-dt-modal about-the-data-modal ${className}`}>
             <div className="usa-dt-modal__header">
-                <div className="about-the-data-modal__agency-name">{agencyName}</div>
-                <h1 className="usa-dt-modal__title">
-                    {title}
-                </h1>
-                <div className="about-the-data-modal__fiscal-year-quarter-period">
-                    {`FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}`}
+                <div className="about-the-data-modal__header-data">
+                    <div className="about-the-data-modal__agency-name">{agencyName}</div>
+                    <h1 className="usa-dt-modal__title">
+                        {title}
+                    </h1>
+                    <div className="about-the-data-modal__fiscal-year-quarter-period">
+                        {`FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}`}
+                    </div>
                 </div>
                 <button
                     className="usa-dt-modal__close-button"

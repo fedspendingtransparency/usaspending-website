@@ -1,0 +1,109 @@
+.usa-dt-modal {
+  @include media($tablet-screen) {
+    max-width: rem(483);
+  }
+  @include media($large-screen) {
+    max-width: rem(483);
+    min-width: rem(483);
+  }
+}
+
+.usa-dt-modal.about-the-data-modal {
+    font-size: rem(14);
+    // width: rem(483);
+    // height: rem(539);
+    .about-the-data-modal__header-data {
+      padding: rem(30) rem(75) rem(30) rem(30);
+      .about-the-data-modal__agency-name {
+          font-size: rem(14);
+          line-height: rem(18);
+      }
+      .usa-dt-modal__title {
+          font-size: rem(22);
+          line-height: rem(28);
+          padding: rem(11) 0;
+      }
+      .about-the-data-modal__fiscal-year-quarter-period {
+          font-size: rem(16);
+      }
+      .usa-dt-modal__close-button {
+        margin: 0;
+        padding-right: rem(34);
+      }
+    }
+    .usa-dt-modal__section {
+      padding: 0 3em;
+      .usda-table {
+        margin: 3em 0;
+        .usda-table__head {
+          .table-header {
+            .table-header__content {
+              .table-header__label {
+                font-size: rem(14);
+                line-height: rem(18);
+                .table-header__icon {
+                  font-size: rem(10);
+                  height: rem(10);
+                }
+                .table-header__icon:nth-child(2) {
+                  svg {
+                    margin-top: -11px;
+                  }
+                }
+                .publication-dates__column-header-sub-title {
+                  font-size: rem(12);
+                  line-height: rem(15);
+                  font-weight: $font-normal;
+                }
+              }
+            }
+          }
+        }
+        .usda-table__body {
+          font-size: rem(12);
+        }
+      }
+    }
+    // pulication dates modal specific
+    &.publication-dates-modal {
+      @include media($tablet-screen) {
+        max-width: rem(483);
+      }
+      @include media($large-screen) {
+        max-width: rem(483);
+        min-width: rem(483);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          .usda-table__head {
+            .table-header {
+              .table-header__content {
+                .table-header__label {
+                  .publication-dates__column-header-sub-title {
+                    font-size: rem(12);
+                    line-height: rem(15);
+                    font-weight: $font-normal;
+                  }
+                }
+              }
+            }
+            .table-header:first-child {
+              .table-header__content:first-child {
+                @include justify-content(flex-end);
+              }
+            }
+          }
+          .usda-table__body {
+            font-size: rem(12);
+            .usda-table__row {
+              .usda-table__cell:nth-child(2n+1) {
+                text-align: right;
+                padding-left: 0rem;
+                padding-right: 8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+}

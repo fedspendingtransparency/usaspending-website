@@ -8,7 +8,7 @@ import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
-import { modalTitles } from 'dataMapping/aboutTheData/modals';
+import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 
 require("pages/aboutTheData/agenciesPage.scss");
 
@@ -279,6 +279,7 @@ const AgenciesContainer = () => {
                 <AboutTheDataModal
                     mounted={!!showModal.length}
                     type={showModal}
+                    className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
                     agencyName={`${rows[0][0]}`}
                     fiscalYear={2020}

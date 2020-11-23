@@ -8,9 +8,10 @@ import { apiRequest } from './apiRequest';
 
 export const aboutTheDataQueryString = (params) => {
     if (!Object.keys(params).length) return '';
-    return `?fiscal_year=${params.fiscalYear}
+    return `?
+    ${params.fiscalYear ? `fiscal_year=${params.fiscalYear}` : ''}
     ${params.fiscalPeriod ? `&fiscal_period=${params.fiscalPeriod}` : ''}
-    ${params.search ? `&search=${params.search}` : ''}
+    ${params.search ? `&search=${encodeURIComponent(params.search)}` : ''}
     ${params.page ? `&page=${params.page}` : ''}
     ${params.limit ? `&limit=${params.limit}` : ''}
     ${params.order ? `&order=${params.order}` : ''}
@@ -24,7 +25,9 @@ export const fetchPublishDates = (params) => apiRequest({
 export const dateFormattedMonthDayYear = (date) => {
     if (!date) return null;
     const newDate = new Date(date);
-    return `${newDate.getMonth() + 1}/${newDate.getDate()}/${newDate.getFullYear()}`;
+    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth().length + 1;
+    const dayOfTheMonth = (newDate.getUTCDate()).toString().length === 1 ? `0${newDate.getUTCDate()}` : newDate.getUTCDate();
+    return `${month}/${dayOfTheMonth}/${newDate.getUTCFullYear()}`;
 };
 
 export const formatPublicationDates = (dates) => dates.map((date) => {

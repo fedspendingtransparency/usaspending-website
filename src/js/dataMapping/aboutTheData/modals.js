@@ -9,6 +9,10 @@ export const modalTitles = {
     missingAccountBalance: 'Number of TASs Missing from Account Balance Data'
 };
 
+export const modalClassNames = {
+    publicationDates: 'publication-dates-modal'
+};
+
 export const publicationDatesColumns = [
     { displayName: 'Publication Date', title: 'publication_date' },
     { displayName: 'Certification Date', title: 'certification_date' }
@@ -106,9 +110,6 @@ export const mockAPIPublicationDates = (params) => {
                         page_metadata: pageMetaData,
                         results: mockDataPublicationDates.slice(0, params.limit)
                     };
-                    // process.nextTick(() => {
-                    //     resolve({ data });
-                    // });
                     resolve({ data });
                 }
                 else {
@@ -116,13 +117,10 @@ export const mockAPIPublicationDates = (params) => {
                         page_metadata: pageMetaData,
                         results: mockDataPublicationDates.slice(params.limit, params.limit * 2)
                     };
-                    // process.nextTick(() => {
-                    //     resolve({ data });
-                    // });
                     resolve({ data });
                 }
-            }, 3000);
+            }, 1000);
         }),
-        cancel: () => console.log(' Cancelling Johnny Boi!!! ')
+        cancel: () => console.log(' :wave: ')
     };
 };

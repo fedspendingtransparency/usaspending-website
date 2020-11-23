@@ -65,7 +65,8 @@ const PublicationDatesContainer = ({
             page,
             limit,
             sort,
-            order
+            order,
+            agencyCode
         };
         try {
             pubDatesRequest.current = mockAPIPublicationDates(params);
