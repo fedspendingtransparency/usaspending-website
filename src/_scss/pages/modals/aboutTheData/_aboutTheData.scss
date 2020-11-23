@@ -31,6 +31,10 @@
     }
     .usa-dt-modal__section {
       padding: 0 3em 3em 3em;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS styles go here */
+        padding: 0;
+      }
       .usda-table {
         margin: 3em 0;
         .usda-table__head {
@@ -70,6 +74,12 @@
       @include media($large-screen) {
         max-width: rem(609);
         min-width: rem(609);
+      }
+      .about-the-data-modal__header-data {
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          padding-left: 0;
+        }
       }
       .usa-dt-modal__section {
         .usda-table {

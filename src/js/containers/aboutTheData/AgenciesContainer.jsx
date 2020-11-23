@@ -268,6 +268,8 @@ const AgenciesContainer = () => {
                     <h2 className="header">Submission Data</h2>
                     <h3 className="sub-header">All Agencies</h3>
                 </div>
+                <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     <Table
                         rows={rows}
