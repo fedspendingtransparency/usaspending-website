@@ -103,7 +103,7 @@ export const mockAPIPublicationDates = (params) => {
     pageMetaData.limite = params.limit;
 
     return {
-        promise: new Promise((resolve, reject) => {
+        promise: new Promise((resolve) => {
             setTimeout(() => {
                 if (params.page === 1) {
                     const data = {
