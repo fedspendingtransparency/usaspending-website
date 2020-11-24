@@ -18,17 +18,19 @@ const MetadataDownload = ({ downloadLocation }) => (
             This JSON file contains metadata for all datasets that are published on USAspending.gov,
             including information such as dataset description, file format, publishing agency, and keywords.
         </p>
-        <a
-            target="_blank"
-            href={downloadLocation}
-            rel="noopener noreferrer"
-            aria-label="Metadata Download">
-            <button
-                className="full-menu__item--button">
-                <FontAwesomeIcon icon="file-code" />
-                Download the Metadata JSON File
-            </button>
-        </a>
+        <div className="metadata-download-button">
+            <a
+                target="_blank"
+                href={downloadLocation}
+                rel="noopener noreferrer"
+                aria-label="Metadata Download">
+                <button
+                    className="full-menu__item--button">
+                    <FontAwesomeIcon icon="file-code" />
+                    Download the Metadata JSON File
+                </button>
+            </a>
+        </div>
     </div>
 );
 
