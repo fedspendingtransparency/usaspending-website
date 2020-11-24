@@ -3,7 +3,7 @@
   * Created by Kevin Li 12/13/16
   **/
 
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle, capitalize } from 'lodash';
 
@@ -20,7 +20,6 @@ const propTypes = {
     visualizationPeriod: PropTypes.string
 };
 
-
 export default class TimeVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +30,7 @@ export default class TimeVisualizationSection extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.downloadClickRef = createRef();
     }
 
     componentDidMount() {
@@ -99,10 +99,10 @@ export default class TimeVisualizationSection extends React.Component {
             window.navigator.msSaveOrOpenBlob(file, 'spending-over-time.csv');
         }
         else {
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(file);
-            a.download = 'spending-over-time.csv';
-            a.click();
+            this.setState({
+                downloadHref: URL.createObjectURL(file)
+            });
+            this.downloadClickRef.current.click();
         }
     };
 
@@ -115,6 +115,8 @@ export default class TimeVisualizationSection extends React.Component {
                 <h2 className="visualization-title">
                     Spending Over Time
                 </h2>
+                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+                <a ref={this.downloadClickRef} href={this.state.downloadHref} className="hide" download="spending-over-time.csv" />
                 <hr
                     className="results-divider"
                     ref={(hr) => {
