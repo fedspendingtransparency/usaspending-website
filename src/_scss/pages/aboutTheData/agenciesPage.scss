@@ -41,11 +41,13 @@
           }
         }
         tbody {
-          .usda-table__row .usda-table__cell {
-            font-size: 1.4rem;
-            @import './cellWithModal';
-            &:first-of-type {
-              padding: 0; // makes the whole cell clickable
+          .usda-table__row {
+            height: 4.8rem;
+            .usda-table__cell {
+              padding: 0;
+              font-size: 1.4rem;
+              white-space: nowrap;
+              @import './cellWithModal';
               @import './drilldownCell';
             }
           }

@@ -4,21 +4,21 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    name: PropTypes.string,
+    data: oneOfType([PropTypes.string, PropTypes.object]),
     id: PropTypes.string
 };
 
-const DrilldownCell = ({ name, id }) => (
+const DrilldownCell = ({ data, id }) => (
     <Link
         to={`/about-the-data/agency/${id}`}
         className="drilldown-cell">
         <span className="drilldown-cell__text">
-            {name}
+            {data}
         </span>
         <span className="drilldown-cell__icon">
             <FontAwesomeIcon icon="angle-double-down" />

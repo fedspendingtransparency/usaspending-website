@@ -4,11 +4,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    data: PropTypes.string.isRequired,
+    data: oneOfType([PropTypes.string, PropTypes.object]),
     openModal: PropTypes.func.isRequired
 };
 

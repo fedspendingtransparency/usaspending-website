@@ -230,7 +230,7 @@ const rows = mockAPIResponse.results.map(
         obligation_difference: differenceInFileAAndB
     }) => [
         // TODO: handle agencies with no code
-        (<DrilldownCell name={`${name} (${abbreviation})`} id={code} />),
+        (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
         total,
         publicationDate,
         (<CellWithModal data={GtasNotInFileA} openModal={mockModalFn} />),
