@@ -304,6 +304,10 @@ const AgenciesContainer = () => {
         setIsSticky({ vertical, horizontal });
     }, 100);
 
+    const handleUpdateSort = (field, direction) => {
+        updateSort({ field, direction });
+    };
+
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
@@ -342,7 +346,7 @@ const AgenciesContainer = () => {
                             rows={rows}
                             classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                             columns={columns}
-                            updateSort={updateSort}
+                            updateSort={handleUpdateSort}
                             currentSort={sortStatus} />
                     )}
                     {activeTab === 'dates' && (
@@ -392,7 +396,7 @@ const AgenciesContainer = () => {
                                     ]
                                 }
                             ]}
-                            updateSort={updateSort}
+                            updateSort={handleUpdateSort}
                             currentSort={sortStatus} />
                     )}
                 </div>

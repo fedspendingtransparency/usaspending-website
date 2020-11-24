@@ -68,6 +68,11 @@
           tr th {
             min-width: rem(300);
           }
+          .nested-header {
+            .table-header__content {
+              padding: 1rem 0;
+            }
+          }
         }
         &.sticky-y-table {
           @media(min-width: $medium-screen) {
