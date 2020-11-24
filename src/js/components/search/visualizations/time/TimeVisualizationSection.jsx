@@ -36,13 +36,6 @@ export default class TimeVisualizationSection extends React.Component {
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
-        this.downloadPeriodWord = this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod;
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.data.visualizationPeriod !== this.props.data.visualizationPeriod) {
-            this.downloadPeriodWord = this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod;
-        }
     }
 
     componentWillUnmount() {
@@ -73,9 +66,9 @@ export default class TimeVisualizationSection extends React.Component {
 
     downloadTooltip = () => (
         <>
-            <div className="tooltip__title">Download data by {capitalize(this.downloadPeriodWord)}</div>
+            <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
             <div className="tooltip__text">
-                Download a CSV of award spending that matches your search criteria, broken down by {this.downloadPeriodWord}. Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
+                Download a CSV of award spending that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
             </div>
         </>
     );
@@ -157,7 +150,7 @@ export default class TimeVisualizationSection extends React.Component {
                             <button onClick={this.downloadCsv}>
                                 <FontAwesomeIcon icon="download" size="lg" />
                                 <span className="text">
-                                    Download data by {capitalize(this.downloadPeriodWord)}
+                                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
                                 </span>
                             </button>
                             <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />
