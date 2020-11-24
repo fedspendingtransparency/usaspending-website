@@ -52,7 +52,7 @@ const AboutTheDataModal = ({
                 <div className="usa-dt-modal__header">
                     <div className="about-the-data-modal__header-data">
                         <div className="about-the-data-modal__agency-name">{agencyName}</div>
-                        <h1 className="usa-dt-modal__title">
+                        <h1 title={title} className="usa-dt-modal__title">
                             {title}
                         </h1>
                         <div className="about-the-data-modal__fiscal-year-quarter-period">

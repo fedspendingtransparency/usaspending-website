@@ -11,8 +11,8 @@ const defaultProps = {
 describe('Publication Dates Container', () => {
     it('should render column headers', () => {
         render(<PublicationDatesContainer {...defaultProps} />);
-        expect(screen.queryByText('Publication Date')).toBeTruthy();
-        expect(screen.queryByText('Certification Date')).toBeTruthy();
+        expect(screen.queryByText('Publication Dates')).toBeTruthy();
+        expect(screen.queryByText('Certification Dates')).toBeTruthy();
     });
     it('should render deadline subheaders', () => {
         render(<PublicationDatesContainer {...defaultProps} />);

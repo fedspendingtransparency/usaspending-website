@@ -21,10 +21,10 @@ describe('About The Data Modal', () => {
     });
     it('should render title', () => {
         render(<AboutTheDataModal {...defaultProps} />);
-        expect(screen.queryByText('Publication Dates')).toBeTruthy();
+        expect(screen.getByTitle('Publication Dates')).toBeTruthy();
     });
     it('should render fiscal year quarter and period', () => {
         render(<AboutTheDataModal {...defaultProps} />);
-        expect(screen.queryByText('FY 2020 Q3 / P8')).toBeTruthy();
+        expect(screen.queryByText('FY 2020 P8')).toBeTruthy();
     });
 });
