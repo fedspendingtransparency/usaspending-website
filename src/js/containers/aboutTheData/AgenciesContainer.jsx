@@ -231,10 +231,10 @@ const rows = mockAPIResponse.results.map(
     }) => [
         // TODO: handle agencies with no code
         (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
-        total,
-        publicationDate,
+        (<div className="generic-cell-content">{ total }</div>),
+        (<div className="generic-cell-content">{ publicationDate }</div>),
         (<CellWithModal data={GtasNotInFileA} openModal={mockModalFn} />),
-        differenceInFileAAndB
+        (<div className="generic-cell-content">{ differenceInFileAAndB}</div>)
     ]
 );
 
