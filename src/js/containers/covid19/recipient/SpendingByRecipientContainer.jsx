@@ -195,39 +195,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     const { current: previousResults } = previousResultsRef;
 
-    const addUnlinkedData = (rows = results, totals = resultTotal, totalRecipient = recipientTotals) => {
-        // add unlinked data if activeTab is all
-        if (activeTab === 'all' && !query && Object.keys(totalRecipient).length > 0) {
-            const unlinkedData = calculateUnlinkedTotals(totalRecipient, totals);
-            setUnlinkedDataClass(true);
-            const unlinkedName = (
-                <div className="unlinked-data">
-                    Unknown Recipient (Unlinked Data)
-                </div>
-            );
-            const rowData = Object.create(BaseSpendingByRecipientRow);
-
-            // TODO - DEV-5625 Remove placeholder 0s
-            rowData.populate({
-                obligation: unlinkedData.obligation,
-                outlay: unlinkedData.outlay,
-                award_count: unlinkedData.award_count
-            });
-
-            return rows
-                .filter((row) => !row.includes('isUnlinkedRow'))
-                .concat([[
-                    unlinkedName,
-                    rowData.obligation,
-                    rowData.outlay,
-                    rowData.awardCount,
-                    'isUnlinkedRow'
-                ]]);
-        }
-        setUnlinkedDataClass(false);
-        return rows;
-    };
-
     const fetchSpendingByRecipientCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
@@ -258,7 +225,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     const rows = parseRows(res.data.results, activeTab, query);
                     const totals = res.data.totals;
                     setResultTotal(totals);
-                    setResults(addUnlinkedData(rows, totals));
+                    setResults(rows, totals);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -272,12 +239,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 });
         }
     });
-
-    useEffect(() => {
-        if (Object.keys(recipientTotals).length && results.length && !isEqual(results, previousResults)) {
-            setResults(addUnlinkedData());
-        }
-    }, [recipientTotals, resultTotal, results]);
 
     useEffect(() => {
         // Reset to the first page
