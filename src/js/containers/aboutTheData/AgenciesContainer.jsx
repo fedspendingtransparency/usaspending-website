@@ -283,9 +283,10 @@ const rows = mockAPIResponse.results.map(
         // TODO: handle agencies with no code
         (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
         (<div className="generic-cell-content">{ total }</div>),
-        (<div className="generic-cell-content">{ publicationDate }</div>),
+        (<CellWithModal data={publicationDate} openModal={mockModalFn} />),
         (<CellWithModal data={GtasNotInFileA} openModal={mockModalFn} />),
-        (<div className="generic-cell-content">{ differenceInFileAAndB}</div>)
+        (<div className="generic-cell-content">% placeholder</div>),
+        (<CellWithModal data={differenceInFileAAndB} openModal={mockModalFn} />)
     ]
 );
 
@@ -293,12 +294,13 @@ const dateRows = mockDatesApiResponse.results
     .map(({
         name,
         abbreviation,
+        code,
         current_total_budget_authority_amount: total,
         periods
     }) => ([
-        `${name} (${abbreviation})`,
-        total,
-        ...periods.map(({ date }) => date)
+        (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
+        (<div className="generic-cell-content">{total}</div>),
+        ...periods.map(({ date }) => (<div className="generic-cell-content">{date}</div>))
     ]));
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
