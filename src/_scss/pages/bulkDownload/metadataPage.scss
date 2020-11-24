@@ -1,0 +1,30 @@
+.metadata-dl {
+    @include media($medium-screen) {
+        padding: 0 rem(30);
+    }
+    .metadata__title {
+        margin-top: 0;
+        font-weight: 400;
+    }
+    .metadata__intro {
+        font-size: $small-font-size;
+        margin-bottom: rem(12);
+    }
+    .full-menu__item--button {
+        background: white;
+        color: #0071BC;
+        height: 48px;
+        margin-top: rem(30);
+        border: 1px solid #0071BC;
+        font-size: rem(14);
+        font-weight: bold;
+        line-height: rem(18);
+        @include display(flex);
+        @include align-items(center);
+        padding: rem(5.5) rem(12.5);
+        svg {
+            font-size: rem(25);
+            margin-right: rem(12.5);
+        }
+    }
+}

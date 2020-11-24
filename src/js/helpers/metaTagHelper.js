@@ -187,6 +187,15 @@ export const dataDictionaryPageMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const metadataDownloadPageMetaTags = {
+    og_url: `${productionURL}download_center/metadata_download`,
+    og_title: 'Metadata Download | USAspending',
+    og_description:
+        'This JSON file contains metadata for all datasets that are published on USAspending.gov, including information such as dataset description, file format, publishing agency, and keywords.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const keywordPageMetaTags = {
     og_url: `${productionURL}keyword_search`,
     og_title: 'Federal Awards | Keyword Search | USAspending',

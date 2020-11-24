@@ -10,7 +10,8 @@ import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
     downloadAccountPageMetaTags,
-    dataDictionaryPageMetaTags
+    dataDictionaryPageMetaTags,
+    metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
 
@@ -39,7 +40,8 @@ const metaTagsByDataType = {
     data_dictionary: dataDictionaryPageMetaTags,
     awards: downloadAwardPageMetaTags,
     accounts: downloadAccountPageMetaTags,
-    award_data_archive: downloadArchivePageMetaTags
+    award_data_archive: downloadArchivePageMetaTags,
+    metadata_download: metadataDownloadPageMetaTags
 };
 
 export default class BulkDownloadPage extends React.Component {

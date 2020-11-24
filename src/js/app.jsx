@@ -53,7 +53,8 @@ import {
     faTimes,
     faUserTie,
     faWindowRestore,
-    faFingerprint
+    faFingerprint,
+    faFileCode
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -95,6 +96,7 @@ library.add(
     faExternalLinkAlt,
     faExclamationTriangle,
     faFingerprint,
+    faFileCode,
     faHandHoldingMedical,
     faHandsHelping,
     faInfo,

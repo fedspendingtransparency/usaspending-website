@@ -6,36 +6,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 const propTypes = {
     downloadLocation: PropTypes.string
 };
 
-const MetadataDownload = ({
-    downloadLocation
-}) => (
-    <div className="data-dictionary">
-        <h2 className="data-dictionary__title">Metadata Download</h2>
-        <p className="data-dictionary__intro">
+const MetadataDownload = ({ downloadLocation }) => (
+    <div className="metadata-dl">
+        <h2 className="metadata__title">Metadata Download</h2>
+        <p className="metadata__intro">
             This JSON file contains metadata for all datasets that are published on USAspending.gov,
             including information such as dataset description, file format, publishing agency, and keywords.
         </p>
-        <div className="data-dictionary__search-download">
-            <div className="data-dictionary__download">
-                <a
-                    className="data-dictionary__download-link"
-                    href={downloadLocation}>
-                    <div className="data-dictionary__download-icon">
-                        <button className="full-menu__item--button">
-                            <FontAwesomeIcon icon={faEnvelope} />
-                            Stay In Touch
-                        </button>
-                    </div>
-                Download
-                </a>
-            </div>
-        </div>
+        <a
+            target="_blank"
+            href={downloadLocation}
+            rel="noopener noreferrer"
+            aria-label="Metadata Download">
+            <button
+                className="full-menu__item--button">
+                <FontAwesomeIcon icon="file-code" />
+                Download the Metadata JSON File
+            </button>
+        </a>
     </div>
 );
 
