@@ -10,23 +10,31 @@
 
 .usa-dt-modal.about-the-data-modal {
     font-size: rem(14);
-    .about-the-data-modal__header-data {
-      padding: rem(30);
-      .about-the-data-modal__agency-name {
-          font-size: rem(14);
-          line-height: rem(18);
-      }
-      .usa-dt-modal__title {
-          font-size: rem(22);
-          line-height: rem(28);
-          padding: rem(11) 0;
-      }
-      .about-the-data-modal__fiscal-year-quarter-period {
-          font-size: rem(16);
+    .usa-dt-modal__header {
+      .about-the-data-modal__header-data {
+        padding: rem(30);
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          padding-left: 0;
+        }
+        .about-the-data-modal__agency-name {
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+        .usa-dt-modal__title {
+            font-size: rem(22);
+            line-height: rem(28);
+            padding: rem(11) 0;
+        }
+        .about-the-data-modal__fiscal-year-quarter-period {
+            font-size: rem(16);
+        }
       }
       .usa-dt-modal__close-button {
-        margin: 0;
-        padding-right: rem(34);
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          margin-left: rem(30);
+        }
       }
     }
     .usa-dt-modal__section {
@@ -43,22 +51,6 @@
               .table-header__label {
                 font-size: rem(14);
                 line-height: rem(18);
-                // .table-header__icon {
-                //   font-size: rem(10);
-                //   // height: rem(10);
-                //   // height: rem(13);
-                //   height: rem(9);
-                //   svg {
-                //     vertical-align: 0;
-                //     margin-top: -9px;
-                //     pointer-events: none;
-                //   }
-                // }
-                // .table-header__icon:nth-child(2) {
-                //   svg {
-                //     margin-top: -11px;
-                //   }
-                // }
                 .publication-dates__column-header-sub-title {
                   font-size: rem(12);
                   line-height: rem(15);
@@ -127,20 +119,6 @@
                     font-weight: $font-normal;
                   }
                 }
-              }
-            }
-            .table-header:first-child {
-              .table-header__content:first-child {
-                // @include justify-content(flex-end);
-              }
-            }
-          }
-          .usda-table__body {
-            .usda-table__row {
-              .usda-table__cell:nth-child(2n+1) {
-                // text-align: right;
-                // padding-left: 0rem;
-                // padding-right: 8rem;
               }
             }
           }
