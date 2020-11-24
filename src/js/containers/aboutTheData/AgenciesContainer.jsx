@@ -7,6 +7,7 @@ import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
+import CellWithModal from 'components/aboutTheData/CellWithModal';
 
 import { throttle } from "lodash";
 
@@ -213,6 +214,10 @@ const mockAPIResponse = {
     ]
 };
 
+const mockModalFn = () => {
+    window.alert('open sesame');
+};
+
 // TODO - create a data model for agency row
 const rows = mockAPIResponse.results.map(
     ({
@@ -224,10 +229,11 @@ const rows = mockAPIResponse.results.map(
         discrepancy_count: GtasNotInFileA,
         obligation_difference: differenceInFileAAndB
     }) => [
+        // TODO: handle agencies with no code
         (<DrilldownCell name={`${name} (${abbreviation})`} id={code} />),
         total,
         publicationDate,
-        GtasNotInFileA,
+        (<CellWithModal data={GtasNotInFileA} openModal={mockModalFn} />),
         differenceInFileAAndB
     ]
 );

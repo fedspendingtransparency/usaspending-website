@@ -1,0 +1,17 @@
+.modal-cell {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    .modal-cell__button {
+        @include button-unstyled;
+        width: 3rem;
+        color: $color-primary;
+        @include justify-content(center);
+        text-align: center;
+        padding: 0.7rem;
+        border-radius: 0.3rem;
+        &:hover {
+            background-color: $color-primary-alt-lightest;
+        }
+    }
+}

@@ -43,6 +43,7 @@
         tbody {
           .usda-table__row .usda-table__cell {
             font-size: 1.4rem;
+            @import './cellWithModal';
             &:first-of-type {
               padding: 0; // makes the whole cell clickable
               @import './drilldownCell';
