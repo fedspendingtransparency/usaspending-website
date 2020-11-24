@@ -3,7 +3,7 @@
   * Created by Kevin Li 12/13/16
   **/
 
-import React, { createRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle, capitalize } from 'lodash';
 
@@ -30,7 +30,6 @@ export default class TimeVisualizationSection extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.downloadClickRef = createRef();
     }
 
     componentDidMount() {
@@ -85,19 +84,28 @@ export default class TimeVisualizationSection extends React.Component {
         }
     }
 
-    downloadCsv = () => {
-        // eslint-disable-next-line no-undef
-        const file = new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
-        if (isIe()) {
-            window.navigator.msSaveOrOpenBlob(file, 'spending-over-time.csv');
-        }
-        else {
-            this.setState({
-                downloadHref: URL.createObjectURL(file)
-            });
-            this.downloadClickRef.current.click();
-        }
-    };
+    // eslint-disable-next-line no-undef
+    downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
+
+    renderDownloadLink = () => (isIe() ?
+        (<button onClick={() => {
+            window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
+        }}>
+            <FontAwesomeIcon icon="download" size="lg" />
+            <span className="text">
+                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+            </span>
+        </button>)
+        :
+        (<a
+            href={URL.createObjectURL(this.downloadBlob())}
+            download="spending-over-time.csv" >
+            <FontAwesomeIcon icon="download" size="lg" />
+            <span className="text">
+                Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+            </span>
+        </a>)
+    );
 
     render() {
         return (
@@ -147,14 +155,7 @@ export default class TimeVisualizationSection extends React.Component {
                             </ul>
                         </div>
                         <div className="download">
-                            <button onClick={this.downloadCsv}>
-                                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-                                <a ref={this.downloadClickRef} href={this.state.downloadHref} download="spending-over-time.csv" className="hide" aria-hidden="true" />
-                                <FontAwesomeIcon icon="download" size="lg" />
-                                <span className="text">
-                                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                                </span>
-                            </button>
+                            {!this.props.data.loading && this.renderDownloadLink()}
                             <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />
                         </div>
                     </div>
