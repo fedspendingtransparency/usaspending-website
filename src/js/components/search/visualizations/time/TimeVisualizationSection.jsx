@@ -88,23 +88,25 @@ export default class TimeVisualizationSection extends React.Component {
     downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
 
     renderDownloadLink = () => (isIe() ?
-        (<button onClick={() => {
-            window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
-        }}>
-            <FontAwesomeIcon icon="download" size="lg" />
-            <span className="text">
+        (
+            <button onClick={() => {
+                window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
+            }}>
+                <FontAwesomeIcon icon="download" size="lg" />
+                <span className="text">
                     Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-            </span>
-        </button>)
-        :
-        (<a
-            href={URL.createObjectURL(this.downloadBlob())}
-            download="spending-over-time.csv" >
-            <FontAwesomeIcon icon="download" size="lg" />
-            <span className="text">
+                </span>
+            </button>
+        ) : (
+            <a
+                href={URL.createObjectURL(this.downloadBlob())}
+                download="spending-over-time.csv" >
+                <FontAwesomeIcon icon="download" size="lg" />
+                <span className="text">
                 Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-            </span>
-        </a>)
+                </span>
+            </a>
+        )
     );
 
     render() {
