@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from 'prop-types';
-import { Table, TooltipComponent, TooltipWrapper } from "data-transparency-ui";
+import { Table, TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
@@ -218,6 +218,57 @@ const mockModalFn = () => {
     window.alert('open sesame');
 };
 
+const mockDatesApiResponse = {
+    page_metadata: {
+        page: 1,
+        hasNext: false,
+        hasPrevious: false,
+        total: 2
+    },
+    results: [
+        {
+            name: "Department of Health and Human Services",
+            abbreviation: "DHHS",
+            code: "020",
+            current_total_budget_authority_amount: 8361447130497.72,
+            periods: [{
+                period: 2,
+                quarter: 1,
+                date: "2020-01-20T11:59:21Z",
+                certified: true,
+                quarterly: false,
+                submitted: true
+            }]
+        },
+        {
+            name: "Department of Treasury",
+            abbreviation: "DOT",
+            code: "021",
+            current_total_budget_authority_amount: 8361447130497.72,
+            periods: [{
+                period: 2,
+                quarter: 1,
+                date: "2020-01-20T11:59:21Z",
+                certified: false,
+                quarterly: false,
+                submitted: true
+            }]
+        }
+    ]
+};
+
+const TableTabLabel = ({ label, tooltipComponent = <Tooltip title={label} /> }) => (
+    <div className="table-tab-label">
+        <span>{label}</span>
+        <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
+    </div>
+);
+
+TableTabLabel.propTypes = {
+    label: PropTypes.string.isRequired,
+    tooltipComponent: PropTypes.element
+};
+
 // TODO - create a data model for agency row
 const rows = mockAPIResponse.results.map(
     ({
@@ -238,11 +289,23 @@ const rows = mockAPIResponse.results.map(
     ]
 );
 
-const message =
-  "Data in this table will be updated whenever the underlying data submissions change or new submissions are added.";
+const dateRows = mockDatesApiResponse.results
+    .map(({
+        name,
+        abbreviation,
+        current_total_budget_authority_amount: total,
+        periods
+    }) => ([
+        `${name} (${abbreviation})`,
+        total,
+        ...periods.map(({ date }) => date)
+    ]));
+
+const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
 
 const AgenciesContainer = () => {
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
+    const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
@@ -250,29 +313,101 @@ const AgenciesContainer = () => {
         setIsSticky({ vertical, horizontal });
     }, 100);
 
+    const handleUpdateSort = (field, direction) => {
+        updateSort({ field, direction });
+    };
+
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
+    const handleSwitchTab = (tab) => {
+        setActiveTab(tab);
+    };
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
             <Header />
             <StickyHeader>
                 <div className="sticky-header__title">
-                    <h1 tabIndex={-1}>Agency Submission Data</h1>
+                    <h1 tabIndex={-1}>Agency Submission Statistics</h1>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
                 <div className="heading-container">
-                    <h2 className="header">Submission Data</h2>
-                    <h3 className="sub-header">All Agencies</h3>
+                    <h2 className="header">About These Statistics</h2>
+                    <p className="sub-header">Agencies submit data monthly and/or quarterly to USAspending.gov. The table below shows information about the status and content of agency financial data submissions, and it will be updated as agencies publish/certify new submissions or republish/recertify existing submissions.</p>
+                </div>
+                <div className="table-controls">
+                    <Tabs
+                        active={activeTab}
+                        switchTab={handleSwitchTab}
+                        types={[
+                            { internal: 'details', label: <TableTabLabel label="Statistics by Reporting Period" /> },
+                            { internal: 'dates', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
+                        ]} />
+                    <div className="table-controls__time-and-search">
+                        <p>Place holder for Search components etc...</p>
+                    </div>
                 </div>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                    <Table
-                        rows={rows}
-                        classNames={`usda-table-w-grid test ${verticalStickyClass} ${horizontalStickyClass}`}
-                        columns={columns}
-                        updateSort={updateSort}
-                        currentSort={sortStatus} />
+                    {activeTab === 'details' && (
+                        <Table
+                            rows={rows}
+                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                            columns={columns}
+                            updateSort={handleUpdateSort}
+                            currentSort={sortStatus} />
+                    )}
+                    {activeTab === 'dates' && (
+                        <Table
+                            rows={dateRows}
+                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                            columns={[
+                                { title: 'name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
+                                { title: 'total', displayName: 'Total Budgetary  Resources' },
+                                {
+                                    title: 'Q4',
+                                    displayName: 'FY 2020 Q4',
+                                    columnSpan: "2",
+                                    subColumnNames: [
+                                        { displayName: 'P10', title: 'P10' },
+                                        { displayName: 'P11', title: 'P11' }
+                                    ]
+                                },
+                                {
+                                    title: 'Q3',
+                                    displayName: 'FY 2020 Q3',
+                                    columnSpan: "3",
+                                    subColumnNames: [
+                                        { displayName: 'P7', title: 'P7' },
+                                        { displayName: 'P8', title: 'P8' },
+                                        { displayName: 'P9', title: 'P9' }
+                                    ]
+                                },
+                                {
+                                    title: 'Q2',
+                                    displayName: 'FY 2020 Q2',
+                                    columnSpan: "4",
+                                    subColumnNames: [
+                                        { displayName: 'P6', title: 'P6' },
+                                        { displayName: 'P5', title: 'P5' },
+                                        { displayName: 'P4', title: 'P4' },
+                                        { displayName: 'P3', title: 'P3' }
+                                    ]
+                                },
+                                {
+                                    title: 'Q1',
+                                    displayName: 'FY 2020 Q1',
+                                    columnSpan: "2",
+                                    subColumnNames: [
+                                        { displayName: 'P2', title: 'P2' },
+                                        { displayName: 'P1', title: 'P1' }
+                                    ]
+                                }
+                            ]}
+                            updateSort={handleUpdateSort}
+                            currentSort={sortStatus} />
+                    )}
                 </div>
                 <Note message={message} />
             </main>
