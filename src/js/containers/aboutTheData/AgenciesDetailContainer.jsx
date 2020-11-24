@@ -73,9 +73,6 @@ export const AgenciesDetailContainer = (props) => {
                     <h1 tabIndex={-1}>
                         Agency Submission Data
                     </h1>
-                    {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                    <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
-                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -85,6 +82,9 @@ export const AgenciesDetailContainer = (props) => {
                     </div>
                     <h2 className="header">Submission Data</h2>
                     <h2 className="sub-header">{props.agency.overview.name}</h2>
+                    {/* TODO - Modal Buttons - DELETE THIS CODE */}
+                    <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                     <div className="lower-details">
                         <div className="agency-info-group">
                             <h5>Agency Contact Information</h5>

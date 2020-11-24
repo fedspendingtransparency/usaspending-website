@@ -258,9 +258,6 @@ const AgenciesContainer = () => {
             <StickyHeader>
                 <div className="sticky-header__title">
                     <h1 tabIndex={-1}>Agency Submission Data</h1>
-                    {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                    <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
-                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
@@ -268,6 +265,9 @@ const AgenciesContainer = () => {
                     <h2 className="header">Submission Data</h2>
                     <h3 className="sub-header">All Agencies</h3>
                 </div>
+                {/* TODO - Modal Buttons - DELETE THIS CODE */}
+                <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     <Table
                         rows={rows}
