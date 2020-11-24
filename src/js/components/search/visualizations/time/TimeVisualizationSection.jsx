@@ -108,8 +108,6 @@ export default class TimeVisualizationSection extends React.Component {
                 <h2 className="visualization-title">
                     Spending Over Time
                 </h2>
-                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-                <a ref={this.downloadClickRef} href={this.state.downloadHref} className="hide" download="spending-over-time.csv" />
                 <hr
                     className="results-divider"
                     ref={(hr) => {
@@ -150,6 +148,8 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                         <div className="download">
                             <button onClick={this.downloadCsv}>
+                                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+                                <a ref={this.downloadClickRef} href={this.state.downloadHref} download="spending-over-time.csv" className="hide" aria-hidden="true" />
                                 <FontAwesomeIcon icon="download" size="lg" />
                                 <span className="text">
                                     Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
