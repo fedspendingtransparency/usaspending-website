@@ -127,24 +127,20 @@ const Covid19Container = () => {
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
-            awardAmountRequest.current.promise
-                .then(({
-                    data: {
-                        obligation,
-                        outlay,
-                        award_count: awardCount,
-                        face_value_of_loan: faceValueOfLoan
-                    }
-                }) => {
-                    // set totals in redux, we can use totals elsewhere to calculate unlinked data
-                    const totals = {
-                        obligation,
-                        outlay,
-                        awardCount,
-                        faceValueOfLoan
-                    };
-                    dispatch(setTotals('', totals));
-                });
+            try {
+                const { data } = await awardAmountRequest.current.promise;
+                // set totals in redux, we can use totals elsewhere to calculate unlinked data
+                const totals = {
+                    obligation: data.obligation,
+                    outlay: data.outlay,
+                    awardCount: data.award_count,
+                    faceValueOfLoan: data.face_value_of_loan
+                };
+                dispatch(setTotals('', totals));
+            }
+            catch (e) {
+                console.log(' Error Amounts : ', e.message);
+            }
         };
         if (defCodes.length) {
             getOverviewData();
