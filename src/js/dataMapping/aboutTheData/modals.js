@@ -15,8 +15,8 @@ export const modalClassNames = {
 };
 
 export const publicationDatesColumns = [
-    { displayName: 'Publication Date', title: 'publication_date' },
-    { displayName: 'Certification Date', title: 'certification_date' }
+    { displayName: 'Publication Dates', title: 'publication_date' },
+    { displayName: 'Certification Dates', title: 'certification_date' }
 ];
 
 export const missingAccountBalanceColumns = [

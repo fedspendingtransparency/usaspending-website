@@ -11,7 +11,7 @@
 .usa-dt-modal.about-the-data-modal {
     font-size: rem(14);
     .about-the-data-modal__header-data {
-      padding: rem(30) rem(75) rem(30) rem(30);
+      padding: rem(30);
       .about-the-data-modal__agency-name {
           font-size: rem(14);
           line-height: rem(18);
@@ -30,13 +30,13 @@
       }
     }
     .usa-dt-modal__section {
-      padding: 0 3em 3em 3em;
+      padding: 0 3rem 3rem 3rem;
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
         padding: 0;
       }
       .usda-table {
-        margin: 3em 0;
+        margin: 3rem 0;
         .usda-table__head {
           .table-header {
             .table-header__content {
@@ -70,17 +70,22 @@
         }
         .usda-table__body {
           font-size: rem(12);
+          .usda-table__row {
+            .usda-table__cell {
+              padding: rem(10) rem(15);
+            }
+          }
         }
       }
     }
     // missing account balances specific
     &.missing-account-balance-modal {
       @include media($tablet-screen) {
-        max-width: rem(609);
+        max-width: rem(700);
       }
       @include media($large-screen) {
-        max-width: rem(609);
-        min-width: rem(609);
+        max-width: rem(700);
+        min-width: rem(700);
       }
       .about-the-data-modal__header-data {
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -94,7 +99,7 @@
             .usda-table__row {
               .usda-table__cell:not(:first-child) {
                 text-align: right;
-                padding-right: rem(35);
+                padding-right: rem(42);
               }
             }
           }
@@ -126,16 +131,16 @@
             }
             .table-header:first-child {
               .table-header__content:first-child {
-                @include justify-content(flex-end);
+                // @include justify-content(flex-end);
               }
             }
           }
           .usda-table__body {
             .usda-table__row {
               .usda-table__cell:nth-child(2n+1) {
-                text-align: right;
-                padding-left: 0rem;
-                padding-right: 8rem;
+                // text-align: right;
+                // padding-left: 0rem;
+                // padding-right: 8rem;
               }
             }
           }

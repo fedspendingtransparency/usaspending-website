@@ -2,7 +2,8 @@ import {
     aboutTheDataQueryString,
     dateFormattedMonthDayYear,
     formatPublicationDates,
-    formatMissingAccountBalancesData
+    formatMissingAccountBalancesData,
+    showQuarterText
 } from 'helpers/aboutTheDataHelper';
 
 import { mockBalanceData, mockBadGTASTotal, mockBadResultsBalanceData } from '../mockData';
@@ -114,6 +115,23 @@ describe('About The Data Helper', () => {
             expect(data[0][2]).toBe('5.2%');
             expect(data[1][1]).toBe('$0');
             expect(data[1][2]).toBe('0.0%');
+        });
+    });
+    describe('showQuarterText', () => {
+        it('should show quarter text for quarter one', () => {
+            expect(showQuarterText(3)).toBeTruthy();
+        });
+        it('should show quarter text for quarter one', () => {
+            expect(showQuarterText(6)).toBeTruthy();
+        });
+        it('should show quarter text for quarter one', () => {
+            expect(showQuarterText(9)).toBeTruthy();
+        });
+        it('should show quarter text for quarter one', () => {
+            expect(showQuarterText(12)).toBeTruthy();
+        });
+        it('should show quarter text for quarter one', () => {
+            expect(showQuarterText(8)).toBeFalsy();
         });
     });
 });

@@ -56,3 +56,5 @@ export const formatMissingAccountBalancesData = (data) => {
         return [tasData.tas, amount, percent];
     });
 };
+
+export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
