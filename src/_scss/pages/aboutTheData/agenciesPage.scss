@@ -10,7 +10,7 @@
     margin: rem(40) rem(20);
     background: $color-white;
     border-radius: 0.5rem 0.5rem 0 0;
-    padding-left: rem(20);
+    padding: 0 rem(20);
     width: 100%;
     max-width: 160rem;
     margin: auto;
@@ -37,7 +37,7 @@
     }
     .table-container,
     .table-controls {
-      width: rem(1560);
+      max-width: 100%;
     }
     .table-controls {
       .table-type-toggle:focus {
