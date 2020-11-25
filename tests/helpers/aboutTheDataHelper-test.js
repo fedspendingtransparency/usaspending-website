@@ -121,16 +121,16 @@ describe('About The Data Helper', () => {
         it('should show quarter text for quarter one', () => {
             expect(showQuarterText(3)).toBeTruthy();
         });
-        it('should show quarter text for quarter one', () => {
+        it('should show quarter text for quarter two', () => {
             expect(showQuarterText(6)).toBeTruthy();
         });
-        it('should show quarter text for quarter one', () => {
+        it('should show quarter text for quarter three', () => {
             expect(showQuarterText(9)).toBeTruthy();
         });
-        it('should show quarter text for quarter one', () => {
+        it('should show quarter text for quarter four', () => {
             expect(showQuarterText(12)).toBeTruthy();
         });
-        it('should show quarter text for quarter one', () => {
+        it('should not show quarter text', () => {
             expect(showQuarterText(8)).toBeFalsy();
         });
     });
