@@ -192,11 +192,11 @@ describe('accountReducer', () => {
         const mockActionState = {
             objectClass: mockOCAPI.results,
             objectClassDefinitions: {
-                1: 'First Major',
-                2: 'First Major Minor'
+                '1': 'First Major',
+                '2': 'First Major Minor'
             },
             objectClassChildren: {
-                1: ['2']
+                '1': ['2']
             }
         };
 
