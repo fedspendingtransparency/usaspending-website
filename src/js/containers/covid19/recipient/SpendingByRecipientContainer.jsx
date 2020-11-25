@@ -11,7 +11,6 @@ import replaceString from 'helpers/replaceString';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import { isEqual } from 'lodash';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
@@ -170,6 +169,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
+    const [parsedRows, setParsedRows] = useState([]); // finalized rows (including Unlinked Data)
     const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -179,7 +179,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
-    const previousResultsRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
     const { recipientTotals, defCodes } = useSelector((state) => state.covid19);
@@ -188,12 +187,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         setSort(field);
         setOrder(direction);
     };
-
-    useEffect(() => {
-        previousResultsRef.current = results;
-    }, [results]);
-
-    const { current: previousResults } = previousResultsRef;
 
     const addUnlinkedData = (rows = results, totals = resultTotal, totalRecipient = recipientTotals) => {
         // add unlinked data if activeTab is all
@@ -214,18 +207,18 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 award_count: unlinkedData.award_count
             });
 
-            return rows
-                .filter((row) => !row.includes('isUnlinkedRow'))
+            const rowsWithUnlinked = rows
                 .concat([[
                     unlinkedName,
                     rowData.obligation,
                     rowData.outlay,
-                    rowData.awardCount,
-                    'isUnlinkedRow'
+                    rowData.awardCount
                 ]]);
+            setParsedRows(rowsWithUnlinked);
         }
-        setUnlinkedDataClass(false);
-        return rows;
+        else {
+            setParsedRows(rows);
+        }
     };
 
     const fetchSpendingByRecipientCallback = useCallback(() => {
@@ -258,7 +251,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                     const rows = parseRows(res.data.results, activeTab, query);
                     const totals = res.data.totals;
                     setResultTotal(totals);
-                    setResults(addUnlinkedData(rows, totals));
+                    setResults(rows);
                     setTotalItems(res.data.page_metadata.total);
                     setLoading(false);
                     setError(false);
@@ -274,8 +267,8 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     });
 
     useEffect(() => {
-        if (Object.keys(recipientTotals).length && results.length && !isEqual(results, previousResults)) {
-            setResults(addUnlinkedData());
+        if (Object.keys(recipientTotals).length && results.length) {
+            addUnlinkedData();
         }
     }, [recipientTotals, resultTotal, results]);
 
@@ -349,7 +342,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={results}
+                    rows={parsedRows}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>}
