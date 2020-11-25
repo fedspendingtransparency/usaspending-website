@@ -47,3 +47,11 @@ export const getLatestPeriodAsMoment = (availablePeriods) => availablePeriods
     .sort(({ revealDate: a }, { revealDate: b }) => b.valueOf() - a.valueOf())
     .find(({ revealDate: s }) => moment(s).isSameOrBefore(moment()))
     .asOfDate;
+
+export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
+    if (!submissionPeriods.length) return null;
+    const submissionPeriod = submissionPeriods
+        .find((submission) => submission.submission_fiscal_year === fiscalYear && submission.submission_fiscal_month === fiscalPeriod);
+    if (!submissionPeriod) return null;
+    return { submissionDueDate: submissionPeriod.submission_due_date, certificationDueDate: submissionPeriod.certification_due_date };
+};

@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import { Table, TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { throttle } from 'lodash';
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
-
-import { throttle } from "lodash";
+import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
+import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 
 require("pages/aboutTheData/agenciesPage.scss");
 
@@ -298,6 +299,7 @@ const AgenciesContainer = () => {
     const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [showModal, setShowModal] = useState('');
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -310,6 +312,12 @@ const AgenciesContainer = () => {
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+    // Modal Logic
+    const modalClick = (e) => {
+        e.preventDefault();
+        setShowModal(e.target.value);
+    };
+    const closeModal = () => setShowModal('');
 
     const handleSwitchTab = (tab) => {
         setActiveTab(tab);
@@ -340,6 +348,9 @@ const AgenciesContainer = () => {
                         <p>Place holder for Search components etc...</p>
                     </div>
                 </div>
+                {/* TODO - Modal Buttons - DELETE THIS CODE */}
+                <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
+                <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     {activeTab === 'details' && (
                         <Table
@@ -401,6 +412,16 @@ const AgenciesContainer = () => {
                     )}
                 </div>
                 <Note message={message} />
+                <AboutTheDataModal
+                    mounted={!!showModal.length}
+                    type={showModal}
+                    className={modalClassNames[showModal]}
+                    title={modalTitles[showModal]}
+                    agencyName={`${rows[0][0]}`}
+                    fiscalYear={2020}
+                    fiscalPeriod={8}
+                    closeModal={closeModal}
+                    totalObligationsNotInGTAS={45999} />
             </main>
             <Footer />
         </div>
