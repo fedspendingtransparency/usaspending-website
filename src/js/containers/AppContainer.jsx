@@ -10,7 +10,6 @@ import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 
-import Analytics from 'helpers/analytics/Analytics';
 import storeSingleton from 'redux/storeSingleton';
 import withGlossaryListener from 'containers/glossary/GlossaryListener';
 import reducers from 'redux/reducers/index';
@@ -58,23 +57,12 @@ const ScrollToTop = () => {
     return null;
 };
 
-const LogPageView = () => {
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-        Analytics.pageview(pathname);
-    }, [pathname]);
-
-    return null;
-};
-
 
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                <LogPageView />
                 <Switch>
                     {routes.filter((route) => !route.hide).map(({ path, component }) => (
                         <Route

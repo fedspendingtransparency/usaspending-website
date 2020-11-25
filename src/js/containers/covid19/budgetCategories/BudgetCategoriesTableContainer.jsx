@@ -73,10 +73,10 @@ const budgetDropdownColumns = {
         {
             title: 'awardCount',
             displayName: (
-                <>
+                <div className="table-header-label__title">
                     <div>Number</div>
                     <div>of Awards</div>
-                </>
+                </div>
             ),
             right: true
         }
@@ -85,40 +85,40 @@ const budgetDropdownColumns = {
         {
             title: 'obligation',
             displayName: (
-                <>
+                <div className="table-header-label__title">
                     <div>Award Obligations</div>
                     <div>(Loan Subsidy Cost)</div>
-                </>
+                </div>
             ),
             right: true
         },
         {
             title: 'outlay',
             displayName: (
-                <>
+                <div className="table-header-label__title">
                     <div>Award Outlays</div>
                     <div>(Loan Subsidy Cost)</div>
-                </>
+                </div>
             ),
             right: true
         },
         {
             title: 'faceValueOfLoan',
             displayName: (
-                <>
+                <div className="table-header-label__title">
                     <div>Face Value</div>
                     <div>of Loans</div>
-                </>
+                </div>
             ),
             right: true
         },
         {
             title: 'awardCount',
             displayName: (
-                <>
+                <div className="table-header-label__title">
                     <div>Number</div>
                     <div>of Awards</div>
-                </>
+                </div>
             ),
             right: true
         }
@@ -129,10 +129,10 @@ const budgetDropdownColumns = {
 const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: (
-        <>
+        <div className="table-header-label__title">
             <div>Total Budgetary</div>
             <div>Resources</div>
-        </>
+        </div>
     ),
     right: true
 };
@@ -181,8 +181,7 @@ const BudgetCategoriesTableContainer = (props) => {
         const overviewTotals = {
             totalBudgetaryResources: overview._totalBudgetAuthority,
             obligation: overview._totalObligations,
-            outlay: overview._totalOutlays,
-            awardCount: allAwardTypeTotals.awardCount
+            outlay: overview._totalOutlays
         };
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
@@ -194,9 +193,6 @@ const BudgetCategoriesTableContainer = (props) => {
         }
         else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
             unlinkedName = 'Unknown Object Class (Unlinked Data)';
-        }
-        else if (spendingCategory === 'award_spending') {
-            unlinkedName = 'Number of Unlinked Awards';
         }
 
         if (unlinkedName && unlinkedData && overview) {
@@ -253,7 +249,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     <Link
                         className="federal-account-profile__link"
                         onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        href={`/federal_account/${code}`}>
+                        to={`/federal_account/${code}`}>
                         {budgetCategoryRow.name}
                     </Link>
                 );
@@ -290,7 +286,7 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview && allAwardTypeTotals.awardCount) {
+        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {

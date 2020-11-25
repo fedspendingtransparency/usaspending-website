@@ -1,4 +1,4 @@
-import moment from 'moment';
+const moment = require('moment');
 
 const routes = [
     // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel

@@ -34,6 +34,13 @@ const propTypes = {
     dataTypes: PropTypes.array
 };
 
+const metaTagsByDataType = {
+    data_dictionary: dataDictionaryPageMetaTags,
+    awards: downloadAwardPageMetaTags,
+    accounts: downloadAccountPageMetaTags,
+    award_data_archive: downloadArchivePageMetaTags
+};
+
 export default class BulkDownloadPage extends React.Component {
     constructor(props) {
         super(props);
@@ -83,29 +90,25 @@ export default class BulkDownloadPage extends React.Component {
             <AwardDataContainer
                 clickedDownload={this.clickedDownload} />
         );
-        let metaTags = downloadAwardPageMetaTags;
         if (this.props.dataType === 'award_data_archive') {
             downloadDataContent = (
                 <AwardDataArchiveContainer />
             );
-            metaTags = downloadArchivePageMetaTags;
         }
         if (this.props.dataType === 'accounts') {
             downloadDataContent = (
                 <AccountDataContainer
                     clickedDownload={this.clickedDownload} />
             );
-            metaTags = downloadAccountPageMetaTags;
         }
         if (this.props.dataType === 'data_dictionary') {
             downloadDataContent = (
                 <DataDictionaryContainer />
             );
-            metaTags = dataDictionaryPageMetaTags;
         }
         return (
             <div className="usa-da-bulk-download-page">
-                <MetaTags {...metaTags} />
+                {Object.keys(metaTagsByDataType).includes(this.props.dataType) && <MetaTags {...metaTagsByDataType[this.props.dataType]} />}
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
