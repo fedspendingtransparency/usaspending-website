@@ -3,98 +3,28 @@
  * Created by Max Kendall 10/23/2020
  */
 
-import { getLatestPeriodAsMoment } from "helpers/accountHelper";
-
-const mockSubmissions = [
-    {
-        period_start_date: "2020-05-01T00:00:00Z",
-        period_end_date: "2020-05-31T00:00:00Z",
-        submission_start_date: "2020-07-17T00:00:00Z",
-        submission_due_date: "2020-07-31T00:00:00Z",
-        certification_due_date: "2020-08-15T00:00:00Z",
-        submission_reveal_date: "2020-08-01T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 3,
-        submission_fiscal_month: 8,
-        is_quarter: false
-    },
-    {
-        period_start_date: "2020-08-01T00:00:00Z",
-        period_end_date: "2020-08-31T00:00:00Z",
-        submission_start_date: "2020-09-18T00:00:00Z",
-        submission_due_date: "2020-09-30T00:00:00Z",
-        certification_due_date: "2020-11-17T00:00:00Z",
-        submission_reveal_date: "2020-10-01T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 4,
-        submission_fiscal_month: 11,
-        is_quarter: false
-    },
-    {
-        period_start_date: "2020-07-01T00:00:00Z",
-        period_end_date: "2020-07-31T00:00:00Z",
-        submission_start_date: "2020-08-19T00:00:00Z",
-        submission_due_date: "2020-08-29T00:00:00Z",
-        certification_due_date: "2020-11-17T00:00:00Z",
-        submission_reveal_date: "2020-08-30T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 4,
-        submission_fiscal_month: 10,
-        is_quarter: false
-    },
-    {
-        period_start_date: "2020-06-01T00:00:00Z",
-        period_end_date: "2020-06-30T00:00:00Z",
-        submission_start_date: "2020-07-17T00:00:00Z",
-        submission_due_date: "2020-07-31T00:00:00Z",
-        certification_due_date: "2020-08-15T00:00:00Z",
-        submission_reveal_date: "2020-08-01T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 3,
-        submission_fiscal_month: 9,
-        is_quarter: false
-    },
-    {
-        period_start_date: "2020-04-01T00:00:00Z",
-        period_end_date: "2020-06-30T00:00:00Z",
-        submission_start_date: "2020-07-17T00:00:00Z",
-        submission_due_date: "2020-08-15T00:00:00Z",
-        certification_due_date: "2020-08-15T00:00:00Z",
-        submission_reveal_date: "2020-08-16T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 3,
-        submission_fiscal_month: 9,
-        is_quarter: true
-    },
-    {
-        period_start_date: "2020-04-01T00:00:00Z",
-        period_end_date: "2020-04-30T00:00:00Z",
-        submission_start_date: "2020-07-17T00:00:00Z",
-        submission_due_date: "2020-07-31T00:00:00Z",
-        certification_due_date: "2020-08-15T00:00:00Z",
-        submission_reveal_date: "2020-08-01T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 3,
-        submission_fiscal_month: 7,
-        is_quarter: false
-    },
-    {
-        period_start_date: "2020-01-01T00:00:00Z",
-        period_end_date: "2020-03-31T00:00:00Z",
-        submission_start_date: "2020-04-17T00:00:00Z",
-        submission_due_date: "2020-05-16T00:00:00Z",
-        certification_due_date: "2020-05-16T00:00:00Z",
-        submission_reveal_date: "2020-05-17T00:00:00Z",
-        submission_fiscal_year: 2020,
-        submission_fiscal_quarter: 2,
-        submission_fiscal_month: 6,
-        is_quarter: true
-    }
-];
+import { getLatestPeriodAsMoment, getSubmissionDeadlines } from "helpers/accountHelper";
+import { mockSubmissions } from '../mockData';
 
 describe("accountHelper", () => {
-    it("should find the latest revealed period and return the period end date as a moment obj", () => {
-        const latestPeriod = getLatestPeriodAsMoment(mockSubmissions);
-        expect(latestPeriod.format("MMMM DD[,] YYYY")).toEqual("August 31, 2020");
+    describe("getLatestPeriodAsMoment", () => {
+        it('should find the latest revealed period and return the period end date as a moment obj', () => {
+            const latestPeriod = getLatestPeriodAsMoment(mockSubmissions);
+            expect(latestPeriod.format("MMMM DD[,] YYYY")).toEqual("August 31, 2020");
+        });
+    });
+    describe('getSubmissionDeadlines', () => {
+        it('should return null if no submissions are passed', () => {
+            expect(getSubmissionDeadlines(2020, 8, [])).toBeNull();
+        });
+        it('should return null if no submission is found', () => {
+            expect(getSubmissionDeadlines(2050, 8, mockSubmissions)).toBeNull();
+        });
+        it('should get the latest submission deadlines', () => {
+            expect(getSubmissionDeadlines(2020, 8, mockSubmissions))
+                .toHaveProperty('submissionDueDate', "2020-07-31T00:00:00Z");
+            expect(getSubmissionDeadlines(2020, 8, mockSubmissions))
+                .toHaveProperty('certificationDueDate', "2020-08-15T00:00:00Z");
+        });
     });
 });

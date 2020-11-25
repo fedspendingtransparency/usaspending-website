@@ -1,0 +1,128 @@
+.usa-dt-modal {
+  @include media($tablet-screen) {
+    max-width: rem(483);
+  }
+  @include media($large-screen) {
+    max-width: rem(483);
+    min-width: rem(483);
+  }
+}
+
+.usa-dt-modal.about-the-data-modal {
+    font-size: rem(14);
+    .usa-dt-modal__header {
+      .about-the-data-modal__header-data {
+        padding: rem(30);
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          padding-left: 0;
+        }
+        .about-the-data-modal__agency-name {
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+        .usa-dt-modal__title {
+            font-size: rem(22);
+            line-height: rem(28);
+            padding: rem(11) 0;
+        }
+        .about-the-data-modal__fiscal-year-quarter-period {
+            font-size: rem(16);
+        }
+      }
+      .usa-dt-modal__close-button {
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          margin-left: rem(30);
+        }
+      }
+    }
+    .usa-dt-modal__section {
+      padding: 0 3rem 3rem 3rem;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS styles go here */
+        padding: 0;
+      }
+      .usda-table {
+        margin: 3rem 0;
+        .usda-table__head {
+          .table-header {
+            .table-header__content {
+              .table-header__label {
+                font-size: rem(14);
+                line-height: rem(18);
+                .publication-dates__column-header-sub-title {
+                  font-size: rem(12);
+                  line-height: rem(15);
+                  font-weight: $font-normal;
+                }
+              }
+            }
+          }
+        }
+        .usda-table__body {
+          font-size: rem(12);
+          .usda-table__row {
+            .usda-table__cell {
+              padding: rem(10) rem(15);
+            }
+          }
+        }
+      }
+    }
+    // missing account balances specific
+    &.missing-account-balance-modal {
+      @include media($tablet-screen) {
+        max-width: rem(700);
+      }
+      @include media($large-screen) {
+        max-width: rem(700);
+        min-width: rem(700);
+      }
+      .about-the-data-modal__header-data {
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          /* IE10+ CSS styles go here */
+          padding-left: 0;
+        }
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          .usda-table__body {
+            .usda-table__row {
+              .usda-table__cell:not(:first-child) {
+                text-align: right;
+                padding-right: rem(42);
+              }
+            }
+          }
+        }
+      }
+    }
+    // publication dates modal specific
+    &.publication-dates-modal {
+      @include media($tablet-screen) {
+        max-width: rem(483);
+      }
+      @include media($large-screen) {
+        max-width: rem(483);
+        min-width: rem(483);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          .usda-table__head {
+            .table-header {
+              .table-header__content {
+                .table-header__label {
+                  .publication-dates__column-header-sub-title {
+                    font-size: rem(12);
+                    line-height: rem(15);
+                    font-weight: $font-normal;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

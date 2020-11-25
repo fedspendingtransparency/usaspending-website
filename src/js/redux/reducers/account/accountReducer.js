@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/17/17
  */
 
-import { Set, OrderedSet } from 'immutable';
+import { Set, OrderedSet, List } from 'immutable';
 
 import * as ObjectClassFuncs from './filters/accountObjectClassFunctions';
 import * as ProgramActivityFuncs from './filters/accountProgramActivityFunctions';
@@ -43,7 +43,8 @@ export const initialState = {
         }
     },
     totalSpending: 0,
-    dataAsOf: null // will be a moment obj
+    dataAsOf: null, // will be a moment obj
+    submissionPeriods: new List()
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -155,6 +156,12 @@ const accountReducer = (state = initialState, action) => {
             return {
                 ...state,
                 dataAsOf: action.payload
+            };
+        }
+        case 'SET_SUBMISSION_PERIODS': {
+            return {
+                ...state,
+                submissionPeriods: new List(action.submissionPeriods)
             };
         }
         default:
