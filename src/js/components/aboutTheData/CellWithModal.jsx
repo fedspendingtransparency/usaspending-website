@@ -15,7 +15,7 @@ const propTypes = {
 const CellWithModal = ({ data, openModal }) => (
     <div className="modal-cell">
         {data}
-        <button className="modal-cell__button" onClick={openModal}>
+        <button className="modal-cell__button" onClick={openModal} title="Open modal">
             <FontAwesomeIcon icon="expand-alt" />
         </button>
     </div>
