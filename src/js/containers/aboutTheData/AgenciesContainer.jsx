@@ -215,10 +215,6 @@ const mockAPIResponse = {
     ]
 };
 
-const mockModalFn = () => {
-    window.alert('open sesame');
-};
-
 const mockDatesApiResponse = {
     page_metadata: {
         page: 1,
@@ -270,27 +266,6 @@ TableTabLabel.propTypes = {
     tooltipComponent: PropTypes.element
 };
 
-// TODO - create a data model for agency row
-const rows = mockAPIResponse.results.map(
-    ({
-        name,
-        abbreviation,
-        code,
-        current_total_budget_authority_amount: total,
-        recent_publication_date: publicationDate,
-        discrepancy_count: GtasNotInFileA,
-        obligation_difference: differenceInFileAAndB
-    }) => [
-        // TODO: handle agencies with no code
-        (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
-        (<div className="generic-cell-content">{ total }</div>),
-        (<CellWithModal data={publicationDate} openModal={mockModalFn} />),
-        (<CellWithModal data={GtasNotInFileA} openModal={mockModalFn} />),
-        (<div className="generic-cell-content">% placeholder</div>),
-        (<CellWithModal data={differenceInFileAAndB} openModal={mockModalFn} />)
-    ]
-);
-
 const dateRows = mockDatesApiResponse.results
     .map(({
         name,
@@ -311,6 +286,7 @@ const AgenciesContainer = () => {
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [showModal, setShowModal] = useState('');
+    const [modalAgency, setModalAgency] = useState('');
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -324,15 +300,36 @@ const AgenciesContainer = () => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
     // Modal Logic
-    const modalClick = (e) => {
-        e.preventDefault();
-        setShowModal(e.target.value);
+    const modalClick = (modalType, agencyName) => {
+        setShowModal(modalType);
+        setModalAgency(agencyName);
     };
     const closeModal = () => setShowModal('');
 
     const handleSwitchTab = (tab) => {
         setActiveTab(tab);
     };
+
+    // TODO - create a data model for agency row
+    const rows = mockAPIResponse.results.map(
+        ({
+            name,
+            abbreviation,
+            code,
+            current_total_budget_authority_amount: total,
+            recent_publication_date: publicationDate,
+            discrepancy_count: GtasNotInFileA,
+            obligation_difference: differenceInFileAAndB
+        }) => [
+            // TODO: handle agencies with no code
+            (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
+            (<div className="generic-cell-content">{ total }</div>),
+            (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyName={name} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyName={name} />),
+            (<div className="generic-cell-content">% placeholder</div>),
+            (<div className="generic-cell-content">{differenceInFileAAndB}</div>)
+        ]
+    );
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
@@ -360,8 +357,6 @@ const AgenciesContainer = () => {
                     </div>
                 </div>
                 {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
-                <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     {activeTab === 'details' && (
                         <Table
@@ -428,7 +423,7 @@ const AgenciesContainer = () => {
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={`${rows[0][0]}`}
+                    agencyName={modalAgency}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
