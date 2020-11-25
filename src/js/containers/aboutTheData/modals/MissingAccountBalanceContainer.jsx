@@ -68,17 +68,23 @@ const MissingAccountBalanceContainer = ({
         }
     };
 
-    // on mount fetch data, and unmount cleanup pubDatesRequest
-    useEffect(() => {
-        missingAccountBalancesRequest();
-        return () => {
-            if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
-        };
+    // on unmount cleanup pubDatesRequest
+    useEffect(() => () => {
+        if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
     }, []);
-    // on page, sort, order, or limit change fetch new data
+    // on sort, order, limit change fetch new data or set page to 1
+    useEffect(() => {
+        if (page === 1) {
+            missingAccountBalancesRequest();
+        }
+        else {
+            setPage(1);
+        }
+    }, [sort, order, limit]);
+    // on page change fetch new data
     useEffect(() => {
         missingAccountBalancesRequest();
-    }, [sort, order, page, limit]);
+    }, [page]);
     // do not show deadlines in column headers if we do not have the data
     const columns = missingAccountBalanceColumns.map((column) => ({
         displayName: (

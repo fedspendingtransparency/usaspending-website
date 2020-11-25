@@ -96,17 +96,23 @@ const PublicationDatesContainer = ({
             setSubmissionDeadlines(getSubmissionDeadlines(fiscalYear, fiscalPeriod, submissionPeriods.toJS()));
         }
     }, [submissionPeriods]);
-    // on mount fetch data, and unmount cleanup pubDatesRequest
-    useEffect(() => {
-        publicationDatesRequest();
-        return () => {
-            if (pubDatesRequest.current) pubDatesRequest.current.cancel();
-        };
+    // on unmount cleanup pubDatesRequest
+    useEffect(() => () => {
+        if (pubDatesRequest.current) pubDatesRequest.current.cancel();
     }, []);
-    // on page, sort, order, or limit change fetch new data
+    // on sort, order, limit change fetch new data or reset page to 1
+    useEffect(() => {
+        if (page === 1) {
+            publicationDatesRequest();
+        }
+        else {
+            setPage(1);
+        }
+    }, [sort, order, limit]);
+    // on page change fetch new data
     useEffect(() => {
         publicationDatesRequest();
-    }, [sort, order, page, limit]);
+    }, [page]);
     // do not show deadlines in column headers if we do not have the data
     const columns = publicationDatesColumns.map((column) => ({
         displayName: (
