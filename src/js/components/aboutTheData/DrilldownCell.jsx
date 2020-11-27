@@ -14,16 +14,14 @@ const propTypes = {
 };
 
 const DrilldownCell = ({ data, id }) => (
-    <Link
-        to={`/about-the-data/agency/${id}`}
-        className="drilldown-cell">
-        <span className="drilldown-cell__text">
+    <div className="action-cell">
+        <span className="action-cell__text">
             {data}
         </span>
-        <span className="drilldown-cell__icon">
+        <Link to={`/about-the-data/agency/${id}`} className="action-cell__button">
             <FontAwesomeIcon icon="angle-double-down" />
-        </span>
-    </Link>
+        </Link>
+    </div>
 );
 
 DrilldownCell.propTypes = propTypes;

@@ -78,11 +78,9 @@
           .usda-table__row {
             height: 4.8rem;
             .usda-table__cell {
-              padding: 0; // to allow entire drilldown cell to be clickable & for hover borders
               font-size: 1.4rem;
-              white-space: nowrap; // b/c the row is a fixed height
-              @import './cellWithModal';
-              @import './drilldownCell';
+              padding: 0; // to allow entire cell to be hoverable
+              @import './actionCell';
               .generic-cell-content {
                 padding: 1.5rem;
               }

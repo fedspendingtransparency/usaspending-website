@@ -356,7 +356,6 @@ const AgenciesContainer = () => {
                         <p>Place holder for Search components etc...</p>
                     </div>
                 </div>
-                {/* TODO - Modal Buttons - DELETE THIS CODE */}
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     {activeTab === 'details' && (
                         <Table
