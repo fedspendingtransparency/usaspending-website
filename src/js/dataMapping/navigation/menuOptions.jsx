@@ -130,5 +130,16 @@ export const downloadOptions = [
         newTab: false,
         enabled: true,
         externalLink: false
+    },
+    {
+        label: 'Dataset Metadata',
+        type: 'dataset_metadata',
+        url: '/download_center/dataset_metadata',
+        code: 'metadata',
+        description: '',
+        callToAction: 'Explore Dataset Metadata',
+        newTab: false,
+        enabled: true,
+        externalLink: false
     }
 ];
