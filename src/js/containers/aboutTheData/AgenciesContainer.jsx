@@ -7,6 +7,8 @@ import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
+import DrilldownCell from 'components/aboutTheData/DrilldownCell';
+import CellWithModal from 'components/aboutTheData/CellWithModal';
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 
@@ -264,33 +266,17 @@ TableTabLabel.propTypes = {
     tooltipComponent: PropTypes.element
 };
 
-const rows = mockAPIResponse.results.map(
-    ({
-        name,
-        abbreviation,
-        current_total_budget_authority_amount: total,
-        recent_publication_date: publicationDate,
-        discrepancy_count: GtasNotInFileA,
-        obligation_difference: differenceInFileAAndB
-    }) => [
-        `${name} (${abbreviation})`,
-        total,
-        publicationDate,
-        GtasNotInFileA,
-        differenceInFileAAndB
-    ]
-);
-
 const dateRows = mockDatesApiResponse.results
     .map(({
         name,
         abbreviation,
+        code,
         current_total_budget_authority_amount: total,
         periods
     }) => ([
-        `${name} (${abbreviation})`,
-        total,
-        ...periods.map(({ date }) => date)
+        (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
+        (<div className="generic-cell-content">{total}</div>),
+        ...periods.map(({ date }) => (<div className="generic-cell-content">{date}</div>))
     ]));
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
@@ -300,6 +286,7 @@ const AgenciesContainer = () => {
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [showModal, setShowModal] = useState('');
+    const [modalAgency, setModalAgency] = useState('');
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -313,15 +300,36 @@ const AgenciesContainer = () => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
     // Modal Logic
-    const modalClick = (e) => {
-        e.preventDefault();
-        setShowModal(e.target.value);
+    const modalClick = (modalType, agencyName) => {
+        setShowModal(modalType);
+        setModalAgency(agencyName);
     };
     const closeModal = () => setShowModal('');
 
     const handleSwitchTab = (tab) => {
         setActiveTab(tab);
     };
+
+    // TODO - create a data model for agency row
+    const rows = mockAPIResponse.results.map(
+        ({
+            name,
+            abbreviation,
+            code,
+            current_total_budget_authority_amount: total,
+            recent_publication_date: publicationDate,
+            discrepancy_count: GtasNotInFileA,
+            obligation_difference: differenceInFileAAndB
+        }) => [
+            // TODO: handle agencies with no code
+            (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
+            (<div className="generic-cell-content">{ total }</div>),
+            (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyName={name} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyName={name} />),
+            (<div className="generic-cell-content">% placeholder</div>),
+            (<div className="generic-cell-content">{differenceInFileAAndB}</div>)
+        ]
+    );
 
     return (
         <div className="usa-da__about-the-data__agencies-page">
@@ -348,9 +356,6 @@ const AgenciesContainer = () => {
                         <p>Place holder for Search components etc...</p>
                     </div>
                 </div>
-                {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
-                <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                 <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                     {activeTab === 'details' && (
                         <Table
@@ -417,7 +422,7 @@ const AgenciesContainer = () => {
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={`${rows[0][0]}`}
+                    agencyName={modalAgency}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}

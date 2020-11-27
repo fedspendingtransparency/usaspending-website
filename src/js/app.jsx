@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
+    faAngleDoubleDown,
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
@@ -31,6 +32,7 @@ import {
     faExclamationCircle,
     faExternalLinkAlt,
     faExclamationTriangle,
+    faExpandAlt,
     faHandHoldingMedical,
     faHandsHelping,
     faInfo,
@@ -67,6 +69,7 @@ require('helpers/rafPolyfill');
 
 library.add(
     faAngleDown,
+    faAngleDoubleDown,
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
@@ -94,6 +97,7 @@ library.add(
     faExclamationCircle,
     faExternalLinkAlt,
     faExclamationTriangle,
+    faExpandAlt,
     faFingerprint,
     faHandHoldingMedical,
     faHandsHelping,
