@@ -13,7 +13,7 @@ const propTypes = {
 
 const MetadataDownload = ({ downloadLocation }) => (
     <div className="metadata-dl">
-        <h2 className="metadata__title">Metadata Download</h2>
+        <h2 className="metadata__title">Dataset Metadata</h2>
         <p className="metadata__intro">
             This JSON file contains metadata for all datasets that are published on USAspending.gov,
             including information such as dataset description, file format, publishing agency, and keywords.
@@ -23,7 +23,7 @@ const MetadataDownload = ({ downloadLocation }) => (
                 target="_blank"
                 href={downloadLocation}
                 rel="noopener noreferrer"
-                aria-label="Metadata Download">
+                aria-label="Dataset Metadata">
                 <button
                     className="full-menu__item--button">
                     <FontAwesomeIcon icon="file-code" />

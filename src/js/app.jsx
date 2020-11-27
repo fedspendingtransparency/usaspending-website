@@ -31,6 +31,8 @@ import {
     faExclamationCircle,
     faExternalLinkAlt,
     faExclamationTriangle,
+    faFileCode,
+    faFingerprint,
     faHandHoldingMedical,
     faHandsHelping,
     faInfo,
@@ -52,9 +54,7 @@ import {
     faThLarge,
     faTimes,
     faUserTie,
-    faWindowRestore,
-    faFingerprint,
-    faFileCode
+    faWindowRestore
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -95,8 +95,8 @@ library.add(
     faExclamationCircle,
     faExternalLinkAlt,
     faExclamationTriangle,
-    faFingerprint,
     faFileCode,
+    faFingerprint,
     faHandHoldingMedical,
     faHandsHelping,
     faInfo,
