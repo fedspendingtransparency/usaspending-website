@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import kGlobalConstants from 'GlobalConstants';
 
 const AgencyDownloadLinkCell = () => (
-    <div className="agency-website">
+    <div className="agency-table-download">
         <div className="usa-button-link">
             <span className="usa-button-link__download-icon">
                 <FontAwesomeIcon

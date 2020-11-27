@@ -345,16 +345,16 @@ export const AgenciesDetailContainer = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                        <Table
-                            rows={rows}
-                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                            columns={columns}
-                            updateSort={handleUpdateSort}
-                            currentSort={sortStatus} />
-                    </div>
-                    <Note message={message} />
                 </div>
+                <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+                    <Table
+                        rows={rows}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        columns={columns}
+                        updateSort={handleUpdateSort}
+                        currentSort={sortStatus} />
+                </div>
+                <Note message={message} />
                 <AboutTheDataModal
                     mounted={!!showModal.length}
                     type={showModal}
