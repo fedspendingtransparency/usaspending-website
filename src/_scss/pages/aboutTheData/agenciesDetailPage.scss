@@ -7,7 +7,15 @@
       margin: rem(40) rem(20);
       background: $color-white;
       border-radius: 0.5rem 0.5rem 0 0;
+  
       .heading-container {
+          a {
+            color: $color-primary;
+            text-decoration: underline;
+          }
+          .usa-button-link__download-icon {
+            padding-right: rem(10);
+          }
           padding-left: rem(20);
           .header {
             margin-top: rem(10);
@@ -25,7 +33,6 @@
             letter-spacing: 0;
             line-height: rem(23);
             a {
-              color: $color-primary;
               text-decoration: none;
             }
           }
@@ -48,9 +55,6 @@
             }
             .usa-button-link {
               text-decoration: underline;   
-            }
-            .usa-button-link__icon {
-              padding-left: rem(3);
             }
             .more-info-note {
               margin: 0;
@@ -79,10 +83,6 @@
                     svg.svg-inline--fa {
                       font-size: rem(14);
                       width: 0.8em;
-                    }
-                    a {
-                      color: $color-primary;
-                      text-decoration: underline;
                     }
                 }
 

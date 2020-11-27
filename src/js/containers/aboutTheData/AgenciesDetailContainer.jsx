@@ -17,6 +17,7 @@ import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
+import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
@@ -40,7 +41,12 @@ const columns = [
     },
     {
         title: "total",
-        displayName: "Percent of Total Federal Budget"
+        displayName: "Percent of Total Federal Budget",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="Percent of Total Federal Budget" />} />
+        )
     },
     {
         title: "publication_date",
@@ -53,19 +59,48 @@ const columns = [
     },
     {
         title: "missing_tas_count",
-        displayName: "Number of TASs Missing from Account Balance Data"
+        displayName: "Number of TASs Missing from Account Balance Data",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="TASs Missing from Account Balance Data" />} />
+        )
     },
     {
         title: "obligation_different",
-        displayName: "Reporting Difference in Obligations"
+        displayName: "Reporting Difference in Obligations",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="Reporting Difference in Obligations" />} />
+        )
     },
     {
         title: "unlinked_cont_award_count",
-        displayName: "Number of Unlinked Contract Awards"
+        displayName: "Number of Unlinked Contract Awards",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="Number of Unlinked Contract Awards" />} />
+        )
     },
     {
         title: "unlinked_asst_award_count",
-        displayName: "Number of Unlinked Assistance Awards"
+        displayName: "Number of Unlinked Assistance Awards",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="Number of Unlinked Assistance Awards" />} />
+        )
+    },
+    {
+        title: "assurance_statements",
+        displayName: "Assurance Statements",
+        icon: (
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<Tooltip title="Assurance Statements" />} />
+        )
     }
 ];
 
@@ -84,7 +119,8 @@ const mockAPIResponse = {
             discrepancy_count: 2,
             obligation_difference: 0,
             unlinked_cont_awd: 782,
-            unlinked_asst_awd: 5
+            unlinked_asst_awd: 5,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2020: P05",
@@ -93,7 +129,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 324.91,
             unlinked_cont_awd: 1176,
-            unlinked_asst_awd: 5096
+            unlinked_asst_awd: 5096,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2020: P04",
@@ -102,7 +139,8 @@ const mockAPIResponse = {
             discrepancy_count: 39,
             obligation_difference: 1102064503.38,
             unlinked_cont_awd: 42270,
-            unlinked_asst_awd: 979
+            unlinked_asst_awd: 979,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2020: Q1 / P03",
@@ -111,7 +149,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 352,
-            unlinked_asst_awd: 6
+            unlinked_asst_awd: 6,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2020: P01 - P02",
@@ -120,7 +159,8 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 240672,
             unlinked_cont_awd: 264,
-            unlinked_asst_awd: 377277
+            unlinked_asst_awd: 377277,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2019: Q4 / P12",
@@ -129,7 +169,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 30,
-            unlinked_asst_awd: 13
+            unlinked_asst_awd: 13,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2019: Q3 / P09",
@@ -138,7 +179,8 @@ const mockAPIResponse = {
             discrepancy_count: 4,
             obligation_difference: 4850766868.94,
             unlinked_cont_awd: 13898,
-            unlinked_asst_awd: 1373279
+            unlinked_asst_awd: 1373279,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2019: Q2 / P06",
@@ -147,7 +189,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 216,
-            unlinked_asst_awd: 0
+            unlinked_asst_awd: 0,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2019: Q1 / P03",
@@ -156,7 +199,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0.18,
             unlinked_cont_awd: 8880,
-            unlinked_asst_awd: 68283
+            unlinked_asst_awd: 68283,
+            assurance_statements: <AgencyDownloadLinkCell />
         },
         {
             fiscal_year: "FY 2018: Q4 / P12",
@@ -165,7 +209,8 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 124086515.13,
             unlinked_cont_awd: 41,
-            unlinked_asst_awd: 5738
+            unlinked_asst_awd: 5738,
+            assurance_statements: <AgencyDownloadLinkCell />
         }
     ]
 };
@@ -178,7 +223,8 @@ const rows = mockAPIResponse.results.map(
         discrepancy_count: missingTasCount,
         obligation_difference: obligationDiff,
         unlinked_cont_awd: unlinkedCont,
-        unlinked_asst_awd: unlinkedAsst
+        unlinked_asst_awd: unlinkedAsst,
+        assurance_statements: assuranceStatement
     }) => [
         fiscalYear,
         total,
@@ -186,7 +232,8 @@ const rows = mockAPIResponse.results.map(
         missingTasCount,
         obligationDiff,
         unlinkedCont,
-        unlinkedAsst
+        unlinkedAsst,
+        assuranceStatement
     ]
 );
 
