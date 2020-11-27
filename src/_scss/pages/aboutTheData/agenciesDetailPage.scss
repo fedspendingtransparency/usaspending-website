@@ -88,12 +88,92 @@
 
             }
         }
+
+        .table-container,
+        .table-controls {
+          width: rem(1560);
+        }
+        .table-controls {
+          .table-type-toggle:focus {
+            outline: none;
+          }
+          .table-tab-label {
+            @include display(flex);
+          }
+          .tooltip-wrapper {
+            display: none;
+            @media (min-width: $tablet-screen) {
+              @include display(flex);
+            }
+          }
+          .usa-dt-picker__list {
+            max-width: rem(500);
+          }
+        }
+        .table-container  {
+          height: rem(500);
+          overflow: scroll;
+          margin: 0;
+          border: rem(1) solid $color-gray-border;
+          .usda-table.usda-table-w-grid {
+            border-collapse: separate;
+            margin-top:0;
+            thead {
+              tr th {
+                min-width: rem(300);
+              }
+              .nested-header {
+                .table-header__content {
+                  padding: 1rem 0;
+                }
+              }
+            }
+            &.sticky-y-table {
+              @media(min-width: $medium-screen) {
+                thead {
+                  th {
+                    position: sticky;
+                    position: -webkit-sticky;
+                    top: 0;
+                    border: rem(1) solid $color-gray-lighter;
+                  }
+                }
+              }
+            }
+            &.sticky-x-table {
+              @media(min-width: $medium-screen) {
+                thead {
+                  tr:first-of-type {
+                    .table-header:first-of-type {
+                      position: sticky;
+                      position: -webkit-sticky;
+                      left: 0px;
+                      z-index: 10;
+                      box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+                      border-right: 1px solid $color-gray-lightest;
+                    }
+                  }
+                }
+                tbody {
+                  .usda-table__row .usda-table__cell {
+                    &:first-of-type {
+                      position: sticky;
+                      left: 0px;
+                      box-shadow: 2px 1px 4px rgba(0,0,0,.20);
+                      border-right: rem(1) solid $color-gray-lightest;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
           
         @import 'components/Note';
         .default-note {
           font-style: italic;
           margin: 0;
-          padding: 0;
+          padding-top: rem(30);
           letter-spacing: 0;
           line-height: rem(22);
         }
