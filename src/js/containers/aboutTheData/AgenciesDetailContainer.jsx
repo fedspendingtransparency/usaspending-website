@@ -4,6 +4,7 @@ import { useDispatch, connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Table, TooltipComponent, TooltipWrapper } from "data-transparency-ui";
 import { throttle } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'helpers/agencyHelper';
@@ -18,7 +19,7 @@ import Footer from 'containers/Footer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CellWithModal from 'components/aboutTheData/CellWithModal';
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 
@@ -119,8 +120,7 @@ const mockAPIResponse = {
             discrepancy_count: 2,
             obligation_difference: 0,
             unlinked_cont_awd: 782,
-            unlinked_asst_awd: 5,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 5
         },
         {
             fiscal_year: "FY 2020: P05",
@@ -129,8 +129,7 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 324.91,
             unlinked_cont_awd: 1176,
-            unlinked_asst_awd: 5096,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 5096
         },
         {
             fiscal_year: "FY 2020: P04",
@@ -139,8 +138,7 @@ const mockAPIResponse = {
             discrepancy_count: 39,
             obligation_difference: 1102064503.38,
             unlinked_cont_awd: 42270,
-            unlinked_asst_awd: 979,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 979
         },
         {
             fiscal_year: "FY 2020: Q1 / P03",
@@ -149,8 +147,7 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 352,
-            unlinked_asst_awd: 6,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 6
         },
         {
             fiscal_year: "FY 2020: P01 - P02",
@@ -159,8 +156,7 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 240672,
             unlinked_cont_awd: 264,
-            unlinked_asst_awd: 377277,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 377277
         },
         {
             fiscal_year: "FY 2019: Q4 / P12",
@@ -169,8 +165,7 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 30,
-            unlinked_asst_awd: 13,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 13
         },
         {
             fiscal_year: "FY 2019: Q3 / P09",
@@ -179,8 +174,7 @@ const mockAPIResponse = {
             discrepancy_count: 4,
             obligation_difference: 4850766868.94,
             unlinked_cont_awd: 13898,
-            unlinked_asst_awd: 1373279,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 1373279
         },
         {
             fiscal_year: "FY 2019: Q2 / P06",
@@ -189,8 +183,7 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 216,
-            unlinked_asst_awd: 0,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 0
         },
         {
             fiscal_year: "FY 2019: Q1 / P03",
@@ -199,8 +192,7 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0.18,
             unlinked_cont_awd: 8880,
-            unlinked_asst_awd: 68283,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 68283
         },
         {
             fiscal_year: "FY 2018: Q4 / P12",
@@ -209,33 +201,10 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 124086515.13,
             unlinked_cont_awd: 41,
-            unlinked_asst_awd: 5738,
-            assurance_statements: <AgencyDownloadLinkCell />
+            unlinked_asst_awd: 5738
         }
     ]
 };
-
-const rows = mockAPIResponse.results.map(
-    ({
-        fiscal_year: fiscalYear,
-        percent_total_budget: total,
-        recent_update: recentUpdate,
-        discrepancy_count: missingTasCount,
-        obligation_difference: obligationDiff,
-        unlinked_cont_awd: unlinkedCont,
-        unlinked_asst_awd: unlinkedAsst,
-        assurance_statements: assuranceStatement
-    }) => [
-        fiscalYear,
-        total,
-        recentUpdate,
-        missingTasCount,
-        obligationDiff,
-        unlinkedCont,
-        unlinkedAsst,
-        assuranceStatement
-    ]
-);
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
 
@@ -249,6 +218,7 @@ export const AgenciesDetailContainer = (props) => {
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const { agencyId } = useParams();
     const [showModal, setShowModal] = useState('');
+    const [modalAgency, setModalAgency] = useState('');
     const dispatch = useDispatch();
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
@@ -260,8 +230,35 @@ export const AgenciesDetailContainer = (props) => {
         updateSort({ field, direction });
     };
 
+    const modalClick = (modalType, agencyName) => {
+        setShowModal(modalType);
+        setModalAgency(agencyName);
+    };
+    const closeModal = () => setShowModal('');
+
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
+    const rows = mockAPIResponse.results.map(
+        ({
+            fiscal_year: fiscalYear,
+            percent_total_budget: total,
+            recent_update: recentUpdate,
+            discrepancy_count: missingTasCount,
+            obligation_difference: obligationDiff,
+            unlinked_cont_awd: unlinkedCont,
+            unlinked_asst_awd: unlinkedAsst
+        }) => [
+            (<div className="generic-cell-content">{ fiscalYear }</div>),
+            (<div className="generic-cell-content">{ total }</div>),
+            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={props.agency.overviewname} />),
+            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyName={props.agency.overviewname} />),
+            (<div className="generic-cell-content">{ obligationDiff }</div>),
+            (<div className="generic-cell-content">{ unlinkedCont }</div>),
+            (<div className="generic-cell-content">{ unlinkedAsst }</div>),
+            (<div className="generic-cell-content"><AgencyDownloadLinkCell /></div>)
+        ]
+    );
 
     const onClick = (e) => {
         e.persist();
@@ -269,13 +266,6 @@ export const AgenciesDetailContainer = (props) => {
             dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
         }
     };
-
-    // Modal Logic
-    const modalClick = (e) => {
-        e.preventDefault();
-        setShowModal(e.target.value);
-    };
-    const closeModal = () => setShowModal('');
 
     useEffect(() => {
         // request overview for agency
@@ -311,9 +301,6 @@ export const AgenciesDetailContainer = (props) => {
                     </div>
                     <h2 className="header">Submission Data</h2>
                     <h2 className="sub-header">{props.agency.overview.name}</h2>
-                    {/* TODO - Modal Buttons - DELETE THIS CODE */}
-                    <button value="publicationDates" onClick={modalClick}>Publication Dates</button>
-                    <button value="missingAccountBalance" onClick={modalClick}>Missing Account Balance</button>
                     <div className="lower-details">
                         <div className="agency-info-group">
                             <h5>Agency Contact Information</h5>
@@ -360,7 +347,7 @@ export const AgenciesDetailContainer = (props) => {
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={props.agency.overview.name}
+                    agencyName={modalAgency}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}

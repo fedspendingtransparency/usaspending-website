@@ -53,6 +53,19 @@
                 }
               }
             }
+            tbody {
+              .usda-table__row {
+                height: 4.8rem;
+                .usda-table__cell {
+                  font-size: 1.4rem;
+                  padding: 0; // to allow entire cell to be hoverable
+                  @import './actionCell';
+                  .generic-cell-content {
+                    padding: 1.2rem;
+                  }
+                }
+              }
+            }
             &.sticky-y-table {
               @media(min-width: $medium-screen) {
                 thead {
