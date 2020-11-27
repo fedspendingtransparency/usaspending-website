@@ -26,8 +26,9 @@ module.exports = {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
         "<rootDir>/__mocks__/fileMock.js",
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
-        "\\.(css|less|scss)$": "identity-obj-proxy",
+        "\\.(css|less|scss)$": "<rootDir>/tests/testResources/stylesStub.js",
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
+        '@test-utils': "<rootDir>/tests/testResources/test-utils.js"
     },
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
     transform: {

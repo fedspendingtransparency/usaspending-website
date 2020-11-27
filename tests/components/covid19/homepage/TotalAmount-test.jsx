@@ -1,8 +1,7 @@
 import React from 'react';
 import TotalAmount from 'components/homepage/hero/TotalAmount';
 
-// import { render, screen } from '../../../testResources/test-utils';
-import { render, screen } from 'test-utils';
+import { render, screen } from '@test-utils';
 
 const reallyBigNumber = 1000000000000;
 
