@@ -120,7 +120,8 @@ const mockAPIResponse = {
             discrepancy_count: 2,
             obligation_difference: 0,
             unlinked_cont_awd: 782,
-            unlinked_asst_awd: 5
+            unlinked_asst_awd: 5,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2020: P05",
@@ -129,7 +130,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 324.91,
             unlinked_cont_awd: 1176,
-            unlinked_asst_awd: 5096
+            unlinked_asst_awd: 5096,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2020: P04",
@@ -138,7 +140,8 @@ const mockAPIResponse = {
             discrepancy_count: 39,
             obligation_difference: 1102064503.38,
             unlinked_cont_awd: 42270,
-            unlinked_asst_awd: 979
+            unlinked_asst_awd: 979,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2020: Q1 / P03",
@@ -147,7 +150,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 352,
-            unlinked_asst_awd: 6
+            unlinked_asst_awd: 6,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2020: P01 - P02",
@@ -156,7 +160,8 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 240672,
             unlinked_cont_awd: 264,
-            unlinked_asst_awd: 377277
+            unlinked_asst_awd: 377277,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2019: Q4 / P12",
@@ -165,7 +170,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 30,
-            unlinked_asst_awd: 13
+            unlinked_asst_awd: 13,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2019: Q3 / P09",
@@ -174,7 +180,8 @@ const mockAPIResponse = {
             discrepancy_count: 4,
             obligation_difference: 4850766868.94,
             unlinked_cont_awd: 13898,
-            unlinked_asst_awd: 1373279
+            unlinked_asst_awd: 1373279,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2019: Q2 / P06",
@@ -183,7 +190,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0,
             unlinked_cont_awd: 216,
-            unlinked_asst_awd: 0
+            unlinked_asst_awd: 0,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2019: Q1 / P03",
@@ -192,7 +200,8 @@ const mockAPIResponse = {
             discrepancy_count: 0,
             obligation_difference: 0.18,
             unlinked_cont_awd: 8880,
-            unlinked_asst_awd: 68283
+            unlinked_asst_awd: 68283,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         },
         {
             fiscal_year: "FY 2018: Q4 / P12",
@@ -201,7 +210,8 @@ const mockAPIResponse = {
             discrepancy_count: 1,
             obligation_difference: 124086515.13,
             unlinked_cont_awd: 41,
-            unlinked_asst_awd: 5738
+            unlinked_asst_awd: 5738,
+            assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
         }
     ]
 };
@@ -247,7 +257,8 @@ export const AgenciesDetailContainer = (props) => {
             discrepancy_count: missingTasCount,
             obligation_difference: obligationDiff,
             unlinked_cont_awd: unlinkedCont,
-            unlinked_asst_awd: unlinkedAsst
+            unlinked_asst_awd: unlinkedAsst,
+            assurance_statement_file: assuranceStatementFile
         }) => [
             (<div className="generic-cell-content">{ fiscalYear }</div>),
             (<div className="generic-cell-content">{ total }</div>),
@@ -256,7 +267,7 @@ export const AgenciesDetailContainer = (props) => {
             (<div className="generic-cell-content">{ obligationDiff }</div>),
             (<div className="generic-cell-content">{ unlinkedCont }</div>),
             (<div className="generic-cell-content">{ unlinkedAsst }</div>),
-            (<div className="generic-cell-content"><AgencyDownloadLinkCell /></div>)
+            (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatementFile} /></div>)
         ]
     );
 
