@@ -41,7 +41,7 @@ const metaTagsByDataType = {
     awards: downloadAwardPageMetaTags,
     accounts: downloadAccountPageMetaTags,
     award_data_archive: downloadArchivePageMetaTags,
-    metadata_download: metadataDownloadPageMetaTags
+    dataset_metadata: metadataDownloadPageMetaTags
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -109,7 +109,7 @@ export default class BulkDownloadPage extends React.Component {
                 <DataDictionaryContainer />
             );
         }
-        if (this.props.dataType === 'metadata_download') {
+        if (this.props.dataType === 'dataset_metadata') {
             downloadDataContent = (
                 <MetadataDownload />
             );

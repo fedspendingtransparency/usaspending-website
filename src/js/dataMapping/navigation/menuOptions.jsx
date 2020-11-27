@@ -133,8 +133,8 @@ export const downloadOptions = [
     },
     {
         label: 'Dataset Metadata',
-        type: 'metadata_download',
-        url: '/download_center/metadata_download',
+        type: 'dataset_metadata',
+        url: '/download_center/dataset_metadata',
         code: 'metadata',
         description: '',
         callToAction: 'Explore Dataset Metadata',
