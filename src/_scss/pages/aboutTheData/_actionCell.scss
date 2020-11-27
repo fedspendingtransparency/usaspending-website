@@ -3,7 +3,9 @@
     @include justify-content(space-between);
     @include align-items(center);
     color: $color-base;
-    padding: 1.5rem;
+    padding: 1.2rem;
+    height: 6.6rem;
+    border: solid 3px transparent;
     .action-cell__text {
         padding-right: .8rem;
     }
@@ -28,6 +30,7 @@
         }
     }
     &:hover {
+        border-color: $color-primary;
         .action-cell__button {
             svg {
                 @include display(flex);
