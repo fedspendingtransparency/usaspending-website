@@ -28,6 +28,8 @@ const propTypes = {
 const AgenciesContainer = ({ activeTab, openModal }) => {
     const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -70,7 +72,9 @@ const AgenciesContainer = ({ activeTab, openModal }) => {
                     classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                     columns={agenciesTableColumns[activeTab]}
                     updateSort={handleUpdateSort}
-                    currentSort={sortStatus} />
+                    currentSort={sortStatus}
+                    error={error}
+                    loading={loading} />
             )}
             {activeTab === 'dates' && (
                 <Table
@@ -78,7 +82,9 @@ const AgenciesContainer = ({ activeTab, openModal }) => {
                     classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                     columns={agenciesTableColumns[activeTab]}
                     updateSort={handleUpdateSort}
-                    currentSort={sortStatus} />
+                    currentSort={sortStatus}
+                    error={error}
+                    loading={loading} />
             )}
         </div>
     );
