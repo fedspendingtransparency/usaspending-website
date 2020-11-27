@@ -188,7 +188,7 @@ export const dataDictionaryPageMetaTags = {
 };
 
 export const metadataDownloadPageMetaTags = {
-    og_url: `${productionURL}download_center/metadata_download`,
+    og_url: `${productionURL}download_center/dataset_metadata`,
     og_title: 'Dataset Metadata | USAspending',
     og_description:
         'This JSON file contains metadata for all datasets that are published on USAspending.gov, including information such as dataset description, file format, publishing agency, and keywords.',
