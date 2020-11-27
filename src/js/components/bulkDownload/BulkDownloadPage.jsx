@@ -19,13 +19,13 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
+import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import DataDictionaryContainer from 'containers/bulkDownload/dictionary/DataDictionaryContainer';
-import MetadataDownloadContainer from 'containers/bulkDownload/MetadataDownloadContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
@@ -111,7 +111,7 @@ export default class BulkDownloadPage extends React.Component {
         }
         if (this.props.dataType === 'metadata_download') {
             downloadDataContent = (
-                <MetadataDownloadContainer />
+                <MetadataDownload />
             );
         }
         return (

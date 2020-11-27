@@ -4,14 +4,12 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import kGlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const propTypes = {
-    downloadLocation: PropTypes.string
-};
+const downloadLocation = `${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/USAspending-data-catalog.json`;
 
-const MetadataDownload = ({ downloadLocation }) => (
+const MetadataDownload = () => (
     <div className="metadata-dl">
         <h2 className="metadata__title">Dataset Metadata</h2>
         <p className="metadata__intro">
@@ -34,5 +32,4 @@ const MetadataDownload = ({ downloadLocation }) => (
     </div>
 );
 
-MetadataDownload.propTypes = propTypes;
 export default MetadataDownload;
