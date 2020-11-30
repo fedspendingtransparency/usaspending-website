@@ -1,0 +1,54 @@
+.metadata-dl {
+    @include media($medium-screen) {
+        padding: 0 rem(30);
+    }
+    .metadata__title {
+        margin-top: 0;
+        font-weight: 400;
+    }
+    .metadata__intro {
+        font-size: $small-font-size;
+        margin-bottom: rem(12);
+        max-width: rem(565);
+    }
+    .metadata-download-button {
+        a {
+            text-decoration: none;
+        }
+        @include button-unstyled;
+        cursor: pointer;
+
+        @include display(flex);
+        @include justify-content(left);
+        @include align-items(left);
+        position: relative;
+        width: rem(280);
+
+        @include transition(opacity 0.2s ease-in-out);
+
+        .full-menu__item--button {
+            height: 4.8rem;
+            margin-top: rem(20);
+            border: 1px solid $color-primary;
+            font-size: rem(14);
+            font-weight: bold;
+            line-height: rem(18);
+            @include display(flex);
+            @include align-items(center);
+            padding: rem(5.5) rem(12.5);
+            svg {
+                font-size: rem(20);
+                margin-right: rem(12.5);
+            }
+        }
+
+        &:hover, &:active {
+            opacity: 1;
+        }
+
+        &[disabled], &.disabled {
+            cursor: default;
+            opacity: 0.4;
+        }
+    }
+}

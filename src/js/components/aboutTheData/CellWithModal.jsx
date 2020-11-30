@@ -19,9 +19,11 @@ const CellWithModal = ({
 }) => {
     const modalClick = () => openModal(modalType, agencyName);
     return (
-        <div className="modal-cell">
-            {data}
-            <button className="modal-cell__button" onClick={modalClick} title="Open modal">
+        <div className="action-cell">
+            <span className="action-cell__text">
+                {data}
+            </span>
+            <button className="action-cell__button" onClick={modalClick} title="Open modal">
                 <FontAwesomeIcon icon="expand-alt" />
             </button>
         </div>
