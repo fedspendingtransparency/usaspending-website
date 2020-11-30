@@ -18,8 +18,10 @@
     .visualization-top {
         .download {
             float: right;
-            padding: 1rem;
-
+            padding-top: rem(20);
+            svg {
+              font-size: rem(17);
+            }
             button {
                 color: $color-primary;
                 background: transparent;
@@ -27,7 +29,9 @@
             }
 
             .text {
-                margin-left: 1rem;
+                margin-left: rem(9);
+                font-size: rem(14);
+                line-height: rem(18);
             }
 
             .info {
@@ -36,7 +40,13 @@
 
             .tooltip-wrapper {
                 display: inline-block;
-
+                .tooltip__hover-wrapper {
+                  svg {
+                    margin-right: 0;
+                    margin-left: rem(13);
+                    font-size: rem(20);
+                  }
+                }
                 .tooltip__title {
                     border-bottom: solid thin #aeb8b5;
                 }
