@@ -161,7 +161,7 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                         <div className="download">
                             {!this.props.data.loading && this.renderDownloadLink()}
-                            <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />
+                            {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
                         </div>
                     </div>
                 </div>
