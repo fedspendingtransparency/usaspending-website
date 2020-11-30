@@ -42,6 +42,9 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     getDownloadData = () => {
+        if (this.props.data.loading) {
+            return null;
+        }
         const headers = [];
         headers.fiscal_year = 'fiscal_year,total_obligations\n';
         headers.quarter = 'fiscal_year,fiscal_quarter,total_obligations\n';
