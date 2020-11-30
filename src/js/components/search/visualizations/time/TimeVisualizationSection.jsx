@@ -42,9 +42,6 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     getDownloadData = () => {
-        if (this.props.data.loading) {
-            return null;
-        }
         const headers = [];
         headers.fiscal_year = 'fiscal_year,total_obligations\n';
         headers.quarter = 'fiscal_year,fiscal_quarter,total_obligations\n';
@@ -56,7 +53,10 @@ export default class TimeVisualizationSection extends React.Component {
                 if (data.visualizationPeriod === 'fiscal_year') {
                     return `${label.year},${data.ySeries[i][0]}`;
                 }
-                else if (data.visualizationPeriod === 'quarter') {
+                if (!label.period) { // API still updating data
+                    return null;
+                }
+                if (data.visualizationPeriod === 'quarter') {
                     return `${label.year},${label.period[1]},${data.ySeries[i][0]}`;
                 }
                 const month = fullMonthFromAbbr(label.period);
