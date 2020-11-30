@@ -18,7 +18,7 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
     const [isSticky, setIsSticky] = useState(false);
     return [
         isSticky,
-        // scrollPosition at which we apply the sticky-icky
+        // scrollPosition at which we apply the sticky-class
         dynamicStickyBreakpoint,
         // setSticky
         setIsSticky,

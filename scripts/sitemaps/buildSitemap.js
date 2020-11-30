@@ -1,9 +1,9 @@
-import fs from 'fs';
-import axios from 'axios';
-import path from 'path';
-import tunnel from 'tunnel';
+const pages = require('./pages');
 
-import pages from './pages';
+const fs = require('fs');
+const axios = require('axios');
+const path = require('path');
+const tunnel = require('tunnel');
 
 const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
@@ -65,17 +65,29 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 
 const createRobots = () => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../robots.txt`),
+        path.resolve(__dirname, `./sitemapFiles/robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
-        () => console.log("robots.txt successfully created!")
+        (e) => {
+            if (e) {
+                console.log(' Error : ', e);
+                throw e.message;
+            }
+            console.log("robots.txt successfully created!");
+        }
     );
 };
 
 const createIndexedSitemap = (xmlRoutes) => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../sitemap.xml`),
+        path.resolve(__dirname, `./sitemapFiles/sitemap.xml`),
         `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
-        () => console.log(`Sitemap sitemap.xml successfully created!`)
+        (e) => {
+            if (e) {
+                console.log(' Error : ', e);
+                throw e.message;
+            }
+            console.log("Sitemap sitemap.xml successfully created!");
+        }
     );
 
     sitemapsWritten.push('sitemap');
@@ -83,9 +95,15 @@ const createIndexedSitemap = (xmlRoutes) => {
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../${siteMapName}.xml`),
+        path.resolve(__dirname, `./sitemapFiles/${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
-        () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
+        (e) => {
+            if (e) {
+                console.log(' Error : ', e);
+                throw e.message;
+            }
+            console.log(`Sitemap ${siteMapName}.xml successfully created!`);
+        }
     );
 
     sitemapsWritten.push(siteMapName);
@@ -154,7 +172,10 @@ const buildIndividualSitemaps = () => {
                     headers: { 'X-Requested-With': 'USASpendingFrontend' }
                 });
             })
-            .catch((e) => console.log("error", e))
+            .catch((e) => {
+                console.log("error", e);
+                throw e.message;
+            })
             , Promise.resolve('first'));
 
     return asyncPages
@@ -175,7 +196,7 @@ const buildIndividualSitemaps = () => {
         })
         .catch((e) => {
             console.log(`error on sitemap ${e}`);
-            return Promise.resolve(sitemapsWritten);
+            throw e.message;
         });
 };
 
@@ -188,11 +209,23 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     createIndexedSitemap(xml);
 };
 
-buildIndividualSitemaps()
+const createSitemapDirectory = () => new Promise(
+    (resolve, reject) => fs.mkdir(
+        path.resolve('./sitemapFiles'), {}, (e) => {
+            if (e) {
+                reject(e);
+            }
+            resolve();
+        })
+);
+
+createSitemapDirectory()
+    .then(() => buildIndividualSitemaps())
     .then((individalSiteMaps) => {
         buildIndexedSitemap(individalSiteMaps);
         createRobots();
     })
     .catch((e) => {
         console.log(`error build site maps: ${e}`);
+        throw e.message;
     });

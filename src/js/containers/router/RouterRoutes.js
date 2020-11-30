@@ -31,6 +31,7 @@ const AgencyProfileV2 = React.lazy(() => import('containers/agency/v2/AgencyCont
 const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
 const AgenciesContainer = React.lazy(() => import('containers/aboutTheData/AgenciesContainer').then((comp) => comp));
+const AgenciesDetailContainer = React.lazy(() => import('containers/aboutTheData/AgenciesDetailContainer').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
@@ -171,7 +172,13 @@ export const routes = [
         path: '/about-the-data/agencies',
         component: AgenciesContainer,
         exact: true,
-        hide: !kGlobalConstants.DEV
+        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
+    },
+    {
+        path: '/about-the-data/agency/:agencyId',
+        component: AgenciesDetailContainer,
+        exact: true,
+        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
     },
     {
         path: '/disaster/covid-19/data-sources',
