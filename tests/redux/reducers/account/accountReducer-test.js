@@ -3,10 +3,11 @@
  * Created by Kevin Li 3/27/17
  */
 
-import { Set, OrderedSet } from 'immutable';
+import { Set, OrderedSet, List } from 'immutable';
 
 import accountReducer, { initialState } from 'redux/reducers/account/accountReducer';
 import { mockOCAPI } from './mockResponses';
+import { mockSubmissions } from '../../../mockData';
 
 describe('accountReducer', () => {
     describe('SET_SELECTED_ACCOUNT', () => {
@@ -485,5 +486,14 @@ describe('accountReducer', () => {
             state = accountReducer(state, { type: 'SET_ACCOUNT_DATA_AS_OF', payload: 'June 01, 1999' });
             expect(state.dataAsOf).toEqual('June 01, 1999');
         });
+    });
+    it('should SET_SUBMISSION_PERIODS', () => {
+        const action = {
+            type: 'SET_SUBMISSION_PERIODS',
+            submissionPeriods: mockSubmissions
+        };
+        const state = accountReducer(undefined, action);
+        const newList = new List(action.submissionPeriods);
+        expect(state.submissionPeriods).toEqual(newList);
     });
 });
