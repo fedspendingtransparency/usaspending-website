@@ -10,7 +10,8 @@ import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
     downloadAccountPageMetaTags,
-    dataDictionaryPageMetaTags
+    dataDictionaryPageMetaTags,
+    metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
 import Footer from 'containers/Footer';
 
@@ -18,6 +19,7 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
+import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
@@ -38,7 +40,8 @@ const metaTagsByDataType = {
     data_dictionary: dataDictionaryPageMetaTags,
     awards: downloadAwardPageMetaTags,
     accounts: downloadAccountPageMetaTags,
-    award_data_archive: downloadArchivePageMetaTags
+    award_data_archive: downloadArchivePageMetaTags,
+    dataset_metadata: metadataDownloadPageMetaTags
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -104,6 +107,11 @@ export default class BulkDownloadPage extends React.Component {
         if (this.props.dataType === 'data_dictionary') {
             downloadDataContent = (
                 <DataDictionaryContainer />
+            );
+        }
+        if (this.props.dataType === 'dataset_metadata') {
+            downloadDataContent = (
+                <MetadataDownload />
             );
         }
         return (

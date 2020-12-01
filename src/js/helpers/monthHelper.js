@@ -39,3 +39,21 @@ export const convertPeriodToDate = (period, fy) => {
     const year = (parsedPeriod <= 3) ? parsedFy - 1 : parsedFy;
     return `${month} ${year}`;
 };
+
+export const fullMonthFromAbbr = (abbr) => {
+    const mapping = [];
+    mapping.Jan = 'January';
+    mapping.Feb = 'February';
+    mapping.Mar = 'March';
+    mapping.Apr = 'April';
+    mapping.May = 'May';
+    mapping.Jun = 'June';
+    mapping.Jul = 'July';
+    mapping.Aug = 'August';
+    mapping.Sep = 'September';
+    mapping.Oct = 'October';
+    mapping.Nov = 'November';
+    mapping.Dec = 'December';
+
+    return mapping[abbr];
+};

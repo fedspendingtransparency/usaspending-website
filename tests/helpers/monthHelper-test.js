@@ -281,4 +281,54 @@ describe('Month helper functions', () => {
             expect(date).toEqual("September 2017");
         });
     });
+
+    describe('fullMonthFromAbbr', () => {
+        it('should convert "Jan" to "January"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Jan")).toEqual("January");
+        });
+
+        it('should convert "Feb" to "February"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Feb")).toEqual("February");
+        });
+
+        it('should convert "Mar" to "March"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Mar")).toEqual("March");
+        });
+
+        it('should convert "Apr" to "April"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Apr")).toEqual("April");
+        });
+
+        it('should convert "May" to "May"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("May")).toEqual("May");
+        });
+
+        it('should convert "Jun" to "June"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Jun")).toEqual("June");
+        });
+
+        it('should convert "Jul" to "July"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Jul")).toEqual("July");
+        });
+
+        it('should convert "Aug" to "August"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Aug")).toEqual("August");
+        });
+
+        it('should convert "Sep" to "September"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Sep")).toEqual("September");
+        });
+
+        it('should convert "Oct" to "October"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Oct")).toEqual("October");
+        });
+
+        it('should convert "Nov" to "November"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Nov")).toEqual("November");
+        });
+
+        it('should convert "Dec" to "December"', () => {
+            expect(MonthHelper.fullMonthFromAbbr("Dec")).toEqual("December");
+        });
+    });
 });

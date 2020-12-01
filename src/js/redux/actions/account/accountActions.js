@@ -22,3 +22,8 @@ export const setAccountDataAsOfDate = (payload) => ({
     type: 'SET_ACCOUNT_DATA_AS_OF',
     payload
 });
+
+export const setSubmissionPeriods = (submissionPeriods) => ({
+    type: 'SET_SUBMISSION_PERIODS',
+    submissionPeriods
+});
