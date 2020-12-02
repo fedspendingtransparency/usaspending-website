@@ -327,7 +327,7 @@ const AgenciesContainer = () => {
             (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyName={name} />),
             (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyName={name} />),
             (<div className="generic-cell-content">% placeholder</div>),
-            (<div className="generic-cell-content">{differenceInFileAAndB}</div>)
+            (<CellWithModal data={differenceInFileAAndB} openModal={modalClick} modalType="reportingDifferences" agencyName={name} />)
         ]
     );
 
@@ -426,7 +426,8 @@ const AgenciesContainer = () => {
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    totalObligationsNotInGTAS={45999}
+                    tasObligationsTotal={9999} />
             </main>
             <Footer />
         </div>

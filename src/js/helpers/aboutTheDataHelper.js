@@ -19,11 +19,15 @@ export const aboutTheDataQueryString = (params) => {
 };
 
 export const fetchPublishDates = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates${aboutTheDataQueryString(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/${aboutTheDataQueryString(params)}`
 });
 
 export const fetchMissingAccountBalances = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies${aboutTheDataQueryString(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/${aboutTheDataQueryString(params)}`
+});
+
+export const fetchReportingDifferences = (params) => apiRequest({
+    url: `/api/v2/reporting/agencies/{agency_code}/differences/${aboutTheDataQueryString(params)}`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
@@ -56,5 +60,19 @@ export const formatMissingAccountBalancesData = (data) => {
         return [tasData.tas, amount, percent];
     });
 };
+
+export const formatReportingDifferencesData = (data) => (
+    data.results.map(({
+        tas = '',
+        file_a_obligations: fileAObligations = null,
+        file_b_obligations: fileBObligations = null,
+        difference = null
+    }) => ([
+        tas || '--',
+        fileAObligations ? formatMoney(fileAObligations) : '--',
+        fileBObligations ? formatMoney(fileBObligations) : '--',
+        difference ? formatMoney(difference) : '--'
+    ]))
+);
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);

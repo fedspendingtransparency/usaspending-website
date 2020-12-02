@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const propTypes = {
     data: oneOfType([PropTypes.string, PropTypes.object]),
     openModal: PropTypes.func.isRequired,
-    modalType: oneOf(['publicationDates', 'missingAccountBalance']).isRequired,
+    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences']).isRequired,
     agencyName: PropTypes.string
 };
 

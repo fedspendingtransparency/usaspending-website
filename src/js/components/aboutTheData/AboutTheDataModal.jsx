@@ -22,7 +22,8 @@ const propTypes = {
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
     className: PropTypes.string,
-    totalObligationsNotInGTAS: PropTypes.number
+    totalObligationsNotInGTAS: PropTypes.number,
+    tasObligationsTotal: PropTypes.number
 };
 
 const AboutTheDataModal = ({
@@ -35,7 +36,8 @@ const AboutTheDataModal = ({
     fiscalYear,
     fiscalPeriod,
     className,
-    totalObligationsNotInGTAS
+    totalObligationsNotInGTAS,
+    tasObligationsTotal
 }) => {
     const fiscalYearQuarterPeriodText = showQuarterText(fiscalPeriod) ?
         `FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}` :
@@ -72,7 +74,8 @@ const AboutTheDataModal = ({
                         agencyCode,
                         fiscalYear,
                         fiscalPeriod,
-                        totalObligationsNotInGTAS
+                        totalObligationsNotInGTAS,
+                        tasObligationsTotal
                     })[type]}
                 </div>
             </div>
