@@ -7,7 +7,7 @@ import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import { mockAgencyData } from 'helpers/aboutTheDataHelper';
 
 // TODO - update when API contracts are finalized
-const mockAgencyRow = mockAgencyData[0];
+const mockAgencyRow = mockAgencyData.results[0];
 
 const agencyRow = Object.create(BaseAgencyRow);
 agencyRow.populate(mockAgencyRow);

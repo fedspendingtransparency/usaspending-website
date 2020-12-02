@@ -76,7 +76,7 @@ export const mockAgencyData = {
             current_total_budget_authority_amount: 8361447130497.72,
             recent_publication_date: "2020-01-10T11:59:21Z",
             recent_publication_date_certified: false,
-            discrepancy_count: 20,
+            discrepancy_count: 2000,
             obligation_difference: 436376232652.87
         },
         {

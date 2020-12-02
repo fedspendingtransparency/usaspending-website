@@ -1,10 +1,10 @@
 import React from 'react';
-import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
+import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
 
 import { render, screen, fireEvent } from '@test-utils';
 
 describe('AgenciesContainer', () => {
-    beforeEach(() => render(<AgenciesContainer />));
+    beforeEach(() => render(<AboutTheDataPage />));
     describe('tab change', () => {
         // only fires one api request
         // shows the correct table
