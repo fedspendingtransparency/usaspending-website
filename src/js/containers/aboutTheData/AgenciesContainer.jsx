@@ -5,7 +5,7 @@ import { throttle } from 'lodash';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import { agenciesTableColumns, mockAPI } from 'dataMapping/aboutTheData/agencyTables.jsx';
+import { agenciesTableColumns, mockAPI } from './AgencyTableMapping';
 
 const dateRows = mockAPI.dates.results
     .map(({
@@ -28,8 +28,8 @@ const propTypes = {
 const AgenciesContainer = ({ activeTab, openModal }) => {
     const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [loading] = useState(false);
+    const [error] = useState(false);
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
