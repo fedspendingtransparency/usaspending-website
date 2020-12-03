@@ -17,9 +17,10 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Note from 'components/sharedComponents/Note';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 import AboutTheDataModal from './AboutTheDataModal';
 
-require('pages/aboutTheData/agenciesDetailPage.scss');
+require('pages/aboutTheData/agencyDetailsPage.scss');
 
 const message = 'All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.';
 
@@ -70,21 +71,18 @@ const AgencyDetailsPage = () => {
                     </div>
                     <h2 className="header">Submission Data</h2>
                     <h2 className="sub-header">{agencyOverview.name}</h2>
-                    <div className="lower-details">
-                        <div className="agency-info-group">
+                    <div className="agency-info">
+                        <div className="agency-info__group">
                             <h5>Agency Contact Information</h5>
                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
-                            <div className="agency-website">
-                                <Link to={agencyOverview.website}>
-                                    {agencyOverview.website}
-                                    <FontAwesomeIcon icon="external-link-alt" />
-                                </Link>
+                            <div className="agency-info__website">
+                                <ExternalLink url={agencyOverview.website} />
                             </div>
                         </div>
-                        <div className="agency-info-group">
+                        <div className="agency-info__group">
                             <h5>Agency Profile Page</h5>
                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
-                            <div className="agency-website">
+                            <div className="agency-info__website">
                                 <Link to={`/agency/${agencyOverview.toptier_code}`}>
                                     {agencyOverview.name}
                                 </Link>

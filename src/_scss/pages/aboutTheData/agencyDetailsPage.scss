@@ -31,9 +31,6 @@
               @include display(flex);
             }
           }
-          .usa-dt-picker__list {
-            max-width: rem(500);
-          }
         }
         .table-container  {
           height: rem(500);
@@ -110,13 +107,12 @@
       .agency-table-download {
         a {
           color: $color-primary;
-          text-decoration: underline;
         }
         .usa-button-link__download-icon {
           padding-right: rem(10);
         }
       }
-  
+
       .heading-container {
           padding-left: rem(20);
           .header {
@@ -146,7 +142,7 @@
             letter-spacing: 0;
             line-height: rem(59);
           }
-          .lower-details {
+          .agency-info {
             width: 100%;
             @include display(inline-flex);
             @include flex-wrap(wrap);
@@ -154,9 +150,6 @@
             @media (max-width: $tablet-screen) {
                 margin-top: rem(10);
                 margin-bottom: rem(30);
-            }
-            .usa-button-link {
-              text-decoration: underline;   
             }
             .more-info-note {
               margin: 0;
@@ -166,7 +159,7 @@
               line-height: rem(18);
             }
 
-            .agency-info-group {
+            .agency-info__group {
                 &:first-of-type {
                   padding-right: rem(60);
                 }
@@ -178,22 +171,12 @@
                     margin: rem(5) 0;
                 }
 
-                .agency-website {
+                .agency-info__website {
                     font-size: rem(14);
                     line-height: rem(20);
                     margin: rem(14) 0;
-                    a {
-                      text-decoration: underline;
-                    }
-                    a:visited {
-                      color: $color-primary;
-                    }
-                    svg.svg-inline--fa {
-                      font-size: rem(14);
-                      width: 0.8em;
-                    }
+                    @import 'components/externalLink';
                 }
-
             }
           }
       }
@@ -207,4 +190,3 @@
         }
     }
   }
-  
