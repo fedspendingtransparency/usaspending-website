@@ -114,7 +114,6 @@
       }
 
       .heading-container {
-          padding-left: rem(20);
           .header {
             margin-top: rem(10);
             margin-bottom: 0;
@@ -146,10 +145,9 @@
             width: 100%;
             @include display(inline-flex);
             @include flex-wrap(wrap);
-            margin-top: rem(0);
+            margin-bottom: rem(30);
             @media (max-width: $tablet-screen) {
                 margin-top: rem(10);
-                margin-bottom: rem(30);
             }
             .more-info-note {
               margin: 0;

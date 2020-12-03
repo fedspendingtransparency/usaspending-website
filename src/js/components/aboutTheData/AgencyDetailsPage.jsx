@@ -69,8 +69,7 @@ const AgencyDetailsPage = () => {
                     <div className="back-link">
                         <a href="/about-the-data/agencies"><FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies</a>
                     </div>
-                    <h2 className="header">Submission Data</h2>
-                    <h2 className="sub-header">{agencyOverview.name}</h2>
+                    <h2 className="header">{agencyOverview.name}</h2>
                     <div className="agency-info">
                         <div className="agency-info__group">
                             <h5>Agency Contact Information</h5>
