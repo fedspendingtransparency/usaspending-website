@@ -119,6 +119,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 2,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 782,
             unlinked_asst_awd: 5,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -129,6 +135,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 0,
             obligation_difference: 324.91,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 1176,
             unlinked_asst_awd: 5096,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -139,6 +151,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 39,
             obligation_difference: 1102064503.38,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 42270,
             unlinked_asst_awd: 979,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -149,6 +167,12 @@ const mockAPIResponse = {
             recent_update: "09/28/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 352,
             unlinked_asst_awd: 6,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -159,6 +183,12 @@ const mockAPIResponse = {
             recent_update: "10/15/2020",
             discrepancy_count: 1,
             obligation_difference: 240672,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 264,
             unlinked_asst_awd: 377277,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -169,6 +199,12 @@ const mockAPIResponse = {
             recent_update: "09/30/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 30,
             unlinked_asst_awd: 13,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -179,6 +215,12 @@ const mockAPIResponse = {
             recent_update: "09/28/2020",
             discrepancy_count: 4,
             obligation_difference: 4850766868.94,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 13898,
             unlinked_asst_awd: 1373279,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -189,6 +231,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 216,
             unlinked_asst_awd: 0,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -199,6 +247,12 @@ const mockAPIResponse = {
             recent_update: "10/22/2020",
             discrepancy_count: 0,
             obligation_difference: 0.18,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 8880,
             unlinked_asst_awd: 68283,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -209,6 +263,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 1,
             obligation_difference: 124086515.13,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 41,
             unlinked_asst_awd: 5738,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -228,7 +288,7 @@ export const AgenciesDetailContainer = (props) => {
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const { agencyId } = useParams();
     const [showModal, setShowModal] = useState('');
-    const [modalAgency, setModalAgency] = useState('');
+    const [modalData, setModalData] = useState(null);
     const dispatch = useDispatch();
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
@@ -240,11 +300,14 @@ export const AgenciesDetailContainer = (props) => {
         updateSort({ field, direction });
     };
 
-    const modalClick = (modalType, agencyName) => {
+    const modalClick = (modalType, agencyData) => {
+        setModalData(agencyData);
         setShowModal(modalType);
-        setModalAgency(agencyName);
     };
-    const closeModal = () => setShowModal('');
+    const closeModal = () => {
+        setShowModal('');
+        setModalData(null);
+    };
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
@@ -258,13 +321,14 @@ export const AgenciesDetailContainer = (props) => {
             obligation_difference: obligationDiff,
             unlinked_cont_awd: unlinkedCont,
             unlinked_asst_awd: unlinkedAsst,
-            assurance_statement_file: assuranceStatementFile
+            assurance_statement_file: assuranceStatementFile,
+            tas_account_discrepancies_totals: tasTotals
         }) => [
             (<div className="generic-cell-content">{ fiscalYear }</div>),
             (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={props.agency.overviewname} />),
-            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyName={props.agency.overviewname} />),
-            (<div className="generic-cell-content">{ obligationDiff }</div>),
+            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName: props.agency.overview.name }} />),
+            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: props.agency.overview.name }} />),
+            (<CellWithModal data={obligationDiff} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName: props.agency.overview.name, obligationDiff, tasAccountsTotal: tasTotals.tas_accounts_total }} />),
             (<div className="generic-cell-content">{ unlinkedCont }</div>),
             (<div className="generic-cell-content">{ unlinkedAsst }</div>),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatementFile} /></div>)
@@ -358,11 +422,12 @@ export const AgenciesDetailContainer = (props) => {
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={modalAgency}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    agencyData={modalData}
+                    totalObligationsNotInGTAS={45999}
+                    tasObligationsTotal={9999} />
             </main>
             <Footer />
         </div>

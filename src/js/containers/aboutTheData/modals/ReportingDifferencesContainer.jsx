@@ -9,21 +9,23 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
 import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
+import { formatMoney } from 'accounting';
+import { calculateTreemapPercentage } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     agencyCode: PropTypes.string,
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
-    tasObligationsTotal: PropTypes.number
+    agencyData: PropTypes.object
 };
 
 const ReportingDifferencesContainer = ({
     agencyCode,
     fiscalYear,
     fiscalPeriod,
-    tasObligationsTotal
+    agencyData
 }) => {
-    const [sort, setSort] = useState('difference');
+    const [sort, setSort] = useState('tas');
     const [order, setOrder] = useState('desc');
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
@@ -54,7 +56,7 @@ const ReportingDifferencesContainer = ({
             reportingDiffRequest.current = mockAPIReportingDifferences(params);
             const { data } = await reportingDiffRequest.current.promise;
             setTotal(data.page_metadata.total);
-            setRows(formatReportingDifferencesData({ results: data.results, tasObligationsTotal }));
+            setRows(formatReportingDifferencesData({ results: data.results }));
             setLoading(false);
             reportingDiffRequest.current = null;
         }
@@ -96,7 +98,6 @@ const ReportingDifferencesContainer = ({
         ),
         title: column.title
     }));
-
     return (
         <>
             <Table
@@ -107,6 +108,18 @@ const ReportingDifferencesContainer = ({
                 columns={columns}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
+            {!loading && !error.error &&
+                <div className="total-difference__container">
+                    <div className="total-difference__column">
+                        <div className="total-difference__label">Total Difference:</div>
+                        <div className="total-difference__label">% of Agency’s Total Account Balance Obligations:</div>
+                    </div>
+                    <div className="total-difference__column">
+                        <div className="total-difference__data">{formatMoney(agencyData.obligationDiff)}</div>
+                        <div className="total-difference__data">{calculateTreemapPercentage(agencyData.obligationDiff, agencyData.tasAccountsTotal)}</div>
+                    </div>
+                </div>
+            }
             <Pagination
                 currentPage={page}
                 changePage={setPage}

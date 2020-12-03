@@ -38,7 +38,11 @@
       }
     }
     .usa-dt-modal__section {
-      padding: 0 3rem 3rem 3rem;
+      overflow-x: scroll;
+      padding: 0;
+      @include media($tablet-screen) {
+        padding: 0 3rem 3rem 3rem;
+      }
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
         padding: 0;
@@ -60,7 +64,12 @@
             }
           }
         }
-        .usda-table__body {
+        .usda-table__body { // removes loading border
+          tr {
+            td {
+              border: none;
+            }
+          }
           font-size: rem(12);
           .usda-table__row {
             .usda-table__cell {
@@ -122,6 +131,55 @@
               }
             }
           }
+        }
+      }
+    }
+    // reporting differences modal
+    &.reporting-differences-modal {
+      // max-width: rem(700);
+      @include media($tablet-screen) {
+        max-width: rem(900);
+      }
+      @include media($large-screen) {
+        max-width: rem(900);
+        min-width: rem(900);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          margin-bottom: 0;
+          .usda-table__body {
+            .usda-table__row {
+              .usda-table__cell:not(:first-child) {
+                text-align: right;
+                padding-right: rem(42);
+              }
+            }
+          }
+        }
+      }
+      .total-difference__container {
+        display: flex;
+        justify-content: flex-end;
+        padding: rem(15) 0;
+        .total-difference__column {
+          font-size: 12px;
+          line-height: 16px;
+          text-align: right;
+          padding-right: rem(14);
+          border-top: 1px solid $color-gray-dark;
+          padding-top: rem(15);
+          .total-difference__label {
+            font-weight: $font-semibold;
+          }
+          .total-difference__label:nth-child(2) {
+            padding-top: rem(10);
+          }
+          .total-difference__data:nth-child(2) {
+            padding-top: rem(10);
+          }
+        }
+        .total-difference__column:nth-child(2) {
+          padding-right: rem(41);
         }
       }
     }

@@ -78,7 +78,13 @@ const mockAPIResponse = {
             recent_publication_date: "2020-01-10T11:59:21Z",
             recent_publication_date_certified: false,
             discrepancy_count: 20,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -90,7 +96,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -102,7 +114,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -114,7 +132,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -126,7 +150,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -138,7 +168,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -150,7 +186,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -162,7 +204,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -174,7 +222,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -186,7 +240,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -198,7 +258,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         },
         {
             name: "Department of Treasury",
@@ -210,7 +276,13 @@ const mockAPIResponse = {
             recent_publication_date: null,
             recent_publication_date_certified: true,
             discrepancy_count: 10,
-            obligation_difference: 436376232652.87
+            obligation_difference: 436376232652.87,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            }
         }
     ]
 };
@@ -286,7 +358,7 @@ const AgenciesContainer = () => {
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [showModal, setShowModal] = useState('');
-    const [modalAgency, setModalAgency] = useState('');
+    const [modalData, setModalData] = useState(null);
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -300,11 +372,14 @@ const AgenciesContainer = () => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
     // Modal Logic
-    const modalClick = (modalType, agencyName) => {
+    const modalClick = (modalType, agencyData) => {
+        setModalData(agencyData);
         setShowModal(modalType);
-        setModalAgency(agencyName);
     };
-    const closeModal = () => setShowModal('');
+    const closeModal = () => {
+        setShowModal('');
+        setModalData(null);
+    };
 
     const handleSwitchTab = (tab) => {
         setActiveTab(tab);
@@ -319,15 +394,16 @@ const AgenciesContainer = () => {
             current_total_budget_authority_amount: total,
             recent_publication_date: publicationDate,
             discrepancy_count: GtasNotInFileA,
-            obligation_difference: differenceInFileAAndB
+            obligation_difference: obligationDiff,
+            tas_account_discrepancies_totals: tasTotals
         }) => [
             // TODO: handle agencies with no code
             (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
             (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyName={name} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyName={name} />),
+            (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName: `${name} (${abbreviation})` }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: `${name} (${abbreviation})` }} />),
             (<div className="generic-cell-content">% placeholder</div>),
-            (<CellWithModal data={differenceInFileAAndB} openModal={modalClick} modalType="reportingDifferences" agencyName={name} />)
+            (<CellWithModal data={obligationDiff} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName: `${name} (${abbreviation})`, obligationDiff, tasAccountsTotal: tasTotals.tas_accounts_total }} />)
         ]
     );
 
@@ -422,10 +498,10 @@ const AgenciesContainer = () => {
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={modalAgency}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
+                    agencyData={modalData}
                     totalObligationsNotInGTAS={45999}
                     tasObligationsTotal={9999} />
             </main>
