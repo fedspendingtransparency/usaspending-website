@@ -327,7 +327,7 @@ export const AgenciesDetailContainer = (props) => {
             (<div className="generic-cell-content">{ fiscalYear }</div>),
             (<div className="generic-cell-content">{ total }</div>),
             (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName: props.agency.overview.name }} />),
-            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: props.agency.overview.name }} />),
+            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: props.agency.overview.name, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
             (<CellWithModal data={obligationDiff} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName: props.agency.overview.name, obligationDiff, tasAccountsTotal: tasTotals.tas_accounts_total }} />),
             (<div className="generic-cell-content">{ unlinkedCont }</div>),
             (<div className="generic-cell-content">{ unlinkedAsst }</div>),

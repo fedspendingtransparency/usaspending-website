@@ -51,11 +51,11 @@ export const formatPublicationDates = (dates) => dates.map((date) => {
 });
 
 export const formatMissingAccountBalancesData = (data) => {
-    const weHaveTotalData = data.totalObligationsNotInGTAS && data.totalObligationsNotInGTAS > 0;
+    const weHaveTotalData = data.gtasObligationTotal && data.gtasObligationTotal > 0;
     return data.results.map((tasData) => {
         let amount = '--';
         let percent = '--';
-        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculateTreemapPercentage(tasData.amount, data.totalObligationsNotInGTAS);
+        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculateTreemapPercentage(tasData.amount, data.gtasObligationTotal);
         if (typeof tasData.amount === 'number') amount = formatMoney(tasData.amount);
         return [tasData.tas, amount, percent];
     });

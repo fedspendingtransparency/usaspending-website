@@ -401,7 +401,7 @@ const AgenciesContainer = () => {
             (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
             (<div className="generic-cell-content">{ total }</div>),
             (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName: `${name} (${abbreviation})` }} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: `${name} (${abbreviation})` }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName: `${name} (${abbreviation})`, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
             (<div className="generic-cell-content">% placeholder</div>),
             (<CellWithModal data={obligationDiff} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName: `${name} (${abbreviation})`, obligationDiff, tasAccountsTotal: tasTotals.tas_accounts_total }} />)
         ]
@@ -501,9 +501,7 @@ const AgenciesContainer = () => {
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
-                    agencyData={modalData}
-                    totalObligationsNotInGTAS={45999}
-                    tasObligationsTotal={9999} />
+                    agencyData={modalData} />
             </main>
             <Footer />
         </div>
