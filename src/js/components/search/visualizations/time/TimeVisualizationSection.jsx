@@ -70,7 +70,7 @@ export default class TimeVisualizationSection extends React.Component {
         <>
             <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
             <div className="tooltip__text">
-                Download a CSV of award spending that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. For complete download results, click on the “Download” button in the top right of this page.
+                Download a CSV of award spending data that matches your search criteria, broken down by year. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>
     );
