@@ -425,9 +425,7 @@ export const AgenciesDetailContainer = (props) => {
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
-                    agencyData={modalData}
-                    totalObligationsNotInGTAS={45999}
-                    tasObligationsTotal={9999} />
+                    agencyData={modalData} />
             </main>
             <Footer />
         </div>
