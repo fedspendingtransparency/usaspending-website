@@ -202,7 +202,6 @@ const mockAPIResponse = {
 };
 
 const propTypes = {
-    // agencyCode: PropTypes.string,
     agencyName: PropTypes.string,
     modalClick: PropTypes.func
 };

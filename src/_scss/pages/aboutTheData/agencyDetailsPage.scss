@@ -7,13 +7,15 @@
       @include display(flex);
       @include flex-wrap(wrap);
       @include flex-direction(column);
-      margin: rem(40) rem(20);
+      margin: rem(40) auto;
       background: $color-white;
       border-radius: 0.5rem 0.5rem 0 0;
       padding: 0 rem(20);
       width: 100%;
       max-width: 160rem;
-      margin: auto;
+      .usda-message {
+        background-color: $color-white;
+      }
       .table-container,
         .table-controls {
           width: 100%;
@@ -182,9 +184,10 @@
         .default-note {
           font-style: italic;
           margin: 0;
-          padding-top: rem(30);
+          padding: rem(30) rem(15);
           letter-spacing: 0;
           line-height: rem(22);
+          max-width: rem(873);
         }
     }
   }
