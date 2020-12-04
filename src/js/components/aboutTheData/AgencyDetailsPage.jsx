@@ -2,7 +2,7 @@
  * AgencyDetailsPage.jsx
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
@@ -33,6 +33,7 @@ const AgencyDetailsPage = () => {
     const [agencyOverview, setAgencyOverview] = useState(null);
     const [showModal, setShowModal] = useState('');
     const [modalAgency, setModalAgency] = useState('');
+    const overviewRequest = useRef(null);
 
     const modalClick = (modalType, agencyName) => {
         setShowModal(modalType);
@@ -41,20 +42,30 @@ const AgencyDetailsPage = () => {
     const closeModal = () => setShowModal('');
 
     useEffect(() => {
-        // TODO - replace mock API request
-        const agencyOverviewRequest = mockFetchAgencyOverview(agencyCode);
-        agencyOverviewRequest.promise
-            .then((res) => {
+        const getOverviewData = async () => {
+            // TODO - replace mock API request
+            overviewRequest.current = mockFetchAgencyOverview(agencyCode);
+            try {
+                const { data } = await overviewRequest.current.promise;
                 const agency = Object.create(BaseAgencyOverview);
-                agency.populate(res.data);
+                agency.populate(data);
                 setAgencyOverview(agency);
                 setLoading(false);
-            }).catch((err) => {
+            }
+            catch (err) {
                 console.error(err);
                 setErrorMessage(err.message);
                 setLoading(false);
                 setError(true);
-            });
+            }
+        };
+        getOverviewData();
+        overviewRequest.current = null;
+        return () => {
+            if (overviewRequest.current) {
+                overviewRequest.cancel();
+            }
+        };
     }, [agencyCode]);
 
     return (

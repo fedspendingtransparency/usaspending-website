@@ -40,5 +40,6 @@ export const mockFetchAgencyOverview = () => ({
                 data: mockAgency
             });
         }, 500);
-    })
+    }),
+    cancel() {}
 });
