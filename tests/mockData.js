@@ -90,7 +90,7 @@ export const mockSubmissions = [
 ];
 
 export const mockBalanceData = {
-    totalObligationsNotInGTAS: 45000,
+    gtasObligationTotal: 45000,
     results: [
         {
             tas: '2323-X-34/3434',
@@ -126,6 +126,40 @@ export const mockBadResultsBalanceData = {
         {
             tas: '2323-X-34/3434',
             amount: '3434'
+        }
+    ]
+};
+
+export const mockReportingDifferenceData = {
+    results: [
+        {
+            tas: "210-1503",
+            file_a_obligation: 234543543,
+            file_b_obligation: 456438768,
+            difference: -221895225
+        },
+        {
+            tas: "012-0212",
+            file_a_obligation: 43637623,
+            file_b_obligation: 20486582,
+            difference: 23151041
+        }
+    ]
+};
+
+export const mockBadReportingDifferenceData = {
+    results: [
+        {
+            tas: null,
+            file_a_obligation: null,
+            file_b_obligation: null,
+            difference: null
+        },
+        {
+            tas: '',
+            file_a_obligation: null,
+            file_b_obligation: null,
+            difference: null
         }
     ]
 };

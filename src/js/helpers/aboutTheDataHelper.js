@@ -61,18 +61,16 @@ export const formatMissingAccountBalancesData = (data) => {
     });
 };
 
-export const formatReportingDifferencesData = (data) => (
-    data.results.map(({
-        tas = '',
-        file_a_obligations: fileAObligations = null,
-        file_b_obligations: fileBObligations = null,
-        difference = null
-    }) => ([
-        tas || '--',
-        fileAObligations ? formatMoney(fileAObligations) : '--',
-        fileBObligations ? formatMoney(fileBObligations) : '--',
-        difference ? formatMoney(difference) : '--'
-    ]))
-);
+export const formatReportingDifferencesData = (data) => data.results.map(({
+    tas = '',
+    file_a_obligation: fileAObligation = null,
+    file_b_obligation: fileBObligation = null,
+    difference = null
+}) => ([
+    tas || '--',
+    fileAObligation ? formatMoney(fileAObligation) : '--',
+    fileBObligation ? formatMoney(fileBObligation) : '--',
+    difference ? formatMoney(difference) : '--'
+]));
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
