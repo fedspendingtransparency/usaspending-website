@@ -30,9 +30,7 @@ const AgencyDetailsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const initialAgency = Object.create(BaseAgencyOverview);
-    initialAgency.populate();
-    const [agencyOverview, setAgencyOverview] = useState(Object.create(initialAgency));
+    const [agencyOverview, setAgencyOverview] = useState(null);
     const [showModal, setShowModal] = useState('');
     const [modalAgency, setModalAgency] = useState('');
 
