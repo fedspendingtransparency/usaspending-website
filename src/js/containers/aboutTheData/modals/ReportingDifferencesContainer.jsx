@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
 import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
 import { formatMoney } from 'accounting';
-import { calculateTreemapPercentage } from '../../../helpers/moneyFormatter';
+import { calculatePercentage } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     agencyCode: PropTypes.string,
@@ -116,7 +116,7 @@ const ReportingDifferencesContainer = ({
                     </div>
                     <div className="total-difference__column">
                         <div className="total-difference__data">{formatMoney(agencyData.obligationDiff)}</div>
-                        <div className="total-difference__data">{calculateTreemapPercentage(agencyData.obligationDiff, agencyData.tasAccountsTotal)}</div>
+                        <div className="total-difference__data">{calculatePercentage(agencyData.obligationDiff, agencyData.tasAccountsTotal)}</div>
                     </div>
                 </div>
             }

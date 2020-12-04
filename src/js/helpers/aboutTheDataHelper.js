@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/20/20
  */
 
-import { calculateTreemapPercentage, formatMoney } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { apiRequest } from './apiRequest';
 
 export const aboutTheDataQueryString = (params) => {
@@ -55,7 +55,7 @@ export const formatMissingAccountBalancesData = (data) => {
     return data.results.map((tasData) => {
         let amount = '--';
         let percent = '--';
-        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculateTreemapPercentage(tasData.amount, data.gtasObligationTotal);
+        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculatePercentage(tasData.amount, data.gtasObligationTotal);
         if (typeof tasData.amount === 'number') amount = formatMoney(tasData.amount);
         return [tasData.tas, amount, percent];
     });

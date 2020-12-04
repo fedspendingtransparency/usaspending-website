@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 
 describe('Money Formatter helper functions', () => {
     describe('formatMoney', () => {
@@ -33,25 +33,25 @@ describe('Money Formatter helper functions', () => {
             expect(formatted).toEqual('$0');
         });
     });
-    describe('calculateTreemapPercentage', () => {
+    describe('calculatePercentage', () => {
         it('should return a percentage', () => {
-            expect(calculateTreemapPercentage(50, 100)).toEqual('50.0%');
+            expect(calculatePercentage(50, 100)).toEqual('50.0%');
         });
         it('should return a custom return message when bad data is passed', () => {
-            expect(calculateTreemapPercentage(50, 0, 'Happy Troll Dance')).toEqual('Happy Troll Dance');
+            expect(calculatePercentage(50, 0, 'Happy Troll Dance')).toEqual('Happy Troll Dance');
         });
         it('should return a -- when denominator is zero', () => {
-            expect(calculateTreemapPercentage(50, 0)).toEqual('--');
+            expect(calculatePercentage(50, 0)).toEqual('--');
         });
         it('should return a -- when denominator is not a number', () => {
-            expect(calculateTreemapPercentage(50, null)).toEqual('--');
-            expect(calculateTreemapPercentage(50, 'null')).toEqual('--');
-            expect(calculateTreemapPercentage(50, '')).toEqual('--');
+            expect(calculatePercentage(50, null)).toEqual('--');
+            expect(calculatePercentage(50, 'null')).toEqual('--');
+            expect(calculatePercentage(50, '')).toEqual('--');
         });
         it('should return a -- when numerator is not a number', () => {
-            expect(calculateTreemapPercentage(null, 100)).toEqual('--');
-            expect(calculateTreemapPercentage('null', 100)).toEqual('--');
-            expect(calculateTreemapPercentage('', 100)).toEqual('--');
+            expect(calculatePercentage(null, 100)).toEqual('--');
+            expect(calculatePercentage('null', 100)).toEqual('--');
+            expect(calculatePercentage('', 100)).toEqual('--');
         });
     });
 });

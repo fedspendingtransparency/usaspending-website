@@ -196,7 +196,7 @@ export const formatTreemapValues = (value) => {
     return `${formattedCurrency}${longLabel}`;
 };
 
-export const calculateTreemapPercentage = (value, total, returnValue = '--') => {
+export const calculatePercentage = (value, total, returnValue = '--') => {
     // handles if denominator is zero, or falsy
     if (!total || typeof total !== 'number') return returnValue;
     // handles if numerator is not a number

@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { calculatePercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
 import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
 import SVGLine from 'components/sharedComponents/SVGLine';
@@ -220,7 +220,7 @@ export default class ActivityChart extends React.Component {
             data.y = (385 - data.yPosition) - (this.props.barHeight - 4);
             // create percentage for description
             // not handling bad data as that will be handled elsewhere
-            const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
+            const percentage = calculatePercentage(bar._obligatedAmount, bar._awardedAmount);
             data.description = `A ${bar.grandchild ?
                 'grandchild' : 'child'} award with a start date of ${bar.startDate},
                 an end date of ${bar.endDate},
