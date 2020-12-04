@@ -42,3 +42,21 @@ export const mockFetchAgencyOverview = () => ({
         }, 500);
     })
 });
+
+export const mockAgency = {
+    name: 'Mock Agency',
+    id: '456',
+    website: 'https://home.treasury.gov/',
+    code: '020',
+    abbreviation: 'ABC'
+};
+
+export const mockFetchAgencyOverview = () => ({
+    promise: new Promise((resolve) => {
+        window.setTimeout(() => {
+            resolve({
+                data: mockAgency
+            });
+        }, 500);
+    })
+});
