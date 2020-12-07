@@ -11,7 +11,7 @@ import moment from "moment";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
 import { getLatestPeriod } from "helpers/accountHelper";
-import WithLatestFy from "containers/account/WithLatestFy";
+import { useLatestAccountData } from "containers/account/WithLatestFy";
 import {
     periodsPerQuarter,
     lastPeriods,
@@ -72,7 +72,7 @@ PeriodComponent.propTypes = {
 };
 
 // periods can be visible but not selectable
-const isPeriodVisible = (availablePeriodsInFy, periodId) => (
+export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
     availablePeriodsInFy
         .some((p) => (
             p.submission_fiscal_month >= parseInt(periodId, 10)
@@ -80,16 +80,16 @@ const isPeriodVisible = (availablePeriodsInFy, periodId) => (
 );
 
 // periods are only selectable post 2020
-const isPeriodSelectable = (availablePeriodsInFy, periodId) => (
+export const isPeriodSelectable = (availablePeriodsInFy, periodId) => (
     availablePeriodsInFy
         .filter((p) => (
             parseInt(periodId, 10) === p.submission_fiscal_month
         ))
-        .length
+        .length > 0
 );
 
 // getting last period of quarter for period via index of this array. ✨✨ ✨  S/O to (3rd grade) Maths ✨ ✨ ✨
-const getLastPeriodWithinQuarterByPeriod = (periodId) => (
+export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
     lastPeriods[Math.ceil((parseInt(periodId, 10) / 3)) - 1] || "1"
 );
 
@@ -128,7 +128,7 @@ const parsePeriods = (year, periods) => {
                             classNames: classNames.join(' '),
                             isEnabled,
                             component: <PeriodComponent
-                                isEnabled={!!isEnabled}
+                                isEnabled={isEnabled}
                                 classNames={i === 0 ? classNames.concat(['first']) : classNames}
                                 title={period.title} />
                         };
@@ -145,8 +145,6 @@ const sortPeriods = ({ type: a }, { type: b }) => {
 };
 
 const TimePeriodFilters = ({
-    dataAsOf,
-    submissionPeriods,
     activeTab,
     selectedPeriod,
     selectedFy,
@@ -154,6 +152,7 @@ const TimePeriodFilters = ({
     urlPeriod,
     onTimeFilterSelection
 }) => {
+    const [dataAsOf, submissionPeriods] = useLatestAccountData();
     const latestPeriod = getLatestPeriod(submissionPeriods);
 
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
@@ -168,7 +167,7 @@ const TimePeriodFilters = ({
                 // fy selection is valid but what about the period? 🤔
                 const validPeriod = isPeriodVisible(availablePeriodsInFy, urlPeriod)
                     ? urlPeriod
-                    : `${availablePeriodsInFy[availablePeriodsInFy.length - 1].submission_fiscal_month}`;
+                    : `${latestPeriod.period}`;
 
                 const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod)
                     ? validPeriod
@@ -206,7 +205,7 @@ const TimePeriodFilters = ({
                     className="fy-picker"
                     sortFn={sortPeriods}
                     selectedOption={selectedFy
-                        ? <span data-testid="selected-fy">FY {selectedFy}</span>
+                        ? <span>FY {selectedFy}</span>
                         : (
                             <div data-testid="fy-loading" className="fy-loading">
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
@@ -214,7 +213,7 @@ const TimePeriodFilters = ({
                         )}
                     options={dataAsOf
                         ? allFiscalYears(2017, dataAsOf.year()).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
-                        : [{ name: 'Loading...', value: null, onClick: () => { } }]
+                        : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
             {activeTab === 'details' && (
@@ -225,9 +224,9 @@ const TimePeriodFilters = ({
                         className="period-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedPeriod
-                            ? <span data-testid="selected-period">FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
+                            ? <span>FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
                             : (
-                                <div className="fy-loading">
+                                <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
                                 </div>
                             )}
@@ -239,8 +238,6 @@ const TimePeriodFilters = ({
 };
 
 TimePeriodFilters.propTypes = {
-    dataAsOf: PropTypes.object, // moment object or null
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
     selectedPeriod: PropTypes.shape({
         id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
@@ -253,8 +250,4 @@ TimePeriodFilters.propTypes = {
     onTimeFilterSelection: PropTypes.func
 };
 
-export default (props) => (
-    <WithLatestFy propName="dataAsOf">
-        <TimePeriodFilters {...props} />
-    </WithLatestFy>
-);
+export default TimePeriodFilters;
