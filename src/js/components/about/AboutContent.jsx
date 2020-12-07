@@ -3,7 +3,9 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
@@ -59,69 +61,40 @@ const aboutSections = [
     }
 ];
 
-export default class AboutContent extends React.Component {
-    constructor(props) {
-        super(props);
+const propTypes = {
+    location: PropTypes.object // Router location object
+};
 
-        this.state = {
-            activeSection: 'mission',
-            sectionPositions: [],
-            window: {
-                height: 0
-            }
-        };
+const AboutContent = ({ location }) => {
+    const [activeSection, setActiveSection] = useState(location.state?.fromCareersLink ? 'careers' : 'mission');
+    const [sectionPositions, setSectionPositions] = useState([]);
+    const [windowHeight, setWindowHeight] = useState(0);
 
-        this.jumpToSection = this.jumpToSection.bind(this);
-        this.highlightCurrentSection = throttle(this.highlightCurrentSection.bind(this), 100);
-        this.cacheSectionPositions = throttle(this.cacheSectionPositions.bind(this), 100);
-    }
-
-    componentDidMount() {
-        this.cacheSectionPositions();
-        window.addEventListener('scroll', this.highlightCurrentSection);
-        window.addEventListener('resize', this.cacheSectionPositions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.highlightCurrentSection);
-        window.removeEventListener('resize', this.cacheSectionPositions);
-    }
-
-    cacheSectionPositions() {
+    const cacheSectionPositions = throttle(async () => {
         // it is expensive to measure the DOM elements on every scroll, so measure them upfront
         // (and when the window resizes) and cache the values
-        const sectionPositions = [];
-
-        for (let i = 0; i < aboutSections.length; i++) {
-            const sectionCode = aboutSections[i].section;
+        const newSectionPositions = aboutSections.map((section) => {
+            const sectionCode = section.section;
             const domElement = document.getElementById(`about-${sectionCode}`);
             if (!domElement) {
                 // couldn't find the element
-                continue;
+                return { section: sectionCode, top: 0, bottom: 0 };
             }
 
             const topPos = domElement.offsetTop;
             const bottomPos = domElement.offsetHeight + topPos;
 
-            sectionPositions.push({
+            return {
                 section: sectionCode,
                 top: topPos,
                 bottom: bottomPos
-            });
-        }
-
-        const windowHeight = window.innerHeight
-            || document.documentElement.clientHeight || document.body.clientHeight;
-
-        this.setState({
-            sectionPositions,
-            window: {
-                height: windowHeight
-            }
+            };
         });
-    }
+        setSectionPositions(newSectionPositions);
+        setWindowHeight(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+    }, 100);
 
-    jumpToSection(section = '') {
+    const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = find(aboutSections, {
@@ -132,28 +105,23 @@ export default class AboutContent extends React.Component {
             // no matching section
             return;
         }
+        setActiveSection(section);
+        // scroll to the correct section
+        const sectionDom = document.querySelector(`#about-${section}`);
+        if (!sectionDom) {
+            return;
+        }
 
-        // update the state
-        this.setState({
-            activeSection: section
-        }, () => {
-            // scroll to the correct section
-            const sectionDom = document.querySelector(`#about-${section}`);
-            if (!sectionDom) {
-                return;
-            }
+        const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
+        scrollToY(sectionTop, 700);
+    };
 
-            const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
-            scrollToY(sectionTop, 700);
-        });
-    }
-
-    highlightCurrentSection() {
+    const highlightCurrentSection = throttle(() => {
         const windowTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowBottom = windowTop + this.state.window.height;
+        const windowBottom = windowTop + windowHeight;
 
         // determine the section to highlight
-        let activeSection = aboutSections[0].section;
+        let currentActiveSection = aboutSections[0].section;
         let bottomSectionVisible = false;
         const visibleSections = [];
 
@@ -162,7 +130,7 @@ export default class AboutContent extends React.Component {
         const visibleTop = windowTop + edgeMargin;
         const visibleBottom = windowBottom - edgeMargin;
 
-        this.state.sectionPositions.forEach((section, index) => {
+        sectionPositions.forEach((section, index) => {
             // check if the section is in view at all
             if (section.top <= visibleBottom && section.bottom >= visibleTop) {
                 // at least some of the section is in view, determine how much
@@ -175,12 +143,12 @@ export default class AboutContent extends React.Component {
                     amount: percentageVisible
                 });
 
-                if (index === this.state.sectionPositions.length - 1) {
+                if (index === sectionPositions.length - 1) {
                     // this is the last section and it is visible
                     bottomSectionVisible = true;
                 }
             }
-            else if (index === this.state.sectionPositions.length - 1) {
+            else if (index === sectionPositions.length - 1) {
                 // this is the last section, so highlight it if we're at the bottom or lower
                 // on the page
                 if (section.top <= visibleTop) {
@@ -196,11 +164,11 @@ export default class AboutContent extends React.Component {
 
         // select the first section we saw
         if (visibleSections.length > 0) {
-            activeSection = visibleSections[0].section;
+            currentActiveSection = visibleSections[0].section;
             if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
                 // less than 15% of the first section is visible and we have more than 1 section,
                 // select the next section
-                activeSection = visibleSections[1].section;
+                currentActiveSection = visibleSections[1].section;
             }
         }
 
@@ -213,45 +181,54 @@ export default class AboutContent extends React.Component {
             if (previousSection.amount < 0.5 && bottomSection.amount === 1) {
                 // less than half of the previous section is visible and all of the bottom section
                 // is visible, select the bottom section
-                activeSection = bottomSection.section;
+                currentActiveSection = bottomSection.section;
             }
         }
 
-        if (activeSection === this.state.activeSection) {
+        if (currentActiveSection === activeSection) {
             // no change
             return;
         }
+        setActiveSection(currentActiveSection);
+    }, 100);
 
-        this.setState({
-            activeSection
-        });
-    }
+    useEffect(() => {
+        cacheSectionPositions();
+        window.addEventListener('scroll', highlightCurrentSection);
+        window.addEventListener('resize', cacheSectionPositions);
+        if (location.state?.fromCareersLink) jumpToSection('careers');
+        return () => {
+            window.removeEventListener('scroll', highlightCurrentSection);
+            window.removeEventListener('resize', cacheSectionPositions);
+        };
+    }, []);
 
-    render() {
-        return (
-            <div className="about-content-wrapper">
-                <div className="about-sidebar">
-                    <Sidebar
-                        active={this.state.activeSection}
-                        pageName="about"
-                        sections={aboutSections}
-                        jumpToSection={this.jumpToSection}
-                        fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
-                </div>
-                <div className="about-content">
-                    <div className="about-padded-content">
-                        <Mission />
-                        <Background />
-                        <DataSources />
-                        <DataQuality />
-                        <Development />
-                        <Careers />
-                        <Licensing />
-                        <MoreInfo />
-                        <Contact />
-                    </div>
+    return (
+        <div className="about-content-wrapper">
+            <div className="about-sidebar">
+                <Sidebar
+                    active={activeSection}
+                    pageName="about"
+                    sections={aboutSections}
+                    jumpToSection={jumpToSection}
+                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
+            </div>
+            <div className="about-content">
+                <div className="about-padded-content">
+                    <Mission />
+                    <Background />
+                    <DataSources />
+                    <DataQuality />
+                    <Development />
+                    <Careers />
+                    <Licensing />
+                    <MoreInfo />
+                    <Contact />
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+AboutContent.propTypes = propTypes;
+export default withRouter(AboutContent);
