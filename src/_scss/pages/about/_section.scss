@@ -32,7 +32,9 @@
 
     .about-section-content {
         margin-bottom: rem(25);
-
+        a {
+          word-break: break-all;
+        }
         p {
             font-size: rem(18);
             line-height: rem(28);
