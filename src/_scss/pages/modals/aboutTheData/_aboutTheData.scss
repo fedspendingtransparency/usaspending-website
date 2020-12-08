@@ -41,7 +41,7 @@
       overflow-x: scroll;
       padding: 0;
       @include media($tablet-screen) {
-        padding: 0 3rem 3rem 3rem;
+        padding: 0 rem(30) rem(30) rem(30);
       }
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
