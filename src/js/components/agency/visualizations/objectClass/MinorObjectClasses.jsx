@@ -222,7 +222,7 @@ export default class MinorObjectClasses extends React.Component {
             tooltip = (<ObjectClassTooltip
                 name={objectClass.object_class_name}
                 value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
-                percentage={MoneyFormatter.calculateTreemapPercentage(
+                percentage={MoneyFormatter.calculatePercentage(
                     objectClass.obligated_amount, this.props.totalMinorObligation)
                 }
                 description={objectClassDefinition.description}
@@ -240,7 +240,7 @@ export default class MinorObjectClasses extends React.Component {
     render() {
         const value = this.props.majorObjectClass.obligated_amount;
         const totalSpend = MoneyFormatter.formatTreemapValues(value);
-        const percentage = MoneyFormatter.calculateTreemapPercentage(
+        const percentage = MoneyFormatter.calculatePercentage(
             value, this.props.totalObligation);
         const objectClassDefinition =
             objectClassDefinitions[this.props.majorObjectClass.major_object_class_code];

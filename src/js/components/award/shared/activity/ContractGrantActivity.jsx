@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { formatMoney, calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
 import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
@@ -143,7 +143,7 @@ const ContractGrantActivity = ({
                     title: 'Total Obligations to Date',
                     paragraphs: [
                         `${formatMoney(transaction.running_obligation_total_to_date)} 
-                        ${totalObligation ? `(${calculateTreemapPercentage(transaction.running_obligation_total_to_date, totalObligation)} of Potential Award Amount)` : ''}`
+                        ${totalObligation ? `(${calculatePercentage(transaction.running_obligation_total_to_date, totalObligation)} of Potential Award Amount)` : ''}`
                     ]
                 },
                 {

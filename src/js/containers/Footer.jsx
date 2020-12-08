@@ -77,6 +77,13 @@ const Footer = ({
                                         About USAspending
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link
+                                        to={{ pathname: '/about', state: { fromCareersLink: true } }}
+                                        onClick={clickedFooterLink.bind(null, '/about')}>
+                                        Careers
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                         <div className="link-group">

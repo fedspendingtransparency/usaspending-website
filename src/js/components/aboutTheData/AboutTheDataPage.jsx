@@ -52,15 +52,17 @@ const AboutTheDataPage = ({
 
     const [activeTab, setActiveTab] = useState('details'); // details or dates
     const [showModal, setShowModal] = useState('');
-    const [modalAgency, setModalAgency] = useState('');
+    const [modalData, setModalData] = useState(null);
 
     // Modal Logic
-    const modalClick = (modalType, agencyName) => {
+    const modalClick = (modalType, agencyData) => {
+        setModalData(agencyData);
         setShowModal(modalType);
-        setModalAgency(agencyName);
     };
-
-    const closeModal = () => setShowModal('');
+    const closeModal = () => {
+        setShowModal('');
+        setModalData(null);
+    };
 
     const updateUrl = (newFy, newPeriod) => {
         history.push({ pathname: `/about-the-data/agencies/${newFy}/${newPeriod}` });
@@ -125,7 +127,7 @@ const AboutTheDataPage = ({
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyName={modalAgency}
+                    agencyData={modalData}
                     fiscalYear={2020}
                     fiscalPeriod={8}
                     closeModal={closeModal}
