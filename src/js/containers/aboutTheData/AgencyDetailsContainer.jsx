@@ -1,29 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useParams, withRouter, Link } from "react-router-dom";
-import { useDispatch, connect } from "react-redux";
+/**
+ * AgencyDetailsContainer.jsx
+ */
+
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table, TooltipComponent, TooltipWrapper } from "data-transparency-ui";
+import { Table, TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
 import { throttle } from 'lodash';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { fetchAgencyOverview } from 'helpers/agencyHelper';
-import { setAgencyOverview } from 'redux/actions/agency/agencyActions';
-import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
-import * as agencyActions from 'redux/actions/agency/agencyActions';
-import { bindActionCreators } from 'redux';
-
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Note from 'components/sharedComponents/Note';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
-import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-
-require('pages/aboutTheData/agenciesDetailPage.scss');
 
 const Tooltip = ({ title }) => (
     <TooltipComponent title={title}>
@@ -216,20 +201,14 @@ const mockAPIResponse = {
     ]
 };
 
-const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
-
 const propTypes = {
-    agency: PropTypes.object,
-    agencyId: PropTypes.string
+    agencyName: PropTypes.string,
+    modalClick: PropTypes.func
 };
 
-export const AgenciesDetailContainer = (props) => {
-    const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
+const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
+    const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const { agencyId } = useParams();
-    const [showModal, setShowModal] = useState('');
-    const [modalAgency, setModalAgency] = useState('');
-    const dispatch = useDispatch();
     const tableRef = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -239,12 +218,6 @@ export const AgenciesDetailContainer = (props) => {
     const handleUpdateSort = (field, direction) => {
         updateSort({ field, direction });
     };
-
-    const modalClick = (modalType, agencyName) => {
-        setShowModal(modalType);
-        setModalAgency(agencyName);
-    };
-    const closeModal = () => setShowModal('');
 
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
@@ -262,8 +235,8 @@ export const AgenciesDetailContainer = (props) => {
         }) => [
             (<div className="generic-cell-content">{ fiscalYear }</div>),
             (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={props.agency.overviewname} />),
-            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyName={props.agency.overviewname} />),
+            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={agencyName} />),
+            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyName={agencyName} />),
             (<div className="generic-cell-content">{ obligationDiff }</div>),
             (<div className="generic-cell-content">{ unlinkedCont }</div>),
             (<div className="generic-cell-content">{ unlinkedAsst }</div>),
@@ -271,111 +244,17 @@ export const AgenciesDetailContainer = (props) => {
         ]
     );
 
-    const onClick = (e) => {
-        e.persist();
-        if (e?.target) {
-            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
-        }
-    };
-
-    useEffect(() => {
-        // request overview for agency
-        const agencyOverviewRequest = fetchAgencyOverview(agencyId);
-        agencyOverviewRequest.promise
-            .then((res) => {
-                // parse the response using our data model
-                const agency = new AgencyOverviewModel(Object.assign({}, res.data.results, {
-                    agency_id: agencyId
-                }), true);
-                // store the data model object in Redux
-                dispatch(setAgencyOverview(agency));
-            }).catch((err) => {
-                console.error(err);
-            });
-    }, [agencyId]);
-
     return (
-        <div className="usa-da__about-the-data__agencies-page">
-            <MetaTags {...agencyPageMetaTags} />
-            <Header />
-            <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1}>
-                        Agency Submission Data
-                    </h1>
-                </div>
-            </StickyHeader>
-            <main id="main-content" className="main-content">
-                <div className="heading-container">
-                    <div className="back-link">
-                        <a href="/about-the-data/agencies"><FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies</a>
-                    </div>
-                    <h2 className="header">Submission Data</h2>
-                    <h2 className="sub-header">{props.agency.overview.name}</h2>
-                    <div className="lower-details">
-                        <div className="agency-info-group">
-                            <h5>Agency Contact Information</h5>
-                            <div className="more-info-note">Contact this Agency with questions about their submissions</div>
-                            <div className="agency-website">
-                                <button
-                                    className="usa-button-link"
-                                    role="link"
-                                    value={props.agency.overview.website}
-                                    onClick={onClick}>
-                                    {props.agency.overview.website}
-                                    <span
-                                        data-href={props.agency.overview.website}
-                                        className="usa-button-link__icon">
-                                        <FontAwesomeIcon
-                                            data-href={props.agency.overview.website}
-                                            icon="external-link-alt" />
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="agency-info-group">
-                            <h5>Agency Profile Page</h5>
-                            <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
-                            <div className="agency-website">
-                                <Link to={`/agency/${agencyId}`}>
-                                    {props.agency.overview.name}
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                    <Table
-                        rows={rows}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                        columns={columns}
-                        updateSort={handleUpdateSort}
-                        currentSort={sortStatus} />
-                </div>
-                <Note message={message} />
-                <AboutTheDataModal
-                    mounted={!!showModal.length}
-                    type={showModal}
-                    className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
-                    agencyName={modalAgency}
-                    fiscalYear={2020}
-                    fiscalPeriod={8}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
-            </main>
-            <Footer />
+        <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+            <Table
+                rows={rows}
+                classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                columns={columns}
+                updateSort={handleUpdateSort}
+                currentSort={sortStatus} />
         </div>
     );
 };
 
-AgenciesDetailContainer.propTypes = propTypes;
-
-
-const AgencyDetailContainerWithRouter = withRouter(AgenciesDetailContainer);
-export default connect(
-    (state) => ({
-        agency: state.agency
-    }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
-)(AgencyDetailContainerWithRouter);
+AgencyDetailsContainer.propTypes = propTypes;
+export default AgencyDetailsContainer;
