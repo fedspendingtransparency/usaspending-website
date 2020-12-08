@@ -17,6 +17,7 @@ import DataQuality from './DataQuality';
 import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
+import Careers from './Careers';
 import Licensing from './Licensing';
 
 const aboutSections = [
@@ -39,6 +40,10 @@ const aboutSections = [
     {
         section: 'development',
         label: 'Development and Releases'
+    },
+    {
+        section: 'careers',
+        label: 'Careers'
     },
     {
         section: 'licensing',
@@ -240,6 +245,7 @@ export default class AboutContent extends React.Component {
                         <DataSources />
                         <DataQuality />
                         <Development />
+                        <Careers />
                         <Licensing />
                         <MoreInfo />
                         <Contact />
