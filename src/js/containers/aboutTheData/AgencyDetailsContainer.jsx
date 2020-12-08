@@ -2,11 +2,12 @@
  * AgencyDetailsContainer.jsx
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 
+import { fetchAgency } from 'helpers/aboutTheDataHelper';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 
@@ -203,13 +204,19 @@ const mockAPIResponse = {
 
 const propTypes = {
     agencyName: PropTypes.string,
-    modalClick: PropTypes.func
+    modalClick: PropTypes.func,
+    agencyCode: PropTypes.string
 };
 
-const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
+const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const tableRef = useRef(null);
+    const request = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
         setIsSticky({ vertical, horizontal });
@@ -222,7 +229,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const rows = mockAPIResponse.results.map(
+    const rows1 = mockAPIResponse.results.map(
         ({
             fiscal_year: fiscalYear,
             percent_total_budget: total,
@@ -244,6 +251,30 @@ const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
         ]
     );
 
+    useEffect(() => {
+        const getTableData = async () => {
+            request.current = fetchAgency(agencyCode);
+            try {
+                const { data } = await request.current.promise;
+                console.log(data);
+                setLoading(false);
+            }
+            catch (err) {
+                console.error(err);
+                setErrorMessage(err.message);
+                setLoading(false);
+                setError(true);
+            }
+        };
+        getTableData();
+        request.current = null;
+        return () => {
+            if (request.current) {
+                request.cancel();
+            }
+        };
+    }, [agencyCode]);
+
     return (
         <div className="table-container" ref={tableRef} onScroll={handleScroll}>
             <Table
@@ -251,7 +282,10 @@ const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
                 classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                 columns={columns}
                 updateSort={handleUpdateSort}
-                currentSort={sortStatus} />
+                currentSort={sortStatus}
+                loading={loading}
+                error={error}
+                errorMessage={errorMessage} />
         </div>
     );
 };

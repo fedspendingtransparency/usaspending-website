@@ -224,3 +224,8 @@ export const fetchAgencies = () => ({
     })
 });
 
+export const fetchAgency = (params) => apiRequest({
+    isMocked: true,
+    url: `v2/reporting/agencies/${params.agencyCode}/overview/${aboutTheDataQueryString(params)}`
+});
+

@@ -112,7 +112,7 @@ const AgencyDetailsPage = () => {
                                 )}
                             </div>
                         </div>
-                        <AgencyDetailsContainer agencyName={agencyOverview.name} modalClick={modalClick} />
+                        <AgencyDetailsContainer agencyName={agencyOverview.name} modalClick={modalClick} agencyCode={agencyCode} />
                         <Note message={message} />
                     </>
                 )}
