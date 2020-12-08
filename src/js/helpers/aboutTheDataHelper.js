@@ -2,8 +2,10 @@
  * aboutTheDataHelper.js
  * Created by Jonathan Hill 11/20/20
  */
-
+import { stringify } from 'query-string';
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
+import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+
 import { apiRequest } from './apiRequest';
 
 export const aboutTheDataQueryString = (params) => {
@@ -16,6 +18,82 @@ export const aboutTheDataQueryString = (params) => {
     ${params.limit ? `&limit=${params.limit}` : ''}
     ${params.order ? `&order=${params.order}` : ''}
     ${params.sort ? `&sort=${params.sort}` : ''}`;
+};
+
+export const getTotals = (fy = '2020', period = '12', isMocked = true) => {
+    if (isMocked) {
+        // using mockAPI
+        return apiRequest({
+            isMocked,
+            url: `v2/references/total_budgetary_resources?${stringify({
+                fiscal_period: period,
+                fiscal_year: fy
+            })}`
+        });
+    }
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve(mockAPI.totals);
+            }, 500);
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    };
+};
+
+export const getDetails = (fy, period, page, limit, order, sort, isMocked = true) => {
+    if (isMocked) {
+        // using mockAPI
+        return apiRequest({
+            isMocked,
+            url: `v2/reporting/agencies/overview?${stringify({
+                fiscal_year: fy,
+                fiscal_period: period,
+                page,
+                limit,
+                order,
+                sort
+            })}`
+        });
+    }
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve(mockAPI.details);
+            }, 500);
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    };
+};
+
+export const getDates = (fy, period, page, limit, order, sort, isLocal = true) => {
+    if (isLocal) {
+        return apiRequest({
+            isLocal,
+            url: `v2/reporting/agencies/overview?${stringify({
+                fiscal_year: fy,
+                fiscal_period: period,
+                page,
+                limit,
+                order,
+                sort
+            })}`
+        });
+    }
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve(mockAPI.dates);
+            }, 500);
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    };
 };
 
 export const fetchPublishDates = (params) => apiRequest({
@@ -74,169 +152,3 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
 ]));
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
-
-export const mockAgencyData = {
-    page_metadata: {
-        page: 1,
-        hasNext: false,
-        hasPrevious: false,
-        total: 2
-    },
-    results: [
-        {
-            name: "Department of Health and Human Services",
-            abbreviation: "DHHS",
-            code: "020",
-            fiscal_year: 2020,
-            fiscal_period: 12,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: "2020-01-10T11:59:21Z",
-            recent_publication_date_certified: false,
-            discrepancy_count: 2000,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        }
-    ]
-};
-
-export const fetchAgencies = () => ({
-    promise: new Promise((resolve) => {
-        window.setTimeout(() => {
-            resolve({
-                data: mockAgencyData
-            });
-        }, 500);
-    })
-});
-
