@@ -1,5 +1,5 @@
 /**
- * CellWithModal.jsx
+ * TimeFilters.jsx
  * Created by Max Kendall 12/4/2020
  */
 

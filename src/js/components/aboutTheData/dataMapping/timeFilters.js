@@ -1,6 +1,17 @@
+/*
+ * timeFilters.js
+ * Created by Max Kendall 12/4/2020
+ */
+
 // the last periods in a quarter
 export const lastPeriods = ["3", "6", "9", "12"];
 
+/**
+ * we order periods that fall on the end of the fiscal quarter (periods 3, 6, 9 and 12)
+ * to the top in the html and then re-order them in css for styling purposes.
+ * Specifically, so that we can style the periods that are members of a given quarter using the
+ * css sibling selector (~) that only allows for selecting siblings that come after the selected element.
+ */
 export const cssOrderClassByPeriodId = {
     1: 'order-1',
     2: 'order-1',

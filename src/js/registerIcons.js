@@ -1,3 +1,8 @@
+/**
+ * registerIcons.js
+ * Created by Max Kendall 12/8/2020
+ */
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faAngleDown,
