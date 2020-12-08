@@ -9,21 +9,17 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
 import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
-import { formatMoney } from 'accounting';
-import { calculatePercentage } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     agencyCode: PropTypes.string,
     fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number,
-    agencyData: PropTypes.object
+    fiscalPeriod: PropTypes.number
 };
 
 const ReportingDifferencesContainer = ({
     agencyCode,
     fiscalYear,
-    fiscalPeriod,
-    agencyData
+    fiscalPeriod
 }) => {
     const [sort, setSort] = useState('tas');
     const [order, setOrder] = useState('desc');
