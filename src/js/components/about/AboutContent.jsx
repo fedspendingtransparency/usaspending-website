@@ -3,7 +3,7 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { find, throttle } from 'lodash';
