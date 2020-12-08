@@ -108,18 +108,6 @@ const ReportingDifferencesContainer = ({
                 columns={columns}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
-            {!loading && !error.error &&
-                <div className="total-difference__container">
-                    <div className="total-difference__column">
-                        <div className="total-difference__label">Total Difference:</div>
-                        <div className="total-difference__label">% of Agency’s Total Account Balance Obligations:</div>
-                    </div>
-                    <div className="total-difference__column">
-                        <div className="total-difference__data">{formatMoney(agencyData.obligationDiff)}</div>
-                        <div className="total-difference__data">{calculatePercentage(agencyData.obligationDiff, agencyData.tasAccountsTotal)}</div>
-                    </div>
-                </div>
-            }
             <Pagination
                 currentPage={page}
                 changePage={setPage}
