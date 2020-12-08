@@ -104,6 +104,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 2,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 782,
             unlinked_asst_awd: 5,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -114,6 +120,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 0,
             obligation_difference: 324.91,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 1176,
             unlinked_asst_awd: 5096,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -124,6 +136,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 39,
             obligation_difference: 1102064503.38,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 42270,
             unlinked_asst_awd: 979,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -134,6 +152,12 @@ const mockAPIResponse = {
             recent_update: "09/28/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 352,
             unlinked_asst_awd: 6,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -144,6 +168,12 @@ const mockAPIResponse = {
             recent_update: "10/15/2020",
             discrepancy_count: 1,
             obligation_difference: 240672,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 264,
             unlinked_asst_awd: 377277,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -154,6 +184,12 @@ const mockAPIResponse = {
             recent_update: "09/30/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 30,
             unlinked_asst_awd: 13,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -164,6 +200,12 @@ const mockAPIResponse = {
             recent_update: "09/28/2020",
             discrepancy_count: 4,
             obligation_difference: 4850766868.94,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 13898,
             unlinked_asst_awd: 1373279,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -174,6 +216,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 0,
             obligation_difference: 0,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 216,
             unlinked_asst_awd: 0,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -184,6 +232,12 @@ const mockAPIResponse = {
             recent_update: "10/22/2020",
             discrepancy_count: 0,
             obligation_difference: 0.18,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 8880,
             unlinked_asst_awd: 68283,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -194,6 +248,12 @@ const mockAPIResponse = {
             recent_update: "09/29/2020",
             discrepancy_count: 1,
             obligation_difference: 124086515.13,
+            tas_account_discrepancies_totals: {
+                gtas_obligation_total: 55234,
+                tas_accounts_total: 23923,
+                tas_obligation_not_in_gtas_total: 343345,
+                missing_tas_accounts_count: 20
+            },
             unlinked_cont_awd: 41,
             unlinked_asst_awd: 5738,
             assurance_statement_file: "Raw%20DATA%20Act%20Files/2020/P08/073%20-%20Small%20Business%20Administration%20(SBA)/2020-P08-073_Small%20Business%20Administration%20(SBA)-Assurance_Statement.txt"
@@ -231,13 +291,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName }) => {
             obligation_difference: obligationDiff,
             unlinked_cont_awd: unlinkedCont,
             unlinked_asst_awd: unlinkedAsst,
-            assurance_statement_file: assuranceStatementFile
+            assurance_statement_file: assuranceStatementFile,
+            tas_account_discrepancies_totals: tasTotals
         }) => [
             (<div className="generic-cell-content">{ fiscalYear }</div>),
             (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={agencyName} />),
-            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyName={agencyName} />),
-            (<div className="generic-cell-content">{ obligationDiff }</div>),
+            (<CellWithModal data={recentUpdate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName }} />),
+            (<CellWithModal data={missingTasCount} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
+            (<CellWithModal data={obligationDiff} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName }} />),
             (<div className="generic-cell-content">{ unlinkedCont }</div>),
             (<div className="generic-cell-content">{ unlinkedAsst }</div>),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatementFile} /></div>)

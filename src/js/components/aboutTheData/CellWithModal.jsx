@@ -10,14 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const propTypes = {
     data: oneOfType([PropTypes.string, PropTypes.object]),
     openModal: PropTypes.func.isRequired,
-    modalType: oneOf(['publicationDates', 'missingAccountBalance']).isRequired,
-    agencyName: PropTypes.string
+    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences']).isRequired,
+    agencyData: PropTypes.object
 };
 
 const CellWithModal = ({
-    data, openModal, modalType, agencyName
+    data, openModal, modalType, agencyData
 }) => {
-    const modalClick = () => openModal(modalType, agencyName);
+    const modalClick = () => openModal(modalType, agencyData);
     return (
         <div className="action-cell">
             <span className="action-cell__text">
