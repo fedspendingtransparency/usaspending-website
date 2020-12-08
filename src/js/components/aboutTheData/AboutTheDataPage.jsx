@@ -120,7 +120,14 @@ const AboutTheDataPage = ({
                         urlPeriod={urlPeriod}
                         urlFy={urlFy} />
                 </div>
-                <AgenciesContainer openModal={modalClick} activeTab={activeTab} />
+                <AgenciesContainer
+                    openModal={modalClick}
+                    activeTab={activeTab}
+                    selectedFy={selectedFy}
+                    selectedPeriod={selectedPeriod
+                        ? selectedPeriod.id
+                        : ''
+                    } />
                 <Note message={message} />
                 <AboutTheDataModal
                     mounted={!!showModal.length}

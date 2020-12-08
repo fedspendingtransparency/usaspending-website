@@ -3,10 +3,14 @@
  * Created by Jonathan Hill 11/20/20
  */
 import { stringify } from 'query-string';
+
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import GlobalConstants from 'GlobalConstants';
 
 import { apiRequest } from './apiRequest';
+
+const isMocked = GlobalConstants.LOCAL;
 
 export const aboutTheDataQueryString = (params) => {
     if (!Object.keys(params).length) return '';
@@ -20,7 +24,7 @@ export const aboutTheDataQueryString = (params) => {
     ${params.sort ? `&sort=${params.sort}` : ''}`;
 };
 
-export const getTotals = (fy = '2020', period = '12', isMocked = true) => {
+export const getTotals = (fy = '2020', period = '12') => {
     if (isMocked) {
         // using mockAPI
         return apiRequest({
@@ -43,7 +47,7 @@ export const getTotals = (fy = '2020', period = '12', isMocked = true) => {
     };
 };
 
-export const getDetails = (fy, period, page, limit, order, sort, isMocked = true) => {
+export const getDetails = (fy, period, sort, order, page, limit) => {
     if (isMocked) {
         // using mockAPI
         return apiRequest({
@@ -70,13 +74,12 @@ export const getDetails = (fy, period, page, limit, order, sort, isMocked = true
     };
 };
 
-export const getDates = (fy, period, page, limit, order, sort, isLocal = true) => {
-    if (isLocal) {
+export const getDates = (fy, order, sort, page, limit) => {
+    if (isMocked) {
         return apiRequest({
-            isLocal,
-            url: `v2/reporting/agencies/overview?${stringify({
+            isMocked,
+            url: `v2/reporting/agencies/publish_dates?${stringify({
                 fiscal_year: fy,
-                fiscal_period: period,
                 page,
                 limit,
                 order,

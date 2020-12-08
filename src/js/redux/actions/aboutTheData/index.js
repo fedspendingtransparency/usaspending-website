@@ -13,16 +13,16 @@ export const setTableData = (activeTable, payload, append = false) => {
     };
 };
 
-export const setTableSort = (activeTable, payload) => {
+export const setTableSort = (activeTable, field, direction) => {
     if (activeTable === 'dates') {
         return {
             type: "SET_ABOUT_THE_DATA_DATES_SORT",
-            payload
+            payload: [field, direction]
         };
     }
     return {
         type: "SET_ABOUT_THE_DATA_DETAILS_SORT",
-        payload
+        payload: [field, direction]
     };
 };
 

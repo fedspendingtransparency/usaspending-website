@@ -7,8 +7,8 @@ export const initialState = {
     details: [],
     dates: [],
     totals: [],
-    detailsSort: ['desc', 'current_total_budget_authority_amount'],
-    datesSort: ['desc', 'current_total_budget_authority_amount']
+    detailsSort: ['current_total_budget_authority_amount', 'desc'],
+    datesSort: ['current_total_budget_authority_amount', 'desc']
 };
 
 /* eslint-disable import/prefer-default-export */
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
                 totals: action.payload
             };
         }
-        case 'SET_ABOUT_THE_DATA_DETAIL_SORT':
+        case 'SET_ABOUT_THE_DATA_DETAILS_SORT':
             return {
                 ...state,
                 detailsSort: action.payload

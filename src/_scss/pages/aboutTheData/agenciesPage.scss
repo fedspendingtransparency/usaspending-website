@@ -40,6 +40,9 @@
       max-width: 100%;
     }
     .table-controls {
+      .usa-dt-tab-toggle:focus {
+        outline: none;
+      }
       .table-controls__time-and-search {
         padding-left: 0;
         @media (min-width: $medium-screen) {
@@ -241,6 +244,16 @@
               @import './actionCell';
               .generic-cell-content {
                 padding: 1.2rem;
+                .not-certified {
+                  margin-left: rem(5);
+                  background: #DCE4EE;
+                  border-radius: rem(2);
+                  color: $color-base;
+                  padding: rem(5);
+                  font-size: rem(10);
+                  font-weight: $font-semibold;
+                  line-height: rem(13);
+                }
               }
             }
           }
