@@ -10,6 +10,7 @@ import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheDat
 import { getTotals, getDetails, getDates, usePagination } from 'helpers/aboutTheDataHelper';
 import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import DatesRow from 'models/v2/aboutTheData/DatesRow';
+import { isPeriodSelectable } from 'components/aboutTheData/TimeFilters';
 
 import { agenciesTableColumns } from './AgencyTableMapping';
 
@@ -37,8 +38,8 @@ const AgenciesContainer = ({
     selectedPeriod
 }) => {
     const {
-        details, dates, datesSort, detailsSort, totals
-    } = useSelector((state) => state.aboutTheData);
+        details, dates, datesSort, detailsSort, totals, submissionPeriods
+    } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
     const dispatch = useDispatch();
     const datesReq = useRef(null);
     const detailsReq = useRef(null);
@@ -71,6 +72,11 @@ const AgenciesContainer = ({
 
     const fetchTableData = useCallback(() => {
         if (activeTab === 'details') {
+            const isPeriodValid = isPeriodSelectable(
+                submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
+                selectedPeriod
+            );
+            if (!isPeriodValid) return Promise.resolve();
             setLoading([false, true, false]);
             detailsReq.current = getDetails(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
             return detailsReq.current.promise
@@ -100,7 +106,6 @@ const AgenciesContainer = ({
             .then(({ data: { results } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(DatesRow);
-                    console.log('totals', totals);
                     row.populate(parseInt(selectedFy, 10), d, totals);
                     return row;
                 });
@@ -141,19 +146,18 @@ const AgenciesContainer = ({
     });
 
     useEffect(() => {
-        // Initial render
-        fetchTotals();
-        return () => {
-            if (datesReq.current) {
-                datesReq.current.cancel();
-            }
-            if (detailsReq.current) {
-                detailsReq.current.cancel();
-            }
-            if (totalsReq.current) {
-                totalsReq.current.cancel();
-            }
-        };
+        if (datesReq.current) {
+            console.info('canceling request on unmount');
+            datesReq.current.cancel();
+        }
+        if (detailsReq.current) {
+            console.info('canceling request on unmount');
+            detailsReq.current.cancel();
+        }
+        if (totalsReq.current) {
+            console.info('canceling request on unmount');
+            totalsReq.current.cancel();
+        }
     }, []);
 
     useEffect(() => {
@@ -165,9 +169,10 @@ const AgenciesContainer = ({
             fetchTableData();
         }
     }, [
+        totals,
+        activeTab,
         selectedFy,
         selectedPeriod,
-        totals,
         detailsSort,
         detailsPage,
         detailsLimit,
@@ -175,16 +180,6 @@ const AgenciesContainer = ({
         datesPage,
         datesLimit
     ]);
-
-    useEffect(() => {
-        // Active tab changes
-        if (totals.length) {
-            fetchTableData();
-        }
-        else {
-            fetchTotals();
-        }
-    }, [activeTab]);
 
     const renderDates = (results = []) => results
         .map(({
@@ -235,6 +230,7 @@ const AgenciesContainer = ({
             updateDatesPagination({ page: datesPage, limit });
         }
     };
+
     return (
         <>
             <div className="table-container" ref={tableRef} onScroll={handleScroll}>

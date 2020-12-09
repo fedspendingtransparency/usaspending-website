@@ -180,7 +180,7 @@ const TimePeriodFilters = ({
                 handleTimeChange(`${latestPeriod.year}`, `${latestPeriod.period}`);
             }
         }
-    }, [dataAsOf, submissionPeriods, urlFy, urlPeriod]);
+    }, [dataAsOf, urlFy, urlPeriod]);
 
     const generatePeriodDropdown = (fy, periods) => (
         parsePeriods(fy, periods)
