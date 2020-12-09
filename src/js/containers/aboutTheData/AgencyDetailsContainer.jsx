@@ -100,7 +100,7 @@ const propTypes = {
 };
 
 const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
-    const [sortStatus, updateSort] = useState({ field: '', direction: 'asc' });
+    const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'asc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -146,12 +146,13 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         }
         setLoading(true);
         const params = {
+            agencyCode,
             limit: pageSize,
             page: currentPage,
             sort: sortStatus.field,
             order: sortStatus.direction
         };
-        tableRequest.current = fetchAgency(agencyCode, params);
+        tableRequest.current = fetchAgency(params);
         tableRequest.current.promise
             .then((res) => {
                 setRows(parseRows(res.data.results, 10000000000000));

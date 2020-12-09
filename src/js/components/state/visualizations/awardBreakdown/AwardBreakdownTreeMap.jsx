@@ -205,7 +205,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
             tooltip = (
                 <AwardTypeTooltip
                     value={MoneyFormatter.formatTreemapValues(awardType.amount)}
-                    percentage={MoneyFormatter.calculateTreemapPercentage(
+                    percentage={MoneyFormatter.calculatePercentage(
                         awardType.amount, this.props.totalAmount)
                     }
                     description={awardTypeDefinition}

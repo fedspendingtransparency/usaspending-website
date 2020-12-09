@@ -52,15 +52,16 @@ const AgenciesContainer = ({ activeTab, openModal }) => {
             current_total_budget_authority_amount: total,
             recent_publication_date: publicationDate,
             discrepancy_count: GtasNotInFileA,
-            obligation_difference: differenceInFileAAndB
+            obligation_difference: obligationDiff,
+            tas_account_discrepancies_totals: tasTotals
         }) => [
             // TODO: handle agencies with no code
             (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
             (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyName={name} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyName={name} />),
+            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName: `${name} (${abbreviation})` }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName: `${name} (${abbreviation})`, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
             (<div className="generic-cell-content">% placeholder</div>),
-            (<div className="generic-cell-content">{differenceInFileAAndB}</div>)
+            (<CellWithModal data={obligationDiff} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName: `${name} (${abbreviation})` }} />)
         ]
     );
 

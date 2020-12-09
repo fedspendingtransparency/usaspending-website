@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/8/20
  */
 
-import { formatMoneyWithPrecision, formatNumber, calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
 import { dateFormattedMonthDayYear, showQuarterText } from 'helpers/aboutTheDataHelper';
 
 const BaseReportingPeriodRow = {
@@ -33,7 +33,7 @@ const BaseReportingPeriodRow = {
     },
     get percentOfBudget() {
         if (this._federalBudget) {
-            return calculateTreemapPercentage(this._budgetAuthority, this._federalBudget);
+            return calculatePercentage(this._budgetAuthority, this._federalBudget);
         }
         return '--';
     },

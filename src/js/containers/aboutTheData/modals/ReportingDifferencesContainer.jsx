@@ -1,29 +1,27 @@
 /**
- * MissingAccountBalanceContainer.jsx
- * Created by Jonathan Hill 11/21/20
+ * ReportingDifferencesContainer.jsx
+ * Created by Jonathan Hill 12/02/20
  */
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIMissingAccountBalances, missingAccountBalanceColumns } from 'dataMapping/aboutTheData/modals';
-import { formatMissingAccountBalancesData } from 'helpers/aboutTheDataHelper';
+import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
+import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
     agencyCode: PropTypes.string,
     fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number,
-    agencyData: PropTypes.object
+    fiscalPeriod: PropTypes.number
 };
 
-const MissingAccountBalanceContainer = ({
+const ReportingDifferencesContainer = ({
     agencyCode,
     fiscalYear,
-    fiscalPeriod,
-    agencyData
+    fiscalPeriod
 }) => {
-    const [sort, setSort] = useState('amount');
+    const [sort, setSort] = useState('tas');
     const [order, setOrder] = useState('desc');
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
@@ -31,16 +29,16 @@ const MissingAccountBalanceContainer = ({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ error: false, message: '' });
     const [rows, setRows] = useState([]);
-    const missingAccBalancesRequest = useRef(null);
+    const reportingDiffRequest = useRef(null);
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
     };
 
-    const missingAccountBalancesRequest = async () => {
+    const reportingDifferenceRequest = async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
-        if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
+        if (reportingDiffRequest.current) reportingDiffRequest.current.cancel();
         const params = {
             page,
             limit,
@@ -51,12 +49,12 @@ const MissingAccountBalanceContainer = ({
             fiscalPeriod
         };
         try {
-            missingAccBalancesRequest.current = mockAPIMissingAccountBalances(params);
-            const { data } = await missingAccBalancesRequest.current.promise;
+            reportingDiffRequest.current = mockAPIReportingDifferences(params);
+            const { data } = await reportingDiffRequest.current.promise;
             setTotal(data.page_metadata.total);
-            setRows(formatMissingAccountBalancesData({ results: data.results, gtasObligationTotal: agencyData.gtasObligationTotal }));
+            setRows(formatReportingDifferencesData({ results: data.results }));
             setLoading(false);
-            missingAccBalancesRequest.current = null;
+            reportingDiffRequest.current = null;
         }
         catch (e) {
             console.error(e);
@@ -64,18 +62,18 @@ const MissingAccountBalanceContainer = ({
                 setLoading(false);
                 setError({ error: true, message: e.message });
             }
-            missingAccBalancesRequest.current = null;
+            reportingDiffRequest.current = null;
         }
     };
 
     // on unmount cleanup pubDatesRequest
     useEffect(() => () => {
-        if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
+        if (reportingDiffRequest.current) reportingDiffRequest.current.cancel();
     }, []);
     // on sort, order, limit change fetch new data or set page to 1
     useEffect(() => {
         if (page === 1) {
-            missingAccountBalancesRequest();
+            reportingDifferenceRequest();
         }
         else {
             setPage(1);
@@ -83,20 +81,19 @@ const MissingAccountBalanceContainer = ({
     }, [sort, order, limit]);
     // on page change fetch new data
     useEffect(() => {
-        missingAccountBalancesRequest();
+        reportingDifferenceRequest();
     }, [page]);
     // do not show deadlines in column headers if we do not have the data
-    const columns = missingAccountBalanceColumns.map((column) => ({
+    const columns = reportingDifferencesColumns.map((column) => ({
         displayName: (
-            <div className="missing-account-balances__column-header-container">
-                <div className="missing-account-balances__column-header-title">
+            <div className="reporting-differences__column-header-container">
+                <div className="reporting-differences__column-header-title">
                     {column.displayName}
                 </div>
             </div>
         ),
         title: column.title
     }));
-
     return (
         <>
             <Table
@@ -119,5 +116,5 @@ const MissingAccountBalanceContainer = ({
     );
 };
 
-MissingAccountBalanceContainer.propTypes = propTypes;
-export default MissingAccountBalanceContainer;
+ReportingDifferencesContainer.propTypes = propTypes;
+export default ReportingDifferencesContainer;

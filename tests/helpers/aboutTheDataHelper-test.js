@@ -3,10 +3,17 @@ import {
     dateFormattedMonthDayYear,
     formatPublicationDates,
     formatMissingAccountBalancesData,
-    showQuarterText
+    showQuarterText,
+    formatReportingDifferencesData
 } from 'helpers/aboutTheDataHelper';
 
-import { mockBalanceData, mockBadGTASTotal, mockBadResultsBalanceData } from '../mockData';
+import {
+    mockBalanceData,
+    mockBadGTASTotal,
+    mockBadResultsBalanceData,
+    mockReportingDifferenceData,
+    mockBadReportingDifferenceData
+} from '../mockData';
 
 const defaultParams = {
     fiscalYear: 2020,
@@ -132,6 +139,40 @@ describe('About The Data Helper', () => {
         });
         it('should not show quarter text', () => {
             expect(showQuarterText(8)).toBeFalsy();
+        });
+    });
+    describe('formatReportingDifferencesData', () => {
+        it('should format reporting difference data', () => {
+            expect(formatReportingDifferencesData(mockReportingDifferenceData)).toEqual(expect.arrayContaining([
+                expect.arrayContaining([
+                    "210-1503",
+                    "$234,543,543",
+                    "$456,438,768",
+                    "-$221,895,225"
+                ]),
+                expect.arrayContaining([
+                    "012-0212",
+                    "$43,637,623",
+                    "$20,486,582",
+                    "$23,151,041"
+                ])
+            ]));
+        });
+        it('should format reporting difference data', () => {
+            expect(formatReportingDifferencesData(mockBadReportingDifferenceData)).toEqual(expect.arrayContaining([
+                expect.arrayContaining([
+                    "--",
+                    "--",
+                    "--",
+                    "--"
+                ]),
+                expect.arrayContaining([
+                    "--",
+                    "--",
+                    "--",
+                    "--"
+                ])
+            ]));
         });
     });
 });

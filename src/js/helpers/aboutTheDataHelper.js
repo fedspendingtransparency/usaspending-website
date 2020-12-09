@@ -3,27 +3,24 @@
  * Created by Jonathan Hill 11/20/20
  */
 
-import { calculateTreemapPercentage, formatMoney } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { apiRequest } from './apiRequest';
 
 export const aboutTheDataQueryString = (params) => {
     if (!Object.keys(params).length) return '';
-    return `?
-    ${params.fiscalYear ? `fiscal_year=${params.fiscalYear}` : ''}
-    ${params.fiscalPeriod ? `&fiscal_period=${params.fiscalPeriod}` : ''}
-    ${params.search ? `&search=${encodeURIComponent(params.search)}` : ''}
-    ${params.page ? `&page=${params.page}` : ''}
-    ${params.limit ? `&limit=${params.limit}` : ''}
-    ${params.order ? `&order=${params.order}` : ''}
-    ${params.sort ? `&sort=${params.sort}` : ''}`;
+    return `?${params.fiscalYear ? `fiscal_year=${params.fiscalYear}` : ''}${params.fiscalPeriod ? `&fiscal_period=${params.fiscalPeriod}` : ''}${params.search ? `&search=${encodeURIComponent(params.search)}` : ''}${params.page ? `&page=${params.page}` : ''}${params.limit ? `&limit=${params.limit}` : ''}${params.order ? `&order=${params.order}` : ''}${params.sort ? `&sort=${params.sort}` : ''}`;
 };
 
 export const fetchPublishDates = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates${aboutTheDataQueryString(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/${aboutTheDataQueryString(params)}`
 });
 
 export const fetchMissingAccountBalances = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies${aboutTheDataQueryString(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/${aboutTheDataQueryString(params)}`
+});
+
+export const fetchReportingDifferences = (params) => apiRequest({
+    url: `/api/v2/reporting/agencies/{agency_code}/differences/${aboutTheDataQueryString(params)}`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
@@ -47,15 +44,27 @@ export const formatPublicationDates = (dates) => dates.map((date) => {
 });
 
 export const formatMissingAccountBalancesData = (data) => {
-    const weHaveTotalData = data.totalObligationsNotInGTAS && data.totalObligationsNotInGTAS > 0;
+    const weHaveTotalData = data.gtasObligationTotal && data.gtasObligationTotal > 0;
     return data.results.map((tasData) => {
         let amount = '--';
         let percent = '--';
-        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculateTreemapPercentage(tasData.amount, data.totalObligationsNotInGTAS);
+        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculatePercentage(tasData.amount, data.gtasObligationTotal);
         if (typeof tasData.amount === 'number') amount = formatMoney(tasData.amount);
         return [tasData.tas, amount, percent];
     });
 };
+
+export const formatReportingDifferencesData = (data) => data.results.map(({
+    tas = '',
+    file_a_obligation: fileAObligation = null,
+    file_b_obligation: fileBObligation = null,
+    difference = null
+}) => ([
+    tas || '--',
+    fileAObligation ? formatMoney(fileAObligation) : '--',
+    fileBObligation ? formatMoney(fileBObligation) : '--',
+    difference ? formatMoney(difference) : '--'
+]));
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
 

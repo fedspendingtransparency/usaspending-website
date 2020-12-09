@@ -5,7 +5,7 @@
 
 import { truncate, isNumber } from 'lodash';
 import {
-    calculateTreemapPercentage,
+    calculatePercentage,
     formatMoney,
     calculateUnitForSingleValue,
     formatMoneyWithPrecision
@@ -46,7 +46,7 @@ export default class BaseCFDA {
             percentOfTotal: {
                 enumerable: true,
                 get: () => ((isNumber(this._totalAwardObligation) && this._totalAwardObligation !== 0) && isNumber(this._federalActionOblicationAmount) ?
-                    calculateTreemapPercentage(this._federalActionOblicationAmount, this._totalAwardObligation) :
+                    calculatePercentage(this._federalActionOblicationAmount, this._totalAwardObligation) :
                     '--')
             },
             cfdaTitleShort: {
