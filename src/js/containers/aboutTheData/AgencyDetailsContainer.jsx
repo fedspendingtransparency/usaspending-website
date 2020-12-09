@@ -100,7 +100,7 @@ const propTypes = {
 };
 
 const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
-    const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'asc' });
+    const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'desc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -133,8 +133,8 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                 (<CellWithModal data={rowData.mostRecentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={agencyName} />),
                 (<CellWithModal data={rowData.missingTAS} openModal={modalClick} modalType="missingAccountBalance" agencyName={agencyName} />),
                 (<div className="generic-cell-content">{ rowData.obligationDifference }</div>),
-                (<div className="generic-cell-content">Todo</div>),
-                (<div className="generic-cell-content">Todo</div>),
+                (<div className="generic-cell-content">--</div>),
+                (<div className="generic-cell-content">--</div>),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
             ]);
         })
@@ -155,6 +155,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         tableRequest.current = fetchAgency(params);
         tableRequest.current.promise
             .then((res) => {
+                // TODO - remove mock federal budget
                 setRows(parseRows(res.data.results, 10000000000000));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
