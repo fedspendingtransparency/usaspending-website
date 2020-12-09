@@ -1,14 +1,11 @@
-.usa-dt-modal {
-  @include media($tablet-screen) {
-    max-width: rem(483);
-  }
-  @include media($large-screen) {
-    max-width: rem(483);
-    min-width: rem(483);
-  }
-}
-
 .usa-dt-modal.about-the-data-modal {
+    @include media($tablet-screen) {
+      max-width: rem(483);
+    }
+    @include media($large-screen) {
+      max-width: rem(483);
+      min-width: rem(483);
+    }
     font-size: rem(14);
     .usa-dt-modal__header {
       .about-the-data-modal__header-data {
