@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'data-transparency-ui';
+import { Table, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
-import { getTotals, getDetails, getDates } from 'helpers/aboutTheDataHelper';
+import { getTotals, getDetails, getDates, usePagination } from 'helpers/aboutTheDataHelper';
 import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import DatesRow from 'models/v2/aboutTheData/DatesRow';
 
@@ -36,13 +36,17 @@ const AgenciesContainer = ({
     selectedFy,
     selectedPeriod
 }) => {
+    const {
+        details, dates, datesSort, detailsSort, totals
+    } = useSelector((state) => state.aboutTheData);
     const dispatch = useDispatch();
     const datesReq = useRef(null);
     const detailsReq = useRef(null);
     const totalsReq = useRef(null);
-    const {
-        details, dates, datesSort, detailsSort, totals
-    } = useSelector((state) => state.aboutTheData);
+    const [
+        [{ page: detailsPage, limit: detailsLimit }, updateDetailsPagination],
+        [{ page: datesPage, limit: datesLimit }, updateDatesPagination]
+    ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
@@ -68,17 +72,15 @@ const AgenciesContainer = ({
     const fetchTableData = useCallback(() => {
         if (activeTab === 'details') {
             setLoading([false, true, false]);
-            detailsReq.current = getDetails(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1]);
+            detailsReq.current = getDetails(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
             return detailsReq.current.promise
                 .then(({ data: { results } }) => {
                     const parsedResults = results.map((d) => {
                         const row = Object.create(DetailsRow);
-                        const federalTotal = totals.find(({ fiscal_year: y, fiscal_period: p }) => {
-                            return (
-                                y === parseInt(selectedFy, 10) &&
-                                p === parseInt(selectedPeriod, 10)
-                            );
-                        });
+                        const federalTotal = totals.find(({ fiscal_year: y, fiscal_period: p }) => (
+                            y === parseInt(selectedFy, 10) &&
+                            p === parseInt(selectedPeriod, 10)
+                        ));
                         row.populate({ ...d, federalTotal });
                         return row;
                     });
@@ -93,7 +95,7 @@ const AgenciesContainer = ({
                 });
         }
         setLoading([false, true, false]);
-        datesReq.current = getDates(selectedFy, datesSort[0], datesSort[1]);
+        datesReq.current = getDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
         return datesReq.current.promise
             .then(({ data: { results } }) => {
                 const parsedResults = results.map((d) => {
@@ -162,7 +164,17 @@ const AgenciesContainer = ({
         else if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
-    }, [selectedFy, selectedPeriod, totals, detailsSort, datesSort]);
+    }, [
+        selectedFy,
+        selectedPeriod,
+        totals,
+        detailsSort,
+        detailsPage,
+        detailsLimit,
+        datesSort,
+        datesPage,
+        datesLimit
+    ]);
 
     useEffect(() => {
         // Active tab changes
@@ -206,35 +218,64 @@ const AgenciesContainer = ({
             ];
         });
 
+    const handlePageChange = (page) => {
+        if (activeTab === 'details') {
+            updateDetailsPagination({ page, limit: detailsLimit });
+        }
+        else {
+            updateDatesPagination({ page, limit: detailsLimit });
+        }
+    };
+
+    const handleLimitChange = (limit) => {
+        if (activeTab === 'details') {
+            updateDetailsPagination({ page: detailsPage, limit });
+        }
+        else {
+            updateDatesPagination({ page: datesPage, limit });
+        }
+    };
     return (
-        <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-            {activeTab === 'details' && (
-                <Table
-                    rows={renderDetails(details)}
-                    classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                    columns={agenciesTableColumns[activeTab]}
-                    updateSort={handleUpdateSort}
-                    currentSort={{
-                        field: detailsSort[0],
-                        direction: detailsSort[1]
-                    }}
-                    error={error}
-                    loading={areDetailsLoading} />
+        <>
+            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+                {activeTab === 'details' && (
+                    <Table
+                        rows={renderDetails(details)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        columns={agenciesTableColumns[activeTab]}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: detailsSort[0],
+                            direction: detailsSort[1]
+                        }}
+                        error={error}
+                        loading={areDetailsLoading} />
+                )}
+                {activeTab === 'dates' && (
+                    <Table
+                        rows={renderDates(dates)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        columns={agenciesTableColumns[activeTab]}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: datesSort[0],
+                            direction: datesSort[1]
+                        }}
+                        error={error}
+                        loading={areDatesLoading} />
+                )}
+            </div>
+            {(details.length || dates.length) && (
+                <Pagination
+                    resultsText
+                    limitSelector
+                    changeLimit={handleLimitChange}
+                    changePage={handlePageChange}
+                    currentPage={activeTab === 'details' ? detailsPage : datesPage}
+                    pageSize={activeTab === 'details' ? detailsLimit : datesLimit}
+                    totalItems={activeTab === 'details' ? details.length : dates.length} />
             )}
-            {activeTab === 'dates' && (
-                <Table
-                    rows={renderDates(dates)}
-                    classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                    columns={agenciesTableColumns[activeTab]}
-                    updateSort={handleUpdateSort}
-                    currentSort={{
-                        field: datesSort[0],
-                        direction: datesSort[1]
-                    }}
-                    error={error}
-                    loading={areDatesLoading} />
-            )}
-        </div>
+        </>
     );
 };
 

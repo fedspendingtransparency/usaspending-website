@@ -2,6 +2,7 @@
  * aboutTheDataHelper.js
  * Created by Jonathan Hill 11/20/20
  */
+import { useState } from 'react';
 import { stringify } from 'query-string';
 
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
@@ -22,6 +23,16 @@ export const aboutTheDataQueryString = (params) => {
     ${params.limit ? `&limit=${params.limit}` : ''}
     ${params.order ? `&order=${params.order}` : ''}
     ${params.sort ? `&sort=${params.sort}` : ''}`;
+};
+
+const defaultState = {
+    page: 1,
+    limit: 10
+};
+
+export const usePagination = (initialState = defaultState) => {
+    const [{ page, limit }, updatePagination] = useState(initialState);
+    return [{ page, limit }, updatePagination];
 };
 
 export const getTotals = (fy = '2020', period = '12') => {
@@ -47,7 +58,7 @@ export const getTotals = (fy = '2020', period = '12') => {
     };
 };
 
-export const getDetails = (fy, period, sort, order, page, limit) => {
+export const getDetails = (fy, period, order, sort, page, limit) => {
     if (isMocked) {
         // using mockAPI
         return apiRequest({
@@ -65,7 +76,12 @@ export const getDetails = (fy, period, sort, order, page, limit) => {
     return {
         promise: new Promise((resolve) => {
             window.setTimeout(() => {
-                resolve(mockAPI.details);
+                resolve({
+                    data: {
+                        // returns multiple pages of data when limit is 10
+                        results: mockAPI.details.data.results.concat(mockAPI.details.data.results)
+                    }
+                });
             }, 500);
         }),
         cancel: () => {
@@ -90,7 +106,12 @@ export const getDates = (fy, order, sort, page, limit) => {
     return {
         promise: new Promise((resolve) => {
             window.setTimeout(() => {
-                resolve(mockAPI.dates);
+                resolve({
+                    data: {
+                        // returns multiple pages of data when limit is 10
+                        results: mockAPI.dates.data.results.concat(mockAPI.dates.data.results)
+                    }
+                });
             }, 500);
         }),
         cancel: () => {
