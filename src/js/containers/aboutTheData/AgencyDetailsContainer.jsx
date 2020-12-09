@@ -106,7 +106,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const tableRef = useRef(null);
-    const request = useRef(null);
+    const tableRequest = useRef(null);
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
         setIsSticky({ vertical, horizontal });
@@ -119,13 +119,13 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const parseRows = (results) => (
+    const parseRows = (results, federalBudget) => (
         results.map((row) => {
             const rowData = Object.create(BaseReportingPeriodRow);
-            rowData.populate(row);
+            rowData.populate(row, federalBudget);
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
-                (<div className="generic-cell-content">placeholder %</div>),
+                (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
                 (<CellWithModal data={rowData.mostRecentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={agencyName} />),
                 (<CellWithModal data={rowData.missingTAS} openModal={modalClick} modalType="missingAccountBalance" agencyName={agencyName} />),
                 (<div className="generic-cell-content">{ rowData.obligationDifference }</div>),
@@ -138,10 +138,11 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     useEffect(() => {
         const getTableData = async () => {
-            request.current = fetchAgency(agencyCode);
+            tableRequest.current = fetchAgency(agencyCode);
             try {
-                const { data } = await request.current.promise;
-                setRows(parseRows(data.results));
+                const { data } = await tableRequest.current.promise;
+                // TODO - remove mock federal budget
+                setRows(parseRows(data.results, 10000000000000));
                 setLoading(false);
             }
             catch (err) {
@@ -152,10 +153,10 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             }
         };
         getTableData();
-        request.current = null;
+        tableRequest.current = null;
         return () => {
-            if (request.current) {
-                request.cancel();
+            if (tableRequest.current) {
+                tableRequest.cancel();
             }
         };
     }, [agencyCode]);

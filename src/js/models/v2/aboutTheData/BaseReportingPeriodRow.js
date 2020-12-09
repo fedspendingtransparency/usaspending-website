@@ -3,31 +3,47 @@
  * Created by Lizzie Salita 12/8/20
  */
 
-import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
-import moment from 'moment';
+import { formatMoneyWithPrecision, formatNumber, calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { dateFormattedMonthDayYear, showQuarterText } from 'helpers/aboutTheDataHelper';
 
 const BaseReportingPeriodRow = {
-    populate(data) {
+    populate(data, federalBudget) {
         this._fiscalYear = data.fiscal_year || 0;
-        this._fiscalPeriod = data.fiscal_period || 0;
+        this._fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._mostRecentUpdate = data.recent_publication_date || null;
         this._missingTAS = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
         this._obligationDifference = data.obligation_difference || 0;
+        this._federalBudget = federalBudget;
     },
     get reportingPeriod() {
-        return `FY ${this._fiscalYear}: P${this._fiscalPeriod}`;
+        // Add a leading a zero to single-digit periods
+        const paddedPeriod = `${this._fiscalPeriod}`.padStart(2, '0');
+        let period = `P${paddedPeriod}`;
+        if (showQuarterText(this._fiscalPeriod)) {
+            // Indicate the fiscal quarter for periods 3, 6, 9, and 12
+            period = `Q${this._fiscalPeriod / 3} / P${paddedPeriod}`;
+        }
+        else if (this._fiscalPeriod === 2) {
+            // P01 isn't reported, so P02 is cumulative P01 - P02
+            period = 'P01 - P02';
+        }
+        return `FY ${this._fiscalYear}: ${period}`;
     },
-    // TODO - calculate percentage
+    get percentOfBudget() {
+        if (this._federalBudget) {
+            return calculateTreemapPercentage(this._budgetAuthority, this._federalBudget);
+        }
+        return '--';
+    },
     get mostRecentUpdate() {
-        // TODO - alternative to moment.js
-        return moment(this._mostRecentUpdate).format('MM/DD/YYYY');
+        return dateFormattedMonthDayYear(this._mostRecentUpdate);
     },
     get missingTAS() {
         return formatNumber(this._missingTAS);
     },
     get obligationDifference() {
-        return formatMoney(this._obligationDifference);
+        return formatMoneyWithPrecision(this._obligationDifference, 2);
     }
 };
 
