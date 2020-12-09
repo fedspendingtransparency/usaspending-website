@@ -3,7 +3,6 @@
       max-width: rem(483);
     }
     @include media($large-screen) {
-      max-width: rem(483);
       min-width: rem(483);
     }
     font-size: rem(14);
