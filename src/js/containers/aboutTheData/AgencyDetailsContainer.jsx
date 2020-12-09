@@ -2,9 +2,10 @@
  * AgencyDetailsContainer.jsx
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Table, TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
+import { isCancel } from 'axios';
+import { Table, TooltipComponent, TooltipWrapper, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 
 import { fetchAgency } from 'helpers/aboutTheDataHelper';
@@ -105,6 +106,9 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [currentPage, changeCurrentPage] = useState(1);
+    const [pageSize, changePageSize] = useState(10);
+    const [totalItems, setTotalItems] = useState(0);
     const tableRef = useRef(null);
     const tableRequest = useRef(null);
     const handleScroll = throttle(() => {
@@ -136,43 +140,70 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         })
     );
 
+    const fetchTableData = useCallback(() => {
+        if (tableRequest.current) {
+            tableRequest.current.cancel();
+        }
+        setLoading(true);
+        const params = {
+            limit: pageSize,
+            page: currentPage,
+            sort: sortStatus.field,
+            order: sortStatus.direction
+        };
+        tableRequest.current = fetchAgency(agencyCode, params);
+        tableRequest.current.promise
+            .then((res) => {
+                setRows(parseRows(res.data.results, 10000000000000));
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+            }).catch((err) => {
+                if (!isCancel(err)) {
+                    setError(true);
+                    setErrorMessage(err);
+                    setLoading(false);
+                    tableRequest.current = null;
+                    console.error(err);
+                }
+            });
+    });
+
     useEffect(() => {
-        const getTableData = async () => {
-            tableRequest.current = fetchAgency(agencyCode);
-            try {
-                const { data } = await tableRequest.current.promise;
-                // TODO - remove mock federal budget
-                setRows(parseRows(data.results, 10000000000000));
-                setLoading(false);
-            }
-            catch (err) {
-                console.error(err);
-                setErrorMessage(err.message);
-                setLoading(false);
-                setError(true);
-            }
-        };
-        getTableData();
-        tableRequest.current = null;
-        return () => {
-            if (tableRequest.current) {
-                tableRequest.cancel();
-            }
-        };
-    }, [agencyCode]);
+        // Reset to the first page
+        if (currentPage === 1) {
+            fetchTableData();
+        }
+        else {
+            changeCurrentPage(1);
+        }
+    }, [agencyCode, sortStatus, pageSize]);
+
+    useEffect(() => {
+        fetchTableData();
+    }, [currentPage]);
 
     return (
-        <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-            <Table
-                rows={rows}
-                classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                columns={columns}
-                updateSort={handleUpdateSort}
-                currentSort={sortStatus}
-                loading={loading}
-                error={error}
-                errorMessage={errorMessage} />
-        </div>
+        <>
+            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+                <Table
+                    rows={rows}
+                    classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                    columns={columns}
+                    updateSort={handleUpdateSort}
+                    currentSort={sortStatus}
+                    loading={loading}
+                    error={error}
+                    errorMessage={errorMessage} />
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+        </>
     );
 };
 

@@ -35,13 +35,11 @@
           }
         }
         .table-container  {
-          height: rem(500);
           overflow: scroll;
-          margin: 0;
           border: rem(1) solid $color-gray-border;
           .usda-table.usda-table-w-grid {
             border-collapse: separate;
-            margin-top:0;
+            margin: 0;
             thead {
               tr th {
                 min-width: rem(300);
