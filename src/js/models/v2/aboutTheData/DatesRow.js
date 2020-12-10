@@ -51,9 +51,6 @@ const DatesRow = {
     get budgetAuthority() {
         return formatMoney(this._budgetAuthority);
     },
-    get obligationDifference() {
-        return formatMoney(this._obligationDifference);
-    },
     get discrepancyCount() {
         return formatNumber(this._discrepancyCount);
     },
@@ -66,7 +63,6 @@ const DatesRow = {
     },
     get percentageOfTotalFederalBudget() {
         if (this._federalTotal) {
-            console.log('total, ', this._federalTotal);
             return `${((this._budgetAuthority / this._federalTotal) * 100).toFixed(2)}%`;
         }
         return "N/A for Time (try 2020)";
