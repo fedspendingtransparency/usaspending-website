@@ -43,6 +43,7 @@ const TableContainer = (props) => {
         if (totalObligation) {
             // add total obligation to each object and it's children objects
             const dataAndTotalObligation = data.map((d) => {
+                console.log(' mapping ', d);
                 let dataChildrenAndTotalObligation = [];
                 if (d.children && d.children.length > 0) {
                     dataChildrenAndTotalObligation = d.children.map((child) => ({
@@ -95,7 +96,7 @@ const TableContainer = (props) => {
         setLoading(true);
         // Make a request with the new page number
         const params = {
-            fiscal_year: props.fy,
+            fiscal_year: 2020,
             limit: pageSize,
             page: currentPage,
             sort: accountFields[sort],
@@ -117,13 +118,17 @@ const TableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
-        changeCurrentPage(1);
-        fetchSpendingByCategoryCallback();
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation, fetchSpendingByCategoryCallback]);
+        if (currentPage !== 1) {
+            changeCurrentPage(1);
+        }
+        else {
+            fetchSpendingByCategoryCallback();
+        }
+    }, [props.type, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
-    }, [currentPage, fetchSpendingByCategoryCallback]);
+    }, [currentPage]);
 
     if (loading || error) {
         return (
