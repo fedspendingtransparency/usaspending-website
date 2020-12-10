@@ -1,5 +1,4 @@
 import {
-    aboutTheDataQueryString,
     dateFormattedMonthDayYear,
     formatPublicationDates,
     formatMissingAccountBalancesData,
@@ -14,16 +13,6 @@ import {
     mockReportingDifferenceData,
     mockBadReportingDifferenceData
 } from '../mockData';
-
-const defaultParams = {
-    fiscalYear: 2020,
-    fiscalPeriod: 8,
-    search: 'yolo',
-    page: 2,
-    limit: 10,
-    order: 'desc',
-    sort: 'publication_date'
-};
 
 describe('About The Data Helper', () => {
     describe('dateFormattedMonthDayYear', () => {
