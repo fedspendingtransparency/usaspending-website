@@ -43,7 +43,6 @@ const TableContainer = (props) => {
         if (totalObligation) {
             // add total obligation to each object and it's children objects
             const dataAndTotalObligation = data.map((d) => {
-                console.log(' mapping ', d);
                 let dataChildrenAndTotalObligation = [];
                 if (d.children && d.children.length > 0) {
                     dataChildrenAndTotalObligation = d.children.map((child) => ({
