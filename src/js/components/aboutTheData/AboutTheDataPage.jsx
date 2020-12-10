@@ -18,10 +18,10 @@ import { tabTooltips } from './dataMapping/tooltipContentMapping';
 
 require("pages/aboutTheData/agenciesPage.scss");
 
-const TableTabLabel = ({ label, internal }) => {
+const TableTabLabel = ({ label }) => {
     const tooltipComponent = (
-        <TooltipComponent title={tabTooltips[internal].title}>
-            {tabTooltips[internal].content}
+        <TooltipComponent title={label}>
+            {tabTooltips[label]}
         </TooltipComponent>
     );
     return (
@@ -33,8 +33,7 @@ const TableTabLabel = ({ label, internal }) => {
 };
 
 TableTabLabel.propTypes = {
-    label: PropTypes.string.isRequired,
-    internal: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired
 };
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
@@ -79,12 +78,12 @@ const AboutTheDataPage = () => {
                             {
                                 internal: 'details',
                                 label: "Statistics by Reporting Period",
-                                labelContent: <TableTabLabel label="Statistics by Reporting Period" internal="details" />
+                                labelContent: <TableTabLabel label="Statistics by Reporting Period" />
                             },
                             {
                                 internal: 'dates',
                                 label: "Updates by  Fiscal Year",
-                                labelContent: <TableTabLabel label="Updates by  Fiscal Year" internal="dates" />
+                                labelContent: <TableTabLabel label="Updates by Fiscal Year" />
                             }
                         ]} />
                     <div className="table-controls__time-and-search">
