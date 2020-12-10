@@ -32,7 +32,7 @@ export const tabTooltips = {
 };
 
 export const columnTooltips = {
-    'Most Recent Publication Date': (
+    'Most Recent Update': (
         <>
             <p>
                 This column shows the most recent date on which the agency reported data from the selected submission period to USAspending.gov.

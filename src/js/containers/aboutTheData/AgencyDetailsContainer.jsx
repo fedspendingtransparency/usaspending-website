@@ -9,11 +9,16 @@ import { throttle } from 'lodash';
 
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
+import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
 
 const Tooltip = ({ title }) => (
-    <TooltipComponent title={title}>
-        <p>Place holder for tooltip component.</p>
-    </TooltipComponent>
+    <TooltipWrapper
+        icon="info"
+        tooltipComponent={(
+            <TooltipComponent title={title}>
+                {columnTooltips[title]}
+            </TooltipComponent>
+        )} />
 );
 
 Tooltip.propTypes = {
@@ -27,65 +32,46 @@ const columns = [
     },
     {
         title: "total",
-        displayName: "Percent of Total Federal Budget",
-        icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Percent of Total Federal Budget" />} />
-        )
+        displayName: "Percent of Total Federal Budget"
     },
     {
         title: "publication_date",
         displayName: "Most Recent Update",
-        icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Most Recent Update" />} />
-        )
+        icon: (<Tooltip title="Most Recent Update" />)
     },
     {
         title: "missing_tas_count",
         displayName: "Number of TASs Missing from Account Balance Data",
         icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="TASs Missing from Account Balance Data" />} />
+            <Tooltip title="Number of TASs Missing in Account Balance Data" />
         )
     },
     {
         title: "obligation_different",
         displayName: "Reporting Difference in Obligations",
         icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Reporting Difference in Obligations" />} />
+            <Tooltip title="Reporting Difference in Obligations" />
         )
     },
     {
         title: "unlinked_cont_award_count",
         displayName: "Number of Unlinked Contract Awards",
         icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Number of Unlinked Contract Awards" />} />
+            <Tooltip title="Number of Unlinked Contract Awards" />
         )
     },
     {
         title: "unlinked_asst_award_count",
         displayName: "Number of Unlinked Assistance Awards",
         icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Number of Unlinked Assistance Awards" />} />
+            <Tooltip title="Number of Unlinked Assistance Awards" />
         )
     },
     {
         title: "assurance_statements",
         displayName: "Assurance Statements",
         icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Assurance Statements" />} />
+            <Tooltip title="Assurance Statements" />
         )
     }
 ];
