@@ -130,9 +130,9 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
                 (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
-                (<CellWithModal data={rowData.mostRecentUpdate} openModal={modalClick} modalType="publicationDates" agencyName={agencyName} />),
-                (<CellWithModal data={rowData.missingTAS} openModal={modalClick} modalType="missingAccountBalance" agencyName={agencyName} />),
-                (<div className="generic-cell-content">{ rowData.obligationDifference }</div>),
+                (<CellWithModal data={rowData.mostRecentPublicationDate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName }} />),
+                (<CellWithModal data={rowData.missingTASCount} openModal={modalClick} modalType="missingAccountBalance" agencyData={{ agencyName }} />),
+                (<CellWithModal data={rowData.obligationDifference} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName }} />),
                 (<div className="generic-cell-content">--</div>),
                 (<div className="generic-cell-content">--</div>),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)

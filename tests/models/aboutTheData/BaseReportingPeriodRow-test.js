@@ -45,10 +45,10 @@ describe('BaseReportingPeriodRow', () => {
         expect(reportingPeriodRow.obligationDifference).toEqual('$436,376,232,652.87');
     });
     it('should format missing TAS count', () => {
-        expect(reportingPeriodRow.missingTAS).toEqual('1,000');
+        expect(reportingPeriodRow.missingTASCount).toEqual('1,000');
     });
     it('should format the most recent publication date', () => {
-        expect(reportingPeriodRow.mostRecentUpdate).toEqual('01/10/2020');
+        expect(reportingPeriodRow.mostRecentPublicationDate).toEqual('01/10/2020');
     });
     it('should handle no data for the total federal budget', () => {
         expect(reportingPeriodRow.percentOfBudget).toEqual('--');

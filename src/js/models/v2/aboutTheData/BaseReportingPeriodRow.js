@@ -11,9 +11,9 @@ const BaseReportingPeriodRow = {
         this._fiscalYear = data.fiscal_year || 0;
         this._fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
-        this._mostRecentUpdate = data.recent_publication_date || null;
+        this._mostRecentPublicationDate = data.recent_publication_date || null;
         // eslint-disable-next-line camelcase
-        this._missingTAS = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
+        this._missingTASCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
         this._obligationDifference = data.obligation_difference || 0;
         this._federalBudget = federalBudget;
     },
@@ -32,16 +32,13 @@ const BaseReportingPeriodRow = {
         return `FY ${this._fiscalYear}: ${period}`;
     },
     get percentOfBudget() {
-        if (this._federalBudget) {
-            return calculatePercentage(this._budgetAuthority, this._federalBudget);
-        }
-        return '--';
+        return calculatePercentage(this._budgetAuthority, this._federalBudget);
     },
-    get mostRecentUpdate() {
-        return dateFormattedMonthDayYear(this._mostRecentUpdate);
+    get mostRecentPublicationDate() {
+        return dateFormattedMonthDayYear(this._mostRecentPublicationDate);
     },
-    get missingTAS() {
-        return formatNumber(this._missingTAS);
+    get missingTASCount() {
+        return formatNumber(this._missingTASCount);
     },
     get obligationDifference() {
         return formatMoneyWithPrecision(this._obligationDifference, 2);
