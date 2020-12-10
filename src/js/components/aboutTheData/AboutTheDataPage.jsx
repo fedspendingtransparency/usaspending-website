@@ -10,12 +10,13 @@ import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
+import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import Note from "components/sharedComponents/Note";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-import TimeFilters, { getPeriodWithTitleById } from "./TimeFilters";
+import TimeFilters from "./TimeFilters";
 
 require("pages/aboutTheData/agenciesPage.scss");
 

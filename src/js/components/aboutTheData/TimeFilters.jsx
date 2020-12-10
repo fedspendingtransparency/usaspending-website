@@ -11,88 +11,29 @@ import moment from "moment";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
 import { getLatestPeriod } from "helpers/accountHelper";
-import { useLatestAccountData } from "containers/account/WithLatestFy";
+import {
+    getPeriodWithTitleById,
+    getSelectedPeriodTitle,
+    isPeriodVisible,
+    isPeriodSelectable,
+    getLastPeriodWithinQuarterByPeriod
+} from "helpers/aboutTheDataHelper";
 import {
     periodsPerQuarter,
     lastPeriods,
     cssOrderClassByPeriodId
-} from './dataMapping/timeFilters';
+} from 'components/aboutTheData/dataMapping/timeFilters';
+import { useLatestAccountData } from "containers/account/WithLatestFy";
+import PeriodComponent from './PeriodComponent';
 
-// returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
-export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
-    if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
-    const period = periodsPerQuarter
-        .find((arr) => arr.some(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            return id === urlPeriod;
-        }))
-        .filter(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            return id === urlPeriod;
-        })[0];
-    if (period) return period;
-    return getPeriodWithTitleById(`${latestPeriod.period}`);
+const sortPeriods = ({ type: a }, { type: b }) => {
+    if (!a || !b) return 0;
+    if (a.includes('quarter-selected')) return -1;
+    if (b.includes('quarter-selected')) return 1;
+    return 0;
 };
 
-const getSelectedPeriodTitle = (str) => (
-    str.includes('Q')
-        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
-        : str
-);
-
-const PeriodComponent = ({
-    title,
-    classNames,
-    isEnabled = true
-}) => {
-    const isLastPeriod = title.includes('Q');
-    const classNamesWithState = isEnabled
-        ? classNames.join(' ')
-        : classNames.concat(['disabled']).join(' ');
-    if (isLastPeriod) {
-        const quarterAndTitle = title.split(' ');
-        return (
-            <div className={classNamesWithState}>
-                <span>{quarterAndTitle[0]}</span>
-                <span>{quarterAndTitle[1]}</span>
-            </div>
-        );
-    }
-    return (
-        <div className={classNamesWithState}>
-            <span>{title}</span>
-        </div>
-    );
-};
-
-PeriodComponent.propTypes = {
-    title: PropTypes.string.isRequired,
-    classNames: PropTypes.arrayOf(PropTypes.string),
-    isEnabled: PropTypes.bool
-};
-
-// periods can be visible but not selectable
-export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
-    availablePeriodsInFy
-        .some((p) => (
-            p.submission_fiscal_month >= parseInt(periodId, 10)
-        ))
-);
-
-// periods are only selectable post 2020
-export const isPeriodSelectable = (availablePeriodsInFy, periodId) => (
-    availablePeriodsInFy
-        .filter((p) => (
-            parseInt(periodId, 10) === p.submission_fiscal_month
-        ))
-        .length > 0
-);
-
-// getting last period of quarter for period via index of this array. ✨✨ ✨  S/O to (3rd grade) Maths ✨ ✨ ✨
-export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
-    lastPeriods[Math.ceil((parseInt(periodId, 10) / 3)) - 1] || "1"
-);
-
+// only used here and contains .jsx so not moving to a helper fn:
 const parsePeriods = (year, periods) => {
     const allPeriodsAvailableInFy = periods
         .filter((p) => p.submission_fiscal_year === parseInt(year, 10))
@@ -135,13 +76,6 @@ const parsePeriods = (year, periods) => {
                     })
             )
         ), []);
-};
-
-const sortPeriods = ({ type: a }, { type: b }) => {
-    if (!a || !b) return 0;
-    if (a.includes('quarter-selected')) return -1;
-    if (b.includes('quarter-selected')) return 1;
-    return 0;
 };
 
 const TimePeriodFilters = ({

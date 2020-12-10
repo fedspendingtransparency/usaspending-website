@@ -10,7 +10,7 @@ describe("accountHelper", () => {
     describe("getLatestPeriodAsMoment", () => {
         it('should find the latest revealed period and return the period end date as a moment obj', () => {
             const latestPeriod = getLatestPeriodAsMoment(mockSubmissions);
-            expect(latestPeriod.format("MMMM DD[,] YYYY")).toEqual("August 31, 2020");
+            expect(latestPeriod.format("MMMM DD[,] YYYY")).toEqual("September 30, 2020");
         });
     });
     describe('getSubmissionDeadlines', () => {

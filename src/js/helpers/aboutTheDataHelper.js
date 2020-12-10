@@ -8,10 +8,58 @@ import { stringify } from 'query-string';
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 import GlobalConstants from 'GlobalConstants';
+import {
+    periodsPerQuarter,
+    lastPeriods
+} from 'components/aboutTheData/dataMapping/timeFilters';
 
 import { apiRequest } from './apiRequest';
 
 const isMocked = GlobalConstants.LOCAL;
+
+// returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
+export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
+    if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
+    const period = periodsPerQuarter
+        .find((arr) => arr.some(({ id }) => {
+            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+            return id === urlPeriod;
+        }))
+        .filter(({ id }) => {
+            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+            return id === urlPeriod;
+        })[0];
+    if (period) return period;
+    return getPeriodWithTitleById(`${latestPeriod.period}`);
+};
+
+export const getSelectedPeriodTitle = (str) => (
+    str.includes('Q')
+        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
+        : str
+);
+
+// periods can be visible but not selectable
+export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
+    availablePeriodsInFy
+        .some((p) => (
+            p.submission_fiscal_month >= parseInt(periodId, 10)
+        ))
+);
+
+// periods are only selectable post 2020
+export const isPeriodSelectable = (availablePeriodsInFy, periodId) => (
+    availablePeriodsInFy
+        .filter((p) => (
+            parseInt(periodId, 10) === p.submission_fiscal_month
+        ))
+        .length > 0
+);
+
+// getting last period of quarter for period via index of this array. ✨✨ ✨  S/O to (3rd grade) Maths ✨ ✨ ✨
+export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
+    lastPeriods[Math.ceil((parseInt(periodId, 10) / 3)) - 1] || "1"
+);
 
 export const aboutTheDataQueryString = (params) => {
     if (!Object.keys(params).length) return '';

@@ -7,10 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
-import { getTotals, getDetails, getDates, usePagination } from 'helpers/aboutTheDataHelper';
+import { getTotals, getDetails, getDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
 import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import DatesRow from 'models/v2/aboutTheData/DatesRow';
-import { isPeriodSelectable } from 'components/aboutTheData/TimeFilters';
 
 import { agenciesTableColumns } from './AgencyTableMapping';
 
