@@ -14,6 +14,7 @@ import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipConte
 const Tooltip = ({ title }) => (
     <TooltipWrapper
         icon="info"
+        tooltipPosition="left"
         tooltipComponent={(
             <TooltipComponent title={title}>
                 {columnTooltips[title]}
@@ -71,7 +72,7 @@ const columns = [
         title: "assurance_statements",
         displayName: "Assurance Statements",
         icon: (
-            <Tooltip title="Assurance Statements" />
+            <Tooltip title="Agency Disclosures" />
         )
     }
 ];
