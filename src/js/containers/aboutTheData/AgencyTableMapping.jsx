@@ -6,15 +6,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper } from "data-transparency-ui";
+import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
 
-const Tooltip = ({ title }) => (
-    <TooltipComponent title={title}>
-        <p>Placeholder for tooltip component.</p>
-    </TooltipComponent>
+const Tooltip = ({ title, position = "right" }) => (
+    <TooltipWrapper
+        icon="info"
+        tooltipPosition={position}
+        tooltipComponent={(
+            <TooltipComponent title={title}>
+                {columnTooltips[title]}
+            </TooltipComponent>
+        )} />
 );
 
 Tooltip.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    position: PropTypes.oneOf(['left', 'right'])
 };
 
 export const agenciesTableColumns = {
@@ -73,15 +80,14 @@ export const agenciesTableColumns = {
         {
             title: "publication_date",
             displayName: "Most Recent Publication Date",
-            icon: (
-                <TooltipWrapper
-                    icon="info"
-                    tooltipComponent={<Tooltip title="Most Recent Publication Date" />} />
-            )
+            icon: (<Tooltip title="Most Recent Update" />)
         },
         {
             title: "tas_not_in_file_a",
-            displayName: "Count of Agency TAS in GTAS Not in File A"
+            displayName: "Count of Agency TAS in GTAS Not in File A",
+            icon: (
+                <Tooltip title="Number of TASs Missing in Account Balance Data" />
+            )
         },
         {
             title: "publication_date",
@@ -93,7 +99,10 @@ export const agenciesTableColumns = {
         },
         {
             title: "unlinked_asst_award_count",
-            displayName: "Count of Unlinked Assistance Awards"
+            displayName: "Count of Unlinked Assistance Awards",
+            icon: (
+                <Tooltip title="Number of Unlinked Assistance Awards" />
+            )
         }
     ]
 };
