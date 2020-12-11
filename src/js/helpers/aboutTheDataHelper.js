@@ -3,20 +3,21 @@
  * Created by Jonathan Hill 11/20/20
  */
 
-import { stringify } from 'query-string';
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { apiRequest } from './apiRequest';
 
+const querystring = require('querystring');
+
 export const fetchPublishDates = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/?${stringify(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/?${querystring.stringify(params)}`
 });
 
 export const fetchMissingAccountBalances = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/?${stringify(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/?${querystring.stringify(params)}`
 });
 
 export const fetchReportingDifferences = (params) => apiRequest({
-    url: `/api/v2/reporting/agencies/{agency_code}/differences/?${stringify(params)}`
+    url: `/api/v2/reporting/agencies/{agency_code}/differences/?${querystring.stringify(params)}`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
@@ -231,6 +232,6 @@ export const fetchAgencies = () => ({
 
 export const fetchAgency = (params) => apiRequest({
     isMocked: true,
-    url: `v2/reporting/agencies/${params.agencyCode}/overview/?${stringify(params)}`
+    url: `v2/reporting/agencies/${params.agencyCode}/overview/?${querystring.stringify(params)}`
 });
 
