@@ -11,7 +11,8 @@ const mockReportingPeriodRow = {
     current_total_budget_authority_amount: 8361447130497.72,
     recent_publication_date: "2020-01-10T11:59:21Z",
     tas_account_discrepancies_totals: {
-        missing_tas_accounts_count: 1000
+        missing_tas_accounts_count: 1000,
+        gtas_obligation_total: 234567
     },
     obligation_difference: 436376232652.87
 };
@@ -57,5 +58,8 @@ describe('BaseReportingPeriodRow', () => {
         const rowWithBudget = Object.create(BaseReportingPeriodRow);
         rowWithBudget.populate(mockReportingPeriodRow, 10000000000000);
         expect(rowWithBudget.percentOfBudget).toEqual('83.6%');
+    });
+    it('should store the raw GTAS Obligation Total', () => {
+        expect(reportingPeriodRow._gtasObligationTotal).toEqual(234567);
     });
 });

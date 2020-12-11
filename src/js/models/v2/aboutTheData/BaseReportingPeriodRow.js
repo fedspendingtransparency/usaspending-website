@@ -12,8 +12,10 @@ const BaseReportingPeriodRow = {
         this._fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._mostRecentPublicationDate = data.recent_publication_date || null;
-        // eslint-disable-next-line camelcase
+        /* eslint-disable camelcase */
         this._missingTASCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
+        this._gtasObligationTotal = data.tas_account_discrepancies_totals?.gtas_obligation_total || 0;
+        /* eslint-enable camelcase */
         this._obligationDifference = data.obligation_difference || 0;
         this._federalBudget = federalBudget;
     },
