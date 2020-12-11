@@ -36,6 +36,8 @@
 
     .subaward-switch__switch-fill {
         fill: #FFFFFF;
-        stroke: $color-gray-light;
+        stroke: $color-gray-medium;
+        stroke-width: 1;
+        stroke-opacity: 0.6;
     }
 }
