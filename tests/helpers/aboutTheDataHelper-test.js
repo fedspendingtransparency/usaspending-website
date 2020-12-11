@@ -4,7 +4,8 @@ import {
     formatPublicationDates,
     formatMissingAccountBalancesData,
     showQuarterText,
-    formatReportingDifferencesData
+    formatReportingDifferencesData,
+    getLastPeriodWithinQuarterByPeriod, isPeriodVisible, isPeriodSelectable, getPeriodWithTitleById
 } from 'helpers/aboutTheDataHelper';
 
 import {
@@ -12,8 +13,15 @@ import {
     mockBadGTASTotal,
     mockBadResultsBalanceData,
     mockReportingDifferenceData,
-    mockBadReportingDifferenceData
+    mockBadReportingDifferenceData,
+    mockSubmissions
 } from '../mockData';
+
+const mockPeriods = {
+    data: {
+        available_periods: mockSubmissions
+    }
+};
 
 const defaultParams = {
     fiscalYear: 2020,
@@ -175,4 +183,101 @@ describe('About The Data Helper', () => {
             ]));
         });
     });
+});
+test('getLastPeriodWithinQuarterByPeriod returns correct value for each quarter', () => {
+    expect(getLastPeriodWithinQuarterByPeriod('1')).toEqual('3');
+    expect(getLastPeriodWithinQuarterByPeriod('2')).toEqual('3');
+    expect(getLastPeriodWithinQuarterByPeriod('3')).toEqual('3');
+    expect(getLastPeriodWithinQuarterByPeriod('4')).toEqual('6');
+    expect(getLastPeriodWithinQuarterByPeriod('5')).toEqual('6');
+    expect(getLastPeriodWithinQuarterByPeriod('6')).toEqual('6');
+    expect(getLastPeriodWithinQuarterByPeriod('7')).toEqual('9');
+    expect(getLastPeriodWithinQuarterByPeriod('8')).toEqual('9');
+    expect(getLastPeriodWithinQuarterByPeriod('9')).toEqual('9');
+    expect(getLastPeriodWithinQuarterByPeriod('10')).toEqual('12');
+    expect(getLastPeriodWithinQuarterByPeriod('11')).toEqual('12');
+    expect(getLastPeriodWithinQuarterByPeriod('12')).toEqual('12');
+});
+
+test('isPeriodSelectable determines when period is not selectable in the UI (only quarters are selectable pre 2020) ', () => {
+    // 2018 serves as an example for every year prior to 2020:
+    const twentyEighteen = mockPeriods.data.available_periods.filter(({ submission_fiscal_year: y }) => y === 2018);
+    expect(isPeriodSelectable(twentyEighteen, '1')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '2')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '3')).toEqual(true);
+    expect(isPeriodSelectable(twentyEighteen, '4')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '5')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '6')).toEqual(true);
+    expect(isPeriodSelectable(twentyEighteen, '7')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '8')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '9')).toEqual(true);
+    expect(isPeriodSelectable(twentyEighteen, '10')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '11')).toEqual(false);
+    expect(isPeriodSelectable(twentyEighteen, '12')).toEqual(true);
+
+    // 2020: sad year RIP Kobe
+    const twentyTwenty = mockPeriods.data.available_periods.filter(({ submission_fiscal_year: y }) => y === 2020);
+    expect(isPeriodSelectable(twentyTwenty, '1')).toEqual(false);
+    expect(isPeriodSelectable(twentyTwenty, '2')).toEqual(false);
+    expect(isPeriodSelectable(twentyTwenty, '3')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '4')).toEqual(false);
+    expect(isPeriodSelectable(twentyTwenty, '5')).toEqual(false);
+    expect(isPeriodSelectable(twentyTwenty, '6')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '7')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '8')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '9')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '10')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '11')).toEqual(true);
+    expect(isPeriodSelectable(twentyTwenty, '12')).toEqual(true);
+});
+
+test('isPeriodVisible determines if a period has available data (perhaps may not be selectable but is still visible)', () => {
+    // period may not exist in availablePeriods but is present implicitly via corresponding quarter
+    const twentyEighteen = mockPeriods.data.available_periods.filter(({ submission_fiscal_year: y }) => y === 2018);
+    expect(isPeriodVisible(twentyEighteen, '1')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '2')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '3')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '4')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '5')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '6')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '7')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '8')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '9')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '10')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '11')).toEqual(true);
+    expect(isPeriodVisible(twentyEighteen, '12')).toEqual(true);
+
+    // 2020: sad year RIP Kobe
+    const twentyTwenty = mockPeriods.data.available_periods.filter(({ submission_fiscal_year: y }) => y === 2020);
+    expect(isPeriodVisible(twentyTwenty, '1')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '2')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '3')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '4')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '5')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '6')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '7')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '8')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '9')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '10')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '11')).toEqual(true);
+    expect(isPeriodVisible(twentyTwenty, '12')).toEqual(true);
+
+    const twentyTwentyOne = [];
+    expect(isPeriodVisible(twentyTwentyOne, '3')).toEqual(false);
+});
+
+test('getPeriodWithTitleById returns correct title for period', () => {
+    expect(getPeriodWithTitleById('1').title).toEqual('P01 - P02');
+    expect(getPeriodWithTitleById('2').title).toEqual('P01 - P02');
+    expect(getPeriodWithTitleById('3').title).toEqual('Q1 P03');
+    expect(getPeriodWithTitleById('4').title).toEqual('P04');
+    expect(getPeriodWithTitleById('5').title).toEqual('P05');
+    expect(getPeriodWithTitleById('6').title).toEqual('Q2 P06');
+
+    expect(getPeriodWithTitleById('7').title).toEqual('P07');
+    expect(getPeriodWithTitleById('8').title).toEqual('P08');
+    expect(getPeriodWithTitleById('9').title).toEqual('Q3 P09');
+    expect(getPeriodWithTitleById('10').title).toEqual('P10');
+    expect(getPeriodWithTitleById('11').title).toEqual('P11');
+    expect(getPeriodWithTitleById('12').title).toEqual('Q4 P12');
 });
