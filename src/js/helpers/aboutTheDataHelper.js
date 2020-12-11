@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/20/20
  */
 import { useState } from 'react';
-import { stringify } from 'query-string';
+import { stringify } from 'querystring';
 
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
@@ -83,7 +83,7 @@ export const usePagination = (initialState = defaultState) => {
     return [{ page, limit }, updatePagination];
 };
 
-export const getTotals = (fy = '2020', period = '12') => {
+export const getTotalBudgetaryResources = (fy, period) => {
     if (isMocked) {
         // using mockAPI
         return apiRequest({
@@ -106,7 +106,7 @@ export const getTotals = (fy = '2020', period = '12') => {
     };
 };
 
-export const getDetails = (fy, period, order, sort, page, limit) => {
+export const getAgenciesReportingData = (fy, period, order, sort, page, limit) => {
     if (isMocked) {
         // using mockAPI
         return apiRequest({
@@ -138,7 +138,7 @@ export const getDetails = (fy, period, order, sort, page, limit) => {
     };
 };
 
-export const getDates = (fy, order, sort, page, limit) => {
+export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
     if (isMocked) {
         return apiRequest({
             isMocked,

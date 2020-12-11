@@ -106,7 +106,6 @@
         "node-uuid": "^1.4.7",
         "path-to-regexp": "^1.7.0",
         "prop-types": "^15.7.2",
-        "query-string": "^4.3.4",
         "r-dom": "^2.3.2",
         "react": "^16.8.6",
         "react-addons-perf": "15.4.2",

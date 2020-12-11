@@ -23,8 +23,8 @@ const defaultProps = {
  * */
 
 test('when totals are defined, request for totals are not made and only one for details/dates is made', async () => {
-    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotals');
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails');
+    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources');
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData');
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         details: [],
         dates: [],
@@ -50,8 +50,8 @@ test('when totals are defined and the active tab changes, one request is made', 
         datesSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
-    const datesRequest = jest.spyOn(aboutTheDataHelper, 'getDates').mockClear();
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails').mockClear();
+    const datesRequest = jest.spyOn(aboutTheDataHelper, 'getSubmissionPublicationDates').mockClear();
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
 
     // not using click to trigger update to active tab b/c it's in a sibling component to this one.
@@ -75,7 +75,7 @@ test('when totals are defined and the fy changes, one request is made', () => {
             { submission_fiscal_year: 2018, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails').mockClear();
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedFy="2018" />);
 
@@ -96,7 +96,7 @@ test('when totals are defined and the period changes, one request is made', () =
             { submission_fiscal_year: 2020, submission_fiscal_month: 4 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails').mockClear();
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedPeriod="4" />);
 
@@ -116,7 +116,7 @@ test('when totals are defined and the sort field changes, two requests are made'
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails').mockClear();
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         details: [],
@@ -145,7 +145,7 @@ test('when totals are defined and the order field changes, two requests are made
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getDetails').mockClear();
+    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         details: [],

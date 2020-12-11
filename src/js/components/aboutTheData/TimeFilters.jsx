@@ -125,7 +125,7 @@ const TimePeriodFilters = ({
                 isEnabled: p.isEnabled,
                 onClick: p.isEnabled
                     ? (period) => handleTimeChange(selectedFy, period)
-                    : () => console.log('dats gonna be a no from me dawg!!!')
+                    : () => null
             }))
     );
 

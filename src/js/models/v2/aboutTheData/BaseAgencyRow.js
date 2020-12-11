@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/20/20
  */
 
-import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
 import moment from 'moment';
 
 const BaseAgencyRow = {
@@ -33,18 +33,13 @@ const BaseAgencyRow = {
     get discrepancyCount() {
         return formatNumber(this._discrepancyCount);
     },
-    get total() {
-        return formatMoney(this._total);
-    },
     get publicationDate() {
         if (this._publicationDate) return moment(this._publicationDate).format('MM/DD/YYYY');
         return '';
     },
     get percentageOfTotalFederalBudget() {
-        if (this._federalTotal) {
-            return `${((this._budgetAuthority / this._federalTotal.total_budgetary_resources) * 100).toFixed(2)}%`;
-        }
-        return "N/A for Time (try FY 2020 P06)";
+        // eslint-disable-next-line camelcase
+        return calculatePercentage(this._budgetAuthority, this._federalTotal?.total_budgetary_resources, "N/A for Time (try FY 2020 P06)", 2);
     }
 };
 

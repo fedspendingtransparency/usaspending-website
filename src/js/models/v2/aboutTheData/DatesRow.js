@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/20/20
  */
 
-import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
 import moment from 'moment';
 
 const addFuturePeriods = (periods) => {
@@ -62,10 +62,8 @@ const DatesRow = {
         return formatMoney(this._total);
     },
     get percentageOfTotalFederalBudget() {
-        if (this._federalTotal) {
-            return `${((this._budgetAuthority / this._federalTotal) * 100).toFixed(2)}%`;
-        }
-        return "N/A for Time (try 2020)";
+        // eslint-disable-next-line camelcase
+        return calculatePercentage(this._budgetAuthority, this._federalTotal, "N/A for Time (try FY 2020 P06)", 2);
     }
 };
 

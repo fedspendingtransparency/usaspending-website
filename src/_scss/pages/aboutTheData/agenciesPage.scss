@@ -9,7 +9,7 @@
     @include flex-direction(column);
     width: 100%;
     max-width: 160rem;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: rem(5) rem(5) 0 0;
     background: $color-white;
     padding: 0 rem(20);
     margin: rem(40) auto;
@@ -127,8 +127,8 @@
               order: 11;
             }
             .usa-dt-picker__list {
-              display: flex;
-              flex-direction: column;
+              @include display(flex);
+              @include flex-direction(column);
             }
             .usa-dt-picker__list li.usa-dt-picker__list-item {
               &.last {
@@ -139,8 +139,8 @@
                 padding: 0;
                 .period {
                   padding: rem(10) rem(15);
-                  display: flex;
-                  justify-content: flex-end;
+                  @include display(flex);
+                  @include justify-content(flex-end);
                   &:not(.last) span {
                     width: 75%;
                   }
@@ -242,7 +242,7 @@
               font-size: 1.4rem;
               padding: 0; // to allow entire cell to be hoverable
               @import './actionCell';
-              flex-wrap:nowrap;
+              @include flex-wrap(no-wrap);
               .generic-cell-content {
                 padding: 1.2rem;
                 .not-certified {

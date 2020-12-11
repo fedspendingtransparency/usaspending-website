@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
-import { getTotals, getDetails, getDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
 import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import DatesRow from 'models/v2/aboutTheData/DatesRow';
 
@@ -77,7 +77,7 @@ const AgenciesContainer = ({
             );
             if (!isPeriodValid) return Promise.resolve();
             setLoading([false, true, false]);
-            detailsReq.current = getDetails(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
+            detailsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
             return detailsReq.current.promise
                 .then(({ data: { results } }) => {
                     const parsedResults = results.map((d) => {
@@ -100,7 +100,7 @@ const AgenciesContainer = ({
                 });
         }
         setLoading([false, true, false]);
-        datesReq.current = getDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
+        datesReq.current = getSubmissionPublicationDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
         return datesReq.current.promise
             .then(({ data: { results } }) => {
                 const parsedResults = results.map((d) => {
@@ -126,7 +126,7 @@ const AgenciesContainer = ({
             if (totalsReq.current) totalsReq.current.cancel();
             if (detailsReq.current) detailsReq.current.cancel();
             setLoading([true, areDetailsLoading, areDatesLoading]);
-            totalsReq.current = getTotals(selectedFy, selectedPeriod, true);
+            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
                     dispatch(setTotals(results));
@@ -193,24 +193,21 @@ const AgenciesContainer = ({
         ]));
 
     const renderDetails = (results = []) => results
-        .map((obj) => {
-            const {
-                name: agencyName,
-                code,
-                publicationDate,
-                discrepancyCount: GtasNotInFileA,
-                obligationDifference,
-                tasTotals,
-                percentageOfTotalFederalBudget
-            } = obj;
-            return [
-                (<DrilldownCell data={agencyName} id={code} />),
-                (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-                (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
-                (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
-                (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
-            ];
-        });
+        .map(({
+            name: agencyName,
+            code,
+            publicationDate,
+            discrepancyCount: GtasNotInFileA,
+            obligationDifference,
+            tasTotals,
+            percentageOfTotalFederalBudget
+        }) => [
+            (<DrilldownCell data={agencyName} id={code} />),
+            (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
+            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
+            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
+        ]);
 
     const handlePageChange = (page) => {
         if (activeTab === 'details') {
