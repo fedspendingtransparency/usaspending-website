@@ -8,16 +8,16 @@ import { apiRequest } from './apiRequest';
 
 const querystring = require('querystring');
 
-export const fetchPublishDates = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/?${querystring.stringify(params)}`
+export const fetchPublishDates = (agencyCode, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/publish_dates/?${querystring.stringify(params)}`
 });
 
-export const fetchMissingAccountBalances = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/?${querystring.stringify(params)}`
+export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/discrepancies/?${querystring.stringify(params)}`
 });
 
-export const fetchReportingDifferences = (params) => apiRequest({
-    url: `/api/v2/reporting/agencies/{agency_code}/differences/?${querystring.stringify(params)}`
+export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
+    url: `/api/v2/reporting/agencies/${agencyCode}/differences/?${querystring.stringify(params)}`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
@@ -230,8 +230,8 @@ export const fetchAgencies = () => ({
     })
 });
 
-export const fetchAgency = (params) => apiRequest({
+export const fetchAgency = (agencyCode, params) => apiRequest({
     isMocked: true,
-    url: `v2/reporting/agencies/${params.agencyCode}/overview/?${querystring.stringify(params)}`
+    url: `v2/reporting/agencies/${agencyCode}/overview/?${querystring.stringify(params)}`
 });
 

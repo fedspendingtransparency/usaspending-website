@@ -150,13 +150,12 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         }
         setLoading(true);
         const params = {
-            agencyCode,
             limit: pageSize,
             page: currentPage,
             sort: sortStatus.field,
             order: sortStatus.direction
         };
-        tableRequest.current = fetchAgency(params);
+        tableRequest.current = fetchAgency(agencyCode, params);
         tableRequest.current.promise
             .then((res) => {
                 // TODO - remove mock federal budget
