@@ -61,18 +61,6 @@ export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
     lastPeriods[Math.ceil((parseInt(periodId, 10) / 3)) - 1] || "1"
 );
 
-export const aboutTheDataQueryString = (params) => {
-    if (!Object.keys(params).length) return '';
-    return `?
-    ${params.fiscalYear ? `fiscal_year=${params.fiscalYear}` : ''}
-    ${params.fiscalPeriod ? `&fiscal_period=${params.fiscalPeriod}` : ''}
-    ${params.search ? `&search=${encodeURIComponent(params.search)}` : ''}
-    ${params.page ? `&page=${params.page}` : ''}
-    ${params.limit ? `&limit=${params.limit}` : ''}
-    ${params.order ? `&order=${params.order}` : ''}
-    ${params.sort ? `&sort=${params.sort}` : ''}`;
-};
-
 const defaultState = {
     page: 1,
     limit: 10
@@ -168,16 +156,21 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
     };
 };
 
-export const fetchPublishDates = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/publish_dates/${aboutTheDataQueryString(params)}`
+export const fetchPublishDates = (agencyCode, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/publish_dates/${stringify(params)}`
 });
 
-export const fetchMissingAccountBalances = (params) => apiRequest({
-    url: `v2/reporting/agencies/${params.agencyCode}/discrepancies/${aboutTheDataQueryString(params)}`
+export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/discrepancies/?${stringify(params)}`
 });
 
-export const fetchReportingDifferences = (params) => apiRequest({
-    url: `/api/v2/reporting/agencies/{agency_code}/differences/${aboutTheDataQueryString(params)}`
+export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
+    url: `/api/v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
+});
+
+export const fetchAgency = (agencyCode, params) => apiRequest({
+    isMocked: true,
+    url: `v2/reporting/agencies/${agencyCode}/overview/?${stringify(params)}`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
