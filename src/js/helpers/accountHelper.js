@@ -41,12 +41,21 @@ export const fetchAllSubmissionDates = () => apiRequest({
     url: 'v2/references/submission_periods/'
 });
 
-export const getLatestPeriodAsMoment = (availablePeriods) => availablePeriods
-    .filter((s) => !s.is_quarter)
-    .map((s) => ({ revealDate: moment.utc(s.submission_reveal_date), asOfDate: moment.utc(s.period_end_date) }))
+export const getLatestPeriod = (availablePeriods, fy = null) => availablePeriods
+    .filter((s) => {
+        if (fy) {
+            return s.submission_fiscal_year === parseInt(fy, 10);
+        }
+        return true;
+    })
+    .map((s) => ({
+        revealDate: moment.utc(s.submission_reveal_date),
+        asOfDate: moment.utc(s.period_end_date),
+        period: s.submission_fiscal_month,
+        year: s.submission_fiscal_year
+    }))
     .sort(({ revealDate: a }, { revealDate: b }) => b.valueOf() - a.valueOf())
-    .find(({ revealDate: s }) => moment(s).isSameOrBefore(moment()))
-    .asOfDate;
+    .find(({ revealDate: s }) => moment(s).isSameOrBefore(moment()));
 
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
     if (!submissionPeriods.length) return null;
@@ -55,3 +64,6 @@ export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPerio
     if (!submissionPeriod) return null;
     return { submissionDueDate: submissionPeriod.submission_due_date, certificationDueDate: submissionPeriod.certification_due_date };
 };
+
+export const getLatestPeriodAsMoment = (availablePeriods) => getLatestPeriod(availablePeriods).asOfDate;
+

@@ -96,7 +96,7 @@ export default class TimeVisualization extends React.Component {
                         exit>
                         <>
                             {!this.props.loading && !this.props.error && this.props.groups.length === 0 && <ChartNoResults />}
-                            {this.props.loading && <ChartLoadingMessage />};
+                            {this.props.loading && <ChartLoadingMessage />}
                             {this.props.error && <ChartError />}
                             {!this.props.loading && !this.props.error && this.props.groups.length > 0 && (
                                 <BarChart
