@@ -106,11 +106,8 @@
         }
 
       .agency-table-download {
-        a {
-          color: $color-primary;
-        }
-        .usa-button-link__download-icon {
-          padding-right: rem(10);
+        svg {
+          margin-right: 0.5rem;
         }
       }
 
