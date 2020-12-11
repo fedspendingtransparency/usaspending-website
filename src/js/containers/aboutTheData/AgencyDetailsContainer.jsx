@@ -11,10 +11,10 @@ import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCe
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
 
-const Tooltip = ({ title }) => (
+const Tooltip = ({ title, position = "right" }) => (
     <TooltipWrapper
         icon="info"
-        tooltipPosition="left"
+        tooltipPosition={position}
         tooltipComponent={(
             <TooltipComponent title={title}>
                 {columnTooltips[title]}
@@ -23,7 +23,8 @@ const Tooltip = ({ title }) => (
 );
 
 Tooltip.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    position: PropTypes.oneOf(['left', 'right'])
 };
 
 const columns = [
@@ -72,7 +73,7 @@ const columns = [
         title: "assurance_statements",
         displayName: "Assurance Statements",
         icon: (
-            <Tooltip title="Agency Disclosures" />
+            <Tooltip title="Agency Disclosures" position="left" />
         )
     }
 ];
