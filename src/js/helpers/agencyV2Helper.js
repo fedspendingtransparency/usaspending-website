@@ -18,7 +18,7 @@ export const fetchSpendingByCategory = (agencyId, type, params) => apiRequest({
 });
 
 export const fetchBudgetaryResources = (agencyId) => apiRequest({
-    url: `v2/agency/${agencyId}/budgetary_resources/`
+    url: `v2/agency/${agencyId}/budgetary_resources/?fiscal_year=2020`
 });
 
 export const fetchAgencyOverview = (code, fy) => apiRequest({
