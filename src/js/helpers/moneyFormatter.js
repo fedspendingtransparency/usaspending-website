@@ -196,12 +196,12 @@ export const formatTreemapValues = (value) => {
     return `${formattedCurrency}${longLabel}`;
 };
 
-export const calculatePercentage = (value, total, returnValue = '--') => {
+export const calculatePercentage = (value, total, returnValue = '--', decimalPlaces = 1) => {
     // handles if denominator is zero, or falsy
     if (!total || typeof total !== 'number') return returnValue;
     // handles if numerator is not a number
     if (value !== 0 && typeof value !== 'number') return returnValue;
-    return `${((value / total) * 100).toFixed(1)}%`;
+    return `${((value / total) * 100).toFixed(decimalPlaces)}%`;
 };
 
 export const formatNumber = (number) => {

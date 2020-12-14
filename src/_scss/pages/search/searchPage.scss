@@ -15,6 +15,7 @@
     }
 
     .search-results-wrapper {
+        width: 100%;
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
 

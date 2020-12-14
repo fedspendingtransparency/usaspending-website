@@ -7,13 +7,12 @@
     @include display(flex);
     @include flex-wrap(wrap);
     @include flex-direction(column);
-    margin: rem(40) rem(20);
-    background: $color-white;
-    border-radius: 0.5rem 0.5rem 0 0;
-    padding: 0 rem(20);
     width: 100%;
     max-width: 160rem;
-    margin: auto;
+    border-radius: rem(5) rem(5) 0 0;
+    background: $color-white;
+    padding: 0 rem(20);
+    margin: rem(40) auto;
     .heading-container {
         width: 100%;
         .header {
@@ -40,9 +39,170 @@
       max-width: 100%;
     }
     .table-controls {
-      .table-type-toggle:focus {
+      .usa-dt-tab-toggle:focus {
         outline: none;
       }
+      .table-controls__time-and-search {
+        padding-left: 0;
+        @media (min-width: $medium-screen) {
+          padding-left: rem(25);
+        }
+        margin-top: rem(25);
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(flex-start);
+        .usa-dt-picker__button-icon svg {
+          color:  #0074BE;
+        }
+        .fy-loading {
+          svg {
+            margin-left: rem(10);
+          }
+        }
+        .usa-dt-picker__list {
+          z-index: 11;
+          min-width: rem(110);
+        }
+        .usa-dt-picker__button {
+          border-bottom: rem(2) solid #0074BE;
+          margin-bottom: rem(20);
+          padding-bottom: rem(2);
+          .usa-dt-picker__button-text {
+            font-size: rem(18);
+            font-weight: 500;
+            line-height: rem(23);
+            color: $color-base;
+          }
+        }
+        .picker-container {
+          @include display(flex);
+          @include flex-direction(column);
+          .fy-picker__title,
+          .period-picker__title {
+            font-size: rem(14);
+            margin-left: rem(15);
+            color: #8C8C8C;
+          }
+          .period-picker,
+          .fy-picker {
+            .usa-dt-picker__list li.usa-dt-picker__list-item {
+              border: none;
+              .usa-dt-picker__item {
+                font-size: rem(14);
+              }
+            }
+          }
+          .period-picker {
+            .order-1 {
+              order: 1;
+            }
+            .order-2 {
+              order: 2;
+            }
+            .order-3 {
+              order: 3;
+            }
+            .order-4 {
+              order: 4;
+            }
+            .order-5 {
+              order: 5;
+            }
+            .order-6 {
+              order: 6;
+            }
+            .order-7 {
+              order: 7;
+            }
+            .order-8 {
+              order: 8;
+            }
+            .order-9 {
+              order: 9;
+            }
+            .order-10 {
+              order: 10;
+            }
+            .order-11 {
+              order: 11;
+            }
+            .usa-dt-picker__list {
+              @include display(flex);
+              @include flex-direction(column);
+            }
+            .usa-dt-picker__list li.usa-dt-picker__list-item {
+              &.last {
+                border-bottom: 1px solid $color-gray-lighter;
+              }
+
+              button.usa-dt-picker__item {
+                padding: 0;
+                .period {
+                  padding: rem(10) rem(15);
+                  @include display(flex);
+                  @include justify-content(flex-end);
+                  &:not(.last) span {
+                    width: 75%;
+                  }
+                  &.last span {
+                    &:first-of-type {
+                      font-weight: $font-semibold;
+                      margin-right: auto;
+                    }
+                    &:last-of-type {
+                      width: 75%;
+                    }
+                  }
+                  &.disabled {
+                    cursor: not-allowed;
+                    span {
+                      opacity: 0.4;
+                    }
+                    &:hover {
+                      background-color: $color-white;
+                    }
+                    span {
+                      color: $color-base;
+                    }
+                  }
+                }
+              }
+              &.quarter-selected-3:hover ~ .not-individually-selectable-p2 {
+                .usa-dt-picker__item .period.disabled {
+                  background-color: $color-gray-lightest;
+                }
+              }
+              &.quarter-selected-6:hover {
+                & ~ .not-individually-selectable-p4,
+                & ~ .not-individually-selectable-p5 {
+                .usa-dt-picker__item .period.disabled {
+                  background-color: $color-gray-lightest;
+                }
+              }
+              }
+              &.quarter-selected-9:hover {
+                & ~ .not-individually-selectable-p7,
+                & ~ .not-individually-selectable-p8 {
+                .usa-dt-picker__item .period.disabled {
+                  background-color: $color-gray-lightest;
+                }
+              }
+              }
+              &.quarter-selected-12:hover {
+                & ~ .not-individually-selectable-p10,
+                & ~ .not-individually-selectable-p11 {
+                .usa-dt-picker__item .period.disabled {
+                  background-color: $color-gray-lightest;
+                }
+              }
+              }
+            }
+          }
+        }
+      }
+      .table-type-toggle:focus {
+        outline: none;
+      } 
       .table-tab-label {
         @include display(flex);
       }
@@ -64,9 +224,10 @@
       .usda-table.usda-table-w-grid {
         border-collapse: separate;
         margin-top:0;
+        margin-bottom:0;
         thead {
           tr th {
-            min-width: rem(300);
+            min-width: rem(200);
           }
           .nested-header {
             .table-header__content {
@@ -81,8 +242,19 @@
               font-size: 1.4rem;
               padding: 0; // to allow entire cell to be hoverable
               @import './actionCell';
+              @include flex-wrap(no-wrap);
               .generic-cell-content {
                 padding: 1.2rem;
+                .not-certified {
+                  margin-left: rem(5);
+                  background: #DCE4EE;
+                  border-radius: rem(2);
+                  color: $color-base;
+                  padding: rem(5);
+                  font-size: rem(10);
+                  font-weight: $font-semibold;
+                  line-height: rem(13);
+                }
               }
             }
           }
@@ -127,16 +299,46 @@
         }
       }
     }
+    // Pagination
+    .usa-dt-pagination {
+      padding: rem(20);
+      .usa-dt-pagination__totals {
+        text-align: center;
+        padding: rem(20); // extra padding on mobile
+        @media(min-width: $tablet-screen) {
+          text-align: left;
+          padding: rem(0);
+        }
+      }
+      .usa-dt-pagination__wrapper {
+        @include justify-content(center); // center on mobile
+        @media(min-width: $tablet-screen) {
+          @include justify-content(flex-end);
+        }
+        .pager {
+          padding: rem(20); // extra padding on mobile
+          @media(min-width: $tablet-screen) {
+            padding: 0;
+          }
+          .pager__item {
+            margin: 0;
+          }
+        }
+      }
+    }
     @import 'components/Note';
     .default-note {
       font-style: italic;
-      margin: 0;
+      margin-top: 0;
       padding: 0;
       letter-spacing: 0;
       max-width: rem(873);
       line-height: rem(22);
-      margin: $global-pad * 3 0;
       font-size: rem(14);
+      margin-bottom: rem(10);
+      @media(min-width: $tablet-screen) {
+        margin-bottom: rem(30);
+      }
     }
   }
 }
