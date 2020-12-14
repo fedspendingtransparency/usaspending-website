@@ -5,8 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, capitalize } from 'lodash';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { fullMonthFromAbbr } from 'helpers/monthHelper';
+import { isIe } from 'helpers/browser';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
@@ -37,6 +41,40 @@ export default class TimeVisualizationSection extends React.Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
+    getDownloadData = () => {
+        const headers = [];
+        headers.fiscal_year = 'fiscal_year,total_obligations\n';
+        headers.quarter = 'fiscal_year,fiscal_quarter,total_obligations\n';
+        headers.month = 'fiscal_year,month,total_obligations\n';
+        const data = this.props.data;
+
+        return headers[data.visualizationPeriod].concat(
+            data.rawLabels.map((label, i) => {
+                if (data.visualizationPeriod === 'fiscal_year') {
+                    return `${label.year},${data.ySeries[i][0]}`;
+                }
+                if (!label.period) { // API still updating data
+                    return null;
+                }
+                if (data.visualizationPeriod === 'quarter') {
+                    return `${label.year},${label.period[1]},${data.ySeries[i][0]}`;
+                }
+                const month = fullMonthFromAbbr(label.period);
+                return `${['Oct', 'Nov', 'Dec'].indexOf(label.period) > -1 ? parseInt(label.year, 10) + 1 : label.year},${month},${data.ySeries[i][0]}`;
+            })
+                .join('\n')
+        );
+    }
+
+    downloadTooltip = () => (
+        <>
+            <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
+            <div className="tooltip__text">
+                Download a CSV of award spending that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. Note that only the first 10,000 results will be returned. For complete download results, click on the “Download” button in the top right of this page.
+            </div>
+        </>
+    );
+
     handleWindowResize() {
         // determine if the width changed
         const windowWidth = window.innerWidth;
@@ -48,6 +86,31 @@ export default class TimeVisualizationSection extends React.Component {
             });
         }
     }
+
+    // eslint-disable-next-line no-undef
+    downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
+
+    renderDownloadLink = () => (isIe() ?
+        (
+            <button onClick={() => {
+                window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
+            }}>
+                <FontAwesomeIcon icon="download" size="lg" />
+                <span className="text">
+                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+                </span>
+            </button>
+        ) : (
+            <a
+                href={URL.createObjectURL(this.downloadBlob())}
+                download="spending-over-time.csv" >
+                <FontAwesomeIcon icon="download" size="lg" />
+                <span className="text">
+                Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+                </span>
+            </a>
+        )
+    );
 
     render() {
         return (
@@ -95,6 +158,10 @@ export default class TimeVisualizationSection extends React.Component {
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                             </ul>
+                        </div>
+                        <div className="download">
+                            {!this.props.data.loading && this.renderDownloadLink()}
+                            {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
                         </div>
                     </div>
                 </div>
