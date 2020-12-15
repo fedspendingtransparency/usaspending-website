@@ -115,7 +115,7 @@ export const getAgenciesReportingData = (fy, period, order, sort, page, limit) =
                 resolve({
                     data: {
                         // returns multiple pages of data when limit is 10
-                        results: mockAPI.details.data.results.concat(mockAPI.details.data.results)
+                        results: mockAPI.submissions.data.results.concat(mockAPI.submissions.data.results)
                     }
                 });
             }, 500);
@@ -145,7 +145,7 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
                 resolve({
                     data: {
                         // returns multiple pages of data when limit is 10
-                        results: mockAPI.dates.data.results.concat(mockAPI.dates.data.results)
+                        results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
                     }
                 });
             }, 500);

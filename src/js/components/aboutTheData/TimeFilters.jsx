@@ -149,7 +149,7 @@ const TimePeriodFilters = ({
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
-            {activeTab === 'details' && (
+            {activeTab === 'submissions' && (
                 <div className="picker-container">
                     <span className="period-picker__title">PERIOD</span>
                     <Picker

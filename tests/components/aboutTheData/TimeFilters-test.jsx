@@ -9,7 +9,7 @@ import { mockGlossary, mockSubmissions } from '../../mockData';
 const defaultProps = {
     urlPeriod: '12',
     urlFy: '2020',
-    activeTab: 'details', // or dates
+    activeTab: 'submissions', // or dates
     onTimeFilterSelection: jest.fn(),
     selectedPeriod: null,
     selectedFy: null
@@ -40,7 +40,7 @@ test('Submission Details table shows period picker', async () => {
 });
 
 test('Publication Dates table does not show period picker', async () => {
-    render(<TimeFilters {...defaultProps} activeTab="dates" />);
+    render(<TimeFilters {...defaultProps} activeTab="publications" />);
     expect(screen.queryByText('PERIOD')).toBeNull();
 });
 
@@ -49,12 +49,12 @@ test('Validates fiscal year from url', async () => {
     const mockOnTimeSelection = jest.fn();
     render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} urlFy="1990" />);
     await waitForElementToBeRemoved(screen.queryByText('Loading fiscal years...'));
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
 });
 
 test('Validates period from url', async () => {
     const mockOnTimeSelection = jest.fn();
     render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} urlFy="2020" urlPeriod="13" />);
     await waitForElementToBeRemoved(screen.queryByText('Loading fiscal years...'));
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
 });
