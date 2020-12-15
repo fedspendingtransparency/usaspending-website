@@ -13,7 +13,6 @@ import { allFiscalYears } from "helpers/fiscalYearHelper";
 import { getLatestPeriod } from "helpers/accountHelper";
 import {
     getPeriodWithTitleById,
-    getSelectedPeriodTitle,
     isPeriodVisible,
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
@@ -158,7 +157,7 @@ const TimePeriodFilters = ({
                         className="period-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedPeriod
-                            ? <span>FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
+                            ? <span>{selectedPeriod.title}</span>
                             : (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />

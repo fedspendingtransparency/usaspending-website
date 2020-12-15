@@ -17,6 +17,12 @@ import { apiRequest } from './apiRequest';
 
 const isMocked = GlobalConstants.LOCAL;
 
+export const getSelectedPeriodTitle = (str) => (
+    str.includes('Q')
+        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
+        : str
+);
+
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
 export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
@@ -29,15 +35,9 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
             return id === urlPeriod;
         })[0];
-    if (period) return period;
+    if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
     return getPeriodWithTitleById(`${latestPeriod.period}`);
 };
-
-export const getSelectedPeriodTitle = (str) => (
-    str.includes('Q')
-        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
-        : str
-);
 
 // periods can be visible but not selectable
 export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
