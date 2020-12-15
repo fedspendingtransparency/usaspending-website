@@ -111,7 +111,7 @@ const additionalDetails = (awardData) => {
             'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
             'Number of Offers Received': awardData.additionalDetails.numberOffers,
             'Extent Competed': awardData.additionalDetails.extentCompeted,
-            'Not Completed Reason': awardData.additionalDetails.notCompeted,
+            'Not Competed Reason': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
             'Commercial Item Acquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
             'Simplified Procedures for Certain Commercial Items': awardData.additionalDetails.commercialTestProgram,
