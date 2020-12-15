@@ -7,7 +7,7 @@ import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 // TODO - update when API contracts are finalized
-const mockAgencyRow = { ...mockAPI.details.data.results[0] };
+const mockAgencyRow = { ...mockAPI.submissions.data.results[0] };
 
 const agencyRow = Object.create(BaseAgencyRow);
 agencyRow.populate(mockAgencyRow);
