@@ -4,7 +4,7 @@
  */
 
 import { cloneDeep } from 'lodash';
-import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { calculatePercentage } from 'helpers/moneyFormatter';
 import BaseCFDA from 'models/v2/award/BaseCFDA';
 import { mockLoan } from './mockAwardApi';
 
@@ -62,7 +62,7 @@ describe('Base CFDA', () => {
     });
     describe('Percent of Total', () => {
         it('should return a percent given a number', () => {
-            expect(cfda.percentOfTotal).toEqual(calculateTreemapPercentage(cfda._federalActionOblicationAmount, denominator));
+            expect(cfda.percentOfTotal).toEqual(calculatePercentage(cfda._federalActionOblicationAmount, denominator));
         });
         it('should return -- when given a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);

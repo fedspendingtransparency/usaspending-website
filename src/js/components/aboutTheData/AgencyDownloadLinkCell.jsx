@@ -8,22 +8,14 @@ const propTypes = {
 };
 
 const AgencyDownloadLinkCell = ({ file }) => (
-    <div className="agency-table-download">
-        <div className="usa-button-link">
-            <span className="usa-button-link__download-icon">
-                <FontAwesomeIcon
-                    data-href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/${file}`}
-                    icon="file-alt" />
-            </span>
-            <a
-                target="_blank"
-                href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/${file}`}
-                rel="noopener noreferrer"
-                aria-label="Raw quarterly submission files">
-                Download
-            </a>
-        </div>
-    </div>
+    <a
+        className="agency-table-download"
+        target="_blank"
+        href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/${file}`}
+        rel="noopener noreferrer"
+        aria-label="Raw quarterly submission files">
+        <FontAwesomeIcon icon="file-alt" />Download
+    </a>
 );
 
 AgencyDownloadLinkCell.propTypes = propTypes;

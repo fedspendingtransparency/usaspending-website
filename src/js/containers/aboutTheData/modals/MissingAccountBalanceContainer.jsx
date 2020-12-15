@@ -14,14 +14,14 @@ const propTypes = {
     agencyCode: PropTypes.string,
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
-    totalObligationsNotInGTAS: PropTypes.number
+    agencyData: PropTypes.object
 };
 
 const MissingAccountBalanceContainer = ({
     agencyCode,
     fiscalYear,
     fiscalPeriod,
-    totalObligationsNotInGTAS
+    agencyData
 }) => {
     const [sort, setSort] = useState('amount');
     const [order, setOrder] = useState('desc');
@@ -54,7 +54,7 @@ const MissingAccountBalanceContainer = ({
             missingAccBalancesRequest.current = mockAPIMissingAccountBalances(params);
             const { data } = await missingAccBalancesRequest.current.promise;
             setTotal(data.page_metadata.total);
-            setRows(formatMissingAccountBalancesData({ results: data.results, totalObligationsNotInGTAS }));
+            setRows(formatMissingAccountBalancesData({ results: data.results, gtasObligationTotal: agencyData.gtasObligationTotal }));
             setLoading(false);
             missingAccBalancesRequest.current = null;
         }

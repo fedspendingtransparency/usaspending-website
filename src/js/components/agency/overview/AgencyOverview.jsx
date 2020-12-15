@@ -113,7 +113,7 @@ export default class AgencyOverview extends React.PureComponent {
         ${capitalize(budgetAuthorityAmount.longLabel)}`;
 
         // Generate Percentage string
-        const percentage = MoneyFormatter.calculateTreemapPercentage(
+        const percentage = MoneyFormatter.calculatePercentage(
             budgetAuthority, federalBudget);
         const percentageElement = (
             <span className="authority-statement-percentage">{percentage}</span>

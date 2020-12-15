@@ -95,7 +95,7 @@ const TableContainer = (props) => {
         setLoading(true);
         // Make a request with the new page number
         const params = {
-            fiscal_year: props.fy,
+            fiscal_year: 2020,
             limit: pageSize,
             page: currentPage,
             sort: accountFields[sort],
@@ -117,13 +117,17 @@ const TableContainer = (props) => {
 
     useEffect(() => {
         // Reset to the first page
-        changeCurrentPage(1);
-        fetchSpendingByCategoryCallback();
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation, fetchSpendingByCategoryCallback]);
+        if (currentPage !== 1) {
+            changeCurrentPage(1);
+        }
+        else {
+            fetchSpendingByCategoryCallback();
+        }
+    }, [props.type, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
-    }, [currentPage, fetchSpendingByCategoryCallback]);
+    }, [currentPage]);
 
     if (loading || error) {
         return (

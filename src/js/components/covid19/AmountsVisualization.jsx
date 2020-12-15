@@ -31,7 +31,7 @@ import {
     calculateUnits,
     formatMoneyWithPrecision,
     formatMoney,
-    calculateTreemapPercentage
+    calculatePercentage
 } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -632,7 +632,7 @@ const AmountsVisualization = ({
                     {
                         paragraphs: [
                             `${formatMoney(overviewData[showTooltip])}`,
-                            `${calculateTreemapPercentage(overviewData[showTooltip], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
+                            `${calculatePercentage(overviewData[showTooltip], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
                             tooltipMapping[showTooltip].paragraph
                         ]
                     }

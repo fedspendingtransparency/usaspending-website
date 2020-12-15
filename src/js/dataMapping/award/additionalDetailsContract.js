@@ -153,7 +153,7 @@ const additionalDetailsContracts = (awardData) => {
             'Solicitation ID': awardData.additionalDetails.solicitationId,
             'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
             'Number of Offers Received': awardData.additionalDetails.numberOffers,
-            'Extent Completed': awardData.additionalDetails.extentCompeted,
+            'Extent Competed': awardData.additionalDetails.extentCompeted,
             'Other Than Full and Open Competition': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
             'Commercial Item Acquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,

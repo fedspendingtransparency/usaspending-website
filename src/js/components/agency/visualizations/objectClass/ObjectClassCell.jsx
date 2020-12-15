@@ -168,7 +168,7 @@ export default class ObjectClassCell extends React.Component {
                         fill: this.props.textColor,
                         opacity: this.props.opacity
                     }}>
-                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
+                    {MoneyFormatter.calculatePercentage(this.props.value, this.props.total)}
                 </text>
             </g>
         );
