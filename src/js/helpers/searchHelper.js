@@ -4,6 +4,7 @@
   **/
 
 import { is } from 'immutable';
+import { isEqual } from 'lodash';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { apiRequest } from './apiRequest';
 
@@ -119,6 +120,7 @@ export const performSubawardSearch = (data) => apiRequest({
 });
 
 export const generateUrlHash = (data) => apiRequest({
+    isMocked: false,
     url: 'v2/references/filter/',
     method: 'post',
     data
@@ -166,10 +168,17 @@ export const areFiltersEqual = (filters, filterReference = initialState) => {
         const key = filterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
-            // it doesn't match, we can stop looping - filters have been applied
-            return false;
-        }
+        if (!is(unfilteredValue, currentValue)) return false;
     }
     return true;
 };
+
+export const areFiltersEmpty = (filters) => areFiltersEqual(filters);
+export const areFiltersSelected = (filters) => !areFiltersEqual(filters);
+
+export const areFiltersDifferent = (a, b) => !areFiltersEqual(a, b);
+
+export const isSearchHashReady = (str) => str
+    .split('/search/')
+    .filter((s) => s && s !== "/search")
+    .length > 0;
