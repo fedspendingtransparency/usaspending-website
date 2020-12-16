@@ -21,7 +21,10 @@ jest.mock('components/search/SearchPage', () => (
     jest.fn(() => null)
 ));
 
-jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
+jest.mock('helpers/searchHelper', () => ({
+    ...jest.requireActual('helpers/searchHelper'),
+    ...require('./filters/searchHelper')
+}));
 // jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
 jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
 

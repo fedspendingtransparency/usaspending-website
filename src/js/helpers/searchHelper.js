@@ -4,7 +4,6 @@
   **/
 
 import { is } from 'immutable';
-import { isEqual } from 'lodash';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { apiRequest } from './apiRequest';
 

@@ -12,6 +12,12 @@ import { mockHash, mockFilters } from '../mockSearchHashes';
 // This helper fn has its own unit test.
 export const areFiltersEqual = (param1, param2) => param1 === param2;
 
+export const areFiltersSelected = () => true;
+
+export const areFiltersDifferent = () => true;
+
+export const isSearchHashReady = () => true;
+
 // Fetch Recipients
 export const fetchRecipients = () => (
     {
