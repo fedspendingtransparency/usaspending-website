@@ -48,14 +48,6 @@ export default class SubawardToggle extends React.Component {
                     className="subaward-toggle__switch subaward-switch"
                     width="45"
                     height="24">
-                    <filter id="subaward-toggle__filters">
-                        <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
-                        <feOffset dx="0" dy="0" />
-                        <feMerge>
-                            <feMergeNode />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
                     <g
                         className="subaward-switch__graphic"
                         transform="translate(4 2)">
@@ -71,8 +63,7 @@ export default class SubawardToggle extends React.Component {
                             <circle
                                 className="subaward-switch__switch-fill"
                                 cy="10"
-                                r="10"
-                                filter="url(#subaward-toggle__filters)" />
+                                r="10" />
                         </g>
                     </g>
                 </svg>

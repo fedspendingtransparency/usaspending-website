@@ -22,11 +22,24 @@
     @include align-items(flex-end);
 }
 
-.visualization-tabs__toggle {
-    @include flex(0 0 auto);
-    @include align-self(center);
+.visualization-tabs__toggle-mobile {
+  @include flex(0 0 auto);
+  @include align-self(center);
+  margin-bottom: rem(20);
+  @import './_subawardToggle';
+  @media(min-width: $tablet-screen) {
+    display: none;
+  }
+}
 
-    @import './_subawardToggle';
+.visualization-tabs__toggle {
+  display: none;
+  @include flex(0 0 auto);
+  @include align-self(center);
+  @import './_subawardToggle';
+  @media(min-width: $tablet-screen) {
+    display: flex;
+  }
 }
 
 .visualization-tabs__list {

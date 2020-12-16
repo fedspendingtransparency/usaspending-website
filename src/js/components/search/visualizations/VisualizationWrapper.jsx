@@ -116,6 +116,11 @@ export default class VisualizationWrapper extends React.Component {
                 ref={(div) => {
                     this.visualizationWrapper = div;
                 }}>
+                <div className="visualization-tabs__toggle-mobile">
+                    <SubawardToggle
+                        subaward={this.props.subaward}
+                        setSearchViewSubaward={this.props.setSearchViewSubaward} />
+                </div>
                 <div
                     className="visualization-tabs"
                     role="navigation"

@@ -8,10 +8,12 @@ const defaultProps = {
     type: 'publicationDates',
     title: 'Publication Dates',
     agencyCode: '020',
-    agencyName: 'Assaley & Hill School of Business',
     fiscalYear: 2020,
     fiscalPeriod: 8,
-    className: 'hi'
+    className: 'hi',
+    agencyData: {
+        agencyName: 'Assaley & Hill School of Business'
+    }
 };
 
 describe('About The Data Modal', () => {

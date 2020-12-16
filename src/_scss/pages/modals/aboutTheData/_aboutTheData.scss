@@ -1,14 +1,10 @@
-.usa-dt-modal {
-  @include media($tablet-screen) {
-    max-width: rem(483);
-  }
-  @include media($large-screen) {
-    max-width: rem(483);
-    min-width: rem(483);
-  }
-}
-
 .usa-dt-modal.about-the-data-modal {
+    @include media($tablet-screen) {
+      max-width: rem(483);
+    }
+    @include media($large-screen) {
+      min-width: rem(483);
+    }
     font-size: rem(14);
     .usa-dt-modal__header {
       .about-the-data-modal__header-data {
@@ -38,7 +34,11 @@
       }
     }
     .usa-dt-modal__section {
-      padding: 0 3rem 3rem 3rem;
+      overflow-x: scroll;
+      padding: 0;
+      @include media($tablet-screen) {
+        padding: 0 rem(30) rem(30) rem(30);
+      }
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
         padding: 0;
@@ -60,7 +60,12 @@
             }
           }
         }
-        .usda-table__body {
+        .usda-table__body { // removes loading border
+          tr {
+            td {
+              border: none;
+            }
+          }
           font-size: rem(12);
           .usda-table__row {
             .usda-table__cell {
@@ -119,6 +124,28 @@
                     font-weight: $font-normal;
                   }
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+    // reporting differences modal
+    &.reporting-differences-modal {
+      @include media($tablet-screen) {
+        max-width: rem(900);
+      }
+      @include media($large-screen) {
+        max-width: rem(900);
+        min-width: rem(900);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          .usda-table__body {
+            .usda-table__row {
+              .usda-table__cell:not(:first-child) {
+                text-align: right;
+                padding-right: rem(42);
               }
             }
           }
