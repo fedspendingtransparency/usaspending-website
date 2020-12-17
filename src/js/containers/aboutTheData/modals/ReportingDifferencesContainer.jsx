@@ -7,17 +7,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
+import { reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
+import { formatReportingDifferencesData, fetchReportingDifferences } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
-    agencyCode: PropTypes.string,
+    agencyData: PropTypes.object,
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number
 };
 
 const ReportingDifferencesContainer = ({
-    agencyCode,
+    agencyData,
     fiscalYear,
     fiscalPeriod
 }) => {
@@ -44,12 +44,11 @@ const ReportingDifferencesContainer = ({
             limit,
             sort,
             order,
-            agencyCode,
-            fiscalYear,
-            fiscalPeriod
+            fiscal_year: fiscalYear,
+            fiscal_period: fiscalPeriod
         };
         try {
-            reportingDiffRequest.current = mockAPIReportingDifferences(params);
+            reportingDiffRequest.current = fetchReportingDifferences(agencyData.agencyCode, params);
             const { data } = await reportingDiffRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatReportingDifferencesData({ results: data.results }));

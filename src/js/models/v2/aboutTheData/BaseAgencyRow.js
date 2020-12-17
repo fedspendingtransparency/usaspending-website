@@ -8,9 +8,10 @@ import moment from 'moment';
 
 const BaseAgencyRow = {
     populate(data) {
+        console.log('DAta: ', data);
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
-        this._code = data.code || '';
+        this._code = data.agency_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         // eslint-disable-next-line camelcase
         this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
@@ -19,6 +20,9 @@ const BaseAgencyRow = {
         this.certified = data.recent_publication_date_certified || false;
         this.tasTotals = data.tas_account_discrepancies_totals;
         this._federalTotal = data.federalTotal;
+    },
+    get code() {
+        return this._code;
     },
     get name() {
         return (this._name && this._abbreviation)

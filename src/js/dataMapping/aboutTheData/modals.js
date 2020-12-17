@@ -29,8 +29,8 @@ export const missingAccountBalanceColumns = [
 
 export const reportingDifferencesColumns = [
     { displayName: 'Treasury Account Symbol (TAS)', title: 'tas' },
-    { displayName: 'Account Balance Obligations', title: 'file_a_obligations' },
-    { displayName: 'Account Spending Obligations', title: 'file_b_obligations' },
+    { displayName: 'Account Balance Obligations', title: 'file_a_obligation' },
+    { displayName: 'Account Spending Obligations', title: 'file_b_obligation' },
     { displayName: 'Difference', title: 'difference' }
 ];
 
@@ -156,86 +156,86 @@ const mockDataMissingAccountBalances = [
     }
 ];
 
-const mockDataReportingDifferences = [
-    {
-        tas: "123-X-3409/3490-456",
-        file_a_obligation: 87654345,
-        file_b_obligation: 2323,
-        difference: 12
-    },
-    {
-        tas: "123-X-3409",
-        file_a_obligation: 765,
-        file_b_obligation: 2323,
-        difference: 12
-    },
-    {
-        tas: "234-X-3409/45-456",
-        file_a_obligation: 765,
-        file_b_obligation: 2323,
-        difference: 123
-    },
-    {
-        tas: "123-34-3409/324-456",
-        file_a_obligation: 76543,
-        file_b_obligation: 2323,
-        difference: 543
-    },
-    {
-        tas: "123-3434-3409",
-        file_a_obligation: 87654,
-        file_b_obligation: 2323,
-        difference: 789
-    },
-    {
-        tas: "123-X-35/22-456",
-        file_a_obligation: 98765,
-        file_b_obligation: 2323,
-        difference: 23
-    },
-    {
-        tas: "123-096-3409/22-456",
-        file_a_obligation: 956764,
-        file_b_obligation: 2323,
-        difference: 234
-    },
-    {
-        tas: "123-X-00/3490-456",
-        file_a_obligation: 34565,
-        file_b_obligation: 2323,
-        difference: 56
-    },
-    {
-        tas: "007-X-3409/3490-456",
-        file_a_obligation: 232,
-        file_b_obligation: 2323,
-        difference: 754
-    },
-    {
-        tas: "008-X-3409/3490-456",
-        file_a_obligation: 3434,
-        file_b_obligation: 2323,
-        difference: 345
-    },
-    {
-        tas: "009-X-3409/3490-456",
-        file_a_obligation: 1234567,
-        file_b_obligation: 2323,
-        difference: 765
-    },
-    {
-        tas: "200-X-3409/3490-456",
-        file_a_obligation: 23456,
-        file_b_obligation: 2323,
-        difference: 758
-    },
-    {
-        tas: "444-X-3409/3490-456",
-        file_a_obligation: 2345678,
-        file_b_obligation: 2323,
-        difference: 234
-    }
-];
+// const mockDataReportingDifferences = [
+//     {
+//         tas: "123-X-3409/3490-456",
+//         file_a_obligation: 87654345,
+//         file_b_obligation: 2323,
+//         difference: 12
+//     },
+//     {
+//         tas: "123-X-3409",
+//         file_a_obligation: 765,
+//         file_b_obligation: 2323,
+//         difference: 12
+//     },
+//     {
+//         tas: "234-X-3409/45-456",
+//         file_a_obligation: 765,
+//         file_b_obligation: 2323,
+//         difference: 123
+//     },
+//     {
+//         tas: "123-34-3409/324-456",
+//         file_a_obligation: 76543,
+//         file_b_obligation: 2323,
+//         difference: 543
+//     },
+//     {
+//         tas: "123-3434-3409",
+//         file_a_obligation: 87654,
+//         file_b_obligation: 2323,
+//         difference: 789
+//     },
+//     {
+//         tas: "123-X-35/22-456",
+//         file_a_obligation: 98765,
+//         file_b_obligation: 2323,
+//         difference: 23
+//     },
+//     {
+//         tas: "123-096-3409/22-456",
+//         file_a_obligation: 956764,
+//         file_b_obligation: 2323,
+//         difference: 234
+//     },
+//     {
+//         tas: "123-X-00/3490-456",
+//         file_a_obligation: 34565,
+//         file_b_obligation: 2323,
+//         difference: 56
+//     },
+//     {
+//         tas: "007-X-3409/3490-456",
+//         file_a_obligation: 232,
+//         file_b_obligation: 2323,
+//         difference: 754
+//     },
+//     {
+//         tas: "008-X-3409/3490-456",
+//         file_a_obligation: 3434,
+//         file_b_obligation: 2323,
+//         difference: 345
+//     },
+//     {
+//         tas: "009-X-3409/3490-456",
+//         file_a_obligation: 1234567,
+//         file_b_obligation: 2323,
+//         difference: 765
+//     },
+//     {
+//         tas: "200-X-3409/3490-456",
+//         file_a_obligation: 23456,
+//         file_b_obligation: 2323,
+//         difference: 758
+//     },
+//     {
+//         tas: "444-X-3409/3490-456",
+//         file_a_obligation: 2345678,
+//         file_b_obligation: 2323,
+//         difference: 234
+//     }
+// ];
 
 // TODO - delete this when API is integrated
 export const mockAPIPublicationDates = (params) => {

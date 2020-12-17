@@ -14,7 +14,7 @@ import {
     mockReportingDifferenceData,
     mockBadReportingDifferenceData,
     mockSubmissions
-} from '../mockData';
+} from '../mockData/helpers/aboutTheDataHelper';
 
 const mockPeriods = {
     data: {
@@ -111,12 +111,12 @@ describe('About The Data Helper', () => {
                 expect.arrayContaining([
                     "210-1503",
                     "$234,543,543",
-                    "$456,438,768",
+                    "$0",
                     "-$221,895,225"
                 ]),
                 expect.arrayContaining([
                     "012-0212",
-                    "$43,637,623",
+                    "$0",
                     "$20,486,582",
                     "$23,151,041"
                 ])
