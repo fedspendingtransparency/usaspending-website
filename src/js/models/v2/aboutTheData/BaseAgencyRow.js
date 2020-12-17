@@ -8,7 +8,6 @@ import moment from 'moment';
 
 const BaseAgencyRow = {
     populate(data) {
-        console.log('DAta: ', data);
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
         this._code = data.agency_code || '';

@@ -87,7 +87,6 @@ const AgenciesContainer = ({
                             p === parseInt(selectedPeriod, 10)
                         ));
                         row.populate({ ...d, federalTotal });
-                        console.log('Row', row);
                         return row;
                     });
                     dispatch(setTableData(activeTab, parsedResults));

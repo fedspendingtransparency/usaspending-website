@@ -56,7 +56,6 @@ const ReportingDifferencesContainer = ({
             reportingDiffRequest.current = null;
         }
         catch (e) {
-            console.error(e);
             if (!isCancel(e)) {
                 setLoading(false);
                 setError({ error: true, message: e.message });
