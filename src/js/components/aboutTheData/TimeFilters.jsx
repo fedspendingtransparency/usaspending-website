@@ -23,7 +23,6 @@ import {
     lastPeriods,
     cssOrderClassByPeriodId
 } from 'components/aboutTheData/dataMapping/timeFilters';
-import { useLatestAccountData } from "containers/account/WithLatestFy";
 import PeriodComponent from './PeriodComponent';
 
 const sortPeriods = ({ type: a }, { type: b }) => {
@@ -84,9 +83,10 @@ const TimePeriodFilters = ({
     selectedFy,
     urlFy,
     urlPeriod,
-    onTimeFilterSelection
+    onTimeFilterSelection,
+    submissionPeriods,
+    dataAsOf
 }) => {
-    const [dataAsOf, submissionPeriods] = useLatestAccountData();
     const latestPeriod = getLatestPeriod(submissionPeriods);
 
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
@@ -181,7 +181,9 @@ TimePeriodFilters.propTypes = {
     urlFy: PropTypes.string.isRequired,
     activeTab: PropTypes.string.isRequired,
     urlPeriod: PropTypes.string.isRequired,
-    onTimeFilterSelection: PropTypes.func
+    onTimeFilterSelection: PropTypes.func,
+    submissionPeriods: PropTypes.array,
+    dataAsOf: PropTypes.object
 };
 
 export default TimePeriodFilters;
