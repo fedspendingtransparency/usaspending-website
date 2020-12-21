@@ -18,6 +18,8 @@ const BaseReportingPeriodRow = {
         /* eslint-enable camelcase */
         this._obligationDifference = data.obligation_difference || 0;
         this._federalBudget = federalBudget;
+        this._unlinkedContracts = data.unlinked_contract_award_count || 0;
+        this._unlinkedAssistance = data.unlinked_assistance_award_count || 0;
     },
     get reportingPeriod() {
         // Add a leading a zero to single-digit periods
@@ -44,6 +46,12 @@ const BaseReportingPeriodRow = {
     },
     get obligationDifference() {
         return formatMoneyWithPrecision(this._obligationDifference, 2);
+    },
+    get unlinkedContracts() {
+        return formatNumber(this._unlinkedContracts);
+    },
+    get unlinkedAssistance() {
+        return formatNumber(this._unlinkedContracts);
     }
 };
 

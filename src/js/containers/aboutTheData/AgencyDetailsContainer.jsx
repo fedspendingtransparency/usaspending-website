@@ -2,7 +2,7 @@
  * AgencyDetailsContainer.jsx
  */
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { Table, TooltipComponent, TooltipWrapper, Pagination } from 'data-transparency-ui';
@@ -49,28 +49,32 @@ const columns = [
         displayName: "Number of TASs Missing from Account Balance Data",
         icon: (
             <Tooltip title="Number of TASs Missing in Account Balance Data" />
-        )
+        ),
+        right: true
     },
     {
         title: "obligation_difference",
         displayName: "Reporting Difference in Obligations",
         icon: (
             <Tooltip title="Reporting Difference in Obligations" />
-        )
+        ),
+        right: true
     },
     {
         title: "unlinked_cont_award_count",
         displayName: "Number of Unlinked Contract Awards",
         icon: (
             <Tooltip title="Number of Unlinked Contract Awards" />
-        )
+        ),
+        right: true
     },
     {
         title: "unlinked_asst_award_count",
         displayName: "Number of Unlinked Assistance Awards",
         icon: (
             <Tooltip title="Number of Unlinked Assistance Awards" />
-        )
+        ),
+        right: true
     },
     {
         title: "assurance_statements",
@@ -125,14 +129,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     modalType="missingAccountBalance"
                     agencyData={{ agencyName, gtasObligationTotal: rowData._gtasObligationTotal }} />),
                 (<CellWithModal data={rowData.obligationDifference} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName }} />),
-                (<div className="generic-cell-content">--</div>),
-                (<div className="generic-cell-content">--</div>),
+                (<div className="generic-cell-content">{rowData.unlinkedContracts}</div>),
+                (<div className="generic-cell-content">{rowData.unlinkedAssistance}</div>),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
             ]);
         })
     );
 
-    const fetchTableData = useCallback(() => {
+    const fetchTableData = () => {
         if (tableRequest.current) {
             tableRequest.current.cancel();
         }
@@ -159,7 +163,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     console.error(err);
                 }
             });
-    });
+    };
 
     useEffect(() => {
         // Reset to the first page
