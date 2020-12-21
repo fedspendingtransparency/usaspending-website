@@ -45,7 +45,7 @@ export const parseRemoteFilters = (data) => {
         // versions don't match, don't populate the filters
         // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
         // a URL hash contains data that no longer applies to the current site
-        console.log("version mismatch");
+        console.info("version mismatch");
         return null;
     }
 
@@ -199,7 +199,7 @@ const SearchContainer = ({ history }) => {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
                     setGenerateHashInFlight(false);
                     request.current = null;
                 }
@@ -211,10 +211,11 @@ const SearchContainer = ({ history }) => {
          * Conditions where we generate a new hash:
          * (1) First Search: applied filters have changed & are no longer empty
          * (2) Subsequent Searches: same as above except: (a) urlHash is present and (b) previous search was not empty
+         * NOTE: additional logic is necessary to avoid false positive where we're loading a previous hash
          * */
         const filtersChangedAndAreSelected = (
             SearchHelper.areFiltersSelected(appliedFilters) &&
-            SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)
+            SearchHelper.areFiltersDifferent(appliedFilters, prevAppliedFilters)
         );
 
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && SearchHelper.areFiltersSelected(prevAppliedFilters))) {

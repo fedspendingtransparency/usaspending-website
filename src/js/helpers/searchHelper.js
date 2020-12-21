@@ -142,6 +142,7 @@ export const fetchLastUpdate = () => apiRequest({
  * @returns {boolean}
  */
 export const areFiltersEqual = (filters, filterReference = initialState) => {
+    if (!filterReference && filters) return false;
     const referenceObject = Object.assign({}, filterReference);
     const comparisonObject = Object.assign({}, filters);
     if (referenceObject.timePeriodType === 'fy') {

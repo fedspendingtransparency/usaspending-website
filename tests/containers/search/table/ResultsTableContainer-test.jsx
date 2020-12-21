@@ -21,7 +21,10 @@ const defaultProps = {
     }
 };
 
-jest.mock('helpers/searchHelper', () => require('../filters/searchHelper'));
+jest.mock('helpers/searchHelper', () => ({
+    ...jest.requireActual('helpers/searchHelper'),
+    ...require('../filters/searchHelper')
+}));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/table/ResultsTableSection', () =>
