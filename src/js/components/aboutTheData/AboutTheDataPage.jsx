@@ -114,7 +114,7 @@ const AboutTheDataPage = ({
                             },
                             {
                                 internal: 'dates',
-                                label: "Updates by  Fiscal Year",
+                                label: "Updates by Fiscal Year",
                                 labelContent: <TableTabLabel label="Updates by Fiscal Year" />
                             }
                         ]} />
