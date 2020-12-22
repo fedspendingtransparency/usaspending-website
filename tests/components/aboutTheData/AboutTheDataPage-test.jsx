@@ -119,4 +119,3 @@ test('on tab change updates the table view', async () => {
     const table = screen.getByText('FY 2020 Q4');
     expect(table).toBeDefined();
 });
-
