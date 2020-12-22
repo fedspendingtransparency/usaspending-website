@@ -119,7 +119,6 @@ export const performSubawardSearch = (data) => apiRequest({
 });
 
 export const generateUrlHash = (data) => apiRequest({
-    isMocked: false,
     url: 'v2/references/filter/',
     method: 'post',
     data
