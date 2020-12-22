@@ -5,8 +5,8 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { useParams } from "react-router-dom";
 
 import { getLatestPeriod } from "helpers/accountHelper";
 import Header from "containers/shared/HeaderContainer";
@@ -120,8 +120,8 @@ const AboutTheDataPage = ({
                         active={activeTab}
                         switchTab={handleSwitchTab}
                         types={[
-                            { internal: 'details', label: <TableTabLabel label="Statistics by Reporting Period" /> },
-                            { internal: 'dates', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
+                            { internal: 'details', label: "Statistics by Reporting Period", labelComponent: <TableTabLabel label="Statistics by Reporting Period" /> },
+                            { internal: 'dates', label: "Updates by  Fiscal Year", labelComponent: <TableTabLabel label="Updates by  Fiscal Year" /> }
                         ]} />
                     <TimeFilters
                         submissionPeriods={submissionPeriods}
@@ -159,7 +159,10 @@ const AboutTheDataPage = ({
 };
 
 AboutTheDataPage.propTypes = {
-    history: PropTypes.object
+    history: PropTypes.object,
+    match: PropTypes.shape({
+        params: PropTypes.object
+    })
 };
 
 export default AboutTheDataPage;

@@ -178,9 +178,9 @@ TimePeriodFilters.propTypes = {
         className: PropTypes.string
     }),
     selectedFy: PropTypes.string,
-    urlFy: PropTypes.string.isRequired,
+    urlPeriod: PropTypes.string,
+    urlFy: PropTypes.string,
     activeTab: PropTypes.string.isRequired,
-    urlPeriod: PropTypes.string.isRequired,
     onTimeFilterSelection: PropTypes.func,
     submissionPeriods: PropTypes.array,
     dataAsOf: PropTypes.object
