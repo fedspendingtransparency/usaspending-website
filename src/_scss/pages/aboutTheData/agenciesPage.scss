@@ -202,7 +202,7 @@
       }
       .table-type-toggle:focus {
         outline: none;
-      } 
+      }
       .table-tab-label {
         @include display(flex);
       }
@@ -265,8 +265,14 @@
               th {
                 position: sticky;
                 position: -webkit-sticky;
+                z-index: 9;
                 top: 0;
                 border: rem(1) solid $color-gray-lighter;
+                // Set a higher z-index on the <th> the user is hovering over so
+                // tooltips display above the stacking context of the other headers
+                &:hover {
+                  z-index: 10;
+                }
               }
             }
           }
@@ -279,7 +285,7 @@
                   position: sticky;
                   position: -webkit-sticky;
                   left: 0px;
-                  z-index: 10;
+                  z-index: 11;
                   box-shadow: 2px 1px 4px rgba(0,0,0,.20);
                   border-right: 1px solid $color-gray-lightest;
                 }
@@ -289,6 +295,8 @@
               .usda-table__row .usda-table__cell {
                 &:first-of-type {
                   position: sticky;
+                  position: -webkit-sticky;
+                  z-index: 10;
                   left: 0px;
                   box-shadow: 2px 1px 4px rgba(0,0,0,.20);
                   border-right: rem(1) solid $color-gray-lightest;

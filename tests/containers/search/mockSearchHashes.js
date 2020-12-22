@@ -36,14 +36,17 @@ export const mockFilters = {
             pscCodes: { require: [], exclude: [], counts: [] },
             defCodes: { require: [], exclude: [], counts: [] }
         }
-    }
+    },
+    _empty: false,
+    _complete: true
 };
 
 export const mockRedux = {
     filters: initialState,
     appliedFilters: initialApplied,
     history: {
-        location: ''
+        location: '',
+        replace: () => {}
     },
     match: {
         params: {
