@@ -16,30 +16,27 @@ import Note from "components/sharedComponents/Note";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
+import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from "./TimeFilters";
 
 require("pages/aboutTheData/agenciesPage.scss");
 
-const Tooltip = ({ title }) => (
-    <TooltipComponent title={title}>
-        <p>Place holder for tooltip component.</p>
-    </TooltipComponent>
-);
-
-Tooltip.propTypes = {
-    title: PropTypes.string.isRequired
+const TableTabLabel = ({ label }) => {
+    const tooltipComponent = (
+        <TooltipComponent title={label}>
+            {tabTooltips[label]}
+        </TooltipComponent>
+    );
+    return (
+        <div className="table-tab-label">
+            <span>{label}</span>
+            <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
+        </div>
+    );
 };
 
-const TableTabLabel = ({ label, tooltipComponent = <Tooltip title={label} /> }) => (
-    <div className="table-tab-label">
-        <span>{label}</span>
-        <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
-    </div>
-);
-
 TableTabLabel.propTypes = {
-    label: PropTypes.string.isRequired,
-    tooltipComponent: PropTypes.element
+    label: PropTypes.string.isRequired
 };
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
@@ -110,8 +107,16 @@ const AboutTheDataPage = ({
                         active={activeTab}
                         switchTab={handleSwitchTab}
                         types={[
-                            { internal: 'submissions', label: <TableTabLabel label="Statistics by Reporting Period" /> },
-                            { internal: 'publications', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
+                            {
+                                internal: 'submissions',
+                                label: "Statistics by Reporting Period",
+                                labelContent: <TableTabLabel label="Statistics by Reporting Period" />
+                            },
+                            {
+                                internal: 'publications',
+                                label: "Updates by Fiscal Year",
+                                labelContent: <TableTabLabel label="Updates by Fiscal Year" />
+                            }
                         ]} />
                     <TimeFilters
                         activeTab={activeTab}
