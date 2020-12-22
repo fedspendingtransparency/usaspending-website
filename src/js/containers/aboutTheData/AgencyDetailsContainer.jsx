@@ -8,7 +8,7 @@ import { isCancel } from 'axios';
 import { Table, TooltipComponent, TooltipWrapper, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 
-import { fetchAgency } from 'helpers/aboutTheDataHelper';
+import { fetchAgency, findTotalBudget } from 'helpers/aboutTheDataHelper';
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
@@ -91,7 +91,9 @@ const propTypes = {
     agencyCode: PropTypes.string
 };
 
-const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
+const AgencyDetailsContainer = ({
+    modalClick, agencyName, agencyCode, totalBudgetaryResources
+}) => {
     const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'desc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [rows, setRows] = useState([]);
@@ -115,10 +117,12 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const parseRows = (results, federalBudget) => (
+    const parseRows = (results) => (
         results.map((row) => {
             const rowData = Object.create(BaseReportingPeriodRow);
-            rowData.populate(row, federalBudget);
+            // Find the total budget for this row's FY + period
+            const totalBudget = findTotalBudget(totalBudgetaryResources, row.fiscal_year, row.fiscal_period);
+            rowData.populate(row, totalBudget);
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
                 (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
@@ -150,8 +154,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         tableRequest.current = fetchAgency(agencyCode, params);
         tableRequest.current.promise
             .then((res) => {
-                // TODO - remove mock federal budget
-                setRows(parseRows(res.data.results, 10000000000000));
+                setRows(parseRows(res.data.results));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -177,7 +180,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     useEffect(() => {
         fetchTableData();
-    }, [currentPage]);
+    }, [currentPage, totalBudgetaryResources]);
 
     return (
         <>

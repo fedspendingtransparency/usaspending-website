@@ -8,7 +8,7 @@ import { dateFormattedMonthDayYear, showQuarterText } from 'helpers/aboutTheData
 
 const BaseReportingPeriodRow = {
     populate(data, federalBudget) {
-        this._fiscalYear = data.fiscal_year || 0;
+        this._fiscalYear = parseInt(data.fiscal_year, 10) || 0;
         this._fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._mostRecentPublicationDate = data.recent_publication_date || null;

@@ -72,8 +72,7 @@ export const usePagination = (initialState = defaultState) => {
 };
 
 export const getTotalBudgetaryResources = (fy, period) => {
-    if (isMocked) {
-        // using mockAPI
+    if (fy && period) {
         return apiRequest({
             isMocked,
             url: `v2/references/total_budgetary_resources?${stringify({
@@ -82,16 +81,10 @@ export const getTotalBudgetaryResources = (fy, period) => {
             })}`
         });
     }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve(mockAPI.totals);
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
+    return apiRequest({
+        isMocked,
+        url: 'v2/references/total_budgetary_resources'
+    });
 };
 
 export const getAgenciesReportingData = (fy, period, order, sort, page, limit) => {
@@ -216,3 +209,8 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
 ]));
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
+
+export const findTotalBudget = (budgetaryResources, fy, period) => {
+    const matchingBudget = budgetaryResources.find((item) => item.fiscal_year === fy && item.fiscal_period === period);
+    return matchingBudget && matchingBudget.total_budgetary_resources;
+};
