@@ -1,10 +1,14 @@
 version: 2.1
 orbs:
   node: circleci/node@4.1.0
-jobs:
-  test-app:
+executors:
+  usaspending-frontend:
     docker:
       - image: 'cimg/node:12.18'
+jobs:
+  test-app:
+    executor:
+      name: usaspending-frontend
     parallelism: 3
     steps:
       - checkout
@@ -21,7 +25,27 @@ jobs:
           path: ~/junit
       - store_artifacts:
           path: ~/junit
+  lint-app:
+    executor:
+      name: usaspending-frontend
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run lint
+  lighthouse-performance-audit:
+      executor:
+        name: usaspending-frontend
+      steps:
+        - checkout
+        - node/install-packages
+        - run: npm run light-house
 workflows:
   test:
     jobs:
       - test-app
+  lint:
+    jobs:
+      - lint-app
+  lighthouse:
+    jobs:
+      - lighthouse-performance-audit

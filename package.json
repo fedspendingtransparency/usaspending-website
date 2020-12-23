@@ -31,6 +31,7 @@
         "@babel/plugin-transform-runtime": "^7.4.3",
         "@babel/preset-env": "^7.4.2",
         "@babel/preset-react": "^7.0.0",
+        "@lhci/cli": "^0.6.1",
         "@testing-library/dom": "^7.24.3",
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.0.4",
