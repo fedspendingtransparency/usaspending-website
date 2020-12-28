@@ -1,436 +1,275 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Table, TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { Table, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Header from "containers/shared/HeaderContainer";
-import Footer from "containers/Footer";
-import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
-import Note from "components/sharedComponents/Note";
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
-import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
+import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
+import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
+import DatesRow from 'models/v2/aboutTheData/DatesRow';
 
-require("pages/aboutTheData/agenciesPage.scss");
+import { agenciesTableColumns } from './AgencyTableMapping';
 
-const Tooltip = ({ title }) => (
-    <TooltipComponent title={title}>
-        <p>Place holder for tooltip component.</p>
-    </TooltipComponent>
-);
-
-Tooltip.propTypes = {
-    title: PropTypes.string.isRequired
+const propTypes = {
+    openModal: PropTypes.func.isRequired,
+    activeTab: PropTypes.oneOf(['dates', 'details']).isRequired,
+    selectedFy: PropTypes.string,
+    selectedPeriod: PropTypes.string
 };
 
-const columns = [
-    {
-        title: "name",
-        displayName: "Agency Name"
-    },
-    {
-        title: "total",
-        displayName: "Total Budgetary Resources"
-    },
-    {
-        title: "publication_date",
-        displayName: "Most Recent Publication Date",
-        icon: (
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<Tooltip title="Most Recent Publication Date" />} />
-        )
-    },
-    {
-        title: "tas_not_in_file_a",
-        displayName: "Count of Agency TAS in GTAS Not in File A"
-    },
-    {
-        title: "publication_date",
-        displayName: "% of Total Amount"
-    },
-    {
-        title: "file_a_b_diff",
-        displayName: "Difference in File A and File B Obligations"
-    },
-    {
-        title: "unlinked_asst_award_count",
-        displayName: "Count of Unlinked Assistance Awards"
-    }
-];
+const parsePeriods = (periods) => periods
+    .map(({ publicationDate, showNotCertified, isQuarterly }) => (
+        <div className="generic-cell-content">
+            {(!isQuarterly && publicationDate) && publicationDate}
+            {isQuarterly && "Submitted quarterly"}
+            {!publicationDate && "Not submitted"}
+            {showNotCertified && publicationDate && <span className="not-certified">NOT CERTIFIED</span>}
+        </div>
+    ));
 
-const mockAPIResponse = {
-    page_metadata: {
-        page: 1,
-        hasNext: false,
-        hasPrevious: false,
-        total: 2
-    },
-    results: [
-        {
-            name: "Department of Health and Human Services",
-            abbreviation: "DHHS",
-            code: "020",
-            fiscal_year: 2020,
-            fiscal_period: 12,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: "2020-01-10T11:59:21Z",
-            recent_publication_date_certified: false,
-            discrepancy_count: 20,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            fiscal_year: 2020,
-            fiscal_period: 9,
-            current_total_budget_authority_amount: 8361447130497.72,
-            recent_publication_date: null,
-            recent_publication_date_certified: true,
-            discrepancy_count: 10,
-            obligation_difference: 436376232652.87
-        }
-    ]
-};
-
-const mockDatesApiResponse = {
-    page_metadata: {
-        page: 1,
-        hasNext: false,
-        hasPrevious: false,
-        total: 2
-    },
-    results: [
-        {
-            name: "Department of Health and Human Services",
-            abbreviation: "DHHS",
-            code: "020",
-            current_total_budget_authority_amount: 8361447130497.72,
-            periods: [{
-                period: 2,
-                quarter: 1,
-                date: "2020-01-20T11:59:21Z",
-                certified: true,
-                quarterly: false,
-                submitted: true
-            }]
-        },
-        {
-            name: "Department of Treasury",
-            abbreviation: "DOT",
-            code: "021",
-            current_total_budget_authority_amount: 8361447130497.72,
-            periods: [{
-                period: 2,
-                quarter: 1,
-                date: "2020-01-20T11:59:21Z",
-                certified: false,
-                quarterly: false,
-                submitted: true
-            }]
-        }
-    ]
-};
-
-const TableTabLabel = ({ label, tooltipComponent = <Tooltip title={label} /> }) => (
-    <div className="table-tab-label">
-        <span>{label}</span>
-        <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
-    </div>
-);
-
-TableTabLabel.propTypes = {
-    label: PropTypes.string.isRequired,
-    tooltipComponent: PropTypes.element
-};
-
-const dateRows = mockDatesApiResponse.results
-    .map(({
-        name,
-        abbreviation,
-        code,
-        current_total_budget_authority_amount: total,
-        periods
-    }) => ([
-        (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
-        (<div className="generic-cell-content">{total}</div>),
-        ...periods.map(({ date }) => (<div className="generic-cell-content">{date}</div>))
-    ]));
-
-const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
-
-const AgenciesContainer = () => {
-    const [sortStatus, updateSort] = useState({ field: "", direction: "asc" });
-    const [activeTab, setActiveTab] = useState('details'); // details or dates
-    const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [showModal, setShowModal] = useState('');
-    const [modalAgency, setModalAgency] = useState('');
+const AgenciesContainer = ({
+    activeTab,
+    openModal,
+    selectedFy,
+    selectedPeriod
+}) => {
+    const {
+        details, dates, datesSort, detailsSort, totals, submissionPeriods
+    } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
+    const dispatch = useDispatch();
+    const datesReq = useRef(null);
+    const detailsReq = useRef(null);
+    const totalsReq = useRef(null);
+    const [
+        [{ page: detailsPage, limit: detailsLimit }, updateDetailsPagination],
+        [{ page: datesPage, limit: datesLimit }, updateDatesPagination]
+    ] = [usePagination(), usePagination()];
+    const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
+    const [error, setError] = useState(null);
     const tableRef = useRef(null);
+    const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
+    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
-        setIsSticky({ vertical, horizontal });
+        const shouldUpdate = (
+            (vertical && !isVerticalSticky) ||
+            (!vertical && isVerticalSticky) ||
+            (horizontal && !isHorizontalSticky) ||
+            (!horizontal && isHorizontalSticky)
+        );
+        if (shouldUpdate) setIsSticky({ vertical, horizontal });
     }, 100);
 
     const handleUpdateSort = (field, direction) => {
-        updateSort({ field, direction });
+        dispatch(setTableSort(activeTab, field, direction));
     };
 
-    const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
-    const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
-    // Modal Logic
-    const modalClick = (modalType, agencyName) => {
-        setShowModal(modalType);
-        setModalAgency(agencyName);
-    };
-    const closeModal = () => setShowModal('');
+    const fetchTableData = useCallback(() => {
+        if (activeTab === 'details') {
+            const isPeriodValid = isPeriodSelectable(
+                submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
+                selectedPeriod
+            );
+            if (!isPeriodValid) return Promise.resolve();
+            setLoading([false, true, false]);
+            detailsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
+            return detailsReq.current.promise
+                .then(({ data: { results } }) => {
+                    const parsedResults = results.map((d) => {
+                        const row = Object.create(DetailsRow);
+                        const federalTotal = totals.find(({ fiscal_year: y, fiscal_period: p }) => (
+                            y === parseInt(selectedFy, 10) &&
+                            p === parseInt(selectedPeriod, 10)
+                        ));
+                        row.populate({ ...d, federalTotal });
+                        return row;
+                    });
+                    dispatch(setTableData(activeTab, parsedResults));
+                    setLoading([false, false, false]);
+                    setError(false);
+                })
+                .catch((e) => {
+                    console.error('Error: ', e);
+                    setLoading([false, false, false]);
+                    setError(true);
+                });
+        }
+        setLoading([false, true, false]);
+        datesReq.current = getSubmissionPublicationDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
+        return datesReq.current.promise
+            .then(({ data: { results } }) => {
+                const parsedResults = results.map((d) => {
+                    const row = Object.create(DatesRow);
+                    row.populate(parseInt(selectedFy, 10), d, totals);
+                    return row;
+                });
+                dispatch(setTableData(activeTab, parsedResults));
+                setLoading([false, false, false]);
+                setError(false);
+                datesReq.current = null;
+            })
+            .catch((e) => {
+                console.error('Error: ', e);
+                setLoading([false, false, false]);
+                setError(true);
+                datesReq.current = null;
+            });
+    });
 
-    const handleSwitchTab = (tab) => {
-        setActiveTab(tab);
-    };
+    const fetchTotals = useCallback(() => {
+        if (selectedFy && selectedPeriod && !totals.length) {
+            if (totalsReq.current) totalsReq.current.cancel();
+            if (detailsReq.current) detailsReq.current.cancel();
+            setLoading([true, areDetailsLoading, areDatesLoading]);
+            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
+            return totalsReq.current.promise
+                .then(({ data: { results } }) => {
+                    dispatch(setTotals(results));
+                    totalsReq.current = null;
+                    return results;
+                })
+                .catch((e) => {
+                    console.error('Error: ', e);
+                    setLoading([false, false, false]);
+                    setError(true);
+                    totalsReq.current = null;
+                    return [];
+                });
+        }
+        return Promise.resolve([]);
+    });
 
-    // TODO - create a data model for agency row
-    const rows = mockAPIResponse.results.map(
-        ({
+    useEffect(() => {
+        if (datesReq.current) {
+            console.info('canceling request on unmount');
+            datesReq.current.cancel();
+        }
+        if (detailsReq.current) {
+            console.info('canceling request on unmount');
+            detailsReq.current.cancel();
+        }
+        if (totalsReq.current) {
+            console.info('canceling request on unmount');
+            totalsReq.current.cancel();
+        }
+    }, []);
+
+    useEffect(() => {
+        // FY or Period changes
+        if (selectedFy && selectedPeriod && !totals.length) {
+            fetchTotals();
+        }
+        else if (selectedFy && selectedPeriod) {
+            fetchTableData();
+        }
+    }, [
+        totals,
+        activeTab,
+        selectedFy,
+        selectedPeriod,
+        detailsSort,
+        detailsPage,
+        detailsLimit,
+        datesSort,
+        datesPage,
+        datesLimit
+    ]);
+
+    const renderDates = (results = []) => results
+        .map(({
             name,
-            abbreviation,
             code,
-            current_total_budget_authority_amount: total,
-            recent_publication_date: publicationDate,
-            discrepancy_count: GtasNotInFileA,
-            obligation_difference: differenceInFileAAndB
+            percentageOfTotalFederalBudget,
+            periods
+        }) => ([
+            (<DrilldownCell data={name} id={code} />),
+            (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
+            ...parsePeriods(periods)
+        ]));
+
+    const renderDetails = (results = []) => results
+        .map(({
+            name: agencyName,
+            code,
+            publicationDate,
+            discrepancyCount: GtasNotInFileA,
+            obligationDifference,
+            tasTotals,
+            percentageOfTotalFederalBudget
         }) => [
-            // TODO: handle agencies with no code
-            (<DrilldownCell data={`${name} (${abbreviation})`} id={code} />),
-            (<div className="generic-cell-content">{ total }</div>),
-            (<CellWithModal data={publicationDate} openModal={modalClick} modalType="publicationDates" agencyName={name} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={modalClick} modalType="missingAccountBalance" agencyName={name} />),
-            (<div className="generic-cell-content">% placeholder</div>),
-            (<div className="generic-cell-content">{differenceInFileAAndB}</div>)
-        ]
-    );
+            (<DrilldownCell data={agencyName} id={code} />),
+            (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
+            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
+            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
+        ]);
+
+    const handlePageChange = (page) => {
+        if (activeTab === 'details') {
+            updateDetailsPagination({ page, limit: detailsLimit });
+        }
+        else {
+            updateDatesPagination({ page, limit: detailsLimit });
+        }
+    };
+
+    const handleLimitChange = (limit) => {
+        if (activeTab === 'details') {
+            updateDetailsPagination({ page: detailsPage, limit });
+        }
+        else {
+            updateDatesPagination({ page: datesPage, limit });
+        }
+    };
 
     return (
-        <div className="usa-da__about-the-data__agencies-page">
-            <Header />
-            <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1}>Agency Submission Statistics</h1>
-                </div>
-            </StickyHeader>
-            <main id="main-content" className="main-content">
-                <div className="heading-container">
-                    <h2 className="header">About These Statistics</h2>
-                    <p className="sub-header">Agencies submit data monthly and/or quarterly to USAspending.gov. The table below shows information about the status and content of agency financial data submissions, and it will be updated as agencies publish/certify new submissions or republish/recertify existing submissions.</p>
-                </div>
-                <div className="table-controls">
-                    <Tabs
-                        active={activeTab}
-                        switchTab={handleSwitchTab}
-                        types={[
-                            { internal: 'details', label: <TableTabLabel label="Statistics by Reporting Period" /> },
-                            { internal: 'dates', label: <TableTabLabel label="Updates by  Fiscal Year" /> }
-                        ]} />
-                    <div className="table-controls__time-and-search">
-                        <p>Place holder for Search components etc...</p>
-                    </div>
-                </div>
-                <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                    {activeTab === 'details' && (
-                        <Table
-                            rows={rows}
-                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                            columns={columns}
-                            updateSort={handleUpdateSort}
-                            currentSort={sortStatus} />
-                    )}
-                    {activeTab === 'dates' && (
-                        <Table
-                            rows={dateRows}
-                            classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                            columns={[
-                                { title: 'name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
-                                { title: 'total', displayName: 'Total Budgetary  Resources' },
-                                {
-                                    title: 'Q4',
-                                    displayName: 'FY 2020 Q4',
-                                    columnSpan: "2",
-                                    subColumnNames: [
-                                        { displayName: 'P10', title: 'P10' },
-                                        { displayName: 'P11', title: 'P11' }
-                                    ]
-                                },
-                                {
-                                    title: 'Q3',
-                                    displayName: 'FY 2020 Q3',
-                                    columnSpan: "3",
-                                    subColumnNames: [
-                                        { displayName: 'P7', title: 'P7' },
-                                        { displayName: 'P8', title: 'P8' },
-                                        { displayName: 'P9', title: 'P9' }
-                                    ]
-                                },
-                                {
-                                    title: 'Q2',
-                                    displayName: 'FY 2020 Q2',
-                                    columnSpan: "4",
-                                    subColumnNames: [
-                                        { displayName: 'P6', title: 'P6' },
-                                        { displayName: 'P5', title: 'P5' },
-                                        { displayName: 'P4', title: 'P4' },
-                                        { displayName: 'P3', title: 'P3' }
-                                    ]
-                                },
-                                {
-                                    title: 'Q1',
-                                    displayName: 'FY 2020 Q1',
-                                    columnSpan: "2",
-                                    subColumnNames: [
-                                        { displayName: 'P2', title: 'P2' },
-                                        { displayName: 'P1', title: 'P1' }
-                                    ]
-                                }
-                            ]}
-                            updateSort={handleUpdateSort}
-                            currentSort={sortStatus} />
-                    )}
-                </div>
-                <Note message={message} />
-                <AboutTheDataModal
-                    mounted={!!showModal.length}
-                    type={showModal}
-                    className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
-                    agencyName={modalAgency}
-                    fiscalYear={2020}
-                    fiscalPeriod={8}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
-            </main>
-            <Footer />
-        </div>
+        <>
+            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+                {activeTab === 'details' && (
+                    <Table
+                        rows={renderDetails(details)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        columns={agenciesTableColumns[activeTab]}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: detailsSort[0],
+                            direction: detailsSort[1]
+                        }}
+                        error={error}
+                        loading={areDetailsLoading} />
+                )}
+                {activeTab === 'dates' && (
+                    <Table
+                        rows={renderDates(dates)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        columns={agenciesTableColumns[activeTab]}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: datesSort[0],
+                            direction: datesSort[1]
+                        }}
+                        error={error}
+                        loading={areDatesLoading} />
+                )}
+            </div>
+            {(details.length || dates.length) && (
+                <Pagination
+                    resultsText
+                    limitSelector
+                    changeLimit={handleLimitChange}
+                    changePage={handlePageChange}
+                    currentPage={activeTab === 'details' ? detailsPage : datesPage}
+                    pageSize={activeTab === 'details' ? detailsLimit : datesLimit}
+                    totalItems={activeTab === 'details' ? details.length : dates.length} />
+            )}
+        </>
     );
 };
 
+AgenciesContainer.propTypes = propTypes;
 export default AgenciesContainer;

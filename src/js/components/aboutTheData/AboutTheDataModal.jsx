@@ -18,11 +18,10 @@ const propTypes = {
     type: PropTypes.string,
     title: PropTypes.string,
     agencyCode: PropTypes.string,
-    agencyName: PropTypes.string,
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number,
     className: PropTypes.string,
-    totalObligationsNotInGTAS: PropTypes.number
+    agencyData: PropTypes.object
 };
 
 const AboutTheDataModal = ({
@@ -31,15 +30,15 @@ const AboutTheDataModal = ({
     type,
     title,
     agencyCode,
-    agencyName,
     fiscalYear,
     fiscalPeriod,
     className,
-    totalObligationsNotInGTAS
+    agencyData
 }) => {
     const fiscalYearQuarterPeriodText = showQuarterText(fiscalPeriod) ?
         `FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}` :
         `FY ${fiscalYear} P${fiscalPeriod}`;
+    if (!agencyData) return null;
     return (
         <Modal
             mounted={mounted}
@@ -51,7 +50,7 @@ const AboutTheDataModal = ({
             <div className={`usa-dt-modal about-the-data-modal ${className}`}>
                 <div className="usa-dt-modal__header">
                     <div className="about-the-data-modal__header-data">
-                        <div className="about-the-data-modal__agency-name">{agencyName}</div>
+                        <div className="about-the-data-modal__agency-name">{agencyData.agencyName}</div>
                         <h1 title={title} className="usa-dt-modal__title">
                             {title}
                         </h1>
@@ -72,7 +71,7 @@ const AboutTheDataModal = ({
                         agencyCode,
                         fiscalYear,
                         fiscalPeriod,
-                        totalObligationsNotInGTAS
+                        agencyData
                     })[type]}
                 </div>
             </div>

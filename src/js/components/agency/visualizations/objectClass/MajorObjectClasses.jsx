@@ -216,7 +216,7 @@ export default class MajorObjectClasses extends React.Component {
             tooltip = (<ObjectClassTooltip
                 name={objectClass.major_object_class_name}
                 value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
-                percentage={MoneyFormatter.calculateTreemapPercentage(
+                percentage={MoneyFormatter.calculatePercentage(
                     objectClass.obligated_amount, this.props.totalObligation)
                 }
                 description={objectClassDefinition.description}

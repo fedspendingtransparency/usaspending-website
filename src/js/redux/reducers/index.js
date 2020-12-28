@@ -26,6 +26,7 @@ import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 import agencyV2Reducer from './agencyV2/agencyV2Reducer';
 import covid19Reducer from './covid19/covid19Reducer';
+import aboutTheDataReducer from './aboutTheData';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -52,7 +53,8 @@ const appReducer = combineReducers({
     psc: pscReducer,
     searchMapLegendToggle: mapLegendToggleReducer,
     agencyV2: agencyV2Reducer,
-    covid19: covid19Reducer
+    covid19: covid19Reducer,
+    aboutTheData: aboutTheDataReducer
 });
 
 export default appReducer;
