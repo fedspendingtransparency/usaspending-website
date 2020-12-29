@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterEmptiness, setAppliedFilterCompletion, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import { setAppliedFilterEmptiness, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
@@ -45,7 +45,7 @@ export const parseRemoteFilters = (data) => {
         // versions don't match, don't populate the filters
         // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
         // a URL hash contains data that no longer applies to the current site
-        console.log("version mismatch");
+        console.info("version mismatch");
         return null;
     }
 
@@ -88,6 +88,7 @@ const SearchContainer = ({ history }) => {
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
     const request = useRef(null);
     const areAppliedFiltersEmptyRef = useRef();
+    const prevAppliedFiltersRef = useRef();
 
     const setDownloadAvailability = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
@@ -116,9 +117,11 @@ const SearchContainer = ({ history }) => {
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
-    }, [areAppliedFiltersEmpty]);
+        prevAppliedFiltersRef.current = appliedFilters;
+    }, [areAppliedFiltersEmpty, appliedFilters]);
 
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
+    const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
     useEffect(() => {
         // receiving filters from previous search via hash.
@@ -150,8 +153,6 @@ const SearchContainer = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        dispatch(setAppliedFilterEmptiness(true));
-                        dispatch(setAppliedFilterCompletion(true));
                         history.push('/search');
                         request.current = null;
                     }
@@ -182,6 +183,8 @@ const SearchContainer = ({ history }) => {
             return;
         }
         setGenerateHashInFlight(true);
+        // this triggers the loading indicator
+        dispatch(setAppliedFilterEmptiness(false));
 
         request.current = SearchHelper.generateUrlHash({
             filters: appliedFilters,
@@ -191,14 +194,12 @@ const SearchContainer = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newHash = res.data.hash;
-                dispatch(setAppliedFilterEmptiness(false));
-                dispatch(setAppliedFilterCompletion(true));
                 history.replace(`/search/${newHash}`);
                 setGenerateHashInFlight(false);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
                     setGenerateHashInFlight(false);
                     request.current = null;
                 }
@@ -206,12 +207,22 @@ const SearchContainer = ({ history }) => {
     }, [appliedFilters, generateHashInFlight]);
 
     useEffect(() => {
-        // if applied filters are not empty & they've changed -- generate a hash to represent filter selections
-        if (!SearchHelper.areFiltersEqual(appliedFilters, initialState) && !areFiltersApplied) {
+        /**
+         * Conditions where we generate a new hash:
+         * (1) First Search: applied filters have changed & are no longer empty
+         * (2) Subsequent Searches: same as above except: (a) urlHash is present and (b) previous search was not empty
+         * NOTE: additional logic is necessary to avoid false positive where we're loading a previous hash
+         * */
+        const filtersChangedAndAreSelected = (
+            SearchHelper.areFiltersSelected(appliedFilters) &&
+            SearchHelper.areFiltersDifferent(appliedFilters, prevAppliedFilters)
+        );
+
+        if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && SearchHelper.areFiltersSelected(prevAppliedFilters))) {
             generateHash();
             setDownloadAvailability();
         }
-    }, [areFiltersApplied]);
+    }, [appliedFilters, urlHash]);
 
     return (
         <SearchPage

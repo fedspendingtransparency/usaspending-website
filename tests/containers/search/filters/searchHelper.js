@@ -7,11 +7,6 @@ import { mockPSC } from './psc/mockPSC';
 
 import { mockHash, mockFilters } from '../mockSearchHashes';
 
-// import { areFiltersEqual as realFn } from '../../../../src/js/helpers/searchHelper';
-
-// This helper fn has its own unit test.
-export const areFiltersEqual = (param1, param2) => param1 === param2;
-
 // Fetch Recipients
 export const fetchRecipients = () => (
     {
@@ -122,7 +117,7 @@ export const performPagedSpendingByAwardSearch = () => (
     }
 );
 
-export const generateUrlHash = () => (
+export const generateUrlHash = jest.fn(() => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
@@ -133,7 +128,7 @@ export const generateUrlHash = () => (
         }),
         cancel: jest.fn()
     }
-);
+));
 
 export const restoreUrlHash = jest.fn(() => (
     {
