@@ -1,9 +1,13 @@
 import React from 'react';
+import moment from 'moment';
 
-import { render, screen, fireEvent } from '@test-utils';
+import { render, screen, fireEvent, waitFor } from '@test-utils';
 import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
 import * as accountHelpers from 'helpers/accountHelper';
+import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
+import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
+import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 // latest fy of 2020; latest period is 12
 const mockPeriods = {
@@ -79,18 +83,27 @@ const mockGlossary = {
     }
 };
 
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn(() => ({ fy: '2020', period: '12' }))
-}));
-
 const mockPush = jest.fn();
+const mockReplace = jest.fn();
 
-const history = {
-    push: mockPush
+const defaultProps = {
+    history: {
+        push: mockPush,
+        replace: mockReplace
+    },
+    match: {
+        params: {
+            fy: '2020',
+            period: '12'
+        }
+    }
 };
 
 beforeEach(() => {
+    jest.spyOn(helpers, 'useLatestAccountData').mockReturnValue([
+        moment(),
+        mockPeriods.data.available_periods
+    ]);
     jest.spyOn(accountHelpers, 'fetchAllSubmissionDates').mockReturnValue({
         promise: Promise.resolve(mockPeriods),
         cancel: () => {
@@ -103,20 +116,45 @@ beforeEach(() => {
             console.log('cancel called');
         }
     });
-    render(<AboutTheDataPage history={history} />);
+    jest.spyOn(aboutTheDataHelpers, 'getTotalBudgetaryResources').mockReturnValue({
+        promise: Promise.resolve(mockAPI.totals),
+        cancel: () => {
+            console.log('cancel called');
+        }
+    });
+    jest.spyOn(aboutTheDataHelpers, 'getAgenciesReportingData').mockReturnValue({
+        promise: Promise.resolve(mockAPI.details),
+        cancel: () => {
+            console.log('cancel called');
+        }
+    });
+    jest.spyOn(aboutTheDataHelpers, 'getSubmissionPublicationDates').mockReturnValue({
+        promise: Promise.resolve(mockAPI.dates),
+        cancel: () => {
+            console.log('cancel called');
+        }
+    });
 });
 
 test('renders the details table first', async () => {
-    // only fires one api request
+    render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
     const [table] = screen.getAllByText('Count of Agency TAS in GTAS Not in File A');
     expect(table).toBeDefined();
 });
 
 test('on tab change updates the table view', async () => {
+    // shows the other table
+    render(<AboutTheDataPage {...defaultProps} />);
     const tab = screen.getAllByText('Updates by Fiscal Year');
     fireEvent.click(tab[0]);
     const table = screen.getByText('FY 2020 Q4');
     expect(table).toBeDefined();
 });
 
+test('redirects about-the-data/agencies to url w/ latest fy and period in params', async () => {
+    render(<AboutTheDataPage {...defaultProps} match={{ params: {} }} />);
+    return waitFor(() => {
+        expect(mockReplace).toHaveBeenCalledWith('about-the-data/agencies/2020/12');
+    });
+});
