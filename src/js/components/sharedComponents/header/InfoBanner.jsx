@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Analytics from 'helpers/analytics/Analytics';
 import { Link } from 'react-router-dom';
 import { isBefore, isAfter, startOfToday } from 'date-fns';
 
@@ -21,13 +20,6 @@ export default class InfoBanner extends React.Component {
 
     bannerClosed() {
         this.props.closeBanner('showInfoBanner', CovidHomepageCookie);
-    }
-
-    clickedBannerLink = () => {
-        Analytics.event({
-            category: 'Banner - Link',
-            action: 'https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf'
-        });
     }
 
     render() {
