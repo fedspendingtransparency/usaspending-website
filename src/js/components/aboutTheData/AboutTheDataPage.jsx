@@ -3,11 +3,12 @@
  * Created by Lizzie Salita 11/25/20
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import { useParams } from "react-router-dom";
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { useParams } from "react-router-dom";
 
+import { getLatestPeriod } from "helpers/accountHelper";
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
@@ -15,6 +16,7 @@ import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader"
 import Note from "components/sharedComponents/Note";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
+import { useLatestAccountData } from "containers/account/WithLatestFy";
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from "./TimeFilters";
@@ -45,6 +47,7 @@ const AboutTheDataPage = ({
     history
 }) => {
     const { fy: urlFy, period: urlPeriod } = useParams();
+    const [dataAsOf, submissionPeriods] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
 
@@ -61,6 +64,13 @@ const AboutTheDataPage = ({
         setShowModal('');
         setModalData(null);
     };
+
+    useEffect(() => {
+        if ((!urlFy || !urlPeriod) && submissionPeriods.length) {
+            const { year, period } = getLatestPeriod(submissionPeriods);
+            history.replace(`about-the-data/agencies/${year}/${period}`);
+        }
+    }, []);
 
     const updateUrl = (newFy, newPeriod) => {
         history.push({ pathname: `/about-the-data/agencies/${newFy}/${newPeriod}` });
@@ -119,6 +129,8 @@ const AboutTheDataPage = ({
                             }
                         ]} />
                     <TimeFilters
+                        submissionPeriods={submissionPeriods}
+                        dataAsOf={dataAsOf}
                         activeTab={activeTab}
                         onTimeFilterSelection={onTimeFilterSelection}
                         selectedPeriod={selectedPeriod}
@@ -152,7 +164,10 @@ const AboutTheDataPage = ({
 };
 
 AboutTheDataPage.propTypes = {
-    history: PropTypes.object
+    history: PropTypes.object,
+    match: PropTypes.shape({
+        params: PropTypes.object
+    })
 };
 
 export default AboutTheDataPage;

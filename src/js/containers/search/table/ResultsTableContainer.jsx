@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
+import { withRouter } from 'react-router-dom';
+
 import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
@@ -35,7 +37,8 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func
+    subAwardIdClicked: PropTypes.func,
+    location: PropTypes.object
 };
 
 const tableTypes = [
@@ -119,7 +122,9 @@ export class ResultsTableContainer extends React.Component {
         // we can't hide the table entirely because the viewport is required to calculate the
         // row rendering
         this.loadColumns();
-        this.pickDefaultTab();
+        if (SearchHelper.isSearchHashReady(this.props.location.pathname)) {
+            this.pickDefaultTab();
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -513,4 +518,4 @@ export default connect(
         ),
         dispatch
     )
-)(ResultsTableContainer);
+)(withRouter(ResultsTableContainer));
