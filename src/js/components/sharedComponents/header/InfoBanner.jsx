@@ -5,8 +5,6 @@ import { isBefore, isAfter, startOfToday } from 'date-fns';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { CovidHomepageCookie } from './Header';
-
 const propTypes = {
     closeBanner: PropTypes.func,
     triggerModal: PropTypes.func
@@ -19,7 +17,7 @@ export default class InfoBanner extends React.Component {
     }
 
     bannerClosed() {
-        this.props.closeBanner('showInfoBanner', CovidHomepageCookie);
+        this.props.closeBanner('showInfoBanner');
     }
 
     render() {
