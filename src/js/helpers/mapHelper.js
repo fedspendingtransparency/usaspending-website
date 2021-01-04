@@ -4,7 +4,7 @@
  */
 
 import { min, max } from 'lodash';
-import { scaleLinear } from 'd3-scale';
+import { scaleQuantize } from 'd3-scale';
 import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
 
@@ -407,14 +407,13 @@ export const calculateRange = (data) => {
     minValue = Math.floor(minValue / units.unit);
     maxValue = Math.ceil(maxValue / units.unit);
 
-    // determine the current step values, round it to something divisible by
-    const step = Math.ceil((maxValue - minValue) / 6);
-    maxValue = minValue + (6 * step);
-
     const segments = [];
-    const scale = scaleLinear().domain([minValue * units.unit, maxValue * units.unit]).range([0, 6]);
-    for (let i = 1; i <= 6; i++) {
-        segments.push(scale.invert(i));
+    const scale = scaleQuantize()
+        .domain([minValue * units.unit, maxValue * units.unit])
+        .range([0, 1, 2, 3, 4, 5])
+        .nice();
+    for (let i = 0; i <= 5; i++) {
+        segments.push(scale.invertExtent(i)[1]);
     }
 
     return {
