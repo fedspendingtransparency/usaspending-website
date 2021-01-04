@@ -48,7 +48,7 @@ const AgenciesContainer = ({
         [{ page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
+    const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
     const tableRef = useRef(null);
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
@@ -126,7 +126,7 @@ const AgenciesContainer = ({
         if (selectedFy && selectedPeriod && !federalTotals.length) {
             if (totalsReq.current) totalsReq.current.cancel();
             if (submissionsReq.current) submissionsReq.current.cancel();
-            setLoading([true, areDetailsLoading, areDatesLoading]);
+            setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
             totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
@@ -238,7 +238,7 @@ const AgenciesContainer = ({
                 {activeTab === 'submissions' && (
                     <Table
                         rows={renderDetails(allSubmissions)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading': ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
@@ -246,7 +246,7 @@ const AgenciesContainer = ({
                             direction: submissionsSort[1]
                         }}
                         error={error}
-                        loading={areDetailsLoading} />
+                        loading={areSubmissionsLoading} />
                 )}
                 {activeTab === 'publications' && (
                     <Table
@@ -259,7 +259,7 @@ const AgenciesContainer = ({
                             direction: publicationsSort[1]
                         }}
                         error={error}
-                        loading={areDatesLoading} />
+                        loading={arePublicationsLoading} />
                 )}
             </div>
             <Pagination
