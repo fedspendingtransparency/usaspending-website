@@ -4,7 +4,8 @@ import { render, screen, waitForElementToBeRemoved } from '@test-utils';
 import TimeFilters from 'components/aboutTheData/TimeFilters';
 import * as accountHelpers from 'helpers/accountHelper';
 import * as glossaryHelpers from 'helpers/glossaryHelper';
-import { mockGlossary, mockSubmissions } from '../../mockData';
+import { mockGlossary } from '../../mockData';
+import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 import moment from 'moment';
 
 const defaultProps = {
