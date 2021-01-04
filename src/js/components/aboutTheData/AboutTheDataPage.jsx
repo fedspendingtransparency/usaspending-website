@@ -51,7 +51,7 @@ const AboutTheDataPage = ({
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
 
-    const [activeTab, setActiveTab] = useState('details'); // details or dates
+    const [activeTab, setActiveTab] = useState('submissions'); // submissions or publications
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
 
@@ -118,12 +118,12 @@ const AboutTheDataPage = ({
                         switchTab={handleSwitchTab}
                         types={[
                             {
-                                internal: 'details',
+                                internal: 'submissions',
                                 label: "Statistics by Reporting Period",
                                 labelContent: <TableTabLabel label="Statistics by Reporting Period" />
                             },
                             {
-                                internal: 'dates',
+                                internal: 'publications',
                                 label: "Updates by Fiscal Year",
                                 labelContent: <TableTabLabel label="Updates by Fiscal Year" />
                             }
