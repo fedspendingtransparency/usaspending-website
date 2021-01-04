@@ -420,8 +420,7 @@ export default class MapWrapper extends React.Component {
             let value = this.props.data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
-            let group = Math.floor(scale.scale(value));
-            if (group.toString().startsWith('-')) group = 0;
+            const group = scale.scale(value);
             // add it to the filter list
             filterValues[group].push(location);
         });
