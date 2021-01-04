@@ -5,14 +5,17 @@ import TimeFilters from 'components/aboutTheData/TimeFilters';
 import * as accountHelpers from 'helpers/accountHelper';
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import { mockGlossary, mockSubmissions } from '../../mockData';
+import moment from 'moment';
 
 const defaultProps = {
     urlPeriod: '12',
     urlFy: '2020',
-    activeTab: 'submissions', // or dates
+    activeTab: 'submissions', // or publications
     onTimeFilterSelection: jest.fn(),
     selectedPeriod: null,
-    selectedFy: null
+    selectedFy: null,
+    submissionPeriods: mockSubmissions,
+    dataAsOf: null
 };
 
 const q4Fy2020 = {
@@ -47,14 +50,12 @@ test('Publication Dates table does not show period picker', async () => {
 test('Validates fiscal year from url', async () => {
     // bad fiscal year:
     const mockOnTimeSelection = jest.fn();
-    render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} urlFy="1990" />);
-    await waitForElementToBeRemoved(screen.queryByText('Loading fiscal years...'));
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
+    render(<TimeFilters {...defaultProps} dataAsOf={moment()} onTimeFilterSelection={mockOnTimeSelection} urlFy="1990" />);
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
 });
 
 test('Validates period from url', async () => {
     const mockOnTimeSelection = jest.fn();
-    render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} urlFy="2020" urlPeriod="13" />);
-    await waitForElementToBeRemoved(screen.queryByText('Loading fiscal years...'));
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
+    render(<TimeFilters {...defaultProps} dataAsOf={moment()} onTimeFilterSelection={mockOnTimeSelection} urlFy="2020" urlPeriod="13" />);
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
 });
