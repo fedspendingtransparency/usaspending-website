@@ -44,8 +44,8 @@ const AgenciesContainer = ({
     const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
     const [
-        [{ page: submissionsPage, limit: submissionsLimit }, updateSubmissionsPagination],
-        [{ page: publicationsPage, limit: publicationsLimit }, updatePublicationsPagination]
+        [{ page: submissionsPage, totalItems: totalSubmissionItems, limit: submissionsLimit }, updateSubmissionsPagination],
+        [{ page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
@@ -79,7 +79,7 @@ const AgenciesContainer = ({
             setLoading([false, true, false]);
             submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], submissionsPage, submissionsLimit);
             return submissionsReq.current.promise
-                .then(({ data: { results } }) => {
+                .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                     const parsedResults = results.map((d) => {
                         const row = Object.create(ReportingOverviewRow);
                         const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
@@ -90,6 +90,7 @@ const AgenciesContainer = ({
                         return row;
                     });
                     dispatch(setTableData(activeTab, parsedResults));
+                    updateSubmissionsPagination({ totalItems, page, limit })
                     setLoading([false, false, false]);
                     setError(false);
                 })
@@ -200,30 +201,34 @@ const AgenciesContainer = ({
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
             tasTotals,
-            percentageOfTotalFederalBudget
+            percentageOfTotalFederalBudget,
+            unlinkedContractAwards,
+            unlinkedAssistanceAwards
         }) => [
             (<DrilldownCell data={agencyName} id={code} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
             (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
-            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
+            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />),
+            (<div className="generic-cell-content">{unlinkedContractAwards}</div>),
+            (<div className="generic-cell-content">{unlinkedAssistanceAwards}</div>)
         ]);
 
     const handlePageChange = (page) => {
         if (activeTab === 'submissions') {
-            updateSubmissionsPagination({ page, limit: submissionsLimit });
+            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page, limit: submissionsLimit });
         }
         else {
-            updatePublicationsPagination({ page, limit: submissionsLimit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: submissionsLimit });
         }
     };
 
     const handleLimitChange = (limit) => {
         if (activeTab === 'submissions') {
-            updateSubmissionsPagination({ page: submissionsPage, limit });
+            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page: submissionsPage, limit });
         }
         else {
-            updatePublicationsPagination({ page: publicationsPage, limit });
+            updatePublicationsPagination({ totalItems: totalSubmissionItems, page: publicationsPage, limit });
         }
     };
 
@@ -257,16 +262,14 @@ const AgenciesContainer = ({
                         loading={areDatesLoading} />
                 )}
             </div>
-            {(allSubmissions.length || allPublications.length) && (
-                <Pagination
-                    resultsText
-                    limitSelector
-                    changeLimit={handleLimitChange}
-                    changePage={handlePageChange}
-                    currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
-                    pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
-                    totalItems={activeTab === 'submissions' ? allSubmissions.length : allPublications.length} />
-            )}
+            <Pagination
+                resultsText
+                limitSelector
+                changeLimit={handleLimitChange}
+                changePage={handlePageChange}
+                currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
         </>
     );
 };
