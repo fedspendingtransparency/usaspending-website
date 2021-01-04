@@ -51,11 +51,11 @@ test('Validates fiscal year from url', async () => {
     // bad fiscal year:
     const mockOnTimeSelection = jest.fn();
     render(<TimeFilters {...defaultProps} dataAsOf={moment()} onTimeFilterSelection={mockOnTimeSelection} urlFy="1990" />);
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
 });
 
 test('Validates period from url', async () => {
     const mockOnTimeSelection = jest.fn();
     render(<TimeFilters {...defaultProps} dataAsOf={moment()} onTimeFilterSelection={mockOnTimeSelection} urlFy="2020" urlPeriod="13" />);
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 P12" });
+    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
 });
