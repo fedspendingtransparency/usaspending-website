@@ -37,9 +37,8 @@ const AgenciesContainer = ({
     selectedPeriod
 }) => {
     const {
-        allSubmissions, allPublications, publicationsSort, submissionsSort, federalTotals, submissionPeriods, searchTerm, searchResults
+        allSubmissions, allPublications, publicationsSort, submissionsSort, federalTotals, submissionPeriods, searchTerm, submissionsSearchResults, publicationsSearchResults
     } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
-    const [searchResultsSub, searchResultsPub] = searchResults;
     const dispatch = useDispatch();
     const publicationsReq = useRef(null);
     const submissionsReq = useRef(null);
@@ -49,7 +48,7 @@ const AgenciesContainer = ({
         [{ page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
+    const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
     const tableRef = useRef(null);
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
@@ -106,8 +105,8 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
-        setLoading([false, true, false]);
-        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit);
+        setLoading([false, false, true]);
+        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results } }) => {
                 const parsedResults = results.map((d) => {
@@ -132,7 +131,7 @@ const AgenciesContainer = ({
         if (selectedFy && selectedPeriod && !federalTotals.length) {
             if (totalsReq.current) totalsReq.current.cancel();
             if (submissionsReq.current) submissionsReq.current.cancel();
-            setLoading([true, areDetailsLoading, areDatesLoading]);
+            setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
             totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
@@ -244,8 +243,8 @@ const AgenciesContainer = ({
             <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                 {activeTab === 'submissions' && (
                     <Table
-                        rows={searchTerm ? renderDetails(searchResultsSub) : renderDetails(allSubmissions)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading': ''}`}
+                        rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
@@ -253,11 +252,11 @@ const AgenciesContainer = ({
                             direction: submissionsSort[1]
                         }}
                         error={error}
-                        loading={areDetailsLoading} />
+                        loading={areSubmissionsLoading} />
                 )}
                 {activeTab === 'publications' && (
                     <Table
-                        rows={searchTerm ? renderDates(searchResultsPub) : renderDates(allPublications)}
+                        rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
@@ -266,7 +265,7 @@ const AgenciesContainer = ({
                             direction: publicationsSort[1]
                         }}
                         error={error}
-                        loading={areDatesLoading} />
+                        loading={arePublicationsLoading} />
                 )}
             </div>
             <Pagination
