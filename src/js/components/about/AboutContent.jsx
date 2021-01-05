@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { find, throttle } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { showModal } from 'redux/actions/modal/modalActions';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
@@ -203,6 +205,14 @@ const AboutContent = ({ location }) => {
         };
     }, []);
 
+    const dispatch = useDispatch();
+    const onExternalLinkClick = (e) => {
+        e.persist();
+        if (e?.target) {
+            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
+        }
+    };
+
     return (
         <div className="about-content-wrapper">
             <div className="about-sidebar">
@@ -217,8 +227,8 @@ const AboutContent = ({ location }) => {
                 <div className="about-padded-content">
                     <Mission />
                     <Background />
-                    <DataSources />
-                    <DataQuality />
+                    <DataSources onExternalLinkClick={onExternalLinkClick} />
+                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
                     <Careers />
                     <Licensing />
