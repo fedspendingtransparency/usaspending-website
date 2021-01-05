@@ -5,31 +5,31 @@
 
 import aboutTheDataReducer, { initialState } from 'redux/reducers/aboutTheData';
 
-test('SET_ABOUT_THE_DATA_DETAILS', () => {
+test('SET_ABOUT_THE_DATA_ALL_SUBMISSIONS', () => {
     expect(aboutTheDataReducer(initialState, {
-        type: 'SET_ABOUT_THE_DATA_DETAILS',
+        type: 'SET_ABOUT_THE_DATA_ALL_SUBMISSIONS',
         payload: [1]
-    }).details)
+    }).allSubmissions)
         .toEqual([1]);
-    expect(aboutTheDataReducer({ ...initialState, details: [1] }, {
-        type: 'SET_ABOUT_THE_DATA_DETAILS',
+    expect(aboutTheDataReducer({ ...initialState, allSubmissions: [1] }, {
+        type: 'SET_ABOUT_THE_DATA_ALL_SUBMISSIONS',
         payload: [2],
         append: true
-    }).details)
+    }).allSubmissions)
         .toEqual([1, 2]);
 });
 
-test('SET_ABOUT_THE_DATA_DATES', () => {
+test('SET_ABOUT_THE_DATA_ALL_PUBLICATIONS', () => {
     expect(aboutTheDataReducer(initialState, {
-        type: 'SET_ABOUT_THE_DATA_DATES',
+        type: 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS',
         payload: [1]
-    }).dates)
+    }).allPublications)
         .toEqual([1]);
-    expect(aboutTheDataReducer({ ...initialState, dates: [1] }, {
-        type: 'SET_ABOUT_THE_DATA_DATES',
+    expect(aboutTheDataReducer({ ...initialState, allPublications: [1] }, {
+        type: 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS',
         payload: [2],
         append: true
-    }).dates)
+    }).allPublications)
         .toEqual([1, 2]);
 });
 
@@ -37,22 +37,22 @@ test('SET_ABOUT_THE_DATA_TOTALS', () => {
     expect(aboutTheDataReducer(initialState, {
         type: 'SET_ABOUT_THE_DATA_TOTALS',
         payload: [1]
-    }).totals)
+    }).federalTotals)
         .toEqual([1]);
 });
 
-test('SET_ABOUT_THE_DATA_DETAILS_SORT', () => {
+test('SET_ABOUT_THE_DATA_ALL_SUBMISSIONS_SORT', () => {
     expect(aboutTheDataReducer(initialState, {
-        type: 'SET_ABOUT_THE_DATA_DETAILS_SORT',
+        type: 'SET_ABOUT_THE_DATA_ALL_SUBMISSIONS_SORT',
         payload: ['test', 'desc']
-    }).detailsSort)
+    }).submissionsSort)
         .toEqual(['test', 'desc']);
 });
 
-test('SET_ABOUT_THE_DATA_DATES_SORT', () => {
+test('SET_ABOUT_THE_DATA_ALL_PUBLICATIONS_SORT', () => {
     expect(aboutTheDataReducer(initialState, {
-        type: 'SET_ABOUT_THE_DATA_DATES_SORT',
+        type: 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS_SORT',
         payload: ['test', 'asc']
-    }).datesSort)
+    }).publicationsSort)
         .toEqual(['test', 'asc']);
 });

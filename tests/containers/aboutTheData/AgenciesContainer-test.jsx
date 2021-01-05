@@ -11,7 +11,7 @@ import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 const defaultProps = {
     selectedFy: '2020',
     selectedPeriod: '8',
-    activeTab: 'details',
+    activeTab: 'submissions',
     openModal: jest.fn()
 };
 
@@ -26,11 +26,11 @@ test('when totals are defined, request for totals are not made and only one for 
     const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources');
     const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData');
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
 
@@ -43,11 +43,11 @@ test('when totals are defined, request for totals are not made and only one for 
 
 test('when totals are defined and the active tab changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
     const datesRequest = jest.spyOn(aboutTheDataHelper, 'getSubmissionPublicationDates').mockClear();
@@ -65,11 +65,11 @@ test('when totals are defined and the active tab changes, one request is made', 
 
 test('when totals are defined and the fy changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 },
             { submission_fiscal_year: 2018, submission_fiscal_month: 8 }
@@ -86,11 +86,11 @@ test('when totals are defined and the fy changes, one request is made', () => {
 
 test('when totals are defined and the period changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 },
             { submission_fiscal_year: 2020, submission_fiscal_month: 4 }
@@ -107,11 +107,11 @@ test('when totals are defined and the period changes, one request is made', () =
 
 test('when totals are defined and the sort field changes, two requests are made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
@@ -119,11 +119,11 @@ test('when totals are defined and the sort field changes, two requests are made'
     const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['test', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['test', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
@@ -136,11 +136,11 @@ test('when totals are defined and the sort field changes, two requests are made'
 
 test('when totals are defined and the order field changes, two requests are made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
@@ -148,11 +148,11 @@ test('when totals are defined and the order field changes, two requests are made
     const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'asc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'asc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])

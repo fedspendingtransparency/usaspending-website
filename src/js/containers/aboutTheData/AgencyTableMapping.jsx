@@ -25,7 +25,7 @@ Tooltip.propTypes = {
 };
 
 export const agenciesTableColumns = {
-    dates: [
+    publications: [
         { title: 'name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
         { title: 'percent_of_total', displayName: 'Percent of Total Federal Budget' },
         {
@@ -69,7 +69,7 @@ export const agenciesTableColumns = {
             ]
         }
     ],
-    details: [
+    submissions: [
         {
             title: "name",
             displayName: "Agency Name"
@@ -122,7 +122,7 @@ export const mockAPI = {
             ]
         }
     },
-    dates: {
+    publications: {
         data: {
             page_metadata: {
                 page: 1,
@@ -267,7 +267,7 @@ export const mockAPI = {
             ]
         }
     },
-    details: {
+    submissions: {
         data: {
             page_metadata: {
                 page: 1,
