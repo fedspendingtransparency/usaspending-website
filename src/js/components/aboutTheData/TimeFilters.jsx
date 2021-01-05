@@ -5,6 +5,7 @@
 
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
 import { Picker, SearchBar } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
@@ -17,6 +18,7 @@ import {
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
 } from "helpers/aboutTheDataHelper";
+import { setSearchTerm } from "redux/actions/aboutTheData";
 import {
     periodsPerQuarter,
     lastPeriods,
@@ -86,6 +88,8 @@ const TimePeriodFilters = ({
     submissionPeriods,
     dataAsOf
 }) => {
+    const dispatch = useDispatch();
+
     const latestPeriod = getLatestPeriod(submissionPeriods);
 
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
@@ -128,6 +132,10 @@ const TimePeriodFilters = ({
             }))
     );
 
+    const handleSearch = (term) => {
+        dispatch(setSearchTerm(term));
+    };
+
     return (
         <div className="table-controls__time-and-search">
             <div className="filter-container fy-picker">
@@ -168,7 +176,7 @@ const TimePeriodFilters = ({
             )}
             <div className="filter-container">
                 <span className="filter__title search-bar">AGENCY NAME</span>
-                <SearchBar minChars={2} />
+                <SearchBar minChars={2} onSearch={handleSearch} />
             </div>
         </div>
     );
