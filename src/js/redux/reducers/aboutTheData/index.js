@@ -4,6 +4,13 @@
 */
 
 export const initialState = {
+    searchTerm: '',
+    searchResults: [
+        // submissions
+        [],
+        // publications
+        []
+    ],
     allSubmissions: [],
     allPublications: [],
     federalTotals: [],
@@ -24,6 +31,24 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 allSubmissions: action.payload
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_TERM': {
+            return {
+                ...state,
+                searchTerm: action.payload
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS': {
+            return {
+                ...state,
+                searchResults: [action.payload, state.searchResults[1]]
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_PUBLICATIONS': {
+            return {
+                ...state,
+                searchResults: [state.searchResults[0], action.payload]
             };
         }
         case 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS': {
