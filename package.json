@@ -79,7 +79,7 @@
         "@fortawesome/react-fontawesome": "^0.1.4",
         "accounting": "^0.4.1",
         "autoprefixer": "^6.7.7",
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "babel-jest": "^24.6.0",
         "clean-webpack-plugin": "^0.1.16",
         "clipboard": "^1.6.1",
