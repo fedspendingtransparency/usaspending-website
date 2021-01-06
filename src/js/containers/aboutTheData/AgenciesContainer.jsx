@@ -250,7 +250,7 @@ const AgenciesContainer = ({
                 {activeTab === 'submissions' && (
                     <Table
                         rows={searchTerm ? renderDetails(searchResultsSub) : renderDetails(allSubmissions)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading': ''}`}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
