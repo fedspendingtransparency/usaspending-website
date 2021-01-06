@@ -283,6 +283,10 @@
                   line-height: rem(13);
                 }
               }
+              .matched-str {
+                font-weight: 600;
+                text-decoration: underline;
+              }
             }
           }
         }
