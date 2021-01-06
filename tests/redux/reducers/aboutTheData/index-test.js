@@ -56,3 +56,19 @@ test('SET_ABOUT_THE_DATA_ALL_PUBLICATIONS_SORT', () => {
     }).publicationsSort)
         .toEqual(['test', 'asc']);
 });
+
+test('SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS', () => {
+    expect(aboutTheDataReducer(initialState, {
+        type: 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS',
+        payload: [1]
+    }).submissionsSearchResults)
+        .toEqual([1]);
+});
+
+test('SET_ABOUT_THE_DATA_SEARCH_RESULTS_PUBLICATIONS', () => {
+    expect(aboutTheDataReducer(initialState, {
+        type: 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_PUBLICATIONS',
+        payload: [2]
+    }).publicationsSearchResults)
+        .toEqual([2]);
+});

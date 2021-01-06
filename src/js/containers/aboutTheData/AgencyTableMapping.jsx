@@ -108,7 +108,7 @@ export const agenciesTableColumns = {
     ]
 };
 
-// TODO - delete after API integration
+// TODO - move under tests/ dir once API integration is complete.
 export const mockAPI = {
     totals: {
         data: {
@@ -131,6 +131,7 @@ export const mockAPI = {
             page_metadata: {
                 page: 1,
                 hasNext: false,
+                limit: 10,
                 hasPrevious: false,
                 total: 2
             },
@@ -277,6 +278,7 @@ export const mockAPI = {
                 page: 1,
                 hasNext: false,
                 hasPrevious: false,
+                limit: 10,
                 total: 2
             },
             results: [
