@@ -194,7 +194,7 @@ const AgenciesContainer = ({
             percentageOfTotalFederalBudget,
             periods
         }) => ([
-            (<DrilldownCell data={name} id={code} />),
+            (<DrilldownCell data={name} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             ...parsePeriods(periods)
         ]));
@@ -211,7 +211,7 @@ const AgenciesContainer = ({
             unlinkedContractAwards,
             unlinkedAssistanceAwards
         }) => [
-            (<DrilldownCell data={agencyName} id={code} />),
+            (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
             (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
