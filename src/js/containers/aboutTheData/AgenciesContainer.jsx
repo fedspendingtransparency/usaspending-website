@@ -105,7 +105,7 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
-        setLoading([false, false, true]);
+        setLoading([false, true, false]);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results } }) => {
@@ -114,7 +114,12 @@ const AgenciesContainer = ({
                     row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
-                dispatch(setTableData(activeTab, parsedResults));
+                if (searchTerm) {
+                    dispatch(setSearchResults(activeTab, parsedResults));
+                }
+                else {
+                    dispatch(setTableData(activeTab, parsedResults));
+                }
                 setLoading([false, false, false]);
                 setError(false);
                 publicationsReq.current = null;
