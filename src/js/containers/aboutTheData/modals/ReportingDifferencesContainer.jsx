@@ -12,8 +12,8 @@ import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
     agencyCode: PropTypes.string,
-    fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number
+    fiscalYear: PropTypes.string,
+    fiscalPeriod: PropTypes.string
 };
 
 const ReportingDifferencesContainer = ({

@@ -157,7 +157,7 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
 };
 
 export const fetchPublishDates = (agencyCode, params) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/publish_dates/${stringify(params)}`
+    url: `v2/reporting/agencies/${agencyCode}/${params.fiscal_year}/${params.fiscal_period}/submission_history`
 });
 
 export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({

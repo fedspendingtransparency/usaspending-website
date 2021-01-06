@@ -8,21 +8,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIPublicationDates, publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatPublicationDates, dateFormattedMonthDayYear } from 'helpers/aboutTheDataHelper';
+import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
+import { formatPublicationDates, dateFormattedMonthDayYear, fetchPublishDates } from 'helpers/aboutTheDataHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
 const propTypes = {
-    fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number,
-    agencyCode: PropTypes.string
+    fiscalYear: PropTypes.string,
+    fiscalPeriod: PropTypes.string,
+    agencyData: PropTypes.object
 };
 
 const PublicationDatesContainer = ({
     fiscalYear,
     fiscalPeriod,
-    agencyCode
+    agencyData
 }) => {
     const [sort, setSort] = useState('publication_date');
     const [order, setOrder] = useState('desc');
@@ -66,12 +66,12 @@ const PublicationDatesContainer = ({
             limit,
             sort,
             order,
-            agencyCode,
-            fiscalYear,
-            fiscalPeriod
+            fiscal_year: fiscalYear,
+            fiscal_period: fiscalPeriod
         };
         try {
-            pubDatesRequest.current = mockAPIPublicationDates(params);
+            // pubDatesRequest.current = fetchPublishDates(agencyData.agencyCode, params);
+            pubDatesRequest.current = fetchPublishDates('020', params);
             const { data } = await pubDatesRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatPublicationDates(data.results));
