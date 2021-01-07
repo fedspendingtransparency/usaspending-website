@@ -4,7 +4,7 @@
  */
 
 import { getLatestPeriodAsMoment, getSubmissionDeadlines } from "helpers/accountHelper";
-import { mockSubmissions } from '../mockData';
+import { mockSubmissions } from '../mockData/helpers/aboutTheDataHelper';
 
 describe("accountHelper", () => {
     describe("getLatestPeriodAsMoment", () => {
