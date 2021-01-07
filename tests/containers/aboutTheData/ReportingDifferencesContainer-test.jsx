@@ -4,9 +4,11 @@ import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import ReportingDifferencesContainer from 'containers/aboutTheData/modals/ReportingDifferencesContainer';
 
 const defaultProps = {
-    fiscalYear: 2020,
-    fiscalPeriod: 8,
-    agencyCode: '012'
+    agencyData: {
+        fiscalYear: 2020,
+        fiscalPeriod: 8,
+        agencyCode: '012'
+    }
 };
 
 describe('Publication Dates Container', () => {

@@ -8,8 +8,8 @@ import { dateFormattedMonthDayYear, getPeriodWithTitleById } from 'helpers/about
 
 const BaseReportingPeriodRow = {
     populate(data, federalBudget) {
-        this._fiscalYear = data.fiscal_year || 0;
-        this._fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
+        this.fiscalYear = data.fiscal_year || 0;
+        this.fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._mostRecentPublicationDate = data.recent_publication_date || null;
         /* eslint-disable camelcase */
@@ -20,7 +20,7 @@ const BaseReportingPeriodRow = {
         this._federalBudget = federalBudget;
     },
     get reportingPeriod() {
-        return `FY ${this._fiscalYear}: ${getPeriodWithTitleById(`${this._fiscalPeriod}`).title}`;
+        return `FY ${this.fiscalYear}: ${getPeriodWithTitleById(`${this.fiscalPeriod}`).title}`;
     },
     get percentOfBudget() {
         return calculatePercentage(this._budgetAuthority, this._federalBudget);

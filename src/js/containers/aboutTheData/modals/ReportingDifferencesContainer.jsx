@@ -13,17 +13,13 @@ import { formatReportingDifferencesData, fetchReportingDifferences } from 'helpe
 const propTypes = {
     agencyData: PropTypes.shape({
         agencyName: PropTypes.string,
-        agencyCode: PropTypes.string
-    }),
-    fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number
+        agencyCode: PropTypes.string,
+        fiscalYear: PropTypes.number,
+        fiscalPeriod: PropTypes.number
+    })
 };
 
-const ReportingDifferencesContainer = ({
-    agencyData,
-    fiscalYear,
-    fiscalPeriod
-}) => {
+const ReportingDifferencesContainer = ({ agencyData }) => {
     const [sort, setSort] = useState('tas');
     const [order, setOrder] = useState('desc');
     const [page, setPage] = useState(1);
@@ -47,8 +43,8 @@ const ReportingDifferencesContainer = ({
             limit,
             sort,
             order,
-            fiscal_year: fiscalYear,
-            fiscal_period: fiscalPeriod
+            fiscal_year: agencyData.fiscalYear,
+            fiscal_period: agencyData.fiscalPeriod
         };
         try {
             reportingDiffRequest.current = fetchReportingDifferences(agencyData.agencyCode, params);

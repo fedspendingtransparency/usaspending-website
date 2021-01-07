@@ -125,8 +125,6 @@ const AgencyDetailsPage = () => {
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
                     agencyData={modalData}
-                    fiscalYear={2020}
-                    fiscalPeriod={8}
                     closeModal={closeModal}
                     totalObligationsNotInGTAS={45999} />
             </main>

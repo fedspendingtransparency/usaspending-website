@@ -118,13 +118,37 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
                 (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
-                (<CellWithModal data={rowData.mostRecentPublicationDate} openModal={modalClick} modalType="publicationDates" agencyData={{ agencyName, agencyCode }} />),
+                (<CellWithModal
+                    data={rowData.mostRecentPublicationDate}
+                    openModal={modalClick}
+                    modalType="publicationDates"
+                    agencyData={{
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        agencyName,
+                        agencyCode
+                    }} />),
                 (<CellWithModal
                     data={rowData.missingTASCount}
                     openModal={modalClick}
                     modalType="missingAccountBalance"
-                    agencyData={{ agencyName, agencyCode, gtasObligationTotal: rowData._gtasObligationTotal }} />),
-                (<CellWithModal data={rowData.obligationDifference} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName, agencyCode }} />),
+                    agencyData={{
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        agencyName,
+                        agencyCode,
+                        gtasObligationTotal: rowData._gtasObligationTotal
+                    }} />),
+                (<CellWithModal
+                    data={rowData.obligationDifference}
+                    openModal={modalClick}
+                    modalType="reportingDifferences"
+                    agencyData={{
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        agencyName,
+                        agencyCode
+                    }} />),
                 (<div className="generic-cell-content">--</div>),
                 (<div className="generic-cell-content">--</div>),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)

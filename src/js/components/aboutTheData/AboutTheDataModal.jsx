@@ -17,8 +17,6 @@ const propTypes = {
     closeModal: PropTypes.func,
     type: PropTypes.string,
     title: PropTypes.string,
-    fiscalYear: PropTypes.string,
-    fiscalPeriod: PropTypes.string,
     className: PropTypes.string,
     agencyData: PropTypes.object
 };
@@ -28,15 +26,13 @@ const AboutTheDataModal = ({
     closeModal,
     type,
     title,
-    fiscalYear,
-    fiscalPeriod,
     className,
     agencyData
 }) => {
-    const fiscalYearQuarterPeriodText = showQuarterText(fiscalPeriod) ?
-        `FY ${fiscalYear} Q${periodToQuarterMapping[fiscalPeriod]} / P${fiscalPeriod}` :
-        `FY ${fiscalYear} P${fiscalPeriod}`;
     if (!agencyData) return null;
+    const fiscalYearQuarterPeriodText = showQuarterText(agencyData.fiscalPeriod) ?
+        `FY ${agencyData.fiscalYear} Q${periodToQuarterMapping[agencyData.fiscalPeriod]} / P${agencyData.fiscalPeriod}` :
+        `FY ${agencyData.fiscalYear} P${agencyData.fiscalPeriod}`;
     return (
         <Modal
             mounted={mounted}
@@ -65,11 +61,7 @@ const AboutTheDataModal = ({
                     </button>
                 </div>
                 <div className="usa-dt-modal__section">
-                    {modalContentMapping({
-                        fiscalYear,
-                        fiscalPeriod,
-                        agencyData
-                    })[type]}
+                    {modalContentMapping({ agencyData })[type]}
                 </div>
             </div>
         </Modal>

@@ -9,19 +9,35 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatPublicationDates, dateFormattedMonthDayYear, fetchPublishDates } from 'helpers/aboutTheDataHelper';
+import {
+    formatPublicationDates,
+    dateFormattedMonthDayYear,
+    fetchPublishDates
+} from 'helpers/aboutTheDataHelper';
+import { pageAndSort } from 'helpers/pageAndSortHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
+const mockPublicationDatesValues = () => {
+    const data = [{ publication_date: 1578286800000, certification_date: 1579150800000 }];
+    for (let i = 2; i <= 95; i++) {
+        data.push({
+            publication_date: data[0].publication_date - (i * 86400000),
+            certification_date: data[0].certification_date - (i * 86400000)
+        });
+    }
+    return data;
+};
 const propTypes = {
-    fiscalYear: PropTypes.string,
-    fiscalPeriod: PropTypes.string,
-    agencyData: PropTypes.object
+    agencyData: PropTypes.shape({
+        agencyName: PropTypes.string,
+        agencyCode: PropTypes.string,
+        fiscalYear: PropTypes.number,
+        fiscalPeriod: PropTypes.number
+    })
 };
 
 const PublicationDatesContainer = ({
-    fiscalYear,
-    fiscalPeriod,
     agencyData
 }) => {
     const [sort, setSort] = useState('publication_date');
@@ -31,7 +47,7 @@ const PublicationDatesContainer = ({
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ error: false, message: '' });
-    const [rawData, setRawData] = useState([]);
+    const [rawData, setRawData] = useState(mockPublicationDatesValues());
     const [rows, setRows] = useState([]);
     const [submissionDeadlines, setSubmissionDeadlines] = useState(null);
     const { submissionPeriods } = useSelector((state) => state.account);
@@ -59,48 +75,20 @@ const PublicationDatesContainer = ({
     };
 
     const createMillisecondDates = (data) => data.map((datesObj) => {
-        console.log(' DAtes OBJ : ', datesObj);
         const publicationDate = !datesObj.publication_date ? new Date(0) : new Date(datesObj.publication_date);
         const certificationDate = !datesObj.certification_date ? new Date(0) : new Date(datesObj.certification_date);
-        return { publication_date: publicationDate.getMilliseconds(), certification_date: certificationDate.getMilliseconds() };
+        return { publication_date: publicationDate.getTime(), certification_date: certificationDate.getTime() };
     });
 
-    const sortFunction = (a, b) => {
-        if (order === 'desc') return b[sort] - a[sort];
-        return a[sort] - b[sort];
-    };
-
-    const fakeData = () => {
-        const data = [{ publication_date: 1578286800000, certification_date: 1579150800000 }];
-        for (let i = 2; i <= 95; i++) {
-            data.push({
-                publication_date: data[0].publication_date - (i * 86400000),
-                certification_date: data[0].certification_date - (i * 86400000)
-            });
-        }
-        return data;
-    };
-
-    const pageAndSortData = () => (
-        // if (!rawData.length) return [];
-        // return rawData.sort(sortFunction).slice((page - 1) * limit, page * limit);
-        fakeData().sort(sortFunction).slice((page - 1) * limit, page * limit)
-    );
-    console.log(' ff', fakeData());
     const publicationDatesRequest = async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
         if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         try {
-            // pubDatesRequest.current = fetchPublishDates(agencyData.agencyCode, fiscalYear, fiscalPeriod, { page: 1, limit: 100 });
-            pubDatesRequest.current = fetchPublishDates('020', fiscalYear, fiscalPeriod, { page: 1, limit: 100 });
+            pubDatesRequest.current = fetchPublishDates(agencyData.agencyCode, agencyData.fiscalYear, agencyData.fiscalPeriod, { page: 1, limit: 100 });
             const { data } = await pubDatesRequest.current.promise;
-            // setTotal(data.page_metadata.total);
-            setTotal(fakeData().length);
+            setTotal(data.page_metadata.total);
             setRawData(createMillisecondDates(data.results));
-            console.log('dlskfj', pageAndSortData());
-            setRows(formatPublicationDates(pageAndSortData()));
-            // setRows(formatPublicationDates(data.results));
             setLoading(false);
             pubDatesRequest.current = null;
         }
@@ -119,7 +107,7 @@ const PublicationDatesContainer = ({
             submissionPeriodsRequest();
         }
         else {
-            setSubmissionDeadlines(getSubmissionDeadlines(fiscalYear, fiscalPeriod, submissionPeriods.toJS()));
+            setSubmissionDeadlines(getSubmissionDeadlines(agencyData.fiscalYear, agencyData.fiscalPeriod, submissionPeriods.toJS()));
         }
     }, [submissionPeriods]);
     // on mount fetch all data, unmount cleanup pubDatesRequest
@@ -129,18 +117,20 @@ const PublicationDatesContainer = ({
             if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         };
     }, []);
+    // when we have raw data from the api format table data
+    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [rawData]);
     // on sort, order, limit change fetch new data or reset page to 1
     useEffect(() => {
         if (page !== 1) {
             setPage(1);
         }
         else {
-            setRows(formatPublicationDates(pageAndSortData()));
+            setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
         }
     }, [sort, order, limit]);
     // on page change fetch new data
     useEffect(() => {
-        setRows(formatPublicationDates(pageAndSortData()));
+        setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
     }, [page]);
 
     // do not show deadlines in column headers if we do not have the data
