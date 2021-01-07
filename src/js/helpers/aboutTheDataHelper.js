@@ -145,7 +145,7 @@ export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
 });
 
 export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
-    url: `/api/v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
+    url: `v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
 });
 
 export const fetchAgency = (agencyCode, params) => apiRequest({
@@ -191,8 +191,8 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
     difference = null
 }) => ([
     tas || '--',
-    fileAObligation ? formatMoney(fileAObligation) : '--',
-    fileBObligation ? formatMoney(fileBObligation) : '--',
+    (fileAObligation || fileAObligation === 0) ? formatMoney(fileAObligation) : '--',
+    (fileBObligation || fileBObligation === 0) ? formatMoney(fileBObligation) : '--',
     difference ? formatMoney(difference) : '--'
 ]));
 
