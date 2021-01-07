@@ -34,7 +34,6 @@ const AgencyDetailsPage = () => {
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
-    const budgetRequest = useRef(null);
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -72,7 +71,6 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         if (overviewRequest.current) overviewRequest.current.cancel();
-        if (budgetRequest.current) budgetRequest.current.cancel();
     }, []);
 
     useEffect(() => {
