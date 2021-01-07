@@ -209,8 +209,3 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
 ]));
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
-
-export const findTotalBudget = (budgetaryResources, fy, period) => {
-    const matchingBudget = budgetaryResources.find((item) => item.fiscal_year === fy && item.fiscal_period === period);
-    return matchingBudget && matchingBudget.total_budgetary_resources;
-};
