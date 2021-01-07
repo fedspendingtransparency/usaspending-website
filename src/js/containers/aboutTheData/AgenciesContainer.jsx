@@ -48,7 +48,7 @@ const AgenciesContainer = ({
         [{ page: publicationsPage, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
+    const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
     const tableRef = useRef(null);
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
@@ -125,8 +125,8 @@ const AgenciesContainer = ({
         if (selectedFy && selectedPeriod && !federalTotals.length) {
             if (totalsReq.current) totalsReq.current.cancel();
             if (submissionsReq.current) submissionsReq.current.cancel();
-            setLoading([true, areDetailsLoading, areDatesLoading]);
-            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
+            setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
+            totalsReq.current = getTotalBudgetaryResources();
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
                     dispatch(setTotals(results));
@@ -161,7 +161,7 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (selectedFy && selectedPeriod && !federalTotals.length) {
+        if (!federalTotals.length) {
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
@@ -241,7 +241,7 @@ const AgenciesContainer = ({
                             direction: submissionsSort[1]
                         }}
                         error={error}
-                        loading={areDetailsLoading} />
+                        loading={areSubmissionsLoading} />
                 )}
                 {activeTab === 'publications' && (
                     <Table
@@ -254,7 +254,7 @@ const AgenciesContainer = ({
                             direction: publicationsSort[1]
                         }}
                         error={error}
-                        loading={areDatesLoading} />
+                        loading={arePublicationsLoading} />
                 )}
             </div>
             {(allSubmissions.length || allPublications.length) && (
