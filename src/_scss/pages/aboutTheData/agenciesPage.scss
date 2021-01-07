@@ -262,17 +262,21 @@
         &.sticky-y-table {
           @media(min-width: $medium-screen) {
             thead {
-              th {
+              tr th {
                 position: sticky;
                 position: -webkit-sticky;
-                z-index: 9;
                 top: 0;
+                z-index: 9;
                 border: rem(1) solid $color-gray-lighter;
                 // Set a higher z-index on the <th> the user is hovering over so
                 // tooltips display above the stacking context of the other headers
                 &:hover {
                   z-index: 10;
                 }
+              }
+              tr:last-of-type th {
+                  top: rem(57);
+                  border: rem(1) solid $color-gray-lighter;
               }
             }
           }
