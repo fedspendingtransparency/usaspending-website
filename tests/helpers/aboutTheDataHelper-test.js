@@ -225,15 +225,15 @@ test('isPeriodVisible determines if a period has available data (perhaps may not
 test('getPeriodWithTitleById returns correct title for period', () => {
     expect(getPeriodWithTitleById('1').title).toEqual('P01 - P02');
     expect(getPeriodWithTitleById('2').title).toEqual('P01 - P02');
-    expect(getPeriodWithTitleById('3').title).toEqual('Q1 P03');
+    expect(getPeriodWithTitleById('3').title).toEqual('Q1 / P03');
     expect(getPeriodWithTitleById('4').title).toEqual('P04');
     expect(getPeriodWithTitleById('5').title).toEqual('P05');
-    expect(getPeriodWithTitleById('6').title).toEqual('Q2 P06');
+    expect(getPeriodWithTitleById('6').title).toEqual('Q2 / P06');
 
     expect(getPeriodWithTitleById('7').title).toEqual('P07');
     expect(getPeriodWithTitleById('8').title).toEqual('P08');
-    expect(getPeriodWithTitleById('9').title).toEqual('Q3 P09');
+    expect(getPeriodWithTitleById('9').title).toEqual('Q3 / P09');
     expect(getPeriodWithTitleById('10').title).toEqual('P10');
     expect(getPeriodWithTitleById('11').title).toEqual('P11');
-    expect(getPeriodWithTitleById('12').title).toEqual('Q4 P12');
+    expect(getPeriodWithTitleById('12').title).toEqual('Q4 / P12');
 });

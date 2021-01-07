@@ -17,6 +17,12 @@ import { apiRequest } from './apiRequest';
 
 const isMocked = GlobalConstants.LOCAL;
 
+export const getSelectedPeriodTitle = (str) => (
+    str.includes('Q')
+        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
+        : str
+);
+
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
 export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
@@ -29,15 +35,9 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
             return id === urlPeriod;
         })[0];
-    if (period) return period;
+    if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
     return getPeriodWithTitleById(`${latestPeriod.period}`);
 };
-
-export const getSelectedPeriodTitle = (str) => (
-    str.includes('Q')
-        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
-        : str
-);
 
 // periods can be visible but not selectable
 export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
@@ -115,7 +115,7 @@ export const getAgenciesReportingData = (fy, period, order, sort, page, limit) =
                 resolve({
                     data: {
                         // returns multiple pages of data when limit is 10
-                        results: mockAPI.details.data.results.concat(mockAPI.details.data.results)
+                        results: mockAPI.submissions.data.results.concat(mockAPI.submissions.data.results)
                     }
                 });
             }, 500);
@@ -145,7 +145,7 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
                 resolve({
                     data: {
                         // returns multiple pages of data when limit is 10
-                        results: mockAPI.dates.data.results.concat(mockAPI.dates.data.results)
+                        results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
                     }
                 });
             }, 500);
