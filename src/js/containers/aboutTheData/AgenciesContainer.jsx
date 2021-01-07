@@ -145,7 +145,7 @@ const AgenciesContainer = ({
         return Promise.resolve([]);
     });
 
-    useEffect(() => {
+    useEffect(() => () => {
         if (publicationsReq.current) {
             console.info('canceling request on unmount');
             publicationsReq.current.cancel();
