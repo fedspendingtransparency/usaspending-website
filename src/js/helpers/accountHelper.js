@@ -60,7 +60,7 @@ export const getLatestPeriod = (availablePeriods, fy = null) => availablePeriods
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
     if (!submissionPeriods.length) return null;
     const submissionPeriod = submissionPeriods
-        .find((submission) => submission.submission_fiscal_year === fiscalYear && submission.submission_fiscal_month === fiscalPeriod);
+        .find((submission) => submission.submission_fiscal_year === parseInt(fiscalYear, 10) && submission.submission_fiscal_month === parseInt(fiscalPeriod, 10));
     if (!submissionPeriod) return null;
     return { submissionDueDate: submissionPeriod.submission_due_date, certificationDueDate: submissionPeriod.certification_due_date };
 };
