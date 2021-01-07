@@ -29,8 +29,8 @@ export const missingAccountBalanceColumns = [
 
 export const reportingDifferencesColumns = [
     { displayName: 'Treasury Account Symbol (TAS)', title: 'tas' },
-    { displayName: 'Account Balance Obligations', title: 'file_a_obligations' },
-    { displayName: 'Account Spending Obligations', title: 'file_b_obligations' },
+    { displayName: 'Account Balance Obligations', title: 'file_a_obligation' },
+    { displayName: 'Account Spending Obligations', title: 'file_b_obligation' },
     { displayName: 'Difference', title: 'difference' }
 ];
 
@@ -156,87 +156,6 @@ const mockDataMissingAccountBalances = [
     }
 ];
 
-const mockDataReportingDifferences = [
-    {
-        tas: "123-X-3409/3490-456",
-        file_a_obligation: 87654345,
-        file_b_obligation: 2323,
-        difference: 12
-    },
-    {
-        tas: "123-X-3409",
-        file_a_obligation: 765,
-        file_b_obligation: 2323,
-        difference: 12
-    },
-    {
-        tas: "234-X-3409/45-456",
-        file_a_obligation: 765,
-        file_b_obligation: 2323,
-        difference: 123
-    },
-    {
-        tas: "123-34-3409/324-456",
-        file_a_obligation: 76543,
-        file_b_obligation: 2323,
-        difference: 543
-    },
-    {
-        tas: "123-3434-3409",
-        file_a_obligation: 87654,
-        file_b_obligation: 2323,
-        difference: 789
-    },
-    {
-        tas: "123-X-35/22-456",
-        file_a_obligation: 98765,
-        file_b_obligation: 2323,
-        difference: 23
-    },
-    {
-        tas: "123-096-3409/22-456",
-        file_a_obligation: 956764,
-        file_b_obligation: 2323,
-        difference: 234
-    },
-    {
-        tas: "123-X-00/3490-456",
-        file_a_obligation: 34565,
-        file_b_obligation: 2323,
-        difference: 56
-    },
-    {
-        tas: "007-X-3409/3490-456",
-        file_a_obligation: 232,
-        file_b_obligation: 2323,
-        difference: 754
-    },
-    {
-        tas: "008-X-3409/3490-456",
-        file_a_obligation: 3434,
-        file_b_obligation: 2323,
-        difference: 345
-    },
-    {
-        tas: "009-X-3409/3490-456",
-        file_a_obligation: 1234567,
-        file_b_obligation: 2323,
-        difference: 765
-    },
-    {
-        tas: "200-X-3409/3490-456",
-        file_a_obligation: 23456,
-        file_b_obligation: 2323,
-        difference: 758
-    },
-    {
-        tas: "444-X-3409/3490-456",
-        file_a_obligation: 2345678,
-        file_b_obligation: 2323,
-        difference: 234
-    }
-];
-
 // TODO - delete this when API is integrated
 export const mockAPIPublicationDates = (params) => {
     const pageMetaData = {
@@ -310,47 +229,6 @@ export const mockAPIMissingAccountBalances = (params) => {
                     const data = {
                         page_metadata: pageMetaData,
                         results: mockDataMissingAccountBalances.slice(params.limit, params.limit * 2)
-                    };
-                    resolve({ data });
-                }
-            }, 1000);
-        }),
-        cancel: () => console.log(' :wave: ')
-    };
-};
-
-// TODO - delete this when API is integrated
-export const mockAPIReportingDifferences = (params) => {
-    const pageMetaData = {
-        page: 1,
-        next: 2,
-        previous: 0,
-        hasNext: false,
-        hasPrevious: false,
-        total: 16,
-        limit: 10
-    };
-    pageMetaData.page = params.page;
-    pageMetaData.next = params.next;
-    pageMetaData.previous = params.page - 1;
-    pageMetaData.hasNext = params.page === 1;
-    pageMetaData.hasPrevious = params.page === 2;
-    pageMetaData.limite = params.limit;
-
-    return {
-        promise: new Promise((resolve) => {
-            setTimeout(() => {
-                if (params.page === 1) {
-                    const data = {
-                        page_metadata: pageMetaData,
-                        results: mockDataReportingDifferences.slice(0, params.limit)
-                    };
-                    resolve({ data });
-                }
-                else {
-                    const data = {
-                        page_metadata: pageMetaData,
-                        results: mockDataReportingDifferences.slice(params.limit, params.limit * 2)
                     };
                     resolve({ data });
                 }
