@@ -11,7 +11,10 @@ import { reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
 import { formatReportingDifferencesData, fetchReportingDifferences } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
-    agencyData: PropTypes.object,
+    agencyData: PropTypes.shape({
+        agencyName: PropTypes.string,
+        agencyCode: PropTypes.string
+    }),
     fiscalYear: PropTypes.number,
     fiscalPeriod: PropTypes.number
 };
@@ -48,8 +51,7 @@ const ReportingDifferencesContainer = ({
             fiscal_period: fiscalPeriod
         };
         try {
-            // reportingDiffRequest.current = fetchReportingDifferences(agencyData.agencyCode, params);
-            reportingDiffRequest.current = fetchReportingDifferences('012', params);
+            reportingDiffRequest.current = fetchReportingDifferences(agencyData.agencyCode, params);
             const { data } = await reportingDiffRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatReportingDifferencesData({ results: data.results }));
