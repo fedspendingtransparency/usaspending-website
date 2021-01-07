@@ -9,7 +9,6 @@ import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
-import { getTotalBudgetaryResources } from 'helpers/aboutTheDataHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -36,7 +35,6 @@ const AgencyDetailsPage = () => {
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
     const budgetRequest = useRef(null);
-    const [totalBudgetaryResources, setTotalBudgetaryResources] = useState([]);
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -72,18 +70,6 @@ const AgencyDetailsPage = () => {
         }
     };
 
-    const fetchTotalBudgetaryResources = async () => {
-        try {
-            budgetRequest.current = getTotalBudgetaryResources();
-            const { data } = await budgetRequest.current.promise;
-            setTotalBudgetaryResources(data.results);
-        }
-        catch (err) {
-            console.error(err);
-            budgetRequest.current = null;
-        }
-    };
-
     useEffect(() => {
         if (overviewRequest.current) overviewRequest.current.cancel();
         if (budgetRequest.current) budgetRequest.current.cancel();
@@ -91,7 +77,6 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-        fetchTotalBudgetaryResources();
     }, [agencyCode]);
 
     return (
@@ -141,8 +126,7 @@ const AgencyDetailsPage = () => {
                         <AgencyDetailsContainer
                             agencyName={agencyOverview.name}
                             modalClick={modalClick}
-                            agencyCode={agencyCode}
-                            totalBudgetaryResources={totalBudgetaryResources} />
+                            agencyCode={agencyCode} />
                         <Note message={message} />
                     </>
                 )}

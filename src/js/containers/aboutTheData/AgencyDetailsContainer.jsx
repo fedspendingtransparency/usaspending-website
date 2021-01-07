@@ -92,7 +92,7 @@ const propTypes = {
 };
 
 const AgencyDetailsContainer = ({
-    modalClick, agencyName, agencyCode, totalBudgetaryResources
+    modalClick, agencyName, agencyCode
 }) => {
     const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'desc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
@@ -178,7 +178,7 @@ const AgencyDetailsContainer = ({
 
     useEffect(() => {
         fetchTableData();
-    }, [currentPage, totalBudgetaryResources]);
+    }, [currentPage]);
 
     return (
         <>
