@@ -204,9 +204,9 @@ const AgenciesContainer = ({
         }) => [
             (<DrilldownCell data={agencyName} id={code} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
-            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
+            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName, agencyCode: code }} />),
+            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, agencyCode: code, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
+            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName, agencyCode: code }} />)
         ]);
 
     const handlePageChange = (page) => {
