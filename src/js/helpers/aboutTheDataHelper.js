@@ -96,7 +96,7 @@ export const getTotalBudgetaryResources = (fy, period) => {
 };
 
 export const getAgenciesReportingData = (fy, period, sort, order, page, limit) => apiRequest({
-    url: `v2/reporting/agencies/overview?${stringify({
+    url: `v2/reporting/agencies/overview/?${stringify({
         fiscal_year: fy,
         fiscal_period: period,
         page,
