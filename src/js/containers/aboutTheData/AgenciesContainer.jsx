@@ -100,16 +100,17 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
-        setLoading([false, true, false]);
+        setLoading([false, false, true]);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit);
         return publicationsReq.current.promise
-            .then(({ data: { results } }) => {
+            .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
                     row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
                 dispatch(setTableData(activeTab, parsedResults));
+                updatePublicationsPagination({ totalItems, page, limit });
                 setLoading([false, false, false]);
                 setError(false);
                 publicationsReq.current = null;
@@ -219,7 +220,7 @@ const AgenciesContainer = ({
             updateSubmissionsPagination({ totalItems: totalSubmissionItems, page, limit: submissionsLimit });
         }
         else {
-            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: submissionsLimit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: publicationsLimit });
         }
     };
 
@@ -228,7 +229,7 @@ const AgenciesContainer = ({
             updateSubmissionsPagination({ totalItems: totalSubmissionItems, page: submissionsPage, limit });
         }
         else {
-            updatePublicationsPagination({ totalItems: totalSubmissionItems, page: publicationsPage, limit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page: publicationsPage, limit });
         }
     };
 
@@ -251,7 +252,7 @@ const AgenciesContainer = ({
                 {activeTab === 'publications' && (
                     <Table
                         rows={renderDates(allPublications)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
