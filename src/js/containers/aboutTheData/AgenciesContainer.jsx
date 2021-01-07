@@ -8,14 +8,14 @@ import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
-import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
-import DatesRow from 'models/v2/aboutTheData/DatesRow';
+import ReportingOverviewRow from 'models/v2/aboutTheData/ReportingOverviewRow';
+import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 
 import { agenciesTableColumns } from './AgencyTableMapping';
 
 const propTypes = {
     openModal: PropTypes.func.isRequired,
-    activeTab: PropTypes.oneOf(['dates', 'details']).isRequired,
+    activeTab: PropTypes.oneOf(['publications', 'submissions']).isRequired,
     selectedFy: PropTypes.string,
     selectedPeriod: PropTypes.string
 };
@@ -37,15 +37,15 @@ const AgenciesContainer = ({
     selectedPeriod
 }) => {
     const {
-        details, dates, datesSort, detailsSort, totals, submissionPeriods
+        allSubmissions, allPublications, publicationsSort, submissionsSort, federalTotals, submissionPeriods
     } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
     const dispatch = useDispatch();
-    const datesReq = useRef(null);
-    const detailsReq = useRef(null);
+    const publicationsReq = useRef(null);
+    const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
     const [
-        [{ page: detailsPage, limit: detailsLimit }, updateDetailsPagination],
-        [{ page: datesPage, limit: datesLimit }, updateDatesPagination]
+        [{ page: submissionsPage, limit: submissionsLimit }, updateSubmissionsPagination],
+        [{ page: publicationsPage, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
@@ -70,19 +70,19 @@ const AgenciesContainer = ({
     };
 
     const fetchTableData = useCallback(() => {
-        if (activeTab === 'details') {
+        if (activeTab === 'submissions') {
             const isPeriodValid = isPeriodSelectable(
                 submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
                 selectedPeriod
             );
             if (!isPeriodValid) return Promise.resolve();
             setLoading([false, true, false]);
-            detailsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
-            return detailsReq.current.promise
+            submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], submissionsPage, submissionsLimit);
+            return submissionsReq.current.promise
                 .then(({ data: { results } }) => {
                     const parsedResults = results.map((d) => {
-                        const row = Object.create(DetailsRow);
-                        const federalTotal = totals.find(({ fiscal_year: y, fiscal_period: p }) => (
+                        const row = Object.create(ReportingOverviewRow);
+                        const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
                             y === parseInt(selectedFy, 10) &&
                             p === parseInt(selectedPeriod, 10)
                         ));
@@ -100,31 +100,31 @@ const AgenciesContainer = ({
                 });
         }
         setLoading([false, true, false]);
-        datesReq.current = getSubmissionPublicationDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
-        return datesReq.current.promise
+        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit);
+        return publicationsReq.current.promise
             .then(({ data: { results } }) => {
                 const parsedResults = results.map((d) => {
-                    const row = Object.create(DatesRow);
-                    row.populate(parseInt(selectedFy, 10), d, totals);
+                    const row = Object.create(PublicationOverviewRow);
+                    row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
                 dispatch(setTableData(activeTab, parsedResults));
                 setLoading([false, false, false]);
                 setError(false);
-                datesReq.current = null;
+                publicationsReq.current = null;
             })
             .catch((e) => {
                 console.error('Error: ', e);
                 setLoading([false, false, false]);
                 setError(true);
-                datesReq.current = null;
+                publicationsReq.current = null;
             });
     });
 
     const fetchTotals = useCallback(() => {
-        if (selectedFy && selectedPeriod && !totals.length) {
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
             if (totalsReq.current) totalsReq.current.cancel();
-            if (detailsReq.current) detailsReq.current.cancel();
+            if (submissionsReq.current) submissionsReq.current.cancel();
             setLoading([true, areDetailsLoading, areDatesLoading]);
             totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
             return totalsReq.current.promise
@@ -144,14 +144,14 @@ const AgenciesContainer = ({
         return Promise.resolve([]);
     });
 
-    useEffect(() => {
-        if (datesReq.current) {
+    useEffect(() => () => {
+        if (publicationsReq.current) {
             console.info('canceling request on unmount');
-            datesReq.current.cancel();
+            publicationsReq.current.cancel();
         }
-        if (detailsReq.current) {
+        if (submissionsReq.current) {
             console.info('canceling request on unmount');
-            detailsReq.current.cancel();
+            submissionsReq.current.cancel();
         }
         if (totalsReq.current) {
             console.info('canceling request on unmount');
@@ -161,23 +161,23 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (selectedFy && selectedPeriod && !totals.length) {
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
     }, [
-        totals,
+        federalTotals,
         activeTab,
         selectedFy,
         selectedPeriod,
-        detailsSort,
-        detailsPage,
-        detailsLimit,
-        datesSort,
-        datesPage,
-        datesLimit
+        submissionsSort,
+        submissionsPage,
+        submissionsLimit,
+        publicationsSort,
+        publicationsPage,
+        publicationsLimit
     ]);
 
     const renderDates = (results = []) => results
@@ -210,62 +210,62 @@ const AgenciesContainer = ({
         ]);
 
     const handlePageChange = (page) => {
-        if (activeTab === 'details') {
-            updateDetailsPagination({ page, limit: detailsLimit });
+        if (activeTab === 'submissions') {
+            updateSubmissionsPagination({ page, limit: submissionsLimit });
         }
         else {
-            updateDatesPagination({ page, limit: detailsLimit });
+            updatePublicationsPagination({ page, limit: submissionsLimit });
         }
     };
 
     const handleLimitChange = (limit) => {
-        if (activeTab === 'details') {
-            updateDetailsPagination({ page: detailsPage, limit });
+        if (activeTab === 'submissions') {
+            updateSubmissionsPagination({ page: submissionsPage, limit });
         }
         else {
-            updateDatesPagination({ page: datesPage, limit });
+            updatePublicationsPagination({ page: publicationsPage, limit });
         }
     };
 
     return (
         <>
             <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                {activeTab === 'details' && (
+                {activeTab === 'submissions' && (
                     <Table
-                        rows={renderDetails(details)}
+                        rows={renderDetails(allSubmissions)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
-                            field: detailsSort[0],
-                            direction: detailsSort[1]
+                            field: submissionsSort[0],
+                            direction: submissionsSort[1]
                         }}
                         error={error}
                         loading={areDetailsLoading} />
                 )}
-                {activeTab === 'dates' && (
+                {activeTab === 'publications' && (
                     <Table
-                        rows={renderDates(dates)}
+                        rows={renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
-                            field: datesSort[0],
-                            direction: datesSort[1]
+                            field: publicationsSort[0],
+                            direction: publicationsSort[1]
                         }}
                         error={error}
                         loading={areDatesLoading} />
                 )}
             </div>
-            {(details.length || dates.length) && (
+            {(allSubmissions.length || allPublications.length) && (
                 <Pagination
                     resultsText
                     limitSelector
                     changeLimit={handleLimitChange}
                     changePage={handlePageChange}
-                    currentPage={activeTab === 'details' ? detailsPage : datesPage}
-                    pageSize={activeTab === 'details' ? detailsLimit : datesLimit}
-                    totalItems={activeTab === 'details' ? details.length : dates.length} />
+                    currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                    pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                    totalItems={activeTab === 'submissions' ? allSubmissions.length : allPublications.length} />
             )}
         </>
     );

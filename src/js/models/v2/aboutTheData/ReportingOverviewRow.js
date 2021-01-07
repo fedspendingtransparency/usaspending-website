@@ -12,7 +12,7 @@ const BaseAgencyRow = {
         this._abbreviation = data.abbreviation || '';
         this._code = data.code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
-        // eslint-disable-next-line camelcase
+        /* eslint-disable camelcase */
         this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
         this._obligationDifference = data.obligation_difference || 0;
         this._publicationDate = data.recent_publication_date || null;
