@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/8/20
  */
 
-import { formatMoneyWithPrecision, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision, formatNumber, formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { dateFormattedMonthDayYear, showQuarterText } from 'helpers/aboutTheDataHelper';
 
 const BaseReportingPeriodRow = {
@@ -20,6 +20,7 @@ const BaseReportingPeriodRow = {
         this._federalBudget = federalBudget;
         this._unlinkedContracts = data.unlinked_contract_award_count || 0;
         this._unlinkedAssistance = data.unlinked_assistance_award_count || 0;
+        this._percentOfBudget = data.percent_of_total_budgetary_resources || 0;
     },
     get reportingPeriod() {
         // Add a leading a zero to single-digit periods
@@ -36,7 +37,7 @@ const BaseReportingPeriodRow = {
         return `FY ${this._fiscalYear}: ${period}`;
     },
     get percentOfBudget() {
-        return calculatePercentage(this._budgetAuthority, this._federalBudget);
+        return `${formatNumberWithPrecision(this._percentOfBudget, 2)}%`;
     },
     get mostRecentPublicationDate() {
         return dateFormattedMonthDayYear(this._mostRecentPublicationDate);

@@ -36,7 +36,7 @@ const columns = [
         displayName: "Reporting Period"
     },
     {
-        title: "current_total_budget_authority_amount",
+        title: "percent_of_total_budgetary_resources",
         displayName: "Percent of Total Federal Budget"
     },
     {
@@ -120,9 +120,7 @@ const AgencyDetailsContainer = ({
     const parseRows = (results) => (
         results.map((row) => {
             const rowData = Object.create(BaseReportingPeriodRow);
-            // Find the total budget for this row's FY + period
-            const totalBudget = findTotalBudget(totalBudgetaryResources, row.fiscal_year, row.fiscal_period);
-            rowData.populate(row, totalBudget);
+            rowData.populate(row);
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
                 (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
