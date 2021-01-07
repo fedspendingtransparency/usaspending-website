@@ -63,12 +63,13 @@ export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
 
 const defaultState = {
     page: 1,
-    limit: 10
+    limit: 10,
+    totalItems: 1
 };
 
 export const usePagination = (initialState = defaultState) => {
-    const [{ page, limit }, updatePagination] = useState(initialState);
-    return [{ page, limit }, updatePagination];
+    const [{ page, limit, totalItems }, updatePagination] = useState(initialState);
+    return [{ page, limit, totalItems }, updatePagination];
 };
 
 export const getTotalBudgetaryResources = (fy, period) => {
@@ -94,37 +95,16 @@ export const getTotalBudgetaryResources = (fy, period) => {
     };
 };
 
-export const getAgenciesReportingData = (fy, period, order, sort, page, limit) => {
-    if (isMocked) {
-        // using mockAPI
-        return apiRequest({
-            isMocked,
-            url: `v2/reporting/agencies/overview?${stringify({
-                fiscal_year: fy,
-                fiscal_period: period,
-                page,
-                limit,
-                order,
-                sort
-            })}`
-        });
-    }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: {
-                        // returns multiple pages of data when limit is 10
-                        results: mockAPI.submissions.data.results.concat(mockAPI.submissions.data.results)
-                    }
-                });
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getAgenciesReportingData = (fy, period, sort, order, page, limit) => apiRequest({
+    url: `v2/reporting/agencies/overview/?${stringify({
+        fiscal_year: fy,
+        fiscal_period: period,
+        page,
+        limit,
+        order,
+        sort
+    })}`
+});
 
 export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
     if (isMocked) {

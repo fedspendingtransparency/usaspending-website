@@ -71,31 +71,35 @@ export const agenciesTableColumns = {
     ],
     submissions: [
         {
-            title: "name",
+            title: "agency_name",
             displayName: "Agency Name"
         },
         {
-            title: "percent_of_total",
+            title: "current_total_budget_authority_amount",
             displayName: "Percent of Total Federal Budget"
         },
         {
-            title: "publication_date",
+            title: "recent_publication_date_certified",
             displayName: "Most Recent Publication Date",
             icon: (<Tooltip title="Most Recent Update" />)
         },
         {
-            title: "tas_not_in_file_a",
+            title: "tas_obligation_not_in_gtas_total",
             displayName: "Count of Agency TAS in GTAS Not in File A",
             icon: (
                 <Tooltip title="Number of TASs Missing in Account Balance Data" />
             )
         },
         {
-            title: "file_a_b_diff",
+            title: "obligation_difference",
             displayName: "Difference in File A and File B Obligations"
         },
         {
-            title: "unlinked_asst_award_count",
+            title: "unlinked_contract_award_count",
+            displayName: "Number of Unlinked Contract Awards"
+        },
+        {
+            title: "unlinked_assistance_award_count",
             displayName: "Count of Unlinked Assistance Awards",
             icon: (
                 <Tooltip title="Number of Unlinked Assistance Awards" />
