@@ -18,16 +18,6 @@ import { pageAndSort } from 'helpers/pageAndSortHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
-const mockPublicationDatesValues = () => {
-    const data = [{ publication_date: 1578286800000, certification_date: 1579150800000 }];
-    for (let i = 2; i <= 95; i++) {
-        data.push({
-            publication_date: data[0].publication_date - (i * 86400000),
-            certification_date: data[0].certification_date - (i * 86400000)
-        });
-    }
-    return data;
-};
 const propTypes = {
     agencyData: PropTypes.shape({
         agencyName: PropTypes.string,
@@ -47,7 +37,7 @@ const PublicationDatesContainer = ({
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ error: false, message: '' });
-    const [rawData, setRawData] = useState(mockPublicationDatesValues());
+    const [rawData, setRawData] = useState([]);
     const [rows, setRows] = useState([]);
     const [submissionDeadlines, setSubmissionDeadlines] = useState(null);
     const { submissionPeriods } = useSelector((state) => state.account);
