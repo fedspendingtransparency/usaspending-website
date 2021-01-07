@@ -138,7 +138,7 @@ const AgenciesContainer = ({
             if (totalsReq.current) totalsReq.current.cancel();
             if (submissionsReq.current) submissionsReq.current.cancel();
             setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
-            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
+            totalsReq.current = getTotalBudgetaryResources();
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
                     dispatch(setTotals(results));
@@ -173,7 +173,7 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (selectedFy && selectedPeriod && !federalTotals.length) {
+        if (!federalTotals.length) {
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {

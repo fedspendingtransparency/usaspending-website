@@ -72,28 +72,12 @@ export const usePagination = (initialState = defaultState) => {
     return [{ page, limit, totalItems }, updatePagination];
 };
 
-export const getTotalBudgetaryResources = (fy, period) => {
-    if (isMocked) {
-        // using mockAPI
-        return apiRequest({
-            isMocked,
-            url: `v2/references/total_budgetary_resources?${stringify({
-                fiscal_period: period,
-                fiscal_year: fy
-            })}`
-        });
-    }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve(mockAPI.totals);
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getTotalBudgetaryResources = (fy = '', period = '') => apiRequest({
+    url: `v2/references/total_budgetary_resources/?${stringify({
+        fiscal_period: period,
+        fiscal_year: fy
+    })}`
+});
 
 export const getAgenciesReportingData = (fy, period, sort, order, page, limit, filter = '') => apiRequest({
     url: `v2/reporting/agencies/overview?${stringify({
