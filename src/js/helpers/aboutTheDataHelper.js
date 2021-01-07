@@ -106,35 +106,15 @@ export const getAgenciesReportingData = (fy, period, sort, order, page, limit) =
     })}`
 });
 
-export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
-    if (isMocked) {
-        return apiRequest({
-            isMocked,
-            url: `v2/reporting/agencies/publish_dates?${stringify({
-                fiscal_year: fy,
-                page,
-                limit,
-                order,
-                sort
-            })}`
-        });
-    }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: {
-                        // returns multiple pages of data when limit is 10
-                        results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
-                    }
-                });
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getSubmissionPublicationDates = (fy, sort, order, page, limit) => apiRequest({
+    url: `v2/reporting/agencies/publish_dates/?${stringify({
+        fiscal_year: fy,
+        page,
+        limit,
+        order,
+        sort
+    })}`
+});
 
 export const fetchPublishDates = (agencyCode, params) => apiRequest({
     url: `v2/reporting/agencies/${agencyCode}/publish_dates/${stringify(params)}`
