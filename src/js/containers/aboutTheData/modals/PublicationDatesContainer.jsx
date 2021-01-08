@@ -12,7 +12,8 @@ import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
 import {
     formatPublicationDates,
     dateFormattedMonthDayYear,
-    fetchPublishDates
+    fetchPublishDates,
+    convertDatesToMilliseconds
 } from 'helpers/aboutTheDataHelper';
 import { pageAndSort } from 'helpers/pageAndSortHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
@@ -64,12 +65,6 @@ const PublicationDatesContainer = ({
         }
     };
 
-    const createMillisecondDates = (data) => data.map((datesObj) => {
-        const publicationDate = !datesObj.publication_date ? new Date(0) : new Date(datesObj.publication_date);
-        const certificationDate = !datesObj.certification_date ? new Date(0) : new Date(datesObj.certification_date);
-        return { publication_date: publicationDate.getTime(), certification_date: certificationDate.getTime() };
-    });
-
     const publicationDatesRequest = async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
@@ -78,7 +73,7 @@ const PublicationDatesContainer = ({
             pubDatesRequest.current = fetchPublishDates(agencyData.agencyCode, agencyData.fiscalYear, agencyData.fiscalPeriod, { page: 1, limit: 100 });
             const { data } = await pubDatesRequest.current.promise;
             setTotal(data.page_metadata.total);
-            setRawData(createMillisecondDates(data.results));
+            setRawData(convertDatesToMilliseconds(data.results));
             setLoading(false);
             pubDatesRequest.current = null;
         }

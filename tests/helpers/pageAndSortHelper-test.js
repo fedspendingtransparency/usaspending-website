@@ -14,7 +14,6 @@ const mockData = () => {
 };
 
 describe('Page And Sort Helper', () => {
-    console.log(' YO : ', mockData());
     it('should page and sort', () => {
         const data = pageAndSort(mockData(), null, 1, 10, 'asc', 'first');
         expect(data[0].first).toEqual(1);

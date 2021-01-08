@@ -4,7 +4,11 @@ import {
     formatMissingAccountBalancesData,
     showQuarterText,
     formatReportingDifferencesData,
-    getLastPeriodWithinQuarterByPeriod, isPeriodVisible, isPeriodSelectable, getPeriodWithTitleById
+    getLastPeriodWithinQuarterByPeriod,
+    isPeriodVisible,
+    isPeriodSelectable,
+    getPeriodWithTitleById,
+    convertDatesToMilliseconds
 } from 'helpers/aboutTheDataHelper';
 
 import {
@@ -13,7 +17,9 @@ import {
     mockBadResultsBalanceData,
     mockReportingDifferenceData,
     mockBadReportingDifferenceData,
-    mockSubmissions
+    mockSubmissions,
+    mockDates,
+    badMockDates
 } from '../mockData/helpers/aboutTheDataHelper';
 
 const mockPeriods = {
@@ -137,6 +143,22 @@ describe('About The Data Helper', () => {
                     "--"
                 ])
             ]));
+        });
+    });
+    describe('convertDatesToMilliseconds', () => {
+        it('should convert dates to a number', () => {
+            const dates = convertDatesToMilliseconds(mockDates);
+            expect(typeof dates[0].publication_date).toBe('number');
+            expect(typeof dates[0].certification_date).toBe('number');
+            expect(typeof dates[1].publication_date).toBe('number');
+            expect(typeof dates[1].certification_date).toBe('number');
+        });
+        it('should handle no data', () => {
+            const dates = convertDatesToMilliseconds(badMockDates);
+            expect(dates[0].publication_date).toBe(0);
+            expect(dates[0].certification_date).toBe(0);
+            expect(dates[1].publication_date).toBe(0);
+            expect(dates[1].certification_date).toBe(0);
         });
     });
 });
