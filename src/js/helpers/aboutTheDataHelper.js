@@ -151,8 +151,8 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit, sear
     };
 };
 
-export const fetchPublishDates = (agencyCode, params) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/publish_dates/${stringify(params)}`
+export const fetchPublishDates = (agencyCode, fiscalYear, fiscalPeriod, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/submission_history/?${stringify(params)}`
 });
 
 export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
@@ -209,5 +209,11 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
     (fileBObligation || fileBObligation === 0) ? formatMoney(fileBObligation) : '--',
     difference ? formatMoney(difference) : '--'
 ]));
+
+export const convertDatesToMilliseconds = (data) => data.map((datesObj) => {
+    const publicationDate = !datesObj.publication_date ? new Date(0) : new Date(datesObj.publication_date);
+    const certificationDate = !datesObj.certification_date ? new Date(0) : new Date(datesObj.certification_date);
+    return { publication_date: publicationDate.getTime(), certification_date: certificationDate.getTime() };
+});
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);

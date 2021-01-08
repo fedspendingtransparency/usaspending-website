@@ -119,3 +119,12 @@ export const mockBadReportingDifferenceData = {
         }
     ]
 };
+
+export const mockDates = [
+    { publication_date: '2011-10-05T14:48:00.000Z', certification_date: '2011-10-05T14:48:00.000Z' },
+    { publication_date: '2011-10-05T14:48:00.000Z', certification_date: '2011-10-05T14:48:00.000Z' }
+];
+export const badMockDates = [
+    { publication_date: null, certification_date: null },
+    { publication_date: null, certification_date: null }
+];
