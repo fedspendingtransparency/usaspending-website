@@ -254,7 +254,7 @@
         margin-bottom:0;
         thead {
           tr th {
-            min-width: rem(200);
+            min-width: rem(300);
           }
           .nested-header {
             .table-header__content {
@@ -335,6 +335,9 @@
               }
             }
           }
+        }
+        &.table-loading .usda-table__body tr td {
+          border: none;
         }
       }
     }

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { mockFetchAgencyOverview } from 'helpers/agencyV2Helper';
+import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -44,31 +44,37 @@ const AgencyDetailsPage = () => {
         setModalData(null);
     };
 
+    const getOverviewData = async () => {
+        if (!loading) setLoading(true);
+        if (error) {
+            setError(false);
+            setErrorMessage('');
+        }
+        if (overviewRequest.current) overviewRequest.current.cancel();
+        try {
+            overviewRequest.current = fetchAgencyOverview(agencyCode);
+            const { data } = await overviewRequest.current.promise;
+            const agency = Object.create(BaseAgencyOverview);
+            agency.populate(data);
+            setAgencyOverview(agency);
+            setLoading(false);
+            overviewRequest.current = null;
+        }
+        catch (err) {
+            console.error(err);
+            setError(true);
+            setErrorMessage(err.message);
+            setLoading(false);
+            overviewRequest.current = null;
+        }
+    };
+
     useEffect(() => {
-        const getOverviewData = async () => {
-            // TODO - replace mock API request
-            overviewRequest.current = mockFetchAgencyOverview(agencyCode);
-            try {
-                const { data } = await overviewRequest.current.promise;
-                const agency = Object.create(BaseAgencyOverview);
-                agency.populate(data);
-                setAgencyOverview(agency);
-                setLoading(false);
-            }
-            catch (err) {
-                console.error(err);
-                setErrorMessage(err.message);
-                setLoading(false);
-                setError(true);
-            }
-        };
+        if (overviewRequest.current) overviewRequest.current.cancel();
+    }, []);
+
+    useEffect(() => {
         getOverviewData();
-        overviewRequest.current = null;
-        return () => {
-            if (overviewRequest.current) {
-                overviewRequest.cancel();
-            }
-        };
     }, [agencyCode]);
 
     return (
@@ -115,7 +121,10 @@ const AgencyDetailsPage = () => {
                                 )}
                             </div>
                         </div>
-                        <AgencyDetailsContainer agencyName={agencyOverview.name} modalClick={modalClick} agencyCode={agencyCode} />
+                        <AgencyDetailsContainer
+                            agencyName={agencyOverview.name}
+                            modalClick={modalClick}
+                            agencyCode={agencyCode} />
                         <Note message={message} />
                     </>
                 )}

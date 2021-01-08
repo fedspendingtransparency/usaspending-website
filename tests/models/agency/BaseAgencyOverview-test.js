@@ -4,7 +4,13 @@
  */
 
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
-import { mockAgency } from 'helpers/agencyV2Helper';
+const mockAgency = {
+    name: 'Mock Agency',
+    id: '456',
+    website: 'https://home.treasury.gov/',
+    code: '020',
+    abbreviation: 'ABC'
+};
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);

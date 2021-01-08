@@ -96,7 +96,7 @@ export const getTotalBudgetaryResources = (fy, period) => {
 };
 
 export const getAgenciesReportingData = (fy, period, sort, order, page, limit, filter = '') => apiRequest({
-    url: `v2/reporting/agencies/overview?${stringify({
+    url: `v2/reporting/agencies/overview/?${stringify({
         fiscal_year: fy,
         fiscal_period: period,
         page,
@@ -160,11 +160,10 @@ export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
 });
 
 export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
-    url: `/api/v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
+    url: `v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
 });
 
 export const fetchAgency = (agencyCode, params) => apiRequest({
-    isMocked: true,
     url: `v2/reporting/agencies/${agencyCode}/overview/?${stringify(params)}`
 });
 
@@ -206,8 +205,8 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
     difference = null
 }) => ([
     tas || '--',
-    fileAObligation ? formatMoney(fileAObligation) : '--',
-    fileBObligation ? formatMoney(fileBObligation) : '--',
+    (fileAObligation || fileAObligation === 0) ? formatMoney(fileAObligation) : '--',
+    (fileBObligation || fileBObligation === 0) ? formatMoney(fileBObligation) : '--',
     difference ? formatMoney(difference) : '--'
 ]));
 

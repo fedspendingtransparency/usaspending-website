@@ -10,7 +10,7 @@ const BaseAgencyRow = {
     populate(data) {
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
-        this._code = data.code || '';
+        this.code = data.agency_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         /* eslint-disable camelcase */
         this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
