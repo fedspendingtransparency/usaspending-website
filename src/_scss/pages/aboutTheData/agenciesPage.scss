@@ -252,6 +252,9 @@
         border-collapse: separate;
         margin-top:0;
         margin-bottom:0;
+        &.table-loading {
+          height: 100%;
+        }
         thead {
           tr th {
             min-width: rem(300);
@@ -263,6 +266,9 @@
           }
         }
         tbody {
+          .loading-message {
+            text-align: center;
+          }
           .usda-table__row {
             height: 4.8rem;
             .usda-table__cell {
