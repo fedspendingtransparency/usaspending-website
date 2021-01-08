@@ -2,7 +2,7 @@
  * AgencyDetailsContainer.jsx
  */
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { Table, TooltipComponent, TooltipWrapper, Pagination } from 'data-transparency-ui';
@@ -36,7 +36,7 @@ const columns = [
         displayName: "Reporting Period"
     },
     {
-        title: "current_total_budget_authority_amount",
+        title: "percent_of_total_budgetary_resources",
         displayName: "Percent of Total Federal Budget"
     },
     {
@@ -49,28 +49,32 @@ const columns = [
         displayName: "Number of TASs Missing from Account Balance Data",
         icon: (
             <Tooltip title="Number of TASs Missing in Account Balance Data" />
-        )
+        ),
+        right: true
     },
     {
         title: "obligation_difference",
         displayName: "Reporting Difference in Obligations",
         icon: (
             <Tooltip title="Reporting Difference in Obligations" />
-        )
+        ),
+        right: true
     },
     {
         title: "unlinked_cont_award_count",
         displayName: "Number of Unlinked Contract Awards",
         icon: (
             <Tooltip title="Number of Unlinked Contract Awards" />
-        )
+        ),
+        right: true
     },
     {
         title: "unlinked_asst_award_count",
         displayName: "Number of Unlinked Assistance Awards",
         icon: (
             <Tooltip title="Number of Unlinked Assistance Awards" />
-        )
+        ),
+        right: true
     },
     {
         title: "assurance_statements",
@@ -87,7 +91,9 @@ const propTypes = {
     agencyCode: PropTypes.string
 };
 
-const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
+const AgencyDetailsContainer = ({
+    modalClick, agencyName, agencyCode
+}) => {
     const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'desc' });
     const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [rows, setRows] = useState([]);
@@ -111,10 +117,10 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const parseRows = (results, federalBudget) => (
+    const parseRows = (results) => (
         results.map((row) => {
             const rowData = Object.create(BaseReportingPeriodRow);
-            rowData.populate(row, federalBudget);
+            rowData.populate(row);
             return ([
                 (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
                 (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
@@ -125,14 +131,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     modalType="missingAccountBalance"
                     agencyData={{ agencyName, agencyCode, gtasObligationTotal: rowData._gtasObligationTotal }} />),
                 (<CellWithModal data={rowData.obligationDifference} openModal={modalClick} modalType="reportingDifferences" agencyData={{ agencyName, agencyCode }} />),
-                (<div className="generic-cell-content">--</div>),
-                (<div className="generic-cell-content">--</div>),
+                (<div className="generic-cell-content">{rowData.unlinkedContracts}</div>),
+                (<div className="generic-cell-content">{rowData.unlinkedAssistance}</div>),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
             ]);
         })
     );
 
-    const fetchTableData = useCallback(() => {
+    const fetchTableData = () => {
         if (tableRequest.current) {
             tableRequest.current.cancel();
         }
@@ -146,8 +152,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         tableRequest.current = fetchAgency(agencyCode, params);
         tableRequest.current.promise
             .then((res) => {
-                // TODO - remove mock federal budget
-                setRows(parseRows(res.data.results, 10000000000000));
+                setRows(parseRows(res.data.results));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -159,7 +164,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     console.error(err);
                 }
             });
-    });
+    };
 
     useEffect(() => {
         // Reset to the first page

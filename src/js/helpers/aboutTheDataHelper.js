@@ -149,7 +149,6 @@ export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
 });
 
 export const fetchAgency = (agencyCode, params) => apiRequest({
-    isMocked: true,
     url: `v2/reporting/agencies/${agencyCode}/overview/?${stringify(params)}`
 });
 
