@@ -176,7 +176,7 @@ const TimePeriodFilters = ({
             )}
             <div className="filter-container">
                 <span className="filter__title search-bar">AGENCY NAME</span>
-                <SearchBar minChars={2} onSearch={handleSearch} />
+                <SearchBar onSearch={handleSearch} />
             </div>
         </div>
     );
