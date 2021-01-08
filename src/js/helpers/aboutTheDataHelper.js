@@ -95,18 +95,19 @@ export const getTotalBudgetaryResources = (fy, period) => {
     };
 };
 
-export const getAgenciesReportingData = (fy, period, sort, order, page, limit) => apiRequest({
+export const getAgenciesReportingData = (fy, period, sort, order, page, limit, filter = '') => apiRequest({
     url: `v2/reporting/agencies/overview/?${stringify({
         fiscal_year: fy,
         fiscal_period: period,
         page,
         limit,
         order,
-        sort
+        sort,
+        filter
     })}`
 });
 
-export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
+export const getSubmissionPublicationDates = (fy, order, sort, page, limit, searchTerm) => {
     if (isMocked) {
         return apiRequest({
             isMocked,
@@ -115,19 +116,33 @@ export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
                 page,
                 limit,
                 order,
-                sort
+                sort,
+                filter: searchTerm
             })}`
         });
     }
+
     return {
         promise: new Promise((resolve) => {
             window.setTimeout(() => {
-                resolve({
-                    data: {
-                        // returns multiple pages of data when limit is 10
-                        results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
-                    }
-                });
+                if (searchTerm) {
+                    resolve({
+                        data: {
+                            // returns multiple pages of data when limit is 10
+                            results: mockAPI.publications.data.results
+                                .concat(mockAPI.publications.data.results)
+                                .filter(({ agency_name: name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
+                        }
+                    });
+                }
+                else {
+                    resolve({
+                        data: {
+                            // returns multiple pages of data when limit is 10
+                            results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
+                        }
+                    });
+                }
             }, 500);
         }),
         cancel: () => {

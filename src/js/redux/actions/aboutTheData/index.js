@@ -30,3 +30,21 @@ export const setTotals = (payload) => ({
     type: "SET_ABOUT_THE_DATA_TOTALS",
     payload
 });
+
+export const setSearchTerm = (term) => ({
+    type: "SET_ABOUT_THE_DATA_SEARCH_TERM",
+    payload: term
+});
+
+export const setSearchResults = (table = 'submissions', results) => {
+    if (table === 'submissions') {
+        return {
+            type: "SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS",
+            payload: results
+        };
+    }
+    return {
+        type: "SET_ABOUT_THE_DATA_SEARCH_RESULTS_PUBLICATIONS",
+        payload: results
+    };
+};

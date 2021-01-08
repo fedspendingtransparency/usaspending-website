@@ -5,7 +5,8 @@
 
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { Picker } from "data-transparency-ui";
+import { useDispatch } from "react-redux";
+import { Picker, SearchBar } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 
@@ -17,6 +18,7 @@ import {
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
 } from "helpers/aboutTheDataHelper";
+import { setSearchTerm } from "redux/actions/aboutTheData";
 import {
     periodsPerQuarter,
     lastPeriods,
@@ -86,6 +88,8 @@ const TimePeriodFilters = ({
     submissionPeriods,
     dataAsOf
 }) => {
+    const dispatch = useDispatch();
+
     const latestPeriod = getLatestPeriod(submissionPeriods);
 
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
@@ -128,10 +132,14 @@ const TimePeriodFilters = ({
             }))
     );
 
+    const handleSearch = (term) => {
+        dispatch(setSearchTerm(term));
+    };
+
     return (
         <div className="table-controls__time-and-search">
-            <div className="picker-container">
-                <span className="fy-picker__title">FISCAL YEAR</span>
+            <div className="filter-container fy-picker">
+                <span className="filter__title fy-picker__title">FISCAL YEAR</span>
                 <Picker
                     icon=""
                     isFixedWidth
@@ -150,8 +158,8 @@ const TimePeriodFilters = ({
                     } />
             </div>
             {activeTab === 'submissions' && (
-                <div className="picker-container">
-                    <span className="period-picker__title">PERIOD</span>
+                <div className="filter-container period-picker">
+                    <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
                         icon=""
                         className="period-picker"
@@ -166,6 +174,10 @@ const TimePeriodFilters = ({
                         options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
                 </div>
             )}
+            <div className="filter-container">
+                <span className="filter__title search-bar">AGENCY NAME</span>
+                <SearchBar onSearch={handleSearch} />
+            </div>
         </div>
     );
 };
