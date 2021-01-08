@@ -24,22 +24,3 @@ export const fetchBudgetaryResources = (agencyId) => apiRequest({
 export const fetchAgencyOverview = (code, fy) => apiRequest({
     url: `v2/agency/${code}/${fy ? `?fiscal_year=${fy}` : ''}`
 });
-
-export const mockAgency = {
-    name: 'Mock Agency',
-    id: '456',
-    website: 'https://home.treasury.gov/',
-    code: '020',
-    abbreviation: 'ABC'
-};
-
-export const mockFetchAgencyOverview = () => ({
-    promise: new Promise((resolve) => {
-        window.setTimeout(() => {
-            resolve({
-                data: mockAgency
-            });
-        }, 500);
-    }),
-    cancel() {}
-});

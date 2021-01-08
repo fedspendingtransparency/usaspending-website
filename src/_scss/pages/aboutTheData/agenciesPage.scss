@@ -51,40 +51,43 @@
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(flex-start);
-        .usa-dt-picker__button-icon svg {
-          color:  #0074BE;
+        @include flex-wrap(wrap);
+        @include media($tablet-screen) {
+          @include flex-wrap(nowrap);
         }
-        .fy-loading {
-          svg {
-            margin-left: rem(10);
-          }
-        }
-        .usa-dt-picker__list {
-          z-index: 11;
-          min-width: rem(110);
-        }
-        .usa-dt-picker__button {
-          border-bottom: rem(2) solid #0074BE;
-          margin-bottom: rem(20);
-          padding-bottom: rem(2);
-          .usa-dt-picker__button-text {
-            font-size: rem(18);
-            font-weight: 500;
-            line-height: rem(23);
-            color: $color-base;
-          }
-        }
-        .picker-container {
+        .filter-container {
           @include display(flex);
           @include flex-direction(column);
-          .fy-picker__title,
-          .period-picker__title {
+          .filter__title {
             font-size: rem(14);
             margin-left: rem(15);
             color: #8C8C8C;
           }
           .period-picker,
           .fy-picker {
+            .usa-dt-picker__button-icon svg {
+              color:  #0074BE;
+            }
+            .fy-loading {
+              svg {
+                margin-left: rem(10);
+              }
+            }
+            .usa-dt-picker__list {
+              z-index: 12;
+              min-width: rem(110);
+            }
+            .usa-dt-picker__button {
+              border-bottom: rem(2) solid #0074BE;
+              margin-bottom: rem(20);
+              padding-bottom: rem(2);
+              .usa-dt-picker__button-text {
+                font-size: rem(18);
+                font-weight: 500;
+                line-height: rem(23);
+                color: $color-base;
+              }
+            }
             .usa-dt-picker__list li.usa-dt-picker__list-item {
               border: none;
               .usa-dt-picker__item {
@@ -198,6 +201,30 @@
               }
             }
           }
+          .usa-dt-search-bar {
+            padding: 0;
+            margin: rem(10) 0 rem(10) rem(15);
+            width: 100%;
+            height: rem(30);
+            border-radius: rem(3);
+            @include media($tablet-screen) {
+              width: rem(273);
+              margin: rem(10) 0 0 rem(15);
+            }
+            .usa-dt-search-bar__input {
+              padding: 0;
+              text-indent: rem(3);
+              &:focus {
+                outline: none;
+              }
+            }
+            .usa-dt-search-bar__button {
+              @include display(flex);
+              svg {
+                font-size: rem(17);
+              }
+            }
+          }
         }
       }
       .table-type-toggle:focus {
@@ -227,7 +254,7 @@
         margin-bottom:0;
         thead {
           tr th {
-            min-width: rem(200);
+            min-width: rem(300);
           }
           .nested-header {
             .table-header__content {
@@ -255,6 +282,10 @@
                   font-weight: $font-semibold;
                   line-height: rem(13);
                 }
+              }
+              .matched-str {
+                font-weight: 600;
+                text-decoration: underline;
               }
             }
           }
@@ -304,6 +335,9 @@
               }
             }
           }
+        }
+        &.table-loading .usda-table__body tr td {
+          border: none;
         }
       }
     }
