@@ -105,7 +105,7 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
-        setLoading([false, true, false]);
+        setLoading([false, false, true]);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results } }) => {
@@ -137,7 +137,7 @@ const AgenciesContainer = ({
             if (totalsReq.current) totalsReq.current.cancel();
             if (submissionsReq.current) submissionsReq.current.cancel();
             setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
-            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
+            totalsReq.current = getTotalBudgetaryResources();
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
                     dispatch(setTotals(results));
@@ -172,7 +172,7 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (selectedFy && selectedPeriod && !federalTotals.length) {
+        if (!federalTotals.length) {
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
@@ -290,7 +290,7 @@ const AgenciesContainer = ({
                 {activeTab === 'publications' && (
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
