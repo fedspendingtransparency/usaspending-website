@@ -61,7 +61,7 @@ export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
 const defaultState = {
     page: 1,
     limit: 10,
-    totalItems: 1
+    totalItems: 0
 };
 
 export const usePagination = (initialState = defaultState) => {
@@ -95,7 +95,7 @@ export const getAgenciesReportingData = (fy, period, sort, order, page, limit, f
     })}`
 });
 
-export const getSubmissionPublicationDates = (fy, order, sort, page, limit, searchTerm) => apiRequest({
+export const getSubmissionPublicationDates = (fy, sort, order, page, limit, searchTerm) => apiRequest({
     url: `v2/reporting/agencies/publish_dates?${stringify({
         fiscal_year: fy,
         page,
