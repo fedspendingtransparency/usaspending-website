@@ -25,10 +25,17 @@ import LoadingAccount from 'components/account/LoadingAccount';
 require('pages/account/accountPage.scss');
 
 const propTypes = {
-    currentFiscalYear: PropTypes.string,
+    latestSubmissionDate: PropTypes.object,
     account: PropTypes.object,
     match: PropTypes.object,
-    setSelectedAccount: PropTypes.func
+    setSelectedAccount: PropTypes.func,
+    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    latestPeriod: PropTypes.shape({
+        year: PropTypes.number,
+        quarter: PropTypes.number,
+        period: PropTypes.number,
+        latestSubmissionDate: PropTypes.object // moment obj
+    })
 };
 
 const combinedActions = Object.assign({},
@@ -58,7 +65,7 @@ export class AccountContainer extends React.Component {
         if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
             this.loadData(this.props.match.params.accountNumber);
         }
-        if (!prevProps.currentFiscalYear && this.props.currentFiscalYear && this.props.account) {
+        if (!prevProps.latestSubmissionDate && this.props.latestSubmissionDate && this.props.account) {
             this.loadFiscalYearSnapshot(this.props.account.id);
         }
     }
@@ -112,11 +119,9 @@ export class AccountContainer extends React.Component {
             this.fiscalYearSnapshotRequest.cancel();
         }
 
-        const { currentFiscalYear } = this.props;
-
         this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
             id,
-            currentFiscalYear
+            this.props.latestPeriod.year
         );
 
         this.fiscalYearSnapshotRequest.promise
@@ -168,7 +173,7 @@ export class AccountContainer extends React.Component {
             output = <InvalidAccount />;
         }
         else if (!this.state.loading) {
-            output = <Account {...this.props} />;
+            output = <Account {...this.props} currentFiscalYear={`${this.props.latestPeriod.year}`} />;
         }
 
         return output;
@@ -185,7 +190,7 @@ export default connect(
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )((props) => (
-    <WithLatestFy propName="currentFiscalYear" format="YYYY">
+    <WithLatestFy>
         <AccountContainerWithRouter {...props} />
     </WithLatestFy>
 ));

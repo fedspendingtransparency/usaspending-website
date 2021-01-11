@@ -69,7 +69,7 @@ const FYPicker = ({
 
     const getActiveYears = () => {
         if (latestFy) {
-            return FiscalYearHelper.allFiscalYears(earliestFY, latestFy.year())
+            return FiscalYearHelper.allFiscalYears(earliestFY, latestFy)
                 .sort(sortFn)
                 .map((year) => (
                     <li key={year} className="fy-picker__list-item">

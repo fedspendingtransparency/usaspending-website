@@ -8,10 +8,9 @@ import PropTypes from 'prop-types';
 import { find } from 'lodash';
 
 import { scrollToY } from 'helpers/scrollToHelper';
-import { convertDateToQuarter } from 'helpers/fiscalYearHelper';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import WithLatestFy from 'containers/account/WithLatestFy';
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
@@ -44,14 +43,14 @@ const agencySections = [
 const propTypes = {
     agency: PropTypes.object,
     isTreasury: PropTypes.bool,
-    dataAsOf: PropTypes.object
+    latestSubmissionDate: PropTypes.object
 };
 
 const AgencyContent = ({
     agency,
-    isTreasury,
-    dataAsOf
+    isTreasury
 }) => {
+    const [asOfDate, , { year: latestFy, quarter: latestQuarter }] = useLatestAccountData();
     const [activeSection, setActiveSection] = useState('overview');
 
     const jumpToSection = (section = '') => {
@@ -76,12 +75,12 @@ const AgencyContent = ({
         setActiveSection(section);
     };
 
-    const asOfDate = dataAsOf
-        ? dataAsOf.format("MMMM D, YYYY")
+    const parsedAsOfDate = asOfDate
+        ? asOfDate.format("MMMM D, YYYY")
         : "";
 
-    const activeFy = dataAsOf
-        ? `${dataAsOf.year()}`
+    const parsedLatestFy = latestFy
+        ? `${latestFy}`
         : "";
 
     let disclaimer = null;
@@ -104,27 +103,27 @@ const AgencyContent = ({
                 <div className="agency-padded-content overview">
                     <GlossaryButtonWrapperContainer
                         child={AgencyOverview}
-                        activeFy={activeFy}
-                        asOfDate={asOfDate}
+                        activeFy={parsedLatestFy}
+                        asOfDate={parsedAsOfDate}
                         agency={agency.overview} />
                 </div>
                 <div className="agency-padded-content data">
                     <ObligatedContainer
                         agencyName={agency.overview.name}
-                        activeFY={activeFy}
-                        activeQuarter={convertDateToQuarter(dataAsOf)}
+                        activeFY={parsedLatestFy}
+                        activeQuarter={latestQuarter}
                         id={agency.id}
-                        asOfDate={asOfDate} />
+                        asOfDate={parsedAsOfDate} />
                     <ObjectClassContainer
                         id={agency.id}
-                        activeFY={activeFy}
+                        activeFY={parsedLatestFy}
                         displayedTotalObligation={agency.overview.obligatedAmount}
-                        asOfDate={asOfDate} />
+                        asOfDate={parsedAsOfDate} />
                     <FederalAccountContainer
                         id={agency.id}
-                        activeFY={activeFy}
+                        activeFY={parsedLatestFy}
                         obligatedAmount={agency.overview.obligatedAmount}
-                        asOfDate={asOfDate} />
+                        asOfDate={parsedAsOfDate} />
                     {disclaimer}
                 </div>
                 <FooterLinkToAdvancedSearchContainer
@@ -137,8 +136,4 @@ const AgencyContent = ({
 
 AgencyContent.propTypes = propTypes;
 
-export default (props) => (
-    <WithLatestFy propName="dataAsOf">
-        <AgencyContent {...props} />
-    </WithLatestFy>
-);
+export default AgencyContent;

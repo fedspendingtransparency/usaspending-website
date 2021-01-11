@@ -131,3 +131,10 @@ export const globalModalProps = PropTypes.shape({
     url: PropTypes.string,
     modal: PropTypes.oneOf(['redirect', '', 'covid', 'covid-data-disclaimer'])
 });
+
+export const LATEST_PERIOD_PROPS = PropTypes.shape({
+    year: PropTypes.number,
+    quarter: PropTypes.number,
+    period: PropTypes.number,
+    latestSubmissionDate: PropTypes.object // moment obj
+})

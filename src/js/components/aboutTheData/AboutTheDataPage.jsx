@@ -47,7 +47,7 @@ const AboutTheDataPage = ({
     history
 }) => {
     const { fy: urlFy, period: urlPeriod } = useParams();
-    const [dataAsOf, submissionPeriods] = useLatestAccountData();
+    const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
 
@@ -66,9 +66,8 @@ const AboutTheDataPage = ({
     };
 
     useEffect(() => {
-        if ((!urlFy || !urlPeriod) && submissionPeriods.length) {
-            const { year, period } = getLatestPeriod(submissionPeriods);
-            history.replace(`about-the-data/agencies/${year}/${period}`);
+        if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
+            history.replace(`about-the-data/agencies/${latestFy}/${latestPeriod}`);
         }
     }, []);
 
@@ -130,7 +129,8 @@ const AboutTheDataPage = ({
                         ]} />
                     <TimeFilters
                         submissionPeriods={submissionPeriods}
-                        dataAsOf={dataAsOf}
+                        latestFy={latestFy}
+                        latestPeriod={latestPeriod}
                         activeTab={activeTab}
                         onTimeFilterSelection={onTimeFilterSelection}
                         selectedPeriod={selectedPeriod}
