@@ -1,21 +1,18 @@
 /**
  * aboutTheDataHelper.js
  * Created by Jonathan Hill 11/20/20
- */
+*/
+
 import { useState } from 'react';
 import { stringify } from 'querystring';
 
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
-import GlobalConstants from 'GlobalConstants';
 import {
     periodsPerQuarter,
     lastPeriods
 } from 'components/aboutTheData/dataMapping/timeFilters';
 
 import { apiRequest } from './apiRequest';
-
-const isMocked = GlobalConstants.LOCAL;
 
 export const getSelectedPeriodTitle = (str) => (
     str.includes('Q')
@@ -64,7 +61,7 @@ export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
 const defaultState = {
     page: 1,
     limit: 10,
-    totalItems: 1
+    totalItems: 0
 };
 
 export const usePagination = (initialState = defaultState) => {
@@ -98,49 +95,16 @@ export const getAgenciesReportingData = (fy, period, sort, order, page, limit, f
     })}`
 });
 
-export const getSubmissionPublicationDates = (fy, order, sort, page, limit, searchTerm) => {
-    if (isMocked) {
-        return apiRequest({
-            isMocked,
-            url: `v2/reporting/agencies/publish_dates?${stringify({
-                fiscal_year: fy,
-                page,
-                limit,
-                order,
-                sort,
-                filter: searchTerm
-            })}`
-        });
-    }
-
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                if (searchTerm) {
-                    resolve({
-                        data: {
-                            // returns multiple pages of data when limit is 10
-                            results: mockAPI.publications.data.results
-                                .concat(mockAPI.publications.data.results)
-                                .filter(({ agency_name: name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-                        }
-                    });
-                }
-                else {
-                    resolve({
-                        data: {
-                            // returns multiple pages of data when limit is 10
-                            results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
-                        }
-                    });
-                }
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getSubmissionPublicationDates = (fy, sort, order, page, limit, searchTerm) => apiRequest({
+    url: `v2/reporting/agencies/publish_dates?${stringify({
+        fiscal_year: fy,
+        page,
+        limit,
+        order,
+        sort,
+        filter: searchTerm
+    })}`
+});
 
 export const fetchPublishDates = (agencyCode, fiscalYear, fiscalPeriod, params) => apiRequest({
     url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/submission_history/?${stringify(params)}`

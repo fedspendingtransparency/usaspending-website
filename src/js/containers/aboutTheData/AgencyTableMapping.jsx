@@ -26,15 +26,15 @@ Tooltip.propTypes = {
 
 export const agenciesTableColumns = {
     publications: [
-        { title: 'name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
-        { title: 'percent_of_total', displayName: 'Percent of Total Federal Budget' },
+        { title: 'agency_name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
+        { title: 'current_total_budget_authority_amount', displayName: 'Percent of Total Federal Budget' },
         {
             title: 'Q1',
             displayName: 'FY 2020 Q1',
             columnSpan: "2",
             subColumnNames: [
-                { displayName: 'P1', title: 'P1' },
-                { displayName: 'P2', title: 'P2' }
+                { displayName: 'P1', title: 'publication_date,1' },
+                { displayName: 'P2', title: 'publication_date,2' }
             ]
         },
         {
@@ -42,10 +42,10 @@ export const agenciesTableColumns = {
             displayName: 'FY 2020 Q2',
             columnSpan: "4",
             subColumnNames: [
-                { displayName: 'P3', title: 'P3' },
-                { displayName: 'P4', title: 'P4' },
-                { displayName: 'P5', title: 'P5' },
-                { displayName: 'P6', title: 'P6' }
+                { displayName: 'P3', title: 'publication_date,3' },
+                { displayName: 'P4', title: 'publication_date,4' },
+                { displayName: 'P5', title: 'publication_date,5' },
+                { displayName: 'P6', title: 'publication_date,6' }
             ]
         },
         {
@@ -53,9 +53,9 @@ export const agenciesTableColumns = {
             displayName: 'FY 2020 Q3',
             columnSpan: "3",
             subColumnNames: [
-                { displayName: 'P7', title: 'P7' },
-                { displayName: 'P8', title: 'P8' },
-                { displayName: 'P9', title: 'P9' }
+                { displayName: 'P7', title: 'publication_date,7' },
+                { displayName: 'P8', title: 'publication_date,8' },
+                { displayName: 'P9', title: 'publication_date,9' }
             ]
         },
         {
@@ -63,9 +63,9 @@ export const agenciesTableColumns = {
             displayName: 'FY 2020 Q4',
             columnSpan: "3",
             subColumnNames: [
-                { displayName: 'P10', title: 'P10' },
-                { displayName: 'P11', title: 'P11' },
-                { displayName: 'P12', title: 'P12' }
+                { displayName: 'P10', title: 'publication_date,10' },
+                { displayName: 'P11', title: 'publication_date,11' },
+                { displayName: 'P12', title: 'publication_date,12' }
             ]
         }
     ],

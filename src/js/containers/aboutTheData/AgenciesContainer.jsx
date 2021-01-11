@@ -108,12 +108,13 @@ const AgenciesContainer = ({
         setLoading([false, false, true]);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
-            .then(({ data: { results } }) => {
+            .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
                     row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
+                updatePublicationsPagination({ totalItems, page, limit });
                 if (searchTerm) {
                     dispatch(setSearchResults(activeTab, parsedResults));
                 }
@@ -258,7 +259,7 @@ const AgenciesContainer = ({
             updateSubmissionsPagination({ totalItems: totalSubmissionItems, page, limit: submissionsLimit });
         }
         else {
-            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: submissionsLimit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: publicationsLimit });
         }
     };
 
@@ -267,7 +268,7 @@ const AgenciesContainer = ({
             updateSubmissionsPagination({ totalItems: totalSubmissionItems, page: submissionsPage, limit });
         }
         else {
-            updatePublicationsPagination({ totalItems: totalSubmissionItems, page: publicationsPage, limit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page: publicationsPage, limit });
         }
     };
 
