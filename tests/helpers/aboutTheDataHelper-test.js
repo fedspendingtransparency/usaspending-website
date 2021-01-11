@@ -4,7 +4,11 @@ import {
     formatMissingAccountBalancesData,
     showQuarterText,
     formatReportingDifferencesData,
-    getLastPeriodWithinQuarterByPeriod, isPeriodVisible, isPeriodSelectable, getPeriodWithTitleById
+    getLastPeriodWithinQuarterByPeriod,
+    isPeriodVisible,
+    isPeriodSelectable,
+    getPeriodWithTitleById,
+    convertDatesToMilliseconds
 } from 'helpers/aboutTheDataHelper';
 
 import {
@@ -13,8 +17,10 @@ import {
     mockBadResultsBalanceData,
     mockReportingDifferenceData,
     mockBadReportingDifferenceData,
-    mockSubmissions
-} from '../mockData';
+    mockSubmissions,
+    mockDates,
+    badMockDates
+} from '../mockData/helpers/aboutTheDataHelper';
 
 const mockPeriods = {
     data: {
@@ -111,12 +117,12 @@ describe('About The Data Helper', () => {
                 expect.arrayContaining([
                     "210-1503",
                     "$234,543,543",
-                    "$456,438,768",
+                    "$0",
                     "-$221,895,225"
                 ]),
                 expect.arrayContaining([
                     "012-0212",
-                    "$43,637,623",
+                    "$0",
                     "$20,486,582",
                     "$23,151,041"
                 ])
@@ -137,6 +143,22 @@ describe('About The Data Helper', () => {
                     "--"
                 ])
             ]));
+        });
+    });
+    describe('convertDatesToMilliseconds', () => {
+        it('should convert dates to a number', () => {
+            const dates = convertDatesToMilliseconds(mockDates);
+            expect(typeof dates[0].publication_date).toBe('number');
+            expect(typeof dates[0].certification_date).toBe('number');
+            expect(typeof dates[1].publication_date).toBe('number');
+            expect(typeof dates[1].certification_date).toBe('number');
+        });
+        it('should handle no data', () => {
+            const dates = convertDatesToMilliseconds(badMockDates);
+            expect(dates[0].publication_date).toBe(0);
+            expect(dates[0].certification_date).toBe(0);
+            expect(dates[1].publication_date).toBe(0);
+            expect(dates[1].certification_date).toBe(0);
         });
     });
 });
