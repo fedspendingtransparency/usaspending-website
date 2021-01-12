@@ -157,7 +157,7 @@ const AgencyDetailsContainer = ({
                     }} />),
                 (<div className="generic-cell-content">{rowData.unlinkedContracts}</div>),
                 (<div className="generic-cell-content">{rowData.unlinkedAssistance}</div>),
-                (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
+                (<div className="generic-cell-content"><AgencyDownloadLinkCell file={rowData.assuranceStatement} /></div>)
             ]);
         })
     );

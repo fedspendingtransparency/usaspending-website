@@ -21,6 +21,7 @@ const BaseReportingPeriodRow = {
         this._unlinkedContracts = data.unlinked_contract_award_count || 0;
         this._unlinkedAssistance = data.unlinked_assistance_award_count || 0;
         this._percentOfBudget = data.percent_of_total_budgetary_resources || 0;
+        this.assuranceStatement = data.assurance_statement_url || '';
     },
     get reportingPeriod() {
         return `FY ${this.fiscalYear}: ${getPeriodWithTitleById(`${this.fiscalPeriod}`).title}`;
