@@ -7,7 +7,7 @@ import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 // TODO - update when API contracts are finalized
-const mockAgencyRow = { ...mockAPI.details.data.results[0], discrepancy_count: 2000 };
+const mockAgencyRow = { ...mockAPI.details.data.results[0] };
 
 const agencyRow = Object.create(BaseAgencyRow);
 agencyRow.populate(mockAgencyRow);
@@ -32,7 +32,7 @@ describe('BaseAgencyRow', () => {
         expect(agencyRow.obligationDifference).toEqual('$436,376,232,653');
     });
     it('should format the discrepancy count', () => {
-        expect(agencyRow.discrepancyCount).toEqual('2,000');
+        expect(agencyRow.discrepancyCount).toEqual('20');
     });
     it('should format the publication date', () => {
         expect(agencyRow.publicationDate).toEqual('01/10/2020');

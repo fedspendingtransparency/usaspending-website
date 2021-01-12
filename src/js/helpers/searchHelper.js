@@ -141,6 +141,7 @@ export const fetchLastUpdate = () => apiRequest({
  * @returns {boolean}
  */
 export const areFiltersEqual = (filters, filterReference = initialState) => {
+    if (!filterReference && filters) return false;
     const referenceObject = Object.assign({}, filterReference);
     const comparisonObject = Object.assign({}, filters);
     if (referenceObject.timePeriodType === 'fy') {
@@ -166,10 +167,17 @@ export const areFiltersEqual = (filters, filterReference = initialState) => {
         const key = filterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
-            // it doesn't match, we can stop looping - filters have been applied
-            return false;
-        }
+        if (!is(unfilteredValue, currentValue)) return false;
     }
     return true;
 };
+
+export const areFiltersEmpty = (filters) => areFiltersEqual(filters);
+export const areFiltersSelected = (filters) => !areFiltersEqual(filters);
+
+export const areFiltersDifferent = (a, b) => !areFiltersEqual(a, b);
+
+export const isSearchHashReady = (str) => str
+    .split('/search/')
+    .filter((s) => s && s !== "/search")
+    .length > 0;
