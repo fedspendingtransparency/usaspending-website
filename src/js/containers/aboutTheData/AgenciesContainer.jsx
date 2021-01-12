@@ -8,7 +8,7 @@ import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
-import ReportingOverviewRow from 'models/v2/aboutTheData/ReportingOverviewRow';
+import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 
 import { agenciesTableColumns } from './AgencyTableMapping';
@@ -81,7 +81,7 @@ const AgenciesContainer = ({
             return submissionsReq.current.promise
                 .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                     const parsedResults = results.map((d) => {
-                        const row = Object.create(ReportingOverviewRow);
+                        const row = Object.create(BaseAgencyRow);
                         const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
                             y === parseInt(selectedFy, 10) &&
                             p === parseInt(selectedPeriod, 10)
@@ -209,10 +209,10 @@ const AgenciesContainer = ({
         .map(({
             name: agencyName,
             code,
-            publicationDate,
+            mostRecentPublicationDate,
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
-            tasTotals,
+            _gtasObligationTotal,
             percentageOfTotalFederalBudget,
             unlinkedContractAwards,
             unlinkedAssistanceAwards
@@ -220,7 +220,7 @@ const AgenciesContainer = ({
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             (<CellWithModal
-                data={publicationDate}
+                data={mostRecentPublicationDate}
                 openModal={openModal}
                 modalType="publicationDates"
                 agencyData={{
@@ -235,7 +235,7 @@ const AgenciesContainer = ({
                 modalType="missingAccountBalance"
                 agencyData={{
                     agencyName,
-                    gtasObligationTotal: tasTotals.gtas_obligation_total,
+                    gtasObligationTotal: _gtasObligationTotal,
                     agencyCode: code,
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id

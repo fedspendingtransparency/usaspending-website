@@ -135,7 +135,7 @@ const AgencyDetailsContainer = ({
                         agencyCode
                     }} />),
                 (<CellWithModal
-                    data={rowData.missingTASCount}
+                    data={rowData.discrepancyCount}
                     openModal={modalClick}
                     modalType="missingAccountBalance"
                     agencyData={{
