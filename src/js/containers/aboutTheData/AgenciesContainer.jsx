@@ -10,7 +10,7 @@ import { setTableData, setTableSort, setTotals, setSearchResults } from 'redux/a
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-
+import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import { agenciesTableColumns } from './AgencyTableMapping';
 
 const propTypes = {
@@ -214,8 +214,9 @@ const AgenciesContainer = ({
             obligationDifference,
             _gtasObligationTotal,
             percentageOfTotalFederalBudget,
-            unlinkedContractAwards,
-            unlinkedAssistanceAwards
+            unlinkedContracts,
+            unlinkedAssistance,
+            assuranceStatement
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
@@ -250,8 +251,9 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<div className="generic-cell-content">{unlinkedContractAwards}</div>),
-            (<div className="generic-cell-content">{unlinkedAssistanceAwards}</div>)
+            (<div className="generic-cell-content">{unlinkedContracts}</div>),
+            (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
     const handlePageChange = (page) => {

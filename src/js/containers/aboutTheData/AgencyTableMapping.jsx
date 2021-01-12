@@ -1,5 +1,5 @@
 /**
- * agencyTables.js
+ * AgencyTableMapping.jsx
  * Created by Lizzie Salita 11/25/20
  */
 
@@ -103,6 +103,13 @@ export const agenciesTableColumns = {
             displayName: "Count of Unlinked Assistance Awards",
             icon: (
                 <Tooltip title="Number of Unlinked Assistance Awards" />
+            )
+        },
+        {
+            title: "assurance_statements",
+            displayName: "Assurance Statements",
+            icon: (
+                <Tooltip title="Agency Disclosures" position="left" />
             )
         }
     ]
