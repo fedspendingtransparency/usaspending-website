@@ -4,8 +4,9 @@
  */
 
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
+import CoreReportingRow from 'models/v2/aboutTheData/CoreReportingRow';
 
-const mockReportingPeriodRow = {
+export const mockReportingPeriodRow = {
     fiscal_year: 2020,
     fiscal_period: 12,
     current_total_budget_authority_amount: 8361447130497.72,
@@ -15,7 +16,10 @@ const mockReportingPeriodRow = {
         gtas_obligation_total: 234567
     },
     percent_of_total_budgetary_resources: 2.189,
-    obligation_difference: 436376232652.87
+    obligation_difference: 436376232652.87,
+    unlinked_contract_award_count: 20002,
+    unlinked_assistance_award_count: 10001,
+    assurance_statement_url: 'https://files.usaspending.gov/agency_submissions/Raw%20DATA%20Act%20Files/2020/Q1/097%20-%20Department%20of%20Defense%20(DOD)/2020-Q1-097_Department%20of%20Defense%20(DOD)-Assurance_Statement.txt'
 };
 
 const reportingPeriodRow = Object.create(BaseReportingPeriodRow);
@@ -43,19 +47,10 @@ describe('BaseReportingPeriodRow', () => {
         reportingPeriodRowMod.populate(period2);
         expect(reportingPeriodRowMod.reportingPeriod).toEqual('FY 2020: P01 - P02');
     });
-    it('should format the obligation difference to the cent', () => {
-        expect(reportingPeriodRow.obligationDifference).toEqual('$436,376,232,652.87');
-    });
-    it('should format missing TAS count', () => {
-        expect(reportingPeriodRow.missingTASCount).toEqual('1,000');
-    });
-    it('should format the most recent publication date', () => {
-        expect(reportingPeriodRow.mostRecentPublicationDate).toEqual('01/10/2020');
-    });
     it('should format the percent of budgetary resources', () => {
         expect(reportingPeriodRow.percentOfBudget).toEqual('2.19%');
     });
-    it('should store the raw GTAS Obligation Total', () => {
-        expect(reportingPeriodRow._gtasObligationTotal).toEqual(234567);
+    it('should have CoreReportingRow in its prototype chain', () => {
+        expect(Object.getPrototypeOf(reportingPeriodRow)).toMatchObject(CoreReportingRow);
     });
 });

@@ -41,7 +41,7 @@ const CoreReportingRow = {
         if (!this._unlinkedAssistance && this._unlinkedAssistance !== 0) {
             return '--';
         }
-        return formatNumber(this._unlinkedContracts);
+        return formatNumber(this._unlinkedAssistance);
     }
 };
 
