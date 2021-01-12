@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 import { useParams } from "react-router-dom";
 
-import { getLatestPeriod } from "helpers/accountHelper";
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";

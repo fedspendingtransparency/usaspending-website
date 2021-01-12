@@ -18,7 +18,7 @@ const propTypes = {
     iconColor: PropTypes.string,
     iconSize: PropTypes.string,
     sortFn: PropTypes.func,
-    latestFy: PropTypes.object,
+    latestFy: PropTypes.number,
     isLoading: PropTypes.bool
 };
 

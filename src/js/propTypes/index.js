@@ -137,4 +137,4 @@ export const LATEST_PERIOD_PROPS = PropTypes.shape({
     quarter: PropTypes.number,
     period: PropTypes.number,
     latestSubmissionDate: PropTypes.object // moment obj
-})
+});
