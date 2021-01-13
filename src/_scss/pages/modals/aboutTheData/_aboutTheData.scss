@@ -64,6 +64,11 @@
           tr {
             td {
               border: none;
+              .usda-loading-animation__container {
+                .loading-message {
+                  text-align: center;
+                }
+              }
             }
           }
           font-size: rem(12);
@@ -132,8 +137,30 @@
     }
     // reporting differences modal
     &.reporting-differences-modal {
+    .usa-dt-modal__section {
+        .usda-table {
+          thead.usda-table__head {
+            th.table-header {
+              text-align: right;
+            }
+          }
+        }
+      }
       @include media($tablet-screen) {
         max-width: rem(900);
+        .usa-dt-modal__section {
+            .usda-table {
+              thead.usda-table__head {
+                th.table-header {
+                  padding: rem(15) 0rem rem(15) rem(15);
+                  text-align: left;
+                }
+                th.table-header:last-child {
+                  padding-left: rem(40);
+                }
+              }
+            }
+        }
       }
       @include media($large-screen) {
         max-width: rem(900);
@@ -146,6 +173,10 @@
               .usda-table__cell:not(:first-child) {
                 text-align: right;
                 padding-right: rem(42);
+              }
+              .usda-table__cell:last-child {
+                text-align: right;
+                padding-right: rem(37);
               }
             }
           }
