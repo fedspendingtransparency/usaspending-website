@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
-import { isBefore, isAfter, startOfToday } from 'date-fns';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -18,16 +17,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-// COVID banner before 1/4/21 after 1/13/21
-let cookie = 'usaspending_covid_release';
-if (isAfter(startOfToday(), new Date(2021, 0, 3)) && isBefore(startOfToday(), new Date(2021, 0, 8))) {
-    // pre-migration banner 1/4/21 through 1/7/21
-    cookie = 'usaspending_maintenance_warn';
-}
-else if (isAfter(startOfToday(), new Date(2021, 0, 7)) && isBefore(startOfToday(), new Date(2021, 0, 14))) {
-    // migration banner 1/8/21 through 1/13/21
-    cookie = 'usaspending_maintenance';
-}
+const cookie = 'usaspending_covid_release';
 
 export default class Header extends React.Component {
     constructor(props) {
