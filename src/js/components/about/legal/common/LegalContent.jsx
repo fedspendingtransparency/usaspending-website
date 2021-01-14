@@ -13,17 +13,17 @@ const legalSections = [
     {
         section: 'accessibility',
         label: 'Accessibility',
-        url: 'about/accessibility'
+        url: '/about/accessibility'
     },
     {
         section: 'privacy',
         label: 'Privacy Policy',
-        url: 'about/privacy'
+        url: '/about/privacy'
     },
     {
         section: 'foia',
         label: 'Freedom of Information Act',
-        url: 'about/foia'
+        url: '/about/foia'
     }
 ];
 

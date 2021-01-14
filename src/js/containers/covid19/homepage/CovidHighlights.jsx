@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // redux
 import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
-import { setAccountDataAsOfDate as setLatestSubmissionDate } from 'redux/actions/account/accountActions';
+import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
 // models
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
@@ -46,8 +46,8 @@ const propTypes = {
     setCovidOverview: PropTypes.func,
     setCovidDefCodes: PropTypes.func,
     completeIncrement: PropTypes.func,
-    updateSubmissionDate: PropTypes.func,
-    latestSubmissionPeriod: PropTypes.string,
+    updateSubmissionPeriods: PropTypes.func,
+    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
     defCodes: PropTypes.arrayOf(PropTypes.string)
 };
 
@@ -79,7 +79,7 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResizeWindow);
         this.handleResizeWindow();
-        return Promise.all([this.fetchDefCodes(), this.fetchlatestSubmissionPeriod()])
+        return Promise.all([this.fetchDefCodes(), this.fetchLatestSubmissionPeriod()])
             .then(() => (
                 Promise.all([this.fetchHighlights(), this.fetchTotals()])
             ))
@@ -155,23 +155,26 @@ export class CovidHighlights extends React.Component {
         }
     }
 
-    fetchlatestSubmissionPeriod = async () => {
-        this.allSubmissionDatesRequest = fetchAllSubmissionDates();
-        try {
-            const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
-            this.props.updateSubmissionDate(getLatestPeriodAsMoment(availablePeriods));
-            this.allSubmissionDatesRequest = null;
-            this.setState({ isDateLoading: false });
-            return Promise.resolve();
-        }
-        catch (e) {
-            if (!isCancel(e)) {
-                console.log(' Error Submission Periods : ', e.message);
+    fetchLatestSubmissionPeriod = async () => {
+        if (!this.props.submissionPeriods.length) {
+            this.allSubmissionDatesRequest = fetchAllSubmissionDates();
+            try {
+                const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
+                this.props.updateSubmissionPeriods(availablePeriods);
                 this.allSubmissionDatesRequest = null;
                 this.setState({ isDateLoading: false });
+                return Promise.resolve();
             }
-            return Promise.resolve();
+            catch (e) {
+                if (!isCancel(e)) {
+                    console.log(' Error Submission Periods : ', e.message);
+                    this.allSubmissionDatesRequest = null;
+                    this.setState({ isDateLoading: false });
+                }
+                return Promise.resolve();
+            }
         }
+        return Promise.resolve();
     }
 
     fetchTotals = () => {
@@ -304,13 +307,14 @@ export class CovidHighlights extends React.Component {
             isDateLoading,
             hasNext
         } = this.state;
-        const { totalSpendingAmount, latestSubmissionPeriod } = this.props;
-        const parsedDate = latestSubmissionPeriod
-            ? latestSubmissionPeriod.format('MMMM DD[,] YYYY')
+        const { totalSpendingAmount, submissionPeriods } = this.props;
+        const parsedDate = submissionPeriods.length
+            ? getLatestPeriodAsMoment(submissionPeriods).format('MMMM DD[,] YYYY')
             : null;
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
+
         return (
             <section className="covid-hero" aria-label="Introduction">
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
@@ -396,13 +400,13 @@ CovidHighlights.propTypes = propTypes;
 const mapStateToProps = (state) => ({
     totalSpendingAmount: state.covid19.overview._totalOutlays,
     defCodes: state.covid19.defCodes.map((code) => code.code),
-    latestSubmissionPeriod: state.account.dataAsOf
+    submissionPeriods: state.account.submissionPeriods.toJS()
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setCovidOverview: (overview) => dispatch(setOverview(overview)),
     setCovidDefCodes: (codes) => dispatch(setDEFCodes(codes)),
-    updateSubmissionDate: (date) => dispatch(setLatestSubmissionDate(date))
+    updateSubmissionPeriods: (periods) => dispatch(setSubmissionPeriods(periods))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CovidHighlights);

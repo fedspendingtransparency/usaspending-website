@@ -1,18 +1,62 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
-import userEvent from '@testing-library/user-event';
 
 import * as redux from 'react-redux';
 import { List } from 'immutable';
 
 import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
+import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 const defaultProps = {
     selectedFy: '2020',
     selectedPeriod: '8',
-    activeTab: 'details',
+    activeTab: 'submissions',
     openModal: jest.fn()
+};
+
+const mockResponses = {
+    submissionsRequest: {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: {
+                        // returns multiple pages of data when limit is 10
+                        page_metadata: mockAPI.submissions.data.page_metadata,
+                        results: mockAPI.submissions.data.results.concat(mockAPI.submissions.data.results)
+                    }
+                });
+            });
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    },
+    totalsRequest: {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve(mockAPI.totals);
+            });
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    },
+    publicationsRequest: {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: {
+                        page_metadata: mockAPI.publications.data.page_metadata,
+                        results: mockAPI.publications.data.results.concat(mockAPI.publications.data.results)
+                    }
+                });
+            });
+        }),
+        cancel: () => {
+            console.log('cancel executed!');
+        }
+    }
 };
 
 /**
@@ -22,143 +66,196 @@ const defaultProps = {
  * via re-render. 👇
  * */
 
-test('when totals are defined, request for totals are not made and only one for details/dates is made', async () => {
-    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources');
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData');
+test('when totals are defined, request for totals are not made and only one for submissions/publications is made', async () => {
+    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockReturnValue(mockResponses.totalsRequest);
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockReturnValue(mockResponses.submissionsRequest);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
 
     render(<AgenciesContainer {...defaultProps} />);
     return waitFor(() => {
         expect(totalsRequest).toHaveBeenCalledTimes(0);
-        expect(detailsRequest).toHaveBeenCalledTimes(1);
+        expect(submissionsRequest).toHaveBeenCalledTimes(1);
     });
 });
 
 test('when totals are defined and the active tab changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
-    const datesRequest = jest.spyOn(aboutTheDataHelper, 'getSubmissionPublicationDates').mockClear();
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
+    const publicationsRequest = jest.spyOn(aboutTheDataHelper, 'getSubmissionPublicationDates').mockClear().mockReturnValue(mockResponses.publicationsRequest);
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
 
     // not using click to trigger update to active tab b/c it's in a sibling component to this one.
-    rerender(<AgenciesContainer {...defaultProps} activeTab="dates" />);
+    rerender(<AgenciesContainer {...defaultProps} activeTab="publications" />);
 
     return waitFor(() => {
-        expect(detailsRequest).toHaveBeenCalledTimes(1);
-        expect(datesRequest).toHaveBeenCalledTimes(1);
+        expect(submissionsRequest).toHaveBeenCalledTimes(1);
+        expect(publicationsRequest).toHaveBeenCalledTimes(1);
     });
 });
 
 test('when totals are defined and the fy changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 },
             { submission_fiscal_year: 2018, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedFy="2018" />);
 
     return waitFor(() => {
-        expect(detailsRequest).toHaveBeenCalledTimes(2);
+        expect(submissionsRequest).toHaveBeenCalledTimes(2);
     });
 });
 
 test('when totals are defined and the period changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 },
             { submission_fiscal_year: 2020, submission_fiscal_month: 4 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedPeriod="4" />);
 
     return waitFor(() => {
-        expect(detailsRequest).toHaveBeenCalledTimes(2);
+        expect(submissionsRequest).toHaveBeenCalledTimes(2);
     });
 });
 
-test('when totals are defined and the sort field changes, two requests are made', () => {
+test('when totals are defined and the sort field changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['test', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['test', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
     rerender(<AgenciesContainer {...defaultProps} />);
     return waitFor(() => {
-        expect(detailsRequest).toHaveBeenCalledTimes(2);
+        // if you changes this to three the test will fail; once on mount, then only once more.
+        expect(submissionsRequest).toHaveBeenCalledTimes(2);
     });
 });
 
-test('when totals are defined and the order field changes, two requests are made', () => {
+test('when totals are defined and the order field changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'desc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const detailsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear();
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
-        details: [],
-        dates: [],
-        totals: [1],
-        detailsSort: ['current_total_budget_authority_amount', 'asc'],
-        datesSort: ['current_total_budget_authority_amount', 'desc'],
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'asc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
     rerender(<AgenciesContainer {...defaultProps} />);
     return waitFor(() => {
-        expect(detailsRequest).toHaveBeenCalledTimes(2);
+        // if you changes this to three the test will fail; once on mount, then only once more.
+        expect(submissionsRequest).toHaveBeenCalledTimes(2);
+    });
+});
+
+test('when totals are defined and the search term is defined, one request is made', () => {
+    jest.spyOn(redux, 'useSelector').mockReturnValue({
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
+        submissionPeriods: new List([
+            { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
+        ])
+    });
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const { rerender } = render(<AgenciesContainer {...defaultProps} />);
+    jest.spyOn(redux, 'useSelector').mockReturnValue({
+        allSubmissions: [],
+        searchResults: [[], []],
+        searchTerm: 'test',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
+        submissionPeriods: new List([
+            { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
+        ])
+    });
+    rerender(<AgenciesContainer {...defaultProps} />);
+    return waitFor(() => {
+        // if you changes this to three the test will fail; once on mount, then only once more.
+        expect(submissionsRequest).toHaveBeenCalledTimes(2);
+        expect(submissionsRequest).toHaveBeenLastCalledWith('2020', '8', 'current_total_budget_authority_amount', 'desc', 1, 10, 'test');
     });
 });

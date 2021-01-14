@@ -43,7 +43,6 @@ export const initialState = {
         }
     },
     totalSpending: 0,
-    dataAsOf: null, // will be a moment obj
     submissionPeriods: new List()
 };
 
@@ -151,12 +150,6 @@ const accountReducer = (state = initialState, action) => {
         }
         case 'RESET_ACCOUNT': {
             return Object.assign({}, initialState);
-        }
-        case 'SET_ACCOUNT_DATA_AS_OF': {
-            return {
-                ...state,
-                dataAsOf: action.payload
-            };
         }
         case 'SET_SUBMISSION_PERIODS': {
             return {
