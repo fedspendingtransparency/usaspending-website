@@ -1,11 +1,15 @@
 import React from 'react';
-import { render, screen } from 'test-utils';
+import { render, screen, waitFor } from 'test-utils';
+import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import MissingAccountBalanceContainer from 'containers/aboutTheData/modals/MissingAccountBalanceContainer';
 
 const defaultProps = {
-    fiscalYear: 2020,
-    fiscalPeriod: 8,
-    agencyCode: '020'
+    agencyData: {
+        fiscalYear: 2020,
+        fiscalPeriod: 8,
+        agencyCode: '020',
+        gtasObligationTotal: 1011010
+    }
 };
 
 describe('Missing Account Balance Container', () => {
@@ -14,5 +18,10 @@ describe('Missing Account Balance Container', () => {
         expect(screen.queryByText('Treasury Account Symbol (TAS)')).toBeTruthy();
         expect(screen.queryByText('Obligated Amount')).toBeTruthy();
         expect(screen.queryByText('% of Agency Total in GTAS')).toBeTruthy();
+    });
+    it('should call the api one time on mount', () => {
+        const pubicationDatesRequest = jest.spyOn(aboutTheDataHelper, 'fetchPublishDates');
+        render(<MissingAccountBalanceContainer {...defaultProps} />);
+        waitFor(() => expect(pubicationDatesRequest).toHaveBeenCalledTimes(1));
     });
 });
