@@ -35,11 +35,16 @@ export class ObligatedContainer extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.loadData(this.props.id, this.props.activeFY);
+        if (this.props.activeFY && this.props.id) {
+            this.loadData(this.props.id, this.props.activeFY);
+        }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) {
+        if (
+            (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) &&
+            this.props.id && this.props.activeFY
+        ) {
             this.loadData(this.props.id, this.props.activeFY);
         }
     }

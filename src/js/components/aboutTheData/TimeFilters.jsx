@@ -5,19 +5,20 @@
 
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { Picker } from "data-transparency-ui";
+import { useDispatch } from "react-redux";
+import { Picker, SearchBar } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
+import { List } from "immutable";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
-import { getLatestPeriod } from "helpers/accountHelper";
 import {
     getPeriodWithTitleById,
-    getSelectedPeriodTitle,
     isPeriodVisible,
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
 } from "helpers/aboutTheDataHelper";
+import { setSearchTerm } from "redux/actions/aboutTheData";
 import {
     periodsPerQuarter,
     lastPeriods,
@@ -85,23 +86,23 @@ const TimePeriodFilters = ({
     urlPeriod,
     onTimeFilterSelection,
     submissionPeriods,
-    dataAsOf
+    latestFy,
+    latestPeriod
 }) => {
-    const latestPeriod = getLatestPeriod(submissionPeriods);
-
+    const dispatch = useDispatch();
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
         onTimeFilterSelection(fy, getPeriodWithTitleById(period, latestAvailable));
     };
 
     useEffect(() => {
         // when latest account data is ready or the url changes, set the active time periods
-        if (dataAsOf) {
-            const availablePeriodsInFy = submissionPeriods.filter(({ submission_fiscal_year: y }) => parseInt(urlFy, 10) === y);
+        if (submissionPeriods.size && latestFy && latestPeriod) {
+            const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(urlFy, 10) === y);
             if (availablePeriodsInFy.length) {
                 // fy selection is valid but what about the period? 🤔
                 const validPeriod = isPeriodVisible(availablePeriodsInFy, urlPeriod)
                     ? urlPeriod
-                    : `${latestPeriod.period}`;
+                    : `${latestPeriod}`;
 
                 const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod)
                     ? validPeriod
@@ -111,10 +112,10 @@ const TimePeriodFilters = ({
             }
             else {
                 // invalid time selection, use the latest available fy/period 👌
-                handleTimeChange(`${latestPeriod.year}`, `${latestPeriod.period}`);
+                handleTimeChange(`${latestFy}`, `${latestPeriod}`);
             }
         }
-    }, [dataAsOf, urlFy, urlPeriod]);
+    }, [submissionPeriods, urlFy, urlPeriod, latestPeriod, latestFy]);
 
     const generatePeriodDropdown = (fy, periods) => (
         parsePeriods(fy, periods)
@@ -129,10 +130,14 @@ const TimePeriodFilters = ({
             }))
     );
 
+    const handleSearch = (term) => {
+        dispatch(setSearchTerm(term));
+    };
+
     return (
         <div className="table-controls__time-and-search">
-            <div className="picker-container">
-                <span className="fy-picker__title">FISCAL YEAR</span>
+            <div className="filter-container fy-picker">
+                <span className="filter__title fy-picker__title">FISCAL YEAR</span>
                 <Picker
                     icon=""
                     isFixedWidth
@@ -145,20 +150,20 @@ const TimePeriodFilters = ({
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
                             </div>
                         )}
-                    options={dataAsOf
-                        ? allFiscalYears(2017, dataAsOf.year()).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
+                    options={latestFy
+                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
-            {activeTab === 'details' && (
-                <div className="picker-container">
-                    <span className="period-picker__title">PERIOD</span>
+            {activeTab === 'submissions' && (
+                <div className="filter-container period-picker">
+                    <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
                         icon=""
                         className="period-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedPeriod
-                            ? <span>FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
+                            ? <span>{selectedPeriod.title}</span>
                             : (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
@@ -167,6 +172,10 @@ const TimePeriodFilters = ({
                         options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
                 </div>
             )}
+            <div className="filter-container">
+                <span className="filter__title search-bar">AGENCY NAME</span>
+                <SearchBar onSearch={handleSearch} />
+            </div>
         </div>
     );
 };
@@ -177,12 +186,14 @@ TimePeriodFilters.propTypes = {
         title: PropTypes.string.isRequired,
         className: PropTypes.string
     }),
+    latestPeriod: PropTypes.number,
+    latestFy: PropTypes.number,
     selectedFy: PropTypes.string,
     urlPeriod: PropTypes.string,
     urlFy: PropTypes.string,
     activeTab: PropTypes.string.isRequired,
     onTimeFilterSelection: PropTypes.func,
-    submissionPeriods: PropTypes.array,
+    submissionPeriods: PropTypes.instanceOf(List),
     dataAsOf: PropTypes.object
 };
 

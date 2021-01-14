@@ -1,16 +1,16 @@
 /**
- * DatesRow-test.js
+ * PublicationOverviewRow-test.js
  * Created by Max Kendall 12/9/2020
  */
 
-import DatesRow from 'models/v2/aboutTheData/DatesRow';
+import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 // TODO - update when API contracts are finalized
-const mockRow = mockAPI.dates.data.results[0];
+const mockRow = mockAPI.publications.data.results[0];
 const mockTotals = mockAPI.totals.data.results;
 
-const mockDatesRow = Object.create(DatesRow);
+const mockDatesRow = Object.create(PublicationOverviewRow);
 mockDatesRow.populate(2020, mockRow, mockTotals);
 
 test('should format the agency name', () => {

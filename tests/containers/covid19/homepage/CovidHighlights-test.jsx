@@ -19,7 +19,8 @@ const defaultProps = {
     setCovidOverview: () => {},
     setCovidDefCodes: () => {},
     completeIncrement: () => {},
-    defCodes: []
+    defCodes: [],
+    submissionPeriods: []
 };
 
 describe('CovidHighlights', () => {

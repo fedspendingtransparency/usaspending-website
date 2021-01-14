@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 import { useParams } from "react-router-dom";
 
-import { getLatestPeriod } from "helpers/accountHelper";
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
@@ -47,11 +46,11 @@ const AboutTheDataPage = ({
     history
 }) => {
     const { fy: urlFy, period: urlPeriod } = useParams();
-    const [dataAsOf, submissionPeriods] = useLatestAccountData();
+    const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
 
-    const [activeTab, setActiveTab] = useState('details'); // details or dates
+    const [activeTab, setActiveTab] = useState('submissions'); // submissions or publications
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
 
@@ -66,9 +65,8 @@ const AboutTheDataPage = ({
     };
 
     useEffect(() => {
-        if ((!urlFy || !urlPeriod) && submissionPeriods.length) {
-            const { year, period } = getLatestPeriod(submissionPeriods);
-            history.replace(`about-the-data/agencies/${year}/${period}`);
+        if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
+            history.replace(`about-the-data/agencies/${latestFy}/${latestPeriod}`);
         }
     }, []);
 
@@ -118,19 +116,20 @@ const AboutTheDataPage = ({
                         switchTab={handleSwitchTab}
                         types={[
                             {
-                                internal: 'details',
+                                internal: 'submissions',
                                 label: "Statistics by Reporting Period",
                                 labelContent: <TableTabLabel label="Statistics by Reporting Period" />
                             },
                             {
-                                internal: 'dates',
+                                internal: 'publications',
                                 label: "Updates by Fiscal Year",
                                 labelContent: <TableTabLabel label="Updates by Fiscal Year" />
                             }
                         ]} />
                     <TimeFilters
                         submissionPeriods={submissionPeriods}
-                        dataAsOf={dataAsOf}
+                        latestFy={latestFy}
+                        latestPeriod={latestPeriod}
                         activeTab={activeTab}
                         onTimeFilterSelection={onTimeFilterSelection}
                         selectedPeriod={selectedPeriod}
@@ -152,9 +151,11 @@ const AboutTheDataPage = ({
                     type={showModal}
                     className={modalClassNames[showModal]}
                     title={modalTitles[showModal]}
-                    agencyData={modalData}
-                    fiscalYear={2020}
-                    fiscalPeriod={8}
+                    agencyData={{
+                        ...modalData,
+                        fiscalYear: parseInt(selectedFy, 10),
+                        fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
+                    }}
                     closeModal={closeModal}
                     totalObligationsNotInGTAS={45999} />
             </main>

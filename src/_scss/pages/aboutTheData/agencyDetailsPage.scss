@@ -15,6 +15,7 @@
       max-width: 160rem;
       .usda-message {
         background-color: $color-white;
+        width: 100vw;
       }
       .table-container,
         .table-controls {
@@ -55,6 +56,10 @@
               .usda-table__row {
                 height: 4.8rem;
                 .usda-table__cell {
+                  &:nth-of-type(2) {
+                    // center-align the percentage column
+                    text-align: center;
+                  }
                   font-size: 1.4rem;
                   padding: 0; // to allow entire cell to be hoverable
                   @import './actionCell';

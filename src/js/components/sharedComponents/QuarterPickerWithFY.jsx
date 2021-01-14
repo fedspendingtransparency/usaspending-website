@@ -5,15 +5,13 @@
  * 1. Decouple this component from the fy/period data for accounts. 😰
  **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { QuarterPicker } from 'data-transparency-ui';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { setAccountDataAsOfDate as setLatestSubmissionDate } from 'redux/actions/account/accountActions';
-import { getLatestPeriodAsMoment, fetchAllSubmissionDates } from 'helpers/accountHelper';
 import { earliestExplorerYear } from 'helpers/fiscalYearHelper';
 import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import {
     periods,
     getPeriodsPerQuarterByFy
@@ -27,14 +25,12 @@ const QuarterPickerWithFY = ({
     latestSelectedTimeInterval
 }) => {
     const [periodsPerQuarter, setPeriodsPerQuarter] = useState(getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)));
-    const [allPeriods, setAllPeriods] = useState([]);
     const [disabledPeriodsInFy, setDisabledPeriodsInFy] = useState([]);
-    const latestFy = useSelector((state) => state.account.dataAsOf);
-    const request = useRef();
-    const dispatch = useDispatch();
+    const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const pickedYear = (year) => {
-        if (parseInt(year, 10) === latestFy.year()) {
+        // 2020 is when we started recieiving federal submissions on a per-period basis.
+        if (parseInt(year, 10) >= 2020) {
             const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
             handlePickedYear(year, latestSubmission);
         }
@@ -52,7 +48,7 @@ const QuarterPickerWithFY = ({
         if (parseInt(selectedFy, 10) === earliestExplorerYear) {
             setDisabledPeriodsInFy(['1']);
         }
-        else if (selectedFy && allPeriods.length) {
+        else if (selectedFy && allPeriods.size) {
             const latestAvailablePeriodInFy = getLatestSubmissionPeriodInFy(selectedFy, allPeriods);
             const allAvailablePeriodsInFy = periods.filter((period) => parseInt(period, 10) <= latestAvailablePeriodInFy.period);
             setDisabledPeriodsInFy(periods.filter((period) => !allAvailablePeriodsInFy.includes(period)));
@@ -61,30 +57,10 @@ const QuarterPickerWithFY = ({
 
     useEffect(() => {
         // fetch periods on first render
-        if (!allPeriods.length) {
-            if (request.current) {
-                request.current.cancel();
-            }
-            request.current = fetchAllSubmissionDates();
-            request.current.promise
-                .then(({ data: { available_periods: availablePeriods } }) => {
-                    const latestPeriodAsMoment = getLatestPeriodAsMoment(availablePeriods);
-                    setAllPeriods(availablePeriods);
-                    if (!latestFy) {
-                        // updating latest time period
-                        dispatch(setLatestSubmissionDate(latestPeriodAsMoment));
-                    }
-                    // set default selectedFY to latest
-                    handlePickedYear(`${latestPeriodAsMoment.year()}`, getLatestSubmissionPeriodInFy(latestPeriodAsMoment.year(), availablePeriods).period);
-                    request.current = null;
-                });
+        if (latestFy && latestPeriod) {
+            handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }
-        return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
-        };
-    }, []);
+    }, [latestFy, latestPeriod]);
 
     return (
         <div className="quarter-picker">
