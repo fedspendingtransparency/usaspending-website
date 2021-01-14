@@ -91,7 +91,7 @@ describe('About The Data Helper', () => {
             expect(data[0][1]).toBe('$2,323');
             expect(data[0][2]).toBe('5.16%');
             expect(data[1][1]).toBe('$0');
-            expect(data[1][2]).toBe('0.0%');
+            expect(data[1][2]).toBe('0.00%');
         });
     });
     describe('showQuarterText', () => {
