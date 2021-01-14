@@ -12,7 +12,7 @@ const AgencyDownloadLinkCell = ({ file }) => (file ? (
         target="_blank"
         href={file}
         rel="noopener noreferrer"
-        aria-label="Raw quarterly submission files">
+        aria-label="Download agency comments">
         <FontAwesomeIcon icon="file-alt" />Download
     </a>
 ) : '--');
