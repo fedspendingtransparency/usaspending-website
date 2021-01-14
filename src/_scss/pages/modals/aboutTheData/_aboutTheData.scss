@@ -133,29 +133,17 @@
     // reporting differences modal
     &.reporting-differences-modal {
     .usa-dt-modal__section {
-        .usda-table {
-          thead.usda-table__head {
-            th.table-header {
+      .usda-table {
+        thead.usda-table__head {
+          th.table-header:not(:first-child) {
               text-align: right;
-            }
           }
         }
       }
+  }
       @include media($tablet-screen) {
         max-width: rem(900);
-        .usa-dt-modal__section {
-            .usda-table {
-              thead.usda-table__head {
-                th.table-header {
-                  padding: rem(15) rem(0) rem(15) rem(15);
-                  text-align: left;
-                }
-                th.table-header:last-child {
-                  padding-left: rem(40);
-                }
-              }
-            }
-        }
+
       }
       @include media($large-screen) {
         max-width: rem(900);
@@ -168,9 +156,6 @@
               .usda-table__cell:not(:first-child) {
                 text-align: right;
                 padding-right: rem(42);
-              }
-              .usda-table__cell:last-child {
-                padding-right: rem(37);
               }
             }
           }
