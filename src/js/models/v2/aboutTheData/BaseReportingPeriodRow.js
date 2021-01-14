@@ -4,7 +4,7 @@
  */
 
 import { formatMoneyWithPrecision, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
-import { dateFormattedMonthDayYear, showQuarterText } from 'helpers/aboutTheDataHelper';
+import { dateFormattedMonthDayYear, getPeriodWithTitleById } from 'helpers/aboutTheDataHelper';
 
 const BaseReportingPeriodRow = {
     populate(data, federalBudget) {
@@ -20,18 +20,7 @@ const BaseReportingPeriodRow = {
         this._federalBudget = federalBudget;
     },
     get reportingPeriod() {
-        // Add a leading a zero to single-digit periods
-        const paddedPeriod = `${this._fiscalPeriod}`.padStart(2, '0');
-        let period = `P${paddedPeriod}`;
-        if (showQuarterText(this._fiscalPeriod)) {
-            // Indicate the fiscal quarter for periods 3, 6, 9, and 12
-            period = `Q${this._fiscalPeriod / 3} / P${paddedPeriod}`;
-        }
-        else if (this._fiscalPeriod === 2) {
-            // P01 isn't reported, so P02 is cumulative P01 - P02
-            period = 'P01 - P02';
-        }
-        return `FY ${this._fiscalYear}: ${period}`;
+        return `FY ${this._fiscalYear}: ${getPeriodWithTitleById(`${this._fiscalPeriod}`).title}`;
     },
     get percentOfBudget() {
         return calculatePercentage(this._budgetAuthority, this._federalBudget);

@@ -13,7 +13,6 @@ import { List } from "immutable";
 import { allFiscalYears } from "helpers/fiscalYearHelper";
 import {
     getPeriodWithTitleById,
-    getSelectedPeriodTitle,
     isPeriodVisible,
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
@@ -149,7 +148,7 @@ const TimePeriodFilters = ({
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
-            {activeTab === 'details' && (
+            {activeTab === 'submissions' && (
                 <div className="picker-container">
                     <span className="period-picker__title">PERIOD</span>
                     <Picker
@@ -157,7 +156,7 @@ const TimePeriodFilters = ({
                         className="period-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedPeriod
-                            ? <span>FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
+                            ? <span>{selectedPeriod.title}</span>
                             : (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />

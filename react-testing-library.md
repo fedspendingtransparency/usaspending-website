@@ -32,9 +32,10 @@ user would see and therefore in many ways is a more simple testing strategy.
 
 Here is [a helpful contrast](https://testing-library.com/docs/react-testing-library/migrate-from-enzyme#test-1-render-the-component-and-check-if-the-h1-value-is-correct) on the React Testing Library documentation site of a component test written in Enzyme versus one written in RTL.
 
-
-### Examples
+### Examples from our Code Base
 
 - [Testing output of Component](tests/components/covid19/homepage/TotalAmount-test.jsx)
 - [Testing fn defined outside of Component](tests/containers/covid19/SpendingByRecipientContainer-test.jsx)
+- [Mocking URL Params of React Router](tests/components/aboutTheData/AboutTheDataPage-test.jsx)
+- [Ensuring no duplicate API Requests](tests/containers/aboutTheData/AgenciesContainer-test.jsx)
   

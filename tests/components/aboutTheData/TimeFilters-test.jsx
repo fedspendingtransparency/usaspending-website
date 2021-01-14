@@ -15,7 +15,7 @@ const mockPeriods = new List([...mockSubmissions, q4Fy2020]);
 const defaultProps = {
     urlPeriod: '12',
     urlFy: '2020',
-    activeTab: 'details', // or dates
+    activeTab: 'submissions', // or publications
     onTimeFilterSelection: jest.fn(),
     selectedPeriod: null,
     selectedFy: null,
@@ -44,7 +44,7 @@ test('Submission Details table shows period picker', async () => {
 });
 
 test('Publication Dates table does not show period picker', async () => {
-    render(<TimeFilters {...defaultProps} activeTab="dates" />);
+    render(<TimeFilters {...defaultProps} activeTab="publications" />);
     expect(screen.queryByText('PERIOD')).toBeNull();
 });
 
