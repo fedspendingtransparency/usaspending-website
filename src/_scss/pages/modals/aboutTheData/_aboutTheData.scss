@@ -132,15 +132,6 @@
     }
     // reporting differences modal
     &.reporting-differences-modal {
-    .usa-dt-modal__section {
-      .usda-table {
-        thead.usda-table__head {
-          th.table-header:not(:first-child) {
-              text-align: right;
-          }
-        }
-      }
-  }
       @include media($tablet-screen) {
         max-width: rem(900);
 
