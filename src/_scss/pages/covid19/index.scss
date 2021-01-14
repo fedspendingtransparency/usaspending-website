@@ -63,6 +63,7 @@
                 @import './assistanceListing/assistanceListing';
                 @import './linkToAdvancedSearch';
                 @import './dataSourcesAndMethodology';
+                @import '../../components/tooltips/customTooltipContent';
 
                 @include display(flex);
                 @include flex-wrap(wrap);
@@ -277,7 +278,6 @@
                 padding: 0;
             }
         }
-        @import "./covidTooltip";
     }
     .footer-reference {
       width: 100%;

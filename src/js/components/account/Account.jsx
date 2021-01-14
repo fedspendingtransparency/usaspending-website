@@ -19,7 +19,7 @@ import SearchResults from './SearchResults';
 
 const propTypes = {
     account: PropTypes.object,
-    currentFiscalYear: PropTypes.object
+    currentFiscalYear: PropTypes.string
 };
 
 export default class Account extends React.Component {
