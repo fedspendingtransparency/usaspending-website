@@ -8,21 +8,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIPublicationDates, publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatPublicationDates, dateFormattedMonthDayYear } from 'helpers/aboutTheDataHelper';
+import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
+import {
+    formatPublicationDates,
+    dateFormattedMonthDayYear,
+    fetchPublishDates,
+    convertDatesToMilliseconds
+} from 'helpers/aboutTheDataHelper';
+import { pageAndSort } from 'helpers/pageAndSortHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
 const propTypes = {
-    fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number,
-    agencyCode: PropTypes.string
+    agencyData: PropTypes.shape({
+        agencyName: PropTypes.string,
+        agencyCode: PropTypes.string,
+        fiscalYear: PropTypes.number,
+        fiscalPeriod: PropTypes.number
+    })
 };
 
 const PublicationDatesContainer = ({
-    fiscalYear,
-    fiscalPeriod,
-    agencyCode
+    agencyData
 }) => {
     const [sort, setSort] = useState('publication_date');
     const [order, setOrder] = useState('desc');
@@ -31,6 +38,7 @@ const PublicationDatesContainer = ({
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ error: false, message: '' });
+    const [rawData, setRawData] = useState([]);
     const [rows, setRows] = useState([]);
     const [submissionDeadlines, setSubmissionDeadlines] = useState(null);
     const { submissionPeriods } = useSelector((state) => state.account);
@@ -61,20 +69,11 @@ const PublicationDatesContainer = ({
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
         if (pubDatesRequest.current) pubDatesRequest.current.cancel();
-        const params = {
-            page,
-            limit,
-            sort,
-            order,
-            agencyCode,
-            fiscalYear,
-            fiscalPeriod
-        };
         try {
-            pubDatesRequest.current = mockAPIPublicationDates(params);
+            pubDatesRequest.current = fetchPublishDates(agencyData.agencyCode, agencyData.fiscalYear, agencyData.fiscalPeriod, { page: 1, limit: 100 });
             const { data } = await pubDatesRequest.current.promise;
             setTotal(data.page_metadata.total);
-            setRows(formatPublicationDates(data.results));
+            setRawData(convertDatesToMilliseconds(data.results));
             setLoading(false);
             pubDatesRequest.current = null;
         }
@@ -93,26 +92,32 @@ const PublicationDatesContainer = ({
             submissionPeriodsRequest();
         }
         else {
-            setSubmissionDeadlines(getSubmissionDeadlines(fiscalYear, fiscalPeriod, submissionPeriods.toJS()));
+            setSubmissionDeadlines(getSubmissionDeadlines(agencyData.fiscalYear, agencyData.fiscalPeriod, submissionPeriods.toJS()));
         }
     }, [submissionPeriods]);
-    // on unmount cleanup pubDatesRequest
-    useEffect(() => () => {
-        if (pubDatesRequest.current) pubDatesRequest.current.cancel();
+    // on mount fetch all data, unmount cleanup pubDatesRequest
+    useEffect(() => {
+        publicationDatesRequest();
+        return () => {
+            if (pubDatesRequest.current) pubDatesRequest.current.cancel();
+        };
     }, []);
+    // when we have raw data from the api format table data
+    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [rawData]);
     // on sort, order, limit change fetch new data or reset page to 1
     useEffect(() => {
-        if (page === 1) {
-            publicationDatesRequest();
+        if (page !== 1) {
+            setPage(1);
         }
         else {
-            setPage(1);
+            setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
         }
     }, [sort, order, limit]);
     // on page change fetch new data
     useEffect(() => {
-        publicationDatesRequest();
+        setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
     }, [page]);
+
     // do not show deadlines in column headers if we do not have the data
     const columns = publicationDatesColumns.map((column) => ({
         displayName: (

@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import { setTableData, setTableSort, setTotals } from 'redux/actions/aboutTheData';
+import { setTableData, setTableSort, setTotals, setSearchResults } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
-import DetailsRow from 'models/v2/aboutTheData/BaseAgencyRow';
-import DatesRow from 'models/v2/aboutTheData/DatesRow';
+import ReportingOverviewRow from 'models/v2/aboutTheData/ReportingOverviewRow';
+import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 
 import { agenciesTableColumns } from './AgencyTableMapping';
 
 const propTypes = {
     openModal: PropTypes.func.isRequired,
-    activeTab: PropTypes.oneOf(['dates', 'details']).isRequired,
+    activeTab: PropTypes.oneOf(['publications', 'submissions']).isRequired,
     selectedFy: PropTypes.string,
     selectedPeriod: PropTypes.string
 };
@@ -37,18 +37,18 @@ const AgenciesContainer = ({
     selectedPeriod
 }) => {
     const {
-        details, dates, datesSort, detailsSort, totals, submissionPeriods
+        allSubmissions, allPublications, publicationsSort, submissionsSort, federalTotals, submissionPeriods, searchTerm, submissionsSearchResults, publicationsSearchResults
     } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
     const dispatch = useDispatch();
-    const datesReq = useRef(null);
-    const detailsReq = useRef(null);
+    const publicationsReq = useRef(null);
+    const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
     const [
-        [{ page: detailsPage, limit: detailsLimit }, updateDetailsPagination],
-        [{ page: datesPage, limit: datesLimit }, updateDatesPagination]
+        [{ page: submissionsPage, totalItems: totalSubmissionItems, limit: submissionsLimit }, updateSubmissionsPagination],
+        [{ page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit }, updatePublicationsPagination]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
-    const [[, areDetailsLoading, areDatesLoading], setLoading] = useState([true, true, true]);
+    const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
     const tableRef = useRef(null);
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
@@ -70,26 +70,32 @@ const AgenciesContainer = ({
     };
 
     const fetchTableData = useCallback(() => {
-        if (activeTab === 'details') {
+        if (activeTab === 'submissions') {
             const isPeriodValid = isPeriodSelectable(
                 submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
                 selectedPeriod
             );
             if (!isPeriodValid) return Promise.resolve();
             setLoading([false, true, false]);
-            detailsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, detailsSort[0], detailsSort[1], detailsPage, detailsLimit);
-            return detailsReq.current.promise
-                .then(({ data: { results } }) => {
+            submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], submissionsPage, submissionsLimit, searchTerm);
+            return submissionsReq.current.promise
+                .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                     const parsedResults = results.map((d) => {
-                        const row = Object.create(DetailsRow);
-                        const federalTotal = totals.find(({ fiscal_year: y, fiscal_period: p }) => (
+                        const row = Object.create(ReportingOverviewRow);
+                        const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
                             y === parseInt(selectedFy, 10) &&
                             p === parseInt(selectedPeriod, 10)
                         ));
                         row.populate({ ...d, federalTotal });
                         return row;
                     });
-                    dispatch(setTableData(activeTab, parsedResults));
+                    if (searchTerm) {
+                        dispatch(setSearchResults(activeTab, parsedResults));
+                    }
+                    else {
+                        dispatch(setTableData(activeTab, parsedResults));
+                    }
+                    updateSubmissionsPagination({ totalItems, page, limit });
                     setLoading([false, false, false]);
                     setError(false);
                 })
@@ -99,34 +105,40 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
-        setLoading([false, true, false]);
-        datesReq.current = getSubmissionPublicationDates(selectedFy, datesSort[0], datesSort[1], datesPage, datesLimit);
-        return datesReq.current.promise
-            .then(({ data: { results } }) => {
+        setLoading([false, false, true]);
+        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
+        return publicationsReq.current.promise
+            .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                 const parsedResults = results.map((d) => {
-                    const row = Object.create(DatesRow);
-                    row.populate(parseInt(selectedFy, 10), d, totals);
+                    const row = Object.create(PublicationOverviewRow);
+                    row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
-                dispatch(setTableData(activeTab, parsedResults));
+                updatePublicationsPagination({ totalItems, page, limit });
+                if (searchTerm) {
+                    dispatch(setSearchResults(activeTab, parsedResults));
+                }
+                else {
+                    dispatch(setTableData(activeTab, parsedResults));
+                }
                 setLoading([false, false, false]);
                 setError(false);
-                datesReq.current = null;
+                publicationsReq.current = null;
             })
             .catch((e) => {
                 console.error('Error: ', e);
                 setLoading([false, false, false]);
                 setError(true);
-                datesReq.current = null;
+                publicationsReq.current = null;
             });
     });
 
     const fetchTotals = useCallback(() => {
-        if (selectedFy && selectedPeriod && !totals.length) {
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
             if (totalsReq.current) totalsReq.current.cancel();
-            if (detailsReq.current) detailsReq.current.cancel();
-            setLoading([true, areDetailsLoading, areDatesLoading]);
-            totalsReq.current = getTotalBudgetaryResources(selectedFy, selectedPeriod, true);
+            if (submissionsReq.current) submissionsReq.current.cancel();
+            setLoading([true, areSubmissionsLoading, arePublicationsLoading]);
+            totalsReq.current = getTotalBudgetaryResources();
             return totalsReq.current.promise
                 .then(({ data: { results } }) => {
                     dispatch(setTotals(results));
@@ -144,14 +156,14 @@ const AgenciesContainer = ({
         return Promise.resolve([]);
     });
 
-    useEffect(() => {
-        if (datesReq.current) {
+    useEffect(() => () => {
+        if (publicationsReq.current) {
             console.info('canceling request on unmount');
-            datesReq.current.cancel();
+            publicationsReq.current.cancel();
         }
-        if (detailsReq.current) {
+        if (submissionsReq.current) {
             console.info('canceling request on unmount');
-            detailsReq.current.cancel();
+            submissionsReq.current.cancel();
         }
         if (totalsReq.current) {
             console.info('canceling request on unmount');
@@ -161,23 +173,24 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (selectedFy && selectedPeriod && !totals.length) {
+        if (!federalTotals.length) {
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
     }, [
-        totals,
+        federalTotals,
         activeTab,
         selectedFy,
         selectedPeriod,
-        detailsSort,
-        detailsPage,
-        detailsLimit,
-        datesSort,
-        datesPage,
-        datesLimit
+        submissionsSort,
+        submissionsPage,
+        submissionsLimit,
+        publicationsSort,
+        publicationsPage,
+        publicationsLimit,
+        searchTerm
     ]);
 
     const renderDates = (results = []) => results
@@ -187,7 +200,7 @@ const AgenciesContainer = ({
             percentageOfTotalFederalBudget,
             periods
         }) => ([
-            (<DrilldownCell data={name} id={code} />),
+            (<DrilldownCell data={name} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             ...parsePeriods(periods)
         ]));
@@ -200,73 +213,103 @@ const AgenciesContainer = ({
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
             tasTotals,
-            percentageOfTotalFederalBudget
+            percentageOfTotalFederalBudget,
+            unlinkedContractAwards,
+            unlinkedAssistanceAwards
         }) => [
-            (<DrilldownCell data={agencyName} id={code} />),
+            (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-            (<CellWithModal data={publicationDate} openModal={openModal} modalType="publicationDates" agencyData={{ agencyName }} />),
-            (<CellWithModal data={GtasNotInFileA} openModal={openModal} modalType="missingAccountBalance" agencyData={{ agencyName, gtasObligationTotal: tasTotals.gtas_obligation_total }} />),
-            (<CellWithModal data={obligationDifference} openModal={openModal} modalType="reportingDifferences" agencyData={{ agencyName }} />)
+            (<CellWithModal
+                data={publicationDate}
+                openModal={openModal}
+                modalType="publicationDates"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id
+                }} />),
+            (<CellWithModal
+                data={GtasNotInFileA}
+                openModal={openModal}
+                modalType="missingAccountBalance"
+                agencyData={{
+                    agencyName,
+                    gtasObligationTotal: tasTotals.gtas_obligation_total,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id
+                }} />),
+            (<CellWithModal
+                data={obligationDifference}
+                openModal={openModal}
+                modalType="reportingDifferences"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id
+                }} />),
+            (<div className="generic-cell-content">{unlinkedContractAwards}</div>),
+            (<div className="generic-cell-content">{unlinkedAssistanceAwards}</div>)
         ]);
 
     const handlePageChange = (page) => {
-        if (activeTab === 'details') {
-            updateDetailsPagination({ page, limit: detailsLimit });
+        if (activeTab === 'submissions') {
+            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page, limit: submissionsLimit });
         }
         else {
-            updateDatesPagination({ page, limit: detailsLimit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: publicationsLimit });
         }
     };
 
     const handleLimitChange = (limit) => {
-        if (activeTab === 'details') {
-            updateDetailsPagination({ page: detailsPage, limit });
+        if (activeTab === 'submissions') {
+            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page: submissionsPage, limit });
         }
         else {
-            updateDatesPagination({ page: datesPage, limit });
+            updatePublicationsPagination({ totalItems: totalPublicationItems, page: publicationsPage, limit });
         }
     };
 
     return (
         <>
             <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-                {activeTab === 'details' && (
+                {activeTab === 'submissions' && (
                     <Table
-                        rows={renderDetails(details)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
-                            field: detailsSort[0],
-                            direction: detailsSort[1]
+                            field: submissionsSort[0],
+                            direction: submissionsSort[1]
                         }}
                         error={error}
-                        loading={areDetailsLoading} />
+                        loading={areSubmissionsLoading} />
                 )}
-                {activeTab === 'dates' && (
+                {activeTab === 'publications' && (
                     <Table
-                        rows={renderDates(dates)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                        rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
+                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
-                            field: datesSort[0],
-                            direction: datesSort[1]
+                            field: publicationsSort[0],
+                            direction: publicationsSort[1]
                         }}
                         error={error}
-                        loading={areDatesLoading} />
+                        loading={arePublicationsLoading} />
                 )}
             </div>
-            {(details.length || dates.length) && (
-                <Pagination
-                    resultsText
-                    limitSelector
-                    changeLimit={handleLimitChange}
-                    changePage={handlePageChange}
-                    currentPage={activeTab === 'details' ? detailsPage : datesPage}
-                    pageSize={activeTab === 'details' ? detailsLimit : datesLimit}
-                    totalItems={activeTab === 'details' ? details.length : dates.length} />
-            )}
+            <Pagination
+                resultsText
+                limitSelector
+                changeLimit={handleLimitChange}
+                changePage={handlePageChange}
+                currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
         </>
     );
 };

@@ -5,10 +5,11 @@
 
 const BaseAgencyOverview = {
     populate(data) {
-        this._name = data?.name || '';
-        this._abbreviation = data?.abbreviation || '';
-        this.website = data?.website || '';
-        this.id = data?.id || '';
+        this._name = data.name || '';
+        this._abbreviation = data.abbreviation || '';
+        this.website = data.website || '';
+        // eslint-disable-next-line camelcase
+        this.id = data.agency_id || '';
     },
     get name() {
         const abbreviation = this._abbreviation ? ` (${this._abbreviation})` : '';

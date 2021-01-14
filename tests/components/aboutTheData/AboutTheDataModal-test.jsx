@@ -7,12 +7,12 @@ const defaultProps = {
     closeModal: () => {},
     type: 'publicationDates',
     title: 'Publication Dates',
-    agencyCode: '020',
-    fiscalYear: 2020,
-    fiscalPeriod: 8,
     className: 'hi',
     agencyData: {
-        agencyName: 'Assaley & Hill School of Business'
+        agencyName: 'Assaley & Hill School of Business',
+        agencyCode: '020',
+        fiscalYear: 2020,
+        fiscalPeriod: 8
     }
 };
 
