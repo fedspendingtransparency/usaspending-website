@@ -9,7 +9,7 @@ import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
-import { mockSubmissions } from '../../mockData';
+import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
 // latest fy of 2020; latest period is 12
 const q4Fy2020 = {
