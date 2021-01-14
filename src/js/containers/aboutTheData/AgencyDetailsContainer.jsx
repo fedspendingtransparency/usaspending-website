@@ -78,9 +78,9 @@ const columns = [
     },
     {
         title: "assurance_statements",
-        displayName: "Assurance Statements",
+        displayName: "Agency Comments",
         icon: (
-            <Tooltip title="Agency Disclosures" position="left" />
+            <Tooltip title="Agency Comments" position="left" />
         )
     }
 ];
