@@ -358,6 +358,19 @@
           margin-right: 0.5rem;
         }
       }
+      &.table-container_submissions {
+        // Styles specific to the "Statistics by Reporting Period" tab
+        thead {
+          th {
+            &:last-of-type {
+              // Hide sorting for the Assurance Statements column
+              .table-header__sort {
+                display: none;
+              }
+            }
+          }
+        }
+      }
     }
     // Pagination
     .usa-dt-pagination {

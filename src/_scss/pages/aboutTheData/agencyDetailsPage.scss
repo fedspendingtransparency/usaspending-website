@@ -46,9 +46,12 @@
               tr th {
                 min-width: rem(300);
               }
-              .nested-header {
-                .table-header__content {
-                  padding: 1rem 0;
+              th {
+                &:last-of-type {
+                  // Hide sorting for the Assurance Statements column
+                  .table-header__sort {
+                    display: none;
+                  }
                 }
               }
             }

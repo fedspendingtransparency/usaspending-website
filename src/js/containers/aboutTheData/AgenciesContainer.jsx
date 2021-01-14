@@ -276,7 +276,7 @@ const AgenciesContainer = ({
 
     return (
         <>
-            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+            <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
                 {activeTab === 'submissions' && (
                     <Table
                         rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
