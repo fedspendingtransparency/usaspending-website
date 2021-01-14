@@ -400,7 +400,7 @@ const BudgetCategoriesTableContainer = (props) => {
                     onClick: spendingCategoryOnChange
                 }))} />
             <TooltipWrapper
-                className="homepage__covid-19-tt"
+                className="covid-profile-tt"
                 icon="info"
                 wide
                 tooltipPosition="right"
