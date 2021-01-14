@@ -15,6 +15,7 @@ import WithLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
+import { LATEST_PERIOD_PROPS } from 'propTypes';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
@@ -44,13 +45,13 @@ export class AccountLandingContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.fy) {
+        if (this.props.latestPeriod.year) {
             this.showColumns();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (!prevProps.fy && this.props.fy) {
+        if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
             this.showColumns();
         }
     }
@@ -98,7 +99,7 @@ export class AccountLandingContainer extends React.Component {
     }
 
     showColumns() {
-        const { fy } = this.props;
+        const { year: fy } = this.props.latestPeriod;
         const columns = [];
         const sortOrder = AccountsTableFields.defaultSortDirection;
 
@@ -141,7 +142,7 @@ export class AccountLandingContainer extends React.Component {
             page: this.state.pageNumber,
             limit: pageSize,
             filters: {
-                fy: this.props.fy
+                fy: `${this.props.latestPeriod.year}`
             }
         };
 
@@ -206,11 +207,12 @@ export class AccountLandingContainer extends React.Component {
 }
 
 AccountLandingContainer.propTypes = {
-    fy: PropTypes.string
+    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    latestPeriod: LATEST_PERIOD_PROPS
 };
 
 export default () => (
-    <WithLatestFy propName="fy" format="YYYY">
+    <WithLatestFy>
         <AccountLandingContainer />
     </WithLatestFy>
 );

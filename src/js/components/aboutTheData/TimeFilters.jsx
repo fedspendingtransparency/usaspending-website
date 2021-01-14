@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { Picker } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
+import { List } from "immutable";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
-import { getLatestPeriod } from "helpers/accountHelper";
 import {
     getPeriodWithTitleById,
     getSelectedPeriodTitle,
@@ -85,23 +85,22 @@ const TimePeriodFilters = ({
     urlPeriod,
     onTimeFilterSelection,
     submissionPeriods,
-    dataAsOf
+    latestFy,
+    latestPeriod
 }) => {
-    const latestPeriod = getLatestPeriod(submissionPeriods);
-
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
         onTimeFilterSelection(fy, getPeriodWithTitleById(period, latestAvailable));
     };
 
     useEffect(() => {
         // when latest account data is ready or the url changes, set the active time periods
-        if (dataAsOf) {
-            const availablePeriodsInFy = submissionPeriods.filter(({ submission_fiscal_year: y }) => parseInt(urlFy, 10) === y);
+        if (submissionPeriods.size && latestFy && latestPeriod) {
+            const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(urlFy, 10) === y);
             if (availablePeriodsInFy.length) {
                 // fy selection is valid but what about the period? 🤔
                 const validPeriod = isPeriodVisible(availablePeriodsInFy, urlPeriod)
                     ? urlPeriod
-                    : `${latestPeriod.period}`;
+                    : `${latestPeriod}`;
 
                 const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod)
                     ? validPeriod
@@ -111,10 +110,10 @@ const TimePeriodFilters = ({
             }
             else {
                 // invalid time selection, use the latest available fy/period 👌
-                handleTimeChange(`${latestPeriod.year}`, `${latestPeriod.period}`);
+                handleTimeChange(`${latestFy}`, `${latestPeriod}`);
             }
         }
-    }, [dataAsOf, urlFy, urlPeriod]);
+    }, [submissionPeriods, urlFy, urlPeriod, latestPeriod, latestFy]);
 
     const generatePeriodDropdown = (fy, periods) => (
         parsePeriods(fy, periods)
@@ -145,8 +144,8 @@ const TimePeriodFilters = ({
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
                             </div>
                         )}
-                    options={dataAsOf
-                        ? allFiscalYears(2017, dataAsOf.year()).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
+                    options={latestFy
+                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
@@ -177,12 +176,14 @@ TimePeriodFilters.propTypes = {
         title: PropTypes.string.isRequired,
         className: PropTypes.string
     }),
+    latestPeriod: PropTypes.number,
+    latestFy: PropTypes.number,
     selectedFy: PropTypes.string,
     urlPeriod: PropTypes.string,
     urlFy: PropTypes.string,
     activeTab: PropTypes.string.isRequired,
     onTimeFilterSelection: PropTypes.func,
-    submissionPeriods: PropTypes.array,
+    submissionPeriods: PropTypes.instanceOf(List),
     dataAsOf: PropTypes.object
 };
 

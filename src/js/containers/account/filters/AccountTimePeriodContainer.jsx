@@ -16,6 +16,8 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import WithLatestFy from 'containers/account/WithLatestFy';
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
+import { LATEST_PERIOD_PROPS } from "propTypes";
+
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
 const propTypes = {
@@ -25,7 +27,8 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    latestFy: PropTypes.object
+    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    latestPeriod: LATEST_PERIOD_PROPS
 };
 
 export class AccountTimePeriodContainer extends React.Component {
@@ -42,13 +45,13 @@ export class AccountTimePeriodContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.latestFy) {
+        if (this.props.latestPeriod.year) {
             this.generateTimePeriods();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (!prevProps.latestFy && this.props.latestFy) {
+        if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
             this.generateTimePeriods();
         }
     }
@@ -56,7 +59,7 @@ export class AccountTimePeriodContainer extends React.Component {
     generateTimePeriods() {
         this.setState({
             timePeriods: FiscalYearHelper
-                .allFiscalYears(startYear, this.props.latestFy.year())
+                .allFiscalYears(startYear, this.props.latestPeriod.year)
                 .map((int) => String(int))
         });
     }
@@ -85,6 +88,7 @@ export class AccountTimePeriodContainer extends React.Component {
         return (
             <TimePeriod
                 {...this.props}
+                latestFy={this.props.latestPeriod.year}
                 activeTab={this.props.filterTimePeriodType}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
@@ -107,7 +111,7 @@ export default connect(
         ...bindActionCreators(accountFilterActions, dispatch)
     })
 )((props) => (
-    <WithLatestFy propName="latestFy">
+    <WithLatestFy>
         <AccountTimePeriodContainer {...props} />
     </WithLatestFy>
 ));

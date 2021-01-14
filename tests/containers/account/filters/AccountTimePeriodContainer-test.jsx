@@ -19,7 +19,7 @@ const defaultFilters = {
     filterTimePeriodFY: new Set(),
     filterTimePeriodStart: null,
     filterTimePeriodEnd: null,
-    latestFy: moment()
+    latestPeriod: { year: 2020 }
 };
 
 describe('AccountTimePeriodContainer', () => {
