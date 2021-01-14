@@ -1,18 +1,18 @@
 /**
- * BaseAgencyRow-test.js
+ * ReportingOverviewRow-test.js
  * Created by Lizzie Salita 11/20/20
  */
 
-import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
+import ReportingOverviewRow from 'models/v2/aboutTheData/ReportingOverviewRow';
 import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
 
 // TODO - update when API contracts are finalized
-const mockAgencyRow = { ...mockAPI.details.data.results[0] };
+const mockAgencyRow = { ...mockAPI.submissions.data.results[0] };
 
-const agencyRow = Object.create(BaseAgencyRow);
+const agencyRow = Object.create(ReportingOverviewRow);
 agencyRow.populate(mockAgencyRow);
 
-describe('BaseAgencyRow', () => {
+describe('ReportingOverviewRow', () => {
     it('should format the agency name', () => {
         expect(agencyRow.name).toEqual('Department of Health and Human Services (DHHS)');
     });
@@ -21,7 +21,7 @@ describe('BaseAgencyRow', () => {
             ...mockAgencyRow,
             abbreviation: ''
         };
-        const agencyRowMod = Object.create(BaseAgencyRow);
+        const agencyRowMod = Object.create(ReportingOverviewRow);
         agencyRowMod.populate(missingAbbrev);
         expect(agencyRowMod.name).toEqual('Department of Health and Human Services');
     });

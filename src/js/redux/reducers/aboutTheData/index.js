@@ -4,55 +4,76 @@
 */
 
 export const initialState = {
-    details: [],
-    dates: [],
-    totals: [],
-    detailsSort: ['current_total_budget_authority_amount', 'desc'],
-    datesSort: ['current_total_budget_authority_amount', 'desc']
+    searchTerm: '',
+    submissionsSearchResults: [],
+    publicationsSearchResults: [],
+    allSubmissions: [],
+    allPublications: [],
+    federalTotals: [],
+    submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+    publicationsSort: ['current_total_budget_authority_amount', 'desc']
 };
 
 /* eslint-disable import/prefer-default-export */
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_ABOUT_THE_DATA_DETAILS': {
+        case 'SET_ABOUT_THE_DATA_ALL_SUBMISSIONS': {
             if (action.append) {
                 return {
                     ...state,
-                    details: state.details.concat(action.payload)
+                    allSubmissions: state.allSubmissions.concat(action.payload)
                 };
             }
             return {
                 ...state,
-                details: action.payload
+                allSubmissions: action.payload
             };
         }
-        case 'SET_ABOUT_THE_DATA_DATES': {
+        case 'SET_ABOUT_THE_DATA_SEARCH_TERM': {
+            return {
+                ...state,
+                searchTerm: action.payload
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS': {
+            return {
+                ...state,
+                submissionsSearchResults: action.payload
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS_PUBLICATIONS': {
+            return {
+                ...state,
+                publicationsSearchResults: action.payload
+            };
+        }
+        case 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS': {
             if (action.append) {
                 return {
                     ...state,
-                    dates: state.dates.concat(action.payload)
+                    allPublications: state.allPublications.concat(action.payload)
                 };
             }
             return {
                 ...state,
-                dates: action.payload
+                allPublications: action.payload
             };
         }
         case 'SET_ABOUT_THE_DATA_TOTALS': {
             return {
                 ...state,
-                totals: action.payload
+                federalTotals: action.payload
             };
         }
-        case 'SET_ABOUT_THE_DATA_DETAILS_SORT':
+        case 'SET_ABOUT_THE_DATA_ALL_SUBMISSIONS_SORT':
             return {
                 ...state,
-                detailsSort: action.payload
+                submissionsSort: action.payload
             };
-        case 'SET_ABOUT_THE_DATA_DATES_SORT':
+        case 'SET_ABOUT_THE_DATA_ALL_PUBLICATIONS_SORT':
             return {
                 ...state,
-                datesSort: action.payload
+                publicationsSort: action.payload
             };
 
         default:

@@ -14,6 +14,7 @@ const mockReportingPeriodRow = {
         missing_tas_accounts_count: 1000,
         gtas_obligation_total: 234567
     },
+    percent_of_total_budgetary_resources: 2.189,
     obligation_difference: 436376232652.87
 };
 
@@ -51,13 +52,8 @@ describe('BaseReportingPeriodRow', () => {
     it('should format the most recent publication date', () => {
         expect(reportingPeriodRow.mostRecentPublicationDate).toEqual('01/10/2020');
     });
-    it('should handle no data for the total federal budget', () => {
-        expect(reportingPeriodRow.percentOfBudget).toEqual('--');
-    });
-    it('should calculate the percentage when federal budget is provided', () => {
-        const rowWithBudget = Object.create(BaseReportingPeriodRow);
-        rowWithBudget.populate(mockReportingPeriodRow, 10000000000000);
-        expect(rowWithBudget.percentOfBudget).toEqual('83.6%');
+    it('should format the percent of budgetary resources', () => {
+        expect(reportingPeriodRow.percentOfBudget).toEqual('2.19%');
     });
     it('should store the raw GTAS Obligation Total', () => {
         expect(reportingPeriodRow._gtasObligationTotal).toEqual(234567);
