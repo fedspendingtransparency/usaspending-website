@@ -47,7 +47,7 @@ The USAspending website expects a certain number of environment variables to be 
 
 | ENV VAR        | VALUE                            |
 |----------------|----------------------------------|
-| API            | https://api.usaspending.gov/api/ |
+| USASPENDING_API| https://api.usaspending.gov/api/ |
 | MAPBOX_TOKEN   | ''                               |
 | GA_TRACKING_ID | ''                               |
 
