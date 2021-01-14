@@ -41,9 +41,7 @@ import {
     fetchOverview,
     fetchAwardAmounts
 } from 'helpers/disasterHelper';
-import { getLatestPeriodAsMoment, fetchAllSubmissionDates } from 'helpers/accountHelper';
 import { setDEFCodes, setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
-import { setAccountDataAsOfDate as setLatestSubmissionDate } from 'redux/actions/account/accountActions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
@@ -64,7 +62,6 @@ const Covid19Container = () => {
     const lastSectionRef = useRef(null);
     const awardAmountRequest = useRef(null);
     const dataDisclaimerBannerRef = useRef(null);
-    const allSubmissionDatesRequest = useRef(null);
     const dispatch = useDispatch();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
@@ -157,26 +154,6 @@ const Covid19Container = () => {
             }
         };
     }, [defCodes, dispatch]);
-
-    useEffect(() => {
-        const getAllSubmissionDates = async () => {
-            allSubmissionDatesRequest.current = fetchAllSubmissionDates();
-            try {
-                const data = await allSubmissionDatesRequest.current.promise;
-                dispatch(setLatestSubmissionDate(getLatestPeriodAsMoment(data.data.available_periods)));
-            }
-            catch (e) {
-                console.log(' Error Submission Periods : ', e.message);
-            }
-        };
-        getAllSubmissionDates();
-        allSubmissionDatesRequest.current = null;
-        return () => {
-            if (allSubmissionDatesRequest.current) {
-                allSubmissionDatesRequest.cancel();
-            }
-        };
-    }, []);
 
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
