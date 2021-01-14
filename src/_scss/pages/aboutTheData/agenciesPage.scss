@@ -353,11 +353,6 @@
           border: none;
         }
       }
-      .agency-table-download {
-        svg {
-          margin-right: 0.5rem;
-        }
-      }
       &.table-container_submissions {
         // Styles specific to the "Statistics by Reporting Period" tab
         thead {
@@ -368,6 +363,11 @@
                 display: none;
               }
             }
+          }
+        }
+        .agency-table-download {
+          svg {
+            margin-right: 0.5rem;
           }
         }
       }
