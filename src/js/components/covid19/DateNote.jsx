@@ -5,12 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
 const propTypes = { styles: PropTypes.object };
 
 const DateNote = ({ styles }) => {
-    const date = useSelector((state) => state.account.dataAsOf);
+    const [date] = useLatestAccountData();
     if (!date) return null;
     return (
         <div style={{ ...styles }} className="covid__date-note">

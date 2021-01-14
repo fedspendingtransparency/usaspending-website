@@ -56,6 +56,8 @@ describe('AccountContainer', () => {
         };
 
         const container = mount(<AccountContainer
+            submissionPeriods={[]}
+            latestPeriod={{ year: 2020 }}
             match={parameters}
             setSelectedAccount={jest.fn()}
             account={mockRedux} />);
@@ -76,6 +78,8 @@ describe('AccountContainer', () => {
         };
 
         const container = mount(<AccountContainer
+            submissionPeriods={[]}
+            latestPeriod={{ year: 2020 }}
             match={parameters}
             setSelectedAccount={jest.fn()}
             account={mockRedux} />);
@@ -109,7 +113,10 @@ describe('AccountContainer', () => {
             const expected = new FederalAccount(mockAccount);
             const reduxAction = jest.fn();
 
-            const container = shallow(<AccountContainer setSelectedAccount={reduxAction} />);
+            const container = shallow(<AccountContainer
+                submissionPeriods={[]}
+                latestPeriod={{ year: 2020 }}
+                setSelectedAccount={reduxAction} />);
             container.instance().parseAccount(mockAccount);
             expect(reduxAction).toHaveBeenCalledTimes(1);
 
@@ -135,6 +142,8 @@ describe('AccountContainer', () => {
             const reduxAction = jest.fn();
 
             const container = shallow(<AccountContainer
+                submissionPeriods={[]}
+                latestPeriod={{ year: 2020 }}
                 setSelectedAccount={reduxAction}
                 account={initialModel} />);
 
@@ -160,6 +169,8 @@ describe('AccountContainer', () => {
             const reduxAction = jest.fn();
 
             const container = shallow(<AccountContainer
+                submissionPeriods={[]}
+                latestPeriod={{ year: 2020 }}
                 setSelectedAccount={reduxAction}
                 account={initialModel} />);
 

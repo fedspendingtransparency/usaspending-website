@@ -480,13 +480,6 @@ describe('accountReducer', () => {
             expect(state.filters).toEqual(secondState);
         });
     });
-    describe('SET_ACCOUNT_DATA_AS_OF', () => {
-        it('should SET_ACCOUNT_DATA_AS_OF', () => {
-            let state = accountReducer(undefined, {});
-            state = accountReducer(state, { type: 'SET_ACCOUNT_DATA_AS_OF', payload: 'June 01, 1999' });
-            expect(state.dataAsOf).toEqual('June 01, 1999');
-        });
-    });
     it('should SET_SUBMISSION_PERIODS', () => {
         const action = {
             type: 'SET_SUBMISSION_PERIODS',
