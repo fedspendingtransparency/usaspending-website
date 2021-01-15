@@ -1,4 +1,4 @@
-.usa-da__about-the-data__agencies-page {
+.usa-da__about-the-data__agency-details-page {
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
@@ -35,88 +35,14 @@
             }
           }
         }
-        .table-container  {
-          overflow-x: scroll;
-          overflow-y: default;
-          border: rem(1) solid $color-gray-border;
-          .usda-table.usda-table-w-grid {
-            border-collapse: separate;
-            margin: 0;
-            thead {
-              tr th {
-                min-width: rem(300);
-              }
-              .nested-header {
-                .table-header__content {
-                  padding: 1rem 0;
-                }
-              }
-            }
-            tbody {
-              .usda-table__row {
-                height: 4.8rem;
-                .usda-table__cell {
-                  &:nth-of-type(2) {
-                    // center-align the percentage column
-                    text-align: center;
-                  }
-                  font-size: 1.4rem;
-                  padding: 0; // to allow entire cell to be hoverable
-                  @import './actionCell';
-                  .generic-cell-content {
-                    padding: 1.2rem;
-                  }
-                }
-              }
-            }
-            &.sticky-y-table {
-              @media(min-width: $medium-screen) {
-                thead {
-                  th {
-                    position: sticky;
-                    position: -webkit-sticky;
-                    z-index: 9;
-                    top: 0;
-                    border: rem(1) solid $color-gray-lighter;
-                    // Set a higher z-index on the <th> the user is hovering over so
-                    // tooltips display above the stacking context of the other headers
-                    &:hover {
-                      z-index: 10;
-                    }
-                  }
-                }
-              }
-            }
-            &.sticky-x-table {
-              @media(min-width: $medium-screen) {
-                thead {
-                  tr:first-of-type {
-                    .table-header:first-of-type {
-                      position: sticky;
-                      position: -webkit-sticky;
-                      left: 0px;
-                      z-index: 11;
-                      box-shadow: 2px 1px 4px rgba(0,0,0,.20);
-                      border-right: 1px solid $color-gray-lightest;
-                    }
-                  }
-                }
-                tbody {
-                  .usda-table__row .usda-table__cell {
-                    &:first-of-type {
-                      position: sticky;
-                      position: -webkit-sticky;
-                      z-index: 10;
-                      left: 0px;
-                      box-shadow: 2px 1px 4px rgba(0,0,0,.20);
-                      border-right: rem(1) solid $color-gray-lightest;
-                    }
-                  }
-                }
-              }
+        @import 'components/stickyTable';
+        .table-container .usda-table.usda-table-w-grid tbody .usda-table__row {
+          .usda-table__cell:nth-of-type(2) {
+              // center-align the percentage column
+              padding: 0; // to allow entire cell to be hoverable
+              text-align: center;
             }
           }
-        }
 
       .agency-table-download {
         svg {
