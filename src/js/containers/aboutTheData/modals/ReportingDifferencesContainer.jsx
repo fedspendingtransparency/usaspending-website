@@ -80,16 +80,10 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
     useEffect(() => {
         reportingDifferenceRequest();
     }, [page]);
-    // do not show deadlines in column headers if we do not have the data
-    const columns = reportingDifferencesColumns.map((column) => ({
-        displayName: (
-            <div className="reporting-differences__column-header-container">
-                <div className="reporting-differences__column-header-title">
-                    {column.displayName}
-                </div>
-            </div>
-        ),
-        title: column.title
+    const columns = reportingDifferencesColumns.map((column, i) => ({
+        displayName: column.displayName,
+        title: column.title,
+        right: i !== 0
     }));
     return (
         <>
