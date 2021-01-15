@@ -15,8 +15,8 @@ const CoreReportingRow = {
         this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
         /* eslint-enable camelcase */
         this._obligationDifference = data.obligation_difference || 0;
-        this._unlinkedContracts = data.unlinked_contract_award_count;
-        this._unlinkedAssistance = data.unlinked_assistance_award_count;
+        this._unlinkedContracts = data.unlinked_contract_award_count || 0;
+        this._unlinkedAssistance = data.unlinked_assistance_award_count || 0;
         this.assuranceStatement = data.assurance_statement_url || '';
     },
     get budgetAuthority() {
@@ -32,15 +32,9 @@ const CoreReportingRow = {
         return formatNumber(this._discrepancyCount);
     },
     get unlinkedContracts() {
-        if (!this._unlinkedContracts && this._unlinkedContracts !== 0) {
-            return '--';
-        }
         return formatNumber(this._unlinkedContracts);
     },
     get unlinkedAssistance() {
-        if (!this._unlinkedAssistance && this._unlinkedAssistance !== 0) {
-            return '--';
-        }
         return formatNumber(this._unlinkedAssistance);
     }
 };

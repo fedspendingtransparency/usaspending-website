@@ -31,34 +31,4 @@ describe('Core Reporting Row model', () => {
     it('should format the unlinked assistance awards count', () => {
         expect(row.unlinkedAssistance).toEqual('10,001');
     });
-    describe('missing counts', () => {
-        const missingCounts = {
-            ...mockReportingPeriodRow,
-            unlinked_contract_award_count: null,
-            unlinked_assistance_award_count: null
-        };
-        const missingCountsRow = Object.create(CoreReportingRow);
-        missingCountsRow.populateCore(missingCounts);
-        it('should display -- if the unlinked contracts count is null', () => {
-            expect(missingCountsRow.unlinkedContracts).toEqual('--');
-        });
-        it('should display -- if the unlinked assistance awards count is null', () => {
-            expect(missingCountsRow.unlinkedAssistance).toEqual('--');
-        });
-    });
-    describe('zero counts', () => {
-        const zeroCounts = {
-            ...mockReportingPeriodRow,
-            unlinked_contract_award_count: 0,
-            unlinked_assistance_award_count: 0
-        };
-        const zeroCountsRow = Object.create(CoreReportingRow);
-        zeroCountsRow.populateCore(zeroCounts);
-        it('should display -- if the unlinked contracts count is null', () => {
-            expect(zeroCountsRow.unlinkedContracts).toEqual('0');
-        });
-        it('should display -- if the unlinked assistance awards count is null', () => {
-            expect(zeroCountsRow.unlinkedAssistance).toEqual('0');
-        });
-    });
 });
