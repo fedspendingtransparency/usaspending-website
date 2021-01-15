@@ -122,6 +122,24 @@ export const fetchAgency = (agencyCode, params) => apiRequest({
     url: `v2/reporting/agencies/${agencyCode}/overview/?${stringify(params)}`
 });
 
+export const fetchUnlinkedData = (
+    agencyCode,
+    fiscalYear,
+    fiscalPeriod,
+    type
+) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/?type=${type}`
+});
+
+export const fetchMockUnlinkedData = () => ({
+    promise: new Promise((resolve) => resolve({
+        unlinked_file_c_award_count: 123213,
+        unlinked_file_d_award_count: 43543,
+        total_linkable_file_c_award_count: 12321312,
+        total_linkable_file_d_award_count: 23987443892
+    }))
+});
+
 export const dateFormattedMonthDayYear = (date) => {
     if (!date) return null;
     const newDate = new Date(date);
@@ -170,5 +188,25 @@ export const convertDatesToMilliseconds = (data) => data.map((datesObj) => {
     const certificationDate = !datesObj.certification_date ? new Date(0) : new Date(datesObj.certification_date);
     return { publication_date: publicationDate.getTime(), certification_date: certificationDate.getTime() };
 });
+
+export const formatUnlinkedDataRows = (data, type) => ([
+    [
+        { displayName: 'Count', title: '', rowSpan: '0' },
+        data.unlinked_file_c_award_count,
+        data.unlinked_file_d_award_count,
+        data.unlinked_file_c_award_count + data.unlinked_file_d_award_count
+    ],
+    [
+        { displayName: `as a Percentage of All ${type} Awards`, title: '', rowSpan: '0' },
+        calculatePercentage(data.unlinked_file_c_award_count, data.total_linkable_file_c_award_count, null, 2),
+        calculatePercentage(data.unlinked_file_d_award_count, data.total_linkable_file_d_award_count, null, 2),
+        calculatePercentage(
+            data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
+            data.total_linkable_file_c_award_count + data.total_linkable_file_d_award_count,
+            null,
+            2
+        )
+    ]
+]);
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);

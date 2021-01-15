@@ -263,8 +263,28 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<div className="generic-cell-content">{unlinkedContractAwards}</div>),
-            (<div className="generic-cell-content">{unlinkedAssistanceAwards}</div>)
+            (<CellWithModal
+                data={unlinkedContractAwards}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Contract'
+                }} />),
+            (<CellWithModal
+                data={unlinkedAssistanceAwards}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Assistance'
+                }} />)
         ]);
 
     const handlePageChange = (page) => {

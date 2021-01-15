@@ -132,7 +132,7 @@ const AgencyDetailsPage = () => {
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
                     agencyData={modalData}
                     closeModal={closeModal}
                     totalObligationsNotInGTAS={45999} />

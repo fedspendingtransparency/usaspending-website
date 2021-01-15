@@ -158,4 +158,40 @@
         }
       }
     }
+    // unlinked data modal
+    &.unlinked-data-modal {
+      @include media($tablet-screen) {
+        max-width: rem(699);
+
+      }
+      @include media($large-screen) {
+        max-width: rem(699);
+        min-width: rem(699);
+      }
+      .usa-dt-modal__section {
+        .usda-table {
+          margin-bottom: 0;
+          .usda-table__head {
+            border-bottom: none;
+            .usda-table__row {
+              .table-header {
+                padding-top: 0;
+              }
+              .table-header:not(:first-child) {
+                border-bottom: solid rem(1) $color-gray-light;
+              }
+            }
+          }
+          .usda-table__body {
+            .usda-table__row {
+              .table-header {
+                text-align: right;
+                border: none;
+                padding-left: 0;
+              }
+            }
+          }
+        }
+      }
+    }
 }
