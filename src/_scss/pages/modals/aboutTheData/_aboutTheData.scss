@@ -134,6 +134,7 @@
     &.reporting-differences-modal {
       @include media($tablet-screen) {
         max-width: rem(900);
+
       }
       @include media($large-screen) {
         max-width: rem(900);
