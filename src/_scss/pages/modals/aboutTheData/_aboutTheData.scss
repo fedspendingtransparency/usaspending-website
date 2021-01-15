@@ -64,6 +64,11 @@
           tr {
             td {
               border: none;
+              .usda-loading-animation__container {
+                .loading-message {
+                  text-align: center;
+                }
+              }
             }
           }
           font-size: rem(12);
@@ -95,7 +100,6 @@
           .usda-table__body {
             .usda-table__row {
               .usda-table__cell:not(:first-child) {
-                text-align: right;
                 padding-right: rem(42);
               }
             }

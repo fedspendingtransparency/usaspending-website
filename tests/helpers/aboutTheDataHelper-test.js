@@ -89,9 +89,9 @@ describe('About The Data Helper', () => {
         it('should handle percent and money formatting', () => {
             const data = formatMissingAccountBalancesData(mockBalanceData);
             expect(data[0][1]).toBe('$2,323');
-            expect(data[0][2]).toBe('5.2%');
+            expect(data[0][2]).toBe('5.16%');
             expect(data[1][1]).toBe('$0');
-            expect(data[1][2]).toBe('0.0%');
+            expect(data[1][2]).toBe('0.00%');
         });
     });
     describe('showQuarterText', () => {
