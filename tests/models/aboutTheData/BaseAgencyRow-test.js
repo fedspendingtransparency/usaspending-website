@@ -5,25 +5,11 @@
 
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import CoreReportingRow from 'models/v2/aboutTheData/CoreReportingRow';
+import { mockAPI } from '../../containers/aboutTheData/mockData';
 
 const mockAgencyRow = {
-    agency_name: "Department of Health and Human Services",
-    abbreviation: "DHHS",
-    agency_code: "020",
-    agency_id: 123,
-    current_total_budget_authority_amount: 8361.72,
-    recent_publication_date: "2020-01-10T11:59:21Z",
-    recent_publication_date_certified: false,
-    tas_account_discrepancies_totals: {
-        gtas_obligation_total: 55234,
-        tas_accounts_total: 23923,
-        tas_obligation_not_in_gtas_total: 343345,
-        missing_tas_accounts_count: 20
-    },
-    obligation_difference: 436376232652.87,
+    ...mockAPI.submissions.data.results[0],
     federalTotal: {
-        fiscal_year: 2018,
-        fiscal_period: 3,
         total_budgetary_resources: 10000
     }
 };
@@ -33,7 +19,7 @@ agencyRow.populate(mockAgencyRow);
 
 describe('BaseAgencyRow', () => {
     it('should format the agency name', () => {
-        expect(agencyRow.name).toEqual('Department of Health and Human Services (DHHS)');
+        expect(agencyRow.name).toEqual('Mock Agency (ABC)');
     });
     it('should handle an agency with no abbreviation', () => {
         const missingAbbrev = {
@@ -42,13 +28,13 @@ describe('BaseAgencyRow', () => {
         };
         const agencyRowMod = Object.create(BaseAgencyRow);
         agencyRowMod.populate(missingAbbrev);
-        expect(agencyRowMod.name).toEqual('Department of Health and Human Services');
+        expect(agencyRowMod.name).toEqual('Mock Agency');
     });
     describe('percentage of total federal budget', () => {
         it('should calculate and format the percent of the federal budget', () => {
             expect(agencyRow._federalTotal).toEqual(10000);
-            expect(agencyRow._budgetAuthority).toEqual(8361.72);
-            expect(agencyRow.percentageOfTotalFederalBudget).toEqual('83.62%');
+            expect(agencyRow._budgetAuthority).toEqual(8000.72);
+            expect(agencyRow.percentageOfTotalFederalBudget).toEqual('80.01%');
         });
         it('should display -- if the percent cannot be computed', () => {
             const missingFederalBudget = {
