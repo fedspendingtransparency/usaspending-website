@@ -50,9 +50,15 @@ const AgenciesContainer = ({
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
-    const tableRef = useRef(null);
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
+    const tableRef = useRef(null);
+    const searchTermRef = useRef(null);
+    const { current: previousSearchTerm } = searchTermRef;
+
+    useEffect(() => {
+        searchTermRef.current = searchTerm;
+    }, [searchTerm]);
 
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -69,15 +75,16 @@ const AgenciesContainer = ({
         dispatch(setTableSort(activeTab, field, direction));
     };
 
-    const fetchTableData = useCallback(() => {
+    const fetchTableData = useCallback((goToFirstPage = false) => {
         if (activeTab === 'submissions') {
+            const newPage = goToFirstPage ? 1 : submissionsPage;
             const isPeriodValid = isPeriodSelectable(
                 submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
                 selectedPeriod
             );
             if (!isPeriodValid) return Promise.resolve();
             setLoading([false, true, false]);
-            submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], submissionsPage, submissionsLimit, searchTerm);
+            submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], newPage, submissionsLimit, searchTerm);
             return submissionsReq.current.promise
                 .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                     const parsedResults = results.map((d) => {
@@ -105,8 +112,9 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
+        const newPage = goToFirstPage ? 1 : publicationsPage;
         setLoading([false, false, true]);
-        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], publicationsPage, publicationsLimit, searchTerm);
+        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
                 const parsedResults = results.map((d) => {
@@ -177,7 +185,12 @@ const AgenciesContainer = ({
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
-            fetchTableData();
+            if (previousSearchTerm !== searchTerm) {
+                fetchTableData(true);
+            }
+            else {
+                fetchTableData();
+            }
         }
     }, [
         federalTotals,

@@ -79,12 +79,12 @@ export const agenciesTableColumns = {
             displayName: "Percent of Total Federal Budget"
         },
         {
-            title: "recent_publication_date_certified",
+            title: "recent_publication_date",
             displayName: "Most Recent Publication Date",
             icon: (<Tooltip title="Most Recent Update" />)
         },
         {
-            title: "tas_obligation_not_in_gtas_total",
+            title: "missing_tas_accounts_count",
             displayName: "Count of Agency TAS in GTAS Not in File A",
             icon: (
                 <Tooltip title="Number of TASs Missing in Account Balance Data" />
