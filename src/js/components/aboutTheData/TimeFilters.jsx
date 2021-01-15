@@ -118,7 +118,7 @@ const TimePeriodFilters = ({
     }, [submissionPeriods, urlFy, urlPeriod, latestPeriod, latestFy]);
 
     const generatePeriodDropdown = (fy, periods) => (
-        parsePeriods(fy, periods)
+        parsePeriods(fy, periods.toJS())
             .map((p) => ({
                 ...p,
                 component: p.component,
