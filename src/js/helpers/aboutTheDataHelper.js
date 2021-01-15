@@ -165,7 +165,7 @@ export const formatMissingAccountBalancesData = (data) => {
     return data.results.map((tasData) => {
         let amount = '--';
         let percent = '--';
-        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculatePercentage(tasData.amount, data.gtasObligationTotal);
+        if (typeof tasData.amount === 'number' && weHaveTotalData) percent = calculatePercentage(tasData.amount, data.gtasObligationTotal, null, 2);
         if (typeof tasData.amount === 'number') amount = formatMoney(tasData.amount);
         return [tasData.tas, amount, percent];
     });

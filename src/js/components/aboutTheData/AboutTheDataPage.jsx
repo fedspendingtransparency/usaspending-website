@@ -156,8 +156,7 @@ const AboutTheDataPage = ({
                         fiscalYear: parseInt(selectedFy, 10),
                         fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
                     }}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>

@@ -134,8 +134,7 @@ const AgencyDetailsPage = () => {
                     className={modalClassNames[showModal]}
                     title={modalTitles(modalData?.type)[showModal]}
                     agencyData={modalData}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>
