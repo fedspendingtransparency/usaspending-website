@@ -4,9 +4,8 @@
  */
 
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from '../../containers/aboutTheData/mockData';
 
-// TODO - update when API contracts are finalized
 const mockRow = mockAPI.publications.data.results[0];
 const mockTotals = mockAPI.totals.data.results;
 

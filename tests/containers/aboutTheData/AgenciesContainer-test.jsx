@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from 'test-utils';
+import { render, waitFor } from 'test-utils';
 
 import * as redux from 'react-redux';
 import { List } from 'immutable';
 
 import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from './mockData';
 
 const defaultProps = {
     selectedFy: '2020',
