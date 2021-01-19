@@ -78,9 +78,9 @@ const columns = [
     },
     {
         title: "assurance_statements",
-        displayName: "Assurance Statements",
+        displayName: "Agency Comments",
         icon: (
-            <Tooltip title="Agency Disclosures" position="left" />
+            <Tooltip title="Agency Comments" position="left" />
         )
     }
 ];
@@ -135,7 +135,7 @@ const AgencyDetailsContainer = ({
                         agencyCode
                     }} />),
                 (<CellWithModal
-                    data={rowData.missingTASCount}
+                    data={rowData.discrepancyCount}
                     openModal={modalClick}
                     modalType="missingAccountBalance"
                     agencyData={{
@@ -177,7 +177,7 @@ const AgencyDetailsContainer = ({
                         fiscalPeriod: rowData.fiscalPeriod,
                         type: 'Assistance'
                     }} />),
-                (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
+                (<div className="generic-cell-content"><AgencyDownloadLinkCell file={rowData.assuranceStatement} /></div>)
             ]);
         })
     );

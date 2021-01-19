@@ -6,7 +6,7 @@ import { List } from 'immutable';
 
 import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from './mockData';
 
 const defaultProps = {
     selectedFy: '2020',
