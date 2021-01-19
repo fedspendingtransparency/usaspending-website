@@ -19,7 +19,7 @@
         }
         .usa-dt-modal__title {
             font-size: rem(22);
-            line-height: rem(28);
+            line-height: rem(15);
             padding: rem(11) 0;
         }
         .about-the-data-modal__fiscal-year-quarter-period {
@@ -61,6 +61,11 @@
           }
         }
         .usda-table__body { // removes loading border
+          .usda-table__row {
+            .usda-table__cell {
+              font-size: rem(14);
+            }
+          }
           tr {
             td {
               border: none;
@@ -160,21 +165,24 @@
     // unlinked data modal
     &.unlinked-data-modal {
       @include media($tablet-screen) {
-        max-width: rem(699);
+        max-width: rem(730);
 
       }
       @include media($large-screen) {
-        max-width: rem(699);
-        min-width: rem(699);
+        max-width: rem(730);
+        min-width: rem(730);
       }
       .usa-dt-modal__section {
-        .usda-table {
+        table.usda-table {
           margin-bottom: 0;
-          .usda-table__head {
+          thead.usda-table__head {
             border-bottom: none;
             .usda-table__row {
-              .table-header {
+              th.table-header {
                 padding-top: 0;
+              }
+              .table-header:last-child {
+                vertical-align: top;
               }
               .table-header:not(:first-child) {
                 border-bottom: solid rem(1) $color-gray-light;
@@ -184,6 +192,7 @@
           .usda-table__body {
             .usda-table__row {
               .table-header {
+                font-size: rem(14);
                 text-align: right;
                 border: none;
                 padding-left: 0;

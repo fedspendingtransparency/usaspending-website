@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { stringify } from 'querystring';
 
-import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatNumber } from 'helpers/moneyFormatter';
 import {
     periodsPerQuarter,
     lastPeriods
@@ -193,14 +193,14 @@ export const convertDatesToMilliseconds = (data) => data.map((datesObj) => {
 export const formatUnlinkedDataRows = (data, type) => ([
     [
         { displayName: 'Count', title: '', rowSpan: '0' },
-        data.unlinked_file_c_award_count,
-        data.unlinked_file_d_award_count,
-        data.unlinked_file_c_award_count + data.unlinked_file_d_award_count
+        formatNumber(data.unlinked_file_d_award_count),
+        formatNumber(data.unlinked_file_c_award_count),
+        formatNumber(data.unlinked_file_c_award_count + data.unlinked_file_d_award_count)
     ],
     [
         { displayName: `as a Percentage of All ${type} Awards`, title: '', rowSpan: '0' },
-        calculatePercentage(data.unlinked_file_c_award_count, data.total_linkable_file_c_award_count, null, 2),
         calculatePercentage(data.unlinked_file_d_award_count, data.total_linkable_file_d_award_count, null, 2),
+        calculatePercentage(data.unlinked_file_c_award_count, data.total_linkable_file_c_award_count, null, 2),
         calculatePercentage(
             data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             data.total_linkable_file_c_award_count + data.total_linkable_file_d_award_count,

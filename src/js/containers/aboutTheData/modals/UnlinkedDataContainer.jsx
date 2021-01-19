@@ -57,12 +57,6 @@ const UnlinkedDataContainer = ({ agencyData }) => {
             if (unlinkedDataReq.current) unlinkedDataReq.current.cancel();
         };
     }, []);
-    const columns = unlinkedDataColumns(agencyData.type).map((column, i) => ({
-        displayName: column.displayName,
-        title: '',
-        right: true,
-        header: i === 0
-    }));
 
     return (
         <Table
@@ -70,7 +64,12 @@ const UnlinkedDataContainer = ({ agencyData }) => {
             error={error.error}
             message={error.message}
             rows={rows}
-            columns={columns} />
+            columns={unlinkedDataColumns(agencyData.type).map((column, i) => ({
+                displayName: column.displayName,
+                title: '',
+                right: true,
+                header: i === 0
+            }))} />
     );
 };
 
