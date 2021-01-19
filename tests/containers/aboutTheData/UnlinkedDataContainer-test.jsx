@@ -15,6 +15,6 @@ describe('Unlinked Data Container', () => {
     it('should call api one time on mount', () => {
         const unlinkedDataRequest = jest.spyOn(aboutTheDataHelper, 'fetchMockUnlinkedData');
         render(<UnlinkedDataContainer {...defaultProps} />);
-        waitFor(() => expect(unlinkedDataRequest).toHaveBeenCalledTimes(1));
+        expect(unlinkedDataRequest).toHaveBeenCalledTimes(1);
     });
 });
