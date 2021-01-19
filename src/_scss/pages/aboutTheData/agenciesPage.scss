@@ -247,6 +247,24 @@
       }
     }
     @import 'components/stickyTable';
+    .table-container.table-container_submissions .usda-table.usda-table-w-grid {
+      // Styles specific to the "Statistics by Reporting Period" tab
+      thead {
+        th {
+          &:last-of-type {
+            // Hide sorting for the Agency Comments column
+            .table-header__sort {
+              display: none;
+            }
+          }
+        }
+      }
+      .agency-table-download {
+        svg {
+          margin-right: rem(5);
+        }
+      }
+    }
     @import 'components/Note';
     .default-note {
       font-style: italic;

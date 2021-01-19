@@ -35,18 +35,26 @@
             }
           }
         }
+
         @import 'components/stickyTable';
-        .table-container .usda-table.usda-table-w-grid tbody .usda-table__row {
-          .usda-table__cell:nth-of-type(2) {
-              // center-align the percentage column
-              padding: 0; // to allow entire cell to be hoverable
-              text-align: center;
+
+        .table-container .usda-table.usda-table-w-grid {
+          thead th:last-of-type {
+            // Hide sorting for the Agency Comments column
+            .table-header__sort {
+              display: none;
             }
           }
+          tbody .usda-table__row .usda-table__cell:nth-of-type(2) {
+            // center-align the percentage column
+            padding: 0; // to allow entire cell to be hoverable
+            text-align: center;
+          }
+        }
 
       .agency-table-download {
         svg {
-          margin-right: 0.5rem;
+          margin-right: rem(5);
         }
       }
 
