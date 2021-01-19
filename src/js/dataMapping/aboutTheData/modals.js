@@ -37,7 +37,7 @@ export const reportingDifferencesColumns = [
 ];
 
 export const unlinkedDataColumns = (type) => ([
-    { displayName: '' },
+    { displayName: '', title: 'blank' },
     { displayName: `Unlinked ${type} Awards in ${type === 'Contract' ? type : 'Financial Assistance'} Data` },
     { displayName: `Unlinked ${type} Awards in Award Spending Breakdown Data` },
     { displayName: 'Total' }
