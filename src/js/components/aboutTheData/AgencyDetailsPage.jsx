@@ -78,7 +78,7 @@ const AgencyDetailsPage = () => {
     }, [agencyCode]);
 
     return (
-        <div className="usa-da__about-the-data__agency-details-page">
+        <div className="usa-da-about-the-data usa-da-about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
