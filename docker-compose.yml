@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+
+  build-usaspending-website:
+    container_name: build-usaspending-website
+    image: node:12.18.4
+    build: .
+    volumes:
+    - type: bind
+      source: .
+      target: /node-workspace
+    # - type: tmpfs  # allows the "disk" to be mounted in-memory for this folder, to not put node module dependencies on the host disk
+    #   target: /node-workspace/node_modules
+    command: >
+      /bin/sh -cex "
+        cd  /node-workspace
+        npm ci
+        rm -rf public
+        mkdir public
+        npm run ${ENV:-dev}
+      "
+    environment:
+      USASPENDING_API: ${USASPENDING_API:-https://api.usaspending.gov/api/}
+      ENV: ${ENV:-dev}
+      MAPBOX_TOKEN: ${MAPBOX_TOKEN}
+      GA_TRACKING_ID: ${GA_TRACKING_ID}
+
+  usaspending-website:
+    container_name: usaspending-website
+    image: nginx:1.18
+    ports:
+      - 8020:80
+    volumes:
+      - ./public:/usr/share/nginx/html:ro

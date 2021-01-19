@@ -63,5 +63,8 @@ usa_spending.sh
 # direnv
 .envrc
 
+# local dev env
+\.env
+
 # IDE stuff
 .vscode
