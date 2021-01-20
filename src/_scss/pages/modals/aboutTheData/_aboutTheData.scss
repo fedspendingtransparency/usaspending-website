@@ -19,8 +19,8 @@
         }
         .usa-dt-modal__title {
             font-size: rem(22);
-            line-height: rem(15);
-            padding: rem(11) 0;
+            line-height: rem(28);
+            padding: rem(5) 0;
         }
         .about-the-data-modal__fiscal-year-quarter-period {
             font-size: rem(16);
@@ -166,7 +166,9 @@
     &.unlinked-data-modal {
       @include media($tablet-screen) {
         max-width: rem(730);
-
+        table.usda-table {
+          margin-bottom: 0;
+        }
       }
       @include media($large-screen) {
         max-width: rem(730);
@@ -174,7 +176,6 @@
       }
       .usa-dt-modal__section {
         table.usda-table {
-          margin-bottom: 0;
           thead.usda-table__head {
             border-bottom: none;
             .usda-table__row {

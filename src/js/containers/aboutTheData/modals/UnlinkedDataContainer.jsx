@@ -68,7 +68,7 @@ const UnlinkedDataContainer = ({ agencyData }) => {
                 displayName: column.displayName,
                 title: '',
                 right: true,
-                header: i === 0
+                bodyHeader: i === 0
             }))} />
     );
 };
