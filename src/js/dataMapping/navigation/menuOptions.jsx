@@ -167,16 +167,3 @@ export const downloadOptions = [
         externalLink: false
     }
 ];
-
-export const labelsWithNewBadge = searchOptions
-    .concat(profileOptions)
-    .concat(resourceOptions)
-    .concat(downloadOptions)
-    .filter((obj) => Object.entries(obj).some(([key, value]) => {
-        console.log('key', key, value);
-        return key === 'isNewTab' && value;
-    }))
-    .map(({ label }) => {
-        console.log('label', label);
-        return label.toLowerCase();
-    });

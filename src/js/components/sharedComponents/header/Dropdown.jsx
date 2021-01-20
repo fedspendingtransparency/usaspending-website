@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import DropdownItem from './DropdownItem';
-import { labelsWithNewBadge } from '../../../dataMapping/navigation/menuOptions';
 
 const propTypes = {
     label: PropTypes.string.isRequired,
@@ -44,6 +43,8 @@ const Dropdown = ({
         iconAlt = 'Expanded menu';
     }
 
+    const containsNewNavItem = items.some(({ isNewTab }) => isNewTab);
+
     return (
         <div
             className="nav-dropdown"
@@ -55,14 +56,12 @@ const Dropdown = ({
                 onClick={clickedButton}
                 aria-expanded={expanded}>
                 <div className="nav-dropdown__parent-label">
-                    {
-                        labelsWithNewBadge.includes(label.toLowerCase()) &&
+                    {containsNewNavItem &&
                         <div className="new-badge-outer">
                             <div className="new-badge-middle">
                                 <div className="new-badge-inner" />
                             </div>
-                        </div>
-                    }
+                        </div>}
                     {label}
                 </div>
                 <div className="nav-dropdown__parent-icon">

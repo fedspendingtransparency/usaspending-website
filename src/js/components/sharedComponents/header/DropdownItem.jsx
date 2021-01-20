@@ -41,7 +41,7 @@ const DropdownItem = ({
     appendToExistingUrl = false
 }) => {
     const { pathname } = useLocation();
-    const newUrl = appendToExistingUrl ? `${pathname}/${url}` : url;
+    const newUrl = appendToExistingUrl && pathname !== '/' ? `${pathname}/${url}` : url;
 
     const handleClick = () => {
         redirectHelper.showRedirectModal(newUrl);
@@ -81,9 +81,9 @@ const DropdownItem = ({
             to={newUrl}
             onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
             {...newTabProps}>
-            {label}
-            {comingSoon}
+            {!newLabel && label}
             {newLabel}
+            {comingSoon}
         </Link>
     );
 
@@ -93,7 +93,7 @@ const DropdownItem = ({
             <button
                 onClick={handleClick}
                 className="nav-children__link">
-                {label}
+                {!newLabel && label}
                 {newLabel}
             </button>
         );
@@ -106,9 +106,9 @@ const DropdownItem = ({
                 href={newUrl}
                 onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
                 {...newTabProps}>
-                {label}
-                {comingSoon}
+                {!newLabel && label}
                 {newLabel}
+                {comingSoon}
             </a>
         );
     }
