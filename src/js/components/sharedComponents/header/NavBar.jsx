@@ -6,12 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
-import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
 import { DEV } from '../../../GlobalConstants';
-import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
@@ -184,14 +182,17 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title="Download Center"
-                                    label="Download Center"
+                                    title="Download"
+                                    label="Download"
                                     items={downloadOptions} />
                             </li>
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
-                                <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
+                                <Dropdown
+                                    title="Resources"
+                                    label="Resources"
+                                    items={resourceOptions} />
                             </li>
                         </ul>
                     </div>

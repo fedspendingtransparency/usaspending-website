@@ -3,14 +3,7 @@
  * Created by Kevin Li 1/18/18
  */
 
-import React from 'react';
 import kGlobalConstants from 'GlobalConstants';
-
-const New = () => (
-    <span>
-        COVID-19 Spending
-        <span className="covid-newbadge"> NEW</span>
-    </span>);
 
 export const searchOptions = [
     {
@@ -47,11 +40,42 @@ export const profileOptions = [
         enabled: true
     },
     {
-        label: <New />,
+        label: "COVID-19 Spending",
         url: '/disaster/covid-19',
-        enabled: kGlobalConstants.CARES_ACT_RELEASED
+        enabled: kGlobalConstants.CARES_ACT_RELEASED,
+        isNewTab: true
     }
 ];
+
+export const resourceOptions = [
+    {
+        label: 'Glossary',
+        url: '/?glossary',
+        enabled: true,
+        appendToExistingUrl: true
+    },
+    {
+        label: 'Data Dictionary',
+        type: 'data_dictionary',
+        url: '/download_center/data_dictionary'
+    },
+    {
+        label: 'Data Model',
+        url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
+        shouldOpenNewTab: true
+    },
+    {
+        label: "Agency Submission Statistics",
+        url: '/about-the-data/agencies',
+        enabled: false
+    },
+    {
+        label: 'API Tutorial',
+        url: 'https://api.usaspending.gov/docs/intro-tutorial',
+        enabled: true
+    }
+];
+
 
 export const downloadOptions = [
     {
@@ -61,7 +85,7 @@ export const downloadOptions = [
         code: 'archive',
         description: 'The quickest way to grab award data. Pre-generated award files for each major agency (by fiscal year) save on download time.',
         callToAction: 'Grab Award Files',
-        newTab: false,
+        shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
     },
@@ -72,7 +96,7 @@ export const downloadOptions = [
         code: 'award',
         description: 'The best way to grab detailed slices of award data. Specify the agency, timeframe, award type, award level, and more.',
         callToAction: 'Download Award Data',
-        newTab: false,
+        shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
     },
@@ -83,7 +107,7 @@ export const downloadOptions = [
         code: 'account',
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
         callToAction: 'Download Account Data',
-        newTab: false,
+        shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
     },
@@ -94,7 +118,7 @@ export const downloadOptions = [
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
-        newTab: true,
+        shouldOpenNewTab: true,
         enabled: true,
         internalDomain: true
     },
@@ -105,7 +129,7 @@ export const downloadOptions = [
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
-        newTab: true,
+        shouldOpenNewTab: true,
         enabled: true,
         internalDomain: true
     },
@@ -116,7 +140,7 @@ export const downloadOptions = [
         code: 'api',
         description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
         callToAction: 'Explore Our API',
-        newTab: true,
+        shouldOpenNewTab: true,
         enabled: true,
         internalDomain: true
     },
@@ -127,7 +151,7 @@ export const downloadOptions = [
         code: 'dictionary',
         description: '',
         callToAction: 'Explore the Data Dictionary',
-        newTab: false,
+        shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
     },
@@ -138,8 +162,21 @@ export const downloadOptions = [
         code: 'metadata',
         description: '',
         callToAction: 'Explore Dataset Metadata',
-        newTab: false,
+        shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
     }
 ];
+
+export const labelsWithNewBadge = searchOptions
+    .concat(profileOptions)
+    .concat(resourceOptions)
+    .concat(downloadOptions)
+    .filter((obj) => Object.entries(obj).some(([key, value]) => {
+        console.log('key', key, value);
+        return key === 'isNewTab' && value;
+    }))
+    .map(({ label }) => {
+        console.log('label', label);
+        return label.toLowerCase();
+    });
