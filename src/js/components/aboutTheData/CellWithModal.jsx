@@ -23,7 +23,7 @@ const CellWithModal = ({
             <span className="action-cell__text">
                 {data}
             </span>
-            <button className="action-cell__button" onClick={modalClick} title="Open modal">
+            <button className="action-cell__button" onClick={modalClick} title="View details">
                 <FontAwesomeIcon icon="expand-alt" />
             </button>
         </div>
