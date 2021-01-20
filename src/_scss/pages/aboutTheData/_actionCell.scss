@@ -9,8 +9,6 @@
     @include justify-content(space-between);
     @include align-items(center);
     color: $color-base;
-    padding: 1.2rem;
-    height: 6.6rem;
     .action-cell__text {
         padding-right: .8rem;
     }

@@ -28,10 +28,9 @@
                 height: 4.8rem;
                 .usda-table__cell {
                     font-size: 1.4rem;
-                    padding: 0; // to allow entire cell to be hoverable
+                    padding: 1.2rem;
                     @import '../pages/aboutTheData/actionCell';
                     .generic-cell-content {
-                        padding: 1.2rem;
                         .not-certified {
                             margin-left: rem(5);
                             background: #dce4ee;
