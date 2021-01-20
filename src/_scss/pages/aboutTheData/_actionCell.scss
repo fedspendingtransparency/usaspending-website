@@ -11,7 +11,6 @@
     color: $color-base;
     padding: 1.2rem;
     height: 6.6rem;
-    border: solid 3px transparent;
     .action-cell__text {
         padding-right: .8rem;
     }
@@ -32,11 +31,10 @@
         }
         &:hover {
             text-decoration: none;
-            background-color: $color-primary-alt-lightest;
+            background-color: $color-primary-alt-light;
         }
     }
     &:hover {
-        border-color: $color-primary;
         .action-cell__button {
             svg {
                 @include display(flex);
