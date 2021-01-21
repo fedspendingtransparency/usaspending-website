@@ -55,7 +55,8 @@ These values can be set in one of 3 methods:
 
 1. In a git-ignored `.env` file, if using `docker` or `docker-compose` to execute scripts 
 
-    ```
+    ```bash
+    # .env file
     USAPENDING_API=http://localhost:8000/api
     # ... next var
     ```
@@ -64,15 +65,15 @@ These values can be set in one of 3 methods:
     - _NOTE: Default env var values are set in the `Dockerfile` and will be used in `docker run` if none are provided_
 2. Using `export` to set them in the current executing shell environment.
 
-    ```
-    export USAPENDING_API=http://localhost:8000/api
-    npm ci
+    ```bash
+    $ export USAPENDING_API=http://localhost:8000/api
+    $ npm dev
     ```
     - `docker-compose` will also pick these up, but `docker run` will not and fall back to `Dockerfile` defaults.
 3. On the command-line, prior to a shell command, to inject into the sub-shell environment
 
     ```bash
-    USAPENDING_API=http://localhost:8000/api npm ci
+    $ USAPENDING_API=http://localhost:8000/api npm dev
     ```
 
 The latter methods in this list take precedence over environment variables set in an earlier method. 
