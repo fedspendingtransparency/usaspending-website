@@ -40,7 +40,7 @@ export const agenciesTableColumns = {
         {
             title: 'Q2',
             displayName: 'FY 2020 Q2',
-            columnSpan: "4",
+            columnSpan: "3",
             subColumnNames: [
                 { displayName: 'P04', title: 'publication_date,4' },
                 { displayName: 'P05', title: 'publication_date,5' },
