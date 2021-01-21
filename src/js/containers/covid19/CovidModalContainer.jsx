@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import Modal from 'react-aria-modal';
@@ -10,8 +10,6 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 
-import { defCodes } from 'dataMapping/covid19/covid19';
-
 const CovidModalContainer = ({
     mounted,
     hideModal,
@@ -21,6 +19,7 @@ const CovidModalContainer = ({
     setAppliedFilters
 }) => {
     const history = useHistory();
+    const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
@@ -31,7 +30,7 @@ const CovidModalContainer = ({
         stageDefCodesForAdvancedSearch({
             ...defaultFilters,
             defCodes: new CheckboxTreeSelections({
-                require: defCodes,
+                require: defCodes.map((code) => code.code),
                 exclude: [],
                 counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Spending" }]
             })
