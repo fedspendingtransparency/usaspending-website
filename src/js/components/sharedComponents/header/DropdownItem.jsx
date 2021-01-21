@@ -57,10 +57,10 @@ const DropdownItem = ({
 
     const newLabel = isNewTab && enabled
         ? (
-            <span>
+            <>
                 {label}
-                <span className="covid-newbadge"> NEW</span>
-            </span>
+                <span className="new-badge dropdown-item"> NEW</span>
+            </>
         )
         : null;
 

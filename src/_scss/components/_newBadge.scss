@@ -10,20 +10,9 @@
   color: #FFF;
   font-weight: 600;
   margin-right: rem(35);
-}
-
-.covid-newbadge {
-    height: rem(24);
-    width: rem(47);
-    border-radius: rem(4);
-    background-color: $color-secondary-dark;
-    @include display(inline-flex);
-    @include justify-content(center);
-    @include align-items(center);
-    font-size: rem(14);
-    color: #FFF;
-    font-weight: 600;
-    margin-left: rem(10);
+  &.dropdown-item {
+    margin: auto;
+  }
 }
 
 .new-badge-outer {
