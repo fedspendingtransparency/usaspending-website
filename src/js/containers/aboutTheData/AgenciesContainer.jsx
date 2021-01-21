@@ -327,7 +327,7 @@ const AgenciesContainer = ({
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-                        columns={agenciesTableColumns[activeTab]}
+                        columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
                             field: publicationsSort[0],

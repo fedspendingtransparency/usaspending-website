@@ -39,7 +39,8 @@
       max-width: 100%;
     }
     .table-controls {
-      .usa-dt-tabs-mobile .usa-dt-picker__list {
+      .usa-dt-tabs-mobile .usa-dt-picker__list,
+      .tooltip-spacer {
         z-index: 12;
       }
       .usa-dt-tab-toggle:focus {

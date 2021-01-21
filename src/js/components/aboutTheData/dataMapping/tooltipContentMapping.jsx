@@ -45,7 +45,7 @@ export const columnTooltips = {
             </p>
         </>
     ),
-    'Number of TASs Missing in Account Balance Data': (
+    'Number of TASs Missing from Account Balance Data': (
         <>
             <p>
                 Agencies submit account balance data grouped by Treasury Account Symbols (TAS) in two ways: 1) to USAspending.gov in File A and 2) to GTAS, a separate system that is the authoritative source of governmentwide TAS account balances. This column shows the number of TAS that are in GTAS but missing in USAspending.gov data.
