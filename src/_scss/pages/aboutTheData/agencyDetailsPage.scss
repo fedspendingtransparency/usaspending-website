@@ -45,11 +45,6 @@
               display: none;
             }
           }
-          tbody .usda-table__row .usda-table__cell:nth-of-type(2) {
-            // center-align the percentage column
-            padding: 0; // to allow entire cell to be hoverable
-            text-align: center;
-          }
         }
 
       .agency-table-download {
