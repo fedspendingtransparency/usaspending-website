@@ -42,7 +42,7 @@ _Get the code and install the runtime and dependencies_
 ### Configuration
 _Alter configuration to non-default values by changing environment variable values._
 
-Several `npm` scripts including webpack bundling of static USAspending website artifacts require environment variables to be defined at script-time, so that their values can be used in script logic or injected into static artifacts. The important ones are listed below along with their default values:
+Our application makes use of of certain environment varialbes. The important ones are listed below along with their default values:
 
 | ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
 |-------------------|----------------------------------|----------------------------------------------------|
