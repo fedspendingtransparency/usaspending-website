@@ -69,7 +69,7 @@ const Dropdown = ({
                 </div>
             </button>
             <div className={`nav-children ${activeChildren}`}>
-                <ul className="nav-children__list">
+                <ul className={`nav-children__list ${label.toLowerCase()}`}>
                     {items.map((item, index) => (
                         <DropdownItem
                             {...item}

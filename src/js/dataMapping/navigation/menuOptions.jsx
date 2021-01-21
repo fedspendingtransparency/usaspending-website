@@ -65,9 +65,14 @@ export const resourceOptions = [
     },
     {
         label: 'Data Dictionary',
-        enabled: true,
         type: 'data_dictionary',
-        url: '/download_center/data_dictionary'
+        url: '/download_center/data_dictionary',
+        code: 'dictionary',
+        description: '',
+        callToAction: 'Explore the Data Dictionary',
+        shouldOpenNewTab: false,
+        enabled: true,
+        externalLink: false
     },
     {
         label: 'Data Model',
@@ -179,5 +184,7 @@ export const downloadOptions = [
         enabled: true,
         externalLink: false
     }
-]
+];
+
+export const downloadGlobalNavigationOptions = downloadOptions
     .filter(({ label }) => !(isLowerEnv && underResourcesInLowerEnv.includes(label.toLowerCase())));

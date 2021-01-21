@@ -12,7 +12,7 @@ import { DEV, QAT } from 'GlobalConstants';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 
 import MobileTop from './MobileTop';
 import MobileGlossaryButton from './MobileGlossaryButton';
@@ -103,7 +103,7 @@ export class MobileNav extends React.Component {
                             <MobileDropdown
                                 {...this.props}
                                 label={isDevOrQat ? "Download" : "Download Center"}
-                                items={downloadOptions}
+                                items={downloadGlobalNavigationOptions}
                                 active={this.state.url} />
                             <hr className="mobile-nav-content__divider" />
                         </li>

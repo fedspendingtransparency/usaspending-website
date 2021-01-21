@@ -7,7 +7,7 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
 import { DEV, QAT } from '../../../GlobalConstants';
@@ -188,7 +188,7 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title={isDevOrQat ? "Download" : "Download Center"}
                                     label={isDevOrQat ? "Download" : "Download Center"}
-                                    items={downloadOptions} />
+                                    items={downloadGlobalNavigationOptions} />
                             </li>
                             {isDevOrQat && (
                                 <li
