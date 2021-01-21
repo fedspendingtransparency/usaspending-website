@@ -34,9 +34,8 @@ export const agenciesTableColumns = {
             displayName: `FY ${fy} Q1`,
             columnSpan: '3',
             subColumnNames: [
-                { displayName: 'P1', title: 'publication_date,1' },
-                { displayName: 'P2', title: 'publication_date,2' },
-                { displayName: 'P3', title: 'publication_date,3' }
+                { displayName: 'P01 - P02', title: 'publication_date,2' },
+                { displayName: 'P03', title: 'publication_date,3' }
             ]
         },
         {
@@ -44,9 +43,9 @@ export const agenciesTableColumns = {
             displayName: `FY ${fy} Q2`,
             columnSpan: '3',
             subColumnNames: [
-                { displayName: 'P4', title: 'publication_date,4' },
-                { displayName: 'P5', title: 'publication_date,5' },
-                { displayName: 'P6', title: 'publication_date,6' }
+                { displayName: 'P04', title: 'publication_date,4' },
+                { displayName: 'P05', title: 'publication_date,5' },
+                { displayName: 'P06', title: 'publication_date,6' }
             ]
         },
         {
@@ -54,9 +53,9 @@ export const agenciesTableColumns = {
             displayName: `FY ${fy} Q3`,
             columnSpan: '3',
             subColumnNames: [
-                { displayName: 'P7', title: 'publication_date,7' },
-                { displayName: 'P8', title: 'publication_date,8' },
-                { displayName: 'P9', title: 'publication_date,9' }
+                { displayName: 'P07', title: 'publication_date,7' },
+                { displayName: 'P08', title: 'publication_date,8' },
+                { displayName: 'P09', title: 'publication_date,9' }
             ]
         },
         {

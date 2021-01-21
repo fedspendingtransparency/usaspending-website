@@ -31,7 +31,7 @@ test('should format the percent of total federal budget', () => {
     expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('66.67%');
 });
 
-test('should always have 12 periods', () => {
-    expect(mockDatesRow.periods.length).toEqual(12);
+test('should always have 11 periods', () => {
+    expect(mockDatesRow.periods.length).toEqual(11);
 });
 
