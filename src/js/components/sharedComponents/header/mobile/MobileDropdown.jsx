@@ -61,11 +61,14 @@ export default class MobileDropdown extends React.Component {
                 key={item.url}
                 comingSoon={!item.enabled}
                 title={item.label}
+                isNewTab={item.isNewTab}
                 url={item.url}
                 active={item.url === this.props.active}
                 externalLink={item.externalLink}
                 hideMobileNav={this.props.hideMobileNav} />
         ));
+
+        const containsNewNavItem = this.props.items.some(({ isNewTab }) => isNewTab);
 
         return (
             <div className="mobile-dropdown">
@@ -74,9 +77,7 @@ export default class MobileDropdown extends React.Component {
                     title={this.props.title || this.props.label}
                     onClick={this.toggleDropdown}>
                     <span className="mobile-dropdown__parent-label">
-                        {
-                            this.props.label === "Profiles" &&
-                            kGlobalConstants.CARES_ACT_RELEASED &&
+                        {containsNewNavItem &&
                             <div className="new-badge-outer">
                                 <div className="new-badge-middle">
                                     <div className="new-badge-inner" />

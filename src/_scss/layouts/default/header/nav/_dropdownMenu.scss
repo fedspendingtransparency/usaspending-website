@@ -67,6 +67,7 @@
 
         a.nav-children__link {
             @include display(flex);
+            @include align-items(center);
             font-size: rem(15);
             line-height: rem(19);
             color: $nav-color;

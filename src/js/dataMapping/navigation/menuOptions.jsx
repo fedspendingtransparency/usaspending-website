@@ -58,11 +58,13 @@ export const resourceOptions = [
     },
     {
         label: 'Data Dictionary',
+        enabled: true,
         type: 'data_dictionary',
         url: '/download_center/data_dictionary'
     },
     {
         label: 'Data Model',
+        enabled: true,
         url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
         shouldOpenNewTab: true
     },

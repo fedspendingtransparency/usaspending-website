@@ -10,8 +10,15 @@
   color: #FFF;
   font-weight: 600;
   margin-right: rem(35);
-  &.dropdown-item {
-    margin: auto;
+  @media(max-width: $medium-screen) {
+    &.dropdown-item {
+      margin: 0 0 0 rem(5);
+    }
+  }
+  @include media($medium-screen) {
+    &.dropdown-item {
+      margin: auto;
+    }
   }
 }
 

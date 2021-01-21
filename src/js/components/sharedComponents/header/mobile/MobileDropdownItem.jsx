@@ -18,7 +18,8 @@ const propTypes = {
     url: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     hideMobileNav: PropTypes.func,
-    externalLink: PropTypes.bool
+    externalLink: PropTypes.bool,
+    isNewTab: PropTypes.bool
 };
 
 const clickedHeaderLink = (route) => {
@@ -67,6 +68,7 @@ export default class MobileDropdownItem extends React.Component {
                     className={`mobile-dropdown__link ${activeClass}`}
                     onClick={this.clickedLink}>
                     {this.props.title}
+                    {this.props.isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
                 </Link>
                 {comingSoonDecorator}
             </li>
