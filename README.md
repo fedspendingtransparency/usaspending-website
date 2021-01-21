@@ -5,80 +5,51 @@
 [The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States. It utilizes the [Data Transparency User Interface Library](https://github.com/fedspendingtransparency/data-transparency-ui).
 
 ## Development Set Up
-To run the USAspending website locally, follow the directions below.
+- To contribute to frontend development, follow _Install and Configure_ below. 
+- To simply run the USAspending website locally, jump to _Build and Run with Docker_ below.
 
-Assumptions:
+_Assumptions_:
 
 * You're able to install software on your machine.
 * You have git installed on your machine and are able to clone code repositories from GitHub. If this isn't the case, the easiest way to get started is to install [GitHub Desktop](https://desktop.github.com/ "GitHub desktop"), available for Windows or Mac.
 * You're familiar with opening a terminal on your machine and using the command line as needed.
 
-### Installation
+### Install and Configure
 _Get the code and install the runtime and dependencies_
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 10.15.3 (LTS)** which we recommend downloading using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm).
-2. You also need the Node Package Manager (`npm`) CLI. We use version `6.14.5`.
-
+1. From the command line, clone the USAspending website repository from GitHub to your local machine, and get into the root directory:
     ```shell
-    npm i -g npm@6.14.5
+    $ git clone https://github.com/fedspendingtransparency/usaspending-website
+    $ cd usaspending-website
     ```
-3. From the command line, clone the USAspending website repository from GitHub to your local machine:
-
+1. Download [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) and install **Node.js `12.18.4`**
     ```shell
-    git clone https://github.com/fedspendingtransparency/usaspending-website.git
+    $ nvm install 12.18.4
     ```
-4. Change to the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
-
+1. Set Node Package Manager (`npm`) CLI to version `6.14.5`.
     ```shell
-    cd usaspending-website
+    $ npm i -g npm@6.14.5
     ```
-
-5. Perform a clean install to get an exact dependency tree:
-
+1. Perform a clean install to get an exact dependency tree:
     ```shell
-    npm ci
+    $ npm ci
+    ```
+1. Run the site in a local dev server:
+    ```shell
+    $ npm start
     ```
 
 ### Configuration
 _Alter configuration to non-default values by changing environment variable values._
 
-Our application makes use of of certain environment varialbes. The important ones are listed below along with their default values:
+Our site makes use of certain environment variables. Defaults are provided, but can be overridden by `export` of new values in your local shell. These are the important ones:
 
 | ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
-|-------------------|----------------------------------|----------------------------------------------------|
-| `ENV`             | dev                              | Determine bundling optimizations and feature flags | 
-| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                        |
-| `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features             |
-| `GA_TRACKING_ID`  | ''                               | Google Analytics key for tracking usage in prod    |
-
-These values can be set in one of 3 methods:
-
-1. In a git-ignored `.env` file, if using `docker` or `docker-compose` to execute scripts 
-
-    ```bash
-    # .env file
-    USAPENDING_API=http://localhost:8000/api
-    # ... next var
-    ```
-    - Confirm Docker Compose picks up vars by running: `docker-compose config` to see the values applied
-    - Also can be applied with `docker run --env-file .env ...`
-    - _NOTE: Default env var values are set in the `Dockerfile` and will be used in `docker run` if none are provided_
-2. Using `export` to set them in the current executing shell environment.
-
-    ```bash
-    $ export USAPENDING_API=http://localhost:8000/api
-    $ npm dev
-    ```
-    - `docker-compose` will also pick these up, but `docker run` will not and fall back to `Dockerfile` defaults.
-3. On the command-line, prior to a shell command, to inject into the sub-shell environment
-
-    ```bash
-    $ USAPENDING_API=http://localhost:8000/api npm dev
-    ```
-
-The latter methods in this list take precedence over environment variables set in an earlier method. 
-- If you build or run `npm` scripts on your local desktop development environment with the `npm` CLI, or switch between this and Docker, setting up your shell with `export` (or a tool like `direnv`) is most flexible. 
-- If you only run scripts/builds in Docker or Docker Compose, using a `.env` file is a simple, clean, config-file-driven approach 
+|-------------------|----------------------------------|-----------------------------------------------------|
+| `ENV`             | prod                             | Determine bundling optimizations and feature flags  | 
+| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                         |
+| `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features              |
+| `GA_TRACKING_ID`  | ''                               | Google Analytics key for anonymously tracking usage |
 
 ### Scripts
 _Custom and life-cycle scripts to execute, as defined under the `scripts` property in `package.json`_
@@ -94,32 +65,26 @@ _Custom and life-cycle scripts to execute, as defined under the `scripts` proper
 | `npm travis` | executes travis validation script                           |
 | `npm ci`     | clean existing Node dependencies and install dependencies   |
 
-### Bundling and Deployment
-_Bundling and running the website_
+### Build and Run with Docker
+Docker can be used to build static site artifacts and/or run the site locally. Ensure your environment variables are configured and use this "one-liner" (or decompose and run each `docker` command separately):
 
-To keep a clean workspace, our CI/CD pipelines use Docker to gather Node dependencies, bundle artifacts, and deploy them. Developers can similarly do this in their local development environments to reduce tool install/versioning and dependency management.
-
-To run the website _**locally**_ with pre-bundled artifacts, first download NPM packages, then generate and bundle static artifacts, then run an `nginx` container to host them. You can do this all in _one step_ with just:
 ```bash
-docker-compose build && docker-compose run --rm bundle-usaspending-website && docker-compose up usaspending-website
-``` 
-- _The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready._
+docker build -t usaspending-website . && \
+docker run --rm -v $(pwd)/public:/node-workspace/public \
+  -e ENV \
+  -e USASPENDING_API \
+  -e MAPBOX_TOKEN \
+  -e GA_TRACKING_ID \
+  usaspending-website npm run ${ENV} && \
+docker run --rm -v $(pwd)/public:/usr/share/nginx/html:ro -p 8020:80 nginx:1.18
+```
 
-To do this in individual, sequential steps, from the `usaspending-website` source root:
+_The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready._
+
+What this does:
 1. Ensure your `usaspending-website` Docker image has the latest dependencies:
-
-    ```bash
-    docker-compose build
-    ```
 1. Generate and bundle static artifacts and output to `./public`
+1. Mount the static artifacts to a running container of an nginx image and host at port `8020`
 
-    ```bash
-    docker-compose run -rm bundle-usaspending-website
-    ```
-2. Mount the static artifacts to a running container of an nginx image and host at port `8020`
-
-    ```bash
-    docker-compose up usaspending-website
-    ```
 
 You should see console logs, and the app should now be running at `http://localhost:8020`.

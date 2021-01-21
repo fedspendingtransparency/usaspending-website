@@ -1,7 +1,7 @@
 FROM node:12.18.4
 
 # Default environment variables
-ENV ENV=dev USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
+ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
 
 RUN mkdir /node-workspace && mkdir /test-results
 
