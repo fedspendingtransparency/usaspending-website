@@ -30,7 +30,7 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const isDevOrQat = (DEV, QAT);
+const isDevOrQat = (DEV || QAT);
 
 export class MobileNav extends React.Component {
     constructor(props) {

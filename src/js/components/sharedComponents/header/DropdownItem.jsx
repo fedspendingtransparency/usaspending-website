@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
+import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 import DropdownComingSoon from './DropdownComingSoon';
 
@@ -31,7 +32,7 @@ const clickedHeaderLink = (route) => {
 };
 
 const DropdownItem = ({
-    url,
+    url = '',
     label,
     enabled = true,
     shouldOpenNewTab = false,
@@ -40,8 +41,10 @@ const DropdownItem = ({
     isNewTab = false,
     appendToExistingUrl = false
 }) => {
-    const { pathname } = useLocation();
-    const newUrl = appendToExistingUrl && pathname !== '/' ? `${pathname}/${url}` : url;
+    const { pathname, search } = useLocation();
+    const newUrl = appendToExistingUrl
+        ? getNewUrlForGlossary(pathname, url, search)
+        : url;
 
     const handleClick = () => {
         redirectHelper.showRedirectModal(newUrl);

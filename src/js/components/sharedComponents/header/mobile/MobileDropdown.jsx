@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import kGlobalConstants from 'GlobalConstants';
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 
@@ -58,6 +57,7 @@ export default class MobileDropdown extends React.Component {
 
         const items = this.props.items.map((item) => (
             <MobileDropdownItem
+                {...item}
                 key={item.url}
                 comingSoon={!item.enabled}
                 title={item.label}
