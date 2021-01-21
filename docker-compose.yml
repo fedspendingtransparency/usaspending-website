@@ -10,15 +10,13 @@ services:
     - type: bind
       source: .
       target: /node-workspace
-    # - type: tmpfs  # allows the "disk" to be mounted in-memory for this folder, to not put node module dependencies on the host disk
-    #   target: /node-workspace/node_modules
     command: >
       /bin/sh -cex "
         cd  /node-workspace
-        npm ci
+        npm ci --loglevel ${NPM_LOGLEVEL:-notice}
         rm -rf public
         mkdir public
-        npm run ${ENV:-dev}
+        npm run ${ENV:-dev} --loglevel ${NPM_LOGLEVEL:-notice}
       "
     environment:
       USASPENDING_API: ${USASPENDING_API:-https://api.usaspending.gov/api/}

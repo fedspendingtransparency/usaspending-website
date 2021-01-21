@@ -95,7 +95,13 @@ _Bundling and running the website_
 
 To keep a clean workspace, our CI/CD pipelines use Docker to gather Node dependencies, build artifacts, and deploy them. Developers can similarly do this in their local development environments to reduce tool install/versioning and dependency management.
 
-To run the website _**locally**_ with pre-built/bundled artifacts, first build the artifacts, then run an `nginx` container to host them:
+To run the website _**locally**_ with pre-built/bundled artifacts, first build the artifacts, then run an `nginx` container to host them. You can do this all in _one step_ with just:
+```bash
+docker-compose run build-usaspending-website && docker-compose up usaspending-website
+``` 
+Each step can take 5+ minutes, so this could be a total of ~10 minutes before ready.
+
+To do this in two deliberate, sequential steps:
 
 1. From usaspending-website root, build artifacts and output to `./public`, then remove the builder container (with `down`)
 
