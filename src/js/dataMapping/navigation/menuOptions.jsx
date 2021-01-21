@@ -3,7 +3,9 @@
  * Created by Kevin Li 1/18/18
  */
 
-import kGlobalConstants from 'GlobalConstants';
+import { QAT, DEV, FILES_SERVER_BASE_URL, API } from 'GlobalConstants';
+
+const isLowerEnv = (QAT || DEV);
 
 export const searchOptions = [
     {
@@ -42,7 +44,7 @@ export const profileOptions = [
     {
         label: "COVID-19 Spending",
         url: '/disaster/covid-19',
-        enabled: kGlobalConstants.CARES_ACT_RELEASED,
+        enabled: true,
         isNewTab: true
     }
 ];
@@ -67,7 +69,8 @@ export const resourceOptions = [
     {
         label: "Agency Submission Statistics",
         url: '/about-the-data/agencies',
-        enabled: false
+        enabled: true,
+        isNewTab: true
     },
     {
         label: 'API Tutorial',
@@ -76,6 +79,7 @@ export const resourceOptions = [
     }
 ];
 
+const underResourcesInLowerEnv = ["api", "data dictionary"];
 
 export const downloadOptions = [
     {
@@ -114,7 +118,7 @@ export const downloadOptions = [
     {
         label: 'Agency Submission Files',
         type: 'snapshots',
-        url: `${kGlobalConstants.FILES_SERVER_BASE_URL}/agency_submissions/`,
+        url: `${FILES_SERVER_BASE_URL}/agency_submissions/`,
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
@@ -125,7 +129,7 @@ export const downloadOptions = [
     {
         label: 'Database Download',
         type: '',
-        url: `${kGlobalConstants.FILES_SERVER_BASE_URL}/database_download/`,
+        url: `${FILES_SERVER_BASE_URL}/database_download/`,
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
@@ -136,7 +140,7 @@ export const downloadOptions = [
     {
         label: 'API',
         type: '',
-        url: kGlobalConstants.API.replace("api/", ""),
+        url: API.replace("api/", ""),
         code: 'api',
         description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
         callToAction: 'Explore Our API',
@@ -166,4 +170,5 @@ export const downloadOptions = [
         enabled: true,
         externalLink: false
     }
-];
+]
+    .filter(({ label }) => !(isLowerEnv && underResourcesInLowerEnv.includes(label.toLowerCase())));
