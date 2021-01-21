@@ -110,9 +110,9 @@ test('on tab change updates the table view', async () => {
     expect(table).toBeDefined();
 });
 
-test('redirects about-the-data/agencies to url w/ latest fy and period in params', async () => {
+test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
     render(<AboutTheDataPage {...defaultProps} match={{ params: {} }} />);
     return waitFor(() => {
-        expect(mockReplace).toHaveBeenCalledWith('about-the-data/agencies/2020/12');
+        expect(mockReplace).toHaveBeenCalledWith('submission-statistics/2020/12');
     });
 });

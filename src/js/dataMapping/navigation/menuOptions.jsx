@@ -68,7 +68,7 @@ export const resourceOptions = [
     },
     {
         label: "Agency Submission Statistics",
-        url: '/about-the-data/agencies',
+        url: '/submission-statistics',
         enabled: true,
         isNewTab: true
     },
