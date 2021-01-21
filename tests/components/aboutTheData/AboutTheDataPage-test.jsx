@@ -49,10 +49,7 @@ const defaultProps = {
         replace: mockReplace
     },
     match: {
-        params: {
-            fy: '2020',
-            period: '12'
-        }
+        search: "?fy=2020&period=12"
     }
 };
 
@@ -87,7 +84,7 @@ beforeEach(() => {
         }
     });
     jest.spyOn(aboutTheDataHelpers, 'getSubmissionPublicationDates').mockReturnValue({
-        promise: Promise.resolve(mockAPI.dates),
+        promise: Promise.resolve(mockAPI.publications),
         cancel: () => {
             console.log('cancel called');
         }
@@ -111,8 +108,11 @@ test('on tab change updates the table view', async () => {
 });
 
 test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
-    render(<AboutTheDataPage {...defaultProps} match={{ params: {} }} />);
+    render(<AboutTheDataPage {...defaultProps} match={{ search: "" }} />);
     return waitFor(() => {
-        expect(mockReplace).toHaveBeenCalledWith('submission-statistics/2020/12');
+        expect(mockReplace).toHaveBeenCalledWith({
+            pathname: '/submission-statistics/',
+            search: "?fy=2020&period=12"
+        });
     });
 });

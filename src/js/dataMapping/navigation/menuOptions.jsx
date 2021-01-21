@@ -3,7 +3,14 @@
  * Created by Kevin Li 1/18/18
  */
 
-import { QAT, DEV, FILES_SERVER_BASE_URL, API } from 'GlobalConstants';
+import GlobalConstants from 'GlobalConstants';
+
+const {
+    QAT,
+    DEV,
+    FILES_SERVER_BASE_URL,
+    API
+} = GlobalConstants;
 
 const isLowerEnv = (QAT || DEV);
 

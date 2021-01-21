@@ -69,7 +69,7 @@ const AboutTheDataPage = ({
     useEffect(() => {
         if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
             history.replace({
-                pathanme: `/submission-statistics/`,
+                pathname: `/submission-statistics/`,
                 search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod }).toString()}`
             });
         }
