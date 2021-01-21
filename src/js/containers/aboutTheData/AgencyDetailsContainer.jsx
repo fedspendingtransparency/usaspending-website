@@ -155,8 +155,28 @@ const AgencyDetailsContainer = ({
                         agencyName,
                         agencyCode
                     }} />),
-                (<div className="generic-cell-content">{rowData.unlinkedContracts}</div>),
-                (<div className="generic-cell-content">{rowData.unlinkedAssistance}</div>),
+                (<CellWithModal
+                    data={rowData.unlinkedContracts}
+                    openModal={modalClick}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode,
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        type: 'Contract'
+                    }} />),
+                (<CellWithModal
+                    data={rowData.unlinkedAssistance}
+                    openModal={modalClick}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode,
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        type: 'Assistance'
+                    }} />),
                 (<div className="generic-cell-content"><AgencyDownloadLinkCell file={rowData.assuranceStatement} /></div>)
             ]);
         })

@@ -8,9 +8,9 @@ import PropTypes, { oneOfType, oneOf } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    data: oneOfType([PropTypes.string, PropTypes.object]),
+    data: oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
     openModal: PropTypes.func.isRequired,
-    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences']).isRequired,
+    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences', 'unlinkedData']).isRequired,
     agencyData: PropTypes.object
 };
 

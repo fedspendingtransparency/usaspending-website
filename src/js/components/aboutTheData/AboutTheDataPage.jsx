@@ -150,14 +150,13 @@ const AboutTheDataPage = ({
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
                     agencyData={{
                         ...modalData,
                         fiscalYear: parseInt(selectedFy, 10),
                         fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
                     }}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>

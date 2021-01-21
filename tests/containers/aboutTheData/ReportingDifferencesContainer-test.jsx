@@ -11,7 +11,7 @@ const defaultProps = {
     }
 };
 
-describe('Publication Dates Container', () => {
+describe('Reporting Differences Container', () => {
     it('should call api one time on mount', () => {
         const differencesRequest = jest.spyOn(aboutTheDataHelper, 'fetchReportingDifferences');
         render(<ReportingDifferencesContainer {...defaultProps} />);
