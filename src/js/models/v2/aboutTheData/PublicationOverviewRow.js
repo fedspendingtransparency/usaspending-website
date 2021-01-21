@@ -10,7 +10,7 @@ const addFuturePeriods = (periods) => {
     if (periods.length === 12) return periods;
     return periods
         .concat(
-            new Array(12 - periods.length)
+            new Array(11 - periods.length)
                 .fill()
                 .map(() => ({
                     quarterly: false,
