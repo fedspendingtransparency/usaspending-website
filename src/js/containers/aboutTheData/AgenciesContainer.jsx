@@ -264,7 +264,7 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<CellWithModal
+            unlinkedContracts !== '0' ? (<CellWithModal
                 data={unlinkedContracts}
                 openModal={openModal}
                 modalType="unlinkedData"
@@ -274,8 +274,8 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id,
                     type: 'Contract'
-                }} />),
-            (<CellWithModal
+                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
+            unlinkedAssistance !== '0' ? (<CellWithModal
                 data={unlinkedAssistance}
                 openModal={openModal}
                 modalType="unlinkedData"
@@ -285,7 +285,7 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id,
                     type: 'Assistance'
-                }} />),
+                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 

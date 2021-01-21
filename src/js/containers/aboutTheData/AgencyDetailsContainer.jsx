@@ -5,85 +5,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { Table, TooltipComponent, TooltipWrapper, Pagination } from 'data-transparency-ui';
+import { Table, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 
 import { fetchAgency } from 'helpers/aboutTheDataHelper';
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
-
-const Tooltip = ({ title, position = "right" }) => (
-    <TooltipWrapper
-        icon="info"
-        tooltipPosition={position}
-        tooltipComponent={(
-            <TooltipComponent title={title}>
-                {columnTooltips[title]}
-            </TooltipComponent>
-        )} />
-);
-
-Tooltip.propTypes = {
-    title: PropTypes.string.isRequired,
-    position: PropTypes.oneOf(['left', 'right'])
-};
-
-const columns = [
-    {
-        title: "fiscal_year",
-        displayName: "Reporting Period"
-    },
-    {
-        title: "percent_of_total_budgetary_resources",
-        displayName: "Percent of Total Federal Budget"
-    },
-    {
-        title: "recent_publication_date",
-        displayName: "Most Recent Update",
-        icon: (<Tooltip title="Most Recent Update" />)
-    },
-    {
-        title: "missing_tas_accounts_count",
-        displayName: "Number of TASs Missing from Account Balance Data",
-        icon: (
-            <Tooltip title="Number of TASs Missing from Account Balance Data" />
-        ),
-        right: true
-    },
-    {
-        title: "obligation_difference",
-        displayName: "Reporting Difference in Obligations",
-        icon: (
-            <Tooltip title="Reporting Difference in Obligations" />
-        ),
-        right: true
-    },
-    {
-        title: "unlinked_cont_award_count",
-        displayName: "Number of Unlinked Contract Awards",
-        icon: (
-            <Tooltip title="Number of Unlinked Contract Awards" />
-        ),
-        right: true
-    },
-    {
-        title: "unlinked_asst_award_count",
-        displayName: "Number of Unlinked Assistance Awards",
-        icon: (
-            <Tooltip title="Number of Unlinked Assistance Awards" position="left" />
-        ),
-        right: true
-    },
-    {
-        title: "assurance_statements",
-        displayName: "Agency Comments",
-        icon: (
-            <Tooltip title="Agency Comments" position="left" />
-        )
-    }
-];
+import { agencyDetailsColumns } from './AgencyTableMapping';
 
 const propTypes = {
     agencyName: PropTypes.string,
@@ -91,11 +20,15 @@ const propTypes = {
     agencyCode: PropTypes.string
 };
 
-const AgencyDetailsContainer = ({
-    modalClick, agencyName, agencyCode
-}) => {
-    const [sortStatus, updateSort] = useState({ field: 'current_total_budget_authority_amount', direction: 'desc' });
-    const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
+    const [sortStatus, updateSort] = useState({
+        field: 'current_total_budget_authority_amount',
+        direction: 'desc'
+    });
+    const [{ vertical: isVertialSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({
+        vertical: false,
+        horizontal: false
+    });
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -117,14 +50,14 @@ const AgencyDetailsContainer = ({
     const verticalStickyClass = isVertialSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const parseRows = (results) => (
+    const parseRows = (results) =>
         results.map((row) => {
             const rowData = Object.create(BaseReportingPeriodRow);
             rowData.populate(row);
-            return ([
-                (<div className="generic-cell-content">{ rowData.reportingPeriod }</div>),
-                (<div className="generic-cell-content">{ rowData.percentOfBudget }</div>),
-                (<CellWithModal
+            return [
+                <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
+                <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
+                <CellWithModal
                     data={rowData.mostRecentPublicationDate}
                     openModal={modalClick}
                     modalType="publicationDates"
@@ -133,8 +66,8 @@ const AgencyDetailsContainer = ({
                         fiscalPeriod: rowData.fiscalPeriod,
                         agencyName,
                         agencyCode
-                    }} />),
-                (<CellWithModal
+                    }} />,
+                <CellWithModal
                     data={rowData.discrepancyCount}
                     openModal={modalClick}
                     modalType="missingAccountBalance"
@@ -144,8 +77,8 @@ const AgencyDetailsContainer = ({
                         agencyName,
                         agencyCode,
                         gtasObligationTotal: rowData._gtasObligationTotal
-                    }} />),
-                (<CellWithModal
+                    }} />,
+                <CellWithModal
                     data={rowData.obligationDifference}
                     openModal={modalClick}
                     modalType="reportingDifferences"
@@ -154,33 +87,42 @@ const AgencyDetailsContainer = ({
                         fiscalPeriod: rowData.fiscalPeriod,
                         agencyName,
                         agencyCode
-                    }} />),
-                (<CellWithModal
-                    data={rowData.unlinkedContracts}
-                    openModal={modalClick}
-                    modalType="unlinkedData"
-                    agencyData={{
-                        agencyName,
-                        agencyCode,
-                        fiscalYear: rowData.fiscalYear,
-                        fiscalPeriod: rowData.fiscalPeriod,
-                        type: 'Contract'
-                    }} />),
-                (<CellWithModal
-                    data={rowData.unlinkedAssistance}
-                    openModal={modalClick}
-                    modalType="unlinkedData"
-                    agencyData={{
-                        agencyName,
-                        agencyCode,
-                        fiscalYear: rowData.fiscalYear,
-                        fiscalPeriod: rowData.fiscalPeriod,
-                        type: 'Assistance'
-                    }} />),
-                (<div className="generic-cell-content"><AgencyDownloadLinkCell file={rowData.assuranceStatement} /></div>)
-            ]);
-        })
-    );
+                    }} />,
+                rowData._unlinkedContracts !== 0 ? (
+                    <CellWithModal
+                        data={rowData.unlinkedContracts}
+                        openModal={modalClick}
+                        modalType="unlinkedData"
+                        agencyData={{
+                            agencyName,
+                            agencyCode,
+                            fiscalYear: rowData.fiscalYear,
+                            fiscalPeriod: rowData.fiscalPeriod,
+                            type: 'Contract'
+                        }} />
+                ) : (
+                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div>
+                ),
+                rowData._unlinkedAssistance !== 0 ? (
+                    <CellWithModal
+                        data={rowData.unlinkedAssistance}
+                        openModal={modalClick}
+                        modalType="unlinkedData"
+                        agencyData={{
+                            agencyName,
+                            agencyCode,
+                            fiscalYear: rowData.fiscalYear,
+                            fiscalPeriod: rowData.fiscalPeriod,
+                            type: 'Assistance'
+                        }} />
+                ) : (
+                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div>
+                ),
+                <div className="generic-cell-content">
+                    <AgencyDownloadLinkCell file={rowData.assuranceStatement} />
+                </div>
+            ];
+        });
 
     const fetchTableData = () => {
         if (tableRequest.current) {
@@ -230,7 +172,7 @@ const AgencyDetailsContainer = ({
                 <Table
                     rows={rows}
                     classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
-                    columns={columns}
+                    columns={agencyDetailsColumns}
                     updateSort={handleUpdateSort}
                     currentSort={sortStatus}
                     loading={loading}
