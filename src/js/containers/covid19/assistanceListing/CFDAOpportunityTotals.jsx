@@ -28,7 +28,7 @@ const CFDAOpportunityTotals = ({ code }) => {
             catch (e) {
                 if (!isCancel(e)) {
                     if (e.response.status === 404) {
-                        setError({ error: true, message: 'There is no data for this CFDA' });
+                        setError({ error: true, message: 'Note: there are no current or archived listings for this CFDA on Grants.gov at this time.' });
                         setLoading(false);
                     }
                     else {
