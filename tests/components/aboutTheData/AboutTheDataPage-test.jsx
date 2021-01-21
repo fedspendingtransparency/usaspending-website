@@ -8,7 +8,7 @@ import * as accountHelpers from 'helpers/accountHelper';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from '../../containers/aboutTheData/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
 // latest fy of 2020; latest period is 12
@@ -97,7 +97,7 @@ beforeEach(() => {
 test('renders the details table first', async () => {
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
-    const [table] = screen.getAllByText('Count of Agency TAS in GTAS Not in File A');
+    const [table] = screen.getAllByText('Number of TAS Missing from Account Balance Data');
     expect(table).toBeDefined();
 });
 

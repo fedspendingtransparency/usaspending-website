@@ -78,7 +78,7 @@ const AgencyDetailsPage = () => {
     }, [agencyCode]);
 
     return (
-        <div className="usa-da__about-the-data__agencies-page">
+        <div className="usa-da-about-the-data usa-da-about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -132,10 +132,9 @@ const AgencyDetailsPage = () => {
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
                     agencyData={modalData}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>

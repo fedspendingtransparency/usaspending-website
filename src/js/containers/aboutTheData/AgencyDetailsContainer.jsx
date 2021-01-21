@@ -48,7 +48,7 @@ const columns = [
         title: "missing_tas_accounts_count",
         displayName: "Number of TASs Missing from Account Balance Data",
         icon: (
-            <Tooltip title="Number of TASs Missing in Account Balance Data" />
+            <Tooltip title="Number of TASs Missing from Account Balance Data" />
         ),
         right: true
     },
@@ -72,15 +72,15 @@ const columns = [
         title: "unlinked_asst_award_count",
         displayName: "Number of Unlinked Assistance Awards",
         icon: (
-            <Tooltip title="Number of Unlinked Assistance Awards" />
+            <Tooltip title="Number of Unlinked Assistance Awards" position="left" />
         ),
         right: true
     },
     {
         title: "assurance_statements",
-        displayName: "Assurance Statements",
+        displayName: "Agency Comments",
         icon: (
-            <Tooltip title="Agency Disclosures" position="left" />
+            <Tooltip title="Agency Comments" position="left" />
         )
     }
 ];
@@ -135,7 +135,7 @@ const AgencyDetailsContainer = ({
                         agencyCode
                     }} />),
                 (<CellWithModal
-                    data={rowData.missingTASCount}
+                    data={rowData.discrepancyCount}
                     openModal={modalClick}
                     modalType="missingAccountBalance"
                     agencyData={{
@@ -155,9 +155,29 @@ const AgencyDetailsContainer = ({
                         agencyName,
                         agencyCode
                     }} />),
-                (<div className="generic-cell-content">{rowData.unlinkedContracts}</div>),
-                (<div className="generic-cell-content">{rowData.unlinkedAssistance}</div>),
-                (<div className="generic-cell-content"><AgencyDownloadLinkCell file="placeholder" /></div>)
+                (<CellWithModal
+                    data={rowData.unlinkedContracts}
+                    openModal={modalClick}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode,
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        type: 'Contract'
+                    }} />),
+                (<CellWithModal
+                    data={rowData.unlinkedAssistance}
+                    openModal={modalClick}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode,
+                        fiscalYear: rowData.fiscalYear,
+                        fiscalPeriod: rowData.fiscalPeriod,
+                        type: 'Assistance'
+                    }} />),
+                (<div className="generic-cell-content"><AgencyDownloadLinkCell file={rowData.assuranceStatement} /></div>)
             ]);
         })
     );

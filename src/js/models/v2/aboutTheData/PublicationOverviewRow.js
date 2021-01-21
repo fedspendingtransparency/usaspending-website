@@ -63,7 +63,7 @@ const DatesRow = {
     },
     get percentageOfTotalFederalBudget() {
         // eslint-disable-next-line camelcase
-        return calculatePercentage(this._budgetAuthority, this._federalTotal, "N/A for Time (try FY 2020 P06)", 2);
+        return calculatePercentage(this._budgetAuthority, this._federalTotal, "--", 2);
     }
 };
 

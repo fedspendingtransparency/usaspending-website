@@ -45,7 +45,7 @@ export const columnTooltips = {
             </p>
         </>
     ),
-    'Number of TASs Missing in Account Balance Data': (
+    'Number of TASs Missing from Account Balance Data': (
         <>
             <p>
                 Agencies submit account balance data grouped by Treasury Account Symbols (TAS) in two ways: 1) to USAspending.gov in File A and 2) to GTAS, a separate system that is the authoritative source of governmentwide TAS account balances. This column shows the number of TAS that are in GTAS but missing in USAspending.gov data.
@@ -97,7 +97,7 @@ export const columnTooltips = {
             </p>
         </>
     ),
-    'Agency Disclosures': (
+    'Agency Comments': (
         <p>
             Agency Assurance Statements are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf</a>
         </p>
