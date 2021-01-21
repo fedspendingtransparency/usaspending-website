@@ -61,9 +61,9 @@ usa_spending.sh
 /scripts/sitemaps/sitemapFiles/*.xml
 
 # direnv
-.envrc
+\.envrc
 
-# local dev env
+# local dev env vars
 \.env
 
 # IDE stuff
