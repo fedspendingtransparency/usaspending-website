@@ -12,7 +12,8 @@
         }
         thead {
             tr th {
-            min-width: rem(300);
+                min-width: rem(300);
+                vertical-align: top;
             }
             .table-header__content_right .tooltip-wrapper div:first-of-type .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
                 &.left {
