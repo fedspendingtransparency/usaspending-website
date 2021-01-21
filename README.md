@@ -42,7 +42,7 @@ _Get the code and install the runtime and dependencies_
 ### Configuration
 _Alter configuration to non-default values by changing environment variable values._
 
-Several `npm` scripts as well as the build+bundling of the static USAspending website artifacts require environment variables to be defined at script-time, so that their values can be used for script logic or to inject into static artifacts. The important ones are listed below along with their default values:
+Several `npm` scripts including webpack bundling of static USAspending website artifacts require environment variables to be defined at script-time, so that their values can be used in script logic or injected into static artifacts. The important ones are listed below along with their default values:
 
 | ENV VAR         | DEFAULT VALUE (if not set)       | PURPOSE 
 |-----------------|----------------------------------|----------------------------------------------------|
@@ -53,19 +53,22 @@ Several `npm` scripts as well as the build+bundling of the static USAspending we
 
 These values can be set in one of 3 methods:
 
-1. In a git-ignored `.env` file, if always using `docker` or `docker-compose` to perform the build of artifacts 
+1. In a git-ignored `.env` file, if always using `docker` or `docker-compose` to execute scripts 
 
     ```
     USAPENDING_API=http://localhost:8000/api
     # ... next var
     ```
-    - Confirm by running: `docker-comopse config` to see the values picked up by the compose file
-2. Using `export` to set them in the current executing shell environment. `docker-compose` will also pick these up.
+    - Confirm Docker Compose picks up vars by running: `docker-compose config` to see the values applied
+    - Also can be applied with `docker run --env-file .env ...`
+    - _NOTE: Default env var values are set in the `Dockerfile` and will be used in `docker run` if none are provided_
+2. Using `export` to set them in the current executing shell environment.
 
     ```
     export USAPENDING_API=http://localhost:8000/api
     npm ci
     ```
+    - `docker-compose` will also pick these up, but `docker run` will not and fall back to `Dockerfile` defaults.
 3. On the command-line, prior to a shell command, to inject into the sub-shell environment
 
     ```bash
@@ -90,23 +93,27 @@ _Custom and life-cycle scripts to execute, as defined under the `scripts` proper
 | `npm travis` | executes travis validation script                           |
 | `npm ci`     | clean existing Node dependencies and install dependencies   |
 
-### Build and Deployment
+### Bundling and Deployment
 _Bundling and running the website_
 
-To keep a clean workspace, our CI/CD pipelines use Docker to gather Node dependencies, build artifacts, and deploy them. Developers can similarly do this in their local development environments to reduce tool install/versioning and dependency management.
+To keep a clean workspace, our CI/CD pipelines use Docker to gather Node dependencies, bundle artifacts, and deploy them. Developers can similarly do this in their local development environments to reduce tool install/versioning and dependency management.
 
-To run the website _**locally**_ with pre-built/bundled artifacts, first build the artifacts, then run an `nginx` container to host them. You can do this all in _one step_ with just:
+To run the website _**locally**_ with pre-bundled artifacts, first download NPM packages, then generate and bundle static artifacts, then run an `nginx` container to host them. You can do this all in _one step_ with just:
 ```bash
-docker-compose run build-usaspending-website && docker-compose up usaspending-website
+docker-compose build && docker-compose run --rm bundle-usaspending-website && docker-compose up usaspending-website
 ``` 
-Each step can take 5+ minutes, so this could be a total of ~10 minutes before ready.
+The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready.
 
-To do this in two deliberate, sequential steps:
-
-1. From usaspending-website root, build artifacts and output to `./public`, then remove the builder container (with `down`)
+To do this in individual, sequential steps, from the `usaspending-website` source root:
+1. Ensure your `usaspending-website` Docker image has the latest dependencies:
 
     ```bash
-    docker-compose run build-usaspending-website && docker-compose down
+    docker-compose build
+    ```
+1. Generate and bundle static artifacts and output to `./public`
+
+    ```bash
+    docker-compose run -rm bundle-usaspending-website
     ```
 2. Mount the static artifacts to a running container of an nginx image and host at port `8020`
 
