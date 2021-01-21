@@ -1,0 +1,30 @@
+.heading-container {
+    .header {
+        margin-top: rem(30);
+        font-size: rem(24);
+    }
+    .sub-header {
+        color: $color-base;
+        font-size: rem(16);
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: rem(24);
+        margin-top: 0;
+        margin-bottom: rem(30);
+        max-width: rem(769);
+    }
+}
+@import './tableControls';
+.table-container.table-container_submissions .usda-table.usda-table-w-grid {
+    // Styles specific to the "Statistics by Reporting Period" tab
+    thead {
+        th {
+            &:last-of-type {
+                // Hide sorting for the Agency Comments column
+                .table-header__sort {
+                    display: none;
+                }
+            }
+        }
+    }
+}
