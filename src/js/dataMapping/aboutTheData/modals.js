@@ -4,16 +4,18 @@
  */
 
 
-export const modalTitles = {
+export const modalTitles = (type) => ({
     publicationDates: 'Publication and Certification History',
     missingAccountBalance: 'Number of TASs Missing from Account Balance Data',
-    reportingDifferences: 'Reporting Difference in Obligations'
-};
+    reportingDifferences: 'Reporting Difference in Obligations',
+    unlinkedData: `Number of Unlinked ${type} Awards`
+});
 
 export const modalClassNames = {
     publicationDates: 'publication-dates-modal',
     missingAccountBalance: 'missing-account-balance-modal',
-    reportingDifferences: 'reporting-differences-modal'
+    reportingDifferences: 'reporting-differences-modal',
+    unlinkedData: 'unlinked-data-modal'
 };
 
 export const publicationDatesColumns = [
@@ -33,3 +35,10 @@ export const reportingDifferencesColumns = [
     { displayName: 'Account Spending Obligations', title: 'file_b_obligation' },
     { displayName: 'Difference', title: 'difference' }
 ];
+
+export const unlinkedDataColumns = (type) => ([
+    { displayName: '', title: 'blank' },
+    { displayName: `Unlinked ${type} Awards in ${type === 'Contract' ? type : 'Financial Assistance'} Data` },
+    { displayName: `Unlinked ${type} Awards in Award Spending Breakdown Data` },
+    { displayName: 'Total' }
+]);

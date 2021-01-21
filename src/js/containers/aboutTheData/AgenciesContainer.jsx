@@ -264,8 +264,28 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<div className="generic-cell-content">{unlinkedContracts}</div>),
-            (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            unlinkedContracts !== '0' ? (<CellWithModal
+                data={unlinkedContracts}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Contract'
+                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
+            unlinkedAssistance !== '0' ? (<CellWithModal
+                data={unlinkedAssistance}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Assistance'
+                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
@@ -307,7 +327,7 @@ const AgenciesContainer = ({
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-                        columns={agenciesTableColumns[activeTab]}
+                        columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
                             field: publicationsSort[0],

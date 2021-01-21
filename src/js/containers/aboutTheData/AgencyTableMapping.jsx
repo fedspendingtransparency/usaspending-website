@@ -5,18 +5,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipComponent, TooltipWrapper } from "data-transparency-ui";
+import { TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
 import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
 
-const Tooltip = ({ title, position = "right" }) => (
+const Tooltip = ({ title, position = 'right' }) => (
     <TooltipWrapper
         icon="info"
         tooltipPosition={position}
-        tooltipComponent={(
-            <TooltipComponent title={title}>
-                {columnTooltips[title]}
-            </TooltipComponent>
-        )} />
+        tooltipComponent={
+            <TooltipComponent title={title}>{columnTooltips[title]}</TooltipComponent>
+        } />
 );
 
 Tooltip.propTypes = {
@@ -25,24 +23,27 @@ Tooltip.propTypes = {
 };
 
 export const agenciesTableColumns = {
-    publications: [
-        { title: 'agency_name', displayName: 'Agency  Name', icon: <TooltipWrapper icon="info" tooltipComponent={<TooltipComponent title="Test Tooltip"><div>Test content for tooltip</div></TooltipComponent>} /> },
-        { title: 'current_total_budget_authority_amount', displayName: 'Percent of Total Federal Budget' },
+    publications: (fy) => [
+        { title: 'agency_name', displayName: 'Agency Name' },
+        {
+            title: 'current_total_budget_authority_amount',
+            displayName: 'Percent of Total Federal Budget'
+        },
         {
             title: 'Q1',
-            displayName: 'FY 2020 Q1',
-            columnSpan: "2",
+            displayName: `FY ${fy} Q1`,
+            columnSpan: '3',
             subColumnNames: [
                 { displayName: 'P1', title: 'publication_date,1' },
-                { displayName: 'P2', title: 'publication_date,2' }
+                { displayName: 'P2', title: 'publication_date,2' },
+                { displayName: 'P3', title: 'publication_date,3' }
             ]
         },
         {
             title: 'Q2',
-            displayName: 'FY 2020 Q2',
-            columnSpan: "4",
+            displayName: `FY ${fy} Q2`,
+            columnSpan: '3',
             subColumnNames: [
-                { displayName: 'P3', title: 'publication_date,3' },
                 { displayName: 'P4', title: 'publication_date,4' },
                 { displayName: 'P5', title: 'publication_date,5' },
                 { displayName: 'P6', title: 'publication_date,6' }
@@ -50,8 +51,8 @@ export const agenciesTableColumns = {
         },
         {
             title: 'Q3',
-            displayName: 'FY 2020 Q3',
-            columnSpan: "3",
+            displayName: `FY ${fy} Q3`,
+            columnSpan: '3',
             subColumnNames: [
                 { displayName: 'P7', title: 'publication_date,7' },
                 { displayName: 'P8', title: 'publication_date,8' },
@@ -60,8 +61,8 @@ export const agenciesTableColumns = {
         },
         {
             title: 'Q4',
-            displayName: 'FY 2020 Q4',
-            columnSpan: "3",
+            displayName: `FY ${fy} Q4`,
+            columnSpan: '3',
             subColumnNames: [
                 { displayName: 'P10', title: 'publication_date,10' },
                 { displayName: 'P11', title: 'publication_date,11' },
@@ -71,46 +72,94 @@ export const agenciesTableColumns = {
     ],
     submissions: [
         {
-            title: "agency_name",
-            displayName: "Agency Name"
+            title: 'agency_name',
+            displayName: 'Agency Name'
         },
         {
-            title: "current_total_budget_authority_amount",
-            displayName: "Percent of Total Federal Budget"
+            title: 'current_total_budget_authority_amount',
+            displayName: 'Percent of Total Federal Budget',
+            right: true
         },
         {
-            title: "recent_publication_date",
-            displayName: "Most Recent Publication Date",
-            icon: (<Tooltip title="Most Recent Update" />)
+            title: 'recent_publication_date',
+            displayName: 'Most Recent Update',
+            icon: <Tooltip title="Most Recent Update" />
         },
         {
-            title: "missing_tas_accounts_count",
-            displayName: "Count of Agency TAS in GTAS Not in File A",
-            icon: (
-                <Tooltip title="Number of TASs Missing in Account Balance Data" />
-            )
+            title: 'missing_tas_accounts_count',
+            displayName: 'Number of TAS Missing from Account Balance Data',
+            icon: <Tooltip title="Number of TASs Missing from Account Balance Data" />,
+            right: true
         },
         {
-            title: "obligation_difference",
-            displayName: "Difference in File A and File B Obligations"
+            title: 'obligation_difference',
+            displayName: 'Reporting Difference in Obligations',
+            icon: <Tooltip title="Reporting Difference in Obligations" />,
+            right: true
         },
         {
-            title: "unlinked_contract_award_count",
-            displayName: "Number of Unlinked Contract Awards"
+            title: 'unlinked_contract_award_count',
+            displayName: 'Number of Unlinked Contract Awards',
+            icon: <Tooltip title="Number of Unlinked Contract Awards" />,
+            right: true
         },
         {
-            title: "unlinked_assistance_award_count",
-            displayName: "Count of Unlinked Assistance Awards",
-            icon: (
-                <Tooltip title="Number of Unlinked Assistance Awards" />
-            )
+            title: 'unlinked_assistance_award_count',
+            displayName: 'Number of Unlinked Assistance Awards',
+            icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" />,
+            right: true
         },
         {
-            title: "assurance_statements",
-            displayName: "Agency Comments",
-            icon: (
-                <Tooltip title="Agency Comments" position="left" />
-            )
+            title: 'assurance_statements',
+            displayName: 'Agency Comments',
+            icon: <Tooltip title="Agency Comments" position="left" />,
+            right: true
         }
     ]
 };
+
+export const agencyDetailsColumns = [
+    {
+        title: 'fiscal_year',
+        displayName: 'Reporting Period'
+    },
+    {
+        title: 'percent_of_total_budgetary_resources',
+        displayName: 'Percent of Total Federal Budget',
+        right: true
+    },
+    {
+        title: 'recent_publication_date',
+        displayName: 'Most Recent Update',
+        icon: <Tooltip title="Most Recent Update" />
+    },
+    {
+        title: 'missing_tas_accounts_count',
+        displayName: 'Number of TASs Missing from Account Balance Data',
+        icon: <Tooltip title="Number of TASs Missing from Account Balance Data" />,
+        right: true
+    },
+    {
+        title: 'obligation_difference',
+        displayName: 'Reporting Difference in Obligations',
+        icon: <Tooltip title="Reporting Difference in Obligations" />,
+        right: true
+    },
+    {
+        title: 'unlinked_cont_award_count',
+        displayName: 'Number of Unlinked Contract Awards',
+        icon: <Tooltip title="Number of Unlinked Contract Awards" />,
+        right: true
+    },
+    {
+        title: 'unlinked_asst_award_count',
+        displayName: 'Number of Unlinked Assistance Awards',
+        icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" />,
+        right: true
+    },
+    {
+        title: 'assurance_statements',
+        displayName: 'Agency Comments',
+        icon: <Tooltip title="Agency Comments" position="left" />
+    }
+];

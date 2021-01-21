@@ -94,7 +94,7 @@ beforeEach(() => {
 test('renders the details table first', async () => {
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
-    const [table] = screen.getAllByText('Count of Agency TAS in GTAS Not in File A');
+    const [table] = screen.getAllByText('Number of TAS Missing from Account Balance Data');
     expect(table).toBeDefined();
 });
 

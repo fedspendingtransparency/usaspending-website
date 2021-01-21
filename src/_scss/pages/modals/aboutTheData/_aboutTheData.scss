@@ -20,7 +20,7 @@
         .usa-dt-modal__title {
             font-size: rem(22);
             line-height: rem(28);
-            padding: rem(11) 0;
+            padding: rem(5) 0;
         }
         .about-the-data-modal__fiscal-year-quarter-period {
             font-size: rem(16);
@@ -52,7 +52,7 @@
                 font-size: rem(14);
                 line-height: rem(18);
                 .publication-dates__column-header-sub-title {
-                  font-size: rem(12);
+                  font-size: rem(14);
                   line-height: rem(15);
                   font-weight: $font-normal;
                 }
@@ -61,6 +61,11 @@
           }
         }
         .usda-table__body { // removes loading border
+          .usda-table__row {
+            .usda-table__cell {
+              font-size: rem(14);
+            }
+          }
           tr {
             td {
               border: none;
@@ -71,7 +76,7 @@
               }
             }
           }
-          font-size: rem(12);
+          font-size: rem(14);
           .usda-table__row {
             .usda-table__cell {
               padding: rem(10) rem(15);
@@ -123,7 +128,7 @@
               .table-header__content {
                 .table-header__label {
                   .publication-dates__column-header-sub-title {
-                    font-size: rem(12);
+                    font-size: rem(14);
                     line-height: rem(15);
                     font-weight: $font-normal;
                   }
@@ -151,6 +156,47 @@
               .usda-table__cell:not(:first-child) {
                 text-align: right;
                 padding-right: rem(42);
+              }
+            }
+          }
+        }
+      }
+    }
+    // unlinked data modal
+    &.unlinked-data-modal {
+      @include media($tablet-screen) {
+        max-width: rem(730);
+        table.usda-table {
+          margin-bottom: 0;
+        }
+      }
+      @include media($large-screen) {
+        max-width: rem(730);
+        min-width: rem(730);
+      }
+      .usa-dt-modal__section {
+        table.usda-table {
+          thead.usda-table__head {
+            border-bottom: none;
+            .usda-table__row {
+              th.table-header {
+                padding-top: 0;
+              }
+              .table-header:last-child {
+                vertical-align: top;
+              }
+              .table-header:not(:first-child) {
+                border-bottom: solid rem(1) $color-gray-light;
+              }
+            }
+          }
+          .usda-table__body {
+            .usda-table__row {
+              .table-header {
+                font-size: rem(14);
+                text-align: right;
+                border: none;
+                padding-left: 0;
               }
             }
           }

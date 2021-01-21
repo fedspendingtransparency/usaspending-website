@@ -1,0 +1,59 @@
+.about-the-data {
+    @import 'all';
+    @import 'layouts/default/default';
+    @import 'layouts/default/stickyHeader/header';
+    .main-content {
+        @import '../../mixins/fullSectionWrap';
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include flex-direction(column);
+        width: 100%;
+        max-width: 160rem;
+        border-radius: rem(5) rem(5) 0 0;
+        background: $color-white;
+        padding: 0 rem(20);
+        margin: rem(40) auto;
+        .heading-container {
+            width: 100%;
+            .header {
+                margin-bottom: 0;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: rem(59);
+            }
+        }
+    }
+    &.about-the-data_agencies-page {
+        @import './_agenciesPage';
+    }
+    &.about-the-data_agency-details-page {
+        @import './_agencyDetailsPage';
+    }
+    @import 'components/Note';
+    .default-note {
+        font-style: italic;
+        margin-top: 0;
+        padding: 0;
+        letter-spacing: 0;
+        max-width: rem(873);
+        line-height: rem(22);
+        font-size: rem(14);
+        margin-bottom: rem(10);
+        @media (min-width: $tablet-screen) {
+            margin-bottom: rem(30);
+        }
+    }
+    .table-container {
+        max-width: 100%;
+    }
+    .usda-message {
+        background-color: $color-white;
+        width: 100vw;
+    }
+    @import 'components/stickyTable';
+    .agency-table-download {
+        svg {
+            margin-right: rem(5);
+        }
+    }
+}

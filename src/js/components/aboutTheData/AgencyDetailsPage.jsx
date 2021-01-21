@@ -21,7 +21,7 @@ import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import AboutTheDataModal from './AboutTheDataModal';
 
-require('pages/aboutTheData/agencyDetailsPage.scss');
+require('pages/aboutTheData/aboutTheData.scss');
 
 const message = 'All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.';
 
@@ -78,7 +78,7 @@ const AgencyDetailsPage = () => {
     }, [agencyCode]);
 
     return (
-        <div className="usa-da-about-the-data usa-da-about-the-data_agency-details-page">
+        <div className="about-the-data about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -134,10 +134,9 @@ const AgencyDetailsPage = () => {
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
                     agencyData={modalData}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>
