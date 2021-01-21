@@ -48,7 +48,7 @@ const columns = [
         title: "missing_tas_accounts_count",
         displayName: "Number of TASs Missing from Account Balance Data",
         icon: (
-            <Tooltip title="Number of TASs Missing in Account Balance Data" />
+            <Tooltip title="Number of TASs Missing from Account Balance Data" />
         ),
         right: true
     },
@@ -72,7 +72,7 @@ const columns = [
         title: "unlinked_asst_award_count",
         displayName: "Number of Unlinked Assistance Awards",
         icon: (
-            <Tooltip title="Number of Unlinked Assistance Awards" />
+            <Tooltip title="Number of Unlinked Assistance Awards" position="left" />
         ),
         right: true
     },

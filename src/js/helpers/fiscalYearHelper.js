@@ -149,5 +149,6 @@ export const allFiscalYears = (earliestYear = earliestFiscalYear, latestYear = c
         .reduce((listOfYears, _, i) => {
             listOfYears.push(earliestYear + i + 1);
             return listOfYears;
-        }, [earliestYear]);
+        }, [earliestYear])
+        .sort((a, b) => b - a);
 };

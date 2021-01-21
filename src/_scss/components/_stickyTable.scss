@@ -12,7 +12,16 @@
         }
         thead {
             tr th {
-            min-width: rem(300);
+                min-width: rem(300);
+                vertical-align: top;
+            }
+            .table-header__content_right .tooltip-wrapper div:first-of-type .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
+                &.left {
+                    left: rem(-24);
+                }
+                &.right {
+                    right: rem(8);
+                }
             }
             .nested-header {
             .table-header__content {
@@ -20,35 +29,35 @@
                 }
             }
         }
+        &.table-loading tbody tr:first-of-type td div:not(.usda-loading-animation__container):not(.usda-loading-animation):not(.loading-message) {
+            width: 100vw;
+        }
     tbody {
-        .loading-message {
-        text-align: center;
-        }
         .usda-table__row {
-        height: 4.8rem;
-        .usda-table__cell {
-            font-size: 1.4rem;
-            padding: 0; // to allow entire cell to be hoverable
-            @import './actionCell';
-            @include flex-wrap(no-wrap);
-            .generic-cell-content {
-            padding: 1.2rem;
-            .not-certified {
-                margin-left: rem(5);
-                background: #DCE4EE;
-                border-radius: rem(2);
-                color: $color-base;
-                padding: rem(5);
-                font-size: rem(10);
-                font-weight: $font-semibold;
-                line-height: rem(13);
+            height: 4.8rem;
+            .usda-table__cell {
+                font-size: 1.4rem;
+                padding: 0; // to allow entire cell to be hoverable
+                @import './actionCell';
+                @include flex-wrap(nowrap);
+                .generic-cell-content {
+                    padding: 1.2rem;
+                    .not-certified {
+                        margin-left: rem(5);
+                        background: #DCE4EE;
+                        border-radius: rem(2);
+                        color: $color-base;
+                        padding: rem(5);
+                        font-size: rem(10);
+                        font-weight: $font-semibold;
+                        line-height: rem(13);
+                    }
+                }
+                .matched-str {
+                    font-weight: 600;
+                    text-decoration: underline;
+                }
             }
-            }
-            .matched-str {
-            font-weight: 600;
-            text-decoration: underline;
-            }
-        }
         }
     }
     &.sticky-y-table {
