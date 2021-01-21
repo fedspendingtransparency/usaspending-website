@@ -44,16 +44,16 @@ _Alter configuration to non-default values by changing environment variable valu
 
 Several `npm` scripts including webpack bundling of static USAspending website artifacts require environment variables to be defined at script-time, so that their values can be used in script logic or injected into static artifacts. The important ones are listed below along with their default values:
 
-| ENV VAR         | DEFAULT VALUE (if not set)       | PURPOSE 
-|-----------------|----------------------------------|----------------------------------------------------|
-| ENV             | dev                              | Determine bundling optimizations and feature flags | 
-| USASPENDING_API | https://api.usaspending.gov/api/ | API URL to get backend data                        |
-| MAPBOX_TOKEN    | ''                               | Product key for use of MapBox features             |
-| GA_TRACKING_ID  | ''                               | Google Analytics key for tracking usage in prod    |
+| ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
+|-------------------|----------------------------------|----------------------------------------------------|
+| `ENV`             | dev                              | Determine bundling optimizations and feature flags | 
+| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                        |
+| `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features             |
+| `GA_TRACKING_ID`  | ''                               | Google Analytics key for tracking usage in prod    |
 
 These values can be set in one of 3 methods:
 
-1. In a git-ignored `.env` file, if always using `docker` or `docker-compose` to execute scripts 
+1. In a git-ignored `.env` file, if using `docker` or `docker-compose` to execute scripts 
 
     ```
     USAPENDING_API=http://localhost:8000/api
@@ -102,7 +102,7 @@ To run the website _**locally**_ with pre-bundled artifacts, first download NPM 
 ```bash
 docker-compose build && docker-compose run --rm bundle-usaspending-website && docker-compose up usaspending-website
 ``` 
-The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready.
+- _The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready._
 
 To do this in individual, sequential steps, from the `usaspending-website` source root:
 1. Ensure your `usaspending-website` Docker image has the latest dependencies:
