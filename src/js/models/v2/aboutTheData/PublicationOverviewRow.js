@@ -23,7 +23,7 @@ const DatesRow = {
     populate(fy, data, totals) {
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
-        this._code = data.code || '';
+        this._code = data.agency_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._federalTotal = totals
             .filter(({ fiscal_year: y }) => y === fy)
