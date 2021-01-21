@@ -209,7 +209,7 @@ const AgenciesContainer = ({
     const renderDates = (results = []) => results
         .map(({
             name,
-            code,
+            _code: code,
             percentageOfTotalFederalBudget,
             periods
         }) => ([
