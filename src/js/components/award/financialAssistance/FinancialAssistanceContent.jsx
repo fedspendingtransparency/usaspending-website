@@ -26,7 +26,8 @@ const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
     isSubAwardIdClicked: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func
+    subAwardIdClicked: PropTypes.func,
+    defCodes: PropTypes.array
 };
 
 const FinancialAssistanceContent = ({
@@ -34,7 +35,8 @@ const FinancialAssistanceContent = ({
     overview = { generatedId: '', fileC: { obligations: [] } },
     jumpToSection,
     isSubAwardIdClicked,
-    subAwardIdClicked
+    subAwardIdClicked,
+    defCodes
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
     const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
@@ -70,7 +72,7 @@ const FinancialAssistanceContent = ({
     });
 
     const awardAmountData = Object.create(BaseAwardAmounts);
-    awardAmountData.populate(overview, overview.category);
+    awardAmountData.populate(overview, overview.category, defCodes.map((defc) => defc.code));
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
     const isGrant = overview.category === 'grant';
