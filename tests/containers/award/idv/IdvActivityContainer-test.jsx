@@ -16,11 +16,17 @@ jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 // mock the child component by replacing it with a function that returns a null element
 // jest.mock('components/award/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
 
+const mockProps = {
+    ...mockActions,
+    ...mockRedux,
+    defCodes: ['L', 'M', 'N', 'O', 'P', 'R']
+};
+
 describe('IdvActivityContainer', () => {
     const loadAwards = jest.fn();
     const parseAwards = jest.fn();
     it('should make an API call for the awards on mount', async () => {
-        const container = mount(<IdvActivityContainer {...mockActions} {...mockRedux} />);
+        const container = mount(<IdvActivityContainer {...mockProps} />);
 
         container.instance().loadAwards = loadAwards;
         container.instance().parseAwards = parseAwards;
