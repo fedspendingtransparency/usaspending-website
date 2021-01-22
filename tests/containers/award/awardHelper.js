@@ -67,3 +67,20 @@ export const fetchAssistanceDownloadFile = () => ({
 });
 
 export const getChildAwardFileCDetails = (data) => data;
+
+export const fetchDEFCodes = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    codes: [
+                        { code: 'L', disaster: 'covid-19' },
+                        { code: 'M', disaster: 'covid-19' },
+                        { code: 'A', disaster: 'not_covid-19' }
+                    ]
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});

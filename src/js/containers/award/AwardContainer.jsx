@@ -207,7 +207,7 @@ export class AwardContainer extends React.Component {
             this.defcRequest = null;
         }
         catch (err) {
-            console.err('Error fetching DEF Codes', err);
+            console.error('Error fetching DEF Codes', err);
             this.defcRequest = null;
         }
     }
