@@ -111,7 +111,7 @@ export class IdvAmountsContainer extends React.Component {
 
     parseChildAwardAmounts(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes.map((defc) => defc.code));
+        awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes);
         this.setState({
             awardAmounts,
             error: false,
@@ -138,7 +138,7 @@ export class IdvAmountsContainer extends React.Component {
 
     render() {
         const thisIdv = Object.create(BaseAwardAmounts);
-        thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes.map((defc) => defc.code));
+        thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes);
         const tabsClassName = 'idv-award-amounts-tabs';
         const thisIdvHasFileC = (
             thisIdv._fileCObligated !== 0 ||

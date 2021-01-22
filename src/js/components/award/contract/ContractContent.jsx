@@ -51,8 +51,7 @@ const ContractContent = ({
     };
 
     const awardAmountData = Object.create(BaseAwardAmounts);
-    console.log('contract defCodes', defCodes);
-    awardAmountData.populate(overview, overview.category, defCodes.map((defc) => defc.code));
+    awardAmountData.populate(overview, overview.category, defCodes);
 
     const jumpToTransactionHistoryTable = () => {
         setActiveTab('transaction');

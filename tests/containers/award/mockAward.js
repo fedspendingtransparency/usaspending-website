@@ -38,5 +38,11 @@ export const mockRedux = {
             idvs: 45,
             contracts: 52
         }
+    },
+    covid19: {
+        defCodes: [
+            { code: 'L' },
+            { code: 'M' }
+        ]
     }
 };

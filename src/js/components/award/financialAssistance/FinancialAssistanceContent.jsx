@@ -72,7 +72,7 @@ const FinancialAssistanceContent = ({
     });
 
     const awardAmountData = Object.create(BaseAwardAmounts);
-    awardAmountData.populate(overview, overview.category, defCodes.map((defc) => defc.code));
+    awardAmountData.populate(overview, overview.category, defCodes);
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
     const isGrant = overview.category === 'grant';
