@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
@@ -45,7 +45,9 @@ const message = "All numeric figures in this table are calculated based on the s
 const AboutTheDataPage = ({
     history
 }) => {
-    const { fy: urlFy, period: urlPeriod } = useParams();
+    const query = new URLSearchParams(useLocation().search);
+    const urlFy = query.get('fy');
+    const urlPeriod = query.get('period');
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
@@ -66,12 +68,18 @@ const AboutTheDataPage = ({
 
     useEffect(() => {
         if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
-            history.replace(`about-the-data/agencies/${latestFy}/${latestPeriod}`);
+            history.replace({
+                pathname: `/submission-statistics/`,
+                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod }).toString()}`
+            });
         }
-    }, []);
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, urlFy, urlPeriod]);
 
     const updateUrl = (newFy, newPeriod) => {
-        history.push({ pathname: `/about-the-data/agencies/${newFy}/${newPeriod}` });
+        history.push({
+            pathname: `/submission-statistics/`,
+            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod }).toString()}`
+        });
     };
 
     const handleSwitchTab = (tab) => {
