@@ -65,8 +65,15 @@ const defaultState = {
 };
 
 export const usePagination = (initialState = defaultState) => {
-    const [{ page, limit, totalItems }, updatePagination] = useState(initialState);
-    return [{ page, limit, totalItems }, updatePagination];
+    const [state, updatePagination] = useState(initialState);
+    const { page, limit, totalItems } = state;
+
+    return [
+        { page, limit, totalItems },
+        (newPg) => updatePagination({ ...state, page: newPg }),
+        (newLimit) => updatePagination({ ...state, limit: newLimit }),
+        (newTotal) => updatePagination({ ...state, totalItems: newTotal })
+    ];
 };
 
 export const getTotalBudgetaryResources = (fy = '', period = '') => {
