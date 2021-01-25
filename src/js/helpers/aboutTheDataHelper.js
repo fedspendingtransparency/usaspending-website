@@ -1,13 +1,12 @@
 /**
  * aboutTheDataHelper.js
  * Created by Jonathan Hill 11/20/20
- */
+*/
+
 import { useState } from 'react';
 import { stringify } from 'querystring';
 
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
-import GlobalConstants from 'GlobalConstants';
 import {
     periodsPerQuarter,
     lastPeriods
@@ -15,7 +14,11 @@ import {
 
 import { apiRequest } from './apiRequest';
 
-const isMocked = GlobalConstants.LOCAL;
+export const getSelectedPeriodTitle = (str) => (
+    str.includes('Q')
+        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
+        : str
+);
 
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
 export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
@@ -29,15 +32,9 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
             return id === urlPeriod;
         })[0];
-    if (period) return period;
+    if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
     return getPeriodWithTitleById(`${latestPeriod.period}`);
 };
-
-export const getSelectedPeriodTitle = (str) => (
-    str.includes('Q')
-        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
-        : str
-);
 
 // periods can be visible but not selectable
 export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
@@ -63,101 +60,61 @@ export const getLastPeriodWithinQuarterByPeriod = (periodId) => (
 
 const defaultState = {
     page: 1,
-    limit: 10
+    limit: 10,
+    totalItems: 0
 };
 
 export const usePagination = (initialState = defaultState) => {
-    const [{ page, limit }, updatePagination] = useState(initialState);
-    return [{ page, limit }, updatePagination];
+    const [state, updatePagination] = useState(initialState);
+    const { page, limit, totalItems } = state;
+
+    return [
+        { page, limit, totalItems },
+        (newPg) => updatePagination({ ...state, page: newPg }),
+        (newLimit) => updatePagination({ ...state, limit: newLimit }),
+        (newTotal) => updatePagination({ ...state, totalItems: newTotal })
+    ];
 };
 
-export const getTotalBudgetaryResources = (fy, period) => {
-    if (isMocked) {
-        // using mockAPI
+export const getTotalBudgetaryResources = (fy = '', period = '') => {
+    if (fy && period) {
         return apiRequest({
-            isMocked,
-            url: `v2/references/total_budgetary_resources?${stringify({
+            url: `v2/references/total_budgetary_resources/?${stringify({
                 fiscal_period: period,
                 fiscal_year: fy
             })}`
         });
     }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve(mockAPI.totals);
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
+    return apiRequest({
+        url: `v2/references/total_budgetary_resources/`
+    });
 };
 
-export const getAgenciesReportingData = (fy, period, order, sort, page, limit) => {
-    if (isMocked) {
-        // using mockAPI
-        return apiRequest({
-            isMocked,
-            url: `v2/reporting/agencies/overview?${stringify({
-                fiscal_year: fy,
-                fiscal_period: period,
-                page,
-                limit,
-                order,
-                sort
-            })}`
-        });
-    }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: {
-                        // returns multiple pages of data when limit is 10
-                        results: mockAPI.details.data.results.concat(mockAPI.details.data.results)
-                    }
-                });
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getAgenciesReportingData = (fy, period, sort, order, page, limit, filter = '') => apiRequest({
+    url: `v2/reporting/agencies/overview/?${stringify({
+        fiscal_year: fy,
+        fiscal_period: period,
+        page,
+        limit,
+        order,
+        sort,
+        filter
+    })}`
+});
 
-export const getSubmissionPublicationDates = (fy, order, sort, page, limit) => {
-    if (isMocked) {
-        return apiRequest({
-            isMocked,
-            url: `v2/reporting/agencies/publish_dates?${stringify({
-                fiscal_year: fy,
-                page,
-                limit,
-                order,
-                sort
-            })}`
-        });
-    }
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: {
-                        // returns multiple pages of data when limit is 10
-                        results: mockAPI.dates.data.results.concat(mockAPI.dates.data.results)
-                    }
-                });
-            }, 500);
-        }),
-        cancel: () => {
-            console.log('cancel executed!');
-        }
-    };
-};
+export const getSubmissionPublicationDates = (fy, sort, order, page, limit, searchTerm) => apiRequest({
+    url: `v2/reporting/agencies/publish_dates?${stringify({
+        fiscal_year: fy,
+        page,
+        limit,
+        order,
+        sort,
+        filter: searchTerm
+    })}`
+});
 
-export const fetchPublishDates = (agencyCode, params) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/publish_dates/${stringify(params)}`
+export const fetchPublishDates = (agencyCode, fiscalYear, fiscalPeriod, params) => apiRequest({
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/submission_history/?${stringify(params)}`
 });
 
 export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
@@ -165,11 +122,10 @@ export const fetchMissingAccountBalances = (agencyCode, params) => apiRequest({
 });
 
 export const fetchReportingDifferences = (agencyCode, params) => apiRequest({
-    url: `/api/v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
+    url: `v2/reporting/agencies/${agencyCode}/differences/?${stringify(params)}`
 });
 
 export const fetchAgency = (agencyCode, params) => apiRequest({
-    isMocked: true,
     url: `v2/reporting/agencies/${agencyCode}/overview/?${stringify(params)}`
 });
 
@@ -211,9 +167,15 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
     difference = null
 }) => ([
     tas || '--',
-    fileAObligation ? formatMoney(fileAObligation) : '--',
-    fileBObligation ? formatMoney(fileBObligation) : '--',
+    (fileAObligation || fileAObligation === 0) ? formatMoney(fileAObligation) : '--',
+    (fileBObligation || fileBObligation === 0) ? formatMoney(fileBObligation) : '--',
     difference ? formatMoney(difference) : '--'
 ]));
+
+export const convertDatesToMilliseconds = (data) => data.map((datesObj) => {
+    const publicationDate = !datesObj.publication_date ? new Date(0) : new Date(datesObj.publication_date);
+    const certificationDate = !datesObj.certification_date ? new Date(0) : new Date(datesObj.certification_date);
+    return { publication_date: publicationDate.getTime(), certification_date: certificationDate.getTime() };
+});
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);

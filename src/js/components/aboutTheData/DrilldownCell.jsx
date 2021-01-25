@@ -8,15 +8,22 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import replaceString from 'helpers/replaceString';
+
 const propTypes = {
+    id: PropTypes.string,
     data: oneOfType([PropTypes.string, PropTypes.object]),
-    id: PropTypes.string
+    searchTerm: PropTypes.string
 };
 
-const DrilldownCell = ({ data, id }) => (
+const DrilldownCell = ({
+    data,
+    id,
+    searchTerm
+}) => (
     <div className="action-cell">
         <span className="action-cell__text">
-            {data}
+            {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
         </span>
         <Link to={`/about-the-data/agency/${id}`} className="action-cell__button">
             <FontAwesomeIcon icon="angle-double-down" />

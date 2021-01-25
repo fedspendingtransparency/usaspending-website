@@ -5,7 +5,8 @@
 
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { Picker } from "data-transparency-ui";
+import { useDispatch } from "react-redux";
+import { Picker, SearchBar } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { List } from "immutable";
@@ -13,11 +14,11 @@ import { List } from "immutable";
 import { allFiscalYears } from "helpers/fiscalYearHelper";
 import {
     getPeriodWithTitleById,
-    getSelectedPeriodTitle,
     isPeriodVisible,
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod
 } from "helpers/aboutTheDataHelper";
+import { setSearchTerm } from "redux/actions/aboutTheData";
 import {
     periodsPerQuarter,
     lastPeriods,
@@ -88,6 +89,7 @@ const TimePeriodFilters = ({
     latestFy,
     latestPeriod
 }) => {
+    const dispatch = useDispatch();
     const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
         onTimeFilterSelection(fy, getPeriodWithTitleById(period, latestAvailable));
     };
@@ -128,10 +130,14 @@ const TimePeriodFilters = ({
             }))
     );
 
+    const handleSearch = (term) => {
+        dispatch(setSearchTerm(term));
+    };
+
     return (
         <div className="table-controls__time-and-search">
-            <div className="picker-container">
-                <span className="fy-picker__title">FISCAL YEAR</span>
+            <div className="filter-container fy-picker">
+                <span className="filter__title fy-picker__title">FISCAL YEAR</span>
                 <Picker
                     icon=""
                     isFixedWidth
@@ -149,15 +155,15 @@ const TimePeriodFilters = ({
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
-            {activeTab === 'details' && (
-                <div className="picker-container">
-                    <span className="period-picker__title">PERIOD</span>
+            {activeTab === 'submissions' && (
+                <div className="filter-container period-picker">
+                    <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
                         icon=""
                         className="period-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedPeriod
-                            ? <span>FY {getSelectedPeriodTitle(selectedPeriod.title)}</span>
+                            ? <span>{selectedPeriod.title}</span>
                             : (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
@@ -166,6 +172,10 @@ const TimePeriodFilters = ({
                         options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
                 </div>
             )}
+            <div className="filter-container">
+                <span className="filter__title search-bar">AGENCY NAME</span>
+                <SearchBar onSearch={handleSearch} />
+            </div>
         </div>
     );
 };

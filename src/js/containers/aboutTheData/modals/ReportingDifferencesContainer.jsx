@@ -7,20 +7,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIReportingDifferences, reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
+import { reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
+import { formatReportingDifferencesData, fetchReportingDifferences } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
-    agencyCode: PropTypes.string,
-    fiscalYear: PropTypes.number,
-    fiscalPeriod: PropTypes.number
+    agencyData: PropTypes.shape({
+        agencyName: PropTypes.string,
+        agencyCode: PropTypes.string,
+        fiscalYear: PropTypes.number,
+        fiscalPeriod: PropTypes.number
+    })
 };
 
-const ReportingDifferencesContainer = ({
-    agencyCode,
-    fiscalYear,
-    fiscalPeriod
-}) => {
+const ReportingDifferencesContainer = ({ agencyData }) => {
     const [sort, setSort] = useState('tas');
     const [order, setOrder] = useState('desc');
     const [page, setPage] = useState(1);
@@ -44,12 +43,11 @@ const ReportingDifferencesContainer = ({
             limit,
             sort,
             order,
-            agencyCode,
-            fiscalYear,
-            fiscalPeriod
+            fiscal_year: agencyData.fiscalYear,
+            fiscal_period: agencyData.fiscalPeriod
         };
         try {
-            reportingDiffRequest.current = mockAPIReportingDifferences(params);
+            reportingDiffRequest.current = fetchReportingDifferences(agencyData.agencyCode, params);
             const { data } = await reportingDiffRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatReportingDifferencesData({ results: data.results }));
@@ -57,7 +55,6 @@ const ReportingDifferencesContainer = ({
             reportingDiffRequest.current = null;
         }
         catch (e) {
-            console.error(e);
             if (!isCancel(e)) {
                 setLoading(false);
                 setError({ error: true, message: e.message });
@@ -83,16 +80,10 @@ const ReportingDifferencesContainer = ({
     useEffect(() => {
         reportingDifferenceRequest();
     }, [page]);
-    // do not show deadlines in column headers if we do not have the data
-    const columns = reportingDifferencesColumns.map((column) => ({
-        displayName: (
-            <div className="reporting-differences__column-header-container">
-                <div className="reporting-differences__column-header-title">
-                    {column.displayName}
-                </div>
-            </div>
-        ),
-        title: column.title
+    const columns = reportingDifferencesColumns.map((column, i) => ({
+        displayName: column.displayName,
+        title: column.title,
+        right: i !== 0
     }));
     return (
         <>

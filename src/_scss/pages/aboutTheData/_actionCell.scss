@@ -1,3 +1,9 @@
+&.usda-table__cell_right {
+    border-right: solid 1px $color-gray-lighter;
+    .action-cell {
+        @include justify-content(flex-end);
+    }
+}
 .action-cell {
     @include display(flex);
     @include justify-content(space-between);
