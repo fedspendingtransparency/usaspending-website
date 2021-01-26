@@ -4,15 +4,13 @@
 */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-
-import { defCodes } from 'dataMapping/covid19/covid19';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -31,6 +29,7 @@ const CovidFeatureContainer = ({
     setAppliedFilters
 }) => {
     const history = useHistory();
+    const reduxDefCodes = useSelector((state) => state.covid19.defCodes);
 
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
@@ -41,9 +40,9 @@ const CovidFeatureContainer = ({
         stageDefCodesForAdvancedSearch({
             ...defaultFilters,
             defCodes: new CheckboxTreeSelections({
-                require: defCodes,
+                require: reduxDefCodes.map((code) => code.code),
                 exclude: [],
-                counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Spending" }]
+                counts: [{ value: "COVID-19", count: reduxDefCodes.length || 0, label: "COVID-19 Spending" }]
             })
         });
         history.push('/search');

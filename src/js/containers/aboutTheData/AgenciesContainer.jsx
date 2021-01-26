@@ -44,8 +44,18 @@ const AgenciesContainer = ({
     const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
     const [
-        [{ page: submissionsPage, totalItems: totalSubmissionItems, limit: submissionsLimit }, updateSubmissionsPagination],
-        [{ page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit }, updatePublicationsPagination]
+        [
+            { page: submissionsPage, totalItems: totalSubmissionItems, limit: submissionsLimit },
+            changeSubmissionsPg,
+            changeSubmissionsLimit,
+            changeSubmissionsTotal
+        ],
+        [
+            { page: publicationsPage, totalItems: totalPublicationItems, limit: publicationsLimit },
+            changePublicationsPg,
+            changePublicationsLimit,
+            changePublicationsTotal
+        ]
     ] = [usePagination(), usePagination()];
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
@@ -53,12 +63,6 @@ const AgenciesContainer = ({
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
     const tableRef = useRef(null);
-    const searchTermRef = useRef(null);
-    const { current: previousSearchTerm } = searchTermRef;
-
-    useEffect(() => {
-        searchTermRef.current = searchTerm;
-    }, [searchTerm]);
 
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -86,7 +90,7 @@ const AgenciesContainer = ({
             setLoading([false, true, false]);
             submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], newPage, submissionsLimit, searchTerm);
             return submissionsReq.current.promise
-                .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
+                .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                     const parsedResults = results.map((d) => {
                         const row = Object.create(BaseAgencyRow);
                         const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
@@ -102,7 +106,7 @@ const AgenciesContainer = ({
                     else {
                         dispatch(setTableData(activeTab, parsedResults));
                     }
-                    updateSubmissionsPagination({ totalItems, page, limit });
+                    changeSubmissionsTotal(totalItems);
                     setLoading([false, false, false]);
                     setError(false);
                 })
@@ -116,13 +120,13 @@ const AgenciesContainer = ({
         setLoading([false, false, true]);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
-            .then(({ data: { results, page_metadata: { total: totalItems, page, limit } } }) => {
+            .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
                     row.populate(parseInt(selectedFy, 10), d, federalTotals);
                     return row;
                 });
-                updatePublicationsPagination({ totalItems, page, limit });
+                changePublicationsTotal(totalItems);
                 if (searchTerm) {
                     dispatch(setSearchResults(activeTab, parsedResults));
                 }
@@ -185,23 +189,38 @@ const AgenciesContainer = ({
             fetchTotals();
         }
         else if (selectedFy && selectedPeriod) {
-            if (previousSearchTerm !== searchTerm) {
-                fetchTableData(true);
-            }
-            else {
-                fetchTableData();
-            }
+            fetchTableData();
         }
     }, [
         federalTotals,
         activeTab,
         selectedFy,
         selectedPeriod,
-        submissionsSort,
         submissionsPage,
+        publicationsPage
+    ]);
+
+    useEffect(() => {
+        if (activeTab === 'submissions' && submissionsPage === 1 && allSubmissions.length) {
+            // re-fetch w/ new params
+            fetchTableData(true);
+        }
+        else if (activeTab === 'submissions') {
+            // reset to pg 1, triggering a refetch
+            changeSubmissionsPg(1);
+        }
+        else if (publicationsPage === 1 && allPublications.length) {
+            // re-fetch w/ new params
+            fetchTableData(true);
+        }
+        else {
+            // reset to pg 1, triggering a refetch
+            changePublicationsPg(1);
+        }
+    }, [
+        submissionsSort,
         submissionsLimit,
         publicationsSort,
-        publicationsPage,
         publicationsLimit,
         searchTerm
     ]);
@@ -264,26 +283,46 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<div className="generic-cell-content">{unlinkedContracts}</div>),
-            (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            unlinkedContracts !== '0' ? (<CellWithModal
+                data={unlinkedContracts}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Contract'
+                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
+            unlinkedAssistance !== '0' ? (<CellWithModal
+                data={unlinkedAssistance}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Assistance'
+                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
     const handlePageChange = (page) => {
         if (activeTab === 'submissions') {
-            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page, limit: submissionsLimit });
+            changeSubmissionsPg(page);
         }
         else {
-            updatePublicationsPagination({ totalItems: totalPublicationItems, page, limit: publicationsLimit });
+            changePublicationsPg(page);
         }
     };
 
     const handleLimitChange = (limit) => {
         if (activeTab === 'submissions') {
-            updateSubmissionsPagination({ totalItems: totalSubmissionItems, page: submissionsPage, limit });
+            changeSubmissionsLimit(limit);
         }
         else {
-            updatePublicationsPagination({ totalItems: totalPublicationItems, page: publicationsPage, limit });
+            changePublicationsLimit(limit);
         }
     };
 
@@ -307,7 +346,7 @@ const AgenciesContainer = ({
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-                        columns={agenciesTableColumns[activeTab]}
+                        columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
                             field: publicationsSort[0],

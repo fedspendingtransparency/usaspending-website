@@ -15,7 +15,11 @@ export const mockParams = {
         id: '1234',
         category: 'contract',
         overview: mockContract
-    }
+    },
+    defCodes: [
+        { code: 'L' },
+        { code: 'M' }
+    ]
 };
 
 export const mockActions = {
@@ -26,7 +30,8 @@ export const mockActions = {
     setDownloadExpectedFile: jest.fn(),
     setDownloadPending: jest.fn(),
     setDownloadCollapsed: jest.fn(),
-    setIdvDetails: jest.fn()
+    setIdvDetails: jest.fn(),
+    setDEFCodes: jest.fn()
 };
 
 export const mockRedux = {

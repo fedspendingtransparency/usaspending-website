@@ -6,9 +6,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CovidHighlights } from 'containers/covid19/homepage/CovidHighlights';
+import { CovidHighlights } from 'containers/homepage/CovidHighlights';
 
-jest.mock("helpers/disasterHelper", () => ({
+jest.mock('helpers/disasterHelper', () => ({
     fetchOverview: jest.fn(),
     fetchDisasterSpending: jest.fn(),
     fetchDEFCodes: jest.fn()

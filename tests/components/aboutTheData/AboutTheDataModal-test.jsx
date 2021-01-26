@@ -19,7 +19,7 @@ const defaultProps = {
 describe('About The Data Modal', () => {
     it('should render agency name', () => {
         render(<AboutTheDataModal {...defaultProps} />);
-        expect(screen.queryByText('Assaley & Hill School of Business')).toBeTruthy();
+        expect(screen.queryByText(defaultProps.agencyData.agencyName.toUpperCase())).toBeTruthy();
     });
     it('should render title', () => {
         render(<AboutTheDataModal {...defaultProps} />);
