@@ -5,7 +5,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Set } from 'immutable';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import * as redux from 'react-redux';
 
 import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
@@ -22,6 +22,8 @@ global.Promise = jest.requireActual('promise');
 jest.mock('components/search/SearchPage', () => (
     jest.fn(() => null)
 ));
+
+jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
 
 jest.mock('helpers/searchHelper', () => ({
     ...jest.requireActual('helpers/searchHelper'),
@@ -41,7 +43,8 @@ jest.mock('react-redux', () => {
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn().mockReturnValue({ urlHash: 'abc' })
+    useParams: jest.fn().mockReturnValue({ urlHash: 'abc' }),
+    useLocation: jest.fn().mockReturnValue({ search: '' })
 }));
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -71,7 +74,7 @@ test('parseRemoteFilters should return an immutable data structure when versions
     expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
 });
 
-test('a non-hashed does not make a request to the api', async () => {
+test('a non-hashed url does not make a request to the api', async () => {
     useParams.mockReturnValueOnce({ urlHash: null });
     render(<SearchContainer />, {});
     await waitFor(() => {
@@ -80,7 +83,20 @@ test('a non-hashed does not make a request to the api', async () => {
     });
 });
 
-test('a hashed url makes a request to the api & sets loading state', async () => {
+test('a hashed url (in the pathname) makes a request to the api & sets loading state', async () => {
+    const setLoadingStateFn = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
+    render(<SearchContainer />, {});
+    await waitFor(() => {
+        expect(restoreUrlHash).toHaveBeenCalledTimes(1);
+        expect(setLoadingStateFn).toHaveBeenCalledWith(false);
+        expect(generateUrlHash).not.toHaveBeenCalled();
+    });
+});
+
+test('a hashed url (as a query param) makes a request to the api & sets loading state', async () => {
+    restoreUrlHash.mockClear();
+    useParams.mockReturnValueOnce({ urlHash: '' });
+    useLocation.mockReturnValueOnce({ search: '?hash=abc' });
     const setLoadingStateFn = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
     render(<SearchContainer />, {});
     await waitFor(() => {
@@ -94,7 +110,7 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
     restoreUrlHash.mockClear();
     useParams.mockReturnValueOnce({ urlHash: null });
     const setLoading = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
-    const mockReplace = jest.fn();
+    const mockPush = jest.fn();
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         ...mockRedux,
         appliedFilters: {
@@ -105,11 +121,16 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
         }
     });
 
-    render(<SearchContainer history={{ replace: mockReplace }} />, {});
+    render(<SearchContainer history={{ push: mockPush }} />, {});
 
     await waitFor(() => {
         expect(generateUrlHash).toHaveBeenCalledTimes(1);
-        expect(mockReplace).toHaveBeenCalledTimes(1);
+        expect(mockPush).toHaveBeenCalledTimes(1);
+        expect(mockPush).toHaveBeenLastCalledWith({
+            pathname: '/search/',
+            // not ?hash=str because we aren't mocking out new URLSearchParams
+            search: '?str'
+        });
         expect(setLoading).toHaveBeenCalledWith(false);
         expect(restoreUrlHash).not.toHaveBeenCalled();
     });

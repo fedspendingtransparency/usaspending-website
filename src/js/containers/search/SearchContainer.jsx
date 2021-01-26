@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
@@ -71,7 +71,10 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = ({ history }) => {
-    const { urlHash } = useParams();
+    const { urlHash: pathHash } = useParams();
+    const { hash: queryHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const urlHash = pathHash || queryHash;
+
     const dispatch = useDispatch();
     const {
         filters: stagedFilters,
@@ -167,15 +170,24 @@ const SearchContainer = ({ history }) => {
             if (request.current) {
                 request.current.cancel();
             }
+            // clear selected filters so we don't fetch previous search
+            dispatch(resetAppliedFilters());
+            dispatch(clearAllFilters());
         };
     }, []);
 
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            history.replace('/search');
+            history.replace({
+                pathname: '/search',
+                search: ''
+            });
+            if (queryHash) {
+                setDownloadAvailable(false);
+            }
         }
-    }, [areAppliedFiltersEmpty]);
+    }, [areAppliedFiltersEmpty, urlHash]);
 
     const generateHash = useCallback(() => {
         // POST an API request to retrieve the Redux state
@@ -193,8 +205,10 @@ const SearchContainer = ({ history }) => {
         request.current.promise
             .then((res) => {
                 // update the URL with the received hash
-                const newHash = res.data.hash;
-                history.replace(`/search/${newHash}`);
+                history.push({
+                    pathname: `/search/`,
+                    search: `?${new URLSearchParams({ hash: res.data.hash }).toString()}`
+                });
                 setGenerateHashInFlight(false);
             })
             .catch((err) => {
