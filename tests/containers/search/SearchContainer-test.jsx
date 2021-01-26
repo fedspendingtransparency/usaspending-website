@@ -23,6 +23,8 @@ jest.mock('components/search/SearchPage', () => (
     jest.fn(() => null)
 ));
 
+jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
+
 jest.mock('helpers/searchHelper', () => ({
     ...jest.requireActual('helpers/searchHelper'),
     ...require('./filters/searchHelper')
@@ -41,7 +43,8 @@ jest.mock('react-redux', () => {
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn().mockReturnValue({ urlHash: 'abc' })
+    useParams: jest.fn().mockReturnValue({ urlHash: 'abc' }),
+    useLocation: jest.fn().mockReturnValue({ search: '' })
 }));
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -94,7 +97,7 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
     restoreUrlHash.mockClear();
     useParams.mockReturnValueOnce({ urlHash: null });
     const setLoading = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
-    const mockReplace = jest.fn();
+    const mockPush = jest.fn();
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         ...mockRedux,
         appliedFilters: {
@@ -105,11 +108,11 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
         }
     });
 
-    render(<SearchContainer history={{ replace: mockReplace }} />, {});
+    render(<SearchContainer history={{ push: mockPush }} />, {});
 
     await waitFor(() => {
         expect(generateUrlHash).toHaveBeenCalledTimes(1);
-        expect(mockReplace).toHaveBeenCalledTimes(1);
+        expect(mockPush).toHaveBeenCalledTimes(1);
         expect(setLoading).toHaveBeenCalledWith(false);
         expect(restoreUrlHash).not.toHaveBeenCalled();
     });

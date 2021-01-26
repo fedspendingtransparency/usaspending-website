@@ -19,8 +19,20 @@ test('areFiltersEqual should return false when filters are selected', () => {
     })).toBeFalsy();
 });
 
-test('isSearchHashReady knows when theres a hash', () => {
-    expect(isSearchHashReady('/search')).toEqual(false);
-    expect(isSearchHashReady('/search/')).toEqual(false);
-    expect(isSearchHashReady('/search/test')).toEqual(true);
+test.each([
+    ['', false],
+    ['/?', false],
+    ['/?fy=2020&period=12&hash=', false],
+    ['/?fy=2020&period=12&hash=t', true]
+])('when input (a query param) is %s return value is %s', (input, rtrn) => {
+    expect(isSearchHashReady({ search: input })).toEqual(rtrn);
+});
+
+test.each([
+    ['', false],
+    ['/search', false],
+    ['/search/', false],
+    ['/search/test', true]
+])('when input (a pathname) is %s return value is %s', (input, rtrn) => {
+    expect(isSearchHashReady({ pathname: input })).toEqual(rtrn);
 });
