@@ -8,9 +8,9 @@ import PropTypes, { oneOfType, oneOf } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    data: oneOfType([PropTypes.string, PropTypes.object]),
+    data: oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
     openModal: PropTypes.func.isRequired,
-    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences']).isRequired,
+    modalType: oneOf(['publicationDates', 'missingAccountBalance', 'reportingDifferences', 'unlinkedData']).isRequired,
     agencyData: PropTypes.object
 };
 
@@ -23,7 +23,7 @@ const CellWithModal = ({
             <span className="action-cell__text">
                 {data}
             </span>
-            <button className="action-cell__button" onClick={modalClick} title="Open modal">
+            <button className="action-cell__button" onClick={modalClick} title="View details">
                 <FontAwesomeIcon icon="expand-alt" />
             </button>
         </div>

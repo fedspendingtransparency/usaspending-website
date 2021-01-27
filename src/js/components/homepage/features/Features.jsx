@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import CovidFeatureContainer from 'containers/covid19/homepage/CovidFeatureContainer';
+import CovidFeatureContainer from 'containers/homepage/CovidFeatureContainer';
 import kGlobalConstants from 'GlobalConstants';
 import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';

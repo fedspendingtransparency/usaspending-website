@@ -4,9 +4,8 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { defCodes } from 'dataMapping/covid19/covid19';
 
-const getCovid19Totals = (arr) => arr
+const getCovid19Totals = (arr, defCodes = []) => arr
     .filter((obj) => defCodes.includes(obj?.code))
     .reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
@@ -20,7 +19,7 @@ const BaseAwardAmounts = {
             ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '';
     },
-    populateAggIdv(data) {
+    populateAggIdv(data, defCodes) {
         this.childIDVCount = data.child_idv_count || 0;
         this.childAwardCount = data.child_award_count || 0;
         this.grandchildAwardCount = data.grandchild_award_count || 0;
@@ -35,58 +34,60 @@ const BaseAwardAmounts = {
         ) || 0;
         this._fileCOutlay = getCovid19Totals(
             data.child_account_outlays_by_defc
-                .concat(data.grandchild_account_outlays_by_defc)
+                .concat(data.grandchild_account_outlays_by_defc),
+            defCodes
         );
         this._fileCObligated = getCovid19Totals(
             data.child_account_obligations_by_defc
-                .concat(data.grandchild_account_obligations_by_defc)
+                .concat(data.grandchild_account_obligations_by_defc),
+            defCodes
         );
     },
-    populateIdv(data) {
+    populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
-        this._fileCOutlay = getCovid19Totals(data.fileC.outlays);
-        this._fileCObligated = getCovid19Totals(data.fileC.obligations);
+        this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
+        this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
     },
-    populateLoan(data) {
+    populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
-        this._fileCOutlay = getCovid19Totals(data.fileC.outlays);
-        this._fileCObligated = getCovid19Totals(data.fileC.obligations);
+        this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
+        this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
     },
-    populateAsst(data) {
+    populateAsst(data, defCodes) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
-        this._fileCOutlay = getCovid19Totals(data.fileC.outlays);
-        this._fileCObligated = getCovid19Totals(data.fileC.obligations);
+        this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
+        this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
     },
-    populateContract(data) {
+    populateContract(data, defCodes) {
         this._totalObligation = data._totalObligation;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
-        this._fileCOutlay = getCovid19Totals(data.fileC.outlays);
-        this._fileCObligated = getCovid19Totals(data.fileC.obligations);
+        this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
+        this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
     },
-    populate(data, awardAmountType) {
+    populate(data, awardAmountType, defCodes) {
         this.populateBase(data, awardAmountType);
         if (awardAmountType === 'idv_aggregated') {
             // In every other context, the data has been parsed by CoreAward; here, it's payload straight from the API.
-            this.populateAggIdv(data);
+            this.populateAggIdv(data, defCodes);
         }
         else if (awardAmountType === 'idv') {
-            this.populateIdv(data);
+            this.populateIdv(data, defCodes);
         }
         else if (awardAmountType === 'contract') {
-            this.populateContract(data);
+            this.populateContract(data, defCodes);
         }
         else if (awardAmountType === 'loan') {
-            this.populateLoan(data);
+            this.populateLoan(data, defCodes);
         }
         else {
             // grants, direct payment, insurance, other all use populateAsst
-            this.populateAsst(data);
+            this.populateAsst(data, defCodes);
         }
     },
     get baseAndAllOptionsFormatted() {

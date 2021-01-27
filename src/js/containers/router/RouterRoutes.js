@@ -169,25 +169,13 @@ export const routes = [
         exact: true
     },
     {
-        path: '/about-the-data/agencies',
+        path: '/submission-statistics',
         component: AboutTheDataPage,
         exact: true,
         hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
     },
     {
-        path: '/about-the-data/agencies/:fy',
-        component: AboutTheDataPage,
-        exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
-    },
-    {
-        path: '/about-the-data/agencies/:fy/:period',
-        component: AboutTheDataPage,
-        exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
-    },
-    {
-        path: '/about-the-data/agency/:agencyCode',
+        path: '/submission-statistics/:agencyCode',
         component: AgencyDetailsPage,
         exact: true,
         hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide

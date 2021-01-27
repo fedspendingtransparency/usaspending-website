@@ -7,13 +7,13 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
-import { DEV } from '../../../GlobalConstants';
-import NavBarGlossaryLink from './NavBarGlossaryLink';
+import { DEV, QAT } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
+import NavBarGlossaryLink from './NavBarGlossaryLink';
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -21,6 +21,8 @@ const clickedHeaderLink = (route) => {
         action: route
     });
 };
+
+const isDevOrQat = (DEV || QAT);
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -184,15 +186,23 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title="Download Center"
-                                    label="Download Center"
-                                    items={downloadOptions} />
+                                    title={isDevOrQat ? "Download" : "Download Center"}
+                                    label={isDevOrQat ? "Download" : "Download Center"}
+                                    items={downloadGlobalNavigationOptions} />
                             </li>
-                            <li
-                                className="full-menu__item"
-                                role="menuitem">
+                            {isDevOrQat && (
+                                <li
+                                    className="full-menu__item"
+                                    role="menuitem">
+                                    <Dropdown
+                                        title="Resources"
+                                        label="Resources"
+                                        items={resourceOptions} />
+                                </li>
+                            )}
+                            {!isDevOrQat && (
                                 <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
-                            </li>
+                            )}
                         </ul>
                     </div>
                 </div>

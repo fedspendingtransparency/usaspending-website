@@ -8,9 +8,9 @@ import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
-import ReportingOverviewRow from 'models/v2/aboutTheData/ReportingOverviewRow';
+import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-
+import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import { agenciesTableColumns } from './AgencyTableMapping';
 
 const propTypes = {
@@ -92,7 +92,7 @@ const AgenciesContainer = ({
             return submissionsReq.current.promise
                 .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                     const parsedResults = results.map((d) => {
-                        const row = Object.create(ReportingOverviewRow);
+                        const row = Object.create(BaseAgencyRow);
                         const federalTotal = federalTotals.find(({ fiscal_year: y, fiscal_period: p }) => (
                             y === parseInt(selectedFy, 10) &&
                             p === parseInt(selectedPeriod, 10)
@@ -241,18 +241,19 @@ const AgenciesContainer = ({
         .map(({
             name: agencyName,
             code,
-            publicationDate,
+            mostRecentPublicationDate,
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
-            tasTotals,
+            _gtasObligationTotal,
             percentageOfTotalFederalBudget,
-            unlinkedContractAwards,
-            unlinkedAssistanceAwards
+            unlinkedContracts,
+            unlinkedAssistance,
+            assuranceStatement
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             (<CellWithModal
-                data={publicationDate}
+                data={mostRecentPublicationDate}
                 openModal={openModal}
                 modalType="publicationDates"
                 agencyData={{
@@ -267,7 +268,7 @@ const AgenciesContainer = ({
                 modalType="missingAccountBalance"
                 agencyData={{
                     agencyName,
-                    gtasObligationTotal: tasTotals.gtas_obligation_total,
+                    gtasObligationTotal: _gtasObligationTotal,
                     agencyCode: code,
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
@@ -282,8 +283,29 @@ const AgenciesContainer = ({
                     fiscalYear: selectedFy,
                     fiscalPeriod: selectedPeriod?.id
                 }} />),
-            (<div className="generic-cell-content">{unlinkedContractAwards}</div>),
-            (<div className="generic-cell-content">{unlinkedAssistanceAwards}</div>)
+            unlinkedContracts !== '0' ? (<CellWithModal
+                data={unlinkedContracts}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Contract'
+                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
+            unlinkedAssistance !== '0' ? (<CellWithModal
+                data={unlinkedAssistance}
+                openModal={openModal}
+                modalType="unlinkedData"
+                agencyData={{
+                    agencyName,
+                    agencyCode: code,
+                    fiscalYear: selectedFy,
+                    fiscalPeriod: selectedPeriod?.id,
+                    type: 'Assistance'
+                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
     const handlePageChange = (page) => {
@@ -306,7 +328,7 @@ const AgenciesContainer = ({
 
     return (
         <>
-            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+            <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
                 {activeTab === 'submissions' && (
                     <Table
                         rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
@@ -324,7 +346,7 @@ const AgenciesContainer = ({
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-                        columns={agenciesTableColumns[activeTab]}
+                        columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
                             field: publicationsSort[0],

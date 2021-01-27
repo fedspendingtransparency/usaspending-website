@@ -44,7 +44,7 @@ const AboutTheDataModal = ({
             <div className={`usa-dt-modal about-the-data-modal ${className}`}>
                 <div className="usa-dt-modal__header">
                     <div className="about-the-data-modal__header-data">
-                        <div className="about-the-data-modal__agency-name">{agencyData.agencyName}</div>
+                        <div className="about-the-data-modal__agency-name">{agencyData.agencyName ? agencyData.agencyName.toUpperCase() : ''}</div>
                         <h1 title={title} className="usa-dt-modal__title">
                             {title}
                         </h1>

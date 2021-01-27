@@ -1,0 +1,3 @@
+# Keep docker image clean of any development-generated artifacts by ignoring them on COPY
+node_modules
+public
