@@ -111,8 +111,7 @@ export const agenciesTableColumns = {
         {
             title: 'assurance_statements',
             displayName: 'Agency Comments',
-            icon: <Tooltip title="Agency Comments" position="left" />,
-            right: true
+            icon: <Tooltip title="Agency Comments" position="left" />
         }
     ]
 };
