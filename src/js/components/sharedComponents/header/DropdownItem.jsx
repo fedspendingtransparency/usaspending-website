@@ -5,10 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
+import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 import DropdownComingSoon from './DropdownComingSoon';
 
@@ -16,9 +17,11 @@ const propTypes = {
     url: PropTypes.string,
     label: PropTypes.node,
     enabled: PropTypes.bool,
-    newTab: PropTypes.bool,
+    shouldOpenNewTab: PropTypes.bool,
+    isNewTab: PropTypes.bool,
     isFirst: PropTypes.bool,
-    externalLink: PropTypes.bool
+    externalLink: PropTypes.bool,
+    appendToExistingUrl: PropTypes.bool
 };
 
 const clickedHeaderLink = (route) => {
@@ -28,84 +31,104 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export default class DropdownItem extends React.Component {
-    constructor(props) {
-        super(props);
+const DropdownItem = ({
+    url = '',
+    label,
+    enabled = true,
+    shouldOpenNewTab = false,
+    externalLink = false,
+    isFirst = false,
+    isNewTab = false,
+    appendToExistingUrl = false
+}) => {
+    const { pathname, search } = useLocation();
+    const newUrl = appendToExistingUrl
+        ? getNewUrlForGlossary(pathname, url, search)
+        : url;
 
-        this.redirect = this.redirect.bind(this);
+    const handleClick = () => {
+        redirectHelper.showRedirectModal(newUrl);
+        clickedHeaderLink(newUrl);
+    };
+
+    let className = 'nav-children__link_disabled';
+    let comingSoon = (
+        <div className="nav-children__coming-soon">
+            <DropdownComingSoon />
+        </div>
+    );
+
+    const newLabel = isNewTab && enabled
+        ? (
+            <>
+                {label}
+                <span className="new-badge dropdown-item"> NEW</span>
+            </>
+        )
+        : null;
+
+    if (enabled) {
+        className = '';
+        comingSoon = null;
     }
 
-    redirect() {
-        redirectHelper.showRedirectModal(this.props.url);
-        clickedHeaderLink(`${this.props.url}`);
+    const newTabProps = {};
+    if (shouldOpenNewTab) {
+        newTabProps.target = '_blank';
+        newTabProps.rel = 'noopener noreferrer';
     }
 
-    render() {
-        let className = 'nav-children__link_disabled';
-        let comingSoon = (
-            <div className="nav-children__coming-soon">
-                <DropdownComingSoon />
-            </div>
+    let link = (
+        <Link
+            className={`nav-children__link ${className}`}
+            to={newUrl}
+            onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
+            {...newTabProps}>
+            {!newLabel && label}
+            {newLabel}
+            {comingSoon}
+        </Link>
+    );
+
+    if (enabled && externalLink) {
+        // Trigger the redirect modal
+        link = (
+            <button
+                onClick={handleClick}
+                className="nav-children__link">
+                {!newLabel && label}
+                {newLabel}
+            </button>
         );
+    }
 
-        if (this.props.enabled) {
-            className = '';
-            comingSoon = null;
-        }
-
-        const newTabProps = {};
-        if (this.props.newTab) {
-            newTabProps.target = '_blank';
-            newTabProps.rel = 'noopener noreferrer';
-        }
-
-        let link = (
-            <Link
+    if (url.includes('http')) {
+        link = (
+            <a
                 className={`nav-children__link ${className}`}
-                to={this.props.url}
-                onClick={clickedHeaderLink.bind(null, `${this.props.url}`)}
+                href={newUrl}
+                onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
                 {...newTabProps}>
-                {this.props.label}
+                {!newLabel && label}
+                {newLabel}
                 {comingSoon}
-            </Link>
-        );
-
-        if (this.props.enabled && this.props.externalLink) {
-            // Trigger the redirect modal
-            link = (
-                <button
-                    onClick={this.redirect}
-                    className="nav-children__link">
-                    {this.props.label}
-                </button>
-            );
-        }
-
-        if (this.props.url.includes('http')) {
-            link = (
-                <a
-                    className={`nav-children__link ${className}`}
-                    href={this.props.url}
-                    onClick={clickedHeaderLink.bind(null, `${this.props.url}`)}
-                    {...newTabProps}>
-                    {this.props.label}
-                    {comingSoon}
-                </a>
-            );
-        }
-
-        let firstClass = '';
-        if (this.props.isFirst) {
-            firstClass = 'nav-children__list-separator_hidden';
-        }
-
-        return (
-            <li className="nav-children__list-item">
-                <hr className={`nav-children__list-separator ${firstClass}`} />
-                {link}
-            </li>
+            </a>
         );
     }
-}
+
+    let firstClass = '';
+    if (isFirst) {
+        firstClass = 'nav-children__list-separator_hidden';
+    }
+
+    return (
+        <li className="nav-children__list-item">
+            <hr className={`nav-children__list-separator ${firstClass}`} />
+            {link}
+        </li>
+    );
+};
 
 DropdownItem.propTypes = propTypes;
+
+export default DropdownItem;

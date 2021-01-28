@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from 'test-utils';
+import { render, waitFor } from 'test-utils';
 
 import * as redux from 'react-redux';
 import { List } from 'immutable';
 
 import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from './mockData';
 
 const defaultProps = {
     selectedFy: '2020',
@@ -71,7 +71,8 @@ test('when totals are defined, request for totals are not made and only one for 
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockReturnValue(mockResponses.submissionsRequest);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -90,7 +91,8 @@ test('when totals are defined, request for totals are not made and only one for 
 test('when totals are defined and the active tab changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -114,7 +116,8 @@ test('when totals are defined and the active tab changes, one request is made', 
 test('when totals are defined and the fy changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -137,7 +140,8 @@ test('when totals are defined and the fy changes, one request is made', () => {
 test('when totals are defined and the period changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -160,7 +164,8 @@ test('when totals are defined and the period changes, one request is made', () =
 test('when totals are defined and the sort field changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -174,7 +179,8 @@ test('when totals are defined and the sort field changes, one request is made', 
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -194,7 +200,8 @@ test('when totals are defined and the sort field changes, one request is made', 
 test('when totals are defined and the order field changes, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -208,7 +215,8 @@ test('when totals are defined and the order field changes, one request is made',
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -228,7 +236,8 @@ test('when totals are defined and the order field changes, one request is made',
 test('when totals are defined and the search term is defined, one request is made', () => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: '',
         allPublications: [],
         federalTotals: [1],
@@ -242,7 +251,8 @@ test('when totals are defined and the search term is defined, one request is mad
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
-        searchResults: [[], []],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
         searchTerm: 'test',
         allPublications: [],
         federalTotals: [1],

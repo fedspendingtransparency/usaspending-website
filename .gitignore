@@ -61,7 +61,7 @@ usa_spending.sh
 /scripts/sitemaps/sitemapFiles/*.xml
 
 # direnv
-.envrc
+\.envrc
 
 # IDE stuff
 .vscode

@@ -26,7 +26,8 @@ import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 const propTypes = {
     award: PropTypes.object,
     setIdvDetails: PropTypes.func,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    defCodes: PropTypes.array
 };
 
 const tabTypes = [
@@ -110,7 +111,7 @@ export class IdvAmountsContainer extends React.Component {
 
     parseChildAwardAmounts(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, 'idv_aggregated');
+        awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes);
         this.setState({
             awardAmounts,
             error: false,
@@ -137,7 +138,7 @@ export class IdvAmountsContainer extends React.Component {
 
     render() {
         const thisIdv = Object.create(BaseAwardAmounts);
-        thisIdv.populate(this.props.award.overview, 'idv');
+        thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes);
         const tabsClassName = 'idv-award-amounts-tabs';
         const thisIdvHasFileC = (
             thisIdv._fileCObligated !== 0 ||

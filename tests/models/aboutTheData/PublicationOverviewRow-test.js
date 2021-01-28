@@ -4,9 +4,8 @@
  */
 
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from '../../containers/aboutTheData/mockData';
 
-// TODO - update when API contracts are finalized
 const mockRow = mockAPI.publications.data.results[0];
 const mockTotals = mockAPI.totals.data.results;
 
@@ -14,7 +13,7 @@ const mockDatesRow = Object.create(PublicationOverviewRow);
 mockDatesRow.populate(2020, mockRow, mockTotals);
 
 test('should format the agency name', () => {
-    expect(mockDatesRow.name).toEqual('Department of Health and Human Services (DHHS)');
+    expect(mockDatesRow.name).toEqual('Mock Agency (ABC)');
 });
 
 test('should handle an agency with no abbreviation', () => {
@@ -24,14 +23,15 @@ test('should handle an agency with no abbreviation', () => {
     };
     const mockDatesRowMod = Object.create(mockDatesRow);
     mockDatesRowMod.populate('2020', missingAbbrev, mockTotals);
-    expect(mockDatesRowMod.name).toEqual('Department of Health and Human Services');
+    expect(mockDatesRowMod.name).toEqual('Mock Agency');
 });
 
 test('should format the percent of total federal budget', () => {
-    expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('100.00%');
+    // 8000.72 / 1200.72
+    expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('66.67%');
 });
 
-test('should always have 12 periods', () => {
-    expect(mockDatesRow.periods.length).toEqual(12);
+test('should always have 11 periods', () => {
+    expect(mockDatesRow.periods.length).toEqual(11);
 });
 

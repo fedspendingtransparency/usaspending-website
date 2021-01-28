@@ -5,74 +5,86 @@
 [The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States. It utilizes the [Data Transparency User Interface Library](https://github.com/fedspendingtransparency/data-transparency-ui).
 
 ## Development Set Up
-To run the USAspending website locally, follow the directions below.
+- To contribute to frontend development, follow _Install and Configure_ below. 
+- To simply run the USAspending website locally, jump to _Build and Run with Docker_ below.
 
-Assumptions:
+_Assumptions_:
 
 * You're able to install software on your machine.
 * You have git installed on your machine and are able to clone code repositories from GitHub. If this isn't the case, the easiest way to get started is to install [GitHub Desktop](https://desktop.github.com/ "GitHub desktop"), available for Windows or Mac.
 * You're familiar with opening a terminal on your machine and using the command line as needed.
 
-### Install Prerequisites and Code
+### Install and Configure
+_Get the code and install the runtime and dependencies_
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 10.15.3 (LTS)** which we recommend downloading using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm).
+1. From the command line, clone the USAspending website repository from GitHub to your local machine, and get into the root directory:
+    ```shell
+    $ git clone https://github.com/fedspendingtransparency/usaspending-website
+    $ cd usaspending-website
+    ```
+1. Download [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) and install **Node.js `12.18.4`**
+    ```shell
+    $ nvm install 12.18.4
+    ```
+1. Set Node Package Manager (`npm`) CLI to version `6.14.5`.
+    ```shell
+    $ npm i -g npm@6.14.5
+    ```
+1. Perform a clean install to get an exact dependency tree:
+    ```shell
+    $ npm ci
+    ```
+1. Run the site in a local dev server:
+    ```shell
+    $ npm start
+    ```
 
-2. You also need npm. We use version `6.14.5`.
+### Configuration
+_Alter configuration to non-default values by changing environment variable values._
 
-```shell
-        npm i -g npm@6.14.5
-```
+Our site makes use of certain environment variables. Defaults are provided, but can be overridden by `export` of new values in your local shell. These are the important ones:
 
-3. From the command line, clone the USAspending website repository from GitHub to your local machine:
-
-```shell
-        git clone https://github.com/fedspendingtransparency/usaspending-website.git
-```
-
-4. Change to the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
-
-```shell
-        cd usaspending-website
-```
-
-5. Perform a clean install to get an exact dependency tree:
-
-```shell
-        npm ci
-```
-
-### Configuration File
-
-The USAspending website expects a certain number of environment variables to be defined at runtime. The important ones are listed below along with their default values:
-
-| ENV VAR        | VALUE                            |
-|----------------|----------------------------------|
-| API            | https://api.usaspending.gov/api/ |
-| MAPBOX_TOKEN   | ''                               |
-| GA_TRACKING_ID | ''                               |
+| ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
+|-------------------|----------------------------------|-----------------------------------------------------|
+| `ENV`             | prod                             | Determine bundling optimizations and feature flags  | 
+| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                         |
+| `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features              |
+| `GA_TRACKING_ID`  | ''                               | Google Analytics key for anonymously tracking usage |
 
 ### Scripts
+_Custom and life-cycle scripts to execute, as defined under the `scripts` property in `package.json`_
 
-| Script     | Output                                              |
-|------------|-----------------------------------------------------|
-| `npm start`  | dev server with hot reloading                       |
-| `npm prod`   | generates static assets w/ production optimization  |
-| `npm dev`    | generates static assets w/ development optimization |
-| `npm lint`   | executes linter                                     |
-| `npm test`   | executes unit tests                                 |
-| `npm sass`   | dev server w/ scss source maps                      |
-| `npm travis` | executes travis validation script                   |
+| Script       | Output                                                      |
+|--------------|-------------------------------------------------------------|
+| `npm start`  | dev server with hot reloading                               |
+| `npm prod`   | generates static assets w/ production optimization          |
+| `npm dev`    | generates static assets w/ development optimization         |
+| `npm lint`   | executes linter                                             |
+| `npm test`   | executes unit tests                                         |
+| `npm sass`   | dev server w/ scss source maps                              |
+| `npm travis` | executes travis validation script                           |
+| `npm ci`     | clean existing Node dependencies and install dependencies   |
 
-### Deployment Build Step with DockerFile
-When deploying we use the dockerfile for our build step. We can simulate that process as follows:
+### Build and Run with Docker
+Docker can be used to build static site artifacts and/or run the site locally. Ensure your environment variables are configured and use this "one-liner" (or decompose and run each `docker` command separately):
 
+```bash
+docker build -t usaspending-website . && \
+docker run --rm -v $(pwd)/public:/node-workspace/public \
+  -e ENV \
+  -e USASPENDING_API \
+  -e MAPBOX_TOKEN \
+  -e GA_TRACKING_ID \
+  usaspending-website npm run ${ENV} && \
+docker run --rm -v $(pwd)/public:/usr/share/nginx/html:ro -p 8020:80 nginx:1.18
 ```
-# from usaspending-website root, build the container image
-docker build -t usaspending-website .
-# generate static artifacts in ./public
-docker run -i --rm=true -v $(pwd)/public:/node-workspace/public usaspending-website /bin/sh -c 'npm run dev'
-# mount the static artifacts to an nginx image and run
-docker run -p 8020:80 -v $(pwd)/public:/usr/share/nginx/html:ro nginx
-```
 
-The app should now be running at `http://localhost:8020`.
+_The first two steps can take 5+ minutes each, so this could be a total of ~10 minutes before ready._
+
+What this does:
+1. Ensure your `usaspending-website` Docker image has the latest dependencies:
+1. Generate and bundle static artifacts and output to `./public`
+1. Mount the static artifacts to a running container of an nginx image and host at port `8020`
+
+
+You should see console logs, and the app should now be running at `http://localhost:8020`.

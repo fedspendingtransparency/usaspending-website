@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { snakeCase } from 'lodash';
 import { apiRequest } from 'helpers/apiRequest';
 import {
-    defCodes,
     dataDisclaimerHeight,
     stickyHeaderHeight,
     globalBannerHeight,
@@ -91,15 +90,6 @@ export const getVerticalOffset = () => {
     // neither banner is hidden --> lots of offsets
     return siteHeaderHeight + globalBannerHeight + dataDisclaimerHeight;
 };
-
-export const getDEFOptions = (setSelectedDEF, defaultSortDEF) => defCodes.map((year) => {
-    const onClickHandler = () => setSelectedDEF(year);
-    return {
-        name: `${year}`,
-        value: year,
-        onClick: onClickHandler
-    };
-}).sort((a, b) => defaultSortDEF(a.value, b.value));
 
 export const jumpToSection = (
     section = '',

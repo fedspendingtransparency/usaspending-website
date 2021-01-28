@@ -15,3 +15,17 @@ export const fetchSearchResults = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const getNewUrlForGlossary = (pathname, url, queryParams = '') => {
+    if (pathname === '/' && !queryParams) return url;
+    if (pathname[pathname.length - 1] === '/' && !queryParams) {
+        return `${pathname.substr(0, pathname.length - 1)}${url}`;
+    }
+    if (queryParams && pathname[pathname.length - 1] === '/') {
+        const cleanQueryParams = queryParams[0] === '?'
+            ? queryParams.substr(1)
+            : queryParams;
+        return `${pathname.substr(0, pathname.length - 1)}${url}&${cleanQueryParams}`;
+    }
+    return `${pathname}${url}`;
+};

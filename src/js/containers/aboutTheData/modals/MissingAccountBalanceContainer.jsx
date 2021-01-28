@@ -7,20 +7,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { mockAPIMissingAccountBalances, missingAccountBalanceColumns } from 'dataMapping/aboutTheData/modals';
-import { formatMissingAccountBalancesData } from 'helpers/aboutTheDataHelper';
+import { missingAccountBalanceColumns } from 'dataMapping/aboutTheData/modals';
+import { formatMissingAccountBalancesData, fetchMissingAccountBalances } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
-    agencyCode: PropTypes.string,
-    fiscalYear: PropTypes.string,
-    fiscalPeriod: PropTypes.string,
-    agencyData: PropTypes.object
+    agencyData: PropTypes.shape({
+        gtasObligationTotal: PropTypes.number,
+        agencyCode: PropTypes.string,
+        fiscalYear: PropTypes.number,
+        fiscalPeriod: PropTypes.number
+    })
 };
 
 const MissingAccountBalanceContainer = ({
-    agencyCode,
-    fiscalYear,
-    fiscalPeriod,
     agencyData
 }) => {
     const [sort, setSort] = useState('amount');
@@ -46,12 +45,11 @@ const MissingAccountBalanceContainer = ({
             limit,
             sort,
             order,
-            agencyCode,
-            fiscalYear,
-            fiscalPeriod
+            fiscal_year: agencyData.fiscalYear,
+            fiscal_period: agencyData.fiscalPeriod
         };
         try {
-            missingAccBalancesRequest.current = mockAPIMissingAccountBalances(params);
+            missingAccBalancesRequest.current = fetchMissingAccountBalances(agencyData.agencyCode, params);
             const { data } = await missingAccBalancesRequest.current.promise;
             setTotal(data.page_metadata.total);
             setRows(formatMissingAccountBalancesData({ results: data.results, gtasObligationTotal: agencyData.gtasObligationTotal }));
@@ -59,10 +57,10 @@ const MissingAccountBalanceContainer = ({
             missingAccBalancesRequest.current = null;
         }
         catch (e) {
-            console.error(e);
             if (!isCancel(e)) {
                 setLoading(false);
                 setError({ error: true, message: e.message });
+                console.error(e);
             }
             missingAccBalancesRequest.current = null;
         }
@@ -86,15 +84,10 @@ const MissingAccountBalanceContainer = ({
         missingAccountBalancesRequest();
     }, [page]);
     // do not show deadlines in column headers if we do not have the data
-    const columns = missingAccountBalanceColumns.map((column) => ({
-        displayName: (
-            <div className="missing-account-balances__column-header-container">
-                <div className="missing-account-balances__column-header-title">
-                    {column.displayName}
-                </div>
-            </div>
-        ),
-        title: column.title
+    const columns = missingAccountBalanceColumns.map((column, i) => ({
+        displayName: column.displayName,
+        title: column.title,
+        right: i !== 0
     }));
 
     return (

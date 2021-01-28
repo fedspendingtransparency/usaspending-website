@@ -55,8 +55,6 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
-    // const [selectedDEF, setselectedDEF] = useState('All');
-    // const DEFOptions = getDEFOptions(setselectedDEF, defaultSortFy);
     const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const lastSectionRef = useRef(null);
