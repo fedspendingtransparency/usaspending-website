@@ -89,7 +89,8 @@ export const resourceOptions = [
     {
         label: 'API Tutorial',
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
-        enabled: true
+        enabled: true,
+        shouldOpenNewTab: true
     }
 ];
 
