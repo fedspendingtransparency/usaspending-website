@@ -116,15 +116,15 @@ describe('About The Data Helper', () => {
             expect(formatReportingDifferencesData(mockReportingDifferenceData)).toEqual(expect.arrayContaining([
                 expect.arrayContaining([
                     "210-1503",
-                    "$234,543,543",
-                    "$0",
-                    "-$221,895,225"
+                    "$234,543,543.00",
+                    "$0.00",
+                    "-$221,895,225.00"
                 ]),
                 expect.arrayContaining([
                     "012-0212",
-                    "$0",
-                    "$20,486,582",
-                    "$23,151,041"
+                    "$0.00",
+                    "$20,486,582.00",
+                    "$23,151,041.00"
                 ])
             ]));
         });
