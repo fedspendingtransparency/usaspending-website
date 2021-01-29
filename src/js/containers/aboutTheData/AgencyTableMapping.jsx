@@ -27,6 +27,7 @@ export const agenciesTableColumns = {
         { title: 'agency_name', displayName: 'Agency Name' },
         {
             title: 'current_total_budget_authority_amount',
+            right: true,
             displayName: 'Percent of Total Federal Budget'
         },
         {
