@@ -32,7 +32,7 @@ export const agenciesTableColumns = {
         {
             title: 'Q1',
             displayName: `FY ${fy} Q1`,
-            columnSpan: '3',
+            columnSpan: '2',
             subColumnNames: [
                 { displayName: 'P01 - P02', title: 'publication_date,2' },
                 { displayName: 'P03', title: 'publication_date,3' }
