@@ -177,7 +177,24 @@ export const areFiltersSelected = (filters) => !areFiltersEqual(filters);
 
 export const areFiltersDifferent = (a, b) => !areFiltersEqual(a, b);
 
-export const isSearchHashReady = (str) => str
-    .split('/search/')
-    .filter((s) => s && s !== "/search")
-    .length > 0;
+export const isSearchHashReady = ({ search }) => {
+    if (search) {
+        const params = new URLSearchParams(search);
+        for (const [key, value] of params.entries()) {
+            if (key === 'hash' && value) {
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+};
+
+export const getObjFromQueryParams = (str) => {
+    const params = new URLSearchParams(str);
+    const obj = {};
+    for (const [key, value] of params.entries()) {
+        obj[key] = value;
+    }
+    return obj;
+};
