@@ -238,6 +238,12 @@ const SearchContainer = ({ history }) => {
         }
     }, [appliedFilters, urlHash]);
 
+    useEffect(() => {
+        if (SearchHelper.areFiltersDifferent(appliedFilters, stagedFilters) && SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)) {
+            dispatch(restoreHashedFilters(appliedFilters));
+        }
+    }, [appliedFilters, stagedFilters]);
+
     return (
         <SearchPage
             hash={urlHash}

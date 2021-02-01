@@ -73,7 +73,17 @@ test('parseRemoteFilters should return an immutable data structure when versions
     expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
 });
 
-test('a hashed url (as a query param) makes a request to the api & sets loading state', async () => {
+test('a non-hashed url does not make a request to the api', async () => {
+    restoreUrlHash.mockClear();
+    generateUrlHash.mockClear();
+    render(<SearchContainer />, {});
+    await waitFor(() => {
+        expect(restoreUrlHash).not.toHaveBeenCalled();
+        expect(generateUrlHash).not.toHaveBeenCalled();
+    });
+});
+
+test('a hashed url makes a request to the api & sets loading state', async () => {
     restoreUrlHash.mockClear();
     useLocation.mockReturnValueOnce({ search: '?hash=abc' });
     const setLoadingStateFn = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
@@ -85,21 +95,24 @@ test('a hashed url (as a query param) makes a request to the api & sets loading 
     });
 });
 
+
 test('when filters change (a) hash is generated, (b) loading is set & (c) url is updated', async () => {
     restoreUrlHash.mockClear();
     const setLoading = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
     const mockPush = jest.fn();
+    const { rerender } = render(<SearchContainer history={{ push: mockPush }} />, {});
+
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         ...mockRedux,
         appliedFilters: {
             filters: {
-                ...mockRedux.appliedFilters,
+                ...mockRedux.appliedFilters.filters,
                 timePeriodFY: Set(['2020'])
             }
         }
     });
 
-    render(<SearchContainer history={{ push: mockPush }} />, {});
+    rerender(<SearchContainer history={{ push: mockPush }} />, {});
 
     await waitFor(() => {
         expect(generateUrlHash).toHaveBeenCalledTimes(1);
