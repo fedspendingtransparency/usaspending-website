@@ -8,18 +8,20 @@ import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
 import { columnTooltips } from 'components/aboutTheData/dataMapping/tooltipContentMapping';
 
-const Tooltip = ({ title, position = 'right' }) => (
+const Tooltip = ({ title, position = 'right', className = '' }) => (
     <TooltipWrapper
         icon="info"
+        className={className}
         tooltipPosition={position}
         tooltipComponent={
-            <TooltipComponent title={title}>{columnTooltips[title]}</TooltipComponent>
+            <TooltipComponent className={title} title={title}>{columnTooltips[title]}</TooltipComponent>
         } />
 );
 
 Tooltip.propTypes = {
     title: PropTypes.string.isRequired,
-    position: PropTypes.oneOf(['left', 'right'])
+    position: PropTypes.oneOf(['left', 'right']),
+    className: PropTypes.string
 };
 
 export const agenciesTableColumns = {
@@ -99,13 +101,13 @@ export const agenciesTableColumns = {
         {
             title: 'unlinked_contract_award_count',
             displayName: 'Number of Unlinked Contract Awards',
-            icon: <Tooltip title="Number of Unlinked Contract Awards" />,
+            icon: <Tooltip title="Number of Unlinked Contract Awards" className="wide wide_right" />,
             right: true
         },
         {
             title: 'unlinked_assistance_award_count',
             displayName: 'Number of Unlinked Assistance Awards',
-            icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" />,
+            icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />,
             right: true
         },
         {
@@ -146,13 +148,13 @@ export const agencyDetailsColumns = [
     {
         title: 'unlinked_cont_award_count',
         displayName: 'Number of Unlinked Contract Awards',
-        icon: <Tooltip title="Number of Unlinked Contract Awards" />,
+        icon: <Tooltip title="Number of Unlinked Contract Awards" className="wide wide_right" />,
         right: true
     },
     {
         title: 'unlinked_asst_award_count',
         displayName: 'Number of Unlinked Assistance Awards',
-        icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" />,
+        icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />,
         right: true
     },
     {

@@ -56,4 +56,25 @@
             margin-right: rem(5);
         }
     }
+    .usda-table {
+        thead {
+            th {
+                .wide {
+                    .tooltip-spacer {
+                        width: 600px !important;
+                    }
+                    &.wide_left {
+                        .tooltip-spacer {
+                            left: -408px !important;
+                        }
+                    }
+                    &.wide-right {
+                        .tooltip-spacer {
+                            right: 408px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
