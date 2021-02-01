@@ -82,7 +82,10 @@ export const resourceOptions = [
     },
     {
         label: "Agency Submission Statistics",
-        url: '/submission-statistics',
+        url: {
+            pathname: '/submission-statistics',
+            search: '?tab=submissions'
+        },
         enabled: true,
         isNewTab: true
     },

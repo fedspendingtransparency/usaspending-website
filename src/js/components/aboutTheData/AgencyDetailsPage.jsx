@@ -95,7 +95,10 @@ const AgencyDetailsPage = () => {
                     <>
                         <div className="heading-container">
                             <div className="back-link">
-                                <Link to="/submission-statistics/">
+                                <Link to={{
+                                    pathname: "/submission-statistics/",
+                                    search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
+                                }}>
                                     <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
                                 </Link>
                             </div>

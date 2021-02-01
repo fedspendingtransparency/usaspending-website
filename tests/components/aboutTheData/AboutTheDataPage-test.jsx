@@ -49,11 +49,13 @@ const defaultProps = {
         replace: mockReplace
     },
     match: {
-        search: "?fy=2020&period=12"
+        search: "?fy=2020&period=12&tab=submissions"
     }
 };
 
 beforeEach(() => {
+    jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
+
     jest.spyOn(helpers, "useLatestAccountData").mockReturnValue([
         moment(),
         mockPeriods,
@@ -92,6 +94,11 @@ beforeEach(() => {
 });
 
 test('renders the details table first', async () => {
+    jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation((param) => {
+        if (param === 'fy') return '2020';
+        if (param === 'period') return '12';
+        if (param === 'tab') return 'submissions';
+    });
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
     const [table] = screen.getAllByText('Number of TAS Missing from Account Balance Data');
@@ -100,19 +107,22 @@ test('renders the details table first', async () => {
 
 test('on tab change updates the table view', async () => {
     // shows the other table
+    jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation((param) => {
+        if (param === 'fy') return '2020';
+        if (param === 'period') return '12';
+        if (param === 'tab') return 'publications';
+    });
     render(<AboutTheDataPage {...defaultProps} />);
-    const tab = screen.getAllByText('Updates by Fiscal Year');
-    fireEvent.click(tab[0]);
     const table = screen.getByText('FY 2020 Q4');
     expect(table).toBeDefined();
 });
 
 test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
-    render(<AboutTheDataPage {...defaultProps} match={{ search: "" }} />);
-    return waitFor(() => {
-        expect(mockReplace).toHaveBeenCalledWith({
-            pathname: '/submission-statistics/',
-            search: "?fy=2020&period=12"
-        });
+    jest.spyOn(URLSearchParams.prototype, 'get').mockReturnValue(null);
+    jest.spyOn(URLSearchParams.prototype, 'toString').mockReturnValue("fy=2020&period=12&tab=submissions");
+    render(<AboutTheDataPage {...defaultProps} />);
+    expect(mockReplace).toHaveBeenCalledWith({
+        pathname: '/submission-statistics/',
+        search: "?fy=2020&period=12&tab=submissions"
     });
 });
