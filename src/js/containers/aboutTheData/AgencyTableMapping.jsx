@@ -27,12 +27,13 @@ export const agenciesTableColumns = {
         { title: 'agency_name', displayName: 'Agency Name' },
         {
             title: 'current_total_budget_authority_amount',
+            right: true,
             displayName: 'Percent of Total Federal Budget'
         },
         {
             title: 'Q1',
             displayName: `FY ${fy} Q1`,
-            columnSpan: '3',
+            columnSpan: '2',
             subColumnNames: [
                 { displayName: 'P01 - P02', title: 'publication_date,2' },
                 { displayName: 'P03', title: 'publication_date,3' }
