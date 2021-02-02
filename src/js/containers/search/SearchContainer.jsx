@@ -205,7 +205,7 @@ const SearchContainer = ({ history }) => {
         request.current.promise
             .then((res) => {
                 // update the URL with the received hash
-                history.push({
+                history.replace({
                     pathname: `/search/`,
                     search: `?${new URLSearchParams({ hash: res.data.hash }).toString()}`
                 });

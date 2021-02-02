@@ -99,8 +99,8 @@ test('a hashed url makes a request to the api & sets loading state', async () =>
 test('when filters change (a) hash is generated, (b) loading is set & (c) url is updated', async () => {
     restoreUrlHash.mockClear();
     const setLoading = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
-    const mockPush = jest.fn();
-    const { rerender } = render(<SearchContainer history={{ push: mockPush }} />, {});
+    const mockReplace = jest.fn();
+    const { rerender } = render(<SearchContainer history={{ replace: mockReplace }} />, {});
 
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         ...mockRedux,
@@ -112,12 +112,12 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
         }
     });
 
-    rerender(<SearchContainer history={{ push: mockPush }} />, {});
+    rerender(<SearchContainer history={{ replace: mockReplace }} />, {});
 
     await waitFor(() => {
         expect(generateUrlHash).toHaveBeenCalledTimes(1);
-        expect(mockPush).toHaveBeenCalledTimes(1);
-        expect(mockPush).toHaveBeenLastCalledWith({
+        expect(mockReplace).toHaveBeenCalledTimes(1);
+        expect(mockReplace).toHaveBeenLastCalledWith({
             pathname: '/search/',
             // not ?hash=str because we aren't mocking out new URLSearchParams
             search: '?str'
