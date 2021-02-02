@@ -21,20 +21,25 @@ const CFDAOpportunityTotals = ({ code }) => {
         apiRequest.current = fetchOpportunityTotals(code);
         const asyncFunc = async () => {
             try {
-                const { data } = await apiRequest.current.promise;
-                setTotals(data);
+                const response = await apiRequest.current.promise;
+                if (response.status === 204) {
+                    setError({ error: true, message: 'Note: there are no current or archived listings for this CFDA on Grants.gov at this time.' });
+                }
+                else {
+                    const { data } = response;
+                    setTotals(data);
+                }
                 setLoading(false);
             }
             catch (e) {
                 if (!isCancel(e)) {
-                    if (e.response.status === 404) {
-                        setError({ error: true, message: 'There is no data for this CFDA' });
-                        setLoading(false);
+                    if (e.response.status === 503) {
+                        setError({ error: true, message: 'CFDA source data is not available at this time.' });
                     }
                     else {
                         setError({ error: true, message: e.message });
-                        setLoading(false);
                     }
+                    setLoading(false);
                 }
             }
         };
@@ -42,7 +47,7 @@ const CFDAOpportunityTotals = ({ code }) => {
         return () => {
             if (apiRequest.current) apiRequest.current.cancel();
         };
-    }, []);
+    }, [code]);
 
     return (
         <div className="cfda-opportunities__container">
