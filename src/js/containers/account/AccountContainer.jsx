@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { withRouter } from 'react-router-dom';
+import { flowRight } from 'lodash';
 
 import * as AccountHelper from 'helpers/accountHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
@@ -21,7 +22,7 @@ import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
-import { flowRight } from 'lodash';
+
 
 require('pages/account/accountPage.scss');
 
