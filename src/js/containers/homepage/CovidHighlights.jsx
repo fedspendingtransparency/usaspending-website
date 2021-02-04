@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { get, uniqueId, throttle, isEqual } from 'lodash';
+import { get, uniqueId, throttle, isEqual, flowRight } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // redux
-import { setOverview, setDEFCodes } from 'redux/actions/covid19/covid19Actions';
-import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
+import { setOverview } from 'redux/actions/covid19/covid19Actions';
 
 // models
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
+import withDefCodes from 'containers/covid19/WithDefCodes';
+import withLatestFy from 'containers/account/WithLatestFy';
 
 // helpers
-import { getLatestPeriodAsMoment, fetchAllSubmissionDates } from 'helpers/accountHelper';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -48,7 +48,9 @@ const propTypes = {
     completeIncrement: PropTypes.func,
     updateSubmissionPeriods: PropTypes.func,
     submissionPeriods: PropTypes.arrayOf(PropTypes.object),
-    defCodes: PropTypes.arrayOf(PropTypes.string)
+    latestSubmissionDate: PropTypes.object,
+    defCodes: PropTypes.arrayOf(PropTypes.object),
+    isFetchLatestFyLoading: PropTypes.bool
 };
 
 export class CovidHighlights extends React.Component {
@@ -56,7 +58,6 @@ export class CovidHighlights extends React.Component {
         super(props);
         this.state = {
             isAmountLoading: true,
-            isDateLoading: true,
             areHighlightsLoading: true,
             highlights: [],
             isHoverActive: false,
@@ -68,10 +69,8 @@ export class CovidHighlights extends React.Component {
                 height: 0
             }
         };
-        this.allSubmissionDatesRequest = null;
         this.fetchTotalsRequest = null;
         this.fetchTotalsByCfdaRequest = null;
-        this.fetchDefCodesRequest = null;
         this.scrollBar = null;
         this.handleResizeWindow = throttle(this.handleResizeWindow, 10);
     }
@@ -79,63 +78,33 @@ export class CovidHighlights extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResizeWindow);
         this.handleResizeWindow();
-        return Promise.all([this.fetchDefCodes(), this.fetchLatestSubmissionPeriod()])
-            .then(() => (
-                Promise.all([this.fetchHighlights(), this.fetchTotals()])
-            ))
-            .then(() => {
-                if (!document.documentMode) {
-                    scrollInterval = window.setInterval(() => {
-                        const newPosition = this.scrollBar.scrollTop + scrollIncrement;
-                        const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                            if (this.state.hasNext) {
-                                this.fetchHighlights()
-                                    .then(() => {
-                                        if (!this.state.isHoverActive) {
-                                            scrollToY(newPosition, 750, this.scrollBar);
-                                        }
-                                    });
-                            }
-                            else if (!this.state.isHoverActive) {
-                                scrollToY(0, 750, this.scrollBar);
-                            }
-                        }
-                        else if (!this.state.isHoverActive) {
-                            scrollToY(newPosition, 750, this.scrollBar);
-                        }
-                    }, 3000);
-                }
-                else {
-                    scrollInterval = window.setInterval(() => {
-                        const currentPosition = this.scrollBar.scrollTop;
-                        const maxScroll = this.scrollBar.scrollHeight - 446;
-                        if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
-                            if (this.state.hasNext) {
-                                this.fetchHighlights();
-                            }
-                        }
-                    }, 1000);
-                }
-            })
-            .catch((e) => {
-                if (!isCancel(e)) {
-                    console.log('error', e);
-                    this.setState({
-                        isError: true,
-                        errorMessage: get(e, 'message', 'Error fetching data.')
-                    });
-                }
-            });
+        if (this.props.defCodes.length && this.props.submissionPeriods.length) {
+            return Promise.all([this.fetchHighlights(), this.fetchTotals()])
+                .then(() => {
+                    this.triggerAutoScroll();
+                })
+                .catch((e) => {
+                    if (!isCancel(e)) {
+                        console.log('error', e);
+                        this.setState({
+                            isError: true,
+                            errorMessage: get(e, 'message', 'Error fetching data.')
+                        });
+                    }
+                });
+        }
+        return Promise.resolve();
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.defCodes, this.props.defCodes) && this.props.defCodes.length > 0) {
-            this.fetchTotals()
-                .then(() => {
-                    this.fetchHighlights();
-                });
+        if (
+            (!isEqual(prevProps.defCodes, this.props.defCodes) && this.props.defCodes.length && this.props.submissionPeriods.length) ||
+            (!isEqual(prevProps.submissionPeriods, this.props.submissionPeriods) && this.props.submissionPeriods.length && this.props.defCodes.length)
+        ) {
+            return Promise.all([this.fetchHighlights(), this.fetchTotals()])
+                .then(() => this.triggerAutoScroll());
         }
+        return Promise.resolve();
     }
 
     componentWillUnmount() {
@@ -147,34 +116,42 @@ export class CovidHighlights extends React.Component {
         if (this.fetchTotalsByCfdaRequest) {
             this.fetchTotalsByCfdaRequest.cancel();
         }
-        if (this.allSubmissionDatesRequest) {
-            this.allSubmissionDatesRequest.cancel();
-        }
-        if (this.fetchDefCodesRequest) {
-            this.fetchDefCodesRequest.cancel();
-        }
     }
 
-    fetchLatestSubmissionPeriod = async () => {
-        if (!this.props.submissionPeriods.length) {
-            this.allSubmissionDatesRequest = fetchAllSubmissionDates();
-            try {
-                const { data: { available_periods: availablePeriods } } = await this.allSubmissionDatesRequest.promise;
-                this.props.updateSubmissionPeriods(availablePeriods);
-                this.allSubmissionDatesRequest = null;
-                this.setState({ isDateLoading: false });
-                return Promise.resolve();
-            }
-            catch (e) {
-                if (!isCancel(e)) {
-                    console.log(' Error Submission Periods : ', e.message);
-                    this.allSubmissionDatesRequest = null;
-                    this.setState({ isDateLoading: false });
+    triggerAutoScroll() {
+        if (!document.documentMode) {
+            scrollInterval = window.setInterval(() => {
+                const newPosition = this.scrollBar.scrollTop + scrollIncrement;
+                const maxScroll = this.scrollBar.scrollHeight - 446;
+                if (newPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                    if (this.state.hasNext) {
+                        this.fetchHighlights()
+                            .then(() => {
+                                if (!this.state.isHoverActive) {
+                                    scrollToY(newPosition, 750, this.scrollBar);
+                                }
+                            });
+                    }
+                    else if (!this.state.isHoverActive) {
+                        scrollToY(0, 750, this.scrollBar);
+                    }
                 }
-                return Promise.resolve();
-            }
+                else if (!this.state.isHoverActive) {
+                    scrollToY(newPosition, 750, this.scrollBar);
+                }
+            }, 3000);
         }
-        return Promise.resolve();
+        else {
+            scrollInterval = window.setInterval(() => {
+                const currentPosition = this.scrollBar.scrollTop;
+                const maxScroll = this.scrollBar.scrollHeight - 446;
+                if (currentPosition >= maxScroll && this.scrollBar.scrollHeight > 0) {
+                    if (this.state.hasNext) {
+                        this.fetchHighlights();
+                    }
+                }
+            }, 1000);
+        }
     }
 
     fetchTotals = () => {
@@ -187,7 +164,7 @@ export class CovidHighlights extends React.Component {
         else {
             this.setState({ isIncrementComplete: false, isAmountLoading: true });
         }
-        this.fetchTotalsRequest = fetchOverview(this.props.defCodes);
+        this.fetchTotalsRequest = fetchOverview(this.props.defCodes.map((c) => c.code));
         if (this.props.totalSpendingAmount && this.props.totalSpendingAmount > 0) {
             this.setState({ isAmountLoading: false });
             return Promise.resolve();
@@ -215,30 +192,13 @@ export class CovidHighlights extends React.Component {
         }
     }
 
-    fetchDefCodes = () => {
-        if (this.fetchDefCodesRequest) {
-            this.fetchDefCodesRequest.cancel();
-        }
-        this.fetchDefCodesRequest = fetchDEFCodes();
-        if (this.props.defCodes.length > 0) {
-            this.setState({ isAmountLoading: false });
-            return Promise.resolve();
-        }
-        return this.fetchDefCodesRequest.promise
-            .then(({ data: { codes } }) => {
-                const covidDefCodes = codes
-                    .filter((code) => code.disaster === 'covid_19');
-                this.props.setCovidDefCodes(covidDefCodes);
-            });
-    }
-
     fetchHighlights = () => {
         if (this.fetchTotalsByCfdaRequest) {
             this.fetchTotalsByCfdaRequest.cancel();
         }
         this.fetchTotalsByCfdaRequest = fetchDisasterSpending('cfda', {
             filter: {
-                def_codes: this.props.defCodes,
+                def_codes: this.props.defCodes.map((c) => c.code),
                 award_type_codes: allDefCAwardTypeCodes
             },
             pagination: {
@@ -304,13 +264,13 @@ export class CovidHighlights extends React.Component {
     render() {
         const {
             isAmountLoading,
-            isDateLoading,
             hasNext
         } = this.state;
-        const { totalSpendingAmount, submissionPeriods } = this.props;
-        const parsedDate = submissionPeriods.length
-            ? getLatestPeriodAsMoment(submissionPeriods).format('MMMM DD[,] YYYY')
-            : null;
+        const {
+            totalSpendingAmount,
+            latestSubmissionDate,
+            isFetchLatestFyLoading
+        } = this.props;
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
             : this.state.highlights;
@@ -320,7 +280,7 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of {isDateLoading ? <div className="dot-pulse" /> : `${parsedDate},`}</span>
+                            <span>As of {isFetchLatestFyLoading ? <div className="dot-pulse" /> : `${latestSubmissionDate.format('MMMM DD[,] YYYY')},`}</span>
                             <span>the Federal Government has spent </span>
                             <span>
                                 {isAmountLoading && <div className="dot-pulse" />}
@@ -398,15 +358,15 @@ export class CovidHighlights extends React.Component {
 CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    totalSpendingAmount: state.covid19.overview._totalOutlays,
-    defCodes: state.covid19.defCodes.map((code) => code.code),
-    submissionPeriods: state.account.submissionPeriods.toJS()
+    totalSpendingAmount: state.covid19.overview._totalOutlays
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setCovidOverview: (overview) => dispatch(setOverview(overview)),
-    setCovidDefCodes: (codes) => dispatch(setDEFCodes(codes)),
-    updateSubmissionPeriods: (periods) => dispatch(setSubmissionPeriods(periods))
+    setCovidOverview: (overview) => dispatch(setOverview(overview))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CovidHighlights);
+export default flowRight(
+    withDefCodes,
+    withLatestFy,
+    connect(mapStateToProps, mapDispatchToProps)
+)(CovidHighlights);

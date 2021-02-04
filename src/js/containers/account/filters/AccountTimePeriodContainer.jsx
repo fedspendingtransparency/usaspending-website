@@ -13,10 +13,11 @@ import * as accountFilterActions from 'redux/actions/account/accountFilterAction
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
-import WithLatestFy from 'containers/account/WithLatestFy';
+import withLatestFy from 'containers/account/WithLatestFy';
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
 import { LATEST_PERIOD_PROPS } from "propTypes";
+import { flowRight } from 'lodash';
 
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
@@ -100,18 +101,17 @@ export class AccountTimePeriodContainer extends React.Component {
 
 AccountTimePeriodContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        filterTimePeriodType: state.account.filters.dateType,
-        filterTimePeriodFY: state.account.filters.fy,
-        filterTimePeriodStart: state.account.filters.startDate,
-        filterTimePeriodEnd: state.account.filters.endDate
-    }),
-    (dispatch) => ({
-        ...bindActionCreators(accountFilterActions, dispatch)
-    })
-)((props) => (
-    <WithLatestFy>
-        <AccountTimePeriodContainer {...props} />
-    </WithLatestFy>
-));
+export default flowRight(
+    withLatestFy,
+    connect(
+        (state) => ({
+            filterTimePeriodType: state.account.filters.dateType,
+            filterTimePeriodFY: state.account.filters.fy,
+            filterTimePeriodStart: state.account.filters.startDate,
+            filterTimePeriodEnd: state.account.filters.endDate
+        }),
+        (dispatch) => ({
+            ...bindActionCreators(accountFilterActions, dispatch)
+        })
+    )
+)(AccountTimePeriodContainer);

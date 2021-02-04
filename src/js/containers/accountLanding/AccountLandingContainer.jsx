@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { inRange } from 'lodash';
+import { flowRight, inRange } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 
-import WithLatestFy from 'containers/account/WithLatestFy';
+import withLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
@@ -211,8 +211,6 @@ AccountLandingContainer.propTypes = {
     latestPeriod: LATEST_PERIOD_PROPS
 };
 
-export default () => (
-    <WithLatestFy>
-        <AccountLandingContainer />
-    </WithLatestFy>
-);
+export default flowRight(
+    withLatestFy
+)(AccountLandingContainer);
