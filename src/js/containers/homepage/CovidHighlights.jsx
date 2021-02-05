@@ -6,6 +6,9 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { get, uniqueId, throttle, isEqual, flowRight } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// proptypes
+import { SUBMISSION_PERIOD_PROPS } from 'propTypes';
+
 // redux
 import { setOverview } from 'redux/actions/covid19/covid19Actions';
 
@@ -27,6 +30,7 @@ import HeroButton from 'components/homepage/hero/HeroButton';
 import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
 import TotalAmount from 'components/homepage/hero/TotalAmount';
 
+
 const defaultParams = {
     pagination: {
         page: 1,
@@ -47,7 +51,7 @@ const propTypes = {
     setCovidDefCodes: PropTypes.func,
     completeIncrement: PropTypes.func,
     updateSubmissionPeriods: PropTypes.func,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
     latestSubmissionDate: PropTypes.object,
     defCodes: PropTypes.arrayOf(PropTypes.object),
     isFetchLatestFyLoading: PropTypes.bool

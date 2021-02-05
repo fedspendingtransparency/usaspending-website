@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import { flowRight } from 'lodash';
+
+import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from "propTypes";
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
@@ -16,8 +19,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import withLatestFy from 'containers/account/WithLatestFy';
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-import { LATEST_PERIOD_PROPS } from "propTypes";
-import { flowRight } from 'lodash';
 
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
@@ -28,7 +29,7 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
     latestPeriod: LATEST_PERIOD_PROPS
 };
 

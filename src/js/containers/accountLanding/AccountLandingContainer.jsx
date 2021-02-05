@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { isCancel } from 'axios';
 import { flowRight, inRange } from 'lodash';
 
@@ -15,7 +15,7 @@ import withLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
-import { LATEST_PERIOD_PROPS } from 'propTypes';
+import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from 'propTypes';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
@@ -207,7 +207,7 @@ export class AccountLandingContainer extends React.Component {
 }
 
 AccountLandingContainer.propTypes = {
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
     latestPeriod: LATEST_PERIOD_PROPS
 };
 

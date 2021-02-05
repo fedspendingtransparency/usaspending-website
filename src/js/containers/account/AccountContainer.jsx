@@ -11,6 +11,8 @@ import { isCancel } from 'axios';
 import { withRouter } from 'react-router-dom';
 import { flowRight } from 'lodash';
 
+import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
+
 import * as AccountHelper from 'helpers/accountHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
@@ -31,13 +33,8 @@ const propTypes = {
     account: PropTypes.object,
     match: PropTypes.object,
     setSelectedAccount: PropTypes.func,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
-    latestPeriod: PropTypes.shape({
-        year: PropTypes.number,
-        quarter: PropTypes.number,
-        period: PropTypes.number,
-        latestSubmissionDate: PropTypes.object // moment obj
-    })
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
+    latestPeriod: LATEST_PERIOD_PROPS
 };
 
 const combinedActions = Object.assign({},
