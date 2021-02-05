@@ -28,7 +28,7 @@ export const mockAPI = {
                 {
                     agency_name: "Mock Agency",
                     abbreviation: "ABC",
-                    agency_code: "020",
+                    toptier_code: "020",
                     current_total_budget_authority_amount: 8000.72,
                     periods: [
                         {
@@ -45,7 +45,7 @@ export const mockAPI = {
                 {
                     agency_name: "Mock Agency",
                     abbreviation: "ABC",
-                    agency_code: "123",
+                    toptier_code: "123",
                     current_total_budget_authority_amount: 8000.72,
                     periods: [
                         {
@@ -93,7 +93,7 @@ export const mockAPI = {
                 {
                     agency_name: "Mock Agency",
                     abbreviation: "ABC",
-                    agency_code: "123",
+                    toptier_code: "123",
                     agency_id: 123,
                     current_total_budget_authority_amount: 8000.72,
                     recent_publication_date: "2020-01-10T11:59:21Z",
@@ -112,7 +112,7 @@ export const mockAPI = {
                 {
                     agency_name: "Mock Agency 2",
                     abbreviation: "XYZ",
-                    agency_code: "456",
+                    toptier_code: "456",
                     agency_id: 789,
                     current_total_budget_authority_amount: 8000.72,
                     recent_publication_date: null,
