@@ -132,3 +132,34 @@ export const mockAPI = {
         }
     }
 };
+
+export const mockReportingPeriodRow = {
+    data: {
+        page_metadata: {
+            page: 1,
+            hasNext: false,
+            hasPrevious: false,
+            limit: 10,
+            total: 2
+        },
+        results: [
+            {
+                fiscal_year: 2020,
+                fiscal_period: 12,
+                current_total_budget_authority_amount: 8000.72,
+                recent_publication_date: "2020-01-10T11:59:21Z",
+                recent_publication_date_certified: false,
+                tas_account_discrepancies_totals: {
+                    gtas_obligation_total: 55234,
+                    tas_accounts_total: 23923,
+                    tas_obligation_not_in_gtas_total: 343345,
+                    missing_tas_accounts_count: 20
+                },
+                percent_of_total_budgetary_resources: 2.189,
+                obligation_difference: 4000.00,
+                unlinked_contract_award_count: 20002,
+                unlinked_assistance_award_count: 10001,
+                assurance_statement_url: 'https://files.usaspending.gov/agency_submissions/Raw%20DATA%20Act%20Files/2020/Q1/MockAgency(ABC)-Assurance_Statement.txt'}
+        ]
+    }
+};

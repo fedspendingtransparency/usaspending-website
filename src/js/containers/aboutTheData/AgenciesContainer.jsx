@@ -21,11 +21,10 @@ const propTypes = {
 };
 
 const parsePeriods = (periods) => periods
-    .map(({ publicationDate, showNotCertified, isQuarterly }) => (
+    .map(({ publicationDate, showNotCertified }) => (
         <div className="generic-cell-content">
-            {(!isQuarterly && publicationDate) && publicationDate}
-            {isQuarterly && "Submitted quarterly"}
-            {!publicationDate && "Not submitted"}
+            {(publicationDate) && publicationDate}
+            {!publicationDate && "--"}
             {showNotCertified && publicationDate && <span className="not-certified">NOT CERTIFIED</span>}
         </div>
     ));

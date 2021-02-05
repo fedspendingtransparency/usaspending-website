@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useParams } from 'react-router-dom';
+import { Redirect, useLocation, useParams } from 'react-router-dom';
 
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
@@ -71,7 +71,8 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = ({ history }) => {
-    const { urlHash } = useParams();
+    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+
     const dispatch = useDispatch();
     const {
         filters: stagedFilters,
@@ -138,11 +139,11 @@ const SearchContainer = ({ history }) => {
             });
             request.current.promise
                 .then((res) => {
-                    dispatch(setAppliedFilterEmptiness(false));
                     const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
                     if (filtersInImmutableStructure) {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        dispatch(setAppliedFilterEmptiness(false));
                         // set download availability
                         setDownloadAvailability(filtersInImmutableStructure);
                     }
@@ -158,6 +159,9 @@ const SearchContainer = ({ history }) => {
                     }
                 });
         }
+        else if (SearchHelper.areFiltersSelected(appliedFilters) && SearchHelper.areFiltersEmpty(stagedFilters)) {
+            dispatch(restoreHashedFilters(appliedFilters));
+        }
         else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
@@ -167,15 +171,23 @@ const SearchContainer = ({ history }) => {
             if (request.current) {
                 request.current.cancel();
             }
+            // clear selected filters so we don't fetch previous search
+            // only when query hash is defined b/c if its a urlHash, we cant know if we're remounting w/ the query hash or going somewhere else
+            dispatch(resetAppliedFilters());
+            dispatch(clearAllFilters());
         };
     }, []);
 
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            history.replace('/search');
+            history.replace({
+                pathname: '/search',
+                search: ''
+            });
+            setDownloadAvailable(false);
         }
-    }, [areAppliedFiltersEmpty]);
+    }, [areAppliedFiltersEmpty, urlHash]);
 
     const generateHash = useCallback(() => {
         // POST an API request to retrieve the Redux state
@@ -193,8 +205,10 @@ const SearchContainer = ({ history }) => {
         request.current.promise
             .then((res) => {
                 // update the URL with the received hash
-                const newHash = res.data.hash;
-                history.replace(`/search/${newHash}`);
+                history.replace({
+                    pathname: `/search/`,
+                    search: `?${new URLSearchParams({ hash: res.data.hash }).toString()}`
+                });
                 setGenerateHashInFlight(false);
             })
             .catch((err) => {
@@ -224,6 +238,12 @@ const SearchContainer = ({ history }) => {
         }
     }, [appliedFilters, urlHash]);
 
+    useEffect(() => {
+        if (SearchHelper.areFiltersDifferent(appliedFilters, stagedFilters) && SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)) {
+            dispatch(restoreHashedFilters(appliedFilters));
+        }
+    }, [appliedFilters, stagedFilters]);
+
     return (
         <SearchPage
             hash={urlHash}
@@ -238,3 +258,18 @@ const SearchContainer = ({ history }) => {
 
 SearchContainer.propTypes = propTypes;
 export default SearchContainer;
+
+export const SearchContainerRedirect = () => {
+    const { urlHash: pathHash } = useParams();
+    return (
+        <Redirect
+            to={{
+                pathname: '/search/',
+                search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
+            }} />
+    );
+};
+
+SearchContainer.propTypes = {
+    history: PropTypes.object.isRequired
+};

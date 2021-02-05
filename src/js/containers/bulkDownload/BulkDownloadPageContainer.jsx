@@ -173,11 +173,11 @@ export class BulkDownloadPageContainer extends React.Component {
             params.filters.budget_subfunction = formState.budgetSubfunction.code;
         }
 
-        if (formState.period !== '') {
-            params.filters.period = formState.period;
+        if (formState.period !== 0 && !formState.period) {
+            params.filters.quarter = formState.quarter;
         }
         else {
-            params.filters.quarter = formState.quarter;
+            params.filters.period = formState.period;
         }
 
         this.requestDownload(params, 'accounts');
