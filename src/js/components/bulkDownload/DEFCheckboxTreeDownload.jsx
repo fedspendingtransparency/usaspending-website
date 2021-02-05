@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { isCancel } from 'axios';
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchDEFCodes } from 'helpers/disasterHelper';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
@@ -41,58 +39,10 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
     }), covidParentNode);
 
 const DEFCheckboxTreeDownload = ({ type }) => {
-    const [nodes, setNodes] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [errorMsg, isLoading, validDefCodes] = useDefCodes();
     const [expanded, setExpanded] = useState([]);
-    const validDefCodes = useSelector((state) => state.covid19.defCodes);
-
-    const request = useRef(null);
-    const dispatch = useDispatch();
-
     const { defCodes } = useSelector((state) => state.bulkDownload[type]);
-
-
-    const fetchCodes = async () => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        setLoading(true);
-        let covidCodes;
-
-        if (validDefCodes && validDefCodes.length > 0) {
-            covidCodes = parseCovidCodes(validDefCodes);
-        } else {
-            request.current = fetchDEFCodes();
-            const res = await request.current.promise;
-            covidCodes = res.data.codes;
-            dispatch(setDEFCodes(covidCodes.filter((c) => c.disaster === 'covid_19')));
-        }
-
-        try {
-            setNodes([covidCodes]);
-            setLoading(false);
-        }
-        catch (e) {
-            console.log('Error fetching Def Codes ', e);
-            if (!isCancel(e)) {
-                setLoading(false);
-                setError(true);
-                setErrorMessage(e?.messsage || 'There was an error, please refresh the browser.');
-                request.current = null;
-            }
-        }
-    };
-
-    useEffect(() => {
-        fetchCodes();
-        return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
-        };
-    }, [validDefCodes]);
+    const dispatch = useDispatch();
 
     const onCollapse = (newExpandedArray) => {
         setExpanded([newExpandedArray]);
@@ -118,10 +68,10 @@ const DEFCheckboxTreeDownload = ({ type }) => {
                 className="def-checkbox-tree"
                 checked={defCodes}
                 expanded={expanded}
-                data={nodes}
-                isError={error}
-                errorMessage={errorMessage}
-                isLoading={loading}
+                data={[parseCovidCodes(validDefCodes)]}
+                isError={(errorMsg !== '')}
+                errorMessage={errorMsg}
+                isLoading={isLoading}
                 searchText=""
                 noResults={false}
                 labelComponent={<DEFCheckboxTreeLabel />}
