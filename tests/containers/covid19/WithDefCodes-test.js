@@ -8,7 +8,7 @@
 * SOURCE/REFERENCE for testing custom hooks: https://kentcdodds.com/blog/how-to-test-custom-react-hooks
 */
 
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import * as helper from 'helpers/disasterHelper';

@@ -138,3 +138,16 @@ export const LATEST_PERIOD_PROPS = PropTypes.shape({
     period: PropTypes.number,
     latestSubmissionDate: PropTypes.object // moment obj
 });
+
+export const SUBMISSION_PERIOD_PROPS = PropTypes.arrayOf(PropTypes.shape({
+    period_start_date: PropTypes.string,
+    period_end_date: PropTypes.string,
+    submission_start_date: PropTypes.string,
+    submission_due_date: PropTypes.string,
+    certification_due_date: PropTypes.string,
+    submission_reveal_date: PropTypes.string,
+    submission_fiscal_year: PropTypes.number,
+    submission_fiscal_quarter: PropTypes.number,
+    submission_fiscal_month: PropTypes.number,
+    is_quarter: PropTypes.bool
+}));
