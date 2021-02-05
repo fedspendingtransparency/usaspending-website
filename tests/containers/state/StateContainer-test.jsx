@@ -10,7 +10,10 @@ import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import { mockActions, mockProps, mockStateOverview } from './mockData';
 
 // mock the state helper
-jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
+jest.mock('helpers/stateHelper', () => ({
+    ...jest.requireActual('helpers/stateHelper'),
+    ...require('./mockStateHelper')
+}));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/state/StatePage', () => jest.fn(() => null));
@@ -30,6 +33,25 @@ describe('StateContainer', () => {
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
         expect(mockActions.setStateFiscalYear).toHaveBeenCalledWith('latest');
         expect(loadStateOverview).toHaveBeenCalledWith('01', 'latest');
+    });
+    it('should make redirect to state name url when fips id is in url', async () => {
+        const mockReplace = jest.fn();
+        const container = shallow(<StateContainer
+            {...mockProps}
+            history={{
+                replace: mockReplace
+            }}
+            match={{
+                params: {
+                    state: '01',
+                    fy: 'latest'
+                }
+            }}
+            {...mockActions} />);
+
+        await container.instance().componentDidMount();
+        expect(mockReplace).toHaveBeenCalledTimes(1);
+        expect(mockReplace).toHaveBeenCalledWith('/state/alabama/latest');
     });
     it('should update the center coordinates for the selected state on mount', async () => {
         const container = mount(<StateContainer
@@ -56,7 +78,7 @@ describe('StateContainer', () => {
         container.setProps({
             match: {
                 params: {
-                    stateId: '02',
+                    state: '02',
                     fy: 'latest'
                 }
             }
@@ -78,7 +100,7 @@ describe('StateContainer', () => {
         container.setProps({
             match: {
                 params: {
-                    stateId: '02',
+                    state: 'alaska',
                     fy: 'latest'
                 }
             }
@@ -108,7 +130,7 @@ describe('StateContainer', () => {
         container.setProps({
             match: {
                 params: {
-                    stateId: '02',
+                    state: '02',
                     fy: 'latest'
                 }
             }
@@ -117,7 +139,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
         expect(loadStateOverview).toHaveBeenLastCalledWith('02', 'latest');
 
-        container.setProps({ match: { params: { stateId: '02', fy: '2008' } } });
+        container.setProps({ match: { params: { state: '02', fy: '2008' } } });
         expect(mockActions.setStateFiscalYear).toHaveBeenLastCalledWith('2008');
     });
     it('should make an API call when the fiscal year changes', async () => {
