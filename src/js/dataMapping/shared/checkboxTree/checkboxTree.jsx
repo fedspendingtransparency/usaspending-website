@@ -35,3 +35,10 @@ export const treeIcons = {
     parentOpen: null,
     leaf: null
 };
+
+export const checkboxTreeFilters = [
+    'defCodes',
+    'pscCodes',
+    'naicsCodes',
+    'tasCodes'
+];

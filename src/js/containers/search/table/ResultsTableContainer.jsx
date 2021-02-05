@@ -122,19 +122,18 @@ export class ResultsTableContainer extends React.Component {
         // we can't hide the table entirely because the viewport is required to calculate the
         // row rendering
         this.loadColumns();
-        if (SearchHelper.isSearchHashReady(this.props.location.pathname)) {
+        if (SearchHelper.isSearchHashReady(this.props.location)) {
             this.pickDefaultTab();
         }
     }
 
     componentDidUpdate(prevProps) {
-        const filtersChanged = !SearchHelper.areFiltersEqual(prevProps.filters, this.props.filters);
-        if (filtersChanged && !this.props.noApplied) {
-            // filters changed, update the search object
+        if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
             this.pickDefaultTab();
         }
-        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
-            // subaward toggle changed, update the search object
+        else if (SearchHelper.isSearchHashReady(this.props.location) && this.props.location.search !== prevProps.location.search) {
+            // hash is (a) defined and (b) new
             this.pickDefaultTab();
         }
     }
