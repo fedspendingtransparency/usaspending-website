@@ -16,7 +16,7 @@ import withLatestFy from 'containers/account/WithLatestFy';
 
 // helpers
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { fetchOverview, fetchDisasterSpending, fetchDEFCodes } from 'helpers/disasterHelper';
+import { fetchOverview, fetchDisasterSpending } from 'helpers/disasterHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 
 // datamapping
