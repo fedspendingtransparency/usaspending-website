@@ -90,7 +90,7 @@ const getDefCValues = (errorMsg, isLoading, codes) => {
                     if (isLast) {
                         return `${acc} and "${c.code}"`;
                     }
-                    return `${acc}"${c.code}",`;
+                    return `${acc}"${c.code}", `;
                 }, '')}
         </span>
     );
