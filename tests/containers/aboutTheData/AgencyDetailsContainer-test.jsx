@@ -22,29 +22,34 @@ const mockResponse = {
     }
 };
 
-test('makes a request for table data on mount', () => {
+test('makes one request for table data on mount', () => {
     const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockReturnValue(mockResponse);
 
     render(<AgencyDetailsContainer {...defaultProps} />);
-    expect(tableRequest).toHaveBeenCalledTimes(2); // once for each useEffect
+
+    return waitFor(() => {
+        expect(tableRequest).toHaveBeenCalledTimes(1);
+    });
 });
 
-test('when the sort field changes, a new request is made', () => {
+test('when the sort field changes, only one request is made', () => {
     const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
     render(<AgencyDetailsContainer {...defaultProps} />);
 
     fireEvent.click(screen.getByTitle('Sort table by descending Percent of Total Federal Budget'));
-    expect(tableRequest).toHaveBeenCalledTimes(3);
+    return waitFor(() => {
+        expect(tableRequest).toHaveBeenCalledTimes(2);
+    });
 });
 
-test('when the sort order changes, a new request is made', () => {
+test('when the sort order changes, only one request is made', () => {
     const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
     render(<AgencyDetailsContainer {...defaultProps} />);
 
     fireEvent.click(screen.getByTitle('Sort table by ascending Reporting Period'));
 
     return waitFor(() => {
-        expect(tableRequest).toHaveBeenCalledTimes(3);
+        expect(tableRequest).toHaveBeenCalledTimes(2);
     });
 });
 
