@@ -22,7 +22,7 @@
             font-weight: $font-semibold;
             font-size: rem(19);
         }
-        @include media($tablet-screen) {
+        @include media($medium-screen) {
             width: 50%;
         }
     }
