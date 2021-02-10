@@ -174,6 +174,11 @@ export class CovidHighlights extends React.Component {
                 return Promise.resolve();
             }
         }
+        else if (this.state.isDateLoading) {
+            this.setState({
+                isDateLoading: false
+            });
+        }
         return Promise.resolve();
     }
 
