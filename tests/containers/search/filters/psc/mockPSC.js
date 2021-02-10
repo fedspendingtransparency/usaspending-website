@@ -2287,3 +2287,31 @@ export const reallyBigTree = cleanPscData([
             }
         ]
     }]);
+
+export const partialSearchResults = {
+    results: [
+        {
+            "id": "Service",
+            "ancestors": [],
+            "description": "",
+            "count": 2028,
+            "children": [
+                {
+                    "id": "G",
+                    "ancestors": ["Service"],
+                    "description": "SOCIAL SERVICES",
+                    "count": 11,
+                    "children": [
+                        {
+                            "id": "G0",
+                            "ancestors": ["Service", "G"],
+                            "description": "SOCIAL SERVICES",
+                            "count": 11,
+                            "children": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};

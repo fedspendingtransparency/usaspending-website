@@ -248,7 +248,6 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const secondTierWithPlaceholder = getPscNodeFromTree(searchResults, 'AA');
             const secondTierWithPartialChildrenAndPlaceholder = getPscNodeFromTree(searchResults, 'AC');
             const thirdTierWithPartialResultsAndPlaceholder = getPscNodeFromTree(searchResults, 'AC2');
-
             expect(secondTierWithPlaceholder.children[0].isPlaceHolder).toEqual(true);
             expect(secondTierWithPartialChildrenAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
             expect(thirdTierWithPartialResultsAndPlaceholder.children.some((node) => node.isPlaceHolder)).toEqual(true);
@@ -896,3 +895,18 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         expect(mockTrue).toEqual(true);
     });
 });
+
+const initialPscTreeOnExpand = cleanPscData(pscMockData.topTierResponse.results);
+const searchResultWithPartialData = cleanPscData(pscMockData.partialSearchResults.results);
+
+test.each([
+    [initialPscTreeOnExpand, searchResultWithPartialData, ['Service', 'G', 'G0'], 1]
+])(
+    'partial search results under a grand child only are given placeholders and hidden (mock tree before search: %p), (search result: %p)',
+    (initialTree, searchResult, pathToChildren, hiddenNodesLength) => {
+        const result = addSearchResultsToTree(initialTree, searchResult, getPscNodeFromTree);
+        const children = pathToChildren.reduce((acc, id) => acc.find((node) => node.value === id).children, result);
+        expect(children.filter((c) => c.className === 'hide').length).toEqual(hiddenNodesLength);
+    }
+);
+
