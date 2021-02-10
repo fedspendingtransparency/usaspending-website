@@ -26,7 +26,8 @@ const propTypes = {
     jumpToSection: PropTypes.func,
     counts: PropTypes.object,
     isSubAwardIdClicked: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func
+    subAwardIdClicked: PropTypes.func,
+    defCodes: PropTypes.array
 };
 
 const ContractContent = ({
@@ -35,7 +36,8 @@ const ContractContent = ({
     jumpToSection,
     counts,
     isSubAwardIdClicked,
-    subAwardIdClicked
+    subAwardIdClicked,
+    defCodes
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
 
@@ -49,7 +51,7 @@ const ContractContent = ({
     };
 
     const awardAmountData = Object.create(BaseAwardAmounts);
-    awardAmountData.populate(overview, overview.category);
+    awardAmountData.populate(overview, overview.category, defCodes);
 
     const jumpToTransactionHistoryTable = () => {
         setActiveTab('transaction');

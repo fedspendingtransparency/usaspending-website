@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
@@ -20,7 +20,7 @@ import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from "./TimeFilters";
 
-require("pages/aboutTheData/agenciesPage.scss");
+require("pages/aboutTheData/aboutTheData.scss");
 
 const TableTabLabel = ({ label }) => {
     const tooltipComponent = (
@@ -45,7 +45,9 @@ const message = "All numeric figures in this table are calculated based on the s
 const AboutTheDataPage = ({
     history
 }) => {
-    const { fy: urlFy, period: urlPeriod } = useParams();
+    const query = new URLSearchParams(useLocation().search);
+    const urlFy = query.get('fy');
+    const urlPeriod = query.get('period');
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
@@ -66,12 +68,18 @@ const AboutTheDataPage = ({
 
     useEffect(() => {
         if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
-            history.replace(`about-the-data/agencies/${latestFy}/${latestPeriod}`);
+            history.replace({
+                pathname: `/submission-statistics/`,
+                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod }).toString()}`
+            });
         }
-    }, []);
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, urlFy, urlPeriod]);
 
     const updateUrl = (newFy, newPeriod) => {
-        history.push({ pathname: `/about-the-data/agencies/${newFy}/${newPeriod}` });
+        history.push({
+            pathname: `/submission-statistics/`,
+            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod }).toString()}`
+        });
     };
 
     const handleSwitchTab = (tab) => {
@@ -98,7 +106,7 @@ const AboutTheDataPage = ({
     };
 
     return (
-        <div className="usa-da__about-the-data__agencies-page">
+        <div className="about-the-data about-the-data_agencies-page">
             <Header />
             <StickyHeader>
                 <div className="sticky-header__title">
@@ -117,8 +125,8 @@ const AboutTheDataPage = ({
                         types={[
                             {
                                 internal: 'submissions',
-                                label: "Statistics by Reporting Period",
-                                labelContent: <TableTabLabel label="Statistics by Reporting Period" />
+                                label: "Statistics by Submission Period",
+                                labelContent: <TableTabLabel label="Statistics by Submission Period" />
                             },
                             {
                                 internal: 'publications',
@@ -150,14 +158,13 @@ const AboutTheDataPage = ({
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
-                    title={modalTitles[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
                     agencyData={{
                         ...modalData,
                         fiscalYear: parseInt(selectedFy, 10),
                         fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
                     }}
-                    closeModal={closeModal}
-                    totalObligationsNotInGTAS={45999} />
+                    closeModal={closeModal} />
             </main>
             <Footer />
         </div>

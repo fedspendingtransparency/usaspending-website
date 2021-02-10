@@ -1,0 +1,155 @@
+.table-container {
+    height: rem(500);
+    overflow: scroll;
+    margin: 0;
+    border: rem(1) solid $color-gray-border;
+    .usda-table.usda-table-w-grid {
+        border-collapse: separate;
+        margin-top: 0;
+        margin-bottom: 0;
+        &.table-loading {
+            height: 100%;
+        }
+        thead {
+            tr th {
+                min-width: rem(300);
+                vertical-align: top;
+            }
+            .table-header__content_right
+                .tooltip-wrapper
+                div:first-of-type
+                .tooltip-spacer
+                .tooltip
+                .tooltip__interior
+                .tooltip-pointer {
+                &.left {
+                    left: rem(-24);
+                }
+                &.right {
+                    right: rem(8);
+                }
+            }
+            .nested-header {
+                .table-header__content {
+                    padding: 1rem 0;
+                }
+            }
+        }
+        &.table-loading
+            tbody
+            tr:first-of-type
+            td
+            div:not(.usda-loading-animation__container):not(.usda-loading-animation):not(.loading-message) {
+            width: 100vw;
+        }
+        tbody {
+            .usda-table__row {
+                .usda-table__cell {
+                    font-size: 1.4rem;
+                    padding: 1.2rem;
+                    @import '../pages/aboutTheData/actionCell';
+                    .generic-cell-content {
+                        padding-right: 2.4rem;
+                        .not-certified {
+                            margin-left: rem(5);
+                            background: #dce4ee;
+                            border-radius: rem(2);
+                            color: $color-base;
+                            padding: rem(5);
+                            font-size: rem(10);
+                            font-weight: $font-semibold;
+                            line-height: rem(13);
+                        }
+                    }
+                    .matched-str {
+                        font-weight: 600;
+                        text-decoration: underline;
+                    }
+                    &:hover {
+                        background-color: $color-primary-alt-lightest;
+                    }
+                }
+            }
+        }
+        &.sticky-y-table {
+            @media (min-width: $medium-screen) {
+                thead {
+                    tr th {
+                        position: sticky;
+                        position: -webkit-sticky;
+                        top: 0;
+                        z-index: 9;
+                        border: rem(1) solid $color-gray-lighter;
+                        // Set a higher z-index on the <th> the user is hovering over so
+                        // tooltips display above the stacking context of the other headers
+                        &:hover {
+                            z-index: 10;
+                        }
+                    }
+                    tr:last-of-type th {
+                        top: rem(57);
+                        border: rem(1) solid $color-gray-lighter;
+                    }
+                }
+            }
+        }
+        &.sticky-x-table {
+            @media (min-width: $medium-screen) {
+                thead {
+                    tr:first-of-type {
+                        .table-header:first-of-type {
+                            position: sticky;
+                            position: -webkit-sticky;
+                            left: 0px;
+                            z-index: 11;
+                            box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
+                            border-right: 1px solid $color-gray-lightest;
+                        }
+                    }
+                }
+                tbody {
+                    .usda-table__row .usda-table__cell {
+                        &:first-of-type {
+                            position: sticky;
+                            position: -webkit-sticky;
+                            z-index: 10;
+                            left: 0px;
+                            box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
+                            border-right: rem(1) solid $color-gray-lightest;
+                        }
+                    }
+                }
+            }
+        }
+        &.table-loading .usda-table__body tr td {
+            border: none;
+        }
+    }
+}
+// Pagination
+.usa-dt-pagination {
+    padding: rem(20);
+    .usa-dt-pagination__totals {
+        text-align: center;
+        padding: rem(20); // extra padding on mobile
+        @media (min-width: $tablet-screen) {
+            text-align: left;
+            padding: rem(0);
+        }
+    }
+    .usa-dt-pagination__wrapper {
+        @include justify-content(center); // center on mobile
+        @media (min-width: $tablet-screen) {
+            @include justify-content(flex-end);
+        }
+        .pager {
+            padding: rem(20); // extra padding on mobile
+            @media (min-width: $tablet-screen) {
+                padding: 0;
+            }
+            .pager__item {
+                margin: 0;
+            }
+        }
+    }
+}

@@ -48,12 +48,16 @@
         ul.nav-children__list {
             @include unstyled-list;
             position: absolute;
-            left: 0;
             width: rem(230);
             background-color: $color-white;
             box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
-
             border-top: 1px solid $dropdown-border;
+            &:not(.resources) {
+                left: 0;
+            }
+            &.resources {
+                right: 0;
+            }
         }
 
         hr.nav-children__list-separator {
@@ -67,15 +71,13 @@
         }
 
         a.nav-children__link {
-            display: block;
-
+            @include display(flex);
+            @include align-items(center);
             font-size: rem(15);
             line-height: rem(19);
             color: $nav-color;
             font-weight: $font-semibold;
-
             padding: rem(15) rem(20);
-
             &:hover, &:active {
                 text-decoration: none;
                 background-color: $dropdown-hover;
@@ -99,7 +101,6 @@
             color: $nav-color;
             font-weight: $font-semibold;
             padding: rem(15) rem(20);
-
             &:hover, &:active {
                 background-color: $dropdown-hover;
             }

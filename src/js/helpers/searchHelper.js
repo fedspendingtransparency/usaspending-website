@@ -4,7 +4,10 @@
   **/
 
 import { is } from 'immutable';
+import { isEqual, sortBy } from 'lodash';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { checkboxTreeFilters } from 'dataMapping/shared/checkboxTree/checkboxTree';
+
 import { apiRequest } from './apiRequest';
 
 // Agency search for autocomplete
@@ -134,13 +137,19 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
+const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
+    if (!isEqual(sortBy(require1), sortBy(require2))) return false;
+    if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
+    return true;
+};
+
 /**
  * Equality Comparison of two objects:
  * @param {Object} filters object to be measured for equality
  * @param {Object} filterReference object by which equality is measured  against
  * @returns {boolean}
  */
-export const areFiltersEqual = (filters, filterReference = initialState) => {
+export const areFiltersEqual = (filters = initialState, filterReference = initialState) => {
     if (!filterReference && filters) return false;
     const referenceObject = Object.assign({}, filterReference);
     const comparisonObject = Object.assign({}, filters);
@@ -161,14 +170,24 @@ export const areFiltersEqual = (filters, filterReference = initialState) => {
 
     // we need to iterate through each of the filter Redux keys in order to perform equality
     // comparisons on Immutable children (via the Immutable is() function)
-    const filterKeys = Object.keys(comparisonObject);
+    const immutableFilterKeys = Object
+        .keys(comparisonObject)
+        .filter((k) => !checkboxTreeFilters.includes(k));
 
-    for (let i = 0; i < filterKeys.length; i++) {
-        const key = filterKeys[i];
+    for (let i = 0; i < immutableFilterKeys.length; i++) {
+        const key = immutableFilterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
         if (!is(unfilteredValue, currentValue)) return false;
     }
+
+    for (let i = 0; i < checkboxTreeFilters.length; i++) {
+        const key = checkboxTreeFilters[i];
+        const unfilteredValue = comparisonObject[key].toObject();
+        const currentValue = referenceObject[key].toObject();
+        if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;
+    }
+
     return true;
 };
 
@@ -177,7 +196,24 @@ export const areFiltersSelected = (filters) => !areFiltersEqual(filters);
 
 export const areFiltersDifferent = (a, b) => !areFiltersEqual(a, b);
 
-export const isSearchHashReady = (str) => str
-    .split('/search/')
-    .filter((s) => s && s !== "/search")
-    .length > 0;
+export const isSearchHashReady = ({ search }) => {
+    if (search) {
+        const params = new URLSearchParams(search);
+        for (const [key, value] of params.entries()) {
+            if (key === 'hash' && value) {
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+};
+
+export const getObjFromQueryParams = (str) => {
+    const params = new URLSearchParams(str);
+    const obj = {};
+    for (const [key, value] of params.entries()) {
+        obj[key] = value;
+    }
+    return obj;
+};

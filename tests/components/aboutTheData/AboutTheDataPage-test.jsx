@@ -8,7 +8,7 @@ import * as accountHelpers from 'helpers/accountHelper';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
-import { mockAPI } from 'containers/aboutTheData/AgencyTableMapping';
+import { mockAPI } from '../../containers/aboutTheData/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
 // latest fy of 2020; latest period is 12
@@ -49,10 +49,7 @@ const defaultProps = {
         replace: mockReplace
     },
     match: {
-        params: {
-            fy: '2020',
-            period: '12'
-        }
+        search: "?fy=2020&period=12"
     }
 };
 
@@ -87,7 +84,7 @@ beforeEach(() => {
         }
     });
     jest.spyOn(aboutTheDataHelpers, 'getSubmissionPublicationDates').mockReturnValue({
-        promise: Promise.resolve(mockAPI.dates),
+        promise: Promise.resolve(mockAPI.publications),
         cancel: () => {
             console.log('cancel called');
         }
@@ -97,7 +94,7 @@ beforeEach(() => {
 test('renders the details table first', async () => {
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
-    const [table] = screen.getAllByText('Count of Agency TAS in GTAS Not in File A');
+    const [table] = screen.getAllByText('Number of TAS Missing from Account Balance Data');
     expect(table).toBeDefined();
 });
 
@@ -110,9 +107,12 @@ test('on tab change updates the table view', async () => {
     expect(table).toBeDefined();
 });
 
-test('redirects about-the-data/agencies to url w/ latest fy and period in params', async () => {
-    render(<AboutTheDataPage {...defaultProps} match={{ params: {} }} />);
+test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
+    render(<AboutTheDataPage {...defaultProps} match={{ search: "" }} />);
     return waitFor(() => {
-        expect(mockReplace).toHaveBeenCalledWith('about-the-data/agencies/2020/12');
+        expect(mockReplace).toHaveBeenCalledWith({
+            pathname: '/submission-statistics/',
+            search: "?fy=2020&period=12"
+        });
     });
 });

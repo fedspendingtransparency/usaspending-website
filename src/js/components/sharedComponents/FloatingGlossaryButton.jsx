@@ -47,7 +47,7 @@ export default class FloatingGlossaryButton extends React.Component {
 
     pageScrolled() {
         // find the header glossary button
-        const header = document.getElementById('header-glossary-button');
+        const header = document.querySelector('.site-logo');
         const headerBottom = header.getBoundingClientRect().top + (header.offsetHeight * 0.5);
 
         if (headerBottom <= 0 && this.state.hide) {
