@@ -38,6 +38,9 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const [totalItems, setTotalItems] = useState(0);
     const tableRef = useRef(null);
     const tableRequest = useRef(null);
+    const prevPageRef = useRef(null);
+    const { current: prevPage } = prevPageRef;
+
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
         setIsSticky({ vertical, horizontal });
@@ -153,17 +156,34 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     };
 
     useEffect(() => {
-        // Reset to the first page
-        if (currentPage === 1) {
-            fetchTableData();
-        }
-        else {
-            changeCurrentPage(1);
-        }
-    }, [agencyCode, sortStatus, pageSize]);
+        prevPageRef.current = currentPage;
+    }, [currentPage]);
 
     useEffect(() => {
-        fetchTableData();
+        if (currentPage === 1 && !prevPage) {
+            // only true on first render
+            fetchTableData();
+        }
+        else if (currentPage === 1 && currentPage === prevPage) {
+            // only true when sort, agency-code, or page-size changed
+            fetchTableData();
+        }
+        else if (currentPage !== 1 && currentPage === prevPage) {
+            // only true when sort, agency-code, or page-size changed
+            changeCurrentPage(1);
+        }
+    }, [
+        currentPage,
+        agencyCode,
+        sortStatus,
+        pageSize
+    ]);
+
+    useEffect(() => {
+        if (prevPage !== currentPage && prevPage) {
+            // only true when page changes.
+            fetchTableData();
+        }
     }, [currentPage]);
 
     return (
