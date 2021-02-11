@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { isBefore, startOfToday } from 'date-fns';
 
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
@@ -446,9 +447,11 @@ export default () => {
                                             Memorandum M-20-21
                                         </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
                                     </p>
-                                    <p>
-                                        <strong>COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021 will appear on USAspending.gov on March 3, 2020.</strong> Starting in March, users can find DEFC &quot;U&quot; in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
-                                    </p>
+                                    {isBefore(startOfToday(), new Date(2021, 2, 3)) && (
+                                        <p>
+                                            <strong>COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021 will appear on USAspending.gov on March 3, 2020.</strong> Starting in March, users can find DEFC &quot;U&quot; in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
+                                        </p>
+                                    )}
                                     <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
                                     </p>
