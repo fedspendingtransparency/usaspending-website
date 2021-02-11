@@ -177,6 +177,8 @@ test('when totals are defined and the sort field changes, one request is made', 
     });
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
+    expect(submissionsRequest).toHaveBeenCalledTimes(1);
+    submissionsRequest.mockClear();
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -190,9 +192,10 @@ test('when totals are defined and the sort field changes, one request is made', 
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
+
     rerender(<AgenciesContainer {...defaultProps} />);
+
     return waitFor(() => {
-        // if you changes this to three the test will fail; once on mount, then only once more.
         expect(submissionsRequest).toHaveBeenCalledTimes(2);
     });
 });
@@ -213,6 +216,7 @@ test('when totals are defined and the order field changes, one request is made',
     });
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
+    submissionsRequest.mockClear();
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -249,6 +253,7 @@ test('when totals are defined and the search term is defined, one request is mad
     });
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
+    submissionsRequest.mockClear();
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],

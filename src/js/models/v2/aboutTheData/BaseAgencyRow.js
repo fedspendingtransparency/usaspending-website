@@ -10,7 +10,7 @@ const BaseAgencyRow = Object.create(CoreReportingRow);
 
 BaseAgencyRow.populate = function populate(data) {
     this.populateCore(data);
-    this.code = data.agency_code || '';
+    this.code = data.toptier_code || '';
     this._name = data.agency_name || '';
     this._abbreviation = data.abbreviation || '';
     this.name = (this._name && this._abbreviation)
