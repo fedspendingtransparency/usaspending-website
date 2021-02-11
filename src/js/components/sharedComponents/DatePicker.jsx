@@ -103,6 +103,17 @@ export default class DatePicker extends React.Component {
             // have to hold a reference to the bound function in order to cancel the listener later
             window.addEventListener('keyup', this.escapeEvent);
         }
+        else if (this.state.showDatePicker) {
+            /**
+             * Given a user updates the month in the date picker to a month that does not include the date selected,
+             * we must focus on another element within the datepicker or a user will not be able to outside click to
+             * hide the datepicker.
+             */
+            this.datepicker.focus();
+            // we want to close the date picker on escape key
+            // have to hold a reference to the bound function in order to cancel the listener later
+            window.addEventListener('keyup', this.escapeEvent);
+        }
         else {
             // date picker is now closed, stop listening for this event
             window.removeEventListener('keyup', this.escapeEvent);
