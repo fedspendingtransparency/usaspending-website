@@ -16,7 +16,6 @@ import { mockContract, mockLoan, mockIdv } from '../../models/award/mockAwardApi
 
 jest.mock('helpers/searchHelper', () => require('./awardHelper'));
 jest.mock('helpers/downloadHelper', () => require('./awardHelper'));
-jest.mock('helpers/disasterHelper', () => require('./awardHelper'));
 
 // mock the child components by replacing them with functions that return null elements
 jest.mock('components/award/Award', () => jest.fn(() => null));
@@ -66,25 +65,6 @@ describe('awardContainer', () => {
 
         expect(getSelectedAward).toHaveBeenCalledTimes(2);
         expect(getSelectedAward).toHaveBeenLastCalledWith('1234');
-    });
-
-    it('should not make an API call for DEF Codes if they are already in Redux', () => {
-        const fetchCodes = jest.fn();
-        const container = getAwardContainer(); // defCodes are populated in mockParams
-        container.instance().fetchCodes = fetchCodes;
-        container.instance().componentDidMount();
-        expect(fetchCodes).toHaveBeenCalledTimes(0);
-    });
-
-    it('should make an API call for DEF Codes if they are not already in Redux', () => {
-        const fetchCodes = jest.fn();
-        const container = shallow(<AwardContainer
-            {...mockParams}
-            {...mockActions}
-            defCodes={[]} />);
-        container.instance().fetchCodes = fetchCodes;
-        container.instance().componentDidMount();
-        expect(fetchCodes).toHaveBeenCalled();
     });
 
     describe('parseAward', () => {
@@ -160,14 +140,6 @@ describe('awardContainer', () => {
             const awardContainer = getAwardContainer({ ...mockParams, award: { ...mockParams.award, category: "grant" } });
             const result = await awardContainer.instance().fetchAwardDownloadFile().promise;
             expect(result.data.file_name).toEqual('assistance.zip');
-        });
-    });
-
-    describe('fetchCodes', () => {
-        it('should call the setDEFCodes action creator', async () => {
-            const awardContainer = getAwardContainer();
-            await awardContainer.instance().fetchCodes();
-            expect(mockActions.setDEFCodes).toHaveBeenCalled();
         });
     });
 });

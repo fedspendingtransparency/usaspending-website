@@ -1,11 +1,11 @@
 import React from 'react';
-import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { uniqueId, get } from 'lodash';
+import { uniqueId, flowRight } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { fetchDEFCodes } from 'helpers/disasterHelper';
+import withDefCodes from 'containers/covid19/WithDefCodes';
+
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -25,7 +25,8 @@ const covidParentNode = {
     children: []
 };
 
-const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'covid_19')
+const parseCovidCodes = (codes) => codes
+    .filter((code) => code.disaster === 'covid_19')
     .reduce((acc, covidCode) => ({
         ...acc,
         children: acc.children.concat([{
@@ -55,16 +56,6 @@ export class DEFCheckboxTree extends React.Component {
         this.request = null;
     }
 
-    componentDidMount() {
-        this.fetchCodes();
-    }
-
-    componentWillUnmount() {
-        if (this.request) {
-            this.request.cancel();
-        }
-    }
-
     stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
         if (newCount > 0) {
@@ -83,33 +74,6 @@ export class DEFCheckboxTree extends React.Component {
         }
     };
 
-    fetchCodes = async () => {
-        if (this.request) {
-            this.request.cancel();
-        }
-        this.request = fetchDEFCodes();
-        this.setState({ isLoading: true });
-        try {
-            const { data: { codes: allDisasterCodes } } = await this.request.promise;
-            const covidCodes = parseCovidCodes(allDisasterCodes);
-            this.setState({
-                nodes: [covidCodes],
-                isLoading: false
-            });
-        }
-        catch (e) {
-            if (!isCancel(e)) {
-                console.log('Error fetching Def Codes ', e);
-                this.setState({
-                    isLoading: false,
-                    isError: true,
-                    errorMessage: get(e, 'message', 'There was an error, please refresh the browser.')
-                });
-            }
-            this.request = null;
-        }
-    };
-
     removeSelectedFilter = (e) => {
         e.preventDefault();
         this.props.stageDef([], [], []);
@@ -122,10 +86,10 @@ export class DEFCheckboxTree extends React.Component {
                     className="def-checkbox-tree"
                     checked={this.props.checked}
                     expanded={defaultExpanded}
-                    data={this.state.nodes}
+                    data={[parseCovidCodes(this.props.defCodes)]}
                     isError={this.state.isError}
-                    errorMessage={this.state.errorMessage}
-                    isLoading={this.state.isLoading}
+                    errorMessage={this.props.defCodeFetchError}
+                    isLoading={this.props.areDefCodesLoading}
                     searchText=""
                     noResults={false}
                     labelComponent={<DEFCheckboxTreeLabel />}
@@ -164,6 +128,9 @@ export class DEFCheckboxTree extends React.Component {
 
 DEFCheckboxTree.propTypes = {
     counts: PropTypes.arrayOf(PropTypes.shape({})),
+    defCodes: PropTypes.arrayOf(PropTypes.object),
+    areDefCodesLoading: PropTypes.bool,
+    defCodeFetchError: PropTypes.string,
     checked: PropTypes.arrayOf(PropTypes.string),
     stageDef: PropTypes.func
 };
@@ -177,4 +144,7 @@ const mapDispatchToProps = (dispatch) => ({
     stageDef: (require, exclude, counts) => dispatch(updateDefCodes(require, exclude, counts))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DEFCheckboxTree);
+export default flowRight(
+    withDefCodes,
+    connect(mapStateToProps, mapDispatchToProps)
+)(DEFCheckboxTree);

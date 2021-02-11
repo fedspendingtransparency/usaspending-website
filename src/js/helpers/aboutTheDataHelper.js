@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { stringify } from 'querystring';
 
-import { calculatePercentage, formatMoney, formatNumber } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
     periodsPerQuarter,
     lastPeriods
@@ -186,9 +186,9 @@ export const formatReportingDifferencesData = (data) => data.results.map(({
     difference = null
 }) => ([
     tas || '--',
-    (fileAObligation || fileAObligation === 0) ? formatMoney(fileAObligation) : '--',
-    (fileBObligation || fileBObligation === 0) ? formatMoney(fileBObligation) : '--',
-    difference ? formatMoney(difference) : '--'
+    (fileAObligation || fileAObligation === 0) ? formatMoneyWithPrecision(fileAObligation, 2) : '--',
+    (fileBObligation || fileBObligation === 0) ? formatMoneyWithPrecision(fileBObligation, 2) : '--',
+    difference ? formatMoneyWithPrecision(difference, 2) : '--'
 ]));
 
 export const convertDatesToMilliseconds = (data) => data.map((datesObj) => {

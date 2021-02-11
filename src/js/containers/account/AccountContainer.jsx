@@ -9,6 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { withRouter } from 'react-router-dom';
+import { flowRight } from 'lodash';
+
+import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
 import * as AccountHelper from 'helpers/accountHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
@@ -17,10 +20,11 @@ import * as filterActions from 'redux/actions/account/accountFilterActions';
 import FederalAccount from 'models/account/FederalAccount';
 import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
-import WithLatestFy from 'containers/account/WithLatestFy';
+import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
+
 
 require('pages/account/accountPage.scss');
 
@@ -29,13 +33,8 @@ const propTypes = {
     account: PropTypes.object,
     match: PropTypes.object,
     setSelectedAccount: PropTypes.func,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
-    latestPeriod: PropTypes.shape({
-        year: PropTypes.number,
-        quarter: PropTypes.number,
-        period: PropTypes.number,
-        latestSubmissionDate: PropTypes.object // moment obj
-    })
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
+    latestPeriod: LATEST_PERIOD_PROPS
 };
 
 const combinedActions = Object.assign({},
@@ -119,33 +118,35 @@ export class AccountContainer extends React.Component {
             this.fiscalYearSnapshotRequest.cancel();
         }
 
-        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
-            id,
-            this.props.latestPeriod.year
-        );
+        if (this.props.latestPeriod.year) {
+            this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+                id,
+                this.props.latestPeriod.year
+            );
 
-        this.fiscalYearSnapshotRequest.promise
-            .then((res) => {
-                this.fiscalYearSnapshotRequest = null;
+            this.fiscalYearSnapshotRequest.promise
+                .then((res) => {
+                    this.fiscalYearSnapshotRequest = null;
 
-                // update the redux store
-                this.parseFYSnapshot(res.data);
+                    // update the redux store
+                    this.parseFYSnapshot(res.data);
 
-                this.setState({
-                    loading: false
-                });
-            })
-            .catch((err) => {
-                this.fiscalYearSnapshotRequest = null;
-
-                if (!isCancel(err)) {
                     this.setState({
                         loading: false
                     });
+                })
+                .catch((err) => {
+                    this.fiscalYearSnapshotRequest = null;
 
-                    console.log(err);
-                }
-            });
+                    if (!isCancel(err)) {
+                        this.setState({
+                            loading: false
+                        });
+
+                        console.log(err);
+                    }
+                });
+        }
     }
 
     parseFYSnapshot(data) {
@@ -181,16 +182,15 @@ export class AccountContainer extends React.Component {
 }
 
 AccountContainer.propTypes = propTypes;
-const AccountContainerWithRouter = withRouter(AccountContainer);
 
-export default connect(
-    (state) => ({
-        account: state.account.account,
-        tas: state.account.tas
-    }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
-)((props) => (
-    <WithLatestFy>
-        <AccountContainerWithRouter {...props} />
-    </WithLatestFy>
-));
+export default flowRight(
+    withRouter,
+    withLatestFy,
+    connect(
+        (state) => ({
+            account: state.account.account,
+            tas: state.account.tas
+        }),
+        (dispatch) => bindActionCreators(combinedActions, dispatch)
+    )
+)(AccountContainer);

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 import { getLatestPeriodAsMoment, getLatestPeriod, fetchAllSubmissionDates } from 'helpers/accountHelper';
@@ -9,12 +9,19 @@ import { getLatestPeriodAsMoment, getLatestPeriod, fetchAllSubmissionDates } fro
 // TODO: Refactor existing consumers of WithLatestFy to use this custom hook
 export const useLatestAccountData = () => {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState('');
     const { submissionPeriods } = useSelector((state) => state.account);
     const [{ latestMoment, latestPeriod }, setLatestData] = useState({ latestPeriod: getLatestPeriod([]), latestMoment: null });
     const request = useRef();
 
     useEffect(() => {
+        if (submissionPeriods.size && isLoading) {
+            setIsLoading(false);
+        }
         if (!submissionPeriods.size) {
+            setIsLoading(true);
+            setErrorMsg('');
             request.current = fetchAllSubmissionDates();
             request.current.promise
                 .then(({ data: { available_periods: periods } }) => {
@@ -24,11 +31,13 @@ export const useLatestAccountData = () => {
                         latestMoment: getLatestPeriodAsMoment(periods),
                         latestPeriod: getLatestPeriod(periods)
                     });
+                    setIsLoading(false);
                     request.current = null;
                 })
                 .catch((e) => {
                     if (!isCancel(e)) {
                         console.error('Error fetching active periods: ', e);
+                        setErrorMsg(get(e, 'message', 'Error fetching active periods. Please refresh your browser.'));
                         request.current = null;
                     }
                 });
@@ -51,38 +60,25 @@ export const useLatestAccountData = () => {
     return [
         latestMoment,
         submissionPeriods,
-        latestPeriod
+        latestPeriod,
+        isLoading,
+        errorMsg
     ];
 };
 
-const WithLatestFy = ({
-    children,
-    propName = 'latestSubmissionDate',
-    format = null
-}) => {
-    const [latestPeriodAsMoment, submissionPeriods, latestPeriod] = useLatestAccountData();
-
-    if (format) {
-        return React.cloneElement(children, {
-            [propName]: latestPeriodAsMoment
+const withLatestFy = (WrappedComponent, format = null) => (props) => {
+    const [latestPeriodAsMoment, submissionPeriods, latestPeriod, isLoading, errorMsg] = useLatestAccountData();
+    return (
+        <WrappedComponent
+            {...props}
+            isFetchLatestFyLoading={isLoading}
+            fetchLatestFyError={errorMsg}
+            latestSubmissionDate={(latestPeriodAsMoment && format)
                 ? latestPeriodAsMoment.format(format)
-                : latestPeriodAsMoment,
-            submissionPeriods: submissionPeriods.toJS(),
-            latestPeriod
-        });
-    }
-
-    return React.cloneElement(children, {
-        [propName]: latestPeriodAsMoment,
-        submissionPeriods: submissionPeriods.toJS(),
-        latestPeriod
-    });
+                : latestPeriodAsMoment}
+            submissionPeriods={submissionPeriods.toJS()}
+            latestPeriod={latestPeriod} />
+    );
 };
 
-WithLatestFy.propTypes = {
-    children: PropTypes.node.isRequired,
-    format: PropTypes.string,
-    propName: PropTypes.string
-};
-
-export default WithLatestFy;
+export default withLatestFy;

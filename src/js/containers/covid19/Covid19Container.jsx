@@ -4,8 +4,8 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { snakeCase, isEqual } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -36,12 +36,9 @@ import {
     stickyHeaderHeight,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import {
-    fetchDEFCodes,
-    fetchOverview,
-    fetchAwardAmounts
-} from 'helpers/disasterHelper';
-import { setDEFCodes, setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { fetchOverview, fetchAwardAmounts } from 'helpers/disasterHelper';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
@@ -53,22 +50,14 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
-    const defCodesRequest = useRef(null);
     const overviewRequest = useRef(null);
     const lastSectionRef = useRef(null);
     const awardAmountRequest = useRef(null);
     const dataDisclaimerBannerRef = useRef(null);
     const dispatch = useDispatch();
-    const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
-
-    useEffect(() => () => {
-        if (defCodesRequest.current) {
-            defCodesRequest.cancel();
-        }
-    }, []);
 
     const handleScroll = () => {
         setBannerStickyOnScroll();
@@ -79,32 +68,11 @@ const Covid19Container = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    });
-
-    useEffect(() => {
-        if (defCodes.length === 0) {
-            const getDefCodesData = async () => {
-                defCodesRequest.current = fetchDEFCodes();
-                try {
-                    const { data } = await defCodesRequest.current.promise;
-                    dispatch(setDEFCodes(data.codes.filter((c) => c.disaster === 'covid_19')));
-                    setIsLoading(false);
-                }
-                catch (e) {
-                    console.log(' Error DefCodes : ', e.message);
-                }
-            };
-            getDefCodesData();
-            defCodesRequest.current = null;
-        }
-        else {
-            setIsLoading(false);
-        }
-    }, [defCodes, dispatch]);
+    }, []);
 
     useEffect(() => {
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodes.map((code) => code.code));
+            overviewRequest.current = fetchOverview(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code));
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -118,7 +86,7 @@ const Covid19Container = () => {
         const getAllAwardTypesAmount = async () => {
             const params = {
                 filter: {
-                    def_codes: defCodes.map((code) => code.code)
+                    def_codes: defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
@@ -198,7 +166,7 @@ const Covid19Container = () => {
                     </div>
                 </>
             </StickyHeader>
-            <LoadingWrapper isLoading={isLoading}>
+            <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
                     {dataDisclaimerBanner !== 'hide' && (
                         <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
