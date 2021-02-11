@@ -27,6 +27,9 @@ const DataQuality = ({ onExternalLinkClick }) => (
                 USAspending.gov. Our motto is Better Data, Better Government,
                 Better Decision-making.
             </p>
+            <p>
+                <strong>A notice about COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021:</strong>  COVID-19 data related to PL 116-260 will appear on USAspending.gov on March 3, 2020using the newly added DEFC “U”. Starting in March, users can find DEFC “U” in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
+            </p>
         </div>
         <div className="about-subtitle">
             <h3>How we achieve this:</h3>
