@@ -47,7 +47,6 @@ export class AccountContainer extends React.Component {
         super(props);
 
         this.state = {
-            currentAccountNumber: '',
             loading: true,
             validAccount: true
         };
@@ -57,29 +56,28 @@ export class AccountContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData(this.props.match.params.accountNumber);
+        this.loadData();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
-            this.loadData(this.props.match.params.accountNumber);
+            this.loadData();
         }
         if (!prevProps.latestSubmissionDate && this.props.latestSubmissionDate && this.props.account) {
             this.loadFiscalYearSnapshot(this.props.account.id);
         }
     }
 
-    loadData(accountNumber) {
+    loadData() {
         if (this.accountRequest) {
             this.accountRequest.cancel();
         }
 
         this.setState({
-            loading: true,
-            currentAccountNumber: accountNumber
+            loading: true
         });
 
-        this.accountRequest = AccountHelper.fetchFederalAccount(accountNumber);
+        this.accountRequest = AccountHelper.fetchFederalAccount(this.props.match.params.accountNumber);
 
         this.accountRequest.promise
             .then((res) => {
@@ -98,8 +96,7 @@ export class AccountContainer extends React.Component {
                 if (!isCancel(err)) {
                     this.setState({
                         loading: false,
-                        validAccount: false,
-                        currentAccountNumber: accountNumber
+                        validAccount: false
                     });
 
                     console.log(err);
