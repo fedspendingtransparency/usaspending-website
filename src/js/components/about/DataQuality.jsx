@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import kGlobalConstants from 'GlobalConstants';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { isBefore, startOfToday } from 'date-fns';
 
 const propTypes = { onExternalLinkClick: PropTypes.func.isRequired };
 
@@ -27,6 +28,11 @@ const DataQuality = ({ onExternalLinkClick }) => (
                 USAspending.gov. Our motto is Better Data, Better Government,
                 Better Decision-making.
             </p>
+            {isBefore(startOfToday(), new Date(2021, 2, 3)) && (
+                <p>
+                    <strong>A notice about COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021:</strong>  COVID-19 data related to PL 116-260 will appear on USAspending.gov on March 3, 2020 using the newly added DEFC “U”. Starting in March, users can find DEFC “U” in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
+                </p>
+            )}
         </div>
         <div className="about-subtitle">
             <h3>How we achieve this:</h3>

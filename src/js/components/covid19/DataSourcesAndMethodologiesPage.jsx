@@ -7,6 +7,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { uniqueId } from 'lodash';
+import { isBefore, startOfToday } from 'date-fns';
 
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
@@ -22,6 +24,7 @@ import {
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
@@ -77,12 +80,56 @@ if (!kGlobalConstants.CARES_ACT_RELEASED_2) sections = sections.filter((x) => x.
 
 require('pages/data-sources/index.scss');
 
+const getDefCValues = (errorMsg, isLoading, codes) => {
+    if (isLoading) return "Loading...";
+    if (errorMsg) return "There was an error fetching DEFC values";
+    return (
+        <span>
+            {codes
+                .reduce((acc, c, i, arr) => {
+                    const isLast = i === arr.length - 1;
+                    if (isLast) {
+                        return `${acc} and "${c.code}"`;
+                    }
+                    return `${acc}"${c.code}", `;
+                }, '')}
+        </span>
+    );
+};
+
+const renderDefCodes = (errorMsg, isLoading, codes) => {
+    if (isLoading) {
+        return <li>Loading...</li>;
+    }
+    if (errorMsg) {
+        return <li>There was an error fetching DEFC values.</li>;
+    }
+    return codes
+        .map(({ code, public_law: pl, title }) => (
+            <li key={uniqueId()}>
+                <strong>DEFC &quot;{code}&quot;</strong>:
+                <ul>
+                    <li key={uniqueId()}>
+                        {pl.includes('Non-emergency') ? "Not designated as emergency" : "Designated as emergency"}
+                    </li>
+                    {pl
+                        .split("|")
+                        .map((str, i) => (
+                            <li key={uniqueId()}>{str}, {title.split("|")[i]}</li>
+                        ))
+                    }
+                </ul>
+            </li>
+        ));
+};
+
 const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
     ...acc,
     [obj.section]: { title: obj.label }
 }), {}));
 
 export default () => {
+    const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [activeSection, setActiveSection] = useState(sections[0].section);
     const dataDisclaimerBannerRef = useRef(null);
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
@@ -351,7 +398,7 @@ export default () => {
                                                     If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
                                                 </li>
                                                 <li>
-                                                    Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
+                                                    Filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file
                                                 </li>
                                             </ol>
                                         </div>
@@ -427,7 +474,7 @@ export default () => {
                                                         If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
                                                     </li>
                                                     <li>
-                                                        Filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file
+                                                        Filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file
                                                     </li>
                                                 </ol>
                                             </div>
@@ -444,8 +491,13 @@ export default () => {
                                         <ExternalLink
                                             url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             Memorandum M-20-21
-                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values &quot;L&quot;, &quot;M&quot;, &quot;N&quot;, &quot;O&quot;, and &quot;P&quot; in the downloaded file.
+                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file.
                                     </p>
+                                    {isBefore(startOfToday(), new Date(2021, 2, 3)) && (
+                                        <p>
+                                            <strong>COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021 will appear on USAspending.gov on March 3, 2020.</strong> Starting in March, users can find DEFC &quot;U&quot; in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
+                                        </p>
+                                    )}
                                     <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
                                     </p>
@@ -453,64 +505,7 @@ export default () => {
                                         The relevant codes for COVID-19 response funding and their associated legislation are as follows:
                                     </p>
                                     <ul>
-                                        <li>
-                                            <strong>DEFC &quot;L&quot;</strong>:
-                                            <ul>
-                                                <li>
-                                                    Designated as emergency
-                                                </li>
-                                                <li>
-                                                    Public Law 116-123, CORONAVIRUS PREPAREDNESS AND RESPONSE SUPPLEMENTAL APPROPRIATIONS ACT, 2020
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <strong>DEFC &quot;M&quot;</strong>:
-                                            <ul>
-                                                <li>
-                                                    Designated as emergency
-                                                </li>
-                                                <li>
-                                                    Public Law 116-127, FAMILIES FIRST CORONAVIRUS RESPONSE ACT
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <strong>DEFC &quot;N&quot;</strong>:
-                                            <ul>
-                                                <li>
-                                                    Designated as emergency
-                                                </li>
-                                                <li>
-                                                    Public Law 116-136, Coronavirus Aid, Relief, and Economic Security Act (CARES Act)
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <strong>DEFC &quot;O&quot;</strong>:
-                                            <ul>
-                                                <li>
-                                                    Not designated as emergency
-                                                </li>
-                                                <li>
-                                                    Public Law 116-136, Coronavirus Aid, Relief, and Economic Security Act (CARES Act)
-                                                </li>
-                                                <li>
-                                                    Public Law 116-139, PAYCHECK PROTECTION PROGRAM AND HEALTH CARE ENHANCEMENT ACT
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <strong>DEFC &quot;P&quot;</strong>:
-                                            <ul>
-                                                <li>
-                                                    Designated as emergency
-                                                </li>
-                                                <li>
-                                                    Public Law 116-139, PAYCHECK PROTECTION PROGRAM AND HEALTH CARE ENHANCEMENT ACT
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        {renderDefCodes(errorMsg, isLoading, defCodes)}
                                     </ul>
                                 </div>
                             </div>

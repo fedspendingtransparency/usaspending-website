@@ -39,19 +39,15 @@ jest.mock('helpers/textMeasurement', () => (
 ));
 
 describe('ResultsTableContainer', () => {
-    it('should pick a default tab whenever the Redux filters change & hash is present', async () => {
+    it('should pick a default tab whenever the hash changes', async () => {
         const container = mount(<ResultsTableContainer
-            location={{ pathname: '/search/123 ' }}
+            location={{ pathname: '/search/ ', search: '?hash=123' }}
             {...mockActions}
             {...mockRedux} />);
 
         container.instance().parseTabCounts = jest.fn();
 
-        // update the filters
-        const newFilters = Object.assign({}, mockRedux.filters, {
-            timePeriodFY: new Set(['1987'])
-        });
-        container.setProps({ filters: newFilters });
+        container.setProps({ location: { search: '?hash=456' } });
 
         await container.instance().tabCountRequest.promise;
 
@@ -60,7 +56,7 @@ describe('ResultsTableContainer', () => {
 
     it('should pick a default tab whenever the subaward toggle changes & hash is present', async () => {
         const container = mount(<ResultsTableContainer
-            location={{ pathname: '/search/123' }}
+            location={{ pathname: '/search', search: '?hash=123' }}
             {...mockActions}
             {...mockRedux} />);
 

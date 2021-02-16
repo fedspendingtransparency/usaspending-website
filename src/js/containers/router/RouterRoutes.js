@@ -9,6 +9,7 @@ import kGlobalConstants from 'GlobalConstants';
 
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
+const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
 const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
 const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
 const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
@@ -49,7 +50,7 @@ export const routes = [
     },
     {
         path: '/search/:urlHash',
-        component: SearchContainer,
+        component: SearchContainerRedirect,
         exact: true
     },
     {
@@ -134,12 +135,14 @@ export const routes = [
         exact: true
     },
     {
-        path: '/state/:stateId/:fy',
+        // could be state name or fips code
+        path: '/state/:state/:fy',
         component: StateContainer,
         exact: true
     },
     {
-        path: '/state/:stateId',
+        // could be state name or fips code
+        path: '/state/:state',
         component: StateContainer,
         exact: true
     },
