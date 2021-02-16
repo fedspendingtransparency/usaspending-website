@@ -64,6 +64,8 @@ export class AccountContainer extends React.Component {
             this.loadData();
         }
         if (!prevProps.latestPeriod?.year && this.props.latestPeriod?.year && this.props.account?.id) {
+            // The latest FY became available and we have the internal / database id required for
+            // the FY snapshot request
             this.loadFiscalYearSnapshot(this.props.account.id);
         }
     }
