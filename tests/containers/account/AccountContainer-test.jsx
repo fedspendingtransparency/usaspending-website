@@ -50,39 +50,30 @@ const stripModelId = (model) => {
 };
 
 describe('AccountContainer', () => {
+    afterEach(() => {
+        loadAccountSpy.reset();
+        loadFiscalYearSnapshotSpy.reset();
+    });
     it('should make an API call for the selected account on mount', async () => {
-        const mockRedux = {
-            account: mockReduxAccount
-        };
-
         const container = mount(<AccountContainer
-            submissionPeriods={[]}
             latestPeriod={{ year: 2020 }}
             match={parameters}
             setSelectedAccount={jest.fn()}
-            account={mockRedux} />);
+            account={mockReduxAccount} />);
 
         await container.instance().accountRequest.promise;
         await container.instance().fiscalYearSnapshotRequest.promise;
 
         expect(loadAccountSpy.callCount).toEqual(1);
         expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
-
-        loadAccountSpy.reset();
-        loadFiscalYearSnapshotSpy.reset();
     });
 
     it('should make an API call when the award ID parameter changes', async () => {
-        const mockRedux = {
-            account: mockReduxAccount
-        };
-
         const container = mount(<AccountContainer
-            submissionPeriods={[]}
             latestPeriod={{ year: 2020 }}
             match={parameters}
             setSelectedAccount={jest.fn()}
-            account={mockRedux} />);
+            account={mockReduxAccount} />);
 
         await container.instance().accountRequest.promise;
         await container.instance().fiscalYearSnapshotRequest.promise;
@@ -103,9 +94,19 @@ describe('AccountContainer', () => {
 
         expect(loadAccountSpy.callCount).toEqual(2);
         expect(loadFiscalYearSnapshotSpy.callCount).toEqual(2);
+    });
 
-        loadAccountSpy.reset();
-        loadFiscalYearSnapshotSpy.reset();
+    it('should not make an API call for FY Snapshot data if the latest FY is not available', async () => {
+        const container = mount(<AccountContainer
+            latestPeriod={{ year: null }}
+            match={parameters}
+            setSelectedAccount={jest.fn()}
+            account={mockReduxAccount} />);
+
+        await container.instance().accountRequest.promise;
+
+        expect(loadAccountSpy.callCount).toEqual(1);
+        expect(loadFiscalYearSnapshotSpy.callCount).toEqual(0);
     });
 
     describe('parseAccount', () => {
@@ -114,7 +115,6 @@ describe('AccountContainer', () => {
             const reduxAction = jest.fn();
 
             const container = shallow(<AccountContainer
-                submissionPeriods={[]}
                 latestPeriod={{ year: 2020 }}
                 setSelectedAccount={reduxAction} />);
             container.instance().parseAccount(mockAccount);

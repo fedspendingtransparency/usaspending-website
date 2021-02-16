@@ -107,7 +107,9 @@ export class AccountContainer extends React.Component {
     parseAccount(data) {
         const account = new FederalAccount(data);
         this.props.setSelectedAccount(account);
-        this.loadFiscalYearSnapshot(account.id);
+        if (this.props.latestPeriod.year) {
+            this.loadFiscalYearSnapshot(account.id);
+        }
     }
 
     loadFiscalYearSnapshot(id) {
@@ -115,35 +117,33 @@ export class AccountContainer extends React.Component {
             this.fiscalYearSnapshotRequest.cancel();
         }
 
-        if (this.props.latestPeriod.year) {
-            this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
-                id,
-                this.props.latestPeriod.year
-            );
+        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+            id,
+            this.props.latestPeriod.year
+        );
 
-            this.fiscalYearSnapshotRequest.promise
-                .then((res) => {
-                    this.fiscalYearSnapshotRequest = null;
+        this.fiscalYearSnapshotRequest.promise
+            .then((res) => {
+                this.fiscalYearSnapshotRequest = null;
 
-                    // update the redux store
-                    this.parseFYSnapshot(res.data);
+                // update the redux store
+                this.parseFYSnapshot(res.data);
 
+                this.setState({
+                    loading: false
+                });
+            })
+            .catch((err) => {
+                this.fiscalYearSnapshotRequest = null;
+
+                if (!isCancel(err)) {
                     this.setState({
                         loading: false
                     });
-                })
-                .catch((err) => {
-                    this.fiscalYearSnapshotRequest = null;
 
-                    if (!isCancel(err)) {
-                        this.setState({
-                            loading: false
-                        });
-
-                        console.log(err);
-                    }
-                });
-        }
+                    console.log(err);
+                }
+            });
     }
 
     parseFYSnapshot(data) {
