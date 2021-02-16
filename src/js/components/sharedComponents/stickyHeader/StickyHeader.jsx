@@ -6,12 +6,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import Cookies from 'js-cookie';
 
 const propTypes = {
     children: PropTypes.node
 };
 
 export const stickyHeaderHeight = 66;
+export const globalBannerHeight = 90;
+export const globalCovidBannerCookie = 'usaspending_covid_release';
+
+export const getStickyBreakPointForSidebar = () => {
+    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
+
+    if (isGlobalBannerHidden) {
+        return 97;
+    }
+    return 97 + globalBannerHeight;
+};
 
 export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) => {
     const [dynamicStickyBreakpoint, setDynamicStickyBreakpoint] = useState(0);

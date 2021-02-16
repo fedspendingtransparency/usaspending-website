@@ -217,11 +217,12 @@ const AboutContent = ({ location }) => {
         <div className="about-content-wrapper">
             <div className="about-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     active={activeSection}
                     pageName="about"
                     sections={aboutSections}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
+                    fixedStickyBreakpoint={StickyHeader.getStickyBreakPointForSidebar()} />
             </div>
             <div className="about-content">
                 <div className="about-padded-content">

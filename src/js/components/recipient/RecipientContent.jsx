@@ -71,11 +71,12 @@ const RecipientContent = ({
         <div className="recipient-content-wrapper">
             <div className="recipient-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     pageName="recipient"
                     active={activeSection}
                     sections={recipientSections}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight}
+                    fixedStickyBreakpoint={StickyHeader.getStickyBreakPointForSidebar()}
                     detectActiveSection={setActiveSection}
                     selectedFy={recipient.fy}
                     fyPicker

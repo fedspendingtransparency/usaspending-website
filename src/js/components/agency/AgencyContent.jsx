@@ -92,12 +92,13 @@ const AgencyContent = ({
         <div className="agency-content-wrapper">
             <div className="agency-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     active={activeSection}
                     pageName="agency"
                     sections={agencySections}
                     detectActiveSection={setActiveSection}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
+                    fixedStickyBreakpoint={StickyHeader.getStickyBreakPointForSidebar()} />
             </div>
             <div className="agency-content">
                 <div className="agency-padded-content overview">

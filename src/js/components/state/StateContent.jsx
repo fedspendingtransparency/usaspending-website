@@ -68,12 +68,13 @@ const StateContent = ({
         <div className="state-content-wrapper">
             <div className="state-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     active={activeSection}
                     pageName="state"
                     sections={stateSections}
                     jumpToSection={jumpToSection}
                     detectActiveSection={setActiveSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight}
+                    fixedStickyBreakpoint={StickyHeader.getStickyBreakPointForSidebar()}
                     fyPicker
                     selectedFy={stateProfile.fy}
                     pickedYear={pickedFy} />

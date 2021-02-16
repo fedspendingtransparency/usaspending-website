@@ -8,28 +8,20 @@ import { snakeCase } from 'lodash';
 import { apiRequest } from 'helpers/apiRequest';
 import {
     dataDisclaimerHeight,
-    stickyHeaderHeight,
     globalBannerHeight,
     siteHeaderHeight,
     globalCovidBannerCookie,
     dataDisclaimerBannerCookie
 } from 'dataMapping/covid19/covid19';
+
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
+import { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 export const fetchOpportunityTotals = (code) => apiRequest({
     url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
 });
-
-export const getStickyBreakPointForSidebar = () => {
-    const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
-
-    if (isGlobalBannerHidden) {
-        return 97;
-    }
-    return 97 + globalBannerHeight;
-};
 
 export const getVerticalOffsetForSidebarFooter = () => {
     const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';

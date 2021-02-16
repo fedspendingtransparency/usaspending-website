@@ -12,28 +12,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader, { useDynamicStickyClass, getStickyBreakPointForSidebar, stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Footer from 'containers/Footer';
 import Heading from 'components/covid19/Heading';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-// import { Picker } from 'data-transparency-ui';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-// import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import {
     jumpToSection,
-    getStickyBreakPointForSidebar,
     getStickyBreakPointForCovidBanner,
     getVerticalOffsetForSidebarFooter
 } from 'helpers/covid19Helper';
 import {
     slug,
     getEmailSocialShareData,
-    stickyHeaderHeight,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
 import { fetchOverview, fetchAwardAmounts } from 'helpers/disasterHelper';
@@ -134,7 +130,6 @@ const Covid19Container = () => {
         jumpToSection(section);
         Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
-
     return (
         <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
             <MetaTags {...covidPageMetaTags} />
@@ -147,16 +142,6 @@ const Covid19Container = () => {
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
-                        {/* <span className="fy-picker-label">Filter</span> */}
-                        {/* <div className="fiscal-year-container">
-                            <Picker
-                                sortFn={defaultSortFy}
-                                icon={<FontAwesomeIcon icon="tag" />}
-                                selectedOption={`${selectedDEF}`}
-                                options={DEFOptions} />
-                            <span>DEF Codes</span>
-                        </div> */}
-                        {/* <hr /> */}
                         <ShareIcon
                             slug={slug}
                             email={getEmailSocialShareData} />
