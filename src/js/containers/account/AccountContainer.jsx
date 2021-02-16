@@ -29,12 +29,12 @@ import LoadingAccount from 'components/account/LoadingAccount';
 require('pages/account/accountPage.scss');
 
 const propTypes = {
-    latestSubmissionDate: PropTypes.object,
     account: PropTypes.object,
     match: PropTypes.object,
     setSelectedAccount: PropTypes.func,
     submissionPeriods: SUBMISSION_PERIOD_PROPS,
-    latestPeriod: LATEST_PERIOD_PROPS
+    latestPeriod: LATEST_PERIOD_PROPS,
+    isFetchLatestFyLoading: PropTypes.bool
 };
 
 const combinedActions = Object.assign({},
@@ -63,7 +63,7 @@ export class AccountContainer extends React.Component {
         if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
             this.loadData();
         }
-        if (!prevProps.latestSubmissionDate && this.props.latestSubmissionDate && this.props.account) {
+        if (!prevProps.latestPeriod?.year && this.props.latestPeriod?.year && this.props.account?.id) {
             this.loadFiscalYearSnapshot(this.props.account.id);
         }
     }
@@ -170,7 +170,7 @@ export class AccountContainer extends React.Component {
         if (!this.state.loading && !this.state.validAccount) {
             output = <InvalidAccount />;
         }
-        else if (!this.state.loading) {
+        else if (!this.state.loading && !this.props.isFetchLatestFyLoading) {
             output = <Account {...this.props} currentFiscalYear={`${this.props.latestPeriod.year}`} />;
         }
 
