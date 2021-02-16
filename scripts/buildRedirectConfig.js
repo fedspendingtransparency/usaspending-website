@@ -22,6 +22,13 @@ const buildPageRedirectByUrlRegex = () => {
 
     const file = fs.createWriteStream(path.resolve(__dirname, "../redirect-config.json"));
     file.write(JSON.stringify(stateRedirects));
+    file.on('error', (e) => {
+        console.log('Error writing redirect-config.json:', e);
+        throw e;
+    });
+    file.on('finish', () => {
+        console.log('redirect-config.json successfully written!');
+    });
     file.end();
 };
 
