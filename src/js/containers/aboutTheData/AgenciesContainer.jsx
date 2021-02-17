@@ -189,14 +189,10 @@ const AgenciesContainer = ({
 
     useEffect(() => {
         // FY or Period changes
-        if (!federalTotals.length) {
-            fetchTotals();
-        }
-        else if (selectedFy && selectedPeriod) {
+        if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
     }, [
-        federalTotals,
         activeTab,
         submissionsPage,
         publicationsPage
@@ -207,7 +203,10 @@ const AgenciesContainer = ({
             (prevSubmissionsPg && prevPublicationsPg) &&
             (selectedFy && selectedPeriod)
         );
-        if (activeTab === 'submissions' && submissionsPage === 1 && shouldResetPg) {
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
+            fetchTotals();
+        }
+        else if (activeTab === 'submissions' && submissionsPage === 1 && shouldResetPg) {
             // re-fetch w/ new params
             fetchTableData(true);
         }
@@ -224,6 +223,7 @@ const AgenciesContainer = ({
             changePublicationsPg(1);
         }
     }, [
+        federalTotals,
         selectedFy,
         selectedPeriod,
         submissionsSort,
