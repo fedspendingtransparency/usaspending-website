@@ -9,6 +9,7 @@ import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 import { useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
+import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
 import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
@@ -42,9 +43,15 @@ TableTabLabel.propTypes = {
 
 const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
 
+const emailDetails = {
+    subject: 'Agency Submission Statistics | USAspending.gov',
+    body: ''
+};
+
 const AboutTheDataPage = ({
     history
 }) => {
+    const { search } = useLocation();
     const query = new URLSearchParams(useLocation().search);
     const urlFy = query.get('fy');
     const urlPeriod = query.get('period');
@@ -111,6 +118,9 @@ const AboutTheDataPage = ({
             <StickyHeader>
                 <div className="sticky-header__title">
                     <h1 tabIndex={-1}>Agency Submission Statistics</h1>
+                </div>
+                <div className="sticky-header__toolbar">
+                    <ShareIcon slug={`submission-statistics/${search}`} email={emailDetails} />
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
