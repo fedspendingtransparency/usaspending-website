@@ -118,9 +118,7 @@ describe('AccountContainer', () => {
 
         const prevProps = {
             latestPeriod: { year: null },
-            account: {
-                id: 123
-            },
+            account: mockAccount,
             match: parameters
         };
 
