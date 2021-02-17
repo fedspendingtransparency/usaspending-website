@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { unlinkedDataColumns } from 'dataMapping/aboutTheData/modals';
-import { formatUnlinkedDataRows, fetchMockUnlinkedData } from 'helpers/aboutTheDataHelper';
+import { formatUnlinkedDataRows, fetchUnlinkedData } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
     agencyData: PropTypes.shape({
@@ -31,7 +31,7 @@ const UnlinkedDataContainer = ({ agencyData }) => {
         if (!loading) setLoading(true);
         if (unlinkedDataReq.current) unlinkedDataReq.current.cancel();
         try {
-            unlinkedDataReq.current = fetchMockUnlinkedData(
+            unlinkedDataReq.current = fetchUnlinkedData(
                 agencyData.agencyCode,
                 agencyData.fiscalYear,
                 agencyData.fiscalPeriod,
