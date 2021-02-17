@@ -68,7 +68,7 @@ describe('AccountContainer', () => {
         expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
     });
 
-    it('should make an API call when the award ID parameter changes', async () => {
+    it('should make an API call when the account number parameter changes', async () => {
         const container = mount(<AccountContainer
             latestPeriod={{ year: 2020 }}
             match={parameters}
@@ -107,6 +107,26 @@ describe('AccountContainer', () => {
 
         expect(loadAccountSpy.callCount).toEqual(1);
         expect(loadFiscalYearSnapshotSpy.callCount).toEqual(0);
+    });
+
+    it('should make an API call for FY Snapshot data when the latest FY becomes available', () => {
+        const container = shallow(<AccountContainer
+            latestPeriod={{ year: 1999 }}
+            match={parameters}
+            setSelectedAccount={jest.fn()}
+            account={mockReduxAccount} />);
+
+        const prevProps = {
+            latestPeriod: { year: null },
+            account: {
+                id: 123
+            },
+            match: parameters
+        };
+
+        container.instance().componentDidUpdate(prevProps);
+
+        expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
     });
 
     describe('parseAccount', () => {
