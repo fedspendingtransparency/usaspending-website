@@ -34,6 +34,7 @@ const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covi
 const AboutTheDataPage = React.lazy(() => import('components/aboutTheData/AboutTheDataPage').then((comp) => comp));
 const AgencyDetailsPage = React.lazy(() => import('components/aboutTheData/AgencyDetailsPage').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
+const SubmissionStatisticsDataSrouces = React.lazy(() => import('components/aboutTheData/DataSourcesAndMethodologiesPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
