@@ -17,7 +17,7 @@ import {
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
-import { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
 export const fetchOpportunityTotals = (code) => apiRequest({
     url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`

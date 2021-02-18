@@ -26,7 +26,7 @@ import {
     defaultTooltipWidth,
     tooltipMapping
 } from 'dataMapping/covid19/covid19';
-import { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import {
     calculateUnits,
     formatMoneyWithPrecision,

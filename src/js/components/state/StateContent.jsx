@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
-import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationSectionContainer';
 
@@ -59,7 +60,7 @@ const StateContent = ({
             return;
         }
 
-        const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
+        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
         setActiveSection(section);
     };
@@ -74,7 +75,7 @@ const StateContent = ({
                     sections={stateSections}
                     jumpToSection={jumpToSection}
                     detectActiveSection={setActiveSection}
-                    fixedStickyBreakpoint={StickyHeader.getStickyBreakPointForSidebar()}
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                     fyPicker
                     selectedFy={stateProfile.fy}
                     pickedYear={pickedFy} />
