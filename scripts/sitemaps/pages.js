@@ -1,5 +1,8 @@
 const moment = require('moment');
 
+const apiUrl = process.env.API_URL || 'https://api.usaspending.gov:443';
+const siteUrl = process.env.SITE_URL || 'https://www.usaspending.gov';
+
 const routes = [
     // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel
     '/',
@@ -26,7 +29,7 @@ const recipientRequestObject = {
     updatedFrequency: 'daily',
     priority: '0.8',
     isAsync: true,
-    url: `${process.env.API_URL}/api/v2/recipient/duns/`,
+    url: `${apiUrl}/api/v2/recipient/duns/`,
     method: 'post',
     requestObject: {
         name: 'recipient',
@@ -37,7 +40,7 @@ const recipientRequestObject = {
         award_type: "all"
     },
     accessor: 'id',
-    clientRoute: `${process.env.SITE_URL}/recipient`
+    clientRoute: `${siteUrl}/recipient`
 };
 
 const awardPageInfo = {
@@ -45,7 +48,7 @@ const awardPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.9',
     isAsync: true,
-    url: `${process.env.API_URL}/api/v2/search/spending_by_award/`,
+    url: `${apiUrl}/api/v2/search/spending_by_award/`,
     method: 'post',
     requestObject: {
         filters: {
@@ -71,7 +74,7 @@ const awardPageInfo = {
         subawards: false
     },
     accessor: 'generated_internal_id',
-    clientRoute: `${process.env.SITE_URL}/award`
+    clientRoute: `${siteUrl}/award`
 };
 
 const federalAccountPageInfo = {
@@ -79,7 +82,7 @@ const federalAccountPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.7',
     isAsync: true,
-    url: `${process.env.API_URL}/api/v2/federal_accounts/`,
+    url: `${apiUrl}/api/v2/federal_accounts/`,
     method: 'post',
     accessor: 'account_number',
     requestObject: {
@@ -88,7 +91,7 @@ const federalAccountPageInfo = {
         limit: 100,
         filters: { fy: "2019" }
     },
-    clientRoute: `${process.env.SITE_URL}/federal_account`
+    clientRoute: `${siteUrl}/federal_account`
 };
 
 const createPaginatedPages = (defaultObj, numberOfPages) => {
@@ -121,10 +124,10 @@ const pages = [
         updatedFrequency: 'daily',
         priority: '0.5',
         // all states
-        url: `${process.env.API_URL}/api/v2/recipient/state/`,
+        url: `${apiUrl}/api/v2/recipient/state/`,
         method: 'get',
         accessor: 'fips',
-        clientRoute: `${process.env.SITE_URL}/state`
+        clientRoute: `${siteUrl}/state`
     },
     {
         name: 'agency',
@@ -132,10 +135,10 @@ const pages = [
         updatedFrequency: 'monthly',
         priority: '0.5',
         // all agencies
-        url: `${process.env.API_URL}/api/v2/references/toptier_agencies/`,
+        url: `${apiUrl}/api/v2/references/toptier_agencies/`,
         method: 'get',
         accessor: 'agency_id',
-        clientRoute: `${process.env.SITE_URL}/agency`
+        clientRoute: `${siteUrl}/agency`
     },
     [
         // all federal accounts
