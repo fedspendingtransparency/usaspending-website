@@ -188,7 +188,7 @@ const AgenciesContainer = ({
     }, []);
 
     useEffect(() => {
-        // FY or Period changes
+        // Active tab or page number changes
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
