@@ -15,7 +15,7 @@ import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
-
+import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
@@ -52,11 +52,11 @@ const AboutTheDataPage = ({
     const query = new URLSearchParams(useLocation().search);
     const urlFy = query.get('fy');
     const urlPeriod = query.get('period');
+    const activeTab = query.get('tab');
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, setSelectedFy] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
 
-    const [activeTab, setActiveTab] = useState('submissions'); // submissions or publications
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
 
@@ -71,23 +71,23 @@ const AboutTheDataPage = ({
     };
 
     useEffect(() => {
-        if ((!urlFy || !urlPeriod) && submissionPeriods.size && latestFy && latestPeriod) {
+        if ((!urlFy || !urlPeriod || !activeTab) && submissionPeriods.size && latestFy && latestPeriod) {
             history.replace({
                 pathname: `/submission-statistics/`,
-                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod }).toString()}`
+                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod, tab: 'submissions' }).toString()}`
             });
         }
     }, [history, latestFy, latestPeriod, submissionPeriods.size, urlFy, urlPeriod]);
 
-    const updateUrl = (newFy, newPeriod) => {
+    const updateUrl = (newFy, newPeriod, tab = activeTab) => {
         history.push({
             pathname: `/submission-statistics/`,
-            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod }).toString()}`
+            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod, tab }).toString()}`
         });
     };
 
     const handleSwitchTab = (tab) => {
-        setActiveTab(tab);
+        updateUrl(selectedFy, selectedPeriod, tab);
     };
 
     const onTimeFilterSelection = (fy, p = urlPeriod) => {
@@ -131,51 +131,57 @@ const AboutTheDataPage = ({
                         republish/recertify existing submissions.
                     </p>
                 </div>
-                <div className="table-controls">
-                    <Tabs
-                        active={activeTab}
-                        switchTab={handleSwitchTab}
-                        types={[
-                            {
-                                internal: 'submissions',
-                                label: 'Statistics by Submission Period',
-                                labelContent: (
-                                    <TableTabLabel label="Statistics by Submission Period" />
-                                )
-                            },
-                            {
-                                internal: 'publications',
-                                label: 'Updates by Fiscal Year',
-                                labelContent: <TableTabLabel label="Updates by Fiscal Year" />
-                            }
-                        ]} />
-                    <TimeFilters
-                        submissionPeriods={submissionPeriods}
-                        latestFy={latestFy}
-                        latestPeriod={latestPeriod}
-                        activeTab={activeTab}
-                        onTimeFilterSelection={onTimeFilterSelection}
-                        selectedPeriod={selectedPeriod}
-                        selectedFy={selectedFy}
-                        urlPeriod={urlPeriod}
-                        urlFy={urlFy} />
-                </div>
-                <AgenciesContainer
-                    openModal={modalClick}
-                    activeTab={activeTab}
-                    selectedFy={selectedFy}
-                    selectedPeriod={selectedPeriod ? selectedPeriod.id : ''} />
-                <AboutTheDataModal
-                    mounted={!!showModal.length}
-                    type={showModal}
-                    className={modalClassNames[showModal]}
-                    title={modalTitles(modalData?.type)[showModal]}
-                    agencyData={{
-                        ...modalData,
-                        fiscalYear: parseInt(selectedFy, 10),
-                        fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
-                    }}
-                    closeModal={closeModal} />
+                <LoadingWrapper isLoading={!activeTab}>
+                    <>
+                        <div className="table-controls">
+                            <Tabs
+                                active={activeTab}
+                                switchTab={handleSwitchTab}
+                                types={[
+                                    {
+                                        internal: 'submissions',
+                                        label: "Statistics by Reporting Period",
+                                        labelContent: <TableTabLabel label="Statistics by Reporting Period" />
+                                    },
+                                    {
+                                        internal: 'publications',
+                                        label: "Updates by Fiscal Year",
+                                        labelContent: <TableTabLabel label="Updates by Fiscal Year" />
+                                    }
+                                ]} />
+                            <TimeFilters
+                                submissionPeriods={submissionPeriods}
+                                latestFy={latestFy}
+                                latestPeriod={latestPeriod}
+                                activeTab={activeTab}
+                                onTimeFilterSelection={onTimeFilterSelection}
+                                selectedPeriod={selectedPeriod}
+                                selectedFy={selectedFy}
+                                urlPeriod={urlPeriod}
+                                urlFy={urlFy} />
+                        </div>
+                        <AgenciesContainer
+                            openModal={modalClick}
+                            activeTab={activeTab}
+                            selectedFy={selectedFy}
+                            selectedPeriod={selectedPeriod
+                                ? selectedPeriod.id
+                                : ''
+                            } />
+                        <Note message={message} />
+                        <AboutTheDataModal
+                            mounted={!!showModal.length}
+                            type={showModal}
+                            className={modalClassNames[showModal]}
+                            title={modalTitles(modalData?.type)[showModal]}
+                            agencyData={{
+                                ...modalData,
+                                fiscalYear: parseInt(selectedFy, 10),
+                                fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
+                            }}
+                            closeModal={closeModal} />
+                    </>
+                </LoadingWrapper>
             </main>
             <Footer />
         </div>
