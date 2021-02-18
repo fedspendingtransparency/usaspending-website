@@ -99,7 +99,7 @@ export const columnTooltips = {
     ),
     'Agency Comments': (
         <p>
-            Agency Assurance Statements are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf</a>
+            Agency Comments are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf</a>
         </p>
     )
 };

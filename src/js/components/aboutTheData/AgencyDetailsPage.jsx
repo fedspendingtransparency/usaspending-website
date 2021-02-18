@@ -23,8 +23,6 @@ import AboutTheDataModal from './AboutTheDataModal';
 
 require('pages/aboutTheData/aboutTheData.scss');
 
-const message = 'All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.';
-
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();
     const [loading, setLoading] = useState(true);
@@ -77,6 +75,8 @@ const AgencyDetailsPage = () => {
         getOverviewData();
     }, [agencyCode]);
 
+    const message = agencyCode === '097' ? 'Department of Defense procurement data is subject to a 90 day delay.' : '';
+
     return (
         <div className="about-the-data about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
@@ -127,7 +127,7 @@ const AgencyDetailsPage = () => {
                             agencyName={agencyOverview.name}
                             modalClick={modalClick}
                             agencyCode={agencyCode} />
-                        <Note message={message} />
+                        {message && <Note message={message} />}
                     </>
                 )}
                 <AboutTheDataModal
