@@ -5,14 +5,17 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { TooltipComponent, TooltipWrapper, Tabs } from 'data-transparency-ui';
-import { useLocation } from 'react-router-dom';
 
-import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
-import { getPeriodWithTitleById } from 'helpers/aboutTheDataHelper';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import AboutTheDataModal from 'components/aboutTheData/AboutTheDataModal';
+import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { useLocation } from "react-router-dom";
+
+import Header from "containers/shared/HeaderContainer";
+import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
+import Footer from "containers/Footer";
+import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
+import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
+import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
+
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
@@ -37,7 +40,15 @@ TableTabLabel.propTypes = {
     label: PropTypes.string.isRequired
 };
 
-const AboutTheDataPage = ({ history }) => {
+const emailDetails = {
+    subject: 'Agency Submission Statistics | USAspending.gov',
+    body: ''
+};
+
+const AboutTheDataPage = ({
+    history
+}) => {
+    const { search } = useLocation();
     const query = new URLSearchParams(useLocation().search);
     const urlFy = query.get('fy');
     const urlPeriod = query.get('period');
@@ -104,6 +115,9 @@ const AboutTheDataPage = ({ history }) => {
             <StickyHeader>
                 <div className="sticky-header__title">
                     <h1 tabIndex={-1}>Agency Submission Statistics</h1>
+                </div>
+                <div className="sticky-header__toolbar">
+                    <ShareIcon slug={`submission-statistics/${search}`} email={emailDetails} />
                 </div>
             </StickyHeader>
             <main id="main-content" className="main-content">
