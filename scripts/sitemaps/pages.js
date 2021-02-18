@@ -26,7 +26,7 @@ const recipientRequestObject = {
     updatedFrequency: 'daily',
     priority: '0.8',
     isAsync: true,
-    url: 'https://api.usaspending.gov:443/api/v2/recipient/duns/',
+    url: `${process.env.API_URL}/api/v2/recipient/duns/`,
     method: 'post',
     requestObject: {
         name: 'recipient',
@@ -37,7 +37,7 @@ const recipientRequestObject = {
         award_type: "all"
     },
     accessor: 'id',
-    clientRoute: 'https://www.usaspending.gov/recipient'
+    clientRoute: `${process.env.SITE_URL}/recipient`
 };
 
 const awardPageInfo = {
@@ -45,7 +45,7 @@ const awardPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.9',
     isAsync: true,
-    url: 'https://api.usaspending.gov:443/api/v2/search/spending_by_award/',
+    url: `${process.env.API_URL}/api/v2/search/spending_by_award/`,
     method: 'post',
     requestObject: {
         filters: {
@@ -71,7 +71,7 @@ const awardPageInfo = {
         subawards: false
     },
     accessor: 'generated_internal_id',
-    clientRoute: 'https://www.usaspending.gov/award'
+    clientRoute: `${process.env.SITE_URL}/award`
 };
 
 const federalAccountPageInfo = {
@@ -79,7 +79,7 @@ const federalAccountPageInfo = {
     updatedFrequency: 'daily',
     priority: '0.7',
     isAsync: true,
-    url: 'https://api.usaspending.gov:443/api/v2/federal_accounts/',
+    url: `${process.env.API_URL}/api/v2/federal_accounts/`,
     method: 'post',
     accessor: 'account_number',
     requestObject: {
@@ -88,7 +88,7 @@ const federalAccountPageInfo = {
         limit: 100,
         filters: { fy: "2019" }
     },
-    clientRoute: 'https://www.usaspending.gov/federal_account'
+    clientRoute: `${process.env.SITE_URL}/federal_account`
 };
 
 const createPaginatedPages = (defaultObj, numberOfPages) => {
@@ -121,10 +121,10 @@ const pages = [
         updatedFrequency: 'daily',
         priority: '0.5',
         // all states
-        url: 'https://api.usaspending.gov:443/api/v2/recipient/state/',
+        url: `${process.env.API_URL}/api/v2/recipient/state/`,
         method: 'get',
         accessor: 'fips',
-        clientRoute: 'https://www.usaspending.gov/state'
+        clientRoute: `${process.env.SITE_URL}/state`
     },
     {
         name: 'agency',
@@ -132,10 +132,10 @@ const pages = [
         updatedFrequency: 'monthly',
         priority: '0.5',
         // all agencies
-        url: 'https://api.usaspending.gov:443/api/v2/references/toptier_agencies/',
+        url: `${process.env.API_URL}/api/v2/references/toptier_agencies/`,
         method: 'get',
         accessor: 'agency_id',
-        clientRoute: 'https://www.usaspending.gov/agency'
+        clientRoute: `${process.env.SITE_URL}/agency`
     },
     [
         // all federal accounts
