@@ -19,7 +19,7 @@ export const tabTooltips = {
             </p>
         </>
     ),
-    'Statistics by Reporting Period': (
+    'Statistics by Submission Period': (
         <>
             <p>
                 Please note that if you select the first or second period of a quarter, you will only see data from agencies that upload monthly. Only by selecting the last period of each quarter (i.e., P03, P06, P09, P12) will you see data for all agencies, including quarterly-submitting agencies.
