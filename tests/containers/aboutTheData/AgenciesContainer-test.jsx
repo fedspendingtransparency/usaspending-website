@@ -63,12 +63,53 @@ const mockResponses = {
  * we cant use the fireEvent or userEvent module to test b/c those user interactions don't actually
  * trigger redux updates in our test env. If we were using local state, we could use these APIs, but
  * for now while redux is not functional in our test env we should just test as below, updating props
- * via re-render. 👇
+ * via re-render to simulate user interactions: update sort, paginate, etc... 👇
  * */
 
-test('when totals are defined, request for totals are not made and only one for submissions/publications is made', async () => {
-    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockReturnValue(mockResponses.totalsRequest);
+test('once fy/period are defined, only one request for totals is made, then only one request is made for table data', () => {
+    jest.spyOn(redux, 'useSelector').mockReturnValue({
+        allSubmissions: [],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
+        searchTerm: '',
+        allPublications: [],
+        federalTotals: [],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
+        submissionPeriods: new List([
+        ])
+    });
+    const fetchTotals = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockReturnValue(mockResponses.submissionsRequest);
+    // render 1: no fy/period -- no requests made
+    const { rerender } = render(<AgenciesContainer {...defaultProps} selectedFy="" selectedPeriod="" />);
+    // render 2: fy & period defined; no totals -- one request for fetchTotals
+    rerender(<AgenciesContainer {...defaultProps} />);
+    // render 3: fy & period & totals all defined -- one request for fetchSubmissions
+    jest.spyOn(redux, 'useSelector').mockReturnValue({
+        allSubmissions: [],
+        submissionsSearchResults: [],
+        publicationsSearchResults: [],
+        searchTerm: 'test',
+        allPublications: [],
+        federalTotals: [1],
+        submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+        publicationsSort: ['current_total_budget_authority_amount', 'desc'],
+        submissionPeriods: new List([
+            { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
+        ])
+    });
+    rerender(<AgenciesContainer {...defaultProps} />);
+
+    return waitFor(() => {
+        expect(fetchTotals).toHaveBeenCalledTimes(1);
+        expect(submissionsRequest).toHaveBeenCalledTimes(1);
+    });
+});
+
+test('when totals are defined, request for totals are not made and only one for submissions/publications is made', async () => {
+    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
+    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -178,7 +219,7 @@ test('when totals are defined and the sort field changes, one request is made', 
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     expect(submissionsRequest).toHaveBeenCalledTimes(1);
-    submissionsRequest.mockClear();
+
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -216,7 +257,7 @@ test('when totals are defined and the order field changes, one request is made',
     });
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
-    submissionsRequest.mockClear();
+
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -253,7 +294,7 @@ test('when totals are defined and the search term is defined, one request is mad
     });
     const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
-    submissionsRequest.mockClear();
+
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],

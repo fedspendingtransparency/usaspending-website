@@ -3,8 +3,9 @@
  * Created by Lizzie Salita 11/25/20
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
 import { useLocation } from "react-router-dom";
 
@@ -13,21 +14,19 @@ import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
 import Footer from "containers/Footer";
 import { getPeriodWithTitleById } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
-import Note from "components/sharedComponents/Note";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
+
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { useLatestAccountData } from "containers/account/WithLatestFy";
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import { tabTooltips } from './dataMapping/tooltipContentMapping';
-import TimeFilters from "./TimeFilters";
+import TimeFilters from './TimeFilters';
 
-require("pages/aboutTheData/aboutTheData.scss");
+require('pages/aboutTheData/aboutTheData.scss');
 
 const TableTabLabel = ({ label }) => {
     const tooltipComponent = (
-        <TooltipComponent title={label}>
-            {tabTooltips[label]}
-        </TooltipComponent>
+        <TooltipComponent title={label}>{tabTooltips[label]}</TooltipComponent>
     );
     return (
         <div className="table-tab-label">
@@ -40,8 +39,6 @@ const TableTabLabel = ({ label }) => {
 TableTabLabel.propTypes = {
     label: PropTypes.string.isRequired
 };
-
-const message = "All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.";
 
 const emailDetails = {
     subject: 'Agency Submission Statistics | USAspending.gov',
@@ -126,7 +123,13 @@ const AboutTheDataPage = ({
             <main id="main-content" className="main-content">
                 <div className="heading-container">
                     <h2 className="header">About These Statistics</h2>
-                    <p className="sub-header">Agencies submit data monthly and/or quarterly to USAspending.gov. The table below shows information about the status and content of agency financial data submissions, and it will be updated as agencies publish/certify new submissions or republish/recertify existing submissions.</p>
+                    <p className="sub-header">
+                        In accordance with the 2014 DATA Act, federal agencies submit financial data
+                        on a quarterly and/or monthly basis to USAspending.gov. The table below
+                        shows information about the status and content of these submissions. It will
+                        be updated as agencies publish/certify new submissions or
+                        republish/recertify existing submissions.
+                    </p>
                 </div>
                 <div className="table-controls">
                     <Tabs
@@ -135,12 +138,14 @@ const AboutTheDataPage = ({
                         types={[
                             {
                                 internal: 'submissions',
-                                label: "Statistics by Submission Period",
-                                labelContent: <TableTabLabel label="Statistics by Submission Period" />
+                                label: 'Statistics by Submission Period',
+                                labelContent: (
+                                    <TableTabLabel label="Statistics by Submission Period" />
+                                )
                             },
                             {
                                 internal: 'publications',
-                                label: "Updates by Fiscal Year",
+                                label: 'Updates by Fiscal Year',
                                 labelContent: <TableTabLabel label="Updates by Fiscal Year" />
                             }
                         ]} />
@@ -159,11 +164,7 @@ const AboutTheDataPage = ({
                     openModal={modalClick}
                     activeTab={activeTab}
                     selectedFy={selectedFy}
-                    selectedPeriod={selectedPeriod
-                        ? selectedPeriod.id
-                        : ''
-                    } />
-                <Note message={message} />
+                    selectedPeriod={selectedPeriod ? selectedPeriod.id : ''} />
                 <AboutTheDataModal
                     mounted={!!showModal.length}
                     type={showModal}
@@ -182,10 +183,7 @@ const AboutTheDataPage = ({
 };
 
 AboutTheDataPage.propTypes = {
-    history: PropTypes.object,
-    match: PropTypes.shape({
-        params: PropTypes.object
-    })
+    history: PropTypes.object
 };
 
 export default AboutTheDataPage;
