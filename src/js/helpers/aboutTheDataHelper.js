@@ -5,6 +5,7 @@
 
 import { useState } from 'react';
 import { stringify } from 'querystring';
+import { format } from 'date-fns';
 
 import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
@@ -148,22 +149,14 @@ export const fetchMockUnlinkedData = () => ({
     cancel: () => {}
 });
 
-export const dateFormattedMonthDayYear = (date) => {
-    if (!date) return null;
-    const newDate = new Date(date);
-    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth() + 1;
-    const dayOfTheMonth = (newDate.getUTCDate()).toString().length === 1 ? `0${newDate.getUTCDate()}` : newDate.getUTCDate();
-    return `${month}/${dayOfTheMonth}/${newDate.getUTCFullYear()}`;
-};
-
 export const formatPublicationDates = (dates) => dates.map((date) => {
     let publicationDate = '--';
     let certificationDate = '--';
     if (date.publication_date) {
-        publicationDate = dateFormattedMonthDayYear(date.publication_date);
+        publicationDate = format(new Date(date.publication_date), 'MM/dd/yyyy');
     }
     if (date.certification_date) {
-        certificationDate = dateFormattedMonthDayYear(date.certification_date);
+        certificationDate = format(new Date(date.certification_date), 'MM/dd/yyyy');
     }
     return [publicationDate, certificationDate];
 });
@@ -218,3 +211,13 @@ export const formatUnlinkedDataRows = (data, type) => ([
 ]);
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
+
+export const renderDeadline = (title, deadlines) => {
+    if (title === 'publication_date' && deadlines?.submissionDueDate) {
+        return format(new Date(deadlines.submissionDueDate), 'MM/dd/yyyy');
+    }
+    if (title !== 'publication_date' && deadlines?.certificationDueDate) {
+        return format(new Date(deadlines.certificationDueDate), 'MM/dd/yyyy');
+    }
+    return '--';
+};

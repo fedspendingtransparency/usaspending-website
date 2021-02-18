@@ -1,5 +1,5 @@
 import {
-    dateFormattedMonthDayYear,
+    renderDeadline,
     formatPublicationDates,
     formatMissingAccountBalancesData,
     showQuarterText,
@@ -29,17 +29,6 @@ const mockPeriods = {
 };
 
 describe('About The Data Helper', () => {
-    describe('dateFormattedMonthDayYear', () => {
-        it('should return null if falsy is passed', () => {
-            expect(dateFormattedMonthDayYear('')).toBeNull();
-        });
-        it('should format the month of the date if a date is passed', () => {
-            expect(dateFormattedMonthDayYear('2020-05-31T00:00:00Z')).toBe('05/31/2020');
-        });
-        it('should format the day of the date if a date is passed', () => {
-            expect(dateFormattedMonthDayYear('2020-05-01T00:00:00Z')).toBe('05/01/2020');
-        });
-    });
     describe('formatPublicationDates', () => {
         const mockData = [
             {
@@ -62,10 +51,30 @@ describe('About The Data Helper', () => {
             expect(data[2][1]).toBe('--');
         });
         it('should format dates if they exist', () => {
-            expect(data[0][0]).toBe('05/01/2020');
-            expect(data[1][0]).toBe('08/01/2020');
-            expect(data[1][1]).toBe('08/31/2020');
+            // or, 5hr offset America/New_York UTC-05:000
+            expect(new Date().getTimezoneOffset()).toBe(300);
+            expect(data[0][0]).toBe('04/30/2020');
+            expect(data[1][0]).toBe('07/31/2020');
+            expect(data[1][1]).toBe('08/30/2020');
         });
+    });
+    test.each([
+        ['publication_date', '2020-05-01T00:00:00Z', { submissionDueDate: '2020-05-01T00:00:00Z' }, '04/30/2020'],
+        ['certification_date', '2020-05-01T00:00:00Z', { certificationDueDate: '2020-05-01T00:00:00Z' }, '04/30/2020'],
+        ['publication_date', '2020-05-01T00:00:00Z', { submissionDueDate: null }, '--'],
+        ['certification_date', '2020-05-01T00:00:00Z', { certificationDueDate: null }, '--'],
+        ['publication_date', '2020-05-01T00:00:00Z', { submissionDueDate: '' }, '--'],
+        ['certification_date', '2020-05-01T00:00:00Z', { certificationDueDate: '' }, '--'],
+        ['publication_date', null, {}, '--'],
+        ['certification_date', null, {}, '--']
+    ])('renderDeadline: for title %s when deadline is %s returns %s', (title, timestamp, obj, rtrn) => {
+        expect(new Date().getTimezoneOffset()).toBe(300);
+        if (title === 'publication_date') {
+            expect(renderDeadline(title, obj)).toEqual(rtrn);
+        }
+        else {
+            expect(renderDeadline(title, obj)).toEqual(rtrn);
+        }
     });
     describe('formatMissingAccountBalancesData', () => {
         it('should handle no amount, or string amount being passed in results', () => {
