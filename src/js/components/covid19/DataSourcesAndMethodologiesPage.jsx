@@ -27,8 +27,6 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
-const cookie = 'usaspending_covid_homepage';
-
 let sections = [
     {
         label: 'Datasets',
@@ -195,7 +193,7 @@ export default () => {
                     <Sidebar
                         isGoingToBeSticky
                         pageName="data-sources"
-                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get(cookie))}
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                         verticalSectionOffset={dataDisclaimerBanner === 'hide'
                             ? stickyHeaderHeight
                             : stickyHeaderHeight + dataDisclaimerHeight}
