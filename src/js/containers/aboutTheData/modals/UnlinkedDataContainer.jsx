@@ -38,7 +38,7 @@ const UnlinkedDataContainer = ({ agencyData }) => {
                 agencyData.type === 'Contract' ? 'procurement' : 'assistance'
             );
             const res = await unlinkedDataReq.current.promise;
-            setRows(formatUnlinkedDataRows(res, agencyData.type));
+            setRows(formatUnlinkedDataRows(res.data, agencyData.type));
             setLoading(false);
             unlinkedDataReq.current = null;
         }

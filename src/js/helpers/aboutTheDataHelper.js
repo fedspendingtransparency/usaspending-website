@@ -135,7 +135,7 @@ export const fetchUnlinkedData = (
     fiscalPeriod,
     type
 ) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/?type=${type}`
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/${type}/`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
