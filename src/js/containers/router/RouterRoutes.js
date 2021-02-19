@@ -34,6 +34,7 @@ const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covi
 const AboutTheDataPage = React.lazy(() => import('components/aboutTheData/AboutTheDataPage').then((comp) => comp));
 const AgencyDetailsPage = React.lazy(() => import('components/aboutTheData/AgencyDetailsPage').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
+const SubmissionStatisticsDataSources = React.lazy(() => import('components/aboutTheData/DataSourcesAndMethodologiesPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -178,10 +179,15 @@ export const routes = [
         hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
     },
     {
-        path: '/submission-statistics/:agencyCode',
+        path: '/submission-statistics/agency/:agencyCode',
         component: AgencyDetailsPage,
         exact: true,
         hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
+    },
+    {
+        path: '/submission-statistics/data-sources',
+        component: SubmissionStatisticsDataSources,
+        exact: true
     },
     {
         path: '/disaster/covid-19/data-sources',
