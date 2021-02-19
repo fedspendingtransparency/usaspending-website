@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
-import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import RecipientTimeVisualizationSectionContainer from 'containers/recipient/RecipientTimeVisualizationSectionContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import TopFiveSection from './topFive/TopFiveSection';
@@ -62,7 +63,7 @@ const RecipientContent = ({
             return;
         }
 
-        const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
+        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
         setActiveSection(section);
     };
@@ -71,11 +72,12 @@ const RecipientContent = ({
         <div className="recipient-content-wrapper">
             <div className="recipient-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     pageName="recipient"
                     active={activeSection}
                     sections={recipientSections}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight}
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                     detectActiveSection={setActiveSection}
                     selectedFy={recipient.fy}
                     fyPicker
