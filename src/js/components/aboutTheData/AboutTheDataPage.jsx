@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
 import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
@@ -128,7 +128,7 @@ const AboutTheDataPage = ({
                         on a quarterly and/or monthly basis to USAspending.gov. The table below
                         shows information about the status and content of these submissions. It will
                         be updated as agencies publish/certify new submissions or
-                        republish/recertify existing submissions.
+                        republish/recertify existing submissions. For more information about the data in this table, visit <Link to="data-sources">the Data Sources and Methodology page.</Link>
                     </p>
                 </div>
                 <LoadingWrapper isLoading={!activeTab}>
@@ -168,7 +168,6 @@ const AboutTheDataPage = ({
                                 ? selectedPeriod.id
                                 : ''
                             } />
-                        <Note message={message} />
                         <AboutTheDataModal
                             mounted={!!showModal.length}
                             type={showModal}

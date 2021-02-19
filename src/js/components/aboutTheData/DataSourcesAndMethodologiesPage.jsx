@@ -8,11 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { stickyHeaderHeight } from 'dataMapping/covid19/covid19';
-import {
-    getStickyBreakPointForSidebar,
-    createJumpToSectionForSidebar
-} from 'helpers/covid19Helper';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
@@ -72,7 +70,7 @@ const getEmailSocialShareData = {
     body: `View Agency Submission Statistics: Data Sources & Methodology on USAspending.gov: ${"https://www.usaspending.gov/submission-statistics/"}`
 };
 
-export default () => {
+const DataSourcesAndMethodologiesPage = () => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
     const dataDisclaimerBannerRef = useRef(null);
 
@@ -106,6 +104,7 @@ export default () => {
             <main id="main-content" className="main-content">
                 <div className="sidebar usda__flex-col">
                     <Sidebar
+                        isGoingToBeSticky
                         pageName="data-sources"
                         fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                         verticalSectionOffset={stickyHeaderHeight}
@@ -126,215 +125,84 @@ export default () => {
                                         Back to the Agency Submission Statistics Table
                                     </Link>
                                 </div>
-                                <h2 className="about-section-title">
-                                    Using this Table
-                                </h2>
+                                <h2 className="about-section-title">Using this Table</h2>
                                 <div className="about-section-content">
                                     <p>
-                                        The following list contains the data sources that power the displays and calculations on our COVID-19 Spending profile page and associated API endpoints. The first two datasets are directly submitted to USAspending by federal agencies; the rest are regularly pulled from external source systems. Data on the COVID-19 Spending page will generally be refreshed at the end of each month, with each update adding the prior month&apos;s activity.
+                                        The USAspending.gov team created the submissions statistics table in response to user feedback requesting greater transparency into the completeness of agency data available on the site. The table provides information on the timing and content of agency data submissions per the Digital Accountability and Transparency Act of 2014 (DATA Act) requirements. This table only represents data since the DATA Act reporting requirements began in FY17Q2.
                                     </p>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"><strong>DATA Act Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> federal agency budget and financial reporting officers
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> monthly
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> The Broker contains financial data sourced from agency financial systems. This information is submitted directly by federal agencies to the Broker on a monthly basis and is packaged with related award and subaward data by the Broker and certified by a Senior Accountable Official. Directly submitted financial data files cover: 1) Treasury Account Symbol (TAS) balances (in Broker File A); 2) breakdowns of TAS-level spending by several dimensions (in Broker File B); and 3) a further breakdown of the award component of that spending by each federal award (in Broker File C). The latter two of these files are used on this page; visit our <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download them: &quot;Account Breakdown by Program Activity &amp; Object Class&quot; (for File B) and &quot;Account Breakdown by Award&quot; (for File C).
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <strong><a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">Financial Assistance Broker Submission (FABS)</a></strong>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> federal assistance officers
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> twice monthly
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> FABS contains financial data sourced from agency financial assistance systems and focuses on federal financial assistance awards. This information is submitted directly by federal agencies to the Broker twice a month. Data about financial assistance awards on the COVID-19 Spending profile page (except for obligation and outlay dollar amounts) is sourced from FABS.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <strong>Government wide Treasury Account Symbol Adjusted Trial Balance System (GTAS)</strong>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> federal agency budget and financial reporting officers
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> monthly
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> A data extract from GTAS is used to power the government-wide spending totals in the first two sections of the page (&quot;Overview&quot; and &quot;Total Spending by Budget Category&quot;). Certain DABS data are cross-validated against GTAS in the Broker submission process, including all of the Treasury Account Balance (File A) data.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <strong>Treasury Central Accounting Reporting System (CARS)</strong>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> federal agency budget and financial reporting officers
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> up to daily
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> CARS provides metadata concerning Treasury Accounts and Federal Accounts.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <strong>Federal Procurement Data System (FPDS)</strong>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> federal procurement officers
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> up to daily
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> FPDS is a government database for collecting contract data. Data about contract awards on the COVID-19 Spending profile page (except for obligation and outlay dollar amounts) is sourced from FPDS.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3 className="about-subtitle">
-                                    <strong>FFATA Subaward Reporting System (FSRS)</strong>
-                                </h3>
-                                <div className="about-section-content">
-                                    <ul>
-                                        <li>
-                                            <strong>Responsible party:</strong> prime recipients of federal awards
-                                        </li>
-                                        <li>
-                                            <strong>Frequency of updates:</strong> monthly
-                                        </li>
-                                        <li>
-                                            <strong>Details:</strong> FSRS is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
-                                        </li>
-                                    </ul>
+                                    <h3 className="about-subtitle">
+                                        Owning versus Reporting Agencies
+                                    </h3>
+                                    <p>
+                                        For various reasons, agencies sometimes submit financial data covering Treasury Account Symbols (TAS) they do not own. Numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.
+                                    </p>
+                                    <p>
+                                        Note that this means when you see a reference to a file (e.g., “File A”), the reference is to the dataset produced from files of that type and not necessarily to that agency’s specific file submission. For example, the USDA value in the “Reporting Difference in Obligations” column compares obligations associated with USDA-owned TASs found in any agency’s File A with those found in any agency’s File B (not just USDA’s File A and File B).  Note also that by “File D1” and “File D2” specifically, we mean the up-to-date set of procurement and assistance data (respectively) that pertains to the agency and relevant submission period, not the award data as it existed at the time of the financial data submission.
+                                    </p>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-percent_of_total">
-                                <h2 className="about-section-title">
-                                            Percent of Total Federal Budget
-                                </h2>
+                                <h2 className="about-section-title">Percent of Total Federal Budget</h2>
                                 <div className="about-section-content">
                                     <p>
-                                        <strong>Use the COVID-19 Spending profile page &quot;Download&quot; button to find the data needed to recreate our COVID-19 calculations.</strong>
+                                        This column shows what percent of the total federal budget the agency’s spending is for the selected fiscal year. This gives users context for the relative size of each agency’s spending.
                                     </p>
                                     <p>
-                                                This download includes 8 types of files:
+                                        It should be noted that Treasury’s percentage may be larger than expected; this is because a significant portion of budgetary resources associated with Treasury TASs (e.g., those for interest paid on the national debt, tax refunds, and tax credits) are often separated from Treasury’s budget in other publications. For most years, excluding such spending would shrink Treasury’s share of the federal budget below other agencies’.
                                     </p>
-                                    <ul>
-                                        <li>
-                                                    Account Balances (sourced from GTAS)
-                                        </li>
-                                        <li>
-                                                    Account Breakdown (sourced from Broker File B)
-                                        </li>
-                                        <li>
-                                                    Contract Prime Award Summaries (sourced from FPDS, with some derived fields compiled from Broker File C; <strong>linked data only*</strong>)
-                                        </li>
-                                        <li>
-                                                    Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
-                                        </li>
-                                        <li>
-                                                    Contract Subawards (sourced from FSRS)
-                                        </li>
-                                        <li>
-                                                    Assistance Subawards (sourced from FSRS)
-                                        </li>
-                                        <li>
-                                                    COVID-19_download_readme.txt
-                                        </li>
-                                        <li>
-                                                    Data_Dictionary_Crosswalk.xlsx
-                                        </li>
-                                    </ul>
+                                    <p><strong>Calculation:</strong></p>
                                     <p>
-                                        <em>* See &quot;Linked and Unlinked Award Data&quot; below for information about linked awards</em>
+                                        The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID). This can be replicated with total_budgetary¬_resources field in the Account Balances (File A) file in Custom Account Download.
                                     </p>
-                                    <p>
-                                                This download covers all data that is used on the COVID-19 Spending profile page, with the exception of granular Broker File C data, which is not included due to size considerations. While the &quot;Award Summaries&quot; files in this download will be sufficient for most users, the File C data has two main uses: 1) it provides access to both <strong>linked and unlinked</strong> data used in award spending totals on this page (the &quot;Award Summaries&quot; files in the profile page download only contain <strong>linked</strong> data — see &quot;Linked and Unlinked Award Data&quot; below for more information); 2) it provides a higher degree of granularity in breaking down award spending by several financial data dimensions (including the specific amount each award was funded by each Object Class, Program Activity, Disaster Emergency Fund Code (DEFC), and Treasury Account).
-                                    </p>
-                                    <p>
-                                        <strong>Broker File C data can be downloaded from the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page in the following manner:</strong>
-                                    </p>
-                                    <ol>
-                                        <li>
-                                                    Go to the <Link to="/download_center/custom_account_data">Custom Account Data download page</Link>
-                                        </li>
-                                        <li>
-                                                    Select &quot;All&quot; for Budget Function
-                                        </li>
-                                        <li>
-                                                    Select &quot;All&quot; for Agency
-                                        </li>
-                                        <li>
-                                                    Select &quot;Treasury Account&quot; for Account Level
-                                        </li>
-                                        <li>
-                                                    For File Type: Select &quot;Account Breakdown by Award&quot;
-                                        </li>
-                                        <li>
-                                                    Select the latest period of FY20
-                                        </li>
-                                        <li>
-                                                    Click &quot;Download&quot;
-                                        </li>
-                                        <li>
-                                                    If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
-                                        </li>
-                                    </ol>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-most_recent_update">
-                                <h2 className="about-section-title">
-                                    Most Recent Update
-                                </h2>
+                                <h2 className="about-section-title">Most Recent Update</h2>
                                 <div className="about-section-content">
                                     <p>
-                                        In accordance with the Office of Management and Budget (OMB)
+                                        This column shows the most recent date on which the agency reported financial data to USAspending.gov for the selected submission period. The column shows “—” for agencies that did not submit or have not yet submitted data for that period. For example, if an agency submits quarterly (i.e., one cumulative submission for the three months) then you will see “—” in the first two periods of the quarter.
+                                    </p>
+                                    <p>
+                                        The modal provides a detailed record of all publication and certification dates for the selected submission period. The publication date is the date when the agency submits its data for publication (it appears on the website the following day), and the certification date is the date when an agency’s Senior Accountable Official (SAO) confirms that the financial data submission is valid and reliable.
+                                    </p>
+                                    <p>
+                                        You may find the column helpful if you are interested in seeing if the agency’s data has been updated since the last time you viewed it, or if the submission has been certified by the agency. The modal adds a layer of detail which may be helpful if you wish to see all dates on which updates were made to the agency’s data for that period.
+                                    </p>
+                                    <p>
+                                        The table will update for a new period/quarter on the day after that period/quarter submission deadline passes. This timing matches when USAspending.gov reveals the new data across the site. If an agency publishes data ahead of the deadline, the table will show that early publication date once the new period/quarter appears on the table (i.e., on the day after the submission deadline).
+                                    </p>
+                                    <p>
+                                        The submission deadline for the third monthly submission period of a quarter is often earlier than the quarterly submission deadline; thus, quarterly data will be slightly delayed and will be missing if you view the table in the few days between the deadlines. For example, Fiscal Year (FY) 2020 Period 09 data was due on July 30, 2020. Thus, the column would have populated for monthly reporting agencies on July 31. The analogous FY 2020 Q3 data was due on August 14, 2020 and thus, the table would not have populated for quarterly reporting agencies until August 15, 2020. This gap will only exist until FY 2022 at which point the few agencies still reporting on a quarterly basis will transition to reporting monthly.
+                                    </p>
+                                    <p>
+                                        The policy governing which agencies submit quarterly vs. monthly is found in
                                         <ExternalLink
                                             url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
-                                            Memorandum M-20-21
-                                        </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values in the downloaded file.
+                                            OMB’s Memorandum M-20-21 (Appendix A, Section III).
+                                        </ExternalLink>
+                                        The full schedule of deadlines for agency submissions is found on the&nbsp;
+                                        <a
+                                            href="https://fiscal.treasury.gov/data-transparency/resources.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="https://fiscal.treasury.gov/data-transparency/resources.html"
+                                            title="https://fiscal.treasury.gov/data-transparency/resources.html">
+                                             ‘Resources for Federal Agencies and Data Analysts’ page.
+                                        </a>
                                     </p>
-                                    <p>
-                                        Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
-                                    </p>
-                                    <p>
-                                        The relevant codes for COVID-19 response funding and their associated legislation are as follows:
-                                    </p>
+                                    <p><strong>Calculation:</strong></p>
+                                    <p>The data in the column reflects the most recent date that the agency published a financial data submission for the selected fiscal year and period.</p>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-missing_tas">
-                                <h2 className="about-section-title">
-                                    Number of TASs Missing from Account Balance data
-                                </h2>
+                                <h2 className="about-section-title">Number of TASs Missing from Account Balance data</h2>
                                 <div className="about-section-content">
                                     <p>
-                                            Loan Spending is more complicated than spending for other federal awards like contracts or grants. Loan spending has two components: 1) Face Value of Loans, which is the amount that agencies have directly issued (for direct loans) or facilitated by compensating the lender if the borrower defaults (for loan guarantees); and 2) Loan Subsidy Cost, which is the calculated net present value of the loan or loan guarantee to the government, taking into account the size of the loan (i.e., its face value), interest rate, and the modeled risk of the recipient failing to pay back the loan in part or full.
+                                        This column shows how many Treasury Account Symbols (TAS) are missing from that agency’s Account Balance data reported to USAspending.gov in File A as compared to that agency’s data in the Governmentwide Treasury Account Symbol Adjusted Trial Balance System (GTAS), a separate Treasury system that is the authoritative source of governmentwide TAS account balances. While reported Account Balance dollars must match GTAS at the TAS level, sometimes there are fewer TAS reported to USAspending than to GTAS; this column captures that gap and the modal shows the specific TASs.
                                     </p>
+                                    <p><strong>Calculation:</strong></p>
                                     <p>
-                                            From a budget perspective, Face Value of Loans is not considered federal spending, since it does not in itself represent a long-term cost to the government. As a result, <strong>Face Value of Loans is not included in any obligation or outlay figure</strong>. However, <strong>Loan Subsidy Cost does have direct budgetary impact and is factored into obligations and outlays when <em>it is positive</em></strong>. Subsidy costs can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Loan Subsidy Cost should never be larger in absolute value terms than the Face Value of Loans itself. Administrative costs of running the loan or loan guarantee program itself are excluded from Loan Subsidy Cost calculations.
+                                        The numbers in the column are based on the difference between the count of the agency’s (non-financing account) TASs in GTAS and the count of the agency’s TASs in File A. Note that financing TASs are excluded from this calculation as they do not involve budgetary spending; thus, while present in GTAS, they are not appropriate for publication on USAspending.gov.
                                     </p>
                                 </div>
                             </div>
@@ -344,167 +212,90 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        All calculations in this section can be recreated from the &quot;Account Balances&quot; file in the COVID-19 Spending profile page download.
+                                        This column shows the total difference in agency spending (i.e., obligations) between two sets of data submitted to USAspending.gov (i.e., File A and File B). The accompanying modal provides the exact difference per TAS.
                                     </p>
                                     <p>
-                                        <strong>Total Budgetary Resources</strong> calculation:
+                                        You may find this column and related modal helpful if you notice discrepancies when comparing different parts of USAspending.gov. On some pages, high-level spending visuals use File A data, while those that dive into program activities or object classes use File B data. For example, you may notice differences within some Federal Account profiles given that the “Snapshot” and “Spending Over Time” sections draw on File A, while “Spending by Category” draws on File B.
                                     </p>
-                                    <ul>
-                                        <li>
-                                            Sum together:
-                                            <ul>
-                                                <li>
-                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                     <p>
-                                        <strong>Total Remaining Balance</strong> calculation:
+                                        File A data is validated against GTAS to ensure it matches at the TAS level. While File B data is intended to match the TAS-level totals in the File A and GTAS data, it can diverge. Agencies are presented with warning notifications when submitting data that does not match, and they can provide explanations to delineate the source of the discrepancy. If provided, those explanations can be found within the downloads in the “Agency Comments” column.
                                     </p>
-                                    <ul>
-                                        <li>
-                                            Sum together:
-                                            <ul>
-                                                <li>
-                                                    Unobligated Balance for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    <p><strong>Calculation:</strong></p>
                                     <p>
-                                        <strong>Total Obligations</strong> calculation:
+                                        The numbers in this column are based on the difference between obligations for the agency’s TASs in File A and File B. This can be replicated by comparing obligations_incurred for the agency’s TASs in the Account Balances (File A) and Account Breakdown by Program Activity & Object Class (File B) in the Custom Account Download.
                                     </p>
-                                    <ul>
-                                        <li>
-                                            Sum together:
-                                            <ul>
-                                                <li>
-                                                    Obligations Incurred for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Total Outlays</strong> calculation:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            Sum together:
-                                            <ul>
-                                                <li>
-                                                    Gross Outlay Amount by Treasury Account Symbol (TAS) for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-unlinked_awards">
-                                <h2 className="about-section-title">
-                                    Number of Unlinked Awards
-                                </h2>
+                                <h2 className="about-section-title">Number of Unlinked Awards</h2>
                                 <div className="about-section-content">
-                                    <p>
-                                        All high-level, boxed calculations in this section can be recreated using the &quot;Account Balances&quot; and &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown</strong>.
-                                    </p>
-                                    <p>
-                                        <strong>Number of Agencies</strong> calculation:
-                                    </p>
+                                    <p>These columns show how many awards that pertain to the selected submission period are “unlinked.” Unlinked awards lack a shared award ID that allows two systems to match their records. Agencies submit two distinct datasets to USAspending for awards—File C and File D, parts 1 and 2. File C is submitted and published on the site on a monthly or quarterly basis from audited agency financial systems. File D1 (procurement) and File D2 (financial assistance) data is separately submitted (ingested from the Federal Procurement Data System, in the case of procurement data) and published on the site up to daily from agency assistance or procurement systems. Because these data originate from different communities and different systems within agencies that are subject to different policies and reporting requirements, there are sometimes gaps between the awards captured in each dataset. </p>
+                                    <p>When an award is linked, USAspending uses each dataset to add context both on-screen and in downloads. Examples: </p>
                                     <ul>
                                         <li>
-                                            In &quot;Account Breakdown&quot; file:
-                                            <ul>
-                                                <li>
-                                                    Count of distinct agencies as determined by Agency Identifier (AID) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
+                                            On the Award Summary pages we leverage linked account data from File C and D1/D2 to display the federal accounts, object classes, and program activities that funded an award.
                                         </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Number of Federal Accounts</strong> calculation:
-                                    </p>
-                                    <ul>
                                         <li>
-                                            In &quot;Account Breakdown&quot; file:
-                                            <ul>
-                                                <li>
-                                                    Count of distinct Federal Accounts for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
+                                            The Account Breakdown by Award data that can be found in Custom Account Downloads page includes information about the award recipient sourced from the Contract Awards and Assistance Awards data.
                                         </li>
                                     </ul>
+                                    <p>In contrast, an unlinked award (e.g., a financial assistance award that is present in File C but cannot be linked to File D2) will not have an Award Summary page or recipient information in the download.</p>
                                     <p>
-                                        <strong>Number of Object Classes</strong> calculation:
+                                        You may find this column useful if you seek to determine how complete an agency’s award information is on the site. As explained above, unlinked awards only show up in some parts of the site and are missing their full context.
                                     </p>
-                                    <ul>
+                                    <p><strong>Calculation:</strong></p>
+                                    <p>For each column, the numbers are based on the sum of two counts:</p>
+                                    <ol className="about-section-content__numbered-list">
                                         <li>
-                                            In &quot;Account Breakdown&quot; file:
-                                            <ul>
-                                                <li>
-                                                    Count of distinct Object Classes for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
+                                            The count of the agency’s D1 or D2 awards with activity in the selected submission period (i.e., <span className="about-section-content__italic">action_date</span> in the period) that aren’t linked to any of the agency’s File C awards <span className="about-section-content__italic">across all time.</span>
                                         </li>
-                                    </ul>
+                                        <li>
+                                            The count of the agency’s File C awards with obligation activity in the selected submission period that aren’t linked to any D1 or D2 awards <span className="about-section-content__italic">across all time.</span>
+                                        </li>
+                                    </ol>
                                     <p>
-                                        <strong>Total Budgetary Resources</strong> calculation:
+                                        For financial assistance data, this calculation excludes loans with total_subsidy_cost that is less than or equal to zero, since such loans have no budgetary cost to the government and therefore should not be reported in File C. Note that this column is concerned with unlinked awards that had obligation activity in the selected period or quarter, but the linkage itself occurs at the Award ID level across time. This means that if there is a time gap between when an award is reported between these two datasets, it will not prevent an award from being linked; such awards will show up in this count.
                                     </p>
-                                    <ul>
-                                        <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Total Obligations</strong> calculation:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Obligations Incurred for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Total Outlays</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Gross Outlay Amount by Treasury Account Symbol (TAS) for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <div className="about-section-wrapper" id="data-sources-agency_comments">
                                 <div className="about-section-content">
-                                    <h2 className="about-section-title">
-                                            Agency Comments
-                                    </h2>
+                                    <h2 className="about-section-title">Agency Comments</h2>
                                     <p>
-                                            In order to understand the data surfaced in the &quot;Award Spending&quot; sections (detailed below), it is important to understand the concept of <strong>linking between Broker File C and FPDS/FABS award data</strong>. Broker File C serves as a bridge between data sourced from agency financial systems (i.e., the data in Broker File C itself) and award data sourced from FPDS and FABS. The actual link between these two datasets is an <strong>award ID</strong> (also known as <strong>&quot;award unique key&quot;</strong>). For various reasons, not every award ID in Broker File C has a corresponding award ID in FPDS or FABS data, which makes them unmatchable. If a Broker File C row cannot be matched to FPDS or FABS, we call it &quot;unlinked&quot;. Unlinked Broker File C data cannot be supplemented by metadata from FPDS or FABS (including recipient information, CFDA program, and funding agency).
+                                        This column provides a download link for agency comments for the selected period’s submission. When agencies publish their data, they have the option to provide comments to explain nuances in their submissions (e.g., why some TAS were excluded, why some discrepancies exist between files). There are numerous acceptable and known reasons for why data may be (or appear to be) incomplete, some of which are allowed by policy; these comment files often shed light on those reasons. Comments that address ‘timing differences’ as a cause for unlinked data can be ignored in the context of this table except for the most recent submission period, since the unlinked data columns in this table are across time and ignore timing differences.
                                     </p>
                                     <p>
-                                        <strong>The rule of thumb for all award sections is to <em>use complete Broker File C data where possible</em> (containing both linked and unlinked awards); <em>where not possible, only linked data will be used</em> (representing a subset of the authoritative award spending total based on both linked and unlinked data in Broker File C).</strong>
+                                        You may find this download helpful if you wish to learn additional context for the values you see in the preceding columns.
                                     </p>
                                     <p>
-                                            Note that even for sections that only display linked award data, <strong>Broker File C is always the basis for any obligated or outlayed dollar amount displayed for award data</strong>.
+                                        Refer to the table below to determine which file’s comments may provide additional context for a column:
                                     </p>
-                                    <p>
-                                            As mentioned in the &quot;Download Instructions&quot; section above, <strong>linked</strong> data is compiled in the COVID-19 Spending profile page download. For <strong>linked and unlinked</strong> data, use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page.
-                                    </p>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Column Name</th>
+                                                <th>Relevant File</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Number of TASs Missing from Account Balance Data</td>
+                                                <td>File A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Reporting Difference in Obligations</td>
+                                                <td>File A, File B</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Number of Unlinked Contract Awards</td>
+                                                <td>FileC, File D1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Number of Unlinked Assistance Awards</td>
+                                                <td>File C, D2</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -515,3 +306,5 @@ export default () => {
         </div>
     );
 };
+
+export default DataSourcesAndMethodologiesPage;
