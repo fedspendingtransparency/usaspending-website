@@ -9,6 +9,10 @@ import { useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
+import {
+    isCustomPageTitleDefined,
+    getCanonicalUrl
+} from 'helpers/metaTagHelper';
 
 const propTypes = {
     og_url: PropTypes.string,
@@ -19,17 +23,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-    og_url: 'https://usaspending.gov/',
+    og_url: 'https://usaspending.gov',
     og_title: 'USAspending.gov',
     og_description: 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
     og_site_name: 'USAspending.gov',
     og_image: 'https://usaspending.gov/img/FacebookOG.png'
-};
-
-const isCustomPageTitleDefined = (title = "USAspending.gov") => {
-    if (title === "USAspending.gov") return false;
-    if (title.split('|')[0] === ' ') return false;
-    return true;
 };
 
 const MetaTags = ({
@@ -40,6 +38,7 @@ const MetaTags = ({
     og_image: image
 }) => {
     const { pathname } = useLocation();
+
     const [tags, setTags] = useState([]);
 
     const generateTags = () => {
@@ -78,7 +77,12 @@ const MetaTags = ({
                 key="og_image" />);
         }
 
-        setTags(newTags);
+        setTags(
+            newTags
+                .concat([
+                    <link rel="canonical" href={getCanonicalUrl(pathname)} />
+                ])
+        );
     };
 
     useEffect(() => {
