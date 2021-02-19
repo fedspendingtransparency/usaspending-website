@@ -140,8 +140,8 @@ const AboutTheDataPage = ({
                                 types={[
                                     {
                                         internal: 'submissions',
-                                        label: "Statistics by Reporting Period",
-                                        labelContent: <TableTabLabel label="Statistics by Reporting Period" />
+                                        label: "Statistics by Submission Period",
+                                        labelContent: <TableTabLabel label="Statistics by Submission Period" />
                                     },
                                     {
                                         internal: 'publications',
