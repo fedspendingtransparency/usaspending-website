@@ -119,6 +119,11 @@ module.exports = {
                 from: 'robots.txt',
                 to: path.resolve(__dirname, "../public"),
                 context: path.resolve(__dirname, '../')
+            },
+            {
+                from: 'redirect-config.json',
+                to: path.resolve(__dirname, "../public"),
+                context: path.resolve(__dirname, '../')
             }
         ]),
         new webpack.DefinePlugin({

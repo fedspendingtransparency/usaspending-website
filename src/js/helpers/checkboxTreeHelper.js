@@ -393,13 +393,15 @@ export const areChildrenPartial = (count, children) => {
 
 export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true) => {
     if (!children || !parent) return [];
-    const hasGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
+    const hasGenuineGrandChildren = children.some((node) => doesNodeHaveGenuineChildren(node));
+    const hasPlaceholderGrandChildren = children.some((child) => child?.children?.every((gc) => gc.isPlaceHolder));
     const placeHolderAlreadyExists = children.some((child) => child.isPlaceHolder);
     const isPlaceHolderNeeded = (
         areChildrenPartial(parent.count, children) &&
         !placeHolderAlreadyExists
     );
-    if (isPlaceHolderNeeded && hasGrandChildren) {
+
+    if (isPlaceHolderNeeded && hasGenuineGrandChildren) {
         return children
             .map((child) => ({
                 ...child,
@@ -412,13 +414,6 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
                 className: hide ? 'hide' : ''
             }]);
     }
-    if (hasGrandChildren) {
-        return children
-            .map((child) => ({
-                ...child,
-                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
-            }));
-    }
     if (isPlaceHolderNeeded) {
         return children.concat([{
             isPlaceHolder: true,
@@ -427,12 +422,22 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             className: hide ? 'hide' : ''
         }]);
     }
-    return children;
+    if (hasGenuineGrandChildren || hasPlaceholderGrandChildren) {
+        return children
+            .map((child) => ({
+                ...child,
+                children: addChildrenAndPossiblyPlaceholder(child.children, child, hide)
+            }));
+    }
+
+    return hide
+        ? children.map((c) => ({ ...c, className: 'hide' }))
+        : children;
 };
 
 /**
  * NOTE: This fn is only used to populate the checkbox tree w/ search results. It handles the complexity of how to add new children w/o removing existing children or necessary placeholders to represent a partial tree
- * @param {<Object>} parentFromSearch an object representing part of the search results
+ * @wparam {<Object>} parentFromSearch an object representing part of the search results
  * @param {<Object>} existingParent an object representing the tree
  * @returns {Array.<Object>} a new array of Objects representing "merged" children constituting:
  * (a) the nodes from search results

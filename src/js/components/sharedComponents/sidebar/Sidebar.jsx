@@ -9,8 +9,8 @@ import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
 
 import FYPicker from 'components/state/RecipientFYPicker';
+import { useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import SidebarLink from './SidebarLink';
-import { useDynamicStickyClass } from '../stickyHeader/StickyHeader';
 
 const propTypes = {
     active: PropTypes.string,

@@ -12,12 +12,8 @@ import { isBefore, startOfToday } from 'date-fns';
 
 import kGlobalConstants from 'GlobalConstants';
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
+import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
 import {
-    stickyHeaderHeight,
-    dataDisclaimerHeight
-} from 'dataMapping/covid19/covid19';
-import {
-    getStickyBreakPointForSidebar,
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
@@ -26,12 +22,12 @@ import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-
-const cookie = 'usaspending_covid_homepage';
 
 let sections = [
     {
@@ -197,8 +193,9 @@ export default () => {
             <main id="main-content" className="main-content">
                 <div className={`sidebar usda__flex-col${dataDisclaimerBanner !== 'hide' ? ' covid-sidebar-banner' : ''}`}>
                     <Sidebar
+                        isGoingToBeSticky
                         pageName="data-sources"
-                        fixedStickyBreakpoint={getStickyBreakPointForSidebar(Cookies.get(cookie))}
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                         verticalSectionOffset={dataDisclaimerBanner === 'hide'
                             ? stickyHeaderHeight
                             : stickyHeaderHeight + dataDisclaimerHeight}

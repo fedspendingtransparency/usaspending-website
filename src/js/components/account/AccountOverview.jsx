@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
@@ -51,7 +52,7 @@ export default class AccountOverview extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.account.id !== this.props.account.id) {
+        if (!isEqual(prevProps.account, this.props.account)) {
             this.generateSummary(this.props.account);
         }
     }
