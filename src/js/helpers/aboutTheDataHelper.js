@@ -135,17 +135,7 @@ export const fetchUnlinkedData = (
     fiscalPeriod,
     type
 ) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/?type=${type}`
-});
-
-export const fetchMockUnlinkedData = () => ({
-    promise: new Promise((resolve) => resolve({
-        unlinked_file_c_award_count: 123213,
-        unlinked_file_d_award_count: 43543,
-        total_linkable_file_c_award_count: 12321312,
-        total_linkable_file_d_award_count: 23987443892
-    })),
-    cancel: () => {}
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/${type}/`
 });
 
 export const dateFormattedMonthDayYear = (date) => {
@@ -206,11 +196,20 @@ export const formatUnlinkedDataRows = (data, type) => ([
     ],
     [
         { displayName: `as a Percentage of All ${type} Awards`, title: '', rowSpan: '0' },
-        calculatePercentage(data.unlinked_file_d_award_count, data.total_linkable_file_d_award_count, null, 2),
-        calculatePercentage(data.unlinked_file_c_award_count, data.total_linkable_file_c_award_count, null, 2),
+        calculatePercentage(
+            data.unlinked_file_d_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
+            null,
+            2
+        ),
+        calculatePercentage(data.unlinked_file_c_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
+            null,
+            2
+        ),
         calculatePercentage(
             data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
-            data.total_linkable_file_c_award_count + data.total_linkable_file_d_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             null,
             2
         )

@@ -168,7 +168,6 @@ const AboutTheDataPage = ({
                                 ? selectedPeriod.id
                                 : ''
                             } />
-                        <Note message={message} />
                         <AboutTheDataModal
                             mounted={!!showModal.length}
                             type={showModal}
