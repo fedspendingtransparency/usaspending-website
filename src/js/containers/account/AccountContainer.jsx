@@ -9,6 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { withRouter } from 'react-router-dom';
+import { flowRight } from 'lodash';
+
+import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
 import * as AccountHelper from 'helpers/accountHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
@@ -17,25 +20,21 @@ import * as filterActions from 'redux/actions/account/accountFilterActions';
 import FederalAccount from 'models/account/FederalAccount';
 import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
-import WithLatestFy from 'containers/account/WithLatestFy';
+import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
+
 require('pages/account/accountPage.scss');
 
 const propTypes = {
-    latestSubmissionDate: PropTypes.object,
     account: PropTypes.object,
     match: PropTypes.object,
     setSelectedAccount: PropTypes.func,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
-    latestPeriod: PropTypes.shape({
-        year: PropTypes.number,
-        quarter: PropTypes.number,
-        period: PropTypes.number,
-        latestSubmissionDate: PropTypes.object // moment obj
-    })
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
+    latestPeriod: LATEST_PERIOD_PROPS,
+    isFetchLatestFyLoading: PropTypes.bool
 };
 
 const combinedActions = Object.assign({},
@@ -48,7 +47,6 @@ export class AccountContainer extends React.Component {
         super(props);
 
         this.state = {
-            currentAccountNumber: '',
             loading: true,
             validAccount: true
         };
@@ -58,29 +56,30 @@ export class AccountContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData(this.props.match.params.accountNumber);
+        this.loadData();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
-            this.loadData(this.props.match.params.accountNumber);
+            this.loadData();
         }
-        if (!prevProps.latestSubmissionDate && this.props.latestSubmissionDate && this.props.account) {
+        if (!prevProps.latestPeriod?.year && this.props.latestPeriod?.year && this.props.account?.id) {
+            // The latest FY became available and we have the internal / database id required for
+            // the FY snapshot request
             this.loadFiscalYearSnapshot(this.props.account.id);
         }
     }
 
-    loadData(accountNumber) {
+    loadData() {
         if (this.accountRequest) {
             this.accountRequest.cancel();
         }
 
         this.setState({
-            loading: true,
-            currentAccountNumber: accountNumber
+            loading: true
         });
 
-        this.accountRequest = AccountHelper.fetchFederalAccount(accountNumber);
+        this.accountRequest = AccountHelper.fetchFederalAccount(this.props.match.params.accountNumber);
 
         this.accountRequest.promise
             .then((res) => {
@@ -99,8 +98,7 @@ export class AccountContainer extends React.Component {
                 if (!isCancel(err)) {
                     this.setState({
                         loading: false,
-                        validAccount: false,
-                        currentAccountNumber: accountNumber
+                        validAccount: false
                     });
 
                     console.log(err);
@@ -111,7 +109,9 @@ export class AccountContainer extends React.Component {
     parseAccount(data) {
         const account = new FederalAccount(data);
         this.props.setSelectedAccount(account);
-        this.loadFiscalYearSnapshot(account.id);
+        if (this.props.latestPeriod.year) {
+            this.loadFiscalYearSnapshot(account.id);
+        }
     }
 
     loadFiscalYearSnapshot(id) {
@@ -172,7 +172,7 @@ export class AccountContainer extends React.Component {
         if (!this.state.loading && !this.state.validAccount) {
             output = <InvalidAccount />;
         }
-        else if (!this.state.loading) {
+        else if (!this.state.loading && !this.props.isFetchLatestFyLoading) {
             output = <Account {...this.props} currentFiscalYear={`${this.props.latestPeriod.year}`} />;
         }
 
@@ -181,16 +181,15 @@ export class AccountContainer extends React.Component {
 }
 
 AccountContainer.propTypes = propTypes;
-const AccountContainerWithRouter = withRouter(AccountContainer);
 
-export default connect(
-    (state) => ({
-        account: state.account.account,
-        tas: state.account.tas
-    }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
-)((props) => (
-    <WithLatestFy>
-        <AccountContainerWithRouter {...props} />
-    </WithLatestFy>
-));
+export default flowRight(
+    withRouter,
+    withLatestFy,
+    connect(
+        (state) => ({
+            account: state.account.account,
+            tas: state.account.tas
+        }),
+        (dispatch) => bindActionCreators(combinedActions, dispatch)
+    )
+)(AccountContainer);

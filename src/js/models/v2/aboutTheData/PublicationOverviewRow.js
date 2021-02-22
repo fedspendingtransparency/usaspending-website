@@ -1,6 +1,5 @@
 /**
- * DatesRow.js
- * Created by Lizzie Salita 11/20/20
+ * PublicationOverviewRow.js
  */
 
 import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
@@ -23,7 +22,7 @@ const DatesRow = {
     populate(fy, data, totals) {
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
-        this._code = data.agency_code || '';
+        this.code = data.toptier_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._federalTotal = totals
             .filter(({ fiscal_year: y }) => y === fy)

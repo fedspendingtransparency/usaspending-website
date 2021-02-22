@@ -62,6 +62,11 @@ const AgenciesContainer = ({
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
     const tableRef = useRef(null);
+    const pageRef = useRef({ publications: null, submissions: null });
+    const { current: { publications: prevPublicationsPg, submissions: prevSubmissionsPg } } = pageRef;
+    useEffect(() => {
+        pageRef.current = { publications: publicationsPage, submissions: submissionsPage };
+    }, [submissionsPage, publicationsPage]);
 
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -183,40 +188,44 @@ const AgenciesContainer = ({
     }, []);
 
     useEffect(() => {
-        // FY or Period changes
-        if (!federalTotals.length) {
-            fetchTotals();
-        }
-        else if (selectedFy && selectedPeriod) {
+        // Active tab or page number changes
+        if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
     }, [
-        federalTotals,
         activeTab,
-        selectedFy,
-        selectedPeriod,
         submissionsPage,
         publicationsPage
     ]);
 
     useEffect(() => {
-        if (activeTab === 'submissions' && submissionsPage === 1 && allSubmissions.length) {
+        const shouldResetPg = (
+            (prevSubmissionsPg && prevPublicationsPg) &&
+            (selectedFy && selectedPeriod)
+        );
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
+            fetchTotals();
+        }
+        else if (activeTab === 'submissions' && submissionsPage === 1 && shouldResetPg) {
             // re-fetch w/ new params
             fetchTableData(true);
         }
-        else if (activeTab === 'submissions') {
+        else if (activeTab === 'submissions' && shouldResetPg) {
             // reset to pg 1, triggering a refetch
             changeSubmissionsPg(1);
         }
-        else if (publicationsPage === 1 && allPublications.length) {
+        else if (activeTab === 'publications' && publicationsPage === 1 && shouldResetPg) {
             // re-fetch w/ new params
             fetchTableData(true);
         }
-        else {
+        else if (activeTab === 'publications' && shouldResetPg) {
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
     }, [
+        federalTotals,
+        selectedFy,
+        selectedPeriod,
         submissionsSort,
         submissionsLimit,
         publicationsSort,

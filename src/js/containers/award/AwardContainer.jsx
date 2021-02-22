@@ -9,8 +9,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
 import { withRouter } from 'react-router-dom';
-import Award from 'components/award/Award';
+import { flowRight } from 'lodash';
 
+import Award from 'components/award/Award';
 import * as SearchHelper from 'helpers/searchHelper';
 import { setAward, resetAward } from 'redux/actions/award/awardActions';
 import {
@@ -30,7 +31,7 @@ import {
     fetchContractDownloadFile,
     fetchAssistanceDownloadFile
 } from 'helpers/downloadHelper';
-import { fetchDEFCodes } from 'helpers/disasterHelper';
+import withDefCodes from 'containers/covid19/WithDefCodes';
 
 require('pages/award/awardPage.scss');
 
@@ -57,7 +58,6 @@ export class AwardContainer extends React.Component {
 
         this.awardRequest = null;
         this.downloadRequest = null;
-        this.defcRequest = null;
 
         this.state = {
             noAward: false,
@@ -65,15 +65,10 @@ export class AwardContainer extends React.Component {
         };
         this.downloadData = this.downloadData.bind(this);
         this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
-        this.fetchCodes = this.fetchCodes.bind(this);
     }
 
     componentDidMount() {
         this.getSelectedAward(this.props.match.params.awardId);
-        if (!this.props.defCodes || this.props.defCodes.length === 0) {
-            // If we don't already have COVID-19 DEF Codes in redux, make a request for them
-            this.fetchCodes();
-        }
     }
 
     componentDidUpdate(prevProps) {
@@ -193,25 +188,6 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    async fetchCodes() {
-        if (this.defcRequest) {
-            this.defcRequest.cancel();
-        }
-
-        this.defcRequest = fetchDEFCodes();
-
-        try {
-            const { data } = await this.defcRequest.promise;
-            const defCodes = data.codes.filter((c) => c.disaster === 'covid_19');
-            this.props.setDEFCodes(defCodes);
-            this.defcRequest = null;
-        }
-        catch (err) {
-            console.error('Error fetching DEF Codes', err);
-            this.defcRequest = null;
-        }
-    }
-
     render() {
         return (
             <Award
@@ -229,23 +205,26 @@ export class AwardContainer extends React.Component {
 }
 
 AwardContainer.propTypes = propTypes;
-const AwardContainerWithRouter = withRouter(AwardContainer);
 
-export default connect(
-    (state) => ({
-        award: state.award,
-        isDownloadPending: state.bulkDownload.download.pendingDownload,
-        isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked,
-        defCodes: state.covid19.defCodes
-    }),
-    (dispatch) => bindActionCreators({
-        setDownloadExpectedUrl,
-        setDownloadExpectedFile,
-        setDownloadPending,
-        setDownloadCollapsed,
-        setAward,
-        subAwardIdClicked,
-        resetAward,
-        setDEFCodes
-    }, dispatch)
-)(AwardContainerWithRouter);
+export default flowRight(
+    withDefCodes,
+    connect(
+        (state) => ({
+            award: state.award,
+            isDownloadPending: state.bulkDownload.download.pendingDownload,
+            isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked,
+            defCodes: state.covid19.defCodes
+        }),
+        (dispatch) => bindActionCreators({
+            setDownloadExpectedUrl,
+            setDownloadExpectedFile,
+            setDownloadPending,
+            setDownloadCollapsed,
+            setAward,
+            subAwardIdClicked,
+            resetAward,
+            setDEFCodes
+        }, dispatch)
+    ),
+    withRouter
+)(AwardContainer);

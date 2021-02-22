@@ -365,7 +365,8 @@ describe('BulkDownloadPageContainer', () => {
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'accounts');
         });
-        it('should exclude the quarter param when the period key is defined', () => {
+
+        it('should use the quarter property when the period key is null', () => {
             const container = shallow(<BulkDownloadPageContainer
                 {...{
                     ...accountsRedux,
@@ -373,7 +374,44 @@ describe('BulkDownloadPageContainer', () => {
                         ...accountsRedux.bulkDownload,
                         accounts: {
                             ...accountsRedux.bulkDownload.accounts,
-                            quarter: '',
+                            quarter: '4',
+                            period: null
+                        }
+                    }
+                }}
+                {...mockActions} />);
+
+            const expectedParams = {
+                account_level: 'treasury_account',
+                filters: {
+                    budget_function: '300',
+                    budget_subfunction: '123',
+                    agency: '123',
+                    federal_account: '212',
+                    submission_types: ['account_balances'],
+                    fy: '1989',
+                    quarter: '4',
+                    def_codes: ["L", "M", "N", "O", "P"]
+                },
+                file_format: 'csv'
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAccountDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'accounts');
+        });
+        it('should use the period property when the quarter key is null', () => {
+            const container = shallow(<BulkDownloadPageContainer
+                {...{
+                    ...accountsRedux,
+                    bulkDownload: {
+                        ...accountsRedux.bulkDownload,
+                        accounts: {
+                            ...accountsRedux.bulkDownload.accounts,
+                            quarter: null,
                             period: '5'
                         }
                     }

@@ -8,15 +8,17 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import { flowRight } from 'lodash';
+
+import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from "propTypes";
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
-import WithLatestFy from 'containers/account/WithLatestFy';
+import withLatestFy from 'containers/account/WithLatestFy';
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-import { LATEST_PERIOD_PROPS } from "propTypes";
 
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
@@ -27,7 +29,7 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    submissionPeriods: PropTypes.arrayOf(PropTypes.object),
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
     latestPeriod: LATEST_PERIOD_PROPS
 };
 
@@ -100,18 +102,17 @@ export class AccountTimePeriodContainer extends React.Component {
 
 AccountTimePeriodContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        filterTimePeriodType: state.account.filters.dateType,
-        filterTimePeriodFY: state.account.filters.fy,
-        filterTimePeriodStart: state.account.filters.startDate,
-        filterTimePeriodEnd: state.account.filters.endDate
-    }),
-    (dispatch) => ({
-        ...bindActionCreators(accountFilterActions, dispatch)
-    })
-)((props) => (
-    <WithLatestFy>
-        <AccountTimePeriodContainer {...props} />
-    </WithLatestFy>
-));
+export default flowRight(
+    withLatestFy,
+    connect(
+        (state) => ({
+            filterTimePeriodType: state.account.filters.dateType,
+            filterTimePeriodFY: state.account.filters.fy,
+            filterTimePeriodStart: state.account.filters.startDate,
+            filterTimePeriodEnd: state.account.filters.endDate
+        }),
+        (dispatch) => ({
+            ...bindActionCreators(accountFilterActions, dispatch)
+        })
+    )
+)(AccountTimePeriodContainer);
