@@ -147,13 +147,13 @@ export const agencyDetailsColumns = [
         right: true
     },
     {
-        title: 'unlinked_cont_award_count',
+        title: 'unlinked_contract_award_count',
         displayName: 'Number of Unlinked Contract Awards',
         icon: <Tooltip title="Number of Unlinked Contract Awards" className="wide wide_right" />,
         right: true
     },
     {
-        title: 'unlinked_asst_award_count',
+        title: 'unlinked_assistance_award_count',
         displayName: 'Number of Unlinked Assistance Awards',
         icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />,
         right: true
