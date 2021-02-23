@@ -144,6 +144,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                 setRows(parseRows(res.data.results));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
+                setError(false);
             }).catch((err) => {
                 if (!isCancel(err)) {
                     setError(true);
