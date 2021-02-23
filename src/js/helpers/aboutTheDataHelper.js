@@ -220,3 +220,17 @@ export const renderDeadline = (title, deadlines) => {
     }
     return '--';
 };
+
+export const getAgencyDetailEmail = (agencyName, agencyCode) => ({
+    subject: `Agency Submission Statistics | ${agencyName}`,
+    body: `View agency submission details for ${agencyName} on USAspending: https://www.usaspending.gov/submission-statistics/agency/${agencyCode}`
+});
+
+export const getAllAgenciesEmail = (fy, period, tab) => {
+    const params = new URLSearchParams({ fy, period, tab }).toString();
+    const url = `https://www.usaspending.gov/submission-statistics/?${encodeURIComponent(params)}`;
+    return {
+        subject: 'Agency Submission Statistics | USAspending.gov',
+        body: `View agency submission details on USAspending: ${url}`
+    };
+};
