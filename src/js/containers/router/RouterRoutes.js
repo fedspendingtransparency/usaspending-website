@@ -38,6 +38,7 @@ const SubmissionStatisticsDataSources = React.lazy(() => import('components/abou
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
+// eslint-disable-next-line import/prefer-default-export
 export const routes = [
     {
         path: '/',
@@ -176,13 +177,13 @@ export const routes = [
         path: '/submission-statistics',
         component: AboutTheDataPage,
         exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
+        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT && !kGlobalConstants.STAGING // Hidden in production
     },
     {
         path: '/submission-statistics/agency/:agencyCode',
         component: AgencyDetailsPage,
         exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT // Not DEV and not QAT === Production, so we hide
+        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT && !kGlobalConstants.STAGING // Hidden in production
     },
     {
         path: '/submission-statistics/data-sources',
