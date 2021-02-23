@@ -8,7 +8,9 @@ import {
     isPeriodVisible,
     isPeriodSelectable,
     getPeriodWithTitleById,
-    convertDatesToMilliseconds
+    convertDatesToMilliseconds,
+    getAllAgenciesEmail,
+    getAgencyDetailEmail
 } from 'helpers/aboutTheDataHelper';
 
 import {
@@ -268,3 +270,28 @@ test('getPeriodWithTitleById returns correct title for period', () => {
     expect(getPeriodWithTitleById('11').title).toEqual('P11');
     expect(getPeriodWithTitleById('12').title).toEqual('Q4 / P12');
 });
+
+
+test.each([
+    ['2021', '3', 'submissions', 'https://www.usaspending.gov/submission-statistics/?fy=2021&period=3&tab=submissions'],
+    ['2020', '4', 'submissions', 'https://www.usaspending.gov/submission-statistics/?fy=2020&period=4&tab=submissions'],
+    ['2020', '3', 'publications', 'https://www.usaspending.gov/submission-statistics/?fy=2020&period=3&tab=publications'],
+    ['2017', '12', 'submissions', 'https://www.usaspending.gov/submission-statistics/?fy=2017&period=12&tab=submissions'],
+    ['2020', '3', 'submissions', 'https://www.usaspending.gov/submission-statistics/?fy=2020&period=3&tab=submissions']
+])('when fy is %s, period is %s and active tab is %s the body returns the correct url: %s', (fy, period, tab, url) => {
+    const v = getAllAgenciesEmail(fy, period, tab);
+    expect(v.body.includes('fy')).toEqual(true);
+    expect(v.body.includes('period')).toEqual(true);
+    expect(v.body.includes('tab')).toEqual(true);
+    expect(v.body.includes(fy)).toEqual(true);
+    expect(v.body.includes(period)).toEqual(true);
+    expect(v.body.includes(tab)).toEqual(true);
+    const baseURL = 'https://www.usaspending.gov/submission-statistics/?';
+    const queryParams = encodeURIComponent(url.split('?')[1]);
+    expect(v.body.includes(`${baseURL}${queryParams}`)).toEqual(true);
+});
+
+test('getAgencyDetailEmail', () => {
+    expect(getAgencyDetailEmail('test', '123').body.includes('test')).toEqual(true);
+    expect(getAgencyDetailEmail('test', '123').subject.includes('test')).toEqual(true)
+})

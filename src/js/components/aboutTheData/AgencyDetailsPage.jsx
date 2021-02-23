@@ -9,10 +9,12 @@ import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
+import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
@@ -87,6 +89,11 @@ const AgencyDetailsPage = () => {
                         Agency Submission Data
                     </h1>
                 </div>
+                {agencyOverview?.name && (
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon slug={`submission-statistics/agency/${agencyCode}`} email={getAgencyDetailEmail(agencyOverview.name, agencyCode)} />
+                    </div>
+                )}
             </StickyHeader>
             <main id="main-content" className="main-content">
                 {loading && <LoadingMessage />}
