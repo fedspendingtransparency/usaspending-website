@@ -177,13 +177,13 @@ export const routes = [
         path: '/submission-statistics',
         component: AboutTheDataPage,
         exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT && !kGlobalConstants.STAGING // Hidden in production
+        hide: kGlobalConstants.PROD
     },
     {
         path: '/submission-statistics/agency/:agencyCode',
         component: AgencyDetailsPage,
         exact: true,
-        hide: !kGlobalConstants.DEV && !kGlobalConstants.QAT && !kGlobalConstants.STAGING // Hidden in production
+        hide: kGlobalConstants.PROD
     },
     {
         path: '/submission-statistics/data-sources',

@@ -9,7 +9,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { QAT, DEV, STAGING } from 'GlobalConstants';
+import { PROD } from 'GlobalConstants';
 
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -34,8 +34,6 @@ const clickedFooterLink = (route) => {
         action: route
     });
 };
-
-const isNotProd = (DEV || QAT || STAGING);
 
 const Footer = ({
     filters,
@@ -116,7 +114,7 @@ const Footer = ({
                                 </li>
                             </ul>
                         </div>
-                        {!isNotProd && (
+                        {PROD && (
                             <div className="link-group">
                                 <div className="group-title">
                                 Resources
@@ -160,7 +158,7 @@ const Footer = ({
                                         link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
                                         title="Explore the Code" />
                                 </li>
-                                {isNotProd && (
+                                {!PROD && (
                                     <li>
                                         <FooterExternalLink
                                             link="https://github.com/fedspendingtransparency/usaspending-website/releases"
@@ -169,7 +167,7 @@ const Footer = ({
                                 )}
                             </ul>
                         </div>
-                        {isNotProd && (
+                        {!PROD && (
                             <div className="link-group">
                                 <div className="group-title">
                                         Our Sites

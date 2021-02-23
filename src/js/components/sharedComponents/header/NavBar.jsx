@@ -10,7 +10,7 @@ import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWr
 import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
-import { DEV, QAT, STAGING } from '../../../GlobalConstants';
+import { DEV, PROD } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 import NavBarGlossaryLink from './NavBarGlossaryLink';
@@ -21,8 +21,6 @@ const clickedHeaderLink = (route) => {
         action: route
     });
 };
-
-const isNotProd = (DEV || QAT || STAGING);
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -186,11 +184,11 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title={isNotProd ? "Download" : "Download Center"}
-                                    label={isNotProd ? "Download" : "Download Center"}
+                                    title={!PROD ? "Download" : "Download Center"}
+                                    label={!PROD ? "Download" : "Download Center"}
                                     items={downloadGlobalNavigationOptions} />
                             </li>
-                            {isNotProd && (
+                            {!PROD && (
                                 <li
                                     className="full-menu__item"
                                     role="menuitem">
@@ -200,7 +198,7 @@ export default class NavBar extends React.Component {
                                         items={resourceOptions} />
                                 </li>
                             )}
-                            {!isNotProd && (
+                            {PROD && (
                                 <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
                             )}
                         </ul>
