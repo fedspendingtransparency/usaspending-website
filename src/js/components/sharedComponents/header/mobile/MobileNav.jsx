@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
-import { DEV, QAT } from 'GlobalConstants';
+import { DEV, QAT, STAGING } from 'GlobalConstants';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
@@ -30,7 +30,7 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const isDevOrQat = (DEV || QAT);
+const isNotProd = (DEV || QAT || STAGING);
 
 export class MobileNav extends React.Component {
     constructor(props) {
@@ -102,12 +102,12 @@ export class MobileNav extends React.Component {
                         <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
                             <MobileDropdown
                                 {...this.props}
-                                label={isDevOrQat ? "Download" : "Download Center"}
+                                label={isNotProd ? "Download" : "Download Center"}
                                 items={downloadGlobalNavigationOptions}
                                 active={this.state.url} />
                             <hr className="mobile-nav-content__divider" />
                         </li>
-                        {isDevOrQat && (
+                        {isNotProd && (
                             <li className="mobile-nav-content__list-item">
                                 <MobileDropdown
                                     {...this.props}
@@ -117,7 +117,7 @@ export class MobileNav extends React.Component {
                                 <hr className="mobile-nav-content__divider" />
                             </li>
                         )}
-                        {!isDevOrQat && (
+                        {!isNotProd && (
                             <li className="mobile-nav-content__list-item">
                                 <GlossaryButtonWrapperContainer
                                     child={MobileGlossaryButton}

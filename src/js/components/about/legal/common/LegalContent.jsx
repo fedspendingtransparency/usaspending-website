@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 const legalSections = [
     {
@@ -42,7 +42,8 @@ export default class LegalContent extends React.Component {
                         active={this.props.activePage}
                         pageName="about"
                         sections={legalSections}
-                        fixedStickyBreakPoint={stickyHeaderHeight} />
+                        isGoingToBeSticky
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
                 </div>
                 <div className="about-content">
                     <div className="about-padded-content">

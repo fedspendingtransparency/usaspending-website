@@ -65,3 +65,6 @@ usa_spending.sh
 
 # IDE stuff
 .vscode
+
+#redirect config
+redirect-config.json

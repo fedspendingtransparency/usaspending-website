@@ -12,7 +12,6 @@ const fields = [
     'title',
     'agency_identifier',
     'main_account_code',
-    'description',
     'totals'
 ];
 
@@ -21,7 +20,6 @@ const defaultValues = [
     '',
     '',
     '',
-    'Not available',
     {
         available: false,
         obligated: 0,
