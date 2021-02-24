@@ -437,14 +437,18 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        All calculations in this section can be recreated from the “Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources” Files on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">this</ExternalLink> page.
+                                        All calculations in this section can be recreated from the “Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources” Files on
+                                        <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                        page.
                                     </p>
                                     <p>
                                         <strong>Total Budgetary Resources</strong> calculation:
                                     </p>
                                     <ul>
                                         <li>
-                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
+                                            <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                            page for all Fiscal Years back to FY20
                                         </li>
                                         <li>
                                             Calculate SUM[Total Budgetary Resources – (Unobligated Balance Brought Forward + Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations + Anticipated Recoveries of Prior Year Unpaid and Paid Obligations)]
@@ -482,7 +486,9 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
+                                            <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                            page for all Fiscal Years back to FY20
                                         </li>
                                         <li>
                                             SUM[New Obligations and Upward Adjustments – (Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations)]
@@ -504,7 +510,9 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
+                                            <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                            page for all Fiscal Years back to FY20
                                         </li>
                                         <li>
                                             SUM[Gross Outlays + Recoveries of Prior Year Paid Obligations ]
@@ -518,7 +526,7 @@ export default () => {
                                             </ul>
                                         </li>
                                         <li>
-                                            Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.
+                                            Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.”
                                         </li>
                                     </ul>
                                 </div>
@@ -529,7 +537,9 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        All high-level, boxed calculations in this section can be recreated using the &quot;Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources&quot; Files on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
+                                        All high-level, boxed calculations in this section can be recreated using the &quot;Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources&quot; Files on
+                                        <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                        page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
                                     </p>
                                     <p>
                                         <strong>Number of Agencies</strong> calculation:
