@@ -529,7 +529,7 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        All high-level, boxed calculations in this section can be recreated using the &quot;Account Balances&quot; and &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown</strong>.
+                                        All high-level, boxed calculations in this section can be recreated using the &quot;Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources&quot; Files on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
                                     </p>
                                     <p>
                                         <strong>Number of Agencies</strong> calculation:
@@ -539,7 +539,7 @@ export default () => {
                                             In &quot;Account Breakdown&quot; file:
                                             <ul>
                                                 <li>
-                                                    Count of distinct agencies as determined by Agency Identifier (AID) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    Count of distinct agencies as determined by Agency Identifier (AID)
                                                 </li>
                                             </ul>
                                         </li>
@@ -552,7 +552,7 @@ export default () => {
                                             In &quot;Account Breakdown&quot; file:
                                             <ul>
                                                 <li>
-                                                    Count of distinct Federal Accounts for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    Count of distinct Federal Accounts
                                                 </li>
                                             </ul>
                                         </li>
@@ -565,48 +565,17 @@ export default () => {
                                             In &quot;Account Breakdown&quot; file:
                                             <ul>
                                                 <li>
-                                                    Count of distinct Object Classes for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    Count of distinct Object Classes
                                                 </li>
                                             </ul>
                                         </li>
                                     </ul>
                                     <p>
-                                        <strong>Total Budgetary Resources</strong> calculation:
+                                        <strong>Total Budgetary Resources, Total Obligations, and Total Outlays calculations:</strong>
                                     </p>
                                     <ul>
                                         <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Total Obligations</strong> calculation:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Obligations Incurred for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Total Outlays</strong> calculations:
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            In &quot;Account Balances&quot; file, sum together:
-                                            <ul>
-                                                <li>
-                                                    Gross Outlay Amount by Treasury Account Symbol (TAS) for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
-                                                </li>
-                                            </ul>
+                                            Refer to the calculations in the “Overview Section” above; these amounts are calculated in the exact same way as in that section.
                                         </li>
                                     </ul>
                                 </div>
