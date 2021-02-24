@@ -437,19 +437,28 @@ export default () => {
                                 </h2>
                                 <div className="about-section-content">
                                     <p>
-                                        All calculations in this section can be recreated from the &quot;Account Balances&quot; file in the COVID-19 Spending profile page download.
+                                        All calculations in this section can be recreated from the “Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources” Files on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">this</ExternalLink> page.
                                     </p>
                                     <p>
                                         <strong>Total Budgetary Resources</strong> calculation:
                                     </p>
                                     <ul>
                                         <li>
-                                            Sum together:
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                        </li>
+                                        <li>
+                                            Calculate SUM[Total Budgetary Resources – (Unobligated Balance Brought Forward + Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations + Anticipated Recoveries of Prior Year Unpaid and Paid Obligations)]
+                                        </li>
+                                        <li>
+                                            The calculation mapped to the Line Items in the SF-133 is:
                                             <ul>
                                                 <li>
-                                                    Total Budgetary Resources for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    SUM[1910 – (1000 + 1021 + 1033 + 1061)]
                                                 </li>
                                             </ul>
+                                        </li>
+                                        <li>
+                                            Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year
                                         </li>
                                     </ul>
                                     <p>
@@ -457,10 +466,13 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Sum together:
+                                            Total Budgetary Resources – Total Obligations
+                                        </li>
+                                        <li>
+                                            The calculation mapped to the Line Items in the SF-133 is:
                                             <ul>
                                                 <li>
-                                                    Unobligated Balance for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    SUM[1910 – (1000 + 1021 + 1033 + 1061)] - SUM[2190 – (1021 + 1033)]
                                                 </li>
                                             </ul>
                                         </li>
@@ -470,12 +482,21 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Sum together:
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                        </li>
+                                        <li>
+                                            SUM[New Obligations and Upward Adjustments – (Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations)]
+                                        </li>
+                                        <li>
+                                            The calculation mapped to the Line Items in the SF-133 is:
                                             <ul>
                                                 <li>
-                                                    Obligations Incurred for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    SUM[2190 – (1021 + 1033)]
                                                 </li>
                                             </ul>
+                                        </li>
+                                        <li>
+                                            Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.
                                         </li>
                                     </ul>
                                     <p>
@@ -483,12 +504,21 @@ export default () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            Sum together:
+                                            Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink> page for all Fiscal Years back to FY20
+                                        </li>
+                                        <li>
+                                            SUM[Gross Outlays + Recoveries of Prior Year Paid Obligations ]
+                                        </li>
+                                        <li>
+                                            The calculation mapped to the Line Items in the SF-133 is:
                                             <ul>
                                                 <li>
-                                                    Gross Outlay Amount by Treasury Account Symbol (TAS) for the latest accounting period (i.e., Current Period Ending, or CPE) for every Treasury Account Symbol (TAS) tagged with a COVID-19 DEFC value
+                                                    SUM[3020 + 1033]
                                                 </li>
                                             </ul>
+                                        </li>
+                                        <li>
+                                            Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.
                                         </li>
                                     </ul>
                                 </div>
