@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/25/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
@@ -12,12 +12,12 @@ import { Link, useLocation } from "react-router-dom";
 import Header from "containers/shared/HeaderContainer";
 import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
 import Footer from "containers/Footer";
-import { getPeriodWithTitleById, getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
+import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
+import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
@@ -40,18 +40,14 @@ TableTabLabel.propTypes = {
     label: PropTypes.string.isRequired
 };
 
-const AboutTheDataPage = ({
-    history
-}) => {
+const AboutTheDataPage = ({ history }) => {
     const { search } = useLocation();
     const query = new URLSearchParams(useLocation().search);
     const urlFy = query.get('fy');
     const urlPeriod = query.get('period');
     const activeTab = query.get('tab');
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
-    const [selectedFy, setSelectedFy] = useState(null);
-    const [selectedPeriod, setSelectedPeriod] = useState(null);
-
+    const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
 
@@ -65,43 +61,10 @@ const AboutTheDataPage = ({
         setModalData(null);
     };
 
-    useEffect(() => {
-        if ((!urlFy || !urlPeriod || !activeTab) && submissionPeriods.size && latestFy && latestPeriod) {
-            history.replace({
-                pathname: `/submission-statistics/`,
-                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod, tab: 'submissions' }).toString()}`
-            });
-        }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, urlFy, urlPeriod]);
-
-    const updateUrl = (newFy, newPeriod, tab = activeTab) => {
-        history.push({
-            pathname: `/submission-statistics/`,
-            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod, tab }).toString()}`
-        });
-    };
-
     const handleSwitchTab = (tab) => {
-        updateUrl(selectedFy, selectedPeriod, tab);
-    };
-
-    const onTimeFilterSelection = (fy, p = urlPeriod) => {
-        const newPeriodWithTitle = typeof p === 'object'
-            ? p
-            : getPeriodWithTitleById(p);
-        if (selectedFy !== fy && selectedPeriod?.id !== newPeriodWithTitle.id) {
-            setSelectedPeriod(p);
-            setSelectedFy(fy);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
-        else if (selectedPeriod?.id === newPeriodWithTitle.id) {
-            setSelectedFy(fy);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
-        else if (fy === selectedFy) {
-            setSelectedPeriod(newPeriodWithTitle);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
+        history.push({
+            search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
+        });
     };
 
     return (
@@ -151,7 +114,7 @@ const AboutTheDataPage = ({
                                 latestFy={latestFy}
                                 latestPeriod={latestPeriod}
                                 activeTab={activeTab}
-                                onTimeFilterSelection={onTimeFilterSelection}
+                                onTimeFilterSelection={setTime}
                                 selectedPeriod={selectedPeriod}
                                 selectedFy={selectedFy}
                                 urlPeriod={urlPeriod}

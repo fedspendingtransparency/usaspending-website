@@ -29,7 +29,7 @@ const QuarterPickerWithFY = ({
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const pickedYear = (year) => {
-        // 2020 is when we started recieiving federal submissions on a per-period basis.
+        // 2020 is when we started receiving federal submissions on a per-period basis.
         if (parseInt(year, 10) >= 2020) {
             const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
             handlePickedYear(year, latestSubmission);

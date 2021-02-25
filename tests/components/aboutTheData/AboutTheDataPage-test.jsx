@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from 'immutable';
 import moment from 'moment';
-import { render, screen, fireEvent, waitFor } from '@test-utils';
+import { render, screen, waitFor } from '@test-utils';
 
 import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
 import * as accountHelpers from 'helpers/accountHelper';
@@ -55,7 +55,6 @@ const defaultProps = {
 
 beforeEach(() => {
     jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
-
     jest.spyOn(helpers, "useLatestAccountData").mockReturnValue([
         moment(),
         mockPeriods,
@@ -63,6 +62,12 @@ beforeEach(() => {
     ]);
     jest.spyOn(accountHelpers, 'fetchAllSubmissionDates').mockReturnValue({
         promise: Promise.resolve(mockSubmissions),
+        cancel: () => {
+            console.log('cancel called');
+        }
+    });
+    jest.spyOn(accountHelpers, 'fetchAllSubmissionDates').mockReturnValue({
+        promise: Promise.resolve({ data: { available_periods: [] } }),
         cancel: () => {
             console.log('cancel called');
         }
@@ -113,16 +118,20 @@ test('on tab change updates the table view', async () => {
         if (param === 'tab') return 'publications';
     });
     render(<AboutTheDataPage {...defaultProps} />);
-    const table = screen.getByText('FY 2020 Q4');
-    expect(table).toBeDefined();
+    waitFor(() => {
+        const table = screen.getByText('FY 2020 Q4');
+        expect(table).toBeDefined();
+    });
 });
 
 test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
     jest.spyOn(URLSearchParams.prototype, 'get').mockReturnValue(null);
     jest.spyOn(URLSearchParams.prototype, 'toString').mockReturnValue("fy=2020&period=12&tab=submissions");
     render(<AboutTheDataPage {...defaultProps} />);
-    expect(mockReplace).toHaveBeenCalledWith({
-        pathname: '/submission-statistics/',
-        search: "?fy=2020&period=12&tab=submissions"
+    waitFor(() => {
+        expect(mockReplace).toHaveBeenCalledWith({
+            pathname: '/submission-statistics/',
+            search: "?fy=2020&period=12&tab=submissions"
+        });
     });
 });
