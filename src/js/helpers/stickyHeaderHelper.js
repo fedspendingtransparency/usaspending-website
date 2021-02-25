@@ -35,10 +35,10 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
                 // we don't know which y position to apply the sticky class
                 setIsSticky(true);
             }
-            else if (scrollY < fixedStickyBreakpoint && isSticky) {
+            else if (scrollY < fixedStickyBreakpoint) {
                 setIsSticky(false);
             }
-            else if (scrollY < dynamicStickyBreakpoint && isSticky) {
+            else if (scrollY < dynamicStickyBreakpoint) {
                 setIsSticky(false);
             }
         }, 100),
