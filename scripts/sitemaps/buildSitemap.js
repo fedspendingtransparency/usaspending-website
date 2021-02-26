@@ -66,7 +66,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 const createRobots = () => {
     fs.writeFile(
         path.resolve(__dirname, `./sitemapFiles/robots.txt`),
-        `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
+        `User-agent: * \nDisallow: /*.php*\nDisallow: /*?glossary=*\n\nSitemap: ${siteUrl}/sitemap.xml`,
         (e) => {
             if (e) {
                 console.log(' Error : ', e);
@@ -219,13 +219,15 @@ const createSitemapDirectory = () => new Promise(
         })
 );
 
-createSitemapDirectory()
-    .then(() => buildIndividualSitemaps())
-    .then((individalSiteMaps) => {
-        buildIndexedSitemap(individalSiteMaps);
-        createRobots();
-    })
-    .catch((e) => {
-        console.log(`error build site maps: ${e}`);
-        throw e.message;
-    });
+createRobots();
+
+// createSitemapDirectory()
+//     .then(() => buildIndividualSitemaps())
+//     .then((individalSiteMaps) => {
+//         buildIndexedSitemap(individalSiteMaps);
+//         createRobots();
+//     })
+//     .catch((e) => {
+//         console.log(`error build site maps: ${e}`);
+//         throw e.message;
+//     });
