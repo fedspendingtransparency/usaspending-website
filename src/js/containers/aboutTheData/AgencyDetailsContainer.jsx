@@ -131,6 +131,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         if (tableRequest.current) {
             tableRequest.current.cancel();
         }
+        setError(false);
         setLoading(true);
         const params = {
             limit: pageSize,
@@ -144,7 +145,6 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                 setRows(parseRows(res.data.results));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
-                setError(false);
             }).catch((err) => {
                 if (!isCancel(err)) {
                     setError(true);
