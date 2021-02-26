@@ -14,7 +14,7 @@ import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
-    url: PropTypes.string,
+    url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
     label: PropTypes.node,
     enabled: PropTypes.bool,
     shouldOpenNewTab: PropTypes.bool,
@@ -102,7 +102,7 @@ const DropdownItem = ({
         );
     }
 
-    if (url.includes('http')) {
+    if (typeof url === 'string' && url.includes('http')) {
         link = (
             <a
                 className={`nav-children__link ${className}`}

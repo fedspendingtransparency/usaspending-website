@@ -1,40 +1,29 @@
 .account-overview {
-    @import "../../../mixins/setText";
-    @import "elements/_divider";
-    @include span-columns(16);
+    @import '../../../mixins/setText';
+    @import 'elements/_divider';
     background-color: $color-white;
     box-shadow: $container-shadow;
     padding: rem(30);
     margin-bottom: rem(40);
 
-    h3 {
-        margin-top: rem(0);
-        margin-bottom: 0;
-        color: $color-base;
+    .account-overview__title {
+        margin: 0;
+        font-size: $h3-font-size;
     }
     hr.results-divider {
         margin-top: rem(9);
         margin-bottom: rem(10);
     }
-    .overview-content {
-        @include span-columns(16);
+    .account-overview__content {
         margin-bottom: ($global-mrg * 2);
-        .overview-section {
-            @include span-columns(16);
-            margin-top: mre(10);
-            @include media($tablet-screen) {
-                @include span-columns(8);
-                margin-top: 0;
-            }
-            h4 {
-                color: $color-base;
-                font-weight: $font-semibold;
-                @include setText(rem(19));
-            }
-            .section-content {
-                color: $color-base;
-                font-size: $small-font-size;
-            }
+        font-size: $small-font-size;
+        .account-overview__heading {
+            padding: rem(28) 0 rem(5);
+            font-weight: $font-semibold;
+            font-size: rem(19);
+        }
+        @include media($medium-screen) {
+            width: 50%;
         }
     }
     .sankey-wrapper {
@@ -43,7 +32,7 @@
         font-size: $small-font-size;
         margin-top: ($global-mrg * 4);
         margin-bottom: ($global-mrg * 4);
-        @import "./sankey/sankey";
+        @import './sankey/sankey';
         .sankey-disclosures {
             text-align: left;
             margin-top: rem(20);

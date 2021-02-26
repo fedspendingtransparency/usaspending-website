@@ -4,6 +4,7 @@
  */
 
 import { getBaseUrl } from 'helpers/socialShare';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
 export const slug = 'covid-19';
 
@@ -16,7 +17,6 @@ export const getEmailSocialShareData = {
 };
 
 export const dataDisclaimerHeight = 75;
-export const stickyHeaderHeight = 66;
 export const globalBannerHeight = 90;
 // result of document.querySelector('.site-header').clientHeight + sticky header height when not sticky
 export const siteHeaderHeight = 97 + stickyHeaderHeight;

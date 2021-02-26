@@ -19,7 +19,7 @@ export const tabTooltips = {
             </p>
         </>
     ),
-    'Statistics by Reporting Period': (
+    'Statistics by Submission Period': (
         <>
             <p>
                 Please note that if you select the first or second period of a quarter, you will only see data from agencies that upload monthly. Only by selecting the last period of each quarter (i.e., P03, P06, P09, P12) will you see data for all agencies, including quarterly-submitting agencies.
@@ -99,7 +99,7 @@ export const columnTooltips = {
     ),
     'Agency Comments': (
         <p>
-            Agency Assurance Statements are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf</a>
+            Agency Comments are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf</a>
         </p>
     )
 };

@@ -16,6 +16,7 @@ import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
 
 import StatePage from 'components/state/StatePage';
+import { parseStateDataFromUrl } from '../../helpers/stateHelper';
 
 require('pages/state/statePage.scss');
 
@@ -43,22 +44,30 @@ export class StateContainer extends React.Component {
     }
 
     componentDidMount() {
-        const { fy, stateId } = this.props.match.params;
+        const { fy, state } = this.props.match.params;
+        const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
+
         if (!Object.keys(this.props.match.params).includes('fy')) {
-            this.props.history.replace(`/state/${stateId}/latest`);
+            this.props.history.replace(`/state/${stateName}/latest`);
         }
-        this.props.setStateFiscalYear(fy);
-        this.loadStateOverview(stateId, fy);
-        this.setStateCenter(stateId);
+        else if (!wasInputStateName) {
+            this.props.history.replace(`/state/${stateName}/${fy}`);
+        }
+        else {
+            this.props.setStateFiscalYear(fy);
+            this.loadStateOverview(stateId, fy);
+            this.setStateCenter(stateId);
+        }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.stateId !== prevProps.match.params.stateId) {
+        if (this.props.match.params.state !== prevProps.match.params.state) {
+            const [, , stateId] = parseStateDataFromUrl(this.props.match.params.state);
             // Reset the FY
             this.props.setStateFiscalYear(this.props.match.params.fy);
-            this.loadStateOverview(this.props.match.params.stateId, this.props.match.params.fy);
+            this.loadStateOverview(stateId, this.props.match.params.fy);
             // Update the map center
-            this.setStateCenter(this.props.match.params.stateId);
+            this.setStateCenter(stateId);
         }
         if (
             (!prevProps.match.params.fy && this.props.match.params.fy) ||
@@ -67,7 +76,8 @@ export class StateContainer extends React.Component {
             this.props.setStateFiscalYear(this.props.match.params.fy);
         }
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
-            this.loadStateOverview(this.props.match.params.stateId, this.props.stateProfile.fy);
+            const [, , stateId] = parseStateDataFromUrl(this.props.match.params.state);
+            this.loadStateOverview(stateId, this.props.stateProfile.fy);
         }
     }
 
@@ -76,7 +86,8 @@ export class StateContainer extends React.Component {
     }
 
     onClickFy(fy) {
-        this.props.history.push(`/state/${this.props.match.params.stateId}/${fy}`);
+        const [, stateName] = parseStateDataFromUrl(this.props.match.params.state);
+        this.props.history.push(`/state/${stateName}/${fy}`);
         this.props.setStateFiscalYear(fy);
     }
 

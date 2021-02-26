@@ -24,9 +24,9 @@ import {
     labelTextAdjustment,
     heightOfRemainingBalanceLines,
     defaultTooltipWidth,
-    tooltipMapping,
-    stickyHeaderHeight
+    tooltipMapping
 } from 'dataMapping/covid19/covid19';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import {
     calculateUnits,
     formatMoneyWithPrecision,
