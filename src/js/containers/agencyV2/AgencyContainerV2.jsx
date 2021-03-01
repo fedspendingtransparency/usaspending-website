@@ -12,7 +12,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
-import Error from 'components/sharedComponents/Error';
 import AgencyPage from 'components/agencyV2/AgencyPage';
 
 export const AgencyProfileV2 = () => {
@@ -61,9 +60,7 @@ export const AgencyProfileV2 = () => {
 
     return (
         <LoadingWrapper isLoading={loading} >
-            {error ? <Error /> : (
-                <AgencyPage fyOptions={fyOptions} selectedFy={selectedFy} agencyId={agencyId} />
-            )}
+            <AgencyPage fyOptions={fyOptions} selectedFy={selectedFy} agencyId={agencyId} error={error} />
         </LoadingWrapper>
     );
 };

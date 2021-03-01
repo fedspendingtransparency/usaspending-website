@@ -191,6 +191,11 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
+            .usda-message {
+                &.usda-message_error {
+                    background-color: $color-white;
+                }
+            }
             .body__content {
                 @import '../../search/results/table/resultsTableMessageContainer';
                 @import './tables';

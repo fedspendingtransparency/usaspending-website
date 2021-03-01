@@ -53,25 +53,19 @@ const tabs = [
 const AccountSpending = ({ agencyId, fy }) => {
     const [activeTab, setActiveTab] = useState('budget_function');
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setLoading(true);
         // request budgetary resources data for this agency
         const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId);
         budgetaryResourcesRequest.promise
             .then((res) => {
                 // parse the response using our data model
-                setLoading(false);
                 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
                 budgetaryResources.populate(res.data);
                 // store the data model object in Redux
                 dispatch(setBudgetaryResources(budgetaryResources));
             }).catch((err) => {
-                setError(true);
-                setLoading(false);
                 console.error(err);
             });
     }, [agencyId]);

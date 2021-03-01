@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startCase, snakeCase } from 'lodash';
 import {
     Picker,
-    ComingSoon
+    ComingSoon,
+    ErrorMessage
 } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -33,10 +34,13 @@ const scrollPositionOfSiteHeader = 96;
 const propTypes = {
     agencyId: PropTypes.string,
     selectedFy: PropTypes.number,
-    fyOptions: PropTypes.array
+    fyOptions: PropTypes.array,
+    error: PropTypes.bool
 };
 
-export const AgencyProfileV2 = ({ selectedFy, agencyId, fyOptions }) => {
+export const AgencyProfileV2 = ({
+    selectedFy, agencyId, fyOptions, error
+}) => {
     const [activeSection, setActiveSection] = useState('overview');
 
     const componentByAgencySection = {
@@ -126,7 +130,7 @@ export const AgencyProfileV2 = ({ selectedFy, agencyId, fyOptions }) => {
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    {Object.keys(componentByAgencySection).map((section) => (
+                    {error ? <ErrorMessage /> : Object.keys(componentByAgencySection).map((section) => (
                         <AgencySection key={section} section={section} >
                             {componentByAgencySection[section]}
                         </AgencySection>
