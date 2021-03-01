@@ -19,12 +19,10 @@
         width: 100%;
     }
 
-    @import "../../explorer/detail/sidebar/fyPicker";
+    @import "pages/explorer/detail/sidebar/fyPicker";
 
     .sticky-header .sticky-header__container .sticky-header__header {
-        @include display(flex);
         @include justify-content(flex-start);
-        @include align-items(center);
         @include flex-wrap(nowrap);
         .sticky-header__toolbar {
             @include display(flex);
@@ -48,8 +46,8 @@
                             height: 100%;
                         }
                         .active {
-                            background-color: #f1f1f1;
-                            color: #0071bc;
+                            background-color: $color-gray-lightest;
+                            color: $color-primary;
                         }
                     }
                     .usa-dt-picker__dropdown-container {
@@ -58,7 +56,7 @@
                     }
                     .usa-dt-picker__button-text,
                     .usa-dt-picker__button-icon svg {
-                        color: white;
+                        color: $color-white;
                     }
                     .usa-dt-picker__icon svg {
                         width: rem(14);
@@ -187,7 +185,7 @@
             @include flex-direction(column);
             padding: 2.5% 2.5% 0 2.5%;
             margin: rem(20) rem(20) rem(20) 0;
-            background: white;
+            background: $color-white;
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
@@ -197,7 +195,7 @@
                 }
             }
             .body__content {
-                @import '../../search/results/table/resultsTableMessageContainer';
+                @import 'pages/search/results/table/resultsTableMessageContainer';
                 @import './tables';
             }
             .body__section {
@@ -225,18 +223,10 @@
                 hr {
                     width: 100%;
                     height: 2px;
-                    background: #555555;
+                    background: $color-base;
                     border: none;
                     margin-bottom: rem(35);
                     margin-top: 0;
-                }
-                .coming-soon-section {
-                    width: 100%;
-                    @include display(flex);
-                    @include flex-direction(column);
-                    @extend %coming-soon-idv;
-                    padding-bottom: 0;
-                    height: 730px;
                 }
             }
         }

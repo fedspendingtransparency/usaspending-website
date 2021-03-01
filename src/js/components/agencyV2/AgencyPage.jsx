@@ -27,7 +27,7 @@ import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 
-require('pages/agency/v2/index.scss');
+require('pages/agencyV2/index.scss');
 
 const scrollPositionOfSiteHeader = 96;
 
