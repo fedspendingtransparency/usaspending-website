@@ -3,48 +3,49 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { isCancel } from 'axios';
 
-import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
-import { fetchBudgetaryResources } from 'helpers/agencyV2Helper';
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-
+import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
-
 import Error from 'components/sharedComponents/Error';
 import AgencyPage from 'components/agencyV2/AgencyPage';
 
 export const AgencyProfileV2 = () => {
     const { agencyId } = useParams();
-    const dispatch = useDispatch();
     // currentFiscalYear is wrong. We need to ask the api for the current FY as this is account level data.
     const [selectedFy, setSelectedFy] = useState(FiscalYearHelper.currentFiscalYear());
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const request = useRef(null);
 
     useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
         setLoading(true);
-        // request budgetary resources data for this agency
-        const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId);
-        budgetaryResourcesRequest.promise
+        setError(false);
+        // request overview data for this agency
+        request.current = fetchAgencyOverview(agencyId, selectedFy);
+        request.current.promise
             .then((res) => {
-                // parse the response using our data model
                 setLoading(false);
-                const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-                budgetaryResources.populate(res.data);
-                // store the data model object in Redux
-                dispatch(setBudgetaryResources(budgetaryResources));
+                // TODO - parse the response using a data model
+                // TODO - store the data model object in Redux
+                console.log(res.data);
             }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
+                if (!isCancel(err)) {
+                    setError(true);
+                    setLoading(false);
+                    request.current = null;
+                    console.error(err);
+                }
             });
-    }, [agencyId]);
+    }, [agencyId, selectedFy]);
 
     // TODO - get FY from URL or select a default FY
     const fyOptions = FiscalYearHelper.allFiscalYears(FiscalYearHelper.earliestExplorerYear)
