@@ -198,7 +198,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             dataSeries.push(result._amount);
 
             if (this.state.scope === 'recipient_duns' && !this.props.subaward) {
-                const recipientLink = result.recipientId ? `recipient/${result.recipientId}` : '';
+                const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 linkSeries.push(recipientLink);
             }
 
