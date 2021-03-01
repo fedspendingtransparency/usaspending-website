@@ -5,8 +5,8 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import CountTabContainer from 'containers/agency/v2/accountSpending/CountTabContainer';
-import TableContainer from 'containers/agency/v2/accountSpending/TableContainer';
+import CountTabContainer from 'containers/agencyV2/accountSpending/CountTabContainer';
+import TableContainer from 'containers/agencyV2/accountSpending/TableContainer';
 
 const propTypes = {
     fy: PropTypes.string,
