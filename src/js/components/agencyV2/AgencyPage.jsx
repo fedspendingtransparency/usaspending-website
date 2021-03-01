@@ -6,7 +6,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { startCase, snakeCase } from 'lodash';
 import {
     Picker,
     ComingSoon,
@@ -43,24 +42,35 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
-    const componentByAgencySection = {
-        overview: <ComingSoon />,
-        account_spending: <AccountSpending fy={`${selectedFy}`} agencyId={agencyId} />,
-        sub_agency_spending: <ComingSoon />
-    };
+    const sections = [
+        {
+            name: 'overview',
+            display: 'Overview'
+        },
+        {
+            name: 'budget-category',
+            display: 'Budget Category',
+            overLine: 'Total Spending',
+            component: <AccountSpending fy={`${selectedFy}`} agencyId={agencyId} />
+        },
+        {
+            name: 'sub-agency',
+            display: 'Sub-Agency',
+            overLine: 'Award Spending'
+        }
+    ];
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = Object.keys(componentByAgencySection).find((key) => key === section);
-
+        const matchedSection = sections.find((obj) => obj.name === section);
         if (!matchedSection) {
             // no matching section
             return;
         }
 
         // scroll to the correct section
-        const sectionDom = document.querySelector(`#agency-v2-${snakeCase(section)}`);
+        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.name}`);
 
         if (!sectionDom) {
             return;
@@ -73,7 +83,7 @@ export const AgencyProfileV2 = ({
             scrollToY(sectionDom.offsetTop - 86, 700);
         }
 
-        setActiveSection(matchedSection);
+        setActiveSection(matchedSection.name);
     };
 
     const slug = `agency_v2/${agencyId}`;
@@ -124,15 +134,16 @@ export const AgencyProfileV2 = ({
                         active={activeSection}
                         jumpToSection={jumpToSection}
                         detectActiveSection={setActiveSection}
-                        sections={Object.keys(componentByAgencySection).map((section) => ({
-                            section: snakeCase(section),
-                            label: startCase(section)
+                        sections={sections.map((section) => ({
+                            section: section.name,
+                            label: section.display,
+                            overLine: section.overLine
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    {error ? <ErrorMessage /> : Object.keys(componentByAgencySection).map((section) => (
-                        <AgencySection key={section} section={section} >
-                            {componentByAgencySection[section]}
+                    {error ? <ErrorMessage /> : sections.map((section) => (
+                        <AgencySection key={section.name} section={section} >
+                            {section.component || <ComingSoon />}
                         </AgencySection>
                     ))}
                 </div>

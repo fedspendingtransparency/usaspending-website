@@ -175,6 +175,12 @@
                             font-weight: $font-bold;
                             border-bottom: 5px solid $color-primary;
                         }
+
+                        .sidebar-link__overline {
+                            text-transform: uppercase;
+                            font-size: rem(12);
+                            letter-spacing: 0.3px;
+                        }
                     }
                 }
             }
