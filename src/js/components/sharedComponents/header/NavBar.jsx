@@ -10,7 +10,7 @@ import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWr
 import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
-import { DEV, QAT } from '../../../GlobalConstants';
+import { DEV, QAT, STAGING } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 import NavBarGlossaryLink from './NavBarGlossaryLink';
@@ -22,7 +22,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-const isDevOrQat = (DEV || QAT);
+const isNotProd = (DEV || QAT || STAGING);
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -186,11 +186,11 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title={isDevOrQat ? "Download" : "Download Center"}
-                                    label={isDevOrQat ? "Download" : "Download Center"}
+                                    title={isNotProd ? "Download" : "Download Center"}
+                                    label={isNotProd ? "Download" : "Download Center"}
                                     items={downloadGlobalNavigationOptions} />
                             </li>
-                            {isDevOrQat && (
+                            {isNotProd && (
                                 <li
                                     className="full-menu__item"
                                     role="menuitem">
@@ -200,7 +200,7 @@ export default class NavBar extends React.Component {
                                         items={resourceOptions} />
                                 </li>
                             )}
-                            {!isDevOrQat && (
+                            {!isNotProd && (
                                 <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
                             )}
                         </ul>

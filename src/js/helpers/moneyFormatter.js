@@ -40,7 +40,19 @@ export const unitWords = {
 
 export const formatMoney = (value) => Accounting.formatMoney(value, accountingOptions);
 
-export const formatMoneyWithPrecision = (value, precision) => {
+/**
+ * formatMoneyWithPrecision
+ * @param {number} value to be formatted into a precise dollar amount
+ * @param {number} precision decimal places to apply to formatting
+ * @param {string} falsyReturnValue in case where value is invalid, use this format
+ * @returns {string} a formatted string representing a dollar value
+ * NOTE: falsyReturnValue is opt in to play nicely with existing consumers. This is a newer param following a new precedent.
+ * set by calculatePercentage.
+**/
+export const formatMoneyWithPrecision = (value, precision, falsyReturnValue = null) => {
+    if (falsyReturnValue && !value && value !== 0) {
+        return falsyReturnValue;
+    }
     const modifiedOptions = Object.assign({}, accountingOptions, {
         precision
     });

@@ -16,7 +16,8 @@ import ObligatedContainer from 'containers/agency/visualizations/ObligatedContai
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import FooterLinkToAdvancedSearchContainer from 'containers/shared/FooterLinkToAdvancedSearchContainer';
 
-import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AgencyOverview from './overview/AgencyOverview';
 import TreasuryDisclaimer from './TreasuryDisclaimer';
@@ -70,7 +71,7 @@ const AgencyContent = ({
             return;
         }
 
-        const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
+        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
         setActiveSection(section);
     };
@@ -92,12 +93,13 @@ const AgencyContent = ({
         <div className="agency-content-wrapper">
             <div className="agency-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     active={activeSection}
                     pageName="agency"
                     sections={agencySections}
                     detectActiveSection={setActiveSection}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
             <div className="agency-content">
                 <div className="agency-padded-content overview">
