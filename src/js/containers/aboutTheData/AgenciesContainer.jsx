@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
-import { setTableData, setTableSort, setTotals, setSearchResults } from 'redux/actions/aboutTheData';
+import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
@@ -185,6 +185,7 @@ const AgenciesContainer = ({
             console.info('canceling request on unmount');
             totalsReq.current.cancel();
         }
+        dispatch(setSearchTerm(''));
     }, []);
 
     useEffect(() => {

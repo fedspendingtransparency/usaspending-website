@@ -131,6 +131,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
         if (tableRequest.current) {
             tableRequest.current.cancel();
         }
+        setError(false);
         setLoading(true);
         const params = {
             limit: pageSize,

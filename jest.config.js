@@ -1,5 +1,6 @@
 // TODO: [DEV-5897] USAS Front End Test Configuration Update: Functional Components & Redux
 // Update test configuration to make testing react functional components easier.
+process.env.TZ = 'America/New_York';
 
 module.exports = {
     rootDir: ".",

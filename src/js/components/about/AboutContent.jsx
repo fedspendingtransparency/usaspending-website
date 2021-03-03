@@ -10,7 +10,8 @@ import { find, throttle } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { scrollToY } from 'helpers/scrollToHelper';
-import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 
@@ -114,7 +115,7 @@ const AboutContent = ({ location }) => {
             return;
         }
 
-        const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
+        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
     };
 
@@ -217,11 +218,12 @@ const AboutContent = ({ location }) => {
         <div className="about-content-wrapper">
             <div className="about-sidebar">
                 <Sidebar
+                    isGoingToBeSticky
                     active={activeSection}
                     pageName="about"
                     sections={aboutSections}
                     jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
             <div className="about-content">
                 <div className="about-padded-content">
