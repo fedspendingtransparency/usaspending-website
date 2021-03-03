@@ -369,7 +369,7 @@ export default () => {
                                             <p>
                                                 <strong>Broker File C data can be downloaded from the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page in the following manner:</strong>
                                             </p>
-                                            <ol>
+                                            <ol className="about-instructions">
                                                 <li>
                                                     Go to the <Link to="/download_center/custom_account_data">Custom Account Data download page</Link>
                                                 </li>

@@ -39,9 +39,11 @@
                     }
                 }
                 .about-section-content ol {
-                    font-family: monospace;
-                    padding: 3rem 5rem;
-                    background-color: $color-gray-lightest;
+                    &.about-instructions {
+                        font-family: monospace;
+                        padding: 3rem 5rem;
+                        background-color: $color-gray-lightest;
+                    }
                 }
                 .about-section-content ul {
                     margin: 0 0 3rem;
