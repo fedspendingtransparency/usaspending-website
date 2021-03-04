@@ -88,10 +88,14 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     const [{ period, fy }, setYearAndPeriod] = useState({ period: '', fy: '' });
 
     const updateUrl = (newParamsAsObj) => {
+        const newQueryParams = Object
+            .entries(newParamsAsObj)
+            .filter(([, value]) => value !== '' && value)
+            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), existingParams);
         setYearAndPeriod(newParamsAsObj);
         history.replace({
             pathname: ``,
-            search: `?${new URLSearchParams({ ...existingParams, ...newParamsAsObj }).toString()}`
+            search: `?${new URLSearchParams(newQueryParams).toString()}`
         });
     };
 
