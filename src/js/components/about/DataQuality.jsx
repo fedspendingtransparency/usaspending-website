@@ -4,13 +4,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import kGlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 
-const propTypes = { onExternalLinkClick: PropTypes.func.isRequired };
-
-const DataQuality = ({ onExternalLinkClick }) => (
+const DataQuality = () => (
     <div
         className="about-section-wrapper"
         id="about-data-quality">
@@ -53,20 +51,9 @@ const DataQuality = ({ onExternalLinkClick }) => (
             <p>
                 To ensure that contract data is accurate, the Office of Management and
                 Budget issues the&nbsp;
-                <button
-                    className="usa-button-link"
-                    role="link"
-                    value="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf"
-                    onClick={onExternalLinkClick}>
+                <ExternalLink url="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf">
                     Federal Government Procurement Data Quality Summary
-                    <span
-                        data-href="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf"
-                        className="usa-button-link__icon">
-                        <FontAwesomeIcon
-                            data-href="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf"
-                            icon="external-link-alt" />
-                    </span>
-                </button>
+                </ExternalLink>
                 &nbsp;about data submitted by the agencies to the Federal Procurement
                 Data System (FPDS). If there are any discrepancies in procurement data, FPDS
                 is the authoritative source. In addition, the federal agencies&apos;
@@ -90,40 +77,14 @@ const DataQuality = ({ onExternalLinkClick }) => (
                 Additionally, the Inspector General of each agency must issue reports to
                 Congress on the agency&apos;s compliance with DATA Act requirements.
                 Go to&nbsp;
-                <button
-                    className="usa-button-link"
-                    role="link"
-                    value="https://www.oversight.gov/"
-                    onClick={onExternalLinkClick}>
-                    oversight.gov
-                    <span
-                        data-href="https://www.oversight.gov/"
-                        className="usa-button-link__icon">
-                        <FontAwesomeIcon
-                            data-href="https://www.oversight.gov/"
-                            icon="external-link-alt" />
-                    </span>
-                </button>
+                <ExternalLink url="https://www.oversight.gov/">oversight.gov</ExternalLink>
                 &nbsp;to see these reports.
             </p>
             <div className="about-subtitle">
                 <p>
                     <strong>
                         The Government Accountability Office (GAO) has&nbsp;
-                        <button
-                            className="usa-button-link"
-                            role="link"
-                            value="https://www.gao.gov/assets/710/702586.pdf"
-                            onClick={onExternalLinkClick}>
-                                identified
-                            <span
-                                data-href="https://www.gao.gov/assets/710/702586.pdf"
-                                className="usa-button-link__icon">
-                                <FontAwesomeIcon
-                                    data-href="https://www.gao.gov/assets/710/702586.pdf"
-                                    icon="external-link-alt" />
-                            </span>
-                        </button>
+                        <ExternalLink url="https://www.gao.gov/assets/710/702586.pdf">identified</ExternalLink>
                         &nbsp;the need to disclose the following two items:
                     </strong>
                 </p>
@@ -133,59 +94,20 @@ const DataQuality = ({ onExternalLinkClick }) => (
                     <li>
                     GSA’s FPDS delays publishing procurement (i.e., contract and IDV) data for the Department of Defense
                     (DOD) and U.S. Army Corps of Engineers (USACE) in order to&nbsp;
-                        <button
-                            className="usa-button-link"
-                            role="link"
-                            value="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf"
-                            onClick={onExternalLinkClick}>
-                                address potential DOD operational tempo issues
-                            <span
-                                data-href="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf"
-                                className="usa-button-link__icon">
-                                <FontAwesomeIcon
-                                    data-href="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf"
-                                    icon="external-link-alt" />
-                            </span>
-                        </button>
+                        <ExternalLink url="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</ExternalLink>
                     , delaying the availability of procurement, account breakdown by award (File C),
                     and subcontract data on USAspending.gov that pertain to DOD and USACE by 90 days as well. This
                     delay is acknowledged in a&nbsp;
-                        <button
-                            className="usa-button-link"
-                            role="link"
-                            value="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF"
-                            onClick={onExternalLinkClick}>
-                        2017 DOD Inspector General report
-                            <span
-                                data-href="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF"
-                                className="usa-button-link__icon">
-                                <FontAwesomeIcon
-                                    data-href="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF"
-                                    icon="external-link-alt" />
-                            </span>
-                        </button>
+                        <ExternalLink url="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF">2017 DOD Inspector General report</ExternalLink>
                     . Account Balances (File A), Account
-                    Breakdown by Program Activity & Object Class (File B) data and assistance award data are unaffected
+                    Breakdown by Program Activity &amp; Object Class (File B) data and assistance award data are unaffected
                     by this delay.
                     </li>
                     <li>
-                    The Department of Health and Human Services (HHS) Centers for Medicare & Medicaid Services (CMS)
+                    The Department of Health and Human Services (HHS) Centers for Medicare &amp; Medicaid Services (CMS)
                     reports financial assistance awards from Medicare programs (CFDA 93.773, 93.774, and 93.770) as
                     lump sum payments, with each record corresponding to the amount of money sent to a specific&nbsp;
-                        <button
-                            className="usa-button-link"
-                            role="link"
-                            value="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC"
-                            onClick={onExternalLinkClick}>
-                                Medicare Administrative Contractor (MAC)
-                            <span
-                                data-href="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC"
-                                className="usa-button-link__icon">
-                                <FontAwesomeIcon
-                                    data-href="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC"
-                                    icon="external-link-alt" />
-                            </span>
-                        </button>
+                        <ExternalLink url="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</ExternalLink>
                         &nbsp;in a given month. The recipient location and primary place of
                     performance location fields in these records correspond to the county where the MAC is located. As
                     such, the location fields for these records do not reflect the places where Medicare beneficiaries
@@ -200,5 +122,4 @@ const DataQuality = ({ onExternalLinkClick }) => (
     </div>
 );
 
-DataQuality.propTypes = propTypes;
 export default DataQuality;
