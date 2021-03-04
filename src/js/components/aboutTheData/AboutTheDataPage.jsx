@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { Tabs } from "data-transparency-ui";
 import { Link, useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
@@ -23,22 +23,6 @@ import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 
 require('pages/aboutTheData/aboutTheData.scss');
-
-const TableTabLabel = ({ label }) => {
-    const tooltipComponent = (
-        <TooltipComponent title={label}>{tabTooltips[label]}</TooltipComponent>
-    );
-    return (
-        <div className="table-tab-label">
-            <span>{label}</span>
-            <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
-        </div>
-    );
-};
-
-TableTabLabel.propTypes = {
-    label: PropTypes.string.isRequired
-};
 
 const AboutTheDataPage = ({
     history
@@ -138,12 +122,12 @@ const AboutTheDataPage = ({
                                     {
                                         internal: 'submissions',
                                         label: "Statistics by Submission Period",
-                                        labelContent: <TableTabLabel label="Statistics by Submission Period" />
+                                        tooltip: tabTooltips["Statistics by Submission Period"]
                                     },
                                     {
                                         internal: 'publications',
                                         label: "Updates by Fiscal Year",
-                                        labelContent: <TableTabLabel label="Updates by Fiscal Year" />
+                                        tooltip: tabTooltips["Updates by Fiscal Year"]
                                     }
                                 ]} />
                             <TimeFilters
