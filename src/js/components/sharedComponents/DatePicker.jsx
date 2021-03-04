@@ -89,10 +89,27 @@ export default class DatePicker extends React.Component {
     }
 
     datePickerChangeEvent() {
-        if (this.state.showDatePicker) {
+        const selectedDay = this.datepicker.dayPicker.querySelector('.DayPicker-Day--selected');
+        /**
+         * Given a user updates the month in the date picker to a month that does not include the date selected,
+         * there will not be a selected day class and will err, therefore if there is no selected day in the current
+         * month in the day picker we will not focus it.
+         */
+        if (this.state.showDatePicker && selectedDay) {
             // focus on the date picker
-            this.datepicker.dayPicker.querySelector('.DayPicker-Day--selected').focus();
+            selectedDay.focus();
 
+            // we want to close the date picker on escape key
+            // have to hold a reference to the bound function in order to cancel the listener later
+            window.addEventListener('keyup', this.escapeEvent);
+        }
+        else if (this.state.showDatePicker) {
+            /**
+             * Given a user updates the month in the date picker to a month that does not include the date selected,
+             * we must focus on another element within the datepicker or a user will not be able to outside click to
+             * hide the datepicker.
+             */
+            this.datepicker.focus();
             // we want to close the date picker on escape key
             // have to hold a reference to the bound function in order to cancel the listener later
             window.addEventListener('keyup', this.escapeEvent);

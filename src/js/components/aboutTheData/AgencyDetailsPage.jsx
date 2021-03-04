@@ -9,10 +9,12 @@ import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
+import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
+import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
@@ -22,8 +24,6 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import AboutTheDataModal from './AboutTheDataModal';
 
 require('pages/aboutTheData/aboutTheData.scss');
-
-const message = 'All numeric figures in this table are calculated based on the set of TAS owned by each agency, as opposed to the set of TAS that the agency directly reported to USAspending.gov. In the vast majority of cases, these are exactly the same (upwards of 95% of TAS—with these TAS representing over 99% of spending—are submitted and owned by the same agency). This display decision is consistent with our practice throughout the website of grouping TAS by the owning agency rather than the reporting agency. While reporting agencies are not identified in this table, they are available in the Custom Account Download in the reporting_agency_name field.';
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();
@@ -77,6 +77,8 @@ const AgencyDetailsPage = () => {
         getOverviewData();
     }, [agencyCode]);
 
+    const message = agencyCode === '097' ? 'Department of Defense procurement data is subject to a 90 day delay.' : '';
+
     return (
         <div className="about-the-data about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
@@ -87,6 +89,11 @@ const AgencyDetailsPage = () => {
                         Agency Submission Data
                     </h1>
                 </div>
+                {agencyOverview?.name && (
+                    <div className="sticky-header__toolbar">
+                        <ShareIcon slug={`submission-statistics/agency/${agencyCode}`} email={getAgencyDetailEmail(agencyOverview.name, agencyCode)} />
+                    </div>
+                )}
             </StickyHeader>
             <main id="main-content" className="main-content">
                 {loading && <LoadingMessage />}
@@ -95,7 +102,10 @@ const AgencyDetailsPage = () => {
                     <>
                         <div className="heading-container">
                             <div className="back-link">
-                                <Link to="/submission-statistics/">
+                                <Link to={{
+                                    pathname: "/submission-statistics/",
+                                    search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
+                                }}>
                                     <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
                                 </Link>
                             </div>
@@ -127,7 +137,7 @@ const AgencyDetailsPage = () => {
                             agencyName={agencyOverview.name}
                             modalClick={modalClick}
                             agencyCode={agencyCode} />
-                        <Note message={message} />
+                        {message && <Note message={message} />}
                     </>
                 )}
                 <AboutTheDataModal

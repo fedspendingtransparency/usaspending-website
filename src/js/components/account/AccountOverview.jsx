@@ -160,27 +160,13 @@ ${authority} has been obligated.`;
     render() {
         return (
             <div className="account-overview">
-                <h3>{this.props.account.title}</h3>
+                <h2 className="account-overview__title">{this.props.account.title}</h2>
                 <hr className="results-divider" />
-
-                <div className="overview-content">
-                    <div className="overview-section">
-                        <h4>Account Description</h4>
-                        <div className="section-content">
-                            {this.props.account.description}
-                        </div>
-                    </div>
-
-                    <div className="overview-section">
-                        <h4>Fiscal Year Summary</h4>
-                        <div className="section-content">
-                            {this.state.summary.flow}
-                            <br /><br />
-                            {this.state.summary.toDate}
-                        </div>
-                    </div>
+                <div className="account-overview__content">
+                    <div className="account-overview__heading">Fiscal Year Summary</div>
+                    <p>{this.state.summary.flow}</p>
+                    <p>{this.state.summary.toDate}</p>
                 </div>
-
                 <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
                 <hr
                     className="results-divider"

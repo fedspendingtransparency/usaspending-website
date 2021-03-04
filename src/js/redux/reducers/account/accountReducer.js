@@ -30,7 +30,6 @@ export const initialState = {
         agency_identifier: '',
         main_account_code: '',
         title: '',
-        description: '',
         totals: {
             available: false,
             obligated: 0,

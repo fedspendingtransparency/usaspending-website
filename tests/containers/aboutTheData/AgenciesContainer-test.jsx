@@ -1,5 +1,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import * as redux from 'react-redux';
 import { List } from 'immutable';
@@ -313,5 +315,44 @@ test('when totals are defined and the search term is defined, one request is mad
         // if you changes this to three the test will fail; once on mount, then only once more.
         expect(submissionsRequest).toHaveBeenCalledTimes(2);
         expect(submissionsRequest).toHaveBeenLastCalledWith('2020', '8', 'current_total_budget_authority_amount', 'desc', 1, 10, 'test');
+    });
+});
+
+test('should clear a search term on unmount', () => {
+    // Create a fake reducer that calls a mock function for the action type we are interested in
+    const setSearchTerm = jest.fn();
+    const mockReducer = (state, action) => {
+        if (action.type === 'SET_ABOUT_THE_DATA_SEARCH_TERM') {
+            setSearchTerm(action?.payload);
+        }
+    };
+
+    // Create a mock Redux store with a search term applied
+    const mockStore = {
+        aboutTheData: {
+            submissionsSearchResults: [],
+            publicationsSearchResults: [],
+            searchTerm: 'test',
+            allPublications: [],
+            federalTotals: [1],
+            submissionsSort: ['current_total_budget_authority_amount', 'desc'],
+            publicationsSort: ['current_total_budget_authority_amount', 'desc']
+        },
+        allSubmissions: [],
+        submissionPeriods: new List([
+            { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
+        ])
+    };
+
+    // Render a wrapped component with the mock reducer and store, then unmount it
+    const { unmount } = render((
+        <Provider store={createStore(mockReducer, mockStore)}>
+            <AgenciesContainer {...defaultProps} />
+        </Provider>
+    ));
+    unmount();
+
+    return waitFor(() => {
+        expect(setSearchTerm).toHaveBeenLastCalledWith('');
     });
 });
