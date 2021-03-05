@@ -691,7 +691,10 @@ export default () => {
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                             <ul>
                                                 <li>
-                                                    Either Gross Outlay Amount (for linked and unlinked data) or Outlayed Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
+                                                    Outlayed Amount Funded by COVID-19 Supplementals for every award ID (award unique key) tagged with a COVID-19 DEFC [for Linked Awards only].
+                                                </li>
+                                                <li>
+                                                    Gross Outlay Amount, Downward Adjustments of Prior Year Prepaid Advanced Undelivered Orders and Obligation Refunds Collected, and Downward Adjustments of Prior Year Paid Delivered Orders and Obligations Refunds Collected for every award ID (award unique key) tagged with a COVID-19 DEFC [for Linked and Unlinked Awards].
                                                 </li>
                                                 <li>
                                                     Filter by any award type as desired.
