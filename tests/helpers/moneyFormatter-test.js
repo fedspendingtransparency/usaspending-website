@@ -3,55 +3,42 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatMoney, formatMoneyWithPrecision, calculatePercentage } from 'helpers/moneyFormatter';
 
-describe('Money Formatter helper functions', () => {
-    describe('formatMoney', () => {
-        it('should round monetary values to the nearest dollar', () => {
-            const formattedDown = formatMoney(123.45);
-            expect(formattedDown).toEqual('$123');
+test.each([
+    [123.45, '$123'],
+    [123.75, '$124'],
+    [123.50, '$124'],
+    [12345678.23, '$12,345,678'],
+    [-12345678.23, '-$12,345,678'],
+    [0, '$0']
+])('formatMoney: when input is %s --> %s', (input, output) => {
+    expect(formatMoney(input)).toEqual(output);
+});
 
-            const formattedUp = formatMoney(123.75);
-            expect(formattedUp).toEqual('$124');
+test.each([
+    [123.45, '$123.45'],
+    [0, '$0.00', '--'],
+    ['', '--', '--'],
+    [null, '--', '--'],
+    [null, 'you can specify the default return value in this case', 'you can specify the default return value in this case'],
+    ['', '$0.00']
+])('formatMoneyWithPrecision: when input is %s --> %s', (input, output, defaultReturn = null) => {
+    expect(formatMoneyWithPrecision(input, 2, defaultReturn)).toEqual(output);
+});
 
-            const formattedHalf = formatMoney(123.50);
-            expect(formattedHalf).toEqual('$124');
-        });
-
-        it('should format positive values to $XXX,XXX format', () => {
-            const formatted = formatMoney(12345678.23);
-            expect(formatted).toEqual('$12,345,678');
-        });
-
-        it('should format negative values to -$XXX,XXX format', () => {
-            const formatted = formatMoney(-12345678.23);
-            expect(formatted).toEqual('-$12,345,678');
-        });
-
-        it('should handle zero values as $0', () => {
-            const formatted = formatMoney(0);
-            expect(formatted).toEqual('$0');
-        });
-    });
-    describe('calculatePercentage', () => {
-        it('should return a percentage', () => {
-            expect(calculatePercentage(50, 100)).toEqual('50.0%');
-        });
-        it('should return a custom return message when bad data is passed', () => {
-            expect(calculatePercentage(50, 0, 'Happy Troll Dance')).toEqual('Happy Troll Dance');
-        });
-        it('should return a -- when denominator is zero', () => {
-            expect(calculatePercentage(50, 0)).toEqual('--');
-        });
-        it('should return a -- when denominator is not a number', () => {
-            expect(calculatePercentage(50, null)).toEqual('--');
-            expect(calculatePercentage(50, 'null')).toEqual('--');
-            expect(calculatePercentage(50, '')).toEqual('--');
-        });
-        it('should return a -- when numerator is not a number', () => {
-            expect(calculatePercentage(null, 100)).toEqual('--');
-            expect(calculatePercentage('null', 100)).toEqual('--');
-            expect(calculatePercentage('', 100)).toEqual('--');
-        });
-    });
+test.each([
+    [50, 100, '50.0%'],
+    [50, 0, 'Happy Troll Dance', 'Happy Troll Dance'],
+    [50, 0, '--'],
+    [.0000000001, 100000, "< 0.01%", '--', 2, { absoluteMin: '< 0.01%' }],
+    [.0000000001, 100000, "0.00%", '--', 2, { absoluteMin: null }],
+    [50, null, '--'],
+    [50, 'null', '--'],
+    [50, '', '--'],
+    [null, 100, '--'],
+    ['null', 100, '--'],
+    ['', 100, '--']
+])('calculatePercentage with inputs %s and %s returns %s', (num, denom, rtrn, defaultRtrn = '--', toDecimalPlaces = 1, config = { absoluteMin: '' }) => {
+    expect(calculatePercentage(num, denom, defaultRtrn, toDecimalPlaces, config)).toEqual(rtrn);
 });

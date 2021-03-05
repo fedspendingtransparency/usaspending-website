@@ -152,7 +152,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <p><strong>Calculation:</strong></p>
                                     <p>
-                                        The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID). This can be replicated with total_budgetary¬_resources field in the Account Balances (File A) file in Custom Account Download.
+                                        The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID). This can be replicated with total_budgetary_resources field in the Account Balances (File A) file in Custom Account Download.
                                     </p>
                                 </div>
                             </div>
@@ -182,12 +182,14 @@ const DataSourcesAndMethodologiesPage = () => {
                                         </ExternalLink>
                                         The full schedule of deadlines for agency submissions is found on the&nbsp;
                                         <a
+                                            className="usda-external-link"
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label="https://fiscal.treasury.gov/data-transparency/resources.html"
                                             title="https://fiscal.treasury.gov/data-transparency/resources.html">
-                                             ‘Resources for Federal Agencies and Data Analysts’ page.
+                                            ‘Resources for Federal Agencies and Data Analysts’ page.&nbsp;
+                                            <FontAwesomeIcon icon="external-link-alt" />
                                         </a>
                                     </p>
                                     <p><strong>Calculation:</strong></p>
@@ -288,7 +290,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                             </tr>
                                             <tr>
                                                 <td>Number of Unlinked Contract Awards</td>
-                                                <td>FileC, File D1</td>
+                                                <td>File C, File D1</td>
                                             </tr>
                                             <tr>
                                                 <td>Number of Unlinked Assistance Awards</td>

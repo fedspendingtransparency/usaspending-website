@@ -21,7 +21,7 @@
     }
 }
 
-@import "../../search/results/table/tableMessages";
+@import 'pages/search/results/table/tableMessages';
 
 .results-table-message-container {
     position: relative;
@@ -52,7 +52,7 @@
     }
 
     .loading-animation {
-        @import "../../search/results/screens/loading";
+        @import 'pages/search/results/screens/loading';
     }
 
     .results-table-error {
