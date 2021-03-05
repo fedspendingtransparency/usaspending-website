@@ -30,7 +30,7 @@
         ul {
             @include unstyled-list;
             li {
-                border-bottom: solid rem(1) $color-gray-lightest;
+                border-bottom: solid rem(1) $color-gray-lighter;
                 a.sidebar-link {
                     display: block;
                     padding: rem(10);
@@ -42,7 +42,7 @@
                     text-decoration: none;
                     font-weight: $font-semibold;
                     &:hover {
-                        border-left: 5px solid $color-primary;
+                        background-color: $color-gray-lightest;
                         text-decoration: none;
                     }
 
