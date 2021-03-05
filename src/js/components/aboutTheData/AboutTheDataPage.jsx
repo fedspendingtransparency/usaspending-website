@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/25/20
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
@@ -18,6 +18,7 @@ import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import { tabTooltips } from './dataMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
@@ -42,14 +43,26 @@ TableTabLabel.propTypes = {
 
 const AboutTheDataPage = ({ history }) => {
     const { search } = useLocation();
-    const query = new URLSearchParams(useLocation().search);
-    const urlFy = query.get('fy');
-    const urlPeriod = query.get('period');
-    const activeTab = query.get('tab');
+    const params = useQueryParams();
+    const {
+        fy: urlFy,
+        period: urlPeriod,
+        tab: activeTab
+    } = params;
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
+
+    useEffect(() => {
+        if (!activeTab) {
+            const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
+            history.replace({
+                pathname: '',
+                search: getQueryParamString(paramsWithTab)
+            });
+        }
+    }, [activeTab]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
