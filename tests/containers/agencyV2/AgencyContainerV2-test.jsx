@@ -7,7 +7,8 @@ import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
 import * as agencyV2Helper from 'helpers/agencyV2Helper';
-import * as hooks from 'containers/account/WithLatestFy';
+import * as accountHooks from 'containers/account/WithLatestFy';
+import * as queryParamHelpers from 'helpers/queryParams';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 
@@ -38,33 +39,24 @@ const mockResponse = {
 let spy;
 
 beforeEach(() => {
-    jest.spyOn(hooks, "useLatestAccountData").mockImplementation(() => {
+    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => {
         return [
             null,
             [],
             { year: 2020 }
         ];
     });
-    jest.spyOn(hooks, "useValidTimeBasedQueryParams").mockImplementation(() => {
+    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => {
         return [
             2020,
             () => { }
         ];
     });
-    jest.spyOn(hooks, "useQueryParams").mockImplementation(() => {
+    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => {
         return [
             { fy: 2020 }
         ];
     });
-});
-
-test('page loading message displays on mount', () => {
-    render((
-        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
-            <AgencyContainerV2 />
-        </Route >
-    ));
-    expect(screen.queryByText('Loading...')).toBeTruthy();
 });
 
 test('on network error, an error message displays', () => {
@@ -94,9 +86,6 @@ test('an API request is made for the agency code in the URL', () => {
             <AgencyContainerV2 />
         </Route >
     ));
-
-    expect(screen.queryByText('Loading...')).toBeTruthy();
-
 
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);

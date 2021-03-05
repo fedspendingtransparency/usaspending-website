@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, LoadingMessage } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.shape({
@@ -9,7 +9,8 @@ const propTypes = {
         display: PropTypes.string.isRequired
     }),
     icon: PropTypes.string,
-    children: PropTypes.element
+    children: PropTypes.element,
+    isLoading: PropTypes.bool
 };
 
 const TooltipComponent = () => (
@@ -19,7 +20,12 @@ const TooltipComponent = () => (
     </div>
 );
 
-const AgencySection = ({ section, icon = "chart-area", children }) => (
+const AgencySection = ({
+    section,
+    icon = "chart-area",
+    children,
+    isLoading = false
+}) => (
     <section id={`agency-v2-${section.name}`} className={`body__section ${section.name}`}>
         <div className="body__header">
             <div className="body__header-icon">
@@ -32,7 +38,8 @@ const AgencySection = ({ section, icon = "chart-area", children }) => (
                 tooltipComponent={<TooltipComponent />} />
         </div>
         <hr />
-        {children}
+        {isLoading && <LoadingMessage />}
+        {!isLoading && children}
     </section>
 );
 

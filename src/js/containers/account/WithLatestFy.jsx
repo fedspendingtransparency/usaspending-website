@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
@@ -12,6 +12,7 @@ import {
     getLastPeriodWithinQuarterByPeriod,
     getPeriodWithTitleById
 } from "helpers/aboutTheDataHelper";
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 // TODO: Refactor existing consumers of WithLatestFy to use this custom hook
 export const useLatestAccountData = () => {
@@ -73,8 +74,6 @@ export const useLatestAccountData = () => {
     ];
 };
 
-export const useQueryParams = () => Object.fromEntries(new URLSearchParams(useLocation().search));
-
 /*
     * useValidTimeBasedQueryParams
     * this function enforces validation logic for fiscal years and fiscal periods in the URL as query params
@@ -88,14 +87,11 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     const [{ period, fy }, setYearAndPeriod] = useState({ period: '', fy: '' });
 
     const updateUrl = (newParamsAsObj) => {
-        const newQueryParams = Object
-            .entries(newParamsAsObj)
-            .filter(([, value]) => value !== '' && value)
-            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), existingParams);
+        const newQueryParams = combineQueryParams(existingParams, newParamsAsObj);
         setYearAndPeriod(newParamsAsObj);
         history.replace({
             pathname: ``,
-            search: `?${new URLSearchParams(newQueryParams).toString()}`
+            search: getQueryParamString(newQueryParams)
         });
     };
 

@@ -17,6 +17,7 @@ import * as redux from 'react-redux';
 import { waitFor } from 'test-utils';
 
 import * as helper from 'helpers/accountHelper';
+import * as queryParamHelpers from 'helpers/queryParams';
 import * as actions from 'redux/actions/account/accountActions';
 import * as hooks from 'containers/account/WithLatestFy';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
@@ -75,7 +76,15 @@ test.each([
     (currentFy, currentPeriod, latestFy, latestPeriod, requiredParams) => {
         // reset history before each test
         history.push({ pathname: '', search: '' });
-        jest.spyOn(hooks, 'useQueryParams').mockImplementation(() => ({ fy: 2020 }));
+        jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation(() => {
+            if (requiredParams.includes('period')) {
+                return {
+                    fy: currentFy,
+                    period: currentPeriod
+                }
+            }
+            return { fy: currentFy };
+        });
         jest.spyOn(redux, 'useSelector').mockReturnValue({ submissionPeriods: new List([mockSubmissions[0]]) }).mockClear();
         const { result: { current: [fy, period] } } = renderHook(() => hooks.useValidTimeBasedQueryParams(currentFy, currentPeriod, requiredParams), { wrapper });
         expect(fy).toEqual(`${latestFy}`);

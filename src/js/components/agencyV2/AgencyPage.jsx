@@ -16,6 +16,7 @@ import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { allFiscalYears } from 'helpers/fiscalYearHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -34,12 +35,19 @@ const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 const propTypes = {
     agencyId: PropTypes.string,
     selectedFy: PropTypes.number,
-    fyOptions: PropTypes.array,
-    error: PropTypes.bool
+    latestFy: PropTypes.number,
+    setSelectedFy: PropTypes.func,
+    isError: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 export const AgencyProfileV2 = ({
-    selectedFy, agencyId, fyOptions, error
+    selectedFy,
+    agencyId,
+    setSelectedFy,
+    isError,
+    isLoading,
+    latestFy
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
@@ -87,6 +95,25 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection.name);
     };
 
+    const getFyOptions = (fy) => {
+        if (fy) {
+            return allFiscalYears(2017, fy)
+                .map((year) => {
+                    const onClickHandler = () => setSelectedFy({ fy: year });
+                    return {
+                        name: `${year}`,
+                        value: year,
+                        onClick: onClickHandler
+                    };
+                });
+        }
+        return [{
+            name: 'Loading fiscal years...',
+            value: '',
+            onClick: () => { }
+        }];
+    };
+
     const slug = `agency_v2/${agencyId}`;
 
     return (
@@ -107,7 +134,7 @@ export const AgencyProfileV2 = ({
                                 sortFn={defaultSortFy}
                                 icon={<FontAwesomeIcon icon="calendar-alt" />}
                                 selectedOption={`${selectedFy}`}
-                                options={fyOptions} />
+                                options={getFyOptions(latestFy)} />
                             <span>Fiscal Year</span>
                         </div>
                         <hr />
@@ -143,8 +170,8 @@ export const AgencyProfileV2 = ({
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    {error ? <ErrorMessage /> : sections.map((section) => (
-                        <AgencySection key={section.name} section={section} >
+                    {isError ? <ErrorMessage /> : sections.map((section) => (
+                        <AgencySection key={section.name} section={section} isLoading={isLoading}>
                             {section.component || <ComingSoon />}
                         </AgencySection>
                     ))}
