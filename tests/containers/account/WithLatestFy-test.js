@@ -63,25 +63,28 @@ test('useLatestAccountData: does not fetch periods when they are populated', () 
 });
 
 test.each([
-    ['0000', '0', 2020, 12],
-    [null, null, 2020, 12],
-    ['2021', '0', 2020, 12],
-    ['2012', '14', 2020, 12]
+    [null, null, 2020, 12, ['fy']],
+    ['0000', null, 2020, 12, ['fy']],
+    ['4020', null, 2020, 12, ['fy']],
+    ['0000', '0', 2020, 12, ['fy', 'period']],
+    [null, null, 2020, 12, ['fy', 'period']],
+    ['2021', '0', 2020, 12, ['fy', 'period']],
+    ['2012', '14', 2020, 12, ['fy', 'period']]
 ])(
     'useValidTimeBasedQueryParams: when fy is %s and period is %s, URL is updated 👌👌👌',
-    (currentFy, currentPeriod, latestFy, latestPeriod) => {
+    (currentFy, currentPeriod, latestFy, latestPeriod, requiredParams) => {
         // reset history before each test
         history.push({ pathname: '', search: '' });
-        jest.spyOn(hooks, 'useQueryParams').mockImplementation(() => {
-            return {
-                fy: currentFy,
-                period: currentPeriod
-            };
-        });
+        jest.spyOn(hooks, 'useQueryParams').mockImplementation(() => ({ fy: 2020 }));
         jest.spyOn(redux, 'useSelector').mockReturnValue({ submissionPeriods: new List([mockSubmissions[0]]) }).mockClear();
-        const { result: { current: [fy, period] } } = renderHook(() => hooks.useValidTimeBasedQueryParams(currentFy, currentPeriod, ['fy', 'period']), { wrapper });
+        const { result: { current: [fy, period] } } = renderHook(() => hooks.useValidTimeBasedQueryParams(currentFy, currentPeriod, requiredParams), { wrapper });
         expect(fy).toEqual(`${latestFy}`);
-        expect(period.id).toEqual(`${latestPeriod}`);
-        expect(history.location.search).toEqual(`?fy=${latestFy}&period=${latestPeriod}`);
+        if (requiredParams.includes('period')) {
+            expect(period.id).toEqual(`${latestPeriod}`);
+            expect(history.location.search).toEqual(`?fy=${latestFy}&period=${latestPeriod}`);
+        }
+        else {
+            expect(history.location.search).toEqual(`?fy=${latestFy}`);
+        }
     }
 );

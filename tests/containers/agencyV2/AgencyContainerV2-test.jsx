@@ -7,6 +7,7 @@ import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
 import * as agencyV2Helper from 'helpers/agencyV2Helper';
+import * as hooks from 'containers/account/WithLatestFy';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 
@@ -26,14 +27,6 @@ const mockData = {
     messages: []
 };
 
-const mockReject = {
-    promise: new Promise((resolve, reject) => {
-        process.nextTick(() => (
-            reject(new Error('mock error'))
-        ));
-    })
-};
-
 const mockResponse = {
     promise: new Promise((resolve) => {
         process.nextTick(() => (
@@ -41,6 +34,29 @@ const mockResponse = {
         ));
     })
 };
+
+let spy;
+
+beforeEach(() => {
+    jest.spyOn(hooks, "useLatestAccountData").mockImplementation(() => {
+        return [
+            null,
+            [],
+            { year: 2020 }
+        ];
+    });
+    jest.spyOn(hooks, "useValidTimeBasedQueryParams").mockImplementation(() => {
+        return [
+            2020,
+            () => { }
+        ];
+    });
+    jest.spyOn(hooks, "useQueryParams").mockImplementation(() => {
+        return [
+            { fy: 2020 }
+        ];
+    });
+});
 
 test('page loading message displays on mount', () => {
     render((
@@ -52,9 +68,18 @@ test('page loading message displays on mount', () => {
 });
 
 test('on network error, an error message displays', () => {
-    jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockReturnValue(mockReject);
+    const mockReject = {
+        promise: new Promise((resolve, reject) => {
+            process.nextTick(() => (
+                reject(new Error('mock error'))
+            ));
+        })
+    };
+    spy = jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
     render((
-        <AgencyContainerV2 />
+        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
+            <AgencyContainerV2 />
+        </Route >
     ));
     return waitFor(() => {
         expect(screen.queryByText('An error occurred')).toBeTruthy();
@@ -62,16 +87,21 @@ test('on network error, an error message displays', () => {
 });
 
 test('an API request is made for the agency code in the URL', () => {
-    const spy = jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockClear();
+    spy.mockClear();
+    spy = jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
             <AgencyContainerV2 />
         </Route >
     ));
 
+    expect(screen.queryByText('Loading...')).toBeTruthy();
+
+
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);
         // TODO: update expected FY param when picker is fixed
-        expect(spy).toHaveBeenCalledWith('123', 2021);
+        expect(spy).toHaveBeenCalledWith('123', 2020);
     });
 });
+
