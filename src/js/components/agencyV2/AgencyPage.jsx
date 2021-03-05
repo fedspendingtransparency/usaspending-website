@@ -15,6 +15,7 @@ import {
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl } from 'helpers/socialShare';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -28,7 +29,7 @@ import AgencySection from './AgencySection';
 
 require('pages/agencyV2/index.scss');
 
-const scrollPositionOfSiteHeader = 96;
+const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
     agencyId: PropTypes.string,
