@@ -31,14 +31,14 @@ test.each([
     [50, 100, '50.0%'],
     [50, 0, 'Happy Troll Dance', 'Happy Troll Dance'],
     [50, 0, '--'],
-    // TODO: DEV-6952 created to handle this.
-    [.0000000001, 100000, "0.00%", '--', 2],
+    [.0000000001, 100000, "< 0.01%", '--', 2, { absoluteMin: '< 0.01%' }],
+    [.0000000001, 100000, "0.00%", '--', 2, { absoluteMin: null }],
     [50, null, '--'],
     [50, 'null', '--'],
     [50, '', '--'],
     [null, 100, '--'],
     ['null', 100, '--'],
     ['', 100, '--']
-])('calculatePercentage with inputs %s and %s returns %s', (num, denom, rtrn, defaultRtrn = '--', toDecimalPlaces = 1) => {
-    expect(calculatePercentage(num, denom, defaultRtrn, toDecimalPlaces)).toEqual(rtrn);
+])('calculatePercentage with inputs %s and %s returns %s', (num, denom, rtrn, defaultRtrn = '--', toDecimalPlaces = 1, config = { absoluteMin: '' }) => {
+    expect(calculatePercentage(num, denom, defaultRtrn, toDecimalPlaces, config)).toEqual(rtrn);
 });

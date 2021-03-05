@@ -19,7 +19,7 @@ BaseAgencyRow.populate = function populate(data) {
     this.certified = data.recent_publication_date_certified || false;
     // eslint-disable-next-line camelcase
     this._federalTotal = data?.federalTotal?.total_budgetary_resources;
-    this.percentageOfTotalFederalBudget = calculatePercentage(this._budgetAuthority, this._federalTotal, '--', 2);
+    this.percentageOfTotalFederalBudget = calculatePercentage(this._budgetAuthority, this._federalTotal, '--', 2, { absoluteMin: '< 0.01%' });
 };
 
 export default BaseAgencyRow;
