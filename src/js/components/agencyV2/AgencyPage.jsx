@@ -132,6 +132,7 @@ export const AgencyProfileV2 = ({
                     <Sidebar
                         pageName="agency-v2"
                         fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                        isGoingToBeSticky
                         active={activeSection}
                         jumpToSection={jumpToSection}
                         detectActiveSection={setActiveSection}
