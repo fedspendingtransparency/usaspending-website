@@ -247,7 +247,9 @@ const Sidebar = ({
 
     return (
         <div ref={outerReferenceDiv}>
-            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv} />
+            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
+              &nsbp;
+            </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
                 <div className={`${pageName}-sidebar-content-background`}>
                     {fyPicker && (
