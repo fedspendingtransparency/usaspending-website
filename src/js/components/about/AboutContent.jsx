@@ -3,7 +3,7 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { find } from 'lodash';
@@ -100,6 +100,12 @@ const AboutContent = ({ location }) => {
             dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
         }
     };
+
+    useEffect(() => {
+        if (location.state?.fromCareersLink) {
+            jumpToSection('careers');
+        }
+    }, []);
 
     return (
         <div className="about-content-wrapper">
