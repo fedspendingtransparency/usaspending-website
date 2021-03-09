@@ -105,7 +105,7 @@ const AboutContent = ({ location }) => {
         if (location.state?.fromCareersLink) {
             jumpToSection('careers');
         }
-    }, []);
+    }, [location.state]);
 
     return (
         <div className="about-content-wrapper">
