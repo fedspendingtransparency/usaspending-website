@@ -11,7 +11,7 @@ import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecisio
 import {
     periodsPerQuarter,
     lastPeriods
-} from 'components/aboutTheData/dataMapping/timeFilters';
+} from 'dataMapping/aboutTheData/timeFilters';
 
 import { apiRequest } from './apiRequest';
 
