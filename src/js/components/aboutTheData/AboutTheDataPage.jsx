@@ -19,7 +19,7 @@ import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-import { tabTooltips } from './dataMapping/tooltipContentMapping';
+import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 
 require('pages/aboutTheData/aboutTheData.scss');

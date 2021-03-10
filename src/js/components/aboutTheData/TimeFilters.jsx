@@ -23,7 +23,7 @@ import {
     periodsPerQuarter,
     lastPeriods,
     cssOrderClassByPeriodId
-} from 'components/aboutTheData/dataMapping/timeFilters';
+} from 'dataMapping/aboutTheData/timeFilters';
 import PeriodComponent from './PeriodComponent';
 
 const sortPeriods = ({ type: a }, { type: b }) => {
