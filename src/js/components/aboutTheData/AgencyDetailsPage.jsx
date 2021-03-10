@@ -21,6 +21,7 @@ import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContain
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 
 require('pages/aboutTheData/aboutTheData.scss');
@@ -77,7 +78,7 @@ const AgencyDetailsPage = () => {
         getOverviewData();
     }, [agencyCode]);
 
-    const message = agencyCode === '097' ? 'Department of Defense procurement data is subject to a 90 day delay.' : '';
+    const message = agencyNotes[agencyCode] || '';
 
     return (
         <div className="about-the-data about-the-data_agency-details-page">
