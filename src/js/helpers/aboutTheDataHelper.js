@@ -5,6 +5,7 @@
 
 import { useState } from 'react';
 import { stringify } from 'querystring';
+import { format } from 'date-fns';
 
 import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
@@ -135,35 +136,17 @@ export const fetchUnlinkedData = (
     fiscalPeriod,
     type
 ) => apiRequest({
-    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/?type=${type}`
+    url: `v2/reporting/agencies/${agencyCode}/${fiscalYear}/${fiscalPeriod}/unlinked_awards/${type}/`
 });
-
-export const fetchMockUnlinkedData = () => ({
-    promise: new Promise((resolve) => resolve({
-        unlinked_file_c_award_count: 123213,
-        unlinked_file_d_award_count: 43543,
-        total_linkable_file_c_award_count: 12321312,
-        total_linkable_file_d_award_count: 23987443892
-    })),
-    cancel: () => {}
-});
-
-export const dateFormattedMonthDayYear = (date) => {
-    if (!date) return null;
-    const newDate = new Date(date);
-    const month = (newDate.getUTCMonth() + 1).toString().length === 1 ? `0${newDate.getUTCMonth() + 1}` : newDate.getUTCMonth() + 1;
-    const dayOfTheMonth = (newDate.getUTCDate()).toString().length === 1 ? `0${newDate.getUTCDate()}` : newDate.getUTCDate();
-    return `${month}/${dayOfTheMonth}/${newDate.getUTCFullYear()}`;
-};
 
 export const formatPublicationDates = (dates) => dates.map((date) => {
     let publicationDate = '--';
     let certificationDate = '--';
     if (date.publication_date) {
-        publicationDate = dateFormattedMonthDayYear(date.publication_date);
+        publicationDate = format(new Date(date.publication_date), 'MM/dd/yyyy');
     }
     if (date.certification_date) {
-        certificationDate = dateFormattedMonthDayYear(date.certification_date);
+        certificationDate = format(new Date(date.certification_date), 'MM/dd/yyyy');
     }
     return [publicationDate, certificationDate];
 });
@@ -206,11 +189,20 @@ export const formatUnlinkedDataRows = (data, type) => ([
     ],
     [
         { displayName: `as a Percentage of All ${type} Awards`, title: '', rowSpan: '0' },
-        calculatePercentage(data.unlinked_file_d_award_count, data.total_linkable_file_d_award_count, null, 2),
-        calculatePercentage(data.unlinked_file_c_award_count, data.total_linkable_file_c_award_count, null, 2),
+        calculatePercentage(
+            data.unlinked_file_d_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
+            null,
+            2
+        ),
+        calculatePercentage(data.unlinked_file_c_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
+            null,
+            2
+        ),
         calculatePercentage(
             data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
-            data.total_linkable_file_c_award_count + data.total_linkable_file_d_award_count,
+            data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             null,
             2
         )
@@ -218,3 +210,27 @@ export const formatUnlinkedDataRows = (data, type) => ([
 ]);
 
 export const showQuarterText = (period) => [3, 6, 9, 12].includes(period);
+
+export const renderDeadline = (title, deadlines) => {
+    if (title === 'publication_date' && deadlines?.submissionDueDate) {
+        return format(new Date(deadlines.submissionDueDate), 'MM/dd/yyyy');
+    }
+    if (title !== 'publication_date' && deadlines?.certificationDueDate) {
+        return format(new Date(deadlines.certificationDueDate), 'MM/dd/yyyy');
+    }
+    return '--';
+};
+
+export const getAgencyDetailEmail = (agencyName, agencyCode) => ({
+    subject: `Agency Submission Statistics | ${agencyName}`,
+    body: `View agency submission details for ${agencyName} on USAspending: https://www.usaspending.gov/submission-statistics/agency/${agencyCode}`
+});
+
+export const getAllAgenciesEmail = (fy, period, tab) => {
+    const params = new URLSearchParams({ fy, period, tab }).toString();
+    const url = `https://www.usaspending.gov/submission-statistics/?${encodeURIComponent(params)}`;
+    return {
+        subject: 'Agency Submission Statistics | USAspending.gov',
+        body: `View agency submission details on USAspending: ${url}`
+    };
+};

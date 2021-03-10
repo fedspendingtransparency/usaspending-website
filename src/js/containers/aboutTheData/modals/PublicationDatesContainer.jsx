@@ -8,12 +8,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
+
 import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
 import {
     formatPublicationDates,
-    dateFormattedMonthDayYear,
     fetchPublishDates,
-    convertDatesToMilliseconds
+    convertDatesToMilliseconds,
+    renderDeadline
 } from 'helpers/aboutTheDataHelper';
 import { pageAndSort } from 'helpers/pageAndSortHelper';
 import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
@@ -126,8 +127,8 @@ const PublicationDatesContainer = ({
                     {column.displayName}
                 </div>
                 <div className="publication-dates__column-header-sub-title">
-                    <i>{`Deadline: ${column.title === 'publication_date' ?
-                        dateFormattedMonthDayYear(submissionDeadlines?.submissionDueDate) || '--' : dateFormattedMonthDayYear(submissionDeadlines?.certificationDueDate) || '--'}`}
+                    <i>
+                        Deadline: {renderDeadline(column.title, submissionDeadlines)}
                     </i>
                 </div>
             </div>

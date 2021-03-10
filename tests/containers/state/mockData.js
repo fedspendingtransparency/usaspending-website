@@ -13,7 +13,7 @@ stateProfile.populate({});
 export const mockProps = {
     match: {
         params: {
-            stateId: '01',
+            state: 'alabama',
             fy: 'latest'
         }
     },

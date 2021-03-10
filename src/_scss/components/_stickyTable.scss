@@ -49,7 +49,7 @@
                     padding: 1.2rem;
                     @import '../pages/aboutTheData/actionCell';
                     .generic-cell-content {
-                        padding-right: 2.4rem;
+                        padding-right: 3.6rem; // to match 0.8 padding + 2.8 width of the action button
                         .not-certified {
                             margin-left: rem(5);
                             background: #dce4ee;
