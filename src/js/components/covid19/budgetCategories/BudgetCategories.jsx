@@ -9,7 +9,7 @@ import kGlobalConstants from 'GlobalConstants';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { Tabs } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
@@ -140,7 +140,7 @@ const BudgetCategories = () => {
                 </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>
-                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+                <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
             </div>
             <div className="overview-data-group">
                 {overviewData.map((data) => (

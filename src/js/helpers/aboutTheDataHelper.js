@@ -41,7 +41,7 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
 export const isPeriodVisible = (availablePeriodsInFy, periodId) => (
     availablePeriodsInFy
         .some((p) => (
-            p.submission_fiscal_month >= parseInt(periodId, 10)
+            p.submission_fiscal_month >= parseInt(periodId, 10) && parseInt(periodId, 10) > 0
         ))
 );
 
