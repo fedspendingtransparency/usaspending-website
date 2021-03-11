@@ -25,11 +25,5 @@ export const agencyNotes = {
     // DFC
     '077': opicNote,
     // VEF
-    519: (
-        <>
-            The Vietnam education foundation shut down in 2018 (source:&nbsp;
-            <ExternalLink url="https://obamawhitehouse.archives.gov/the-press-office/2016/05/25/fact-sheet-united-states-vietnam-education-cooperation" />
-            ). Its last DATA Act submission was in FY18Q4.
-        </>
-    )
+    519: 'The Vietnam education foundation shut down in 2018. Its last DATA Act submission was in FY18Q4.'
 };
