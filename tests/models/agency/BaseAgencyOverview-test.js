@@ -4,12 +4,19 @@
  */
 
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
-const mockAgency = {
+
+export const mockAgency = {
     name: 'Mock Agency',
-    id: '456',
+    agency_id: '456',
     website: 'https://home.treasury.gov/',
-    code: '020',
-    abbreviation: 'ABC'
+    toptier_code: '123',
+    abbreviation: 'ABC',
+    icon_filename: 'ABC.jpg',
+    mission: 'Maintain a strong economy and create economic and job opportunities...',
+    congressional_justification_url: 'https://www.treasury.gov/cj',
+    about_agency_data: null,
+    subtier_agency_count: 10,
+    messages: []
 };
 
 const agencyOverview = Object.create(BaseAgencyOverview);
