@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
-import AwardFilterButtons from 'components/covid19/recipient/AwardFilterButtons';
+import { Tabs } from "data-transparency-ui";
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -94,9 +94,9 @@ export class MapContainer extends React.Component {
     getAwardTypeFilterTabs = () => (
         awardTypeTabs.map((tab) => {
             if (this.state.activeFilters.spendingType === 'face_value_of_loan') {
-                return { ...tab, isDisabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
+                return { ...tab, disabled: ['grants', 'direct_payments', 'other', 'contracts', 'idvs'].includes(tab.internal) };
             }
-            return { ...tab, isDisabled: false };
+            return { ...tab, disabled: false };
         })
     );
 
@@ -423,10 +423,11 @@ export class MapContainer extends React.Component {
                 className="results-visualization-geo-section"
                 id="results-section-geo"
                 aria-label="Spending by Geography">
-                <AwardFilterButtons
-                    onClick={this.updateAwardTypeFilter}
-                    filters={this.getAwardTypeFilterTabs()}
-                    activeFilter={this.state.activeFilters.awardType} />
+                <Tabs
+                    active={this.state.activeFilters.awardType}
+                    types={this.getAwardTypeFilterTabs()}
+                    switchTab={this.updateAwardTypeFilter}
+                    tablessStyle />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
                     data={this.state.data}

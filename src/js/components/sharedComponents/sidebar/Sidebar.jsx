@@ -220,6 +220,7 @@ const Sidebar = ({
             <SidebarLink
                 section={section.section}
                 label={section.label}
+                overLine={section.overLine}
                 active={activeSection}
                 onClick={jumpToSectionWrapper} />
         );
@@ -247,7 +248,7 @@ const Sidebar = ({
     return (
         <div ref={outerReferenceDiv}>
             <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
-                &nbsp;
+              &nsbp;
             </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
                 <div className={`${pageName}-sidebar-content-background`}>

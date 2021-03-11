@@ -13,10 +13,10 @@ import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+import { Tabs } from "data-transparency-ui";
 import Analytics from 'helpers/analytics/Analytics';
 import ReadMore from '../ReadMore';
 
-import MoreOptionsTabs from '../../sharedComponents/moreOptionsTabs/MoreOptionsTabs';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
@@ -59,7 +59,7 @@ const AwardSpendingAgency = () => {
     const { defCodes } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
-
+    const [tabs, setTabs] = useState(awardTypeTabs);
     const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
     const moreOptionsTabsRef = useRef(null);
@@ -109,6 +109,10 @@ const AwardSpendingAgency = () => {
         }
     }, [tabCounts, setInFlight]);
 
+    useEffect(() => {
+        setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
+    }, [tabCounts]);
+
     const changeActiveTab = (tab) => {
         const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
         const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
@@ -142,7 +146,7 @@ const AwardSpendingAgency = () => {
                 </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>
-                <MoreOptionsTabs tabs={awardTypeTabs} tabCounts={tabCounts} pickerLabel="More Award Types" changeActiveTab={changeActiveTab} />
+                <Tabs active={activeTab.internal} types={tabs} switchTab={changeActiveTab} />
             </div>
             <SummaryInsightsContainer
                 resultsCount={tabCounts[activeTab.internal]}

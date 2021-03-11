@@ -9,7 +9,7 @@ import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchCfdaCount } from 'helpers/disasterHelper';
 import { areCountsDefined } from 'helpers/covid19Helper';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { Tabs } from "data-transparency-ui";
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
@@ -54,6 +54,7 @@ const SpendingByCFDA = () => {
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialState);
+    const [tabs, setTabs] = useState(financialAssistanceTabs);
 
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
@@ -113,6 +114,10 @@ const SpendingByCFDA = () => {
         }
     }, [tabCounts, setInFlight]);
 
+    useEffect(() => {
+        setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
+    }, [tabCounts]);
+
     return (
         <div className="body__content assistance-listing">
             <DateNote />
@@ -130,11 +135,7 @@ const SpendingByCFDA = () => {
                 </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>
-                <MoreOptionsTabs
-                    tabs={financialAssistanceTabs}
-                    tabCounts={tabCounts}
-                    pickerLabel="More Award Types"
-                    changeActiveTab={changeActiveTab} />
+                <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
             </div>
             <SummaryInsightsContainer
                 // pass CFDA count to the summary section so we don't have to make the same API request again

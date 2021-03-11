@@ -1,12 +1,13 @@
 import React from 'react';
 import { List } from 'immutable';
 import moment from 'moment';
-import { render, screen, fireEvent, waitFor } from '@test-utils';
+import { render, screen, waitFor } from '@test-utils';
 
 import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
 import * as accountHelpers from 'helpers/accountHelper';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
+import * as queryParamHelpers from 'helpers/queryParams';
 import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
 import { mockAPI } from '../../containers/aboutTheData/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
@@ -55,7 +56,6 @@ const defaultProps = {
 
 beforeEach(() => {
     jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
-
     jest.spyOn(helpers, "useLatestAccountData").mockReturnValue([
         moment(),
         mockPeriods,
@@ -63,6 +63,12 @@ beforeEach(() => {
     ]);
     jest.spyOn(accountHelpers, 'fetchAllSubmissionDates').mockReturnValue({
         promise: Promise.resolve(mockSubmissions),
+        cancel: () => {
+            console.log('cancel called');
+        }
+    });
+    jest.spyOn(accountHelpers, 'fetchAllSubmissionDates').mockReturnValue({
+        promise: Promise.resolve({ data: { available_periods: [] } }),
         cancel: () => {
             console.log('cancel called');
         }
@@ -94,10 +100,12 @@ beforeEach(() => {
 });
 
 test('renders the details table first', async () => {
-    jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation((param) => {
-        if (param === 'fy') return '2020';
-        if (param === 'period') return '12';
-        if (param === 'tab') return 'submissions';
+    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => {
+        return {
+            fy: '2020',
+            period: '12',
+            tab: 'submissions'
+        };
     });
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
@@ -107,22 +115,28 @@ test('renders the details table first', async () => {
 
 test('on tab change updates the table view', async () => {
     // shows the other table
-    jest.spyOn(URLSearchParams.prototype, 'get').mockImplementation((param) => {
-        if (param === 'fy') return '2020';
-        if (param === 'period') return '12';
-        if (param === 'tab') return 'publications';
+    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => {
+        return {
+            fy: '2020',
+            period: '12',
+            tab: 'publications'
+        };
     });
     render(<AboutTheDataPage {...defaultProps} />);
-    const table = screen.getByText('FY 2020 Q4');
-    expect(table).toBeDefined();
+    waitFor(() => {
+        const table = screen.getByText('FY 2020 Q4');
+        expect(table).toBeDefined();
+    });
 });
 
 test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
-    jest.spyOn(URLSearchParams.prototype, 'get').mockReturnValue(null);
+    jest.spyOn(queryParamHelpers, 'useQueryParams').mockReturnValue({});
     jest.spyOn(URLSearchParams.prototype, 'toString').mockReturnValue("fy=2020&period=12&tab=submissions");
     render(<AboutTheDataPage {...defaultProps} />);
-    expect(mockReplace).toHaveBeenCalledWith({
-        pathname: '/submission-statistics/',
-        search: "?fy=2020&period=12&tab=submissions"
+    waitFor(() => {
+        expect(mockReplace).toHaveBeenCalledWith({
+            pathname: '/submission-statistics/',
+            search: "?fy=2020&period=12&tab=submissions"
+        });
     });
 });
