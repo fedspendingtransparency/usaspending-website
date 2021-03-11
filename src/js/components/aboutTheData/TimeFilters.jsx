@@ -3,7 +3,7 @@
  * Created by Max Kendall 12/4/2020
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { Picker, SearchBar } from "data-transparency-ui";
@@ -13,10 +13,8 @@ import { List } from "immutable";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
 import {
-    getPeriodWithTitleById,
     isPeriodVisible,
-    isPeriodSelectable,
-    getLastPeriodWithinQuarterByPeriod
+    isPeriodSelectable
 } from "helpers/aboutTheDataHelper";
 import { setSearchTerm } from "redux/actions/aboutTheData";
 import {
@@ -82,40 +80,20 @@ const TimePeriodFilters = ({
     activeTab,
     selectedPeriod,
     selectedFy,
-    urlFy,
-    urlPeriod,
     onTimeFilterSelection,
     submissionPeriods,
-    latestFy,
-    latestPeriod
+    latestFy
 }) => {
     const dispatch = useDispatch();
-    const handleTimeChange = (fy, period, latestAvailable = latestPeriod) => {
-        onTimeFilterSelection(fy, getPeriodWithTitleById(period, latestAvailable));
-    };
 
-    useEffect(() => {
-        // when latest account data is ready or the url changes, set the active time periods
-        if (submissionPeriods.size && latestFy && latestPeriod) {
-            const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(urlFy, 10) === y);
-            if (availablePeriodsInFy.length) {
-                // fy selection is valid but what about the period? 🤔
-                const validPeriod = isPeriodVisible(availablePeriodsInFy, urlPeriod)
-                    ? urlPeriod
-                    : `${latestPeriod}`;
-
-                const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod)
-                    ? validPeriod
-                    : getLastPeriodWithinQuarterByPeriod(validPeriod);
-
-                handleTimeChange(urlFy, selectablePeriod);
-            }
-            else {
-                // invalid time selection, use the latest available fy/period 👌
-                handleTimeChange(`${latestFy}`, `${latestPeriod}`);
-            }
+    const handleTimeChange = (fy, period = null) => {
+        if (period) {
+            onTimeFilterSelection({ fy, period });
         }
-    }, [submissionPeriods, urlFy, urlPeriod, latestPeriod, latestFy]);
+        else {
+            onTimeFilterSelection({ fy });
+        }
+    };
 
     const generatePeriodDropdown = (fy, periods) => (
         parsePeriods(fy, periods.toJS())
@@ -151,7 +129,7 @@ const TimePeriodFilters = ({
                             </div>
                         )}
                     options={latestFy
-                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: onTimeFilterSelection }))
+                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>

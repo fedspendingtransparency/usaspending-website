@@ -1,11 +1,13 @@
 .table-controls {
     max-width: 100%;
-    .usa-dt-tabs-mobile .usa-dt-picker__list,
-    .tooltip-spacer {
-        z-index: 12;
-    }
-    .usa-dt-tab-toggle:focus {
+    .usa-dt-tab:focus {
         outline: none;
+    }
+    @media (min-width: $tablet-screen) {
+      .usa-dt-tab-list {
+        overflow-x: visible;
+        overflow-y: visible;
+      }
     }
     .table-controls__time-and-search {
         padding-left: 0;
@@ -197,11 +199,13 @@
     }
     .table-tab-label {
         @include display(flex);
+
     }
     .tooltip-wrapper {
         display: none;
         @media (min-width: $tablet-screen) {
             @include display(flex);
+            white-space: normal;
         }
     }
     .usa-dt-picker__list {

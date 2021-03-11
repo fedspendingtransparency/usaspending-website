@@ -49,15 +49,3 @@ test('Publication Dates table does not show period picker', async () => {
     expect(screen.queryByText('PERIOD')).toBeNull();
 });
 
-test('Validates fiscal year from url', async () => {
-    // bad fiscal year:
-    const mockOnTimeSelection = jest.fn();
-    render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} latestFy={2020} latestPeriod={12} urlFy="1990" />);
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
-});
-
-test('Validates period from url', async () => {
-    const mockOnTimeSelection = jest.fn();
-    render(<TimeFilters {...defaultProps} onTimeFilterSelection={mockOnTimeSelection} latestFy={2020} latestPeriod={12} urlFy="2020" urlPeriod="13" />);
-    expect(mockOnTimeSelection).toHaveBeenCalledWith("2020", { className: "last-period-per-quarter", id: "12", title: "Q4 / P12" });
-});
