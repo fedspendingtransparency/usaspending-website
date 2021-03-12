@@ -107,9 +107,9 @@ const AboutContent = () => {
         const urlSection = query.get('section');
         if (urlSection) {
             jumpToSection(urlSection);
+            // remove the query param from the url after scrolling to the given section
+            history.push(`/about`);
         }
-        // remove the query param from the url after scrolling to the given section
-        history.push(`/about`);
     }, [location.search]);
 
     return (
