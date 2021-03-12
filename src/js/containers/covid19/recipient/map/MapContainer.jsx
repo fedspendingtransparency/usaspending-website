@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 import {
     centerOfMap,
     filters,
@@ -444,9 +445,16 @@ export class MapContainer extends React.Component {
                     center={centerOfMap}>
                     {message}
                 </MapWrapper>
-                <div>
-                    <p className="map-data-message"><span className="bold-map-data-message">NOTE:</span> Amounts reported for Utah reflect an award by HHS from the Provider Relief Fund (PRF) to a single entity in Utah which will make payments to recipients across the country. <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">See more information about HHS&apos;s data submission.</a></p>
-                </div>
+                <Note message={(
+                    <>
+                        Amounts reported for Utah reflect an award by HHS from the Provider Relief Fund (PRF)
+                        to a single entity in Utah which will make payments to recipients across the country.
+                        <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
+                            See more information about HHS&apos;s data submission.
+                        </a>
+                    </>
+                )} />
+                <Note message={dodNote} />
             </div>
         );
     }
