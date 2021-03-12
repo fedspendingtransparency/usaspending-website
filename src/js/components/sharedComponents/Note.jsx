@@ -17,7 +17,7 @@ export default class Note extends Component {
         const { title, message } = this.props;
         return (
             <p className="default-note">
-                <strong>{title || 'NOTE: '}</strong>
+                <strong>{title || 'NOTE:'}</strong>&nbsp;
                 {message}
             </p>
         );
