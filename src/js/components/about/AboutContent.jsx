@@ -4,8 +4,7 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { find } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
@@ -64,12 +63,15 @@ const aboutSections = [
     }
 ];
 
-const propTypes = {
-    location: PropTypes.object // Router location object
-};
+const AboutContent = () => {
+    const location = useLocation();
+    const history = useHistory();
+    const useQuery = (() => (
+        new URLSearchParams(location.search)
+    ));
+    const query = useQuery();
 
-const AboutContent = ({ location }) => {
-    const [activeSection, setActiveSection] = useState(location.state?.fromCareersLink ? 'careers' : 'mission');
+    const [activeSection, setActiveSection] = useState(query.get('section') || 'mission');
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -102,10 +104,13 @@ const AboutContent = ({ location }) => {
     };
 
     useEffect(() => {
-        if (location.state?.fromCareersLink) {
-            jumpToSection('careers');
+        const urlSection = query.get('section');
+        if (urlSection) {
+            jumpToSection(urlSection);
         }
-    }, [location.state]);
+        // remove the query param from the url after scrolling to the given section
+        history.push(`/about`);
+    }, [location.search]);
 
     return (
         <div className="about-content-wrapper">
@@ -136,5 +141,4 @@ const AboutContent = ({ location }) => {
     );
 };
 
-AboutContent.propTypes = propTypes;
-export default withRouter(AboutContent);
+export default AboutContent;
