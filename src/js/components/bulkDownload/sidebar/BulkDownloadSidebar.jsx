@@ -13,29 +13,24 @@ const propTypes = {
     dataTypes: PropTypes.array
 };
 
-export default class BulkDownloadSidebar extends React.Component {
-    render() {
-        const items = this.props.dataTypes.map((type) => (
-            <SidebarButton
-                key={type.code}
-                type={type.type}
-                label={type.label}
-                active={this.props.active}
-                disabled={!type.enabled}
-                url={type.url}
-                newTab={type.newTab}
-                externalLink={type.externalLink} />
-        ));
-
-        return (
-            <div
-                className="download-sidebar-content">
-                <ul>
-                    { items }
-                </ul>
-            </div>
-        );
-    }
-}
+const BulkDownloadSidebar = ({ active, dataTypes }) => (
+    <div
+        className="download-sidebar-content">
+        <ul>
+            {dataTypes.map((type) => (
+                <SidebarButton
+                    key={type.code}
+                    type={type.type}
+                    label={type.label}
+                    active={active}
+                    disabled={!type.enabled}
+                    url={type.url}
+                    shouldOpenNewTab={type.shouldOpenNewTab}
+                    externalLink={type.externalLink} />
+            ))}
+        </ul>
+    </div>
+);
 
 BulkDownloadSidebar.propTypes = propTypes;
+export default BulkDownloadSidebar;
