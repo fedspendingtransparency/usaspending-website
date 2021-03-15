@@ -20,7 +20,7 @@ import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-import { tabTooltips } from './dataMapping/tooltipContentMapping';
+import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 
 require('pages/aboutTheData/aboutTheData.scss');

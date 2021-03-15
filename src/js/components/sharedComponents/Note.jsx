@@ -4,11 +4,11 @@
  **/
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 
 const propTypes = {
     title: PropTypes.string,
-    message: PropTypes.string
+    message: oneOfType([PropTypes.string, PropTypes.element])
 };
 
 export default class Note extends Component {
