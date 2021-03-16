@@ -27,6 +27,7 @@ import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
 import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
+import AgencyOverview from './AgencyOverview';
 
 require('pages/agencyV2/index.scss');
 
@@ -54,7 +55,8 @@ export const AgencyProfileV2 = ({
     const sections = [
         {
             name: 'overview',
-            display: 'Overview'
+            display: 'Overview',
+            component: <AgencyOverview />
         },
         {
             name: 'budget-category',

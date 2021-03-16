@@ -31,7 +31,7 @@ const AgencySection = ({
             <div className="body__header-icon">
                 <FontAwesomeIcon size="lg" icon={icon} />
             </div>
-            <h3>{section.display}</h3>
+            <h2>{section.display}</h2>
             <TooltipWrapper
                 className="agency-v2-tt"
                 icon="info"

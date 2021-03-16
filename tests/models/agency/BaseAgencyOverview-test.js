@@ -5,6 +5,7 @@
 
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 
+// eslint-disable-next-line import/prefer-default-export
 export const mockAgency = {
     name: 'Mock Agency',
     agency_id: '456',
