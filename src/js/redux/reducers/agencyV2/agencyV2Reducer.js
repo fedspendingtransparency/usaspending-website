@@ -4,14 +4,14 @@
  */
 
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 
 // Create an empty budgetary resources object for the initial state
 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-const overview = Object.create(BaseAgencyOverview);
 
 export const initialState = {
-    overview,
+    overview: {
+        name: ''
+    },
     budgetaryResources
 };
 

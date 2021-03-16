@@ -23,6 +23,7 @@ export const AgencyProfileV2 = () => {
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ['fy']);
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const request = useRef(null);
     const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ export const AgencyProfileV2 = () => {
             }
             setLoading(true);
             setError(false);
+            setErrorMessage('');
             // request overview data for this agency
             request.current = fetchAgencyOverview(agencyId, selectedFy);
             request.current.promise
@@ -41,10 +43,10 @@ export const AgencyProfileV2 = () => {
                     const agencyOverview = Object.create(BaseAgencyOverview);
                     agencyOverview.populate(res.data);
                     dispatch(setAgencyOverview(agencyOverview));
-                    //console.log(agencyOverview);
                 }).catch((err) => {
                     if (!isCancel(err)) {
                         setError(true);
+                        setErrorMessage(err.message);
                         setLoading(false);
                         request.current = null;
                         console.error(err);
@@ -60,7 +62,8 @@ export const AgencyProfileV2 = () => {
             selectedFy={selectedFy}
             agencyId={agencyId}
             isLoading={isLoading}
-            isError={isError} />
+            isError={isError}
+            errorMessage={errorMessage} />
     );
 };
 

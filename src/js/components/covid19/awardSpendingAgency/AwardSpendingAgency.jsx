@@ -15,7 +15,7 @@ import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingA
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import { Tabs } from "data-transparency-ui";
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from '../ReadMore';
+import ReadMore from 'components/sharedComponents/ReadMore';
 
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 

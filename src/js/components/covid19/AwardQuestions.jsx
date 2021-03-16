@@ -5,7 +5,7 @@
 
 import React from 'react';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
-import ReadMore from './ReadMore';
+import ReadMore from 'components/sharedComponents/ReadMore';
 
 const AwardQuestion = () => (
     <div className="award-question__container information-body">

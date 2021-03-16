@@ -11,6 +11,7 @@ import {
     ComingSoon,
     ErrorMessage
 } from 'data-transparency-ui';
+import { useSelector } from 'react-redux';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -35,10 +36,11 @@ const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
     agencyId: PropTypes.string,
-    selectedFy: PropTypes.number,
+    selectedFy: PropTypes.string,
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
     isError: PropTypes.bool,
+    errorMessage: PropTypes.string,
     isLoading: PropTypes.bool
 };
 
@@ -47,10 +49,12 @@ export const AgencyProfileV2 = ({
     agencyId,
     setSelectedFy,
     isError,
+    errorMessage,
     isLoading,
     latestFy
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
+    const { name } = useSelector((state) => state.agencyV2.overview);
 
     const sections = [
         {
@@ -126,7 +130,7 @@ export const AgencyProfileV2 = ({
                 <>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            Agency Profile v2
+                            {name || '--'}
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
@@ -143,8 +147,7 @@ export const AgencyProfileV2 = ({
                         <ShareIcon
                             slug={slug}
                             email={{
-                                // TODO - add agency name when the data is available
-                                subject: 'USAspending.gov Agency Profile: ',
+                                subject: `USAspending.gov Agency Profile: ${name}`,
                                 body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
                             }} />
                         <div className="sticky-header__toolbar-item">
@@ -172,7 +175,7 @@ export const AgencyProfileV2 = ({
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    {isError ? <ErrorMessage /> : sections.map((section) => (
+                    {isError ? <ErrorMessage description={errorMessage} /> : sections.map((section) => (
                         <AgencySection key={section.name} section={section} isLoading={isLoading}>
                             {section.component || <ComingSoon />}
                         </AgencySection>
