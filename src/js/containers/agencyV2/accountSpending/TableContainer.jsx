@@ -95,7 +95,7 @@ const TableContainer = (props) => {
         setLoading(true);
         // Make a request with the new page number
         const params = {
-            fiscal_year: 2020,
+            fiscal_year: props.fy,
             limit: pageSize,
             page: currentPage,
             sort: accountFields[sort],
@@ -123,7 +123,7 @@ const TableContainer = (props) => {
         else {
             fetchSpendingByCategoryCallback();
         }
-    }, [props.type, props.agencyId, pageSize, sort, order, totalObligation]);
+    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
