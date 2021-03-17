@@ -143,6 +143,9 @@
                         }
                     }
                     @import './tables';
+                    .default-note {
+                        font-size: $small-font-size;
+                    }
                 }
                 .information-body {
                     background: linear-gradient(225deg, rgba(220, 201, 229, 0.1) 0%, rgba(182, 153, 198, 0.1) 100%, rgba(182, 153, 198, 0.1) 100%);

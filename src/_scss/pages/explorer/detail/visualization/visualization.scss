@@ -20,25 +20,7 @@
         line-height: rem(18);
 
         margin-top: rem(15);
-    }
-
-    .explorer-vis__link {
-        display: inline;
-        line-height: 1.5;
-        background-color: transparent;
-        font-size: rem(14);
-        font-style: italic;
-        margin: 0;
-        padding: 0;
-        color: #0071bc;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .explorer-vis_bold {
-        font-weight: 600;
+        @import 'components/externalLink';
     }
 
     .explorer-vis__table-transition {
