@@ -3,6 +3,7 @@
         @include display(flex);
         @include justify-content(space-between);
         @include align-items(flex-start);
+        padding-bottom: 1.5rem;
         .agency-overview__title {
             display: block;
             h3 {
@@ -35,5 +36,19 @@
             }
         }
     }
-    @import 'components/externalLink';
+    .agency-overview__data {
+        @import 'components/externalLink';
+        h4 {
+            font-weight: $font-semibold;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+        p, .usda-external-link {
+            font-size: $small-font-size;
+            margin: .5rem 0 1.5rem;
+        }
+    }
+    .read-more-button {
+        @include button-link;
+    }
 }

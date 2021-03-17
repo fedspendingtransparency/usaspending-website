@@ -27,9 +27,16 @@ export const AgencyOverview = () => {
             src={`graphics/agency/${logo}`}
             alt={`${name} logo`} />
     ) : '';
+    
+    const missionBlock = (
+        <div className="agency-overview__data">
+            <h4>Agency Mission</h4>
+            <p>{mission || '--'}</p>
+        </div>
+    );
 
     const about = showAboutData ? (
-        <div>
+        <div className="agency-overview__data">
             <h4>About this Agency&apos;s Data</h4>
             <p>
                 There is a 90-day delay on procurement (i.e., contract and IDV)
@@ -37,7 +44,7 @@ export const AgencyOverview = () => {
                 on our <Link to="/about">About the Data</Link> page.
             </p>
         </div>
-    ) : '';
+    ) : missionBlock;
 
     return (
         <div className="agency-overview">
@@ -50,15 +57,12 @@ export const AgencyOverview = () => {
             </div>
             {about}
             <ReadMore>
-                <div>
-                    <h4>Agency Mission</h4>
-                    <p>{mission || '--'}</p>
-                </div>
-                <div>
+                {showAboutData && missionBlock}
+                <div className="agency-overview__data">
                     <h4>Website</h4>
                     {website ? <ExternalLink url={website} /> : '--'}
                 </div>
-                <div>
+                <div className="agency-overview__data">
                     <h4>Congressional Justification of Budget (CJ)</h4>
                     {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
                 </div>
