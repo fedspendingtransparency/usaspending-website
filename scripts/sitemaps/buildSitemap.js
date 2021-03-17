@@ -219,15 +219,13 @@ const createSitemapDirectory = () => new Promise(
         })
 );
 
-createRobots();
-
-// createSitemapDirectory()
-//     .then(() => buildIndividualSitemaps())
-//     .then((individalSiteMaps) => {
-//         buildIndexedSitemap(individalSiteMaps);
-//         createRobots();
-//     })
-//     .catch((e) => {
-//         console.log(`error build site maps: ${e}`);
-//         throw e.message;
-//     });
+createSitemapDirectory()
+    .then(() => buildIndividualSitemaps())
+    .then((individalSiteMaps) => {
+        buildIndexedSitemap(individalSiteMaps);
+        createRobots();
+    })
+    .catch((e) => {
+        console.log(`error build site maps: ${e}`);
+        throw e.message;
+    });

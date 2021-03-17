@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const apiUrl = process.env.API_URL || 'https://api.usaspending.gov:443';
-const siteUrl = 'https://sandbox.usaspending.gov';
+const siteUrl = process.env.SITE_URL || 'https://www.usaspending.gov';
 
 const routes = [
     // no longer importing these from RouterRoutes because the many import statements in that file completely mess up babel
