@@ -1,0 +1,39 @@
+.agency-overview {
+    .agency-overview__top {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(flex-start);
+        .agency-overview__title {
+            display: block;
+            h3 {
+                margin: 0;
+                font-size: 2rem;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: 2.5rem;
+            }
+            .agency-overview__sub-agencies {
+                font-size: 1.4rem;
+            }
+        }
+        .agency-overview__image {
+            height: 100%;
+            padding-right: 1rem;
+        }
+        @include media($medium-screen) {
+            // switch the position of the logo and title in desktop
+            @include flex-direction(row-reverse);
+            @include justify-content(flex-end);
+            .agency-overview__title {
+                h3 {
+                    font-size: 3.6rem;
+                    line-height: 4.5rem;
+                }
+                .agency-overview__sub-agencies {
+                    font-size: 1.8rem;
+                }
+            }
+        }
+    }
+    @import 'components/externalLink';
+}

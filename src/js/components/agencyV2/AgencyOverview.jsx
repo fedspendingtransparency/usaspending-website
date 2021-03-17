@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import ReadMore from 'components/sharedComponents/ReadMore';
 
 export const AgencyOverview = () => {
     const {
@@ -22,8 +23,9 @@ export const AgencyOverview = () => {
 
     const image = logo ? (
         <img
+            className="agency-overview__image"
             src={`graphics/agency/${logo}`}
-            alt={name} />
+            alt={`${name} logo`} />
     ) : '';
 
     const about = showAboutData ? (
@@ -39,22 +41,28 @@ export const AgencyOverview = () => {
 
     return (
         <div className="agency-overview">
-            {image}
-            <h3>{name}</h3>
-            <p>Includes {subtierCount} awarding sub-agencies</p>
+            <div className="agency-overview__top">
+                <div className="agency-overview__title">
+                    <h3>{name}</h3>
+                    <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
+                </div>
+                {image}
+            </div>
             {about}
-            <div>
-                <h4>Agency Mission</h4>
-                <p>{mission || '--'}</p>
-            </div>
-            <div>
-                <h4>Website</h4>
-                {website ? <ExternalLink url={website} /> : '--'}
-            </div>
-            <div>
-                <h4>Congressional Justification of Budget (CJ)</h4>
-                {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
-            </div>
+            <ReadMore>
+                <div>
+                    <h4>Agency Mission</h4>
+                    <p>{mission || '--'}</p>
+                </div>
+                <div>
+                    <h4>Website</h4>
+                    {website ? <ExternalLink url={website} /> : '--'}
+                </div>
+                <div>
+                    <h4>Congressional Justification of Budget (CJ)</h4>
+                    {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
+                </div>
+            </ReadMore>
         </div>
     );
 };

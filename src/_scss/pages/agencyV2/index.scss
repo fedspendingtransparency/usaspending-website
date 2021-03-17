@@ -143,6 +143,7 @@
                 @include display(flex);
                 @include flex-wrap(wrap);
                 margin-bottom: $global-mrg;
+                @import './overview';
                 .body__header {
                     width: 100%;
                     height: rem(30);
