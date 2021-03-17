@@ -9,6 +9,7 @@ import { find } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
@@ -66,12 +67,9 @@ const aboutSections = [
 const AboutContent = () => {
     const location = useLocation();
     const history = useHistory();
-    const useQuery = (() => (
-        new URLSearchParams(location.search)
-    ));
-    const query = useQuery();
+    const query = useQueryParams();
 
-    const [activeSection, setActiveSection] = useState(query.get('section') || 'mission');
+    const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -104,7 +102,7 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        const urlSection = query.get('section');
+        const urlSection = query.section;
         if (urlSection) {
             jumpToSection(urlSection);
             // remove the query param from the url after scrolling to the given section
