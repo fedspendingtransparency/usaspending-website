@@ -35,10 +35,10 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockResults[0].description}&nbsp;(
-                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C/latest">
                                 as Child
                             </Link>,&nbsp;
-                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R/latest">
                                 as Recipient
                             </Link>
                             )
@@ -50,7 +50,7 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
                     ),
@@ -92,10 +92,10 @@ describe('SpendingByRecipientContainer', () => {
                     (
                         <>
                             {mockLoanResults[0].description}&nbsp;(
-                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C/latest">
                                 as Child
                             </Link>,&nbsp;
-                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R">
+                            <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R/latest">
                                 as Recipient
                             </Link>
                             )
@@ -108,7 +108,7 @@ describe('SpendingByRecipientContainer', () => {
                 ],
                 [
                     (
-                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R">
+                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
                     ),

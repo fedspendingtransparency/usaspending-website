@@ -266,3 +266,16 @@ export const stateLandingPageMetaTags = {
 };
 
 /* eslint-enable max-len */
+
+export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
+    if (title === "USAspending.gov") return false;
+    if (title.split('|')[0] === ' ') return false;
+    if (!title) return false;
+    return true;
+};
+
+const canonicalUrl = 'https://www.usaspending.gov';
+
+const trailingSlashRegExp = new RegExp(/\/$/);
+
+export const getCanonicalUrl = (path) => `${canonicalUrl}${path.replace(trailingSlashRegExp, '')}`;
