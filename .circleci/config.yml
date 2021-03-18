@@ -1,10 +1,14 @@
 version: 2.1
 orbs:
   node: circleci/node@4.1.0
+  browser-tools: circleci/browser-tools@1.1.3
 executors:
   usaspending-frontend:
     docker:
       - image: 'cimg/node:12.18'
+  browser-tools:
+    docker:
+      - image: cimg/node:15.0.1-browsers
 jobs:
   test-app:
     executor:
@@ -32,13 +36,24 @@ jobs:
       - checkout
       - node/install-packages
       - run: npm run lint
+  install-chrome:
+    executor:
+      name: 'browser-tools'
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          command: |
+            google-chrome --version
+            chromedriver --version
+          name: Check install
   lighthouse-performance-audit:
-      executor:
-        name: usaspending-frontend
-      steps:
-        - checkout
-        - node/install-packages
-        - run: npm run light-house
+    executor: 
+      name: usaspending-frontend
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run lighthouse
 workflows:
   test:
     jobs:
@@ -48,4 +63,5 @@ workflows:
       - lint-app
   lighthouse:
     jobs:
+      - install-chrome
       - lighthouse-performance-audit
