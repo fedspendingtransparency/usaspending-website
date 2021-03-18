@@ -127,10 +127,10 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                    <Link onClick={handleClick} to={`/recipient/${rowData._childId}`}>
+                    <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
                     </Link>,&nbsp;
-                    <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}`}>
+                    <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
                     </Link>
                     )
@@ -141,7 +141,7 @@ export const parseRows = (rows, activeTab, query) => (
             const handleClick = clickedRecipientProfile(`${description}`);
             // there is a single profile page for this recipient
             link = (
-                <Link onClick={handleClick} to={`/recipient/${rowData._childId || rowData._recipientId}`}>
+                <Link onClick={handleClick} to={`/recipient/${rowData._childId || rowData._recipientId}/latest`}>
                     {description}
                 </Link>
             );
