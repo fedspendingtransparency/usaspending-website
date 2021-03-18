@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
-import MoreOptionsTabs from 'components/sharedComponents/moreOptionsTabs/MoreOptionsTabs';
+import { Tabs } from "data-transparency-ui";
 import ReadMore from 'components/covid19/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
@@ -41,7 +41,7 @@ const RecipientContainer = () => {
                 </ReadMore>
             </div>
             <div className="recipient__tabs-container count-tabs">
-                <MoreOptionsTabs tabs={tabs} changeActiveTab={changeActiveTab} hideCounts />
+                <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>

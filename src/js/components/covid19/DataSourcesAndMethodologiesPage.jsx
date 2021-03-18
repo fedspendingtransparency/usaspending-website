@@ -8,7 +8,6 @@ import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { uniqueId } from 'lodash';
-import { isBefore, startOfToday } from 'date-fns';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
@@ -399,11 +398,6 @@ export default () => {
                                             Memorandum M-20-21
                                         </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file.
                                     </p>
-                                    {isBefore(startOfToday(), new Date(2021, 2, 3)) && (
-                                        <p>
-                                            <strong>COVID-19 funding and spending data for Public Law 116-260 Consolidated Appropriations Act, 2021 will appear on USAspending.gov on March 3, 2020.</strong> Starting in March, users can find DEFC &quot;U&quot; in Advanced Search filters, Custom Account Download, and in the reported spending on the COVID-19 profile page.
-                                        </p>
-                                    )}
                                     <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
                                     </p>
@@ -691,7 +685,10 @@ export default () => {
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                             <ul>
                                                 <li>
-                                                    Either Gross Outlay Amount (for linked and unlinked data) or Outlayed Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
+                                                    Outlayed Amount Funded by COVID-19 Supplementals for every award ID (award unique key) tagged with a COVID-19 DEFC [for Linked Awards only].
+                                                </li>
+                                                <li>
+                                                    Gross Outlay Amount, Downward Adjustments of Prior Year Prepaid Advanced Undelivered Orders and Obligation Refunds Collected, and Downward Adjustments of Prior Year Paid Delivered Orders and Obligations Refunds Collected for every award ID (award unique key) tagged with a COVID-19 DEFC [for Linked and Unlinked Awards].
                                                 </li>
                                                 <li>
                                                     Filter by any award type as desired.
