@@ -11,6 +11,8 @@ import * as redirectHelper from 'helpers/redirectHelper';
 
 import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
 import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
+import Note, { dodNote } from 'components/sharedComponents/Note';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
 
@@ -138,7 +140,18 @@ export default class ExplorerVisualization extends React.Component {
             disclaimer = (
                 <div className="explorer-vis__disclaimer">
                     <p>All dollar amounts shown here represent agency reported obligated amounts</p>
-                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <button className="explorer-vis__link" onClick={this.redirect} >Report on Budget Execution and Budgetary Resources</button> and the total obligated amount reported by agencies to USAspending.gov.</p>
+                    <Note
+                        title="Unreported Data*:"
+                        message={(
+                            <>
+                                Unreported amounts are calculated from the difference between the total obligated amount from the&nbsp;
+                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
+                                    SF-133 Report on Budget Execution and Budgetary Resources
+                                </ExternalLink>
+                                &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov.
+                            </>
+                        )} />
+                    <Note message={dodNote} />
                 </div>
             );
         }

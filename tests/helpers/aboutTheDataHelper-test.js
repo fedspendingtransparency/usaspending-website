@@ -30,6 +30,8 @@ const mockPeriods = {
     }
 };
 
+const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
 describe('About The Data Helper', () => {
     describe('formatPublicationDates', () => {
         const mockData = [
@@ -54,7 +56,7 @@ describe('About The Data Helper', () => {
         });
         it('should format dates if they exist', () => {
             // or, 5hr offset America/New_York UTC-05:000
-            expect(new Date().getTimezoneOffset()).toBe(300);
+            expect(timeZone).toBe('America/New_York');
             expect(data[0][0]).toBe('04/30/2020');
             expect(data[1][0]).toBe('07/31/2020');
             expect(data[1][1]).toBe('08/30/2020');
@@ -70,7 +72,7 @@ describe('About The Data Helper', () => {
         ['publication_date', null, {}, '--'],
         ['certification_date', null, {}, '--']
     ])('renderDeadline: for title %s when deadline is %s returns %s', (title, timestamp, obj, rtrn) => {
-        expect(new Date().getTimezoneOffset()).toBe(300);
+        expect(timeZone).toBe('America/New_York');
         if (title === 'publication_date') {
             expect(renderDeadline(title, obj)).toEqual(rtrn);
         }
