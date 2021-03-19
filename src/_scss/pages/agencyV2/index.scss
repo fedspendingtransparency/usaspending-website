@@ -135,38 +135,15 @@
                 }
             }
             .body__content {
+                margin-top: rem(35);
                 @import 'pages/search/results/table/resultsTableMessageContainer';
                 @import './tables';
             }
-            .body__section {
+            .usda-section__container {
                 @import './tabs';
                 @include display(flex);
-                @include flex-wrap(wrap);
-                margin-bottom: $global-mrg;
-                .body__header {
-                    width: 100%;
-                    height: rem(30);
-                    @include display(flex);
-                    @include align-items(center);
-                    @include justify-content(flex-start);
-                    .body__header-icon {
-                        margin-right: $global-mrg / 2;
-                    }
-                    h3 {
-                        @include display(flex);
-                        margin: 0;
-                        line-height: $base-line-height;
-                        font-size: rem(18);
-                        font-weight: $font-semibold;
-                    }
-                }
                 hr {
-                    width: 100%;
-                    height: 2px;
-                    background: $color-base;
-                    border: none;
-                    margin-bottom: rem(35);
-                    margin-top: 0;
+                    height: rem(2)
                 }
             }
         }
