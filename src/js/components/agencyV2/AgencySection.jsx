@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TooltipWrapper, LoadingMessage } from 'data-transparency-ui';
+import { SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.shape({
@@ -26,21 +26,21 @@ const AgencySection = ({
     children,
     isLoading = false
 }) => (
-    <section id={`agency-v2-${section.name}`} className={`body__section ${section.name}`}>
-        <div className="body__header">
-            <div className="body__header-icon">
-                <FontAwesomeIcon size="lg" icon={icon} />
-            </div>
-            <h3>{section.display}</h3>
-            <TooltipWrapper
-                className="agency-v2-tt"
-                icon="info"
-                tooltipComponent={<TooltipComponent />} />
-        </div>
-        <hr />
-        {isLoading && <LoadingMessage />}
-        {!isLoading && children}
-    </section>
+    <SectionTitle
+        id={`agency-v2-${section.name}`}
+        icon={<FontAwesomeIcon size="2x" icon={icon} />}
+        title={section.display}
+        isLoading={isLoading}
+        isCollapsible
+        overLine={section?.overLine}
+        description={section?.overLine
+            ? <span className="usda-section-title__desc">This section covers <strong>{section.overLine}</strong></span>
+            : <span className="usda-section-title__desc">This section covers <strong>Total and Award Spending</strong></span>}
+        descTooltip={{ component: <TooltipComponent /> }}
+        titleTooltip={{ component: <TooltipComponent /> }}>
+        {children}
+    </SectionTitle>
+
 );
 
 AgencySection.propTypes = propTypes;
