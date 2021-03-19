@@ -23,14 +23,12 @@ const TooltipComponent = () => (
 const AgencySection = ({
     section,
     icon = "chart-area",
-    children,
-    isLoading = false
+    children
 }) => (
     <SectionTitle
         id={`agency-v2-${section.name}`}
         icon={<FontAwesomeIcon size="2x" icon={icon} />}
         title={section.display}
-        isLoading={isLoading}
         isCollapsible
         overLine={section?.overLine}
         description={section?.overLine
