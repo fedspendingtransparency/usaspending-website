@@ -109,8 +109,6 @@
                     height: rem(2);
                     background: $color-gray;
                     border: none;
-                    margin-bottom: rem(35);
-                    margin-top: 0;
                 }
                 .body__content {
                     width: 100%; // Fixes an IE Flexbox bug
@@ -216,6 +214,10 @@
                     font-style: italic;
                     letter-spacing: 0;
                     line-height: 1.5rem;
+                    margin-left: rem(5);
+                    @media(min-width: $medium-screen) {
+                        margin-left: rem(15);
+                    }
                 }
                 &.award_question {
                     .body__header {
