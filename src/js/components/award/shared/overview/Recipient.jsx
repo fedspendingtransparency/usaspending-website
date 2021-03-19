@@ -38,10 +38,10 @@ const Recipient = ({
 
     const formatRecipientLink = (internalId, name) => {
         if (internalId && name) {
-            return (<Link to={`/recipient/${internalId}`}>{name}</Link>);
+            return (<Link to={`/recipient/${internalId}/latest`}>{name}</Link>);
         }
         else if (internalId) {
-            return (<Link to={`/recipient/${internalId}`}>Unknown</Link>);
+            return (<Link to={`/recipient/${internalId}/latest`}>Unknown</Link>);
         }
         return name;
     };
