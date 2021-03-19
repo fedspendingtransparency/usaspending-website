@@ -181,7 +181,7 @@ export default class SankeyVisualizationVertical extends React.Component {
             y: graphTop + barHeight + flowHeight,
             width: centerWidth,
             height: barHeight,
-            description: `Total Budget Authority: \
+            description: `Total Budgetary Resources: \
 ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         };
 
@@ -406,7 +406,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             endX={this.state.center.x}
                             width={this.state.top.appropriations.width}
                             length={this.state.top.flow.length}
-                            description={`Flow of money into total budget authority from new \
+                            description={`Flow of money into total budgetary resources from new \
 appropriations`}
                             style={{
                                 fill: '#bfcfd4'
@@ -416,7 +416,7 @@ appropriations`}
                             endX={this.state.center.x + this.state.top.appropriations.width}
                             width={this.state.top.other.width}
                             length={this.state.top.flow.length}
-                            description={`Flow of money into total budget authority from other \
+                            description={`Flow of money into total budgetary resources from other \
 budgetary resouces`}
                             style={{
                                 fill: '#bfcfd4'
@@ -427,7 +427,7 @@ budgetary resouces`}
                                 - this.state.top.bbf.width}
                             width={this.state.top.bbf.width}
                             length={this.state.top.flow.length}
-                            description={`Flow of money into total budget authority from balance \
+                            description={`Flow of money into total budgetary resources from balance \
 brought forward`}
                             style={{
                                 fill: '#bfcfd4'
@@ -443,7 +443,7 @@ ${this.state.center.y + this.state.center.height})`}>
                             endX={this.state.bottom.obligated.x + this.state.bottom.flow.x}
                             width={this.state.bottom.obligated.width}
                             length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budget authority to \
+                            description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
                             style={{
                                 fill: '#bfcfd4'
@@ -453,7 +453,7 @@ obligations incurred`}
                             endX={this.state.bottom.unobligated.x + this.state.bottom.flow.x}
                             width={this.state.bottom.unobligated.width}
                             length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budget authority to \
+                            description={`Flow of money out of total budgetary resources to \
 unobligated balance`}
                             style={{
                                 fill: '#E1E7E9',
@@ -502,7 +502,7 @@ ${this.state.legend.budgetAuthority.y})`}>
                             <ItemLegend
                                 color="#3d9851"
                                 y={this.state.labelHeight}
-                                title="Total Budget Authority"
+                                title="Total Budgetary Resources"
                                 value={`\
 ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                         </g>
