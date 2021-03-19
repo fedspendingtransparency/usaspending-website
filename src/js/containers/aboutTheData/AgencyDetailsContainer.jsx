@@ -192,7 +192,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             <div className="table-container" ref={tableRef} onScroll={handleScroll}>
                 <Table
                     rows={rows}
-                    classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass}`}
+                    classNames={`${verticalStickyClass} ${horizontalStickyClass}`}
                     columns={agencyDetailsColumns}
                     updateSort={handleUpdateSort}
                     currentSort={sortStatus}
