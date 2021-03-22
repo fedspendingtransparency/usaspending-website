@@ -121,7 +121,7 @@ export default class SankeyVisualizationHorizontal extends React.Component {
             height: centerHeight,
             x: centerX,
             y: centerY,
-            description: `Total Budget Authority: \
+            description: `Total Budgetary Resources: \
 ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         };
 
@@ -292,7 +292,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             endY={this.state.center.y}
                             height={this.state.left.bbf.height}
                             length={this.state.left.flow.length}
-                            description={`Flow of money into total budget authority from balance \
+                            description={`Flow of money into total budgetary resources from balance \
 brought forward`}
                             style={{
                                 fill: '#bfcfd4'
@@ -302,7 +302,7 @@ brought forward`}
                             endY={this.state.center.y + this.state.left.bbf.height}
                             height={this.state.left.other.height}
                             length={this.state.left.flow.length}
-                            description={`Flow of money into total budget authority from other \
+                            description={`Flow of money into total budgetary resources from other \
 budgetary resources`}
                             style={{
                                 fill: '#bfcfd4'
@@ -313,7 +313,7 @@ budgetary resources`}
                                 - this.state.left.appropriations.height}
                             height={this.state.left.appropriations.height}
                             length={this.state.left.flow.length}
-                            description={`Flow of money into total budget authority from new \
+                            description={`Flow of money into total budgetary resources from new \
 appropriations`}
                             style={{
                                 fill: '#bfcfd4'
@@ -369,7 +369,7 @@ appropriations`}
                             endY={0}
                             height={this.state.right.obligated.height}
                             length={this.state.right.flow.length}
-                            description={`Flow of money out of total budget authority to \
+                            description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
                             style={{
                                 fill: '#bfcfd4'
@@ -379,7 +379,7 @@ obligations incurred`}
                             endY={this.state.right.unobligated.y}
                             height={this.state.right.unobligated.height}
                             length={this.state.right.flow.length}
-                            description={`Flow of money out of total budget authority to \
+                            description={`Flow of money out of total budgetary resources to \
 unobligated balance`}
                             style={{
                                 fill: '#E1E7E9',
@@ -403,7 +403,7 @@ unobligated balance`}
                         transform={`translate(${this.state.center.x}, 40)`}>
                         <ItemLabel
                             y={this.state.center.y - 25}
-                            title="Total Budget Authority"
+                            title="Total Budgetary Resources"
                             value={`\
 ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                         <SankeyBar
