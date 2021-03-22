@@ -341,7 +341,7 @@ const AgenciesContainer = ({
                 {activeTab === 'submissions' && (
                     <Table
                         rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
@@ -354,7 +354,7 @@ const AgenciesContainer = ({
                 {activeTab === 'publications' && (
                     <Table
                         rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
-                        classNames={`usda-table-w-grid ${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
