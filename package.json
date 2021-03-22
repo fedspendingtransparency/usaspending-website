@@ -13,7 +13,7 @@
         "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
         "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "npm audit --audit-level=moderate && ./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
-        "light-house": "npx webpack --progress --config ./webpack/webpack.prod.config.js && lhci autorun",
+        "light-house": "npx webpack --progress --config ./webpack/webpack.prod.config.js && npx @lhci/cli autorun",
         "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js"
     },
     "author": "",
@@ -79,6 +79,7 @@
         "@fortawesome/free-regular-svg-icons": "^5.13.0",
         "@fortawesome/free-solid-svg-icons": "^5.13.0",
         "@fortawesome/react-fontawesome": "^0.1.4",
+        "@lhci/cli": "^0.7.0",
         "accounting": "^0.4.1",
         "autoprefixer": "^6.7.7",
         "axios": "^0.21.1",
@@ -99,6 +100,7 @@
         "fixed-data-table": "0.6.3",
         "history": "^4.6.1",
         "immutable": "^3.8.1",
+        "jest-junit": "^12.0.0",
         "js-cookie": "^2.1.0",
         "js-search": "^1.4.2",
         "lodash": "^4.17.12",
@@ -134,5 +136,14 @@
         "tinycolor2": "^1.3.0",
         "tunnel": "^0.0.6",
         "xmldoc": "^0.4.0"
+    },
+    "jest": {
+        "reporters": [
+            "default",
+            "jest-junit"
+        ]
+    },
+    "jest-junit": {
+        "addFileAttribute": "true"
     }
 }
