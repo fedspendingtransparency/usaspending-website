@@ -7,7 +7,6 @@ executors:
     docker:
       - image: 'cimg/node:12.18'
   browser-tools:
-    working_directory: ~/usaspending-website
     docker:
       - image: cimg/node:15.0.1-browsers
 jobs:
@@ -47,6 +46,8 @@ jobs:
           command: |
             google-chrome --version
             chromedriver --version
+            pwd
+            ls
           name: Check install
       - checkout
       - node/install-packages
