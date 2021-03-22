@@ -7,6 +7,7 @@ executors:
     docker:
       - image: 'cimg/node:12.18'
   browser-tools:
+    working_directory: ~/usaspending-website
     docker:
       - image: cimg/node:15.0.1-browsers
 jobs:
@@ -36,7 +37,7 @@ jobs:
       - checkout
       - node/install-packages
       - run: npm run lint
-  install-chrome:
+  lighthouse-performance-audit:
     executor:
       name: 'browser-tools'
     steps:
@@ -47,10 +48,6 @@ jobs:
             google-chrome --version
             chromedriver --version
           name: Check install
-  lighthouse-performance-audit:
-    executor: 
-      name: usaspending-frontend
-    steps:
       - checkout
       - node/install-packages
       - run: npm run lighthouse
@@ -63,5 +60,4 @@ workflows:
       - lint-app
   lighthouse:
     jobs:
-      - install-chrome
       - lighthouse-performance-audit
