@@ -57,7 +57,7 @@ const AccountSpending = ({ agencyId, fy }) => {
 
     useEffect(() => {
         // request budgetary resources data for this agency
-        const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId);
+        const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId, fy);
         budgetaryResourcesRequest.promise
             .then((res) => {
                 // parse the response using our data model
@@ -68,7 +68,7 @@ const AccountSpending = ({ agencyId, fy }) => {
             }).catch((err) => {
                 console.error(err);
             });
-    }, [agencyId]);
+    }, [agencyId, fy]);
 
     return (
         <div className="body__content">

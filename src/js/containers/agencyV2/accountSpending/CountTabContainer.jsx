@@ -28,7 +28,7 @@ const CountTabContainer = (props) => {
         // Reset any existing results
         setCount(null);
         setSubCount(null);
-        const countRequest = fetchSpendingCount(props.agencyId, 2020, props.type);
+        const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
         countRequest.promise
             .then((res) => {
                 setCount(res.data[props.countField]);
