@@ -35,7 +35,7 @@ export default class Account extends React.Component {
                     <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
                     <div className="filter-results">
                         <SearchSidebar />
-                        <SearchResults />
+                        <SearchResults showNote={this.props.account.parent_agency_toptier_code === '097'} />
                     </div>
                 </main>
                 <Footer />
