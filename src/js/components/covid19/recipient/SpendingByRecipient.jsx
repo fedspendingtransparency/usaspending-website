@@ -13,7 +13,7 @@ import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import AwardFilterButtons from './AwardFilterButtons';
+import { Tabs } from "data-transparency-ui";
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
@@ -105,11 +105,11 @@ const SpendingByRecipient = () => {
     return (
         <div className="spending-by-recipient">
             <div ref={awardFilterButtonsRef}>
-                <AwardFilterButtons
-                    filters={awardTypeTabs.map((tab) => ({ ...tab, isDisabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal] }))}
-                    onClick={changeActiveTab}
-                    activeFilter={activeTab}
-                    tabCounts={tabCounts} />
+                <Tabs
+                    active={activeTab}
+                    types={awardTypeTabs.map((tab) => ({ ...tab, disabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal], count: tabCounts[tab.internal] }))}
+                    switchTab={changeActiveTab}
+                    tablessStyle />
             </div>
             <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fetchSpendingCount } from 'helpers/agencyV2Helper';
-import CountTab from 'components/agency/v2/CountTab';
+import CountTab from 'components/agencyV2/CountTab';
 
 const propTypes = {
     fy: PropTypes.string.isRequired,
@@ -28,7 +28,7 @@ const CountTabContainer = (props) => {
         // Reset any existing results
         setCount(null);
         setSubCount(null);
-        const countRequest = fetchSpendingCount(props.agencyId, 2020, props.type);
+        const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
         countRequest.promise
             .then((res) => {
                 setCount(res.data[props.countField]);

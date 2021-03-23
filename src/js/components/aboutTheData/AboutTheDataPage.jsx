@@ -6,54 +6,47 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { TooltipComponent, TooltipWrapper, Tabs } from "data-transparency-ui";
+import { Tabs } from "data-transparency-ui";
 import { Link, useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
 import ShareIcon from "components/sharedComponents/stickyHeader/ShareIcon";
 import Footer from "containers/Footer";
-import { getPeriodWithTitleById, getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
+import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import StickyHeader from "components/sharedComponents/stickyHeader/StickyHeader";
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
+import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-import { tabTooltips } from './dataMapping/tooltipContentMapping';
+import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 
 require('pages/aboutTheData/aboutTheData.scss');
 
-const TableTabLabel = ({ label }) => {
-    const tooltipComponent = (
-        <TooltipComponent title={label}>{tabTooltips[label]}</TooltipComponent>
-    );
-    return (
-        <div className="table-tab-label">
-            <span>{label}</span>
-            <TooltipWrapper tooltipComponent={tooltipComponent} icon="info" />
-        </div>
-    );
-};
-
-TableTabLabel.propTypes = {
-    label: PropTypes.string.isRequired
-};
-
-const AboutTheDataPage = ({
-    history
-}) => {
+const AboutTheDataPage = ({ history }) => {
     const { search } = useLocation();
-    const query = new URLSearchParams(useLocation().search);
-    const urlFy = query.get('fy');
-    const urlPeriod = query.get('period');
-    const activeTab = query.get('tab');
+    const params = useQueryParams();
+    const {
+        fy: urlFy,
+        period: urlPeriod,
+        tab: activeTab
+    } = params;
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
-    const [selectedFy, setSelectedFy] = useState(null);
-    const [selectedPeriod, setSelectedPeriod] = useState(null);
-
+    const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
+
+    useEffect(() => {
+        if (!activeTab) {
+            const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
+            history.replace({
+                pathname: '',
+                search: getQueryParamString(paramsWithTab)
+            });
+        }
+    }, [activeTab]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
@@ -65,43 +58,10 @@ const AboutTheDataPage = ({
         setModalData(null);
     };
 
-    useEffect(() => {
-        if ((!urlFy || !urlPeriod || !activeTab) && submissionPeriods.size && latestFy && latestPeriod) {
-            history.replace({
-                pathname: `/submission-statistics/`,
-                search: `?${new URLSearchParams({ fy: latestFy, period: latestPeriod, tab: 'submissions' }).toString()}`
-            });
-        }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, urlFy, urlPeriod]);
-
-    const updateUrl = (newFy, newPeriod, tab = activeTab) => {
-        history.push({
-            pathname: `/submission-statistics/`,
-            search: `?${new URLSearchParams({ fy: newFy, period: newPeriod, tab }).toString()}`
-        });
-    };
-
     const handleSwitchTab = (tab) => {
-        updateUrl(selectedFy, selectedPeriod, tab);
-    };
-
-    const onTimeFilterSelection = (fy, p = urlPeriod) => {
-        const newPeriodWithTitle = typeof p === 'object'
-            ? p
-            : getPeriodWithTitleById(p);
-        if (selectedFy !== fy && selectedPeriod?.id !== newPeriodWithTitle.id) {
-            setSelectedPeriod(p);
-            setSelectedFy(fy);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
-        else if (selectedPeriod?.id === newPeriodWithTitle.id) {
-            setSelectedFy(fy);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
-        else if (fy === selectedFy) {
-            setSelectedPeriod(newPeriodWithTitle);
-            updateUrl(fy, newPeriodWithTitle.id);
-        }
+        history.push({
+            search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
+        });
     };
 
     return (
@@ -138,12 +98,12 @@ const AboutTheDataPage = ({
                                     {
                                         internal: 'submissions',
                                         label: "Statistics by Submission Period",
-                                        labelContent: <TableTabLabel label="Statistics by Submission Period" />
+                                        tooltip: tabTooltips["Statistics by Submission Period"]
                                     },
                                     {
                                         internal: 'publications',
                                         label: "Updates by Fiscal Year",
-                                        labelContent: <TableTabLabel label="Updates by Fiscal Year" />
+                                        tooltip: tabTooltips["Updates by Fiscal Year"]
                                     }
                                 ]} />
                             <TimeFilters
@@ -151,7 +111,7 @@ const AboutTheDataPage = ({
                                 latestFy={latestFy}
                                 latestPeriod={latestPeriod}
                                 activeTab={activeTab}
-                                onTimeFilterSelection={onTimeFilterSelection}
+                                onTimeFilterSelection={setTime}
                                 selectedPeriod={selectedPeriod}
                                 selectedFy={selectedFy}
                                 urlPeriod={urlPeriod}

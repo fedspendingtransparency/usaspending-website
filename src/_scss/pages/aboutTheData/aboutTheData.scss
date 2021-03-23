@@ -42,6 +42,7 @@
         @media (min-width: $tablet-screen) {
             margin-bottom: rem(30);
         }
+        @import 'components/externalLink';
     }
     .table-container {
         max-width: 100%;
