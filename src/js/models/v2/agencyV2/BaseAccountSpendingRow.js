@@ -3,8 +3,7 @@
  * Created by James Lee 5/27/20
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
-import { generatePercentage } from 'helpers/awardAmountHelper';
+import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 
 const BaseAccountSpendingRow = {
     populate(data) {
@@ -20,13 +19,7 @@ const BaseAccountSpendingRow = {
         return formatMoney(this._obligatedAmount);
     },
     get percentOfTotalObligations() {
-        if (this._totalObligatedAmount > 0) {
-            const percentage = generatePercentage(this._obligatedAmount / this._totalObligatedAmount);
-            if (percentage === '0.00%') return 'Less than 0.01%';
-            if (percentage === '-0.00%') return 'Less than -0.01%';
-            return percentage;
-        }
-        return '0.00%';
+        return calculatePercentage(this._obligatedAmount, this._totalObligatedAmount);
     }
 };
 
