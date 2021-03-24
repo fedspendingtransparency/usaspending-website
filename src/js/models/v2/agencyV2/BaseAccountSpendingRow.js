@@ -19,7 +19,7 @@ const BaseAccountSpendingRow = {
         return formatMoney(this._obligatedAmount);
     },
     get percentOfTotalObligations() {
-        return calculatePercentage(this._obligatedAmount, this._totalObligatedAmount);
+        return calculatePercentage(this._obligatedAmount, this._totalObligatedAmount, '--', 2);
     }
 };
 
