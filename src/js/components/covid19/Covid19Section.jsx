@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { snakeCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.string,
@@ -14,36 +15,40 @@ const propTypes = {
     children: PropTypes.element,
     headerText: PropTypes.element,
     title: PropTypes.string,
-    tooltip: PropTypes.element
+    tooltip: PropTypes.element,
+    tooltipProps: PropTypes.object
 };
 
 // eslint-disable-next-line react/prop-types
 const Covid19Section = ({
     section,
-    icon = "chart-area",
+    icon,
     headerText,
     children,
     title,
-    tooltip
-}) => (
-    <section id={`covid19-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
-        <div className="body__header">
-            <div className="body__header-left">
-                <div className="body__header-icon">
-                    <FontAwesomeIcon size="lg" icon={icon} />
-                </div>
-                <h2>{title}</h2>
-                <div className="body__header-tooltip">
-                    {tooltip}
-                </div>
-            </div>
-            <div className="body__header-right">
-                {headerText}
-            </div>
-        </div>
-        {children}
-    </section>
-);
+    tooltip = null,
+    tooltipProps
+}) => {
+    if (section === 'award_question') {
+        return (
+            <section id={`covid19-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
+                {children}
+            </section>
+        );
+    }
+    return (
+        <SectionTitle
+            id={`covid19-${snakeCase(section)}`}
+            classNames={`body__section ${snakeCase(section)}`}
+            icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
+            title={title}
+            titleTooltip={{ component: tooltip, props: tooltipProps } || null}
+            overLine={section?.overLine}
+            description={headerText}>
+            {children}
+        </SectionTitle>
+    );
+};
 
 Covid19Section.propTypes = propTypes;
 export default Covid19Section;

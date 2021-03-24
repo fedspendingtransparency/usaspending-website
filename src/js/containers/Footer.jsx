@@ -82,7 +82,7 @@ const Footer = ({
                                 </li>
                                 <li>
                                     <Link
-                                        to={{ pathname: '/about', state: { fromCareersLink: true } }}
+                                        to="/about?section=careers"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
                                         Careers
                                     </Link>

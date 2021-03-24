@@ -12,7 +12,8 @@ const fields = [
     'title',
     'agency_identifier',
     'main_account_code',
-    'totals'
+    'totals',
+    'parent_agency_toptier_code'
 ];
 
 const defaultValues = [
@@ -29,7 +30,8 @@ const defaultValues = [
         balanceBroughtForward: 0,
         otherBudgetaryResources: 0,
         appropriations: 0
-    }
+    },
+    ''
 ];
 
 const formatData = (data) => {

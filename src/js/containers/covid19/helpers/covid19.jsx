@@ -52,33 +52,6 @@ const awardSpendingText = (
     </div>
 );
 
-const spendingByRecipientTT = (
-    <TooltipWrapper
-        className="homepage__covid-19-tt"
-        icon="info"
-        wide
-        tooltipPosition="right"
-        tooltipComponent={<SpendingByRecipientTT />} />
-);
-
-const spendingByAgencyTT = (
-    <TooltipWrapper
-        className="homepage__covid-19-tt"
-        icon="info"
-        wide
-        tooltipPosition="right"
-        tooltipComponent={<AwardSpendingAgencyTT />} />
-);
-
-const spendingByCfdaTT = (
-    <TooltipWrapper
-        className="homepage__covid-19-tt"
-        icon="info"
-        wide
-        tooltipPosition="right"
-        tooltipComponent={<AwardSpendingCfdaTT />} />
-);
-
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
@@ -108,7 +81,8 @@ export const componentByCovid19Section = () => ({
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by Recipient',
-        tooltip: spendingByRecipientTT
+        tooltip: <SpendingByRecipientTT />,
+        tooltipProps: { wide: true }
     },
     award_spending_by_agency: {
         icon: 'sitemap',
@@ -117,7 +91,8 @@ export const componentByCovid19Section = () => ({
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by Sub-Agency',
-        tooltip: spendingByAgencyTT
+        tooltip: <AwardSpendingAgencyTT />,
+        tooltipProps: { wide: true }
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
@@ -126,7 +101,8 @@ export const componentByCovid19Section = () => ({
         showInMenu: true,
         showInMainSection: true,
         title: 'Award Spending by CFDA Program (Assistance Listing)',
-        tooltip: spendingByCfdaTT
+        tooltip: <AwardSpendingCfdaTT />,
+        tooltipProps: { wide: true }
     },
     data_sources_and_methodology: {
         showInMenu: true,

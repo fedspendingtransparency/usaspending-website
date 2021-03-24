@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AccountTopFilterBarContainer from
     'containers/account/topFilterBar/AccountTopFilterBarContainer';
@@ -13,7 +14,11 @@ import AccountTimeVisualizationContainer from
 import AccountRankVisualizationContainer from
     'containers/account/visualizations/AccountRankVisualizationContainer';
 import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 
+const propTypes = {
+    showNote: PropTypes.bool
+};
 
 export default class SearchResults extends React.Component {
     render() {
@@ -24,8 +29,11 @@ export default class SearchResults extends React.Component {
                     <AccountTimeVisualizationContainer />
                     <AccountRankVisualizationContainer />
                     <AccountAwardsContainer />
+                    {this.props.showNote && <Note message={dodNote} />}
                 </div>
             </div>
         );
     }
 }
+
+SearchResults.propTypes = propTypes;

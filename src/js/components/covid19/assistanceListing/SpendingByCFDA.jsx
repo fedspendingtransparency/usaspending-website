@@ -15,6 +15,7 @@ import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/Spendi
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 import DateNote from '../DateNote';
 import ReadMore from '../ReadMore';
 
@@ -148,6 +149,7 @@ const SpendingByCFDA = () => {
             <SpendingByCFDAContainer
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
+            <Note message={dodNote} />
         </div>
     );
 };

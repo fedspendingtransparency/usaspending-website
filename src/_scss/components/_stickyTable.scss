@@ -3,7 +3,7 @@
     overflow: scroll;
     margin: 0;
     border: rem(1) solid $color-gray-border;
-    .usda-table.usda-table-w-grid {
+    .usda-table {
         border-collapse: separate;
         margin-top: 0;
         margin-bottom: 0;
@@ -87,7 +87,7 @@
                         }
                     }
                     tr:last-of-type th {
-                        top: rem(57);
+                        top: rem(50);
                         border: rem(1) solid $color-gray-lighter;
                     }
                 }
