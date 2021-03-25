@@ -10,10 +10,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen } from '@test-utils';
 
 describe('About Page content', () => {
-    it('should set Careers as the active section based on the router location', () => {
+    it('should set the active section based if a section is provided via a query param', () => {
         render((
             <Route location={{
-                state: { fromCareersLink: true }
+                search: '?section=careers'
             }}>
                 <AboutContent />
             </Route >

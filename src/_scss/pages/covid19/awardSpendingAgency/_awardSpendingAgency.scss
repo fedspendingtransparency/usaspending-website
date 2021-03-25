@@ -7,13 +7,8 @@
         .usda-table {
             margin-top: 0;
             td {
-                button {
-                    float: left;
-                    margin-top: rem(5);
-                }
                 &:first-child {
                     @include span-columns(6 of 12, table);
-
                     p {
                         a {
                             // IE11 fix for td not having the correct width

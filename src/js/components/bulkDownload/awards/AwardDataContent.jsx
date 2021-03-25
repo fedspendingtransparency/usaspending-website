@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -205,6 +206,9 @@ export default class AwardDataContent extends React.Component {
                             <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
                             sections are properly filled in.
                         </p>
+                    </div>
+                    <div className="download-info__section">
+                        <Note message={dodNote} />
                     </div>
                 </div>
             </div>

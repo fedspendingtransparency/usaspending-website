@@ -16,6 +16,7 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import ReadMore from 'components/sharedComponents/ReadMore';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 import DateNote from '../DateNote';
 
 const overviewData = [
@@ -148,6 +149,7 @@ const SpendingByCFDA = () => {
             <SpendingByCFDAContainer
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
+            <Note message={dodNote} />
         </div>
     );
 };

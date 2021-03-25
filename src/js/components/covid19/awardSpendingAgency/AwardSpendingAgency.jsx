@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { fetchAgencyCount } from 'helpers/disasterHelper';
 import DateNote from 'components/covid19/DateNote';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -156,6 +157,7 @@ const AwardSpendingAgency = () => {
                 spendingByAgencyOnly />
             <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
+                <Note message={dodNote} />
             </div>
         </div>
     );

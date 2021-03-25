@@ -4,12 +4,12 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { find } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { scrollToY } from 'helpers/scrollToHelper';
+import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
@@ -64,12 +64,12 @@ const aboutSections = [
     }
 ];
 
-const propTypes = {
-    location: PropTypes.object // Router location object
-};
+const AboutContent = () => {
+    const location = useLocation();
+    const history = useHistory();
+    const query = useQueryParams();
 
-const AboutContent = ({ location }) => {
-    const [activeSection, setActiveSection] = useState(location.state?.fromCareersLink ? 'careers' : 'mission');
+    const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -102,10 +102,13 @@ const AboutContent = ({ location }) => {
     };
 
     useEffect(() => {
-        if (location.state?.fromCareersLink) {
-            jumpToSection('careers');
+        const urlSection = query.section;
+        if (urlSection) {
+            jumpToSection(urlSection);
+            // remove the query param from the url after scrolling to the given section
+            history.push(`/about`);
         }
-    }, [location.state]);
+    }, [location.search]);
 
     return (
         <div className="about-content-wrapper">
@@ -136,5 +139,4 @@ const AboutContent = ({ location }) => {
     );
 };
 
-AboutContent.propTypes = propTypes;
-export default withRouter(AboutContent);
+export default AboutContent;
