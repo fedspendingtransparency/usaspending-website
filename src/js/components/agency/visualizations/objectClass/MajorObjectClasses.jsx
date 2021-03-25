@@ -213,13 +213,13 @@ export default class MajorObjectClasses extends React.Component {
             const node = find(this.state.finalNodes,
                 { key: `${this.state.hoveredObjectClass}` });
 
-            const obligated_amount = parseFloat(objectClass.obligated_amount);
+            const obligatedAmount = parseFloat(objectClass.obligated_amount);
 
             tooltip = (<ObjectClassTooltip
                 name={objectClass.major_object_class_name}
-                value={MoneyFormatter.formatTreemapValues(obligated_amount)}
+                value={MoneyFormatter.formatTreemapValues(obligatedAmount)}
                 percentage={MoneyFormatter.calculatePercentage(
-                    obligated_amount, this.props.totalObligation)
+                    obligatedAmount, this.props.totalObligation)
                 }
                 description={objectClassDefinition.description}
                 x={node.props.x0}
