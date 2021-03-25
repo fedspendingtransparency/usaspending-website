@@ -1,5 +1,6 @@
 .table-controls {
     max-width: 100%;
+    z-index: 15; // prevents tab tooltips from displaying behind the sticky table headers
     .usa-dt-tab:focus {
         outline: none;
     }
