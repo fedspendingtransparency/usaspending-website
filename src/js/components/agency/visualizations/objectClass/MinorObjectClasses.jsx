@@ -219,11 +219,13 @@ export default class MinorObjectClasses extends React.Component {
             const node = find(this.state.finalNodes,
                 { key: `${this.state.hoveredObjectClass}` });
 
+            const obligatedAmount = parseFloat(objectClass.obligated_amount);
+
             tooltip = (<ObjectClassTooltip
                 name={objectClass.object_class_name}
-                value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
+                value={MoneyFormatter.formatTreemapValues(obligatedAmount)}
                 percentage={MoneyFormatter.calculatePercentage(
-                    objectClass.obligated_amount, this.props.totalMinorObligation)
+                    obligatedAmount, this.props.totalMinorObligation)
                 }
                 description={objectClassDefinition.description}
                 x={node.props.x0}
@@ -238,7 +240,7 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     render() {
-        const value = this.props.majorObjectClass.obligated_amount;
+        const value = parseFloat(this.props.majorObjectClass.obligated_amount);
         const totalSpend = MoneyFormatter.formatTreemapValues(value);
         const percentage = MoneyFormatter.calculatePercentage(
             value, this.props.totalObligation);
@@ -274,7 +276,7 @@ export default class MinorObjectClasses extends React.Component {
                         width={this.state.visualizationWidth}
                         height={this.state.visualizationHeight}
                         className="treemap-svg overlay">
-                        { this.state.finalNodes }
+                        {this.state.finalNodes}
                     </svg>
                 </div>
             </div>
