@@ -266,7 +266,7 @@ export default class MinorObjectClasses extends React.Component {
                     <h6>{totalSpend} | {percentage}</h6>
                     <p>{objectClassDefinition.description}</p>
                 </div>
-                { this.createTooltip()}
+                { this.createTooltip() }
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {

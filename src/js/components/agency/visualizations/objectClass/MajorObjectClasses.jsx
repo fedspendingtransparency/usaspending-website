@@ -247,7 +247,7 @@ export default class MajorObjectClasses extends React.Component {
         return (
             <div className="treemap-inner-wrap">
                 {greatThanOneHundredDescription}
-                { this.createTooltip()}
+                { this.createTooltip() }
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {
