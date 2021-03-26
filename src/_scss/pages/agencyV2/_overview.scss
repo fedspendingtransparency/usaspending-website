@@ -36,6 +36,18 @@
             }
         }
     }
+    .agency-overview__row {
+        @include display(flex);
+        .agency-overview__column {
+            padding-right: rem(15);
+            &:first-of-type {
+                @include flex(1 1 50%);
+            }
+            &:last-of-type {
+                padding-right: 0;
+            }
+        }
+    }
     .agency-overview__data {
         @import 'components/externalLink';
         h4 {
@@ -46,6 +58,9 @@
         p, .usda-external-link {
             font-size: $small-font-size;
             margin: .5rem 0 1.5rem;
+        }
+        .usda-external-link {
+            white-space: nowrap;
         }
     }
     .read-more-button {

@@ -3,10 +3,12 @@
  * Created by Lizzie Salita 3/16/21
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { throttle } from 'lodash';
 
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 
@@ -21,13 +23,23 @@ export const AgencyOverview = () => {
         subtierCount
     } = useSelector((state) => state.agencyV2.overview);
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            setWindowWidth(window.innerWidth);
+        });
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const image = logo ? (
         <img
             className="agency-overview__image"
             src={`graphics/agency/${logo}`}
             alt={`${name} logo`} />
     ) : '';
-    
+
     const missionBlock = (
         <div className="agency-overview__data">
             <h4>Agency Mission</h4>
@@ -35,7 +47,7 @@ export const AgencyOverview = () => {
         </div>
     );
 
-    const about = showAboutData ? (
+    const aboutBlock = (
         <div className="agency-overview__data">
             <h4>About this Agency&apos;s Data</h4>
             <p>
@@ -44,7 +56,51 @@ export const AgencyOverview = () => {
                 on our <Link to="/about">About the Data</Link> page.
             </p>
         </div>
-    ) : missionBlock;
+    );
+
+    const websiteBlock = (
+        <div className="agency-overview__data">
+            <h4>Website</h4>
+            {website ? <ExternalLink url={website} /> : '--'}
+        </div>
+    );
+
+    const cjBlock = (
+        <div className="agency-overview__data">
+            <h4>Congressional Justification of Budget (CJ)</h4>
+            {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
+        </div>
+    );
+
+    // Mobile layout
+    let content = (
+        <>
+            {showAboutData ? aboutBlock : missionBlock}
+            <ReadMore>
+                {showAboutData && missionBlock}
+                {websiteBlock}
+                {cjBlock}
+            </ReadMore>
+        </>
+    );
+
+    // Desktop layout
+    if (windowWidth >= mediumScreen) {
+        content = (
+            <div className="agency-overview__row">
+                <div className="agency-overview__column">
+                    {showAboutData && aboutBlock}
+                    {missionBlock}
+                </div>
+                <div className="agency-overview__column">
+                    {websiteBlock}
+                </div>
+                <div className="agency-overview__column">
+                    {cjBlock}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="agency-overview">
@@ -55,18 +111,7 @@ export const AgencyOverview = () => {
                 </div>
                 {image}
             </div>
-            {about}
-            <ReadMore>
-                {showAboutData && missionBlock}
-                <div className="agency-overview__data">
-                    <h4>Website</h4>
-                    {website ? <ExternalLink url={website} /> : '--'}
-                </div>
-                <div className="agency-overview__data">
-                    <h4>Congressional Justification of Budget (CJ)</h4>
-                    {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
-                </div>
-            </ReadMore>
+            {content}
         </div>
     );
 };
