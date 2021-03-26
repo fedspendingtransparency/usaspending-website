@@ -144,11 +144,11 @@ export default class ExplorerVisualization extends React.Component {
                         title="Unreported Data*:"
                         message={(
                             <>
-                                Unreported amounts are calculated from the difference between the total obligated amount from the&nbsp;
+                                Unreported amounts are calculated using the difference in the total obligated amount from the&nbsp;
                                 <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
-                                    SF-133 Report on Budget Execution and Budgetary Resources
+                                    Report on Budget Execution and Budgetary Resources
                                 </ExternalLink>
-                                &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov.
+                                &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in 'Account Breakdown by Program Activity &amp; Object Class' data (also called 'File B' data).
                             </>
                         )} />
                     <Note message={dodNote} />
