@@ -7,8 +7,9 @@ import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mockAgency = {
+    fiscal_year: 1999,
     name: 'Mock Agency',
-    agency_id: '456',
+    agency_id: 456,
     website: 'https://home.treasury.gov/',
     toptier_code: '123',
     abbreviation: 'ABC',

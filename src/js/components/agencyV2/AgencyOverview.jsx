@@ -12,7 +12,7 @@ import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 
-export const AgencyOverview = () => {
+const AgencyOverview = () => {
     const {
         name,
         logo,
