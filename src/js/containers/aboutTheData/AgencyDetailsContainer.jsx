@@ -60,27 +60,31 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             return [
                 <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
                 <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
-                <CellWithModal
-                    data={rowData.mostRecentPublicationDate}
-                    openModal={modalClick}
-                    modalType="publicationDates"
-                    agencyData={{
-                        fiscalYear: rowData.fiscalYear,
-                        fiscalPeriod: rowData.fiscalPeriod,
-                        agencyName,
-                        agencyCode
-                    }} />,
-                <CellWithModal
-                    data={rowData.discrepancyCount}
-                    openModal={modalClick}
-                    modalType="missingAccountBalance"
-                    agencyData={{
-                        fiscalYear: rowData.fiscalYear,
-                        fiscalPeriod: rowData.fiscalPeriod,
-                        agencyName,
-                        agencyCode,
-                        gtasObligationTotal: rowData._gtasObligationTotal
-                    }} />,
+                rowData.mostRecentPublicationDate === '--' ?
+                    <div className="generic-cell-content">{rowData.mostRecentPublicationDate}</div> :
+                    <CellWithModal
+                        data={rowData.mostRecentPublicationDate}
+                        openModal={modalClick}
+                        modalType="publicationDates"
+                        agencyData={{
+                            fiscalYear: rowData.fiscalYear,
+                            fiscalPeriod: rowData.fiscalPeriod,
+                            agencyName,
+                            agencyCode
+                        }} />,
+                rowData._discrepancyCount === 0 ?
+                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
+                    <CellWithModal
+                        data={rowData.discrepancyCount}
+                        openModal={modalClick}
+                        modalType="missingAccountBalance"
+                        agencyData={{
+                            fiscalYear: rowData.fiscalYear,
+                            fiscalPeriod: rowData.fiscalPeriod,
+                            agencyName,
+                            agencyCode,
+                            gtasObligationTotal: rowData._gtasObligationTotal
+                        }} />,
                 <CellWithModal
                     data={rowData.obligationDifference}
                     openModal={modalClick}

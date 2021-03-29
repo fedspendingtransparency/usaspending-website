@@ -261,27 +261,31 @@ const AgenciesContainer = ({
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-            (<CellWithModal
-                data={mostRecentPublicationDate}
-                openModal={openModal}
-                modalType="publicationDates"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
-            (<CellWithModal
-                data={GtasNotInFileA}
-                openModal={openModal}
-                modalType="missingAccountBalance"
-                agencyData={{
-                    agencyName,
-                    gtasObligationTotal: _gtasObligationTotal,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
+            (mostRecentPublicationDate === '--' ?
+                <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
+                <CellWithModal
+                    data={mostRecentPublicationDate}
+                    openModal={openModal}
+                    modalType="publicationDates"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
+            (GtasNotInFileA === '0' ?
+                <div className="generic-cell-content">{GtasNotInFileA}</div> :
+                <CellWithModal
+                    data={GtasNotInFileA}
+                    openModal={openModal}
+                    modalType="missingAccountBalance"
+                    agencyData={{
+                        agencyName,
+                        gtasObligationTotal: _gtasObligationTotal,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
             (<CellWithModal
                 data={obligationDifference}
                 openModal={openModal}
