@@ -112,12 +112,12 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
-                        <DefCodeFilter type="accounts" />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.submissionTypes.length !== 0} />
+                        <DefCodeFilter type="accounts" />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
                             latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
