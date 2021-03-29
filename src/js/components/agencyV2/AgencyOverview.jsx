@@ -51,9 +51,11 @@ export const AgencyOverview = () => {
         <div className="agency-overview__data">
             <h4>About this Agency&apos;s Data</h4>
             <p>
-                There is a 90-day delay on procurement (i.e., contract and IDV)
-                data for the Department of Defense. Read more about this delay
-                on our <Link to="/about">About the Data</Link> page.
+                There is a 90 day delay in displaying contract award data, subcontract data,
+                and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
+                For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
+                To see a complete list of this agency&apos;s submissions, visit our&nbsp;
+                <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
             </p>
         </div>
     );
