@@ -22,7 +22,8 @@ const covidParentNode = {
     children: []
 };
 
-const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'covid_19')
+const parseCovidCodes = (codes) => codes
+    .filter((code) => code.disaster === 'covid_19')
     .reduce((acc, covidCode) => ({
         ...acc,
         children: acc.children.concat([{
@@ -38,7 +39,10 @@ const parseCovidCodes = (codes) => codes.filter((code) => code.disaster === 'cov
             })
     }), covidParentNode);
 
-const DEFCheckboxTreeDownload = ({ type }) => {
+const DEFCheckboxTreeDownload = ({
+    type,
+    isDisabled = false
+}) => {
     const [errorMsg, isLoading, validDefCodes] = useDefCodes();
     const [expanded, setExpanded] = useState([]);
     const { defCodes } = useSelector((state) => state.bulkDownload[type]);
@@ -68,6 +72,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
                 className="def-checkbox-tree"
                 checked={defCodes}
                 expanded={expanded}
+                isDisabled={isDisabled}
                 data={[parseCovidCodes(validDefCodes)]}
                 isError={(errorMsg !== '')}
                 errorMessage={errorMsg}
@@ -84,6 +89,7 @@ const DEFCheckboxTreeDownload = ({ type }) => {
 };
 
 DEFCheckboxTreeDownload.propTypes = {
+    isDisabled: PropTypes.bool,
     type: PropTypes.string.isRequired // either "accounts" or "awards"
 };
 
