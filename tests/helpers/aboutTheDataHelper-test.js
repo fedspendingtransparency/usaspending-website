@@ -10,7 +10,8 @@ import {
     getPeriodWithTitleById,
     convertDatesToMilliseconds,
     getAllAgenciesEmail,
-    getAgencyDetailEmail
+    getAgencyDetailEmail,
+    getFederalBudget
 } from 'helpers/aboutTheDataHelper';
 
 import {
@@ -23,6 +24,10 @@ import {
     mockDates,
     badMockDates
 } from '../mockData/helpers/aboutTheDataHelper';
+
+import { mockAPI } from '../containers/aboutTheData/mockData';
+
+const mockFederalTotals = mockAPI.totals.data.results;
 
 const mockPeriods = {
     data: {
@@ -296,4 +301,9 @@ test.each([
 test('getAgencyDetailEmail', () => {
     expect(getAgencyDetailEmail('test', '123').body.includes('test')).toEqual(true);
     expect(getAgencyDetailEmail('test', '123').subject.includes('test')).toEqual(true)
-})
+});
+
+test('getFederalBudget', () => {
+    expect(getFederalBudget(mockFederalTotals, '2020')).toEqual(10000);
+    expect(getFederalBudget(mockFederalTotals, '2000')).toEqual(10002);
+});

@@ -240,5 +240,6 @@ export const getFederalBudget = (federalTotals, fy) => {
     const parsedFederalTotals = federalTotals
         .filter(({ fiscal_year: y }) => y === parseInt(fy, 10)) // filter on the selected fiscal year
         .sort((a, b) => b.fiscal_period - a.fiscal_period); // sort by descending fiscal period
-    return parsedFederalTotals[0].total_budgetary_resources;
+    // eslint-disable-next-line camelcase
+    return parsedFederalTotals[0]?.total_budgetary_resources;
 };
