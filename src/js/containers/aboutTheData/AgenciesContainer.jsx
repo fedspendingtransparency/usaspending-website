@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
-import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable, getFederalBudget } from 'helpers/aboutTheDataHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
@@ -122,12 +122,14 @@ const AgenciesContainer = ({
         }
         const newPage = goToFirstPage ? 1 : publicationsPage;
         setLoading([false, false, true]);
+        // Get the (cumulative) total budgetary resources from the latest period available
+        const federalTotal = getFederalBudget(federalTotals, selectedFy);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
-                    row.populate(parseInt(selectedFy, 10), d, federalTotals);
+                    row.populate(d, federalTotal);
                     return row;
                 });
                 changePublicationsTotal(totalItems);
