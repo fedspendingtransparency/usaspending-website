@@ -22,21 +22,21 @@ import ReadMore from '../ReadMore';
 const overviewData = [
     {
         type: 'resultsCount',
-        label: 'CFDA Programs'
+        title: 'CFDA Programs'
     },
     {
         type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
+        title: 'Award Obligations',
+        isMonetary: true
     },
     {
         type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
+        title: 'Award Outlays',
+        isMonetary: true
     },
     {
         type: 'numberOfAwards',
-        label: 'Number of Awards'
+        title: 'Number of Awards'
     }
 ];
 

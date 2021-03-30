@@ -9,11 +9,10 @@ import kGlobalConstants from 'GlobalConstants';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
-import { Tabs } from "data-transparency-ui";
+import { Tabs, InformationBoxes } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import OverviewData from '../OverviewData';
 import ReadMore from '../ReadMore';
 
 const tabs = [
@@ -44,22 +43,22 @@ const BudgetCategories = () => {
     const overviewData = [
         {
             type: 'count',
-            label: `Number of ${tabs.filter((tab) => tab.internal === activeTab)[0].label}`
+            title: `Number of ${tabs.filter((tab) => tab.internal === activeTab)[0].label}`
         },
         {
             type: 'totalBudgetaryResources',
-            label: 'Total Budgetary Resources',
-            dollarAmount: true
+            title: 'Total Budgetary Resources',
+            isMonetary: true
         },
         {
             type: 'totalObligations',
-            label: 'Total Obligations',
-            dollarAmount: true
+            title: 'Total Obligations',
+            isMonetary: true
         },
         {
             type: 'totalOutlays',
-            label: 'Total Outlays',
-            dollarAmount: true
+            title: 'Total Outlays',
+            isMonetary: true
         }
     ];
 
@@ -143,16 +142,12 @@ const BudgetCategories = () => {
                 <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
             </div>
             <div className="overview-data-group">
-                {overviewData.map((data) => (
-                    <OverviewData
-                        key={data.label}
-                        {...data}
-                        isLoading={(
-                            data.type === 'count' &&
-                            inFlight
-                        )}
-                        amount={amounts[data.type]} />
-                ))}
+                <InformationBoxes
+                    boxes={overviewData.map((data) => ({
+                        ...data,
+                        isLoading: data.type === 'count' && inFlight,
+                        amount: amounts[data.type]
+                    }))} />
             </div>
             <div className="budget-categories__content">
                 <BudgetCategoriesTableContainer
