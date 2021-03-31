@@ -19,14 +19,12 @@ const addFuturePeriods = (periods) => {
 };
 
 const DatesRow = {
-    populate(fy, data, totals) {
+    populate(data, federalTotal) {
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
         this.code = data.toptier_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
-        this._federalTotal = totals
-            .filter(({ fiscal_year: y }) => y === fy)
-            .reduce((acc, { total_budgetary_resources: t }) => acc + t, 0);
+        this._federalTotal = federalTotal;
         this.periods = addFuturePeriods(data.periods)
             .map(({ submission_dates: { publication_date: p, certification_date: c }, quarterly: isQuarterly }) => {
                 if (p === '--') {
