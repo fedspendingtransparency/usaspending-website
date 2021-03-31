@@ -102,8 +102,8 @@ export const AgencyProfileV2 = ({
         body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
     };
 
-    const handleShare = (str) => {
-        handleShareOptionClick(str, slug, emailArgs);
+    const handleShare = (name) => {
+        handleShareOptionClick(name, slug, emailArgs);
     };
 
     return (
