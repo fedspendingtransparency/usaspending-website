@@ -235,11 +235,10 @@ export const getAllAgenciesEmail = (fy, period, tab) => {
     };
 };
 
-export const getFederalBudget = (federalTotals, fy) => {
-    // Get the (cumulative) total budgetary resources from the latest period available
+export const getFederalBudget = (federalTotals, fy, period) => {
     const parsedFederalTotals = federalTotals
         .filter(({ fiscal_year: y }) => y === parseInt(fy, 10)) // filter on the selected fiscal year
-        .sort((a, b) => b.fiscal_period - a.fiscal_period); // sort by descending fiscal period
+        .filter(({ fiscal_period: p }) => p === period); // filter on the latest (revealed) fiscal period
     // eslint-disable-next-line camelcase
     return parsedFederalTotals[0]?.total_budgetary_resources;
 };

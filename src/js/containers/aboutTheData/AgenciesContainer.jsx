@@ -8,6 +8,7 @@ import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable, getFederalBudget } from 'helpers/aboutTheDataHelper';
+import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
@@ -122,8 +123,9 @@ const AgenciesContainer = ({
         }
         const newPage = goToFirstPage ? 1 : publicationsPage;
         setLoading([false, false, true]);
-        // Get the (cumulative) total budgetary resources from the latest period available
-        const federalTotal = getFederalBudget(federalTotals, selectedFy);
+        // Get the (cumulative) total budgetary resources from the latest (revealed) period
+        const latestPeriod = getLatestPeriod(submissionPeriods.toJS(), selectedFy).period;
+        const federalTotal = getFederalBudget(federalTotals, selectedFy, latestPeriod);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
