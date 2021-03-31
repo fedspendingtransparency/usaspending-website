@@ -124,8 +124,8 @@ const AgenciesContainer = ({
         const newPage = goToFirstPage ? 1 : publicationsPage;
         setLoading([false, false, true]);
         // Get the (cumulative) total budgetary resources from the latest (revealed) period
-        const latestPeriod = getLatestPeriod(submissionPeriods.toJS(), selectedFy).period;
-        const federalTotal = getFederalBudget(federalTotals, selectedFy, latestPeriod);
+        const latestPeriod = getLatestPeriod(submissionPeriods.toJS(), selectedFy);
+        const federalTotal = getFederalBudget(federalTotals, latestPeriod);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {

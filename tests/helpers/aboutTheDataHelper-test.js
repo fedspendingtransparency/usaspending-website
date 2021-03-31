@@ -303,8 +303,17 @@ test('getAgencyDetailEmail', () => {
     expect(getAgencyDetailEmail('test', '123').subject.includes('test')).toEqual(true);
 });
 
-test('getFederalBudget returns total budgetary resources for the given FY and period', () => {
-    expect(getFederalBudget(mockFederalTotals, '2020', 7)).toEqual(10000);
-    expect(getFederalBudget(mockFederalTotals, '2020', 6)).toEqual(8000.72);
-    expect(getFederalBudget(mockFederalTotals, '2000', 8)).toEqual(10002);
+test('getFederalBudget returns total budgetary resources for the given latest period', () => {
+    expect(getFederalBudget(mockFederalTotals, {
+        year: 2020,
+        period: 7
+    })).toEqual(10000);
+    expect(getFederalBudget(mockFederalTotals, {
+        year: 2020,
+        period: 6
+    })).toEqual(8000.72);
+    expect(getFederalBudget(mockFederalTotals, {
+        year: 2000,
+        period: 8
+    })).toEqual(10002);
 });
