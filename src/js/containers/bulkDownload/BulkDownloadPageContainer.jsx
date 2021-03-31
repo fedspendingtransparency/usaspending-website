@@ -110,7 +110,6 @@ export class BulkDownloadPageContainer extends React.Component {
                 },
                 def_codes: formState.defCodes
             },
-            columns: [],
             file_format: formState.fileFormat
         };
 
@@ -190,8 +189,16 @@ export class BulkDownloadPageContainer extends React.Component {
             this.request.cancel();
         }
 
+        const bulkParams = params;
+
+        // Prevent empty arrays in the download request; empty array defaults are defined by the reducer
+        for (const filterType in bulkParams.filters) {
+            if (Array.isArray(bulkParams.filters[filterType]) && !bulkParams.filters[filterType].length) {
+                delete bulkParams.filters[filterType];
+            }
+        }
+
         if (type === 'awards') {
-            const bulkParams = params;
             // Need to check if sub_agency is set or not
             if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
                 delete bulkParams.filters.sub_agency;
@@ -201,7 +208,7 @@ export class BulkDownloadPageContainer extends React.Component {
         }
 
         else if (type === 'accounts') {
-            this.request = BulkDownloadHelper.requestAccountsDownload(params);
+            this.request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
         }
 
         this.request.promise

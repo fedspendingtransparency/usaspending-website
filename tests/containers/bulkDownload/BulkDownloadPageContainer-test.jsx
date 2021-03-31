@@ -5,7 +5,9 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Set } from 'immutable';
 
+import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
 import { mockActions, mockProps } from './mockData';
 
@@ -35,7 +37,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
@@ -91,7 +92,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     agencies: [{
@@ -142,7 +142,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     agencies: [{
@@ -192,7 +191,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     agencies: [{
@@ -238,7 +236,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     agencies: [{
@@ -295,7 +292,6 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                columns: [],
                 file_format: 'csv',
                 filters: {
                     agencies: [{
@@ -320,6 +316,57 @@ describe('BulkDownloadPageContainer', () => {
             container.instance().startAwardDownload();
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
+        it('should not include empty array in request params', () => {
+            const awards = Object.assign({}, mockProps.bulkDownload.awards, {
+                awardTypes: {
+                    primeAwards: new Set(['loans', 'contracts']),
+                    subAwards: new Set([])
+                }
+            });
+            const bulkDownload = Object.assign({}, mockProps.bulkDownload, {
+                awards
+            });
+            const updatedRedux = Object.assign({}, mockProps, {
+                bulkDownload
+            });
+
+            const container = shallow(<BulkDownloadPageContainer
+                {...updatedRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                file_format: 'csv',
+                filters: {
+                    agencies: [{
+                        name: 'Mock Sub-Agency', type: 'funding', tier: 'subtier', toptier_name: 'Mock Agency'
+                    }],
+                    prime_award_types: ['07', '08', 'A', 'B', 'C', 'D'],
+                    recipient_locations: [
+                        {
+                            country: 'USA',
+                            state: 'HI'
+                        }
+                    ],
+                    date_range: {
+                        end_date: '11-01-2017',
+                        start_date: '11-01-2016'
+                    },
+                    date_type: 'action_date',
+                    sub_agency: 'Mock Sub-Agency',
+                    def_codes: ['L', 'M', 'N', 'O', 'P']
+                }
+            };
+
+            const requestAwardsDownload = jest.fn(() => Object({promise: Promise.reject("Reject to limit test")}));
+            const logAwardDownload = jest.fn();
+            
+            BulkDownloadHelper.requestAwardsDownload = requestAwardsDownload;
+            container.instance().logAwardDownload = logAwardDownload;
+
+            container.instance().startAwardDownload();
+
+            expect(requestAwardsDownload).toHaveBeenCalledWith(expectedParams);
         });
     });
     describe('startAccountDownload', () => {
@@ -439,6 +486,44 @@ describe('BulkDownloadPageContainer', () => {
             container.instance().startAccountDownload();
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'accounts');
+        });
+        it('should not include empty array in request params', () => {
+            const container = shallow(<BulkDownloadPageContainer
+                {...{
+                    ...accountsRedux,
+                    bulkDownload: {
+                        ...accountsRedux.bulkDownload,
+                        accounts: {
+                            ...accountsRedux.bulkDownload.accounts,
+                            defCodes: []
+                        }
+                    }
+                }}
+                {...mockActions} />);
+
+            const expectedParams = {
+                account_level: 'treasury_account',
+                filters: {
+                    budget_function: '300',
+                    budget_subfunction: '123',
+                    agency: '123',
+                    federal_account: '212',
+                    submission_types: ['account_balances'],
+                    fy: '1989',
+                    quarter: '1'
+                },
+                file_format: 'csv'
+            };
+
+            const requestAccountsDownload = jest.fn(() => Object({promise: Promise.reject("Reject to limit test")}));
+            const logAccountDownload = jest.fn();
+            
+            BulkDownloadHelper.requestAccountsDownload = requestAccountsDownload;
+            container.instance().logAccountDownload = logAccountDownload;
+
+            container.instance().startAccountDownload();
+
+            expect(requestAccountsDownload).toHaveBeenCalledWith(expectedParams);
         });
     });
     describe('validateDataType', () => {
