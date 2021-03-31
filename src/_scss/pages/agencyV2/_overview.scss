@@ -2,7 +2,7 @@
     .agency-overview__top {
         @include display(flex);
         @include justify-content(space-between);
-        @include align-items(flex-start);
+        @include align-items(center);
         padding-bottom: 1.5rem;
         .agency-overview__title {
             display: block;
@@ -12,6 +12,7 @@
                 font-weight: $font-semibold;
                 letter-spacing: 0;
                 line-height: 2.5rem;
+                padding-bottom: 0.3rem;
             }
             .agency-overview__sub-agencies {
                 font-size: 1.4rem;
@@ -25,6 +26,7 @@
             // switch the position of the logo and title in desktop
             @include flex-direction(row-reverse);
             @include justify-content(flex-end);
+            padding-top: 2.2rem;
             .agency-overview__title {
                 h3 {
                     font-size: 3.6rem;
@@ -45,6 +47,7 @@
             }
             &:last-of-type {
                 padding-right: 0;
+                @include flex(1 1 33%);
             }
         }
     }
@@ -54,6 +57,7 @@
             font-weight: $font-semibold;
             margin: 0;
             font-size: 1.6rem;
+            line-height: normal;
         }
         p, .usda-external-link {
             font-size: $small-font-size;
@@ -65,5 +69,6 @@
     }
     .read-more-button {
         @include button-link;
+        margin-top: 0.5rem;
     }
 }
