@@ -5,27 +5,22 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Picker,
     ComingSoon,
-    ErrorMessage
+    ErrorMessage,
+    PageHeader
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { getBaseUrl } from 'helpers/socialShare';
+import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { allFiscalYears } from 'helpers/fiscalYearHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
-import { defaultSortFy } from 'components/sharedComponents/pickers/FYPicker';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 import AgencyOverview from './AgencyOverview';
@@ -49,7 +44,7 @@ export const AgencyProfileV2 = ({
     agencyId,
     setSelectedFy,
     isError,
-    errorMessage,
+    // errorMessage,
     isLoading,
     latestFy
 }) => {
@@ -101,88 +96,62 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection.name);
     };
 
-    const getFyOptions = (fy) => {
-        if (fy) {
-            return allFiscalYears(2017, fy)
-                .map((year) => {
-                    const onClickHandler = () => setSelectedFy({ fy: year });
-                    return {
-                        name: `${year}`,
-                        value: year,
-                        onClick: onClickHandler
-                    };
-                });
-        }
-        return [{
-            name: 'Loading fiscal years...',
-            value: '',
-            onClick: () => { }
-        }];
+    const slug = `agency_v2/${agencyId}`;
+    const emailArgs = {
+        subject: `USAspending.gov Agency Profile: Agency Name`,
+        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
     };
 
-    const slug = `agency_v2/${agencyId}`;
+    const handleShare = (str) => {
+        handleShareOptionClick(str, slug, emailArgs);
+    };
 
     return (
         <div className="usa-da-agency-page-v2">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
-            <StickyHeader>
-                <>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            {name || '--'}
-                        </h1>
+            <PageHeader
+                overLine="Agency Profile V2"
+                title={name}
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
+                fyProps={{
+                    selectedFy,
+                    latestFy,
+                    handleFyChange: (fy) => setSelectedFy({ fy })
+                }}
+                shareProps={{
+                    url: getBaseUrl(slug),
+                    onShareOptionClick: handleShare
+                }}
+                downloadProps={{
+                    downloadInFlight: false,
+                    handleClick: () => {}
+                }}>
+                <main id="main-content" className="main-content usda__flex-row">
+                    <div className="sidebar usda__flex-col">
+                        <Sidebar
+                            pageName="agency-v2"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                            isGoingToBeSticky
+                            active={activeSection}
+                            jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
+                            sections={sections.map((section) => ({
+                                section: section.name,
+                                label: section.display,
+                                overLine: section.overLine
+                            }))} />
                     </div>
-                    <div className="sticky-header__toolbar">
-                        <span className="fy-picker-label">Filter</span>
-                        <div className="fiscal-year-container">
-                            <Picker
-                                sortFn={defaultSortFy}
-                                icon={<FontAwesomeIcon icon="calendar-alt" />}
-                                selectedOption={`${selectedFy}`}
-                                options={getFyOptions(latestFy)} />
-                            <span>Fiscal Year</span>
-                        </div>
-                        <hr />
-                        <ShareIcon
-                            slug={slug}
-                            email={{
-                                subject: `USAspending.gov Agency Profile: ${name}`,
-                                body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
-                            }} />
-                        <div className="sticky-header__toolbar-item">
-                            <button className="sticky-header__button">
-                                <FontAwesomeIcon icon="download" />
-                            </button>
-                            <span>Download</span>
-                        </div>
+                    <div className="body usda__flex-col">
+                        {isError ? <ErrorMessage /> : sections.map((section) => (
+                            <AgencySection key={section.name} section={section} isLoading={isLoading}>
+                                {section.component || <ComingSoon />}
+                            </AgencySection>
+                        ))}
                     </div>
-                </>
-            </StickyHeader>
-            <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        pageName="agency-v2"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                        isGoingToBeSticky
-                        active={activeSection}
-                        jumpToSection={jumpToSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections.map((section) => ({
-                            section: section.name,
-                            label: section.display,
-                            overLine: section.overLine
-                        }))} />
-                </div>
-                <div className="body usda__flex-col">
-                    {isError ? <ErrorMessage description={errorMessage} /> : sections.map((section) => (
-                        <AgencySection key={section.name} section={section} isLoading={isLoading}>
-                            {section.component || <ComingSoon />}
-                        </AgencySection>
-                    ))}
-                </div>
-            </main>
-            <Footer />
+                </main>
+                <Footer />
+            </PageHeader>
         </div>
     );
 };
