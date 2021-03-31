@@ -1,3 +1,5 @@
+// TODO: This code is in the component library. We can delete it once we import <ShareIcon /> everywhere this is used.
+
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Picker } from "data-transparency-ui";

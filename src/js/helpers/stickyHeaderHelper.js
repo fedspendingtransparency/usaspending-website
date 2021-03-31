@@ -15,6 +15,7 @@ export const getStickyBreakPointForSidebar = () => {
     return 97 + globalBannerHeight;
 };
 
+// TODO: This code is in the component library. We can delete it once we import useDynamicStickyClass everywhere this is used from dtui.
 export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) => {
     const [dynamicStickyBreakpoint, setDynamicStickyBreakpoint] = useState(0);
     const [isSticky, setIsSticky] = useState(false);
