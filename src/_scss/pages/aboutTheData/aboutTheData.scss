@@ -1,7 +1,6 @@
 .about-the-data {
     @import 'all';
     @import 'layouts/default/default';
-    @import 'layouts/default/stickyHeader/header';
     .main-content {
         @import '../../mixins/fullSectionWrap';
         @include display(flex);
@@ -49,7 +48,7 @@
     }
     .usda-message {
         background-color: $color-white;
-        width: 100vw;
+        width: 100%;
     }
     @import 'components/stickyTable';
     .agency-table-download {

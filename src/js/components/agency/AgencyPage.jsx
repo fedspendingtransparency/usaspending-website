@@ -5,15 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PageHeader } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-import { getBaseUrl } from 'helpers/socialShare';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+
 
 import AgencyLoading from './AgencyLoading';
 import AgencyError from './AgencyError';
@@ -30,9 +30,15 @@ const propTypes = {
 
 
 export default class AgencyPage extends React.Component {
+    handleShare = (name) => {
+        handleShareOptionClick(name, `agency/${this.props.agency.id}`, {
+            subject: `USAspending.gov Agency Profile: ${this.props.agency.overview.name}`,
+            body: `View all of the Federal Account Profiles on USAspending.gov: ${getBaseUrl(`agency/${this.props.agency.id}`)}`
+        });
+    };
+
     render() {
         const { id, overview } = this.props.agency;
-        const slug = `agency/${id}`;
         let content = <AgencyContent {...this.props} />;
         if (this.props.loading) {
             content = (<AgencyLoading />);
@@ -45,27 +51,20 @@ export default class AgencyPage extends React.Component {
             <div className="usa-da-agency-page">
                 <MetaTags {...agencyPageMetaTags(overview)} />
                 <Header />
-                <StickyHeader>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            Agency Profile
-                        </h1>
-                    </div>
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={slug}
-                            email={{
-                                subject: `USAspending.gov Agency Profile: ${overview.name}`,
-                                body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(slug)}`
-                            }} />
-                    </div>
-                </StickyHeader>
-                <main
-                    id="main-content"
-                    className="main-content">
-                    {content}
-                </main>
-                <Footer />
+                <PageHeader
+                    overLine="Agency Profile"
+                    title={overview?.name}
+                    shareProps={{
+                        url: getBaseUrl(`agency/${id}`),
+                        onShareOptionClick: this.handleShare
+                    }}>
+                    <main
+                        id="main-content"
+                        className="main-content">
+                        {content}
+                    </main>
+                    <Footer />
+                </PageHeader>
             </div>
         );
     }

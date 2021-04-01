@@ -12,20 +12,20 @@
     width: 100%;
 
     .site-header,
+    .usda-page-header,
     .sticky-header,
     .page__loading,
-    .main-content,
+    .usda-page__container,
     .footer-container {
         width: 100%;
     }
-
     @import './stickyHeader';
-
     .main-content {
         @include display(flex);
         @include flex-grow(1);
         @include flex-wrap(wrap);
         max-width: rem(1600);
+        margin: auto;
         ul {
             padding: 0;
             li {

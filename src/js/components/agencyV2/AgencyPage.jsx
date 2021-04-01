@@ -14,7 +14,8 @@ import { useSelector } from 'react-redux';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -102,8 +103,8 @@ export const AgencyProfileV2 = ({
         body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
     };
 
-    const handleShare = (name) => {
-        handleShareOptionClick(name, slug, emailArgs);
+    const handleShare = (optionName) => {
+        handleShareOptionClick(optionName, slug, emailArgs);
     };
 
     return (

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PageHeader } from 'data-transparency-ui';
 
 import {
     accessibilityPageMetaTags,
@@ -15,7 +16,6 @@ import Footer from 'containers/Footer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 import LegalContent from './LegalContent';
 
@@ -40,23 +40,18 @@ export default class LegalPage extends React.Component {
             <div className="usa-da-legal-page">
                 <MetaTags {...metaTags} />
                 <Header />
-                <StickyHeader>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            Legal
-                        </h1>
-                    </div>
-                </StickyHeader>
-                <main
-                    id="main-content"
-                    className="main-content">
-                    <LegalContent
-                        activePage={this.props.activePage}
-                        title={this.props.title}>
-                        {this.props.children}
-                    </LegalContent>
-                </main>
-                <Footer />
+                <PageHeader title="Legal">
+                    <main
+                        id="main-content"
+                        className="main-content">
+                        <LegalContent
+                            activePage={this.props.activePage}
+                            title={this.props.title}>
+                            {this.props.children}
+                        </LegalContent>
+                    </main>
+                    <Footer />
+                </PageHeader>
             </div>
         );
     }
