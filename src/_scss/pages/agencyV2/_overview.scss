@@ -42,7 +42,7 @@
     .agency-overview__row {
         @include display(flex);
         .agency-overview__column {
-            padding-right: rem(15);
+            padding-right: rem(20);
             &:first-of-type {
                 @include flex(1 1 50%);
             }
