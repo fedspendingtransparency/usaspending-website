@@ -60,7 +60,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            component: <AgencyOverview />
+            component: <AgencyOverview isLoading={isLoading} />
         },
         {
             name: 'budget-category',
