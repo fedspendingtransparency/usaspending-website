@@ -10,6 +10,11 @@ const BaseAgencyOverview = {
         this.website = data.website || '';
         // eslint-disable-next-line camelcase
         this.id = data.agency_id || '';
+        this.logo = data.icon_filename || '';
+        this.mission = data.mission || '--';
+        this.congressionalJustification = data.congressional_justification_url || '';
+        this.showAboutData = data.about_agency_data || false;
+        this.subtierCount = data.subtier_agency_count || 0;
     },
     get name() {
         const abbreviation = this._abbreviation ? ` (${this._abbreviation})` : '';

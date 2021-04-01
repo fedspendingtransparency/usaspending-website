@@ -11,27 +11,12 @@ import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
-
-// TODO: share mock data with data model unit tests once they are written
-const mockData = {
-    fiscal_year: 2019,
-    toptier_code: "123",
-    name: "Mock Agency",
-    abbreviation: "MOCK",
-    agency_id: 22,
-    icon_filename: "mock.jpg",
-    mission: "Mock Agency...",
-    website: "https://www.treasury.gov/",
-    congressional_justification_url: "https://www.treasury.gov/cj",
-    about_agency_data: null,
-    subtier_agency_count: 10,
-    messages: []
-};
+import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 
 const mockResponse = {
     promise: new Promise((resolve) => {
         process.nextTick(() => (
-            resolve({ data: mockData })
+            resolve({ data: mockAgency })
         ));
     })
 };

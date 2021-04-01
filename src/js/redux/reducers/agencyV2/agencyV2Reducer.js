@@ -9,15 +9,24 @@ import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryRe
 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
 
 export const initialState = {
+    overview: {
+        name: ''
+    },
     budgetaryResources
 };
 
 const agencyReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_AGENCY_OVERVIEW':
+            return {
+                ...state,
+                overview: action.overview
+            };
         case 'SET_BUDGETARY_RESOURCES':
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 budgetaryResources: action.budgetaryResources
-            });
+            };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
         default:

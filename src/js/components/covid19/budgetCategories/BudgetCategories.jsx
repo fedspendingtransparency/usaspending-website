@@ -13,8 +13,8 @@ import { Tabs } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import ReadMore from 'components/sharedComponents/ReadMore';
 import OverviewData from '../OverviewData';
-import ReadMore from '../ReadMore';
 
 const tabs = [
     {
