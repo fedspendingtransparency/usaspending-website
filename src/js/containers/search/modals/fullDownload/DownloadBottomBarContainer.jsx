@@ -223,7 +223,8 @@ export class DownloadBottomBarContainer extends React.Component {
         window.open(fileUrl, '_self');
 
         // update redux
-        this.props.resetDownload();
+        this.props.setDownloadPending(false);
+        this.props.setDownloadCollapsed(false);
 
         this.setState({
             showSuccess: true,
@@ -237,7 +238,7 @@ export class DownloadBottomBarContainer extends React.Component {
     closeBar() {
         // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
-
+        this.props.resetDownload();
         this.setState({
             visible: false
         });

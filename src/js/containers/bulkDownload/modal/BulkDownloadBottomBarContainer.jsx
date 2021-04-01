@@ -109,6 +109,9 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     parseStatus(data) {
+        console.log('parseStatus');
+        console.log(JSON.parse(JSON.stringify(data.status)));
+
         if (data.status === 'finished') {
             // download is ready
             this.downloadFile(data.file_url);
@@ -159,7 +162,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
         window.open(url, '_self');
 
         // update redux
-        this.props.resetDownload();
+        this.props.setDownloadPending(false);
+        this.props.setDownloadCollapsed(false);
 
         this.setState({
             showSuccess: true,
@@ -173,7 +177,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     closeBar() {
         // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
-
+        this.props.resetDownload();
         this.setState({
             visible: false
         });
