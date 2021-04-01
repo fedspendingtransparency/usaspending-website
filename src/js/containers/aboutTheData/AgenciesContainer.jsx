@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
-import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable } from 'helpers/aboutTheDataHelper';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable, getFederalBudget } from 'helpers/aboutTheDataHelper';
+import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
@@ -122,12 +123,15 @@ const AgenciesContainer = ({
         }
         const newPage = goToFirstPage ? 1 : publicationsPage;
         setLoading([false, false, true]);
+        // Get the (cumulative) total budgetary resources from the latest (revealed) period
+        const latestPeriod = getLatestPeriod(submissionPeriods.toJS(), selectedFy);
+        const federalTotal = getFederalBudget(federalTotals, latestPeriod);
         publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
-                    row.populate(parseInt(selectedFy, 10), d, federalTotals);
+                    row.populate(d, federalTotal);
                     return row;
                 });
                 changePublicationsTotal(totalItems);
@@ -250,7 +254,9 @@ const AgenciesContainer = ({
         .map(({
             name: agencyName,
             code,
+            _mostRecentPublicationDate,
             mostRecentPublicationDate,
+            _discrepancyCount,
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
             _gtasObligationTotal,
@@ -261,27 +267,31 @@ const AgenciesContainer = ({
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-            (<CellWithModal
-                data={mostRecentPublicationDate}
-                openModal={openModal}
-                modalType="publicationDates"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
-            (<CellWithModal
-                data={GtasNotInFileA}
-                openModal={openModal}
-                modalType="missingAccountBalance"
-                agencyData={{
-                    agencyName,
-                    gtasObligationTotal: _gtasObligationTotal,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
+            (!_mostRecentPublicationDate ?
+                <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
+                <CellWithModal
+                    data={mostRecentPublicationDate}
+                    openModal={openModal}
+                    modalType="publicationDates"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
+            (_discrepancyCount === 0 ?
+                <div className="generic-cell-content">{GtasNotInFileA}</div> :
+                <CellWithModal
+                    data={GtasNotInFileA}
+                    openModal={openModal}
+                    modalType="missingAccountBalance"
+                    agencyData={{
+                        agencyName,
+                        gtasObligationTotal: _gtasObligationTotal,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
             (<CellWithModal
                 data={obligationDifference}
                 openModal={openModal}

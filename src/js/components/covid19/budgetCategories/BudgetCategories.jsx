@@ -13,7 +13,7 @@ import { Tabs, InformationBoxes } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from '../ReadMore';
+import ReadMore from 'components/sharedComponents/ReadMore';
 
 const tabs = [
     {

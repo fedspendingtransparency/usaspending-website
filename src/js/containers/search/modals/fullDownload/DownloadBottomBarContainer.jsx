@@ -104,9 +104,13 @@ export class DownloadBottomBarContainer extends React.Component {
         }
 
         const params = {
-            filters: filterSet,
-            columns
+            filters: filterSet
         };
+
+        if (columns.length > 0) {
+            params.columns = columns;
+        }
+
         this.request = DownloadHelper.requestFullDownload(params, type);
 
         this.request.promise

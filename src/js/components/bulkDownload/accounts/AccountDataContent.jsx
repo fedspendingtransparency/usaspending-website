@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';
 
+import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
@@ -82,7 +83,7 @@ export default class AccountDataContent extends React.Component {
     }
 
     render() {
-        const accounts = this.props.accounts;
+        const { accounts } = this.props;
         return (
             <div className="download-center">
                 <div className="download-center__filters">
@@ -112,12 +113,12 @@ export default class AccountDataContent extends React.Component {
                             currentAccountLevel={accounts.accountLevel}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.accountLevel !== ''} />
-                        <DefCodeFilter type="accounts" />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionTypes={accounts.submissionTypes}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.submissionTypes.length !== 0} />
+                        <DefCodeFilter type="accounts" isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
                             latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}

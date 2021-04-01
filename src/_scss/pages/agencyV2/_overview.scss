@@ -1,0 +1,75 @@
+.agency-overview {
+    width: 100%; // fix for IE
+    .agency-overview__top {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(center);
+        padding-bottom: 1.5rem;
+        .agency-overview__title {
+            display: block;
+            h3 {
+                margin: 0;
+                font-size: 2rem;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: 2.5rem;
+                padding-bottom: 0.3rem;
+            }
+            .agency-overview__sub-agencies {
+                font-size: 1.4rem;
+            }
+        }
+        .agency-overview__image {
+            height: 100%;
+            padding-right: 1rem;
+        }
+        @include media($medium-screen) {
+            // switch the position of the logo and title in desktop
+            @include flex-direction(row-reverse);
+            @include justify-content(flex-end);
+            padding-top: 2.2rem;
+            .agency-overview__title {
+                h3 {
+                    font-size: 3.6rem;
+                    line-height: 4.5rem;
+                }
+                .agency-overview__sub-agencies {
+                    font-size: 1.8rem;
+                }
+            }
+        }
+    }
+    .agency-overview__row {
+        @include display(flex);
+        .agency-overview__column {
+            padding-right: rem(20);
+            &:first-of-type {
+                @include flex(1 1 50%);
+            }
+            &:last-of-type {
+                padding-right: 0;
+                @include flex(1 1 33%);
+            }
+        }
+    }
+    .agency-overview__data {
+        @import 'components/externalLink';
+        h4 {
+            font-weight: $font-semibold;
+            margin: 0;
+            font-size: 1.6rem;
+            line-height: normal;
+        }
+        p, .usda-external-link {
+            font-size: $small-font-size;
+            margin: .5rem 0 1.5rem;
+        }
+        .usda-external-link {
+            white-space: nowrap;
+        }
+    }
+    .read-more-button {
+        @include button-link;
+        margin-top: 0.5rem;
+    }
+}
