@@ -109,7 +109,7 @@ test('renders the details table first', async () => {
     });
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
-    const [table] = screen.getAllByText('Number of TAS Missing from Account Balance Data');
+    const [table] = screen.getAllByText('Number of TASs Missing from Account Balance Data');
     expect(table).toBeDefined();
 });
 
