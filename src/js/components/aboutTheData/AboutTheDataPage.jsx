@@ -85,7 +85,7 @@ const AboutTheDataPage = ({ history }) => {
                         on a quarterly and/or monthly basis to USAspending.gov. The table below
                         shows information about the status and content of these submissions. It will
                         be updated as agencies publish/certify new submissions or
-                        republish/recertify existing submissions. For more information about the data in this table, visit <Link to="data-sources">the Data Sources and Methodology page.</Link>
+                        republish/recertify existing submissions. For more information about the data in this table, visit <Link to="submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
                     </p>
                 </div>
                 <LoadingWrapper isLoading={!activeTab}>
