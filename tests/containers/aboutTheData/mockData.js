@@ -11,6 +11,16 @@ export const mockAPI = {
                     total_budgetary_resources: 4000.00,
                     fiscal_year: 2020,
                     fiscal_period: 5
+                },
+                {
+                    total_budgetary_resources: 10000,
+                    fiscal_year: 2020,
+                    fiscal_period: 7
+                },
+                {
+                    total_budgetary_resources: 10002,
+                    fiscal_year: 2000,
+                    fiscal_period: 8
                 }
             ]
         }

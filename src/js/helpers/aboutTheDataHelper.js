@@ -234,3 +234,10 @@ export const getAllAgenciesEmail = (fy, period, tab) => {
         body: `View agency submission details on USAspending: ${url}`
     };
 };
+
+export const getFederalBudget = (federalTotals, latestPeriod) => {
+    const parsedFederalTotals = federalTotals
+        .find(({ fiscal_period: p, fiscal_year: y }) => (p === latestPeriod.period && y === latestPeriod.year));
+    // eslint-disable-next-line camelcase
+    return parsedFederalTotals?.total_budgetary_resources;
+};
