@@ -60,7 +60,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             return [
                 <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
                 <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
-                rowData.mostRecentPublicationDate === '--' ?
+                !rowData._mostRecentPublicationDate ?
                     <div className="generic-cell-content">{rowData.mostRecentPublicationDate}</div> :
                     <CellWithModal
                         data={rowData.mostRecentPublicationDate}

@@ -250,7 +250,9 @@ const AgenciesContainer = ({
         .map(({
             name: agencyName,
             code,
+            _mostRecentPublicationDate,
             mostRecentPublicationDate,
+            _discrepancyCount,
             discrepancyCount: GtasNotInFileA,
             obligationDifference,
             _gtasObligationTotal,
@@ -261,7 +263,7 @@ const AgenciesContainer = ({
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
-            (mostRecentPublicationDate === '--' ?
+            (!_mostRecentPublicationDate ?
                 <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
                 <CellWithModal
                     data={mostRecentPublicationDate}
@@ -273,7 +275,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (GtasNotInFileA === '0' ?
+            (_discrepancyCount === 0 ?
                 <div className="generic-cell-content">{GtasNotInFileA}</div> :
                 <CellWithModal
                     data={GtasNotInFileA}
