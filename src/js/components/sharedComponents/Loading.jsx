@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PageHeader } from 'data-transparency-ui';
 
 import Header from 'components/sharedComponents/header/Header';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -49,13 +49,13 @@ export const LoadingWrapper = ({
                 {includeHeader && (
                     <>
                         <Header />
-                        <StickyHeader>
-                            <div className="sticky-header__title">
-                                <h1 tabIndex={-1} id="main-focus">
-                                    --
-                                </h1>
+                        <PageHeader>
+                            <div className="page__loading">
+                                <FontAwesomeIcon icon="spinner" spin size="lg" />
+                                <h4>{`${msg}${dots}`}</h4>
                             </div>
-                        </StickyHeader>
+                            {includeFooter && (<Footer />)}
+                        </PageHeader>
                     </>
                 )}
                 <div className="page__loading">

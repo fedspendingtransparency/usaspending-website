@@ -3,6 +3,8 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
+// TODO: DEV-6889 Move to new Page Header Component
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';

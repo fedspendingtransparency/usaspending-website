@@ -16,7 +16,8 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+
 
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
