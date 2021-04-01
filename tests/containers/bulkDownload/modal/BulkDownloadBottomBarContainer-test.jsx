@@ -202,16 +202,16 @@ describe('BulkDownloadBottomBarContainer', () => {
         });
 
         it('should tell Redux that the download has completed', () => {
-            const mockReset = jest.fn();
+            const mockSetDownloadPending = jest.fn();
             const actions = Object.assign({}, mockActions, {
-                resetDownload: mockReset
+                setDownloadPending: mockSetDownloadPending
             });
 
             const container = shallow(<BulkDownloadBottomBarContainer
                 {...mockProps}
                 {...actions} />);
             container.instance().downloadFile('http://www.google.com');
-            expect(mockReset).toHaveBeenCalledTimes(1);
+            expect(mockSetDownloadPending).toHaveBeenCalledWith(false);
         });
 
         it('should set the state to success and display such a message', () => {
@@ -224,9 +224,13 @@ describe('BulkDownloadBottomBarContainer', () => {
         });
 
         it('should close the download bar after 5 seconds', () => {
+            const mockReset = jest.fn();
+            const actions = Object.assign({}, mockActions, {
+                resetDownload: mockReset
+            });
             const container = shallow(<BulkDownloadBottomBarContainer
                 {...mockProps}
-                {...mockActions} />);
+                {...actions} />);
             const mockClose = jest.fn();
             container.instance().closeBar = mockClose;
             container.instance().downloadFile('http://www.google.com');
@@ -234,6 +238,7 @@ describe('BulkDownloadBottomBarContainer', () => {
             jest.useFakeTimers();
             jest.runTimersToTime(5000);
             expect(mockClose).toHaveBeenCalledTimes(1);
+            expect(mockReset).toHaveBeenCalledTimes(1);
         });
     });
 
