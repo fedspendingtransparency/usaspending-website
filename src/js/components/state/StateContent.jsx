@@ -34,14 +34,10 @@ const stateSections = [
 ];
 
 const propTypes = {
-    stateProfile: PropTypes.object,
-    pickedFy: PropTypes.func
+    stateProfile: PropTypes.object
 };
 
-const StateContent = ({
-    stateProfile,
-    pickedFy
-}) => {
+const StateContent = ({ stateProfile }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
     const jumpToSection = (section = '') => {
@@ -75,10 +71,7 @@ const StateContent = ({
                     sections={stateSections}
                     jumpToSection={jumpToSection}
                     detectActiveSection={setActiveSection}
-                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                    fyPicker
-                    selectedFy={stateProfile.fy}
-                    pickedYear={pickedFy} />
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
             <div className="state-content">
                 <StateOverview
