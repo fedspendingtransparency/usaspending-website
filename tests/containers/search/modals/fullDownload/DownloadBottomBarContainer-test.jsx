@@ -235,7 +235,7 @@ describe('DownloadBottomBarContainer', () => {
 
         it('should close the download bar after 5 seconds', () => {
             const container = shallow(<DownloadBottomBarContainer
-                {...mockProps}
+                {...mockRedux}
                 {...mockActions} />);
             const mockClose = jest.fn();
             container.instance().closeBar = mockClose;
@@ -246,20 +246,17 @@ describe('DownloadBottomBarContainer', () => {
             expect(mockClose).toHaveBeenCalledTimes(1);
         });
 
-        it('should update Redux after download bar closes (5 sec)', () => {
+        it('should update Redux after download bar closes', () => {
             const mockReset = jest.fn();
             const actions = Object.assign({}, mockActions, {
                 resetDownload: mockReset
             });
             const container = shallow(<DownloadBottomBarContainer
-                {...mockProps}
+                {...mockRedux}
                 {...actions} />);
-            container.instance().downloadFile('http://www.google.com');
+            container.instance().closeBar();
 
-            jest.useFakeTimers();
-            jest.runTimersToTime(5000);
             expect(mockReset).toHaveBeenCalledTimes(1);
-            expect(mockReset).toHaveBeenCalledWith(false);
         });
     });
 
