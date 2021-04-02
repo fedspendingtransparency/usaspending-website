@@ -11,7 +11,7 @@ import { isEqual } from 'lodash';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
 import { useInFlightList } from 'helpers/covid19Helper';
-import OverviewData from 'components/covid19/OverviewData';
+import { InformationBoxes } from "data-transparency-ui";
 
 const propTypes = {
     activeFilter: PropTypes.string
@@ -20,21 +20,21 @@ const propTypes = {
 const overviewData = [
     {
         type: 'numberOfRecipients',
-        label: 'Number of Recipients'
+        title: 'Number of Recipients'
     },
     {
         type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
+        title: 'Award Obligations',
+        isMonetary: true
     },
     {
         type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
+        title: 'Award Outlays',
+        isMonetary: true
     },
     {
         type: 'numberOfAwards',
-        label: 'Number of Awards'
+        title: 'Number of Awards'
     }
 ];
 
@@ -138,14 +138,13 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
 
     return (
         <div className="overview-data-group">
-            {overviewData.map((data) => (
-                <OverviewData
-                    {...data}
-                    key={data.label}
-                    subtitle={subtitle}
-                    amount={amounts[data.type]}
-                    isLoading={inFlightList.includes(data.type)} />
-            ))}
+            <InformationBoxes
+                boxes={overviewData.map((data) => ({
+                    ...data,
+                    subtitle,
+                    amount: amounts[data.type],
+                    isLoading: inFlightList.includes(data.type)
+                }))} />
         </div>
     );
 };

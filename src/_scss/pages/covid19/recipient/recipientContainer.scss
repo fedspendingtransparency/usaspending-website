@@ -11,6 +11,7 @@
           position: relative;
           @import "pages/search/results/visualizations/geo/_topSection";
           .map-container {
+            margin-top: rem(20);
             .map-message-container {
               .map-message {
                   flex: 0 1 auto;

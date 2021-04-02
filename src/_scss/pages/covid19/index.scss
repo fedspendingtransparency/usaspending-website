@@ -54,7 +54,6 @@
                 @import 'components/glossaryLink';
                 @import 'components/externalLink';
                 // Import specific styles for each section
-                @import './overviewData';
                 @import './visualizations/amounts';
                 @import './visualizations/sankey';
                 @import './budgetCategoriesTable';
