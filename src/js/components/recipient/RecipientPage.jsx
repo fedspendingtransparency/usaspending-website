@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
+import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
@@ -33,7 +34,8 @@ export const RecipientPage = ({
     id,
     recipient,
     loading,
-    error
+    error,
+    pickedFy
 }) => {
     const [isChildModalVisible, showChildModal] = useState(false);
     const [isAlternateModalVisible, showAlternateRecipientModal] = useState(false);
@@ -77,6 +79,11 @@ export const RecipientPage = ({
                 overLine="Recipient Profile"
                 title={recipient.overview.name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
+                fyProps={{
+                    selectedFy: recipient?.fy,
+                    latestFy: currentFiscalYear(),
+                    handleFyChange: pickedFy
+                }}
                 shareProps={{
                     url: getBaseUrl(slug),
                     onShareOptionClick: handleShare

@@ -39,7 +39,6 @@ const propTypes = {
 
 const RecipientContent = ({
     recipient,
-    pickedFy,
     showChildRecipientModal,
     showAlternateNamesRecipientModal
 }) => {
@@ -78,10 +77,7 @@ const RecipientContent = ({
                     sections={recipientSections}
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                    detectActiveSection={setActiveSection}
-                    selectedFy={recipient.fy}
-                    fyPicker
-                    pickedYear={pickedFy} />
+                    detectActiveSection={setActiveSection} />
             </div>
             <div className="recipient-content">
                 <RecipientOverview
