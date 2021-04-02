@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
 import { statePageMetaTags } from 'helpers/metaTagHelper';
+import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -31,7 +32,8 @@ const StatePage = ({
     error,
     loading,
     id,
-    stateProfile = { fy: '' }
+    stateProfile = { fy: '' },
+    pickedFy
 }) => {
     const slug = `state/${id}/${stateProfile.fy}`;
     const emailArgs = {
@@ -60,6 +62,13 @@ const StatePage = ({
                 overLine="state profile"
                 title={stateProfile.overview.name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
+                fyProps={{
+                    selectedFy: stateProfile?.fy === 'latest'
+                        ? currentFiscalYear()
+                        : stateProfile?.fy,
+                    latestFy: currentFiscalYear(),
+                    handleFyChange: pickedFy
+                }}
                 shareProps={{
                     url: getBaseUrl(slug),
                     onShareOptionClick: handleShare
