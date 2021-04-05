@@ -65,7 +65,7 @@ const StatePage = ({
                 fyProps={{
                     selectedFy: stateProfile?.fy === 'latest'
                         ? currentFiscalYear()
-                        : stateProfile?.fy,
+                        : parseInt(stateProfile?.fy, 10),
                     latestFy: currentFiscalYear(),
                     handleFyChange: pickedFy
                 }}
