@@ -80,7 +80,9 @@ export const RecipientPage = ({
                 title={recipient.overview.name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
                 fyProps={{
-                    selectedFy: recipient?.fy,
+                    selectedFy: recipient?.fy === 'latest'
+                        ? currentFiscalYear()
+                        : parseInt(recipient?.fy, 10),
                     latestFy: currentFiscalYear(),
                     handleFyChange: pickedFy
                 }}
