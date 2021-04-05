@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
+import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
@@ -80,10 +80,8 @@ export const RecipientPage = ({
                 title={recipient.overview.name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
                 fyProps={{
-                    selectedFy: recipient?.fy === 'latest'
-                        ? currentFiscalYear()
-                        : parseInt(recipient?.fy, 10),
-                    latestFy: currentFiscalYear(),
+                    selectedFy: recipient?.fy,
+                    options: getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear()),
                     handleFyChange: pickedFy
                 }}
                 shareProps={{
