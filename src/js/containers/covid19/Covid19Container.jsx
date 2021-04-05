@@ -211,6 +211,7 @@ const Covid19Container = () => {
                                         icon={componentByCovid19Section()[section].icon}
                                         headerText={componentByCovid19Section()[section].headerText}
                                         title={componentByCovid19Section()[section].title}
+                                        tooltipProps={componentByCovid19Section()[section].tooltipProps}
                                         tooltip={componentByCovid19Section()[section].tooltip}>
                                         {componentByCovid19Section()[section].component}
                                     </Covid19Section>

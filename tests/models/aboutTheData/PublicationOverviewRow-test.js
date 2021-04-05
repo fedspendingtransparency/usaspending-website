@@ -7,10 +7,10 @@ import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRo
 import { mockAPI } from '../../containers/aboutTheData/mockData';
 
 const mockRow = mockAPI.publications.data.results[0];
-const mockTotals = mockAPI.totals.data.results;
+const mockTotal = 10000;
 
 const mockDatesRow = Object.create(PublicationOverviewRow);
-mockDatesRow.populate(2020, mockRow, mockTotals);
+mockDatesRow.populate(mockRow, mockTotal);
 
 test('should format the agency name', () => {
     expect(mockDatesRow.name).toEqual('Mock Agency (ABC)');
@@ -22,13 +22,13 @@ test('should handle an agency with no abbreviation', () => {
         abbreviation: ''
     };
     const mockDatesRowMod = Object.create(mockDatesRow);
-    mockDatesRowMod.populate('2020', missingAbbrev, mockTotals);
+    mockDatesRowMod.populate(missingAbbrev, mockTotal);
     expect(mockDatesRowMod.name).toEqual('Mock Agency');
 });
 
 test('should format the percent of total federal budget', () => {
-    // 8000.72 / 1200.72
-    expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('66.67%');
+    // 8000.72 / 10000
+    expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('80.01%');
 });
 
 test('should always have 11 periods', () => {
