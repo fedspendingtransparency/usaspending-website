@@ -152,3 +152,13 @@ export const allFiscalYears = (earliestYear = earliestFiscalYear, latestYear = c
         }, [earliestYear])
         .sort((a, b) => b - a);
 };
+
+export const getFiscalYearsWithLatestAndAll = (earliestYear, latestYear) => []
+    .concat([
+        { value: 'latest', name: 'Trailing 12 Months' },
+        { value: 'all', name: 'All Fiscal Years' }
+    ])
+    .concat(
+        allFiscalYears(earliestYear, latestYear)
+            .map((int) => ({ name: `FY ${int}`, value: int }))
+    );

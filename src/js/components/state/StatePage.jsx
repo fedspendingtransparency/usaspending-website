@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
 import { statePageMetaTags } from 'helpers/metaTagHelper';
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
+import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -63,10 +63,8 @@ const StatePage = ({
                 title={stateProfile.overview.name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
                 fyProps={{
-                    selectedFy: stateProfile?.fy === 'latest'
-                        ? currentFiscalYear()
-                        : parseInt(stateProfile?.fy, 10),
-                    latestFy: currentFiscalYear(),
+                    selectedFy: stateProfile?.fy,
+                    options: getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear()),
                     handleFyChange: pickedFy
                 }}
                 shareProps={{
