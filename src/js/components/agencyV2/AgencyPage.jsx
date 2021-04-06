@@ -111,7 +111,7 @@ export const AgencyProfileV2 = ({
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <PageHeader
-                overLine="Agency Profile V2"
+                overLine="Agency Profile"
                 title={name}
                 stickyBreakPoint={getStickyBreakPointForSidebar()}
                 fyProps={{
