@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
 import { Tabs } from "data-transparency-ui";
-import ReadMore from 'components/covid19/ReadMore';
+import ReadMore from 'components/sharedComponents/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
 

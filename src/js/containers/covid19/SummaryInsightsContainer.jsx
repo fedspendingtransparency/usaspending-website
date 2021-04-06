@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setTotals } from 'redux/actions/covid19/covid19Actions';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts } from 'helpers/disasterHelper';
-import OverviewData from 'components/covid19/OverviewData';
+import { InformationBoxes } from "data-transparency-ui";
 import { useInFlightList } from 'helpers/covid19Helper';
 import { isEqual } from 'lodash';
 
@@ -19,7 +19,7 @@ const propTypes = {
     resultsCount: PropTypes.number,
     overviewData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
-        label: PropTypes.string
+        title: PropTypes.string
     })),
     areCountsLoading: PropTypes.bool,
     assistanceOnly: PropTypes.bool,
@@ -170,14 +170,13 @@ const SummaryInsightsContainer = ({
 
     return (
         <div className="overview-data-group">
-            {overviewData.map((data) => (
-                <OverviewData
-                    key={data.label}
-                    {...data}
-                    subtitle={subtitle}
-                    amount={amounts[data.type]}
-                    isLoading={data.type === 'resultsCount' ? areCountsLoading : inFlightList.includes(data.type)} />
-            ))}
+            <InformationBoxes
+                boxes={overviewData.map((data) => ({
+                    ...data,
+                    subtitle,
+                    amount: amounts[data.type],
+                    isLoading: data.type === 'resultsCount' ? areCountsLoading : inFlightList.includes(data.type)
+                }))} />
         </div>
     );
 };

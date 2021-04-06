@@ -96,7 +96,7 @@ export const awardPageMetaTags = ({
     og_description:
         `View a summary page of this ${dateSigned.format('YYYY')} ${awardType.toUpperCase()} to ${recipientName} from the ${agencyName || asstAggAgencyName}.`,
     og_site_name: siteName,
-    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+    og_image: `${productionURL}${imgDirectory}social-share-preview_award.png`
 });
 
 export const federalAccountPageMetaTags = ({
@@ -109,7 +109,7 @@ export const federalAccountPageMetaTags = ({
     og_description:
         `View the spending activity of the federal account for ${title}. `,
     og_site_name: siteName,
-    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+    og_image: `${productionURL}${imgDirectory}social-share-preview_account.png`
 });
 
 export const agencyPageMetaTags = ({
@@ -121,7 +121,7 @@ export const agencyPageMetaTags = ({
     og_description:
         `View the spending activity of the ${agencyName} in this profile page. `,
     og_site_name: siteName,
-    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+    og_image: `${productionURL}${imgDirectory}social-share-preview_agency.png`
 });
 
 export const agencyLandingPageMetaTags = {
@@ -139,7 +139,7 @@ export const covidPageMetaTags = {
     og_description:
         'Federal agencies that have received COVID-19 supplemental appropriations are required by the Office of Management and Budget (OMB) to report obligations and expenditures on a monthly basis to USAspending.gov. Visit the COVID-19 Spending profile page for an overview of this data.',
     og_site_name: siteName,
-    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+    og_image: `${productionURL}${imgDirectory}social-share-preview_covid.png`
 };
 
 export const stylePageMetaTags = {

@@ -11,6 +11,7 @@ const propTypes = {
     children: PropTypes.node
 };
 
+// TODO: This code is in the component library. We can delete it once we use <PageHeader /> everywhere.
 const StickyHeader = ({
     children
 }) => {

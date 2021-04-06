@@ -48,13 +48,19 @@ const MetaTags = ({
             newTags.push(<meta
                 property="og:url"
                 content={url}
-                key="og_url" />);
+                key="og_url" />
+            );
         }
         if (title !== '') {
             newTags.push(<meta
                 property="og:title"
                 content={title}
-                key="og_title" />);
+                key="og_title" />
+            );
+            newTags.push(<meta
+                content={title}
+                name="twitter:title" />
+            );
             newTags.push(<title key="title">{title}</title>);
         }
         if (description !== '') {
@@ -62,19 +68,24 @@ const MetaTags = ({
                 name="description"
                 property="og:description"
                 content={description}
-                key="og_description" />);
-        }
-        if (siteName !== '') {
+                key="og_description" />
+            );
             newTags.push(<meta
-                property="og:site_name"
-                content={siteName}
-                key="og_site_name" />);
+                content={description}
+                name="twitter:description" />
+            );
         }
         if (image !== '') {
             newTags.push(<meta
                 property="og:image"
                 content={image}
-                key="og_image" />);
+                key="og_image" />
+            );
+            newTags.push(<meta
+                name="twitter:image"
+                key="twitter:image"
+                content={image} />
+            );
         }
 
         setTags(
