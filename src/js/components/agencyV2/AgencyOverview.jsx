@@ -14,6 +14,8 @@ import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 
+import ObligationsByAwardType from './charts/ObligationsByAwardType';
+
 const propTypes = {
     isLoading: PropTypes.bool
 };
@@ -94,7 +96,7 @@ const AgencyOverview = ({ isLoading }) => {
 
     // Desktop layout
     if (windowWidth >= mediumScreen) {
-        content = (
+        content = <>
             <div className="agency-overview__row">
                 <div className="agency-overview__column">
                     {showAboutData && aboutBlock}
@@ -107,7 +109,10 @@ const AgencyOverview = ({ isLoading }) => {
                     {cjBlock}
                 </div>
             </div>
-        );
+
+            <ObligationsByAwardType />
+
+        </>;
     }
 
     return isLoading ? <LoadingMessage /> :
