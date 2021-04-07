@@ -11,6 +11,8 @@ import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import Note from 'components/sharedComponents/Note';
+import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
@@ -211,6 +213,7 @@ export default class GeoVisualizationSection extends React.Component {
                     {disclaimer}
                     {message}
                 </MapWrapper>
+                <Note message={noteMessage} />
             </section>
         );
     }
