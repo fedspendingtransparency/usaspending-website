@@ -14,7 +14,7 @@ import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 
-import ObligationsByAwardType from './charts/ObligationsByAwardType';
+import ObligationsByAwardType from './overview/ObligationsByAwardType';
 
 const propTypes = {
     isLoading: PropTypes.bool
