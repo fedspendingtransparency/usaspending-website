@@ -1,0 +1,19 @@
+.visualization-section {
+    text-align: center;
+    .visualization-section__subtitle {
+        padding-bottom: rem(8);
+    }
+    .visualization-section__data {
+        font-size: rem(30);
+        font-weight: $font-semibold;
+        line-height: rem(38);
+        padding-bottom: rem(10);
+    }
+    .visualization-section__secondary-data {
+        font-size: $small-font-size;
+        padding-bottom: rem(12);
+    }
+    .visualization-section__label {
+        padding-top: rem(15);
+    }
+}

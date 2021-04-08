@@ -1,0 +1,30 @@
+.fy-summary {
+    .fy-summary__heading {
+        font-size: rem(18);
+        font-weight: $font-semibold;
+        line-height: rem(23);
+        margin: 0;
+    }
+    hr {
+        height: rem(1);
+        background-color: $color-gray-light;
+        margin-top: rem(5);
+    }
+    .fy-summary__row {
+        @include display(flex);
+        padding: rem(50) 0 rem(22);
+        .fy-summary__col {
+            @include flex (1 1 25%);
+            padding: 0 rem(10);
+            border-right: solid rem(1) $color-gray-lighter;
+            &:first-of-type {
+                padding-left: 0;
+            }
+            &:last-of-type {
+                padding-right: 0;
+                border-right: 0;
+            }
+        }
+    }
+    @import './visualizationSection';
+}

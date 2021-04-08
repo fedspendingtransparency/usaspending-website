@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from 'test-utils';
-import AgencyOverview from 'components/agencyV2/AgencyOverview';
+import AgencyOverview from 'components/agencyV2/overview/AgencyOverview';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 
