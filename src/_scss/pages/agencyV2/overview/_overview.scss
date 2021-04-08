@@ -31,11 +31,30 @@
             padding-top: 2.2rem;
             .agency-overview__title {
                 h3 {
+                    // position: relative;
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
                     font-size: 3.6rem;
                     line-height: 4.5rem;
                 }
                 .agency-overview__sub-agencies {
                     font-size: 1.8rem;
+                }
+                .agency-overview__tooltip {
+                    // position: absolute;
+                    padding: rem(3) rem(7);
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
+                    background: $color-disaster-covid-19;
+                    color: $color-white;
+                    font-size: rem(14);
+                    font-weight: 600;
+                    text-align: center;
+                    height: rem(25);
+                    border-radius: rem(4);
+                    width: rem(132);
                 }
             }
         }
