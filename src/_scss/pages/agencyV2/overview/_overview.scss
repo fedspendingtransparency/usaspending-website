@@ -30,20 +30,20 @@
             @include justify-content(flex-end);
             padding-top: 2.2rem;
             .agency-overview__title {
+                @include display(flex);
+                @include justify-content(flex-start);
+                @include align-items(center);
+                @include flex-wrap(wrap);
                 h3 {
-                    // position: relative;
-                    @include display(flex);
-                    @include justify-content(center);
-                    @include align-items(center);
                     font-size: 3.6rem;
                     line-height: 4.5rem;
                 }
                 .agency-overview__sub-agencies {
                     font-size: 1.8rem;
+                    width: 100%;
                 }
                 .agency-overview__tooltip {
-                    // position: absolute;
-                    padding: rem(3) rem(7);
+                    // padding: rem(3) rem(7);
                     @include display(flex);
                     @include justify-content(center);
                     @include align-items(center);
@@ -55,6 +55,18 @@
                     height: rem(25);
                     border-radius: rem(4);
                     width: rem(132);
+                    margin-left: rem(10);
+                    .tooltip-spacer {
+                        transform: translateX(14px);
+                    }
+                    .tooltip-pointer {
+                        &.left {
+                            left: rem(-16);
+                        }
+                        &.smart-bottom-left {
+                            top: rem(-16);
+                        }
+                    }
                 }
             }
         }

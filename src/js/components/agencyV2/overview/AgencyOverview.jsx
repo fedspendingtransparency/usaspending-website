@@ -17,25 +17,28 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
+const replaceEmergencyPl = new RegExp(/(Emergency P.L.|Non-emergency P.L.)/);
+
 const CovidTooltip = ({
     codes,
     fy
 }) => {
     const getText = () => codes
         .map(({ code, public_law: pl, title }) => {
-            const parsedPublicLaw = `${pl}`;
+            const parsedPublicLaw = `${pl.includes('Non-emergency') ? 'Not designated as emergency' : 'Designated as emergency'}`;
             return (
                 <li>
                     <strong>{`DEFC: ${code}`}</strong>
-                    <p>{`${parsedPublicLaw},`}</p>
-                    <p>{`${title}`}</p>
+                    <p>{`${parsedPublicLaw}; ${pl.replace(replaceEmergencyPl, 'Public Law')}, ${title.toUpperCase()}`}</p>
                 </li>
             );
         });
     return (
         <TooltipComponent title="Disaster and Emergency Funding Codes (DEFC)">
-            <p>{`In FY ${fy}, this agency received supllemental funding in response to the following`}</p>
-            {getText()}
+            <p>{`In FY ${fy}, this agency received supplemental funding in response to the following:`}</p>
+            <ul>
+                {getText()}
+            </ul>
             <Link to={{
                 pathname: "/disaster/covid-19/",
                 search: "?section=sub-agency"
@@ -159,7 +162,7 @@ const AgencyOverview = ({
                 <div className="agency-overview__title">
                     <h3>
                         {name}
-                        {covidDefCodes.length > 0 &&
+                        {name && covidDefCodes.length &&
                             <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                                 <span className="covid-spending-flag">
                                     COVID-19 Spending
@@ -168,6 +171,7 @@ const AgencyOverview = ({
                         }
                     </h3>
                     <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
+                    {image}
                 </div>
                 {image}
             </div>
