@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ComingSoon } from 'data-transparency-ui';
+import { ComingSoon, Carousel } from 'data-transparency-ui';
 import VisualizationSection from './VisualizationSection';
 
 const propTypes = {
@@ -14,48 +14,63 @@ const propTypes = {
 };
 
 const FySummary = ({ isMobile, fy }) => {
+    // TODO eventually get this data via props or redux
+    const totalBudgetaryResources = '$1.42 Trillion';
+    const percentOfFederalBudget = '15.5%';
+    const totalObligations = '$1.11 Trillion';
+    const percentOfBudgetaryResources = '79.1%';
+    const awardObligations = '$10.62 Billion';
+    const percentOfTotalObligations = '9.4%';
+    const numberOfRecipients = '200';
+    const percentOfFederalRecipients = '1.5%';
+
+    const components = [
+        (
+            <VisualizationSection
+                subtitle="How much can this agency spend?"
+                data={totalBudgetaryResources}
+                secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
+                label="Total Budgetary Resources Over Time" >
+                <ComingSoon />
+            </VisualizationSection>
+        ),
+        (
+            <VisualizationSection
+                subtitle="How much has this agency spent in total?"
+                data={totalObligations}
+                secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
+                label="Total Obligations Over Time" >
+                <ComingSoon />
+            </VisualizationSection>
+        ),
+        (
+            <VisualizationSection
+                subtitle="How much can this agency spend?"
+                data={awardObligations}
+                secondaryData={`${percentOfTotalObligations} of total obligations`}
+                label="Award Obligations by Type" >
+                <ComingSoon />
+            </VisualizationSection>
+        ),
+        (
+            <VisualizationSection
+                subtitle="How many recipients did this agency have?"
+                data={numberOfRecipients}
+                secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
+                label="Recipient Award Amount Distribution" >
+                <ComingSoon />
+            </VisualizationSection>
+        )
+    ];
     const content = isMobile ? (
-        <div>
-            Mobile
-        </div>
+        <Carousel items={components} />
     ) : (
         <div className="fy-summary__row">
-            <div className="fy-summary__col">
-                <VisualizationSection
-                    subtitle="How much can this agency spend?"
-                    data="$1.42 Trillion"
-                    secondaryData={`15.5% of the FY ${fy} U.S. federal budget`}
-                    label="Total Budgetary Resources Over Time" >
-                    <ComingSoon />
-                </VisualizationSection>
-            </div>
-            <div className="fy-summary__col">
-                <VisualizationSection
-                    subtitle="How much has this agency spent in total?"
-                    data="$1.11 Trillion"
-                    secondaryData="79.1% of total budgetary resources"
-                    label="Total Obligations Over Time" >
-                    <ComingSoon />
-                </VisualizationSection>
-            </div>
-            <div className="fy-summary__col">
-                <VisualizationSection
-                    subtitle="How much can this agency spend?"
-                    data="$10.62 Billion"
-                    secondaryData="9.4% of total obligations"
-                    label="Award Obligations by Type" >
-                    <ComingSoon />
-                </VisualizationSection>
-            </div>
-            <div className="fy-summary__col">
-                <VisualizationSection
-                    subtitle="How many recipients did this agency have?"
-                    data="200"
-                    secondaryData="1.5% of all federal recipients"
-                    label="Recipient Award Amount Distribution" >
-                    <ComingSoon />
-                </VisualizationSection>
-            </div>
+            {components.map((viz) => (
+                <div className="fy-summary__col">
+                    {viz}
+                </div>
+            ))}
         </div>
     );
 

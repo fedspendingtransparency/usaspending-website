@@ -4,10 +4,10 @@
         padding-bottom: rem(8);
     }
     .visualization-section__data {
-        font-size: rem(30);
+        font-size: rem(27);
         font-weight: $font-semibold;
-        line-height: rem(38);
-        padding-bottom: rem(10);
+        line-height: rem(34);
+        padding-bottom: rem(5);
     }
     .visualization-section__secondary-data {
         font-size: $small-font-size;
@@ -15,5 +15,13 @@
     }
     .visualization-section__label {
         padding-top: rem(15);
+    }
+    @include media($medium-screen) {
+        // Desktop
+        .visualization-section__data {
+            font-size: rem(30);
+            line-height: rem(38);
+            padding-bottom: rem(10);
+        }
     }
 }
