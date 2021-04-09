@@ -27,7 +27,7 @@ const FySummary = ({ isMobile, fy }) => {
     const components = [
         (
             <VisualizationSection
-                subtitle="How much can this agency spend?"
+                subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time" >
@@ -36,7 +36,7 @@ const FySummary = ({ isMobile, fy }) => {
         ),
         (
             <VisualizationSection
-                subtitle="How much has this agency spent in total?"
+                subtitle={isMobile ? 'How much has this agency spent in total?' : (<>How much has this agency<br />spent in total?</>)}
                 data={totalObligations}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
@@ -45,7 +45,7 @@ const FySummary = ({ isMobile, fy }) => {
         ),
         (
             <VisualizationSection
-                subtitle="How much can this agency spend?"
+                subtitle={isMobile ? 'How much has this agency spent on awards?' : (<>How much has this agency<br />spent on awards?</>)}
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
@@ -54,7 +54,7 @@ const FySummary = ({ isMobile, fy }) => {
         ),
         (
             <VisualizationSection
-                subtitle="How many recipients did this agency have?"
+                subtitle={isMobile ? 'How many award recipients did this agency have?' : (<>How many award recipients<br />did this agency have?</>)}
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >

@@ -1,5 +1,10 @@
 .visualization-section {
     text-align: center;
+    height: 100%;
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(space-between);
     .visualization-section__subtitle {
         padding-bottom: rem(8);
     }

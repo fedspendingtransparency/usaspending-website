@@ -17,7 +17,7 @@
     }
     .fy-summary__row { // Desktop
         @include display(flex);
-        padding: rem(50) 0 rem(22);
+        padding: rem(30) 0 rem(22);
         .fy-summary__col {
             @include flex (1 1 25%);
             padding: 0 rem(10);

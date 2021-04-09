@@ -4,12 +4,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 
 const propTypes = {
     children: PropTypes.element,
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
+    subtitle: oneOfType([PropTypes.string, PropTypes.element]),
     data: PropTypes.string,
     secondaryData: PropTypes.string,
     label: PropTypes.string
@@ -17,14 +16,12 @@ const propTypes = {
 
 const VisualizationSection = ({
     children,
-    title,
     subtitle,
     data,
     secondaryData,
     label
 }) => (
     <div className="visualization-section">
-        <div className="visualization-section__title">{title}</div>
         <div className="visualization-section__subtitle">{subtitle}</div>
         <div className="visualization-section__data">{data}</div>
         <div className="visualization-section__secondary-data">{secondaryData}</div>
