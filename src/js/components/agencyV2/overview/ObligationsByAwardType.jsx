@@ -19,16 +19,16 @@ export default class ObligationsByAwardType extends React.Component {
     // };
   }
 
-  propTypes = {
+  static propTypes = {
   };
-  defaultProps = {
+  static defaultProps = {
   };
 
 
   render = () => {
     var width = 450;
-    height = 450;
-    margin = 40;
+    var height = 450;
+    var margin = 40;
 
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
