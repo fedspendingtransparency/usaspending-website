@@ -1,13 +1,6 @@
 .visualization-section {
     text-align: center;
     height: 100%;
-    @supports not (-ms-high-contrast: none) {
-        // Non-IE styles
-        @include display(flex);
-        @include flex-direction(column);
-        @include align-items(center);
-        @include justify-content(space-between);
-    }
     .visualization-section__subtitle {
         padding-bottom: rem(8);
     }
@@ -20,6 +13,16 @@
     .visualization-section__secondary-data {
         font-size: $small-font-size;
         padding-bottom: rem(12);
+    }
+    .visualization-section__viz-wrapper {
+        height: rem(208);
+        @include display(flex);
+        @include align-items(center);
+        /* TODO - remove placeholder styling once all four
+        visualizations are implemented */
+        .viz-placeholder {
+            padding: rem(40) 0;
+        }
     }
     .visualization-section__label {
         padding-top: rem(15);

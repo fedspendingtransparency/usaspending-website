@@ -31,7 +31,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time" >
-                <ComingSoon />
+                <ComingSoon className="viz-placeholder" />
             </VisualizationSection>
         ),
         (
@@ -40,7 +40,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={totalObligations}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
-                <ComingSoon />
+                <ComingSoon className="viz-placeholder" />
             </VisualizationSection>
         ),
         (
@@ -49,7 +49,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ComingSoon />
+                <ComingSoon className="viz-placeholder" />
             </VisualizationSection>
         ),
         (
@@ -58,7 +58,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <ComingSoon />
+                <ComingSoon className="viz-placeholder" />
             </VisualizationSection>
         )
     ];
