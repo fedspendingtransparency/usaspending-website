@@ -44,12 +44,13 @@ export default class ObligationsByAwardType extends React.Component {
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
-    var data = [9, 20, 30, 5, 12];
+    var data1 = [9, 20, 30, 5, 12];
+    var data2 = [3, 5];
 
     // set the color scale
     var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
 
-    const chart_data = d3.pie()(data);
+    const chart_data = d3.pie()(data1);
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     svg
@@ -58,8 +59,8 @@ export default class ObligationsByAwardType extends React.Component {
       .enter()
       .append('path')
       .attr('d', d3.arc()
+        .outerRadius(radius - 100)
         .innerRadius(100)         // This is the size of the donut hole
-        .outerRadius(radius)
       )
       .attr('fill', (d, i) => color(i))
       .attr("stroke", "black")
