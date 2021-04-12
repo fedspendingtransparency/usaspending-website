@@ -56,7 +56,7 @@ const handlersBySocialMedium = {
     twitter: (url) => handleShareClickTwitter(url),
     facebook: (url) => handleShareClickFacebook(url),
     reddit: (url) => handleShareClickReddit(url),
-    email: ({ subject, body }) => {
+    email: ({ subject, body = '' }) => {
         handleShareClickEmail(subject, body);
     },
     linkedin: (url) => handleShareClickLinkedin(url),

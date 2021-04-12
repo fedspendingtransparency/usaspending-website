@@ -9,12 +9,11 @@ import { PageHeader } from 'data-transparency-ui';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
-
 
 const propTypes = {
     children: PropTypes.element,
@@ -41,10 +40,14 @@ const ExplorerWrapperPage = (props) => {
             <Header />
             <PageHeader
                 title="Spending Explorer"
-                shareProps={{
-                    url: getBaseUrl(slug),
-                    onShareOptionClick: handleShare
-                }}>
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
+                shareProps={props.showShareIcon
+                    ? {
+                        url: getBaseUrl(slug),
+                        onShareOptionClick: handleShare
+                    }
+                    : null
+                }>
                 <main
                     id="main-content"
                     className="main-content">
