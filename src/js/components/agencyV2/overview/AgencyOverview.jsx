@@ -15,7 +15,7 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
-import ObligationsByAwardType from './overview/ObligationsByAwardType';
+import ObligationsByAwardType from './ObligationsByAwardType';
 
 const propTypes = {
     isLoading: PropTypes.bool,
