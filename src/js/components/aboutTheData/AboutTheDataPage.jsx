@@ -46,7 +46,7 @@ const AboutTheDataPage = ({ history }) => {
                 search: getQueryParamString(paramsWithTab)
             });
         }
-    }, [activeTab, history, params]);
+    }, [activeTab]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
@@ -67,7 +67,7 @@ const AboutTheDataPage = ({ history }) => {
     const slug = `submission-statistics/${search}`;
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getAllAgenciesEmail(getBaseUrl(slug), urlPeriod, activeTab));
+        handleShareOptionClick(name, slug, getAllAgenciesEmail(urlFy, urlPeriod, activeTab));
     };
 
     return (
