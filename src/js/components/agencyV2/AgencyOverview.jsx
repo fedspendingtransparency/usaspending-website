@@ -109,9 +109,6 @@ const AgencyOverview = ({ isLoading }) => {
                     {cjBlock}
                 </div>
             </div>
-
-            <ObligationsByAwardType />
-
         </>;
     }
 
@@ -126,6 +123,11 @@ const AgencyOverview = ({ isLoading }) => {
                     {image}
                 </div>
                 {content}
+
+                --------------
+                <ObligationsByAwardType />
+                --------------
+
             </div>
         );
 };
