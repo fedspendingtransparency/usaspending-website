@@ -23,7 +23,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import Footer from 'containers/Footer';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
-import AgencyOverview from './AgencyOverview';
+import AgencyOverview from './overview/AgencyOverview';
 
 require('pages/agencyV2/index.scss');
 
@@ -55,7 +55,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            component: <AgencyOverview isLoading={isLoading} />
+            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} />
         },
         {
             name: 'budget-category',
