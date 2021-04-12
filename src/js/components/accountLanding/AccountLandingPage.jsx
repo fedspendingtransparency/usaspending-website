@@ -8,7 +8,7 @@ import { PageHeader } from 'data-transparency-ui';
 
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
@@ -33,6 +33,7 @@ export default class AccountLandingPage extends React.Component {
                 <Header />
                 <PageHeader
                     title="Federal Account Profiles"
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
                     shareProps={{
                         url: getBaseUrl(slug),
                         onShareOptionClick: this.handleShare

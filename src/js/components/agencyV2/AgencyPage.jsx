@@ -15,7 +15,6 @@ import { useSelector } from 'react-redux';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';

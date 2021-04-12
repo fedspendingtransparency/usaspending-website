@@ -8,7 +8,7 @@ import { PageHeader } from 'data-transparency-ui';
 
 import { agencyLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -34,6 +34,7 @@ export default class AgencyLandingPage extends React.Component {
                 <Header />
                 <PageHeader
                     title="Agency Profiles"
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
                     shareProps={{
                         url: getBaseUrl('agency'),
                         onShareOptionClick: this.handleShare

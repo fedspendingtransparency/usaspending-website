@@ -8,7 +8,7 @@ import { PageHeader } from 'data-transparency-ui';
 
 import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -33,6 +33,7 @@ export default class RecipientLandingPage extends React.Component {
                 <Header />
                 <PageHeader
                     title="Recipient Profiles"
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
                     shareProps={{
                         url: getBaseUrl(slug),
                         onShareOptionClick: this.handleShare

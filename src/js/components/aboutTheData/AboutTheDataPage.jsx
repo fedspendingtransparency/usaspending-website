@@ -12,7 +12,7 @@ import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
@@ -75,6 +75,7 @@ const AboutTheDataPage = ({ history }) => {
             <Header />
             <PageHeader
                 title="Agency Submission Statistics"
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
                 shareProps={{ url: getBaseUrl(slug), onShareOptionClick: handleShare }}>
                 <main id="main-content" className="main-content">
                     <div className="heading-container">

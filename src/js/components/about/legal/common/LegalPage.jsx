@@ -12,6 +12,7 @@ import {
     privacyPageMetaTags,
     foiaPageMetaTags
 } from 'helpers/metaTagHelper';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Footer from 'containers/Footer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -40,7 +41,7 @@ export default class LegalPage extends React.Component {
             <div className="usa-da-legal-page">
                 <MetaTags {...metaTags} />
                 <Header />
-                <PageHeader title="Legal">
+                <PageHeader title="Legal" stickyBreakPoint={getStickyBreakPointForSidebar()}>
                     <main
                         id="main-content"
                         className="main-content">

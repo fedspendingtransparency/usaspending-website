@@ -12,8 +12,8 @@ import { PageHeader } from 'data-transparency-ui';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
 import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
+import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
@@ -24,7 +24,6 @@ import Header from 'containers/shared/HeaderContainer';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
@@ -157,6 +156,7 @@ export default () => {
             <PageHeader
                 overLine="Data Sources &amp; Methodology"
                 title="COVID-19 Spending"
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
                 shareProps={{
                     url: getBaseUrl("disaster/covid-19/data-sources"),
                     onShareOptionClick: handleShare

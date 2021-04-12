@@ -14,11 +14,13 @@ import {
     dataDictionaryPageMetaTags,
     metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 
+
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
@@ -118,7 +120,7 @@ export default class BulkDownloadPage extends React.Component {
             <div className="usa-da-bulk-download-page">
                 {Object.keys(metaTagsByDataType).includes(this.props.dataType) && <MetaTags {...metaTagsByDataType[this.props.dataType]} />}
                 <Header />
-                <PageHeader title="Download Center">
+                <PageHeader title="Download Center" stickyBreakPoint={getStickyBreakPointForSidebar()}>
                     <main id="main-content">
                         <div className="bulk-download">
                             <div className="bulk-download__sidebar">

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -54,6 +55,7 @@ export default class AgencyPage extends React.Component {
                 <PageHeader
                     overLine="Agency Profile"
                     title={overview?.name}
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
                     shareProps={{
                         url: getBaseUrl(`agency/${id}`),
                         onShareOptionClick: this.handleShare
