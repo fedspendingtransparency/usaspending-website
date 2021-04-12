@@ -29,8 +29,8 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const getEmailSocialShareData = {
-    subject: "COVID-19 Spending: Data Sources & Methodology",
-    body: `View COVID-19 Spending: Data Sources & Methodology on USAspending.gov: ${"https://www.usaspending.gov/#/disaster/covid-19/data-sources"}`
+    subject: "COVID-19 Spending: Data Sources and Methodology",
+    body: "View COVID-19 Spending: Data Sources and Methodology on USAspending.gov: https://www.usaspending.gov/disaster/covid-19/data-sources"
 };
 
 const sections = [
