@@ -13,16 +13,19 @@ export default class ObligationsByAwardType extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   chartReady: false,
-    //   virtualChart: {}
-    // };
+    this.state = {
+      prerender: true
+    };
   }
 
   static propTypes = {
   };
   static defaultProps = {
   };
+
+  componentDidMount = () => this.setState({ prerender: false });
+
+  shouldComponentUpdate = () => this.state.prerender;
 
   render = () => {
 
@@ -66,7 +69,6 @@ export default class ObligationsByAwardType extends React.Component {
       .attr("stroke", "black")
       .style("stroke-width", "2px")
       .style("opacity", 0.7);
-
 
 
     return <div id="obl_chart" />;
