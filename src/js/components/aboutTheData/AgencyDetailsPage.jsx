@@ -76,7 +76,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode, getOverviewData]);
+    }, [agencyCode]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -109,7 +109,7 @@ const AgencyDetailsPage = () => {
                                         <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
                                     </Link>
                                 </div>
-                                <h2 className="header">{agencyOverview.name}</h2>
+                                <h2 className="header">{agencyOverview?.name}</h2>
                                 <div className="agency-info">
                                     {agencyOverview.website && (
                                         <div className="agency-info__group">
