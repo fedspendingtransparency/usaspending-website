@@ -49,7 +49,7 @@ export const LoadingWrapper = ({
                 {includeHeader && (
                     <>
                         <Header />
-                        <PageHeader>
+                        <PageHeader title="--">
                             <div className="page__loading">
                                 <FontAwesomeIcon icon="spinner" spin size="lg" />
                                 <h4>{`${msg}${dots}`}</h4>

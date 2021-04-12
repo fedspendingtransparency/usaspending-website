@@ -98,13 +98,12 @@ export const AgencyProfileV2 = ({
     };
 
     const slug = `agency_v2/${agencyId}`;
-    const emailArgs = {
-        subject: `USAspending.gov Agency Profile: Agency Name`,
-        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
-    };
 
     const handleShare = (optionName) => {
-        handleShareOptionClick(optionName, slug, emailArgs);
+        handleShareOptionClick(optionName, slug, {
+            subject: `USAspending.gov Agency Profile: ${name}`,
+            body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
+        });
     };
 
     return (
