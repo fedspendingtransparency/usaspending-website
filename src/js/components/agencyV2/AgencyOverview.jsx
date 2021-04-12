@@ -13,6 +13,7 @@ import { LoadingMessage } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
+import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 
 const propTypes = {
     isLoading: PropTypes.bool
@@ -121,6 +122,7 @@ const AgencyOverview = ({ isLoading }) => {
                     {image}
                 </div>
                 {content}
+                <TotalObligationsOverTimeContainer />
             </div>
         );
 };

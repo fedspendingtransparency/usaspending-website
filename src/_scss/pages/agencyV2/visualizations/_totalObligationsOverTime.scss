@@ -1,0 +1,19 @@
+.total-obligations-over-time-visualization-container {
+  .total-obligations-over-time-svg {
+    .total-obligations-over-time-svg-body {
+      .total-obligations-over-time-svg-axis {
+        line {
+          stroke: $color-gray-light;
+          stroke-width: 1;
+        }
+        .x-axis {
+          .x-axis-labels {
+            text {
+              font-size: rem(14);
+            }
+          }
+        }
+      }
+    }
+  }
+}

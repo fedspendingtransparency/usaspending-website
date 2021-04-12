@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
+import { fetchAgencyOverview } from 'apis/agencyV2APIs';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
