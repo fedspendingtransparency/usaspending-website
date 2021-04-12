@@ -1,0 +1,38 @@
+.fy-summary {
+    padding-top: rem(50);
+    .fy-summary__heading {
+        font-size: rem(14);
+        line-height: rem(16);
+        margin: 0;
+        @include media($medium-screen) { // Desktop
+            font-size: rem(18);
+            font-weight: $font-semibold;
+            line-height: rem(23);
+        }
+    }
+    hr {
+        height: rem(1);
+        background-color: $color-gray-light;
+        margin-top: rem(5);
+    }
+    .fy-summary__row { // Desktop
+        @include display(flex);
+        padding: rem(30) 0 rem(22);
+        .fy-summary__col {
+            @include flex (1 1 25%);
+            padding: 0 rem(10);
+            border-right: solid rem(1) $color-gray-lighter;
+            &:first-of-type {
+                padding-left: 0;
+            }
+            &:last-of-type {
+                padding-right: 0;
+                border-right: 0;
+            }
+        }
+    }
+    .usa-dt-carousel { // Mobile
+        padding-top: rem(25);
+    }
+    @import './visualizationSection';
+}

@@ -76,7 +76,7 @@
             .usda-section__container {
                 @import './tabs';
                 @include display(flex);
-                @import './overview';
+                @import './overview/overview';
                 hr {
                     height: rem(2)
                 }
