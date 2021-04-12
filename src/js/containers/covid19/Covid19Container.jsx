@@ -6,7 +6,8 @@
 // TODO: DEV-7122 Move to new Page Header Component
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,7 +37,8 @@ import {
     getEmailSocialShareData,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
+import { fetchOverview, fetchAwardAmounts } from 'helpers/disasterHelper';
+import { useQueryParams } from 'helpers/queryParams';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
@@ -49,7 +51,11 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
+
 const Covid19Container = () => {
+    const query = useQueryParams();
+    const history = useHistory();
+    const [activeSection, setActiveSection] = useState('overview');
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const overviewRequest = useRef(null);
@@ -57,11 +63,27 @@ const Covid19Container = () => {
     const awardAmountRequest = useRef(null);
     const dataDisclaimerBannerRef = useRef(null);
     const dispatch = useDispatch();
+    const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
 
     const handleScroll = () => {
         setBannerStickyOnScroll();
     };
+
+    const handleJumpToSection = (section) => {
+        jumpToSection(section);
+        setActiveSection(section);
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
+    };
+
+    useEffect(() => {
+        if (isRecipientMapLoaded && query.section) {
+            handleJumpToSection(query.section);
+            history.push({
+                pathname: '/disaster/covid-19'
+            });
+        }
+    }, [isRecipientMapLoaded]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -130,10 +152,6 @@ const Covid19Container = () => {
         setDataDisclaimerBanner('hide');
     };
 
-    const handleJumpToSection = (section) => {
-        jumpToSection(section);
-        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
-    };
     return (
         <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
             <MetaTags {...covidPageMetaTags} />
@@ -178,6 +196,7 @@ const Covid19Container = () => {
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
+                                    active={activeSection}
                                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection

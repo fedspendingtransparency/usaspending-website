@@ -9,12 +9,19 @@
         .agency-overview__title {
             display: block;
             h3 {
+                @include display(flex);
+                @include align-items(center);
                 margin: 0;
                 font-size: 2rem;
                 font-weight: $font-semibold;
                 letter-spacing: 0;
                 line-height: 2.5rem;
                 padding-bottom: 0.3rem;
+                .tooltip-wrapper > div:first-of-type {
+                    height: 100%;
+                    @include display(flex);
+                    @include align-items(center);
+                }
             }
             .agency-overview__sub-agencies {
                 font-size: 1.4rem;
@@ -43,7 +50,6 @@
                     width: 100%;
                 }
                 .agency-overview__tooltip {
-                    // padding: rem(3) rem(7);
                     @include display(flex);
                     @include justify-content(center);
                     @include align-items(center);

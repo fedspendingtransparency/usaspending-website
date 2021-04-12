@@ -41,7 +41,7 @@ const CovidTooltip = ({
             </ul>
             <Link to={{
                 pathname: "/disaster/covid-19/",
-                search: "?section=sub-agency"
+                search: "?section=award_spending_by_agency"
             }}>
                 {`View this agency's DEFC spending.`}
             </Link>
@@ -171,7 +171,6 @@ const AgencyOverview = ({
                         }
                     </h3>
                     <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
-                    {image}
                 </div>
                 {image}
             </div>
