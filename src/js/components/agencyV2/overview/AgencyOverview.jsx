@@ -15,8 +15,6 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
-import ObligationsByAwardType from './ObligationsByAwardType';
-
 const propTypes = {
     isLoading: PropTypes.bool,
     fy: PropTypes.string
@@ -124,11 +122,6 @@ const AgencyOverview = ({ isLoading, fy }) => {
                 {image}
             </div>
             {content}
-
-            --------------
-            <ObligationsByAwardType />
-            --------------
-
         </>
     );
 

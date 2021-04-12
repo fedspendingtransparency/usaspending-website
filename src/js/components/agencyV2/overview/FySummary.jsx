@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { ComingSoon, Carousel } from 'data-transparency-ui';
 import VisualizationSection from './VisualizationSection';
 
+import ObligationsByAwardType from './ObligationsByAwardType';
+
 const propTypes = {
     isMobile: PropTypes.bool,
     fy: PropTypes.string
@@ -49,7 +51,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ComingSoon className="viz-placeholder" />
+                <ObligationsByAwardType />
             </VisualizationSection>
         ),
         (
