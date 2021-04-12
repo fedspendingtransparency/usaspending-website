@@ -66,9 +66,9 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
     [obj.section]: { title: obj.label }
 }), {}));
 
-const getEmailSocialShareData = {
-    subject: "Agency Submission Statistics: Data Sources & Methodology",
-    body: `View Agency Submission Statistics: Data Sources & Methodology on USAspending.gov: ${"https://www.usaspending.gov/submission-statistics/"}`
+const emailData = {
+    subject: "Agency Submission Statistics: Data Sources and Methodology",
+    body: "View Agency Submission Statistics: Data Sources and Methodology on USAspending.gov: https://www.usaspending.gov/submission-statistics/data-sources"
 };
 
 const DataSourcesAndMethodologiesPage = () => {
@@ -84,7 +84,7 @@ const DataSourcesAndMethodologiesPage = () => {
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, `submission-statistics/`, getEmailSocialShareData);
+        handleShareOptionClick(name, `submission-statistics/data-sources`, emailData);
     };
 
     return (
