@@ -11,7 +11,7 @@ import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -90,6 +90,7 @@ const AgencyDetailsPage = () => {
             <Header />
             <PageHeader
                 title={agencyOverview?.name}
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
                 overLine="Agency Submission Data"
                 shareProps={{
                     url: getBaseUrl(`submission-statistics/agency/${agencyCode}`),

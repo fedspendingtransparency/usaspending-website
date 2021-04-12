@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PageHeader } from 'data-transparency-ui';
 
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+
 import Header from 'components/sharedComponents/header/Header';
 import Footer from 'containers/Footer';
 
@@ -49,7 +51,7 @@ export const LoadingWrapper = ({
                 {includeHeader && (
                     <>
                         <Header />
-                        <PageHeader title="--">
+                        <PageHeader title="--" stickyBreakPoint={getStickyBreakPointForSidebar()}>
                             <div className="page__loading">
                                 <FontAwesomeIcon icon="spinner" spin size="lg" />
                                 <h4>{`${msg}${dots}`}</h4>

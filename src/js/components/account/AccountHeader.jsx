@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 
@@ -29,6 +30,7 @@ export default class AccountHeader extends React.Component {
             <PageHeader
                 overLine="Federal Account Profile"
                 title={`Federal Account Symbol: ${accountSymbol}`}
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
                 shareProps={{
                     url: getBaseUrl(slug),
                     onShareOptionClick: (name) => this.handleShare(name, slug)

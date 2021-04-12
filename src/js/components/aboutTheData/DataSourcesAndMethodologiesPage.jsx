@@ -14,7 +14,6 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -95,6 +94,7 @@ const DataSourcesAndMethodologiesPage = () => {
             <PageHeader
                 overLine="Data Sources and Methodology"
                 title="Agency Submissions Statistics"
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
                 shareProps={{
                     url: getBaseUrl('submission-statistics'),
                     onShareOptionClick: handleShare
