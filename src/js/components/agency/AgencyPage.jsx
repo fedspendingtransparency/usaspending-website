@@ -34,7 +34,7 @@ export default class AgencyPage extends React.Component {
     handleShare = (name) => {
         handleShareOptionClick(name, `agency/${this.props.agency.id}`, {
             subject: `USAspending.gov Agency Profile: ${this.props.agency.overview.name}`,
-            body: `View all of the Federal Account Profiles on USAspending.gov: ${getBaseUrl(`agency/${this.props.agency.id}`)}`
+            body: `View the spending activity of this agency on USAspending.gov: ${getBaseUrl(`agency/${this.props.agency.id}`)}`
         });
     };
 
