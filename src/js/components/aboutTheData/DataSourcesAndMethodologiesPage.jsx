@@ -152,7 +152,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <p><strong>Calculation:</strong></p>
                                     <p>
-                                        The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID). This can be replicated with total_budgetary_resources field in the Account Balances (File A) file in Custom Account Download.
+                                        The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID) divided by the total budgetary resources reported in GTAS (Line 1910 of the SF-133).
                                     </p>
                                 </div>
                             </div>
