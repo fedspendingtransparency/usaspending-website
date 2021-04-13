@@ -101,7 +101,7 @@ export const AgencyProfileV2 = ({
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, slug, {
             subject: `USAspending.gov Agency Profile: ${name}`,
-            body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
+            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
         });
     };
 

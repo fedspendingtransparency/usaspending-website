@@ -31,7 +31,10 @@ const emailSubject = 'USAspending.gov Federal Spending Explorer';
 
 const ExplorerWrapperPage = (props) => {
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, { subject: emailSubject });
+        handleShareOptionClick(name, slug, {
+            subject: emailSubject,
+            body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
+        });
     };
 
     return (

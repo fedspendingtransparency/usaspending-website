@@ -27,7 +27,6 @@ const handleShareClickFacebook = (url) => {
 
 const handleShareClickTwitter = (url) => {
     const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
-    console.log('finalUrl', url);
     openShareWindow(finalUrl);
     Analytics.event({ category: `${url}`, action: 'share link click', label: 'twitter' });
 };

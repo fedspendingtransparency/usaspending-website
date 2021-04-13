@@ -23,7 +23,8 @@ const emailSubject = 'USAspending.gov Agency Profiles';
 export default class AgencyLandingPage extends React.Component {
     handleShare = (name) => {
         handleShareOptionClick(name, 'agency', {
-            subject: emailSubject
+            subject: emailSubject,
+            body: `View all of the Agency Profiles on USAspending.gov: ${getBaseUrl('agency')}`
         });
     };
 
