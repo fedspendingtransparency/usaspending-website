@@ -47,27 +47,51 @@ export default class ObligationsByAwardType extends React.Component {
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
-    var data1 = [9, 20, 30, 5, 12];
-    var data2 = [3, 5];
+    var data1 = [9, 20, 30, 5, 12, 10];
+    var data2 = [59, 27];
 
     // set the color scale
-    var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+    // All Contracts (outer circle): #A9ADD1
+    // Contract IDV: #545BA3
+    // Contract: #A9ADD1
+    // Financial Assistance
+    // All Financial Assistance (outer circle): #FFBC78
+    // Grants: #C05600
+    // Loans: #FA9441
+    // Direct Payments: #E66F0E
+    // Other Financial Assistance: #FFBC78 (edited)
 
-    const chart_data = d3.pie()(data1);
 
-    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+
+    const categoriesPie = d3.pie()(data2);
+    const categoriesColors = d3.scaleOrdinal(["#FFBC78", "#A9ADD1"]); // [Assistance, Contracts]
+    const detailsPie = d3.pie()(data1);
+    const detailsColors = d3.scaleOrdinal(["#C05600", "#FA9441", "#E66F0E", "#FFBC78", "#545BA3", "#A9ADD1"]); // [Grants, Loans, Direct Payments, Other FA, Contract IDV, Contracts]
+
+    // categories
     svg
       .selectAll('whatever')
-      .data(chart_data)
+      .data(categoriesPie)
       .enter()
       .append('path')
       .attr('d', d3.arc()
-        .outerRadius(radius - 100)
-        .innerRadius(100)         // This is the size of the donut hole
+        .outerRadius(radius)
+        .innerRadius(radius - 5)
       )
-      .attr('fill', (d, i) => color(i))
-      .attr("stroke", "black")
-      .style("stroke-width", "2px")
+      .attr('fill', (d, i) => categoriesColors(i))
+      .style("opacity", 0.7);
+
+    // details
+    svg
+      .selectAll('whatever')
+      .data(detailsPie)
+      .enter()
+      .append('path')
+      .attr('d', d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(100)
+      )
+      .attr('fill', (d, i) => detailsColors(i))
       .style("opacity", 0.7);
 
 
