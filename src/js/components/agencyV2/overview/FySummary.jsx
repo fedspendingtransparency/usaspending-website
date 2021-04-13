@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { ComingSoon, Carousel } from 'data-transparency-ui';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import VisualizationSection from './VisualizationSection';
+import BarChart from './BarChart';
 
 
 const propTypes = {
@@ -33,7 +34,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time" >
-                <ComingSoon className="viz-placeholder" />
+                <BarChart selectedFy={fy} />
             </VisualizationSection>
         ),
         (
