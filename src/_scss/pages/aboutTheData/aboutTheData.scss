@@ -1,7 +1,6 @@
 .about-the-data {
     @import 'all';
     @import 'layouts/default/default';
-    @import 'layouts/default/stickyHeader/header';
     .main-content {
         @import '../../mixins/fullSectionWrap';
         @include display(flex);

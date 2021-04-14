@@ -15,7 +15,8 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import StateContent from './StateContent';
