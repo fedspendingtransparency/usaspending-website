@@ -5,16 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PageHeader } from 'data-transparency-ui';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl } from 'helpers/socialShare';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Header from 'containers/shared/HeaderContainer';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-
 
 const propTypes = {
     children: PropTypes.element,
@@ -30,35 +29,38 @@ require('pages/explorer/explorerPage.scss');
 const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';
 
-const ExplorerWrapperPage = (props) => (
-    <div className="usa-da-explorer-page">
-        <MetaTags {...explorerPageMetaTags} />
-        <Header />
-        <StickyHeader>
-            <div className="sticky-header__title">
-                <h1 tabIndex={-1} id="main-focus">
-                    Spending Explorer
-                </h1>
-            </div>
-            <div className="sticky-header__toolbar">
-                {props.showShareIcon &&
-                <ShareIcon
-                    slug={slug}
-                    email={{
-                        subject: emailSubject,
-                        body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
-                    }} />
-                }
-            </div>
-        </StickyHeader>
-        <main
-            id="main-content"
-            className="main-content">
-            {props.children}
-        </main>
-        <Footer />
-    </div>
-);
+const ExplorerWrapperPage = (props) => {
+    const handleShare = (name) => {
+        handleShareOptionClick(name, slug, {
+            subject: emailSubject,
+            body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
+        });
+    };
+
+    return (
+        <div className="usa-da-explorer-page">
+            <MetaTags {...explorerPageMetaTags} />
+            <Header />
+            <PageHeader
+                title="Spending Explorer"
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
+                shareProps={props.showShareIcon
+                    ? {
+                        url: getBaseUrl(slug),
+                        onShareOptionClick: handleShare
+                    }
+                    : null
+                }>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    {props.children}
+                </main>
+                <Footer />
+            </PageHeader>
+        </div>
+    );
+};
 
 ExplorerWrapperPage.propTypes = propTypes;
 ExplorerWrapperPage.defaultProps = defaultProps;

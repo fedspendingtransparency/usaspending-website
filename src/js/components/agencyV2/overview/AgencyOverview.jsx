@@ -13,13 +13,14 @@ import { LoadingMessage } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
-import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
+import FySummary from './FySummary';
 
 const propTypes = {
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    fy: PropTypes.string
 };
 
-const AgencyOverview = ({ isLoading }) => {
+const AgencyOverview = ({ isLoading, fy }) => {
     const {
         name,
         logo,
@@ -111,20 +112,25 @@ const AgencyOverview = ({ isLoading }) => {
         );
     }
 
-    return isLoading ? <LoadingMessage /> :
-        (
-            <div className="agency-overview">
-                <div className="agency-overview__top">
-                    <div className="agency-overview__title">
-                        <h3>{name}</h3>
-                        <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
-                    </div>
-                    {image}
+    const overview = isLoading ? <LoadingMessage /> : (
+        <>
+            <div className="agency-overview__top">
+                <div className="agency-overview__title">
+                    <h3>{name}</h3>
+                    <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
                 </div>
-                {content}
-                <TotalObligationsOverTimeContainer />
+                {image}
             </div>
-        );
+            {content}
+        </>
+    );
+
+    return (
+        <div className="agency-overview">
+            {overview}
+            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} />
+        </div>
+    );
 };
 
 AgencyOverview.propTypes = propTypes;

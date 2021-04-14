@@ -1,4 +1,5 @@
 .agency-overview {
+    @import './fySummary';
     width: 100%; // fix for IE
     .agency-overview__top {
         @include display(flex);

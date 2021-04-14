@@ -5,17 +5,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, PageHeader } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'apis/agencyV2APIs';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Note from 'components/sharedComponents/Note';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
@@ -80,76 +80,77 @@ const AgencyDetailsPage = () => {
 
     const message = agencyNotes[agencyCode] || '';
 
+    const handleShare = (name) => {
+        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode));
+    };
+
     return (
         <div className="about-the-data about-the-data_agency-details-page">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
-            <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1}>
-                        Agency Submission Data
-                    </h1>
-                </div>
-                {agencyOverview?.name && (
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon slug={`submission-statistics/agency/${agencyCode}`} email={getAgencyDetailEmail(agencyOverview.name, agencyCode)} />
-                    </div>
-                )}
-            </StickyHeader>
-            <main id="main-content" className="main-content">
-                {loading && <LoadingMessage />}
-                {error && <ErrorMessage description={errorMessage} />}
-                {(!loading && !error) && (
-                    <>
-                        <div className="heading-container">
-                            <div className="back-link">
-                                <Link to={{
-                                    pathname: "/submission-statistics/",
-                                    search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
-                                }}>
-                                    <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
-                                </Link>
-                            </div>
-                            <h2 className="header">{agencyOverview.name}</h2>
-                            <div className="agency-info">
-                                {agencyOverview.website && (
-                                    <div className="agency-info__group">
-                                        <h5>Agency Contact Information</h5>
-                                        <div className="more-info-note">Contact this Agency with questions about their submissions</div>
-                                        <div className="agency-info__website">
-                                            <ExternalLink url={agencyOverview.website} />
+            <PageHeader
+                title={agencyOverview?.name}
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
+                overLine="Agency Submission Data"
+                shareProps={{
+                    url: getBaseUrl(`submission-statistics/agency/${agencyCode}`),
+                    onShareOptionClick: handleShare
+                }}>
+                <main id="main-content" className="main-content">
+                    {loading && <LoadingMessage />}
+                    {error && <ErrorMessage description={errorMessage} />}
+                    {(!loading && !error) && (
+                        <>
+                            <div className="heading-container">
+                                <div className="back-link">
+                                    <Link to={{
+                                        pathname: "/submission-statistics/",
+                                        search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
+                                    }}>
+                                        <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
+                                    </Link>
+                                </div>
+                                <h2 className="header">{agencyOverview?.name}</h2>
+                                <div className="agency-info">
+                                    {agencyOverview.website && (
+                                        <div className="agency-info__group">
+                                            <h5>Agency Contact Information</h5>
+                                            <div className="more-info-note">Contact this Agency with questions about their submissions</div>
+                                            <div className="agency-info__website">
+                                                <ExternalLink url={agencyOverview.website} />
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                                {agencyOverview.id && (
-                                    <div className="agency-info__group">
-                                        <h5>Agency Profile Page</h5>
-                                        <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
-                                        <div className="agency-info__website">
-                                            <Link to={`/agency/${agencyOverview.id}`}>
-                                                {agencyOverview.name}
-                                            </Link>
+                                    )}
+                                    {agencyOverview.id && (
+                                        <div className="agency-info__group">
+                                            <h5>Agency Profile Page</h5>
+                                            <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
+                                            <div className="agency-info__website">
+                                                <Link to={`/agency/${agencyOverview.id}`}>
+                                                    {agencyOverview.name}
+                                                </Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        <AgencyDetailsContainer
-                            agencyName={agencyOverview.name}
-                            modalClick={modalClick}
-                            agencyCode={agencyCode} />
-                        {message && <Note message={message} />}
-                    </>
-                )}
-                <AboutTheDataModal
-                    mounted={!!showModal.length}
-                    type={showModal}
-                    className={modalClassNames[showModal]}
-                    title={modalTitles(modalData?.type)[showModal]}
-                    agencyData={modalData}
-                    closeModal={closeModal} />
-            </main>
-            <Footer />
+                            <AgencyDetailsContainer
+                                agencyName={agencyOverview.name}
+                                modalClick={modalClick}
+                                agencyCode={agencyCode} />
+                            {message && <Note message={message} />}
+                        </>
+                    )}
+                    <AboutTheDataModal
+                        mounted={!!showModal.length}
+                        type={showModal}
+                        className={modalClassNames[showModal]}
+                        title={modalTitles(modalData?.type)[showModal]}
+                        agencyData={modalData}
+                        closeModal={closeModal} />
+                </main>
+                <Footer />
+            </PageHeader>
         </div>
     );
 };
