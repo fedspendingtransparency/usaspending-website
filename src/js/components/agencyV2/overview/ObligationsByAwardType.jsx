@@ -19,32 +19,30 @@ export default class ObligationsByAwardType extends React.Component {
   }
 
   static propTypes = {
+    width: PropTypes.number,
   };
-  static defaultProps = {
-  };
+  // static defaultProps = {
+  // };
 
   componentDidMount = () => this.setState({ prerender: false });
 
   shouldComponentUpdate = () => this.state.prerender;
 
   render = () => {
+console.log(this.props);
 
 
-
-    var width = 450;
     var height = 450;
     var margin = 40;
-
-    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-    var radius = Math.min(width, height) / 2 - margin;
+    var radius = Math.min(this.props.width, height) / 2 - margin;
 
     // append the svg object to the div called 'my_dataviz'
     var svg = d3.select("#obl_chart")
       .append("svg")
-      .attr("width", width)
+      .attr("width", this.props.width)
       .attr("height", height)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + this.props.width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
     var data1 = [9, 20, 30, 5, 12, 10];

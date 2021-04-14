@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ComingSoon, Carousel } from 'data-transparency-ui';
 import VisualizationSection from './VisualizationSection';
+import { throttle } from 'lodash';
 
 import ObligationsByAwardType from './ObligationsByAwardType';
 
@@ -26,7 +27,7 @@ const FySummary = ({ isMobile, fy }) => {
     const numberOfRecipients = '200';
     const percentOfFederalRecipients = '1.5%';
 
-    const components = [
+    const components = (width) => [
         (
             <VisualizationSection
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
@@ -51,7 +52,7 @@ const FySummary = ({ isMobile, fy }) => {
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardType />
+                <ObligationsByAwardType width={width / 4} />
             </VisualizationSection>
         ),
         (
@@ -64,23 +65,44 @@ const FySummary = ({ isMobile, fy }) => {
             </VisualizationSection>
         )
     ];
-    const content = isMobile ? (
-        <Carousel items={components} />
-    ) : (
-        <div className="fy-summary__row">
-            {components.map((viz) => (
-                <div className="fy-summary__col">
-                    {viz}
-                </div>
-            ))}
-        </div>
-    );
 
+    // window width
+    const [windowWidth, setWindowWidth] = React.useState(0);
+    // visualization width
+    const [visualizationWidth, setVisualizationWidth] = React.useState(0);
+    const handleWindowResize = throttle(() => {
+        if (windowWidth !== window.innerWidth) {
+            setWindowWidth(window.innerWidth);
+            setVisualizationWidth(summaryRef.current.offsetWidth);
+
+            console.log(components(visualizationWidth));
+
+        }
+    }, 50);
+    React.useEffect(() => {
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
+
+    const summaryRef = React.useRef(null);
     return (
-        <div className="fy-summary">
+        <div ref={summaryRef} className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {content}
+            {isMobile ? (
+                <Carousel items={components} />
+            ) : (
+                <div className="fy-summary__row">
+                    {components(visualizationWidth).map((viz) => (
+                        <div className="fy-summary__col">
+                            {viz}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
