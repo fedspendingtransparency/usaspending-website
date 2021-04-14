@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -97,13 +97,12 @@ export const AgencyProfileV2 = ({
     };
 
     const slug = `agency_v2/${agencyId}`;
-    const emailArgs = {
-        subject: `USAspending.gov Agency Profile: Agency Name`,
-        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
-    };
 
-    const handleShare = (str) => {
-        handleShareOptionClick(str, slug, emailArgs);
+    const handleShare = (optionName) => {
+        handleShareOptionClick(optionName, slug, {
+            subject: `USAspending.gov Agency Profile: ${name}`,
+            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
+        });
     };
 
     return (
