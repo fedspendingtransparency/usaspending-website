@@ -21,8 +21,16 @@
         @include justify-content(center);
         /* TODO - remove placeholder styling once all four
         visualizations are implemented */
-        .viz-placeholder {
+        .viz-placeholder,
+        .usda-message_loading,
+        .usda-message {
             padding: rem(40) 0;
+            &.usda-message_loading .usda-loading-animation__container {
+                margin-top: 0;
+                .loading-message {
+                    font-size: rem(18);
+                }
+            }
         }
     }
     .visualization-section__label {

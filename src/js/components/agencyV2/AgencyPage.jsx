@@ -55,7 +55,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} />
+            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} agencyId={agencyId} />
         },
         {
             name: 'budget-category',

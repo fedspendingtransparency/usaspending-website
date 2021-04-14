@@ -76,7 +76,7 @@ const getLastFourYears = ({ year }, selectedFy) => {
 };
 
 const BarChart = ({
-    agencyBudgetByYear = mockData,
+    agencyBudgetByYear = mockData.map((obj) => ({ year: obj.fiscal_year, budget: obj.agency_budgetary_resources })),
     selectedFy
 }) => {
     const renderBars = () => {
@@ -93,7 +93,8 @@ const BarChart = ({
                         <span
                             className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
                             style={{
-                                height: `${(budget / greatestAgencyBudget) * 100}%`
+                                height: `${(budget / greatestAgencyBudget) * 100}%`,
+                                minHeight: '0.5%'
                             }} />
                         <span>{`FY ${fyStr[2]}${fyStr[3]}`}</span>
                     </li>
