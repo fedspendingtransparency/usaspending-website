@@ -29,6 +29,10 @@ import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 
 const sections = [
     {
+        label: 'What COVID-19 spending does USAspending track?',
+        section: 'covered_funds'
+    },
+    {
         label: 'Datasets',
         section: 'datasets'
     },
@@ -195,7 +199,7 @@ export default () => {
                 <div className="about-content-wrapper">
                     <div className="about-content">
                         <div className="about-padded-content">
-                            <div className="about-section-wrapper" id="data-sources-datasets">
+                            <div className="about-section-wrapper" id="data-sources-covered_funds">
                                 <div className="back-link">
                                     <Link
                                         to="/disaster/covid-19"
@@ -204,6 +208,75 @@ export default () => {
                                         Back to the COVID-19 Spending profile
                                     </Link>
                                 </div>
+                                <h2 className="about-section-title">
+                                    What COVID-19 spending does USAspending track?
+                                </h2>
+                                <div className="about-section-content">
+                                    <p>
+                                        Congress introduced and defined the concept of &quot;covered funds&quot; in the
+                                        CARES Act to make it clear which supplemental appropriation spending related to
+                                        the coronavirus response they wanted to be tracked, audited, and published for
+                                        transparency and accountability purposes. The act (as amended) defines covered funds
+                                        as follows:
+                                    </p>
+                                    <ul className="about-section-content_custom-list">
+                                        <li>
+                                            (6) the term &quot;covered funds&quot; means any funds, including loans, that are made available in any form to any non-Federal entity, not including an individual, under&mdash;
+                                            <ul className="about-section-content_custom-list">
+                                                <li>
+                                                    (A) the Coronavirus Aid, Relief, and Economic Security Act (divisions A and B);
+                                                </li>
+                                                <li>
+                                                    (B) the Coronavirus Preparedness and Response Supplemental Appropriations Act, 2020 (Public Law 116–123);
+                                                </li>
+                                                <li>
+                                                    (C) the Families First Coronavirus Response Act (Public Law 116–127);
+                                                </li>
+                                                <li>
+                                                    (D) the Paycheck Protection Program and Health Care Enhancement Act (Public Law 116–139); or
+                                                </li>
+                                                <li>
+                                                    (E) divisions M and N of the Consolidated Appropriations Act, 2021;
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Given the above, OMB centered their guidance in M-20-21 on the covered funds concept and elected to use
+                                        the DEFC as the means to track these covered funds in USAspending. New DEFC (see below) were issued to
+                                        track each component of covered funds, consistent with the original and continued purpose of the DEFC to
+                                        track <em>Disaster</em>, <em>Emergency</em>, and <em>Wildfire Suppression </em>spending under BBEDCA; covered funds that fell outside
+                                        of the BBEDCA categories (and the specific statutory language that triggers their use) were captured in a
+                                        Nonemergency DEFC, O.
+                                    </p>
+                                    <p>
+                                        One result of the covered funds concept and M-20-21 is that some spending that is clearly associated with the coronavirus response is not
+                                        tracked as &quot;COVID-19 spending&quot; on our site. Examples include:
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            Any spending funded from general appropriations (rather than the supplemental appropriations that constitute &quot;covered funds&quot;). Examples
+                                            include any contracts with a National Interest Action code (NIA) of &quot;P20C&quot; (indicating a COVID-19 related purpose) that are funded by
+                                            general appropriations only and not &quot;covered funds&quot; and that therefore do not appear on this page. The NIA is assigned by contracting officers
+                                            based on spending purpose and has nothing to do with funding; in contrast, the CARES Act and M-20-21 are concerned with tracking spending
+                                            from specific funding sources and not based on purpose alone. The NIA has no direct bearing on whether a contract is considered &quot;COVID-19 spending&quot;
+                                            on our site.
+                                        </li>
+                                        <li>
+                                            Any spending from entities that were appropriated covered funds from Congress but that do not report to USAspending under the DATA Act. M-20-21 was an expansion
+                                            of existing DATA Act reporting requirements but did not change the population of federal agencies or other entities subject to those requirements. Examples include
+                                            any component of the legislative and judicial branches (though GAO does voluntarily report).
+                                        </li>
+                                        <li>
+                                            Any spending from the Consolidated Appropriations Act, 2021 (PL 116-260) outside of Division M and N. Per the covered funds definition, Congress only
+                                            intended these two divisions to be tracked under the requirements of the CARES Act. An example that is arguably &quot;coronavirus-related&quot; but is not
+                                            tracked and displayed as such on USAspending is the $635,000,000 appropriated in Division A &quot;for necessary expenses for salary and related costs associated
+                                            with Agriculture Quarantine and Inspection Services [...] to offset the loss resulting from the coronavirus pandemic of quarantine and inspection fees.&quot;
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div className="about-section-wrapper" id="data-sources-datasets">
                                 <h2 className="about-section-title">
                                     Datasets
                                 </h2>
