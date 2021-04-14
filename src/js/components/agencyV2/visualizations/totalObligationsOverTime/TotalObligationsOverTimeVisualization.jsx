@@ -5,10 +5,12 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { scaleLinear, scaleTime } from 'd3-scale';
+import { scaleLinear } from 'd3-scale';
 import { format, getYear } from 'date-fns';
 
-import { getYDomain } from 'helpers/agencyV2/TotalObligationsOverTimeVisualizationHelper';
+import { getYDomain, getMilliseconds } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
+import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/paths/Paths';
 import Axis from './axis/Axis';
 
 const propTypes = {
@@ -30,28 +32,32 @@ const propTypes = {
 const TotalObligationsOverTimeVisualization = ({
     height = 168,
     width = 0,
-    padding = {
-        top: 0,
-        bottom: 20,
-        right: 20,
-        left: 20
-    },
-    data = [{ obligated: 0 }],
+    padding = defaultPadding,
+    data = [],
     fy = getYear(new Date(Date.now()))
 }) => {
-    /**
-     * x domain as date objects in UTC (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date)
-     * - start of the domain is October 1st of the prior selected fiscal year at midnight
-     * - end of the domain is September 30th of the selected fiscal year one millisecond before midnight of October 1st
-     */
-    const [xDomain, setXDomain] = useState([new Date(parseInt(fy, 10) - 1, 9, 1), new Date(parseInt(fy, 10), 9, 30, 11, 59, 59, 999)]);
-    // yDomain is the min and max of the obligation amounts
+    const [xDomain, setXDomain] = useState([]);
     const [yDomain, setYDomain] = useState([]);
     const [xScale, setXScale] = useState(null);
     const [yScale, setYScale] = useState(null);
+    const [yScaleForPath, setYScaleForPath] = useState(null);
     const [xTicks, setXTicks] = useState([]);
-
-    // set the y domain on mount
+    const [dataWithFirstCoordinate, setDataWithFirstCoordinate] = useState([]);
+    // x domain
+    useEffect(() => {
+        // start of the domain is October 1st of the prior selected fiscal year midnight local time
+        const start = new Date(parseInt(fy, 10) - 1, 9, 1);
+        // end of the domain is September 30th midnight local time
+        const end = new Date(`${fy}`, 8, 30);
+        setXDomain([getMilliseconds(start), getMilliseconds(end)]);
+    }, [fy]);
+    // add first data point as start of graph
+    useEffect(() => {
+        if (xDomain.length && data.length) {
+            setDataWithFirstCoordinate([{ endDate: xDomain[0], obligated: 0 }, ...data]);
+        }
+    }, [xDomain, data]);
+    // y domain
     useEffect(() => setYDomain(getYDomain(data)), [data]);
     /**
      * set x scale
@@ -60,50 +66,58 @@ const TotalObligationsOverTimeVisualization = ({
      * and not going to be part of the graphable width.
      */
     useEffect(() => setXScale(
-        () => scaleTime().domain(xDomain).range(padding.left, width - padding.right)),
+        () => scaleLinear().domain(xDomain).range([0, width - padding.left - padding.right])),
     [xDomain, width]);
     /**
      * set y scale
-     * - The range max value removes padding top and bottom since that is padding for the bottom x-axis labels
-     * and not going to be part of the graphable width. The top padding for this graph is zero but including it
-     * for consistency and limit confusion.
-     */
-    useEffect(
-        () => setYScale(scaleLinear().domain(yDomain).range(0, height - padding.top - padding.bottom)),
-        [yDomain, width]);
-
-    /**
-     * set x ticks
+     * - The range max value removes padding top and bottom since that is padding for the top based on the mock and
+     * bottom x-axis labels and not going to be part of the graphable width.
      */
     useEffect(() => {
-        if (xScale) {
-            setXTicks(xScale
-                .ticks()
-                .map((tick) => ({
-                    x: xScale(new Date(tick.getFullYear(), tick.getMonth(), tick.getDate())),
-                    y: ((height + 10) - padding.bottom),
-                    label: format(tick, 'MM/dd/yyyy')
-                })));
-        }
-    }, [xScale]);
+        setYScale(() => scaleLinear().domain(yDomain).range([0, height - padding.top - padding.bottom]));
+        setYScaleForPath(() => scaleLinear().domain(yDomain).range([yOffsetForPathStrokeWidth, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]));
+    }, [yDomain, data]);
 
-    if (xScale) console.log('Ticks :', xScale.ticks().map((tick) => new Date(tick)));
-    if (xScale) console.log('Tick :', xScale.ticks().map((tick) => ({ M: tick.getMonth(), D: tick.getDate(), Y: tick.getFullYear() })));
+    // set x ticks
+    useEffect(() => {
+        if (xScale) {
+            setXTicks([
+                {
+                    x: isNaN(xScale(xDomain[0])) ? 0 : xScale(xDomain[0]) + padding.left,
+                    y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
+                    label: format(new Date(xDomain[0]), "MMM 'FY'yy")
+                },
+                {
+                    x: isNaN(xScale(xDomain[1])) ? 0 : xScale(xDomain[1]) + padding.left,
+                    y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
+                    label: format(new Date(xDomain[1]), "MMM 'FY'yy")
+                }
+            ]);
+        }
+    }, [xScale, xDomain]);
+
     return (
         <svg
             className="total-obligations-over-time-svg"
             height={height}
             width={width}>
             <g className="total-obligations-over-time-svg-body">
+                <Paths
+                    data={dataWithFirstCoordinate}
+                    xScale={xScale}
+                    yScale={yScale}
+                    yScaleForPath={yScaleForPath}
+                    height={height}
+                    padding={padding} />
                 <Axis
                     padding={padding}
                     width={width}
                     height={height}
-                    xTicks={xTicks}
-                    yTicks={[]} />
+                    xTicks={xTicks} />
             </g>
         </svg>
     );
 };
+
 TotalObligationsOverTimeVisualization.propTypes = propTypes;
 export default TotalObligationsOverTimeVisualization;

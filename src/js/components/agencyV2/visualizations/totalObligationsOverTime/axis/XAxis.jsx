@@ -39,8 +39,9 @@ const XAxis = ({
         <g className="x-axis-labels">
             <title>The X-Axis Labels</title>
             {
-                ticks.map((tick) => (
+                ticks.map((tick, i) => (
                     <AxisLabel
+                        key={`Tick-${i}-${tick.label}`}
                         x={tick.x}
                         y={tick.y}
                         label={tick.label} />

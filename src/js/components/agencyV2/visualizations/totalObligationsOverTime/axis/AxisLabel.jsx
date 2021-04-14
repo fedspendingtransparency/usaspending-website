@@ -10,7 +10,8 @@ const propTypes = {
     axis: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,
-    label: PropTypes.string
+    label: PropTypes.string,
+    index: PropTypes.number
 };
 
 const AxisLabel = ({

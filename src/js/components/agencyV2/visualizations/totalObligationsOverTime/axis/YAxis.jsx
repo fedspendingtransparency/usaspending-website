@@ -30,7 +30,7 @@ const YAxis = ({
 }) => (
     <g className={`y-axis${className ? ` ${className}` : ''}`}>
         <title>The Y-Axis</title>
-        <description>The Y-Axis consisting of a horizontal line and labels</description>
+        <description>The Y-Axis consisting of a vertical line and labels</description>
         <line
             x1={x1}
             x2={x2}
@@ -38,9 +38,10 @@ const YAxis = ({
             y2={y2} />
         <g className="y-axis-labels">
             {
-                ticks.map((tick) => (
+                ticks.map((tick, i) => (
                     <AxisLabel
                         axis="y"
+                        key={`Tick-${i}-${tick.label}`}
                         x={tick.x}
                         y={tick.y}
                         label={tick.label} />

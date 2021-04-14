@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { isCancel } from 'axios';
@@ -15,7 +16,7 @@ import {
 } from 'data-transparency-ui';
 
 import TotalObligationsOverTimeVisualization from 'components/agencyV2/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
-
+import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { fetchBudgetaryResources } from 'apis/agencyV2APIs';
 
@@ -44,7 +45,7 @@ const agency_obligation_by_period = [
     },
     {
         period: 6,
-        obligated: 130898908395.86
+        obligated: 10689245470.86
     },
     {
         period: 7,
@@ -52,7 +53,7 @@ const agency_obligation_by_period = [
     },
     {
         period: 8,
-        obligated: 150898908395.86
+        obligated: 190689245470.86
     },
     {
         period: 9,
@@ -68,7 +69,7 @@ const agency_obligation_by_period = [
     },
     {
         period: 12,
-        obligated: 190898908395.86
+        obligated: 185898908395.86
     }
 ];
 
@@ -79,10 +80,12 @@ const TotalObligationsOverTimeContainer = ({ }) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const containerReference = useRef(null);
+    const submissionPeriods = useSelector((state) => state.account.submissionPeriods.toJS());
     // window width
     const [windowWidth, setWindowWidth] = useState(0);
     // visualization width
     const [visualizationWidth, setVisualizationWidth] = useState(0);
+    const [budgetaryResourcesHaveSubmissionDates, setBudgetaryResourcesHaveSubmissionDates] = useState(false);
 
     useEffect(() => {
         setError({ error: false, message: '' });
@@ -91,8 +94,15 @@ const TotalObligationsOverTimeContainer = ({ }) => {
         budgetaryResourcesRequest.promise
             .then((res) => {
                 const mockData = res.data.agency_data_by_year[0].agency_obligation_by_period = agency_obligation_by_period;
-                setData(mockData);
-                setLoading(false);
+                // add correct submission period end date to budgetary resources by fy and period
+                if (submissionPeriods.length && !budgetaryResourcesHaveSubmissionDates) {
+                    setData(addSubmissionEndDatesToBudgetaryResources(mockData, submissionPeriods, fy));
+                    setBudgetaryResourcesHaveSubmissionDates(true);
+                    setLoading(false);
+                }
+                else {
+                    setData(mockData);
+                }
             }).catch((e) => {
                 if (!isCancel(e)) {
                     setError({ error: true, message: e.message });
@@ -102,11 +112,20 @@ const TotalObligationsOverTimeContainer = ({ }) => {
             });
     }, [agencyId, fy]);
 
+    // we must wait for submission periods before we draw the chart
+    useEffect(() => {
+        if (submissionPeriods.length && !budgetaryResourcesHaveSubmissionDates && data.length) {
+            setData(addSubmissionEndDatesToBudgetaryResources(data, submissionPeriods, fy));
+            setBudgetaryResourcesHaveSubmissionDates(true);
+            setLoading(false);
+        }
+    }, [submissionPeriods, data]);
+
     const handleWindowResize = throttle(() => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
-            setWindowWidth(windowWidth);
-            console.log('Container Width: ', containerReference.current.offsetWidth);
+            // setWindowWidth(windowWidth);
+            setWindowWidth(wWidth);
             setVisualizationWidth(containerReference.current.offsetWidth);
         }
     }, 50);

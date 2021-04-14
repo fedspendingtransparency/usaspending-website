@@ -1,6 +1,16 @@
 .total-obligations-over-time-visualization-container {
   .total-obligations-over-time-svg {
     .total-obligations-over-time-svg-body {
+      .paths {
+        .path {
+          stroke: $color-cool-blue;
+          stroke-width: 3;
+          fill: none;
+        }
+        .area-path {
+          fill: $color-cool-blue-lightest;
+        }
+      }
       .total-obligations-over-time-svg-axis {
         line {
           stroke: $color-gray-light;
@@ -10,6 +20,7 @@
           .x-axis-labels {
             text {
               font-size: rem(14);
+              text-anchor: middle;
             }
           }
         }
