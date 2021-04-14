@@ -20,57 +20,13 @@ const propTypes = {
     subHeading: PropTypes.string
 };
 
-const parseAccount = (data, totalObligation) => {
-    // add total obligation to each object and it's children objects
-    const dataAndTotalObligation = data.map((d) => {
-        let dataChildrenAndTotalObligation = [];
-        if (d.children && d.children.length > 0) {
-            dataChildrenAndTotalObligation = d.children.map((child) => ({
-                ...child,
-                total_obligated_amount: totalObligation
-            }));
-        }
-
-        if (dataChildrenAndTotalObligation.length > 0) {
-            return {
-                ...d,
-                children: dataChildrenAndTotalObligation,
-                total_obligated_amount: totalObligation
-            };
-        }
-
-        return {
-            ...d,
-            total_obligated_amount: totalObligation
-        };
-    });
-
-    // parse row and row's children
-    return dataAndTotalObligation.map((item) => {
-        const accountSpendingRow = Object.create(BaseAccountSpendingRow);
-        accountSpendingRow.populate(item);
-
-        let rowChildren = [];
-        if (item.children && item.children.length > 0) {
-            rowChildren = item.children.map((childItem) => {
-                const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
-                accountChildSpendingRow.populate(childItem);
-                return accountChildSpendingRow;
-            });
-        }
-
-        if (rowChildren && rowChildren.length > 0) {
-            Object.defineProperty(accountSpendingRow, "children", {
-                value: rowChildren
-            });
-        }
-
-        return accountSpendingRow;
-    });
-};
-
-
-const TableContainer = (props) => {
+const TableContainer = ({
+    fy,
+    agencyId,
+    type,
+    subHeading,
+    prevType
+}) => {
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -83,23 +39,74 @@ const TableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const totalObligation = useSelector((state) => state.agencyV2.budgetaryResources._agencyTotalObligated);
+    const { budgetaryResources: { dataByYear: resourcesByYear } } = useSelector((state) => state.agencyV2);
+    const { agencyObligated } = resourcesByYear[fy] || 0;
+
+    const parseAccount = (data) => {
+        // add total obligation to each object and it's children objects
+        const dataAndTotalObligation = data.map((d) => {
+            let dataChildrenAndTotalObligation = [];
+            if (d.children && d.children.length > 0) {
+                dataChildrenAndTotalObligation = d.children.map((child) => ({
+                    ...child,
+                    total_obligated_amount: agencyObligated
+                }));
+            }
+
+            if (dataChildrenAndTotalObligation.length > 0) {
+                return {
+                    ...d,
+                    children: dataChildrenAndTotalObligation,
+                    total_obligated_amount: agencyObligated
+                };
+            }
+
+            return {
+                ...d,
+                total_obligated_amount: agencyObligated
+            };
+        });
+
+        // parse row and row's children
+        const parsedData = dataAndTotalObligation.map((item) => {
+            const accountSpendingRow = Object.create(BaseAccountSpendingRow);
+            accountSpendingRow.populate(item);
+
+            let rowChildren = [];
+            if (item.children && item.children.length > 0) {
+                rowChildren = item.children.map((childItem) => {
+                    const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
+                    accountChildSpendingRow.populate(childItem);
+                    return accountChildSpendingRow;
+                });
+            }
+
+            if (rowChildren && rowChildren.length > 0) {
+                Object.defineProperty(accountSpendingRow, "children", {
+                    value: rowChildren
+                });
+            }
+
+            return accountSpendingRow;
+        });
+        setResults(parsedData);
+    };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
         setLoading(true);
         setError(false);
         // Make a request with the new page number
         const params = {
-            fiscal_year: props.fy,
+            fiscal_year: fy,
             limit: pageSize,
             page: currentPage,
             sort: accountFields[sort],
             order
         };
-        const request = fetchSpendingByCategory(props.agencyId, props.type, params);
+        const request = fetchSpendingByCategory(agencyId, type, params);
         request.promise
             .then((res) => {
-                const parsedData = parseAccount(res.data.results, totalObligation);
+                const parsedData = parseAccount(res.data.results, agencyObligated);
                 setResults(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -121,27 +128,27 @@ const TableContainer = (props) => {
                 prevOrder !== order ||
                 prevPage !== currentPage ||
                 prevPageSize !== pageSize ||
-                (props.prevType !== props.type && props.prevType)
+                (prevType !== type && prevType)
             );
             if (hasParamChanged) {
                 fetchSpendingByCategoryCallback();
             }
         }
-    }, [props.type, props.agencyId, pageSize, sort, order, totalObligation]);
+    }, [type, fy, agencyId, pageSize, sort, order, agencyObligated]);
 
     useEffect(() => {
-        if (props.fy) {
+        if (fy) {
             fetchSpendingByCategoryCallback();
         }
-    }, [currentPage, props.fy]);
+    }, [currentPage, fy]);
 
     return (
         <div className="table-wrapper">
             <Table
                 expandable
                 rows={results}
-                columns={accountColumns[props.type]}
-                divider={props.subHeading}
+                columns={accountColumns[type]}
+                divider={subHeading}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort}
                 loading={loading}
