@@ -1,6 +1,6 @@
 ul.viz-container.bar-chart {
     @include display(flex);
-    @include justify-content(space-between);
+    @include justify-content(center);
     @include align-items(flex-end);
     margin: 0;
     width: 100%;
@@ -13,6 +13,7 @@ ul.viz-container.bar-chart {
         margin: 0;
         height: rem(168);
         width: rem(35);
+        margin: 0 rem(10);
         span {
             width: 100%;
         }

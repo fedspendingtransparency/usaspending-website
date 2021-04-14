@@ -56,13 +56,14 @@ CovidTooltip.propTypes = {
 
 const propTypes = {
     isLoading: PropTypes.bool,
-    covidDefCodes: PropTypes.arrayOf(DEFC_OBJECT),
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    agencyId: PropTypes.string
 };
 
 const AgencyOverview = ({
     isLoading,
-    fy
+    fy,
+    agencyId
 }) => {
     const {
         name,
@@ -181,7 +182,7 @@ const AgencyOverview = ({
     return (
         <div className="agency-overview">
             {overview}
-            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} />
+            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} agencyId={agencyId} />
         </div>
     );
 };
