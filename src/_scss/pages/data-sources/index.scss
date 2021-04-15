@@ -39,6 +39,7 @@
                     }
                 }
                 .about-section-content ol {
+                    font-size: rem(18);
                     &.about-instructions {
                         font-family: monospace;
                         padding: 3rem 5rem;
@@ -57,6 +58,7 @@
                 .about-section-content_custom-list {
                     list-style-type: none;
                     padding-left: 1.5rem;
+                    font-style: italic;
                 }
             }
             .about-content {

@@ -244,20 +244,20 @@ export default () => {
                                             the DEFC as the means to track these covered funds in USAspending. New DEFC (see below) were issued to
                                             track each component of covered funds, consistent with the original and continued purpose of the DEFC to
                                             track <em>Disaster</em>, <em>Emergency</em>, and <em>Wildfire Suppression </em>spending under BBEDCA; covered funds that fell outside
-                                            of the BBEDCA categories (and the specific statutory language that triggers their use) were captured in a
-                                            Nonemergency DEFC, O.
+                                            of the BBEDCA categories (and the specific statutory language that triggers their use) were captured in a&nbsp;
+                                            <em>Non-emergency</em> DEFC, O.
                                         </p>
                                         <p>
                                             One result of the covered funds concept and M-20-21 is that some spending that is clearly associated with the coronavirus response is not
-                                            tracked as &quot;COVID-19 spending&quot; on our site. Examples include:
+                                            tracked as &#8216;COVID-19 spending&#8217; on our site. Examples include:
                                         </p>
                                         <ol>
                                             <li>
                                                 Any spending funded from general appropriations (rather than the supplemental appropriations that constitute &quot;covered funds&quot;). Examples
                                                 include any contracts with a National Interest Action code (NIA) of &quot;P20C&quot; (indicating a COVID-19 related purpose) that are funded by
-                                                general appropriations only and not &quot;covered funds&quot; and that therefore do not appear on this page. The NIA is assigned by contracting officers
+                                                general appropriations only and not &#8216;covered funds&#8217; and that therefore do not appear on this page. The NIA is assigned by contracting officers
                                                 based on spending purpose and has nothing to do with funding; in contrast, the CARES Act and M-20-21 are concerned with tracking spending
-                                                from specific funding sources and not based on purpose alone. The NIA has no direct bearing on whether a contract is considered &quot;COVID-19 spending&quot;
+                                                from specific funding sources and not based on purpose alone. The NIA has no direct bearing on whether a contract is considered &#8216;COVID-19 spending&#8217;
                                                 on our site.
                                             </li>
                                             <li>
@@ -267,7 +267,7 @@ export default () => {
                                             </li>
                                             <li>
                                                 Any spending from the Consolidated Appropriations Act, 2021 (PL 116-260) outside of Division M and N. Per the covered funds definition, Congress only
-                                                intended these two divisions to be tracked under the requirements of the CARES Act. An example that is arguably &quot;coronavirus-related&quot; but is not
+                                                intended these two divisions to be tracked under the requirements of the CARES Act. An example that is arguably &#8216;coronavirus-related&#8217;; but is not
                                                 tracked and displayed as such on USAspending is the $635,000,000 appropriated in Division A &quot;for necessary expenses for salary and related costs associated
                                                 with Agriculture Quarantine and Inspection Services [...] to offset the loss resulting from the coronavirus pandemic of quarantine and inspection fees.&quot;
                                             </li>
