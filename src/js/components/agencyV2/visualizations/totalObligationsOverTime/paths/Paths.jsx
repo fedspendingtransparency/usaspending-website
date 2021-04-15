@@ -32,8 +32,8 @@ const Paths = ({
     xDomain = [0, 0],
     yDomain = [0, 0],
     xScale = () => {},
-    yScale = () => {},
     xScaleForPath = () => {},
+    yScale = () => {},
     yScaleForPath = () => {},
     height = 0,
     padding = {
@@ -54,7 +54,7 @@ const Paths = ({
             data={data.sort((a, b) => a.endDate - b.endDate)}
             xDomain={xDomain}
             yDomain={yDomain}
-            xScale={xScale}
+            xScale={xScaleForPath}
             yScale={yScaleForPath}
             height={height}
             padding={padding} />

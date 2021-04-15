@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { throttle } from 'lodash';
@@ -20,7 +20,7 @@ import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agencyV2/visu
 import { useQueryParams } from 'helpers/queryParams';
 import { fetchBudgetaryResources } from 'apis/agencyV2APIs';
 
-const propTypes = {};
+// const propTypes = {};
 
 const agency_obligation_by_period = [
     {
@@ -73,7 +73,7 @@ const agency_obligation_by_period = [
     }
 ];
 
-const TotalObligationsOverTimeContainer = ({ }) => {
+const TotalObligationsOverTimeContainer = () => {
     const { agencyId } = useParams();
     const { fy } = useQueryParams(['fy']);
     const [error, setError] = useState({ error: false, message: '' });
@@ -154,5 +154,5 @@ const TotalObligationsOverTimeContainer = ({ }) => {
     );
 };
 
-TotalObligationsOverTimeContainer.propTypes = propTypes;
+// TotalObligationsOverTimeContainer.propTypes = propTypes;
 export default TotalObligationsOverTimeContainer;
