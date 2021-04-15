@@ -19,11 +19,17 @@ const converISODateToDate = (date) => {
 export const addSubmissionEndDatesToBudgetaryResources = (budgetaryResources, submissionPeriods, fy) => {
     const yearlySubmissions = submissionPeriods.filter((period) => `${period.submission_fiscal_year}` === fy);
     return budgetaryResources
-        .map((budgetaryResource) => ({
-            ...budgetaryResource,
+        .map((budgetaryResource) => {
             /* eslint-disable camelcase */
-            endDate: (yearlySubmissions.find((submission) => submission.submission_fiscal_month === budgetaryResource.period)?.period_end_date)
-        }))
-        .filter((budgetaryResource) => budgetaryResource.endDate)
-        .map((budgetaryResource) => Object.assign({}, budgetaryResource, { endDate: getMilliseconds(new Date(converISODateToDate(budgetaryResource.endDate))) }));
+            const yearlySubmissionEndDateByPeriod = yearlySubmissions.find((submission) => submission.submission_fiscal_month === budgetaryResource.period)?.period_end_date;
+            if (yearlySubmissionEndDateByPeriod) {
+                return {
+                    ...budgetaryResource,
+                    /* eslint-disable camelcase */
+                    endDate: getMilliseconds(new Date(converISODateToDate(yearlySubmissionEndDateByPeriod)))
+                };
+            }
+            return null;
+        })
+        .filter((budgetaryResource) => budgetaryResource);
 };

@@ -41,7 +41,7 @@ const AreaPath = ({
     const [d, setD] = useState('');
     useEffect(() => {
         if (xScale && yScale) {
-            const pathDefinition = () => data.reduce((path, currentItem, i, originalArray) => {
+            setD(data.reduce((path, currentItem, i, originalArray) => {
                 if (i === 0) {
                     const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
                     return updatedPath;
@@ -52,8 +52,7 @@ const AreaPath = ({
                 }
                 const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
                 return updatedPath;
-            }, 'M');
-            setD(pathDefinition());
+            }, 'M'));
         }
     }, [data, xScale, yScale]);
 

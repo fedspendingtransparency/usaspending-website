@@ -6,7 +6,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { throttle } from 'lodash';
 import {
     LoadingMessage,
@@ -31,41 +30,26 @@ const TotalObligationsOverTimeContainer = ({
     agencyObligationsByPeriod = mockAgencyObligationByPeriod,
     error = { error: false, message: '' }
 }) => {
-    const { agencyId } = useParams();
     const { fy } = useQueryParams(['fy']);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const containerReference = useRef(null);
-    const submissionPeriods = useSelector((state) => state.account.submissionPeriods.toJS());
+    const submissionPeriods = useSelector((state) => state.account.submissionPeriods);
     const [windowWidth, setWindowWidth] = useState(0);
     const [visualizationWidth, setVisualizationWidth] = useState(0);
-    const [budgetaryResourcesHaveSubmissionDates, setBudgetaryResourcesHaveSubmissionDates] = useState(false);
 
     useEffect(() => {
         setLoading(true);
-        if (submissionPeriods.length && !budgetaryResourcesHaveSubmissionDates) {
-            setData(addSubmissionEndDatesToBudgetaryResources(agencyObligationsByPeriod, submissionPeriods, fy));
-            setBudgetaryResourcesHaveSubmissionDates(true);
+        const javaScriptSubmissionPeriods = submissionPeriods.toJS();
+        if (javaScriptSubmissionPeriods.length && agencyObligationsByPeriod.length) {
+            setData(addSubmissionEndDatesToBudgetaryResources(agencyObligationsByPeriod, javaScriptSubmissionPeriods, fy));
             setLoading(false);
         }
-        else {
-            setData(agencyObligationsByPeriod);
-        }
-    }, [agencyId, fy]);
-
-    // we must wait for submission periods before we draw the chart
-    useEffect(() => {
-        if (submissionPeriods.length && !budgetaryResourcesHaveSubmissionDates && data.length) {
-            setData(addSubmissionEndDatesToBudgetaryResources(data, submissionPeriods, fy));
-            setBudgetaryResourcesHaveSubmissionDates(true);
-            setLoading(false);
-        }
-    }, [submissionPeriods, data]);
+    }, [submissionPeriods, agencyObligationsByPeriod, fy]);
 
     const handleWindowResize = throttle(() => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
-            // setWindowWidth(windowWidth);
             setWindowWidth(wWidth);
             setVisualizationWidth(containerReference.current.offsetWidth);
         }
