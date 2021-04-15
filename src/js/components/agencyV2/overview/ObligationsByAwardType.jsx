@@ -36,24 +36,12 @@ export default class ObligationsByAwardType extends React.Component {
       .attr('width', this.props.width)
       .attr('height', this.props.height)
       .append('g')
-      .attr('transform', 'translate(' + this.props.width / 2 + ',' + this.props.height / 2 + ')');
+      .attr('transform', 'translate(' + this.props.width / 2 + ',' + this.props.height / 2 + ')')
+      ;
 
     // Create dummy data
     var data1 = [9, 20, 30, 5, 12, 10];
     var data2 = [59, 27];
-
-    // set the color scale
-    // All Contracts (outer circle): #A9ADD1
-    // Contract IDV: #545BA3
-    // Contract: #A9ADD1
-    // Financial Assistance
-    // All Financial Assistance (outer circle): #FFBC78
-    // Grants: #C05600
-    // Loans: #FA9441
-    // Direct Payments: #E66F0E
-    // Other Financial Assistance: #FFBC78 (edited)
-
-
 
     const categoriesPie = d3.pie()(data2);
     const categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // [Assistance, Contracts]
@@ -71,7 +59,8 @@ export default class ObligationsByAwardType extends React.Component {
         .innerRadius(radius - 5)
       )
       .attr('fill', (d, i) => categoriesColors(i))
-      .style('opacity', 0.7);
+      .style('opacity', 0.7)
+      ;
 
     // details
     svg
@@ -81,13 +70,26 @@ export default class ObligationsByAwardType extends React.Component {
       .append('path')
       .attr('d', d3.arc()
         .outerRadius(radius - 10)
-        .innerRadius(100)
+        .innerRadius(radius / 2)
       )
       .attr('fill', (d, i) => detailsColors(i))
-      .style('opacity', 0.7);
+      .style('opacity', 0.7)
+      ;
 
+    // border between categories (assumes only 2)
+    const borders = [[0, radius], [0, 0], [categoriesPie[0].endAngle, radius]];
+    svg
+      .selectAll()
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d', d3.lineRadial()(borders))
+      .attr('stroke', '#fff')
+      .attr('stroke-width', '3')
+      .attr('fill', 'none')
+      ;
 
-    return <div id='obl_chart' />;
+    return <div id='obl_chart' style={{ width: '100%' }} />;
   }
 
 
