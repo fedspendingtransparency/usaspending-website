@@ -21,6 +21,7 @@ export const addSubmissionEndDatesToBudgetaryResources = (budgetaryResources, su
     return budgetaryResources
         .map((budgetaryResource) => ({
             ...budgetaryResource,
+            /* eslint-disable camelcase */
             endDate: (yearlySubmissions.find((submission) => submission.submission_fiscal_month === budgetaryResource.period)?.period_end_date)
         }))
         .filter((budgetaryResource) => budgetaryResource.endDate)

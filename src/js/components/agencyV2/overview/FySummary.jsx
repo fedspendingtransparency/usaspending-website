@@ -68,8 +68,8 @@ const FySummary = ({ isMobile, fy }) => {
         <Carousel items={components} />
     ) : (
         <div className="fy-summary__row">
-            {components.map((viz) => (
-                <div className="fy-summary__col">
+            {components.map((viz, i) => (
+                <div key={`FY-Summary-${i}`} className="fy-summary__col">
                     {viz}
                 </div>
             ))}

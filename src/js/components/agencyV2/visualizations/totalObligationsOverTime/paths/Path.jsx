@@ -26,8 +26,6 @@ const propTypes = {
 
 const Path = ({
     data = [],
-    xDomain = [0, 0],
-    yDomain = [0, 0],
     xScale = () => {},
     yScale = () => {},
     xProperty = 'endDate',
@@ -45,7 +43,6 @@ const Path = ({
     useEffect(() => {
         if (xScale && yScale) {
             const path = line() // defaults to curveLinear from the curve factory (https://github.com/d3/d3-shape#lines)
-                // .defined((z) => z[xProperty] < xDomain[1] && z[xProperty] > xDomain[0] && z[yProperty] < yDomain[1] && z[yProperty] > yDomain[0])
                 .x((z) => xScale(z[xProperty]) + padding.left)
                 .y((z) => height - (yScale(z[yProperty])) - padding.top - padding.bottom);
             setD(path(data));
