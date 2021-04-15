@@ -25,7 +25,8 @@ export default class UserSelections extends React.Component {
     }
 
     generateDefCodesString() {
-        if (this.props.accounts.defCodes && this.props.accounts.defCodes.length > 0) {
+        const { submissionTypes, defCodes } = this.props.accounts;
+        if (defCodes.length && !(submissionTypes.length === 1 && submissionTypes.includes('accountBalances'))) {
             return (
                 <div className="selection__content">{this.props.accounts.defCodes.toString()}</div>
             );
