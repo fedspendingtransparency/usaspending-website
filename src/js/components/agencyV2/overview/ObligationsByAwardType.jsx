@@ -12,37 +12,29 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 export default class ObligationsByAwardType extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      prerender: true
-    };
   }
 
   static propTypes = {
-    width: PropTypes.number,
+    height: PropTypes.number.required,
+    width: PropTypes.number.required,
   };
   // static defaultProps = {
   // };
 
-  componentDidMount = () => this.setState({ prerender: false });
+  // componentDidMount = () => this.setState({ prerender: false });
 
-  shouldComponentUpdate = () => this.state.prerender;
+  // shouldComponentUpdate = () => this.state.prerender;
 
   render = () => {
-console.log(this.props);
-
-
-    var height = 450;
     var margin = 40;
-    var radius = Math.min(this.props.width, height) / 2 - margin;
+    var radius = Math.min(this.props.width, this.props.height) / 2 - margin;
 
     // append the svg object to the div called 'my_dataviz'
-    var svg = d3.select("#obl_chart")
-      .append("svg")
+    var svg = d3.select("#obl_chart svg")
       .attr("width", this.props.width)
-      .attr("height", height)
+      .attr("height", this.props.height)
       .append("g")
-      .attr("transform", "translate(" + this.props.width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + this.props.width / 2 + "," + this.props.height / 2 + ")");
 
     // Create dummy data
     var data1 = [9, 20, 30, 5, 12, 10];
@@ -93,7 +85,7 @@ console.log(this.props);
       .style("opacity", 0.7);
 
 
-    return <div id="obl_chart" />;
+    return <div id="obl_chart"><svg /></div>;
   }
 
 
