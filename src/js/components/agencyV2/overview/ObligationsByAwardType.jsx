@@ -30,11 +30,13 @@ export default class ObligationsByAwardType extends React.Component {
     var radius = Math.min(this.props.width, this.props.height) / 2 - margin;
 
     // append the svg object to the div called 'my_dataviz'
-    var svg = d3.select("#obl_chart svg")
-      .attr("width", this.props.width)
-      .attr("height", this.props.height)
-      .append("g")
-      .attr("transform", "translate(" + this.props.width / 2 + "," + this.props.height / 2 + ")");
+    d3.select('#obl_chart').selectAll('*').remove();
+    var svg = d3.select('#obl_chart')
+      .append('svg')
+      .attr('width', this.props.width)
+      .attr('height', this.props.height)
+      .append('g')
+      .attr('transform', 'translate(' + this.props.width / 2 + ',' + this.props.height / 2 + ')');
 
     // Create dummy data
     var data1 = [9, 20, 30, 5, 12, 10];
@@ -54,13 +56,13 @@ export default class ObligationsByAwardType extends React.Component {
 
 
     const categoriesPie = d3.pie()(data2);
-    const categoriesColors = d3.scaleOrdinal(["#FFBC78", "#A9ADD1"]); // [Assistance, Contracts]
+    const categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // [Assistance, Contracts]
     const detailsPie = d3.pie()(data1);
-    const detailsColors = d3.scaleOrdinal(["#C05600", "#FA9441", "#E66F0E", "#FFBC78", "#545BA3", "#A9ADD1"]); // [Grants, Loans, Direct Payments, Other FA, Contract IDV, Contracts]
+    const detailsColors = d3.scaleOrdinal(['#C05600', '#FA9441', '#E66F0E', '#FFBC78', '#545BA3', '#A9ADD1']); // [Grants, Loans, Direct Payments, Other FA, Contract IDV, Contracts]
 
     // categories
     svg
-      .selectAll('whatever')
+      .selectAll()
       .data(categoriesPie)
       .enter()
       .append('path')
@@ -69,11 +71,11 @@ export default class ObligationsByAwardType extends React.Component {
         .innerRadius(radius - 5)
       )
       .attr('fill', (d, i) => categoriesColors(i))
-      .style("opacity", 0.7);
+      .style('opacity', 0.7);
 
     // details
     svg
-      .selectAll('whatever')
+      .selectAll()
       .data(detailsPie)
       .enter()
       .append('path')
@@ -82,10 +84,10 @@ export default class ObligationsByAwardType extends React.Component {
         .innerRadius(100)
       )
       .attr('fill', (d, i) => detailsColors(i))
-      .style("opacity", 0.7);
+      .style('opacity', 0.7);
 
 
-    return <div id="obl_chart"><svg /></div>;
+    return <div id='obl_chart' />;
   }
 
 
@@ -326,8 +328,8 @@ export default class ObligationsByAwardType extends React.Component {
   //                     // the bar and taking the difference
   //                     height = values.yScale(data.bottom) - yPos;
   //                     // however, if the bar shows a negative value but extends to a 0 or positive
-  //                     // value, the "top" of the bar is actually visually the bottom - and the
-  //                     // "bottom" bar (the visual top) is the X axis
+  //                     // value, the 'top' of the bar is actually visually the bottom - and the
+  //                     // 'bottom' bar (the visual top) is the X axis
   //                     if (data.top < 0 && data.bottom >= 0) {
   //                         yPos = zeroY;
   //                         height = values.yScale(data.top) - zeroY;
@@ -402,7 +404,7 @@ export default class ObligationsByAwardType extends React.Component {
   //         return (
   //             <div>
   //                 <svg
-  //                     className="bar-graph"
+  //                     className='bar-graph'
   //                     width={this.props.width}
   //                     height={this.props.height + 20}>
 
@@ -414,14 +416,14 @@ export default class ObligationsByAwardType extends React.Component {
   //                         {...this.state.virtualChart.xAxis} />
 
   //                     <g
-  //                         className="bar-data"
+  //                         className='bar-data'
   //                         transform={`translate(${this.state.virtualChart.body.group.x},\
   // ${this.state.virtualChart.body.group.y})`}>
   //                         {body}
   //                     </g>
 
   //                     <g
-  //                         className="legend-container"
+  //                         className='legend-container'
   //                         transform={`translate(${this.props.padding.left},
   //                         ${this.props.height - 20})`}>
   //                         <BarChartLegend legend={this.props.legend} />
