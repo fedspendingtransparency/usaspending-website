@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { format, getYear } from 'date-fns';
+import { getYear } from 'date-fns';
 
 import { getYDomain, getMilliseconds } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
@@ -88,12 +88,12 @@ const TotalObligationsOverTimeVisualization = ({
                 {
                     x: isNaN(xScale(xDomain[0])) ? 0 : xScale(xDomain[0]) + padding.left,
                     y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
-                    label: format(new Date(xDomain[0]), "MMM 'FY'yy")
+                    label: `Oct FY${fy.substring(2)}`
                 },
                 {
                     x: isNaN(xScale(xDomain[1])) ? 0 : xScale(xDomain[1]) + padding.left,
                     y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
-                    label: format(new Date(xDomain[1]), "MMM 'FY'yy")
+                    label: `Sep FY${fy.substring(2)}`
                 }
             ]);
         }
@@ -107,13 +107,12 @@ const TotalObligationsOverTimeVisualization = ({
             <g className="total-obligations-over-time-svg-body">
                 <Paths
                     data={dataWithFirstCoordinate}
-                    xDomain={xDomain}
-                    yDomain={yDomain}
                     xScale={xScale}
                     xScaleForPath={xScaleForPath}
                     yScale={yScale}
                     yScaleForPath={yScaleForPath}
                     height={height}
+                    width={width}
                     padding={padding} />
                 <Axis
                     padding={padding}

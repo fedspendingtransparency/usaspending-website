@@ -10,8 +10,6 @@ import AreaPath from './AreaPath';
 
 const propTypes = {
     data: PropTypes.array,
-    xDomain: PropTypes.array,
-    yDomain: PropTypes.array,
     xScale: PropTypes.func,
     xScaleForPath: PropTypes.func,
     yScale: PropTypes.func,
@@ -19,6 +17,7 @@ const propTypes = {
     xProperty: PropTypes.string,
     yProperty: PropTypes.string,
     height: PropTypes.number,
+    width: PropTypes.number,
     padding: PropTypes.shape({
         left: PropTypes.number,
         right: PropTypes.number,
@@ -29,13 +28,12 @@ const propTypes = {
 
 const Paths = ({
     data = [],
-    xDomain = [0, 0],
-    yDomain = [0, 0],
     xScale = () => {},
     xScaleForPath = () => {},
     yScale = () => {},
     yScaleForPath = () => {},
     height = 0,
+    width = 0,
     padding = {
         top: 0,
         bottom: 0,
@@ -49,11 +47,10 @@ const Paths = ({
             xScale={xScale}
             yScale={yScale}
             height={height}
+            width={width}
             padding={padding} />
         <Path
             data={data.sort((a, b) => a.endDate - b.endDate)}
-            xDomain={xDomain}
-            yDomain={yDomain}
             xScale={xScaleForPath}
             yScale={yScaleForPath}
             height={height}

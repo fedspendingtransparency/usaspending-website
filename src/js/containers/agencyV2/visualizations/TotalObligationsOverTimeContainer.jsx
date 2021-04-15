@@ -37,9 +37,7 @@ const TotalObligationsOverTimeContainer = ({
     const [data, setData] = useState([]);
     const containerReference = useRef(null);
     const submissionPeriods = useSelector((state) => state.account.submissionPeriods.toJS());
-    // window width
     const [windowWidth, setWindowWidth] = useState(0);
-    // visualization width
     const [visualizationWidth, setVisualizationWidth] = useState(0);
     const [budgetaryResourcesHaveSubmissionDates, setBudgetaryResourcesHaveSubmissionDates] = useState(false);
 
@@ -96,6 +94,5 @@ const TotalObligationsOverTimeContainer = ({
         </div>
     );
 };
-
 TotalObligationsOverTimeContainer.propTypes = propTypes;
 export default TotalObligationsOverTimeContainer;

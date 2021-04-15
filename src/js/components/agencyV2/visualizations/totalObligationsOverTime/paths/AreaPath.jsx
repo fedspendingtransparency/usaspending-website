@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { area } from 'd3-shape';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -15,6 +14,7 @@ const propTypes = {
     xProperty: PropTypes.string,
     yProperty: PropTypes.string,
     height: PropTypes.number,
+    width: PropTypes.number,
     padding: PropTypes.shape({
         left: PropTypes.number,
         right: PropTypes.number,
@@ -39,18 +39,25 @@ const AreaPath = ({
     }
 }) => {
     const [d, setD] = useState('');
-
     useEffect(() => {
         if (xScale && yScale) {
-            const areaPath = area() // defaults to curveLinear from the curve factory (https://github.com/d3/d3-shape#lines)
-                .x((z) => xScale(z[xProperty]) + padding.left)
-                .y0(height - padding.top - padding.bottom)
-                .y1((z) => height - yScale(z[yProperty]) - padding.top - padding.bottom);
-            setD(areaPath(data));
+            const pathDefinition = () => data.reduce((path, currentItem, i, originalArray) => {
+                if (i === 0) {
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    return updatedPath;
+                }
+                if (originalArray.length === i + 1) {
+                    const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${height - padding.bottom - padding.top}Z`;
+                    return updatedPath;
+                }
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                return updatedPath;
+            }, 'M');
+            setD(pathDefinition());
         }
     }, [data, xScale, yScale]);
 
-    return <path className={`area-path ${classname}`} d={d} />;
+    return (<path className={`area-path ${classname}`} d={d} />);
 };
 
 AreaPath.propTypes = propTypes;

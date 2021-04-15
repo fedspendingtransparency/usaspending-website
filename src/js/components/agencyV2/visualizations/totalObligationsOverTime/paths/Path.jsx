@@ -4,13 +4,10 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { line } from 'd3-shape';
 import PropTypes from 'prop-types';
 
 const propTypes = {
     data: PropTypes.array,
-    xDomain: PropTypes.array,
-    yDomain: PropTypes.array,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
     xProperty: PropTypes.string,
@@ -42,10 +39,15 @@ const Path = ({
 
     useEffect(() => {
         if (xScale && yScale) {
-            const path = line() // defaults to curveLinear from the curve factory (https://github.com/d3/d3-shape#lines)
-                .x((z) => xScale(z[xProperty]) + padding.left)
-                .y((z) => height - (yScale(z[yProperty])) - padding.top - padding.bottom);
-            setD(path(data));
+            const pathDefinition = () => data.reduce((path, currentItem, i, originalArray) => {
+                if (i === 0) {
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    return updatedPath;
+                }
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                return updatedPath;
+            }, 'M');
+            setD(pathDefinition());
         }
     }, [data, xScale, yScale]);
 

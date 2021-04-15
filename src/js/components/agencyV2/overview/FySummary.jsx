@@ -43,6 +43,7 @@ const FySummary = ({ isMobile, fy }) => {
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
                 <TotalObligationsOverTimeContainer />
+                {/* <ComingSoon className="viz-placeholder" /> */}
             </VisualizationSection>
         ),
         (
