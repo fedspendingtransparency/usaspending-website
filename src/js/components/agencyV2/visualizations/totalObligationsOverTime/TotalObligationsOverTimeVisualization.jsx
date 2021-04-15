@@ -40,6 +40,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [yDomain, setYDomain] = useState([]);
     const [xScale, setXScale] = useState(null);
     const [yScale, setYScale] = useState(null);
+    const [xScaleForPath, setXScaleForPath] = useState(null);
     const [yScaleForPath, setYScaleForPath] = useState(null);
     const [xTicks, setXTicks] = useState([]);
     const [dataWithFirstCoordinate, setDataWithFirstCoordinate] = useState([]);
@@ -65,8 +66,9 @@ const TotalObligationsOverTimeVisualization = ({
      * x-axis labels overflowing outside of the graph based on the mock
      * and not going to be part of the graphable width.
      */
-    useEffect(() => setXScale(
-        () => scaleLinear().domain(xDomain).range([0, width - padding.left - padding.right])),
+    useEffect(() => {
+        setXScale(() => scaleLinear().domain(xDomain).range([0, width - padding.left - padding.right]));
+    },
     [xDomain, width]);
     /**
      * set y scale
@@ -75,7 +77,7 @@ const TotalObligationsOverTimeVisualization = ({
      */
     useEffect(() => {
         setYScale(() => scaleLinear().domain(yDomain).range([0, height - padding.top - padding.bottom]));
-        setYScaleForPath(() => scaleLinear().domain(yDomain).range([yOffsetForPathStrokeWidth, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]));
+        setYScaleForPath(() => scaleLinear().domain(yDomain).range([0, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]));
     }, [yDomain, data]);
 
     // set x ticks
@@ -104,6 +106,8 @@ const TotalObligationsOverTimeVisualization = ({
             <g className="total-obligations-over-time-svg-body">
                 <Paths
                     data={dataWithFirstCoordinate}
+                    xDomain={xDomain}
+                    yDomain={yDomain}
                     xScale={xScale}
                     yScale={yScale}
                     yScaleForPath={yScaleForPath}

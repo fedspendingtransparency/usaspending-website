@@ -7,7 +7,7 @@ const xLabelHeight = 18;
 
 const xLabelSpacing = 4;
 
-const pathStrokeWidth = 3;
+const pathStrokeWidth = 1;
 
 export const xLabelHeightPlusPadding = xLabelHeight + xLabelSpacing;
 

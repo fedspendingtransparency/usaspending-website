@@ -4,11 +4,16 @@
       .paths {
         .path {
           stroke: $color-cool-blue;
-          stroke-width: 3;
+          stroke-width: 1;
           fill: none;
         }
         .area-path {
           fill: $color-cool-blue-lightest;
+          &.jon {
+            stroke: $color-cool-blue;
+            stroke-width: 1;
+            fill: none;
+          }
         }
       }
       .total-obligations-over-time-svg-axis {

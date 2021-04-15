@@ -16,7 +16,7 @@ const converISODateToDate = (date) => {
     return newDate;
 };
 
-export const addSubmissionEndDatesToBudgetaryResources = (budgetaryResources, submissionPeriods, fy, xDomainZero) => {
+export const addSubmissionEndDatesToBudgetaryResources = (budgetaryResources, submissionPeriods, fy) => {
     const yearlySubmissions = submissionPeriods.filter((period) => `${period.submission_fiscal_year}` === fy);
     return budgetaryResources
         .map((budgetaryResource) => ({

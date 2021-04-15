@@ -8,6 +8,7 @@ import { area } from 'd3-shape';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    classname: PropTypes.string,
     data: PropTypes.array,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
@@ -23,6 +24,7 @@ const propTypes = {
 };
 
 const AreaPath = ({
+    classname = "",
     data = [],
     xScale = () => {},
     yScale = () => {},
@@ -48,7 +50,7 @@ const AreaPath = ({
         }
     }, [data, xScale, yScale]);
 
-    return <path className="area-path" d={d} />;
+    return <path className={`area-path ${classname}`} d={d} />;
 };
 
 AreaPath.propTypes = propTypes;

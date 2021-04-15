@@ -18,6 +18,7 @@
         height: rem(208);
         @include display(flex);
         @include align-items(center);
+        @include justify-content(center);
         /* TODO - remove placeholder styling once all four
         visualizations are implemented */
         .viz-placeholder {
