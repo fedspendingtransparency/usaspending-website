@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 
 const propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
     subtitle: oneOfType([PropTypes.string, PropTypes.element]),
     data: PropTypes.string,
     secondaryData: PropTypes.string,

@@ -6,7 +6,12 @@
 import React from 'react';
 
 import { render, screen } from 'test-utils';
-import BarChart, { mockData } from 'components/agencyV2/overview/BarChart';
+import BarChart from 'components/agencyV2/overview/BarChart';
+
+import { mockTotalBudgetaryResources } from './mockData';
+
+const mockData = mockTotalBudgetaryResources
+    .map((obj) => ({ year: obj.fiscal_year, budget: obj.agency_budgetary_resources }));
 
 test.each([
     ['2026', ['FY 26', 'FY 25', 'FY 24', 'FY 23', 'FY 22']],
