@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ComingSoon, Carousel, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
-import { fetchBudgetaryResources } from 'apis/agencyV2APIs';
+import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
