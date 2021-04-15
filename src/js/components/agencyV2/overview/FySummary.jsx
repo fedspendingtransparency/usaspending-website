@@ -80,7 +80,7 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
         <div ref={summaryRef} className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {isMobile ? <Carousel items={components(visualizationWidth)} />
+            {isMobile ? <Carousel items={sections(vizRect)} />
                 : (
                     <div className="fy-summary__row">
                         {sections(vizRect).map((viz) => (
