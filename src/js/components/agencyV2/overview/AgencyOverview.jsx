@@ -86,7 +86,7 @@ const AgencyOverview = ({ isLoading, fy }) => {
         </div>
     );
 
-    let content = (isMobile) => isMobile ?
+    let content = () => isMobile ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
