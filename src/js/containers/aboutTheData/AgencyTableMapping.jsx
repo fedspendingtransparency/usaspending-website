@@ -8,18 +8,24 @@ import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
 import { columnTooltips } from 'components/aboutTheData/componentMapping/tooltipContentMapping';
 
-const Tooltip = ({ title, position = 'right', className = '' }) => (
+const Tooltip = ({
+    title,
+    id = '',
+    position = 'right',
+    className = ''
+}) => (
     <TooltipWrapper
         icon="info"
         className={className}
         tooltipPosition={position}
         tooltipComponent={
-            <TooltipComponent className={title} title={title}>{columnTooltips[title]}</TooltipComponent>
+            <TooltipComponent className={title} title={title}>{columnTooltips[id || title]}</TooltipComponent>
         } />
 );
 
 Tooltip.propTypes = {
     title: PropTypes.string.isRequired,
+    id: PropTypes.string,
     position: PropTypes.oneOf(['left', 'right']),
     className: PropTypes.string
 };
@@ -30,7 +36,8 @@ export const agenciesTableColumns = {
         {
             title: 'current_total_budget_authority_amount',
             right: true,
-            displayName: 'Percent of Total Federal Budget'
+            displayName: 'Percent of Total Federal Budget',
+            icon: <Tooltip title="Percent of Total Federal Budget" id="percentOfBudgetPublications" />
         },
         {
             title: 'Q1',
@@ -80,7 +87,8 @@ export const agenciesTableColumns = {
         {
             title: 'current_total_budget_authority_amount',
             displayName: 'Percent of Total Federal Budget',
-            right: true
+            right: true,
+            icon: <Tooltip title="Percent of Total Federal Budget" id="percentOfBudgetSubmissions" />
         },
         {
             title: 'recent_publication_date',
