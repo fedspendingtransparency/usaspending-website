@@ -6,7 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ComingSoon, Carousel } from 'data-transparency-ui';
+import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import VisualizationSection from './VisualizationSection';
+
 
 const propTypes = {
     isMobile: PropTypes.bool,
@@ -40,7 +42,8 @@ const FySummary = ({ isMobile, fy }) => {
                 data={totalObligations}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
-                <ComingSoon className="viz-placeholder" />
+                <TotalObligationsOverTimeContainer />
+                {/* <ComingSoon className="viz-placeholder" /> */}
             </VisualizationSection>
         ),
         (
@@ -66,8 +69,8 @@ const FySummary = ({ isMobile, fy }) => {
         <Carousel items={components} />
     ) : (
         <div className="fy-summary__row">
-            {components.map((viz) => (
-                <div className="fy-summary__col">
+            {components.map((viz, i) => (
+                <div key={`FY-Summary-${i}`} className="fy-summary__col">
                     {viz}
                 </div>
             ))}

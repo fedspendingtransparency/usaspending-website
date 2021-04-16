@@ -92,7 +92,6 @@
         "d3-sankey": "0.7.1",
         "d3-sankey0.12.3": "npm:d3-sankey@0.12.3",
         "d3-scale": "^1.0.4",
-        "d3-time": "^1.0.11",
         "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v2.2.1",
         "date-fns": "^2.16.1",
         "file-loader": "^3.0.1",

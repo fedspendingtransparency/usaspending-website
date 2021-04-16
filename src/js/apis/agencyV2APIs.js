@@ -1,9 +1,9 @@
 /**
- * agencyV2Helper.js
+ * agencyV2APIs.js
  * Created by Lizzie Salita 5/26/20
  */
 
-import { apiRequest } from './apiRequest';
+import { apiRequest } from '../helpers/apiRequest';
 
 export const fetchSpendingCount = (agencyId, fy, type) => apiRequest({
     url: `v2/agency/${agencyId}/${type}/count/`,
@@ -18,7 +18,7 @@ export const fetchSpendingByCategory = (agencyId, type, params) => apiRequest({
 });
 
 export const fetchBudgetaryResources = (agencyId) => apiRequest({
-    url: `v2/agency/${agencyId}/budgetary_resources/?fiscal_year=2020`
+    url: `v2/agency/${agencyId}/budgetary_resources/`
 });
 
 export const fetchAgencyOverview = (code, fy) => apiRequest({
