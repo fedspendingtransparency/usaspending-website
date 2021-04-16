@@ -26,12 +26,18 @@ export default class ObligationsByAwardType extends React.Component {
   // shouldComponentUpdate = () => this.state.prerender;
 
   render = () => {
-    var margin = 10;
-    var radius = Math.min(this.props.width, this.props.height) / 2 - margin;
+    // Create dummy data
+    var details = [9, 20, 30, 5, 12, 10];
+    var categories = [64, 22];
+
+    const labelRadius = Math.min(this.props.width, this.props.height) / 2 * .8;
+    const categoriesRadius = labelRadius * .9;
+    const categoriesStrokeWidth = 5;
+    const detailsRadius = labelRadius * .8;
 
     // append the svg object to the div called 'my_dataviz'
     d3.select('#obl_chart').selectAll('*').remove();
-    var svg = d3.select('#obl_chart')
+    const svg = d3.select('#obl_chart')
       .append('svg')
       .attr('width', this.props.width)
       .attr('height', this.props.height)
@@ -39,15 +45,10 @@ export default class ObligationsByAwardType extends React.Component {
       .attr('transform', 'translate(' + this.props.width / 2 + ',' + this.props.height / 2 + ')')
       ;
 
-    // Create dummy data
-    var data1 = [9, 20, 30, 5, 12, 10];
-    var data2 = [64, 22, 8];
-
-    const categoriesArc = d3.arc().outerRadius(radius).innerRadius(radius - 5);
-    const pie = d3.pie().sortValues(null);
-    const categoriesPie = pie(data2);
+    const categoriesArc = d3.arc().outerRadius(categoriesRadius).innerRadius(categoriesRadius - categoriesStrokeWidth);
+    const categoriesPie = d3.pie().sortValues(null)(categories);
+    const detailsPie = d3.pie().sortValues(null)(details);
     const categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // [Assistance, Contracts]
-    const detailsPie = pie(data1);
     const detailsColors = d3.scaleOrdinal(['#C05600', '#FA9441', '#E66F0E', '#FFBC78', '#545BA3', '#A9ADD1']); // [Grants, Loans, Direct Payments, Other FA, Contract IDV, Contracts]
 
     // categories
@@ -67,22 +68,22 @@ export default class ObligationsByAwardType extends React.Component {
       .enter()
       .append('path')
       .attr('d', d3.arc()
-        .outerRadius(radius - 10)
-        .innerRadius(radius / 2)
+        .outerRadius(detailsRadius)
+        .innerRadius(detailsRadius / 2)
       )
       .attr('fill', (d, i) => detailsColors(i))
       ;
 
     // border between categories (assumes only 2)
-    const borders = [[0, radius], [0, 0], [categoriesPie[0].endAngle, radius]];
+    const borders = [[0, categoriesRadius], [0, 0], [categoriesPie[0].endAngle, categoriesRadius]];
     svg
       .selectAll()
-      .data([0])
+      .data([0]) // one polyline, data in borders
       .enter()
       .append('path')
       .attr('d', d3.lineRadial()(borders))
       .attr('stroke', 'white')
-      .attr('stroke-width', '3')
+      .attr('stroke-width', 3)
       .attr('fill', 'none')
       ;
 
@@ -94,8 +95,22 @@ export default class ObligationsByAwardType extends React.Component {
       .append('polyline')
       .attr('points', d => [[0, 0], categoriesArc.centroid(d)])
       .attr('stroke', 'black')
-      .attr('stroke-width', '3')
-      .attr('fill', 'none')
+      .attr('stroke-width', 3)
+      ;
+
+    // callout labels
+    svg
+      .selectAll()
+      .data(categoriesPie)
+      .enter()
+      .append('text')
+      .text(d => d.data)
+      .attr('transform', d => {
+        const pos = categoriesArc.centroid(d);
+        const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+        pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
+        return 'translate(' + pos + ')';
+      })
       ;
 
     return <div id='obl_chart' style={{ width: '100%' }} />;
