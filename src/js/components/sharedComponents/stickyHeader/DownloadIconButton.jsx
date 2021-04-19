@@ -3,6 +3,8 @@
  * Created by Lizzie Salita 7/9/20
  **/
 
+// TODO: This code is in the component library. We can delete it once we import <DownloadIconButton /> everywhere this is used
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

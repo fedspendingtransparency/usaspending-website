@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { jumpToSection } from 'helpers/covid19Helper';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
-import ReadMore from './ReadMore';
+import ReadMore from 'components/sharedComponents/ReadMore';
 
 const Heading = () => {
     const jumpToDataSources = () => {

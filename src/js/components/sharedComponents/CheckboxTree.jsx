@@ -19,6 +19,7 @@ const propTypes = {
     className: PropTypes.string,
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     errorMessage: PropTypes.string,
     icons: PropTypes.object,
     isSearch: PropTypes.bool,
@@ -36,7 +37,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    countLabel: ''
+    countLabel: '',
+    isDisabled: false
 };
 
 export default class CheckboxTree extends Component {
@@ -212,7 +214,8 @@ export default class CheckboxTree extends Component {
             isError,
             errorMessage,
             noResults,
-            className
+            className,
+            isDisabled
         } = this.props;
         const labeledNodes = this.createLabels(data);
         if (isLoading) {
@@ -248,6 +251,7 @@ export default class CheckboxTree extends Component {
             <div className={`checkbox-tree${checkboxTreeClass}`}>
                 <CheckBoxTree
                     nodes={labeledNodes}
+                    disabled={isDisabled}
                     checked={checked}
                     expanded={expanded}
                     onCheck={this.onCheck}

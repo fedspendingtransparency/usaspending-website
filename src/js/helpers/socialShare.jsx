@@ -49,17 +49,18 @@ const handleShareClickEmail = (subject, body) => {
     Analytics.event({ category: `${subject}`, action: 'share link click', label: 'email' });
 };
 
+export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
+
 const handlersBySocialMedium = {
     twitter: (url) => handleShareClickTwitter(url),
     facebook: (url) => handleShareClickFacebook(url),
     reddit: (url) => handleShareClickReddit(url),
-    email: ({ subject, body }) => {
+    email: ({ subject, body = '' }) => {
         handleShareClickEmail(subject, body);
     },
-    linkedin: (url) => handleShareClickLinkedin(url)
+    linkedin: (url) => handleShareClickLinkedin(url),
+    copy: (slug) => Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}` })
 };
-
-export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
 
 export const getSocialShareFn = (socialMedium) => {
     const fn = handlersBySocialMedium[socialMedium];
@@ -67,6 +68,16 @@ export const getSocialShareFn = (socialMedium) => {
         return (args) => fn(args);
     }
     return (slg) => fn(getBaseUrl(slg));
+};
+
+export const handleShareOptionClick = (name, url, emailArgs) => {
+    const fn = getSocialShareFn(name);
+    if (name === 'email') {
+        fn(emailArgs);
+    }
+    else {
+        fn(url);
+    }
 };
 
 const GlossaryDropdownOption = ({ icon, title }) => (

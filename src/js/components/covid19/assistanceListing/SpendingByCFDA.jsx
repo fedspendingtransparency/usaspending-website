@@ -15,28 +15,28 @@ import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/Spendi
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import ReadMore from 'components/sharedComponents/ReadMore';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import DateNote from '../DateNote';
-import ReadMore from '../ReadMore';
 
 const overviewData = [
     {
         type: 'resultsCount',
-        label: 'CFDA Programs'
+        title: 'CFDA Programs'
     },
     {
         type: 'awardObligations',
-        label: 'Award Obligations',
-        dollarAmount: true
+        title: 'Award Obligations',
+        isMonetary: true
     },
     {
         type: 'awardOutlays',
-        label: 'Award Outlays',
-        dollarAmount: true
+        title: 'Award Outlays',
+        isMonetary: true
     },
     {
         type: 'numberOfAwards',
-        label: 'Number of Awards'
+        title: 'Number of Awards'
     }
 ];
 

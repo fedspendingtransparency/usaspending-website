@@ -7,16 +7,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { accountColumns, accountFields } from 'dataMapping/agency/tableColumns';
 import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
 import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-
 
 const propTypes = {
-    // TODO - when the overview section is complete, get agency ID and FY from Redux
     agencyId: PropTypes.string,
     fy: PropTypes.string,
     type: PropTypes.string.isRequired,
@@ -36,63 +31,61 @@ const TableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    // TODO - use totalObligation to calculate '% of Total Obligations' column value
     const totalObligation = useSelector((state) => state.agencyV2.budgetaryResources._agencyTotalObligated);
 
     const parseAccount = (data) => {
-        if (totalObligation) {
-            // add total obligation to each object and it's children objects
-            const dataAndTotalObligation = data.map((d) => {
-                let dataChildrenAndTotalObligation = [];
-                if (d.children && d.children.length > 0) {
-                    dataChildrenAndTotalObligation = d.children.map((child) => ({
-                        ...child,
-                        total_obligated_amount: totalObligation
-                    }));
-                }
+        // add total obligation to each object and it's children objects
+        const dataAndTotalObligation = data.map((d) => {
+            let dataChildrenAndTotalObligation = [];
+            if (d.children && d.children.length > 0) {
+                dataChildrenAndTotalObligation = d.children.map((child) => ({
+                    ...child,
+                    total_obligated_amount: totalObligation
+                }));
+            }
 
-                if (dataChildrenAndTotalObligation.length > 0) {
-                    return {
-                        ...d,
-                        children: dataChildrenAndTotalObligation,
-                        total_obligated_amount: totalObligation
-                    };
-                }
-
+            if (dataChildrenAndTotalObligation.length > 0) {
                 return {
                     ...d,
+                    children: dataChildrenAndTotalObligation,
                     total_obligated_amount: totalObligation
                 };
-            });
+            }
 
-            // parse row and row's children
-            const parsedData = dataAndTotalObligation.map((item) => {
-                const accountSpendingRow = Object.create(BaseAccountSpendingRow);
-                accountSpendingRow.populate(item);
+            return {
+                ...d,
+                total_obligated_amount: totalObligation
+            };
+        });
 
-                let rowChildren = [];
-                if (item.children && item.children.length > 0) {
-                    rowChildren = item.children.map((childItem) => {
-                        const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
-                        accountChildSpendingRow.populate(childItem);
-                        return accountChildSpendingRow;
-                    });
-                }
+        // parse row and row's children
+        const parsedData = dataAndTotalObligation.map((item) => {
+            const accountSpendingRow = Object.create(BaseAccountSpendingRow);
+            accountSpendingRow.populate(item);
 
-                if (rowChildren && rowChildren.length > 0) {
-                    Object.defineProperty(accountSpendingRow, "children", {
-                        value: rowChildren
-                    });
-                }
+            let rowChildren = [];
+            if (item.children && item.children.length > 0) {
+                rowChildren = item.children.map((childItem) => {
+                    const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
+                    accountChildSpendingRow.populate(childItem);
+                    return accountChildSpendingRow;
+                });
+            }
 
-                return accountSpendingRow;
-            });
-            setResults(parsedData);
-        }
+            if (rowChildren && rowChildren.length > 0) {
+                Object.defineProperty(accountSpendingRow, "children", {
+                    value: rowChildren
+                });
+            }
+
+            return accountSpendingRow;
+        });
+        setResults(parsedData);
     };
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
         setLoading(true);
+        setError(false);
         // Make a request with the new page number
         const params = {
             fiscal_year: props.fy,
@@ -107,7 +100,6 @@ const TableContainer = (props) => {
                 parseAccount(res.data.results);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
-                setError(false);
             }).catch((err) => {
                 setError(true);
                 setLoading(false);
@@ -129,32 +121,6 @@ const TableContainer = (props) => {
         fetchSpendingByCategoryCallback();
     }, [currentPage]);
 
-    if (loading || error) {
-        return (
-            <>
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container">
-                            {loading && <ResultsTableLoadingMessage />}
-                            {error && <ResultsTableErrorMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </>
-        );
-    }
-
     return (
         <div className="table-wrapper">
             <Table
@@ -163,7 +129,9 @@ const TableContainer = (props) => {
                 columns={accountColumns[props.type]}
                 divider={props.subHeading}
                 currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort} />
+                updateSort={updateSort}
+                loading={loading}
+                error={error} />
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

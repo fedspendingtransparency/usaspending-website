@@ -5,46 +5,36 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PageHeader } from 'data-transparency-ui';
 
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
-import { getBaseUrl } from 'helpers/socialShare';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
     account: PropTypes.object
 };
 export default class AccountHeader extends React.Component {
+    handleShare = (name, slug) => {
+        handleShareOptionClick(name, slug, {
+            subject: `USAspending.gov Federal Account Profile: ${this.props.account.title}`,
+            body: `View the spending activity of this federal account on USAspending.gov: ${getBaseUrl(slug)}`
+        });
+    };
     render() {
         const accountSymbol =
             `${this.props.account.agency_identifier}-${this.props.account.main_account_code}`;
         const slug = `federal_account/${accountSymbol}`;
         return (
-            <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1} id="main-focus">
-                        Federal Account Profile
-                    </h1>
-                </div>
-                <div className="sticky-header__options">
-                    <div className="summary-status">
-                        <ul className="summary-status-items">
-                            <InfoSnippet
-                                label="Federal Account Symbol"
-                                value={accountSymbol} />
-                        </ul>
-                    </div>
-                </div>
-                <div className="sticky-header__toolbar">
-                    <ShareIcon
-                        slug={slug}
-                        email={{
-                            subject: `USAspending.gov Federal Account Profile: ${this.props.account.title}`,
-                            body: `View the spending activity of this federal account on USAspending.gov: ${getBaseUrl(slug)}`
-                        }} />
-                </div>
-            </StickyHeader>
+            // TODO: DEV-6889 Get design approval for change
+            <PageHeader
+                overLine="Federal Account Profile"
+                title={`Federal Account Symbol: ${accountSymbol}`}
+                stickyBreakPoint={getStickyBreakPointForSidebar()}
+                shareProps={{
+                    url: getBaseUrl(slug),
+                    onShareOptionClick: (name) => this.handleShare(name, slug)
+                }} />
         );
     }
 }

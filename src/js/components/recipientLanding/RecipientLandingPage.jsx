@@ -4,15 +4,15 @@
  */
 
 import React from 'react';
+import { PageHeader } from 'data-transparency-ui';
 
 import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl } from 'helpers/socialShare';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import Header from 'containers/shared/HeaderContainer';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
 
@@ -22,32 +22,30 @@ const slug = 'recipient';
 const emailSubject = 'USAspending.gov Recipient Profiles';
 
 export default class RecipientLandingPage extends React.Component {
+    handleShare = (name) => {
+        handleShareOptionClick(name, slug, {
+            subject: emailSubject,
+            body: `View all of the Recipient Profiles on USAspending.gov: ${getBaseUrl(slug)}`
+        });
+    };
+
     render() {
         return (
             <div className="usa-da-recipient-landing">
                 <MetaTags {...recipientLandingPageMetaTags} />
                 <Header />
-                <StickyHeader>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                           Recipient Profiles
-                        </h1>
-                    </div>
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={slug}
-                            email={{
-                                subject: emailSubject,
-                                body: `View all of the Recipient Profiles on USAspending.gov: ${getBaseUrl(slug)}`
-                            }} />
-                    </div>
-                </StickyHeader>
-                <main
-                    id="main-content"
-                    className="main-content">
-                    <RecipientLandingContainer />
-                </main>
-                <Footer />
+                <PageHeader
+                    title="Recipient Profiles"
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
+                    shareProps={{
+                        url: getBaseUrl(slug),
+                        onShareOptionClick: this.handleShare
+                    }}>
+                    <main id="main-content" className="main-content">
+                        <RecipientLandingContainer />
+                    </main>
+                    <Footer />
+                </PageHeader>
             </div>
         );
     }
