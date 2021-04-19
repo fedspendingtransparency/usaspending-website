@@ -25,6 +25,10 @@ export default class ObligationsByAwardType extends React.Component {
 
   // shouldComponentUpdate = () => this.state.prerender;
 
+
+  // get /api/v2/agency/{toptier}/obligations_by_award_category/{?fiscal_year}
+
+
   render = () => {
     // Create dummy data
     var details = [9, 20, 30, 5, 12, 10];
@@ -87,16 +91,12 @@ export default class ObligationsByAwardType extends React.Component {
       .attr('fill', 'none')
       ;
 
-    // callout lines
-    svg
-      .selectAll()
-      .data(categoriesPie)
-      .enter()
-      .append('polyline')
-      .attr('points', d => [[0, 0], categoriesArc.centroid(d)])
-      .attr('stroke', 'black')
-      .attr('stroke-width', 3)
-      ;
+    const labelPos = d => {
+      const pos = categoriesArc.centroid(d);
+      const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+      pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
+      return pos;
+    }
 
     // callout labels
     svg
@@ -105,12 +105,18 @@ export default class ObligationsByAwardType extends React.Component {
       .enter()
       .append('text')
       .text(d => d.data)
-      .attr('transform', d => {
-        const pos = categoriesArc.centroid(d);
-        const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-        pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
-        return 'translate(' + pos + ')';
-      })
+      .attr('transform', d => 'translate(' + labelPos(d) + ')')
+      ;
+
+    // callout lines
+    svg
+      .selectAll()
+      .data(categoriesPie)
+      .enter()
+      .append('polyline')
+      .attr('points', d => [labelPos(d), categoriesArc.centroid(d)])
+      .attr('stroke', 'black')
+      .attr('stroke-width', 3)
       ;
 
     return <div id='obl_chart' style={{ width: '100%' }} />;
