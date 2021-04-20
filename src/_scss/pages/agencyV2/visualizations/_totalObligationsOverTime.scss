@@ -1,0 +1,39 @@
+.total-obligations-over-time-visualization-container {
+  .usda-message {
+    padding: 0;
+    margin-bottom: rem(100);
+  }
+  .total-obligations-over-time-svg {
+    .total-obligations-over-time-svg-body {
+      .paths {
+        .path {
+          stroke: $color-cool-blue;
+          stroke-width: 1;
+          fill: none;
+        }
+        .area-path {
+          fill: $color-cool-blue-lightest;
+          &.jon {
+            stroke: $color-cool-blue;
+            stroke-width: 1;
+            fill: none;
+          }
+        }
+      }
+      .total-obligations-over-time-svg-axis {
+        line {
+          stroke: $color-gray-light;
+          stroke-width: 1;
+        }
+        .x-axis {
+          .x-axis-labels {
+            text {
+              font-size: rem(14);
+              text-anchor: middle;
+            }
+          }
+        }
+      }
+    }
+  }
+}

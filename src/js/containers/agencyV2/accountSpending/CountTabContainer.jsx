@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { fetchSpendingCount } from 'helpers/agencyV2Helper';
+import { fetchSpendingCount } from 'apis/agencyV2APIs';
 import CountTab from 'components/agencyV2/CountTab';
 
 const propTypes = {
