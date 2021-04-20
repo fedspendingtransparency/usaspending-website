@@ -12,7 +12,7 @@ import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
-import { agenciesTableColumns } from './AgencyTableMapping';
+import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 
 const propTypes = {
     openModal: PropTypes.func.isRequired,
@@ -20,15 +20,6 @@ const propTypes = {
     selectedFy: PropTypes.string,
     selectedPeriod: PropTypes.string
 };
-
-const parsePeriods = (periods) => periods
-    .map(({ publicationDate, showNotCertified }) => (
-        <div className="generic-cell-content">
-            {(publicationDate) && publicationDate}
-            {!publicationDate && "--"}
-            {showNotCertified && publicationDate && <span className="not-certified">NOT CERTIFIED</span>}
-        </div>
-    ));
 
 const AgenciesContainer = ({
     activeTab,
@@ -131,7 +122,7 @@ const AgenciesContainer = ({
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
-                    row.populate(d, federalTotal);
+                    row.populate(d, federalTotal, selectedFy);
                     return row;
                 });
                 changePublicationsTotal(totalItems);
@@ -363,7 +354,7 @@ const AgenciesContainer = ({
                 )}
                 {activeTab === 'publications' && (
                     <Table
-                        rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
+                        rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
                         classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
