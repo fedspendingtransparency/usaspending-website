@@ -27,7 +27,7 @@ export default class ObligationsByAwardType extends React.Component {
 
 
   // get /api/v2/agency/{toptier}/obligations_by_award_category/{?fiscal_year}
-  getTypeAndDisplay = category => {
+  static getTypeAndDisplay = category => {
     switch (category) {
       case 'contracts':
         return ['Contracts', 'Contracts'];
@@ -140,5 +140,4 @@ render = () => {
     ;
 
   return <div id='obl_chart' style={{ width: '100%' }} />;
-}
 }
