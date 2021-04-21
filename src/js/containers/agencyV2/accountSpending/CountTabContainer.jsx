@@ -26,16 +26,18 @@ const CountTabContainer = (props) => {
 
     useEffect(() => {
         // Reset any existing results
-        setCount(null);
-        setSubCount(null);
-        const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
-        countRequest.promise
-            .then((res) => {
-                setCount(res.data[props.countField]);
-                if (props.subCountField) {
-                    setSubCount(res.data[props.subCountField]);
-                }
-            });
+        if (props.fy) {
+            setCount(null);
+            setSubCount(null);
+            const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
+            countRequest.promise
+                .then((res) => {
+                    setCount(res.data[props.countField]);
+                    if (props.subCountField) {
+                        setSubCount(res.data[props.subCountField]);
+                    }
+                });
+        }
     }, [props.type, props.fy, props.agencyId, props.countField, props.subCountField]);
     return (
         <CountTab
