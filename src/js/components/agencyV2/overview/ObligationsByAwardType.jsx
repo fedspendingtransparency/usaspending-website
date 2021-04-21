@@ -43,7 +43,7 @@ export default class ObligationsByAwardType extends React.Component {
         return ['Financial Assistance', 'Other'];
 
       default:
-        console.error('Category name passed to getTypeAndDisplay not recognized : ' + category);
+        console.error('Category name passed to getTypeAndDisplay not recognized: ' + category);
     }
 
   }
