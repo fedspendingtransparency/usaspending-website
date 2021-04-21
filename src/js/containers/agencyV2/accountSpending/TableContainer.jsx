@@ -112,14 +112,13 @@ const TableContainer = (props) => {
         if (currentPage !== 1) {
             changeCurrentPage(1);
         }
-        else {
-            fetchSpendingByCategoryCallback();
-        }
-    }, [props.type, props.fy, props.agencyId, pageSize, sort, order, totalObligation]);
+    }, [props.type, props.agencyId, pageSize, sort, order, totalObligation]);
 
     useEffect(() => {
-        fetchSpendingByCategoryCallback();
-    }, [currentPage]);
+        if (props.fy) {
+            fetchSpendingByCategoryCallback();
+        }
+    }, [currentPage, props.fy]);
 
     return (
         <div className="table-wrapper">
