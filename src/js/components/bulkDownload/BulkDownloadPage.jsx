@@ -19,7 +19,6 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 
-
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
@@ -27,7 +26,7 @@ import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataCo
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import DataDictionaryContainer from 'containers/bulkDownload/dictionary/DataDictionaryContainer';
+import DataDictionaryContainer from 'containers/dataDictionary/DataDictionaryContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
@@ -120,20 +119,18 @@ export default class BulkDownloadPage extends React.Component {
             <div className="usa-da-bulk-download-page">
                 {Object.keys(metaTagsByDataType).includes(this.props.dataType) && <MetaTags {...metaTagsByDataType[this.props.dataType]} />}
                 <Header />
-                <PageHeader title="Download Center" stickyBreakPoint={getStickyBreakPointForSidebar()}>
+                <PageHeader title={this.props.dataType === 'data_dictionary' ? 'Resources' : 'Download Center'} stickyBreakPoint={getStickyBreakPointForSidebar()}>
                     <main id="main-content">
                         <div className="bulk-download">
-                            <div className="bulk-download__sidebar">
-                                <BulkDownloadSidebar
-                                    dataTypes={this.props.dataTypes}
-                                    active={this.props.dataType} />
-                            </div>
+                            {this.props.dataType === 'data_dictionary' ? '' :
+                                <div className="bulk-download__sidebar">
+                                    <BulkDownloadSidebar dataTypes={this.props.dataTypes} active={this.props.dataType} />
+                                </div>
+                            }
                             <div className="bulk-download__data">
                                 {downloadDataContent}
                             </div>
-                            <BulkDownloadModalContainer
-                                mounted={this.state.showModal}
-                                hideModal={this.hideModal} />
+                            <BulkDownloadModalContainer mounted={this.state.showModal} hideModal={this.hideModal} />
                         </div>
                     </main>
                     <Footer />
@@ -144,4 +141,3 @@ export default class BulkDownloadPage extends React.Component {
 }
 
 BulkDownloadPage.propTypes = propTypes;
-
