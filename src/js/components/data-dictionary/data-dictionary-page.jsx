@@ -17,11 +17,7 @@ import DataDictionaryContainer from "containers/data-dictionary/data-dictionary-
 require('pages/data-dictionary/data-dictionary-page.scss');
 
 export default class DataDictionaryPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render = () =>
+    render = () => (
         <div className="usa-da-data-dictionary-page">
             <MetaTags {...dataDictionaryPageMetaTags} />
             <Header />
@@ -36,5 +32,5 @@ export default class DataDictionaryPage extends React.Component {
                 <Footer />
             </PageHeader>
         </div>
-        ;
-};
+    );
+}

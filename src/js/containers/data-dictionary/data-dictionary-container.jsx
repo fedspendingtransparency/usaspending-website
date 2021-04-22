@@ -31,7 +31,7 @@ export default class DataDictionaryContainer extends React.Component {
         this.loadContent();
     }
 
-    setSearchString = searchTerm => {
+    setSearchString = (searchTerm) => {
         this.setState({
             searchTerm
         });
@@ -48,7 +48,7 @@ export default class DataDictionaryContainer extends React.Component {
 
         this.request = apiRequest({ url: 'v2/references/data_dictionary/' });
         this.request.promise
-            .then(res => {
+            .then((res) => {
                 const content = res.data.document;
                 this.setState({
                     sections: content.sections,
@@ -58,8 +58,7 @@ export default class DataDictionaryContainer extends React.Component {
                     error: false
                 }, () => this.parseRows(content.rows));
             })
-            .catch(err => {
-                console.log(err);
+            .catch((err) => {
                 this.setState({
                     inFlight: false,
                     error: true
@@ -70,7 +69,7 @@ export default class DataDictionaryContainer extends React.Component {
 
     parseRows(rows) {
         // replace nulls with 'N/A'
-        const parsedRows = rows.map(row => row.map(data => data || 'N/A'));
+        const parsedRows = rows.map((row) => row.map((data) => data || 'N/A'));
 
         this.setState({
             rows: parsedRows
@@ -87,12 +86,13 @@ export default class DataDictionaryContainer extends React.Component {
 
     changeSort = (field, direction) => {
         // Get the index of the column we are sorting by
-        const index = this.state.columns.findIndex(col => col.raw === field);
+        const index = this.state.columns.findIndex((col) => col.raw === field);
 
         let rows;
         if (direction === 'desc') {
             rows = this.state.rows.sort((a, b) => b[index].localeCompare(a[index]));
-        } else {
+        }
+        else {
             rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
         }
 
@@ -106,11 +106,12 @@ export default class DataDictionaryContainer extends React.Component {
         });
     }
 
-    render = () =>
+    render = () => (
         <DataDictionary
             {...this.state}
             changeSort={this.changeSort}
             setSearchString={this.setSearchString}
             searchTerm={this.state.searchTerm}
-        />;
+        />
+    );
 }
