@@ -61,7 +61,7 @@ test('should remove periods 2, 4, 5, 7, 8, 10, 11 for 2018 & 2019', () => {
     expect(mockDatesRow.periods.find((data) => data.period === 11)).toEqual(undefined);
 });
 
-test('should remove periods 2, 3, 5, 7, 8, 10, 11 for 2017', () => {
+test('should remove periods 2, 3, 4, 5, 7, 8, 10, 11 for 2017', () => {
     mockDatesRow.populate(mockRow, mockTotal, 2017);
     expect(mockDatesRow.periods.find((data) => data.period === 2)).toEqual(undefined);
     expect(mockDatesRow.periods.find((data) => data.period === 3)).toEqual(undefined);
