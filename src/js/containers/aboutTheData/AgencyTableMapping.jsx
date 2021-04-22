@@ -29,7 +29,7 @@ Tooltip.propTypes = {
     position: PropTypes.oneOf(['left', 'right']),
     className: PropTypes.string
 };
-
+// these are the sub-columns that get removed for each FY
 export const publicationsSubColumnPeriodFilters = {
     2020: {
         raw: [2, 4, 5],
