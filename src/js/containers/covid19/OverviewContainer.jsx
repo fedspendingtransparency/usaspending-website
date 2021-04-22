@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
-import AmountsVisualization from 'components/covid19/AmountsVisualization';
+import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
 
 const OverviewContainer = () => {

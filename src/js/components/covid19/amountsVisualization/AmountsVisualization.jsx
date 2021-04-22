@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { upperFirst, throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import TotalBudgetaryResources from 'components/covid19/amountsVisualization/amounts/TotalBudgetaryResources';
 import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -45,20 +46,15 @@ const AmountsVisualization = ({
 }) => {
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
-    const [totalRectangleData, setTotalRectangleData] = useState(null);
     const [outlayRectangleData, setOutlayRectangleData] = useState(null);
     const [obligationRectangleData, setObligationRectangleData] = useState(null);
     const [remainingBalanceRectangleData, setRemainingBalanceRectangleData] = useState(null);
-    const [totalLineData, setTotalLineData] = useState(null);
     const [outlayLineData, setOutlayLineData] = useState(null);
     // Four Obligation lines due to overlap with remaining balance text
     const [obligationLineDataOne, setObligationLineDataOne] = useState(null);
     const [obligationLineDataTwo, setObligationLineDataTwo] = useState(null);
     const [obligationLineDataThree, setObligationLineDataThree] = useState(null);
     const [obligationLineDataFour, setObligationLineDataFour] = useState(null);
-    const [totalQuestionData, setTotalQuestionData] = useState(null);
-    const [totalValueData, setTotalValueData] = useState(null);
-    const [totalLabelData, setTotalLabelData] = useState(null);
     const [remainingBalanceQuestionData, setRemainingBalanceQuestionData] = useState(null);
     const [remainingBalanceValueData, setRemainingBalanceValueData] = useState(null);
     const [remainingBalanceLabelData, setRemainingBalanceLabelData] = useState(null);
@@ -79,9 +75,6 @@ const AmountsVisualization = ({
     const [drawRemainingBalanceText, setDrawRemainingBalanceText] = useState(true);
     const [showTooltip, setShowTooltip] = useState(false);
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
-    const _totalBudgetAuthorityQuestion = useRef(null);
-    const _totalBudgetAuthorityLabel = useRef(null);
-    const _totalBudgetAuthorityValue = useRef(null);
     const _obligationQuestion = useRef(null);
     const _obligationLabel = useRef(null);
     const _obligationValue = useRef(null);
@@ -136,25 +129,6 @@ const AmountsVisualization = ({
         document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
     }, []);
-    // totalRectangleData
-    useEffect(() => {
-        if (scale && Object.keys(overviewData).length > 0) {
-            const { offset, fill, text: textInfo } = rectangleMapping._totalBudgetAuthority;
-            const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalBudgetAuthority);
-            const units = calculateUnits([amount]);
-            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
-            const data = {
-                x: left + offset.left,
-                y: startOfChartY + offset.top,
-                width: scale(amount) - (right + (offset.right || 0)),
-                height: rectangleHeight - (2 * offset.bottom),
-                fill,
-                description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
-            };
-            if (!isNaN(scale(amount))) setTotalRectangleData(data);
-        }
-    }, [scale, overviewData]);
     // outlayRectangleData
     useEffect(() => {
         if (scale) {
@@ -201,7 +175,7 @@ const AmountsVisualization = ({
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             let draw = true;
-            let adjustedWidth = (totalRectangleData?.width || 0) - (obligationRectangleData?.width || 0) - offset.right;
+            let adjustedWidth = (width - amountsPadding.right || 0) - (obligationRectangleData?.width || 0) - offset.right;
             if (adjustedWidth <= 2) {
                 adjustedWidth = 0;
                 draw = false;
@@ -218,28 +192,6 @@ const AmountsVisualization = ({
             setDrawRemainingBalanceItems(draw);
         }
     }, [scale, overviewData, obligationRectangleData]);
-    // totalLineData
-    useEffect(() => {
-        if (scale) {
-            const {
-                offset,
-                lineLength,
-                lineColor
-            } = rectangleMapping._totalBudgetAuthority;
-            const { left, right } = amountsPadding;
-            const amount = Math.abs(overviewData._totalBudgetAuthority);
-            const x = left + offset.left;
-            const rectWidth = scale(amount) - (right + (offset.right || 0));
-            const data = {
-                lineColor,
-                x1: (x + rectWidth) - (lineStrokeWidth / 2),
-                x2: (x + rectWidth) - (lineStrokeWidth / 2),
-                y1: startOfChartY - lineLength,
-                y2: startOfChartY + (rectangleHeight / 2)
-            };
-            if (!isNaN(scale(amount))) setTotalLineData(data);
-        }
-    }, [scale, overviewData]);
     // outlayLineData
     useEffect(() => {
         if (scale) {
@@ -329,49 +281,6 @@ const AmountsVisualization = ({
             if (!isNaN(scale(amount))) setObligationLineDataFour(data);
         }
     }, [scale, obligationLineDataThree]);
-    // totalQuestionData
-    useLayoutEffect(() => {
-        const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
-        const questionRef = _totalBudgetAuthorityQuestion.current?.getBoundingClientRect();
-        setTotalQuestionData({
-            y: (totalLineData?.y1 || 0) + (questionRef?.height || 0),
-            x: (totalLineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-            height: questionRef?.height || 0,
-            text: textInfo.question,
-            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
-        });
-    }, [totalLineData]);
-    // totalValueData
-    useLayoutEffect(() => {
-        const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
-        const amount = Math.abs(overviewData._totalBudgetAuthority);
-        const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
-        if (totalLineData && totalQuestionData) {
-            setTotalValueData({
-                y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0),
-                x: totalLineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
-                height: ref?.height || 0,
-                theWidth: ref?.width || 0,
-                text: moneyLabel,
-                className: `amounts-text__value bold ${!ref ? 'white' : ''}`
-            });
-        }
-    }, [totalQuestionData, totalLineData]);
-    // totalLabelData
-    useLayoutEffect(() => {
-        const ref = _totalBudgetAuthorityLabel.current?.getBoundingClientRect();
-        const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
-        if (totalLineData && totalQuestionData && totalValueData) {
-            setTotalLabelData({
-                y: totalLineData.y1 + totalQuestionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                x: totalLineData.x1 - ((ref?.width || 0) + (totalValueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
-                height: ref?.height || 0,
-                text: textInfo.label,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`
-            });
-        }
-    }, [totalQuestionData, totalLineData, totalValueData]);
     // remainingBalanceQuestionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._remainingBalance;
@@ -528,14 +437,14 @@ const AmountsVisualization = ({
             y: startOfChartY + (rectangleHeight / 2) + 2,
             x: amountsPadding.left - (ref?.width || 0) - labelTextAdjustment.x
         });
-    }, [width, totalRectangleData]);
+    }, [width]);
     // 100%
     useLayoutEffect(() => {
         setOneHundredPercentData({
             y: startOfChartY + (rectangleHeight / 2) + 2,
             x: (width - amountsPadding.right) + labelTextAdjustment.x
         });
-    }, [width, totalRectangleData]);
+    }, [width]);
     // leftRemainingBalanceVerticalLineData
     useEffect(() => {
         if (scale && drawRemainingBalanceItems) {
@@ -685,50 +594,12 @@ const AmountsVisualization = ({
             {
                 !loading &&
                 <svg height={amountsHeight} width={width} className="amounts-viz__svg">
-                    {
-                        totalLineData &&
-                        <g
-                            tabIndex="0"
-                            aria-label="A line linking a rectangle to text"
-                            data-id="_totalBudgetAuthority"
-                            onFocus={displayTooltip}
-                            onBlur={hideTooltip}>
-                            <desc>A line linking a rectangle to text</desc>
-                            <line
-                                data-id="_totalBudgetAuthority"
-                                x1={totalLineData.x1}
-                                x2={totalLineData.x2}
-                                y1={totalLineData.y1}
-                                y2={totalLineData.y2}
-                                stroke={totalLineData.lineColor}
-                                strokeWidth={lineStrokeWidth}
-                                onMouseMove={displayTooltip}
-                                onMouseLeave={hideTooltip} />
-                        </g>
-                    }
-                    {
-                        totalRectangleData &&
-                        <g
-                            tabIndex="0"
-                            aria-label={totalRectangleData.description}
-                            data-id="_totalBudgetAuthority"
-                            onFocus={displayTooltip}
-                            onBlur={hideTooltip}>
-                            <desc>
-                                {totalRectangleData.description}
-                            </desc>
-                            <rect
-                                className={showTooltip === '_totalBudgetAuthority' ? 'highlight' : ''}
-                                data-id="_totalBudgetAuthority"
-                                x={totalRectangleData.x}
-                                y={totalRectangleData.y}
-                                width={totalRectangleData.width}
-                                height={totalRectangleData.height}
-                                fill={totalRectangleData.fill}
-                                onMouseMove={displayTooltip}
-                                onMouseLeave={hideTooltip} />
-                        </g>
-                    }
+                    <TotalBudgetaryResources
+                        displayTooltip={displayTooltip}
+                        hideTooltip={hideTooltip}
+                        showTooltip={showTooltip}
+                        overviewData={overviewData}
+                        scale={scale} />
                     {
                         obligationLineDataOne &&
                         <g
@@ -902,69 +773,7 @@ const AmountsVisualization = ({
                                 onMouseLeave={hideTooltip} />
                         </g>
                     }
-                    {
-                        totalQuestionData &&
-                        <g
-                            tabIndex="0"
-                            aria-label={totalQuestionData.text}
-                            data-id="_totalBudgetAuthority"
-                            onFocus={displayTooltip}
-                            onBlur={hideTooltip}>
-                            <desc>{totalQuestionData.text}</desc>
-                            <text
-                                ref={_totalBudgetAuthorityQuestion}
-                                data-id="_totalBudgetAuthority"
-                                className={totalQuestionData.className}
-                                x={totalQuestionData.x}
-                                y={totalQuestionData.y}
-                                onMouseMove={displayTooltip}
-                                onMouseLeave={hideTooltip}>
-                                {totalQuestionData.text}
-                            </text>
-                        </g>
-                    }
-                    {
-                        totalValueData &&
-                        <g
-                            tabIndex="0"
-                            aria-label={totalValueData.text}
-                            data-id="_totalBudgetAuthority"
-                            onFocus={displayTooltip}
-                            onBlur={hideTooltip}>
-                            <desc>{totalValueData.text}</desc>
-                            <text
-                                ref={_totalBudgetAuthorityValue}
-                                data-id="_totalBudgetAuthority"
-                                className={totalValueData.className}
-                                x={totalValueData.x}
-                                y={totalValueData.y}
-                                onMouseMove={displayTooltip}
-                                onMouseLeave={hideTooltip}>
-                                {totalValueData.text}
-                            </text>
-                        </g>
-                    }
-                    {
-                        totalLabelData &&
-                        <g
-                            tabIndex="0"
-                            aria-label={totalLabelData.text}
-                            data-id="_totalBudgetAuthority"
-                            onFocus={displayTooltip}
-                            onBlur={hideTooltip}>
-                            <desc>{totalLabelData.text}</desc>
-                            <text
-                                ref={_totalBudgetAuthorityLabel}
-                                data-id="_totalBudgetAuthority"
-                                className={totalLabelData.className}
-                                x={totalLabelData.x}
-                                y={totalLabelData.y}
-                                onMouseMove={displayTooltip}
-                                onMouseLeave={hideTooltip}>
-                                {totalLabelData.text}
-                            </text>
-                        </g>
-                    }
+
                     {
                         remainingBalanceQuestionData && drawRemainingBalanceText &&
                         <g
