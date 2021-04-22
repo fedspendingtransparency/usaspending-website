@@ -5,14 +5,14 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import DataDictionaryContainer from 'containers/bulkDownload/dictionary/DataDictionaryContainer';
-import { mockDictionary } from '../mockData';
+import DataDictionaryContainer from 'containers/data-dictionary/data-dictionary-container';
+import { mockDictionary } from './mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/bulkDownload/dictionary/DataDictionary', () => jest.fn(() => null));
+jest.mock('components/data-dictionary/data-dictionary', () => jest.fn(() => null));
 
 describe('DataDictionaryContainer', () => {
     it('should make an API call for the dictionary content on mount and save res data to the state', async () => {
