@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import DataDictionary from 'components/dataDictionary/DataDictionary';
+import DataDictionary from 'components/data-dictionary/data-dictionary';
 import { apiRequest } from '../../helpers/apiRequest';
 
 export default class DataDictionaryContainer extends React.Component {

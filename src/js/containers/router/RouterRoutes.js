@@ -6,7 +6,6 @@
 import React from 'react';
 import kGlobalConstants from 'GlobalConstants';
 
-
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
 const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
@@ -35,6 +34,7 @@ const AboutTheDataPage = React.lazy(() => import('components/aboutTheData/AboutT
 const AgencyDetailsPage = React.lazy(() => import('components/aboutTheData/AgencyDetailsPage').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
 const SubmissionStatisticsDataSources = React.lazy(() => import('components/aboutTheData/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const DataDictionaryPage = React.lazy(() => import('components/data-dictionary/data-dictionary-page').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -198,6 +198,11 @@ export const routes = [
     {
         path: '/disaster/covid-19',
         component: Covid19Container,
+        exact: true
+    },
+    {
+        path: '/data-dictionary',
+        component: DataDictionaryPage,
         exact: true
     },
     {
