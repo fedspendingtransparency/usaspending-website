@@ -24,8 +24,7 @@ export default class DataDictionaryPage extends React.Component {
             <PageHeader
                 overLine="Resources"
                 title="Data Dictionary"
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-            >
+                stickyBreakPoint={getStickyBreakPointForSidebar()} >
                 <div id="main-content">
                     <DataDictionaryContainer />
                 </div>
