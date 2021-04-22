@@ -16,7 +16,7 @@ import * as actions from 'redux/actions/covid19/covid19Actions';
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
-import { fetchDEFCodesMockReturnValue, mockDefCodes } from '../../mockData/apis/disaster';
+import { fetchDEFCodesMockReturnValue, mockDefCodes } from '../../mockData/helpers/disasterHelper';
 
 let mockFetch;
 let mockUseSelector;
