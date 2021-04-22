@@ -110,14 +110,12 @@ export default class BulkDownloadPage extends React.Component {
             <div className="usa-da-bulk-download-page">
                 {Object.keys(metaTagsByDataType).includes(this.props.dataType) && <MetaTags {...metaTagsByDataType[this.props.dataType]} />}
                 <Header />
-                <PageHeader title={this.props.dataType === 'data_dictionary' ? 'Resources' : 'Download Center'} stickyBreakPoint={getStickyBreakPointForSidebar()}>
+                <PageHeader title="Download Center" stickyBreakPoint={getStickyBreakPointForSidebar()}>
                     <main id="main-content">
                         <div className="bulk-download">
-                            {this.props.dataType === 'data_dictionary' ? '' :
-                                <div className="bulk-download__sidebar">
-                                    <BulkDownloadSidebar dataTypes={this.props.dataTypes} active={this.props.dataType} />
-                                </div>
-                            }
+                            <div className="bulk-download__sidebar">
+                                <BulkDownloadSidebar dataTypes={this.props.dataTypes} active={this.props.dataType} />
+                            </div>
                             <div className="bulk-download__data">
                                 {downloadDataContent}
                             </div>
