@@ -1,5 +1,5 @@
 /**
- * disasterHelper.js
+ * disaster.js
  * Created by Jonathan Hill 06/11/20
  */
 
