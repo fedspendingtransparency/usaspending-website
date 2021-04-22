@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAwardAmounts, fetchNewAwardsCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchNewAwardsCount } from 'apis/disaster';
 import SpendingOverTimeContainer from 'containers/covid19/spendingOverTime/SpendingOverTimeContainer';
 import AmountTab from './AmountTab';
 

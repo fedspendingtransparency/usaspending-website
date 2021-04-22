@@ -11,12 +11,12 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from 'test-utils';
 import * as redux from 'react-redux';
-import * as helper from 'helpers/disasterHelper';
+import * as helper from 'apis/disaster';
 import * as actions from 'redux/actions/covid19/covid19Actions';
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
-import { fetchDEFCodesMockReturnValue, mockDefCodes } from '../../mockData/helpers/disasterHelper';
+import { fetchDEFCodesMockReturnValue, mockDefCodes } from '../../mockData/apis/disaster';
 
 let mockFetch;
 let mockUseSelector;
