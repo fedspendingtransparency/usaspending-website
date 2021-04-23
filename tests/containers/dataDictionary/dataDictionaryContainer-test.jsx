@@ -8,7 +8,7 @@ import { mount } from 'enzyme';
 import DataDictionaryContainer from 'containers/dataDictionary/dataDictionaryContainer';
 
 import { mockApiCall } from '../../testResources/mockApiHelper';
-import * as api from '../../../src/js/helpers/apiRequest';
+import * as api from 'helpers/apiRequest';
 import { mockDictionary } from '../../mockApi/responses/dataDictionary.js';
 
 mockApiCall(api, 'apiRequest', mockDictionary);
