@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'helpers/disasterHelper';
+import { fetchSpendingOverTime, fetchNewAwardsOverTime } from 'apis/disaster';
 import { convertPeriodToDate } from 'helpers/monthHelper';
 import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';

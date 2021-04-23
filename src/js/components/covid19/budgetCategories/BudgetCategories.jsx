@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import kGlobalConstants from 'GlobalConstants';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
-import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { fetchDisasterSpendingCount } from 'apis/disaster';
 import { Tabs, InformationBoxes } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';

@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchCfdaCount } from 'helpers/disasterHelper';
+import { fetchCfdaCount } from 'apis/disaster';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import { Tabs } from "data-transparency-ui";
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';

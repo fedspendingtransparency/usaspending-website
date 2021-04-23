@@ -27,7 +27,7 @@ import {
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchRecipientSpendingByGeography } from 'helpers/disasterHelper';
+import { fetchRecipientSpendingByGeography } from 'apis/disaster';
 import Analytics from 'helpers/analytics/Analytics';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
@@ -447,8 +447,8 @@ export class MapContainer extends React.Component {
                 </MapWrapper>
                 <Note message={(
                     <>
-                        Amounts reported for Utah reflect an award by HHS from the Provider Relief Fund (PRF)
-                        to a single entity in Utah which will make payments to recipients across the country.
+                        Amounts reported for Minnesota reflect an award by HHS from the Provider Relief Fund (PRF)
+                        to a single entity in Minnesota which will make payments to recipients across the country.{' '}
                         <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
                             See more information about HHS&apos;s data submission.
                         </a>
