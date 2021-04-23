@@ -93,7 +93,6 @@ const RectanglePercentViz = ({
         numerator?.children.length > 0
     );
     const isCaresReleased = (
-        GlobalConstants.CARES_ACT_RELEASED &&
         numeratorHasChildren &&
         flattenArray(numerator?.children).some((obj) => obj?.text?.toLowerCase()?.includes('covid'))
     );

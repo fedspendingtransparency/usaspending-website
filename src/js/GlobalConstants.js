@@ -27,10 +27,6 @@ const globalConstants = {
     QAT: (process.env.ENV === 'qat'),
     STAGING: (process.env.ENV === 'staging'),
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
-    // Phase 1 release
-    CARES_ACT_RELEASED: true,
-    // Phase 2 release
-    CARES_ACT_RELEASED_2: true
 };
 
 module.exports = globalConstants;

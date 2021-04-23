@@ -150,10 +150,7 @@ export class IdvAmountsContainer extends React.Component {
             this.state.awardAmounts?._fileCOutlay !== 0
         );
 
-        const showFileC = (
-            (thisIdvHasFileC || childAwardsHaveFileC) &&
-            GlobalConstants.CARES_ACT_RELEASED
-        );
+        const showFileC = (thisIdvHasFileC || childAwardsHaveFileC);
 
         return (
             <div className="award__col award-viz award-amounts">
