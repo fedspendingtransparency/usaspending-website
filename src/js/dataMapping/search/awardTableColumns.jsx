@@ -3,7 +3,6 @@
  * Created by Kevin Li 9/8/17
  */
 
-import kGlobalConstants from '../../GlobalConstants';
 /**
  * TODO: Refactor the way columns are being created to reduce repetitive code
  */

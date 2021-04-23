@@ -1,5 +1,5 @@
 /**
- * AwardAmountsContainer.jsx
+ * IdvAwardAmountsSectionContainer.jsx
  * Created by David Trinh 2/8/2019
  **/
 
@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { TooltipWrapper } from 'data-transparency-ui';
 
-import GlobalConstants from 'GlobalConstants';
 import * as IdvHelper from 'helpers/idvHelper';
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import * as awardActions from 'redux/actions/award/awardActions';

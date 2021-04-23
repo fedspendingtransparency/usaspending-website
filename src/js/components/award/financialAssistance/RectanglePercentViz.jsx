@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
-import GlobalConstants from "GlobalConstants";
 import { generatePercentage } from 'helpers/awardAmountHelper';
 import {
     Bar,
