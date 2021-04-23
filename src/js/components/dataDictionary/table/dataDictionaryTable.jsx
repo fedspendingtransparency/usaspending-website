@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DataDictionaryTableSorter from './data-dictionary-table-sorter';
+import DataDictionaryTableSorter from './dataDictionaryTableSorter';
 
 const propTypes = {
     searchTerm: PropTypes.string,

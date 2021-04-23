@@ -52,9 +52,9 @@
 			}
 
 			.data-dictionary__table-wrapper {
-				@import './_dictionary-table';
+				@import './_dictionaryTable';
 			}
-			@import './_search-bar';
+			@import './_searchBar';
 		}
 	}
 }

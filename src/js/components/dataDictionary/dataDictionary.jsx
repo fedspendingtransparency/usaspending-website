@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { Spreadsheet } from 'components/sharedComponents/icons/Icons';
-import DataDictionaryTable from './table/data-dictionary-table';
-import DataDictionarySearchBar from "./data-dictionary-search-bar";
+import DataDictionaryTable from './table/dataDictionaryTable';
+import DataDictionarySearchBar from "./dataDictionarySearchBar";
 
 const propTypes = {
     loading: PropTypes.bool,

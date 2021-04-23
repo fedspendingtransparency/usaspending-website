@@ -12,9 +12,9 @@ import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import DataDictionaryContainer from "containers/data-dictionary/data-dictionary-container";
+import DataDictionaryContainer from "containers/dataDictionary/dataDictionaryContainer";
 
-require('pages/data-dictionary/data-dictionary-page.scss');
+require('pages/dataDictionary/dataDictionaryPage.scss');
 
 export default class DataDictionaryPage extends React.Component {
     render = () => (

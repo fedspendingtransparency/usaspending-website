@@ -5,14 +5,16 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import DataDictionaryContainer from 'containers/data-dictionary/data-dictionary-container';
-import { mockDictionary } from './mockData';
+import DataDictionaryContainer from 'containers/dataDictionary/dataDictionaryContainer';
 
-// mock the bulkDownload helper
-jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
+import { mockApiCall } from '../../testResources/mockApiHelper';
+import * as api from '../../../src/js/helpers/apiRequest';
+import { mockDictionary } from '../../mockApi/responses/dataDictionary.js';
+
+mockApiCall(api, 'apiRequest', mockDictionary);
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/data-dictionary/data-dictionary', () => jest.fn(() => null));
+jest.mock('components/dataDictionary/dataDictionary', () => jest.fn(() => null));
 
 describe('DataDictionaryContainer', () => {
     it('should make an API call for the dictionary content on mount and save res data to the state', async () => {
@@ -20,24 +22,20 @@ describe('DataDictionaryContainer', () => {
 
         await container.instance().request.promise;
 
-        expect(container.state().sections).toEqual(mockDictionary.document.sections);
-        expect(container.state().columns).toEqual(mockDictionary.document.headers);
-        expect(container.state().downloadLocation).toEqual(mockDictionary.document.metadata.download_location);
+        console.log(container.state());
+
+        expect(container.state().sections).toEqual(mockDictionary.data.document.sections);
+        expect(container.state().columns).toEqual(mockDictionary.data.document.headers);
+        expect(container.state().downloadLocation).toEqual(mockDictionary.data.document.metadata.download_location);
     });
     describe('parseRows', () => {
         it('should replace null values with N/A and update the state', () => {
             const container = mount(<DataDictionaryContainer />);
 
-            const mockRows = [
-                ['A', 'B', 'C', null]
-            ];
-
-            const expectedRows = [
-                ['A', 'B', 'C', 'N/A']
-            ];
+            const mockRows = [['A', 'B', 'C', null]];
+            const expectedRows = [['A', 'B', 'C', 'N/A']];
 
             container.instance().parseRows(mockRows);
-
             expect(container.state().rows).toEqual(expectedRows);
         });
     });
@@ -46,6 +44,8 @@ describe('DataDictionaryContainer', () => {
             const container = mount(<DataDictionaryContainer />);
 
             await container.instance().request.promise;
+
+            console.log(container.state());
 
             container.instance().changeSort('file', 'asc');
 

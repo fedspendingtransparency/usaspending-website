@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import DataDictionary from 'components/data-dictionary/data-dictionary';
-import { apiRequest } from '../../helpers/apiRequest';
+import DataDictionary from 'components/dataDictionary/dataDictionary';
+import { fetchDataDictionary } from 'apis/dataDictionary';
 
 export default class DataDictionaryContainer extends React.Component {
     constructor(props) {
@@ -46,7 +46,7 @@ export default class DataDictionaryContainer extends React.Component {
             this.request.cancel();
         }
 
-        this.request = apiRequest({ url: 'v2/references/data_dictionary/' });
+        this.request = fetchDataDictionary();
         this.request.promise
             .then((res) => {
                 const content = res.data.document;
