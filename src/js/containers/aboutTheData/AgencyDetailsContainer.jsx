@@ -72,7 +72,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             agencyName,
                             agencyCode
                         }} />,
-                rowData._discrepancyCount === 0 ?
+                isNaN(rowData._discrepancyCount) ?
                     <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
                     <CellWithModal
                         data={rowData.discrepancyCount}
@@ -85,17 +85,20 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             agencyCode,
                             gtasObligationTotal: rowData._gtasObligationTotal
                         }} />,
-                <CellWithModal
-                    data={rowData.obligationDifference}
-                    openModal={modalClick}
-                    modalType="reportingDifferences"
-                    agencyData={{
-                        fiscalYear: rowData.fiscalYear,
-                        fiscalPeriod: rowData.fiscalPeriod,
-                        agencyName,
-                        agencyCode
-                    }} />,
-                rowData._unlinkedContracts !== 0 ? (
+                isNaN(rowData._obligationDifference) ?
+                    <div className="generic-cell-content">{rowData.obligationDifference}</div> :
+                    <CellWithModal
+                        data={rowData.obligationDifference}
+                        openModal={modalClick}
+                        modalType="reportingDifferences"
+                        agencyData={{
+                            fiscalYear: rowData.fiscalYear,
+                            fiscalPeriod: rowData.fiscalPeriod,
+                            agencyName,
+                            agencyCode
+                        }} />,
+                isNaN(rowData._unlinkedContracts) ?
+                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
                     <CellWithModal
                         data={rowData.unlinkedContracts}
                         openModal={modalClick}
@@ -106,11 +109,9 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Contract'
-                        }} />
-                ) : (
-                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div>
-                ),
-                rowData._unlinkedAssistance !== 0 ? (
+                        }} />,
+                isNaN(rowData._unlinkedAssistance) ?
+                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
                     <CellWithModal
                         data={rowData.unlinkedAssistance}
                         openModal={modalClick}
@@ -121,10 +122,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Assistance'
-                        }} />
-                ) : (
-                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div>
-                ),
+                        }} />,
                 <div className="generic-cell-content">
                     <AgencyDownloadLinkCell file={rowData.assuranceStatement} />
                 </div>
