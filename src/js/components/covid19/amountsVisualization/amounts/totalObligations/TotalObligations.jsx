@@ -1,5 +1,5 @@
 /**
- * TotalBudgetaryResource.jsx
+ * TotalObligations.jsx
  * created by Jonathan Hill 04/22/21
  */
 
@@ -20,7 +20,8 @@ import {
     labelTextAdjustment
 } from 'dataMapping/covid19/covid19';
 
-import TextLineRectangle from './shared/TextLineRectangle';
+import Rectangle from '../shared/Rectangle';
+import LineAndText from './LineAndText';
 
 const propTypes = {
     displayTooltip: PropTypes.func,
@@ -42,15 +43,15 @@ const TotalBudgetaryResources = ({
 }) => {
     const [rectangleData, setRectangleData] = useState();
     const [lineData, setLineData] = useState();
-    const [questionData, setQuestionData] = useState();
+    const [descriptionData, setdescriptionData] = useState();
     const [valueData, setValueData] = useState();
     const [labelData, setLabelData] = useState();
-    const _totalBudgetAuthorityQuestion = useRef(null);
-    const _totalBudgetAuthorityLabel = useRef(null);
-    const _totalBudgetAuthorityValue = useRef(null);
+    const descriptionTextRef = useRef(null);
+    const labelTextRef = useRef(null);
+    const valueTextRef = useRef(null);
     // totalRectangleData
     useEffect(() => {
-        if (scale && Object.keys(overviewData).length > 0) {
+        if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping._totalBudgetAuthority;
             const { left, right } = amountsPadding;
             const amount = Math.abs(overviewData._totalBudgetAuthority);
@@ -89,62 +90,67 @@ const TotalBudgetaryResources = ({
             if (!isNaN(scale(amount))) setLineData(data);
         }
     }, [scale, overviewData, rectangleData]);
-    // questionData
+    // description text data
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
-        const questionRef = _totalBudgetAuthorityQuestion.current?.getBoundingClientRect();
-        setQuestionData({
+        const questionRef = descriptionTextRef.current?.getBoundingClientRect();
+        setdescriptionData({
             y: (lineData?.y1 || 0) + (questionRef?.height || 0),
             x: (lineData?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
             height: questionRef?.height || 0,
             text: textInfo.question,
-            className: `amounts-text__question ${!questionRef ? 'white' : ''}`,
-            dataId
+            className: `amounts-text__question ${!questionRef ? 'white' : ''}`
         });
     }, [lineData]);
-    // valueData
+    // value text data
     useLayoutEffect(() => {
-        const ref = _totalBudgetAuthorityValue.current?.getBoundingClientRect();
+        const ref = valueTextRef.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData._totalBudgetAuthority);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
-        if (lineData && questionData) {
+        if (lineData && descriptionData) {
             setValueData({
-                y: lineData.y1 + questionData.height + (ref?.height || 0),
+                y: lineData.y1 + descriptionData.height + (ref?.height || 0),
                 x: lineData.x1 - ((ref?.width || 0) + spacingBetweenLineAndText),
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
-                className: `amounts-text__value bold ${!ref ? 'white' : ''}`,
-                dataId
+                className: `amounts-text__value bold ${!ref ? 'white' : ''}`
             });
         }
-    }, [questionData, lineData]);
-    // labelData
+    }, [descriptionData, lineData]);
+    // label text data
     useLayoutEffect(() => {
-        const ref = _totalBudgetAuthorityLabel.current?.getBoundingClientRect();
+        const ref = labelTextRef.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping._totalBudgetAuthority;
-        if (lineData && questionData && valueData) {
+        if (lineData && descriptionData && valueData) {
             setLabelData({
-                y: lineData.y1 + questionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
+                y: lineData.y1 + descriptionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                 x: lineData.x1 - ((ref?.width || 0) + (valueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`,
-                dataId
+                className: `amounts-text__label ${!ref ? 'white' : ''}`
             });
         }
-    }, [questionData, lineData, valueData]);
+    }, [descriptionData, lineData, valueData]);
     return (
-        <TextLineRectangle
-            displayTooltip={displayTooltip}
-            hideTooltip={hideTooltip}
-            lineData={lineData}
-            lineStrokeWidth={lineStrokeWidth}
-            rectangleData={rectangleData}
-            showTooltip={showTooltip}
-            dataId={dataId}
-            text={[questionData, valueData, labelData].filter((data) => data)} />
+        <g>
+            <title>The text, vertical line and rectangle representative of the COVID-19 Total Budgetary Resources</title>
+            <Rectangle
+                overviewData={overviewData}
+                scale={scale}
+                displayTooltip={displayTooltip}
+                hideTooltip={hideTooltip}
+                showTooltip={showTooltip}
+                dataId={dataId} />
+            <LineAndText
+                overviewData={overviewData}
+                scale={scale}
+                displayTooltip={displayTooltip}
+                hideTooltip={hideTooltip}
+                showTooltip={showTooltip}
+                dataId={dataId} />
+        </g>
     );
 };
 
