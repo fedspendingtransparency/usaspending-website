@@ -8,22 +8,22 @@ import PropTypes from 'prop-types';
 import {
     ComingSoon,
     ErrorMessage,
-    PageHeader
+    FiscalYearPicker,
+    ShareIcon,
+    DownloadIconButton
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
 
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import Footer from 'containers/Footer';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
+import PageWrapper from '../sharedComponents/Page';
 
 require('pages/agencyV2/index.scss');
 
@@ -106,52 +106,40 @@ export const AgencyProfileV2 = ({
     };
 
     return (
-        <div className="usa-da-agency-page-v2">
-            <MetaTags {...agencyPageMetaTags} />
-            <Header />
-            <PageHeader
-                overLine="Agency Profile"
-                title={name}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                fyProps={{
-                    selectedFy,
-                    latestFy,
-                    handleFyChange: (fy) => setSelectedFy({ fy })
-                }}
-                shareProps={{
-                    url: getBaseUrl(slug),
-                    onShareOptionClick: handleShare
-                }}
-                downloadProps={{
-                    downloadInFlight: false,
-                    handleClick: () => {}
-                }}>
-                <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                        <Sidebar
-                            pageName="agency-v2"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                            isGoingToBeSticky
-                            active={activeSection}
-                            jumpToSection={jumpToSection}
-                            detectActiveSection={setActiveSection}
-                            sections={sections.map((section) => ({
-                                section: section.name,
-                                label: section.display,
-                                overLine: section.overLine
-                            }))} />
-                    </div>
-                    <div className="body usda__flex-col">
-                        {isError ? <ErrorMessage /> : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading}>
-                                {section.component || <ComingSoon />}
-                            </AgencySection>
-                        ))}
-                    </div>
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+        <PageWrapper
+            classNames="usa-da-agency-page-v2"
+            overline="Agency Profile"
+            title={name}
+            metaTagProps={agencyPageMetaTags}
+            toolBarComponents={[
+                <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
+                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
+                <DownloadIconButton downloadInFlight={false} handleClick={() => {}} />
+            ]}>
+            <main id="main-content" className="main-content usda__flex-row">
+                <div className="sidebar usda__flex-col">
+                    <Sidebar
+                        pageName="agency-v2"
+                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                        isGoingToBeSticky
+                        active={activeSection}
+                        jumpToSection={jumpToSection}
+                        detectActiveSection={setActiveSection}
+                        sections={sections.map((section) => ({
+                            section: section.name,
+                            label: section.display,
+                            overLine: section.overLine
+                        }))} />
+                </div>
+                <div className="body usda__flex-col">
+                    {isError ? <ErrorMessage /> : sections.map((section) => (
+                        <AgencySection key={section.name} section={section} isLoading={isLoading}>
+                            {section.component || <ComingSoon />}
+                        </AgencySection>
+                    ))}
+                </div>
+            </main>
+        </PageWrapper>
     );
 };
 
