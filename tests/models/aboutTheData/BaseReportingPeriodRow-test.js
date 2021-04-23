@@ -34,10 +34,22 @@ describe('BaseReportingPeriodRow', () => {
         reportingPeriodRowMod.populate(period2);
         expect(reportingPeriodRowMod.reportingPeriod).toEqual('FY 2020: P01 - P02');
     });
-    it('should format the percent of budgetary resources', () => {
-        expect(reportingPeriodRow.percentOfBudget).toEqual('2.19%');
-    });
     it('should have CoreReportingRow in its prototype chain', () => {
         expect(Object.getPrototypeOf(reportingPeriodRow)).toMatchObject(CoreReportingRow);
+    });
+    it('should format the percent of budgetary resources', () => {
+        expect(reportingPeriodRow.percentOfBudget).toEqual('2.10%');
+    });
+    it('should handle null percent of budgetary resources', () => {
+        const noPercentage = mockReportingPeriodRow.data.results[0];
+        noPercentage.percent_of_total_budgetary_resources = null;
+        reportingPeriodRow.populate(noPercentage);
+        expect(reportingPeriodRow.percentOfBudget).toEqual('--');
+    });
+    it('should handle 0 percent of budgetary resources', () => {
+        const noPercentage = mockReportingPeriodRow.data.results[0];
+        noPercentage.percent_of_total_budgetary_resources = 0;
+        reportingPeriodRow.populate(noPercentage);
+        expect(reportingPeriodRow.percentOfBudget).toEqual('0.00%');
     });
 });

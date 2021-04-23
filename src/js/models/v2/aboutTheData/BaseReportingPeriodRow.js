@@ -14,8 +14,13 @@ BaseReportingPeriodRow.populate = function populate(data) {
     this.fiscalYear = parseInt(data.fiscal_year, 10) || 0;
     this.fiscalPeriod = parseInt(data.fiscal_period, 10) || 0;
     this.reportingPeriod = `FY ${this.fiscalYear}: ${getPeriodWithTitleById(`${this.fiscalPeriod}`).title}`;
-    this._percentOfBudget = data.percent_of_total_budgetary_resources || 0;
-    this.percentOfBudget = `${formatNumberWithPrecision(this._percentOfBudget, 2)}%`;
+    this._percentOfBudget = data.percent_of_total_budgetary_resources;
+    if (!this._percentOfBudget && typeof this._percentOfBudget !== 'number') {
+        this.percentOfBudget = '--';
+    }
+    else {
+        this.percentOfBudget = `${formatNumberWithPrecision(this._percentOfBudget, 2)}%`;
+    }
 };
 
 export default BaseReportingPeriodRow;
