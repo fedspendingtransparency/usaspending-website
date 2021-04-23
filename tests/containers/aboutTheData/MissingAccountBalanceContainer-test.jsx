@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
-import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
+import * as agencyReportingAPI from 'apis/agencyReporting';
 import MissingAccountBalanceContainer from 'containers/aboutTheData/modals/MissingAccountBalanceContainer';
 
 const defaultProps = {
@@ -20,7 +20,7 @@ describe('Missing Account Balance Container', () => {
         expect(screen.queryByText('% of Agency Total in GTAS')).toBeTruthy();
     });
     it('should call the api one time on mount', () => {
-        const pubicationDatesRequest = jest.spyOn(aboutTheDataHelper, 'fetchPublishDates');
+        const pubicationDatesRequest = jest.spyOn(agencyReportingAPI, 'fetchPublishDates');
         render(<MissingAccountBalanceContainer {...defaultProps} />);
         waitFor(() => expect(pubicationDatesRequest).toHaveBeenCalledTimes(1));
     });

@@ -8,7 +8,7 @@ import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';
 import { throttle } from 'lodash';
 
-import { fetchAgency } from 'helpers/aboutTheDataHelper';
+import { fetchAgency } from 'apis/agencyReporting';
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import * as redux from 'react-redux';
 import { List } from 'immutable';
 
-import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
+import * as agencyReportingAPI from 'apis/agencyReporting';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { mockAPI } from './mockData';
 
@@ -81,8 +81,8 @@ test('once fy/period are defined, only one request for totals is made, then only
         submissionPeriods: new List([
         ])
     });
-    const fetchTotals = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockReturnValue(mockResponses.submissionsRequest);
+    const fetchTotals = jest.spyOn(agencyReportingAPI, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockReturnValue(mockResponses.submissionsRequest);
     // render 1: no fy/period -- no requests made
     const { rerender } = render(<AgenciesContainer {...defaultProps} selectedFy="" selectedPeriod="" />);
     // render 2: fy & period defined; no totals -- one request for fetchTotals
@@ -110,8 +110,8 @@ test('once fy/period are defined, only one request for totals is made, then only
 });
 
 test('when totals are defined, request for totals are not made and only one for submissions/publications is made', async () => {
-    const totalsRequest = jest.spyOn(aboutTheDataHelper, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const totalsRequest = jest.spyOn(agencyReportingAPI, 'getTotalBudgetaryResources').mockClear().mockReturnValue(mockResponses.totalsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         allSubmissions: [],
         submissionsSearchResults: [],
@@ -143,8 +143,8 @@ test('when totals are defined and the active tab changes, one request is made', 
         publicationsSort: ['current_total_budget_authority_amount', 'desc'],
         submissionPeriods: new List([{ submission_fiscal_year: 2020, submission_fiscal_month: 8 }])
     });
-    const publicationsRequest = jest.spyOn(aboutTheDataHelper, 'getSubmissionPublicationDates').mockClear().mockReturnValue(mockResponses.publicationsRequest);
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const publicationsRequest = jest.spyOn(agencyReportingAPI, 'getSubmissionPublicationDates').mockClear().mockReturnValue(mockResponses.publicationsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
 
     // not using click to trigger update to active tab b/c it's in a sibling component to this one.
@@ -171,7 +171,7 @@ test('when totals are defined and the fy changes, one request is made', () => {
             { submission_fiscal_year: 2018, submission_fiscal_month: 8 }
         ])
     });
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedFy="2018" />);
 
@@ -195,7 +195,7 @@ test('when totals are defined and the period changes, one request is made', () =
             { submission_fiscal_year: 2020, submission_fiscal_month: 4 }
         ])
     });
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     rerender(<AgenciesContainer {...defaultProps} selectedPeriod="4" />);
 
@@ -218,7 +218,7 @@ test('when totals are defined and the sort field changes, one request is made', 
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
     expect(submissionsRequest).toHaveBeenCalledTimes(1);
 
@@ -257,7 +257,7 @@ test('when totals are defined and the order field changes, one request is made',
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
 
     jest.spyOn(redux, 'useSelector').mockReturnValue({
@@ -294,7 +294,7 @@ test('when totals are defined and the search term is defined, one request is mad
             { submission_fiscal_year: 2020, submission_fiscal_month: 8 }
         ])
     });
-    const submissionsRequest = jest.spyOn(aboutTheDataHelper, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
+    const submissionsRequest = jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockClear().mockReturnValue(mockResponses.submissionsRequest);
     const { rerender } = render(<AgenciesContainer {...defaultProps} />);
 
     jest.spyOn(redux, 'useSelector').mockReturnValue({

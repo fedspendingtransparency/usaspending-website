@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, waitFor, fireEvent, screen } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
-import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
+import * as agencyReportingAPI from 'apis/agencyReporting'; import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { mockReportingPeriodRow } from './mockData';
 
 const defaultProps = {
@@ -23,7 +22,7 @@ const mockResponse = {
 };
 
 test('makes one request for table data on mount', () => {
-    const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockReturnValue(mockResponse);
+    const tableRequest = jest.spyOn(agencyReportingAPI, 'fetchAgency').mockReturnValue(mockResponse);
 
     render(<AgencyDetailsContainer {...defaultProps} />);
 
@@ -33,7 +32,7 @@ test('makes one request for table data on mount', () => {
 });
 
 test('when the sort field changes, only one request is made', () => {
-    const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
+    const tableRequest = jest.spyOn(agencyReportingAPI, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
     render(<AgencyDetailsContainer {...defaultProps} />);
 
     fireEvent.click(screen.getByTitle('Sort table by descending Percent of Total Federal Budget'));
@@ -43,7 +42,7 @@ test('when the sort field changes, only one request is made', () => {
 });
 
 test('when the sort order changes, only one request is made', () => {
-    const tableRequest = jest.spyOn(aboutTheDataHelper, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
+    const tableRequest = jest.spyOn(agencyReportingAPI, 'fetchAgency').mockClear().mockReturnValue(mockResponse);
     render(<AgencyDetailsContainer {...defaultProps} />);
 
     fireEvent.click(screen.getByTitle('Sort table by ascending Reporting Period'));
