@@ -23,7 +23,7 @@ import {
     budgetCategoriesNameSort,
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
-import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
+import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
