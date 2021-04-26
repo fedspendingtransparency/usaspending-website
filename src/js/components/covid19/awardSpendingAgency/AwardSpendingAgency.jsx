@@ -6,7 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { fetchAgencyCount } from 'helpers/disasterHelper';
+import { fetchAgencyCount } from 'apis/disaster';
 import DateNote from 'components/covid19/DateNote';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import { areCountsDefined } from 'helpers/covid19Helper';

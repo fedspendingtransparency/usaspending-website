@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as agencyV2APIs from 'apis/agencyV2APIs';
+import * as agencyV2 from 'apis/agencyV2';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 
 const defaultProps = {
@@ -17,15 +17,15 @@ let fetchSpendingCountSpy;
 let fetchSpendingByCategorySpy;
 
 beforeEach(() => {
-    fetchBudgetaryResourcesSpy = jest.spyOn(agencyV2APIs, 'fetchBudgetaryResources').mockReturnValue({
+    fetchBudgetaryResourcesSpy = jest.spyOn(agencyV2, 'fetchBudgetaryResources').mockReturnValue({
         promise: new Promise((resolve) => process.nextTick(() => (resolve(mockData)))),
         cancel: jest.fn()
     }).mockClear();
-    fetchSpendingCountSpy = jest.spyOn(agencyV2APIs, 'fetchSpendingCount').mockReturnValue({
+    fetchSpendingCountSpy = jest.spyOn(agencyV2, 'fetchSpendingCount').mockReturnValue({
         promise: new Promise((resolve) => process.nextTick(() => (resolve(mockData)))),
         cancel: jest.fn()
     }).mockClear();
-    fetchSpendingByCategorySpy = jest.spyOn(agencyV2APIs, 'fetchSpendingByCategory').mockReturnValue({
+    fetchSpendingByCategorySpy = jest.spyOn(agencyV2, 'fetchSpendingByCategory').mockReturnValue({
         promise: new Promise((resolve) => process.nextTick(() => (resolve({
             data: {
                 page_metadata: {

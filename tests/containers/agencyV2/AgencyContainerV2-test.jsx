@@ -6,7 +6,7 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
-import * as agencyV2APIs from 'apis/agencyV2APIs';
+import * as agencyV2 from 'apis/agencyV2';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
 
@@ -46,7 +46,7 @@ test('on network error, an error message displays', () => {
             ));
         })
     };
-    spy = jest.spyOn(agencyV2APIs, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
             <AgencyContainerV2 />
@@ -59,7 +59,7 @@ test('on network error, an error message displays', () => {
 
 test('an API request is made for the agency code in the URL', () => {
     spy.mockClear();
-    spy = jest.spyOn(agencyV2APIs, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
             <AgencyContainerV2 />

@@ -17,7 +17,7 @@ import replaceString from 'helpers/replaceString';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'helpers/disasterHelper';
+import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'apis/disaster';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
