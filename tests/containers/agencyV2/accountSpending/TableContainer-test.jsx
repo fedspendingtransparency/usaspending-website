@@ -6,7 +6,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 
-import * as apis from 'apis/agencyV2APIs';
+import * as apis from 'apis/agencyV2';
 import TableContainer from 'containers/agencyV2/accountSpending/TableContainer';
 
 const mockResponse = {
