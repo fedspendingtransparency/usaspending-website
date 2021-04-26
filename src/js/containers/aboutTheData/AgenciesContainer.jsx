@@ -7,7 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
-import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates, usePagination, isPeriodSelectable, getFederalBudget } from 'helpers/aboutTheDataHelper';
+import {
+    getTotalBudgetaryResources,
+    getAgenciesReportingData,
+    getSubmissionPublicationDates,
+    usePagination,
+    isPeriodSelectable,
+    getFederalBudget
+} from 'helpers/aboutTheDataHelper';
 import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
@@ -249,10 +256,13 @@ const AgenciesContainer = ({
             mostRecentPublicationDate,
             _discrepancyCount,
             discrepancyCount: GtasNotInFileA,
+            _obligationDifference,
             obligationDifference,
             _gtasObligationTotal,
             percentageOfTotalFederalBudget,
+            _unlinkedContracts,
             unlinkedContracts,
+            _unlinkedAssistance,
             unlinkedAssistance,
             assuranceStatement
         }) => [
@@ -270,7 +280,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (_discrepancyCount === 0 ?
+            (isNaN(_discrepancyCount) ?
                 <div className="generic-cell-content">{GtasNotInFileA}</div> :
                 <CellWithModal
                     data={GtasNotInFileA}
@@ -283,38 +293,44 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (<CellWithModal
-                data={obligationDifference}
-                openModal={openModal}
-                modalType="reportingDifferences"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
-            unlinkedContracts !== '0' ? (<CellWithModal
-                data={unlinkedContracts}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id,
-                    type: 'Contract'
-                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
-            unlinkedAssistance !== '0' ? (<CellWithModal
-                data={unlinkedAssistance}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id,
-                    type: 'Assistance'
-                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            (isNaN(_obligationDifference) ?
+                <div className="generic-cell-content">{obligationDifference}</div> :
+                <CellWithModal
+                    data={obligationDifference}
+                    openModal={openModal}
+                    modalType="reportingDifferences"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
+            (isNaN(_unlinkedContracts) ?
+                <div className="generic-cell-content">{unlinkedContracts}</div> :
+                <CellWithModal
+                    data={unlinkedContracts}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id,
+                        type: 'Contract'
+                    }} />),
+            (isNaN(_unlinkedAssistance) ?
+                <div className="generic-cell-content">{unlinkedAssistance}</div> :
+                <CellWithModal
+                    data={unlinkedAssistance}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id,
+                        type: 'Assistance'
+                    }} />),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
