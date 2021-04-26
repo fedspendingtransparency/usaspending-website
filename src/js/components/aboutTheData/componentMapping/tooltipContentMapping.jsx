@@ -29,7 +29,7 @@ export const columnTooltips = {
                 If you are viewing the last period in a quarter, you may notice agencies that report quarterly do not show data, or have a later report date than the agencies reporting monthly. This is because the quarterly submission deadline is slightly later than the monthly deadline. Such timing differences will disappear in October 2021 when all agencies transition to monthly reporting.
             </p>
             <p>
-                "--" indicates that an agency has not submitted data for this period.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -42,7 +42,7 @@ export const columnTooltips = {
                 Note that financing TAS, while present in GTAS, are completely excluded from this calculation, as they do not involve budgetary spending and therefore are not appropriate for publication on USAspending.
             </p>
             <p>
-                "--" indicates that an agency has not submitted data for this period.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -55,7 +55,7 @@ export const columnTooltips = {
                 This column shows the differences in these two reported spending amounts.
             </p>
             <p>
-                "--" indicates that an agency has not submitted data for this period.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -102,7 +102,7 @@ export const columnTooltips = {
                 This is an agency&apos;s total budgetary resources for the fiscal year through the selected period as a portion of all agency budgetary resources to-date.
             </p>
             <p>
-                "--" indicates that an agency has not submitted data for this period.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -112,7 +112,7 @@ export const columnTooltips = {
                 This is an agency&apos;s total budgetary resources for the most recent period of the selected fiscal year as a portion of all agency budgetary resources to-date.
             </p>
             <p>
-                "--" indicates that an agency has not submitted data for this period.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     )
