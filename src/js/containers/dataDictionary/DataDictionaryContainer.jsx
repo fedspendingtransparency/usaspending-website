@@ -4,14 +4,14 @@
  */
 
 import React from 'react';
-
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import DataDictionary from 'components/bulkDownload/dictionary/DataDictionary';
+import DataDictionary from 'components/dataDictionary/DataDictionary';
+import { fetchDataDictionary } from 'apis/dataDictionary';
 
 export default class DataDictionaryContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.request = null;
         this.state = {
             inFlight: true,
             error: false,
@@ -25,25 +25,19 @@ export default class DataDictionaryContainer extends React.Component {
             },
             searchTerm: ''
         };
-
-        this.request = null;
-
-        this.loadContent = this.loadContent.bind(this);
-        this.changeSort = this.changeSort.bind(this);
-        this.setSearchString = this.setSearchString.bind(this);
-    }
+    };
 
     componentDidMount() {
         this.loadContent();
     }
 
-    setSearchString(searchTerm) {
+    setSearchString = (searchTerm) => {
         this.setState({
             searchTerm
         });
-    }
+    };
 
-    loadContent() {
+    loadContent = () => {
         this.setState({
             inFlight: true
         });
@@ -52,9 +46,7 @@ export default class DataDictionaryContainer extends React.Component {
             this.request.cancel();
         }
 
-        // perform the API request
-        this.request = BulkDownloadHelper.requestDictionaryContent();
-
+        this.request = fetchDataDictionary();
         this.request.promise
             .then((res) => {
                 const content = res.data.document;
@@ -67,27 +59,22 @@ export default class DataDictionaryContainer extends React.Component {
                 }, () => this.parseRows(content.rows));
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 this.setState({
                     inFlight: false,
                     error: true
                 });
                 this.request = null;
             });
-    }
+    };
 
     parseRows(rows) {
         // replace nulls with 'N/A'
-        const parsedRows = rows.map((row) =>
-            row.map((data) =>
-                data || 'N/A'
-            )
-        );
+        const parsedRows = rows.map((row) => row.map((data) => data || 'N/A'));
 
         this.setState({
             rows: parsedRows
         }, () => {
-            // Default sort
             this.defaultSort();
         });
     }
@@ -98,16 +85,16 @@ export default class DataDictionaryContainer extends React.Component {
         }
     }
 
-    changeSort(field, direction) {
+    changeSort = (field, direction) => {
         // Get the index of the column we are sorting by
         const index = this.state.columns.findIndex((col) => col.raw === field);
 
-        // Sort the rows based on their value at that index
-        let rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
-
-        // Account for the sort direction
+        let rows;
         if (direction === 'desc') {
-            rows = rows.reverse();
+            rows = this.state.rows.sort((a, b) => b[index].localeCompare(a[index]));
+        }
+        else {
+            rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
         }
 
         // Update the state
@@ -118,15 +105,13 @@ export default class DataDictionaryContainer extends React.Component {
                 direction
             }
         });
-    }
+    };
 
-    render() {
-        return (
-            <DataDictionary
-                {...this.state}
-                changeSort={this.changeSort}
-                setSearchString={this.setSearchString}
-                searchTerm={this.state.searchTerm} />
-        );
-    }
+    render = () => (
+        <DataDictionary
+            {...this.state}
+            changeSort={this.changeSort}
+            setSearchString={this.setSearchString}
+            searchTerm={this.state.searchTerm} />
+    );
 }

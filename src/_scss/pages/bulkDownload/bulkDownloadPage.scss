@@ -26,7 +26,6 @@
         .bulk-download__data {
             @import "downloadData";
             @import "archive/archive";
-            @import "dictionary/dictionary";
             @import "defCheckbox";
             @import "metadataPage";
             @include span-columns(16);

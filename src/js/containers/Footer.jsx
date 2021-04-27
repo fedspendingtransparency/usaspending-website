@@ -123,7 +123,7 @@ const Footer = ({
                                 </div>
                                 <ul className="links">
                                     <li>
-                                        <Link to="/download_center/data_dictionary">
+                                        <Link to="/data-dictionary">
                                         Data Dictionary
                                         </Link>
                                     </li>

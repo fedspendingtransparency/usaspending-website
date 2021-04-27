@@ -57,10 +57,6 @@ export const requestArchiveFiles = (params) => apiRequest({
     data: params
 });
 
-export const requestDictionaryContent = () => apiRequest({
-    url: 'v2/references/data_dictionary/'
-});
-
 export const areDefCodesDisabled = (accountDownloadSubmissionTypeSelections) => (
     accountDownloadSubmissionTypeSelections?.length === 1 &&
     accountDownloadSubmissionTypeSelections?.includes('accountBalances')
