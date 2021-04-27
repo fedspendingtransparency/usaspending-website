@@ -15,15 +15,17 @@ import {
     amountsPadding,
     rectangleMapping,
     startOfChartY,
-    rectangleHeight
-} from 'dataMapping/covid19/covid19';
+    rectangleHeight,
+    defaultRectangleData
+} from 'dataMapping/covid19/amountsVisualization';
+
 
 const propTypes = {
     overviewData: PropTypes.object,
     scale: PropTypes.func,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    showTooltip: PropTypes.bool,
+    showTooltip: PropTypes.string,
     dataId: PropTypes.string
 };
 
@@ -32,17 +34,10 @@ const Rectangle = ({
     scale = () => {},
     displayTooltip = () => {},
     hideTooltip = () => {},
-    showTooltip = false,
+    showTooltip = '',
     dataId = ''
 }) => {
-    const [data, setData] = useState({
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        fill: 'transparent',
-        description: ''
-    });
+    const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping[dataId];
@@ -71,7 +66,7 @@ const Rectangle = ({
             onBlur={hideTooltip}>
             <desc>{data.description}</desc>
             <rect
-                className={showTooltip === { dataId } ? 'highlight' : ''}
+                className={showTooltip === dataId ? 'highlight' : ''}
                 data-id={dataId}
                 x={data.x}
                 y={data.y}

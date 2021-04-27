@@ -6,38 +6,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Rectangle from '../shared/Rectangle';
-import LineAndText from './LineAndText';
+import Rectangle from './Rectangle';
+import DefaultLineAndText from './DefaultLineAndText';
 
 
 const propTypes = {
+    dataId: PropTypes.string,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    showTooltip: PropTypes.bool,
-    dataId: PropTypes.string,
+    showTooltip: PropTypes.string,
     overviewData: PropTypes.object,
-    scale: PropTypes.func
+    scale: PropTypes.func,
+    width: PropTypes.number
 };
 
-const dataId = '_totalBudgetAuthority';
-
 const TotalBudgetaryResources = ({
+    dataId,
     displayTooltip,
     hideTooltip,
     showTooltip,
     overviewData,
-    scale
+    scale,
+    width
 }) => (
     <g>
         <title>The text, vertical line and rectangle representative of the COVID-19 Total Budgetary Resources</title>
-        <Rectangle
+        <DefaultLineAndText
             overviewData={overviewData}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
-            showTooltip={showTooltip}
-            dataId={dataId} />
-        <LineAndText
+            dataId={dataId}
+            width={width} />
+        <Rectangle
             overviewData={overviewData}
             scale={scale}
             displayTooltip={displayTooltip}
