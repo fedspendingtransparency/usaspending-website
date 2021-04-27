@@ -5,7 +5,7 @@
 
  import React from 'react';
  import { mount } from 'enzyme';
- import DataDictionaryContainer from 'containers/dataDictionary/dataDictionaryContainer';
+ import DataDictionaryContainer from 'containers/dataDictionary/DataDictionaryContainer';
 
  import { mockApiCall } from '../../testResources/mockApiHelper';
  import * as api from 'helpers/apiRequest';
