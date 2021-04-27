@@ -22,8 +22,6 @@
         .about-content-wrapper {
             @media(min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
-            }
-            @media(min-width: $tablet-screen) {
                 width: 70%;
             }
             .about-padded-content {
@@ -39,6 +37,7 @@
                     }
                 }
                 .about-section-content ol {
+                    font-size: rem(18);
                     &.about-instructions {
                         font-family: monospace;
                         padding: 3rem 5rem;
@@ -53,6 +52,11 @@
                 }
                 .about-section-content ul li ul{
                     margin-bottom: 3rem;
+                }
+                .about-section-content_custom-list {
+                    list-style-type: none;
+                    padding-left: 1.5rem;
+                    font-style: italic;
                 }
             }
             .about-content {

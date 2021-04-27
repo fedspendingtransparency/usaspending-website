@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { accountColumns, accountFields } from 'dataMapping/agency/tableColumns';
-import { fetchSpendingByCategory } from 'helpers/agencyV2Helper';
+import { fetchSpendingByCategory } from 'apis/agencyV2';
 import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
 
 const propTypes = {

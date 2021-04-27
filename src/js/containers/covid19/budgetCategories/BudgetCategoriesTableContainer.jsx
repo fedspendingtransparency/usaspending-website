@@ -12,7 +12,6 @@ import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
-import kGlobalConstants from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 
@@ -23,7 +22,7 @@ import {
     budgetCategoriesNameSort,
     apiSpendingTypes
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
-import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
+import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -411,7 +410,7 @@ const BudgetCategoriesTableContainer = (props) => {
     if (loading || error) {
         return (
             <div ref={errorOrLoadingWrapperRef}>
-                {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
+                {spendingViewPicker()}
                 <Pagination
                     currentPage={currentPage}
                     changePage={changeCurrentPage}
@@ -445,7 +444,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     return (
         <div ref={tableWrapperRef}>
-            {kGlobalConstants.CARES_ACT_RELEASED_2 && spendingViewPicker()}
+            {spendingViewPicker()}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

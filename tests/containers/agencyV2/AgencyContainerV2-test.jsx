@@ -6,7 +6,7 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
-import * as agencyV2Helper from 'helpers/agencyV2Helper';
+import * as agencyV2 from 'apis/agencyV2';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
 
@@ -24,24 +24,18 @@ const mockResponse = {
 let spy;
 
 beforeEach(() => {
-    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => {
-        return [
+    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
             null,
             [],
             { year: 2020 }
-        ];
-    });
-    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => {
-        return [
+        ]);
+    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => [
             2020,
             () => { }
-        ];
-    });
-    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => {
-        return [
+        ]);
+    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
             { fy: 2020 }
-        ];
-    });
+        ]);
 });
 
 test('on network error, an error message displays', () => {
@@ -52,7 +46,7 @@ test('on network error, an error message displays', () => {
             ));
         })
     };
-    spy = jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
             <AgencyContainerV2 />
@@ -65,7 +59,7 @@ test('on network error, an error message displays', () => {
 
 test('an API request is made for the agency code in the URL', () => {
     spy.mockClear();
-    spy = jest.spyOn(agencyV2Helper, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
             <AgencyContainerV2 />

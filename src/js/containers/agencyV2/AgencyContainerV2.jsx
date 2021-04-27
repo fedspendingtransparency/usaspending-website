@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { useDispatch } from 'react-redux';
 
-import { fetchAgencyOverview } from 'helpers/agencyV2Helper';
+import { fetchAgencyOverview } from 'apis/agencyV2';
 import { useQueryParams } from 'helpers/queryParams';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
 import { setAgencyOverview } from 'redux/actions/agencyV2/agencyV2Actions';

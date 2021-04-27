@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
-import { fetchBudgetaryResources } from 'helpers/agencyV2Helper';
+import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 import CountTabContainer from 'containers/agencyV2/accountSpending/CountTabContainer';
