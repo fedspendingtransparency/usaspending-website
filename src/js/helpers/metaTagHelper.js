@@ -179,7 +179,7 @@ export const downloadAccountPageMetaTags = {
 };
 
 export const dataDictionaryPageMetaTags = {
-    og_url: `${productionURL}download_center/data_dictionary`,
+    og_url: `${productionURL}data-dictionary`,
     og_title: 'Data Dictionary | USAspending',
     og_description:
         'Learn about the data elements in our download packages by visiting this page.',
