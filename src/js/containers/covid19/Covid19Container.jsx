@@ -6,6 +6,7 @@
 // TODO: DEV-7122 Move to new Page Header Component
 
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
@@ -26,6 +27,7 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
+import GlobalConstants from 'GlobalConstants';
 import {
     jumpToSection,
     getStickyBreakPointForCovidBanner,
@@ -43,13 +45,14 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
+import { useQueryParams } from 'helpers/queryParams';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
-const Covid19Container = () => {
+const Covid19Container = ({ history }) => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const overviewRequest = useRef(null);
@@ -58,10 +61,27 @@ const Covid19Container = () => {
     const dataDisclaimerBannerRef = useRef(null);
     const dispatch = useDispatch();
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
+    const { publicLaw } = useQueryParams();
 
     const handleScroll = () => {
         setBannerStickyOnScroll();
     };
+
+    useEffect(() => {
+        /** Default to all DEFC if
+         * 1) no public law param is defined
+         * 2) the public law param is invalid
+         * 3) the public law param is for ARP, but the ARP filter is not yet released
+         */
+        if (!publicLaw ||
+            (publicLaw !== 'all' && publicLaw !== 'american-rescue-plan') ||
+            (publicLaw === 'american-rescue-plan' && !GlobalConstants.ARP_RELEASED)) {
+            history.replace({
+                pathname: '',
+                search: '?publicLaw=all'
+            });
+        }
+    }, [publicLaw]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -237,6 +257,10 @@ const Covid19Container = () => {
             </div>
         </div>
     );
+};
+
+Covid19Container.propTypes = {
+    history: PropTypes.object
 };
 
 export default Covid19Container;
