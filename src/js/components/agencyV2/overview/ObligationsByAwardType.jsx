@@ -92,7 +92,7 @@ export default class ObligationsByAwardType extends React.Component {
 
     // set other data-related values
     this.categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // parallel to this.categories
-    this.categoriesLabels = ['Financial<br />Assistance', 'Contracts'];
+    this.categoriesLabels = ['Financial/nAssistance', 'Contracts'];
     this.detailsColors = d3.scaleOrdinal(['#C05600', '#FA9441', '#E66F0E', '#FFBC78', '#545BA3', '#A9ADD1']); // parallel to this.details
     this.detailsLabels = ['Grants', 'Loans', 'Direct Payments', 'Other', 'IDVs', 'Contracts'];
   }
@@ -164,9 +164,9 @@ export default class ObligationsByAwardType extends React.Component {
       .data(categoriesPie)
       .enter()
       .append('text')
-      .text((d, i) => this.categoriesLabels[i])
       .attr('transform', (d) => 'translate(' + labelPos(d) + ')')
       .attr('class','callout-labels')
+      .text((d, i) => this.categoriesLabels[i])
       ;
 
     // callout lines
