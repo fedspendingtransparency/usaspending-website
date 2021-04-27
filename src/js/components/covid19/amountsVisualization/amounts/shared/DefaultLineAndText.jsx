@@ -3,7 +3,7 @@
  * created by Jonathan Hill 04/22/21
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { upperFirst } from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -22,6 +22,8 @@ import {
 import { defaultTextState, lineXPosition } from 'helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
+import DefaultText from './DefaultText';
+import TextGroup from './TextGroup';
 
 const propTypes = {
     scale: PropTypes.func,
@@ -94,7 +96,6 @@ const DefaultLineAndText = ({
             });
         }
     }, [valueData]);
-
     return (
         <g>
             <DefaultLine
@@ -103,63 +104,16 @@ const DefaultLineAndText = ({
                 dataId={dataId}
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip} />
-            <g
-                tabIndex="0"
-                key={descriptionData.text}
-                aria-label={descriptionData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{descriptionData.text}</desc>
-                <text
-                    ref={descriptionTextRef}
-                    data-id={dataId}
-                    className={descriptionData.className}
-                    x={descriptionData.x}
-                    y={descriptionData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {descriptionData.text}
-                </text>
-            </g>
-            <g
-                tabIndex="0"
-                key={labelData.text}
-                aria-label={labelData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{labelData.text}</desc>
-                <text
-                    ref={labelTextRef}
-                    data-id={dataId}
-                    className={labelData.className}
-                    x={labelData.x}
-                    y={labelData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {labelData.text}
-                </text>
-            </g>
-            <g
-                tabIndex="0"
-                key={valueData.text}
-                aria-label={valueData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{valueData.text}</desc>
-                <text
-                    ref={valueTextRef}
-                    data-id={dataId}
-                    className={valueData.className}
-                    x={valueData.x}
-                    y={valueData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {valueData.text}
-                </text>
-            </g>
+            <TextGroup data={[
+                { ...descriptionData, ref: descriptionTextRef },
+                { ...valueData, ref: valueTextRef },
+                { ...labelData, ref: labelTextRef }
+            ].map((textItem) => ({
+                ...textItem,
+                dataId,
+                displayTooltip,
+                hideTooltip
+            }))} />
         </g>
     ); };
 

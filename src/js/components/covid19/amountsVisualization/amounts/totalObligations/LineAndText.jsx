@@ -26,6 +26,8 @@ import {
 
 import { defaultTextState } from 'helpers/covid19/amountsVisualization';
 
+import TextGroup from '../shared/TextGroup';
+
 const propTypes = {
     scale: PropTypes.func,
     overviewData: PropTypes.object,
@@ -209,7 +211,6 @@ const LineAndText = ({
                 className: `amounts-text__value ${!ref ? 'white' : ''}`
             });
         }
-    // }, [lineDataFour, zeroPercentData]);
     }, [lineDataFour]);
     // labelData
     useLayoutEffect(() => {
@@ -239,7 +240,6 @@ const LineAndText = ({
 
     return (
         <g>
-            {lineDataOne &&
             <g
                 tabIndex="0"
                 aria-label="A line linking a rectangle to text"
@@ -258,129 +258,68 @@ const LineAndText = ({
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
             </g>
-            }
-            {
-                lineDataTwo &&
-                <g
-                    tabIndex="0"
-                    aria-label="A line 2 linking a rectangle to text"
-                    data-id={dataId}
-                    onFocus={displayTooltip}
-                    onBlur={hideTooltip}>
-                    <desc>A line linking a rectangle to text</desc>
-                    <line
-                        x1={lineDataTwo.x1}
-                        data-id={dataId}
-                        x2={lineDataTwo.x2}
-                        y1={lineDataTwo.y1}
-                        y2={lineDataTwo.y2}
-                        className={(showRemainingBalance && overlapLineTwo) ? 'line__opacity' : 'line__obligation'}
-                        onMouseMove={displayTooltip}
-                        onMouseLeave={hideTooltip} />
-                </g>
-            }
-            {
-                lineDataThree &&
-                <g
-                    tabIndex="0"
-                    aria-label="A line 3 linking a rectangle to text"
-                    data-id={dataId}
-                    onFocus={displayTooltip}
-                    onBlur={hideTooltip}>
-                    <desc>A line linking a rectangle to text</desc>
-                    <line
-                        x1={lineDataThree.x1}
-                        data-id={dataId}
-                        x2={lineDataThree.x2}
-                        y1={lineDataThree.y1}
-                        y2={lineDataThree.y2}
-                        className={(showRemainingBalance && overlapLineThree) ? 'line__opacity' : 'line__obligation'}
-                        onMouseMove={displayTooltip}
-                        onMouseLeave={hideTooltip} />
-                </g>
-            }
-            {
-                lineDataFour &&
-                <g
-                    tabIndex="0"
-                    aria-label="A line 4 linking a rectangle to text"
-                    data-id={dataId}
-                    onFocus={displayTooltip}
-                    onBlur={hideTooltip}>
-                    <desc>A line linking a rectangle to text</desc>
-                    <line
-                        className="line__obligation"
-                        data-id={dataId}
-                        x1={lineDataFour.x1}
-                        x2={lineDataFour.x2}
-                        y1={lineDataFour.y1}
-                        y2={lineDataFour.y2}
-                        strokeWidth={lineStrokeWidth}
-                        onMouseMove={displayTooltip}
-                        onMouseLeave={hideTooltip} />
-                </g>
-            }
-            {descriptionData &&
             <g
                 tabIndex="0"
-                key={descriptionData.text}
-                aria-label={descriptionData.text}
+                aria-label="A line 2 linking a rectangle to text"
                 data-id={dataId}
                 onFocus={displayTooltip}
                 onBlur={hideTooltip}>
-                <desc>{descriptionData.text}</desc>
-                <text
-                    ref={descriptionTextRef}
+                <desc>A line linking a rectangle to text</desc>
+                <line
+                    x1={lineDataTwo.x1}
                     data-id={dataId}
-                    className={descriptionData.className}
-                    x={descriptionData.x}
-                    y={descriptionData.y}
+                    x2={lineDataTwo.x2}
+                    y1={lineDataTwo.y1}
+                    y2={lineDataTwo.y2}
+                    className={(showRemainingBalance && overlapLineTwo) ? 'line__opacity' : 'line__obligation'}
                     onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {descriptionData.text}
-                </text>
+                    onMouseLeave={hideTooltip} />
             </g>
-            }
-            {labelData &&
             <g
                 tabIndex="0"
-                key={labelData.text}
-                aria-label={labelData.text}
+                aria-label="A line 3 linking a rectangle to text"
                 data-id={dataId}
                 onFocus={displayTooltip}
                 onBlur={hideTooltip}>
-                <desc>{labelData.text}</desc>
-                <text
-                    ref={labelTextRef}
+                <desc>A line linking a rectangle to text</desc>
+                <line
+                    x1={lineDataThree.x1}
                     data-id={dataId}
-                    className={labelData.className}
-                    x={labelData.x}
-                    y={labelData.y}
+                    x2={lineDataThree.x2}
+                    y1={lineDataThree.y1}
+                    y2={lineDataThree.y2}
+                    className={(showRemainingBalance && overlapLineThree) ? 'line__opacity' : 'line__obligation'}
                     onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {labelData.text}
-                </text>
-            </g>}
-            {valueData &&
+                    onMouseLeave={hideTooltip} />
+            </g>
             <g
                 tabIndex="0"
-                key={valueData.text}
-                aria-label={valueData.text}
+                aria-label="A line 4 linking a rectangle to text"
                 data-id={dataId}
                 onFocus={displayTooltip}
                 onBlur={hideTooltip}>
-                <desc>{valueData.text}</desc>
-                <text
-                    ref={valueTextRef}
+                <desc>A line linking a rectangle to text</desc>
+                <line
+                    className="line__obligation"
                     data-id={dataId}
-                    className={valueData.className}
-                    x={valueData.x}
-                    y={valueData.y}
+                    x1={lineDataFour.x1}
+                    x2={lineDataFour.x2}
+                    y1={lineDataFour.y1}
+                    y2={lineDataFour.y2}
+                    strokeWidth={lineStrokeWidth}
                     onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {valueData.text}
-                </text>
-            </g>}
+                    onMouseLeave={hideTooltip} />
+            </g>
+            <TextGroup data={[
+                { ...descriptionData, ref: descriptionTextRef },
+                { ...valueData, ref: valueTextRef },
+                { ...labelData, ref: labelTextRef }
+            ].map((textItem) => ({
+                ...textItem,
+                dataId,
+                displayTooltip,
+                hideTooltip
+            }))} />
         </g>
     );
 };

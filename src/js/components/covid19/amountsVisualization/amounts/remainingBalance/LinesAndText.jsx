@@ -26,6 +26,8 @@ import {
 
 import { defaultTextState } from 'helpers/covid19/amountsVisualization';
 
+import TextGroup from '../shared/TextGroup';
+
 const propTypes = {
     scale: PropTypes.func,
     overviewData: PropTypes.object,
@@ -212,63 +214,16 @@ const LinesAndText = ({
                         onMouseLeave={hideTooltip} />
                 </g>
             }
-            <g
-                tabIndex="0"
-                key={descriptionData.text}
-                aria-label={descriptionData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{descriptionData.text}</desc>
-                <text
-                    ref={descriptionTextRef}
-                    data-id={dataId}
-                    className={descriptionData.className}
-                    x={descriptionData.x}
-                    y={descriptionData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {descriptionData.text}
-                </text>
-            </g>
-            <g
-                tabIndex="0"
-                key={labelData.text}
-                aria-label={labelData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{labelData.text}</desc>
-                <text
-                    ref={labelTextRef}
-                    data-id={dataId}
-                    className={labelData.className}
-                    x={labelData.x}
-                    y={labelData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {labelData.text}
-                </text>
-            </g>
-            <g
-                tabIndex="0"
-                key={valueData.text}
-                aria-label={valueData.text}
-                data-id={dataId}
-                onFocus={displayTooltip}
-                onBlur={hideTooltip}>
-                <desc>{valueData.text}</desc>
-                <text
-                    ref={valueTextRef}
-                    data-id={dataId}
-                    className={valueData.className}
-                    x={valueData.x}
-                    y={valueData.y}
-                    onMouseMove={displayTooltip}
-                    onMouseLeave={hideTooltip}>
-                    {valueData.text}
-                </text>
-            </g>
+            <TextGroup data={[
+                { ...descriptionData, ref: descriptionTextRef },
+                { ...valueData, ref: valueTextRef },
+                { ...labelData, ref: labelTextRef }
+            ].map((textItem) => ({
+                ...textItem,
+                dataId,
+                displayTooltip,
+                hideTooltip
+            }))} />
         </g>
     );
 };
