@@ -14,7 +14,7 @@
  mockApiCall(api, 'apiRequest', mockDictionary);
 
  // mock the child component by replacing it with a function that returns a null element
- jest.mock('components/dataDictionary/dataDictionary', () => jest.fn(() => null));
+ jest.mock('components/dataDictionary/DataDictionary', () => jest.fn(() => null));
 
  describe('DataDictionaryContainer', () => {
      it('should make an API call for the dictionary content on mount and save res data to the state', async () => {
