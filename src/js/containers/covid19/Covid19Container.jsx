@@ -43,9 +43,8 @@ const Covid19Container = () => {
     }, [publicLaw]);
 
     useEffect(() => {
-        let filteredDefc = [];
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(filteredDefc);
+            overviewRequest.current = fetchOverview(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code));
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -59,7 +58,7 @@ const Covid19Container = () => {
         const getAllAwardTypesAmount = async () => {
             const params = {
                 filter: {
-                    def_codes: filteredDefc
+                    def_codes: defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
@@ -79,8 +78,6 @@ const Covid19Container = () => {
             }
         };
         if (defCodes.length) {
-            const allDefc = defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
-            filteredDefc = publicLaw === "all" ? allDefc : defcByPublicLaw[publicLaw];
             getOverviewData();
             getAllAwardTypesAmount();
             overviewRequest.current = null;
