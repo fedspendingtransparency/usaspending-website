@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import { throttle } from 'lodash';
+import { throttle, isNull } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
@@ -280,7 +280,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (isNaN(_discrepancyCount) ?
+            (isNull(_discrepancyCount) ?
                 <div className="generic-cell-content">{GtasNotInFileA}</div> :
                 <CellWithModal
                     data={GtasNotInFileA}
@@ -293,7 +293,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (isNaN(_obligationDifference) ?
+            (isNull(_obligationDifference) ?
                 <div className="generic-cell-content">{obligationDifference}</div> :
                 <CellWithModal
                     data={obligationDifference}
@@ -305,7 +305,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (isNaN(_unlinkedContracts) ?
+            (isNull(_unlinkedContracts) ?
                 <div className="generic-cell-content">{unlinkedContracts}</div> :
                 <CellWithModal
                     data={unlinkedContracts}
@@ -318,7 +318,7 @@ const AgenciesContainer = ({
                         fiscalPeriod: selectedPeriod?.id,
                         type: 'Contract'
                     }} />),
-            (isNaN(_unlinkedAssistance) ?
+            (isNull(_unlinkedAssistance) ?
                 <div className="generic-cell-content">{unlinkedAssistance}</div> :
                 <CellWithModal
                     data={unlinkedAssistance}
