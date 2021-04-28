@@ -18,7 +18,6 @@
     .footer-container {
         width: 100%;
     }
-    @import './stickyHeader';
     .main-content {
         @include display(flex);
         @include flex-grow(1);

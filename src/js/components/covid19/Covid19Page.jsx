@@ -5,23 +5,20 @@
 
 // TODO: DEV-7122 Move to new Page Header Component
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
+import { ShareIcon } from 'data-transparency-ui';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
+import PageWrapper from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Covid19Section from 'components/covid19/Covid19Section';
-import Footer from 'containers/Footer';
 import Heading from 'components/covid19/Heading';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
@@ -52,7 +49,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
     const query = useQueryParams();
     const history = useHistory();
     const [activeSection, setActiveSection] = useState('overview');
-    const lastSectionRef = useRef(null);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -79,26 +75,16 @@ const Covid19Page = ({ areDefCodesLoading }) => {
     };
 
     return (
-        <div className="usa-da-covid19-page">
-            <MetaTags {...covidPageMetaTags} />
-            <Header />
-            <StickyHeader>
-                <>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            COVID-19 Spending
-                        </h1>
-                    </div>
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={slug}
-                            email={getEmailSocialShareData} />
-                        <div className="sticky-header__toolbar-item">
-                            <DownloadButtonContainer />
-                        </div>
-                    </div>
-                </>
-            </StickyHeader>
+        <PageWrapper
+            classNames="usa-da-covid19-page"
+            metaTagProps={covidPageMetaTags}
+            title="COVID-19 Spending"
+            toolBarComponents={[
+                <ShareIcon
+                    slug={slug}
+                    email={getEmailSocialShareData} />,
+                <DownloadButtonContainer />
+            ]}>
             <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
                     <main id="main-content" className="main-content usda__flex-row">
@@ -160,10 +146,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                     </main>
                 </>
             </LoadingWrapper>
-            <div className="footer-reference" ref={lastSectionRef}>
-                <Footer />
-            </div>
-        </div>
+        </PageWrapper>
     );
 };
 
