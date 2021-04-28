@@ -11,18 +11,15 @@ import { useHistory } from 'react-router-dom';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
+import { ShareIcon } from 'data-transparency-ui';
+import PageWrapper from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+
 import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import Covid19Section from 'components/covid19/Covid19Section';
-import Footer from 'containers/Footer';
 import Heading from 'components/covid19/Heading';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon from 'components/sharedComponents/stickyHeader/ShareIcon';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
@@ -32,6 +29,7 @@ import {
     getStickyBreakPointForCovidBanner,
     getVerticalOffsetForSidebarFooter
 } from 'helpers/covid19Helper';
+import Analytics from 'helpers/analytics/Analytics';
 import {
     slug,
     getEmailSocialShareData,
@@ -44,10 +42,9 @@ import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
-import Analytics from 'helpers/analytics/Analytics';
+import SidebarFooter from 'components/covid19/SidebarFooter';
 import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
-import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
@@ -59,7 +56,6 @@ const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const overviewRequest = useRef(null);
-    const lastSectionRef = useRef(null);
     const awardAmountRequest = useRef(null);
     const dataDisclaimerBannerRef = useRef(null);
     const dispatch = useDispatch();
@@ -153,26 +149,16 @@ const Covid19Container = () => {
     };
 
     return (
-        <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
-            <MetaTags {...covidPageMetaTags} />
-            <Header />
-            <StickyHeader>
-                <>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            COVID-19 Spending
-                        </h1>
-                    </div>
-                    <div className="sticky-header__toolbar">
-                        <ShareIcon
-                            slug={slug}
-                            email={getEmailSocialShareData} />
-                        <div className="sticky-header__toolbar-item">
-                            <DownloadButtonContainer />
-                        </div>
-                    </div>
-                </>
-            </StickyHeader>
+        <PageWrapper
+            classNames="usa-da-covid19-page"
+            metaTagProps={covidPageMetaTags}
+            title="COVID-19 Spending"
+            toolBarComponents={[
+                <ShareIcon
+                    slug={slug}
+                    email={getEmailSocialShareData} />,
+                <DownloadButtonContainer />
+            ]}>
             <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
                     {dataDisclaimerBanner !== 'hide' && (
@@ -251,10 +237,7 @@ const Covid19Container = () => {
                     </main>
                 </>
             </LoadingWrapper>
-            <div className="footer-reference" ref={lastSectionRef}>
-                <Footer />
-            </div>
-        </div>
+        </PageWrapper>
     );
 };
 
