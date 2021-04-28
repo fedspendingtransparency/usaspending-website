@@ -6,19 +6,7 @@
 import React from 'react';
 
 export const tabTooltips = {
-    'Updates by Fiscal Year': (
-        <>
-            <p>
-                Please note that columns for the first and second period do not show data for agencies that are only required to report quarterly data.
-            </p>
-            <p>
-                The columns for the last period of each quarter (i.e., P03, P06, P09, P12) do show data for all agencies. Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report monthly data to USAspending.gov.
-            </p>
-            <p>
-                Cells with a &ldquo;Not Certified&rdquo; badge signal that an agency uploaded data but it is still under review.
-            </p>
-        </>
-    ),
+    'Updates by Fiscal Year': (<p>The columns for the last period of each quarter (i.e., P03, P06, P09, P12) do show data for all agencies. Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report monthly data to USAspending.gov.</p>),
     'Statistics by Submission Period': (
         <>
             <p>
@@ -41,7 +29,7 @@ export const columnTooltips = {
                 If you are viewing the last period in a quarter, you may notice agencies that report quarterly do not show data, or have a later report date than the agencies reporting monthly. This is because the quarterly submission deadline is slightly later than the monthly deadline. Such timing differences will disappear in October 2021 when all agencies transition to monthly reporting.
             </p>
             <p>
-                If you see a &ldquo;Not Certified&rdquo; badge, it means that an agency uploaded data but it is still under review.
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -53,6 +41,9 @@ export const columnTooltips = {
             <p>
                 Note that financing TAS, while present in GTAS, are completely excluded from this calculation, as they do not involve budgetary spending and therefore are not appropriate for publication on USAspending.
             </p>
+            <p>
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
+            </p>
         </>
     ),
     'Reporting Difference in Obligations': (
@@ -62,6 +53,9 @@ export const columnTooltips = {
             </p>
             <p>
                 This column shows the differences in these two reported spending amounts.
+            </p>
+            <p>
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
             </p>
         </>
     ),
@@ -103,13 +97,23 @@ export const columnTooltips = {
         </p>
     ),
     percentOfBudgetSubmissions: (
-        <p>
-            This is an agency&apos;s total budgetary resources for the fiscal year through the selected period as a portion of all agency budgetary resources to-date.
-        </p>
+        <>
+            <p>
+                This is an agency&apos;s total budgetary resources for the fiscal year through the selected period as a portion of all agency budgetary resources to-date.
+            </p>
+            <p>
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
+            </p>
+        </>
     ),
     percentOfBudgetPublications: (
-        <p>
-            This is an agency&apos;s total budgetary resources for the most recent period of the selected fiscal year as a portion of all agency budgetary resources to-date.
-        </p>
+        <>
+            <p>
+                This is an agency&apos;s total budgetary resources for the most recent period of the selected fiscal year as a portion of all agency budgetary resources to-date.
+            </p>
+            <p>
+                &quot;--&quot; indicates that an agency has not submitted data for this period.
+            </p>
+        </>
     )
 };
