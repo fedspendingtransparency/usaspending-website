@@ -4,6 +4,7 @@
  */
 
 import { formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { isNull } from 'lodash';
 import { format } from 'date-fns';
 
 const CoreReportingRow = {
@@ -29,13 +30,13 @@ const CoreReportingRow = {
         return formatMoneyWithPrecision(this._obligationDifference, 2, '--');
     },
     get discrepancyCount() {
-        return isNaN(this._discrepancyCount) ? '--' : formatNumber(this._discrepancyCount);
+        return isNull(this._discrepancyCount) ? '--' : formatNumber(this._discrepancyCount);
     },
     get unlinkedContracts() {
-        return isNaN(this._unlinkedContracts) ? '--' : formatNumber(this._unlinkedContracts);
+        return isNull(this._unlinkedContracts) ? '--' : formatNumber(this._unlinkedContracts);
     },
     get unlinkedAssistance() {
-        return isNaN(this._unlinkedAssistance) ? '--' : formatNumber(this._unlinkedAssistance);
+        return isNull(this._unlinkedAssistance) ? '--' : formatNumber(this._unlinkedAssistance);
     }
 };
 

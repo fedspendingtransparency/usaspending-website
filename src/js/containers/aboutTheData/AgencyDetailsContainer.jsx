@@ -6,7 +6,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';
-import { throttle } from 'lodash';
+import { throttle, isNull } from 'lodash';
 
 import { fetchAgency } from 'helpers/aboutTheDataHelper';
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
@@ -72,7 +72,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             agencyName,
                             agencyCode
                         }} />,
-                isNaN(rowData._discrepancyCount) ?
+                isNull(rowData._discrepancyCount) ?
                     <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
                     <CellWithModal
                         data={rowData.discrepancyCount}
@@ -85,7 +85,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             agencyCode,
                             gtasObligationTotal: rowData._gtasObligationTotal
                         }} />,
-                isNaN(rowData._obligationDifference) ?
+                isNull(rowData._obligationDifference) ?
                     <div className="generic-cell-content">{rowData.obligationDifference}</div> :
                     <CellWithModal
                         data={rowData.obligationDifference}
@@ -97,7 +97,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             agencyName,
                             agencyCode
                         }} />,
-                isNaN(rowData._unlinkedContracts) ?
+                isNull(rowData._unlinkedContracts) ?
                     <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
                     <CellWithModal
                         data={rowData.unlinkedContracts}
@@ -110,7 +110,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Contract'
                         }} />,
-                isNaN(rowData._unlinkedAssistance) ?
+                isNull(rowData._unlinkedAssistance) ?
                     <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
                     <CellWithModal
                         data={rowData.unlinkedAssistance}
