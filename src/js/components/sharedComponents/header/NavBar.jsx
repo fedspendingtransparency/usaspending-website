@@ -186,23 +186,18 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title={isNotProd ? "Download" : "Download Center"}
-                                    label={isNotProd ? "Download" : "Download Center"}
+                                    title="Download"
+                                    label="Download"
                                     items={downloadGlobalNavigationOptions} />
                             </li>
-                            {isNotProd && (
-                                <li
-                                    className="full-menu__item"
-                                    role="menuitem">
-                                    <Dropdown
-                                        title="Resources"
-                                        label="Resources"
-                                        items={resourceOptions} />
-                                </li>
-                            )}
-                            {!isNotProd && (
-                                <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
-                            )}
+                            <li
+                                className="full-menu__item"
+                                role="menuitem">
+                                <Dropdown
+                                    title="Resources"
+                                    label="Resources"
+                                    items={resourceOptions} />
+                            </li>
                         </ul>
                     </div>
                 </div>
