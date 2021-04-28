@@ -2,6 +2,7 @@
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
+    @import "./header";
     @import "components/pageLoading";
 
     @include display(flex);
