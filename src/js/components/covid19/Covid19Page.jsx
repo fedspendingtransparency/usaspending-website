@@ -41,6 +41,28 @@ import SidebarFooter from 'components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
+const options = [
+    { title: 'All Related Public Laws', description: 'All data related to DEFC L, M, O, U, and V.', value: 'all' },
+    { title: 'American Rescue Plan Act of 2021', description: 'Emergency PublicLaw 117-7 (DEFC V)', value: 'biden' },
+    { title: 'Learn more about filteringUSAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm' }
+];
+
+const PublicLawPicker = ({
+    selectedOption = 'all'
+}) => {
+    return (
+        <div className="public-law-picker__container">
+            <Picker
+                className="public-law-picker"
+                icon={<FontAwesomeIcon icon="scroll" size="lg" />}
+                selectedOption={options[0].title}
+                options={options.map((obj) => ({ name: obj.title, value: obj.value }))} />
+            <span>Public Law Filter</span>
+        </div>
+    );
+};
+
+
 const propTypes = {
     areDefCodesLoading: PropTypes.bool
 };
@@ -80,6 +102,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
+                <PublicLawPicker />,
                 <ShareIcon
                     slug={slug}
                     email={getEmailSocialShareData} />,

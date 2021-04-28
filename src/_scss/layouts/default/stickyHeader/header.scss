@@ -1,4 +1,33 @@
 .usda-page-header {
     @include display(flex);
     min-height: rem(60);
+    border: 1px solid red;
+    .usda-page-header__container .usda-page-header__toolbar {
+        .public-law-picker__container {
+            @include display(flex);
+            @include flex-direction(column);
+        }
+        .usa-dt-picker.public-law-picker {
+            display: flex;
+            align-self: center;
+            border: 1px solid red;
+            position: relative;
+            height: rem(29);
+            .usa-dt-picker__dropdown-container {
+                align-self: center;
+                .usa-dt-picker__button .usa-dt-picker__button-text {
+                    // position: static;
+                    // height: rem(25);
+                    font-size: rem(18);
+                }
+                .usa-dt-picker__button span {
+                    color: white;
+                    font-weight: $font-semibold;
+                }
+                span {
+                    height: auto;
+                }
+            }
+        }
+    }
 }
