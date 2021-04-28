@@ -10,7 +10,6 @@ import { scaleLinear } from 'd3-scale';
 import DefaultAmountViz from 'components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
 import TotalObligations from 'components/covid19/amountsVisualization/amounts/totalObligations/TotalObligations';
 import RemainingBalance from 'components/covid19/amountsVisualization/amounts/remainingBalance/RemainingBalance';
-import DateNote from 'components/covid19/DateNote';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import { TooltipWrapper } from 'data-transparency-ui';
 import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
@@ -147,7 +146,6 @@ const AmountsVisualization = ({
                     <ResultsTableLoadingMessage />
                 </div>
             }
-            {!loading && <DateNote styles={dateNoteStyles} />}
             {
                 showTooltip &&
                 <TooltipWrapper

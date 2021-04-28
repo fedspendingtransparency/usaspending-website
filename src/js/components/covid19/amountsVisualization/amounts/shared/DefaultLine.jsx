@@ -42,11 +42,11 @@ const DefaultLine = ({
                 lineColor
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
-            const width = lineXPosition(overviewData, scale, dataId);
+            const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
                 lineColor,
-                x1: width,
-                x2: width,
+                x1: position,
+                x2: position,
                 y1: startOfChartY - lineLength,
                 y2: startOfChartY + (rectangleHeight / 2)
             };

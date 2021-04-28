@@ -16,8 +16,11 @@ import {
     rectangleMapping,
     startOfChartY,
     rectangleHeight,
-    defaultRectangleData
+    defaultRectangleData,
+    lineStrokeWidth
 } from 'dataMapping/covid19/amountsVisualization';
+
+import { rectangleWidth } from 'helpers/covid19/amountsVisualization';
 
 
 const propTypes = {
@@ -41,14 +44,15 @@ const Rectangle = ({
     useEffect(() => {
         if (scale) {
             const { offset, fill, text: textInfo } = rectangleMapping[dataId];
-            const { left, right } = amountsPadding;
+            const { left } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
+            const rectWidth = rectangleWidth(overviewData, scale, dataId);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             const properties = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
-                width: scale(amount) - (right + (offset.right || 0)),
+                width: rectWidth < (lineStrokeWidth / 2) ? lineStrokeWidth : rectWidth,
                 height: rectangleHeight - (2 * offset.bottom),
                 fill,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`

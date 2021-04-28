@@ -19,7 +19,7 @@ import {
     labelTextAdjustment
 } from 'dataMapping/covid19/amountsVisualization';
 
-import { defaultTextState, lineXPosition } from 'helpers/covid19/amountsVisualization';
+import { defaultTextState, lineXPosition, textXPosition } from 'helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
 import TextGroup from './TextGroup';
@@ -52,14 +52,14 @@ const DefaultLineAndText = ({
     // description text
     useEffect(() => {
         const { text: textInfo, lineLength } = rectangleMapping[dataId];
-        const questionRef = descriptionTextRef.current?.getBoundingClientRect();
+        const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
         if (scale) {
             setDescriptionData({
-                y: (startOfChartY - lineLength || 0) + (questionRef?.height || 0),
-                x: lineXPosition(overviewData, scale, dataId) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-                height: questionRef?.height || 0,
+                y: (startOfChartY - lineLength || 0) + (descriptionRef?.height || 0),
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionRef }, 'description'),
+                height: descriptionRef?.height || 0,
                 text: textInfo.description,
-                className: `amounts-text__description ${!questionRef ? 'white' : ''}`
+                className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
             });
         }
     }, [width, scale]);
@@ -73,11 +73,11 @@ const DefaultLineAndText = ({
         if (scale) {
             setValueData({
                 y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0),
-                x: lineXPosition(overviewData, scale, dataId) - ((ref?.width || 0) + spacingBetweenLineAndText),
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'value'),
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
-                className: `amounts-text__value bold ${!ref ? 'white' : ''}`
+                className: `amounts-text__value ${dataId === '_totalBudgetAuthority' ? 'bold' : ''} ${!ref ? 'white' : ''}`
             });
         }
     }, [descriptionData]);
@@ -88,7 +88,8 @@ const DefaultLineAndText = ({
         if (scale && descriptionData) {
             setLabelData({
                 y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                x: lineXPosition(overviewData, scale, dataId) - ((ref?.width || 0) + (valueData.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'label'),
+                // x: lineXPosition(overviewData, scale, dataId) - ((ref?.width || 0) + (valueData.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
                 className: `amounts-text__label ${!ref ? 'white' : ''}`

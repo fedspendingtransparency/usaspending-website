@@ -18,13 +18,12 @@ import {
     startOfChartY,
     rectangleHeight,
     spacingBetweenLineAndText,
-    labelTextAdjustment,
     lineStrokeWidth,
     heightOfRemainingBalanceLines,
     defaultLineData
 } from 'dataMapping/covid19/amountsVisualization';
 
-import { defaultTextState } from 'helpers/covid19/amountsVisualization';
+import { defaultTextState, textXPosition, lineXPosition } from 'helpers/covid19/amountsVisualization';
 
 import TextGroup from '../shared/TextGroup';
 
@@ -83,17 +82,14 @@ const LineAndText = ({
     useEffect(() => {
         if (scale) {
             const {
-                offset,
                 lineColor
             } = rectangleMapping[dataId];
-            const { left, right } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
-            const x = left + offset.left;
-            const rectWidth = scale(amount) - (right + (offset.right || 0));
+            const position = lineXPosition(overviewData, scale, dataId);
             const data = {
                 lineColor,
-                x1: (x + rectWidth) - (lineStrokeWidth / 2),
-                x2: (x + rectWidth) - (lineStrokeWidth / 2),
+                x1: position,
+                x2: position,
                 y1: startOfChartY + (rectangleHeight / 2),
                 y2: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (spacingBetweenLineAndText / 2)
             };
@@ -128,24 +124,6 @@ const LineAndText = ({
             if (!isNaN(scale(amount))) setLineDataThree(data);
         }
     }, [scale, lineDataTwo]);
-    // lineDataFour
-    useEffect(() => {
-        if (scale) {
-            const {
-                lineLength,
-                lineColor
-            } = rectangleMapping[dataId];
-            const amount = Math.abs(overviewData[dataId]);
-            const data = {
-                lineColor,
-                x1: lineDataThree.x1 || 0,
-                x2: lineDataThree.x1 || 0,
-                y1: lineDataThree.y2 || 0,
-                y2: startOfChartY + rectangleHeight + lineLength
-            };
-            if (!isNaN(scale(amount))) setLineDataFour(data);
-        }
-    }, [scale, lineDataThree]);
     // overlapLineTwo
     useEffect(() => {
         const endOfRemainingBalanceText = remainingBalanceValueData.x + remainingBalanceValueData.width;
@@ -172,39 +150,49 @@ const LineAndText = ({
             setOverlapLineThree(false);
         }
     }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
+    // lineDataFour
+    useEffect(() => {
+        if (scale) {
+            const {
+                lineLength,
+                lineColor
+            } = rectangleMapping[dataId];
+            const amount = Math.abs(overviewData[dataId]);
+            const data = {
+                lineColor,
+                x1: lineDataThree.x1 || 0,
+                x2: lineDataThree.x1 || 0,
+                y1: lineDataThree.y2 || 0,
+                y2: startOfChartY + rectangleHeight + lineLength
+            };
+            if (!isNaN(scale(amount))) setLineDataFour(data);
+        }
+    }, [scale, lineDataThree]);
     // descriptionData
     useLayoutEffect(() => {
         const { text: textInfo } = rectangleMapping[dataId];
-        const questionRef = descriptionTextRef.current?.getBoundingClientRect();
-        setDescriptionData({
-            y: (lineDataFour?.y2 || 0) - spacingBetweenLineAndText,
-            x: (lineDataFour?.x1 || 0) - ((questionRef?.width || 0) + spacingBetweenLineAndText),
-            height: questionRef?.height || 0,
-            text: textInfo.description,
-            className: `amounts-text__description ${!questionRef ? 'white' : ''}`,
-            left: true
-        });
-    }, [lineDataFour]);
+        const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
+        if (scale) {
+            console.log(' Jonat : ', textXPosition(overviewData, scale, dataId, { description: descriptionTextRef }, 'description'));
+            setDescriptionData({
+                y: (lineDataFour?.y2 || 0) - spacingBetweenLineAndText,
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef }, 'description'),
+                height: descriptionRef?.height || 0,
+                text: textInfo.description,
+                className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
+            });
+        }
+    }, [scale, overviewData]);
     // valueData
     useLayoutEffect(() => {
         const ref = valueTextRef.current?.getBoundingClientRect();
         const amount = Math.abs(overviewData[dataId]);
         const units = calculateUnits([amount]);
         const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
-        if (descriptionData?.left) {
+        if (scale) {
             setValueData({
                 y: (lineDataFour?.y2 || 0) - (descriptionData?.height || 0) - spacingBetweenLineAndText,
-                x: (lineDataFour?.x1 || 0) - ((ref?.width || 0) + spacingBetweenLineAndText),
-                height: ref?.height || 0,
-                theWidth: ref?.width || 0,
-                text: moneyLabel,
-                className: `amounts-text__value ${!ref ? 'white' : ''}`
-            });
-        }
-        else {
-            setValueData({
-                y: (lineDataFour?.y2 || 0) - (descriptionData?.height || 0) - spacingBetweenLineAndText,
-                x: (lineDataFour?.x1 || 0) + (labelData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x,
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: ref, label: labelTextRef?.current.getBoundingClientRect() }, 'value'),
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
@@ -216,20 +204,10 @@ const LineAndText = ({
     useLayoutEffect(() => {
         const ref = labelTextRef.current?.getBoundingClientRect();
         const { text: textInfo } = rectangleMapping[dataId];
-        if (descriptionData?.left) {
+        if (scale) {
             setLabelData({
                 y: (lineDataFour?.y2 || 0) - (descriptionData?.height || 0) - spacingBetweenLineAndText,
-                x: (lineDataFour?.x1 || 0) - ((ref?.width || 0) + (valueData?.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
-                height: ref?.height || 0,
-                text: textInfo.label,
-                theWidth: ref?.width || 0,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`
-            });
-        }
-        else {
-            setLabelData({
-                y: (lineDataFour?.y2 || 0) - spacingBetweenLineAndText,
-                x: (lineDataFour?.x1 || 0) + spacingBetweenLineAndText,
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: ref }, 'label'),
                 height: ref?.height || 0,
                 text: textInfo.label,
                 theWidth: ref?.width || 0,
