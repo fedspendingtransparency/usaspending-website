@@ -1,5 +1,5 @@
 /**
- * TotalBudgetaryResource.jsx
+ * DefaultAmountViz.jsx
  * created by Jonathan Hill 04/22/21
  */
 
@@ -20,7 +20,7 @@ const propTypes = {
     width: PropTypes.number
 };
 
-const TotalBudgetaryResources = ({
+const DefaultAmountViz = ({
     dataId,
     displayTooltip,
     hideTooltip,
@@ -30,7 +30,6 @@ const TotalBudgetaryResources = ({
     width
 }) => (
     <g>
-        <title>The text, vertical line and rectangle representative of the COVID-19 Total Budgetary Resources</title>
         <DefaultLineAndText
             overviewData={overviewData}
             scale={scale}
@@ -48,5 +47,5 @@ const TotalBudgetaryResources = ({
     </g>
 );
 
-TotalBudgetaryResources.propTypes = propTypes;
-export default TotalBudgetaryResources;
+DefaultAmountViz.propTypes = propTypes;
+export default DefaultAmountViz;

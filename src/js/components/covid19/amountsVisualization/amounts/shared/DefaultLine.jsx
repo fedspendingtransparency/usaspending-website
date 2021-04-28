@@ -21,7 +21,8 @@ const propTypes = {
     overviewData: PropTypes.object,
     dataId: PropTypes.string,
     displayTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    description: PropTypes.string
 };
 
 const DefaultLine = ({
@@ -29,7 +30,8 @@ const DefaultLine = ({
     overviewData,
     dataId,
     displayTooltip,
-    hideTooltip
+    hideTooltip,
+    description = 'A line linking a Line to text'
 }) => {
     const [lineData, setLineData] = useState(defaultLineData);
 
@@ -54,11 +56,11 @@ const DefaultLine = ({
     return (
         <g
             tabIndex="0"
-            aria-label="A line linking a Line to text"
+            aria-label={description}
             data-id={dataId}
             onFocus={displayTooltip}
             onBlur={hideTooltip}>
-            <desc>A line linking a Line to text</desc>
+            <desc>{description}</desc>
             <line
                 data-id={dataId}
                 x1={lineData.x1}
