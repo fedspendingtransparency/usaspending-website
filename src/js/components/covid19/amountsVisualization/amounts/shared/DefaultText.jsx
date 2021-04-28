@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /**
  * DefaultText.jsx
  * Created by Jonathan Hill 04/27/21

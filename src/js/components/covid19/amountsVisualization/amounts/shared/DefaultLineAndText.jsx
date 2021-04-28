@@ -3,7 +3,7 @@
  * created by Jonathan Hill 04/22/21
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { upperFirst } from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -22,7 +22,6 @@ import {
 import { defaultTextState, lineXPosition } from 'helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
-import DefaultText from './DefaultText';
 import TextGroup from './TextGroup';
 
 const propTypes = {
