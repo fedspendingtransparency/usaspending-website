@@ -8,11 +8,11 @@ import { PageHeader } from "data-transparency-ui";
 
 import { dataDictionaryPageMetaTags } from 'helpers/metaTagHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from "containers/shared/HeaderContainer";
+import Header from 'containers/shared/HeaderContainer';
 import Footer from "containers/Footer";
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import DataDictionaryContainer from "containers/dataDictionary/DataDictionaryContainer";
+import DataDictionaryContainer from 'containers/dataDictionary/DataDictionaryContainer';
 
 require('pages/dataDictionary/dataDictionaryPage.scss');
 
