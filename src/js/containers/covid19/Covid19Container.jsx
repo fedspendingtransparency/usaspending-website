@@ -11,11 +11,12 @@ import { useHistory } from 'react-router-dom';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ShareIcon } from 'data-transparency-ui';
+import { Picker, ShareIcon } from 'data-transparency-ui';
+import { faScroll } from "@fortawesome/free-solid-svg-icons";
+
 import PageWrapper from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-
 import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
@@ -47,6 +48,27 @@ import { componentByCovid19Section } from './helpers/covid19';
 import DownloadButtonContainer from './DownloadButtonContainer';
 
 require('pages/covid19/index.scss');
+
+const options = [
+    { title: 'All Related Public Laws', description: 'All data related to DEFC L, M, O, U, and V.', value: 'all' },
+    { title: 'American Rescue Plan Act of 2021', description: 'Emergency PublicLaw 117-7 (DEFC V)', value: 'biden' },
+    { title: 'Learn more about filteringUSAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm' }
+];
+
+const PublicLawPicker = ({
+    selectedOption = 'all'
+}) => {
+    return (
+        <div className="public-law-picker__container">
+            <Picker
+                className="public-law-picker"
+                icon={<FontAwesomeIcon icon="scroll" size="lg" />}
+                selectedOption={options[0].title}
+                options={options.map((obj) => ({ name: obj.title, value: obj.value }))} />
+            <span>Public Law Filter</span>
+        </div>
+    );
+};
 
 
 const Covid19Container = () => {
@@ -154,6 +176,7 @@ const Covid19Container = () => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
+                <PublicLawPicker />,
                 <ShareIcon
                     slug={slug}
                     email={getEmailSocialShareData} />,
