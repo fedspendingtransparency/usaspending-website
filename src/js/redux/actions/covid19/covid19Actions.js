@@ -17,3 +17,8 @@ export const setTotals = (awardType, totals) => ({
     type: `SET_COVID_AWARD_AMOUNTS${awardType && '_'}${awardType}`,
     totals
 });
+
+export const setIsMapLoaded = (bool) => ({
+    type: 'SET_IS_RECIPIENT_MAP_LOADED',
+    payload: bool
+});
