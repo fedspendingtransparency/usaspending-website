@@ -68,3 +68,7 @@ usa_spending.sh
 
 #redirect config
 redirect-config.json
+
+#selenium test artifacts
+tests/selinium-tests/downloads
+tests/selinium-tests/reports/allure-results
