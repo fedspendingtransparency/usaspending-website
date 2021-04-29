@@ -12,84 +12,88 @@ import { fetchObligationsByAwardType } from 'apis/agencyV2';
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 export default function ObligationsByAwardType({ height, width, fiscalYear }) {
-	React.useEffect(() => { drawChart() });
+	const categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // parallel with categories
+	const categoriesLabels = ['Financial/nAssistance', 'Contracts'];
+	const detailsColors = d3.scaleOrdinal(['#C05600', '#FA9441', '#E66F0E', '#FFBC78', '#545BA3', '#A9ADD1']); // parallel with details
+	const detailsLabels = ['Grants', 'Loans', 'Direct Payments', 'Other', 'IDVs', 'Contracts'];
 
 	// reduce api data into 2 arrays, one for each ring
 	const categories = [0, 0];
 	const details = [];
 
-	// set other data-related values
-	const categoriesColors = d3.scaleOrdinal(['#FFBC78', '#A9ADD1']); // parallel to categories
-	const categoriesLabels = ['Financial/nAssistance', 'Contracts'];
-	const detailsColors = d3.scaleOrdinal(['#C05600', '#FA9441', '#E66F0E', '#FFBC78', '#545BA3', '#A9ADD1']); // parallel to details
-	const detailsLabels = ['Grants', 'Loans', 'Direct Payments', 'Other', 'IDVs', 'Contracts'];
+	const { toptierCode } = useSelector((state) => state.agencyV2.overview);
+	if (toptierCode) {
+		fetchObligationsByAwardType(toptierCode, fiscalYear).promise
+			.then(res => {
+				res.data.results.forEach((d) => {
+					switch (d.category) {
+						case 'grants':
+							categories[0] += d.aggregated_amount;
+							details[0] = d.aggregated_amount;
+							break;
+						case 'loans':
+							categories[0] += d.aggregated_amount;
+							details[1] = d.aggregated_amount;
+							break;
+						case 'direct_payments':
+							categories[0] += d.aggregated_amount;
+							details[2] = d.aggregated_amount;
+							break;
+						case 'other':
+							categories[0] += d.aggregated_amount;
+							details[3] = d.aggregated_amount;
+							break;
+						case 'idvs':
+							categories[1] += d.aggregated_amount;
+							details[4] = d.aggregated_amount;
+							break;
+						case 'contracts':
+							categories[1] += d.aggregated_amount;
+							details[5] = d.aggregated_amount;
+							break;
+						default:
+							console.error('Category name from API not recognized: ' + category);
+					};
+				});
+			});
 
-	const { id } = useSelector((state) => state.agencyV2.overview);
-	const apiData = fetchObligationsByAwardType(id, fiscalYear);
-	apiData.promise.then(res => { console.log(res) });
+			drawChart();
+	};
 
-	function getData() {
-		const raw = [
-			{
-				"category": "contracts",
-				"aggregated_amount": 30
-			},
-			{
-				"category": "direct_payments",
-				"aggregated_amount": 50
-			},
-			{
-				"category": "grants",
-				"aggregated_amount": 10
-			},
-			{
-				"category": "idvs",
-				"aggregated_amount": 20
-			},
-			{
-				"category": "loans",
-				"aggregated_amount": 90
-			},
-			{
-				"category": "other",
-				"aggregated_amount": 15
-			}
-		];
+	// function getData() {
+	// 	const raw = [
+	// 		{
+	// 			"category": "contracts",
+	// 			"aggregated_amount": 30
+	// 		},
+	// 		{
+	// 			"category": "direct_payments",
+	// 			"aggregated_amount": 50
+	// 		},
+	// 		{
+	// 			"category": "grants",
+	// 			"aggregated_amount": 10
+	// 		},
+	// 		{
+	// 			"category": "idvs",
+	// 			"aggregated_amount": 20
+	// 		},
+	// 		{
+	// 			"category": "loans",
+	// 			"aggregated_amount": 90
+	// 		},
+	// 		{
+	// 			"category": "other",
+	// 			"aggregated_amount": 15
+	// 		}
+	// 	];
 
-		raw.forEach((datum) => {
-			switch (datum.category) {
-				case 'grants':
-					categories[0] += datum.aggregated_amount;
-					details[0] = datum.aggregated_amount;
-					break;
-				case 'loans':
-					categories[0] += datum.aggregated_amount;
-					details[1] = datum.aggregated_amount;
-					break;
-				case 'direct_payments':
-					categories[0] += datum.aggregated_amount;
-					details[2] = datum.aggregated_amount;
-					break;
-				case 'other':
-					categories[0] += datum.aggregated_amount;
-					details[3] = datum.aggregated_amount;
-					break;
-				case 'idvs':
-					categories[1] += datum.aggregated_amount;
-					details[4] = datum.aggregated_amount;
-					break;
-				case 'contracts':
-					categories[1] += datum.aggregated_amount;
-					details[5] = datum.aggregated_amount;
-					break;
-				default:
-					console.error('Category name from API not recognized: ' + category);
-			};
-		});
-	}
+
+	// }
 
 	function drawChart() {
-		getData();
+
+console.log(categories, details);
 
 		const labelRadius = Math.min(width, height) / 2 * .7;
 		const categoriesRadius = labelRadius * .9;
