@@ -17,7 +17,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import { PageWrapper } from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/Page';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -48,7 +48,7 @@ const AboutTheDataPage = ({ history }) => {
                 search: getQueryParamString(paramsWithTab)
             });
         }
-    }, [activeTab]);
+    }, [activeTab, history, params]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
@@ -73,24 +73,24 @@ const AboutTheDataPage = ({ history }) => {
     };
 
     return (
-        <div className="about-the-data about-the-data_agencies-page">
-            <Header />
-            <PageHeader
-                title="Agency Submission Statistics"
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                shareProps={{ url: getBaseUrl(slug), onShareOptionClick: handleShare }}>
-                <main id="main-content" className="main-content">
-                    <div className="heading-container">
-                        <h2 className="header">About These Statistics</h2>
-                        <p className="sub-header">
+        <PageWrapper
+            classNames="about-the-data about-the-data_agencies-page"
+            title="Agency Submission Statistics"
+            toolBarComponents={[
+                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+            ]}>
+            <main id="main-content" className="main-content">
+                <div className="heading-container">
+                    <h2 className="header">About These Statistics</h2>
+                    <p className="sub-header">
                             In accordance with the 2014 DATA Act, federal agencies submit financial data
                             on a quarterly and/or monthly basis to USAspending.gov. The table below
                             shows information about the status and content of these submissions. It will
                             be updated as agencies publish/certify new submissions or
                             republish/recertify existing submissions. For more information about the data in this table, visit <Link to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
-                        </p>
-                    </div>
-                    <LoadingWrapper isLoading={!activeTab}>
+                    </p>
+                </div>
+                <LoadingWrapper isLoading={!activeTab}>
                         <>
                             <div className="table-controls">
                                 <Tabs
@@ -139,11 +139,10 @@ const AboutTheDataPage = ({ history }) => {
                                 }}
                                 closeModal={closeModal} />
                         </>
-                    </LoadingWrapper>
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+                </LoadingWrapper>
+            </main>
+        </PageWrapper>
+
     );
 };
 
