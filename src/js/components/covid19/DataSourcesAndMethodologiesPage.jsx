@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { uniqueId } from 'lodash';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -19,12 +19,9 @@ import {
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
 
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const getEmailSocialShareData = {

@@ -4,16 +4,12 @@
  */
 
 import React from 'react';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
 const slug = 'federal_account';

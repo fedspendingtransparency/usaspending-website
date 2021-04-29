@@ -4,15 +4,10 @@
  **/
 
 import React from 'react';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
+import { PageWrapper } from 'components/sharedComponents/Page';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import AboutContent from './AboutContent';
 

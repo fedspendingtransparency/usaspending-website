@@ -4,17 +4,13 @@
  */
 
 import React from 'react';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
-
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
+import { PageWrapper } from 'components/sharedComponents/Page';
 
 require('pages/recipientLanding/recipientLandingPage.scss');
 

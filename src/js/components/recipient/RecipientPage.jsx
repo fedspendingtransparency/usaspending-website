@@ -5,22 +5,18 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
+import { PageWrapper } from 'components/sharedComponents/Page';
+
 import RecipientContent from './RecipientContent';
 
 const propTypes = {

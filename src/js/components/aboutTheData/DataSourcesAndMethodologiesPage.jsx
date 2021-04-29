@@ -6,7 +6,7 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -14,9 +14,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 

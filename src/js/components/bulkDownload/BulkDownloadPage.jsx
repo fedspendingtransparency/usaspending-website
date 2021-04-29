@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import {
     downloadArchivePageMetaTags,
@@ -14,13 +14,8 @@ import {
     dataDictionaryPageMetaTags,
     metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-
-
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';

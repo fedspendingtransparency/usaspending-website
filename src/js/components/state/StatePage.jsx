@@ -5,19 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 import Error from 'components/sharedComponents/Error';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import StateContent from './StateContent';
 

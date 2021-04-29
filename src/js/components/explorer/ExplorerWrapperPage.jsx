@@ -5,15 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
-
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
+import { PageWrapper } from 'components/sharedComponents/Page';
 
 const propTypes = {
     children: PropTypes.element,
