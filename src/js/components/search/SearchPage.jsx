@@ -3,21 +3,16 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-// TODO: DEV-7122 Move to new Page Header Component
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { DownloadIconButton } from 'data-transparency-ui';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
-import FullDownloadModalContainer from
-    'containers/search/modals/fullDownload/FullDownloadModalContainer';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-import DownloadButton from 'components/search/header/DownloadButton';
+import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
+import PageWrapper from 'components/sharedComponents/Page';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
@@ -133,27 +128,16 @@ export default class SearchPage extends React.Component {
         }
 
         return (
-            <div
-                className="usa-da-search-page"
-                ref={(div) => {
-                    this.pageDiv = div;
-                }}>
-                <MetaTags {...MetaTagHelper.searchPageMetaTags} />
-                <Header />
-                <StickyHeader>
-                    <div className="sticky-header__title">
-                        <h1 tabIndex={-1} id="main-focus">
-                            Advanced Search
-                        </h1>
-                    </div>
-                    <div className="sticky-header__options">
-                        <DownloadButton
-                            downloadAvailable={this.props.downloadAvailable}
-                            downloadInFlight={this.props.downloadInFlight}
-                            onClick={this.showModal}
-                            disableHover={this.state.filterCount === 0} />
-                    </div>
-                </StickyHeader>
+            <PageWrapper
+                classNames="usa-da-search-page"
+                title="Advanced Search"
+                metaTagProps={MetaTagHelper.searchPageMetaTags}
+                toolBarComponents={[
+                    <DownloadIconButton
+                        isEnabled={this.props.downloadAvailable}
+                        downloadInFlight={this.props.downloadInFlight}
+                        onClick={this.showModal} />
+                ]}>
                 <div id="main-content">
                     <div className="search-contents">
                         <div className="full-search-sidebar">
@@ -174,9 +158,7 @@ export default class SearchPage extends React.Component {
                         mounted={this.state.showFullDownload}
                         hideModal={this.hideModal} />
                 </div>
-                <Footer
-                    filters={this.props.filters} />
-            </div>
+            </PageWrapper>
         );
     }
 }
