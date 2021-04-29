@@ -11,10 +11,9 @@ import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'apis/agencyV2';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import Note from 'components/sharedComponents/Note';
-import { PageWrapper } from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/Page';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
@@ -74,7 +73,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode]);
+    }, [agencyCode, getOverviewData]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -83,21 +82,20 @@ const AgencyDetailsPage = () => {
     };
 
     return (
-        <div className="about-the-data about-the-data_agency-details-page">
-            <MetaTags {...agencyPageMetaTags} />
-            <Header />
-            <PageHeader
-                title={agencyOverview?.name}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                overLine="Agency Submission Data"
-                shareProps={{
-                    url: getBaseUrl(`submission-statistics/agency/${agencyCode}`),
-                    onShareOptionClick: handleShare
-                }}>
-                <main id="main-content" className="main-content">
-                    {loading && <LoadingMessage />}
-                    {error && <ErrorMessage description={errorMessage} />}
-                    {(!loading && !error) && (
+        <PageWrapper
+            classNames="about-the-data about-the-data_agency-details-page"
+            metaTagProps={agencyPageMetaTags}
+            overLine="Agency Profile"
+            title={agencyOverview?.name}
+            toolBarComponents={[
+                <ShareIcon
+                    url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
+                    onShareOptionClick={handleShare} />
+            ]}>
+            <main id="main-content" className="main-content">
+                {loading && <LoadingMessage />}
+                {error && <ErrorMessage description={errorMessage} />}
+                {(!loading && !error) && (
                         <>
                             <div className="heading-container">
                                 <div className="back-link">
@@ -138,18 +136,16 @@ const AgencyDetailsPage = () => {
                                 agencyCode={agencyCode} />
                             {message && <Note message={message} />}
                         </>
-                    )}
-                    <AboutTheDataModal
-                        mounted={!!showModal.length}
-                        type={showModal}
-                        className={modalClassNames[showModal]}
-                        title={modalTitles(modalData?.type)[showModal]}
-                        agencyData={modalData}
-                        closeModal={closeModal} />
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+                )}
+                <AboutTheDataModal
+                    mounted={!!showModal.length}
+                    type={showModal}
+                    className={modalClassNames[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
+                    agencyData={modalData}
+                    closeModal={closeModal} />
+            </main>
+        </PageWrapper>
     );
 };
 
