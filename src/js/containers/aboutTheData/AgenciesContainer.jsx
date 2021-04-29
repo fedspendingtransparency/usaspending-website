@@ -129,7 +129,7 @@ const AgenciesContainer = ({
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
                     const row = Object.create(PublicationOverviewRow);
-                    row.populate(d, federalTotal, selectedFy);
+                    row.populate(d, federalTotal);
                     return row;
                 });
                 changePublicationsTotal(totalItems);
