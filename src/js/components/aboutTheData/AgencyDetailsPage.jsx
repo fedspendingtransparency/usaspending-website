@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoadingMessage, ErrorMessage, PageHeader } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'apis/agencyV2';
@@ -13,10 +13,8 @@ import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
 import Note from 'components/sharedComponents/Note';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';

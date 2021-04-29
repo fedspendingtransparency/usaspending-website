@@ -5,7 +5,8 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, PageHeader } from "data-transparency-ui";
+import { Tabs, ShareIcon } from "data-transparency-ui";
+
 import { Link, useLocation } from "react-router-dom";
 
 import Header from "containers/shared/HeaderContainer";
@@ -16,6 +17,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
+import { PageWrapper } from 'components/sharedComponents/Page';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
