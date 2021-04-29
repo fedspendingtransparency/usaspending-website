@@ -12,7 +12,9 @@ import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ShareIcon } from 'data-transparency-ui';
+import { useHistory } from 'react-router-dom';
 
+import { useQueryParams } from 'helpers/queryParams';
 import PageWrapper from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -52,6 +54,7 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const query = useQueryParams();
     const history = useHistory();
+    const activePublicLaw = ('public-law' in query) ? query['public-law'] : null;
     const [activeSection, setActiveSection] = useState('overview');
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
@@ -148,13 +151,27 @@ const Covid19Container = () => {
         setDataDisclaimerBanner('hide');
     };
 
+    const handlePublicLawFilterClick = (law) => {
+        if (law === 'dsm') {
+            history.push({
+                pathname: '/disaster/covid-19/data-sources'
+            });
+        }
+        else {
+            history.push({
+                pathname: '',
+                search: `?public-law=${law}`
+            });
+        }
+    };
+
     return (
         <PageWrapper
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                <PublicLawPicker />,
+                <PublicLawPicker selectedOption={activePublicLaw} onClick={handlePublicLawFilterClick} />,
                 <ShareIcon
                     slug={slug}
                     email={getEmailSocialShareData} />,
