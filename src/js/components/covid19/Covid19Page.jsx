@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
+import { ARP_RELEASED as isCovidPublicLawFilterLive } from 'GlobalConstants';
 import PageWrapper from 'components/sharedComponents/Page';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -98,7 +99,8 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                     slug={slug}
                     email={getEmailSocialShareData} />,
                 <DownloadButtonContainer />
-            ]}>
+            ]
+                .filter((c, i) => isCovidPublicLawFilterLive || i > 0)}>
             <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
                     <main id="main-content" className="main-content usda__flex-row">
