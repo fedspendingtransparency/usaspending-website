@@ -14,6 +14,7 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import { TooltipWrapper } from 'data-transparency-ui';
 import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
 import Tooltip from 'components/award/shared/activity/Tooltip';
+import { useQueryParams } from 'helpers/queryParams';
 
 import {
     amountsHeight,
@@ -21,13 +22,15 @@ import {
     startOfChartY,
     rectangleHeight,
     defaultTooltipWidth,
-    tooltipMapping
+    tooltipMapping,
+    tooltipShortName
 } from 'dataMapping/covid19/amountsVisualization';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import {
     formatMoney,
     calculatePercentage
 } from 'helpers/moneyFormatter';
+import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import PercentLabels from './amounts/PercentLabels';
 
 const propTypes = {
@@ -39,6 +42,9 @@ const AmountsVisualization = ({
     overviewData,
     width = null
 }) => {
+    const queryParams = useQueryParams();
+    const publicLawFilter = ('public-law' in queryParams) ? defcByPublicLaw[queryParams['public-law']] : 'all';
+    const overviewDataByDefCode = ('public-law' in queryParams) ? overviewData[publicLawFilter] : overviewData.all;
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
     const [remainingBalanceLabelData, setRemainingBalanceLabelData] = useState({
@@ -57,7 +63,7 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, overviewData._totalBudgetAuthority])
+                .domain([0, overviewDataByDefCode._totalBudgetAuthority])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
@@ -98,28 +104,36 @@ const AmountsVisualization = ({
         return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
     }, []);
 
-    const tooltipData = () => ({
-        tooltipPosition: 'bottom',
-        styles: {
-            position: 'absolute',
-            transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
-        },
-        tooltipComponent: <PaginatedTooltipContainer
-            data={[{
-                title: tooltipMapping[showTooltip].title,
-                sections: [
-                    {
-                        paragraphs: [
-                            `${formatMoney(overviewData[showTooltip])}`,
-                            `${calculatePercentage(overviewData[showTooltip], overviewData._totalBudgetAuthority)} of Total Budgetary Resources`,
-                            tooltipMapping[showTooltip].paragraph
-                        ]
-                    }
-                ]
-            }]
-            }
-            tooltipElement={<Tooltip />} />
-    });
+    const tooltipForDefCodes = () => (showTooltip === `_totalBudgetAuthority` ?
+        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewData.all._totalBudgetAuthority, null, null, { absoluteMin: 'Less than 0.01%' })} of the Total Budgetary Resources for COVID-19 spending` :
+        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority, null, null, { absoluteMin: 'Less than 0.01%' })} of Total Budgetary Resources for the ${tooltipShortName[publicLawFilter]}`);
+
+    const tooltipData = () => {
+        const percentage = publicLawFilter !== 'all' ? tooltipForDefCodes() :
+            `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority)} of Total Budgetary Resources`;
+        return {
+            tooltipPosition: 'bottom',
+            styles: {
+                position: 'absolute',
+                transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
+            },
+            tooltipComponent: <PaginatedTooltipContainer
+                data={[{
+                    title: tooltipMapping[showTooltip].title,
+                    sections: [
+                        {
+                            paragraphs: [
+                                `${formatMoney(overviewDataByDefCode[showTooltip])}`,
+                                percentage,
+                                tooltipMapping[showTooltip].paragraph
+                            ]
+                        }
+                    ]
+                }]
+                }
+                tooltipElement={<Tooltip />} />
+        };
+    };
 
     const displayTooltip = (e) => {
         setShowTooltip(e.target.getAttribute('data-id'));
@@ -129,16 +143,15 @@ const AmountsVisualization = ({
         setShowTooltip('');
     };
 
-    const dateNoteStyles = {
-        position: 'absolute',
-        transform: `translate(${amountsPadding.left}px,${startOfChartY + rectangleHeight}px)`,
-        width: width / 2
-    };
+    const preposition = publicLawFilter !== 'all' ? 'through the ' : '';
+    const title = publicLawFilter !== 'all' ?
+        (<strong>{tooltipShortName[publicLawFilter]}</strong>) :
+        'in response to COVID-19';
 
     return (
         <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
             <h3 className="body__narrative amounts-viz__title">
-                This is how much was <strong>spent</strong> so far in response to COVID-19
+                This is how much was <strong>spent</strong> so far {preposition} {title}
             </h3>
             {
                 loading &&
@@ -167,7 +180,7 @@ const AmountsVisualization = ({
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
                         showTooltip={showTooltip}
-                        overviewData={overviewData}
+                        overviewData={overviewDataByDefCode}
                         scale={scale}
                         width={width}
                         dataId="_totalBudgetAuthority" />
@@ -175,7 +188,7 @@ const AmountsVisualization = ({
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
                         showTooltip={showTooltip}
-                        overviewData={overviewData}
+                        overviewData={overviewDataByDefCode}
                         scale={scale}
                         width={width}
                         setRemainingBalanceLabelData={setRemainingBalanceLabelData}
@@ -184,7 +197,7 @@ const AmountsVisualization = ({
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
                         showTooltip={showTooltip}
-                        overviewData={overviewData}
+                        overviewData={overviewDataByDefCode}
                         scale={scale}
                         remainingBalanceLabelData={remainingBalanceLabelData}
                         remainingBalanceValueData={remainingBalanceValueData} />
@@ -192,7 +205,7 @@ const AmountsVisualization = ({
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
                         showTooltip={showTooltip}
-                        overviewData={overviewData}
+                        overviewData={overviewDataByDefCode}
                         scale={scale}
                         width={width}
                         dataId="_totalOutlays" />

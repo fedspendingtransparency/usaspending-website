@@ -42,7 +42,7 @@ const textXPositions = {
     },
     value: {
         left: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) - ((textElements.value?.width || 0) + spacingBetweenLineAndText),
-        right: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) + (textElements.label?.width || 0) + spacingBetweenLineAndText
+        right: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) + (textElements.label?.width || 0) + spacingBetweenLineAndText + labelTextAdjustment.x
     }
 };
 

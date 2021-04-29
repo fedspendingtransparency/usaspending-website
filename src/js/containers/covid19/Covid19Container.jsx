@@ -37,7 +37,7 @@ import {
     getEmailSocialShareData,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import { fetchOverview, fetchAwardAmounts } from 'helpers/disasterHelper';
+import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useQueryParams } from 'helpers/queryParams';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';

@@ -147,3 +147,7 @@ export const rectangleMapping = {
         }
     }
 };
+
+export const tooltipShortName = {
+    V: 'American Rescue Plan'
+};
