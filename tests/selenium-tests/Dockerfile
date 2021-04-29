@@ -7,7 +7,8 @@ RUN apt-get -y install google-chrome-stable
 RUN apt-get -y update && \
     apt-get install -yqq unzip && \
     apt-get install -y libnss3 libgconf-2-4
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+#RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 RUN mkdir /allure
 RUN mkdir /allure-results
