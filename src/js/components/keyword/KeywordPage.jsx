@@ -8,23 +8,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { DownloadIconButton } from 'data-transparency-ui';
 
 import Analytics from 'helpers/analytics/Analytics';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-import BulkDownloadModalContainer from
-    'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import DownloadButton from 'components/search/header/DownloadButton';
-
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
+import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
+import PageWrapper from 'components/sharedComponents/Page';
 
 import KeywordSearchBar from './KeywordSearchBar';
+import SearchSummary from './SearchSummary';
 
 const propTypes = {
     updateKeyword: PropTypes.func,
@@ -79,81 +74,25 @@ export default class KeywordPage extends React.Component {
         });
     }
 
-    generateSummary() {
-        let formattedPrimeCount = (<span>&nbsp;&mdash;&nbsp;</span>);
-        let formattedPrimeAmount = (<span>&nbsp;&mdash;&nbsp;</span>);
-        if (!this.props.summaryInFlight) {
-            const primeCount = this.props.summary.primeCount;
-            const primeAmount = this.props.summary.primeAmount;
-
-            const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
-            const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
-
-            if (primeCountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
-                // Abbreviate numbers greater than or equal to 1M
-                formattedPrimeCount =
-                    `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, 1)}${primeCountUnits.unitLabel}`;
-            }
-            else {
-                formattedPrimeCount =
-                    `${MoneyFormatter.formatNumberWithPrecision(primeCount, 0)}`;
-            }
-
-            if (primeAmountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
-                // Abbreviate amounts greater than or equal to $1M
-                formattedPrimeAmount =
-                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, 1)}${primeAmountUnits.unitLabel}`;
-            }
-            else {
-                formattedPrimeAmount =
-                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount, 0)}`;
-            }
-        }
-
-        return (
-            <div className="keyword-header__summary">
-                <div className="keyword-header__summary-title">
-                    Search Summary
-                </div>
-                <div className="keyword-header__summary-award-amounts">
-                    <div className="keyword-header__summary-amount">
-                        Total Prime Award Amount: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
-                    </div>
-                </div>
-                <div className="keyword-header__summary-award-counts">
-                    <div className="keyword-header__summary-amount">
-                        Prime Award Transaction Count: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     render() {
-        let searchSummary = null;
-        if (this.props.summary || this.props.summaryInFlight) {
-            searchSummary = this.generateSummary();
-        }
-
         return (
-            <div
-                className="usa-da-keyword-page">
-                <MetaTags {...MetaTagHelper.keywordPageMetaTags} />
-                <Header />
-                <StickyHeader>
-                    <div className="keyword-header">
-                        <div className="keyword-header__title">
-                            <h1>Keyword Search</h1>
-                        </div>
-                        {searchSummary}
-                        <div className="keyword-header__options">
-                            <DownloadButton
-                                disableHover={!this.props.keyword}
-                                downloadAvailable={this.props.downloadAvailable}
-                                onClick={this.clickedDownload} />
-                        </div>
-                    </div>
-                </StickyHeader>
+            <PageWrapper
+                classNames="usa-da-keyword-page"
+                title="Keyword Search"
+                metaTagProps={MetaTagHelper.keywordPageMetaTags}
+                toolBarComponents={[
+                    <SearchSummary
+                        primeAwardTotal={this.props.summary?.primeAmount}
+                        primeTransactionCount={this.props.summary?.primeCount}
+                        inFlight={this.props.summaryInFlight} />,
+                    <DownloadIconButton
+                        downloadInFlight={this.state.isDownloading}
+                        isEnabled={this.props.downloadAvailable}
+                        onClick={this.clickedDownload} />
+                ]
+                    .filter((c, i) => (
+                        (i === 1 && !this.props.keyword) || this.props.keyword)
+                    )}>
                 <main id="main-content">
                     <div className="keyword-content">
                         <div className="keyword-search-bar">
@@ -173,8 +112,7 @@ export default class KeywordPage extends React.Component {
                         mounted={this.state.showModal}
                         hideModal={this.hideModal} />
                 </main>
-                <Footer />
-            </div>
+            </PageWrapper>
         );
     }
 }
