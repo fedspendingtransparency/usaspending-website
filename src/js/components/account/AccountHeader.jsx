@@ -5,11 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { PageWrapper } from 'components/sharedComponents/Page';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
 
 const propTypes = {
     account: PropTypes.object
