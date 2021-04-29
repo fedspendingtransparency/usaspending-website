@@ -9,7 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 import { agencyLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import { PageWrapper } from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/Page';
 
 import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
 
@@ -27,24 +27,21 @@ export default class AgencyLandingPage extends React.Component {
 
     render() {
         return (
-            <div className="usa-da-agency-landing">
-                <MetaTags {...agencyLandingPageMetaTags} />
-                <Header />
-                <PageHeader
-                    title="Agency Profiles"
-                    stickyBreakPoint={getStickyBreakPointForSidebar()}
-                    shareProps={{
-                        url: getBaseUrl('agency'),
-                        onShareOptionClick: this.handleShare
-                    }}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                        <AgencyLandingContainer />
-                    </main>
-                    <Footer />
-                </PageHeader>
-            </div>
+            <PageWrapper
+                classNames="usa-da-agency-landing"
+                title="Agency Profiles"
+                metaTagProps={agencyLandingPageMetaTags}
+                toolBarComponents={[
+                    <ShareIcon
+                        onShareOptionClick={this.handleShare}
+                        url={getBaseUrl(`agency`)} />
+                ]}>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <AgencyLandingContainer />
+                </main>
+            </PageWrapper>
         );
     }
 }

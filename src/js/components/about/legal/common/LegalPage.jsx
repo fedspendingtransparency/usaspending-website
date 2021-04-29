@@ -5,14 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ShareIcon } from 'data-transparency-ui';
 
 import {
     accessibilityPageMetaTags,
     privacyPageMetaTags,
     foiaPageMetaTags
 } from 'helpers/metaTagHelper';
-import { PageWrapper } from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/Page';
 
 import LegalContent from './LegalContent';
 
@@ -34,22 +33,20 @@ export default class LegalPage extends React.Component {
             metaTags = foiaPageMetaTags;
         }
         return (
-            <div className="usa-da-legal-page">
-                <MetaTags {...metaTags} />
-                <Header />
-                <PageHeader title="Legal" stickyBreakPoint={getStickyBreakPointForSidebar()}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                        <LegalContent
-                            activePage={this.props.activePage}
-                            title={this.props.title}>
-                            {this.props.children}
-                        </LegalContent>
-                    </main>
-                    <Footer />
-                </PageHeader>
-            </div>
+            <PageWrapper
+                classNames="usa-da-legal-page"
+                title="Legal"
+                metaTagProps={metaTags}>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <LegalContent
+                        activePage={this.props.activePage}
+                        title={this.props.title}>
+                        {this.props.children}
+                    </LegalContent>
+                </main>
+            </PageWrapper>
         );
     }
 }

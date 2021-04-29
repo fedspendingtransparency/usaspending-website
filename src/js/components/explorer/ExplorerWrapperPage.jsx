@@ -9,7 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { PageWrapper } from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/Page';
 
 const propTypes = {
     children: PropTypes.element,
@@ -34,27 +34,22 @@ const ExplorerWrapperPage = (props) => {
     };
 
     return (
-        <div className="usa-da-explorer-page">
-            <MetaTags {...explorerPageMetaTags} />
-            <Header />
-            <PageHeader
-                title="Spending Explorer"
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                shareProps={props.showShareIcon
-                    ? {
-                        url: getBaseUrl(slug),
-                        onShareOptionClick: handleShare
-                    }
-                    : null
-                }>
-                <main
-                    id="main-content"
-                    className="main-content">
-                    {props.children}
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+        <PageWrapper
+            classNames="usa-da-explorer-page"
+            title="Spending Explorer"
+            metaTagProps={explorerPageMetaTags}
+            toolBarComponents={[
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
+            ]
+                .filter(() => props.showShareIcon)}>
+            <main
+                id="main-content"
+                className="main-content">
+                {props.children}
+            </main>
+        </PageWrapper>
     );
 };
 

@@ -5,14 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ShareIcon } from 'data-transparency-ui';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
+import PageWrapper from 'components/sharedComponents/Page';
 
-import AccountHeader from './AccountHeader';
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
@@ -23,25 +22,38 @@ const propTypes = {
 };
 
 export default class Account extends React.Component {
-    render() {
-        return (
-            <div className="usa-da-account-page">
-                {this.props.account && <MetaTags {...MetaTagHelper.federalAccountPageMetaTags(this.props.account)} />}
-                <Header />
-                <AccountHeader account={this.props.account} />
-                <main
-                    id="main-content"
-                    className="main-content">
-                    <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
-                    <div className="filter-results">
-                        <SearchSidebar />
-                        <SearchResults showNote={this.props.account.parent_agency_toptier_code === '097'} />
-                    </div>
-                </main>
-                <Footer />
-            </div>
-        );
-    }
+        handleShare = (name, slug) => {
+            handleShareOptionClick(name, slug, {
+                subject: `USAspending.gov Federal Account Profile: ${this.props.account.title}`,
+                body: `View the spending activity of this federal account on USAspending.gov: ${getBaseUrl(slug)}`
+            });
+        };
+        render() {
+            const accountSymbol = `${this.props.account.agency_identifier}-${this.props.account.main_account_code}`;
+            const slug = `federal_account/${accountSymbol}`;
+            return (
+                <PageWrapper
+                    classNames="usa-da-account-page"
+                    overLine="Federal Account Profile"
+                    title={`Federal Account Symbol: ${accountSymbol}`}
+                    metaTagProps={this.props.account ? MetaTagHelper.federalAccountPageMetaTags(this.props.account) : {}}
+                    toolBarComponents={[
+                        <ShareIcon
+                            url={getBaseUrl(slug)}
+                            onShareOptionClick={(name) => this.handleShare(name, slug)} />
+                    ]}>
+                    <main
+                        id="main-content"
+                        className="main-content">
+                        <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
+                        <div className="filter-results">
+                            <SearchSidebar />
+                            <SearchResults showNote={this.props.account.parent_agency_toptier_code === '097'} />
+                        </div>
+                    </main>
+                </PageWrapper>
+            );
+        }
 }
 
 Account.propTypes = propTypes;

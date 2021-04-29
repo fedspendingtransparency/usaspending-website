@@ -16,11 +16,12 @@ const PageWrapper = ({
     classNames,
     metaTagProps = {},
     children,
+    ref,
     title,
     overline,
     toolBarComponents = []
 }) => (
-    <div className={classNames}>
+    <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
         <Header />
         <PageHeader
@@ -28,7 +29,7 @@ const PageWrapper = ({
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overline}
             toolBar={toolBarComponents} />
-        {React.cloneElement(children, { classNames: 'usda-page__container' })}
+        {React.cloneElement(children, { className: 'usda-page__container' })}
         <Footer />
     </div>
 );
@@ -39,7 +40,8 @@ PageWrapper.propTypes = {
     toolBarComponents: PropTypes.arrayOf(PropTypes.elements),
     title: PropTypes.string.isRequired,
     overline: PropTypes.string,
-    children: PropTypes.element
+    children: PropTypes.element,
+    ref: PropTypes.object
 };
 
 export default PageWrapper;
