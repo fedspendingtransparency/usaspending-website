@@ -93,13 +93,27 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         setDataDisclaimerBanner('hide');
     };
 
+    const handlePublicLawFilterClick = (law) => {
+        if (law === 'dsm') {
+            history.push({
+                pathname: '/disaster/covid-19/data-sources'
+            });
+        }
+        else {
+            history.push({
+                pathname: '',
+                search: `?publicLaw=${law}`
+            });
+        }
+    };
+
     return (
         <PageWrapper
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                <PublicLawPicker />,
+                <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} />,
                 <ShareIcon
                     slug={slug}
                     email={getEmailSocialShareData} />,

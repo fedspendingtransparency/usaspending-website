@@ -8,7 +8,7 @@ const options = [
     {
         title: 'All COVID-19 Funding Laws', description: 'Data from all related DEFC', value: 'all', link: 'disaster-emergency-fund-code-defc'
     },
-    { title: 'American Rescue Plan Act of 2021', description: 'Emergency PublicLaw 117-7 (DEFC V)', value: 'biden' },
+    { title: 'American Rescue Plan Act of 2021', description: 'Emergency PublicLaw 117-7 (DEFC V)', value: 'american-rescue-plan' },
     { title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm', className: 'ds-and-m' }
 ];
 
@@ -31,23 +31,25 @@ PublicLawPickerOption.propTypes = {
 };
 
 const PublicLawPicker = ({
-    selectedOption = null
+    selectedOption = null,
+    onClick
 }) => {
-    const defaultSelectedOption = options[0].title;
+    const selected = options.find((obj) => obj.value === selectedOption);
     return (
         <div className="public-law-picker__container">
             <Picker
                 className="public-law-picker"
                 icon={<FontAwesomeIcon icon="scroll" size="sm" />}
-                selectedOption={selectedOption || defaultSelectedOption}
-                options={options.map((obj) => ({ name: <PublicLawPickerOption {...obj} />, value: obj.value }))} />
+                selectedOption={selected?.title || options[0].title}
+                options={options.map((obj) => ({ name: <PublicLawPickerOption {...obj} />, value: obj.value, onClick }))} />
             <span>Public Law Filter</span>
         </div>
     );
 };
 
 PublicLawPicker.propTypes = {
-    selectedOption: PropTypes.string
+    selectedOption: PropTypes.string,
+    onClick: PropTypes.func.isRequired
 };
 
 export default PublicLawPicker;
