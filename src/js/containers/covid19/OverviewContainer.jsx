@@ -43,19 +43,20 @@ const OverviewContainer = () => {
         <div ref={divReference} className="body__content overview">
             <DateNote />
             <AmountsVisualization
-                overviewData={{
-                    _defCode_V_funding: 7766900000,
-                    _totalBudgetAuthority: 616288691500.82,
-                    _awardObligations: 1381497254285.89,
-                    _awardOutlays: 1077397742738.65,
-                    _totalObligations: 7721021938.98,
-                    _totalOutlays: 1916236.12,
-                    _otherObligations: 1036478636833.7903,
-                    _awardObligationsNotOutlayed: 304099511547.23987,
-                    _remainingBalance: 541998550912.70996,
-                    _nonAwardOutLays: 988263890494.57,
-                    _nonAwardNotOutlayed: 48214746339.22034
-                }}
+                // overviewData={{
+                //     _defCode_V_funding: 7766900000,
+                //     _totalBudgetAuthority: 616288691500.82,
+                //     _awardObligations: 1381497254285.89,
+                //     _awardOutlays: 1077397742738.65,
+                //     _totalObligations: 7721021938.98,
+                //     _totalOutlays: 1916236.12,
+                //     _otherObligations: 1036478636833.7903,
+                //     _awardObligationsNotOutlayed: 304099511547.23987,
+                //     _remainingBalance: 541998550912.70996,
+                //     _nonAwardOutLays: 988263890494.57,
+                //     _nonAwardNotOutlayed: 48214746339.22034
+                // }}
+                overviewData={overviewData}
                 width={visualizationsWidth} />
         </div>
     );

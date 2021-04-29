@@ -173,16 +173,15 @@ const LineAndText = ({
         const { text: textInfo } = rectangleMapping[dataId];
         const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
         if (scale) {
-            console.log(' Jonat : ', textXPosition(overviewData, scale, dataId, { description: descriptionTextRef }, 'description'));
             setDescriptionData({
                 y: (lineDataFour?.y2 || 0) - spacingBetweenLineAndText,
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef }, 'description'),
+                x: textXPosition(overviewData, scale, dataId, { description: descriptionRef }, 'description'),
                 height: descriptionRef?.height || 0,
                 text: textInfo.description,
                 className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
             });
         }
-    }, [scale, overviewData]);
+    }, [scale, overviewData, lineDataFour]);
     // valueData
     useLayoutEffect(() => {
         const ref = valueTextRef.current?.getBoundingClientRect();
