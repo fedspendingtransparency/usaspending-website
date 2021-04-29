@@ -26,10 +26,12 @@ const PublicationOverviewRow = {
         this.code = data.toptier_code || '';
         this._budgetAuthority = data.current_total_budget_authority_amount || 0;
         this._federalTotal = federalTotal;
-        this.periods = addFuturePeriods(data.periods).filter((result) => {
-            if (parseInt(fy, 10) >= 2021) return true;
-            return !publicationsSubColumnPeriodFilters[fy].raw.find((period) => (period === result.period));
-        })
+        this.periods = addFuturePeriods(data.periods)
+            .filter((result) => result.period)
+            .filter((result) => {
+                if (parseInt(fy, 10) >= 2021) return true;
+                return !publicationsSubColumnPeriodFilters[fy].raw.find((period) => ((period === result.period)));
+            })
             .map(({ submission_dates: { publication_date: p, certification_date: c }, quarterly: isQuarterly, period }) => {
                 if (p === '--') {
                     return {
