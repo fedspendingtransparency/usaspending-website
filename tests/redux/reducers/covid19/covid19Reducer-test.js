@@ -4,7 +4,7 @@
  */
 
 import covid19Reducer from 'redux/reducers/covid19/covid19Reducer';
-import { setDEFCodes, setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { setDEFCodes, setOverview, setTotals, setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
 import { defCodes, overview } from './mockData';
 
 describe('Covid 19 Reducer', () => {
@@ -64,5 +64,10 @@ describe('Covid 19 Reducer', () => {
         expect(state.recipientTotals).toEqual({
             awardCount: 526742, faceValueOfLoan: undefined, obligation: 213458852480.17, outlay: 8367346004.33
         });
+    });
+    it('should SET_IS_RECIPIENT_MAP_LOADED', () => {
+        let state = covid19Reducer(undefined, {});
+        state = covid19Reducer(state, setIsMapLoaded(true));
+        expect(state.isRecipientMapLoaded).toEqual(true);
     });
 });

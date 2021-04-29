@@ -10,7 +10,8 @@ const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
 
 export const initialState = {
     overview: {
-        name: ''
+        name: '',
+        covidDefCodes: []
     },
     budgetaryResources
 };
