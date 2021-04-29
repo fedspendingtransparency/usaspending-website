@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GlobalConstants from "GlobalConstants";
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import AwardSection from '../AwardSection';
@@ -24,9 +23,7 @@ const AwardAmountsSection = ({
 }) => {
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
-    const showCaresActViz = (
-        GlobalConstants.CARES_ACT_RELEASED
-    );
+
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
@@ -35,11 +32,9 @@ const AwardAmountsSection = ({
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}
-                        showCaresActViz={showCaresActViz}
                         spendingScenario={spendingScenario} />
                     <AwardAmountsTable
                         showFileC={(
-                            showCaresActViz &&
                             (
                                 awardOverview._fileCObligated !== 0 ||
                                 awardOverview._fileCOutlay !== 0

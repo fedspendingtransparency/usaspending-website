@@ -15,7 +15,13 @@ const BaseAgencyOverview = {
         this.congressionalJustification = data.congressional_justification_url || '';
         this.showAboutData = data.about_agency_data || false;
         this.subtierCount = data.subtier_agency_count || 0;
+        this._defCodes = data.def_codes;
     },
+
+    get covidDefCodes() {
+        return this._defCodes.filter(({ disaster: d }) => d === 'covid_19');
+    },
+
     get name() {
         const abbreviation = this._abbreviation ? ` (${this._abbreviation})` : '';
         return `${this._name}${abbreviation}`;

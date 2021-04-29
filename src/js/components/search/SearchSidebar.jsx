@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GlobalConstants from "GlobalConstants";
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
@@ -85,8 +84,7 @@ const staticFilters = {
                 icon: 'info',
                 tooltipComponent: <DEFTooltip />
             }),
-            className: 'def-sidebar',
-            isReleased: GlobalConstants.CARES_ACT_RELEASED
+            className: 'def-sidebar'
         },
         {
             title: 'North American Industry Classification System (NAICS)'
