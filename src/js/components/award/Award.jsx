@@ -5,19 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
+import { find, startCase } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Error from 'components/sharedComponents/Error';
+import PageWrapper from 'components/sharedComponents/Page';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
-import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';
 import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
@@ -74,6 +72,17 @@ export default class Award extends React.Component {
 
         this.jumpToSection = this.jumpToSection.bind(this);
         this.renderContent = this.renderContent.bind(this);
+    }
+
+    onShareClick = (name) => {
+        const { awardId, award } = this.props;
+        const slug = `award/${awardId}`;
+        const emailSubject = `${award?.overview?.awardingAgency?.formattedToptier} to ${award.overview?.recipient?._name}`;
+        const emailArgs = {
+            subject: `USAspending.gov Award Summary: ${emailSubject}`,
+            body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
+        };
+        handleShareOptionClick(name, slug, emailArgs);
     }
 
     jumpToSection(section = '') {
@@ -149,28 +158,30 @@ export default class Award extends React.Component {
         const { awardId, isLoading } = this.props;
         const content = this.renderContent(overview, awardId);
         const slug = `award/${awardId}`;
-        const emailSubject = `${overview?.awardingAgency?.formattedToptier} to ${overview?.recipient?._name}`;
+        const title = (overview?.category === 'idv')
+            ? 'Indefinite Delivery Vehicle'
+            : startCase(overview?.category);
         return (
-            <div className="usa-da-award-v2-page">
-                {overview && <MetaTags {...MetaTagHelper.awardPageMetaTags(overview)} />}
-                <Header />
-                <StickyHeader>
-                    <SummaryBar
-                        slug={slug}
-                        emailSubject={emailSubject}
-                        downloadData={this.props.downloadData}
-                        isDownloadPending={this.props.isDownloadPending}
-                        isInvalidId={this.props.noAward}
-                        isLoading={isLoading}
-                        category={overview ? overview.category : ''} />
-                </StickyHeader>
+            <PageWrapper
+                classNames="usa-da-award-v2-page"
+                overline="Award Profile"
+                metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
+                title={isLoading ? '--' : title}
+                toolBarComponents={[
+                    <ShareIcon
+                        url={getBaseUrl(slug)}
+                        onShareOptionClick={this.onShareClick} />,
+                    <DownloadIconButton
+                        isEnabled={!this.props.noAward}
+                        downloadInFlight={this.props.isDownloadPending}
+                        onClick={this.props.downloadData} />
+                ]}>
                 <LoadingWrapper isLoading={isLoading}>
                     <main className={!this.props.noAward ? 'award-content' : ''}>
                         {content}
                     </main>
                 </LoadingWrapper>
-                <Footer />
-            </div>
+            </PageWrapper>
         );
     }
 }
