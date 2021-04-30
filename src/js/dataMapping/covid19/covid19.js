@@ -369,3 +369,7 @@ export const tooltipMapping = {
         paragraph: 'This amount represents how much is left to be obligated, or promised to be paid, by agencies. '
     }
 };
+
+export const defcByPublicLaw = {
+    'american-rescue-plan': ['V']
+};
