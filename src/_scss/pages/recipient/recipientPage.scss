@@ -1,13 +1,16 @@
 .usa-da-recipient-page {
 	@import "all";
 	@import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
-
+  	@import "layouts/default/stickyHeader/header";
 	@import "pages/state/topFive/topFive";
-
-
 	$color-gray-border: #D8D8D8;
 	$color-blue-background: #F5FBFC;
+
+	.usda-page-header .usda-page-header__container .usda-page-header__toolbar {
+		@media(max-width: $medium-screen) {
+			border-bottom: rem(1) solid $color-gray-lighter;
+		}
+	}
 
 	.main-content {
 		@import "../../mixins/fullSectionWrap";
@@ -21,7 +24,4 @@
 
         @import "./_sidebar";
 	}
-	.usda-page-header__toolbar .usda-share-icon {
-        margin-right: 0;
-    }
 }

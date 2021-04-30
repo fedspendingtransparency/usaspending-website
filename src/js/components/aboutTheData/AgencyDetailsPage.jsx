@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
 import { fetchAgencyOverview } from 'apis/agencyV2';
-import { aboutTheDataAgencyDetails } from 'helpers/metaTagHelper';
+import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
@@ -73,7 +73,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode, getOverviewData]);
+    }, [agencyCode]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -84,7 +84,7 @@ const AgencyDetailsPage = () => {
     return (
         <PageWrapper
             classNames="about-the-data about-the-data_agency-details-page"
-            metaTagProps={aboutTheDataAgencyDetails}
+            metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
             overLine="Agency Profile"
             title={agencyOverview?.name}
             toolBarComponents={[

@@ -5,6 +5,7 @@
     .usda-page-header__container {
         .usda-page-header__header,
         .usda-page-header__toolbar {
+            border-bottom: none;
             @media (max-width: $medium-screen) {
                 .usda-fy-picker__container {
                     padding-left: 0;

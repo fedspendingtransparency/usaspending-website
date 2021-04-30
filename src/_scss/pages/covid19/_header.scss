@@ -1,4 +1,7 @@
 .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
+    @media(max-width: $medium-screen) {
+        border-bottom: rem(1) solid $color-gray-lighter;
+    }
     .public-law-picker__container {
         @include display(flex);
         @include flex-direction(column);
