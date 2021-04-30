@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import { ShareIcon } from 'data-transparency-ui';
 
 import PageWrapper from 'components/sharedComponents/Page';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';

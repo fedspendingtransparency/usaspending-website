@@ -108,7 +108,7 @@ export const AgencyProfileV2 = ({
     return (
         <PageWrapper
             classNames="usa-da-agency-page-v2"
-            overline="Agency Profile"
+            overLine="Agency Profile"
             title={name}
             metaTagProps={agencyPageMetaTags}
             toolBarComponents={[
