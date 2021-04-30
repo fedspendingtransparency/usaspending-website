@@ -2,9 +2,16 @@ import React from 'react';
 import { render, screen } from 'test-utils';
 import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import { rectangleMapping } from 'dataMapping/covid19/amountsVisualization';
+import { useQueryParams } from 'helpers/queryParams';
 import { mockProps } from '../../mockData/components/covid19/amountsVisualization';
 
+// Mock the custom hook useQueryParams
+jest.mock('helpers/queryParams', () => ({
+    useQueryParams: jest.fn()
+}));
+
 describe('COVID-19 Amounts Visualization', () => {
+    beforeEach(() => useQueryParams.mockImplementation(() => ({ publicLaw: 'all' })));
     it('should render labels and descriptions and values', () => {
         render(<AmountsVisualization {...mockProps} />);
         expect(screen.queryByText(rectangleMapping._totalBudgetAuthority.text.description)).toBeTruthy();
