@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 import { Spreadsheet } from 'components/sharedComponents/icons/Icons';
 import DataDictionaryTable from './table/DataDictionaryTable';
-import DataDictionarySearchBar from "./DataDictionarySearchBar";
+import DataDictionarySearchBar from './DataDictionarySearchBar';
 
 const propTypes = {
     loading: PropTypes.bool,

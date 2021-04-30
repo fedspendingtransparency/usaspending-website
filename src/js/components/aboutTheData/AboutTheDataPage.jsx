@@ -11,9 +11,11 @@ import { Link, useLocation } from "react-router-dom";
 import Header from "containers/shared/HeaderContainer";
 import Footer from "containers/Footer";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
+import { aboutTheDataMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
@@ -72,6 +74,7 @@ const AboutTheDataPage = ({ history }) => {
 
     return (
         <div className="about-the-data about-the-data_agencies-page">
+            <MetaTags {...aboutTheDataMetaTags} />
             <Header />
             <PageHeader
                 title="Agency Submission Statistics"

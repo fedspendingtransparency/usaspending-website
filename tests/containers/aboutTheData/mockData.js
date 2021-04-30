@@ -165,11 +165,12 @@ export const mockReportingPeriodRow = {
                     tas_obligation_not_in_gtas_total: 343345,
                     missing_tas_accounts_count: 20
                 },
-                percent_of_total_budgetary_resources: 2.189,
+                percent_of_total_budgetary_resources: 2.1,
                 obligation_difference: 4000.00,
                 unlinked_contract_award_count: 20002,
                 unlinked_assistance_award_count: 10001,
-                assurance_statement_url: 'https://files.usaspending.gov/agency_submissions/Raw%20DATA%20Act%20Files/2020/Q1/MockAgency(ABC)-Assurance_Statement.txt'}
+                assurance_statement_url: 'https://files.usaspending.gov/agency_submissions/Raw%20DATA%20Act%20Files/2020/Q1/MockAgency(ABC)-Assurance_Statement.txt'
+            }
         ]
     }
 };
