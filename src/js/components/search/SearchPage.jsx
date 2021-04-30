@@ -15,7 +15,7 @@ import PageWrapper from 'components/sharedComponents/Page';
 
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
-
+import NoDownloadHover from './header/NoDownloadHover';
 
 const propTypes = {
     download: PropTypes.object,
@@ -134,6 +134,10 @@ export default class SearchPage extends React.Component {
                 metaTagProps={MetaTagHelper.searchPageMetaTags}
                 toolBarComponents={[
                     <DownloadIconButton
+                        tooltipComponent={this.props.downloadAvailable
+                            ? null
+                            : <NoDownloadHover />
+                        }
                         isEnabled={this.props.downloadAvailable}
                         downloadInFlight={this.props.downloadInFlight}
                         onClick={this.showModal} />
