@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
 import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
+import { DEV } from 'GlobalConstants';
 
 const OverviewContainer = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -44,7 +45,7 @@ const OverviewContainer = () => {
             <AmountsVisualization
                 overviewData={{
                     all: { ...overviewData },
-                    V: {
+                    V: DEV ? {
                         _defCode_V_funding: 7766900000,
                         _totalBudgetAuthority: 616288691500.82,
                         _awardObligations: 1381497254285.89,
@@ -56,7 +57,8 @@ const OverviewContainer = () => {
                         _remainingBalance: 541998550912.70996,
                         _nonAwardOutLays: 988263890494.57,
                         _nonAwardNotOutlayed: 48214746339.22034
-                    }
+                    } :
+                        {}
                 }}
                 width={visualizationsWidth} />
         </div>
