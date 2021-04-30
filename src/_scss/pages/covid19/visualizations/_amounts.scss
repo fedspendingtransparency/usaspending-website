@@ -18,6 +18,9 @@
   g {
     pointer-events: visible;
   }
+  h3.amounts-viz__title {
+    line-height: rem(36);
+  }
   .tooltip-wrapper {
     display: none;
     @include media($medium-screen) {
@@ -62,13 +65,12 @@
     pointer-events: visible;
   }
   .line__opacity {
-    stroke: #558EC6;
     stroke-width: 3;
     opacity: 0.25;
     shape-rendering: auto;
     pointer-events: visible;
   }
-  .amounts-text__question {
+  .amounts-text__description {
     cursor: default;
     font-size: 1.8rem;
     font-style: italic;
