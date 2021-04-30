@@ -41,7 +41,7 @@ const AmountsVisualization = ({
     width = null
 }) => {
     const queryParams = useQueryParams();
-    const publicLawFilter = ('publicLaw' in queryParams) ? defcByPublicLaw[queryParams.publicLaw][0] : 'all';
+    const publicLawFilter = (queryParams.publicLaw !== 'all') ? defcByPublicLaw[queryParams.publicLaw][0] : 'all';
     const overviewDataByDefCode = overviewData[publicLawFilter];
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
