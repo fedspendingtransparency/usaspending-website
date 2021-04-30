@@ -6,14 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
-import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
-import { DEV, QAT, STAGING } from '../../../GlobalConstants';
+import { DEV } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
-import NavBarGlossaryLink from './NavBarGlossaryLink';
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -21,8 +19,6 @@ const clickedHeaderLink = (route) => {
         action: route
     });
 };
-
-const isNotProd = (DEV || QAT || STAGING);
 
 export default class NavBar extends React.Component {
     constructor(props) {

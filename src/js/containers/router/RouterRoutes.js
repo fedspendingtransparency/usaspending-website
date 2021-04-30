@@ -4,8 +4,6 @@
  **/
 
 import React from 'react';
-import kGlobalConstants from 'GlobalConstants';
-
 
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
