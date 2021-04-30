@@ -61,8 +61,14 @@ export const labelTextAdjustment = {
 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
-        fill: '#AAC6E2',
-        lineColor: '#AAC6E2',
+        fill: {
+            default: '#D0BEDA',
+            defCode: '#AAC6E2'
+        },
+        lineColor: {
+            default: '#D0BEDA',
+            defCode: '#AAC6E2'
+        },
         offset: {
             left: 0,
             right: 0,
@@ -83,8 +89,14 @@ export const rectangleMapping = {
         }
     },
     _totalObligations: {
-        fill: '#558EC6',
-        lineColor: '#558EC6',
+        fill: {
+            default: '#9266AA',
+            defCode: '#558EC6'
+        },
+        lineColor: {
+            default: '#9266AA',
+            defCode: '#558EC6'
+        },
         offset: {
             left: 0,
             right: 0,
@@ -105,8 +117,14 @@ export const rectangleMapping = {
         }
     },
     _totalOutlays: {
-        fill: '#0A2F5A',
-        lineColor: '#0A2F5A',
+        fill: {
+            default: '#3B005B',
+            defCode: '#0A2F5A'
+        },
+        lineColor: {
+            default: '#3B005B',
+            defCode: '#0A2F5A'
+        },
         offset: {
             left: 0,
             right: 0,

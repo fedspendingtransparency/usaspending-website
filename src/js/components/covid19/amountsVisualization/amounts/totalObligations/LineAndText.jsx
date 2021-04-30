@@ -42,7 +42,8 @@ const propTypes = {
     remainingBalanceValueData: PropTypes.shape({
         x: PropTypes.number,
         width: PropTypes.number
-    })
+    }),
+    publicLawFilter: PropTypes.string
 };
 
 const LineAndText = ({
@@ -52,7 +53,8 @@ const LineAndText = ({
     hideTooltip = () => {},
     dataId = '',
     remainingBalanceLabelData,
-    remainingBalanceValueData
+    remainingBalanceValueData,
+    publicLawFilter = 'all'
 }) => {
     const [lineDataOne, setLineDataOne] = useState(defaultLineData);
     const [lineDataTwo, setLineDataTwo] = useState(defaultLineData);
@@ -81,13 +83,11 @@ const LineAndText = ({
     // lineDataOne
     useEffect(() => {
         if (scale) {
-            const {
-                lineColor
-            } = rectangleMapping[dataId];
+            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const data = {
-                lineColor,
+                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
                 x1: position,
                 x2: position,
                 y1: startOfChartY + (rectangleHeight / 2),
@@ -99,9 +99,10 @@ const LineAndText = ({
     // lineDataTwo
     useEffect(() => {
         if (scale) {
+            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor: rectangleMapping[dataId].lineColor,
+                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
                 x1: lineDataOne.x1 || 0,
                 x2: lineDataOne.x1 || 0,
                 y1: lineDataOne.y2 || 0,
@@ -113,9 +114,10 @@ const LineAndText = ({
     // lineDataThree
     useEffect(() => {
         if (scale) {
+            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor: rectangleMapping[dataId].lineColor,
+                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
                 x1: lineDataTwo.x1 || 0,
                 x2: lineDataTwo.x1 || 0,
                 y1: lineDataTwo.y2 || 0,
@@ -159,7 +161,7 @@ const LineAndText = ({
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor,
+                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
                 x1: lineDataThree.x1 || 0,
                 x2: lineDataThree.x1 || 0,
                 y1: lineDataThree.y2 || 0,

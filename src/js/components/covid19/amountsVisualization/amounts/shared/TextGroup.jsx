@@ -8,8 +8,8 @@ const DefaultText = forwardRef((props, ref) => (
         ref={ref}
         data-id={props.dataId}
         className={props.className}
-        x={props.x}
-        y={props.y}
+        x={props.x || 0}
+        y={props.y || 0}
         onMouseMove={props.displayTooltip}
         onMouseLeave={props.hideTooltip}>
         {props.text}

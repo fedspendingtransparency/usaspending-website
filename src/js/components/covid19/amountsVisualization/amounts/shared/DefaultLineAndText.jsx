@@ -15,11 +15,10 @@ import {
 import {
     rectangleMapping,
     startOfChartY,
-    spacingBetweenLineAndText,
     labelTextAdjustment
 } from 'dataMapping/covid19/amountsVisualization';
 
-import { defaultTextState, lineXPosition, textXPosition } from 'helpers/covid19/amountsVisualization';
+import { defaultTextState, textXPosition } from 'helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
 import TextGroup from './TextGroup';
@@ -32,7 +31,8 @@ const propTypes = {
     lineData: PropTypes.object,
     rectangleData: PropTypes.object,
     dataId: PropTypes.string,
-    width: PropTypes.number
+    width: PropTypes.number,
+    publicLawFilter: PropTypes.string
 };
 
 const DefaultLineAndText = ({
@@ -41,7 +41,8 @@ const DefaultLineAndText = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     dataId = '',
-    width
+    width,
+    publicLawFilter
 }) => {
     const [descriptionData, setDescriptionData] = useState(defaultTextState(dataId, 'description'));
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
@@ -103,7 +104,8 @@ const DefaultLineAndText = ({
                 overviewData={overviewData}
                 dataId={dataId}
                 displayTooltip={displayTooltip}
-                hideTooltip={hideTooltip} />
+                hideTooltip={hideTooltip}
+                publicLawFilter={publicLawFilter} />
             <TextGroup data={[
                 { ...descriptionData, ref: descriptionTextRef },
                 { ...valueData, ref: valueTextRef },

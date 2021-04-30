@@ -24,7 +24,8 @@ const propTypes = {
     remainingBalanceValueData: PropTypes.shape({
         x: PropTypes.number,
         width: PropTypes.number
-    })
+    }),
+    publicLawFilter: PropTypes.string
 };
 
 const dataId = '_totalObligations';
@@ -36,7 +37,8 @@ const TotalObligations = ({
     overviewData,
     scale,
     remainingBalanceLabelData,
-    remainingBalanceValueData
+    remainingBalanceValueData,
+    publicLawFilter
 }) => (
     <g>
         <title>The text, vertical line and rectangle representative of the COVID-19 Total Obligations</title>
@@ -47,14 +49,16 @@ const TotalObligations = ({
             hideTooltip={hideTooltip}
             dataId={dataId}
             remainingBalanceLabelData={remainingBalanceLabelData}
-            remainingBalanceValueData={remainingBalanceValueData} />
+            remainingBalanceValueData={remainingBalanceValueData}
+            publicLawFilter={publicLawFilter} />
         <Rectangle
             overviewData={overviewData}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
             showTooltip={showTooltip}
-            dataId={dataId} />
+            dataId={dataId}
+            publicLawFilter={publicLawFilter} />
     </g>
 );
 

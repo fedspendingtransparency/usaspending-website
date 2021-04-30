@@ -19,8 +19,6 @@ import { useQueryParams } from 'helpers/queryParams';
 import {
     amountsHeight,
     amountsPadding,
-    startOfChartY,
-    rectangleHeight,
     defaultTooltipWidth,
     tooltipMapping,
     tooltipShortName
@@ -43,7 +41,7 @@ const AmountsVisualization = ({
     width = null
 }) => {
     const queryParams = useQueryParams();
-    const publicLawFilter = ('public-law' in queryParams) ? defcByPublicLaw[queryParams['public-law']] : 'all';
+    const publicLawFilter = ('public-law' in queryParams) ? defcByPublicLaw[queryParams['public-law']][0] : 'all';
     const overviewDataByDefCode = ('public-law' in queryParams) ? overviewData[publicLawFilter] : overviewData.all;
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
@@ -183,7 +181,8 @@ const AmountsVisualization = ({
                         overviewData={overviewDataByDefCode}
                         scale={scale}
                         width={width}
-                        dataId="_totalBudgetAuthority" />
+                        dataId="_totalBudgetAuthority"
+                        publicLawFilter={publicLawFilter} />
                     <RemainingBalance
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
@@ -200,7 +199,8 @@ const AmountsVisualization = ({
                         overviewData={overviewDataByDefCode}
                         scale={scale}
                         remainingBalanceLabelData={remainingBalanceLabelData}
-                        remainingBalanceValueData={remainingBalanceValueData} />
+                        remainingBalanceValueData={remainingBalanceValueData}
+                        publicLawFilter={publicLawFilter} />
                     <DefaultAmountViz
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
@@ -208,7 +208,8 @@ const AmountsVisualization = ({
                         overviewData={overviewDataByDefCode}
                         scale={scale}
                         width={width}
-                        dataId="_totalOutlays" />
+                        dataId="_totalOutlays"
+                        publicLawFilter={publicLawFilter} />
                     <PercentLabels width={width} />
                 </svg>
             }

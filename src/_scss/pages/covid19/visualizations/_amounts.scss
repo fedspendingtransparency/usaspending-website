@@ -18,6 +18,9 @@
   g {
     pointer-events: visible;
   }
+  h3.amounts-viz__title {
+    line-height: rem(36);
+  }
   .tooltip-wrapper {
     display: none;
     @include media($medium-screen) {
