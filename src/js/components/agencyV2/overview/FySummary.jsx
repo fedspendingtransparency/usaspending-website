@@ -9,7 +9,7 @@ import { ComingSoon, Carousel } from 'data-transparency-ui';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import VisualizationSection from './VisualizationSection';
 
-import ObligationsByAwardType from './ObligationsByAwardType';
+import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
 
 const propTypes = {
     windowWidth: PropTypes.number,
@@ -27,8 +27,7 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
     const numberOfRecipients = '200';
     const percentOfFederalRecipients = '1.5%';
 
-    const sectionCount = 4;
-    const sections = (divRect) => [
+    const sections = (windowWidth) => [
         (
             <VisualizationSection
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
@@ -45,7 +44,6 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
                 <TotalObligationsOverTimeContainer />
-                {/* <ComingSoon className="viz-placeholder" /> */}
             </VisualizationSection>
         ),
         (
@@ -54,7 +52,7 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardType height={divRect[0]} width={isMobile ? divRect[1] : divRect[1] / sectionCount} />
+                <ObligationsByAwardTypeContainer windowWidth={windowWidth} />
             </VisualizationSection>
         ),
         (
@@ -68,24 +66,14 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
         )
     ];
 
-    // recalc summary area when windowWidth prop changes
-    const [vizRect, setVizRect] = React.useState([0, 0]); // height, width
-    const summaryRef = React.useRef();
-    React.useEffect(() => {
-        const rect = summaryRef.current.getBoundingClientRect();
-        if (rect.height !== vizRect.height || rect.width !== vizRect.width) {
-            setVizRect([rect.height, rect.width]);
-        }
-    }, [windowWidth]);
-
     return (
-        <div ref={summaryRef} className="fy-summary">
+        <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {isMobile ? <Carousel items={sections(vizRect)} />
+            {isMobile ? <Carousel items={sections(windowWidth)} />
                 : (
                     <div className="fy-summary__row">
-                        {sections(vizRect).map((viz,i) => (
+                        {sections(windowWidth).map((viz, i) => (
                             <div key={`FY-Summary-${i}`} className="fy-summary__col">
                                 {viz}
                             </div>

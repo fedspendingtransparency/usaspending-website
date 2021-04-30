@@ -64,8 +64,14 @@
 				width: 70%;
 			}
 			.usda-message {
+				padding: 0;
+
 				&.usda-message_error {
 					background-color: $color-white;
+				}
+
+				.usda-loading-animation__container {
+					margin: 0;
 				}
 			}
 			.body__content {
@@ -101,7 +107,7 @@
 	#obl_chart {
 		.callout-labels {
 			text-anchor: middle;
-            font-size: 1.4rem;
+			font-size: 1.4rem;
 		}
 	}
 }
