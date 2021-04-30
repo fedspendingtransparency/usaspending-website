@@ -73,7 +73,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode, getOverviewData]);
+    }, [agencyCode]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -84,7 +84,7 @@ const AgencyDetailsPage = () => {
     return (
         <PageWrapper
             classNames="about-the-data about-the-data_agency-details-page"
-            metaTagProps={agencyPageMetaTags}
+            metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
             overLine="Agency Profile"
             title={agencyOverview?.name}
             toolBarComponents={[

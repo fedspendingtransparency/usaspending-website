@@ -160,11 +160,11 @@ export default class Award extends React.Component {
         const slug = `award/${awardId}`;
         const title = (overview?.category === 'idv')
             ? 'Indefinite Delivery Vehicle'
-            : startCase(overview?.category);
+            : `${startCase(overview?.category)} Summary`;
         return (
             <PageWrapper
                 classNames="usa-da-award-v2-page"
-                overline="Award Profile"
+                overLine="Award Profile"
                 metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
                 title={isLoading ? '--' : title}
                 toolBarComponents={[

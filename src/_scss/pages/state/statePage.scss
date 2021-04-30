@@ -6,6 +6,12 @@
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
 
+    .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
+		@media(max-width: $medium-screen) {
+			border-bottom: rem(1) solid $color-gray-lighter;
+		}
+	}
+
     .main-content {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
@@ -18,10 +24,5 @@
         @import "./_sidebar";
 
         @import "./footer/footer";
-    }
-    .usda-page-header {
-        .usda-page-header__toolbar .usda-share-icon {
-            margin-right: 0;
-        }
     }
 }
