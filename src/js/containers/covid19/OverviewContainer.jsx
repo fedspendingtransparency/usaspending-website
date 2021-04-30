@@ -44,7 +44,7 @@ const OverviewContainer = () => {
             <DateNote />
             <AmountsVisualization
                 overviewData={{
-                    all: { ...overviewData },
+                    all: overviewData,
                     V: DEV ? {
                         _defCode_V_funding: 7766900000,
                         _totalBudgetAuthority: 616288691500.82,
@@ -58,7 +58,19 @@ const OverviewContainer = () => {
                         _nonAwardOutLays: 988263890494.57,
                         _nonAwardNotOutlayed: 48214746339.22034
                     } :
-                        {}
+                        {
+                            _defCode_V_funding: 0,
+                            _totalBudgetAuthority: 0,
+                            _awardObligations: 0,
+                            _awardOutlays: 0,
+                            _totalObligations: 0,
+                            _totalOutlays: 0,
+                            _otherObligations: 0,
+                            _awardObligationsNotOutlayed: 0,
+                            _remainingBalance: 0,
+                            _nonAwardOutLays: 0,
+                            _nonAwardNotOutlayed: 0
+                        }
                 }}
                 width={visualizationsWidth} />
         </div>
