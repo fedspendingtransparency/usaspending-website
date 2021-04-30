@@ -103,12 +103,12 @@ const AmountsVisualization = ({
     }, []);
 
     const tooltipForDefCodes = () => (showTooltip === `_totalBudgetAuthority` ?
-        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewData.all._totalBudgetAuthority, null, null, { absoluteMin: 'Less than 0.01%' })} of the Total Budgetary Resources for COVID-19 spending` :
-        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority, null, null, { absoluteMin: 'Less than 0.01%' })} of Total Budgetary Resources for the ${tooltipShortName[publicLawFilter]}`);
+        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewData.all._totalBudgetAuthority, null, 2, { absoluteMin: 'Less than 0.01%' })} of Total Budgetary Resources for COVID-19 spending` :
+        `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority, null, 2, { absoluteMin: 'Less than 0.01%' })} of Total Budgetary Resources for the ${tooltipShortName[publicLawFilter]}`);
 
     const tooltipData = () => {
         const percentage = publicLawFilter !== 'all' ? tooltipForDefCodes() :
-            `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority)} of Total Budgetary Resources`;
+            `${calculatePercentage(overviewDataByDefCode[showTooltip], overviewDataByDefCode._totalBudgetAuthority, null, 2)} of Total Budgetary Resources`;
         return {
             tooltipPosition: 'bottom',
             styles: {

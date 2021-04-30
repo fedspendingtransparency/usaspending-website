@@ -227,12 +227,12 @@ const LineAndText = ({
                 onBlur={hideTooltip}>
                 <desc>A line linking a rectangle to text</desc>
                 <line
-                    className="line__obligation"
                     x1={lineDataOne.x1}
                     data-id={dataId}
                     x2={lineDataOne.x2}
                     y1={lineDataOne.y1}
                     y2={lineDataOne.y2}
+                    stroke={lineDataOne.lineColor}
                     strokeWidth={lineStrokeWidth}
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
@@ -250,7 +250,9 @@ const LineAndText = ({
                     x2={lineDataTwo.x2}
                     y1={lineDataTwo.y1}
                     y2={lineDataTwo.y2}
-                    className={(showRemainingBalance && overlapLineTwo) ? 'line__opacity' : 'line__obligation'}
+                    stroke={lineDataTwo.lineColor}
+                    strokeWidth={lineStrokeWidth}
+                    className={(showRemainingBalance && overlapLineTwo) ? 'line__opacity' : ''}
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
             </g>
@@ -267,7 +269,9 @@ const LineAndText = ({
                     x2={lineDataThree.x2}
                     y1={lineDataThree.y1}
                     y2={lineDataThree.y2}
-                    className={(showRemainingBalance && overlapLineThree) ? 'line__opacity' : 'line__obligation'}
+                    stroke={lineDataThree.lineColor}
+                    strokeWidth={lineStrokeWidth}
+                    className={(showRemainingBalance && overlapLineThree) ? 'line__opacity' : ''}
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
             </g>
@@ -279,12 +283,12 @@ const LineAndText = ({
                 onBlur={hideTooltip}>
                 <desc>A line linking a rectangle to text</desc>
                 <line
-                    className="line__obligation"
                     data-id={dataId}
                     x1={lineDataFour.x1}
                     x2={lineDataFour.x2}
                     y1={lineDataFour.y1}
                     y2={lineDataFour.y2}
+                    stroke={lineDataFour.lineColor}
                     strokeWidth={lineStrokeWidth}
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
