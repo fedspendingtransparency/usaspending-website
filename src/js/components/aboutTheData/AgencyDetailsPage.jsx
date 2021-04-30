@@ -7,8 +7,8 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, PageHeader } from 'data-transparency-ui';
 
-import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { fetchAgencyOverview } from 'apis/agencyV2';
+import { aboutTheDataAgencyDetails } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -86,7 +86,7 @@ const AgencyDetailsPage = () => {
 
     return (
         <div className="about-the-data about-the-data_agency-details-page">
-            <MetaTags {...agencyPageMetaTags} />
+            {agencyOverview && <MetaTags {...aboutTheDataAgencyDetails(agencyOverview)} />}
             <Header />
             <PageHeader
                 title={agencyOverview?.name}

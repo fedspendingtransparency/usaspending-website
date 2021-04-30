@@ -4,6 +4,7 @@
  */
 
 import { formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { isNull } from 'lodash';
 import { format } from 'date-fns';
 
 const CoreReportingRow = {
@@ -12,11 +13,11 @@ const CoreReportingRow = {
         this._mostRecentPublicationDate = data.recent_publication_date || null;
         /* eslint-disable camelcase */
         this._gtasObligationTotal = data.tas_account_discrepancies_totals?.gtas_obligation_total;
-        this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count || 0;
+        this._discrepancyCount = data.tas_account_discrepancies_totals?.missing_tas_accounts_count;
         /* eslint-enable camelcase */
         this._obligationDifference = data.obligation_difference;
-        this._unlinkedContracts = data.unlinked_contract_award_count || 0;
-        this._unlinkedAssistance = data.unlinked_assistance_award_count || 0;
+        this._unlinkedContracts = data.unlinked_contract_award_count;
+        this._unlinkedAssistance = data.unlinked_assistance_award_count;
         this.assuranceStatement = data.assurance_statement_url || '';
     },
     get budgetAuthority() {
@@ -29,13 +30,13 @@ const CoreReportingRow = {
         return formatMoneyWithPrecision(this._obligationDifference, 2, '--');
     },
     get discrepancyCount() {
-        return formatNumber(this._discrepancyCount);
+        return isNull(this._discrepancyCount) ? '--' : formatNumber(this._discrepancyCount);
     },
     get unlinkedContracts() {
-        return formatNumber(this._unlinkedContracts);
+        return isNull(this._unlinkedContracts) ? '--' : formatNumber(this._unlinkedContracts);
     },
     get unlinkedAssistance() {
-        return formatNumber(this._unlinkedAssistance);
+        return isNull(this._unlinkedAssistance) ? '--' : formatNumber(this._unlinkedAssistance);
     }
 };
 
