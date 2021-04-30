@@ -9,7 +9,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { QAT, DEV, STAGING } from 'GlobalConstants';
 
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -34,8 +33,6 @@ const clickedFooterLink = (route) => {
         action: route
     });
 };
-
-const isNotProd = (DEV || QAT || STAGING);
 
 const Footer = ({
     filters,
@@ -116,35 +113,6 @@ const Footer = ({
                                 </li>
                             </ul>
                         </div>
-                        {!isNotProd && (
-                            <div className="link-group">
-                                <div className="group-title">
-                                Resources
-                                </div>
-                                <ul className="links">
-                                    <li>
-                                        <Link to="/data-dictionary">
-                                        Data Dictionary
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <FooterExternalLink
-                                            link="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
-                                            title="Data Model" />
-                                    </li>
-                                    <li>
-                                        <FooterExternalLink
-                                            link="https://datalab.usaspending.gov"
-                                            title="Data Lab" />
-                                    </li>
-                                    <li>
-                                        <FooterExternalLink
-                                            link="http://fiscaldata.treasury.gov/"
-                                            title="Fiscal Data" />
-                                    </li>
-                                </ul>
-                            </div>
-                        )}
                         <div className="link-group">
                             <div className="group-title">
                                 Developers
@@ -160,30 +128,26 @@ const Footer = ({
                                         link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
                                         title="Explore the Code" />
                                 </li>
-                                {isNotProd && (
-                                    <li>
-                                        <FooterExternalLink
-                                            link="https://github.com/fedspendingtransparency/usaspending-website/releases"
-                                            title="Release Notes" />
-                                    </li>
-                                )}
+                                <li>
+                                    <FooterExternalLink
+                                        link="https://github.com/fedspendingtransparency/usaspending-website/releases"
+                                        title="Release Notes" />
+                                </li>
                             </ul>
                         </div>
-                        {isNotProd && (
-                            <div className="link-group">
-                                <div className="group-title">
-                                        Our Sites
-                                </div>
-                                <ul className="links">
-                                    <li>
-                                        <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
-                                    </li>
-                                </ul>
+                        <div className="link-group">
+                            <div className="group-title">
+                                    Our Sites
                             </div>
-                        )}
+                            <ul className="links">
+                                <li>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <ul className="legal-and-social-links">
                         <li className="copyright__legal-item">

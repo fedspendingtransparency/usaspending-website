@@ -265,6 +265,27 @@ export const stateLandingPageMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const aboutTheDataMetaTags = {
+    og_url: `${productionURL}submission-statistics`,
+    og_title: 'Agency Submission Statistics | USAspending',
+    og_description:
+        'Federal agencies are required to regularly submit financial data to USAspending.gov. See the latest status and content of these submissions.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
+export const aboutTheDataAgencyDetails = ({
+    id,
+    name
+}) => ({
+    og_url: `${productionURL}submission-statistics/agency/${id}`,
+    og_title: `${name} | Submission Statistics | USAspending`,
+    og_description:
+        `See the latest financial data from ${name}, submitted to USAspending.gov in compliance with the 2014 Data Act.`,
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+});
+
 /* eslint-enable max-len */
 
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
