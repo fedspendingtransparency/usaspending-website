@@ -20,6 +20,7 @@ import PageWrapper from 'components/sharedComponents/Page';
 
 import KeywordSearchBar from './KeywordSearchBar';
 import SearchSummary from './SearchSummary';
+import NoDownloadHover from '../search/header/NoDownloadHover';
 
 const propTypes = {
     updateKeyword: PropTypes.func,
@@ -86,7 +87,9 @@ export default class KeywordPage extends React.Component {
                         primeTransactionCount={this.props.summary?.primeCount}
                         inFlight={this.props.summaryInFlight} />,
                     <DownloadIconButton
-                        downloadInFlight={this.state.isDownloading}
+                        tooltipComponent={this.props.downloadAvailable
+                            ? null
+                            : <NoDownloadHover />}
                         isEnabled={this.props.downloadAvailable}
                         onClick={this.clickedDownload} />
                 ]
