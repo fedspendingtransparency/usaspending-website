@@ -193,18 +193,21 @@ export const formatUnlinkedDataRows = (data, type) => ([
             data.unlinked_file_d_award_count,
             data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             null,
-            2
+            2,
+            { absoluteMin: '< 0.01%' }
         ),
         calculatePercentage(data.unlinked_file_c_award_count,
             data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             null,
-            2
+            2,
+            { absoluteMin: '< 0.01%' }
         ),
         calculatePercentage(
             data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             data.total_linked_award_count + data.unlinked_file_c_award_count + data.unlinked_file_d_award_count,
             null,
-            2
+            2,
+            { absoluteMin: '< 0.01%' }
         )
     ]
 ]);
