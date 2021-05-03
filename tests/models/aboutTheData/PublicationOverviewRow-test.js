@@ -26,7 +26,16 @@ test('should handle an agency with no abbreviation', () => {
     expect(mockDatesRowMod.name).toEqual('Mock Agency');
 });
 
-test('should format the percent of total federal budget', () => {
-    // 8000.72 / 10000
-    expect(mockDatesRow.percentageOfTotalFederalBudget).toEqual('80.01%');
+test.each([
+    [mockTotal, 8000.72, '80.01%'],
+    [mockTotal, null, '--'],
+    [null, 100, '--']
+])('when overall total is %s and agency total is %s, percent of total budget is %s ', (overallTotal, agencyTotal, expected) => {
+    const model = Object.create(PublicationOverviewRow);
+    const results = {
+        ...mockRow,
+        current_total_budget_authority_amount: agencyTotal
+    };
+    model.populate(results, overallTotal);
+    expect(model.percentageOfTotalFederalBudget).toEqual(expected);
 });
