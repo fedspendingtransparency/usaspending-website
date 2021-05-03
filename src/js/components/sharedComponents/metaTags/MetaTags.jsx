@@ -59,6 +59,7 @@ const MetaTags = ({
             );
             newTags.push(<meta
                 content={title}
+                key="twitter-title"
                 name="twitter:title" />
             );
             newTags.push(<title key="title">{title}</title>);
@@ -72,6 +73,7 @@ const MetaTags = ({
             );
             newTags.push(<meta
                 content={description}
+                key="twitter-description"
                 name="twitter:description" />
             );
         }
@@ -91,7 +93,7 @@ const MetaTags = ({
         setTags(
             newTags
                 .concat([
-                    <link rel="canonical" href={getCanonicalUrl(pathname)} />
+                    <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
                 ])
         );
     };
