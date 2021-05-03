@@ -9,7 +9,8 @@ const initialState = {
     allAwardTypeTotals: {},
     assistanceTotals: {},
     spendingByAgencyTotals: {},
-    recipientTotals: {}
+    recipientTotals: {},
+    isRecipientMapLoaded: false
 };
 
 const covid19Reducer = (state = initialState, action) => {
@@ -31,6 +32,9 @@ const covid19Reducer = (state = initialState, action) => {
         }
         case 'SET_COVID_AWARD_AMOUNTS_RECIPIENT': {
             return Object.assign({}, state, { recipientTotals: action.totals });
+        }
+        case 'SET_IS_RECIPIENT_MAP_LOADED': {
+            return Object.assign({}, state, { isRecipientMapLoaded: action.payload });
         }
         default: return state;
     }

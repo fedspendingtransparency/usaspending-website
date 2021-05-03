@@ -31,29 +31,17 @@ Tooltip.propTypes = {
 };
 // these are the sub-columns that get removed for each FY
 export const publicationsSubColumnPeriodFilters = {
-    2020: {
-        raw: [2, 4, 5],
-        labels: ['P01 - P02', 'P04', 'P05']
-    },
-    2019: {
-        raw: [2, 4, 5, 7, 8, 10, 11],
-        labels: ['P01 - P02', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11']
-    },
-    2018: {
-        raw: [2, 4, 5, 7, 8, 10, 11],
-        labels: ['P01 - P02', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11']
-    },
-    2017: {
-        raw: [2, 3, 4, 5, 7, 8, 10, 11],
-        labels: ['P01 - P02', 'P03', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11']
-    }
+    2020: ['P01 - P02', 'P04', 'P05'],
+    2019: ['P01 - P02', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11'],
+    2018: ['P01 - P02', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11'],
+    2017: ['P01 - P02', 'P03', 'P04', 'P05', 'P07', 'P08', 'P10', 'P11']
 };
 
 const publicationsSubColumnFilterFunction = (fy) => (column) => {
     if (column?.subColumnNames) {
         const filteredPeriodColumns = column
             .subColumnNames
-            .filter((subColumn) => !publicationsSubColumnPeriodFilters[fy].labels.find((period) => (period === subColumn.displayName)));
+            .filter((subColumn) => !publicationsSubColumnPeriodFilters[fy].find((period) => (period === subColumn.displayName)));
         return {
             ...column,
             columnSpan: `${filteredPeriodColumns.length}`,

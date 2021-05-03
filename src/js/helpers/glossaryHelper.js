@@ -16,16 +16,22 @@ export const fetchSearchResults = (params) => apiRequest({
     data: params
 });
 
-export const getNewUrlForGlossary = (pathname, url, queryParams = '') => {
-    if (pathname === '/' && !queryParams) return url;
-    if (pathname[pathname.length - 1] === '/' && !queryParams) {
-        return `${pathname.substr(0, pathname.length - 1)}${url}`;
+export const getNewUrlForGlossary = (existingUrl, glossaryFragment, existingQueryParams = '') => {
+    if (existingUrl === '/' && !existingQueryParams) return glossaryFragment;
+    if (existingUrl[existingUrl.length - 1] === '/' && !existingQueryParams) {
+        return `${existingUrl.substr(0, existingUrl.length - 1)}${glossaryFragment}`;
     }
-    if (queryParams && pathname[pathname.length - 1] === '/') {
-        const cleanQueryParams = queryParams[0] === '?'
-            ? queryParams.substr(1)
-            : queryParams;
-        return `${pathname.substr(0, pathname.length - 1)}${url}&${cleanQueryParams}`;
+    if (existingQueryParams && existingUrl[existingUrl.length - 1] === '/') {
+        const cleanQueryParams = existingQueryParams[0] === '?'
+            ? existingQueryParams.substr(1)
+            : existingQueryParams;
+        return `${existingUrl.substr(0, existingUrl.length - 1)}${glossaryFragment}&${cleanQueryParams}`;
     }
-    return `${pathname}${url}`;
+    if (existingQueryParams) {
+        const cleanQueryParams = existingQueryParams[0] === '?'
+            ? existingQueryParams.substr(1)
+            : existingQueryParams;
+        return `${existingUrl}${glossaryFragment}&${cleanQueryParams}`;
+    }
+    return `${existingUrl}${glossaryFragment}`;
 };
