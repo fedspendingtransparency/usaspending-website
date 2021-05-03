@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
-import { combineQueryParams, getQueryParamString, useQueryParams } from 'helpers/queryParams';
+import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
