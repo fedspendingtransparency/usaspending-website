@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
-import { useQueryParams } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString, useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
@@ -23,7 +23,8 @@ const Covid19Container = () => {
     const awardAmountRequest = useRef(null);
     const dispatch = useDispatch();
     const history = useHistory();
-    const { publicLaw } = useQueryParams();
+    const query = useQueryParams();
+    const { publicLaw } = query;
 
     useEffect(() => {
         /** Default to all DEFC if:
@@ -35,9 +36,10 @@ const Covid19Container = () => {
         if (!publicLaw ||
             !(publicLaw === 'all' || (publicLaw in defcByPublicLaw)) ||
             (publicLaw === 'american-rescue-plan' && !GlobalConstants.ARP_RELEASED)) {
+            const newParams = getQueryParamString({ ...query, publicLaw: 'all' });
             history.replace({
                 pathname: '',
-                search: '?publicLaw=all'
+                search: newParams
             });
         }
     }, [publicLaw]);

@@ -6,7 +6,7 @@
 import React from 'react';
 import { render } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Covid19Container from 'containers/covid19/Covid19Container';
 import { mockDefCodes } from '../../mockData/helpers/disasterHelper';
 
@@ -26,7 +26,15 @@ jest.mock('containers/covid19/WithDefCodes', () => ({
 
 // Mock the custom hook useQueryParams
 jest.mock('helpers/queryParams', () => ({
-    useQueryParams: jest.fn()
+    useQueryParams: jest.fn(),
+    getQueryParamString: jest.fn().mockImplementation((obj) => {
+        return Object.entries(obj).reduce((str, [key, value], i, src) => {
+            if (i === src.length - 1) {
+                return `${str}${key}=${value}`;
+            }
+            return `${str}${key}=${value}&`;
+        }, '?');
+    })
 }));
 
 // Mock history.replace()
@@ -44,26 +52,26 @@ afterEach(() => {
 
 describe('COVID-19 Container', () => {
     it('redirects to all DEFC when the public law query param is invalid', () => {
-        useQueryParams.mockImplementation(() => ({ publicLaw: 'blah' }));
+        useQueryParams.mockImplementation(() => ({ publicLaw: 'blah', section: 'blah-blah' }));
         render((
             <Covid19Container />
         ));
         expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
         expect(mockHistoryReplace).toHaveBeenCalledWith({
             pathname: '',
-            search: '?publicLaw=all'
+            search: '?publicLaw=all&section=blah-blah'
         });
     });
 
     it('redirects if no public law query param is provided', () => {
-        useQueryParams.mockImplementation(() => ({ publicLaw: '' }));
+        useQueryParams.mockImplementation(() => ({ section: 'blah' }));
         render((
             <Covid19Container />
         ));
         expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
         expect(mockHistoryReplace).toHaveBeenCalledWith({
             pathname: '',
-            search: '?publicLaw=all'
+            search: '?section=blah&publicLaw=all'
         });
     });
 
