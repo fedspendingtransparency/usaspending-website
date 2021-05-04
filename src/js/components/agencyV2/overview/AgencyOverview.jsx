@@ -130,7 +130,7 @@ const AgencyOverview = ({
         </div>
     );
 
-    const content = () => isMobile ?
+    const content = isMobile ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>

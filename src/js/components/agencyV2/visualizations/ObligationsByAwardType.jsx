@@ -9,7 +9,33 @@ import * as d3 from 'd3';
 
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+const propTypes = {
+	height: PropTypes.number.isRequired,
+	width: PropTypes.number.isRequired,
+	outer: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string.isRequired,
+			value: PropTypes.number.isRequired,
+			color: PropTypes.string.isRequired
+		})
+	).isRequired,
+	inner: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string.isRequired,
+			value: PropTypes.number.isRequired,
+			color: PropTypes.string.isRequired
+		})
+	).isRequired
+};
+
 export default function ObligationsByAwardType({ height, width, outer, inner }) {
+
+
+	console.log('drawing chart');
+	console.log(JSON.parse(JSON.stringify( outer)));
+	console.log(JSON.parse(JSON.stringify( inner)));
+
+
 	const outerLabels = outer.map((d) => d.label);
 	const outerData = outer.map((d) => d.value);
 	const innerData = inner.map((d) => d.value);
@@ -96,21 +122,4 @@ export default function ObligationsByAwardType({ height, width, outer, inner }) 
 	return <div id='obl_chart' style={{ width: '100%' }} />;
 }
 
-ObligationsByAwardType.propTypes = {
-	height: PropTypes.number.isRequired,
-	width: PropTypes.number.isRequired,
-	outer: PropTypes.arrayOf(
-		PropTypes.shape({
-			label: PropTypes.string.isRequired,
-			value: PropTypes.number.isRequired,
-			color: PropTypes.string.isRequired
-		})
-	).isRequired,
-	inner: PropTypes.arrayOf(
-		PropTypes.shape({
-			label: PropTypes.string.isRequired,
-			value: PropTypes.number.isRequired,
-			color: PropTypes.string.isRequired
-		})
-	).isRequired
-};
+ObligationsByAwardType.propTypes = propTypes;
