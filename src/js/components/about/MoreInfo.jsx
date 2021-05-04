@@ -24,7 +24,7 @@ const MoreInfo = () => (
                     FAQs
                 </a>
                 &nbsp;and the&nbsp;
-                <Link to="/download_center/data_dictionary">
+                <Link to="/data-dictionary">
                     Data Dictionary
                 </Link>
                 .

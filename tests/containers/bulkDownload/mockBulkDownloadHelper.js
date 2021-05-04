@@ -1,6 +1,6 @@
 
 import { mockStatusResponse, mockBudgetFunctions, mockBudgetSubfunctions, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse,
-    mockFederalAccounts, mockDictionary } from './mockData';
+    mockFederalAccounts } from './mockData';
 
 export const requestAgenciesList = () => ({
     promise: new Promise((resolve) => {
@@ -82,17 +82,6 @@ export const requestArchiveFiles = () => ({
         process.nextTick(() => {
             resolve({
                 data: mockArchiveResponse
-            });
-        });
-    }),
-    cancel: jest.fn()
-});
-
-export const requestDictionaryContent = () => ({
-    promise: new Promise((resolve) => {
-        process.nextTick(() => {
-            resolve({
-                data: mockDictionary
             });
         });
     }),

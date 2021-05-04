@@ -113,7 +113,7 @@ const BudgetCategories = () => {
             <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
             <div className="body__narrative-description">
                 <p>
-                    In this section, we present the total amount of COVID-19 funding divided into three high-level budget categories: the <span className="glossary-term">Agencies</span> <GlossaryLink currentUrl="disaster/covid-19" term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink currentUrl="disaster/covid-19" term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink currentUrl="disaster/covid-19" term="object-class" /> of the goods and services purchased with this funding.
+                    In this section, we present the total amount of COVID-19 funding divided into three high-level budget categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                 </p>
                 <ReadMore>
                     {kGlobalConstants.CARES_ACT_RELEASED_2 && (

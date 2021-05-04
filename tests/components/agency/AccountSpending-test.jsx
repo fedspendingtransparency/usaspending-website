@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as helpers from 'helpers/agencyV2Helper';
+import * as agencyV2APIs from 'apis/agencyV2APIs';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 
 const defaultProps = {
@@ -17,29 +17,23 @@ let fetchSpendingCountSpy;
 let fetchSpendingByCategorySpy;
 
 beforeEach(() => {
-    fetchBudgetaryResourcesSpy = jest.spyOn(helpers, 'fetchBudgetaryResources').mockReturnValue({
-        promise: new Promise((resolve) => {
-            return process.nextTick(() => (resolve(mockData)));
-        }),
+    fetchBudgetaryResourcesSpy = jest.spyOn(agencyV2APIs, 'fetchBudgetaryResources').mockReturnValue({
+        promise: new Promise((resolve) => process.nextTick(() => (resolve(mockData)))),
         cancel: jest.fn()
     }).mockClear();
-    fetchSpendingCountSpy = jest.spyOn(helpers, 'fetchSpendingCount').mockReturnValue({
-        promise: new Promise((resolve) => {
-            return process.nextTick(() => (resolve(mockData)));
-        }),
+    fetchSpendingCountSpy = jest.spyOn(agencyV2APIs, 'fetchSpendingCount').mockReturnValue({
+        promise: new Promise((resolve) => process.nextTick(() => (resolve(mockData)))),
         cancel: jest.fn()
     }).mockClear();
-    fetchSpendingByCategorySpy = jest.spyOn(helpers, 'fetchSpendingByCategory').mockReturnValue({
-        promise: new Promise((resolve) => {
-            return process.nextTick(() => (resolve({
-                data: {
-                    page_metadata: {
-                        total: 1
-                    },
-                    results: []
-                }
-            })));
-        }),
+    fetchSpendingByCategorySpy = jest.spyOn(agencyV2APIs, 'fetchSpendingByCategory').mockReturnValue({
+        promise: new Promise((resolve) => process.nextTick(() => (resolve({
+            data: {
+                page_metadata: {
+                    total: 1
+                },
+                results: []
+            }
+        })))),
         cancel: jest.fn()
     }).mockClear();
 });

@@ -65,8 +65,8 @@ export const resourceOptions = [
     },
     {
         label: 'Data Dictionary',
-        type: 'data_dictionary',
-        url: '/download_center/data_dictionary',
+        type: 'data-dictionary',
+        url: '/data-dictionary',
         code: 'dictionary',
         description: '',
         callToAction: 'Explore the Data Dictionary',
@@ -168,8 +168,8 @@ export const downloadOptions = [
     },
     {
         label: 'Data Dictionary',
-        type: 'data_dictionary',
-        url: '/download_center/data_dictionary',
+        type: 'data-dictionary',
+        url: '/data-dictionary',
         code: 'dictionary',
         description: '',
         callToAction: 'Explore the Data Dictionary',

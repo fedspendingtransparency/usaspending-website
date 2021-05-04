@@ -5,38 +5,25 @@
 import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
 import moment from 'moment';
 
-const addFuturePeriods = (periods) => {
-    if (periods.length === 12) return periods;
-    return periods
-        .concat(
-            new Array(11 - periods.length)
-                .fill()
-                .map(() => ({
-                    quarterly: false,
-                    submission_dates: { certification_date: '--', publication_date: '--' }
-                }))
-        );
-};
-
-const DatesRow = {
+const PublicationOverviewRow = {
     populate(data, federalTotal) {
         this._name = data.agency_name || '';
         this._abbreviation = data.abbreviation || '';
         this.code = data.toptier_code || '';
-        this._budgetAuthority = data.current_total_budget_authority_amount || 0;
+        this._budgetAuthority = data.current_total_budget_authority_amount;
         this._federalTotal = federalTotal;
-        this.periods = addFuturePeriods(data.periods)
-            .map(({ submission_dates: { publication_date: p, certification_date: c }, quarterly: isQuarterly }) => {
+        this.periods = data.periods
+            .map(({ submission_dates: { publication_date: p, certification_date: c }, quarterly: isQuarterly, period }) => {
                 if (p === '--') {
                     return {
-                        isQuarterly, publicationDate: p, certificationDate: c, showNotCertified: false
+                        isQuarterly, publicationDate: p, certificationDate: c, period
                     };
                 };
                 return {
                     publicationDate: p ? moment(p).format('MM/DD/YYYY') : null,
                     certificationDate: c ? moment(c).format('MM/DD/YYYY') : null,
-                    showNotCertified: c ? moment(c).isAfter(moment()) : false,
-                    isQuarterly
+                    isQuarterly,
+                    period
                 };
             });
     },
@@ -64,4 +51,4 @@ const DatesRow = {
     }
 };
 
-export default DatesRow;
+export default PublicationOverviewRow;
