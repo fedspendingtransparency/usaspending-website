@@ -9,7 +9,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { snakeCase } from 'lodash';
+import { omit, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -37,7 +37,7 @@ import {
     getEmailSocialShareData,
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
-import { useQueryParams } from 'helpers/queryParams';
+import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
@@ -76,8 +76,10 @@ const Covid19Page = ({ areDefCodesLoading }) => {
     useEffect(() => {
         if (isRecipientMapLoaded && query.section) {
             handleJumpToSection(query.section);
+            const newParams = getQueryParamString(omit(query, ['section']));
             history.push({
-                pathname: '/disaster/covid-19'
+                pathname: '/disaster/covid-19',
+                search: newParams
             });
         }
     }, [isRecipientMapLoaded]);
