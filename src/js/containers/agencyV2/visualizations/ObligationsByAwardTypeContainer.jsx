@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import ObligationsByAwardType from 'components/agencyV2/visualizations/ObligationsByAwardType';
-import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
+import { LoadingMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -53,25 +53,10 @@ const details = [
 ];
 
 const propTypes = {
-  windowWidth: PropTypes.number.isRequired,
   fiscalYear: PropTypes.number
 };
 
-export default function ObligationsByAwardTypeContainer({ windowWidth, fiscalYear }) {
-
-  // recalc chart area when windowWidth prop changes
-  const chartRect = [200, 200];
-  // const chartRef = React.useRef();
-  // const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
-  // React.useEffect(() => {
-  //   if (chartRef.current) {
-  //     const rect = chartRef.current && chartRef.current.getBoundingClientRect();
-  //     if (rect.height !== vizRect.height || rect.width !== vizRect.width) {
-  //       setChartRect([rect.height, rect.width]);
-  //     }
-  //   }
-  // }, [windowWidth]);
-
+export default function ObligationsByAwardTypeContainer({ fiscalYear }) {
   const [loading, setLoading] = React.useState(true);
   const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
@@ -118,8 +103,6 @@ export default function ObligationsByAwardTypeContainer({ windowWidth, fiscalYea
   }
   else {
     return <ObligationsByAwardType
-      height={chartRect[0]}
-      width={chartRect[1]}
       outer={categories}
       inner={details}
     />

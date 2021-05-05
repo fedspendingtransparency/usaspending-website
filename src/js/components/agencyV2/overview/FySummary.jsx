@@ -52,7 +52,7 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardTypeContainer windowWidth={windowWidth} />
+                <ObligationsByAwardTypeContainer />
             </VisualizationSection>
         ),
         (

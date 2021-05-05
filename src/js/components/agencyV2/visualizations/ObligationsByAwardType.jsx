@@ -10,8 +10,6 @@ import * as d3 from 'd3';
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-	height: PropTypes.number.isRequired,
-	width: PropTypes.number.isRequired,
 	outer: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string.isRequired,
@@ -28,19 +26,26 @@ const propTypes = {
 	).isRequired
 };
 
-export default function ObligationsByAwardType({ height, width, outer, inner }) {
+export default function ObligationsByAwardType({ outer, inner }) {
+	const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
+	const chartRef = React.useRef();
+	if (chartRef.current) {
+		const rect = chartRef.current && chartRef.current.parentElement.getBoundingClientRect();
+		if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
+			setChartRect([rect.height, rect.width]);
+		}
+	}
 
 
-	console.log('drawing chart');
-	console.log(JSON.parse(JSON.stringify( outer)));
-	console.log(JSON.parse(JSON.stringify( inner)));
+console.log(chartRect);
+
 
 
 	const outerLabels = outer.map((d) => d.label);
 	const outerData = outer.map((d) => d.value);
 	const innerData = inner.map((d) => d.value);
 
-	const labelRadius = Math.min(width, height) / 2 * .7;
+	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2 * .7;
 	const outerRadius = labelRadius * .9;
 	const outerStrokeWidth = 5;
 	const innerRadius = labelRadius * .8;
@@ -49,10 +54,10 @@ export default function ObligationsByAwardType({ height, width, outer, inner }) 
 	d3.select('#obl_chart').selectAll('*').remove();
 	const svg = d3.select('#obl_chart')
 		.append('svg')
-		.attr('width', width)
-		.attr('height', height)
+		.attr('height', chartRect[0])
+		.attr('width', chartRect[1])
 		.append('g')
-		.attr('transform', `translate(${width / 2}, ${height / 2})`)
+		.attr('transform', `translate(${chartRect[1] / 2}, ${chartRect[0] / 2})`)
 		;
 
 	const outerArc = d3.arc().outerRadius(outerRadius).innerRadius(outerRadius - outerStrokeWidth);
@@ -119,7 +124,7 @@ export default function ObligationsByAwardType({ height, width, outer, inner }) 
 		.attr('stroke-width', 3)
 		;
 
-	return <div id='obl_chart' style={{ width: '100%' }} />;
+	return <div id='obl_chart' ref={chartRef} />;
 }
 
 ObligationsByAwardType.propTypes = propTypes;
