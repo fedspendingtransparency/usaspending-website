@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
-import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
 import { DEV } from '../../../GlobalConstants';
@@ -184,7 +184,7 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Download"
                                     label="Download"
-                                    items={downloadGlobalNavigationOptions} />
+                                    items={downloadOptions} />
                             </li>
                             <li
                                 className="full-menu__item"
