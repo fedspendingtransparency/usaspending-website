@@ -30,7 +30,9 @@ const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
     awardTypeFilters: PropTypes.array,
-    scope: PropTypes.string
+    scope: PropTypes.string,
+    onMapLoaded: PropTypes.func.isRequired,
+    isMapLoaded: PropTypes.bool.isRequired
 };
 
 const defaultProps = {
@@ -39,7 +41,8 @@ const defaultProps = {
         values: []
     },
     showLayerToggle: false,
-    children: null
+    children: null,
+    onMapLoaded: () => {}
 };
 
 const numCountyQuantiles = 200;
@@ -55,7 +58,6 @@ export default class MapWrapper extends React.Component {
                 segments: [],
                 units: {}
             },
-            mapReady: false,
             isFiltersOpen: true
         };
 
@@ -88,6 +90,9 @@ export default class MapWrapper extends React.Component {
                 this.displayData();
             }
         }
+        if (!prevProps.isMapLoaded && this.props.isMapLoaded) {
+            this.prepareMap();
+        }
     }
 
     componentWillUnmount() {
@@ -112,20 +117,14 @@ export default class MapWrapper extends React.Component {
 
     mapReady = () => {
         // map has mounted, load the state shapes
-        this.setState({
-            mapReady: true
-        }, () => {
-            this.prepareMap();
-        });
+        this.props.onMapLoaded(true);
     }
 
     countUnique = (iterable) => new Set(iterable).size
 
     mapRemoved = () => {
         // map is about to be removed
-        this.setState({
-            mapReady: false
-        });
+        this.props.onMapLoaded(false);
     }
 
     prepareMap = () => {
@@ -261,7 +260,7 @@ export default class MapWrapper extends React.Component {
     }
 
     prepareLayers = () => new Promise((resolve, reject) => {
-        if (!this.state.mapReady) {
+        if (!this.props.isMapLoaded) {
             // something went wrong, the map isn't ready yet
             reject();
         }
@@ -394,7 +393,7 @@ export default class MapWrapper extends React.Component {
 
     displayData = () => {
         // don't do anything if the map has not yet loaded
-        if (!this.state.mapReady) {
+        if (!this.props.isMapLoaded) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
             return;

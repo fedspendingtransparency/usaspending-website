@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchDisasterSpending, fetchLoanSpending } from 'helpers/disasterHelper';
+import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';

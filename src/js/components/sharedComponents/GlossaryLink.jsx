@@ -11,8 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 const propTypes = {
-    term: PropTypes.string.isRequired,
-    currentUrl: PropTypes.string.isRequired
+    term: PropTypes.string.isRequired
 };
 
 const GlossaryLink = ({ term }) => {

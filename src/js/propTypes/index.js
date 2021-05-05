@@ -151,3 +151,11 @@ export const SUBMISSION_PERIOD_PROPS = PropTypes.arrayOf(PropTypes.shape({
     submission_fiscal_month: PropTypes.number,
     is_quarter: PropTypes.bool
 }));
+
+export const DEFC_OBJECT = PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    public_law: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    urls: PropTypes.string.isRequired,
+    disaster: PropTypes.string
+});

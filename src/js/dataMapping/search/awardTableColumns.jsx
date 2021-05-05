@@ -3,7 +3,6 @@
  * Created by Kevin Li 9/8/17
  */
 
-import kGlobalConstants from '../../GlobalConstants';
 /**
  * TODO: Refactor the way columns are being created to reduce repetitive code
  */
@@ -345,15 +344,13 @@ const tabsWithAdditionalCols = [
     defaultIdvColumns
 ];
 
-if (kGlobalConstants.CARES_ACT_RELEASED) {
-    // Insert columns
-    tabsWithAdditionalCols.forEach((tab) => {
-        tab.splice(5, 0, descriptionCol);
-        tab.splice(6, 0, covidDefCCol);
-        tab.splice(7, 0, covidObligationsCol);
-        tab.splice(8, 0, covidOutlaysCol);
-    });
-}
+// Insert COVID columns
+tabsWithAdditionalCols.forEach((tab) => {
+    tab.splice(5, 0, descriptionCol);
+    tab.splice(6, 0, covidDefCCol);
+    tab.splice(7, 0, covidObligationsCol);
+    tab.splice(8, 0, covidOutlaysCol);
+});
 
 const defaultSub = [
     { title: 'Sub-Award ID' },

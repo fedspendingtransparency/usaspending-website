@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import { CovidHighlights } from 'containers/homepage/CovidHighlights';
 
-jest.mock('helpers/disasterHelper', () => ({
+jest.mock('apis/disaster', () => ({
     fetchOverview: jest.fn(),
     fetchDisasterSpending: jest.fn(),
     fetchDEFCodes: jest.fn()
