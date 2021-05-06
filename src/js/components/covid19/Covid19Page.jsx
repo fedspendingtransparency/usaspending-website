@@ -123,21 +123,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             </StickyHeader>
             <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
-                    {dataDisclaimerBanner !== 'hide' && (
-                        <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
-                            <div className="info-top" />
-                            <div className="info-banner__content">
-                                <div className="info-banner__content--title">
-                                    <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />
-                                    <h2>Known Data Limitations</h2>
-                                    <FontAwesomeIcon onClick={handleCloseBanner} size="lg" icon="times" color="black" />
-                                </div>
-                                <p>
-                                    USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">a full description</a> of this issue.
-                                </p>
-                            </div>
-                        </div>
-                    )}
                     <main id="main-content" className="main-content usda__flex-row">
                         <div className="sidebar">
                             <div className={`sidebar__content${!dataDisclaimerBanner ? ' covid-banner' : ''}`}>

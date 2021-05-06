@@ -32,7 +32,7 @@ export default class Header extends React.Component {
         this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
     }
     componentDidMount() {
-        this.setShowInfoBanner();
+        
     }
     setShowInfoBanner() {
         // check if the info banner cookie exists
@@ -140,7 +140,7 @@ export default class Header extends React.Component {
                                 alt="U.S. flag" />
                         </div>
                     </div>
-                    {infoBanner}
+                    
                     <NavBar />
                 </header>
                 <GlossaryContainer />
