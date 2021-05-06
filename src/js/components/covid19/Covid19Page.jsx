@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -61,7 +60,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
     const dataDisclaimerBannerRef = useRef(null);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
-    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
 
     const handleScroll = () => {
         setBannerStickyOnScroll();
@@ -93,11 +91,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
 
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
-    };
-
-    const handleCloseBanner = () => {
-        Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
-        setDataDisclaimerBanner('hide');
     };
 
     return (

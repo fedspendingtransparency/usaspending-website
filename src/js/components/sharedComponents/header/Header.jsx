@@ -7,7 +7,6 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 
-import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
@@ -32,7 +31,6 @@ export default class Header extends React.Component {
         this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
     }
     componentDidMount() {
-        
     }
     setShowInfoBanner() {
         // check if the info banner cookie exists
@@ -70,15 +68,6 @@ export default class Header extends React.Component {
     }
 
     render() {
-        let infoBanner = (
-            <InfoBanner
-                triggerModal={this.openCovidModalContainer}
-                closeBanner={this.closeBanner} />
-        );
-
-        if (!this.state.showInfoBanner) {
-            infoBanner = null;
-        }
         return (
             <div className="site-header">
                 <a
@@ -140,7 +129,6 @@ export default class Header extends React.Component {
                                 alt="U.S. flag" />
                         </div>
                     </div>
-                    
                     <NavBar />
                 </header>
                 <GlossaryContainer />
