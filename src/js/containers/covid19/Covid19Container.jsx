@@ -44,9 +44,17 @@ const Covid19Container = () => {
         }
     }, [publicLaw]);
 
+    // place in header after merged
+    // import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+    // dispatch(setDEFCodes(defCodeFilter));
+
     useEffect(() => {
+        const defCodeFilter = (publicLaw in defcByPublicLaw && GlobalConstants.ARP_RELEASED) ?
+            defcByPublicLaw[publicLaw] :
+            defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
+
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code));
+            overviewRequest.current = fetchOverview(defCodeFilter);
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -57,10 +65,11 @@ const Covid19Container = () => {
                 console.log(' Error Overview : ', e.message);
             }
         };
+
         const getAllAwardTypesAmount = async () => {
             const params = {
                 filter: {
-                    def_codes: defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
+                    def_codes: defCodeFilter
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
