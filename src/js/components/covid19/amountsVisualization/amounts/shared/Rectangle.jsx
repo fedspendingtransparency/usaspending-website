@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { upperFirst } from 'lodash';
 import PropTypes from 'prop-types';
+import { ARP_RELEASED } from 'GlobalConstants';
 
 import {
     calculateUnits,
@@ -51,12 +52,16 @@ const Rectangle = ({
             const rectWidth = rectangleWidth(overviewData, scale, dataId);
             const units = calculateUnits([amount]);
             const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
+            let color = fill.defCode;
+            if (ARP_RELEASED) {
+                color = publicLawFilter === 'all' ? fill.default : fill.defCode;
+            }
             const properties = {
                 x: left + offset.left,
                 y: startOfChartY + offset.top,
                 width: rectWidth < (lineStrokeWidth / 2) ? lineStrokeWidth : rectWidth,
                 height: rectangleHeight - (2 * offset.bottom),
-                fill: publicLawFilter === 'all' ? fill.default : fill.defCode,
+                fill: color,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
             };
             if (!isNaN(scale(amount))) setData(properties);

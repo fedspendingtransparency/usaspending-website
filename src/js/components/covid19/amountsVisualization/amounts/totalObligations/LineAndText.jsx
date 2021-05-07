@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { upperFirst } from 'lodash';
 import PropTypes from 'prop-types';
+import { ARP_RELEASED } from 'GlobalConstants';
 
 import {
     calculateUnits,
@@ -86,8 +87,12 @@ const LineAndText = ({
             const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
+            let colorOfLine = lineColor.defCode;
+            if (ARP_RELEASED) {
+                colorOfLine = publicLawFilter === 'all' ? lineColor.default : lineColor.defCode;
+            }
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: colorOfLine,
                 x1: position,
                 x2: position,
                 y1: startOfChartY + (rectangleHeight / 2),
@@ -101,8 +106,12 @@ const LineAndText = ({
         if (scale) {
             const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
+            let colorOfLine = lineColor.defCode;
+            if (ARP_RELEASED) {
+                colorOfLine = publicLawFilter === 'all' ? lineColor.default : lineColor.defCode;
+            }
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: colorOfLine,
                 x1: lineDataOne.x1 || 0,
                 x2: lineDataOne.x1 || 0,
                 y1: lineDataOne.y2 || 0,
@@ -116,8 +125,12 @@ const LineAndText = ({
         if (scale) {
             const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
+            let colorOfLine = lineColor.defCode;
+            if (ARP_RELEASED) {
+                colorOfLine = publicLawFilter === 'all' ? lineColor.default : lineColor.defCode;
+            }
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: colorOfLine,
                 x1: lineDataTwo.x1 || 0,
                 x2: lineDataTwo.x1 || 0,
                 y1: lineDataTwo.y2 || 0,
@@ -160,8 +173,12 @@ const LineAndText = ({
                 lineColor
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
+            let colorOfLine = lineColor.defCode;
+            if (ARP_RELEASED) {
+                colorOfLine = publicLawFilter === 'all' ? lineColor.default : lineColor.defCode;
+            }
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: colorOfLine,
                 x1: lineDataThree.x1 || 0,
                 x2: lineDataThree.x1 || 0,
                 y1: lineDataThree.y2 || 0,

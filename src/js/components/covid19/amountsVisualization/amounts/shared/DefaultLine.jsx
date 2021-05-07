@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { ARP_RELEASED } from 'GlobalConstants';
 import {
     rectangleMapping,
     startOfChartY,
@@ -45,8 +45,12 @@ const DefaultLine = ({
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
+            let colorOfLine = lineColor.defCode;
+            if (ARP_RELEASED) {
+                colorOfLine = publicLawFilter === 'all' ? lineColor.default : lineColor.defCode;
+            }
             const properties = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: colorOfLine,
                 x1: position,
                 x2: position,
                 y1: startOfChartY - lineLength,
