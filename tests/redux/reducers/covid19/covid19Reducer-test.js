@@ -15,7 +15,12 @@ describe('Covid 19 Reducer', () => {
     });
     it('should SET_COVID_OVERVIEW', () => {
         let state = covid19Reducer(undefined, {});
-        state = covid19Reducer(state, setOverview(overview));
+        state = covid19Reducer(state, setOverview('all', overview.all));
+        expect(state.overview.all).toEqual(overview.all);
+    });
+    it('should keep overview properties', () => {
+        let state = covid19Reducer(undefined, {});
+        state = covid19Reducer(state, setOverview('V', overview.V));
         expect(state.overview).toEqual(overview);
     });
     it('should SET_COVID_AWARD_AMOUNTS', () => {

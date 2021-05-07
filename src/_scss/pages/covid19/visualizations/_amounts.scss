@@ -78,9 +78,12 @@
     font-weight: 300;
     letter-spacing: 0;
     line-height: 2.3rem;
-    &.white {
-      fill: white;
+    &.bold {
+      font-weight: $font-bold;
     }
+    // &.white {
+    //   fill: white;
+    // }
     pointer-events: visible;
   }
   .amounts-text__value {
@@ -93,9 +96,9 @@
     &.bold {
       font-weight: $font-bold;
     }
-    &.white {
-      fill: white;
-    }
+    // &.white {
+    //   fill: white;
+    // }
     pointer-events: visible;
   }
   .amounts-text__label {
@@ -104,9 +107,9 @@
     opacity: 0.6;
     letter-spacing: 0;
     line-height: 2.7rem;
-    &.white {
-      fill: white;
-    }
+    // &.white {
+    //   fill: white;
+    // }
     pointer-events: visible;
   }
 }

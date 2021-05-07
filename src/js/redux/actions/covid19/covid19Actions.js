@@ -8,9 +8,9 @@ export const setDEFCodes = (defCodes) => ({
     defCodes
 });
 
-export const setOverview = (overview) => ({
+export const setOverview = (publicLaw, overview) => ({
     type: 'SET_COVID_OVERVIEW',
-    overview
+    data: { publicLaw, overview }
 });
 
 export const setTotals = (awardType, totals) => ({

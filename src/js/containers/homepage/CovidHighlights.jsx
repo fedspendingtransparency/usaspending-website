@@ -362,11 +362,11 @@ export class CovidHighlights extends React.Component {
 CovidHighlights.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    totalSpendingAmount: state.covid19.overview._totalOutlays
+    totalSpendingAmount: state.covid19?.overview?.all?._totalOutlays || 0
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setCovidOverview: (overview) => dispatch(setOverview(overview))
+    setCovidOverview: (overview) => dispatch(setOverview('all', overview))
 });
 
 export default flowRight(

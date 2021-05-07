@@ -79,12 +79,7 @@ export const rectangleMapping = {
         lineLength: lineLength[0],
         text: {
             description: 'This was the total amount made available.',
-            questionLeft: 265,
-            questionDown: 40,
-            valueLeft: 128,
-            valueDown: 25,
-            labelLeft: 340,
-            labelDown: 25,
+            descriptionWidth: 312.2,
             label: 'Total Budgetary Resources:'
         }
     },
@@ -107,13 +102,8 @@ export const rectangleMapping = {
         lineLength: lineLength[0],
         text: {
             description: 'This amount has been promised to be spent.',
-            label: 'Total Obligations:',
-            questionLeft: -10,
-            questionDown: 15,
-            valueLeft: -150,
-            valueDown: 35,
-            labelLeft: -10,
-            labelDown: 35
+            descriptionWidth: 322.7,
+            label: 'Total Obligations:'
         }
     },
     _totalOutlays: {
@@ -135,13 +125,8 @@ export const rectangleMapping = {
         lineLength: lineLength[1],
         text: {
             description: 'This amount has been paid out.',
-            label: 'Total Outlays:',
-            questionLeft: -10,
-            questionDown: 20,
-            valueLeft: -120,
-            valueDown: 25,
-            labelLeft: -10,
-            labelDown: 25
+            descriptionWidth: 230.5,
+            label: 'Total Outlays:'
         }
     },
     _remainingBalance: {
@@ -158,6 +143,7 @@ export const rectangleMapping = {
         lineLength: lineLength[1],
         text: {
             description: 'This amount has not yet been promised to be spent.',
+            descriptionWidth: 376.4,
             label: 'Total Remaining Balance:',
             offset: {
                 y: 3
@@ -167,5 +153,5 @@ export const rectangleMapping = {
 };
 
 export const tooltipShortName = {
-    V: 'American Rescue Plan'
+    'american-rescue-plan': 'American Rescue Plan'
 };

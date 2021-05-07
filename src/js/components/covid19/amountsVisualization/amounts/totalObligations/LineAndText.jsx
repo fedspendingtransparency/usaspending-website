@@ -43,7 +43,12 @@ const propTypes = {
         x: PropTypes.number,
         width: PropTypes.number
     }),
-    publicLawFilter: PropTypes.string
+    remainingBalanceDescriptionData: PropTypes.shape({
+        x: PropTypes.number,
+        width: PropTypes.number
+    }),
+    publicLawFilter: PropTypes.string,
+    width: PropTypes.number
 };
 
 const LineAndText = ({
@@ -54,7 +59,9 @@ const LineAndText = ({
     dataId = '',
     remainingBalanceLabelData,
     remainingBalanceValueData,
-    publicLawFilter = 'all'
+    remainingBalanceDescriptionData,
+    publicLawFilter = 'all',
+    width
 }) => {
     const [lineDataOne, setLineDataOne] = useState(defaultLineData);
     const [lineDataTwo, setLineDataTwo] = useState(defaultLineData);
@@ -66,7 +73,7 @@ const LineAndText = ({
     const [overlapLineThree, setOverlapLineThree] = useState(false);
     const [overlapLineTwo, setOverlapLineTwo] = useState(false);
     const [showRemainingBalance, setShowRemainingBalance] = useState(false);
-    const descriptionTextRef = useRef(null);
+    const descriptionTextRef = useRef({ height: 0, width: 0 });
     const labelTextRef = useRef(null);
     const valueTextRef = useRef(null);
     useEffect(() => {
@@ -121,11 +128,12 @@ const LineAndText = ({
                 x1: lineDataTwo.x1 || 0,
                 x2: lineDataTwo.x1 || 0,
                 y1: lineDataTwo.y2 || 0,
-                y2: ((lineDataTwo.y2 || 0) + (valueData.height || 0)) - 3
+                y2: ((lineDataTwo.y2 || 0) + (valueData.height || 0)) - 3,
+                className: (showRemainingBalance && overlapLineThree) ? 'line__opacity' : ''
             };
             if (!isNaN(scale(amount))) setLineDataThree(data);
         }
-    }, [scale, lineDataTwo]);
+    }, [scale, lineDataTwo, overlapLineThree, showRemainingBalance]);
     // overlapLineTwo
     useEffect(() => {
         const endOfRemainingBalanceText = remainingBalanceValueData.x + remainingBalanceValueData.width;
@@ -137,19 +145,6 @@ const LineAndText = ({
         }
         else {
             setOverlapLineTwo(false);
-        }
-    }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
-    // overlapLineThree
-    useEffect(() => {
-        const endOfRemainingBalanceText = remainingBalanceValueData.x + remainingBalanceValueData.width;
-        if (
-            (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText) ||
-          (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText)
-        ) {
-            setOverlapLineThree(true);
-        }
-        else {
-            setOverlapLineThree(false);
         }
     }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
     // lineDataFour
@@ -172,18 +167,18 @@ const LineAndText = ({
     }, [scale, lineDataThree]);
     // descriptionData
     useLayoutEffect(() => {
-        const { text: textInfo } = rectangleMapping[dataId];
-        const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
         if (scale) {
+            const { text } = rectangleMapping[dataId];
+            const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
             setDescriptionData({
-                y: (lineDataFour?.y2 || 0) - spacingBetweenLineAndText,
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionRef }, 'description'),
-                height: descriptionRef?.height || 0,
-                text: textInfo.description,
+                y: lineDataFour.y2 - spacingBetweenLineAndText,
+                x: textXPosition(overviewData, scale, dataId, { description: { width: text.descriptionWidth } }, 'description'),
+                height: descriptionRef.height || 0,
+                text: text.description,
                 className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
             });
         }
-    }, [scale, overviewData, lineDataFour]);
+    }, [scale, descriptionTextRef.current, width]);
     // valueData
     useLayoutEffect(() => {
         const ref = valueTextRef.current?.getBoundingClientRect();
@@ -216,6 +211,18 @@ const LineAndText = ({
             });
         }
     }, [valueData]);
+    // overlapLineThree
+    useEffect(() => {
+        const endOfRemainingBalanceText = remainingBalanceDescriptionData.x + remainingBalanceDescriptionData.width;
+        if (
+            remainingBalanceDescriptionData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText
+        ) {
+            setOverlapLineThree(true);
+        }
+        else {
+            setOverlapLineThree(false);
+        }
+    }, [lineDataThree, remainingBalanceDescriptionData]);
 
     return (
         <g>
@@ -271,7 +278,7 @@ const LineAndText = ({
                     y2={lineDataThree.y2}
                     stroke={lineDataThree.lineColor}
                     strokeWidth={lineStrokeWidth}
-                    className={(showRemainingBalance && overlapLineThree) ? 'line__opacity' : ''}
+                    className={lineDataThree.className}
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
             </g>
@@ -293,7 +300,7 @@ const LineAndText = ({
                     onMouseMove={displayTooltip}
                     onMouseLeave={hideTooltip} />
             </g>
-            <TextGroup data={[
+            {scale && <TextGroup data={[
                 { ...descriptionData, ref: descriptionTextRef },
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }
@@ -302,7 +309,7 @@ const LineAndText = ({
                 dataId,
                 displayTooltip,
                 hideTooltip
-            }))} />
+            }))} />}
         </g>
     );
 };

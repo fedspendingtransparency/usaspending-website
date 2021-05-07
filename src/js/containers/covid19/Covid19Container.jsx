@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
 import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
@@ -19,12 +19,14 @@ require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
+    const overviewRequestForAllDefCodes = useRef(null);
     const overviewRequest = useRef(null);
     const awardAmountRequest = useRef(null);
     const dispatch = useDispatch();
     const history = useHistory();
     const query = useQueryParams();
     const { publicLaw } = query;
+    const { overview } = useSelector((state) => state.covid19);
 
     useEffect(() => {
         /** Default to all DEFC if:
@@ -44,26 +46,50 @@ const Covid19Container = () => {
         }
     }, [publicLaw]);
 
+    const getOverviewData = async (request, law) => {
+        try {
+            const { data } = await request.current.promise;
+            const newOverview = Object.create(BaseOverview);
+            newOverview.populate(data);
+            dispatch(setOverview(law, newOverview));
+        }
+        catch (e) {
+            console.log(' Error Overview : ', e.message);
+        }
+    };
+    // always get the overview for all def codes, given we do not have that data in redux
     useEffect(() => {
-        const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code));
-            try {
-                const { data } = await overviewRequest.current.promise;
-                const newOverview = Object.create(BaseOverview);
-                newOverview.populate(data);
-                dispatch(setOverview(newOverview));
-            }
-            catch (e) {
-                console.log(' Error Overview : ', e.message);
-            }
+        if (defCodes.length && !overview?.all) {
+            overviewRequestForAllDefCodes.current = fetchOverview(
+                defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
+            );
+            getOverviewData(overviewRequestForAllDefCodes, 'all');
+        }
+        return () => {
+            if (overviewRequestForAllDefCodes.current) overviewRequestForAllDefCodes.current.cancel();
         };
+    }, [defCodes, overview]);
+    // get overview data by def code
+    useEffect(() => {
+        if (defCodes.length && publicLaw && publicLaw !== 'all') {
+            overviewRequest.current = fetchOverview(defcByPublicLaw[publicLaw]);
+            getOverviewData(overviewRequest, publicLaw);
+        }
+        return () => {
+            if (overviewRequest.current) overviewRequest.current.cancel();
+        };
+    }, [defCodes, overview]);
+
+    useEffect(() => {
         const getAllAwardTypesAmount = async () => {
-            const params = {
+            if (awardAmountRequest.current) awardAmountRequest.current = null;
+            awardAmountRequest.current = fetchAwardAmounts({
                 filter: {
-                    def_codes: defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
+                    def_codes: publicLaw && publicLaw !== 'all' ?
+                        defcByPublicLaw[publicLaw] :
+                        defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
                 }
-            };
-            awardAmountRequest.current = fetchAwardAmounts(params);
+            });
             try {
                 const { data } = await awardAmountRequest.current.promise;
                 // set totals in redux, we can use totals elsewhere to calculate unlinked data
@@ -80,20 +106,14 @@ const Covid19Container = () => {
             }
         };
         if (defCodes.length) {
-            getOverviewData();
             getAllAwardTypesAmount();
-            overviewRequest.current = null;
-            awardAmountRequest.current = null;
         }
         return () => {
-            if (overviewRequest.current) {
-                overviewRequest.cancel();
-            }
             if (awardAmountRequest.current) {
-                awardAmountRequest.cancel();
+                awardAmountRequest.current.cancel();
             }
         };
-    }, [defCodes, dispatch]);
+    }, [defCodes, dispatch, publicLaw]);
 
     return (
         <Covid19Page areDefCodesLoading={areDefCodesLoading} />

@@ -34,7 +34,7 @@ export const textDirection = (value) => (Math.sign(value) === -1 ? 'right' : 'le
 const textXPositions = {
     description: {
         right: (overviewData, scale, dataId) => lineXPosition(overviewData, scale, dataId) + spacingBetweenLineAndText,
-        left: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) - ((textElements.description?.width || 0) + spacingBetweenLineAndText)
+        left: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) - ((textElements.description.width || 0) + spacingBetweenLineAndText)
     },
     label: {
         left: (overviewData, scale, dataId, textElements) => lineXPosition(overviewData, scale, dataId) - ((textElements.label?.width || 0) + (textElements.value?.width || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
@@ -50,7 +50,7 @@ export const textXPosition = (overviewData, scale, dataId, textElements, current
     /**
      * for all text elements we must know if we are drawing to the left or right of the line,
      * and the longest text element is always the description, based on the design.
-     * Therefore, we always get the description position, which tells us to displa
+     * Therefore, we always get the description position, which tells us to display
      * text to the left or right of the line.
      */
     const textXValue = lineXPosition(overviewData, scale, dataId) - ((textElements.description?.width || 0) + spacingBetweenLineAndText);

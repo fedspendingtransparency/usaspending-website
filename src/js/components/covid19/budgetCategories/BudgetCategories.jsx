@@ -12,6 +12,7 @@ import { Tabs, InformationBoxes } from "data-transparency-ui";
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import { useQueryParams } from 'helpers/queryParams';
 import ReadMore from 'components/sharedComponents/ReadMore';
 
 const tabs = [
@@ -37,6 +38,7 @@ const BudgetCategories = () => {
     const [count, setCount] = useState(null);
     const [inFlight, setInFlight] = useState(true);
     const moreOptionsTabsRef = useRef(null);
+    const { publicLaw } = useQueryParams();
 
     const { defCodes, overview } = useSelector((state) => state.covid19);
     const overviewData = [
@@ -97,9 +99,9 @@ const BudgetCategories = () => {
 
     const amounts = {
         count,
-        totalBudgetaryResources: overview._totalBudgetAuthority,
-        totalObligations: overview._totalObligations,
-        totalOutlays: overview._totalOutlays
+        totalBudgetaryResources: overview[publicLaw || 'all']?._totalBudgetAuthority,
+        totalObligations: overview[publicLaw || 'all']?._totalObligations,
+        totalOutlays: overview[publicLaw || 'all']?._totalOutlays
     };
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {

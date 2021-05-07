@@ -38,7 +38,8 @@ const propTypes = {
     dataId: PropTypes.string,
     width: PropTypes.number,
     setRemainingBalanceLabelData: PropTypes.func,
-    setRemainingBalanceValueData: PropTypes.func
+    setRemainingBalanceValueData: PropTypes.func,
+    setRemainingBalanceDescriptionData: PropTypes.func
 };
 
 const LinesAndText = ({
@@ -49,7 +50,8 @@ const LinesAndText = ({
     dataId = '',
     width = 0,
     setRemainingBalanceLabelData,
-    setRemainingBalanceValueData
+    setRemainingBalanceValueData,
+    setRemainingBalanceDescriptionData
 }) => {
     const [leftVerticalLineData, setLeftVerticalLineData] = useState(defaultLineData);
     const [horizontalLineData, setHorizontalLineData] = useState(defaultLineData);
@@ -128,6 +130,7 @@ const LinesAndText = ({
             y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + 5 + (ref?.height || 0),
             x: width - amountsPadding.right - ((ref?.width || 0) + (valueData?.width || 0) + 4),
             height: ref?.height || 0,
+            width: ref?.width || 0,
             text: textInfo.label,
             className: `amounts-text__label ${!ref ? 'white' : ''}`
         });
@@ -140,16 +143,23 @@ const LinesAndText = ({
     }, [labelData]);
     // description text
     useEffect(() => {
-        const { text: textInfo } = rectangleMapping[dataId];
+        const { text } = rectangleMapping[dataId];
         const ref = descriptionTextRef?.current?.getBoundingClientRect();
         setDescriptionData({
             y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (valueData?.height || 0) + (ref?.height || 0),
-            x: (width - amountsPadding.right - (ref?.width || 0)),
+            x: (width - amountsPadding.right - text.descriptionWidth),
             height: ref?.height || 0,
-            text: textInfo.description,
+            width: ref?.width || 0,
+            text: text.description,
             className: `amounts-text__description ${!ref ? 'white' : ''}`
         });
     }, [valueData]);
+    useEffect(() => {
+        setRemainingBalanceDescriptionData({
+            x: descriptionData.x,
+            width: descriptionData.width
+        });
+    }, [descriptionData]);
     return (
         <g>
             {leftVerticalLineData &&

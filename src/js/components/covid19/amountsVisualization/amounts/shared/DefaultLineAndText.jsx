@@ -52,18 +52,16 @@ const DefaultLineAndText = ({
     const valueTextRef = useRef(null);
     // description text
     useEffect(() => {
-        const { text: textInfo, lineLength } = rectangleMapping[dataId];
+        const { text, lineLength } = rectangleMapping[dataId];
         const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
-        if (scale) {
-            setDescriptionData({
-                y: (startOfChartY - lineLength || 0) + (descriptionRef?.height || 0),
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionRef }, 'description'),
-                height: descriptionRef?.height || 0,
-                text: textInfo.description,
-                className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
-            });
-        }
-    }, [width, scale]);
+        setDescriptionData({
+            y: (startOfChartY - lineLength) + (descriptionRef?.height || 0),
+            x: !scale ? 0 : textXPosition(overviewData, scale, dataId, { description: { width: text.descriptionWidth } }, 'description'),
+            height: descriptionRef?.height || 0,
+            text: text.description,
+            className: 'amounts-text__description'
+        });
+    }, [width, scale, descriptionTextRef.current]);
     // value text
     useEffect(() => {
         const ref = valueTextRef.current?.getBoundingClientRect();
@@ -78,25 +76,25 @@ const DefaultLineAndText = ({
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
-                className: `amounts-text__value ${dataId === '_totalBudgetAuthority' ? 'bold' : ''} ${!ref ? 'white' : ''}`
+                className: `amounts-text__value ${dataId === '_totalBudgetAuthority' ? 'bold' : ''}`
             });
         }
-    }, [descriptionData]);
+    }, [width, scale, labelData]);
     // label text
     useEffect(() => {
         const ref = labelTextRef.current?.getBoundingClientRect();
         const { text: textInfo, lineLength } = rectangleMapping[dataId];
-        if (scale && descriptionData) {
+        if (scale) {
             setLabelData({
                 y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                 x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'label'),
-                // x: lineXPosition(overviewData, scale, dataId) - ((ref?.width || 0) + (valueData.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`
+                className: 'amounts-text__label'
             });
         }
-    }, [valueData]);
+    }, [descriptionData]);
+
     return (
         <g>
             <DefaultLine
@@ -106,7 +104,7 @@ const DefaultLineAndText = ({
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip}
                 publicLawFilter={publicLawFilter} />
-            <TextGroup data={[
+            {scale && <TextGroup data={[
                 { ...descriptionData, ref: descriptionTextRef },
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }
@@ -115,7 +113,7 @@ const DefaultLineAndText = ({
                 dataId,
                 displayTooltip,
                 hideTooltip
-            }))} />
+            }))} />}
         </g>
     ); };
 
