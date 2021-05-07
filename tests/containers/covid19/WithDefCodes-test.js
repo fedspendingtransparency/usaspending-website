@@ -33,7 +33,7 @@ test('fetches defCodes when they are not populated', async () => {
     renderHook(() => useDefCodes());
     expect(mockFetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-        expect(mockAction).toHaveBeenCalledWith(mockDefCodes.data.codes.filter((c) => c.disaster === "covid_19"));
+        expect(mockAction).toHaveBeenCalledWith(mockDefCodes.filter((c) => c.disaster === "covid_19"));
     });
 });
 

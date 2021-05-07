@@ -6,9 +6,10 @@
 import React from 'react';
 import { render } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { useQueryParams } from 'helpers/queryParams';
 import Covid19Container from 'containers/covid19/Covid19Container';
-import { mockDefCodes } from '../../mockData/helpers/disasterHelper';
+import { mockDefCodes, mockOverviewData, mockAwardAmount } from '../../mockData/helpers/disasterHelper';
+import * as disasterApi from 'apis/disaster';
 
 // Mock the child component so we can isolate functionality of the container
 jest.mock('components/covid19/Covid19Page', () =>
@@ -45,6 +46,11 @@ jest.mock('react-router-dom', () => ({
         replace: mockHistoryReplace
     })
 }));
+
+beforeEach(() => {
+    jest.spyOn(disasterApi, 'fetchOverview').mockReturnValue(() => mockOverviewData);
+    jest.spyOn(disasterApi, 'fetchAwardAmounts').mockReturnValue(() => mockAwardAmount);
+});
 
 afterEach(() => {
     jest.clearAllMocks();
