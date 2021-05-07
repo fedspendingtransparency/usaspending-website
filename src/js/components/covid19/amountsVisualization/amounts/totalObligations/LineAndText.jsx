@@ -43,6 +43,10 @@ const propTypes = {
         x: PropTypes.number,
         width: PropTypes.number
     }),
+    remainingBalanceDescriptionData: PropTypes.shape({
+        x: PropTypes.number,
+        width: PropTypes.number
+    }),
     publicLawFilter: PropTypes.string
 };
 
@@ -54,6 +58,7 @@ const LineAndText = ({
     dataId = '',
     remainingBalanceLabelData,
     remainingBalanceValueData,
+    remainingBalanceDescriptionData,
     publicLawFilter = 'all'
 }) => {
     const [lineDataOne, setLineDataOne] = useState(defaultLineData);
@@ -141,17 +146,16 @@ const LineAndText = ({
     }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
     // overlapLineThree
     useEffect(() => {
-        const endOfRemainingBalanceText = remainingBalanceValueData.x + remainingBalanceValueData.width;
+        const endOfRemainingBalanceText = remainingBalanceDescriptionData.x + remainingBalanceDescriptionData.width;
         if (
-            (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText) ||
-          (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText)
+            remainingBalanceDescriptionData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText
         ) {
             setOverlapLineThree(true);
         }
         else {
             setOverlapLineThree(false);
         }
-    }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
+    }, [lineDataThree, remainingBalanceDescriptionData]);
     // lineDataFour
     useEffect(() => {
         if (scale) {

@@ -38,7 +38,8 @@ const propTypes = {
     dataId: PropTypes.string,
     width: PropTypes.number,
     setRemainingBalanceLabelData: PropTypes.func,
-    setRemainingBalanceValueData: PropTypes.func
+    setRemainingBalanceValueData: PropTypes.func,
+    setRemainingBalanceDescriptionData: PropTypes.func
 };
 
 const LinesAndText = ({
@@ -49,7 +50,8 @@ const LinesAndText = ({
     dataId = '',
     width = 0,
     setRemainingBalanceLabelData,
-    setRemainingBalanceValueData
+    setRemainingBalanceValueData,
+    setRemainingBalanceDescriptionData
 }) => {
     const [leftVerticalLineData, setLeftVerticalLineData] = useState(defaultLineData);
     const [horizontalLineData, setHorizontalLineData] = useState(defaultLineData);
@@ -146,10 +148,17 @@ const LinesAndText = ({
             y: startOfChartY + rectangleHeight + heightOfRemainingBalanceLines + (valueData?.height || 0) + (ref?.height || 0),
             x: (width - amountsPadding.right - (ref?.width || 0)),
             height: ref?.height || 0,
+            width: ref?.width || 0,
             text: textInfo.description,
             className: `amounts-text__description ${!ref ? 'white' : ''}`
         });
     }, [valueData]);
+    useEffect(() => {
+        setRemainingBalanceDescriptionData({
+            x: descriptionData.x,
+            width: descriptionData.width
+        });
+    }, [descriptionData]);
     return (
         <g>
             {leftVerticalLineData &&
