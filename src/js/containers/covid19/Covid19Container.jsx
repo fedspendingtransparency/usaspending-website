@@ -25,6 +25,7 @@ const Covid19Container = () => {
     const history = useHistory();
     const query = useQueryParams();
     const { publicLaw } = query;
+    let pageDefCodes = [];
 
     useEffect(() => {
         /** Default to all DEFC if:
@@ -44,17 +45,13 @@ const Covid19Container = () => {
         }
     }, [publicLaw]);
 
-    // place in header after merged
-    // import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
-    // dispatch(setDEFCodes(defCodeFilter));
-
     useEffect(() => {
-        const defCodeFilter = (publicLaw in defcByPublicLaw && GlobalConstants.ARP_RELEASED) ?
+        pageDefCodes = (publicLaw in defcByPublicLaw && GlobalConstants.ARP_RELEASED) ?
             defcByPublicLaw[publicLaw] :
             defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
 
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodeFilter);
+            overviewRequest.current = fetchOverview(pageDefCodes);
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -62,14 +59,14 @@ const Covid19Container = () => {
                 dispatch(setOverview(newOverview));
             }
             catch (e) {
-                console.log(' Error Overview : ', e.message);
+                console.error(' Error getting COVID overview data from API : ', e.message);
             }
         };
 
         const getAllAwardTypesAmount = async () => {
             const params = {
                 filter: {
-                    def_codes: defCodeFilter
+                    def_codes: pageDefCodes
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
@@ -85,7 +82,7 @@ const Covid19Container = () => {
                 dispatch(setTotals('', totals));
             }
             catch (e) {
-                console.log(' Error Amounts : ', e.message);
+                console.error(' Error getting COVID amounts data from API : ', e.message);
             }
         };
         if (defCodes.length) {
@@ -104,9 +101,7 @@ const Covid19Container = () => {
         };
     }, [defCodes, dispatch]);
 
-    return (
-        <Covid19Page areDefCodesLoading={areDefCodesLoading} />
-    );
+    return <Covid19Page areDefCodesLoading={areDefCodesLoading} />;
 };
 
 export default Covid19Container;

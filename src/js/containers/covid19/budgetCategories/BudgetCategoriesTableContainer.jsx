@@ -12,9 +12,8 @@ import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
+import GlobalConstants from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
-
-
 import {
     budgetColumns,
     budgetDropdownFieldValues,
@@ -24,6 +23,9 @@ import {
 } from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
 import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useQueryParams } from 'helpers/queryParams';
+import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -33,6 +35,7 @@ import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
+    pageDefCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired,
     totals: PropTypes.shape({
@@ -124,7 +127,6 @@ const budgetDropdownColumns = {
     ]
 };
 
-
 const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: (
@@ -156,7 +158,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
-    const { overview, defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { overview, allAwardTypeTotals } = useSelector((state) => state.covid19);
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -279,17 +281,23 @@ const BudgetCategoriesTableContainer = (props) => {
         addUnlinkedData(parsedData, totals);
     };
 
+    const [, , defCodes] = useDefCodes();
+    const { publicLaw } = useQueryParams();
+    const pageDefCodes = (publicLaw in defcByPublicLaw && GlobalConstants.ARP_RELEASED) ?
+        defcByPublicLaw[publicLaw] :
+        defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
+
     const fetchBudgetSpendingCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
+        if (pageDefCodes && pageDefCodes.length > 0 && spendingCategory && overview) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: pageDefCodes
                 },
                 pagination: {
                     limit: pageSize,
@@ -305,7 +313,6 @@ const BudgetCategoriesTableContainer = (props) => {
             }
 
             const disasterSpendingRequest = spendingCategory === 'loan_spending' ? fetchLoanSpending(props.type, params) : fetchDisasterSpending(props.type, params);
-
             request.current = disasterSpendingRequest;
             disasterSpendingRequest.promise
                 .then((res) => {
@@ -342,7 +349,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, overview, allAwardTypeTotals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
