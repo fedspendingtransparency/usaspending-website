@@ -54,7 +54,7 @@ const defaultProps = {
     subHeading: 'test'
 };
 
-test('no duplicate API Requests 👌👌👌👌', () => {
+test('no duplicate API Requests 👌👌👌👌 on fy change', () => {
     const spy = jest.spyOn(apis, 'fetchSpendingByCategory').mockReturnValue({
         promise: Promise.resolve({ data: mockResponse }),
         cancel: jest.fn()
@@ -64,5 +64,18 @@ test('no duplicate API Requests 👌👌👌👌', () => {
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy).not.toHaveBeenCalledTimes(2);
+    });
+});
+
+test('no duplicate API Requests 👌👌👌👌 on type change', () => {
+    const spy = jest.spyOn(apis, 'fetchSpendingByCategory').mockReturnValue({
+        promise: Promise.resolve({ data: mockResponse }),
+        cancel: jest.fn()
+    });
+    const { rerender } = render(<TableContainer {...defaultProps} />);
+    rerender(<TableContainer {...defaultProps} type="object_class" />);
+    return waitFor(() => {
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(spy).not.toHaveBeenCalledTimes(3);
     });
 });

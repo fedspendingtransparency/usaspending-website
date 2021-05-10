@@ -3,13 +3,14 @@
  * Created by Lizzie Salita 5/8/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
+import { useStateWithPrevious } from 'helpers';
 
 import CountTabContainer from 'containers/agencyV2/accountSpending/CountTabContainer';
 import TableContainer from 'containers/agencyV2/accountSpending/TableContainer';
@@ -51,7 +52,7 @@ const tabs = [
 ];
 
 const AccountSpending = ({ agencyId, fy }) => {
-    const [activeTab, setActiveTab] = useState('budget_function');
+    const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious('budget_function');
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
     const dispatch = useDispatch();
 
@@ -94,6 +95,7 @@ const AccountSpending = ({ agencyId, fy }) => {
                 <TableContainer
                     agencyId={agencyId}
                     fy={fy}
+                    prevType={prevActiveTab}
                     type={activeTab}
                     subHeading={subHeading} />
             </div>
