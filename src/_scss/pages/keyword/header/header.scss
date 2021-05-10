@@ -4,6 +4,12 @@
             @include align-items(center);
             @include justify-content(flex-end);
             margin-left: auto;
+            @media(min-width: $medium-screen) {
+                width: 85%;
+            }
+            @media(min-width: $large-screen) {
+                width: 90%;
+            }
             .keyword-header__summary {
                 display: none;
                 @media(min-width: $medium-screen) {
