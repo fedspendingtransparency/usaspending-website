@@ -23,7 +23,7 @@
                     padding: 0 rem(10);
                     &:first-of-type {
                         font-weight: $font-semibold;
-                        border-right: rem(1) solid #fff;
+                        border-right: rem(1) solid $color-white;
                     }
                     span {
                         padding-left: rem(5);

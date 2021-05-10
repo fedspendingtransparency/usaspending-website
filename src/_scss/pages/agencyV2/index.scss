@@ -2,6 +2,7 @@
     @import "all";
     @import "layouts/default/default";
     @import "components/pageLoading";
+    @import 'layouts/default/stickyHeader/header';
 
     @include display(flex);
     @include justify-content(flex-start);

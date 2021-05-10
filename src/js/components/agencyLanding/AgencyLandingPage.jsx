@@ -34,7 +34,7 @@ export default class AgencyLandingPage extends React.Component {
                 toolBarComponents={[
                     <ShareIcon
                         onShareOptionClick={this.handleShare}
-                        url={getBaseUrl(`agency`)} />
+                        url={getBaseUrl('agency')} />
                 ]}>
                 <main
                     id="main-content"
