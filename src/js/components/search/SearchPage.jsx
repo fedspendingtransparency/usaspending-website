@@ -134,9 +134,9 @@ export default class SearchPage extends React.Component {
                 metaTagProps={MetaTagHelper.searchPageMetaTags}
                 toolBarComponents={[
                     <DownloadIconButton
-                        tooltipComponent={this.props.downloadAvailable
-                            ? null
-                            : <NoDownloadHover />
+                        tooltipComponent={(!this.props.downloadAvailable && this.props.hash)
+                            ? <NoDownloadHover />
+                            : null
                         }
                         isEnabled={this.props.downloadAvailable}
                         downloadInFlight={this.props.downloadInFlight}

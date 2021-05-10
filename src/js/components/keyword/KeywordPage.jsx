@@ -87,9 +87,10 @@ export default class KeywordPage extends React.Component {
                         primeTransactionCount={this.props.summary?.primeCount}
                         inFlight={this.props.summaryInFlight} />,
                     <DownloadIconButton
-                        tooltipComponent={this.props.downloadAvailable
-                            ? null
-                            : <NoDownloadHover />}
+                        tooltipComponent={(!this.props.downloadAvailable && this.props.keyword)
+                            ? <NoDownloadHover />
+                            : null
+                        }
                         isEnabled={this.props.downloadAvailable}
                         onClick={this.clickedDownload} />
                 ]
