@@ -14,9 +14,9 @@ const propTypes = {
     active: PropTypes.bool,
     count: PropTypes.number,
     subCount: PropTypes.number,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
-
 
 const CountTab = (props) => {
     const setActiveTab = () => {
@@ -32,14 +32,21 @@ const CountTab = (props) => {
                 <div className="count-button__label">
                     {props.label}
                 </div>
-                <div className="count-button__count">
-                    {(props.count || props.count === 0) ? `${props.count}` : '--'}
-                </div>
-                {props.subHeading ? (
-                    <div className="count-button__sub-heading">
-                    With {(props.subCount || props.subCount === 0) ? `${props.subCount}` : '--'} {props.subHeading}
+                {!props.isLoading && (
+                    <div className="count-button__count">
+                        {(props.count || props.count === 0) ? `${props.count}` : '--'}
                     </div>
-                ) : ''}
+                )}
+                {props.isLoading && (
+                    <div className="count-button__count">
+                        <div className="dot-pulse" />
+                    </div>
+                )}
+                {props.subHeading && !props.isLoading && (
+                    <div className="count-button__sub-heading">
+                        With {props.subCount || props.subCount === 0 ? `${props.subCount}` : '--'} {props.subHeading}
+                    </div>
+                )}
             </div>
         </button>
     );
