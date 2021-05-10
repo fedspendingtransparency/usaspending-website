@@ -16,6 +16,7 @@ const propTypes = {
     agencyId: PropTypes.string,
     fy: PropTypes.string,
     type: PropTypes.string.isRequired,
+    prevType: PropTypes.string,
     subHeading: PropTypes.string
 };
 
@@ -119,7 +120,8 @@ const TableContainer = (props) => {
                 prevSort !== sort ||
                 prevOrder !== order ||
                 prevPage !== currentPage ||
-                prevPageSize !== pageSize
+                prevPageSize !== pageSize ||
+                (props.prevType !== props.type && props.prevType)
             );
             if (hasParamChanged) {
                 fetchSpendingByCategoryCallback();
