@@ -2,11 +2,6 @@
     @import "all";
     @import "layouts/tabbedSearch/tabbedSearch";
     @import "layouts/default/stickyHeader/header";
-    .usda-page-header .usda-page-header__container {
-        .usda-page-header__toolbar {
-            position: static;
-        }
-    }
 
     @import "./searchSidebar";
     @import "./_pagePositioning";
