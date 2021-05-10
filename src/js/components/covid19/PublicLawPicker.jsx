@@ -6,19 +6,19 @@ import GlossaryLink from '../../components/sharedComponents/GlossaryLink';
 
 const options = [
     {
-        title: 'All COVID-19 Funding Laws', description: 'Data from all related DEFC', value: 'all', link: 'disaster-emergency-fund-code-defc'
+        title: 'All COVID-19 Funding Laws', description: 'Data from all related DEFC', value: 'all', term: 'disaster-emergency-fund-code-defc'
     },
     { title: 'American Rescue Plan Act of 2021', description: 'Emergency PublicLaw 117-7 (DEFC V)', value: 'american-rescue-plan' },
     { title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm', className: 'ds-and-m' }
 ];
 
-const PublicLawPickerOption = ({ title, description, link }) => (
+const PublicLawPickerOption = ({ title, description, term }) => (
     <li>
         <p>{title}</p>
         <p>
             {description}
-            {link && (
-                <GlossaryLink term={link} currentUrl="disaster/covid-19" />
+            {term && (
+                <GlossaryLink term={term} />
             )}
         </p>
     </li>
@@ -27,7 +27,7 @@ const PublicLawPickerOption = ({ title, description, link }) => (
 PublicLawPickerOption.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    link: PropTypes.shape({ term: PropTypes.string.isRequired, url: PropTypes.string.isRequired })
+    term: PropTypes.string
 };
 
 const PublicLawPicker = ({
