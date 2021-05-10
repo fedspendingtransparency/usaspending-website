@@ -23,24 +23,32 @@ const propTypes = {
 const CountTabContainer = (props) => {
     const [count, setCount] = useState(null);
     const [subCount, setSubCount] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         // Reset any existing results
         if (props.fy) {
             setCount(null);
+            setIsLoading(true);
             setSubCount(null);
             const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
             countRequest.promise
                 .then((res) => {
                     setCount(res.data[props.countField]);
+                    setIsLoading(false);
                     if (props.subCountField) {
                         setSubCount(res.data[props.subCountField]);
                     }
+                })
+                .catch((e) => {
+                    console.error('Error fetching count', e);
+                    setIsLoading(false);
                 });
         }
     }, [props.type, props.fy, props.agencyId, props.countField, props.subCountField]);
     return (
         <CountTab
+            isLoading={isLoading}
             count={count}
             subCount={subCount}
             label={props.label}
