@@ -35,7 +35,6 @@ import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
-    pageDefCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired,
     totals: PropTypes.shape({
