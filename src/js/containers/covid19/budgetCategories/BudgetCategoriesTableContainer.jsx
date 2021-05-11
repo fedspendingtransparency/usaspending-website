@@ -348,7 +348,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, overview, allAwardTypeTotals, publicLaw]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
