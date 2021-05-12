@@ -68,7 +68,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                 search: newParams
             });
         }
-    }, [history, isRecipientMapLoaded, query]);
+    }, [isRecipientMapLoaded]);
 
 
     const handleExternalLinkClick = (url) => {
@@ -90,7 +90,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
     };
 
     const handleShare = (name) => {
-        console.log('slug', slug);
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
 

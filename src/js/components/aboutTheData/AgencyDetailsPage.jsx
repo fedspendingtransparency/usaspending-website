@@ -73,7 +73,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode, getOverviewData]);
+    }, [agencyCode]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -108,7 +108,7 @@ const AgencyDetailsPage = () => {
                                 </div>
                                 <h2 className="header">{agencyOverview?.name}</h2>
                                 <div className="agency-info">
-                                    {agencyOverview.website && (
+                                    {agencyOverview?.website && (
                                         <div className="agency-info__group">
                                             <h5>Agency Contact Information</h5>
                                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
@@ -117,7 +117,7 @@ const AgencyDetailsPage = () => {
                                             </div>
                                         </div>
                                     )}
-                                    {agencyOverview.id && (
+                                    {agencyOverview?.id && (
                                         <div className="agency-info__group">
                                             <h5>Agency Profile Page</h5>
                                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
@@ -131,7 +131,7 @@ const AgencyDetailsPage = () => {
                                 </div>
                             </div>
                             <AgencyDetailsContainer
-                                agencyName={agencyOverview.name}
+                                agencyName={agencyOverview?.name}
                                 modalClick={modalClick}
                                 agencyCode={agencyCode} />
                             {message && <Note message={message} />}
