@@ -2,6 +2,7 @@ ul.viz-container.bar-chart {
     @include display(flex);
     @include justify-content(center);
     @include align-items(flex-end);
+    @include align-self(center);
     margin: 0;
     width: 100%;
 
@@ -11,17 +12,22 @@ ul.viz-container.bar-chart {
         @include justify-content(flex-end);
         @include align-items(center);
         margin: 0;
-        height: rem(168);
-        width: rem(35);
-        margin: 0 rem(10);
+        height: rem(208);
+        width: 15%;
+        margin: 0 2%;
+        @include media($medium-screen) {
+            width: rem(35);
+            margin: 0 rem(2.5);
+        }
         span {
             width: 100%;
         }
         span:nth-of-type(1) {
-            background: #BBDFC7;
+            background: $color-grass-lighter;
             &.active-fy {
-                background-color: #78BF8F;
+                background-color: $color-grass-light;
             }
+            
         }
         span:nth-of-type(2) {
             font-size: rem(14);
