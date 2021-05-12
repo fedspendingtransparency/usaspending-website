@@ -14,7 +14,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 

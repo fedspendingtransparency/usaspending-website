@@ -22,7 +22,7 @@ import {
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const getEmailSocialShareData = {

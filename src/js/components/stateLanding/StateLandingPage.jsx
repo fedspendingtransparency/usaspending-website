@@ -6,7 +6,7 @@
 import React from 'react';
 import { ShareIcon } from 'data-transparency-ui';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 

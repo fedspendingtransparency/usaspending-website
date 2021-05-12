@@ -11,7 +11,7 @@ import { DownloadIconButton } from 'data-transparency-ui';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';

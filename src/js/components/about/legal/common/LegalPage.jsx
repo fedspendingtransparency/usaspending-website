@@ -11,7 +11,7 @@ import {
     privacyPageMetaTags,
     foiaPageMetaTags
 } from 'helpers/metaTagHelper';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 import LegalContent from './LegalContent';
 

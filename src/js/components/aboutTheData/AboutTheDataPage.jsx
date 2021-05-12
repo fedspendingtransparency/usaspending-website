@@ -13,7 +13,7 @@ import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';

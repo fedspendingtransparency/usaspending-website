@@ -11,7 +11,7 @@ import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 
 import Error from 'components/sharedComponents/Error';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 

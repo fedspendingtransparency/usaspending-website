@@ -9,7 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 const propTypes = {
     children: PropTypes.element,

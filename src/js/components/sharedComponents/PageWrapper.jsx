@@ -39,7 +39,7 @@ const PageWrapper = ({
 PageWrapper.propTypes = {
     classNames: PropTypes.string,
     metaTagProps: PropTypes.object,
-    toolBarComponents: PropTypes.arrayOf(PropTypes.elements),
+    toolBarComponents: PropTypes.arrayOf(PropTypes.element),
     title: PropTypes.string.isRequired,
     overLine: PropTypes.string,
     children: PropTypes.element,

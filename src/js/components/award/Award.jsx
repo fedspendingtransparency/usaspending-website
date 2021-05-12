@@ -13,7 +13,7 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Error from 'components/sharedComponents/Error';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
 import ContractContent from './contract/ContractContent';

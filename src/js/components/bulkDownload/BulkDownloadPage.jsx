@@ -13,7 +13,7 @@ import {
     metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';

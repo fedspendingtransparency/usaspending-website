@@ -10,7 +10,7 @@ import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 require('pages/recipientLanding/recipientLandingPage.scss');
 

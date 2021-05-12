@@ -16,7 +16,7 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 import KeywordSearchBar from './KeywordSearchBar';
 import SearchSummary from './SearchSummary';

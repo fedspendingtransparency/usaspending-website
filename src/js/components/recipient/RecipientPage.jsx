@@ -15,7 +15,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 
 import RecipientContent from './RecipientContent';

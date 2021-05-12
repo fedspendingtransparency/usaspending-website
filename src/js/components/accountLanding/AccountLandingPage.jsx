@@ -9,7 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
 const slug = 'federal_account';

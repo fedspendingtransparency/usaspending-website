@@ -11,7 +11,7 @@ import { omit, snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
 import { ARP_RELEASED as isCovidPublicLawFilterLive } from 'GlobalConstants';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -68,7 +68,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                 search: newParams
             });
         }
-    }, [isRecipientMapLoaded]);
+    }, [history, isRecipientMapLoaded, query]);
 
 
     const handleExternalLinkClick = (url) => {

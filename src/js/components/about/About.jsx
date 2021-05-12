@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 
 import AboutContent from './AboutContent';

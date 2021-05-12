@@ -23,7 +23,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
-import PageWrapper from '../sharedComponents/Page';
+import PageWrapper from '../sharedComponents/PageWrapper';
 
 require('pages/agencyV2/index.scss');
 

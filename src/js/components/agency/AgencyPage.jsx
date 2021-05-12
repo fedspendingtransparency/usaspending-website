@@ -9,7 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import AgencyLoading from './AgencyLoading';

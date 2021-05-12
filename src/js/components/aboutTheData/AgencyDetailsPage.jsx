@@ -13,7 +13,7 @@ import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Note from 'components/sharedComponents/Note';
-import PageWrapper from 'components/sharedComponents/Page';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
@@ -73,7 +73,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode]);
+    }, [agencyCode, getOverviewData]);
 
     const message = agencyNotes[agencyCode] || '';
 
