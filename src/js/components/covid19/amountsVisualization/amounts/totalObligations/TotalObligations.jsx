@@ -25,6 +25,10 @@ const propTypes = {
         x: PropTypes.number,
         width: PropTypes.number
     }),
+    remainingBalanceDescriptionData: PropTypes.shape({
+        x: PropTypes.number,
+        width: PropTypes.number
+    }),
     publicLawFilter: PropTypes.string
 };
 
@@ -38,6 +42,7 @@ const TotalObligations = ({
     scale,
     remainingBalanceLabelData,
     remainingBalanceValueData,
+    remainingBalanceDescriptionData,
     publicLawFilter
 }) => (
     <g>
@@ -50,6 +55,7 @@ const TotalObligations = ({
             dataId={dataId}
             remainingBalanceLabelData={remainingBalanceLabelData}
             remainingBalanceValueData={remainingBalanceValueData}
+            remainingBalanceDescriptionData={remainingBalanceDescriptionData}
             publicLawFilter={publicLawFilter} />
         <Rectangle
             overviewData={overviewData}
