@@ -20,6 +20,7 @@ import Heading from 'components/covid19/Heading';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
+import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import {
     jumpToSection,
@@ -88,6 +89,11 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         }
     };
 
+    const handleShare = (name) => {
+        console.log('slug', slug);
+        handleShareOptionClick(name, slug, getEmailSocialShareData);
+    };
+
     return (
         <PageWrapper
             classNames="usa-da-covid19-page"
@@ -96,8 +102,8 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             toolBarComponents={[
                 <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} />,
                 <ShareIcon
-                    slug={slug}
-                    email={getEmailSocialShareData} />,
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={handleShare} />,
                 <DownloadButtonContainer />
             ]
                 .filter((c, i) => isCovidPublicLawFilterLive || i > 0)}>
