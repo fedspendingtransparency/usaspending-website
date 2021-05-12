@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GlobalConstants from "GlobalConstants";
 import {
     asstAwardTypesWithSimilarAwardAmountData,
     obligatedColor,
@@ -25,8 +24,6 @@ const propTypes = {
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
     spendingScenario: PropTypes.string
 };
-
-const isCaresActReleased = GlobalConstants.CARES_ACT_RELEASED;
 
 // Only for Contract and IDV Awards
 const buildNormalProps = (awardType, data, hasFileC) => {
@@ -75,7 +72,7 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             ]
         }
     };
-    if (!hasFileC || !isCaresActReleased) return chartProps;
+    if (!hasFileC) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -189,7 +186,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
         }
     };
-    if (!hasFileC || !isCaresActReleased) return chartProps;
+    if (!hasFileC) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -336,7 +333,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsPotential', data)
         }
     };
-    if (!hasFileC || !isCaresActReleased) return chartProps;
+    if (!hasFileC) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -425,7 +422,7 @@ const AwardAmountsChart = ({
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
-            const showFileC = awardAmounts._fileCObligated > 0 && isCaresActReleased;
+            const showFileC = awardAmounts._fileCObligated > 0;
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',
@@ -505,7 +502,7 @@ const AwardAmountsChart = ({
             );
         }
         else if (type === 'loan' && isNormal) {
-            const showFileC = awardAmounts._fileCObligated > 0 && isCaresActReleased;
+            const showFileC = awardAmounts._fileCObligated > 0;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',

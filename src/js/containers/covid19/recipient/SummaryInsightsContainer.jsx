@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
 
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'apis/disaster';
 import { useInFlightList } from 'helpers/covid19Helper';
 import { InformationBoxes } from "data-transparency-ui";
 

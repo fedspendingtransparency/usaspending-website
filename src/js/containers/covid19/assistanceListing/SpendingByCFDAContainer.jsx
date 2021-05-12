@@ -16,7 +16,7 @@ import replaceString from 'helpers/replaceString';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda, fetchCfdaLoans } from 'helpers/disasterHelper';
+import { fetchSpendingByCfda, fetchCfdaLoans } from 'apis/disaster';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';

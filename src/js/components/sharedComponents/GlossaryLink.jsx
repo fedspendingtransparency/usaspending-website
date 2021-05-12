@@ -5,19 +5,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+
+import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 const propTypes = {
-    term: PropTypes.string.isRequired,
-    currentUrl: PropTypes.string.isRequired
+    term: PropTypes.string.isRequired
 };
 
-const GlossaryLink = ({ term, currentUrl }) => (
-    <Link className="usda-glossary-link" to={`/${currentUrl}?glossary=${term}`} aria-label="Open the Glossary">
-        <FontAwesomeIcon icon="book" />
-    </Link>
-);
+const GlossaryLink = ({ term }) => {
+    const { pathname, search } = useLocation();
+    const newUrl = getNewUrlForGlossary(pathname, `/?glossary=${term}`, search);
+    return (
+        <Link className="usda-glossary-link" to={newUrl} aria-label="Open the Glossary">
+            <FontAwesomeIcon icon="book" />
+        </Link>
+    );
+};
 
 GlossaryLink.propTypes = propTypes;
 export default GlossaryLink;

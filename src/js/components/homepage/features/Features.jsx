@@ -6,7 +6,6 @@
 import React from 'react';
 
 import CovidFeatureContainer from 'containers/homepage/CovidFeatureContainer';
-import kGlobalConstants from 'GlobalConstants';
 import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
@@ -18,7 +17,7 @@ const Features = () => (
         className="homepage-features"
         aria-label="Web site features">
         <div className="homepage-features__content">
-            {kGlobalConstants.CARES_ACT_RELEASED_2 && <CovidFeatureContainer />}
+            <CovidFeatureContainer />
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />

@@ -104,7 +104,7 @@ export const federalAccountPageMetaTags = ({
     agency_identifier: agencyId,
     main_account_code: accountCode
 }) => ({
-    og_url: `${productionURL}federal_account/${agencyId}/${accountCode}`,
+    og_url: `${productionURL}federal_account/${agencyId}-${accountCode}`,
     og_title: `${title} | Spending Profile | USAspending`,
     og_description:
         `View the spending activity of the federal account for ${title}. `,
@@ -179,7 +179,7 @@ export const downloadAccountPageMetaTags = {
 };
 
 export const dataDictionaryPageMetaTags = {
-    og_url: `${productionURL}download_center/data_dictionary`,
+    og_url: `${productionURL}data-dictionary`,
     og_title: 'Data Dictionary | USAspending',
     og_description:
         'Learn about the data elements in our download packages by visiting this page.',
@@ -264,6 +264,27 @@ export const stateLandingPageMetaTags = {
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
+
+export const aboutTheDataMetaTags = {
+    og_url: `${productionURL}submission-statistics`,
+    og_title: 'Agency Submission Statistics | USAspending',
+    og_description:
+        'Federal agencies are required to regularly submit financial data to USAspending.gov. See the latest status and content of these submissions.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
+export const aboutTheDataAgencyDetails = ({
+    id,
+    name
+}) => ({
+    og_url: `${productionURL}submission-statistics/agency/${id}`,
+    og_title: `${name} | Submission Statistics | USAspending`,
+    og_description:
+        `See the latest financial data from ${name}, submitted to USAspending.gov in compliance with the 2014 Data Act.`,
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+});
 
 /* eslint-enable max-len */
 

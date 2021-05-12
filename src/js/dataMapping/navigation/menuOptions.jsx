@@ -5,14 +5,7 @@
 
 import GlobalConstants from 'GlobalConstants';
 
-const {
-    QAT,
-    DEV,
-    FILES_SERVER_BASE_URL,
-    API
-} = GlobalConstants;
-
-const isLowerEnv = (QAT || DEV);
+const { FILES_SERVER_BASE_URL } = GlobalConstants;
 
 export const searchOptions = [
     {
@@ -65,8 +58,8 @@ export const resourceOptions = [
     },
     {
         label: 'Data Dictionary',
-        type: 'data_dictionary',
-        url: '/download_center/data_dictionary',
+        type: 'data-dictionary',
+        url: '/data-dictionary',
         code: 'dictionary',
         description: '',
         callToAction: 'Explore the Data Dictionary',
@@ -96,8 +89,6 @@ export const resourceOptions = [
         shouldOpenNewTab: true
     }
 ];
-
-const underResourcesInLowerEnv = ["api", "data dictionary"];
 
 export const downloadOptions = [
     {
@@ -156,28 +147,6 @@ export const downloadOptions = [
         internalDomain: true
     },
     {
-        label: 'API',
-        type: '',
-        url: API.replace("api/", ""),
-        code: 'api',
-        description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
-        callToAction: 'Explore Our API',
-        shouldOpenNewTab: true,
-        enabled: true,
-        internalDomain: true
-    },
-    {
-        label: 'Data Dictionary',
-        type: 'data_dictionary',
-        url: '/download_center/data_dictionary',
-        code: 'dictionary',
-        description: '',
-        callToAction: 'Explore the Data Dictionary',
-        shouldOpenNewTab: false,
-        enabled: true,
-        externalLink: false
-    },
-    {
         label: 'Dataset Metadata',
         type: 'dataset_metadata',
         url: '/download_center/dataset_metadata',
@@ -189,6 +158,3 @@ export const downloadOptions = [
         externalLink: false
     }
 ];
-
-export const downloadGlobalNavigationOptions = downloadOptions
-    .filter(({ label }) => !(isLowerEnv && underResourcesInLowerEnv.includes(label.toLowerCase())));

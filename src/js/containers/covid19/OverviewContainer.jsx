@@ -6,8 +6,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
-import AmountsVisualization from 'components/covid19/AmountsVisualization';
+import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
+import { DEV } from 'GlobalConstants';
 
 const OverviewContainer = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -38,11 +39,40 @@ const OverviewContainer = () => {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
-
     return (
         <div ref={divReference} className="body__content overview">
             <DateNote />
-            <AmountsVisualization overviewData={overviewData} width={visualizationsWidth} />
+            <AmountsVisualization
+                overviewData={{
+                    all: overviewData,
+                    V: DEV ? {
+                        _defCode_V_funding: 7766900000,
+                        _totalBudgetAuthority: 616288691500.82,
+                        _awardObligations: 1381497254285.89,
+                        _awardOutlays: 1077397742738.65,
+                        _totalObligations: 7721021938.98,
+                        _totalOutlays: 1916236.12,
+                        _otherObligations: 1036478636833.7903,
+                        _awardObligationsNotOutlayed: 304099511547.23987,
+                        _remainingBalance: 541998550912.70996,
+                        _nonAwardOutLays: 988263890494.57,
+                        _nonAwardNotOutlayed: 48214746339.22034
+                    } :
+                        {
+                            _defCode_V_funding: 0,
+                            _totalBudgetAuthority: 0,
+                            _awardObligations: 0,
+                            _awardOutlays: 0,
+                            _totalObligations: 0,
+                            _totalOutlays: 0,
+                            _otherObligations: 0,
+                            _awardObligationsNotOutlayed: 0,
+                            _remainingBalance: 0,
+                            _nonAwardOutLays: 0,
+                            _nonAwardNotOutlayed: 0
+                        }
+                }}
+                width={visualizationsWidth} />
         </div>
     );
 };

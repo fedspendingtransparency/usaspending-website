@@ -19,7 +19,7 @@ import withLatestFy from 'containers/account/WithLatestFy';
 
 // helpers
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { fetchOverview, fetchDisasterSpending } from 'helpers/disasterHelper';
+import { fetchOverview, fetchDisasterSpending } from 'apis/disaster';
 import { scrollToY } from 'helpers/scrollToHelper';
 
 // datamapping

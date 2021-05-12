@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { omit } from 'lodash';
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
+import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 const GlossaryListener = ({
     history,
@@ -13,6 +16,9 @@ const GlossaryListener = ({
     setTermFromUrl,
     Child
 }) => {
+    const { pathname, search } = useLocation();
+    const queryParams = useQueryParams();
+
     useEffect(() => {
         if (location.hash) {
             const urlWithNoHash = location.hash.split("#").length > 1
@@ -21,16 +27,16 @@ const GlossaryListener = ({
             history.replace(urlWithNoHash);
         }
     }, [location, history]);
+
     useEffect(() => {
-        if (history.location.search.includes('glossary')) {
-            const termStr = history.location.search.split('glossary=')[1];
+        if (search.includes('glossary')) {
+            const { glossary: term } = queryParams;
             showGlossary();
-            setTermFromUrl(termStr);
-            const path = history.location.pathname;
-            const previousUrl = path[path.length - 1] === '/'
-                ? path.substr(0, path.length - 1)
-                : path;
-            history.replace(previousUrl);
+            setTermFromUrl(term);
+            history.replace({
+                pathname,
+                search: getQueryParamString(omit(queryParams, ['glossary']))
+            });
         }
     }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary]);
     return <Child {...{ history, match, location }} />;

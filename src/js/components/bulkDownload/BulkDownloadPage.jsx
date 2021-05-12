@@ -11,7 +11,6 @@ import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
     downloadAccountPageMetaTags,
-    dataDictionaryPageMetaTags,
     metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -19,15 +18,12 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 
-
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
-import BulkDownloadModalContainer from
-    'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import DataDictionaryContainer from 'containers/bulkDownload/dictionary/DataDictionaryContainer';
+import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
@@ -39,7 +35,6 @@ const propTypes = {
 };
 
 const metaTagsByDataType = {
-    data_dictionary: dataDictionaryPageMetaTags,
     awards: downloadAwardPageMetaTags,
     accounts: downloadAccountPageMetaTags,
     award_data_archive: downloadArchivePageMetaTags,
@@ -104,11 +99,6 @@ export default class BulkDownloadPage extends React.Component {
             downloadDataContent = (
                 <AccountDataContainer
                     clickedDownload={this.clickedDownload} />
-            );
-        }
-        if (this.props.dataType === 'data_dictionary') {
-            downloadDataContent = (
-                <DataDictionaryContainer />
             );
         }
         if (this.props.dataType === 'dataset_metadata') {

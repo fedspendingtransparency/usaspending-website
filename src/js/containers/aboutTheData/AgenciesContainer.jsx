@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import { throttle } from 'lodash';
+import { throttle, isNull } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
@@ -17,7 +17,7 @@ import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
-import { agenciesTableColumns } from './AgencyTableMapping';
+import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 
 const propTypes = {
     openModal: PropTypes.func.isRequired,
@@ -25,15 +25,6 @@ const propTypes = {
     selectedFy: PropTypes.string,
     selectedPeriod: PropTypes.string
 };
-
-const parsePeriods = (periods) => periods
-    .map(({ publicationDate, showNotCertified }) => (
-        <div className="generic-cell-content">
-            {(publicationDate) && publicationDate}
-            {!publicationDate && "--"}
-            {showNotCertified && publicationDate && <span className="not-certified">NOT CERTIFIED</span>}
-        </div>
-    ));
 
 const AgenciesContainer = ({
     activeTab,
@@ -263,10 +254,13 @@ const AgenciesContainer = ({
             mostRecentPublicationDate,
             _discrepancyCount,
             discrepancyCount: GtasNotInFileA,
+            _obligationDifference,
             obligationDifference,
             _gtasObligationTotal,
             percentageOfTotalFederalBudget,
+            _unlinkedContracts,
             unlinkedContracts,
+            _unlinkedAssistance,
             unlinkedAssistance,
             assuranceStatement
         }) => [
@@ -284,7 +278,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (_discrepancyCount === 0 ?
+            (isNull(_discrepancyCount) ?
                 <div className="generic-cell-content">{GtasNotInFileA}</div> :
                 <CellWithModal
                     data={GtasNotInFileA}
@@ -297,38 +291,44 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
-            (<CellWithModal
-                data={obligationDifference}
-                openModal={openModal}
-                modalType="reportingDifferences"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id
-                }} />),
-            unlinkedContracts !== '0' ? (<CellWithModal
-                data={unlinkedContracts}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id,
-                    type: 'Contract'
-                }} />) : (<div className="generic-cell-content">{unlinkedContracts}</div>),
-            unlinkedAssistance !== '0' ? (<CellWithModal
-                data={unlinkedAssistance}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
-                    agencyName,
-                    agencyCode: code,
-                    fiscalYear: selectedFy,
-                    fiscalPeriod: selectedPeriod?.id,
-                    type: 'Assistance'
-                }} />) : (<div className="generic-cell-content">{unlinkedAssistance}</div>),
+            (isNull(_obligationDifference) ?
+                <div className="generic-cell-content">{obligationDifference}</div> :
+                <CellWithModal
+                    data={obligationDifference}
+                    openModal={openModal}
+                    modalType="reportingDifferences"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id
+                    }} />),
+            (isNull(_unlinkedContracts) ?
+                <div className="generic-cell-content">{unlinkedContracts}</div> :
+                <CellWithModal
+                    data={unlinkedContracts}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id,
+                        type: 'Contract'
+                    }} />),
+            (isNull(_unlinkedAssistance) ?
+                <div className="generic-cell-content">{unlinkedAssistance}</div> :
+                <CellWithModal
+                    data={unlinkedAssistance}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
+                        agencyName,
+                        agencyCode: code,
+                        fiscalYear: selectedFy,
+                        fiscalPeriod: selectedPeriod?.id,
+                        type: 'Assistance'
+                    }} />),
             (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
         ]);
 
@@ -368,7 +368,7 @@ const AgenciesContainer = ({
                 )}
                 {activeTab === 'publications' && (
                     <Table
-                        rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
+                        rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
                         classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}

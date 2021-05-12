@@ -3,7 +3,7 @@ import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
-import { fetchDEFCodes } from 'helpers/disasterHelper';
+import { fetchDEFCodes } from 'apis/disaster';
 import { get } from 'lodash';
 
 export const useDefCodes = () => {
