@@ -104,7 +104,7 @@ export const federalAccountPageMetaTags = ({
     agency_identifier: agencyId,
     main_account_code: accountCode
 }) => ({
-    og_url: `${productionURL}federal_account/${agencyId}/${accountCode}`,
+    og_url: `${productionURL}federal_account/${agencyId}-${accountCode}`,
     og_title: `${title} | Spending Profile | USAspending`,
     og_description:
         `View the spending activity of the federal account for ${title}. `,
