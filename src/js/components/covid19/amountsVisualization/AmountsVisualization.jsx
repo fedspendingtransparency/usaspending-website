@@ -53,6 +53,10 @@ const AmountsVisualization = ({
         x: 0,
         width: 0
     });
+    const [remainingBalanceDescriptionData, setRemainingBalanceDescriptionData] = useState({
+        x: 0,
+        width: 0
+    });
     const [showTooltip, setShowTooltip] = useState('');
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
 
@@ -191,7 +195,8 @@ const AmountsVisualization = ({
                         scale={scale}
                         width={width}
                         setRemainingBalanceLabelData={setRemainingBalanceLabelData}
-                        setRemainingBalanceValueData={setRemainingBalanceValueData} />
+                        setRemainingBalanceValueData={setRemainingBalanceValueData}
+                        setRemainingBalanceDescriptionData={setRemainingBalanceDescriptionData} />
                     <TotalObligations
                         displayTooltip={displayTooltip}
                         hideTooltip={hideTooltip}
@@ -200,6 +205,7 @@ const AmountsVisualization = ({
                         scale={scale}
                         remainingBalanceLabelData={remainingBalanceLabelData}
                         remainingBalanceValueData={remainingBalanceValueData}
+                        remainingBalanceDescriptionData={remainingBalanceDescriptionData}
                         publicLawFilter={publicLawFilter} />
                     <DefaultAmountViz
                         displayTooltip={displayTooltip}
