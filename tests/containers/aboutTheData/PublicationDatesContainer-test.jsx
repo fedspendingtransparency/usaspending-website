@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
-import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
+import * as agencyReportingAPI from 'apis/agencyReporting';
 import PublicationDatesContainer from 'containers/aboutTheData/modals/PublicationDatesContainer';
 
 const defaultProps = {
@@ -22,7 +22,7 @@ describe('Publication Dates Container', () => {
         expect(screen.getAllByText('Deadline: --')).toHaveLength(2);
     });
     it('should call the api one time on mount', () => {
-        const pubicationDatesRequest = jest.spyOn(aboutTheDataHelper, 'fetchPublishDates');
+        const pubicationDatesRequest = jest.spyOn(agencyReportingAPI, 'fetchPublishDates');
         render(<PublicationDatesContainer {...defaultProps} />);
         waitFor(() => expect(pubicationDatesRequest).toHaveBeenCalledTimes(1));
     });

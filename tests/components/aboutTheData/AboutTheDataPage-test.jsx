@@ -8,7 +8,7 @@ import * as accountHelpers from 'helpers/accountHelper';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as queryParamHelpers from 'helpers/queryParams';
-import * as aboutTheDataHelpers from 'helpers/aboutTheDataHelper';
+import * as agencyReportingAPI from 'apis/agencyReporting';
 import { mockAPI } from '../../containers/aboutTheData/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
@@ -79,19 +79,19 @@ beforeEach(() => {
             console.log('cancel called');
         }
     });
-    jest.spyOn(aboutTheDataHelpers, 'getTotalBudgetaryResources').mockReturnValue({
+    jest.spyOn(agencyReportingAPI, 'getTotalBudgetaryResources').mockReturnValue({
         promise: Promise.resolve(mockAPI.totals),
         cancel: () => {
             console.log('cancel called');
         }
     });
-    jest.spyOn(aboutTheDataHelpers, 'getAgenciesReportingData').mockReturnValue({
+    jest.spyOn(agencyReportingAPI, 'getAgenciesReportingData').mockReturnValue({
         promise: Promise.resolve(mockAPI.details),
         cancel: () => {
             console.log('cancel called');
         }
     });
-    jest.spyOn(aboutTheDataHelpers, 'getSubmissionPublicationDates').mockReturnValue({
+    jest.spyOn(agencyReportingAPI, 'getSubmissionPublicationDates').mockReturnValue({
         promise: Promise.resolve(mockAPI.publications),
         cancel: () => {
             console.log('cancel called');
@@ -100,13 +100,11 @@ beforeEach(() => {
 });
 
 test('renders the details table first', async () => {
-    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => {
-        return {
-            fy: '2020',
-            period: '12',
-            tab: 'submissions'
-        };
-    });
+    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => ({
+        fy: '2020',
+        period: '12',
+        tab: 'submissions'
+    }));
     render(<AboutTheDataPage {...defaultProps} />);
     // shows the correct table
     const [table] = screen.getAllByText('Number of TASs Missing from Account Balance Data');
@@ -115,13 +113,11 @@ test('renders the details table first', async () => {
 
 test('on tab change updates the table view', async () => {
     // shows the other table
-    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => {
-        return {
-            fy: '2020',
-            period: '12',
-            tab: 'publications'
-        };
-    });
+    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => ({
+        fy: '2020',
+        period: '12',
+        tab: 'publications'
+    }));
     render(<AboutTheDataPage {...defaultProps} />);
     waitFor(() => {
         const table = screen.getByText('FY 2020 Q4');
