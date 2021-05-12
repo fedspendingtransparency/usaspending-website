@@ -31,8 +31,7 @@ const propTypes = {
     lineData: PropTypes.object,
     rectangleData: PropTypes.object,
     dataId: PropTypes.string,
-    width: PropTypes.number,
-    publicLawFilter: PropTypes.string
+    width: PropTypes.number
 };
 
 const DefaultLineAndText = ({
@@ -41,8 +40,7 @@ const DefaultLineAndText = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     dataId = '',
-    width,
-    publicLawFilter
+    width
 }) => {
     const [descriptionData, setDescriptionData] = useState(defaultTextState(dataId, 'description'));
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
@@ -90,7 +88,6 @@ const DefaultLineAndText = ({
             setLabelData({
                 y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
                 x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'label'),
-                // x: lineXPosition(overviewData, scale, dataId) - ((ref?.width || 0) + (valueData.theWidth || 0) + spacingBetweenLineAndText + labelTextAdjustment.x),
                 height: ref?.height || 0,
                 text: textInfo.label,
                 className: `amounts-text__label ${!ref ? 'white' : ''}`
@@ -104,8 +101,7 @@ const DefaultLineAndText = ({
                 overviewData={overviewData}
                 dataId={dataId}
                 displayTooltip={displayTooltip}
-                hideTooltip={hideTooltip}
-                publicLawFilter={publicLawFilter} />
+                hideTooltip={hideTooltip} />
             <TextGroup data={[
                 { ...descriptionData, ref: descriptionTextRef },
                 { ...valueData, ref: valueTextRef },
