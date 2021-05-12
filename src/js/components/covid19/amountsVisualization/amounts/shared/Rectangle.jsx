@@ -29,8 +29,7 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltip: PropTypes.string,
-    dataId: PropTypes.string,
-    publicLawFilter: PropTypes.string
+    dataId: PropTypes.string
 };
 
 const Rectangle = ({
@@ -39,8 +38,7 @@ const Rectangle = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     showTooltip = '',
-    dataId = '',
-    publicLawFilter = 'all'
+    dataId = ''
 }) => {
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
@@ -56,7 +54,7 @@ const Rectangle = ({
                 y: startOfChartY + offset.top,
                 width: rectWidth < (lineStrokeWidth / 2) ? lineStrokeWidth : rectWidth,
                 height: rectangleHeight - (2 * offset.bottom),
-                fill: publicLawFilter === 'all' ? fill.default : fill.defCode,
+                fill,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
             };
             if (!isNaN(scale(amount))) setData(properties);
