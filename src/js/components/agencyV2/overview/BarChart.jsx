@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 
 const getLastFourYears = ({ year }, selectedFy) => {
     if (parseInt(selectedFy, 10) <= 2021 && year <= 2021) return true;
@@ -13,6 +14,8 @@ const getLastFourYears = ({ year }, selectedFy) => {
 };
 
 const BarChart = ({
+    isLoading,
+    isError,
     agencyBudgetByYear,
     selectedFy
 }) => {
@@ -38,6 +41,12 @@ const BarChart = ({
                 );
             });
     };
+    if (!isLoading && isError) {
+        return <ErrorMessage description="There was an error fetching this data." />;
+    }
+    if (isLoading && !isError) {
+        return <LoadingMessage />;
+    }
     return (
         <ul className="viz-container bar-chart">
             {renderBars()}
@@ -50,7 +59,9 @@ BarChart.propTypes = {
     agencyBudgetByYear: PropTypes.arrayOf(PropTypes.shape({
         year: PropTypes.string.isRequired,
         budget: PropTypes.number.isRequired
-    }))
+    })),
+    isLoading: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired
 };
 
 export default BarChart;
