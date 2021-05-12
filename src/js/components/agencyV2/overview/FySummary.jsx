@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ComingSoon, Carousel, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
+import { ComingSoon, Carousel } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
@@ -78,14 +78,13 @@ const FySummary = ({
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time">
-                {isLoading && <LoadingMessage />}
-                {!isLoading && isError && <ErrorMessage description="There was an error fetching this data." />}
-                {!isLoading && !isError && <BarChart
+                <BarChart
+                    isLoading={isLoading}
+                    isError={isError}
                     selectedFy={fy}
                     agencyBudgetByYear={Object
                         .entries(resourcesByYear)
                         .map(([key, value]) => ({ year: key, budget: value.agencyBudget }))} />
-                }
             </VisualizationSection>
         ),
         (
