@@ -4,17 +4,13 @@
  */
 
 import React from 'react';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 
 import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
-
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 require('pages/recipientLanding/recipientLandingPage.scss');
 
@@ -31,22 +27,19 @@ export default class RecipientLandingPage extends React.Component {
 
     render() {
         return (
-            <div className="usa-da-recipient-landing">
-                <MetaTags {...recipientLandingPageMetaTags} />
-                <Header />
-                <PageHeader
-                    title="Recipient Profiles"
-                    stickyBreakPoint={getStickyBreakPointForSidebar()}
-                    shareProps={{
-                        url: getBaseUrl(slug),
-                        onShareOptionClick: this.handleShare
-                    }}>
-                    <main id="main-content" className="main-content">
-                        <RecipientLandingContainer />
-                    </main>
-                    <Footer />
-                </PageHeader>
-            </div>
+            <PageWrapper
+                classNames="usa-da-recipient-landing"
+                title="Recipient Profiles"
+                metaTagProps={recipientLandingPageMetaTags}
+                toolBarComponents={[
+                    <ShareIcon
+                        onShareOptionClick={this.handleShare}
+                        url={getBaseUrl(slug)} />
+                ]}>
+                <main id="main-content" className="main-content">
+                    <RecipientLandingContainer />
+                </main>
+            </PageWrapper>
         );
     }
 }

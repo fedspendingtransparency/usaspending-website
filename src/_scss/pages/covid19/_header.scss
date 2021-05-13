@@ -1,0 +1,105 @@
+.usda-page-header .usda-page-header__container .usda-page-header__toolbar {
+    @media(max-width: $medium-screen) {
+        border-bottom: rem(1) solid $color-gray-lighter;
+    }
+    .public-law-picker__container {
+        @include display(flex);
+        @include flex-direction(column);
+        @media(max-width: $medium-screen) {
+            @include flex-direction(row);
+            padding: rem(10) rem(0);
+        }
+    }
+    .usa-dt-picker.public-law-picker {
+        display: flex;
+        align-self: center;
+        border: rem(2) solid #666;
+        border-radius: rem(4);
+        position: relative;
+        height: rem(29);
+        @media(max-width: $medium-screen) {
+            background: $color-gray-lightest;
+            border: rem(2) solid #AEB0B5;
+            border-radius: rem(4);
+            height: auto;
+        }
+
+        .usa-dt-picker__icon svg {
+            width: rem(20);
+            height: rem(16);
+            margin: 0 rem(10);
+            path {
+                fill: $color-gray-lighter;
+                @media(max-width: $medium-screen) {
+                    fill: #555
+                }
+            }
+        }
+        .usa-dt-picker__dropdown-container {
+            align-self: center;
+            .usa-dt-picker__button .usa-dt-picker__button-text {
+                font-size: rem(18);
+                color: #fff;
+                @media(max-width: $medium-screen) {
+                    color: #555
+                }
+            }
+
+            // button label:
+            .usa-dt-picker__button {
+                .usa-dt-picker__button-icon svg {
+                    color: $color-gray-lighter;
+                    margin-right: rem(15);
+                    @media(max-width: $medium-screen) {
+                        color: #555
+                    }
+                }
+                span {
+                    color: $color-gray-lighter;
+                    font-weight: $font-semibold;
+                }
+            }
+            span {
+                height: auto;
+            }
+            .usa-dt-picker__list {
+                .usa-dt-picker__list-item .usa-dt-picker__item {
+                    padding: rem(16) rem(5) rem(16) rem(20);
+                    &:hover {
+                        background-color: $color-gray-lightest;
+                        p {
+                            color: $color-primary;
+                        }
+                    }
+                    p:first-of-type {
+                        padding: 0;
+                        font-weight: $font-semibold;
+                    }
+                    p:nth-of-type(2) {
+                        padding-top: rem(5);
+                    }
+                    p {
+                        font-size: rem(15);
+                        margin: 0;
+                        .usda-glossary-link svg {
+                            margin-left: 5px;
+                            color: $color-gray-light;
+                        }
+                    }
+                }
+                li.usa-dt-picker__list-item {
+                    border: none;
+                    &:nth-of-type(3) {
+                        .usa-dt-picker__item {
+                            background-color: rgba(182,153,198,0.2);
+                            p {
+                                color: $color-covid-dark-purple;
+                                font-weight: $font-normal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
