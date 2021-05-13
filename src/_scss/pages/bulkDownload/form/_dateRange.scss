@@ -1,5 +1,5 @@
 .date-range-wrapper {
-    @import "datePicker";
+    @import "../datePicker";
     .time-period-buttons {
         @include display(flex);
         @include flex-direction(row);
