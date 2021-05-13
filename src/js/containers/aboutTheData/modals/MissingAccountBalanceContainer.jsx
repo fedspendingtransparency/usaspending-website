@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { missingAccountBalanceColumns } from 'dataMapping/aboutTheData/modals';
-import { formatMissingAccountBalancesData, fetchMissingAccountBalances } from 'helpers/aboutTheDataHelper';
+import { fetchMissingAccountBalances } from 'apis/agencyReporting';
+import { formatMissingAccountBalancesData } from 'helpers/aboutTheDataHelper';
 
 const propTypes = {
     agencyData: PropTypes.shape({

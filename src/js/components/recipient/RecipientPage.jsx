@@ -5,22 +5,19 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
+import Error from 'components/sharedComponents/Error';
+
 import RecipientContent from './RecipientContent';
 
 const propTypes = {
@@ -73,38 +70,34 @@ export const RecipientPage = ({
 
 
     return (
-        <div className="usa-da-recipient-page">
-            {recipient.overview.id && !loading && <MetaTags {...recipientPageMetaTags(recipient.overview)} />}
-            <Header />
-            <PageHeader
-                overLine="Recipient Profile"
-                title={recipient.overview.name}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                fyProps={{
-                    selectedFy: recipient?.fy,
-                    options: getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear()),
-                    handleFyChange: pickedFy
-                }}
-                shareProps={{
-                    url: getBaseUrl(slug),
-                    onShareOptionClick: handleShare
-                }}>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                        <ChildRecipientModalContainer
-                            mounted={isChildModalVisible}
-                            hideModal={hideChildRecipientModal}
-                            recipient={recipient} />
-                        <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
-                    </LoadingWrapper>
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+        <PageWrapper
+            classNames="usa-da-recipient-page"
+            overLine="Recipient Profile"
+            title={recipient.overview.name}
+            metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
+            toolBarComponents={[
+                <FiscalYearPicker
+                    selectedFy={recipient?.fy}
+                    handleFyChange={pickedFy}
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
+            ]}>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                    <ChildRecipientModalContainer
+                        mounted={isChildModalVisible}
+                        hideModal={hideChildRecipientModal}
+                        recipient={recipient} />
+                    <AlternateNamesRecipientModalContainer
+                        mounted={isAlternateModalVisible}
+                        hideModal={hideAlternateModal}
+                        recipient={recipient} />
+                </LoadingWrapper>
+            </main>
+        </PageWrapper>
     );
 };
 

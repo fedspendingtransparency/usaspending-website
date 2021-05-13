@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { unlinkedDataColumns } from 'dataMapping/aboutTheData/modals';
-import { formatUnlinkedDataRows, fetchUnlinkedData } from 'helpers/aboutTheDataHelper';
+import { formatUnlinkedDataRows } from 'helpers/aboutTheDataHelper';
+import { fetchUnlinkedData } from 'apis/agencyReporting';
 
 const propTypes = {
     agencyData: PropTypes.shape({
