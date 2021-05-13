@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const GitRevisionPlugin = require('git-revision-webpack-plugin').GitRevisionPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
@@ -33,7 +33,7 @@ module.exports = {
                 default: false,
                 vendors: false,
                 // all imported code from node_modules is a single file
-                vendor: {
+                defaultVendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     chunks: 'all',
@@ -49,7 +49,8 @@ module.exports = {
                     enforce: true
                 }
             }
-        }
+        },
+        moduleIds: 'deterministic'
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -73,7 +74,7 @@ module.exports = {
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             },
@@ -81,7 +82,7 @@ module.exports = {
                 test: /\.(json)$/,
                 type: 'javascript/auto',
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             }
@@ -108,24 +109,25 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
-        new CopyWebpackPlugin([
-            {
-                from: '*.xml',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'robots.txt',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'redirect-config.json',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            }
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: '*.xml',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                },
+                {
+                    from: 'robots.txt',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                },
+                {
+                    from: 'redirect-config.json',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                }
+            ]
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 ENV: process.env.ENV

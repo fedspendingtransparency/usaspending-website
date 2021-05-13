@@ -1,8 +1,8 @@
-const merge = require('webpack-merge');
+const merge = require('webpack-merge').merge;
 const webpack = require('webpack');
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const common = require('./webpack.common');
 
@@ -21,8 +21,7 @@ module.exports = merge(common, {
             new TerserPlugin({
                 cache: true,
                 parallel: true
-            }),
-            new OptimizeCssAssetsPlugin({})
+            })
         ],
         runtimeChunk: "single",
         splitChunks: {
@@ -72,6 +71,7 @@ module.exports = merge(common, {
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
                     : JSON.stringify("")
             }
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ]
 });
