@@ -2,6 +2,7 @@
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
+    @import "./header";
     @import "components/pageLoading";
 
     @include display(flex);
@@ -18,7 +19,6 @@
     .footer-container {
         width: 100%;
     }
-    @import './stickyHeader';
     .main-content {
         @include display(flex);
         @include flex-grow(1);
@@ -38,11 +38,11 @@
             @include flex(1 1 auto);
             width: 100%;
             @include flex-direction(column);
-            margin: rem(20) 0 rem(20) 0;
+            margin: 0 0 rem(20) 0;
             background: $color-white;
-            border-radius: 0.5rem 0.5rem 0 0;
             @media(min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
+                border-radius: 0.5rem 0.5rem 0 0;
             }
             @media(min-width: $tablet-screen) {
                 width: 70%;
@@ -150,8 +150,10 @@
                     width: 100%;
                     opacity: 0.2;
                     transform: scaleY(-1);
-                    border-radius: 0 0 rem(5) rem(5);
                     background-color: #763E94;
+                    @media(min-width: $medium-screen) {
+                        border-radius: 0 0 rem(5) rem(5);
+                    }
                 }
                 .color-purple {
                     color: $color-disaster-covid-19;

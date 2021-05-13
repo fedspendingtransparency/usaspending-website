@@ -6,7 +6,7 @@
 import { getBaseUrl } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
-export const slug = 'covid-19';
+export const slug = 'disaster/covid-19';
 
 export const globalCovidBannerCookie = 'usaspending_covid_release';
 export const dataDisclaimerBannerCookie = 'usaspending_data_disclaimer';
