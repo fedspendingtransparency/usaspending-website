@@ -10,7 +10,6 @@ import { useHistory } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
-import { ARP_RELEASED as isCovidPublicLawFilterLive } from 'GlobalConstants';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -38,7 +37,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import SidebarFooter from 'components/covid19/SidebarFooter';
-import PublicLawPicker from './PublicLawPicker';
 
 require('pages/covid19/index.scss');
 
@@ -75,20 +73,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         dispatch(showModal(url));
     };
 
-    const handlePublicLawFilterClick = (law) => {
-        if (law === 'dsm') {
-            history.push({
-                pathname: '/disaster/covid-19/data-sources'
-            });
-        }
-        else {
-            history.push({
-                pathname: '',
-                search: `?publicLaw=${law}`
-            });
-        }
-    };
-
     const handleShare = (name) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
@@ -99,13 +83,11 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} />,
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />,
                 <DownloadButtonContainer />
-            ]
-                .filter((c, i) => isCovidPublicLawFilterLive || i > 0)}>
+            ]}>
             <LoadingWrapper isLoading={areDefCodesLoading}>
                 <>
                     <main id="main-content" className="main-content usda__flex-row">
