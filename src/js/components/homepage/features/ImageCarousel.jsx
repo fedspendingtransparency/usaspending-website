@@ -219,7 +219,7 @@ export default class ImageCarousel extends React.Component {
                     tabIndex={-1}>
                     <img
                         className="feature-carousel-image__image"
-                        srcset={image.srcset}
+                        srcSet={image.srcSet}
                         src={image.src}
                         alt={image.alt} />
                 </li>

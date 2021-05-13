@@ -67,7 +67,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-official-spending-data__image-wrapper">
                         <img
                             className="feature-covid-official-spending-data__image-mobile"
-                            srcset="img/homepage-covid-official-spending-data.webp 790w"
+                            srcSet="img/homepage-covid-official-spending-data.webp 790w"
                             src="img/homepage-covid-official-spending-data.png"
                             alt="Illustration of people interacting with data" />
                     </div>
@@ -87,7 +87,7 @@ const CovidFeatureContainer = ({
                 <div className="feature-covid-official-spending-data__image-wrapper">
                     <img
                         className="feature-covid-official-spending-data__image"
-                        srcset="img/homepage-covid-official-spending-data.webp 790w"
+                        srcSet="img/homepage-covid-official-spending-data.webp 790w"
                         src="img/homepage-covid-official-spending-data.png"
                         alt="Illustration of people interacting with data" />
                 </div>
@@ -97,7 +97,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image"
-                            srcset="img/homepage-covid-ss-adv-search.webp 790w"
+                            srcSet="img/homepage-covid-ss-adv-search.webp 790w"
                             src="img/homepage-covid-ss-adv-search.png"
                             alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                     </div>
@@ -105,7 +105,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image-mobile"
-                            srcset="img/homepage-covid-ss-adv-search.webp 790w"
+                            srcSet="img/homepage-covid-ss-adv-search.webp 790w"
                             src="img/homepage-covid-ss-adv-search.png"
                             alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
                     </div>
@@ -128,7 +128,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image"
-                            srcset="img/homepage-covid-ss-profile.webp 790w"
+                            srcSet="img/homepage-covid-ss-profile.webp 790w"
                             src="img/homepage-covid-ss-profile.png"
                             alt="Screenshot of COVID-19 Spending profile page" />
                     </div>
@@ -136,7 +136,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-item__image-wrapper">
                         <img
                             className="feature-covid-item__image-mobile"
-                            srcset="img/homepage-covid-ss-profile.webp 790w"
+                            srcSet="img/homepage-covid-ss-profile.webp 790w"
                             src="img/homepage-covid-ss-profile.png"
                             alt="Screenshot of COVID-19 Spending profile page" />
                     </div>
@@ -161,7 +161,7 @@ const CovidFeatureContainer = ({
                     <div className="feature-covid-award-summary__image-wrapper">
                         <img
                             className="feature-covid-award-summary__image"
-                            srcset="img/homepage-covid-ss-award-summary.webp 790w"
+                            srcSet="img/homepage-covid-ss-award-summary.webp 790w"
                             src="img/homepage-covid-ss-award-summary.png"
                             alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                     </div>
@@ -171,7 +171,7 @@ const CovidFeatureContainer = ({
                             <div className="feature-covid-award-summary__image-wrapper">
                                 <img
                                     className="feature-covid-award-summary__image-mobile"
-                                    srcset="img/homepage-covid-ss-award-summary.webp 790w"
+                                    srcSet="img/homepage-covid-ss-award-summary.webp 790w"
                                     src="img/homepage-covid-ss-award-summary.png"
                                     alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                             </div>
