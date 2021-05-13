@@ -12,13 +12,13 @@ import FeatureDropdown from './FeatureDropdown';
 
 const images = [
     {
+        srcset: 'img/homepage-award-search.webp 1x, img/homepage-award-search@2x.webp 2x',
         src: 'img/homepage-award-search.png',
-        srcSet: 'img/homepage-award-search.png 1x, img/homepage-award-search@2x.png 2x',
         alt: 'Screenshot of the Award Search page, showing a map data visualization'
     },
     {
+        srcset: 'img/homepage-keyword-search.webp 1x, img/homepage-keyword-search@2x.webp 2x',
         src: 'img/homepage-keyword-search.png',
-        srcSet: 'img/homepage-keyword-search.png 1x, img/homepage-keyword-search@2x.png 2x',
         alt: 'Screenshot of the Keyword Search page'
     }
 ];
