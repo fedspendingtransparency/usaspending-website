@@ -26,7 +26,6 @@ import {
     formatMoney,
     calculatePercentage
 } from 'helpers/moneyFormatter';
-import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import PercentLabels from './amounts/PercentLabels';
 
 const propTypes = {
