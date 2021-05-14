@@ -12,7 +12,7 @@ import {
     formatMoneyWithPrecision
 } from 'helpers/moneyFormatter';
 
-import {rectangleMapping} from 'dataMapping/covid19/amountsVisualization';
+import { rectangleMapping } from 'dataMapping/covid19/amountsVisualization';
 
 import { defaultTextState, textXPosition, textYPosition } from 'helpers/covid19/amountsVisualization';
 
@@ -27,7 +27,9 @@ const propTypes = {
     lineData: PropTypes.object,
     rectangleData: PropTypes.object,
     dataId: PropTypes.string,
-    width: PropTypes.number
+    tooltipId: PropTypes.string,
+    width: PropTypes.number,
+    className: PropTypes.string
 };
 
 const DefaultLineAndText = ({
@@ -36,7 +38,9 @@ const DefaultLineAndText = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     dataId = '',
-    width
+    tooltipId,
+    width,
+    className
 }) => {
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
     const [labelData, setLabelData] = useState(defaultTextState(dataId, 'label'));
@@ -55,7 +59,7 @@ const DefaultLineAndText = ({
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
-                className: 'amounts-text__value'
+                className: `amounts-text__value ${className || ''}`
             });
         }
     }, [width, scale, valueTextRef.current]);
@@ -68,7 +72,7 @@ const DefaultLineAndText = ({
                 x: textXPosition(overviewData, scale, dataId, ref?.width || 0),
                 height: ref?.height || 0,
                 text: rectangleMapping[dataId].text.label,
-                className: 'amounts-text__label'
+                className: `amounts-text__label ${className || ''}`
             });
         }
     }, [width, scale, valueData]);
@@ -77,8 +81,10 @@ const DefaultLineAndText = ({
         <g>
             <DefaultLine
                 scale={scale}
+                className={className}
                 overviewData={overviewData}
                 dataId={dataId}
+                tooltipId={tooltipId}
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip} />
             <TextGroup data={[
@@ -87,6 +93,7 @@ const DefaultLineAndText = ({
             ].map((textItem) => ({
                 ...textItem,
                 dataId,
+                tooltipId,
                 displayTooltip,
                 hideTooltip
             }))} />

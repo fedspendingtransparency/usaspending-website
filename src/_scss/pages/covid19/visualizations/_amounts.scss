@@ -45,8 +45,35 @@
           .usa-dt-carousel-item__list-item {
             .usa-dt-carousel-item__item {
               padding-bottom: rem(44);
-              h3.amounts-viz__title {
-                line-height: rem(36);
+              .amounts-viz__header {
+                padding-top: rem(10);
+                padding-bottom: rem(20);
+                h3.amounts-viz__title {
+                  line-height: rem(25);
+                  font-size: rem(20);
+                  margin-bottom: 0;
+                  margin-top: 0;
+                }
+                h4.amounts-viz__sub-title {
+                  font-size: rem(16);
+                  letter-spacing: 0;
+                  line-height: rem(22);
+                  margin-top: rem(5);
+                  margin-bottom: 0;
+                }
+              }
+              @include media($medium-screen) {
+                .amounts-viz__header {
+                  h3.amounts-viz__title {
+                    line-height: rem(36);
+                    font-size: rem(30);
+                  }
+                  h4.amounts-viz__sub-title {
+                    font-size: rem(20);
+                    letter-spacing: 0;
+                    line-height: rem(26);
+                  }
+                }
               }
               .amounts-viz__svg {
                 .highlight {
@@ -56,9 +83,15 @@
                 pointer-events: visible;
                 line {
                   pointer-events: visible;
+                  &.opaque {
+                    opacity: 0.5;
+                  }
                 }
-                rectangle {
+                rect {
                   pointer-events: visible;
+                  &.opaque {
+                    opacity: 0.5;
+                  }
                 }
                 text {
                   pointer-events: visible;
@@ -70,6 +103,9 @@
                   cursor: default;
                   pointer-events: visible;
                   letter-spacing: 0;
+                  &.opaque {
+                    opacity: 0.5;
+                  }
                 }
                 .amounts-text__value {
                   font-size: rem(16);

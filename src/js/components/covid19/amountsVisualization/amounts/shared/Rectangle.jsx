@@ -29,7 +29,9 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltip: PropTypes.string,
-    dataId: PropTypes.string
+    dataId: PropTypes.string,
+    tooltipId: PropTypes.string,
+    className: PropTypes.string
 };
 
 const Rectangle = ({
@@ -38,7 +40,9 @@ const Rectangle = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     showTooltip = '',
-    dataId = ''
+    dataId = '',
+    tooltipId,
+    className
 }) => {
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
@@ -63,18 +67,19 @@ const Rectangle = ({
             if (!isNaN(scale(amount))) setData(properties);
         }
     }, [scale, overviewData]);
-    console.log(' Show Tool tip : ', dataId);
     return (
         <g
             tabIndex="0"
             aria-label={data.description}
             data-id={dataId}
+            data-tooltip={tooltipId}
             onFocus={displayTooltip}
             onBlur={hideTooltip}>
             <desc>{data.description}</desc>
             <rect
-                className={showTooltip === dataId ? 'highlight' : ''}
+                className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
                 data-id={dataId}
+                data-tooltip={tooltipId}
                 x={data.x}
                 y={data.y}
                 width={data.width}
