@@ -20,7 +20,7 @@
     <script async type="text/javascript" id="_fed_an_ua_tag"
         src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS"></script>
     
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js' async></script>
     <!--  Google Search COVID-19 Announcement -->
     <script type="application/ld+json">
         {
@@ -39,7 +39,7 @@
         window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
         ga('create', '<%= GA_TRACKING_ID %>', 'auto');
     </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script async src='https://www.google-analytics.com/analytics.js' async></script>
     <!-- End Google Analytics -->
     <% if (USE_GTM) { %>
         <!-- Google Tag Manager -->
