@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
-import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
+import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
@@ -156,7 +156,7 @@ export default () => {
             ref={dataDisclaimerBannerRef}
             overLine="Data Sources &amp; Methodology"
             title="COVID-19 Spending"
-            metaTagProps={covidPageDataSourcesMetaTags}
+            metaTagProps={covidDataSourcesMetaTags}
             toolBarComponents={[
                 <ShareIcon
                     onShareOptionClick={handleShare}
