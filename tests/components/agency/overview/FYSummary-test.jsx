@@ -6,8 +6,9 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 
-import * as helpers from 'helpers/agencyV2Helper';
-import FYSummary from 'components/agencyV2/overview/FYSummary';
+import * as helpers from 'apis/agencyV2';
+import FYSummary from 'components/agencyV2/overview/FySummary';
+
 import { mockTotalBudgetaryResources } from './mockData';
 
 test('No duplicate API requests', () => {
