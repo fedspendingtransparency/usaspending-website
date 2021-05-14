@@ -286,6 +286,24 @@ export const aboutTheDataAgencyDetails = ({
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });
 
+export const agencySubmissionDataSourcesMetaTags = {
+    og_url: `${productionURL}submission-statistics/data-sources`,
+    og_title: 'Data Sources & Methodology for Agency Submission Statistics | USAspending',
+    og_description:
+        'Get information on how to use the Agency Submission Statistics data and view calculation methodologies and data sources.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
+export const covidDataSourcesMetaTags = {
+    og_url: `${productionURL}disaster/covid-19/data-sources`,
+    og_title: 'Data Sources & Methodology for COVID Relief Funding | USAspending',
+    og_description:
+        'View data sources and calculation methods for the COVID-19 Spending profile, including information on what COVID-19 spending USAspending tracks.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 /* eslint-enable max-len */
 
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
