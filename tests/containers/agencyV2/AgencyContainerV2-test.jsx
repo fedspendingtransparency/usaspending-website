@@ -12,6 +12,7 @@ import * as queryParamHelpers from 'helpers/queryParams';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
+import { mockApiCall } from '../../testResources/mockApiHelper';
 
 const mockResponse = {
     promise: new Promise((resolve) => {
@@ -20,6 +21,8 @@ const mockResponse = {
         ));
     })
 };
+
+mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
 
 let spy;
 
