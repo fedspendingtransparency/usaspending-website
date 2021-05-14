@@ -80,7 +80,7 @@ const AmountsVisualization = ({
         else if (browser.includes('Firefox') || browser.includes('Safari')) {
             // vertical offsets from trial/error. Not sure which element's height requires this?
             const verticalOffset = window.innerWidth >= 1600
-                ? 0 + stickyHeaderHeight
+                ? 30
                 : 29.5 + stickyHeaderHeight;
             setMouseValue({
                 x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
