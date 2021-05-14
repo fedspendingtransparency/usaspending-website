@@ -43,7 +43,9 @@ const Rectangle = ({
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
         if (scale) {
-            const { offset, fill, text: textInfo } = rectangleMapping[dataId];
+            const {
+                offset, fill, text: textInfo, color
+            } = rectangleMapping[dataId];
             const { left } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
             const rectWidth = rectangleWidth(overviewData, scale, dataId);
@@ -55,12 +57,13 @@ const Rectangle = ({
                 width: rectWidth < (lineStrokeWidth / 2) ? lineStrokeWidth : rectWidth,
                 height: rectangleHeight - (2 * offset.bottom),
                 fill,
+                stroke: color,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
     }, [scale, overviewData]);
-
+    console.log(' Show Tool tip : ', dataId);
     return (
         <g
             tabIndex="0"
@@ -77,6 +80,8 @@ const Rectangle = ({
                 width={data.width}
                 height={data.height}
                 fill={data.fill}
+                stroke={data.stroke}
+                strokeWidth={lineStrokeWidth}
                 onMouseMove={displayTooltip}
                 onMouseLeave={hideTooltip} />
         </g>

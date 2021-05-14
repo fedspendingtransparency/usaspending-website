@@ -12,13 +12,9 @@ import {
     formatMoneyWithPrecision
 } from 'helpers/moneyFormatter';
 
-import {
-    rectangleMapping,
-    startOfChartY,
-    labelTextAdjustment
-} from 'dataMapping/covid19/amountsVisualization';
+import {rectangleMapping} from 'dataMapping/covid19/amountsVisualization';
 
-import { defaultTextState, textXPosition } from 'helpers/covid19/amountsVisualization';
+import { defaultTextState, textXPosition, textYPosition } from 'helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
 import TextGroup from './TextGroup';
@@ -42,58 +38,41 @@ const DefaultLineAndText = ({
     dataId = '',
     width
 }) => {
-    const [descriptionData, setDescriptionData] = useState(defaultTextState(dataId, 'description'));
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
     const [labelData, setLabelData] = useState(defaultTextState(dataId, 'label'));
-    const descriptionTextRef = useRef(null);
     const labelTextRef = useRef(null);
     const valueTextRef = useRef(null);
-    // description text
+    // value
     useEffect(() => {
-        const { text: textInfo, lineLength } = rectangleMapping[dataId];
-        const descriptionRef = descriptionTextRef.current?.getBoundingClientRect();
         if (scale) {
-            setDescriptionData({
-                y: (startOfChartY - lineLength || 0) + (descriptionRef?.height || 0),
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionRef }, 'description'),
-                height: descriptionRef?.height || 0,
-                text: textInfo.description,
-                className: `amounts-text__description ${!descriptionRef ? 'white' : ''}`
-            });
-        }
-    }, [width, scale]);
-    // value text
-    useEffect(() => {
-        const ref = valueTextRef.current?.getBoundingClientRect();
-        const { lineLength } = rectangleMapping[dataId];
-        const amount = Math.abs(overviewData[dataId]);
-        const units = calculateUnits([amount]);
-        const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
-        if (scale) {
+            const ref = valueTextRef.current?.getBoundingClientRect();
+            const amount = Math.abs(overviewData[dataId]);
+            const units = calculateUnits([amount]);
+            const moneyLabel = `${formatMoneyWithPrecision(amount / units.unit, 1)} ${upperFirst(units.longLabel)}`;
             setValueData({
-                y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0),
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'value'),
+                y: textYPosition(dataId, 'value', labelData.height, ref?.height || 0),
+                x: textXPosition(overviewData, scale, dataId, ref?.width || 0),
                 height: ref?.height || 0,
                 theWidth: ref?.width || 0,
                 text: moneyLabel,
-                className: `amounts-text__value ${dataId === '_totalBudgetAuthority' ? 'bold' : ''} ${!ref ? 'white' : ''}`
+                className: 'amounts-text__value'
             });
         }
-    }, [descriptionData]);
-    // label text
+    }, [width, scale, valueTextRef.current]);
+    // label
     useEffect(() => {
-        const ref = labelTextRef.current?.getBoundingClientRect();
-        const { text: textInfo, lineLength } = rectangleMapping[dataId];
-        if (scale && descriptionData) {
+        if (scale) {
+            const ref = labelTextRef.current?.getBoundingClientRect();
             setLabelData({
-                y: (startOfChartY - lineLength || 0) + descriptionData.height + (ref?.height || 0) + labelTextAdjustment.y + 2,
-                x: textXPosition(overviewData, scale, dataId, { description: descriptionTextRef?.current.getBoundingClientRect(), value: valueTextRef?.current.getBoundingClientRect(), label: labelTextRef?.current.getBoundingClientRect() }, 'label'),
+                y: textYPosition(dataId, 'label', ref?.height || 0, valueData.height),
+                x: textXPosition(overviewData, scale, dataId, ref?.width || 0),
                 height: ref?.height || 0,
-                text: textInfo.label,
-                className: `amounts-text__label ${!ref ? 'white' : ''}`
+                text: rectangleMapping[dataId].text.label,
+                className: 'amounts-text__label'
             });
         }
-    }, [valueData]);
+    }, [width, scale, valueData]);
+
     return (
         <g>
             <DefaultLine
@@ -103,7 +82,6 @@ const DefaultLineAndText = ({
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip} />
             <TextGroup data={[
-                { ...descriptionData, ref: descriptionTextRef },
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }
             ].map((textItem) => ({

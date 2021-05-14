@@ -8,10 +8,8 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DefaultAmountViz from 'components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
-import TotalObligations from 'components/covid19/amountsVisualization/amounts/totalObligations/TotalObligations';
-import RemainingBalance from 'components/covid19/amountsVisualization/amounts/remainingBalance/RemainingBalance';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, Carousel } from 'data-transparency-ui';
 import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
 import Tooltip from 'components/award/shared/activity/Tooltip';
 
@@ -26,7 +24,6 @@ import {
     formatMoney,
     calculatePercentage
 } from 'helpers/moneyFormatter';
-import PercentLabels from './amounts/PercentLabels';
 
 const propTypes = {
     overviewData: PropTypes.object,
@@ -39,18 +36,6 @@ const AmountsVisualization = ({
 }) => {
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
-    const [remainingBalanceLabelData, setRemainingBalanceLabelData] = useState({
-        x: 0,
-        width: 0
-    });
-    const [remainingBalanceValueData, setRemainingBalanceValueData] = useState({
-        x: 0,
-        width: 0
-    });
-    const [remainingBalanceDescriptionData, setRemainingBalanceDescriptionData] = useState({
-        x: 0,
-        width: 0
-    });
     const [showTooltip, setShowTooltip] = useState('');
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
 
@@ -123,19 +108,42 @@ const AmountsVisualization = ({
             tooltipElement={<Tooltip />} />
     });
 
-    const displayTooltip = (e) => {
-        setShowTooltip(e.target.getAttribute('data-id'));
+    const displayTooltip1 = (e) => {
+        console.log(' Target 1 : ', e.target);
+        if (e.target) setShowTooltip(e.target.getAttribute('data-id'));
+    };
+    const displayTooltip2 = (e) => {
+        console.log(' Target 2 : ', e.target);
+        if (e.target) setShowTooltip(e.target.getAttribute('data-id'));
+    };
+    const displayTooltip3 = (e) => {
+        console.log(' Target 3 : ', e.target);
+        if (e.target) setShowTooltip(e.target.getAttribute('data-id'));
+    };
+    const displayTooltip4 = (e) => {
+        console.log(' Target 4 : ', e.target);
+        if (e.target) setShowTooltip(e.target.getAttribute('data-id'));
     };
 
-    const hideTooltip = () => {
+    const hideTooltip1 = () => {
+        console.log(' Hide It 1');
+        setShowTooltip('');
+    };
+    const hideTooltip2 = () => {
+        console.log(' Hide It 2');
+        setShowTooltip('');
+    };
+    const hideTooltip3 = () => {
+        console.log(' Hide It 3');
+        setShowTooltip('');
+    };
+    const hideTooltip4 = () => {
+        console.log(' Hide It 4');
         setShowTooltip('');
     };
 
     return (
         <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
-            <h3 className="body__narrative amounts-viz__title">
-                This is how much was <strong>spent</strong> so far in response to COVID-19
-            </h3>
             {
                 loading &&
                 <div className="results-table-message-container">
@@ -158,44 +166,109 @@ const AmountsVisualization = ({
             }
             {
                 !loading &&
-                <svg height={amountsHeight} width={width} className="amounts-viz__svg">
-                    <DefaultAmountViz
-                        displayTooltip={displayTooltip}
-                        hideTooltip={hideTooltip}
-                        showTooltip={showTooltip}
-                        overviewData={overviewData}
-                        scale={scale}
-                        width={width}
-                        dataId="_totalBudgetAuthority" />
-                    <RemainingBalance
-                        displayTooltip={displayTooltip}
-                        hideTooltip={hideTooltip}
-                        showTooltip={showTooltip}
-                        overviewData={overviewData}
-                        scale={scale}
-                        width={width}
-                        setRemainingBalanceLabelData={setRemainingBalanceLabelData}
-                        setRemainingBalanceValueData={setRemainingBalanceValueData}
-                        setRemainingBalanceDescriptionData={setRemainingBalanceDescriptionData} />
-                    <TotalObligations
-                        displayTooltip={displayTooltip}
-                        hideTooltip={hideTooltip}
-                        showTooltip={showTooltip}
-                        overviewData={overviewData}
-                        scale={scale}
-                        remainingBalanceLabelData={remainingBalanceLabelData}
-                        remainingBalanceValueData={remainingBalanceValueData}
-                        remainingBalanceDescriptionData={remainingBalanceDescriptionData} />
-                    <DefaultAmountViz
-                        displayTooltip={displayTooltip}
-                        hideTooltip={hideTooltip}
-                        showTooltip={showTooltip}
-                        overviewData={overviewData}
-                        scale={scale}
-                        width={width}
-                        dataId="_totalOutlays" />
-                    <PercentLabels width={width} />
-                </svg>
+                <Carousel
+                    items={[
+                        <div>
+                            <h3 className="body__narrative amounts-viz__title">
+                                This is how much was <strong>spent</strong> so far in response to COVID-19
+                            </h3>
+                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip1}
+                                    hideTooltip={hideTooltip1}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalBudgetAuthority" />
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip1}
+                                    hideTooltip={hideTooltip1}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalObligations" />
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip1}
+                                    hideTooltip={hideTooltip1}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalOutlays" />
+                            </svg>
+                        </div>,
+                        <div>
+                            <h3 className="body__narrative amounts-viz__title">
+                                This is how much was <strong>spent</strong> so far in response to COVID-19
+                            </h3>
+                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip2}
+                                    hideTooltip={hideTooltip2}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalBudgetAuthority" />
+                            </svg>
+                        </div>,
+                        <div>
+                            <h3 className="body__narrative amounts-viz__title">
+                                This is how much was <strong>spent</strong> so far in response to COVID-19
+                            </h3>
+                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip3}
+                                    hideTooltip={hideTooltip3}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalBudgetAuthority" />
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip3}
+                                    hideTooltip={hideTooltip3}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalObligations" />
+                            </svg>
+                        </div>,
+                        <div>
+                            <h3 className="body__narrative amounts-viz__title">
+                                This is how much was <strong>spent</strong> so far in response to COVID-19
+                            </h3>
+                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip4}
+                                    hideTooltip={hideTooltip4}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalBudgetAuthority" />
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip4}
+                                    hideTooltip={hideTooltip4}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalObligations" />
+                                <DefaultAmountViz
+                                    displayTooltip={displayTooltip4}
+                                    hideTooltip={hideTooltip4}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    dataId="_totalOutlays" />
+                            </svg>
+                        </div>
+                    ]} />
             }
         </div>
     );

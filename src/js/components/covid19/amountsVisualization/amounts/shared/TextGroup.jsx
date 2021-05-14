@@ -7,7 +7,7 @@ const DefaultText = forwardRef((props, ref) => (
         aria-label={props.text}
         ref={ref}
         data-id={props.dataId}
-        className={props.className}
+        className={`amounts-text ${props.className}`}
         x={props.x || 0}
         y={props.y || 0}
         onMouseMove={props.displayTooltip}

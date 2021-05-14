@@ -39,16 +39,17 @@ const DefaultLine = ({
         if (scale) {
             const {
                 lineLength,
-                lineColor
+                color,
+                isLineAboveChart
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
-                lineColor,
+                color,
                 x1: position,
                 x2: position,
-                y1: startOfChartY - lineLength,
-                y2: startOfChartY + (rectangleHeight / 2)
+                y1: isLineAboveChart ? startOfChartY - lineLength : startOfChartY + (rectangleHeight / 2),
+                y2: startOfChartY + (isLineAboveChart ? (rectangleHeight / 2) : rectangleHeight + lineLength)
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
@@ -67,7 +68,7 @@ const DefaultLine = ({
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y2}
-                stroke={lineData.lineColor}
+                stroke={lineData.color}
                 strokeWidth={lineStrokeWidth}
                 onMouseMove={displayTooltip}
                 onMouseLeave={hideTooltip} />
