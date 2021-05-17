@@ -5,6 +5,8 @@
 
 import { Set, OrderedMap } from 'immutable';
 
+import { initialState as covid19DefaultState } from '../../src/js/redux/reducers/covid19/covid19Reducer';
+
 import { CheckboxTreeSelections } from '../../src/js/redux/reducers/search/searchFiltersReducer';
 
 import * as FiscalYearHelper from '../../src/js/helpers/fiscalYearHelper';
@@ -23,6 +25,7 @@ export const defaultFilters = {
     treasuryAccounts: new OrderedMap(),
     tasCodes: new CheckboxTreeSelections(),
     objectClasses: new OrderedMap(),
+    covid19: covid19DefaultState,
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),

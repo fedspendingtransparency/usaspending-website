@@ -5,18 +5,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoadingMessage, ErrorMessage, PageHeader } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
 import { fetchAgencyOverview } from 'apis/agencyV2';
-import { aboutTheDataAgencyDetails } from 'helpers/metaTagHelper';
+import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
 import Note from 'components/sharedComponents/Note';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
@@ -85,21 +82,20 @@ const AgencyDetailsPage = () => {
     };
 
     return (
-        <div className="about-the-data about-the-data_agency-details-page">
-            {agencyOverview && <MetaTags {...aboutTheDataAgencyDetails(agencyOverview)} />}
-            <Header />
-            <PageHeader
-                title={agencyOverview?.name}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                overLine="Agency Submission Data"
-                shareProps={{
-                    url: getBaseUrl(`submission-statistics/agency/${agencyCode}`),
-                    onShareOptionClick: handleShare
-                }}>
-                <main id="main-content" className="main-content">
-                    {loading && <LoadingMessage />}
-                    {error && <ErrorMessage description={errorMessage} />}
-                    {(!loading && !error) && (
+        <PageWrapper
+            classNames="about-the-data about-the-data_agency-details-page"
+            metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
+            overLine="Agency Profile"
+            title={agencyOverview?.name}
+            toolBarComponents={[
+                <ShareIcon
+                    url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
+                    onShareOptionClick={handleShare} />
+            ]}>
+            <main id="main-content" className="main-content">
+                {loading && <LoadingMessage />}
+                {error && <ErrorMessage description={errorMessage} />}
+                {(!loading && !error) && (
                         <>
                             <div className="heading-container">
                                 <div className="back-link">
@@ -112,7 +108,7 @@ const AgencyDetailsPage = () => {
                                 </div>
                                 <h2 className="header">{agencyOverview?.name}</h2>
                                 <div className="agency-info">
-                                    {agencyOverview.website && (
+                                    {agencyOverview?.website && (
                                         <div className="agency-info__group">
                                             <h5>Agency Contact Information</h5>
                                             <div className="more-info-note">Contact this Agency with questions about their submissions</div>
@@ -121,7 +117,7 @@ const AgencyDetailsPage = () => {
                                             </div>
                                         </div>
                                     )}
-                                    {agencyOverview.id && (
+                                    {agencyOverview?.id && (
                                         <div className="agency-info__group">
                                             <h5>Agency Profile Page</h5>
                                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
@@ -135,23 +131,21 @@ const AgencyDetailsPage = () => {
                                 </div>
                             </div>
                             <AgencyDetailsContainer
-                                agencyName={agencyOverview.name}
+                                agencyName={agencyOverview?.name}
                                 modalClick={modalClick}
                                 agencyCode={agencyCode} />
                             {message && <Note message={message} />}
                         </>
-                    )}
-                    <AboutTheDataModal
-                        mounted={!!showModal.length}
-                        type={showModal}
-                        className={modalClassNames[showModal]}
-                        title={modalTitles(modalData?.type)[showModal]}
-                        agencyData={modalData}
-                        closeModal={closeModal} />
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+                )}
+                <AboutTheDataModal
+                    mounted={!!showModal.length}
+                    type={showModal}
+                    className={modalClassNames[showModal]}
+                    title={modalTitles(modalData?.type)[showModal]}
+                    agencyData={modalData}
+                    closeModal={closeModal} />
+            </main>
+        </PageWrapper>
     );
 };
 

@@ -3,34 +3,52 @@
         // because the search bar sits above the table in this section
         margin-top: 0;
     }
-    
     .table-utility {
+
+    .table-utility__left {
+        width: auto;
+    }
+    .table-utility__right {
+        display: none;
+    }
+  }
+    @media (min-width: $tablet-screen) {
+      .table-utility {
         @include display(flex);
         @include flex-direction(row);
         @include justify-content(space-between);
 
+      .table-utility__left {
+          width: auto;
+      }
+      .table-utility__right {
+        display: none;
+      }
+      
         .table-utility__left {
-            width: 50%;
-        }
-        .table-utility__right {
-            @include display(flex);
-            @include align-items(center);
+          width: 50%;
+      }
+      .table-utility__right {
+          @include display(flex);
+          @include align-items(center);
 
-            .download__button-wrapper {
-                span {
-                    color: $color-primary;
-                }
-                .download__button {
-                    background-color: transparent;
+          .download__button-wrapper {
+              span {
+                  color: $color-primary;
+              }
+              .download__button {
+                  background-color: transparent;
 
-                    svg {
-                        color: $color-primary;
-                        margin-right: rem(10);
-                    }
-                }
-            }
-        }
+                  svg {
+                      color: $color-primary;
+                      margin-right: rem(10);
+                  }
+              }
+          }
+      }
     }
+    }
+
     @import 'components/Note';
     .default-note {
       margin: 0;

@@ -3,20 +3,69 @@
  * Created by Lizzie Salita 4/7/21
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ComingSoon, Carousel } from 'data-transparency-ui';
+
+import { fetchBudgetaryResources } from 'apis/agencyV2';
+import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
+import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import VisualizationSection from './VisualizationSection';
 
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
 
+import BarChart from './BarChart';
+
 const propTypes = {
+    fy: PropTypes.string,
     windowWidth: PropTypes.number,
-    fy: PropTypes.string
+    isMobile: PropTypes.bool,
+    agencyId: PropTypes.string
 };
 
-const FySummary = ({ fy, windowWidth, isMobile }) => {
+const FySummary = ({
+    fy,
+    windowWidth,
+    isMobile,
+    agencyId
+}) => {
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(true);
+    const { budgetaryResources: { dataByYear: resourcesByYear } } = useSelector((state) => state.agencyV2);
+    const budgetaryResourcesRequest = useRef(null);
+
+    useEffect(() => () => {
+        if (budgetaryResourcesRequest.current) {
+            budgetaryResourcesRequest.current.cancel();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (agencyId) {
+            setIsLoading(true);
+            setIsError(false);
+            budgetaryResourcesRequest.current = fetchBudgetaryResources(agencyId);
+            budgetaryResourcesRequest.current.promise
+                .then(({ data }) => {
+                    budgetaryResourcesRequest.current = null;
+                    const d = Object.create(BaseAgencyBudgetaryResources);
+                    d.populate(data, fy);
+                    dispatch(setBudgetaryResources(d));
+                    setIsLoading(false);
+                })
+                .catch((e) => {
+                    console.error('Error fetching budgetary resources', e);
+                    budgetaryResourcesRequest.current = null;
+                    setIsLoading(false);
+                    setIsError(true);
+                    throw e;
+                });
+        }
+    }, [agencyId]);
+
     // TODO eventually get this data via props or redux
     const totalBudgetaryResources = '$1.42 Trillion';
     const percentOfFederalBudget = '15.5%';
@@ -33,8 +82,14 @@ const FySummary = ({ fy, windowWidth, isMobile }) => {
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
-                label="Total Budgetary Resources Over Time" >
-                <ComingSoon className="viz-placeholder" />
+                label="Total Budgetary Resources Over Time">
+                <BarChart
+                    isLoading={isLoading}
+                    isError={isError}
+                    selectedFy={fy}
+                    agencyBudgetByYear={Object
+                        .entries(resourcesByYear)
+                        .map(([key, value]) => ({ year: key, budget: value.agencyBudget }))} />
             </VisualizationSection>
         ),
         (

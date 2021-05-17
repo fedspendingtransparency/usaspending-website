@@ -20,8 +20,8 @@ const SpendingExplorerFeature = () => (
             <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_desktop">
                 <img
                     className="feature-spending-explorer__image"
+                    srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x"
                     src="img/homepage-spending-explorer.png"
-                    srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
                     alt="Screenshot of the Spending Explorer" />
             </div>
             <div className="feature-spending-explorer__content">
@@ -33,8 +33,8 @@ const SpendingExplorerFeature = () => (
                 <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_mobile">
                     <img
                         className="feature-spending-explorer__image"
+                        srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x"
                         src="img/homepage-spending-explorer.png"
-                        srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
                         alt="Screenshot of the Spending Explorer" />
                 </div>
                 <div className="homepage-feature-description">

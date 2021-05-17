@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as aboutTheDataHelper from 'helpers/aboutTheDataHelper';
+import * as agencyReportingAPI from 'apis/agencyReporting';
 import ReportingDifferencesContainer from 'containers/aboutTheData/modals/ReportingDifferencesContainer';
 
 const defaultProps = {
@@ -13,7 +13,7 @@ const defaultProps = {
 
 describe('Reporting Differences Container', () => {
     it('should call api one time on mount', () => {
-        const differencesRequest = jest.spyOn(aboutTheDataHelper, 'fetchReportingDifferences');
+        const differencesRequest = jest.spyOn(agencyReportingAPI, 'fetchReportingDifferences');
         render(<ReportingDifferencesContainer {...defaultProps} />);
         waitFor(() => expect(differencesRequest).toHaveBeenCalledTimes(1));
     });

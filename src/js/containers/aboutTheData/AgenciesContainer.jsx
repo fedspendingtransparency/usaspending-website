@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import DrilldownCell from 'components/aboutTheData/DrilldownCell';
 import CellWithModal from 'components/aboutTheData/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from 'apis/agencyReporting';
 import {
-    getTotalBudgetaryResources,
-    getAgenciesReportingData,
-    getSubmissionPublicationDates,
     usePagination,
     isPeriodSelectable,
     getFederalBudget

@@ -12,6 +12,10 @@
     & .mapboxgl-ctrl-compass {
         display: none !important;
     }
+    //Hide info button that was added after mapbox package update to v1.13.0
+    & .mapboxgl-ctrl-attrib-button {
+        display: none !important;
+    }
 
     @import "./_message";
 }

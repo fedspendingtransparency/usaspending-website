@@ -66,6 +66,9 @@
                     font-weight: $font-semibold;
                     font-size: rem(36);
                     line-height: rem(45);
+                    .dot-pulse {
+                        margin: rem(20) auto;
+                    }
                 }
                 .count-button__sub-heading {
                     font-size: rem(16);

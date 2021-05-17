@@ -43,7 +43,10 @@ const propTypes = {
         x: PropTypes.number,
         width: PropTypes.number
     }),
-    publicLawFilter: PropTypes.string
+    remainingBalanceDescriptionData: PropTypes.shape({
+        x: PropTypes.number,
+        width: PropTypes.number
+    })
 };
 
 const LineAndText = ({
@@ -54,7 +57,7 @@ const LineAndText = ({
     dataId = '',
     remainingBalanceLabelData,
     remainingBalanceValueData,
-    publicLawFilter = 'all'
+    remainingBalanceDescriptionData
 }) => {
     const [lineDataOne, setLineDataOne] = useState(defaultLineData);
     const [lineDataTwo, setLineDataTwo] = useState(defaultLineData);
@@ -83,11 +86,10 @@ const LineAndText = ({
     // lineDataOne
     useEffect(() => {
         if (scale) {
-            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: rectangleMapping[dataId].lineColor,
                 x1: position,
                 x2: position,
                 y1: startOfChartY + (rectangleHeight / 2),
@@ -99,10 +101,9 @@ const LineAndText = ({
     // lineDataTwo
     useEffect(() => {
         if (scale) {
-            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: rectangleMapping[dataId].lineColor,
                 x1: lineDataOne.x1 || 0,
                 x2: lineDataOne.x1 || 0,
                 y1: lineDataOne.y2 || 0,
@@ -114,10 +115,9 @@ const LineAndText = ({
     // lineDataThree
     useEffect(() => {
         if (scale) {
-            const { lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor: rectangleMapping[dataId].lineColor,
                 x1: lineDataTwo.x1 || 0,
                 x2: lineDataTwo.x1 || 0,
                 y1: lineDataTwo.y2 || 0,
@@ -141,27 +141,23 @@ const LineAndText = ({
     }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
     // overlapLineThree
     useEffect(() => {
-        const endOfRemainingBalanceText = remainingBalanceValueData.x + remainingBalanceValueData.width;
+        const endOfRemainingBalanceText = remainingBalanceDescriptionData.x + remainingBalanceDescriptionData.width;
         if (
-            (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText) ||
-          (remainingBalanceLabelData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText)
+            remainingBalanceDescriptionData.x < lineDataThree.x1 && lineDataThree.x1 < endOfRemainingBalanceText
         ) {
             setOverlapLineThree(true);
         }
         else {
             setOverlapLineThree(false);
         }
-    }, [lineDataTwo, remainingBalanceLabelData, remainingBalanceValueData]);
+    }, [lineDataThree, remainingBalanceDescriptionData]);
     // lineDataFour
     useEffect(() => {
         if (scale) {
-            const {
-                lineLength,
-                lineColor
-            } = rectangleMapping[dataId];
+            const { lineLength, lineColor } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const data = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor,
                 x1: lineDataThree.x1 || 0,
                 x2: lineDataThree.x1 || 0,
                 y1: lineDataThree.y2 || 0,

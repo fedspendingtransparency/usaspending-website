@@ -3,16 +3,12 @@
  * Created by Lizzie Salita 5/8/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-
-import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
-import { fetchBudgetaryResources } from 'apis/agencyV2';
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 import CountTabContainer from 'containers/agencyV2/accountSpending/CountTabContainer';
 import TableContainer from 'containers/agencyV2/accountSpending/TableContainer';
+import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -51,24 +47,8 @@ const tabs = [
 ];
 
 const AccountSpending = ({ agencyId, fy }) => {
-    const [activeTab, setActiveTab] = useState('budget_function');
+    const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious('budget_function');
     const subHeading = tabs.find((tab) => tab.type === activeTab).subHeading;
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        // request budgetary resources data for this agency
-        const budgetaryResourcesRequest = fetchBudgetaryResources(agencyId, fy);
-        budgetaryResourcesRequest.promise
-            .then((res) => {
-                // parse the response using our data model
-                const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-                budgetaryResources.populate(res.data);
-                // store the data model object in Redux
-                dispatch(setBudgetaryResources(budgetaryResources));
-            }).catch((err) => {
-                console.error(err);
-            });
-    }, [agencyId, fy]);
 
     return (
         <div className="body__content">
@@ -94,6 +74,7 @@ const AccountSpending = ({ agencyId, fy }) => {
                 <TableContainer
                     agencyId={agencyId}
                     fy={fy}
+                    prevType={prevActiveTab}
                     type={activeTab}
                     subHeading={subHeading} />
             </div>

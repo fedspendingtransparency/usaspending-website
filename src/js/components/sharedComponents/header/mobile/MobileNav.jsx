@@ -9,7 +9,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import { searchOptions, profileOptions, downloadGlobalNavigationOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 
 import MobileTop from './MobileTop';
 import MobileDropdown from './MobileDropdown';
@@ -97,7 +97,7 @@ export class MobileNav extends React.Component {
                             <MobileDropdown
                                 {...this.props}
                                 label="Download Center"
-                                items={downloadGlobalNavigationOptions}
+                                items={downloadOptions}
                                 active={this.state.url} />
                             <hr className="mobile-nav-content__divider" />
                         </li>

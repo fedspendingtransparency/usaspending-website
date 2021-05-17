@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { delay } from 'lodash';
 
 import { getTotalSpendingAbbreviated } from 'helpers/covid19Helper';
+import { isDynamicRenderer } from 'helpers/browser';
+
+const skipAnimation = isDynamicRenderer();
 
 let amountUpdate = null;
 
@@ -25,22 +28,25 @@ const TotalAmount = ({
 }) => {
     const ref = useRef(null);
 
-    useEffect(() => (
-        () => {
+    useEffect(() => {
+        if (skipAnimation) {
+            completeIncrement();
+        }
+        return () => {
             if (amountUpdate) {
                 window.clearTimeout(amountUpdate);
             }
-        }
-    ), []);
+        };
+    }, []);
 
     useEffect(() => {
-        const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
-            amountUpdate = delay(() => {
-                if (ref.current) ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
-                resolve();
-            }, speedOfUpdate);
-        });
-        if (!isLoading) {
+        if (!isLoading && !skipAnimation) {
+            const updateAmount = (amount, speedOfUpdate) => new Promise((resolve) => {
+                amountUpdate = delay(() => {
+                    if (ref.current) ref.current.innerHTML = getTotalSpendingAbbreviated(amount);
+                    resolve();
+                }, speedOfUpdate);
+            });
             new Array(500)
                 .fill(0)
                 .reduce((prevPromise, currentValue, currentIndex) => prevPromise
@@ -55,7 +61,9 @@ const TotalAmount = ({
     }, [isLoading, total, completeIncrement]);
 
     return (
-        <strong className={className} ref={ref}>$0.00</strong>
+        <strong className={className} ref={ref}>
+            {skipAnimation ? getTotalSpendingAbbreviated(total) : '$0.00'}
+        </strong>
     );
 };
 

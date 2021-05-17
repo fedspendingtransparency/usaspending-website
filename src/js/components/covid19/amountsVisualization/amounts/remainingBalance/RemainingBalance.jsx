@@ -32,7 +32,8 @@ const propTypes = {
     scale: PropTypes.func,
     width: PropTypes.number,
     setRemainingBalanceLabelData: PropTypes.func,
-    setRemainingBalanceValueData: PropTypes.func
+    setRemainingBalanceValueData: PropTypes.func,
+    setRemainingBalanceDescriptionData: PropTypes.func
 };
 
 const dataId = '_remainingBalance';
@@ -45,7 +46,8 @@ const RemainingBalance = ({
     scale,
     width,
     setRemainingBalanceLabelData,
-    setRemainingBalanceValueData
+    setRemainingBalanceValueData,
+    setRemainingBalanceDescriptionData
 }) => {
     const [rectangleData, setRectangleData] = useState(defaultRectangleData);
     const [show, setShow] = useState(false);
@@ -106,7 +108,8 @@ const RemainingBalance = ({
                 dataId={dataId}
                 width={width}
                 setRemainingBalanceLabelData={setRemainingBalanceLabelData}
-                setRemainingBalanceValueData={setRemainingBalanceValueData} />}
+                setRemainingBalanceValueData={setRemainingBalanceValueData}
+                setRemainingBalanceDescriptionData={setRemainingBalanceDescriptionData} />}
         </g>
     ); };
 
