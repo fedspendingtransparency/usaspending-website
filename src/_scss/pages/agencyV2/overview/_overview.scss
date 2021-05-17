@@ -5,16 +5,25 @@
         @include display(flex);
         @include justify-content(space-between);
         @include align-items(center);
+        @include flex-wrap(wrap);
         padding-bottom: 1.5rem;
         .agency-overview__title {
             display: block;
             h3 {
+                @include display(flex);
+                @include align-items(center);
+                @include flex-wrap(wrap);
                 margin: 0;
                 font-size: 2rem;
                 font-weight: $font-semibold;
                 letter-spacing: 0;
                 line-height: 2.5rem;
                 padding-bottom: 0.3rem;
+                .tooltip-wrapper > div:first-of-type {
+                    height: 100%;
+                    @include display(flex);
+                    @include align-items(center);
+                }
             }
             .agency-overview__sub-agencies {
                 font-size: 1.4rem;
@@ -24,18 +33,55 @@
             height: 100%;
             padding-right: 1rem;
         }
+        .agency-overview__title {
+            .agency-overview__tooltip {
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                background: $color-disaster-covid-19;
+                color: $color-white;
+                font-size: rem(14);
+                font-weight: 600;
+                text-align: center;
+                height: rem(25);
+                border-radius: rem(4);
+                width: rem(175);
+                margin-left: rem(10);
+                .tooltip-spacer {
+                    transform: translateX(14px);
+                    display: none;
+                     @include media($tablet-screen) {
+                        margin-left: rem(10);
+                        @include display(flex);
+                    }
+                }
+                .tooltip-pointer {
+                    &.left {
+                        left: rem(-16);
+                    }
+                    &.smart-bottom-left {
+                        top: rem(-16);
+                    }
+                }
+            }
+        }
         @include media($medium-screen) {
             // switch the position of the logo and title in desktop
             @include flex-direction(row-reverse);
             @include justify-content(flex-end);
             padding-top: 2.2rem;
             .agency-overview__title {
+                @include display(flex);
+                @include justify-content(flex-start);
+                @include align-items(center);
+                @include flex-wrap(wrap);
                 h3 {
                     font-size: 3.6rem;
                     line-height: 4.5rem;
                 }
                 .agency-overview__sub-agencies {
                     font-size: 1.8rem;
+                    width: 100%;
                 }
             }
         }

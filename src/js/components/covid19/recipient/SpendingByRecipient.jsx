@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchDisasterSpendingCount } from 'helpers/disasterHelper';
+import { fetchDisasterSpendingCount } from 'apis/disaster';
 import { areCountsDefined } from 'helpers/covid19Helper';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';

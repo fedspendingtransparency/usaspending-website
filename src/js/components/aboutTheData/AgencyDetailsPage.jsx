@@ -7,8 +7,8 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, PageHeader } from 'data-transparency-ui';
 
+import { fetchAgencyOverview } from 'apis/agencyV2';
 import { aboutTheDataAgencyDetails } from 'helpers/metaTagHelper';
-import { fetchAgencyOverview } from 'apis/agencyV2APIs';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
