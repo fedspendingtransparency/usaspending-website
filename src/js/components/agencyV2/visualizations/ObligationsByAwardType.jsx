@@ -12,14 +12,14 @@ import * as d3 from 'd3';
 const propTypes = {
 	outer: PropTypes.arrayOf(
 		PropTypes.shape({
-			label: PropTypes.string.isRequired,
+			label: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 			value: PropTypes.number.isRequired,
 			color: PropTypes.string.isRequired
 		})
 	).isRequired,
 	inner: PropTypes.arrayOf(
 		PropTypes.shape({
-			label: PropTypes.string.isRequired,
+			label: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 			value: PropTypes.number.isRequired,
 			color: PropTypes.string.isRequired
 		})
@@ -37,7 +37,7 @@ export default function ObligationsByAwardType({ outer, inner }) {
 	}
 
 
-console.log(chartRect);
+	console.log(chartRect);
 
 
 
@@ -111,7 +111,9 @@ console.log(chartRect);
 		.append('text')
 		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
 		.attr('class', 'callout-labels')
-		.text((d, i) => outerLabels[i])
+		.data(outerLabels)
+		.append('tspan')
+		.text((d, i) => outerLabels[i].map((l) => `<tspan x='0' dy='${i}em'>${l}</tspan>`))
 		;
 
 	// callout lines

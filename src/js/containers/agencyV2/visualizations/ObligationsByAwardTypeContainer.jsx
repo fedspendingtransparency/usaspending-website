@@ -15,39 +15,39 @@ import { fetchObligationsByAwardType } from 'apis/agencyV2';
 // reduce api data into 2 arrays, one for each ring
 const categories = [
   {
-    label: 'Financial/nAssistance',
+    label: ['Financial', 'Assistance'],
     value: 0,
     color: '#FFBC78'
   },
   {
-    label: 'Contracts',
+    label: ['Contracts'],
     value: 0,
     color: '#A9ADD1'
   }
 ];
 const details = [
   {
-    label: 'Grants',
+    label: <>Grants</>,
     color: '#C05600'
   },
   {
-    label: 'Loans',
+    label: <>Loans</>,
     color: '#FA9441'
   },
   {
-    label: 'Direct Payments',
+    label: <>Direct Payments</>,
     color: '#E66F0E'
   },
   {
-    label: 'Other',
+    label: <>Other</>,
     color: '#FFBC78'
   },
   {
-    label: 'IDVs',
+    label: <>IDVs</>,
     color: '#545BA3'
   },
   {
-    label: 'Contracts',
+    label: <>Contracts</>,
     color: '#A9ADD1'
   },
 ];
