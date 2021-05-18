@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin').GitRevisionPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const isDevelopment = process.env.NODE_ENV === 'development';
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
@@ -25,7 +26,11 @@ module.exports = {
     context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx"],
-        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
+        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
+        fallback: {
+            buffer: require.resolve('buffer'),
+            stream: require.resolve('stream-browserify')
+        }
     },
     optimization: {
         moduleIds: 'deterministic'
@@ -42,7 +47,9 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader
+                        loader: isDevelopment
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader
                     },
                     {
                         loader: "css-loader"
@@ -92,17 +99,20 @@ module.exports = {
                 {
                     from: '*.xml',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 },
                 {
                     from: 'robots.txt',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 },
                 {
                     from: 'redirect-config.json',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 }
             ]
         }),
