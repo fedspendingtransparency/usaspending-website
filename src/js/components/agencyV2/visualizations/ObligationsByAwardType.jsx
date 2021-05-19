@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import { de } from 'date-fns/locale';
 
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -35,11 +36,6 @@ export default function ObligationsByAwardType({ outer, inner }) {
 			setChartRect([rect.height, rect.width]);
 		}
 	}
-
-
-	console.log(chartRect);
-
-
 
 	const outerLabels = outer.map((d) => d.label);
 	const outerData = outer.map((d) => d.value);
@@ -97,6 +93,7 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.attr('fill', 'none')
 		;
 
+	// callout labels
 	const labelPos = d => {
 		const pos = outerArc.centroid(d);
 		const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
@@ -104,17 +101,26 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		return pos;
 	}
 
-	// callout labels
-	svg.selectAll()
+	const addLabel = (node, textArray) => {
+		node.select()
+			.data(textArray)
+			.enter()
+			.append('tspan')
+			.text((d) => d)
+	}
+
+	const labelNode = svg.selectAll()
 		.data(outerPie)
 		.enter()
 		.append('text')
 		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
 		.attr('class', 'callout-labels')
-		.data(outerLabels)
-		.append('tspan')
-		.text((d, i) => outerLabels[i].map((l) => `<tspan x='0' dy='${i}em'>${l}</tspan>`))
 		;
+
+
+		console.log(labelNode);
+
+	outerLabels.forEach((l) => { addLabel(labelNode, l) })
 
 	// callout lines
 	svg.selectAll()
