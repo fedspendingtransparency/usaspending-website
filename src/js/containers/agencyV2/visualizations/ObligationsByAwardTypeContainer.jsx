@@ -15,12 +15,12 @@ import { fetchObligationsByAwardType } from 'apis/agencyV2';
 // reduce api data into 2 arrays, one for each ring
 const categories = [
   {
-    label: ['Financial', 'Assistance'],
+    label: ['Financial', 'Assistance'], // line break between words
     value: 0,
     color: '#FFBC78'
   },
   {
-    label: ['Contracts'],
+    label: ['Contracts', ''], // so each cat label array is same length
     value: 0,
     color: '#A9ADD1'
   }
@@ -53,7 +53,7 @@ const details = [
 ];
 
 const propTypes = {
-  fiscalYear: PropTypes.number
+  fiscalYear: PropTypes.number.isRequired
 };
 
 export default function ObligationsByAwardTypeContainer({ fiscalYear }) {
@@ -95,7 +95,6 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear }) {
 
       setLoading(false);
     });
-
   }
 
   if (loading) {

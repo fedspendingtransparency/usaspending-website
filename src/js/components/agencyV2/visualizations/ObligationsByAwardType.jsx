@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
-import { de } from 'date-fns/locale';
+// import { de } from 'date-fns/locale';
 
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -94,33 +94,31 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		;
 
 	// callout labels
-	const labelPos = d => {
+	const labelPos = (d, yOffset = 0) => {
 		const pos = outerArc.centroid(d);
 		const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
 		pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
+		pos[1] += yOffset;
 		return pos;
 	}
 
-	const addLabel = (node, textArray) => {
-		node.select()
-			.data(textArray)
-			.enter()
-			.append('tspan')
-			.text((d) => d)
-	}
-
-	const labelNode = svg.selectAll()
+	svg.selectAll()
 		.data(outerPie)
 		.enter()
 		.append('text')
 		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
 		.attr('class', 'callout-labels')
+		.text((d, i) => outerLabels[i][0])
 		;
 
-
-		console.log(labelNode);
-
-	outerLabels.forEach((l) => { addLabel(labelNode, l) })
+	svg.selectAll()
+		.data(outerPie)
+		.enter()
+		.append('text')
+		.attr('transform', (d) => 'translate(' + labelPos(d, 12) + ')')
+		.attr('class', 'callout-labels')
+		.text((d, i) => outerLabels[i][1])
+		;
 
 	// callout lines
 	svg.selectAll()
