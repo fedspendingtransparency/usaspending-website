@@ -125,7 +125,7 @@ const FySummary = ({
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {isMobile ? <Carousel items={sections(windowWidth)} />
+            {isMobile ? <Carousel items={sections} />
                 : (
                     <div className="fy-summary__row">
                         {sections.map((viz, i) => (
