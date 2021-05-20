@@ -43,6 +43,7 @@ const DefaultLine = ({
         if (scale) {
             const {
                 lineLength,
+                lineOffset,
                 color,
                 isLineAboveChart
             } = rectangleMapping[dataId];
@@ -52,8 +53,8 @@ const DefaultLine = ({
                 color,
                 x1: position,
                 x2: position,
-                y1: isLineAboveChart ? startOfChartY - lineLength : startOfChartY + (rectangleHeight / 2),
-                y2: startOfChartY + (isLineAboveChart ? (rectangleHeight / 2) : rectangleHeight + lineLength)
+                y1: isLineAboveChart ? startOfChartY - lineLength : startOfChartY + (rectangleHeight - lineOffset || 0),
+                y2: startOfChartY + (isLineAboveChart ? lineOffset || 0 : rectangleHeight + lineLength)
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }

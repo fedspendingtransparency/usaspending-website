@@ -52,7 +52,6 @@ export const rectangleHeight = 45;
 export const lineStrokeWidth = 2;
 export const lineLength = [118, 68];
 
-// export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
 export const heightOfRemainingBalanceLines = 10;
 export const remaniningBalanceLineWidth = 1;
 export const spacingBetweenLineAndText = 11;
@@ -64,7 +63,7 @@ export const labelTextAdjustment = {
 export const rectangleMapping = {
     _totalBudgetAuthority: {
         fill: 'white',
-        color: '#AAC6E2',
+        color: '#D0BEDA',
         offset: {
             left: 0,
             right: 0,
@@ -79,8 +78,8 @@ export const rectangleMapping = {
         }
     },
     _totalObligations: {
-        fill: '#558EC6',
-        color: '#558EC6',
+        fill: '#9266AA',
+        color: '#9266AA',
         offset: {
             left: 0,
             right: 0,
@@ -89,14 +88,16 @@ export const rectangleMapping = {
         },
         line: true,
         lineLength: lineLength[1],
+        // since this rectangle is the first rectangle within the total we must start the line higher
+        lineOffset: paddingBetweenRectangles - (paddingBetweenRectangles / 2),
         isLineAboveChart: false,
         text: {
             label: 'Total Obligations'
         }
     },
     _totalOutlays: {
-        fill: '#0A2F5A',
-        color: '#0A2F5A',
+        fill: '#3B005B',
+        color: '#3B005B',
         offset: {
             left: 0,
             right: 0,
@@ -105,6 +106,8 @@ export const rectangleMapping = {
         },
         line: true,
         lineLength: lineLength[1],
+        // since outlays is the inner most rectangle we must extend the lines length to touch the rectangle
+        lineOffset: 2 * paddingBetweenRectangles,
         isLineAboveChart: true,
         text: {
             label: 'Total Outlays'
