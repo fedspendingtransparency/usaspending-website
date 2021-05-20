@@ -6,7 +6,7 @@
 import { getBaseUrl } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
-export const slug = 'covid-19';
+export const slug = 'disaster/covid-19';
 
 export const globalCovidBannerCookie = 'usaspending_covid_release';
 export const dataDisclaimerBannerCookie = 'usaspending_data_disclaimer';
@@ -236,8 +236,4 @@ export const mapFilterSortOrderByValue = {
     outlays: 1,
     totalSpending: 0,
     perCapita: 1
-};
-
-export const defcByPublicLaw = {
-    'american-rescue-plan': ['V']
 };

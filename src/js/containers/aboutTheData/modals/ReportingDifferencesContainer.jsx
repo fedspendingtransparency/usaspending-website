@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
-import { formatReportingDifferencesData, fetchReportingDifferences } from 'helpers/aboutTheDataHelper';
+import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
+import { fetchReportingDifferences } from 'apis/agencyReporting';
 
 const propTypes = {
     agencyData: PropTypes.shape({

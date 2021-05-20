@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/11/20
  */
 
-const initialState = {
+export const initialState = {
     defCodes: [],
     overview: {},
     allAwardTypeTotals: {},

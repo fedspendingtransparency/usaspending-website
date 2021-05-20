@@ -4,7 +4,10 @@
  */
 
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { DownloadIconButton, TooltipComponent } from 'data-transparency-ui';
+
 import { requestFullDownload } from 'helpers/downloadHelper';
 import {
     setDownloadCollapsed,
@@ -12,8 +15,19 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import DownloadIconButton from 'components/sharedComponents/stickyHeader/DownloadIconButton';
 import Analytics from 'helpers/analytics/Analytics';
+
+const Tooltip = () => (
+    <TooltipComponent title="COVID-19 Download">
+        <div className="message">
+            <div>This download includes all data displayed on this page (as well as many additional data elements), with the exception of a few aspects one would need the more granular Account Breakdown by Award data (File C) to reproduce. If you wish to download this more granular data, visit the{' '}
+                <Link to="/download_center/custom_account_data">Custom Account Data</Link> download page.
+            </div>
+            <br />
+            <div>See the Data Sources section for more information on how downloadable data maps to this page.</div>
+        </div>
+    </TooltipComponent>
+);
 
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
@@ -46,6 +60,7 @@ const DownloadButtonContainer = () => {
 
     return (
         <DownloadIconButton
+            tooltipComponent={<Tooltip />}
             downloadInFlight={downloadInFlight}
             onClick={downloadData} />
     );

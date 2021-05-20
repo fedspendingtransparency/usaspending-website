@@ -1,59 +1,20 @@
-.sticky-header {
-    $sticky-header-height: rem(66);
-
-    position: relative;
-
-    .sticky-header__container {
-        width: 100%;
-        background-color: #4a4a4a;
-        color: $color-white;
-        // bottom shadow cast on the content
-        box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
-
-        &.sticky-header__container_sticky {
-            @include media($medium-screen) {
-                position: fixed;
-                top: 0;
-                z-index: $z-header;
-                height: $sticky-header-height;
+.usda-page-header {
+    @include display(flex);
+    min-height: rem(60);
+    @import "../../../mixins/fullSectionWrap.scss";
+    .usda-page-header__container {
+        .usda-page-header__header,
+        .usda-page-header__toolbar {
+            border-bottom: none;
+            @media (max-width: $medium-screen) {
+                .usda-fy-picker__container {
+                    padding-left: 0;
+                }
+                padding-left: $outer-gutter / 2;
             }
         }
-
-        .sticky-header__header {
-            @import "mixins/fullSectionWrap";
+        @media(min-width: $medium-screen) {
             @include fullSectionWrap(0, 0);
-            @include display(flex);
-            @include justify-content(space-between);
-            @include flex-direction(row);
-            @include align-items(center);
-            @include align-self(stretch);
-            @include flex-flow(row wrap);
-            position: relative;
-            padding: rem(17) 0;
-
-            @include media($medium-screen) {
-                padding: 0;
-                height: $sticky-header-height;
-            }
-
-            .sticky-header__title {
-                @include flex(1 1 auto);
-                @include display(flex);
-                @include justify-content(center);
-                h1 {
-                    font-size: rem(24);
-                    line-height: rem(31);
-                    font-weight: $font-semibold;
-                    margin: 0;
-                    margin-right: auto;
-                }
-            }
-
-            .sticky-header__options {
-                @include flex(0 0 auto);
-                @import "../../tabbedSearch/header/downloadButton";
-            }
-            @import "./toolbar";
         }
     }
 }

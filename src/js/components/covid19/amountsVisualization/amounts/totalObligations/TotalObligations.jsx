@@ -42,8 +42,7 @@ const TotalObligations = ({
     scale,
     remainingBalanceLabelData,
     remainingBalanceValueData,
-    remainingBalanceDescriptionData,
-    publicLawFilter
+    remainingBalanceDescriptionData
 }) => (
     <g>
         <title>The text, vertical line and rectangle representative of the COVID-19 Total Obligations</title>
@@ -55,16 +54,14 @@ const TotalObligations = ({
             dataId={dataId}
             remainingBalanceLabelData={remainingBalanceLabelData}
             remainingBalanceValueData={remainingBalanceValueData}
-            remainingBalanceDescriptionData={remainingBalanceDescriptionData}
-            publicLawFilter={publicLawFilter} />
+            remainingBalanceDescriptionData={remainingBalanceDescriptionData} />
         <Rectangle
             overviewData={overviewData}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
             showTooltip={showTooltip}
-            dataId={dataId}
-            publicLawFilter={publicLawFilter} />
+            dataId={dataId} />
     </g>
 );
 

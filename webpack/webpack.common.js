@@ -71,7 +71,7 @@ module.exports = {
                 ]
             },
             {
-                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf)$/,
+                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'

@@ -22,8 +22,7 @@ const propTypes = {
     dataId: PropTypes.string,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    description: PropTypes.string,
-    publicLawFilter: PropTypes.string
+    description: PropTypes.string
 };
 
 const DefaultLine = ({
@@ -32,8 +31,7 @@ const DefaultLine = ({
     dataId,
     displayTooltip,
     hideTooltip,
-    description = 'A line linking a Line to text',
-    publicLawFilter = 'all'
+    description = 'A line linking a Line to text'
 }) => {
     const [lineData, setLineData] = useState(defaultLineData);
 
@@ -46,7 +44,7 @@ const DefaultLine = ({
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
-                lineColor: publicLawFilter === 'all' ? lineColor.default : lineColor.defCode,
+                lineColor,
                 x1: position,
                 x2: position,
                 y1: startOfChartY - lineLength,
