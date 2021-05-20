@@ -1,33 +1,57 @@
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 export const mockBudgetaryResources = {
-    fiscal_year: 2020,
-    toptier_code: '020',
-    agency_budgetary_resources: 2672513718.5,
-    prior_year_agency_budgetary_resources: 1444608434.93,
-    total_federal_budgetary_resources: 9662634317.75,
-    agency_total_obligated: 580584099.03,
-    agency_obligation_by_period: [
+    agency_data_by_year: [
         {
-            period: 3,
-            obligated: 227170135.3
+            fiscal_year: 2021,
+            agency_budgetary_resources: 341375.97,
+            agency_total_obligated: 0.0,
+            total_budgetary_resources: null
         },
         {
-            period: 6,
-            obligated: 580584099.03
+            fiscal_year: 2020,
+            agency_budgetary_resources: 322370908923.19,
+            agency_total_obligated: 239791172810.38,
+            total_budgetary_resources: 11461083881445.67
+        },
+        {
+            fiscal_year: 2019,
+            agency_budgetary_resources: 242451803717.47,
+            agency_total_obligated: 170898908395.86,
+            total_budgetary_resources: 7985747377194.5
+        },
+        {
+            fiscal_year: 2018,
+            agency_budgetary_resources: 224372520297.27,
+            agency_total_obligated: 157671655471.61,
+            total_budgetary_resources: 7593801808266.06
+        },
+        {
+            fiscal_year: 2017,
+            agency_budgetary_resources: 220459743630.97,
+            agency_total_obligated: 163075192516.58,
+            total_budgetary_resources: 7157959573120.1
         }
-    ],
-    messages: []
+    ]
 };
 
 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
 budgetaryResources.populate(mockBudgetaryResources);
 
 describe('BaseAgencyBudgetaryResources', () => {
-    it('should store the raw agency obligated amount', () => {
-        expect(budgetaryResources._agencyTotalObligated).toEqual(580584099.03);
-    });
-    it('should store the formatted agency obligated amount', () => {
-        expect(budgetaryResources.agencyTotalObligated).toEqual('$580.6 million');
+    it('should create a map of spending details keyed on fy', () => {
+        expect(Object.keys(budgetaryResources.dataByYear)).toEqual([
+            '2017',
+            '2018',
+            '2019',
+            '2020',
+            '2021'
+        ]);
+        expect(Object.keys(budgetaryResources.dataByYear['2017'])).toEqual([
+            'agencyBudget',
+            'agencyObligated',
+            'federalBudget'
+        ]);
+        expect(budgetaryResources.dataByYear['2021'].federalBudget).toEqual(0);
     });
 });

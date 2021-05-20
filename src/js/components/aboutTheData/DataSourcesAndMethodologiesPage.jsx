@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { ShareIcon } from 'data-transparency-ui';
 
-import { covidPageDataSourcesMetaTags } from 'helpers/metaTagHelper';
+import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
@@ -88,7 +88,7 @@ const DataSourcesAndMethodologiesPage = () => {
             overLine="Data Sources and Methodology"
             title="Agency Submissions Statistics"
             classNames="usa-da-dsm-page"
-            metaTagProps={covidPageDataSourcesMetaTags}
+            metaTagProps={agencySubmissionDataSourcesMetaTags}
             toolBarComponents={[
                 <ShareIcon
                     url={getBaseUrl('submission-statistics')}

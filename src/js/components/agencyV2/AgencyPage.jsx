@@ -55,7 +55,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} />
+            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} agencyId={agencyId} />
         },
         {
             name: 'budget-category',
@@ -110,7 +110,7 @@ export const AgencyProfileV2 = ({
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
-            metaTagProps={agencyPageMetaTags}
+            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencyId, name })}
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
@@ -132,11 +132,13 @@ export const AgencyProfileV2 = ({
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    {isError ? <ErrorMessage /> : sections.map((section) => (
-                        <AgencySection key={section.name} section={section} isLoading={isLoading}>
-                            {section.component || <ComingSoon />}
-                        </AgencySection>
-                    ))}
+                    {isError
+                        ? <ErrorMessage />
+                        : sections.map((section) => (
+                            <AgencySection key={section.name} section={section} isLoading={isLoading}>
+                                {section.component || <ComingSoon />}
+                            </AgencySection>
+                        ))}
                 </div>
             </main>
         </PageWrapper>
