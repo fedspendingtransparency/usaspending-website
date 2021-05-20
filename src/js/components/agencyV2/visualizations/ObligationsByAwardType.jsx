@@ -30,12 +30,15 @@ const propTypes = {
 export default function ObligationsByAwardType({ outer, inner }) {
 	const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
 	const chartRef = React.useRef();
-	if (chartRef.current) {
-		const rect = chartRef.current && chartRef.current.parentElement.getBoundingClientRect();
-		if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
-			setChartRect([rect.height, rect.width]);
+
+	React.useEffect(() => {
+		if (chartRef.current) {
+			const rect = chartRef.current && chartRef.current.parentElement.getBoundingClientRect();
+			if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
+				setChartRect([rect.height, rect.width]);
+			}
 		}
-	}
+	}, []);
 
 	const outerLabels = outer.map((d) => d.label);
 	const outerData = outer.map((d) => d.value);

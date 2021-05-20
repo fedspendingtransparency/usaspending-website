@@ -76,7 +76,7 @@ const FySummary = ({
     const numberOfRecipients = '200';
     const percentOfFederalRecipients = '1.5%';
 
-    const sections = (windowWidth) => [
+    const sections =  [
         (
             <VisualizationSection
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
@@ -128,7 +128,7 @@ const FySummary = ({
             {isMobile ? <Carousel items={sections(windowWidth)} />
                 : (
                     <div className="fy-summary__row">
-                        {sections(windowWidth).map((viz, i) => (
+                        {sections.map((viz, i) => (
                             <div key={`FY-Summary-${i}`} className="fy-summary__col">
                                 {viz}
                             </div>
