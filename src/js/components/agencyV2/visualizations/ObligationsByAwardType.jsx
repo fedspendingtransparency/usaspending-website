@@ -130,7 +130,7 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.append('polyline')
 		.attr('points', (d) => [labelPos(d), outerArc.centroid(d)])
 		.attr('stroke', 'black')
-		.attr('stroke-width', 3)
+		.attr('stroke-width', 1)
 		;
 
 	return <div id='obl_chart' ref={chartRef} />;
