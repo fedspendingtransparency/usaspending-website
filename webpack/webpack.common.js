@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin').GitRevisionPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
@@ -74,6 +75,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new MomentLocalesPlugin(),
         new CleanWebpackPlugin(["public"], {
             root: path.resolve(__dirname, "../")
         }),

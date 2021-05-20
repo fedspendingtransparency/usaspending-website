@@ -1,7 +1,6 @@
 const merge = require('webpack-merge').merge;
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const common = require('./webpack.common');
@@ -58,7 +57,6 @@ module.exports = merge(common, {
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
                     : JSON.stringify("")
             }
-        }),
-        new BundleAnalyzerPlugin()
+        })
     ]
 });
