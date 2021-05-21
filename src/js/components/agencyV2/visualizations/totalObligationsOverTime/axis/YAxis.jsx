@@ -28,10 +28,12 @@ const YAxis = ({
     y1,
     y2
 }) => (
-    <g className={`y-axis${className ? ` ${className}` : ''}`}>
+    <g tabIndex="0" className={`y-axis${className ? ` ${className}` : ''}`}>
         <title>The Y-Axis</title>
         <description>The Y-Axis consisting of a vertical line and labels</description>
         <line
+            tabIndex="0"
+            aria-label="The vertical line for the y-axis"
             x1={x1}
             x2={x2}
             y1={y1}

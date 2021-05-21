@@ -10,6 +10,7 @@ import AreaPath from './AreaPath';
 
 const propTypes = {
     data: PropTypes.array,
+    description: PropTypes.string,
     xScale: PropTypes.func,
     xScaleForPath: PropTypes.func,
     yScale: PropTypes.func,
@@ -28,6 +29,7 @@ const propTypes = {
 
 const Paths = ({
     data = [],
+    description,
     xScale = () => {},
     xScaleForPath = () => {},
     yScale = () => {},
@@ -44,6 +46,7 @@ const Paths = ({
     <g className="paths">
         <AreaPath
             data={data}
+            description={description}
             xScale={xScale}
             yScale={yScale}
             height={height}
@@ -51,6 +54,7 @@ const Paths = ({
             padding={padding} />
         <Path
             data={data.sort((a, b) => a.endDate - b.endDate)}
+            description={description}
             xScale={xScaleForPath}
             yScale={yScaleForPath}
             height={height}

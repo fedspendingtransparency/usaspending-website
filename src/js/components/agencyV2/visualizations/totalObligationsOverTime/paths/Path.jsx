@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     data: PropTypes.array,
+    description: PropTypes.string,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
     xProperty: PropTypes.string,
@@ -23,6 +24,7 @@ const propTypes = {
 
 const Path = ({
     data = [],
+    description,
     xScale = () => {},
     yScale = () => {},
     xProperty = 'endDate',
@@ -50,7 +52,13 @@ const Path = ({
         }
     }, [data, xScale, yScale]);
 
-    return <path className="path" d={d} />;
+    return (
+        <path
+            area-label={`The linear line representative of the following periods, dates, and obligations: ${description}`}
+            tabIndex="0"
+            className="path"
+            d={d} />
+    );
 };
 
 Path.propTypes = propTypes;
