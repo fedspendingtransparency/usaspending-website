@@ -16,19 +16,17 @@ import {
 import TotalObligationsOverTimeVisualization from 'components/agencyV2/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
 import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import { useQueryParams } from 'helpers/queryParams';
-import { mockAgencyObligationByPeriod } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
 
 const propTypes = {
-    agencyObligationsByPeriod: PropTypes.array,
-    error: PropTypes.shape({
-        error: PropTypes.bool,
-        message: PropTypes.string
-    })
+    obligationsByPeriod: PropTypes.array,
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool
 };
 
 const TotalObligationsOverTimeContainer = ({
-    agencyObligationsByPeriod = mockAgencyObligationByPeriod,
-    error = { error: false, message: '' }
+    obligationsByPeriod,
+    isLoading,
+    isError
 }) => {
     const { fy } = useQueryParams(['fy']);
     const [loading, setLoading] = useState(true);
@@ -41,11 +39,15 @@ const TotalObligationsOverTimeContainer = ({
     useEffect(() => {
         setLoading(true);
         const javaScriptSubmissionPeriods = submissionPeriods.toJS();
-        if (javaScriptSubmissionPeriods.length && agencyObligationsByPeriod.length) {
-            setData(addSubmissionEndDatesToBudgetaryResources(agencyObligationsByPeriod, javaScriptSubmissionPeriods, fy));
+        if (javaScriptSubmissionPeriods.length && obligationsByPeriod.length && !isLoading && !isError) {
+            setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy));
             setLoading(false);
         }
-    }, [submissionPeriods, agencyObligationsByPeriod, fy]);
+    }, [submissionPeriods, obligationsByPeriod, isLoading, isError, fy]);
+
+    useEffect(() => {
+        if (isError) setLoading(false);
+    }, [isError]);
 
     const handleWindowResize = throttle(() => {
         const wWidth = window.innerWidth;
@@ -65,11 +67,11 @@ const TotalObligationsOverTimeContainer = ({
 
     return (
         <div ref={containerReference} className="total-obligations-over-time-visualization-container">
-            {error.error && <ErrorMessage />}
+            {isError && <ErrorMessage />}
             {loading && <LoadingMessage />}
-            {!error.error && !loading && !data.length && <NoResultsMessage />}
+            {!isError && !loading && !data.length && <NoResultsMessage />}
             {
-                !error.error && !loading && data.length > 0 &&
+                !isError && !loading && data.length > 0 &&
                 <TotalObligationsOverTimeVisualization
                     width={visualizationWidth}
                     data={data}

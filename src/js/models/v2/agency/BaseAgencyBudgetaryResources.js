@@ -11,7 +11,8 @@ const BaseAgencyBudgetaryResources = {
             [obj.fiscal_year]: {
                 agencyBudget: obj.agency_budgetary_resources || 0,
                 agencyObligated: obj.agency_total_obligated || 0,
-                federalBudget: obj.total_budgetary_resources || 0
+                federalBudget: obj.total_budgetary_resources || 0,
+                obligationsByPeriod: obj.agency_obligation_by_period || []
             }
         }), {}) || {};
     }
