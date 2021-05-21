@@ -41,8 +41,8 @@ export const tooltipMapping = {
 
 export const defaultTooltipWidth = 375;
 export const amountsPadding = {
-    left: 45,
-    right: 45
+    left: 0,
+    right: 10
 };
 
 export const amountsHeight = 232;
