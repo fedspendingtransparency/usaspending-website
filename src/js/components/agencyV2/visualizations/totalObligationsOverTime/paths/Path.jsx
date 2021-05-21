@@ -53,11 +53,10 @@ const Path = ({
     }, [data, xScale, yScale]);
 
     return (
-        <path
-            area-label={`The linear line representative of the following periods, dates, and obligations: ${description}`}
-            tabIndex="0"
-            className="path"
-            d={d} />
+        <g tabIndex="0">
+            <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
+            <path className="path" d={d} />
+        </g>
     );
 };
 

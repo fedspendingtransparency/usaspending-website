@@ -59,11 +59,12 @@ const AreaPath = ({
     }, [data, xScale, yScale]);
 
     return (
-        <path
-            aria-label={`The area under the curve representative of the following periods, dates, and obligations: ${description}`}
-            tabIndex="0"
-            className={`area-path ${classname}`}
-            d={d} />
+        <g tabIndex="0">
+            <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
+            <path
+                className={`area-path ${classname}`}
+                d={d} />
+        </g>
     );
 };
 

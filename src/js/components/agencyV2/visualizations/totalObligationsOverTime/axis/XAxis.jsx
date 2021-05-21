@@ -33,7 +33,6 @@ const XAxis = ({
         <description>The X-Axis consisting of a horizontal line and labels</description>
         <line
             tabIndex="0"
-            aria-label="The horizontal line for the x-axis"
             x1={x1}
             x2={x2}
             y1={y1}
