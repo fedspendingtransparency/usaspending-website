@@ -154,6 +154,22 @@ const OtherResources = ({
                                     onClick={handleClick}>
                                     https://home.treasury.gov/policy-issues/cares&nbsp;
                                     <span className="other-resources__link__icon">
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
+                                    </span>
+                                </a>
+                                <a
+                                    href="https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics"
+                                    onClick={handleClick}>
+                                    https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics&nbsp;
+                                    <span className="other-resources__link__icon">
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
+                                    </span>
+                                </a>
+                                <a
+                                    href="https://home.treasury.gov/policy-issues/coronavirus"
+                                    onClick={handleClick}>
+                                    https://home.treasury.gov/policy-issues/coronavirus&nbsp;
+                                    <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
                                 </a>
