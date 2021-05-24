@@ -16,7 +16,6 @@ const Heading = () => {
     };
     return (
         <div className="heading__container information-body">
-            <div className="heading__top information-top" />
             <div className="heading__title">
                 The Federal Response to <span className="color-purple">COVID-19</span>
             </div>
