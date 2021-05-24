@@ -5,7 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, TooltipWrapper } from 'data-transparency-ui';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const getLastFourYears = ({ year }, selectedFy) => {
     if (parseInt(selectedFy, 10) <= 2021 && year <= 2021) return true;
@@ -26,18 +27,31 @@ const BarChart = ({
         return agencyBudgetByYear
             .filter((o) => getLastFourYears(o, selectedFy))
             .sort((a, b) => a.year - b.year)
-            .map(({ year: fy, budget }, i) => {
+            .map(({ year: fy, budget }) => {
                 const fyStr = String(fy);
+                const tooltip = (
+                    <div className="bar-chart__tooltip">
+                        <div className="tooltip__title">
+                            FY {fy}
+                        </div>
+                        <div className="tooltip__text">
+                            Total Budgetary Resources
+                            <div>{formatMoney(budget)}</div>
+                        </div>
+                    </div>
+                );
                 return (
-                    <li className="bar-chart__bar" key={i}>
-                        <span
-                            className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
-                            style={{
-                                height: `${(budget / greatestAgencyBudget) * 100}%`,
-                                minHeight: '0.5%'
-                            }} />
-                        <span>{`FY ${fyStr[2]}${fyStr[3]}`}</span>
-                    </li>
+                    <TooltipWrapper tooltipComponent={tooltip} key={fy}>
+                        <li className="bar-chart__bar">
+                            <span
+                                className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
+                                style={{
+                                    height: `${(budget / greatestAgencyBudget) * 100}%`,
+                                    minHeight: '0.5%'
+                                }} />
+                            <span>{`FY ${fyStr[2]}${fyStr[3]}`}</span>
+                        </li>
+                    </TooltipWrapper>
                 );
             });
     };
