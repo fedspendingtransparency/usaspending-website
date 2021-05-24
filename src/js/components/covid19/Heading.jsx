@@ -35,6 +35,18 @@ const Heading = () => {
                     </p>
                 </ReadMore>
             </div>
+            <div className="heading__img-wrapper">
+                <img
+                    className="heading__img"
+                    src="img/desktop@2x.png"
+                    alt="Illustration of doctor with patients" />
+            </div>
+            <div style={{ marginLeft: "auto" }} className="heading__img-wrapper">
+                <img
+                    className="heading__img-mobile"
+                    src="img/mobile@2x.png"
+                    alt="Illustration of doctor with patients" />
+            </div>
         </div>
     );
 };
