@@ -41,18 +41,19 @@ const BarChart = ({
             .map(({ year: fy, budget }) => {
                 const fyStr = String(fy);
                 const tooltip = (
-                    <div className="bar-chart__tooltip">
+                    <div className="bar-chart-tooltip">
                         <div className="tooltip__title">
                             FY {fy}
                         </div>
                         <div className="tooltip__text">
-                            Total Budgetary Resources
-                            <div>{formatMoney(budget)}</div>
+                            <div className="bar-chart-tooltip__desc">Total Budgetary Resources</div>
+                            <div className="bar-chart-tooltip__amount">{formatMoney(budget)}</div>
                         </div>
                     </div>
                 );
                 return (
                     <TooltipWrapper
+                        className="bar-chart__tooltip-wrapper"
                         tooltipComponent={tooltip}
                         key={fy}
                         offsetAdjustments={{
