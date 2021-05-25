@@ -8,9 +8,12 @@ import PropTypes from 'prop-types';
 import { LoadingMessage, ErrorMessage, TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney } from 'helpers/moneyFormatter';
 
-const getLastFourYears = ({ year }, selectedFy) => {
-    if (parseInt(selectedFy, 10) <= 2021 && year <= 2021) return true;
-    if (parseInt(selectedFy, 10) > 2021 && year >= parseInt(selectedFy, 10) - 4) return true;
+export const getLastFourYears = ({ year }, selectedFy) => {
+    const fy = parseInt(selectedFy, 10);
+    // Data Act reporting began in 2017. Before 2021, return true for 2017 - 2021.
+    if (fy <= 2021 && year <= 2021) return true;
+    // After 2021, return true for the previous 4 years and the currently selected year.
+    if (fy > 2021 && year >= parseInt(selectedFy, 10) - 4 && year <= fy) return true;
     return false;
 };
 

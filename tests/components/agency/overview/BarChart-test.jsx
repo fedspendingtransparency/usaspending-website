@@ -6,7 +6,7 @@
 import React from 'react';
 
 import { render, screen } from 'test-utils';
-import BarChart, { calculateOffsetTop } from 'components/agencyV2/overview/BarChart';
+import BarChart, { calculateOffsetTop, getLastFourYears } from 'components/agencyV2/overview/BarChart';
 
 import { mockTotalBudgetaryResources } from './mockData';
 
@@ -44,3 +44,16 @@ test.each([
     expect(calculateOffsetTop(ratio)).toEqual(top);
 });
 
+test.each([
+    [{ year: 2017 }, '2018', true],
+    [{ year: 2021 }, '2018', true],
+    [{ year: 2022 }, '2018', false],
+    [{ year: 2018 }, '2018', true],
+    // the logic changes after 2021
+    [{ year: 2017 }, '2025', false],
+    [{ year: 2026 }, '2025', false],
+    [{ year: 2022 }, '2025', true],
+    [{ year: 2025 }, '2025', true]
+])('given FY %s, with a selected FY of %s, getLastFourYears returns %s', (year, selectedFy, result) => {
+    expect(getLastFourYears(year, selectedFy)).toEqual(result);
+});
