@@ -14,6 +14,14 @@ const getLastFourYears = ({ year }, selectedFy) => {
     return false;
 };
 
+/**
+ * The visualization is 208px tall (src/_scss/pages/agencyV2/overview/_visualizationSection.scss)
+ * Maximum bar height is 187px
+ * To display the tooltip at the midpoint of the bar, get the inverse of half the height of the bar
+ * Subtract 15px for the arrow spacer
+ */
+export const calculateOffsetTop = (percentOfGreatestBudget) => 187 - (187 * percentOfGreatestBudget * 0.5) - 15;
+
 const BarChart = ({
     isLoading,
     isError,
@@ -41,7 +49,14 @@ const BarChart = ({
                     </div>
                 );
                 return (
-                    <TooltipWrapper tooltipComponent={tooltip} key={fy}>
+                    <TooltipWrapper
+                        tooltipComponent={tooltip}
+                        key={fy}
+                        offsetAdjustments={{
+                            top: calculateOffsetTop(budget / greatestAgencyBudget),
+                            left: 0,
+                            right: 0
+                        }}>
                         <li className="bar-chart__bar">
                             <span
                                 className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
