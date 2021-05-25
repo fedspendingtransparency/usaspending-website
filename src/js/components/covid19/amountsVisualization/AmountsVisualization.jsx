@@ -134,12 +134,10 @@ const AmountsVisualization = ({
                 <Carousel
                     items={[
                         <div>
-                            {/* <div className="amounts-viz__header"> */}
                             <h3 className="body__narrative amounts-viz__title">
                                     This is how much was spent so far in response to COVID-19
                             </h3>
                             <div className="amounts-viz__sub-title" />
-                            {/* </div> */}
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -171,7 +169,6 @@ const AmountsVisualization = ({
                             </svg>
                         </div>,
                         <div>
-                            {/* <div className="amounts-viz__header"> */}
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Budgetary Resources
                             </h3>
@@ -179,7 +176,6 @@ const AmountsVisualization = ({
                                     This is the total amount of funding that agencies have to
                                     spend based on legislation passed by Congress.
                             </h4>
-                            {/* </div> */}
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -193,14 +189,12 @@ const AmountsVisualization = ({
                             </svg>
                         </div>,
                         <div>
-                            {/* <div className="amounts-viz__header"> */}
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Obligations
                             </h3>
                             <h4 className="amounts-viz__sub-title">
                                     This is how much agencies have committed to spend.
                             </h4>
-                            {/* </div> */}
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -223,14 +217,12 @@ const AmountsVisualization = ({
                             </svg>
                         </div>,
                         <div>
-                            {/* <div className="amounts-viz__header"> */}
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Outlays
                             </h3>
                             <h4 className="amounts-viz__sub-title">
                                     This is how much agencies have paid out.
                             </h4>
-                            {/* </div> */}
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
