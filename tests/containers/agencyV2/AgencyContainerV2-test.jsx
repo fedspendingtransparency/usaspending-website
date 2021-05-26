@@ -14,14 +14,6 @@ import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockApiCall } from '../../testResources/mockApiHelper';
 
-const mockResponse = {
-    promise: new Promise((resolve) => {
-        process.nextTick(() => (
-            resolve({ data: mockAgency })
-        ));
-    })
-};
-
 mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
 
 let spy;
@@ -60,19 +52,26 @@ test('on network error, an error message displays', () => {
     });
 });
 
-// test('an API request is made for the agency code in the URL', () => {
-//     spy.mockClear();
-//     spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
-//     render((
-//         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
-//             <AgencyContainerV2 />
-//         </Route >
-//     ));
+test('an API request is made for the agency code in the URL', () => {
+    const mockResponse = {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => (
+                resolve({ data: mockAgency })
+            ));
+        })
+    };
+    spy.mockClear();
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    render((
+        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
 
-//     return waitFor(() => {
-//         expect(spy).toHaveBeenCalledTimes(1);
-//         // TODO: update expected FY param when picker is fixed
-//         expect(spy).toHaveBeenCalledWith('123', 2020);
-//     });
-// });
+    return waitFor(() => {
+        expect(spy).toHaveBeenCalledTimes(1);
+        // TODO: update expected FY param when picker is fixed
+        expect(spy).toHaveBeenCalledWith('123', 2020);
+    });
+});
 
