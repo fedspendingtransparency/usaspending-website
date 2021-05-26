@@ -108,11 +108,14 @@ export default function ObligationsByAwardType({ outer, inner }) {
 	svg.selectAll()
 		.data(outerPie)
 		.enter()
-		.append('<circle cx=50 cy=50 r=50/>')
 		.append('text')
 		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
 		.attr('class', 'callout-labels')
 		.text((d, i) => outerLabels[i][0])
+		.append('circle')
+		.attr('cx','50')
+		.attr('cy','50')
+		.attr('r','50')
 		;
 
 	svg.selectAll()
