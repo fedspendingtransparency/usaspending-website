@@ -108,6 +108,7 @@ export default function ObligationsByAwardType({ outer, inner }) {
 	svg.selectAll()
 		.data(outerPie)
 		.enter()
+		.append('<circle cx=50 cy=50 r=50/>')
 		.append('text')
 		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
 		.attr('class', 'callout-labels')
@@ -123,15 +124,16 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.text((d, i) => outerLabels[i][1])
 		;
 
+	// considering not using indicator line, just position and swatch
 	// callout lines
-	svg.selectAll()
-		.data(outerPie)
-		.enter()
-		.append('polyline')
-		.attr('points', (d) => [labelPos(d), outerArc.centroid(d)])
-		.attr('stroke', 'black')
-		.attr('stroke-width', 1)
-		;
+	// svg.selectAll()
+	// 	.data(outerPie)
+	// 	.enter()
+	// 	.append('polyline')
+	// 	.attr('points', (d) => [labelPos(d), outerArc.centroid(d)])
+	// 	.attr('stroke', '#757575')
+	// 	.attr('stroke-width', 1)
+	// 	;
 
 	return <div id='obl_chart' ref={chartRef} />;
 }
