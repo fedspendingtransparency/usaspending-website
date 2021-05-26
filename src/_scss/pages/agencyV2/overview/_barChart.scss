@@ -1,4 +1,4 @@
-ul.viz-container.bar-chart {
+.viz-container.bar-chart {
     @include display(flex);
     @include justify-content(center);
     @include align-items(flex-end);
@@ -29,6 +29,10 @@ ul.viz-container.bar-chart {
         .tooltip-pointer {
             &.left {
                 left: rem(-16);
+                @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                    // IE only
+                    left: rem(-8);
+                }
             }
         }
         .tooltip__content {
@@ -47,7 +51,7 @@ ul.viz-container.bar-chart {
         }
     }
 
-    li.bar-chart__bar {
+    .bar-chart__bar {
         @include display(flex);
         @include flex-direction(column);
         @include justify-content(flex-end);

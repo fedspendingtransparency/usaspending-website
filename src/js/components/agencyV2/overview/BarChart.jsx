@@ -61,7 +61,7 @@ const BarChart = ({
                             left: 0,
                             right: 0
                         }}>
-                        <li className="bar-chart__bar">
+                        <div className="bar-chart__bar">
                             <span
                                 className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
                                 style={{
@@ -69,7 +69,7 @@ const BarChart = ({
                                     minHeight: '0.5%'
                                 }} />
                             <span>{`FY ${fyStr[2]}${fyStr[3]}`}</span>
-                        </li>
+                        </div>
                     </TooltipWrapper>
                 );
             });
@@ -81,9 +81,9 @@ const BarChart = ({
         return <LoadingMessage />;
     }
     return (
-        <ul className="viz-container bar-chart">
+        <div className="viz-container bar-chart">
             {renderBars()}
-        </ul>
+        </div>
     );
 };
 
