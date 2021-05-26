@@ -7,8 +7,24 @@ ul.viz-container.bar-chart {
     width: 100%;
 
     .bar-chart__tooltip-wrapper {
-        &:hover {
-            cursor: pointer;
+        width: 15%;
+        margin: 0 2%;
+        .tooltip {
+            // Don't show the tooltip in mobile
+            display: none;
+        }
+        >div {
+            width: 100%;
+        }
+        @include media($medium-screen) {
+            width: rem(35);
+            margin: 0 rem(2.5);
+            &:hover {
+                cursor: pointer;
+            }
+            .tooltip {
+                display: block;
+            }
         }
         .tooltip-pointer {
             &.left {
@@ -36,14 +52,7 @@ ul.viz-container.bar-chart {
         @include flex-direction(column);
         @include justify-content(flex-end);
         @include align-items(center);
-        margin: 0;
         height: rem(208);
-        width: 15%;
-        margin: 0 2%;
-        @include media($medium-screen) {
-            width: rem(35);
-            margin: 0 rem(2.5);
-        }
         span {
             width: 100%;
         }
