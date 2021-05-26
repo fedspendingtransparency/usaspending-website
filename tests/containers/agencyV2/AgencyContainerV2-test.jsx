@@ -34,25 +34,6 @@ beforeEach(() => {
     ]);
 });
 
-test('on network error, an error message displays', () => {
-    const mockReject = {
-        promise: new Promise((resolve, reject) => {
-            process.nextTick(() => (
-                reject(new Error('mock error'))
-            ));
-        })
-    };
-    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
-    render((
-        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
-            <AgencyContainerV2 />
-        </Route >
-    ));
-    return waitFor(() => {
-        expect(screen.queryByText('An error occurred')).toBeTruthy();
-    });
-});
-
 test('an API request is made for the agency code in the URL', () => {
     const mockResponse = {
         promise: new Promise((resolve) => {
@@ -76,3 +57,22 @@ test('an API request is made for the agency code in the URL', () => {
     });
 });
 
+
+test('on network error, an error message displays', () => {
+    const mockReject = {
+        promise: new Promise((resolve, reject) => {
+            process.nextTick(() => (
+                reject(new Error('mock error'))
+            ));
+        })
+    };
+    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockReject);
+    render((
+        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    return waitFor(() => {
+        expect(screen.queryByText('An error occurred')).toBeTruthy();
+    });
+});
