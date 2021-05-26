@@ -19,6 +19,7 @@ mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
 let spy;
 
 beforeEach(() => {
+    jest.clearAllMocks();
     jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
         null,
         [],
@@ -60,7 +61,7 @@ test('an API request is made for the agency code in the URL', () => {
             ));
         })
     };
-    spy.mockClear();
+    // spy.mockClear();
     spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
