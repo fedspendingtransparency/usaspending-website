@@ -3,7 +3,7 @@
  * Created by Max Kendall 4/13/21
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LoadingMessage, ErrorMessage, TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney } from 'helpers/moneyFormatter';
@@ -31,6 +31,7 @@ const BarChart = ({
     agencyBudgetByYear,
     selectedFy
 }) => {
+    const [hoveredFy, setHoveredFy] = useState(false);
     const renderBars = () => {
         const greatestAgencyBudget = agencyBudgetByYear
             .filter((o) => getLastFourYears(o, selectedFy))
@@ -52,25 +53,28 @@ const BarChart = ({
                     </div>
                 );
                 return (
-                    <TooltipWrapper
-                        className="bar-chart__tooltip-wrapper"
-                        tooltipComponent={tooltip}
-                        key={fy}
-                        offsetAdjustments={{
-                            top: calculateOffsetTop(budget / greatestAgencyBudget),
-                            left: 0,
-                            right: 0
-                        }}>
-                        <div className="bar-chart__bar">
-                            <span
-                                className={`${fyStr === selectedFy ? 'active-fy ' : ''}`}
+                    <div className="bar-chart__item" key={fy}>
+                        <TooltipWrapper
+                            className="bar-chart__tooltip-wrapper"
+                            tooltipComponent={tooltip}
+                            offsetAdjustments={{
+                                top: calculateOffsetTop(budget / greatestAgencyBudget),
+                                left: 0,
+                                right: 0
+                            }}>
+                            <div
+                                className={`bar-chart__bar${!hoveredFy && fyStr === selectedFy ? ' bar-chart__bar_active' : ''}`}
                                 style={{
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
                                     minHeight: '0.5%'
-                                }} />
-                            <span>{`FY ${fyStr[2]}${fyStr[3]}`}</span>
+                                }}
+                                onMouseEnter={() => setHoveredFy(true)}
+                                onMouseLeave={() => setHoveredFy(false)} />
+                        </TooltipWrapper>
+                        <div className={`bar-chart__label${fyStr === selectedFy ? ' bar-chart__label_active' : ''}`}>
+                            {`FY ${fyStr[2]}${fyStr[3]}`}
                         </div>
-                    </TooltipWrapper>
+                    </div>
                 );
             });
     };
