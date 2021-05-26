@@ -135,9 +135,8 @@ const AmountsVisualization = ({
                     items={[
                         <div>
                             <h3 className="body__narrative amounts-viz__title">
-                                    This is how much was spent so far in response to COVID-19
+                                This is how much was spent so far in response to COVID-19
                             </h3>
-                            <div className="amounts-viz__sub-title" />
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -167,15 +166,12 @@ const AmountsVisualization = ({
                                     tooltipId="_totalOutlays1"
                                     dataId="_totalOutlays" />
                             </svg>
+                            <div className="amounts-viz__sub-title" />
                         </div>,
                         <div>
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Budgetary Resources
                             </h3>
-                            <h4 className="amounts-viz__sub-title">
-                                    This is the total amount of funding that agencies have to
-                                    spend based on legislation passed by Congress.
-                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -187,14 +183,15 @@ const AmountsVisualization = ({
                                     tooltipId="_totalBudgetAuthority2"
                                     dataId="_totalBudgetAuthority" />
                             </svg>
+                            <div className="amounts-viz__sub-title">
+                                    This is the total amount of funding that agencies have to
+                                    spend based on legislation passed by Congress.
+                            </div>
                         </div>,
                         <div>
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Obligations
                             </h3>
-                            <h4 className="amounts-viz__sub-title">
-                                    This is how much agencies have committed to spend.
-                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -215,14 +212,14 @@ const AmountsVisualization = ({
                                     tooltipId="_totalObligations3"
                                     dataId="_totalObligations" />
                             </svg>
+                            <div className="amounts-viz__sub-title">
+                                    This is how much agencies have committed to spend.
+                            </div>
                         </div>,
                         <div>
                             <h3 className="body__narrative amounts-viz__title">
                                     Total Outlays
                             </h3>
-                            <h4 className="amounts-viz__sub-title">
-                                    This is how much agencies have paid out.
-                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -252,6 +249,9 @@ const AmountsVisualization = ({
                                     tooltipId="_totalOutlays4"
                                     dataId="_totalOutlays" />
                             </svg>
+                            <div className="amounts-viz__sub-title">
+                                    This is how much agencies have paid out.
+                            </div>
                         </div>
                     ]} />
             }

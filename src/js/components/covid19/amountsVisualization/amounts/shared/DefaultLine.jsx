@@ -53,8 +53,8 @@ const DefaultLine = ({
                 color,
                 x1: position,
                 x2: position,
-                y1: isLineAboveChart ? startOfChartY - lineLength : startOfChartY + (rectangleHeight - lineOffset || 0),
-                y2: startOfChartY + (isLineAboveChart ? lineOffset || 0 : rectangleHeight + lineLength)
+                y1: isLineAboveChart ? startOfChartY - lineLength() : startOfChartY + (rectangleHeight - lineOffset || 0),
+                y2: startOfChartY + (isLineAboveChart ? lineOffset || 0 : rectangleHeight + lineLength())
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }

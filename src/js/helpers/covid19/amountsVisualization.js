@@ -27,7 +27,7 @@ export const textXPosition = (overviewData, scale, dataId, width) => lineXPositi
 export const textYPosition = (dataId, type, labelHeight, valueHeight) => {
     const { isLineAboveChart, lineLength } = rectangleMapping[dataId];
     if (isLineAboveChart) {
-        return (startOfChartY - lineLength - labelTextAdjustment.y) + (type === 'label' ? valueHeight + labelHeight : valueHeight);
+        return (startOfChartY - lineLength() - labelTextAdjustment.y) + (type === 'label' ? valueHeight + labelHeight : valueHeight);
     }
-    return (startOfChartY + rectangleHeight + lineLength) - (type === 'value' ? labelTextAdjustment.y + labelHeight : labelTextAdjustment.y);
+    return (startOfChartY + rectangleHeight + lineLength()) - (type === 'value' ? labelTextAdjustment.y + labelHeight : labelTextAdjustment.y);
 };

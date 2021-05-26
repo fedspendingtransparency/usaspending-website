@@ -50,7 +50,8 @@ export const paddingBetweenRectangles = 2;
 export const startOfChartY = 118;
 export const rectangleHeight = 45;
 export const lineStrokeWidth = 2;
-export const lineLength = [118, 68];
+export const fullScreenLineLengths = [118, 68];
+export const lineLength = [90, 45];
 
 export const heightOfRemainingBalanceLines = 10;
 export const remaniningBalanceLineWidth = 1;
@@ -71,7 +72,7 @@ export const rectangleMapping = {
             bottom: 0
         },
         line: true,
-        lineLength: lineLength[0],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[0] : lineLength[0]),
         isLineAboveChart: true,
         text: {
             label: 'Total Budgetary Resources'
@@ -87,7 +88,7 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[1],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[1] : lineLength[1]),
         // since this rectangle is the first rectangle within the total we must start the line higher
         lineOffset: paddingBetweenRectangles - (paddingBetweenRectangles / 2),
         isLineAboveChart: false,
@@ -105,7 +106,7 @@ export const rectangleMapping = {
             bottom: 2 * paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[1],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[1] : lineLength[1]),
         // since outlays is the inner most rectangle we must extend the lines length to touch the rectangle
         lineOffset: 2 * paddingBetweenRectangles,
         isLineAboveChart: true,

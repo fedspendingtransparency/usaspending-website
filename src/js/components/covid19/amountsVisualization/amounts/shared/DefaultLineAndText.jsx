@@ -86,7 +86,8 @@ const DefaultLineAndText = ({
                 dataId={dataId}
                 tooltipId={tooltipId}
                 displayTooltip={displayTooltip}
-                hideTooltip={hideTooltip} />
+                hideTooltip={hideTooltip}
+                width={width} />
             <TextGroup data={[
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }

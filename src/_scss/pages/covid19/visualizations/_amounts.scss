@@ -47,14 +47,10 @@
             @include flex(0 0 100%);
             width: 100%;
             .usa-dt-carousel-item__item {
-              // padding-bottom: rem(40);
               padding: 0;
               padding-top: rem(10);
               @include display(grid);
-              grid-template-rows: 0.25fr 0.5fr 0.5fr;
-              // .amounts-viz__header {
-                // padding-top: rem(10);
-                // padding-bottom: rem(20);
+              grid-template-rows: 0.25fr 0.25fr 0.25fr;
                 .amounts-viz__title {
                   line-height: rem(25);
                   font-size: rem(20);
@@ -65,24 +61,10 @@
                   font-size: rem(16);
                   letter-spacing: 0;
                   line-height: rem(22);
-                  // margin-top: rem(5);
                   margin-top: 0;
                   margin-bottom: 0;
+                  padding-top: 0;
                 }
-              // }
-              @include media($medium-screen) {
-                .amounts-viz__header {
-                  .amounts-viz__title {
-                    line-height: rem(36);
-                    font-size: rem(30);
-                  }
-                  .amounts-viz__sub-title {
-                    font-size: rem(20);
-                    letter-spacing: 0;
-                    line-height: rem(26);
-                  }
-                }
-              }
               .amounts-viz__svg {
                 .highlight {
                   stroke: $color-active;
@@ -138,20 +120,33 @@
                 }
               }
             }
-            @include media($medium-screen) {
+          }
+        }
+      }
+    }
+    .usa-dt-carousel-pager {
+        padding-top: rem(20);
+      .usa-dt-carousel-pager__list {
+        margin-top: 0;
+      }
+    }
+  }
+  @include media($medium-screen) {
+    .usa-dt-carousel {
+      .usa-dt-carousel-content {
+        .usa-dt-carousel-item {
+          .usa-dt-carousel-item__list {
+            .usa-dt-carousel-item__list-item {
               .usa-dt-carousel-item__item {
-                grid-template-rows: 0.1fr 0.25fr 0.5fr;
+                .amounts-viz__sub-title {
+                  padding-top: rem(25);
+                }
               }
             }
           }
         }
       }
     }
-    .usa-dt-carousel-pager {
-        padding-top: rem(40);
-      .usa-dt-carousel-pager__list {
-        margin-top: 0;
-      }
-    }
+
   }
 }
