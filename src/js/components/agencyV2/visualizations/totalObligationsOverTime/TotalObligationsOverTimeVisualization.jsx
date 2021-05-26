@@ -12,6 +12,8 @@ import { getYDomain, getMilliseconds } from 'helpers/agencyV2/visualizations/Tot
 import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
 import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/paths/Paths';
 import Axis from './axis/Axis';
+import TotalObligationLineAndDifference from './TotalObligationLineAndDifference';
+import TodayLineAndtext from './TodayLineAndtext';
 
 const propTypes = {
     height: PropTypes.number,
@@ -22,6 +24,7 @@ const propTypes = {
         bottom: PropTypes.number,
         top: PropTypes.number
     }),
+    agencyBudget: PropTypes.number,
     data: PropTypes.arrayOf(PropTypes.shape({
         period: PropTypes.number,
         obligated: PropTypes.number
@@ -29,10 +32,13 @@ const propTypes = {
     fy: PropTypes.string
 };
 
+const todaysDate = Date.now();
+
 const TotalObligationsOverTimeVisualization = ({
-    height = 168,
+    height = 179,
     width = 0,
     padding = defaultPadding,
+    agencyBudget,
     data = [],
     fy = getYear(new Date(Date.now()))
 }) => {
@@ -60,7 +66,7 @@ const TotalObligationsOverTimeVisualization = ({
         }
     }, [xDomain, data]);
     // y domain
-    useEffect(() => setYDomain(getYDomain(data)), [data]);
+    useEffect(() => setYDomain(getYDomain(data, agencyBudget)), [data, agencyBudget]);
     /**
      * set x scale
      * - The range max value removes padding left and right since that is padding for the
@@ -88,12 +94,12 @@ const TotalObligationsOverTimeVisualization = ({
             setXTicks([
                 {
                     x: isNaN(xScale(xDomain[0])) ? 0 : xScale(xDomain[0]) + padding.left,
-                    y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
+                    y: (height - padding.bottom) + xLabelHeightPlusPadding,
                     label: `Oct FY${fy.substring(2)}`
                 },
                 {
                     x: isNaN(xScale(xDomain[1])) ? 0 : xScale(xDomain[1]) + padding.left,
-                    y: (height - padding.bottom - padding.top) + xLabelHeightPlusPadding,
+                    y: (height - padding.bottom) + xLabelHeightPlusPadding,
                     label: `Sep FY${fy.substring(2)}`
                 }
             ]);
@@ -129,6 +135,23 @@ const TotalObligationsOverTimeVisualization = ({
                     width={width}
                     height={height}
                     xTicks={xTicks} />
+                {agencyBudget && <TotalObligationLineAndDifference
+                    padding={padding}
+                    xScale={xScale}
+                    xDomain={xDomain}
+                    yScale={yScale}
+                    yScaleForPath={yScaleForPath}
+                    height={height}
+                    agencyBudget={agencyBudget}
+                    obligationsByPeriod={data}
+                    todaysDate={todaysDate}
+                    fiscalYear={fy} />}
+                <TodayLineAndtext
+                    xScale={xScale}
+                    xDomain={xDomain}
+                    height={height}
+                    todaysDate={todaysDate}
+                    padding={padding} />
             </g>
         </svg>
     );

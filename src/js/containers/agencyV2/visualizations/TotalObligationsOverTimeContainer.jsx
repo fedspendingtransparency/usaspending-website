@@ -18,12 +18,14 @@ import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agencyV2/visu
 import { useQueryParams } from 'helpers/queryParams';
 
 const propTypes = {
+    agencyBudget: PropTypes.number,
     obligationsByPeriod: PropTypes.array,
     isLoading: PropTypes.bool,
     isError: PropTypes.bool
 };
 
 const TotalObligationsOverTimeContainer = ({
+    agencyBudget,
     obligationsByPeriod,
     isLoading,
     isError
@@ -74,6 +76,7 @@ const TotalObligationsOverTimeContainer = ({
                 !isError && !loading && data.length > 0 &&
                 <TotalObligationsOverTimeVisualization
                     width={visualizationWidth}
+                    agencyBudget={agencyBudget}
                     data={data}
                     fy={fy} />
             }
