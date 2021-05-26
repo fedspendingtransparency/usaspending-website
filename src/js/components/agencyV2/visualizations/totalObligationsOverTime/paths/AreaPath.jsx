@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     classname: PropTypes.string,
+    description: PropTypes.string,
     data: PropTypes.array,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
@@ -25,6 +26,7 @@ const propTypes = {
 
 const AreaPath = ({
     classname = "",
+    description,
     data = [],
     xScale = () => {},
     yScale = () => {},
@@ -56,7 +58,14 @@ const AreaPath = ({
         }
     }, [data, xScale, yScale]);
 
-    return (<path className={`area-path ${classname}`} d={d} />);
+    return (
+        <g tabIndex="0">
+            <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
+            <path
+                className={`area-path ${classname}`}
+                d={d} />
+        </g>
+    );
 };
 
 AreaPath.propTypes = propTypes;
