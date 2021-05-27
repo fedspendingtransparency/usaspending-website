@@ -19,7 +19,7 @@ export const getLastFourYears = ({ year }, selectedFy) => {
 
 /**
  * The visualization is 208px tall (src/_scss/pages/agencyV2/overview/_visualizationSection.scss)
- * Maximum bar height is 187px
+ * Maximum bar height is 187px (src/_scss/pages/agencyV2/overview/_barChart.scss)
  * To display the tooltip at the midpoint of the bar, get the inverse of half the height of the bar
  * Subtract 15px for the arrow spacer
  */
@@ -53,9 +53,13 @@ const BarChart = ({
                     </div>
                 );
                 return (
-                    <div className="bar-chart__item" key={fy}>
+                    <div
+                        className="bar-chart__item"
+                        key={fy}
+                        onMouseEnter={() => setHoveredFy(true)}
+                        onMouseLeave={() => setHoveredFy(false)}>
                         <TooltipWrapper
-                            className="bar-chart__tooltip-wrapper"
+                            className={`bar-chart__tooltip-wrapper${!hoveredFy && fyStr === selectedFy ? ' bar-chart__tooltip-wrapper_active' : ''}`}
                             tooltipComponent={tooltip}
                             offsetAdjustments={{
                                 top: calculateOffsetTop(budget / greatestAgencyBudget),
@@ -63,15 +67,13 @@ const BarChart = ({
                                 right: 0
                             }}>
                             <div
-                                className={`bar-chart__bar${!hoveredFy && fyStr === selectedFy ? ' bar-chart__bar_active' : ''}`}
+                                className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
                                 style={{
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
                                     minHeight: '0.5%'
-                                }}
-                                onMouseEnter={() => setHoveredFy(true)}
-                                onMouseLeave={() => setHoveredFy(false)} />
+                                }} />
                         </TooltipWrapper>
-                        <div className={`bar-chart__label${fyStr === selectedFy ? ' bar-chart__label_active' : ''}`}>
+                        <div className={`bar-chart__label${fyStr === selectedFy ? ' bar-chart__label_selected' : ''}`}>
                             {`FY ${fyStr[2]}${fyStr[3]}`}
                         </div>
                     </div>

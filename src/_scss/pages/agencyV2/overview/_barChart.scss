@@ -7,17 +7,16 @@
     width: 100%;
 
     .bar-chart__item {
-        width: 15%;
-        margin: 0 2%;
         @include display(flex);
         @include flex-direction(column);
         @include justify-content(flex-end);
         @include align-items(center);
         height: rem(208);
+        width: 20%;
         @include media($medium-screen) {
-            width: rem(35);
-            margin: 0 rem(2.5);
+            width: rem(40);
         }
+        
         .bar-chart__tooltip-wrapper {
             height: 100%;
             width: 100%;
@@ -27,6 +26,7 @@
             }
             >div {
                 width: 100%;
+                height: rem(187);
             }    
             @include media($medium-screen) {
                 &:hover {
@@ -64,23 +64,43 @@
                 width: 100%;
                 @include display(flex);
                 @include align-items(flex-end);
+                padding: 0 10%;
+                @include media($medium-screen) {
+                    padding: 0 rem(2.5);
+                }
                 .bar-chart__bar {
                     width: 100%;
                     background: $color-grass-lighter;
-                    @include media($medium-screen) {
-                        &:hover {
+                    @media screen and (max-width: $medium-screen) {
+                        // In mobile, always highlight the selected FY
+                        &.bar-chart__bar_selected {
                             background-color: $color-grass-light;
                         }
                     }
-                    &.bar-chart__bar_active {
-                        background-color: $color-grass-light;
+                }
+            }
+            @include media($medium-screen) {
+                // In desktop, highlight bars as they are hovered over
+                &:hover {
+                    .tooltip__hover-wrapper {
+                        .bar-chart__bar {
+                            background-color: $color-grass-light;
+                        }
+                    }
+                }
+                // If no bars are hovered over, highlight the selected FY
+                &.bar-chart__tooltip-wrapper_active {
+                    .tooltip__hover-wrapper {
+                        .bar-chart__bar {
+                            background-color: $color-grass-light;
+                        }
                     }
                 }
             }
         }
         .bar-chart__label {
             font-size: rem(14);
-            &.bar-chart__label_active {
+            &.bar-chart__label_selected {
                 font-weight: $font-semibold;
             }
         }
