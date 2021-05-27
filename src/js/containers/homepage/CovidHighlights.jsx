@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { connect } from 'react-redux';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -271,9 +272,7 @@ export class CovidHighlights extends React.Component {
             hasNext
         } = this.state;
         const {
-            totalSpendingAmount,
-            latestSubmissionDate,
-            isFetchLatestFyLoading
+            totalSpendingAmount
         } = this.props;
         const highlights = hasNext
             ? this.state.highlights.concat([{ showLoading: true }])
@@ -284,19 +283,15 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>As of {isFetchLatestFyLoading ? <div className="dot-pulse" /> : `${latestSubmissionDate.format('MMMM DD[,] YYYY')},`}</span>
-                            <span>the Federal Government has spent </span>
                             <span>
+                                The federal government has spent
                                 {isAmountLoading && <div className="dot-pulse" />}
                                 <TotalAmount
                                     completeIncrement={this.completeIncrementAndTriggerScroll}
                                     className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
                                     total={totalSpendingAmount}
                                     isLoading={isAmountLoading} />
-                                in response to
-                            </span>
-                            <span>
-                                <strong>COVID-19.</strong>
+                                in response to COVID-19.
                                 <div style={{ width: '20px' }}>
                                     <TooltipWrapper
                                         icon="info"
@@ -308,7 +303,14 @@ export class CovidHighlights extends React.Component {
                             </span>
                         </h1>
                         <p>
-                            USAspending is the official open data source of federal spending information. We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
+                            <div className="covid-profile-link__button-wrap">
+                                <Link
+                                    className="covid-profile-link__button"
+                                    to="/disaster/covid-19">
+                                    View all COVID-19 spending
+                                </Link>
+                            </div>
+                            <strong>USAspending is the official open data source of federal spending information.</strong><br /> We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
                         </p>
                     </div>
                     <div

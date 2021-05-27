@@ -11,7 +11,7 @@ $dot-color: #dcefef;
     }
     .covid-hero__wrapper {
         @include display(flex);
-        background: #C5B3E6;
+        background: #7C5E94;
         position: relative;
         height: 100%;
         width: 100%;
@@ -22,13 +22,39 @@ $dot-color: #dcefef;
               max-width: rem(800);
               margin-left: auto;
             }
+            .covid-profile-link__button-wrap {
+              margin-top: 2rem;
+              width: 30rem;
+              height: 5rem;
+              margin-bottom: 3rem;
+              .covid-profile-link__button {
+                  display: flex;
+    
+                  color: $color-white;
+                  background-color: #5f4177;
+                  padding: rem(15) rem(20);
+                  border-radius: rem(6);
+    
+                  font-size: rem(21);
+                  font-weight: $font-semibold;
+    
+                  &:visited {
+                      color: $color-white;                    
+                  }
+    
+                  &:hover, &:active {
+                      text-decoration: none;
+                      background-color: $color-covid-dark-purple;
+                  }
+              }
+            }
             overflow: hidden;
             @media(min-width: $medium-screen) {
               padding: 0 2rem;
             }
             &:first-of-type {
                 width: 100%;
-                background: #7C5E94;
+                background: #eee6f1;
                 padding: 0 rem(10);
                 @include display(flex);
                 @include flex-direction(column);
@@ -53,8 +79,9 @@ $dot-color: #dcefef;
                     .covid-hero__headline--amount {
                         opacity: 0;
                         position: absolute;
-                        border-bottom: rem(5) solid #DCEFEF;
+                        border-bottom: rem(8) solid #beaac9;
                         margin-right: rem(10);
+                        margin-top: rem(6);
                         transition: opacity 2s ease-in-out;
                         &.show-amount {
                             opacity: 1;
@@ -63,7 +90,7 @@ $dot-color: #dcefef;
                     }
                     span {
                         width: 100%;
-                        color: $color-white;
+                        color: rgb(48, 48, 48);
                         @include display(flex);
                         @include align-items(center);
                         @include flex-wrap(wrap);
@@ -84,11 +111,11 @@ $dot-color: #dcefef;
                             font-weight: $font-bold;
                         }
                         &:first-of-type {
-                          font-size: rem(24);
+                          font-size: rem(30);
                             @media(min-width: $medium-screen) {
-                              font-size: rem(30);
+                              font-size: rem(40);
                             }
-                          font-weight: $font-light;
+                            font-weight: $font-semibold;
                         }
                         &:nth-of-type(2) {
                           font-size: rem(30);
@@ -129,12 +156,15 @@ $dot-color: #dcefef;
                     }
                 }
                 p {
-                    color: white;
+                    color: rgb(48, 48, 48);
                     font-size: rem(14);
                     font-weight: $font-normal;
-                    margin-top: rem(10);
-                    @media(min-width: $large-screen) {
+                    margin-top: rem(10);      
+                    @media(min-width: 1300px) {
                       font-size: rem(18);
+                    }
+                    @media(max-width: $tablet-screen) {
+                      margin-bottom: 5rem;
                     }
                     strong {
                       font-weight: $font-bold;
