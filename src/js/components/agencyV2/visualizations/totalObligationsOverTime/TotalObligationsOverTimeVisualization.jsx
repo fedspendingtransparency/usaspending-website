@@ -12,7 +12,6 @@ import { getYDomain, getMilliseconds } from 'helpers/agencyV2/visualizations/Tot
 import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
 import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/paths/Paths';
 import Axis from './axis/Axis';
-import TotalObligationLineAndDifference from './TotalObligationLineAndDifference';
 import TodayLineAndtext from './TodayLineAndtext';
 
 const propTypes = {
@@ -29,10 +28,9 @@ const propTypes = {
         period: PropTypes.number,
         obligated: PropTypes.number
     })),
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    todaysDate: PropTypes.number
 };
-
-const todaysDate = Date.now();
 
 const TotalObligationsOverTimeVisualization = ({
     height = 179,
@@ -40,8 +38,10 @@ const TotalObligationsOverTimeVisualization = ({
     padding = defaultPadding,
     agencyBudget,
     data = [],
-    fy = getYear(new Date(Date.now()))
+    fy = getYear(new Date(Date.now())),
+    todaysDate = Date.now()
 }) => {
+    console.log(' Data : ', data);
     const [xDomain, setXDomain] = useState([]);
     const [yDomain, setYDomain] = useState([]);
     const [xScale, setXScale] = useState(null);
