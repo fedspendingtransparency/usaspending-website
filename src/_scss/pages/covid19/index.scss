@@ -182,6 +182,10 @@
                         padding: 1rem;
                         @media(max-width: 559px) {
                             text-align: left;
+                            margin-left: 1rem;
+                        }
+                        @media(max-width: $medium-screen) {
+                            margin-top: 1rem;
                         }
                         @media(min-width: $medium-screen) {
                             padding: 2rem 15% 2rem;
@@ -196,6 +200,7 @@
                         padding: 0 23% 2rem;
                         @media(max-width: 559px) {
                             text-align: left;
+                            margin-left: 1rem;
                             padding: 1rem;
                         }
                         @media(min-width: $medium-screen) {
