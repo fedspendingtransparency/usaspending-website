@@ -38,7 +38,7 @@ export const fetchAvailableObjectClasses = (federalAccountId) => apiRequest({
 });
 
 export const fetchAllSubmissionDates = () => apiRequest({
-    url: 'v2/references/submission_periods/'
+    url: 'v2/references/submission_periods/?use_cache=true'
 });
 
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
