@@ -163,7 +163,7 @@ const AgencyOverview = ({
                 <div className="agency-overview__title">
                     <h3>
                         {name}
-                        {name && covidDefCodes.length &&
+                        {name && covidDefCodes.length > 0 &&
                             <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                                 <span className="covid-spending-flag">
                                     COVID-19 Spending
