@@ -6,8 +6,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { getYear } from 'date-fns';
-
+import { format, getYear } from 'date-fns';
+import { formatNumber } from 'helpers/moneyFormatter';
 import { getYDomain, getMilliseconds } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
 import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/paths/Paths';
@@ -44,6 +44,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [yScaleForPath, setYScaleForPath] = useState(null);
     const [xTicks, setXTicks] = useState([]);
     const [dataWithFirstCoordinate, setDataWithFirstCoordinate] = useState([]);
+    const [description, setDescription] = useState('');
     // x domain
     useEffect(() => {
         // start of the domain is October 1st of the prior selected fiscal year midnight local time
@@ -99,6 +100,14 @@ const TotalObligationsOverTimeVisualization = ({
         }
     }, [xScale, xDomain]);
 
+    useEffect(() => {
+        setDescription(dataWithFirstCoordinate.reduce((acc, val, i, array) => {
+            let newDescription = acc;
+            newDescription += `Period ${val?.period || 'unknown'} with end date ${format(val.endDate, 'MM/dd/yyyy')} and obligation $${formatNumber(val.obligated)}${i + 1 !== array.length ? ',' : ''}`;
+            return newDescription;
+        }, ''));
+    }, [dataWithFirstCoordinate]);
+
     return (
         <svg
             className="total-obligations-over-time-svg"
@@ -107,6 +116,7 @@ const TotalObligationsOverTimeVisualization = ({
             <g className="total-obligations-over-time-svg-body">
                 <Paths
                     data={dataWithFirstCoordinate}
+                    description={description}
                     xScale={xScale}
                     xScaleForPath={xScaleForPath}
                     yScale={yScale}
