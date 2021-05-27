@@ -47,8 +47,7 @@ const TotalObligationLine = ({
     useEffect(() => {
         if (xScale && yScale && agencyBudget) {
             setYValue(height - yScale(agencyBudget) - padding.bottom);
-            const sortedPeriods = obligationsByPeriod.sort((a, b) => a.period - b.period);
-            const mostRecentPeriodObligation = sortedPeriods[sortedPeriods.length - 1].obligated;
+            const mostRecentPeriodObligation = obligationsByPeriod[obligationsByPeriod.length - 1].obligated;
             setDifferenceHeight(height - yScaleForPath(mostRecentPeriodObligation) - padding.top - padding.bottom);
         }
     }, [xScale, yScale, agencyBudget]);

@@ -49,7 +49,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [yScale, setYScale] = useState(null);
     const [yScaleForPath, setYScaleForPath] = useState(null);
     const [xTicks, setXTicks] = useState([]);
-    const [dataWithFirstCoordinate, setDataWithFirstCoordinate] = useState([]);
+    const [dataWithFirstAndLastCoordinate, setDataWithFirstAndLastCoordinate] = useState([]);
     const [description, setDescription] = useState('');
     // x domain
     useEffect(() => {
@@ -62,7 +62,16 @@ const TotalObligationsOverTimeVisualization = ({
     // add first data point as start of graph
     useEffect(() => {
         if (xDomain.length && data.length) {
-            setDataWithFirstCoordinate([{ endDate: xDomain[0], obligated: 0 }, ...data]);
+            const dataWithFirstCoordinate = [{ endDate: xDomain[0], obligated: 0 }, ...data];
+            // if today is within the domain
+            if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {
+                // if today is greater than the most recent period close date
+                if (todaysDate > dataWithFirstCoordinate[dataWithFirstCoordinate.length - 1].endDate) {
+                    // add todays date as a coordinate for drawing
+                    dataWithFirstCoordinate.push({ endDate: todaysDate, obligated: dataWithFirstCoordinate[dataWithFirstCoordinate.length - 1].obligated });
+                }
+            }
+            setDataWithFirstAndLastCoordinate(dataWithFirstCoordinate);
         }
     }, [xDomain, data]);
     // y domain
@@ -107,12 +116,12 @@ const TotalObligationsOverTimeVisualization = ({
     }, [xScale, xDomain]);
 
     useEffect(() => {
-        setDescription(dataWithFirstCoordinate.reduce((acc, val, i, array) => {
+        setDescription(dataWithFirstAndLastCoordinate.reduce((acc, val, i, array) => {
             let newDescription = acc;
             newDescription += `Period ${val?.period || 'unknown'} with end date ${format(val.endDate, 'MM/dd/yyyy')} and obligation $${formatNumber(val.obligated)}${i + 1 !== array.length ? ',' : ''}`;
             return newDescription;
         }, ''));
-    }, [dataWithFirstCoordinate]);
+    }, [dataWithFirstAndLastCoordinate]);
 
     return (
         <svg
@@ -121,7 +130,7 @@ const TotalObligationsOverTimeVisualization = ({
             width={width}>
             <g className="total-obligations-over-time-svg-body">
                 <Paths
-                    data={dataWithFirstCoordinate}
+                    data={dataWithFirstAndLastCoordinate}
                     description={description}
                     xScale={xScale}
                     xScaleForPath={xScaleForPath}
