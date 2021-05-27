@@ -9,7 +9,7 @@ export const defaultRectangleData = {
 };
 
 export const defaultLineData = {
-    lineColor: 'transparent',
+    color: 'transparent',
     x1: 0,
     x2: 0,
     y1: 0,
@@ -41,28 +41,30 @@ export const tooltipMapping = {
 
 export const defaultTooltipWidth = 375;
 export const amountsPadding = {
-    left: 45,
-    right: 45
+    left: 10,
+    right: 10
 };
 
-export const amountsHeight = 400;
-export const paddingBetweenRectangles = 3;
-export const startOfChartY = 160;
+export const amountsHeight = 232;
+export const paddingBetweenRectangles = 2;
+export const startOfChartY = 118;
 export const rectangleHeight = 45;
-export const lineStrokeWidth = 3;
-export const lineLength = [162 - (rectangleHeight / 2), 84 - (rectangleHeight / 2)];
+export const lineStrokeWidth = 2;
+export const fullScreenLineLengths = [118, 68];
+export const lineLength = [90, 45];
+
 export const heightOfRemainingBalanceLines = 10;
 export const remaniningBalanceLineWidth = 1;
-export const spacingBetweenLineAndText = 10;
+export const spacingBetweenLineAndText = 11;
 export const labelTextAdjustment = {
     x: 4,
-    y: 4
+    y: 6
 };
 
 export const rectangleMapping = {
     _totalBudgetAuthority: {
-        fill: '#AAC6E2',
-        lineColor: '#AAC6E2',
+        fill: 'white',
+        color: '#D0BEDA',
         offset: {
             left: 0,
             right: 0,
@@ -70,21 +72,15 @@ export const rectangleMapping = {
             bottom: 0
         },
         line: true,
-        lineLength: lineLength[0],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[0] : lineLength[0]),
+        isLineAboveChart: true,
         text: {
-            description: 'This was the total amount made available.',
-            questionLeft: 265,
-            questionDown: 40,
-            valueLeft: 128,
-            valueDown: 25,
-            labelLeft: 340,
-            labelDown: 25,
-            label: 'Total Budgetary Resources:'
+            label: 'Total Budgetary Resources'
         }
     },
     _totalObligations: {
-        fill: '#558EC6',
-        lineColor: '#558EC6',
+        fill: '#9266AA',
+        color: '#9266AA',
         offset: {
             left: 0,
             right: 0,
@@ -92,21 +88,17 @@ export const rectangleMapping = {
             bottom: paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[0],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[1] : lineLength[1]),
+        // since this rectangle is the first rectangle within the total we must start the line higher
+        lineOffset: paddingBetweenRectangles - (paddingBetweenRectangles / 2),
+        isLineAboveChart: false,
         text: {
-            description: 'This amount has been promised to be spent.',
-            label: 'Total Obligations:',
-            questionLeft: -10,
-            questionDown: 15,
-            valueLeft: -150,
-            valueDown: 35,
-            labelLeft: -10,
-            labelDown: 35
+            label: 'Total Obligations'
         }
     },
     _totalOutlays: {
-        fill: '#0A2F5A',
-        lineColor: '#0A2F5A',
+        fill: '#3B005B',
+        color: '#3B005B',
         offset: {
             left: 0,
             right: 0,
@@ -114,36 +106,12 @@ export const rectangleMapping = {
             bottom: 2 * paddingBetweenRectangles
         },
         line: true,
-        lineLength: lineLength[1],
+        lineLength: () => (window.innerWidth > 990 ? fullScreenLineLengths[1] : lineLength[1]),
+        // since outlays is the inner most rectangle we must extend the lines length to touch the rectangle
+        lineOffset: 2 * paddingBetweenRectangles,
+        isLineAboveChart: true,
         text: {
-            description: 'This amount has been paid out.',
-            label: 'Total Outlays:',
-            questionLeft: -10,
-            questionDown: 20,
-            valueLeft: -120,
-            valueDown: 25,
-            labelLeft: -10,
-            labelDown: 25
-        }
-    },
-    _remainingBalance: {
-        lineColor: '#9D9D9D',
-        fill: 'white',
-        primaryKey: '_totalObligations',
-        offset: {
-            left: 0,
-            right: paddingBetweenRectangles,
-            top: paddingBetweenRectangles,
-            bottom: paddingBetweenRectangles
-        },
-        line: true,
-        lineLength: lineLength[1],
-        text: {
-            description: 'This amount has not yet been promised to be spent.',
-            label: 'Total Remaining Balance:',
-            offset: {
-                y: 3
-            }
+            label: 'Total Outlays'
         }
     }
 };
