@@ -23,7 +23,7 @@ $dot-color: #dcefef;
               margin-left: auto;
             }
             .covid-profile-link__button-wrap {
-              margin-top: 2rem;
+              margin-top: 3rem;
               width: 30rem;
               height: 5rem;
               margin-bottom: 3rem;
@@ -32,7 +32,7 @@ $dot-color: #dcefef;
     
                   color: $color-white;
                   background-color: #5f4177;
-                  padding: rem(15) rem(20);
+                  padding: rem(10) rem(25);
                   border-radius: rem(6);
     
                   font-size: rem(21);
@@ -167,7 +167,7 @@ $dot-color: #dcefef;
                       margin-bottom: 5rem;
                     }
                     strong {
-                      font-weight: $font-bold;
+                      font-weight: $font-semibold;
                     }
                 }
             }
