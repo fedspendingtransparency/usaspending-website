@@ -98,18 +98,19 @@ export default function ObligationsByAwardType({ outer, inner }) {
 
 	// callout labels
 	const labelPos = (d, yOffset = 0) => {
-		const pos = outerArc.centroid(d);
-		const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-		pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
-		pos[1] += yOffset;
-		return pos;
+		// const pos = outerArc.centroid(d);
+		// const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+		// pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
+		// pos[1] += yOffset;
+		const pos = [[70, 55], [-70, -55]]
+		return [pos[d][0], pos[d][1] + yOffset];
 	}
 
 	svg.selectAll()
 		.data(outerPie)
 		.enter()
 		.append('text')
-		.attr('transform', (d) => 'translate(' + labelPos(d) + ')')
+		.attr('transform', (d, i) => 'translate(' + labelPos(i) + ')')
 		.attr('class', 'callout-labels')
 		.text((d, i) => outerLabels[i][0])
 		;
@@ -118,7 +119,7 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.data(outerPie)
 		.enter()
 		.append('text')
-		.attr('transform', (d) => 'translate(' + labelPos(d, 12) + ')')
+		.attr('transform', (d, i) => 'translate(' + labelPos(i, 12) + ')')
 		.attr('class', 'callout-labels')
 		.text((d, i) => outerLabels[i][1])
 		;
@@ -128,8 +129,8 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.data(outerPie)
 		.enter()
 		.append('polyline')
-		.attr('points', (d) => {
-			const label = labelPos(d);
+		.attr('points', (d, i) => {
+			const label = labelPos(i);
 			const tail = label[1] < 0 ? 5 : -5;
 			return [[label[0], label[1] + tail], [label[0], label[1] + tail * 2], outerArc.centroid(d)]
 		})
