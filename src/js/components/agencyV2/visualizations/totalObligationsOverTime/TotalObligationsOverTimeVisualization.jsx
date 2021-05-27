@@ -144,17 +144,6 @@ const TotalObligationsOverTimeVisualization = ({
                     width={width}
                     height={height}
                     xTicks={xTicks} />
-                {agencyBudget && <TotalObligationLineAndDifference
-                    padding={padding}
-                    xScale={xScale}
-                    xDomain={xDomain}
-                    yScale={yScale}
-                    yScaleForPath={yScaleForPath}
-                    height={height}
-                    agencyBudget={agencyBudget}
-                    obligationsByPeriod={data}
-                    todaysDate={todaysDate}
-                    fiscalYear={fy} />}
                 <TodayLineAndtext
                     xScale={xScale}
                     xDomain={xDomain}
