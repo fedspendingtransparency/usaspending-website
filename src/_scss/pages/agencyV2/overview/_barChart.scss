@@ -84,6 +84,7 @@
                 &:hover {
                     .tooltip__hover-wrapper {
                         .bar-chart__bar {
+                            transition: background-color 0.2s ease-out 0.1s;
                             background-color: $color-grass-light;
                         }
                     }
@@ -92,6 +93,7 @@
                 &.bar-chart__tooltip-wrapper_active {
                     .tooltip__hover-wrapper {
                         .bar-chart__bar {
+                            transition: background-color 0.2s ease-in-out 0.1s;
                             background-color: $color-grass-light;
                         }
                     }
