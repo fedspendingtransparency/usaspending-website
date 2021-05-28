@@ -12,37 +12,45 @@ import DefaultLineAndText from './DefaultLineAndText';
 
 const propTypes = {
     dataId: PropTypes.string,
+    tooltipId: PropTypes.string,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltip: PropTypes.string,
     overviewData: PropTypes.object,
     scale: PropTypes.func,
-    width: PropTypes.number
+    width: PropTypes.number,
+    className: PropTypes.string
 };
 
 const DefaultAmountViz = ({
     dataId,
+    tooltipId,
     displayTooltip,
     hideTooltip,
     showTooltip,
     overviewData,
     scale,
-    width
+    width,
+    className
 }) => (
     <g>
         <DefaultLineAndText
             overviewData={overviewData}
+            className={className}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
+            tooltipId={tooltipId}
             dataId={dataId}
             width={width} />
         <Rectangle
             overviewData={overviewData}
+            className={className}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
             showTooltip={showTooltip}
+            tooltipId={tooltipId}
             dataId={dataId} />
     </g>
 );

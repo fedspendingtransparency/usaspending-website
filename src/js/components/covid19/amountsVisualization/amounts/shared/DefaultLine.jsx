@@ -20,18 +20,22 @@ const propTypes = {
     scale: PropTypes.func,
     overviewData: PropTypes.object,
     dataId: PropTypes.string,
+    tooltipId: PropTypes.string,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    description: PropTypes.string
+    description: PropTypes.string,
+    className: PropTypes.string
 };
 
 const DefaultLine = ({
     scale,
     overviewData,
     dataId,
+    tooltipId,
     displayTooltip,
     hideTooltip,
-    description = 'A line linking a Line to text'
+    description = 'A line linking a Line to text',
+    className
 }) => {
     const [lineData, setLineData] = useState(defaultLineData);
 
@@ -39,16 +43,18 @@ const DefaultLine = ({
         if (scale) {
             const {
                 lineLength,
-                lineColor
+                lineOffset,
+                color,
+                isLineAboveChart
             } = rectangleMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
-                lineColor,
+                color,
                 x1: position,
                 x2: position,
-                y1: startOfChartY - lineLength,
-                y2: startOfChartY + (rectangleHeight / 2)
+                y1: isLineAboveChart ? startOfChartY - lineLength() : startOfChartY + (rectangleHeight - lineOffset || 0),
+                y2: startOfChartY + (isLineAboveChart ? lineOffset || 0 : rectangleHeight + lineLength())
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
@@ -58,16 +64,19 @@ const DefaultLine = ({
             tabIndex="0"
             aria-label={description}
             data-id={dataId}
+            data-tooltip={tooltipId}
             onFocus={displayTooltip}
             onBlur={hideTooltip}>
             <desc>{description}</desc>
             <line
+                className={className}
                 data-id={dataId}
+                data-tooltip={tooltipId}
                 x1={lineData.x1}
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y2}
-                stroke={lineData.lineColor}
+                stroke={lineData.color}
                 strokeWidth={lineStrokeWidth}
                 onMouseMove={displayTooltip}
                 onMouseLeave={hideTooltip} />

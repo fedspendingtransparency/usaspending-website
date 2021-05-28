@@ -101,6 +101,7 @@ const FySummary = ({
                 <TotalObligationsOverTimeContainer
                     isLoading={isLoading}
                     isError={isError}
+                    agencyBudget={resourcesByYear[fy]?.agencyBudget}
                     obligationsByPeriod={resourcesByYear[fy]?.obligationsByPeriod || []} />
             </VisualizationSection>
         ),

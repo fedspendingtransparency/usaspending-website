@@ -18,12 +18,14 @@ import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agencyV2/visu
 import { useQueryParams } from 'helpers/queryParams';
 
 const propTypes = {
+    agencyBudget: PropTypes.number,
     obligationsByPeriod: PropTypes.array,
     isLoading: PropTypes.bool,
     isError: PropTypes.bool
 };
 
 const TotalObligationsOverTimeContainer = ({
+    agencyBudget,
     obligationsByPeriod,
     isLoading,
     isError
@@ -40,7 +42,7 @@ const TotalObligationsOverTimeContainer = ({
         setLoading(true);
         const javaScriptSubmissionPeriods = submissionPeriods.toJS();
         if (javaScriptSubmissionPeriods.length && obligationsByPeriod.length && !isLoading && !isError) {
-            setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy));
+            setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy).sort((a, b) => a.period - b.period));
             setLoading(false);
         }
     }, [submissionPeriods, obligationsByPeriod, isLoading, isError, fy]);
@@ -74,6 +76,7 @@ const TotalObligationsOverTimeContainer = ({
                 !isError && !loading && data.length > 0 &&
                 <TotalObligationsOverTimeVisualization
                     width={visualizationWidth}
+                    agencyBudget={agencyBudget}
                     data={data}
                     fy={fy} />
             }

@@ -6,26 +6,20 @@ import { mockProps } from '../../mockData/components/covid19/amountsVisualizatio
 
 
 describe('COVID-19 Amounts Visualization', () => {
-    it('should render labels and descriptions and values', () => {
+    it('should render labels and values', () => {
         render(<AmountsVisualization {...mockProps} />);
-        expect(screen.queryByText(rectangleMapping._totalBudgetAuthority.text.description)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._totalBudgetAuthority.text.label)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._totalObligations.text.description)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._totalObligations.text.label)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._totalOutlays.text.description)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._totalOutlays.text.label)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._remainingBalance.text.description)).toBeTruthy();
-        expect(screen.queryByText(rectangleMapping._remainingBalance.text.label)).toBeTruthy();
-        expect(screen.queryByText('$3.0 Trillion')).toBeTruthy();
-        expect(screen.queryByText('$2.1 Trillion')).toBeTruthy();
-        expect(screen.queryByText('$2.4 Trillion')).toBeTruthy();
-        expect(screen.queryByText('$542.0 Billion')).toBeTruthy();
+        expect(screen.queryAllByText(rectangleMapping._totalBudgetAuthority.text.label).length).toEqual(5);
+        expect(screen.queryAllByText(rectangleMapping._totalObligations.text.label).length).toEqual(4);
+        expect(screen.queryAllByText(rectangleMapping._totalOutlays.text.label).length).toEqual(3);
+        expect(screen.queryAllByText('$3.0 Trillion').length).toEqual(4);
+        expect(screen.queryAllByText('$2.1 Trillion').length).toEqual(2);
+        expect(screen.queryAllByText('$2.4 Trillion').length).toEqual(3);
     });
     it('should render all (4) rectangles', () => {
         render(<AmountsVisualization {...mockProps} />);
-        expect(screen.getAllByText(/A rectangle with width representative of/i).length).toEqual(4);
+        expect(screen.getAllByText(/A rectangle with width representative of/i).length).toEqual(9);
     });
-    it('should render all (9) lines', () => {
+    it('should render all (4) lines', () => {
         render(<AmountsVisualization {...mockProps} />);
         expect(screen.getAllByText(/A line linking/i).length).toEqual(9);
     });

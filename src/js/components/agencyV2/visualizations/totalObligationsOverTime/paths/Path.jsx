@@ -29,13 +29,8 @@ const Path = ({
     yScale = () => {},
     xProperty = 'endDate',
     yProperty = 'obligated',
-    height = 0,
-    padding = {
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0
-    }
+    height,
+    padding
 }) => {
     const [d, setD] = useState('');
 
@@ -43,10 +38,10 @@ const Path = ({
         if (xScale && yScale) {
             setD(data.reduce((path, currentItem, i) => {
                 if (i === 0) {
-                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                     return updatedPath;
                 }
-                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                 return updatedPath;
             }, 'M'));
         }

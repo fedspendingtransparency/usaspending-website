@@ -3,8 +3,9 @@
  * Created by Jonathan Hill 04/09/2021
  */
 
-export const getYDomain = (data) => {
+export const getYDomain = (data, agencyBudget) => {
     const obligatedAmounts = data.map((x) => x.obligated);
+    if (agencyBudget) obligatedAmounts.push(agencyBudget);
     return [0, Math.max(...obligatedAmounts)];
 };
 

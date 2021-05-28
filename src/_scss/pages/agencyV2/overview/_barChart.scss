@@ -1,4 +1,4 @@
-ul.viz-container.bar-chart {
+.viz-container.bar-chart {
     @include display(flex);
     @include justify-content(center);
     @include align-items(flex-end);
@@ -6,31 +6,105 @@ ul.viz-container.bar-chart {
     margin: 0;
     width: 100%;
 
-    li.bar-chart__bar {
+    .bar-chart__item {
         @include display(flex);
         @include flex-direction(column);
         @include justify-content(flex-end);
         @include align-items(center);
-        margin: 0;
         height: rem(208);
-        width: 15%;
-        margin: 0 2%;
+        width: 20%;
         @include media($medium-screen) {
-            width: rem(35);
-            margin: 0 rem(2.5);
+            width: rem(40);
         }
-        span {
+        
+        .bar-chart__tooltip-wrapper {
+            height: 100%;
             width: 100%;
-        }
-        span:nth-of-type(1) {
-            background: $color-grass-lighter;
-            &.active-fy {
-                background-color: $color-grass-light;
+            .tooltip {
+                // Don't show the tooltip in mobile
+                display: none;
             }
-            
+            >div {
+                width: 100%;
+                height: rem(187);
+            }    
+            @include media($medium-screen) {
+                &:hover {
+                    cursor: pointer;
+                }
+                .tooltip {
+                    display: block;
+                }
+            }
+            .tooltip-pointer {
+                &.left {
+                    left: rem(-16);
+                    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                        // IE only
+                        left: rem(-8);
+                    }
+                }
+            }
+            .tooltip__content {
+                width: rem(300);
+            }
+            .bar-chart-tooltip {
+                .tooltip__text {
+                    font-weight: $font-semibold;
+                    .bar-chart-tooltip__desc {
+                        font-size: rem(18);
+                    }
+                    .bar-chart-tooltip__amount {
+                        font-size: rem(24);
+                    }
+                }
+            }
+            .tooltip__hover-wrapper {
+                height: 100%;
+                width: 100%;
+                @include display(flex);
+                @include align-items(flex-end);
+                padding: 0 10%;
+                @include media($medium-screen) {
+                    padding: 0 rem(2.5);
+                }
+                .bar-chart__bar {
+                    width: 100%;
+                    background: $color-grass-lighter;
+                    @media screen and (max-width: $medium-screen) {
+                        // In mobile, always highlight the selected FY
+                        &.bar-chart__bar_selected {
+                            background-color: $color-grass-light;
+                        }
+                    }
+                }
+            }
+            @include media($medium-screen) {
+                // In desktop, highlight bars as they are hovered over
+                &:hover {
+                    .tooltip__hover-wrapper {
+                        .bar-chart__bar {
+                            transition: background-color 0.2s ease-out 0.1s;
+                            background-color: $color-grass-light;
+                        }
+                    }
+                }
+                // If no bars are hovered over, highlight the selected FY
+                &.bar-chart__tooltip-wrapper_active {
+                    .tooltip__hover-wrapper {
+                        .bar-chart__bar {
+                            transition: background-color 0.2s ease-in-out 0.1s;
+                            background-color: $color-grass-light;
+                        }
+                    }
+                }
+            }
         }
-        span:nth-of-type(2) {
+        .bar-chart__label {
             font-size: rem(14);
+            &.bar-chart__label_selected {
+                font-weight: $font-semibold;
+            }
         }
     }
 }
