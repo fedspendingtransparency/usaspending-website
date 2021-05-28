@@ -290,9 +290,12 @@ export class CovidHighlights extends React.Component {
                                     completeIncrement={this.completeIncrementAndTriggerScroll}
                                     className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
                                     total={totalSpendingAmount}
-                                    isLoading={isAmountLoading} />in response to&nbsp;
+                                    isLoading={isAmountLoading} />
+                            </span>&nbsp;
+                            <strong>in response to&nbsp;</strong>
+                            <span>
                                 <div className="covid-homepage-tooltip">
-                                    COVID&#8209;19.
+                                    COVID-19.
                                     <TooltipWrapper
                                         icon="info"
                                         offsetAdjustments={{

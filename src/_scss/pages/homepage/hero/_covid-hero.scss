@@ -1,4 +1,4 @@
-$dot-color: #dcefef;
+$dot-color: #7C5E94;
 .covid-hero {
     height: auto;
     @include display(flex);
@@ -19,14 +19,14 @@ $dot-color: #dcefef;
             h1,
             p,
             ul {
-              max-width: rem(800);
-              margin-left: 2.5rem;
+              margin-left: 2rem;
+              margin-right: 2rem;
               @media(max-width: $tablet-screen) {
                 margin-left: 1rem;
               }
             }
             .covid-profile-link__button-wrap {
-              margin-top: 2rem;
+              margin-top: 1rem;
               width: 30rem;
               height: 5rem;
               margin-bottom: 4rem;
@@ -36,6 +36,10 @@ $dot-color: #dcefef;
               }
               @media(max-width: $tablet-screen) {
                 width: 100%;
+              }
+              @media(max-width: $medium-screen) {
+                margin-top: 0.5rem;
+                margin-bottom: 2rem;
               }
               .covid-profile-link__button {
                   display: flex;
@@ -91,104 +95,66 @@ $dot-color: #dcefef;
                   @include justify-content(flex-start);
                 }
                 h1.covid-hero__headline {
-                    color: white;
-                    @include display(flex);
-                    @include flex-wrap(wrap);
+                  color: rgb(48, 48, 48);
+                  font-size: rem(30);
+                  line-height: 5rem;
+                  margin-bottom: 0;
+                  @media(max-width: $medium-screen) {
+                    line-height: 4rem;
+                    margin-top: 1rem;
+                  }
+                  .covid-hero__headline--amount {
+                      opacity: 0;
+                      display: inline-block;
+                      line-height: 34px;
+                      @media(min-width: 1027px) {
+                        line-height: 44px;
+                      }
+                      border-bottom: rem(4) solid #beaac9;
+                      transition: opacity 2s ease-in-out;
+                      &.show-amount {
+                          opacity: 1;
+                      }
+                  }
+                  .covid-homepage-tooltip {
+                    display: inline-flex;
+                  }
+                  span {
                     font-size: rem(30);
-                    margin-bottom: 0;
-                    @media(max-width: $medium-screen) {
-                      margin-top: 3rem;
+                    @media(min-width: 1027px) {
+                      font-size: rem(40);
                     }
-                    .covid-hero__headline--amount {
-                        opacity: 0;
-                        position: absolute;
-                        border-bottom: rem(8) solid #beaac9;
-                        margin-right: rem(10);
-                        margin-top: rem(6);
-                        transition: opacity 2s ease-in-out;
-                        &.show-amount {
-                            opacity: 1;
-                            position: static;
-                        }
+                    font-weight: $font-semibold;
+                  }
+                  strong {
+                    font-size: rem(30);
+                    @media(min-width: 1027px) {
+                      font-size: rem(40);
                     }
-                    span {
-                        width: 100%;
-                        color: rgb(48, 48, 48);
-                        @include display(flex);
-                        @include align-items(center);
-                        @include flex-wrap(wrap);
-                        font-weight: $font-normal;
-                        line-height: rem(34.5);
-                        @media(min-width: $medium-screen) {
-                          line-height: rem(42.5);
+                    font-weight: $font-semibold;
+                  }
+                  @import "../../../components/tooltips/index";
+                    .tooltip-wrapper {
+                      display: inline-block;
+                      z-index: 9;
+                      .tooltip__hover-wrapper {
+                        svg {
+                          color: $color-covid-19-obligations;
                         }
-                        .pulse-container {
-                            width: rem(40);
-                            margin: 0 rem(40);
-                        }
-                        .covid-homepage-tooltip {
-                          display: inline-flex;
-                        }
-                        strong {
-                            font-size: rem(30);
-                            @media(min-width: $medium-screen) {
-                              font-size: rem(38);
-                            }
-                            font-weight: $font-bold;
-                        }
-                        &:first-of-type {
-                          font-size: rem(30);
-                            @media(min-width: $medium-screen) {
-                              font-size: rem(38);
-                            }
-                            font-weight: $font-semibold;
-                        }
-                        &:nth-of-type(2) {
-                          font-size: rem(30);
-                            @media(min-width: $medium-screen) {
-                              font-size: rem(38);
-                            }
-                            font-weight: $font-semibold;
-                        }
-                        &:nth-of-type(3) {
-                          font-size: rem(30);
-                          @media(min-width: $medium-screen) {
-                            font-size: rem(38);
-                          }
-                          font-weight: $font-semibold;
-                        }
-                        &:nth-of-type(4) {
-                          width: auto;
-                          strong {
-                            font-size: rem(30);
-                              @media(min-width: $medium-screen) {
-                                font-size: rem(38);
-                              }
-                          }
-                        }
-                    }
-                    @import "../../../components/tooltips/index";
-                      .tooltip-wrapper {
-                        display: inline-block;
-                        z-index: 9;
-                        .tooltip__hover-wrapper {
+                        &:hover {
                           svg {
-                            color: $color-covid-19-obligations;
-                          }
-                          &:hover {
-                            svg {
-                              color: $color-covid-dark-purple;
-                            }
+                            color: $color-covid-dark-purple;
                           }
                         }
-                    }
+                      }
+                  }
                 }
                 p {
                     color: rgb(48, 48, 48);
                     font-size: rem(14);
                     font-weight: $font-normal;
                     padding-top: 1rem;
-                    @media(min-width: 1320px) {
+                    @media(min-width: 1470px) {
                       font-size: rem(18);
                     }
                     @media(max-width: $tablet-screen) {
@@ -199,7 +165,7 @@ $dot-color: #dcefef;
                       font-size: rem(20);
                     }
                     &:nth-of-type(2) {
-                      margin-top: -2rem;
+                      margin-top: -1rem;
                     }
                 }
                 hr {
