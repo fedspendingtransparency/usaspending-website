@@ -38,13 +38,13 @@ const Heading = () => {
                 <img
                     className="heading__img"
                     src="img/desktop@2x.png"
-                    alt="An illustration of a masked woman and child holding hands speaking to a masked doctor holding a tablet." />
+                    alt="" />
             </div>
             <div style={{ marginLeft: "auto" }} className="heading__img-wrapper">
                 <img
                     className="heading__img-mobile"
                     src="img/mobile@2x.png"
-                    alt="An illustration of a masked woman and child holding hands speaking to a masked doctor holding a tablet." />
+                    alt="" />
             </div>
         </div>
     );
