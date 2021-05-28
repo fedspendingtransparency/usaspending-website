@@ -95,7 +95,7 @@ $dot-color: #7C5E94;
                   @include justify-content(flex-start);
                 }
                 h1.covid-hero__headline {
-                  color: rgb(48, 48, 48);
+                  color: #303030;
                   font-size: rem(30);
                   line-height: 5rem;
                   margin-bottom: 0;
@@ -150,7 +150,7 @@ $dot-color: #7C5E94;
                   }
                 }
                 p {
-                    color: rgb(48, 48, 48);
+                    color: #303030;
                     font-size: rem(14);
                     font-weight: $font-normal;
                     padding-top: 1rem;
