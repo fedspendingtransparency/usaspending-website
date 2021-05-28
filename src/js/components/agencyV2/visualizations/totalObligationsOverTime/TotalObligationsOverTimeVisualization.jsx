@@ -41,7 +41,6 @@ const TotalObligationsOverTimeVisualization = ({
     fy = getYear(new Date(Date.now())),
     todaysDate = Date.now()
 }) => {
-    console.log(' Data : ', data);
     const [xDomain, setXDomain] = useState([]);
     const [yDomain, setYDomain] = useState([]);
     const [xScale, setXScale] = useState(null);

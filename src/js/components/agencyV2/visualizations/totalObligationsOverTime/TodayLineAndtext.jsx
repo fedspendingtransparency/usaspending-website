@@ -41,7 +41,7 @@ const TodayLineAndtext = ({
 
     return (
         <g>
-            {show && <desc>A line representing todays date, with text Today</desc>}
+            {show && <desc>A line representing todays date</desc>}
             {show && <line
                 tabIndex="0"
                 className="today-line"
