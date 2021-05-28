@@ -45,14 +45,14 @@ const AreaPath = ({
         if (xScale && yScale) {
             setD(data.reduce((path, currentItem, i, originalArray) => {
                 if (i === 0) {
-                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                     return updatedPath;
                 }
                 if (originalArray.length === i + 1) {
-                    const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${height - padding.bottom - padding.top}Z`;
+                    const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${height - padding.bottom}Z`;
                     return updatedPath;
                 }
-                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                 return updatedPath;
             }, 'M'));
         }
