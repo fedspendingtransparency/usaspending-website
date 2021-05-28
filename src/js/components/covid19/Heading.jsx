@@ -16,7 +16,6 @@ const Heading = () => {
     };
     return (
         <div className="heading__container information-body">
-            <div className="heading__top information-top" />
             <div className="heading__title">
                 The Federal Response to <span className="color-purple">COVID-19</span>
             </div>
@@ -34,6 +33,18 @@ const Heading = () => {
                         <sup>2</sup> USAspending’s data model is called the <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" target="_blank" rel="noopener noreferrer">DATA Act Information Model Schema (DAIMS) <FontAwesomeIcon icon="external-link-alt" /></a> and is available to review.
                     </p>
                 </ReadMore>
+            </div>
+            <div className="heading__img-wrapper">
+                <img
+                    className="heading__img"
+                    src="img/desktop@2x.png"
+                    alt="" />
+            </div>
+            <div style={{ marginLeft: "auto" }} className="heading__img-wrapper">
+                <img
+                    className="heading__img-mobile"
+                    src="img/mobile@2x.png"
+                    alt="" />
             </div>
         </div>
     );
