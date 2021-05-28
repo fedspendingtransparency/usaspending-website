@@ -290,9 +290,9 @@ export class CovidHighlights extends React.Component {
                                     completeIncrement={this.completeIncrementAndTriggerScroll}
                                     className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
                                     total={totalSpendingAmount}
-                                    isLoading={isAmountLoading} />in response to
+                                    isLoading={isAmountLoading} />in response to&nbsp;
                                 <div className="covid-homepage-tooltip">
-                                    &nbsp;COVID&#8209;19.
+                                    COVID&#8209;19.
                                     <TooltipWrapper
                                         icon="info"
                                         offsetAdjustments={{
@@ -310,8 +310,10 @@ export class CovidHighlights extends React.Component {
                                     View all COVID-19 spending
                                 </Link>
                             </div>
-                            <strong>USAspending is the official open data source of federal spending information.</strong><br /> We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
+                            <hr />
+                            <strong>USAspending is the official open data source of federal spending information.</strong>
                         </p>
+                        <p>We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.</p>
                     </div>
                     <div
                         className="covid-hero__content"

@@ -1,10 +1,10 @@
 $dot-color: #dcefef;
 .covid-hero {
-    height: rem(400);
+    height: auto;
     @include display(flex);
     @include justify-content(center);
     @media(min-width: $tablet-screen) {
-      height: rem(446);
+      height: rem(480);
     }
     @media(min-width: 1750px) {
       height: rem(400);
@@ -21,12 +21,18 @@ $dot-color: #dcefef;
             ul {
               max-width: rem(800);
               margin-left: 2.5rem;
+              @media(max-width: $tablet-screen) {
+                margin-left: 1rem;
+              }
             }
             .covid-profile-link__button-wrap {
-              margin-top: 2.5rem;
+              margin-top: 2rem;
               width: 30rem;
               height: 5rem;
-              margin-bottom: 3rem;
+              margin-bottom: 2rem;
+              @media(max-width: 490px) {
+                width: 100%;
+              }
               .covid-profile-link__button {
                   display: flex;
     
@@ -38,10 +44,10 @@ $dot-color: #dcefef;
                   font-size: rem(21);
                   font-weight: $font-semibold;
 
-                  @media(max-width: $small-screen) {
-                    padding-right: 0;
+                  @media(max-width: 490px) {
                     font-weight: $font-normal;
                     font-size: rem(18);
+                    justify-content: center;
                   }
     
                   &:visited {
@@ -69,6 +75,10 @@ $dot-color: #dcefef;
                   z-index: 10; /* This z-index is so that the hero tooltip will appear IN FRONT OF the bg people walking image */
                   padding-left: rem(15);
                   width: 50%;
+                }
+                @media(max-width: $tablet-screen) {
+                  @include justify-content(flex-start);
+                  max-height: 100%;
                 }
                 @media(min-width: $medium-screen) {
                   @include justify-content(flex-start);
@@ -113,7 +123,7 @@ $dot-color: #dcefef;
                           display: inline-flex;
                         }
                         strong {
-                          font-size: rem(30);
+                            font-size: rem(30);
                             @media(min-width: $medium-screen) {
                               font-size: rem(38);
                             }
@@ -170,16 +180,26 @@ $dot-color: #dcefef;
                     color: rgb(48, 48, 48);
                     font-size: rem(14);
                     font-weight: $font-normal;
-                    margin-top: rem(10);      
-                    @media(min-width: 1300px) {
+                    padding-top: 1rem;
+                    @media(min-width: $large-screen) {
                       font-size: rem(18);
                     }
                     @media(max-width: $tablet-screen) {
-                      margin-bottom: 5rem;
+                      margin-bottom: 2rem;
                     }
                     strong {
                       font-weight: $font-semibold;
                     }
+                    &:nth-of-type(2) {
+                      margin-top: -2rem;
+                    }
+                }
+                hr {
+                  margin-top: 3rem;
+                  margin-bottom: 3rem;
+                  @media(min-width: $tablet-screen) {
+                    display: none;
+                  }
                 }
             }
             &:nth-of-type(2) {
