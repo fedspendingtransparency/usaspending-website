@@ -305,17 +305,15 @@ export class CovidHighlights extends React.Component {
                                 </div>
                             </span>
                         </h1>
-                        <p>
-                            <div className="covid-profile-link__button-wrap">
-                                <Link
-                                    className="covid-profile-link__button"
-                                    to="/disaster/covid-19">
-                                    View all COVID-19 spending
-                                </Link>
-                            </div>
+                        <div className="covid-profile-link__button-wrap">
+                            <Link
+                                className="covid-profile-link__button"
+                                to="/disaster/covid-19">
+                                View all COVID-19 spending
+                            </Link>
                             <hr />
-                            <strong>USAspending is the official open data source of federal spending information.</strong>
-                        </p>
+                        </div>
+                        <p><strong>USAspending is the official open data source of federal spending information.</strong></p>
                         <p>We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.</p>
                     </div>
                     <div

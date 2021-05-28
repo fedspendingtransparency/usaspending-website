@@ -26,21 +26,22 @@ $dot-color: #7C5E94;
               }
             }
             .covid-profile-link__button-wrap {
-              margin-top: 1rem;
+              margin-top: 3rem;
               width: 30rem;
               height: 5rem;
-              margin-bottom: 4rem;
-              @media(max-width: 1226px) {
-                margin-bottom: 2rem;
-                margin-top: 1rem;
+              margin-left: 2rem;
+              hr {
+                margin-top: 3rem;
+                @media(min-width: $tablet-screen) {
+                  display: none;
+                }
               }
               @media(max-width: $tablet-screen) {
-                width: 100%;
+                width: 90%;
+                margin-left: 1rem;
+                margin-right: 1rem;
               }
-              @media(max-width: $medium-screen) {
-                margin-top: 0.5rem;
-                margin-bottom: 2rem;
-              }
+              
               .covid-profile-link__button {
                   display: flex;
     
@@ -95,7 +96,7 @@ $dot-color: #7C5E94;
                   @include justify-content(flex-start);
                 }
                 h1.covid-hero__headline {
-                  color: #303030;
+                  color: $color-gray-dark;
                   font-size: rem(30);
                   line-height: 5rem;
                   margin-bottom: 0;
@@ -150,7 +151,7 @@ $dot-color: #7C5E94;
                   }
                 }
                 p {
-                    color: #303030;
+                    color: $color-gray-dark;
                     font-size: rem(14);
                     font-weight: $font-normal;
                     padding-top: 1rem;
@@ -160,6 +161,9 @@ $dot-color: #7C5E94;
                     @media(max-width: $tablet-screen) {
                       margin-bottom: 2rem;
                     }
+                    @media(max-width: $tablet-screen) {
+                      margin-top: 3rem;
+                    }
                     strong {
                       font-weight: $font-semibold;
                       font-size: rem(20);
@@ -167,13 +171,6 @@ $dot-color: #7C5E94;
                     &:nth-of-type(2) {
                       margin-top: -1rem;
                     }
-                }
-                hr {
-                  margin-top: 3rem;
-                  margin-bottom: 3rem;
-                  @media(min-width: $tablet-screen) {
-                    display: none;
-                  }
                 }
             }
             &:nth-of-type(2) {
