@@ -3,19 +3,57 @@
  * Created by Jonathan Hill 06/10/2020
  */
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { isCancel } from 'axios';
+import { fetchAllSubmissionDates, getLatestPeriodAsMoment } from 'helpers/accountHelper';
 
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
+const propTypes = {
+    styles: PropTypes.object,
+    useCache: PropTypes.bool
+};
 
-const propTypes = { styles: PropTypes.object };
+const DateNote = ({ styles, useCache = true }) => {
+    const [date, setDate] = useState(null);
+    const [error, setError] = useState(false);
+    const request = useRef(null);
 
-const DateNote = ({ styles }) => {
-    const [date] = useLatestAccountData();
-    if (!date) return null;
+    const getPeriodEndDate = async () => {
+        if (!date) {
+            setError(false);
+            request.current = fetchAllSubmissionDates(useCache);
+            try {
+                const { data } = await request.current.promise;
+                setDate(getLatestPeriodAsMoment(data.available_periods));
+                request.current = null;
+            }
+            catch (e) {
+                if (!isCancel(e)) {
+                    setError(true);
+                    console.error(e);
+                }
+                request.current = null;
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        getPeriodEndDate();
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
+    }, [date]);
+
+    if (error) return null;
+
     return (
         <div style={{ ...styles }} className="covid__date-note">
-            Data through {date.format('MMMM DD[,] YYYY')}
+            Data through {date?.format('MMMM DD[,] YYYY') || '--'}
         </div>
     );
 };
