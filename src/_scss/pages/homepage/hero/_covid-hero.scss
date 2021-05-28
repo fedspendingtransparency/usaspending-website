@@ -7,7 +7,7 @@ $dot-color: #dcefef;
       height: rem(480);
     }
     @media(min-width: 1750px) {
-      height: rem(400);
+      height: rem(420);
     }
     .covid-hero__wrapper {
         @include display(flex);
@@ -29,7 +29,11 @@ $dot-color: #dcefef;
               margin-top: 2rem;
               width: 30rem;
               height: 5rem;
-              margin-bottom: 2rem;
+              margin-bottom: 4rem;
+              @media(max-width: 1226px) {
+                margin-bottom: 2rem;
+                margin-top: 1rem;
+              }
               @media(max-width: 490px) {
                 width: 100%;
               }
@@ -92,6 +96,9 @@ $dot-color: #dcefef;
                     @include flex-wrap(wrap);
                     font-size: rem(30);
                     margin-bottom: 0;
+                    @media(max-width: $medium-screen) {
+                      margin-top: 1rem;
+                    }
                     .covid-hero__headline--amount {
                         opacity: 0;
                         position: absolute;
@@ -181,7 +188,7 @@ $dot-color: #dcefef;
                     font-size: rem(14);
                     font-weight: $font-normal;
                     padding-top: 1rem;
-                    @media(min-width: $large-screen) {
+                    @media(min-width: 1320px) {
                       font-size: rem(18);
                     }
                     @media(max-width: $tablet-screen) {
@@ -189,6 +196,7 @@ $dot-color: #dcefef;
                     }
                     strong {
                       font-weight: $font-semibold;
+                      font-size: rem(20);
                     }
                     &:nth-of-type(2) {
                       margin-top: -2rem;
