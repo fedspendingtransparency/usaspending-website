@@ -283,16 +283,16 @@ export class CovidHighlights extends React.Component {
                 <div id="covid-hero__wrapper" className="covid-hero__wrapper">
                     <div className="covid-hero__content">
                         <h1 className="covid-hero__headline" tabIndex={-1}>
+                            <span>The federal government has spent&nbsp;</span>
                             <span>
-                                The federal government has spent
                                 {isAmountLoading && <div className="dot-pulse" />}
                                 <TotalAmount
                                     completeIncrement={this.completeIncrementAndTriggerScroll}
                                     className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
                                     total={totalSpendingAmount}
-                                    isLoading={isAmountLoading} />
-                                in response to COVID-19.
-                                <div style={{ width: '20px' }}>
+                                    isLoading={isAmountLoading} />in response to
+                                <div className="covid-homepage-tooltip">
+                                    &nbsp;COVID&#8209;19.
                                     <TooltipWrapper
                                         icon="info"
                                         offsetAdjustments={{

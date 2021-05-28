@@ -20,10 +20,10 @@ $dot-color: #dcefef;
             p,
             ul {
               max-width: rem(800);
-              margin-left: auto;
+              margin-left: 2.5rem;
             }
             .covid-profile-link__button-wrap {
-              margin-top: 3rem;
+              margin-top: 2.5rem;
               width: 30rem;
               height: 5rem;
               margin-bottom: 3rem;
@@ -37,6 +37,12 @@ $dot-color: #dcefef;
     
                   font-size: rem(21);
                   font-weight: $font-semibold;
+
+                  @media(max-width: $small-screen) {
+                    padding-right: 0;
+                    font-weight: $font-normal;
+                    font-size: rem(18);
+                  }
     
                   &:visited {
                       color: $color-white;                    
@@ -103,38 +109,43 @@ $dot-color: #dcefef;
                             width: rem(40);
                             margin: 0 rem(40);
                         }
+                        .covid-homepage-tooltip {
+                          display: inline-flex;
+                        }
                         strong {
                           font-size: rem(30);
                             @media(min-width: $medium-screen) {
-                              font-size: rem(40);
+                              font-size: rem(38);
                             }
                             font-weight: $font-bold;
                         }
                         &:first-of-type {
                           font-size: rem(30);
                             @media(min-width: $medium-screen) {
-                              font-size: rem(40);
+                              font-size: rem(38);
                             }
                             font-weight: $font-semibold;
                         }
                         &:nth-of-type(2) {
                           font-size: rem(30);
                             @media(min-width: $medium-screen) {
-                              font-size: rem(40);
+                              font-size: rem(38);
                             }
+                            font-weight: $font-semibold;
                         }
                         &:nth-of-type(3) {
                           font-size: rem(30);
                           @media(min-width: $medium-screen) {
-                            font-size: rem(40);
+                            font-size: rem(38);
                           }
+                          font-weight: $font-semibold;
                         }
                         &:nth-of-type(4) {
                           width: auto;
                           strong {
                             font-size: rem(30);
                               @media(min-width: $medium-screen) {
-                                font-size: rem(40);
+                                font-size: rem(38);
                               }
                           }
                         }
