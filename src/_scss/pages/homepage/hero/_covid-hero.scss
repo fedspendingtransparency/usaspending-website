@@ -34,7 +34,7 @@ $dot-color: #dcefef;
                 margin-bottom: 2rem;
                 margin-top: 1rem;
               }
-              @media(max-width: 490px) {
+              @media(max-width: $tablet-screen) {
                 width: 100%;
               }
               .covid-profile-link__button {
@@ -48,7 +48,7 @@ $dot-color: #dcefef;
                   font-size: rem(21);
                   font-weight: $font-semibold;
 
-                  @media(max-width: 490px) {
+                  @media(max-width: $tablet-screen) {
                     font-weight: $font-normal;
                     font-size: rem(18);
                     justify-content: center;
@@ -97,7 +97,7 @@ $dot-color: #dcefef;
                     font-size: rem(30);
                     margin-bottom: 0;
                     @media(max-width: $medium-screen) {
-                      margin-top: 1rem;
+                      margin-top: 3rem;
                     }
                     .covid-hero__headline--amount {
                         opacity: 0;
