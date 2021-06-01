@@ -32,25 +32,19 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 	const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
 	const chartRef = React.useRef();
 
-	const resizeChart = () => {
+	React.useEffect(() => {
 		const rect = chartRef.current.parentElement.getBoundingClientRect();
 		if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
 			setChartRect([rect.height, rect.width]);
-		}
-	}
-
-	React.useEffect(() => { resizeChart(); }, [windowWidth]);
-
-	const outerLabels = outer.map((d) => d.label);
-	const outerData = outer.map((d) => d.value);
-	const innerData = inner.map((d) => d.value);
+		};
+	}, [windowWidth]);
 
 	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2;
 	const outerRadius = labelRadius * .7;
-	const outerStrokeWidth = 5;
-	const innerRadius = outerRadius * .9;
+	const outerStrokeWidth = 3;
+	const innerRadius = outerRadius - outerStrokeWidth * 2;
 
-	// append the svg object to the div
+	// clear & append the svg object to the div
 	d3.select('#obl_chart').selectAll('*').remove();
 	const svg = d3.select('#obl_chart')
 		.append('svg')
@@ -60,8 +54,9 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 		.attr('transform', `translate(${chartRect[1] / 2}, ${chartRect[0] / 2})`)
 		;
 
-	const outerArc = d3.arc().outerRadius(outerRadius).innerRadius(outerRadius - outerStrokeWidth);
+	const outerData = outer.map((d) => d.value);
 	const outerPie = d3.pie().sortValues(null)(outerData);
+	const innerData = inner.map((d) => d.value);
 	const innerPie = d3.pie().sortValues(null)(innerData);
 
 	// outer ring
@@ -69,7 +64,9 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 		.data(outerPie)
 		.enter()
 		.append('path')
-		.attr('d', outerArc)
+		.attr('d', d3.arc()
+			.outerRadius(outerRadius)
+			.innerRadius(outerRadius - outerStrokeWidth))
 		.attr('fill', (d, i) => outer[i].color)
 		;
 
@@ -85,7 +82,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 		.attr('fill', (d, i) => inner[i].color)
 		;
 
-	// border between categories (assumes only 2 categories)
+	// border between categories
 	const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
 	svg.selectAll()
 		.data([0]) // one polyline, data in borders
@@ -98,19 +95,14 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 		;
 
 	// labels
+	const outerLabels = outer.map((d) => d.label);
+
 	const labelPos = (i, yOffset = 0) => {
-		// labels at top left/bottom right or top right/bottom left
+		// labels at top left/bottom right or top right/bottom left, depending on relative values
 		const labelAngle = outerData[0] < outerData[1] ? -.8 : .8;
-		const labelDirection = i == 0 ? 1 : -1;
+		const labelPos = i == 0 ? labelRadius : -labelRadius;
 
-		return [labelRadius * labelDirection * Math.cos(labelAngle), labelRadius * labelDirection * Math.sin(labelAngle) + yOffset];
-
-		// const pos = outerArc.centroid(d);
-		// const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-		// pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
-		// pos[1] += yOffset;
-		// const pos = [[70, 55], [-70, -55]]
-		// return [pos[d][0], pos[d][1] + yOffset];
+		return [labelPos * Math.cos(labelAngle), labelPos * Math.sin(labelAngle) + yOffset];
 	}
 
 	svg.selectAll()
@@ -130,21 +122,6 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 		.attr('class', 'callout-labels')
 		.text((d, i) => outerLabels[i][1])
 		;
-
-	// callout lines
-	// svg.selectAll()
-	// 	.data(outerPie)
-	// 	.enter()
-	// 	.append('polyline')
-	// 	.attr('points', (d, i) => {
-	// 		const label = labelPos(i);
-	// 		const tail = label[1] < 0 ? 5 : -5;
-	// 		return [[label[0], label[1] + tail], [label[0], label[1] + tail * 2], outerArc.centroid(d)]
-	// 	})
-	// 	.attr('fill', 'none')
-	// 	.attr('stroke', '#757575')
-	// 	.attr('stroke-width', 1)
-	// 	;
 
 	return <div id='obl_chart' ref={chartRef} />;
 }
