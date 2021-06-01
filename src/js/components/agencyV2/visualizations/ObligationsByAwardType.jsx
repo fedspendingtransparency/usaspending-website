@@ -44,10 +44,10 @@ export default function ObligationsByAwardType({ outer, inner }) {
 	const outerData = outer.map((d) => d.value);
 	const innerData = inner.map((d) => d.value);
 
-	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2 * .7;
-	const outerRadius = labelRadius * .9;
+	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2 * .9;
+	const outerRadius = labelRadius * .8;
 	const outerStrokeWidth = 5;
-	const innerRadius = labelRadius * .8;
+	const innerRadius = outerRadius * .9;
 
 	// append the svg object to the div
 	d3.select('#obl_chart').selectAll('*').remove();
@@ -96,14 +96,19 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		.attr('fill', 'none')
 		;
 
-	// callout labels
-	const labelPos = (d, yOffset = 0) => {
+	// labels
+	const labelPos = (i, yOffset = 0) => {
+		const labelAngle = outerData[0] < outerData[1] ? -.8 : .8; // labels at top left/bottom right or top right/bottom left
+
+
+		return [labelRadius * Math.cos(labelAngle), labelRadius * Math.sin(labelAngle) + yOffset];
+
 		// const pos = outerArc.centroid(d);
 		// const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
 		// pos[0] = labelRadius * (midangle < Math.PI ? 1 : -1);
 		// pos[1] += yOffset;
-		const pos = [[70, 55], [-70, -55]]
-		return [pos[d][0], pos[d][1] + yOffset];
+		// const pos = [[70, 55], [-70, -55]]
+		// return [pos[d][0], pos[d][1] + yOffset];
 	}
 
 	svg.selectAll()
@@ -125,19 +130,19 @@ export default function ObligationsByAwardType({ outer, inner }) {
 		;
 
 	// callout lines
-	svg.selectAll()
-		.data(outerPie)
-		.enter()
-		.append('polyline')
-		.attr('points', (d, i) => {
-			const label = labelPos(i);
-			const tail = label[1] < 0 ? 5 : -5;
-			return [[label[0], label[1] + tail], [label[0], label[1] + tail * 2], outerArc.centroid(d)]
-		})
-		.attr('fill', 'none')
-		.attr('stroke', '#757575')
-		.attr('stroke-width', 1)
-		;
+	// svg.selectAll()
+	// 	.data(outerPie)
+	// 	.enter()
+	// 	.append('polyline')
+	// 	.attr('points', (d, i) => {
+	// 		const label = labelPos(i);
+	// 		const tail = label[1] < 0 ? 5 : -5;
+	// 		return [[label[0], label[1] + tail], [label[0], label[1] + tail * 2], outerArc.centroid(d)]
+	// 	})
+	// 	.attr('fill', 'none')
+	// 	.attr('stroke', '#757575')
+	// 	.attr('stroke-width', 1)
+	// 	;
 
 	return <div id='obl_chart' ref={chartRef} />;
 }
