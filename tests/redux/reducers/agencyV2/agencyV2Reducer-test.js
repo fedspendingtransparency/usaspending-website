@@ -43,7 +43,7 @@ describe('agencyReducer', () => {
             state = agencyReducer(state, action);
 
             expect(Object.getPrototypeOf(state.budgetaryResources)).toEqual(BaseAgencyBudgetaryResources);
-            expect(state.budgetaryResources._agencyTotalObligated).toEqual(580584099.03);
+            expect(state.budgetaryResources.dataByYear['2020'].agencyBudget).toEqual(322370908923.19);
         });
     });
 

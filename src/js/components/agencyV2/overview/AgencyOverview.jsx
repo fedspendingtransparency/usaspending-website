@@ -56,13 +56,14 @@ CovidTooltip.propTypes = {
 
 const propTypes = {
     isLoading: PropTypes.bool,
-    covidDefCodes: PropTypes.arrayOf(DEFC_OBJECT),
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    agencyId: PropTypes.string
 };
 
 const AgencyOverview = ({
     isLoading,
-    fy
+    fy,
+    agencyId
 }) => {
     const {
         name,
@@ -162,7 +163,7 @@ const AgencyOverview = ({
                 <div className="agency-overview__title">
                     <h3>
                         {name}
-                        {name && covidDefCodes.length &&
+                        {name && covidDefCodes.length > 0 &&
                             <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                                 <span className="covid-spending-flag">
                                     COVID-19 Spending
@@ -181,7 +182,7 @@ const AgencyOverview = ({
     return (
         <div className="agency-overview">
             {overview}
-            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} />
+            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} agencyId={agencyId} />
         </div>
     );
 };

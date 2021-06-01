@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
 
@@ -29,11 +28,9 @@ export default class Header extends React.Component {
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
         this.closeBanner = this.closeBanner.bind(this);
-        this.openCovidModalContainer = this.openCovidModalContainer.bind(this);
+        this.openBannerModal = this.openBannerModal.bind(this);
     }
-    componentDidMount() {
-        this.setShowInfoBanner();
-    }
+
     setShowInfoBanner() {
         // check if the info banner cookie exists
         if (!Cookies.get(cookie)) {
@@ -64,7 +61,7 @@ export default class Header extends React.Component {
         });
     }
 
-    openCovidModalContainer(e) {
+    openBannerModal(e) {
         e.preventDefault();
         this.props.showModal(null, 'covid');
     }
@@ -72,10 +69,9 @@ export default class Header extends React.Component {
     render() {
         let infoBanner = (
             <InfoBanner
-                triggerModal={this.openCovidModalContainer}
+                triggerModal={this.openBannerModal}
                 closeBanner={this.closeBanner} />
         );
-
         if (!this.state.showInfoBanner) {
             infoBanner = null;
         }

@@ -104,7 +104,7 @@ export const federalAccountPageMetaTags = ({
     agency_identifier: agencyId,
     main_account_code: accountCode
 }) => ({
-    og_url: `${productionURL}federal_account/${agencyId}/${accountCode}`,
+    og_url: `${productionURL}federal_account/${agencyId}-${accountCode}`,
     og_title: `${title} | Spending Profile | USAspending`,
     og_description:
         `View the spending activity of the federal account for ${title}. `,
@@ -285,6 +285,24 @@ export const aboutTheDataAgencyDetails = ({
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });
+
+export const agencySubmissionDataSourcesMetaTags = {
+    og_url: `${productionURL}submission-statistics/data-sources`,
+    og_title: 'Data Sources & Methodology for Agency Submission Statistics | USAspending',
+    og_description:
+        'Get information on how to use the Agency Submission Statistics data and view calculation methodologies and data sources.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
+export const covidDataSourcesMetaTags = {
+    og_url: `${productionURL}disaster/covid-19/data-sources`,
+    og_title: 'Data Sources & Methodology for COVID Relief Funding | USAspending',
+    og_description:
+        'View data sources and calculation methods for the COVID-19 Spending profile, including information on what COVID-19 spending USAspending tracks.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
 
 /* eslint-enable max-len */
 

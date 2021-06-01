@@ -5,19 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader } from 'data-transparency-ui';
+import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 
-import Footer from 'containers/Footer';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
 import Error from 'components/sharedComponents/Error';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 
 import StateContent from './StateContent';
 
@@ -56,30 +52,26 @@ const StatePage = ({
     };
 
     return (
-        <div className="usa-da-state-page">
-            {stateProfile.overview && <MetaTags {...statePageMetaTags(stateProfile.overview)} />}
-            <Header />
-            <PageHeader
-                overLine="state profile"
-                title={stateProfile.overview.name}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                fyProps={{
-                    selectedFy: stateProfile?.fy,
-                    options: getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear()),
-                    handleFyChange: pickedFy
-                }}
-                shareProps={{
-                    url: getBaseUrl(slug),
-                    onShareOptionClick: handleShare
-                }}>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                    </LoadingWrapper>
-                </main>
-                <Footer />
-            </PageHeader>
-        </div>
+        <PageWrapper
+            classNames="usa-da-state-page"
+            overLine="state profile"
+            title={stateProfile.overview.name}
+            metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
+            toolBarComponents={[
+                <FiscalYearPicker
+                    selectedFy={stateProfile?.fy}
+                    handleFyChange={pickedFy}
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
+            ]}>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                </LoadingWrapper>
+            </main>
+        </PageWrapper>
     );
 };
 

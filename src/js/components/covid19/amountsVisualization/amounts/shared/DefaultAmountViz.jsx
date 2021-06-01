@@ -17,8 +17,7 @@ const propTypes = {
     showTooltip: PropTypes.string,
     overviewData: PropTypes.object,
     scale: PropTypes.func,
-    width: PropTypes.number,
-    publicLawFilter: PropTypes.string
+    width: PropTypes.number
 };
 
 const DefaultAmountViz = ({
@@ -28,8 +27,7 @@ const DefaultAmountViz = ({
     showTooltip,
     overviewData,
     scale,
-    width,
-    publicLawFilter = 'all'
+    width
 }) => (
     <g>
         <DefaultLineAndText
@@ -38,16 +36,14 @@ const DefaultAmountViz = ({
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
             dataId={dataId}
-            width={width}
-            publicLawFilter={publicLawFilter} />
+            width={width} />
         <Rectangle
             overviewData={overviewData}
             scale={scale}
             displayTooltip={displayTooltip}
             hideTooltip={hideTooltip}
             showTooltip={showTooltip}
-            dataId={dataId}
-            publicLawFilter={publicLawFilter} />
+            dataId={dataId} />
     </g>
 );
 

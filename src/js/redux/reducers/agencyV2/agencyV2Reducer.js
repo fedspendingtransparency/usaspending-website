@@ -7,6 +7,7 @@ import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryRe
 
 // Create an empty budgetary resources object for the initial state
 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
+budgetaryResources.populate();
 
 export const initialState = {
     overview: {

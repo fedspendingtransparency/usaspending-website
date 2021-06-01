@@ -130,7 +130,7 @@ const Footer = ({
                                 </li>
                                 <li>
                                     <FooterExternalLink
-                                        link="https://github.com/fedspendingtransparency/usaspending-website/releases"
+                                        link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
                                         title="Release Notes" />
                                 </li>
                             </ul>

@@ -10,9 +10,9 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 
 import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
+import { fetchPublishDates } from 'apis/agencyReporting';
 import {
     formatPublicationDates,
-    fetchPublishDates,
     convertDatesToMilliseconds,
     renderDeadline
 } from 'helpers/aboutTheDataHelper';

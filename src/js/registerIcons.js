@@ -58,7 +58,8 @@ import {
     faTimes,
     faUserTie,
     faWindowRestore,
-    faFingerprint
+    faFingerprint,
+    faScroll
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function registerIcons() {
@@ -116,6 +117,7 @@ export default function registerIcons() {
         faTimes,
         faUserTie,
         faWindowRestore,
-        faAngleDoubleDown
+        faAngleDoubleDown,
+        faScroll,
     );
 }
