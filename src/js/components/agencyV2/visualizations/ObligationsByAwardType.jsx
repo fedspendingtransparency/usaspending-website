@@ -24,28 +24,29 @@ const propTypes = {
 			value: PropTypes.number.isRequired,
 			color: PropTypes.string.isRequired
 		})
-	).isRequired
+	).isRequired,
+	windowWidth: PropTypes.number.isRequired
 };
 
-export default function ObligationsByAwardType({ outer, inner }) {
+export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 	const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
 	const chartRef = React.useRef();
 
-	React.useEffect(() => {
-		if (chartRef.current) {
-			const rect = chartRef.current && chartRef.current.parentElement.getBoundingClientRect();
-			if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
-				setChartRect([rect.height, rect.width]);
-			}
+	const resizeChart = () => {
+		const rect = chartRef.current.parentElement.getBoundingClientRect();
+		if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
+			setChartRect([rect.height, rect.width]);
 		}
-	}, []);
+	}
+
+	React.useEffect(() => { resizeChart(); }, [windowWidth]);
 
 	const outerLabels = outer.map((d) => d.label);
 	const outerData = outer.map((d) => d.value);
 	const innerData = inner.map((d) => d.value);
 
-	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2 * .9;
-	const outerRadius = labelRadius * .8;
+	const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2;
+	const outerRadius = labelRadius * .7;
 	const outerStrokeWidth = 5;
 	const innerRadius = outerRadius * .9;
 
@@ -98,10 +99,11 @@ export default function ObligationsByAwardType({ outer, inner }) {
 
 	// labels
 	const labelPos = (i, yOffset = 0) => {
-		const labelAngle = outerData[0] < outerData[1] ? -.8 : .8; // labels at top left/bottom right or top right/bottom left
+		// labels at top left/bottom right or top right/bottom left
+		const labelAngle = outerData[0] < outerData[1] ? -.8 : .8;
+		const labelDirection = i == 0 ? 1 : -1;
 
-
-		return [labelRadius * Math.cos(labelAngle), labelRadius * Math.sin(labelAngle) + yOffset];
+		return [labelRadius * labelDirection * Math.cos(labelAngle), labelRadius * labelDirection * Math.sin(labelAngle) + yOffset];
 
 		// const pos = outerArc.centroid(d);
 		// const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2

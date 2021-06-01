@@ -53,10 +53,11 @@ const details = [
 ];
 
 const propTypes = {
-  fiscalYear: PropTypes.number.isRequired
+  fiscalYear: PropTypes.number.isRequired,
+  windowWidth: PropTypes.number.isRequired
 };
 
-export default function ObligationsByAwardTypeContainer({ fiscalYear }) {
+export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth }) {
   const [loading, setLoading] = React.useState(true);
   const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
@@ -104,6 +105,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear }) {
     return <ObligationsByAwardType
       outer={categories}
       inner={details}
+      windowWidth={windowWidth}
     />
   }
 }

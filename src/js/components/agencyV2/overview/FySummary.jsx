@@ -76,7 +76,7 @@ const FySummary = ({
     const numberOfRecipients = '200';
     const percentOfFederalRecipients = '1.5%';
 
-    const sections =  [
+    const sections = [
         (
             <VisualizationSection
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
@@ -111,7 +111,7 @@ const FySummary = ({
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardTypeContainer />
+                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} />
             </VisualizationSection>
         ),
         (
