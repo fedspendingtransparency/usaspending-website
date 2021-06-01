@@ -72,7 +72,7 @@ const BarChart = ({
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
                                     minHeight: '0.5%'
                                 }}
-                                longDesc={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
+                                longdesc={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
                                     a ${(budget / greatestAgencyBudget).toFixed(2)} to 1 ratio compared to the largest total budgetary resources
                                     in 5 consecutive years (${formatMoney(greatestAgencyBudget)}).`} />
                         </TooltipWrapper>
