@@ -91,24 +91,20 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         break;
                     default:
                         console.error(`Category name from API not recognized: ${d.category}`);
-                };
+                }
             });
 
             setLoading(false);
         });
     }
 
-    if (loading) {
-        return <LoadingMessage />;
-    }
-    else {
-        return (
+    return loading ? <LoadingMessage />
+        : (
             <ObligationsByAwardType
                 outer={categories}
                 inner={details}
                 windowWidth={windowWidth} />
         );
-    }
 }
 
 ObligationsByAwardTypeContainer.propTypes = propTypes;
