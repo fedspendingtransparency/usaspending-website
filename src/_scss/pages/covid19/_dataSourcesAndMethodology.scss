@@ -41,6 +41,11 @@
         list-style: disc;
         padding-bottom: rem(10);
         .other-resources__link__container {
+            @include display(flex);
+            @include flex-wrap(wrap);
+            @media(min-width: $large-screen) {
+                display: block;
+            }
           .other-resources__link__text {
             padding-right: 0.3rem;
           }

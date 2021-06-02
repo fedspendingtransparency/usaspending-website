@@ -21,7 +21,6 @@
         height: rem(208);
         @include display(flex);
         @include justify-content(center);
-        margin-top: auto;
         .viz-placeholder,
         .usda-message_loading,
         .usda-message {

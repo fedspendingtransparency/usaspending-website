@@ -14,10 +14,10 @@ const propTypes = {
 };
 
 const TooltipComponent = () => (
-    <div className="agency-v2-tt">
+    <>
         <h4 className="tooltip__title">Coming Soon</h4>
         <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
-    </div>
+    </>
 );
 
 const AgencySection = ({
