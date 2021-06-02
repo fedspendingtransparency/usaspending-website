@@ -3,60 +3,49 @@
  * Created by Lizzie Salita 5/11/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Tabs } from 'data-transparency-ui';
 import { fetchSpendingCount } from 'apis/agencyV2';
-import CountTab from 'components/agencyV2/CountTab';
 
 const propTypes = {
     fy: PropTypes.string.isRequired,
     agencyId: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    subHeading: PropTypes.string,
+    tabs: PropTypes.arrayOf(PropTypes.shape({
+        internal: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        countField: PropTypes.string.isRequired,
+        subHeading: PropTypes.string
+    })),
     setActiveTab: PropTypes.func.isRequired,
-    active: PropTypes.bool,
-    countField: PropTypes.string,
-    subCountField: PropTypes.string
+    activeTab: PropTypes.string.isRequired
 };
 
 const CountTabContainer = (props) => {
-    const [count, setCount] = useState(null);
-    const [subCount, setSubCount] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
+    const fetchCount = (type) => {
+        // setIsLoading(true);
+        const countRequest = fetchSpendingCount(props.agencyId, props.fy, type);
+        countRequest.promise
+            .then((res) => {
+                console.log(type, res.data[props.tabs.find((tab) => tab.internal === type).countField]);
+                // setIsLoading(false);
+            })
+            .catch((e) => {
+                console.error('Error fetching count', e);
+                // setIsLoading(false);
+            });
+    };
     useEffect(() => {
-        // Reset any existing results
         if (props.fy) {
-            setCount(null);
-            setIsLoading(true);
-            setSubCount(null);
-            const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
-            countRequest.promise
-                .then((res) => {
-                    setCount(res.data[props.countField]);
-                    setIsLoading(false);
-                    if (props.subCountField) {
-                        setSubCount(res.data[props.subCountField]);
-                    }
-                })
-                .catch((e) => {
-                    console.error('Error fetching count', e);
-                    setIsLoading(false);
-                });
+            // TODO - Reset any existing results
+            props.tabs.forEach((type) => fetchCount(type.internal));
         }
-    }, [props.type, props.fy, props.agencyId, props.countField, props.subCountField]);
+    }, [props.fy, props.agencyId]);
     return (
-        <CountTab
-            isLoading={isLoading}
-            count={count}
-            subCount={subCount}
-            label={props.label}
-            subHeading={props.subHeading}
-            setActiveTab={props.setActiveTab}
-            active={props.active}
-            disabled={count === 0}
-            type={props.type} />
+        <Tabs
+            types={props.tabs}
+            switchTab={props.setActiveTab}
+            active={props.activeTab} />
     );
 };
 
