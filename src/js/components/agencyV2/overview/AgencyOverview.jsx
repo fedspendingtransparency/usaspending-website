@@ -165,7 +165,7 @@ const AgencyOverview = ({
                         <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                             <span className="covid-spending-flag">
                                 COVID-19 Spending
-                                </span>
+                            </span>
                         </TooltipWrapper>
                     }
                 </h3>

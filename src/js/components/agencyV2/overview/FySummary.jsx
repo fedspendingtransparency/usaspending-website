@@ -12,10 +12,9 @@ import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
-import VisualizationSection from './VisualizationSection';
-
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
 
+import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
 
 const propTypes = {
