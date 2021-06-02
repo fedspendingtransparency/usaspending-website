@@ -141,7 +141,8 @@ export default class SearchPage extends React.Component {
                         isEnabled={this.props.downloadAvailable}
                         downloadInFlight={this.props.downloadInFlight}
                         onClick={this.showModal} />
-                ]}>
+                ]}
+                filters={this.props.filters}>
                 <div id="main-content">
                     <div className="search-contents">
                         <div className="full-search-sidebar">
