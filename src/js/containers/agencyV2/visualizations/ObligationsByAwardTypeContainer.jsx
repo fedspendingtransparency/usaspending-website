@@ -90,7 +90,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         details[5].value = d.aggregated_amount;
                         break;
                     default:
-                        console.error('Category name from API not recognized: ' + d.category);
+                        console.error(`Category name from API not recognized: ${d.category}`);
                 };
             });
 
