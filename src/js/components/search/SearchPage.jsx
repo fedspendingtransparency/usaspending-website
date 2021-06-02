@@ -21,6 +21,7 @@ const propTypes = {
     download: PropTypes.object,
     clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
+    appliedFilters: PropTypes.object,
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
@@ -142,7 +143,7 @@ export default class SearchPage extends React.Component {
                         downloadInFlight={this.props.downloadInFlight}
                         onClick={this.showModal} />
                 ]}
-                filters={this.props.filters}>
+                filters={this.props.appliedFilters}>
                 <div id="main-content">
                     <div className="search-contents">
                         <div className="full-search-sidebar">
