@@ -5,8 +5,14 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { camelCase } from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
 import { Tabs } from 'data-transparency-ui';
 import { fetchSpendingCount } from 'apis/agencyV2';
+import {
+    setBudgetCategoryCount,
+    resetBudgetCategoryCounts
+} from 'redux/actions/agencyV2/agencyV2Actions';
 
 const propTypes = {
     fy: PropTypes.string.isRequired,
@@ -22,28 +28,43 @@ const propTypes = {
 };
 
 const CountTabContainer = (props) => {
+    const dispatch = useDispatch();
+
     const fetchCount = (type) => {
-        // setIsLoading(true);
         const countRequest = fetchSpendingCount(props.agencyId, props.fy, type);
         countRequest.promise
             .then((res) => {
-                console.log(type, res.data[props.tabs.find((tab) => tab.internal === type).countField]);
-                // setIsLoading(false);
+                // Store the result in Redux
+                dispatch(setBudgetCategoryCount(
+                    camelCase(type),
+                    res.data[props.tabs.find((tab) => tab.internal === type).countField]
+                ));
             })
             .catch((e) => {
                 console.error('Error fetching count', e);
-                // setIsLoading(false);
             });
     };
+
     useEffect(() => {
         if (props.fy) {
-            // TODO - Reset any existing results
+            // Reset any existing results
+            dispatch(resetBudgetCategoryCounts());
+            // Make a count request for each tab
             props.tabs.forEach((type) => fetchCount(type.internal));
         }
     }, [props.fy, props.agencyId]);
+
+    // Get the counts from Redux
+    const counts = useSelector((state) => state.agencyV2.budgetCategoryCounts);
+    // Add the count property to our array of tabs
+    const tabsWithCounts = props.tabs.map((tab) => ({
+        ...tab,
+        count: counts[camelCase(tab.internal)]
+    }));
+
     return (
         <Tabs
-            types={props.tabs}
+            types={tabsWithCounts}
             switchTab={props.setActiveTab}
             active={props.activeTab} />
     );
