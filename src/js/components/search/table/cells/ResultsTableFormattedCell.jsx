@@ -22,13 +22,14 @@ export default class ResultsTableFormattedCell extends React.Component {
             // format the content as a date
             return moment(original, 'YYYY-MM-DD').format('M/D/YYYY');
         }
-        else if (type === 'currency') {
+        else if (type === 'currency' && original !== '--') {
             return formatMoney(original);
         }
         return original;
     }
 
     render() {
+        console.log(' This Value : ', this.props.value);
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
         let content = this.props.value;
