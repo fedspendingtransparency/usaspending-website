@@ -21,18 +21,21 @@ export const tabs = [
         internal: 'object_class',
         label: 'Object Class',
         countField: 'object_class_count',
-        subHeading: 'Object Classes'
+        subHeading: 'Object Classes',
+        tooltip: 'placeholder'
     },
     {
         internal: 'program_activity',
         label: 'Program Activity',
-        countField: 'program_activity_count'
+        countField: 'program_activity_count',
+        tooltip: 'placeholder'
     },
     {
         internal: 'federal_account',
         label: 'Federal Account',
         countField: 'federal_account_count',
-        subHeading: 'Treasury Accounts'
+        subHeading: 'Treasury Accounts',
+        tooltip: 'placeholder'
     }
 ];
 
@@ -40,21 +43,19 @@ const AccountSpending = ({ agencyId, fy }) => {
     const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious('object_class');
     const subHeading = tabs.find((tab) => tab.internal === activeTab).subHeading;
     return (
-        <div className="body__content">
-            <div className="count-tabs">
-                <CountTabContainer
-                    fy={fy}
-                    agencyId={agencyId}
-                    tabs={tabs}
-                    setActiveTab={setActiveTab}
-                    activeTab={activeTab} />
-                <TableContainer
-                    agencyId={agencyId}
-                    fy={fy}
-                    prevType={prevActiveTab}
-                    type={activeTab}
-                    subHeading={subHeading} />
-            </div>
+        <div className="body__content agency-budget-category">
+            <CountTabContainer
+                fy={fy}
+                agencyId={agencyId}
+                tabs={tabs}
+                setActiveTab={setActiveTab}
+                activeTab={activeTab} />
+            <TableContainer
+                agencyId={agencyId}
+                fy={fy}
+                prevType={prevActiveTab}
+                type={activeTab}
+                subHeading={subHeading} />
         </div>
     );
 };

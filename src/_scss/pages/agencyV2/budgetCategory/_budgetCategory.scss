@@ -1,0 +1,18 @@
+.agency-budget-category {
+    .usa-dt-tab-list {
+        .usa-dt-tab__label {
+            .tooltip-wrapper {
+                display: none;
+            }
+        }
+        @include media($tablet-screen) {
+            overflow-y: visible;
+            overflow-x: visible;
+            .usa-dt-tab__label {
+                .tooltip-wrapper {
+                    @include display(flex);
+                }
+            }
+        }
+    }
+}
