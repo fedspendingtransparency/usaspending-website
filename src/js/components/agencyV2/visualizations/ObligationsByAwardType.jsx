@@ -57,7 +57,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 
     // rotate chart so midpoints are 127deg off vertical
     const rotationAxis = 127;
-    const rotation = rotationAxis - (outerPie[0].endAngle / Math.PI * 90);
+    const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90);
     const chart = svg.append('g').attr('transform', `rotate (${rotation})`);
 
     // outer ring
