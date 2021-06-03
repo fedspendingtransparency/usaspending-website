@@ -80,7 +80,6 @@ export default class ResultsTable extends React.Component {
             dataType: awardTableColumnTypes[columnId]
         };
         if (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays') {
-            console.log(' Jon : ', this.props.results[rowIndex][column.columnName]);
         }
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
@@ -128,7 +127,6 @@ export default class ResultsTable extends React.Component {
         else if (
             (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
             && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
-            console.log(' Hitting : ', this.props.results[rowIndex][column.columnName]);
             props.value = '--';
         }
         else if (column.columnName === 'def_codes') {
