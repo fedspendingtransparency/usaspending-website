@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import ObligationsByAwardType from 'components/agencyV2/visualizations/ObligationsByAwardType';
-import { LoadingMessage } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 // import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -58,8 +58,9 @@ const propTypes = {
 };
 
 export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth }) {
-    const [loading, setLoading] = React.useState(true);
+    const [isLoading, setLoading] = React.useState(true);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
+    let isError = false;
 
     if (toptierCode) {
         fetchObligationsByAwardType(toptierCode, fiscalYear).promise.then((res) => {
@@ -91,20 +92,21 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         break;
                     default:
                         console.error(`Category name from API not recognized: ${d.category}`);
+                        isError = true;
                 }
             });
-
             setLoading(false);
         });
     }
 
-    return loading ? <LoadingMessage />
-        : (
-            <ObligationsByAwardType
-                outer={categories}
-                inner={details}
-                windowWidth={windowWidth} />
-        );
+    return isLoading ? <LoadingMessage />
+        : isError ? <ErrorMessage />
+            : (
+                <ObligationsByAwardType
+                    outer={categories}
+                    inner={details}
+                    windowWidth={windowWidth} />
+            );
 }
 
 ObligationsByAwardTypeContainer.propTypes = propTypes;

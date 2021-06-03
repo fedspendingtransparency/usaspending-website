@@ -55,8 +55,13 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
     const innerData = inner.map((d) => d.value);
     const innerPie = d3.pie().sortValues(null)(innerData);
 
+    // rotate chart so midpoints are 127deg off vertical
+    const rotationAxis = 127;
+    const rotation = rotationAxis - (outerPie[0].endAngle / Math.PI * 90);
+    const chart = svg.append('g').attr('transform', `rotate (${rotation})`);
+
     // outer ring
-    svg.selectAll()
+    chart.selectAll()
         .data(outerPie)
         .enter()
         .append('path')
@@ -66,7 +71,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .attr('fill', (d, i) => outer[i].color);
 
     // inner ring
-    svg.selectAll()
+    chart.selectAll()
         .data(innerPie)
         .enter()
         .append('path')
@@ -78,7 +83,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 
     // border between categories
     const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
-    svg.selectAll()
+    chart.selectAll()
         .data([0]) // one polyline, data in borders
         .enter()
         .append('path')
