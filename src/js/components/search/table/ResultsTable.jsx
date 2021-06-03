@@ -24,6 +24,7 @@ const propTypes = {
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
     updateSort: PropTypes.func,
+    awardIdClick: PropTypes.func,
     subAwardIdClick: PropTypes.func
 };
 

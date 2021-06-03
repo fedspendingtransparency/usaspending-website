@@ -468,7 +468,7 @@ export class ResultsTableContainer extends React.Component {
     awardIdClick = (id) => {
 
 
-        console.log('clicked');
+        console.log(`awardIdClick ${id}`);
 
         // Analytics.event({
         //     category: 'Advanced Search - Spending by Prime Award',
@@ -479,6 +479,11 @@ export class ResultsTableContainer extends React.Component {
     }
 
     subAwardIdClick = (id) => {
+
+
+
+        console.log('subAwardIdClick');
+
         Analytics.event({
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
