@@ -44,7 +44,6 @@ export const AgencyProfileV2 = ({
     agencyId,
     setSelectedFy,
     isError,
-    // errorMessage,
     isLoading,
     latestFy
 }) => {
