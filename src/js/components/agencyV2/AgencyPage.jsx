@@ -114,7 +114,7 @@ export const AgencyProfileV2 = ({
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
-                <DownloadIconButton downloadInFlight={false} handleClick={() => {}} />
+                <DownloadIconButton downloadInFlight={false} onClick={() => {}} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">

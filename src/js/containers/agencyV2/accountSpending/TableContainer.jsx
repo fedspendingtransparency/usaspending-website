@@ -106,8 +106,7 @@ const TableContainer = ({
         const request = fetchSpendingByCategory(agencyId, type, params);
         request.promise
             .then((res) => {
-                const parsedData = parseAccount(res.data.results, agencyObligated);
-                setResults(parsedData);
+                parseAccount(res.data.results, agencyObligated);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
