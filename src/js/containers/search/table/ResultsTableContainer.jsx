@@ -15,6 +15,7 @@ import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
+import { useQueryParams } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
@@ -464,6 +465,19 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    awardIdClick = (id) => {
+
+
+        console.log('clicked');
+
+        // Analytics.event({
+        //     category: 'Advanced Search - Spending by Prime Award',
+        //     action: `Clicked ${id}`,
+        //     label: useQueryParams(['hash'])
+        // });
+        // this.props.subAwardIdClicked(true);
+    }
+
     subAwardIdClick = (id) => {
         Analytics.event({
             category: 'Advanced Search - Link',
@@ -495,6 +509,7 @@ export class ResultsTableContainer extends React.Component {
                 updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage}
                 subaward={this.props.subaward}
+                awardIdClick={this.awardIdClick}
                 subAwardIdClick={this.subAwardIdClick} />
         );
     }
