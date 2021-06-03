@@ -15,7 +15,8 @@ const propTypes = {
     agencyId: PropTypes.string
 };
 
-const tabs = [
+export const tabs = [
+    // TODO - add tooltips
     {
         internal: 'object_class',
         label: 'Object Class',
