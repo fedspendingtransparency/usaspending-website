@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     classname: PropTypes.string,
+    description: PropTypes.string,
     data: PropTypes.array,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
@@ -25,6 +26,7 @@ const propTypes = {
 
 const AreaPath = ({
     classname = "",
+    description,
     data = [],
     xScale = () => {},
     yScale = () => {},
@@ -43,20 +45,27 @@ const AreaPath = ({
         if (xScale && yScale) {
             setD(data.reduce((path, currentItem, i, originalArray) => {
                 if (i === 0) {
-                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                     return updatedPath;
                 }
                 if (originalArray.length === i + 1) {
-                    const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${height - padding.bottom - padding.top}Z`;
+                    const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${height - padding.bottom}Z`;
                     return updatedPath;
                 }
-                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                 return updatedPath;
             }, 'M'));
         }
     }, [data, xScale, yScale]);
 
-    return (<path className={`area-path ${classname}`} d={d} />);
+    return (
+        <g tabIndex="0">
+            <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
+            <path
+                className={`area-path ${classname}`}
+                d={d} />
+        </g>
+    );
 };
 
 AreaPath.propTypes = propTypes;
