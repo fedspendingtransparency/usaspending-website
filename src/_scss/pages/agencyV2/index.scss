@@ -77,7 +77,6 @@
             .usda-section__container {
                 @include display(flex);
                 @import './overview/overview';
-                @import './budgetCategory/budgetCategory';
                 hr {
                     height: rem(2)
                 }

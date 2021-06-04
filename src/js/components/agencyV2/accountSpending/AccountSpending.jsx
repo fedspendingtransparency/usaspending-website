@@ -16,26 +16,22 @@ const propTypes = {
 };
 
 export const tabs = [
-    // TODO - add tooltips
     {
         internal: 'object_class',
         label: 'Object Class',
         countField: 'object_class_count',
-        subHeading: 'Object Classes',
-        tooltip: 'placeholder'
+        subHeading: 'Object Classes'
     },
     {
         internal: 'program_activity',
         label: 'Program Activity',
-        countField: 'program_activity_count',
-        tooltip: 'placeholder'
+        countField: 'program_activity_count'
     },
     {
         internal: 'federal_account',
         label: 'Federal Account',
         countField: 'federal_account_count',
-        subHeading: 'Treasury Accounts',
-        tooltip: 'placeholder'
+        subHeading: 'Treasury Accounts'
     }
 ];
 
