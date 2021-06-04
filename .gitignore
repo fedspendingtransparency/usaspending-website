@@ -26,8 +26,11 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# local lighthouse storage
+# local lighthouse DB storage
 db.sql
+
+# local lighthouse reports
+.lighthouseci/
 
 # Ignore compiled files
 dev
