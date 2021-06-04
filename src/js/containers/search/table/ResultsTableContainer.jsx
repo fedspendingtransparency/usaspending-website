@@ -466,24 +466,15 @@ export class ResultsTableContainer extends React.Component {
     }
 
     awardIdClick = (id) => {
-
-
-        console.log(`awardIdClick ${id}`);
-
-        // Analytics.event({
-        //     category: 'Advanced Search - Spending by Prime Award',
-        //     action: `Clicked ${id}`,
-        //     label: useQueryParams(['hash'])
-        // });
-        // this.props.subAwardIdClicked(true);
+        Analytics.event({
+            category: 'Advanced Search - Spending by Prime Award',
+            action: `Clicked ${id}`,
+            label: useQueryParams(['hash'])
+        });
+        this.props.subAwardIdClicked(true);
     }
 
     subAwardIdClick = (id) => {
-
-
-
-        console.log('subAwardIdClick');
-
         Analytics.event({
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
