@@ -5,7 +5,7 @@
                 display: none;
             }
         }
-        @include media($tablet-screen) {
+        @include media($medium-screen) {
             overflow-y: visible;
             overflow-x: visible;
             .usa-dt-tab__label {
