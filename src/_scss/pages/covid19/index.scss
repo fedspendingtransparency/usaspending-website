@@ -181,6 +181,13 @@
                         padding-top: 2rem;
                         padding-bottom: 1rem;
                         padding: 1rem;
+                        @media(max-width: 559px) {
+                            text-align: left;
+                            margin-left: 1rem;
+                        }
+                        @media(max-width: $medium-screen) {
+                            margin-top: 1rem;
+                        }
                         @media(min-width: $medium-screen) {
                             padding: 2rem 15% 2rem;
                         }
@@ -191,7 +198,12 @@
                         letter-spacing: 0;
                         line-height: 2.2rem;
                         text-align: center;
-                        padding: 1rem;
+                        padding: 0 23% 2rem;
+                        @media(max-width: 559px) {
+                            text-align: left;
+                            margin-left: 1rem;
+                            padding: 1rem;
+                        }
                         @media(min-width: $medium-screen) {
                             padding: 0 15% 2rem;
                         }
@@ -203,6 +215,46 @@
                         }
                         .glossary-term {
                             font-weight: $font-semibold;
+                        }
+                    }
+                    .heading__img-wrapper {
+                        @include display(block);
+                        max-height: 10vh;
+                        .heading__img-mobile {
+                            display: block;
+                            width: 130px;
+                            margin-top: -40px;
+                            min-height: 10vh;
+                            @include media(560px) {
+                                display: none;
+                            }
+                        }
+                        .heading__img {
+                            display: none;
+                            @include media(560px) {
+                                display: block;
+                                width: 32%;
+                                margin-top: -110px;
+                                min-height: 10vh;
+                            }
+                            @include media($medium-screen) {
+                                display: block;
+                                width: 32%;
+                                margin-top: -100px;
+                                min-height: 10vh;
+                            }
+                            @include media($large-screen) {
+                                display: block;
+                                width: 33%;
+                                margin-top: -120px;
+                                min-height: 10vh;
+                            }
+                            @include media($x-large-screen) {
+                                display: block;
+                                width: 35%;
+                                margin-top: -120px;
+                                min-height: 10vh;
+                            }
                         }
                     }
                 }

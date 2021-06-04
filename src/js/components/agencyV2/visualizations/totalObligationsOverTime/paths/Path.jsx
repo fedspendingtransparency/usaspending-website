@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     data: PropTypes.array,
+    description: PropTypes.string,
     xScale: PropTypes.func,
     yScale: PropTypes.func,
     xProperty: PropTypes.string,
@@ -23,17 +24,13 @@ const propTypes = {
 
 const Path = ({
     data = [],
+    description,
     xScale = () => {},
     yScale = () => {},
     xProperty = 'endDate',
     yProperty = 'obligated',
-    height = 0,
-    padding = {
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0
-    }
+    height,
+    padding
 }) => {
     const [d, setD] = useState('');
 
@@ -41,16 +38,21 @@ const Path = ({
         if (xScale && yScale) {
             setD(data.reduce((path, currentItem, i) => {
                 if (i === 0) {
-                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                    const updatedPath = `${path}${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                     return updatedPath;
                 }
-                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.top - padding.bottom}`;
+                const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
                 return updatedPath;
             }, 'M'));
         }
     }, [data, xScale, yScale]);
 
-    return <path className="path" d={d} />;
+    return (
+        <g tabIndex="0">
+            <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
+            <path className="path" d={d} />
+        </g>
+    );
 };
 
 Path.propTypes = propTypes;

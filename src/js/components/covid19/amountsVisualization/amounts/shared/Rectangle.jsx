@@ -29,7 +29,9 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltip: PropTypes.string,
-    dataId: PropTypes.string
+    dataId: PropTypes.string,
+    tooltipId: PropTypes.string,
+    className: PropTypes.string
 };
 
 const Rectangle = ({
@@ -38,12 +40,16 @@ const Rectangle = ({
     displayTooltip = () => {},
     hideTooltip = () => {},
     showTooltip = '',
-    dataId = ''
+    dataId = '',
+    tooltipId,
+    className
 }) => {
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
         if (scale) {
-            const { offset, fill, text: textInfo } = rectangleMapping[dataId];
+            const {
+                offset, fill, text: textInfo, color
+            } = rectangleMapping[dataId];
             const { left } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
             const rectWidth = rectangleWidth(overviewData, scale, dataId);
@@ -55,28 +61,32 @@ const Rectangle = ({
                 width: rectWidth < (lineStrokeWidth / 2) ? lineStrokeWidth : rectWidth,
                 height: rectangleHeight - (2 * offset.bottom),
                 fill,
+                stroke: color,
                 description: `A rectangle with width representative of the ${textInfo.label} amount ${moneyLabel}`
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
     }, [scale, overviewData]);
-
     return (
         <g
             tabIndex="0"
             aria-label={data.description}
             data-id={dataId}
+            data-tooltip={tooltipId}
             onFocus={displayTooltip}
             onBlur={hideTooltip}>
             <desc>{data.description}</desc>
             <rect
-                className={showTooltip === dataId ? 'highlight' : ''}
+                className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
                 data-id={dataId}
+                data-tooltip={tooltipId}
                 x={data.x}
                 y={data.y}
                 width={data.width}
                 height={data.height}
                 fill={data.fill}
+                stroke={data.stroke}
+                strokeWidth={lineStrokeWidth}
                 onMouseMove={displayTooltip}
                 onMouseLeave={hideTooltip} />
         </g>

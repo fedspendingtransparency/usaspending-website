@@ -93,8 +93,11 @@ const FySummary = ({
                 data={totalObligations}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
-                <TotalObligationsOverTimeContainer />
-                {/* <ComingSoon className="viz-placeholder" /> */}
+                <TotalObligationsOverTimeContainer
+                    isLoading={isLoading}
+                    isError={isError}
+                    agencyBudget={resourcesByYear[fy]?.agencyBudget}
+                    obligationsByPeriod={resourcesByYear[fy]?.obligationsByPeriod || []} />
             </VisualizationSection>
         ),
         (

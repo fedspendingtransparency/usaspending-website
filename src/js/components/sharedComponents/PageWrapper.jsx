@@ -19,7 +19,8 @@ const PageWrapper = ({
     ref,
     title,
     overLine,
-    toolBarComponents = []
+    toolBarComponents = [],
+    filters = {}
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
@@ -32,7 +33,7 @@ const PageWrapper = ({
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
-        <Footer />
+        <Footer filters={filters} />
     </div>
 );
 
@@ -43,7 +44,8 @@ PageWrapper.propTypes = {
     title: PropTypes.string.isRequired,
     overLine: PropTypes.string,
     children: PropTypes.element,
-    ref: PropTypes.object
+    ref: PropTypes.object,
+    filters: PropTypes.object
 };
 
 export default PageWrapper;

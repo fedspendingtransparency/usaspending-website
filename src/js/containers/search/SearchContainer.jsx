@@ -248,6 +248,7 @@ const SearchContainer = ({ history }) => {
         <SearchPage
             hash={urlHash}
             filters={stagedFilters}
+            appliedFilters={appliedFilters}
             noFiltersApplied={areAppliedFiltersEmpty}
             downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
