@@ -100,13 +100,13 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
     }
 
     return isLoading ? <LoadingMessage />
-        : isError ? <ErrorMessage />
+        : (isError ? <ErrorMessage />
             : (
                 <ObligationsByAwardType
                     outer={categories}
                     inner={details}
                     windowWidth={windowWidth} />
-            );
+            ));
 }
 
 ObligationsByAwardTypeContainer.propTypes = propTypes;
