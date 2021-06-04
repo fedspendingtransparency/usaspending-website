@@ -79,8 +79,7 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId],
             dataType: awardTableColumnTypes[columnId]
         };
-        if (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays') {
-        }
+
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
