@@ -5,7 +5,7 @@
   "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/index.js",
   "scripts": {
-    "start": "npx webpack serve --hot-only  --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
+    "start": "npx webpack serve --hot-only --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
     "start:styles": "npx webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "npx jest; exit 0;",
     "lint": "npx eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
@@ -13,13 +13,15 @@
     "dev": "npx webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "npx webpack --progress --config ./webpack/webpack.prod.config.js",
     "travis": "npm audit --audit-level=moderate --production && npx eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && npx jest --runInBand;",
-    "light-house": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
+    "lhci:wizard": "lhci wizard",
+    "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
+    "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js"
   },
   "author": "",
   "engines": {
-    "node": ">=6.11.0",
-    "npm": ">=3.10.10"
+    "node": ">=14.17.0",
+    "npm": ">=6.14.13"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
@@ -33,7 +35,8 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
-    "@lhci/cli": "^0.4.4",
+    "@lhci/cli": "^0.8.0",
+    "@lhci/server": "^0.8.0",
     "@testing-library/dom": "^7.24.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
@@ -67,11 +70,12 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^1.6.0",
     "moment-locales-webpack-plugin": "^1.2.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^4.14.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "react-test-renderer": "^15.6.0",
     "sass-loader": "^11.1.1",
     "sinon": "^2.3.8",
+    "sqlite3": "^5.0.2",
     "stream-browserify": "^3.0.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.37.0",
