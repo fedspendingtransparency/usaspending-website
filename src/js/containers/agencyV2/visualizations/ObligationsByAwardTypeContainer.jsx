@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import ObligationsByAwardType from 'components/agencyV2/visualizations/ObligationsByAwardType';
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
-// import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 // reduce api data into 2 arrays, one for each ring
 const categories = [
@@ -99,14 +98,16 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         });
     }
 
-    return isLoading ? <LoadingMessage />
-        : (isError ? <ErrorMessage />
-            : (
-                <ObligationsByAwardType
-                    outer={categories}
-                    inner={details}
-                    windowWidth={windowWidth} />
-            ));
+    return (<>
+        { isLoading && <LoadingMessage />}
+        { isError && <ErrorMessage />}
+        { !isLoading && !isError &&
+            <ObligationsByAwardType
+                outer={categories}
+                inner={details}
+                windowWidth={windowWidth} />
+        }
+    </>);
 }
 
 ObligationsByAwardTypeContainer.propTypes = propTypes;
