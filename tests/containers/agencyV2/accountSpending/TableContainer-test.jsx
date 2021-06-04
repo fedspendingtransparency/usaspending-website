@@ -7,9 +7,11 @@ import React from 'react';
 import { render, waitFor } from 'test-utils';
 
 import * as apis from 'apis/agencyV2';
+import * as helpers from 'helpers/agencyV2/BudgetCategoryHelper';
 import TableContainer from 'containers/agencyV2/accountSpending/TableContainer';
 
-const mockResponse = {
+// eslint-disable-next-line import/prefer-default-export
+export const mockResponse = {
     toptier_code: "012",
     fiscal_year: 2020,
     page_metadata: {
@@ -54,7 +56,11 @@ const defaultProps = {
     subHeading: 'test'
 };
 
-test('no duplicate API Requests 👌👌👌👌 on fy change', () => {
+afterEach(() => {
+    jest.clearAllMocks();
+});
+
+test('no duplicate API Requests on fy change', () => {
     const spy = jest.spyOn(apis, 'fetchSpendingByCategory').mockReturnValue({
         promise: Promise.resolve({ data: mockResponse }),
         cancel: jest.fn()
@@ -67,7 +73,7 @@ test('no duplicate API Requests 👌👌👌👌 on fy change', () => {
     });
 });
 
-test('no duplicate API Requests 👌👌👌👌 on type change', () => {
+test('no duplicate API Requests on type change', () => {
     const spy = jest.spyOn(apis, 'fetchSpendingByCategory').mockReturnValue({
         promise: Promise.resolve({ data: mockResponse }),
         cancel: jest.fn()
@@ -75,7 +81,16 @@ test('no duplicate API Requests 👌👌👌👌 on type change', () => {
     const { rerender } = render(<TableContainer {...defaultProps} />);
     rerender(<TableContainer {...defaultProps} type="object_class" />);
     return waitFor(() => {
-        expect(spy).toHaveBeenCalledTimes(2);
-        expect(spy).not.toHaveBeenCalledTimes(3);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).not.toHaveBeenCalledTimes(2);
+    });
+});
+
+test('parses data from the API using agency obligated amount from redux state', () => {
+    const spy = jest.spyOn(helpers, 'parseRows');
+    render(<TableContainer {...defaultProps} />);
+    return waitFor(() => {
+        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(mockResponse.results, undefined);
     });
 });
