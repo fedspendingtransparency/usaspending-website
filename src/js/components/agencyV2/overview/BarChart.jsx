@@ -67,12 +67,13 @@ const BarChart = ({
                                 right: 0
                             }}>
                             <div
+                                role="img"
                                 className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
                                 style={{
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
                                     minHeight: '0.5%'
                                 }}
-                                longdesc={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
+                                alt={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
                                     a ${(budget / greatestAgencyBudget).toFixed(2)} to 1 ratio compared to the largest total budgetary resources
                                     in 5 consecutive years (${formatMoney(greatestAgencyBudget)}).`} />
                         </TooltipWrapper>

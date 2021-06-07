@@ -79,6 +79,7 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId],
             dataType: awardTableColumnTypes[columnId]
         };
+
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
@@ -124,7 +125,7 @@ export default class ResultsTable extends React.Component {
         }
         else if (
             (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
-            && !this.props.results[rowIndex][column.columnName]) {
+            && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
             props.value = '--';
         }
         else if (column.columnName === 'def_codes') {

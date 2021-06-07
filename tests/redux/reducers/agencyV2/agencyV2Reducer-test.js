@@ -47,6 +47,44 @@ describe('agencyReducer', () => {
         });
     });
 
+    describe('SET_BUDGET_CATEGORY_COUNT', () => {
+        it('should set the budgetary category count for the specified tab to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_BUDGET_CATEGORY_COUNT',
+                tab: 'programActivity',
+                count: 100
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.budgetCategoryCounts.programActivity).toEqual(100);
+        });
+    });
+
+    describe('RESET_BUDGET_CATEGORY_COUNTS', () => {
+        it('should reset the budget category counts to their initial state', () => {
+            let state = agencyReducer(undefined, {
+                budgetCategoryCounts: {
+                    programActivity: 200,
+                    objectClass: 300,
+                    federalAccount: 25
+                }
+            });
+
+            const action = {
+                type: 'RESET_BUDGET_CATEGORY_COUNTS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.budgetCategoryCounts.programActivity).toEqual(null);
+            expect(state.budgetCategoryCounts.objectClass).toEqual(null);
+            expect(state.budgetCategoryCounts.federalAccount).toEqual(null);
+        });
+    });
+
     describe('RESET_AGENCY', () => {
         it('should reset the agency to its initial state', () => {
             let state = agencyReducer(undefined, {

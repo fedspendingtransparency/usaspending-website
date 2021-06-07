@@ -40,75 +40,47 @@
 		}
 	}
 
-	.main-content {
-		@include display(flex);
-		width: 100%;
-		@include flex-grow(1);
-		@include flex-wrap(wrap);
-		max-width: rem(1600);
-		margin: auto;
-		ul {
-			padding: 0;
-			li {
-				list-style: none;
-			}
-		}
-		@import './sidebar';
-		.body {
-			@include display(flex);
-			width: 100%;
-			@include flex-direction(column);
-			padding: 2.5% 2.5% 0 2.5%;
-			margin: rem(20) rem(20) rem(20) 0;
-			background: $color-white;
-			@media (min-width: $tablet-screen) {
-				width: 70%;
-			}
-			.usda-message {
-				padding: 0;
-
-				&.usda-message_error {
-					background-color: $color-white;
-				}
-
-				.usda-loading-animation__container {
-					margin: 0;
-				}
-			}
-			.body__content {
-				margin-top: rem(35);
-				@import 'pages/search/results/table/resultsTableMessageContainer';
-				@import './tables';
-			}
-			.usda-section__container {
-				@import './tabs';
-				@include display(flex);
-				@import './overview/overview';
-				hr {
-					height: rem(2);
-				}
-			}
-		}
-	}
-
-	.agency-v2-tt {
-		@include display(flex);
-		@include justify-content(center);
-		@include flex-direction(column);
-		.tooltip__title {
-			width: 100%;
-			margin-bottom: $global-mrg / 2;
-			text-align: center;
-		}
-		.tooltip__text {
-			padding: rem(0) rem(23);
-		}
-	}
-
-	#obl_chart {
-		.callout-labels {
-			text-anchor: middle;
-			font-size: rem(10);
-		}
-	}
+    .main-content {
+        @include display(flex);
+        width: 100%;
+        @include flex-grow(1);
+        @include flex-wrap(wrap);
+        max-width: rem(1600);
+        margin: auto;
+        ul {
+            padding: 0;
+            li {
+                list-style: none;
+            }
+        }
+        @import './sidebar';
+        .body {
+            @include display(flex);
+            width: 100%;
+            @include flex-direction(column);
+            padding: 2.5% 2.5% 0 2.5%;
+            margin: rem(20) rem(20) rem(20) 0;
+            background: $color-white;
+            @media(min-width: $tablet-screen) {
+                width: 70%;
+            }
+            .usda-message {
+                &.usda-message_error {
+                    background-color: $color-white;
+                }
+            }
+            .body__content {
+                margin-top: rem(35);
+                @import 'pages/search/results/table/resultsTableMessageContainer';
+                @import './tables';
+            }
+            .usda-section__container {
+                @include display(flex);
+                @import './overview/overview';
+                hr {
+                    height: rem(2)
+                }
+            }
+        }
+    }
 }
