@@ -68,3 +68,6 @@ usa_spending.sh
 
 #redirect config
 redirect-config.json
+
+.lighthouseci/
+db.sql
