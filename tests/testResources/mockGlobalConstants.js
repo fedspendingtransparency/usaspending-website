@@ -2,7 +2,7 @@ export default {
     // LOCAL
     API: "http://localhost:8000/api/",
     LOCAL: false,
-    DEV: true,
+    QAT: true,
     PERF_LOG: false,
     MAPBOX_TOKEN: ""
 };
