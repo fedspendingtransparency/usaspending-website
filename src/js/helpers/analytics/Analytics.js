@@ -8,7 +8,7 @@ import kGlobalConstants from 'GlobalConstants';
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
-        if (this.isDAP && !kGlobalConstants.DEV && !kGlobalConstants.QAT) {
+        if (this.isDAP && !kGlobalConstants.QAT) {
             window.gas(...args);
         }
         if (this.isGA) {
@@ -26,7 +26,7 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
+        if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'event',
@@ -52,7 +52,7 @@ const Analytics = {
         }
     },
     pageview(pathname, pagename) {
-        if (kGlobalConstants.DEV || kGlobalConstants.QAT) {
+        if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'pageview',
