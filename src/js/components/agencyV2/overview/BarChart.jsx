@@ -67,6 +67,7 @@ const BarChart = ({
                                 right: 0
                             }}>
                             <div
+                                role="img"
                                 className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
                                 style={{
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
