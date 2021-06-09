@@ -42,11 +42,11 @@ const details = [
         color: '#FCE2C5'
     },
     {
-        label: ['IDVs'],
+        label: ['Contracts'],
         color: '#7F84BA'
     },
     {
-        label: ['Contracts'],
+        label: ['IDVs'],
         color: '#A9ADD1'
     }
 ];
@@ -81,11 +81,11 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         categories[0].value += d.aggregated_amount;
                         details[3].value = d.aggregated_amount;
                         break;
-                    case 'idvs':
+                    case 'contracts':
                         categories[1].value += d.aggregated_amount;
                         details[4].value = d.aggregated_amount;
                         break;
-                    case 'contracts':
+                    case 'idvs':
                         categories[1].value += d.aggregated_amount;
                         details[5].value = d.aggregated_amount;
                         break;
