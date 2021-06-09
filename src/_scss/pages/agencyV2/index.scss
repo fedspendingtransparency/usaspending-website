@@ -1,44 +1,44 @@
 .usa-da-agency-page-v2 {
-    @import 'all';
-	@import 'layouts/default/default';
-	@import 'components/pageLoading';
-	@import 'layouts/default/stickyHeader/header';
+    @import "all";
+    @import "layouts/default/default";
+    @import "components/pageLoading";
+    @import 'layouts/default/stickyHeader/header';
 
-	@include display(flex);
-	@include justify-content(flex-start);
-	@include align-items(center);
-	@include flex-direction(column);
-	min-height: 100vh;
-	width: 100%;
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    @include flex-direction(column);
+    min-height: 100vh;
+    width: 100%;
 
-	.site-header,
-	.usda-page__container,
-	.main-content,
-	.footer-container {
-		width: 100%;
-		.usda-page-header__toolbar {
-			.usda-download-btn .usda-button {
-				padding: 0;
-				margin: 0;
-			}
-			.usda-download-btn span,
-			.usda-share-icon span {
-				margin-top: rem(5);
-			}
-		}
-	}
+    .site-header,
+    .usda-page__container,
+    .main-content,
+    .footer-container {
+        width: 100%;
+        .usda-page-header__toolbar {
+            .usda-download-btn .usda-button {
+                padding: 0;
+                margin: 0;
+            }
+            .usda-download-btn span,
+            .usda-share-icon span {
+                margin-top: rem(5);
+            }
+        }
+    }
 
-	.usda__flex-row {
-		@include display(flex);
-		@include flex-wrap(wrap);
-		width: 100%;
-		.usda__flex-col {
-			@include flex(1 1 auto);
-			.body__content {
-				width: 100%; // Fixes an IE Flexbox bug
-			}
-		}
-	}
+    .usda__flex-row {
+        @include display(flex);
+        @include flex-wrap(wrap);
+        width: 100%;
+        .usda__flex-col {
+            @include flex(1 1 auto);
+            .body__content {
+                width: 100%; // Fixes an IE Flexbox bug
+            }
+        }
+    }
 
     .main-content {
         @include display(flex);
@@ -75,12 +75,27 @@
                 @import './tables';
             }
             .usda-section__container {
+                @import './tabs';
                 @include display(flex);
                 @import './overview/overview';
                 hr {
                     height: rem(2)
                 }
             }
+        }
+    }
+
+    .agency-v2-tt {
+        @include display(flex);
+        @include justify-content(center);
+        @include flex-direction(column);
+        .tooltip__title {
+            width: 100%;
+            margin-bottom: $global-mrg / 2;
+            text-align: center;
+        }
+        .tooltip__text {
+            padding: rem(0) rem(23);
         }
     }
 }
