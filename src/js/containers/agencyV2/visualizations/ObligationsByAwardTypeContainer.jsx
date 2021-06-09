@@ -16,34 +16,34 @@ const categories = [
     {
         label: ['Financial', 'Assistance'], // line break between words
         value: 0,
-        color: '#FFBC78'
+        color: '#C05600'
     },
     {
         label: ['Contracts', ''], // so each cat label array is same length
         value: 0,
-        color: '#A9ADD1'
+        color: '#545BA3'
     }
 ];
 const details = [
     {
         label: ['Grants'],
-        color: '#C05600'
-    },
-    {
-        label: ['Loans'],
-        color: '#FA9441'
-    },
-    {
-        label: ['Direct Payments'],
         color: '#E66F0E'
     },
     {
-        label: ['Other'],
+        label: ['Loans'],
         color: '#FFBC78'
     },
     {
+        label: ['Direct Payments'],
+        color: '#FA9441'
+    },
+    {
+        label: ['Other'],
+        color: '#FCE2C5'
+    },
+    {
         label: ['IDVs'],
-        color: '#545BA3'
+        color: '#7F84BA'
     },
     {
         label: ['Contracts'],
