@@ -54,13 +54,15 @@
                 width: 100%;
 
                 // within the box, we need to center the image
-                img.feature-carousel-image__image {
-                    display: block;
-                    background-color: $color-white;
-                    padding: rem(10);
-                    border: 1px solid $color-gray-lighter;
-                    margin-left: auto;
-                    margin-right: auto;
+                picture.feature-carousel-image__image {
+                    img {
+                        display: block;
+                        background-color: $color-white;
+                        padding: rem(10);
+                        border: 1px solid $color-gray-lighter;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
                 }
             }
         }

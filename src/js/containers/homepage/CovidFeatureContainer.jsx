@@ -172,7 +172,7 @@ const CovidFeatureContainer = ({
                                 <picture className="feature-covid-award-summary__image-mobile">
                                     <source srcSet="img/homepage-covid-ss-award-summary.webp 790w" type="image/webp" />
                                     <source srcSet="img/homepage-covid-ss-award-summary.png" type="image/png" />
-                                    <img src="img/homepage-covid-ss-award-summary.png" alt="Screenshot of Award Summary page with COVID-19 Spending updates"  />
+                                    <img src="img/homepage-covid-ss-award-summary.png" alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
                                 </picture>
                             </div>
                             <div className="homepage-feature-description">
