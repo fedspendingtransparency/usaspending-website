@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  # latest LTS as of 10/01/2020
-  - "12.18.4"
+  - "14.17.0.0"
 # Need a C++ compiler
 addons:
   apt:
