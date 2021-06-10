@@ -65,11 +65,11 @@ const CovidFeatureContainer = ({
                 <div className="official-spending-data__text">
                     <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
                     <div className="feature-covid-official-spending-data__image-wrapper">
-                        <img
-                            className="feature-covid-official-spending-data__image-mobile"
-                            srcSet="img/homepage-covid-official-spending-data.webp 790w"
-                            src="img/homepage-covid-official-spending-data.png"
-                            alt="Illustration of people interacting with data" />
+                        <picture className="feature-covid-official-spending-data__image-mobile">
+                            <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
+                            <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
+                            <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
+                        </picture>
                     </div>
                     <div className="homepage-feature-description">
                         <p>Spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
