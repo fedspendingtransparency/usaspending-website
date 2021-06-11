@@ -13,6 +13,7 @@ import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding } fr
 import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/paths/Paths';
 import Axis from './axis/Axis';
 import TodayLineAndtext from './TodayLineAndtext';
+import AgencyBudgetLine from './AgencyBudgetLine';
 
 const propTypes = {
     height: PropTypes.number,
@@ -146,6 +147,15 @@ const TotalObligationsOverTimeVisualization = ({
                 <TodayLineAndtext
                     xScale={xScale}
                     xDomain={xDomain}
+                    height={height}
+                    todaysDate={todaysDate}
+                    padding={padding} />
+                <AgencyBudgetLine
+                    data={dataWithFirstAndLastCoordinate}
+                    xScale={xScale}
+                    xDomain={xDomain}
+                    yScale={yScale}
+                    agencyBudget={agencyBudget}
                     height={height}
                     todaysDate={todaysDate}
                     padding={padding} />
