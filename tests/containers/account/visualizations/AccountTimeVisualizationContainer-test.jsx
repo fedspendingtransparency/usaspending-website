@@ -8,12 +8,12 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AccountTimeVisualizationSectionContainer } from
-        'containers/account/visualizations/AccountTimeVisualizationContainer';
+    'containers/account/visualizations/AccountTimeVisualizationContainer';
 
 import {
     mockBalances, mockReduxAccount, mockQuarters, mockFilteredObligated, mockFilteredObligatedQuarters,
     parsedYearYSeries, parsedQuarterYSeries, parsedYearYSeriesFiltered, parsedQuarterYSeriesFiltered,
-    mockIncomplete, parsedIncomplete
+    mockIncomplete
 }
     from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
@@ -53,6 +53,29 @@ describe('AccountTimeVisualizationSectionContainer', () => {
         container.setProps({
             reduxFilters: Object.assign({}, defaultFilters, {
                 dateType: 'dr'
+            })
+        });
+
+        const morePromises = container.instance().balanceRequests.map((request) => request.promise);
+        await Promise.all(morePromises);
+
+        expect(fetchDataSpy.callCount).toEqual(2);
+        fetchDataSpy.reset();
+    });
+
+    it('should reload data when the account changes', async () => {
+        const container = mount(<AccountTimeVisualizationSectionContainer
+            reduxFilters={defaultFilters}
+            account={mockReduxAccount} />);
+
+        const promises = container.instance().balanceRequests.map((request) => request.promise);
+        await Promise.all(promises);
+
+        expect(fetchDataSpy.callCount).toEqual(1);
+
+        container.setProps({
+            account: Object.assign({}, mockReduxAccount, {
+                id: 1234
             })
         });
 
