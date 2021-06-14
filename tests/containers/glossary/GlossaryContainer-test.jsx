@@ -13,10 +13,6 @@ import { initialState } from 'redux/reducers/glossary/glossaryReducer';
 
 import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGlossary';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = jest.requireActual('promise');
-
 // spy on specific functions inside the component
 const populateCacheSpy = sinon.spy(GlossaryContainer.prototype, 'populateCache');
 const performSearchSpy = sinon.spy(GlossaryContainer.prototype, 'performSearch');
@@ -117,7 +113,7 @@ describe('GlossaryContainer', () => {
 
         expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
         expect(performSearchSpy.callCount).toEqual(1);
-        
+
         populateCacheSpy.reset();
         performSearchSpy.reset();
         populateGlossaryWithAllTermsSpy.reset();
