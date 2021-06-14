@@ -27,7 +27,6 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
 
     if (toptierCode) {
         fetchObligationsByAwardType(toptierCode, fiscalYear).promise.then((res) => {
-
             // reduce api data into 2 arrays, one for each ring
             categories = [
                 {
