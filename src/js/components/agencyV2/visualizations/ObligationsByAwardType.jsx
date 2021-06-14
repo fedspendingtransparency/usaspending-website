@@ -26,11 +26,6 @@ const propTypes = {
 };
 
 export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
-
-
-    console.log(JSON.parse(JSON.stringify( outer[0].value)));
-
-
     const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
     const chartRef = React.useRef();
 
