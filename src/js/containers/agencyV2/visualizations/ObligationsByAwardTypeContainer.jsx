@@ -12,7 +12,7 @@ import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 
 // reduce api data into 2 arrays, one for each ring
-const categories = [
+let categories = [
     {
         label: ['Financial', 'Assistance'], // line break between words
         color: '#C05600'
@@ -22,7 +22,7 @@ const categories = [
         color: '#545BA3'
     }
 ];
-const details = [
+let details = [
     {
         label: ['Grants'],
         color: '#E66F0E'
@@ -97,6 +97,11 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         isError = true;
                 }
             });
+
+
+console.log(JSON.parse(JSON.stringify( categories)));
+
+
             setLoading(false);
         });
     }
@@ -108,7 +113,6 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             <ObligationsByAwardType
                 outer={categories}
                 inner={details}
-                isLoading={isLoading}
                 windowWidth={windowWidth} />
         }
     </>);
