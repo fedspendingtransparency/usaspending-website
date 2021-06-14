@@ -54,7 +54,7 @@ export class AccountRankVisualizationContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) || !isEqual(prevProps.account.id, this.props.account.id)) {
             this.newSearch();
         }
     }

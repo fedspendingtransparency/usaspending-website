@@ -76,12 +76,16 @@ const AgencyOverview = ({
         covidDefCodes
     } = useSelector((state) => state.agencyV2.overview);
 
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
         const handleResize = throttle(() => {
-            setWindowWidth(window.innerWidth);
-        });
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -127,8 +131,7 @@ const AgencyOverview = ({
         </div>
     );
 
-    // Mobile layout
-    let content = (
+    const content = isMobile ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
@@ -137,11 +140,8 @@ const AgencyOverview = ({
                 {cjBlock}
             </ReadMore>
         </>
-    );
-
-    // Desktop layout
-    if (windowWidth >= mediumScreen) {
-        content = (
+        :
+        <>
             <div className="agency-overview__row">
                 <div className="agency-overview__column">
                     {showAboutData && aboutBlock}
@@ -154,35 +154,32 @@ const AgencyOverview = ({
                     {cjBlock}
                 </div>
             </div>
-        );
-    }
+        </>;
 
-    const overview = isLoading ? <LoadingMessage /> : (
-        <>
-            <div className="agency-overview__top">
-                <div className="agency-overview__title">
-                    <h3>
-                        {name}
-                        {name && covidDefCodes.length > 0 &&
-                            <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
-                                <span className="covid-spending-flag">
-                                    COVID-19 Spending
-                                </span>
-                            </TooltipWrapper>
-                        }
-                    </h3>
-                    <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
-                </div>
-                {image}
+    const overview = isLoading ? <LoadingMessage /> : <>
+        <div className="agency-overview__top">
+            <div className="agency-overview__title">
+                <h3>
+                    {name}
+                    {name && covidDefCodes.length > 0 &&
+                        <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+                            <span className="covid-spending-flag">
+                                COVID-19 Spending
+                            </span>
+                        </TooltipWrapper>
+                    }
+                </h3>
+                <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
             </div>
-            {content}
-        </>
-    );
+            {image}
+        </div>
+        {content}
+    </>;
 
     return (
         <div className="agency-overview">
             {overview}
-            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} agencyId={agencyId} />
+            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} agencyId={agencyId} />
         </div>
     );
 };
