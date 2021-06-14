@@ -15,12 +15,10 @@ import { fetchObligationsByAwardType } from 'apis/agencyV2';
 const categories = [
     {
         label: ['Financial', 'Assistance'], // line break between words
-        value: 0,
         color: '#C05600'
     },
     {
         label: ['Contracts', ''], // so each cat label array is same length
-        value: 0,
         color: '#545BA3'
     }
 ];
@@ -62,6 +60,11 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
     let isError = false;
 
     if (toptierCode) {
+
+        // reset accumulators for new data
+        categories[0].value = 0;
+        categories[1].value = 0;
+
         fetchObligationsByAwardType(toptierCode, fiscalYear).promise.then((res) => {
             res.data.results.forEach((d) => {
                 switch (d.category) {
@@ -105,6 +108,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             <ObligationsByAwardType
                 outer={categories}
                 inner={details}
+                isLoading={isLoading}
                 windowWidth={windowWidth} />
         }
     </>);
