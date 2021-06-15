@@ -22,8 +22,8 @@ const propTypes = {
 
 export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth }) {
     const [isLoading, setLoading] = React.useState(true);
+    const [isError, setError] = React.useState(false);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
-    let isError = false;
 
     if (toptierCode) {
         fetchObligationsByAwardType(toptierCode, fiscalYear).promise.then((res) => {
@@ -95,7 +95,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         break;
                     default:
                         console.error(`Category name from API not recognized: ${d.category}`);
-                        isError = true;
+                        setError(true);
                 }
             });
 
