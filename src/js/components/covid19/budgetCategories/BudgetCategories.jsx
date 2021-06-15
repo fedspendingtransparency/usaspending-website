@@ -112,28 +112,8 @@ const BudgetCategories = () => {
             <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
             <div className="body__narrative-description">
                 <p>
-                    In this section, we present the total amount of COVID-19 funding divided into three high-level budget categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
+                    In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                 </p>
-                <ReadMore>
-                    <p>
-                        This section includes both award spending (detailed in the sections below) and non-award spending, such as internal federal agency expenses.
-                    </p>
-                    <p>
-                        In the chart below, see how much is available to be spent (Total Budgetary Resources), how much has been promised to be spent (Total Obligations), and how much has actually been paid out (Total Outlays).
-                    </p>
-                    <div className="sba-note-container">
-                        <p>Please note that Small Business Administration (SBA) loan programs are categorized as follows:</p>
-                        <ul>
-                            <li className="outer-list">&#32;Federal Account 073-1154 Business Loans Program Account, Small Business Administration:
-                                (1) &#32;Paycheck Protection Program (PPP) loans constitute the majority of this account
-                                (2) &#32;CARES Act Section 1112 Debt Relief and non-COVID business loan programs are included in this account.
-                            </li>
-                            <li className="outer-list">&#32;Federal Account 073-1152 Disaster Loans Program Account, Small Business Administration:
-                                (1) &#32; COVID EIDL loans constitute the majority of this account (2) Non-COVID EIDL and Physical Disaster loans are included in this account.
-                            </li>
-                        </ul>
-                    </div>
-                </ReadMore>
             </div>
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
