@@ -48,11 +48,12 @@ const AgencyBudgetLine = ({
 
     useEffect(() => {
         if (xScale && yScale && agencyBudget) {
+            const y = height - yScale(agencyBudget) - padding.top;
             setLineData(
                 {
                     x1: padding.left,
                     x2: show ? xScale(todaysDate) + padding.left : width - padding.left,
-                    y1: height - yScale(agencyBudget) - padding.top
+                    y1: isNaN(y) ? 0 : y
                 }
             );
         }
