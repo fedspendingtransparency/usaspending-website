@@ -93,33 +93,31 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .attr('fill', 'none');
 
     // labels -- commented-out as starting point for DEV-7421
-    // const labelPos = (i, yOffset = 0) => {
-    //         // labels at top left/bottom right or top right/bottom left, depending on relative values
-    //         const labelAngle = outerData[0] < outerData[1] ? -.8 : .8;
-    //         const labelPos = i == 0 ? labelRadius : -labelRadius;
+    const labelPos = (i, yOffset = 0) => {
+        // labels at top left/bottom right or top right/bottom left, depending on relative values
+        const labelAngle = outerData[0] < outerData[1] ? -0.8 : 0.8;
+        const pos = i === 0 ? labelRadius : -labelRadius;
 
-    //         return [labelPos * Math.cos(labelAngle), labelPos * Math.sin(labelAngle) + yOffset];
-    //     }
+        return [pos * Math.cos(labelAngle), (pos * Math.sin(labelAngle)) + yOffset];
+    };
 
-    // const outerLabels = outer.map((d) => d.label);
+    const outerLabels = outer.map((d) => d.label);
 
-    // svg.selectAll()
-    //     .data(outerPie)
-    //     .enter()
-    //     .append('text')
-    //     .attr('transform', (d, i) => 'translate(' + labelPos(i) + ')')
-    //     .attr('class', 'callout-labels')
-    //     .text((d, i) => outerLabels[i][0])
-    //     ;
+    svg.selectAll()
+        .data(outerPie)
+        .enter()
+        .append('text')
+        .attr('transform', (d, i) => `translate(${labelPos(i)})`)
+        .attr('class', 'callout-labels')
+        .text((d, i) => outerLabels[i][0]);
 
-    // svg.selectAll()
-    //     .data(outerPie)
-    //     .enter()
-    //     .append('text')
-    //     .attr('transform', (d, i) => 'translate(' + labelPos(i, 12) + ')')
-    //     .attr('class', 'callout-labels')
-    //     .text((d, i) => outerLabels[i][1])
-    //     ;
+    svg.selectAll()
+        .data(outerPie)
+        .enter()
+        .append('text')
+        .attr('transform', (d, i) => `translate(${labelPos(i, 12)})`)
+        .attr('class', 'callout-labels')
+        .text((d, i) => outerLabels[i][1]);
 
     return <div id="obl_chart" ref={chartRef} />;
 }
