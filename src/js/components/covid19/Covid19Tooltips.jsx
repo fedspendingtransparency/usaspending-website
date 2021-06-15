@@ -72,7 +72,7 @@ export const AwardSpendingTT = () => (
                 Award Spending refers to money given through contracts or financial assistance to individuals, organizations, businesses, or state, local, or tribal governments.
             </p><br />
             <p>
-                Award Spending stands in contrast to Total Spending, also known as Account Spending, which refers to the totality of agency obligations and outlays, including agency expenses.
+                Award Spending is a portion of Total Spending, also known as Account Spending, which refers to the totality of agency obligations and outlays, including agency expenses.
             </p>
         </div>
     </div>
@@ -115,16 +115,7 @@ export const SpendingByRecipientMapTT = () => (
         <h2 className="tooltip__title">Recipient Map</h2>
         <div className="tooltip__text">
             <p>
-                Use the dropdowns below to filter spending amounts on the map.
-            </p><br />
-            <p>
-                <strong>Obligations</strong> refer to amounts promised to be paid by agencies.
-            </p><br />
-            <p>
-                <strong>Outlays</strong> refer to amounts actually paid by agencies.
-            </p><br />
-            <p>
-                <strong>Face Value of Loans</strong> refers to the amount that agencies have issued in loans (i.e., direct loans) and loan guarantees (i.e., indirect loans).
+                Use the dropdown to filter spending amounts on the map.
             </p><br />
             <p>
                 <strong>Total Spending</strong> refers to the full amount of dollars spent in each location type (i.e., state, county, or congressional district).
