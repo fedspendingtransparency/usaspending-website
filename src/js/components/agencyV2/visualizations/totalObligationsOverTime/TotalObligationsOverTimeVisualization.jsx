@@ -157,6 +157,7 @@ const TotalObligationsOverTimeVisualization = ({
                     yScale={yScale}
                     agencyBudget={agencyBudget}
                     height={height}
+                    width={width}
                     todaysDate={todaysDate}
                     padding={padding} />
             </g>

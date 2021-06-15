@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        period: PropTypes.number,
-        obligated: PropTypes.number
-    })),
+    data: PropTypes.array,
     xScale: PropTypes.func,
     xDomain: PropTypes.array,
     yScale: PropTypes.func,
     height: PropTypes.number,
+    width: PropTypes.number,
     agencyBudget: PropTypes.number,
     todaysDate: PropTypes.number,
     padding: PropTypes.object
@@ -23,9 +21,21 @@ const AgencyBudgetLine = ({
     height,
     agencyBudget,
     todaysDate,
-    padding
+    padding,
+    width
 }) => {
     const [show, setShow] = useState(false);
+    const [lineData, setLineData] = useState({
+        x1: 0,
+        x2: 0,
+        y1: 0
+    });
+    const [rectangleData, setRectangleData] = useState({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+    });
 
     useEffect(() => {
         if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {
@@ -36,16 +46,46 @@ const AgencyBudgetLine = ({
         }
     }, [xScale, xDomain, todaysDate]);
 
+    useEffect(() => {
+        if (xScale && yScale && agencyBudget) {
+            setLineData(
+                {
+                    x1: padding.left,
+                    x2: show ? xScale(todaysDate) + padding.left : width - padding.left,
+                    y1: height - yScale(agencyBudget) - padding.top
+                }
+            );
+        }
+    }, [xScale, yScale, show]);
+
+    useEffect(() => {
+        if (xScale && yScale && data.length) {
+            setRectangleData(
+                {
+                    x: padding.left,
+                    y: height - yScale(agencyBudget) - padding.top,
+                    width: show ? xScale(todaysDate) : width - padding.left - padding.right,
+                    height: height - yScale(data[data.length - 1].obligated) - padding.bottom - padding.top
+                }
+            );
+        }
+    }, [xScale, yScale, show]);
+
     return (
         <g>
-            {show && <line
+            <line
                 tabIndex="0"
                 className="total-budget-line"
-                x1={padding.left}
-                x2={xScale(todaysDate) + padding.left}
-                y1={height - yScale(agencyBudget - padding.top)}
-                y2={height - yScale(agencyBudget - padding.top)} />}
-            {show && <rect className="total-budget-difference" x={padding.left} y={height - yScale(agencyBudget - padding.top)} width={xScale(todaysDate)} height={yScale(agencyBudget) - yScale(data[data.length - 1].obligated) - padding.bottom} />}
+                x1={lineData.x1}
+                x2={lineData.x2}
+                y1={lineData.y1}
+                y2={lineData.y1} />
+            <rect
+                className="total-budget-difference"
+                x={rectangleData.x}
+                y={rectangleData.y}
+                width={rectangleData.width}
+                height={rectangleData.height} />
         </g>
     );
 };
