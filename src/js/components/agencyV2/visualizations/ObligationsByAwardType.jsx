@@ -60,7 +60,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
     const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90); // rad => deg
     const chart = svg.append('g').attr('transform', `rotate (${rotation})`);
 
-    // outer ring
+    // outer ring.
     chart.selectAll()
         .data(outerPie)
         .enter()
