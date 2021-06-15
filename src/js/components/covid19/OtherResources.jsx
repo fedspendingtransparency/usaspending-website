@@ -42,6 +42,36 @@ const OtherResources = ({
                         <li>
                             <div className="other-resources__link__container">
                                 <span className="other-resources__link__text">
+                                    American Rescue Plan -
+                                </span>
+                                <a
+                                    href="https://www.whitehouse.gov/american-rescue-plan/"
+                                    onClick={handleClick}>
+                                    https://www.whitehouse.gov/american-rescue-plan/&nbsp;
+                                    <span className="other-resources__link__icon">
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="other-resources__link__container">
+                                <span className="other-resources__link__text">
+                                    American Rescue Plan Act Infographic (PRAC) -
+                                </span>
+                                <a
+                                    href="https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf"
+                                    onClick={handleClick}>
+                                    https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf&nbsp;
+                                    <span className="other-resources__link__icon">
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="other-resources__link__container">
+                                <span className="other-resources__link__text">
                                     Federal Reserve Board -
                                 </span>
                                 <a
