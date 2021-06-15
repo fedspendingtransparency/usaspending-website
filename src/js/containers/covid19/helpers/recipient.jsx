@@ -6,6 +6,7 @@
 import React from 'react';
 import MapContainer from 'containers/covid19/recipient/map/MapContainer';
 import SpendingByRecipient from 'components/covid19/recipient/SpendingByRecipient';
+import { SpendingByRecipientTabTT } from 'components/covid19/Covid19Tooltips';
 
 const tabs = [
     {
@@ -16,7 +17,9 @@ const tabs = [
     {
         internal: 'recipients',
         label: 'Recipients',
-        component: <SpendingByRecipient />
+        component: <SpendingByRecipient />,
+        tooltip: <SpendingByRecipientTabTT />,
+        tooltipProps: { wide: true }
     }
 ];
 

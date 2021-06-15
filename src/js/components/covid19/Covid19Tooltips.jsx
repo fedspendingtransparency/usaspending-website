@@ -110,6 +110,16 @@ export const SpendingByRecipientTT = () => (
     </div>
 );
 
+export const SpendingByRecipientTabTT = () => (
+    <div className="spending_types-tt">
+        <div>
+            <p>
+                Note for &apos;All Awards&apos; we are showing the unique count of<br />recipients across all award types, since some recipients<br />receive multiple awards.
+            </p>
+        </div>
+    </div>
+);
+
 export const SpendingByRecipientMapTT = () => (
     <div className="spending_types-tt">
         <h2 className="tooltip__title">Recipient Map</h2>
