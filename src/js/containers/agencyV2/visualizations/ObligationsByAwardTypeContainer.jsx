@@ -26,7 +26,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
     if (toptierCode) {
-        setError(false);
+        let error = false;
         fetchObligationsByAwardType(toptierCode, fiscalYear).promise.then((res) => {
             // reduce api data into 2 arrays, one for each ring
             categories = [
@@ -96,11 +96,12 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         break;
                     default:
                         console.error(`Category name from API not recognized: ${d.category}`);
-                        setError(true);
+                        error = true;
                 }
             });
 
             setLoading(false);
+            setError(error);
         });
     }
 
