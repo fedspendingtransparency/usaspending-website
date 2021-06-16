@@ -119,6 +119,8 @@
             }
             .feature-covid-item__image {
                 display: none; /* 0 - 991px */
+                object-fit: cover;
+                object-position: top;
 
                 @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
@@ -218,6 +220,8 @@
 
             .feature-covid-award-summary__image {
                 display: none; /* 0 - 991px */
+                object-fit: cover;
+                object-position: top;
 
                 @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
