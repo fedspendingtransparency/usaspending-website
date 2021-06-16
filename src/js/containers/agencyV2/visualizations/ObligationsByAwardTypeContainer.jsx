@@ -12,10 +12,6 @@ import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 import { isCancel } from 'axios';
 
-// reduce api data into 2 arrays, one for each ring
-let categories;
-let details;
-
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,
     windowWidth: PropTypes.number.isRequired
@@ -40,10 +36,10 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             obligationsByAwardTypeRequest.current.cancel();
         }
         if (error) {
-            setError(false)
+            setError(false);
         };
         if (!loading) {
-            setLoading(true)
+            setLoading(true);
         };
         obligationsByAwardTypeRequest.current = fetchObligationsByAwardType(toptierCode, fiscalYear);
         obligationsByAwardTypeRequest.current.promise.then((res) => {
