@@ -4,7 +4,6 @@
 */
 
 const filesServerUrlByEnv = {
-    dev: 'https://files-nonprod.usaspending.gov',
     sandbox: 'https://files-nonprod.usaspending.gov',
     qat: 'https://files-nonprod.usaspending.gov',
     staging: 'https://files-staging.usaspending.gov',
@@ -14,10 +13,9 @@ const filesServerUrlByEnv = {
 const globalConstants = {
     API: process.env.USASPENDING_API,
     LOCAL: false,
-    DEV: (process.env.ENV === 'dev' || process.env.ENV === 'sandbox'),
     PERF_LOG: false,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
-    QAT: (process.env.ENV === 'qat'),
+    QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV]
 };

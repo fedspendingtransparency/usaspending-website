@@ -22,7 +22,7 @@ export default class ResultsTableFormattedCell extends React.Component {
             // format the content as a date
             return moment(original, 'YYYY-MM-DD').format('M/D/YYYY');
         }
-        else if (type === 'currency') {
+        else if (type === 'currency' && original !== '--') {
             return formatMoney(original);
         }
         return original;

@@ -9,7 +9,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
-import { DEV } from '../../../GlobalConstants';
+import { QAT } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
@@ -141,7 +141,7 @@ export default class NavBar extends React.Component {
                         <ul
                             className="full-menu__list"
                             role="menu">
-                            {DEV && (
+                            {QAT && (
                                 <li
                                     className="full-menu__item"
                                     role="menuitem">

@@ -3,60 +3,70 @@
  * Created by Lizzie Salita 5/11/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { camelCase } from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
+import { Tabs } from 'data-transparency-ui';
 import { fetchSpendingCount } from 'apis/agencyV2';
-import CountTab from 'components/agencyV2/CountTab';
+import {
+    setBudgetCategoryCount,
+    resetBudgetCategoryCounts
+} from 'redux/actions/agencyV2/agencyV2Actions';
 
 const propTypes = {
     fy: PropTypes.string.isRequired,
     agencyId: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    subHeading: PropTypes.string,
+    tabs: PropTypes.arrayOf(PropTypes.shape({
+        internal: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        countField: PropTypes.string.isRequired,
+        subHeading: PropTypes.string
+    })),
     setActiveTab: PropTypes.func.isRequired,
-    active: PropTypes.bool,
-    countField: PropTypes.string,
-    subCountField: PropTypes.string
+    activeTab: PropTypes.string.isRequired
 };
 
 const CountTabContainer = (props) => {
-    const [count, setCount] = useState(null);
-    const [subCount, setSubCount] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+
+    const fetchCount = (type) => {
+        const countRequest = fetchSpendingCount(props.agencyId, props.fy, type);
+        countRequest.promise
+            .then((res) => {
+                // Store the result in Redux
+                dispatch(setBudgetCategoryCount(
+                    camelCase(type),
+                    res.data[props.tabs.find((tab) => tab.internal === type).countField]
+                ));
+            })
+            .catch((e) => {
+                console.error('Error fetching count', e);
+            });
+    };
 
     useEffect(() => {
-        // Reset any existing results
         if (props.fy) {
-            setCount(null);
-            setIsLoading(true);
-            setSubCount(null);
-            const countRequest = fetchSpendingCount(props.agencyId, props.fy, props.type);
-            countRequest.promise
-                .then((res) => {
-                    setCount(res.data[props.countField]);
-                    setIsLoading(false);
-                    if (props.subCountField) {
-                        setSubCount(res.data[props.subCountField]);
-                    }
-                })
-                .catch((e) => {
-                    console.error('Error fetching count', e);
-                    setIsLoading(false);
-                });
+            // Reset any existing results
+            dispatch(resetBudgetCategoryCounts());
+            // Make a count request for each tab
+            props.tabs.forEach((type) => fetchCount(type.internal));
         }
-    }, [props.type, props.fy, props.agencyId, props.countField, props.subCountField]);
+    }, [props.fy, props.agencyId]);
+
+    // Get the counts from Redux
+    const counts = useSelector((state) => state.agencyV2.budgetCategoryCounts);
+    // Add the count property to our array of tabs
+    const tabsWithCounts = props.tabs.map((tab) => ({
+        ...tab,
+        count: counts[camelCase(tab.internal)]
+    }));
+
     return (
-        <CountTab
-            isLoading={isLoading}
-            count={count}
-            subCount={subCount}
-            label={props.label}
-            subHeading={props.subHeading}
-            setActiveTab={props.setActiveTab}
-            active={props.active}
-            disabled={count === 0}
-            type={props.type} />
+        <Tabs
+            types={tabsWithCounts}
+            switchTab={props.setActiveTab}
+            active={props.activeTab} />
     );
 };
 

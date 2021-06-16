@@ -12,18 +12,22 @@ import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
+import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
+
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
 
 const propTypes = {
-    isMobile: PropTypes.bool,
     fy: PropTypes.string,
+    windowWidth: PropTypes.number,
+    isMobile: PropTypes.bool,
     agencyId: PropTypes.string
 };
 
 const FySummary = ({
-    isMobile,
     fy,
+    windowWidth,
+    isMobile,
     agencyId
 }) => {
     const dispatch = useDispatch();
@@ -71,7 +75,7 @@ const FySummary = ({
     const numberOfRecipients = '200';
     const percentOfFederalRecipients = '1.5%';
 
-    const components = [
+    const sections = [
         (
             <VisualizationSection
                 subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
@@ -106,7 +110,7 @@ const FySummary = ({
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ComingSoon className="viz-placeholder" />
+                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} />
             </VisualizationSection>
         ),
         (
@@ -119,23 +123,21 @@ const FySummary = ({
             </VisualizationSection>
         )
     ];
-    const content = isMobile ? (
-        <Carousel items={components} />
-    ) : (
-        <div className="fy-summary__row">
-            {components.map((viz, i) => (
-                <div key={`FY-Summary-${i}`} className="fy-summary__col">
-                    {viz}
-                </div>
-            ))}
-        </div>
-    );
 
     return (
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {content}
+            {isMobile ? <Carousel items={sections} />
+                : (
+                    <div className="fy-summary__row">
+                        {sections.map((viz, i) => (
+                            <div key={`FY-Summary-${i}`} className="fy-summary__col">
+                                {viz}
+                            </div>
+                        ))}
+                    </div>
+                )}
         </div>
     );
 };
