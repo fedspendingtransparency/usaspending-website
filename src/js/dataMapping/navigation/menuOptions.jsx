@@ -135,7 +135,8 @@ export const downloadOptions = [
         callToAction: 'Download Raw Files',
         shouldOpenNewTab: true,
         enabled: true,
-        internalDomain: true
+        internalDomain: true,
+        externalLink: true
     },
     {
         label: 'Database Download',
@@ -146,7 +147,8 @@ export const downloadOptions = [
         callToAction: 'Explore Database Download',
         shouldOpenNewTab: true,
         enabled: true,
-        internalDomain: true
+        internalDomain: true,
+        externalLink: true
     },
     {
         label: 'Dataset Metadata',
