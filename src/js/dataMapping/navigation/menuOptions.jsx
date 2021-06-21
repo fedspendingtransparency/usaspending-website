@@ -71,7 +71,8 @@ export const resourceOptions = [
         label: 'Data Model',
         enabled: true,
         url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
-        shouldOpenNewTab: true
+        shouldOpenNewTab: true,
+        externalLink: true
     },
     {
         label: "Agency Submission Statistics",
@@ -86,7 +87,8 @@ export const resourceOptions = [
         label: 'API Tutorial',
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
-        shouldOpenNewTab: true
+        shouldOpenNewTab: true,
+        externalLink: true
     }
 ];
 
