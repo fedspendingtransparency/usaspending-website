@@ -39,24 +39,8 @@
                 border-radius: rem(4);
                 width: rem(175);
                 margin-top: 1.1rem;
-                &:hover {
-                    cursor: pointer;
-                }
                 .tooltip-spacer {
-                    transform: translateX(14px);
                     display: none;
-                     @include media($tablet-screen) {
-                        margin-left: rem(10);
-                        @include display(flex);
-                    }
-                }
-                .tooltip-pointer {
-                    &.left {
-                        left: rem(-16);
-                    }
-                    &.smart-bottom-left {
-                        top: rem(-16);
-                    }
                 }
             }
             
@@ -85,7 +69,26 @@
                 }
                 .agency-overview__tooltip {
                     @include flex (0 0 auto);
-                    //margin-left: rem(10);
+                    > div:first-of-type {
+                        width: 100%;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    .tooltip-spacer {
+                         @include media($tablet-screen) {
+                            margin-left: rem(10);
+                            @include display(flex);
+                        }
+                    }
+                    .tooltip-pointer {
+                        &.left {
+                            left: rem(-16);
+                        }
+                        &.smart-bottom-left {
+                            top: rem(-16);
+                        }
+                    }
                 }
             }
             .agency-overview__image {
