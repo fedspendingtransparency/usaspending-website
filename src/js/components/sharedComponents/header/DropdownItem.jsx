@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
-import * as redirectHelper from 'helpers/redirectHelper';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 import DropdownComingSoon from './DropdownComingSoon';
@@ -36,7 +35,6 @@ const DropdownItem = ({
     label,
     enabled = true,
     shouldOpenNewTab = false,
-    externalLink = false,
     isFirst = false,
     isNewTab = false,
     appendToExistingUrl = false
@@ -45,11 +43,6 @@ const DropdownItem = ({
     const newUrl = appendToExistingUrl
         ? getNewUrlForGlossary(pathname, url, search)
         : url;
-
-    const handleClick = () => {
-        redirectHelper.showRedirectModal(newUrl);
-        clickedHeaderLink(newUrl);
-    };
 
     let className = 'nav-children__link_disabled';
     let comingSoon = (
@@ -89,18 +82,6 @@ const DropdownItem = ({
             {comingSoon}
         </Link>
     );
-
-    if (enabled && externalLink) {
-        // Trigger the redirect modal
-        link = (
-            <button
-                onClick={handleClick}
-                className="nav-children__link">
-                {!newLabel && label}
-                {newLabel}
-            </button>
-        );
-    }
 
     if (typeof url === 'string' && url.includes('http')) {
         link = (

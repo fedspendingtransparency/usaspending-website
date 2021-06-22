@@ -50,9 +50,6 @@ const MobileDropdownItem = ({
     const clickedLink = () => {
         clickedHeaderLink(newUrl);
         hideMobileNav();
-        if (externalLink) {
-            redirectHelper.showRedirectModal(newUrl);
-        }
     };
 
     let activeClass = '';
@@ -71,34 +68,33 @@ const MobileDropdownItem = ({
         );
     }
 
-    let link = (
+    return externalLink ? (
         <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-            <Link
-                to={newUrl}
+            <a
+                href={newUrl}
+                target="_blank"
+                rel="noreferrer noopener"
                 className={`mobile-dropdown__link ${activeClass}`}
                 onClick={clickedLink}>
                 {title}
                 {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
-            </Link>
+            </a>
             {comingSoonDecorator}
         </li>
-    );
 
-    if (externalLink) {
-        // Trigger the redirect modal
-        link = (
+    )
+        : (
             <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-                <button
+                <Link
+                    to={newUrl}
                     className={`mobile-dropdown__link ${activeClass}`}
                     onClick={clickedLink}>
                     {title}
-                </button>
+                    {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
+                </Link>
                 {comingSoonDecorator}
             </li>
         );
-    }
-
-    return link;
 };
 
 MobileDropdownItem.propTypes = propTypes;

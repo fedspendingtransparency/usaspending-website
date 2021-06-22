@@ -72,8 +72,7 @@ export const resourceOptions = [
         enabled: true,
         url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
         shouldOpenNewTab: true,
-        externalLink: true,
-        internalDomain: true
+        externalLink: true
     },
     {
         label: "Agency Submission Statistics",
