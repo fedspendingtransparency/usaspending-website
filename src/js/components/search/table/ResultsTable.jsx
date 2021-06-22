@@ -24,6 +24,7 @@ const propTypes = {
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
     updateSort: PropTypes.func,
+    awardIdClick: PropTypes.func,
     subAwardIdClick: PropTypes.func
 };
 
@@ -79,10 +80,12 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId],
             dataType: awardTableColumnTypes[columnId]
         };
+
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
             props.column = 'award';
+            props.onClick = () => this.props.awardIdClick(props.id);
         }
         else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
             const row = this.props.results[rowIndex];
@@ -124,7 +127,7 @@ export default class ResultsTable extends React.Component {
         }
         else if (
             (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
-            && !this.props.results[rowIndex][column.columnName]) {
+            && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
             props.value = '--';
         }
         else if (column.columnName === 'def_codes') {

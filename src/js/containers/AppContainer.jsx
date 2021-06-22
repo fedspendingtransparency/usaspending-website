@@ -23,8 +23,8 @@ import { routes } from './router/RouterRoutes';
 
 let devExtension;
 let store;
-if (kGlobalConstants.DEV) {
-    // only enable Redux debugging in dev mode
+if (kGlobalConstants.QAT) {
+    // only enable Redux debugging in qat mode
     devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }) : undefined;
 }
 

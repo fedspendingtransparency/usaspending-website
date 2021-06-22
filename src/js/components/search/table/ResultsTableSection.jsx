@@ -27,6 +27,7 @@ const propTypes = {
     updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
     subaward: PropTypes.bool,
+    awardIdClick: PropTypes.func,
     subAwardIdClick: PropTypes.func
 };
 
@@ -89,23 +90,23 @@ export default class ResultsTableSection extends React.Component {
                                 classNames="table-message-fade"
                                 timeout={{ exit: 225, enter: 195 }}
                                 exit>
-                                    <>
-                                        {this.props.inFlight && (
-                                            <div className="results-table-message-container">
-                                                <ResultsTableLoadingMessage />
-                                            </div>
-                                        )}
-                                        {this.props.error && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableErrorMessage />
-                                            </div>
-                                        )}
-                                        {!this.props.error && !this.props.inFlight && this.props.results.length === 0 && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableNoResults />
-                                            </div>
-                                        )}
-                                    </>
+                                <>
+                                    {this.props.inFlight && (
+                                        <div className="results-table-message-container">
+                                            <ResultsTableLoadingMessage />
+                                        </div>
+                                    )}
+                                    {this.props.error && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableErrorMessage />
+                                        </div>
+                                    )}
+                                    {!this.props.error && !this.props.inFlight && this.props.results.length === 0 && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableNoResults />
+                                        </div>
+                                    )}
+                                </>
                             </CSSTransition>
 
                         )}
@@ -121,6 +122,7 @@ export default class ResultsTableSection extends React.Component {
                         <ResultsTable
                             {...this.props}
                             visibleWidth={this.state.tableWidth}
+                            awardIdClick={this.props.awardIdClick}
                             subAwardIdClick={this.props.subAwardIdClick} />
                     )}
                 </div>

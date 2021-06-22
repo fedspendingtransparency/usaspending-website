@@ -94,6 +94,29 @@ describe('AccountRankVisualizationContainer', () => {
         fetchDataSpy.reset();
     });
 
+    it('should reload data when the account changes', () => {
+        mockAccountHelper('fetchTasCategoryTotals', 'resolve', mockCategories);
+
+        const container = mount(<AccountRankVisualizationContainer
+            reduxFilters={defaultFilters}
+            account={mockReduxAccount} />);
+
+        jest.runAllTicks();
+
+        expect(fetchDataSpy.callCount).toEqual(1);
+
+        container.setProps({
+            account: Object.assign({}, mockReduxAccount, {
+                id: 1234
+            })
+        });
+
+        jest.runAllTicks();
+
+        expect(fetchDataSpy.callCount).toEqual(2);
+        fetchDataSpy.reset();
+    });
+
     describe('parseData', () => {
         it('should parse the API response and update the container state with series data', () => {
             const container = shallow(<AccountRankVisualizationContainer

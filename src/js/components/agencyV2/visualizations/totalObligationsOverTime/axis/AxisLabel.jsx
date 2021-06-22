@@ -22,6 +22,7 @@ const AxisLabel = ({
 }) => (
     <text
         className={`${axis}-axis-label`}
+        tabIndex="0"
         x={x}
         y={y}>
         {label}

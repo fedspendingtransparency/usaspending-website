@@ -37,14 +37,14 @@ const Axis = ({
         <XAxis
             x1={padding.left}
             x2={width - padding.right}
-            y1={height - padding.top - padding.bottom}
-            y2={height - padding.top - padding.bottom}
+            y1={height - padding.bottom}
+            y2={height - padding.bottom}
             ticks={xTicks} />
         <YAxis
             x1={padding.left}
             x2={padding.left}
-            y1={padding.top} // top of graph
-            y2={height - padding.top - padding.bottom} // bottom of graph
+            y1={padding.top / 2} // top of graph
+            y2={height - padding.bottom} // bottom of graph
             ticks={yTicks} />
     </g>
 );

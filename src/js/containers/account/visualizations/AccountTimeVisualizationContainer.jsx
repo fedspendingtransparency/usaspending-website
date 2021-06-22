@@ -57,7 +57,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) || !isEqual(prevProps.account.id, this.props.account.id)) {
             this.setUpdateStateAndFetch(this.props);
         }
     }
