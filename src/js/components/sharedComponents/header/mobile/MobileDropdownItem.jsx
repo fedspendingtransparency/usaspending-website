@@ -16,7 +16,7 @@ import DropdownComingSoon from '../DropdownComingSoon';
 const propTypes = {
     active: PropTypes.bool,
     comingSoon: PropTypes.bool,
-    url: PropTypes.string,
+    url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
     search: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     hideMobileNav: PropTypes.func,
