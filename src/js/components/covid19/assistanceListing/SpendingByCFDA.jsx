@@ -15,7 +15,6 @@ import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/Spendi
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from 'components/sharedComponents/ReadMore';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import DateNote from '../DateNote';
 
@@ -127,13 +126,11 @@ const SpendingByCFDA = () => {
             </h3>
             <div className="body__narrative-description">
                 <p>
-                    <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. Some examples of Assistance Listings include the Supplemental Nutrition Assistance Program (SNAP) and the Coronavirus Relief Fund. All financial assistance awards must be associated with a CFDA Program, all of which must be explicitly authorized by law.
+                    <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like Supplemental Nutrition Assistance Program (SNAP) that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program, all of which must be explicitly authorized by law.
                 </p>
-                <ReadMore>
-                    <p>
-                        In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
-                    </p>
-                </ReadMore>
+                <p>
+                    In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
+                </p>
             </div>
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />

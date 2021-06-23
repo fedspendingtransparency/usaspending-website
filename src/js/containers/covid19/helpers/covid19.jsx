@@ -13,8 +13,6 @@ import AwardQuestion from 'components/covid19/AwardQuestions';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
-    AwardSpendingAgencyTT,
-    AwardSpendingCfdaTT,
     AwardSpendingTT,
     SpendingByRecipientTT,
     TotalSpendingTT
@@ -90,9 +88,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Award Spending by Sub-Agency',
-        tooltip: <AwardSpendingAgencyTT />,
-        tooltipProps: { wide: true }
+        title: 'Award Spending by Sub-Agency'
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
@@ -100,9 +96,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Award Spending by CFDA Program (Assistance Listing)',
-        tooltip: <AwardSpendingCfdaTT />,
-        tooltipProps: { wide: true }
+        title: 'Award Spending by CFDA Program (Assistance Listing)'
     },
     data_sources_and_methodology: {
         showInMenu: true,
