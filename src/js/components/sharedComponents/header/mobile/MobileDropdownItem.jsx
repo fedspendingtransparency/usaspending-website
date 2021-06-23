@@ -9,7 +9,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import * as redirectHelper from 'helpers/redirectHelper';
 
 import DropdownComingSoon from '../DropdownComingSoon';
 
