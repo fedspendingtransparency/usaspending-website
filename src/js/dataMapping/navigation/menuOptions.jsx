@@ -88,8 +88,7 @@ export const resourceOptions = [
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
         shouldOpenNewTab: true,
-        externalLink: true,
-        internalDomain: true
+        externalLink: true
     }
 ];
 

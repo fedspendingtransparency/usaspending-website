@@ -19,7 +19,6 @@ const propTypes = {
     shouldOpenNewTab: PropTypes.bool,
     isNewTab: PropTypes.bool,
     isFirst: PropTypes.bool,
-    externalLink: PropTypes.bool,
     appendToExistingUrl: PropTypes.bool
 };
 
