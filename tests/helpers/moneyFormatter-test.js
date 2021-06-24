@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, formatMoneyWithPrecision, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatTreemapValues, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 
 test.each([
     [123.45, '$123'],
@@ -31,8 +31,8 @@ test.each([
     [50, 100, '50.0%'],
     [50, 0, 'Happy Troll Dance', 'Happy Troll Dance'],
     [50, 0, '--'],
-    [.0000000001, 100000, "< 0.01%", '--', 2, { absoluteMin: '< 0.01%' }],
-    [.0000000001, 100000, "0.00%", '--', 2, { absoluteMin: null }],
+    [0.0000000001, 100000, "< 0.01%", '--', 2, { absoluteMin: '< 0.01%' }],
+    [0.0000000001, 100000, "0.00%", '--', 2, { absoluteMin: null }],
     [50, null, '--'],
     [50, 'null', '--'],
     [50, '', '--'],
@@ -41,4 +41,26 @@ test.each([
     ['', 100, '--']
 ])('calculatePercentage with inputs %s and %s returns %s', (num, denom, rtrn, defaultRtrn = '--', toDecimalPlaces = 1, config = { absoluteMin: '' }) => {
     expect(calculatePercentage(num, denom, defaultRtrn, toDecimalPlaces, config)).toEqual(rtrn);
+});
+
+test.each([
+    [123.45, '$123.45'],
+    [1230.50, '$1,230.50'],
+    [12345678.23, '$12.3 million'],
+    [-12345678.23, '-$12.3 million'],
+    [0, '$0']
+])('formatTreemapValues: when input is %s --> %s', (input, output) => {
+    expect(formatTreemapValues(input)).toEqual(output);
+});
+
+test.each([
+    [123.45, '$123.45'],
+    [1230.50, '$1,230.50'],
+    [12345678.23, '$12.35 Million'],
+    [-12345678.23, '-$12.35 Million'],
+    [1234567800.23, '$1.23 Billion'],
+    [-1234567800.23, '-$1.23 Billion'],
+    [0, '$0.00']
+])('formatMoneyWithUnits: when input is %s --> %s', (input, output) => {
+    expect(formatMoneyWithUnits(input, true)).toEqual(output);
 });

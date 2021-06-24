@@ -98,6 +98,7 @@ describe('BaseAgencyBudgetaryResources', () => {
             '2021'
         ]);
         expect(Object.keys(budgetaryResources.dataByYear['2017'])).toEqual([
+            '_agencyBudget',
             'agencyBudget',
             'agencyObligated',
             'federalBudget',

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/26/20
  */
 
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
+import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
@@ -43,7 +43,7 @@ describe('agencyReducer', () => {
             state = agencyReducer(state, action);
 
             expect(Object.getPrototypeOf(state.budgetaryResources)).toEqual(BaseAgencyBudgetaryResources);
-            expect(state.budgetaryResources.dataByYear['2020'].agencyBudget).toEqual(322370908923.19);
+            expect(state.budgetaryResources.dataByYear['2020']._agencyBudget).toEqual(322370908923.19);
         });
     });
 

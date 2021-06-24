@@ -16,7 +16,7 @@ import Note from 'components/sharedComponents/Note';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
+import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
