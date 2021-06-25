@@ -14,10 +14,6 @@ import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions
 import { mockFilters, mockRedux } from './mockSearchHashes';
 import { restoreUrlHash, generateUrlHash } from './filters/searchHelper';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = jest.requireActual('promise');
-
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/SearchPage', () => (
     jest.fn(() => null)
