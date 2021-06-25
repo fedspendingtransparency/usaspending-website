@@ -87,7 +87,7 @@ export default class ExplorerTooltip extends React.Component {
         const percentString = `${(Math.round(this.props.percent * 1000) / 10)}%`;
 
         let hideDisclaimer = 'hide';
-        if (this.props.amount !== this.props.total) {
+        if ((this.props.amount !== this.props.total) && this.props.name !== 'Non-Award Spending') {
             hideDisclaimer = '';
         }
 

@@ -11,10 +11,6 @@ import RecipientContainer from 'containers/agency/visualizations/RecipientContai
 
 import { mockRecipient, parsedSeries } from './mocks/mockRecipient';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = jest.requireActual('promise');
-
 // spy on specific functions inside the component
 const loadDataSpy = sinon.spy(RecipientContainer.prototype, 'loadData');
 
@@ -175,9 +171,8 @@ describe('RecipientContainer', () => {
                 scope: 'contract'
             });
 
-            container.instance().loadData(123, 2017, 1)
-;
-            await container.instance().request.promise;
+            container.instance().loadData(123, 2017, 1);
+await container.instance().request.promise;
             expect(apiSpy.callCount).toEqual(2);
 
             const spyCalls = apiSpy.getCalls();
