@@ -102,7 +102,8 @@ describe('BaseAgencyBudgetaryResources', () => {
             'agencyBudget',
             'agencyObligated',
             'federalBudget',
-            'obligationsByPeriod'
+            'obligationsByPeriod',
+            'percentOfFederalBudget'
         ]);
         expect(budgetaryResources.dataByYear['2021'].federalBudget).toEqual(0);
     });
