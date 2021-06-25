@@ -54,16 +54,7 @@ export default class DownloadDetail extends React.Component {
                 {this.props.callToAction}
             </Link>
         );
-        if (this.props.externalLink) {
-            link = (
-                <button
-                    className="download-detail__link"
-                    onClick={this.redirect}>
-                    {this.props.callToAction}
-                </button>
-            );
-        }
-        else if (this.props.internalDomain) {
+        if (this.props.internalDomain) {
             link = (
                 <a
                     className="download-detail__link"
@@ -72,6 +63,15 @@ export default class DownloadDetail extends React.Component {
                     onClick={clickedHomepageLink.bind(null, this.props.url)}>
                     {this.props.callToAction}
                 </a>
+            );
+        }
+        else if (this.props.externalLink) {
+            link = (
+                <button
+                    className="download-detail__link"
+                    onClick={this.redirect}>
+                    {this.props.callToAction}
+                </button>
             );
         }
 
