@@ -6,33 +6,26 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
+import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 import * as agencyV2 from 'apis/agencyV2';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
 
-import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
-import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
-import { mockApiCall } from '../../testResources/mockApiHelper';
-
-// mockApiCall(agencyV2, 'fetchObligationsByAwardType', {});
-
-let spy;
-
-// beforeEach(() => {
-//     jest.clearAllMocks();
-//     jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
-//         null,
-//         [],
-//         { year: 2020 }
-//     ]);
-//     jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => [
-//         2020,
-//         () => { }
-//     ]);
-//     jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
-//         { fy: 2020 }
-//     ]);
-// });
+beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
+        null,
+        [],
+        { year: 2020 }
+    ]);
+    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => [
+        2020,
+        () => { }
+    ]);
+    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
+        { fy: 2020 }
+    ]);
+});
 
 test('an API request is made for obligations by award type', () => {
     const mockResponse = {
@@ -50,13 +43,13 @@ test('an API request is made for obligations by award type', () => {
             }
         })
     }
-    // spy.mockClear();
-    spy = jest.spyOn(agencyV2, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
-    render((
-        <Route path="/agency_v2/:agencyId?fy=2020" location={{ pathname: '/agency_v2/123' }}>
+    const spy = jest.spyOn(agencyV2, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
+
+    render(
+        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123?fy=2020' }}>
             <AgencyContainerV2 />
         </Route >
-    ));
+    );
 
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);
