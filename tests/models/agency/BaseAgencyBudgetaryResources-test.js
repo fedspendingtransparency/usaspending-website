@@ -4,7 +4,7 @@ export const mockBudgetaryResources = {
     agency_data_by_year: [
         {
             fiscal_year: 2021,
-            agency_budgetary_resources: 341375.97,
+            agency_budgetary_resources: 34137500000.97,
             agency_total_obligated: 0.0,
             total_budgetary_resources: null,
             obligationsByPeriod: [
@@ -86,25 +86,22 @@ export const mockBudgetaryResources = {
 };
 
 const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-budgetaryResources.populate(mockBudgetaryResources);
+budgetaryResources.populate(mockBudgetaryResources.agency_data_by_year[0]);
+
+const budgetaryResources20 = Object.create(BaseAgencyBudgetaryResources);
+budgetaryResources20.populate(mockBudgetaryResources.agency_data_by_year[1]);
 
 describe('BaseAgencyBudgetaryResources', () => {
-    it('should create a map of spending details keyed on fy', () => {
-        expect(Object.keys(budgetaryResources.dataByYear)).toEqual([
-            '2017',
-            '2018',
-            '2019',
-            '2020',
-            '2021'
-        ]);
-        expect(Object.keys(budgetaryResources.dataByYear['2017'])).toEqual([
-            '_agencyBudget',
-            'agencyBudget',
-            'agencyObligated',
-            'federalBudget',
-            'obligationsByPeriod',
-            'percentOfFederalBudget'
-        ]);
-        expect(budgetaryResources.dataByYear['2021'].federalBudget).toEqual(0);
+    it('should store the foramatted agency budget', () => {
+        expect(budgetaryResources.agencyBudget).toEqual('$34.14 Billion');
+    });
+    it('should store the raw agency budget', () => {
+        expect(budgetaryResources._agencyBudget).toEqual(34137500000.97);
+    });
+    it('should handle a null value for the federal budget', () => {
+        expect(budgetaryResources.percentOfFederalBudget).toEqual('--');
+    });
+    it('should store the (formatted) agency budget as a percent of the federal buget', () => {
+        expect(budgetaryResources20.percentOfFederalBudget).toEqual('2.8%');
     });
 });
