@@ -1,7 +1,7 @@
 .download-user-selections {
     background-color: $color-gray-lightest;
     padding: rem(20);
-    @import "../../mixins/fullSectionWrap";
+    @import "mixins/fullSectionWrap";
     @include fullSectionWrap((rem(40)), (rem(30)));
     .download-user-selections__left-col {
         @include span-columns(16);
