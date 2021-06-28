@@ -5,27 +5,8 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import { Route } from 'react-router-dom';
-import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
+import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer.jsx';
 import * as agencyV2 from 'apis/agencyV2';
-import * as accountHooks from 'containers/account/WithLatestFy';
-import * as queryParamHelpers from 'helpers/queryParams';
-
-beforeEach(() => {
-    jest.clearAllMocks();
-    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
-        null,
-        [],
-        { year: 2020 }
-    ]);
-    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => [
-        2020,
-        () => { }
-    ]);
-    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
-        { fy: 2020 }
-    ]);
-});
 
 test('an API request is made for obligations by award type', () => {
     const mockResponse = {
@@ -43,13 +24,10 @@ test('an API request is made for obligations by award type', () => {
             }
         })
     }
+
     const spy = jest.spyOn(agencyV2, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
 
-    render(
-        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123?fy=2020' }}>
-            <AgencyContainerV2 />
-        </Route >
-    );
+    render(<ObligationsByAwardTypeContainer fiscalYear={2020} windowWidth={1000} />);
 
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);
