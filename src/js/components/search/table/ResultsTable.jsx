@@ -85,7 +85,9 @@ export default class ResultsTable extends React.Component {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
             props.column = 'award';
-            props.onClick = () => this.props.awardIdClick(props.id);
+            if (this.props.awardIdClick) {
+                props.onClick = () => this.props.awardIdClick(props.id);
+            }
         }
         else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
             const row = this.props.results[rowIndex];
