@@ -33,7 +33,7 @@ const FySummary = ({
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(true);
-    const { budgetaryResources: { dataByYear: resourcesByYear } } = useSelector((state) => state.agencyV2);
+    const resourcesByYear = useSelector((state) => state.agencyV2.budgetaryResources);
     const budgetaryResourcesRequest = useRef(null);
 
     useEffect(() => () => {
@@ -50,9 +50,15 @@ const FySummary = ({
             budgetaryResourcesRequest.current.promise
                 .then(({ data }) => {
                     budgetaryResourcesRequest.current = null;
-                    const d = Object.create(BaseAgencyBudgetaryResources);
-                    d.populate(data, fy);
-                    dispatch(setBudgetaryResources(d));
+                    const dataByYear = {};
+                    data.agency_data_by_year.forEach((year) => {
+                        // Use our data model to parse the data for each FY
+                        const fyBudgetaryResources = Object.create(BaseAgencyBudgetaryResources);
+                        fyBudgetaryResources.populate(year);
+                        // Store the parsed data with the fiscal year as the key
+                        dataByYear[year.fiscal_year] = fyBudgetaryResources;
+                    });
+                    dispatch(setBudgetaryResources(dataByYear));
                     setIsLoading(false);
                 })
                 .catch((e) => {
@@ -65,9 +71,9 @@ const FySummary = ({
         }
     }, [agencyId]);
 
-    // TODO eventually get this data via props or redux
     const totalBudgetaryResources = resourcesByYear[fy]?.agencyBudget || '--';
     const percentOfFederalBudget = resourcesByYear[fy]?.percentOfFederalBudget || '--';
+    // TODO eventually get this data via props or redux
     const totalObligations = '$1.11 Trillion';
     const percentOfBudgetaryResources = '79.1%';
     const awardObligations = '$10.62 Billion';

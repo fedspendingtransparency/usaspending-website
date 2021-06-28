@@ -7,18 +7,12 @@ import { formatMoneyWithUnits, calculatePercentage } from 'helpers/moneyFormatte
 
 const BaseAgencyBudgetaryResources = {
     populate(data) {
-        // eslint-disable-next-line camelcase
-        this.dataByYear = data?.agency_data_by_year.reduce((acc, obj) => ({
-            ...acc,
-            [obj.fiscal_year]: {
-                _agencyBudget: obj.agency_budgetary_resources || 0,
-                agencyBudget: formatMoneyWithUnits(obj.agency_budgetary_resources),
-                agencyObligated: obj.agency_total_obligated || 0,
-                federalBudget: obj.total_budgetary_resources || 0,
-                obligationsByPeriod: obj.agency_obligation_by_period || [],
-                percentOfFederalBudget: calculatePercentage(obj.agency_budgetary_resources, obj.total_budgetary_resources)
-            }
-        }), {}) || {};
+        this._agencyBudget = data.agency_budgetary_resources || 0;
+        this.agencyBudget = formatMoneyWithUnits(this._agencyBudget);
+        this.agencyObligated = data.agency_total_obligated || 0;
+        this._federalBudget = data.total_budgetary_resources || 0;
+        this.obligationsByPeriod = data.agency_obligation_by_period || [];
+        this.percentOfFederalBudget = calculatePercentage(this._agencyBudget, this._federalBudget);
     }
 };
 

@@ -3,18 +3,12 @@
  * Created by Lizzie Salita 5/26/20
  */
 
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-
-// Create an empty budgetary resources object for the initial state
-const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-budgetaryResources.populate();
-
 export const initialState = {
     overview: {
         name: '',
         covidDefCodes: []
     },
-    budgetaryResources,
+    budgetaryResources: {},
     budgetCategoryCounts: {
         objectClass: null,
         programActivity: null,
