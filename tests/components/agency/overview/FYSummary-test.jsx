@@ -19,15 +19,13 @@ jest.mock('containers/agencyV2/visualizations/ObligationsByAwardTypeContainer', 
 beforeEach(() => {
     jest.spyOn(redux, 'useSelector').mockReturnValue({
         budgetaryResources: {
-            dataByYear: {
-                2020: {
-                    agencyBudget: '$1.11 Million',
-                    _agencyBudget: 1110000000
-                },
-                2021: {
-                    agencyBudget: '$1.20 Million',
-                    _agencyBudget: 1200000000
-                }
+            2020: {
+                agencyBudget: '$1.11 Million',
+                _agencyBudget: 1110000000
+            },
+            2021: {
+                agencyBudget: '$1.20 Million',
+                _agencyBudget: 1200000000
             }
         }
     });

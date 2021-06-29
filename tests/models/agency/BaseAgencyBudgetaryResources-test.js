@@ -104,4 +104,13 @@ describe('BaseAgencyBudgetaryResources', () => {
     it('should store the (formatted) agency budget as a percent of the federal buget', () => {
         expect(budgetaryResources20.percentOfFederalBudget).toEqual('2.8%');
     });
+    it('should store the foramatted agency obligations', () => {
+        expect(budgetaryResources20.agencyObligated).toEqual('$239.79 Billion');
+    });
+    it('should store the raw agency obligations', () => {
+        expect(budgetaryResources20._agencyObligated).toEqual(239791172810.38);
+    });
+    it('should store the (formatted) agency obligations as a percent of the agency buget', () => {
+        expect(budgetaryResources20.percentOfAgencyBudget).toEqual('74.4%');
+    });
 });

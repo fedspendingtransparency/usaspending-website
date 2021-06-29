@@ -73,9 +73,9 @@ const FySummary = ({
 
     const totalBudgetaryResources = resourcesByYear[fy]?.agencyBudget || '--';
     const percentOfFederalBudget = resourcesByYear[fy]?.percentOfFederalBudget || '--';
+    const totalObligations = resourcesByYear[fy]?.agencyObligated || '--';
+    const percentOfBudgetaryResources = resourcesByYear[fy]?.percentOfAgencyBudget || '--';
     // TODO eventually get this data via props or redux
-    const totalObligations = '$1.11 Trillion';
-    const percentOfBudgetaryResources = '79.1%';
     const awardObligations = '$10.62 Billion';
     const percentOfTotalObligations = '9.4%';
     const numberOfRecipients = '200';
