@@ -4,12 +4,8 @@
         .total-obligations-over-time-svg-body {
             .paths {
                 .path {
-                    stroke: $color-cool-blue;
                     stroke-width: 1;
                     fill: none;
-                }
-                .area-path {
-                    fill: $color-cool-blue-lightest;
                 }
             }
             .total-budget-line {
