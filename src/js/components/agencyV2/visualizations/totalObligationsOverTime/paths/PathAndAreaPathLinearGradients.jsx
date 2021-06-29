@@ -6,8 +6,7 @@ const propTypes = {
     yScale: PropTypes.func,
     height: PropTypes.number.isRequired,
     agencyBudget: PropTypes.number.isRequired,
-    data: PropTypes.array.isRequired,
-    padding: PropTypes.object.isRequired
+    data: PropTypes.array.isRequired
 };
 
 const PathAndAreaPathLinearGradients = ({
