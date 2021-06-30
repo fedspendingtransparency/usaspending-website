@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/4/20
  */
 
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
+import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mockAgency = {

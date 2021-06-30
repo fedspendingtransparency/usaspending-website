@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/26/20
  */
 
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
+import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
@@ -11,8 +11,8 @@ import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgeta
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);
-const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-budgetaryResources.populate(mockBudgetaryResources);
+const budgetaryResources20 = Object.create(BaseAgencyBudgetaryResources);
+budgetaryResources20.populate(mockBudgetaryResources.agency_data_by_year[1]);
 
 describe('agencyReducer', () => {
     describe('SET_AGENCY_OVERVIEW', () => {
@@ -37,13 +37,13 @@ describe('agencyReducer', () => {
 
             const action = {
                 type: 'SET_BUDGETARY_RESOURCES',
-                budgetaryResources
+                budgetaryResources: { 2020: budgetaryResources20 }
             };
 
             state = agencyReducer(state, action);
 
-            expect(Object.getPrototypeOf(state.budgetaryResources)).toEqual(BaseAgencyBudgetaryResources);
-            expect(state.budgetaryResources.dataByYear['2020'].agencyBudget).toEqual(322370908923.19);
+            expect(Object.getPrototypeOf(state.budgetaryResources[2020])).toEqual(BaseAgencyBudgetaryResources);
+            expect(state.budgetaryResources[2020]._agencyBudget).toEqual(322370908923.19);
         });
     });
 
@@ -88,7 +88,7 @@ describe('agencyReducer', () => {
     describe('RESET_AGENCY', () => {
         it('should reset the agency to its initial state', () => {
             let state = agencyReducer(undefined, {
-                budgetaryResources
+                budgetaryResources: { 2020: budgetaryResources20 }
             });
 
             const action = {

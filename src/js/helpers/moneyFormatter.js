@@ -4,7 +4,7 @@
  */
 
 import Accounting from 'accounting';
-import { max, min, mean } from 'lodash';
+import { max, min, mean, startCase } from 'lodash';
 
 // convert monetary values to currency strings
 const accountingOptions = {
@@ -204,6 +204,25 @@ export const formatTreemapValues = (value) => {
     if (units.unit > 1) {
         longLabel = ` ${units.longLabel}`;
     }
+
+    return `${formattedCurrency}${longLabel}`;
+};
+
+export const formatMoneyWithUnits = (value) => {
+    // Format the ceiling and current values to be friendly strings
+    const units = calculateUnitForSingleValue(value);
+
+    // Only reformat at a million or higher
+    if (units.unit < unitValues.MILLION) {
+        units.unit = 1;
+        units.unitLabel = '';
+        units.longLabel = '';
+    }
+    const formattedValue = value / units.unit;
+    const formattedCurrency = formatMoneyWithPrecision(formattedValue, 2);
+
+    // Don't add an extra space when there's no units string to display
+    const longLabel = units.unit > 1 ? ` ${startCase(units.longLabel)}` : '';
 
     return `${formattedCurrency}${longLabel}`;
 };

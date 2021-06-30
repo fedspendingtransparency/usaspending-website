@@ -33,7 +33,7 @@ const FySummary = ({
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(true);
-    const { budgetaryResources: { dataByYear: resourcesByYear } } = useSelector((state) => state.agencyV2);
+    const resourcesByYear = useSelector((state) => state.agencyV2.budgetaryResources);
     const budgetaryResourcesRequest = useRef(null);
 
     useEffect(() => () => {
@@ -50,9 +50,15 @@ const FySummary = ({
             budgetaryResourcesRequest.current.promise
                 .then(({ data }) => {
                     budgetaryResourcesRequest.current = null;
-                    const d = Object.create(BaseAgencyBudgetaryResources);
-                    d.populate(data, fy);
-                    dispatch(setBudgetaryResources(d));
+                    const dataByYear = {};
+                    data.agency_data_by_year.forEach((year) => {
+                        // Use our data model to parse the data for each FY
+                        const fyBudgetaryResources = Object.create(BaseAgencyBudgetaryResources);
+                        fyBudgetaryResources.populate(year);
+                        // Store the parsed data with the fiscal year as the key
+                        dataByYear[year.fiscal_year] = fyBudgetaryResources;
+                    });
+                    dispatch(setBudgetaryResources(dataByYear));
                     setIsLoading(false);
                 })
                 .catch((e) => {
@@ -65,11 +71,11 @@ const FySummary = ({
         }
     }, [agencyId]);
 
+    const totalBudgetaryResources = resourcesByYear[fy]?.agencyBudget || '--';
+    const percentOfFederalBudget = resourcesByYear[fy]?.percentOfFederalBudget || '--';
+    const totalObligations = resourcesByYear[fy]?.agencyObligated || '--';
+    const percentOfBudgetaryResources = resourcesByYear[fy]?.percentOfAgencyBudget || '--';
     // TODO eventually get this data via props or redux
-    const totalBudgetaryResources = '$1.42 Trillion';
-    const percentOfFederalBudget = '15.5%';
-    const totalObligations = '$1.11 Trillion';
-    const percentOfBudgetaryResources = '79.1%';
     const awardObligations = '$10.62 Billion';
     const percentOfTotalObligations = '9.4%';
     const numberOfRecipients = '200';
@@ -88,7 +94,7 @@ const FySummary = ({
                     selectedFy={fy}
                     agencyBudgetByYear={Object
                         .entries(resourcesByYear)
-                        .map(([key, value]) => ({ year: key, budget: value.agencyBudget }))} />
+                        .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
             </VisualizationSection>
         ),
         (
@@ -100,7 +106,7 @@ const FySummary = ({
                 <TotalObligationsOverTimeContainer
                     isLoading={isLoading}
                     isError={isError}
-                    agencyBudget={resourcesByYear[fy]?.agencyBudget}
+                    agencyBudget={resourcesByYear[fy]?._agencyBudget}
                     obligationsByPeriod={resourcesByYear[fy]?.obligationsByPeriod || []} />
             </VisualizationSection>
         ),
