@@ -19,7 +19,8 @@ const propTypes = {
     url: PropTypes.string,
     shouldOpenNewTab: PropTypes.bool,
     disabled: PropTypes.bool,
-    externalLink: PropTypes.bool
+    externalLink: PropTypes.bool,
+    internalDomain: PropTypes.bool
 };
 
 export default class SidebarButton extends React.Component {
@@ -76,7 +77,7 @@ export default class SidebarButton extends React.Component {
                 </div>
             );
         }
-        else if (this.props.url && this.props.shouldOpenNewTab && !this.props.externalLink) {
+        else if (this.props.url && this.props.shouldOpenNewTab && (!this.props.externalLink || this.props.internalDomain)) {
             button = (
                 <a
                     href={this.props.url}

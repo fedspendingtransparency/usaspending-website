@@ -19,10 +19,6 @@ jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 jest.mock('components/award/table/TransactionsTable', () =>
     jest.fn(() => null));
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = jest.requireActual('promise');
-
 const mockRedux = {
     award:
     {
@@ -36,10 +32,8 @@ const mockRedux = {
 
 describe('TransactionsTableContainer-test', () => {
     it('should reload the data when the award ID changes', () => {
-        const container = mount(
-            <TransactionsTableContainer
-                {...mockRedux} />
-        );
+        const container = mount(<TransactionsTableContainer
+                {...mockRedux} />);
 
         container.instance().fetchTransactions = jest.fn();
 
@@ -59,10 +53,8 @@ describe('TransactionsTableContainer-test', () => {
                 category: 'contract'
             });
 
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...redux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...redux} />);
             container.instance().parseTransactions(mockContractTransaction, true);
 
             const expectedResult = Object.create(BaseContractTransaction);
@@ -73,10 +65,8 @@ describe('TransactionsTableContainer-test', () => {
             expect(actualResult).toEqual(expectedResult);
         });
         it('should append results to the existing list when reset is false', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
             container.setState({
                 transactions: ["mock item"]
             });
@@ -88,10 +78,8 @@ describe('TransactionsTableContainer-test', () => {
 
     describe('nextTransactionPage', () => {
         it('should load the next page of data when available', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
 
             container.setState({
                 nextPage: true,
@@ -107,10 +95,8 @@ describe('TransactionsTableContainer-test', () => {
         });
 
         it('should not load more data when it is on the last page', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
 
             container.setState({
                 nextPage: false,
@@ -125,10 +111,8 @@ describe('TransactionsTableContainer-test', () => {
         });
 
         it('should not load more data when it there are existing requests in flight', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
 
             container.setState({
                 nextPage: false,
@@ -145,10 +129,8 @@ describe('TransactionsTableContainer-test', () => {
 
     describe('changeSort', () => {
         it('should update the state to the new sort values', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
 
             container.instance().fetchTransactions = jest.fn();
 
@@ -164,10 +146,8 @@ describe('TransactionsTableContainer-test', () => {
         });
 
         it('it should make an API request for the first page, resetting existing data', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
+            const container = shallow(<TransactionsTableContainer
+                    {...mockRedux} />);
 
             container.instance().fetchTransactions = jest.fn();
 

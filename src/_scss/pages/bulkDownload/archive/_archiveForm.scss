@@ -21,7 +21,7 @@
             @include display(flex);
             @include justify-content(space-around);
         }
-        @import "./form/agencyPicker";
+        @import "../form/agencyPicker";
 
         .filter-picker {
             padding: 0 rem(15);
