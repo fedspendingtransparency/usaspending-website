@@ -37,7 +37,7 @@ const agencyReducer = (state = initialState, action) => {
         case 'RESET_AWARD_OBLIGATIONS':
             return {
                 ...state,
-                _awardObligations: initialState.awardObligations
+                _awardObligations: initialState._awardObligations
             };
         case 'SET_BUDGET_CATEGORY_COUNT':
             return {

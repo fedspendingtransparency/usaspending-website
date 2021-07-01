@@ -47,6 +47,37 @@ describe('agencyReducer', () => {
         });
     });
 
+    describe('SET_AWARD_OBLIGATIONS', () => {
+        it('should set the agency obligated amount to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_AWARD_OBLIGATIONS',
+                awardObligations: 123456789.01
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state._awardObligations).toEqual(123456789.01);
+        });
+    });
+
+    describe('RESET_AWARD_OBLIGATIONS', () => {
+        it('should reset award obligations to its initial state', () => {
+            let state = agencyReducer(undefined, {
+                _awardObligations: 123456789.01
+            });
+
+            const action = {
+                type: 'RESET_AWARD_OBLIGATIONS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state._awardObligations).toEqual(null);
+        });
+    });
+
     describe('SET_BUDGET_CATEGORY_COUNT', () => {
         it('should set the budgetary category count for the specified tab to the provided value', () => {
             let state = agencyReducer(undefined, {});

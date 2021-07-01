@@ -27,7 +27,8 @@ beforeEach(() => {
                 agencyBudget: '$1.20 Million',
                 _agencyBudget: 1200000000
             }
-        }
+        },
+        _agencyObligations: 123456789.10
     });
 });
 

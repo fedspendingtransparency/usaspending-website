@@ -60,7 +60,8 @@ test.each([
     [-12345678.23, '-$12.35 Million'],
     [1234567800.23, '$1.23 Billion'],
     [-1234567800.23, '-$1.23 Billion'],
-    [0, '$0.00']
+    [0, '$0.00'],
+    [null, '--']
 ])('formatMoneyWithUnits: when input is %s --> %s', (input, output) => {
     expect(formatMoneyWithUnits(input, true)).toEqual(output);
 });
