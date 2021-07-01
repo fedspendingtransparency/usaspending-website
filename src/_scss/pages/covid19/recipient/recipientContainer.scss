@@ -4,11 +4,6 @@
   .count-tabs {
     &.recipient__tabs-container {
       width: 100%;
-      .usa-dt-tab-list {
-        z-index: 15;
-        overflow-x: visible;
-        overflow-y: visible;
-      }
       .recipient__content {
         @import './awardFilterButtons';
         @import './spendingByRecipient';
