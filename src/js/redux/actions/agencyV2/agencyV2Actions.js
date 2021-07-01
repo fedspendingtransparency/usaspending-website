@@ -13,6 +13,15 @@ export const setBudgetaryResources = (budgetaryResources) => ({
     budgetaryResources
 });
 
+export const setAwardObligations = (awardObligations) => ({
+    type: 'SET_AWARD_OBLIGATIONS',
+    awardObligations
+});
+
+export const resetAwardObligations = () => ({
+    type: 'RESET_AWARD_OBLIGATIONS'
+});
+
 export const setBudgetCategoryCount = (tab, count) => ({
     type: 'SET_BUDGET_CATEGORY_COUNT',
     tab,

@@ -9,6 +9,7 @@ export const initialState = {
         covidDefCodes: []
     },
     budgetaryResources: {},
+    _awardObligations: null,
     budgetCategoryCounts: {
         objectClass: null,
         programActivity: null,
@@ -27,6 +28,16 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 budgetaryResources: action.budgetaryResources
+            };
+        case 'SET_AWARD_OBLIGATIONS':
+            return {
+                ...state,
+                _awardObligations: action.awardObligations
+            };
+        case 'RESET_AWARD_OBLIGATIONS':
+            return {
+                ...state,
+                _awardObligations: initialState.awardObligations
             };
         case 'SET_BUDGET_CATEGORY_COUNT':
             return {
