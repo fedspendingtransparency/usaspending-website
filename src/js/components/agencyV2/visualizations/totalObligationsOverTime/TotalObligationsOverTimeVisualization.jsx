@@ -125,6 +125,7 @@ const TotalObligationsOverTimeVisualization = ({
 
     return (
         <svg
+            style={{ overflow: 'visible' }}
             className="total-obligations-over-time-svg"
             height={height}
             width={width}>

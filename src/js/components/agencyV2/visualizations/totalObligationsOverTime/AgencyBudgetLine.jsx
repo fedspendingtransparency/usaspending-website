@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { formatMoney, formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     data: PropTypes.array,
@@ -25,6 +27,7 @@ const AgencyBudgetLine = ({
     width
 }) => {
     const [show, setShow] = useState(false);
+    const [hoveredRectangle, setHoveredRectangle] = useState(false);
     const [lineData, setLineData] = useState({
         x1: 0,
         x2: 0,
@@ -34,7 +37,9 @@ const AgencyBudgetLine = ({
         x: 0,
         y: 0,
         width: 0,
-        height: 0
+        height: 0,
+        balance: 0,
+        percentOfTotal: 0
     });
 
     useEffect(() => {
@@ -66,14 +71,40 @@ const AgencyBudgetLine = ({
                     x: padding.left,
                     y: height - yScale(agencyBudget) - padding.top,
                     width: show ? xScale(todaysDate) : width - padding.left - padding.right,
-                    height: height - yScale(data[data.length - 1].obligated) - padding.bottom - padding.top
+                    height: height - yScale(data[data.length - 1].obligated) - padding.bottom - padding.top,
+                    balance: agencyBudget - data[data.length - 1].obligated,
+                    percentOfTotal: ((agencyBudget - data[data.length - 1].obligated) / agencyBudget) * 100
                 }
             );
         }
     }, [xScale, yScale, show]);
 
+    const percent = `${formatNumberWithPrecision(rectangleData.percentOfTotal, 1)}%`;
+
+    const tooltip = (
+        <div className="budgetary-resources-tooltip">
+            <div className="tooltip__title">
+                Available Budgetary Resources
+            </div>
+            <div className="tooltip__text">
+                <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
+                <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
+                <div className="budgetary-resources-tooltip__amount">{formatMoney(rectangleData.balance)}</div>
+                <div className="budgetary-resources-tooltip__amount_percent">{percent}</div>
+            </div>
+        </div>
+    );
+
+    const rectangle = (
+        <rect
+            className={`${hoveredRectangle ? 'total-budget-difference-hover' : 'total-budget-difference'}`}
+            x={rectangleData.x}
+            y={rectangleData.y}
+            width={rectangleData.width}
+            height={rectangleData.height} />
+    );
     return (
-        <g>
+        <g onMouseEnter={() => setHoveredRectangle(true)} onMouseLeave={() => setHoveredRectangle(false)} className="budgetary-resources__item">
             <line
                 tabIndex="0"
                 className="total-budget-line"
@@ -81,12 +112,10 @@ const AgencyBudgetLine = ({
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y1} />
-            <rect
-                className="total-budget-difference"
-                x={rectangleData.x}
-                y={rectangleData.y}
-                width={rectangleData.width}
-                height={rectangleData.height} />
+            {rectangle}
+            <foreignObject style={{ overflow: 'visible' }} x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
+                <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: rectangleData.y / 2 }} tooltipComponent={tooltip} />
+            </foreignObject>
         </g>
     );
 };

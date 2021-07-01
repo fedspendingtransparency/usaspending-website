@@ -1,5 +1,6 @@
 .total-obligations-over-time-visualization-container {
     width: 100%;
+    z-index: 10; //prevent tooltips from intersecting other visualizations
     .total-obligations-over-time-svg {
         .total-obligations-over-time-svg-body {
             .paths {
@@ -20,6 +21,10 @@
                 fill: $color-green;
                 opacity: 0.1;
             }
+            .total-budget-difference-hover {
+                fill: $color-grass-light;
+                opacity: 0.3;
+            }
             .today-line {
                 stroke: $color-gray-light;
                 stroke-width: 1;
@@ -39,6 +44,98 @@
                         text {
                             font-size: rem(14);
                             text-anchor: middle;
+                        }
+                    }
+                }
+            }
+            .budgetary-resources__item {
+                @include display(flex);
+                @include flex-direction(column);
+                @include justify-content(flex-end);
+                @include align-items(center);
+                height: rem(208);
+                width: 20%;
+                @include media($medium-screen) {
+                    width: rem(40);
+                }
+                
+                .budgetary-resources__tooltip-wrapper {
+                    height: 100%;
+                    width: 100%;
+                    .tooltip {
+                        // Don't show the tooltip in mobile
+                        display: none;
+                    }
+                    >div {
+                        width: 100%;
+                        height: 100%;
+                    }    
+                    @include media($medium-screen) {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                        .tooltip {
+                            display: block;
+                        }
+                    }
+                    .tooltip-pointer {
+                        &.left {
+                            left: rem(-16);
+                            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                                // IE only
+                                left: rem(-8);
+                            }
+                        }
+                    }
+                    .tooltip__content {
+                        width: rem(400);
+                    }
+                    .budgetary-resources-tooltip {
+                        .tooltip__text {
+                            display: inline-block;
+                            font-weight: $font-semibold;
+                            .budgetary-resources-tooltip__desc {
+                                font-size: rem(16);
+                                float: left;
+                                padding-right: rem(80);
+                            }
+                            .budgetary-resources-tooltip__desc_percent {
+                                font-size: rem(16);
+                                float: right;
+                            }
+                            .budgetary-resources-tooltip__amount {
+                                font-size: rem(22);
+                                float: left;
+                                padding-right: rem(80);
+                            }
+                            .budgetary-resources-tooltip__amount_percent {
+                                font-size: rem(22);
+                                float: right;
+                            }
+                        }
+                    }
+                    .tooltip__hover-wrapper {
+                        height: 100%;
+                        width: 100%;
+                        @include display(flex);
+                        @include align-items(flex-end);
+                        padding: 0 10%;
+                        @include media($medium-screen) {
+                            padding: 0 rem(2.5);
+                        }
+                    }
+                    @include media($medium-screen) {
+                        &:hover {
+                            .tooltip__hover-wrapper {
+                                fill: $color-grass-light;
+                                opacity: 0.3;
+                            }
+                        }
+                        &.budgetary-resources__tooltip-wrapper_active {
+                            .tooltip__hover-wrapper {
+                                fill: $color-grass-light;
+                                opacity: 0.1;
+                            }
                         }
                     }
                 }
