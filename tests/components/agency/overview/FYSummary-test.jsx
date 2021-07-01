@@ -16,6 +16,7 @@ import { mockTotalBudgetaryResources } from './mockData';
 // mock the child components
 jest.mock('containers/agencyV2/visualizations/TotalObligationsOverTimeContainer', () => jest.fn(() => null));
 jest.mock('containers/agencyV2/visualizations/ObligationsByAwardTypeContainer', () => jest.fn(() => null));
+jest.mock('containers/agencyV2/visualizations/RecipientDistributionContainer', () => jest.fn(() => null));
 
 const recipientDistribution = Object.create(BaseAgencyRecipients);
 recipientDistribution.populate({

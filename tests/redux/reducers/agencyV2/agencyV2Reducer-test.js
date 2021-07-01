@@ -5,6 +5,7 @@
 
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
+import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
@@ -75,6 +76,38 @@ describe('agencyReducer', () => {
             state = agencyReducer(state, action);
 
             expect(state._awardObligations).toEqual(null);
+        });
+    });
+
+    describe('SET_AGENCY_RECIPIENTS', () => {
+        it('should set recipientDistribution to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_AGENCY_RECIPIENTS',
+                recipientDistribution: { test: 'hello' }
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.recipientDistribution.test).toEqual('hello');
+        });
+    });
+
+    describe('RESET_AGENCY_RECIPIENTS', () => {
+        it('should reset award obligations to its initial state', () => {
+            let state = agencyReducer(undefined, {
+                recipientDistribution: { test: 'hello' }
+            });
+
+            const action = {
+                type: 'RESET_AGENCY_RECIPIENTS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.recipientDistribution).toEqual(initialState.recipientDistribution);
+            expect(Object.getPrototypeOf(state.recipientDistribution)).toEqual(BaseAgencyRecipients);
         });
     });
 
