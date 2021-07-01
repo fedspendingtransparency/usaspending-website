@@ -22,6 +22,15 @@ export const resetAwardObligations = () => ({
     type: 'RESET_AWARD_OBLIGATIONS'
 });
 
+export const setAgencyRecipients = (recipientDistribution) => ({
+    type: 'SET_AGENCY_RECIPIENTS',
+    recipientDistribution
+});
+
+export const resetAgencyRecipients = () => ({
+    type: 'RESET_AGENCY_RECIPIENTS'
+});
+
 export const setBudgetCategoryCount = (tab, count) => ({
     type: 'SET_BUDGET_CATEGORY_COUNT',
     tab,

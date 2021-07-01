@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ComingSoon, Carousel } from 'data-transparency-ui';
+import { Carousel } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
@@ -14,6 +14,7 @@ import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import { calculatePercentage, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
+import RecipientDistributionContainer from 'containers/agencyV2/visualizations/RecipientDistributionContainer';
 
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
@@ -126,7 +127,7 @@ const FySummary = ({
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <ComingSoon className="viz-placeholder" />
+                <RecipientDistributionContainer fiscalYear={fy} />
             </VisualizationSection>
         )
     ];
