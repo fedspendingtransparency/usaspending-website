@@ -35,7 +35,11 @@ const FySummary = ({
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(true);
-    const { budgetaryResources, _awardObligations } = useSelector((state) => state.agencyV2);
+    const {
+        budgetaryResources,
+        _awardObligations,
+        recipientDistribution
+    } = useSelector((state) => state.agencyV2);
     const budgetaryResourcesRequest = useRef(null);
 
     useEffect(() => () => {
@@ -79,9 +83,7 @@ const FySummary = ({
     const percentOfBudgetaryResources = budgetaryResources[fy]?.percentOfAgencyBudget || '--';
     const awardObligations = formatMoneyWithUnits(_awardObligations);
     const percentOfTotalObligations = calculatePercentage(_awardObligations, budgetaryResources[fy]?._agencyObligated);
-    // TODO eventually get this data via props or redux
-    const numberOfRecipients = '200';
-    const percentOfFederalRecipients = '1.5%';
+    const { percentOfFederalRecipients, numberOfRecipients } = recipientDistribution;
 
     const sections = [
         (

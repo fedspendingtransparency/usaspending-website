@@ -7,11 +7,11 @@ import { formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
 
 const BaseAgencyRecipients = {
     populate(data) {
-        this._count = data?.count;
-        this.count = formatNumber(this._count);
+        this._numberOfRecipients = data?.count;
+        this.numberOfRecipients = formatNumber(this._numberOfRecipients);
         // eslint-disable-next-line camelcase
-        this._federalCount = data?.total_federal_count || 0;
-        this.percentOfFederalCount = calculatePercentage(this._count, this._federalCount);
+        this._numberOfFederalRecipients = data?.total_federal_count || 0;
+        this.percentOfFederalRecipients = calculatePercentage(this._numberOfRecipients, this._numberOfFederalRecipients);
     }
 };
 
