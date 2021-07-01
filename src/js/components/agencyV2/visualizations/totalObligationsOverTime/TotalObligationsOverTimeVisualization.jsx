@@ -14,6 +14,7 @@ import Paths from 'components/agencyV2/visualizations/totalObligationsOverTime/p
 import Axis from './axis/Axis';
 import TodayLineAndtext from './TodayLineAndtext';
 import AgencyBudgetLine from './AgencyBudgetLine';
+import PathAndAreaPathLinearGradients from './paths/PathAndAreaPathLinearGradients';
 
 const propTypes = {
     height: PropTypes.number,
@@ -51,6 +52,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [xTicks, setXTicks] = useState([]);
     const [dataWithFirstAndLastCoordinate, setDataWithFirstAndLastCoordinate] = useState([]);
     const [description, setDescription] = useState('');
+    const [obligationExceedsBudget, setObligationExceedsBudget] = useState(false);
     // x domain
     useEffect(() => {
         // start of the domain is October 1st of the prior selected fiscal year midnight local time
@@ -116,6 +118,17 @@ const TotalObligationsOverTimeVisualization = ({
     }, [xScale, xDomain]);
 
     useEffect(() => {
+        if (data.length && agencyBudget) {
+            if (Math.max(...data.map((x) => x.obligated)) > agencyBudget) {
+                setObligationExceedsBudget(true);
+            }
+            else if (obligationExceedsBudget) {
+                setObligationExceedsBudget(false);
+            }
+        }
+    }, [data, agencyBudget]);
+
+    useEffect(() => {
         setDescription(dataWithFirstAndLastCoordinate.reduce((acc, val, i, array) => {
             let newDescription = acc;
             newDescription += `Period ${val?.period || 'unknown'} with end date ${format(val.endDate, 'MM/dd/yyyy')} and obligation $${formatNumber(val.obligated)}${i + 1 !== array.length ? ',' : ''}`;
@@ -128,6 +141,14 @@ const TotalObligationsOverTimeVisualization = ({
             className="total-obligations-over-time-svg"
             height={height}
             width={width}>
+            <defs>
+                <PathAndAreaPathLinearGradients
+                    yScale={yScale}
+                    height={height}
+                    agencyBudget={agencyBudget}
+                    data={dataWithFirstAndLastCoordinate}
+                    padding={padding} />
+            </defs>
             <g className="total-obligations-over-time-svg-body">
                 <Paths
                     data={dataWithFirstAndLastCoordinate}
@@ -152,6 +173,7 @@ const TotalObligationsOverTimeVisualization = ({
                     padding={padding} />
                 <AgencyBudgetLine
                     data={dataWithFirstAndLastCoordinate}
+                    obligationExceedsBudget={obligationExceedsBudget}
                     xScale={xScale}
                     xDomain={xDomain}
                     yScale={yScale}

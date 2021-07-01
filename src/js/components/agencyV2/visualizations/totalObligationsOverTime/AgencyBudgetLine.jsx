@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     data: PropTypes.array,
+    obligationExceedsBudget: PropTypes.bool,
     xScale: PropTypes.func,
     xDomain: PropTypes.array,
     yScale: PropTypes.func,
@@ -15,6 +16,7 @@ const propTypes = {
 
 const AgencyBudgetLine = ({
     data,
+    obligationExceedsBudget,
     xScale,
     xDomain,
     yScale,
@@ -81,12 +83,12 @@ const AgencyBudgetLine = ({
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y1} />
-            <rect
+            {!obligationExceedsBudget && <rect
                 className="total-budget-difference"
                 x={rectangleData.x}
                 y={rectangleData.y}
                 width={rectangleData.width}
-                height={rectangleData.height} />
+                height={rectangleData.height} />}
         </g>
     );
 };
