@@ -3,14 +3,15 @@
  * Created by Brett Varney 4/30/21
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { isCancel } from 'axios';
 
 import ObligationsByAwardType from 'components/agencyV2/visualizations/ObligationsByAwardType';
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
-import { isCancel } from 'axios';
+import { setAwardObligations, resetAwardObligations } from 'redux/actions/agencyV2/agencyV2Actions';
 
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,
@@ -24,11 +25,13 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
     const [error, setError] = React.useState(false);
     const obligationsByAwardTypeRequest = React.useRef(null);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
+    const dispatch = useDispatch();
 
-    React.useEffect(() => () => {
+    useEffect(() => () => {
         if (obligationsByAwardTypeRequest.current) {
             obligationsByAwardTypeRequest.current.cancel();
         }
+        dispatch(resetAwardObligations());
     }, []);
 
     const getObligationsByAwardType = () => {
@@ -43,6 +46,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         };
         obligationsByAwardTypeRequest.current = fetchObligationsByAwardType(toptierCode, fiscalYear);
         obligationsByAwardTypeRequest.current.promise.then((res) => {
+            dispatch(setAwardObligations(res.data.total_aggregated_amount));
             const categories = [
                 {
                     label: ['Financial', 'Assistance'], // line break between words
@@ -126,7 +130,8 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
+        dispatch(resetAwardObligations());
         if (toptierCode) {
             getObligationsByAwardType();
         }
