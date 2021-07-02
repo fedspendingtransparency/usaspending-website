@@ -1,9 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-    stoppingPoints
-} from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import { stoppingPoints } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import {
     pathStopColorRed,
     pathStopColorBlue,

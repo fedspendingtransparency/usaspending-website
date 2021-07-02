@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { determineScenario, pathDefinition } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import { pathDefinition } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import PropTypes from 'prop-types';
 
 const propTypes = {
