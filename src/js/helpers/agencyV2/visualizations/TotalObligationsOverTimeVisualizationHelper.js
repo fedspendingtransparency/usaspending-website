@@ -132,6 +132,11 @@ export const pathDefinition = (data, xScale, xProperty, padding, yScale, yProper
         const updatedPath = `M${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}`;
         return updatedPath;
     }
+    /**
+     * When adding an area path we must close at a certain height.
+     * With a normal area path that is usually the height of the graph.
+     * When using a negative scenario we want to close the graph at 0.
+     */
     if ((originalArray.length === i + 1) && areaPath) {
         const updatedPath = `${path}L${xScale(currentItem[xProperty]) + padding.left},${height - yScale(currentItem[yProperty]) - padding.bottom}L${xScale(currentItem[xProperty]) + padding.left},${(close === null) ? (height - padding.bottom) : (height - yScale(close) - padding.bottom)}Z`;
         return updatedPath;
