@@ -39,6 +39,9 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         if (error) {
             setError(false);
         };
+        if (noData) {
+            setNoData(false);
+        };
         if (!loading) {
             setLoading(true);
         };
@@ -47,6 +50,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             if (Object.keys(res.data).length === 0) {
                 setNoData(true);
                 setLoading(false);
+                obligationsByAwardTypeRequest.current = null;
             }
             else {
                 const categories = [
