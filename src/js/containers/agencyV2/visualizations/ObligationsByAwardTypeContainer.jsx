@@ -145,7 +145,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         {error && <ErrorMessage />}
         {noData && <NoResultsMessage />}
         {!loading && !error && !noData &&
-            < ObligationsByAwardType outer={categoriesForGraph} inner={detailsForGraph} windowWidth={windowWidth} />
+            <ObligationsByAwardType outer={categoriesForGraph} inner={detailsForGraph} windowWidth={windowWidth} />
         }
     </>);
 }
