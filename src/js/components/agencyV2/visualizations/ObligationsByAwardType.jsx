@@ -3,7 +3,7 @@
  * Created by Brett Varney 4/08/21
  */
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
@@ -26,17 +26,19 @@ const propTypes = {
 };
 
 export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
-    const [chartRect, setChartRect] = React.useState([0, 0]); // height, width
-    const chartRef = React.useRef();
+    const [chartHeight, setChartHeight] = useState(0);
+    const [chartWidth, setChartWidth] = useState(0);
+    const chartRef = useRef();
 
-    React.useEffect(() => {
+    useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
-        if (rect.height !== chartRect[0] || rect.width !== chartRect[1]) {
-            setChartRect([rect.height, rect.width]);
+        if (rect.height !== chartHeight || rect.width !== chartWidth) {
+            setChartHeight(rect.height);
+            setChartWidth(rect.width);
         };
     }, [windowWidth]);
 
-    const labelRadius = Math.min(chartRect[0], chartRect[1]) / 2;
+    const labelRadius = Math.min(chartHeight, chartWidth) / 2;
     const outerRadius = labelRadius * 0.7;
     const outerStrokeWidth = 3;
     const innerRadius = outerRadius - (outerStrokeWidth * 2);
@@ -45,10 +47,10 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
     d3.select('#obl_chart').selectAll('*').remove();
     const svg = d3.select('#obl_chart')
         .append('svg')
-        .attr('height', chartRect[0])
-        .attr('width', chartRect[1])
+        .attr('height', chartHeight)
+        .attr('width', chartWidth)
         .append('g')
-        .attr('transform', `translate(${chartRect[1] / 2}, ${chartRect[0] / 2})`);
+        .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
 
     const outerData = outer.map((d) => d.value);
     const outerPie = d3.pie().sortValues(null)(outerData);
@@ -94,11 +96,12 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 
     // labels
     const labelPos = (i, yOffset = 0) => {
-        // labels at top left/bottom right or top right/bottom left, depending on relative values
-        const labelAngle = outerData[0] < outerData[1] ? -0.8 : 0.8;
-        const pos = i === 0 ? labelRadius : -labelRadius;
-
-        return [(pos * Math.cos(labelAngle)) - 8, (pos * Math.sin(labelAngle)) + yOffset];
+        if (i === 0) {
+            // Financial Assistance, bottom right
+            return [labelRadius - 52, ((chartHeight / 2) - 25) + yOffset];
+        }
+        // Contracts, top left
+        return [-(labelRadius) + 18, -(chartHeight / 2) + 29];
     };
 
     const outerLabels = outer.map((d) => d.label);
@@ -124,8 +127,8 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .data(outerPie)
         .enter()
         .append('circle')
-        .attr('cx', (chartRect[1] / 2) - 50)
-        .attr('cy', (chartRect[0] / 2) - 25)
+        .attr('cx', labelRadius - 60)
+        .attr('cy', (chartHeight / 2) - 25)
         .attr('r', 4)
         .style("fill", outer[0].color);
 
@@ -134,8 +137,8 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .data(outerPie)
         .enter()
         .append('circle')
-        .attr('cx', -(chartRect[1] / 2) + 15)
-        .attr('cy', -(chartRect[0] / 2) + 25)
+        .attr('cx', -labelRadius + 10)
+        .attr('cy', -(chartHeight / 2) + 25)
         .attr('r', 4)
         .style("fill", outer[1].color);
 
