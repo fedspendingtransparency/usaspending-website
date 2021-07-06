@@ -13,22 +13,12 @@
   font-size: rem(16);
   font-weight: $font-semibold;
   line-height: rem(22);
-  .covid-19-vaccine-link__picture__container {
-    height: rem(50);
-    width: rem(50);
-    padding: rem(5);
-    display: flex;
-    margin-right: rem(5);
-    background-color: white;
-    border-radius: 50%;
-    img { // ie hack
-      flex-shrink: 0;
-    }
-  }
   .covid-19-vaccine-link__button {
     @include button-unstyled;
     font-weight: $font-semibold;
     cursor: pointer;
+    font-size: rem(16);
+    line-height: rem(22);
     text-decoration: underline;
   }
 }
