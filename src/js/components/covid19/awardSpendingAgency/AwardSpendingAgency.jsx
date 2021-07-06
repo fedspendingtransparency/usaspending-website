@@ -16,7 +16,6 @@ import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingA
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import { Tabs } from "data-transparency-ui";
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from 'components/sharedComponents/ReadMore';
 
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
@@ -140,11 +139,9 @@ const AwardSpendingAgency = () => {
                 <p>
                     Federal agencies receive funding from Congress and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds in response to the COVID-19 pandemic, as well as a breakdown of their obligated and outlayed funds.
                 </p>
-                <ReadMore>
-                    <p>
-                        <em>Please note that agencies without COVID-19 appropriated funds are not represented here.</em>
-                    </p>
-                </ReadMore>
+                <p>
+                    <em>Please note that agencies without COVID-19 appropriated funds are not represented here.</em>
+                </p>
             </div>
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab.internal} types={tabs} switchTab={changeActiveTab} />

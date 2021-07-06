@@ -3,18 +3,20 @@
  * Created by Lizzie Salita 5/26/20
  */
 
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
+import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 
-// Create an empty budgetary resources object for the initial state
-const budgetaryResources = Object.create(BaseAgencyBudgetaryResources);
-budgetaryResources.populate();
+// Create an empty recipient object for the initial state
+const recipientDistribution = Object.create(BaseAgencyRecipients);
+recipientDistribution.populate();
 
 export const initialState = {
     overview: {
         name: '',
         covidDefCodes: []
     },
-    budgetaryResources,
+    budgetaryResources: {},
+    _awardObligations: null,
+    recipientDistribution,
     budgetCategoryCounts: {
         objectClass: null,
         programActivity: null,
@@ -33,6 +35,26 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 budgetaryResources: action.budgetaryResources
+            };
+        case 'SET_AWARD_OBLIGATIONS':
+            return {
+                ...state,
+                _awardObligations: action.awardObligations
+            };
+        case 'RESET_AWARD_OBLIGATIONS':
+            return {
+                ...state,
+                _awardObligations: initialState._awardObligations
+            };
+        case 'SET_AGENCY_RECIPIENTS':
+            return {
+                ...state,
+                recipientDistribution: action.recipientDistribution
+            };
+        case 'RESET_AGENCY_RECIPIENTS':
+            return {
+                ...state,
+                recipientDistribution: initialState.recipientDistribution
             };
         case 'SET_BUDGET_CATEGORY_COUNT':
             return {

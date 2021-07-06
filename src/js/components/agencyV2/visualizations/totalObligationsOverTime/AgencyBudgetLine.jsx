@@ -4,27 +4,28 @@ import PropTypes from 'prop-types';
 const propTypes = {
     data: PropTypes.array,
     xScale: PropTypes.func,
-    xDomain: PropTypes.array,
     yScale: PropTypes.func,
     height: PropTypes.number,
     width: PropTypes.number,
     agencyBudget: PropTypes.number,
     todaysDate: PropTypes.number,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    scenario: PropTypes.string,
+    showTodayLineAndText: PropTypes.bool
 };
 
 const AgencyBudgetLine = ({
     data,
     xScale,
-    xDomain,
     yScale,
     height,
     agencyBudget,
     todaysDate,
     padding,
-    width
+    width,
+    scenario,
+    showTodayLineAndText
 }) => {
-    const [show, setShow] = useState(false);
     const [lineData, setLineData] = useState({
         x1: 0,
         x2: 0,
@@ -38,39 +39,30 @@ const AgencyBudgetLine = ({
     });
 
     useEffect(() => {
-        if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {
-            setShow(true);
-        }
-        else {
-            setShow(false);
-        }
-    }, [xScale, xDomain, todaysDate]);
-
-    useEffect(() => {
         if (xScale && yScale && agencyBudget) {
-            const y = height - yScale(agencyBudget) - padding.top;
+            const y = height - yScale(agencyBudget) - padding.bottom;
             setLineData(
                 {
                     x1: padding.left,
-                    x2: show ? xScale(todaysDate) + padding.left : width - padding.left,
+                    x2: showTodayLineAndText ? xScale(todaysDate) + padding.left : width - padding.left,
                     y1: isNaN(y) ? 0 : y
                 }
             );
         }
-    }, [xScale, yScale, show]);
+    }, [xScale, yScale, showTodayLineAndText]);
 
     useEffect(() => {
         if (xScale && yScale && data.length) {
             setRectangleData(
                 {
                     x: padding.left,
-                    y: height - yScale(agencyBudget) - padding.top,
-                    width: show ? xScale(todaysDate) : width - padding.left - padding.right,
-                    height: height - yScale(data[data.length - 1].obligated) - padding.bottom - padding.top
+                    y: height - yScale(agencyBudget) - padding.bottom,
+                    width: showTodayLineAndText ? xScale(todaysDate) : width - padding.left - padding.right,
+                    height: height - yScale(Math.max(...data.map((x) => x.obligated))) - padding.bottom - padding.top
                 }
             );
         }
-    }, [xScale, yScale, show]);
+    }, [xScale, yScale, showTodayLineAndText]);
 
     return (
         <g>
@@ -81,12 +73,12 @@ const AgencyBudgetLine = ({
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y1} />
-            <rect
+            {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && <rect
                 className="total-budget-difference"
                 x={rectangleData.x}
                 y={rectangleData.y}
                 width={rectangleData.width}
-                height={rectangleData.height} />
+                height={rectangleData.height} />}
         </g>
     );
 };

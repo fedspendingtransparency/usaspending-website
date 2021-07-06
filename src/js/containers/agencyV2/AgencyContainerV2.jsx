@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { fetchAgencyOverview } from 'apis/agencyV2';
 import { useQueryParams } from 'helpers/queryParams';
-import BaseAgencyOverview from 'models/v2/agencyV2/BaseAgencyOverview';
+import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import { setAgencyOverview } from 'redux/actions/agencyV2/agencyV2Actions';
 
 import { useValidTimeBasedQueryParams, useLatestAccountData } from 'containers/account/WithLatestFy';

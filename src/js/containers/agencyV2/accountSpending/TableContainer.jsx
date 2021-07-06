@@ -39,8 +39,8 @@ const TableContainer = ({
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const { dataByYear } = useSelector((state) => state.agencyV2.budgetaryResources);
-    const { agencyObligated } = dataByYear[fy] || 0;
+    const dataByYear = useSelector((state) => state.agencyV2.budgetaryResources);
+    const agencyObligated = dataByYear[fy]?._agencyObligated;
 
     const fetchSpendingByCategoryCallback = useCallback(() => {
         setLoading(true);

@@ -65,11 +65,11 @@ const CovidFeatureContainer = ({
                 <div className="official-spending-data__text">
                     <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
                     <div className="feature-covid-official-spending-data__image-wrapper">
-                        <img
-                            className="feature-covid-official-spending-data__image-mobile"
-                            srcSet="img/homepage-covid-official-spending-data.webp 790w"
-                            src="img/homepage-covid-official-spending-data.png"
-                            alt="Illustration of people interacting with data" />
+                        <picture className="feature-covid-official-spending-data__image-mobile">
+                            <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
+                            <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
+                            <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
+                        </picture>
                     </div>
                     <div className="homepage-feature-description">
                         <p>Spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
@@ -85,30 +85,26 @@ const CovidFeatureContainer = ({
                     </div>
                 </div>
                 <div className="feature-covid-official-spending-data__image-wrapper">
-                    <img
-                        className="feature-covid-official-spending-data__image"
-                        srcSet="img/homepage-covid-official-spending-data.webp 790w"
-                        src="img/homepage-covid-official-spending-data.png"
-                        alt="Illustration of people interacting with data" />
+                    <picture className="feature-covid-official-spending-data__image">
+                        <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
+                        <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
+                    </picture>
                 </div>
             </div>
             <div className="advanced-search-and-spending-profile__wrapper">
                 <div className="advanced-search__content-wrapper">
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image"
-                            srcSet="img/homepage-covid-ss-adv-search.webp 790w"
-                            src="img/homepage-covid-ss-adv-search.png"
-                            alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
-                    </div>
+                    <picture className="feature-covid-item__image-wrapper" >
+                        <source srcSet="img/homepage-covid-ss-adv-search.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-ss-adv-search.png" type="image/png" />
+                        <img className="feature-covid-item__image" src="img/homepage-covid-ss-adv-search.png" alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
+                    </picture>
                     <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image-mobile"
-                            srcSet="img/homepage-covid-ss-adv-search.webp 790w"
-                            src="img/homepage-covid-ss-adv-search.png"
-                            alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
-                    </div>
+                    <picture className="feature-covid-item__image-wrapper">
+                        <source srcSet="img/homepage-covid-ss-adv-search.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-ss-adv-search.png" type="image/png" />
+                        <img className="feature-covid-item__image-mobile" src="img/homepage-covid-ss-adv-search.png" alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
+                    </picture>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
                         <p>Use the new <strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> filter to show awards related to COVID-19 spending. The new filter works alongside our existing filters, so you can narrow your search to exactly what you want.</p>
                         <p>Additional columns were also added to the search results table to show <strong className="homepage-feature-description_weight_bold">COVID-19 obligations</strong> and <strong className="homepage-feature-description_weight_bold">outlays</strong>.</p>
@@ -125,21 +121,17 @@ const CovidFeatureContainer = ({
                 </div>
 
                 <div className="advanced-search__content-wrapper-right">
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image"
-                            srcSet="img/homepage-covid-ss-profile.webp 790w"
-                            src="img/homepage-covid-ss-profile.png"
-                            alt="Screenshot of COVID-19 Spending profile page" />
-                    </div>
+                    <picture className="feature-covid-item__image-wrapper" >
+                        <source srcSet="img/homepage-covid-ss-profile.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-ss-profile.png" type="image/png" />
+                        <img className="feature-covid-item__image" src="img/homepage-covid-ss-profile.png" alt="Screenshot of COVID-19 Spending profile page" />
+                    </picture>
                     <h2 className="homepage-feature-title">COVID-19 Spending Profile</h2>
-                    <div className="feature-covid-item__image-wrapper">
-                        <img
-                            className="feature-covid-item__image-mobile"
-                            srcSet="img/homepage-covid-ss-profile.webp 790w"
-                            src="img/homepage-covid-ss-profile.png"
-                            alt="Screenshot of COVID-19 Spending profile page" />
-                    </div>
+                    <picture className="feature-covid-item__image-wrapper" >
+                        <source srcSet="img/homepage-covid-ss-profile.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-ss-profile.png" type="image/png" />
+                        <img className="feature-covid-item__image-mobile" src="img/homepage-covid-ss-profile.png" alt="Screenshot of COVID-19 Spending profile page" />
+                    </picture>
                     <div className="homepage-feature-description adv-search-spending-profile__text">
                         <p>Our newest profile page shows you COVID-19 spending information as submitted by federal agencies. Learn more about <strong className="homepage-feature-description_weight_bold">who received funding, which agencies outlayed funds,</strong> and <strong className="homepage-feature-description_weight_bold">which programs were funded</strong>.</p>
                         <p>All COVID-19 spending data is <strong className="homepage-feature-description_weight_bold">available for download</strong> on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources &amp; Methodology</Link> page </p>
@@ -158,22 +150,20 @@ const CovidFeatureContainer = ({
             <div className="award-summary__wrapper feature-award-search">
                 <div className="feature-award-search__wrapper">
                     <div className="feature-covid__background-flair" />
-                    <div className="feature-covid-award-summary__image-wrapper">
-                        <img
-                            className="feature-covid-award-summary__image"
-                            srcSet="img/homepage-covid-ss-award-summary.webp 790w"
-                            src="img/homepage-covid-ss-award-summary.png"
-                            alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
-                    </div>
+                    <picture className="feature-covid-award-summary__image-wrapper">
+                        <source srcSet="img/homepage-covid-ss-award-summary.webp 790w" type="image/webp" />
+                        <source srcSet="img/homepage-covid-ss-award-summary.png" type="image/png" />
+                        <img className="feature-covid-award-summary__image" src="img/homepage-covid-ss-award-summary.png" alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
+                    </picture>
                     <div className="award-summary__text-wrapper">
                         <div>
                             <h2 className="homepage-feature-title">Award Summary pages now feature COVID-19 spending</h2>
                             <div className="feature-covid-award-summary__image-wrapper">
-                                <img
-                                    className="feature-covid-award-summary__image-mobile"
-                                    srcSet="img/homepage-covid-ss-award-summary.webp 790w"
-                                    src="img/homepage-covid-ss-award-summary.png"
-                                    alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
+                                <picture className="feature-covid-award-summary__image-mobile">
+                                    <source srcSet="img/homepage-covid-ss-award-summary.webp 790w" type="image/webp" />
+                                    <source srcSet="img/homepage-covid-ss-award-summary.png" type="image/png" />
+                                    <img src="img/homepage-covid-ss-award-summary.png" alt="Screenshot of Award Summary page with COVID-19 Spending updates" />
+                                </picture>
                             </div>
                             <div className="homepage-feature-description">
                                 <p><strong className="homepage-feature-description_weight_bold">Purple COVID-19 badges</strong> found on our Award Summary pages have made it easy to identify which awards have been funded through COVID-19 appropriations. You can hover over the badge to see relevant <strong className="homepage-feature-description_weight_bold">DEFCs</strong> associated with that award. The charts found on Award Summary pages now feature <strong className="homepage-feature-description_weight_bold">COVID-19 obligation and outlay amounts.</strong></p>

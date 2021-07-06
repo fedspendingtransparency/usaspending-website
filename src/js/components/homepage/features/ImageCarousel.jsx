@@ -217,11 +217,11 @@ export default class ImageCarousel extends React.Component {
                     key={image.key || image.src}
                     aria-hidden={this.state.page !== index + 1}
                     tabIndex={-1}>
-                    <img
-                        className="feature-carousel-image__image"
-                        srcSet={image.srcSet}
-                        src={image.src}
-                        alt={image.alt} />
+                    <picture className="feature-carousel-image__image">
+                        <source srcSet={image.srcSet} type="image/webp" />
+                        <source srcSet={image.src} type="image/png" />
+                        <img src={image.src} alt={image.alt} />
+                    </picture>
                 </li>
             );
         });

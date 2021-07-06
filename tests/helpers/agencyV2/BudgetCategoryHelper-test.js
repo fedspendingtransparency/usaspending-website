@@ -1,5 +1,5 @@
 import { parseRows } from 'helpers/agencyV2/BudgetCategoryHelper';
-import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
+import BaseAccountSpendingRow from 'models/v2/agency/BaseAccountSpendingRow';
 import { mockResponse } from '../../containers/agencyV2/accountSpending/TableContainer-test';
 
 const mockData = mockResponse.results;

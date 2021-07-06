@@ -18,11 +18,11 @@ const SpendingExplorerFeature = () => (
     <div className="feature-spending-explorer">
         <div className="feature-spending-explorer__wrapper">
             <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_desktop">
-                <img
-                    className="feature-spending-explorer__image"
-                    srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x"
-                    src="img/homepage-spending-explorer.png"
-                    alt="Screenshot of the Spending Explorer" />
+                <picture>
+                    <source srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x" type="image/webp" />
+                    <source srcSet="img/homepage-spending-explorer.png" type="image/png" />
+                    <img src="img/homepage-spending-explorer.png" alt="Screenshot of the Spending Explorer" />
+                </picture>
             </div>
             <div className="feature-spending-explorer__content">
                 <h2
@@ -31,11 +31,11 @@ const SpendingExplorerFeature = () => (
                     A big-picture view of the federal spending landscape
                 </h2>
                 <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_mobile">
-                    <img
-                        className="feature-spending-explorer__image"
-                        srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x"
-                        src="img/homepage-spending-explorer.png"
-                        alt="Screenshot of the Spending Explorer" />
+                    <picture className="feature-spending-explorer__image">
+                        <source srcSet="img/homepage-spending-explorer.webp 1x, img/homepage-spending-explorer@2x.webp 2x" type="image/webp" />
+                        <source srcSet="img/homepage-spending-explorer.png" type="image/png" />
+                        <img src="img/homepage-spending-explorer.png" alt="Screenshot of the Spending Explorer" />
+                    </picture>
                 </div>
                 <div className="homepage-feature-description">
                     <p>
