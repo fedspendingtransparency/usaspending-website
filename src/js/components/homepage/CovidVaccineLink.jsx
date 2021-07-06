@@ -14,9 +14,6 @@ const CovidVaccineLink = () => {
     };
     return (
         <div className="covid-19-vaccine-link__container">
-            <div className="covid-19-vaccine-link__picture__container">
-                <img src="img/covid-vaccine-link.svg" alt="We Can Do this" />
-            </div>
             <div className="covid-19-vaccine-link__text">
                 <strong>We Can Do this. </strong>
                 Find COVID-19 vaccines near you.&nbsp;
