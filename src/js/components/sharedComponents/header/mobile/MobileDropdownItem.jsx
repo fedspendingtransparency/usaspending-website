@@ -9,14 +9,13 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import * as redirectHelper from 'helpers/redirectHelper';
 
 import DropdownComingSoon from '../DropdownComingSoon';
 
 const propTypes = {
     active: PropTypes.bool,
     comingSoon: PropTypes.bool,
-    url: PropTypes.string,
+    url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
     search: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     hideMobileNav: PropTypes.func,
@@ -50,9 +49,6 @@ const MobileDropdownItem = ({
     const clickedLink = () => {
         clickedHeaderLink(newUrl);
         hideMobileNav();
-        if (externalLink) {
-            redirectHelper.showRedirectModal(newUrl);
-        }
     };
 
     let activeClass = '';
@@ -71,34 +67,33 @@ const MobileDropdownItem = ({
         );
     }
 
-    let link = (
+    return externalLink ? (
         <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-            <Link
-                to={newUrl}
+            <a
+                href={newUrl}
+                target="_blank"
+                rel="noreferrer noopener"
                 className={`mobile-dropdown__link ${activeClass}`}
                 onClick={clickedLink}>
                 {title}
                 {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
-            </Link>
+            </a>
             {comingSoonDecorator}
         </li>
-    );
 
-    if (externalLink) {
-        // Trigger the redirect modal
-        link = (
+    )
+        : (
             <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-                <button
+                <Link
+                    to={newUrl}
                     className={`mobile-dropdown__link ${activeClass}`}
                     onClick={clickedLink}>
                     {title}
-                </button>
+                    {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
+                </Link>
                 {comingSoonDecorator}
             </li>
         );
-    }
-
-    return link;
 };
 
 MobileDropdownItem.propTypes = propTypes;

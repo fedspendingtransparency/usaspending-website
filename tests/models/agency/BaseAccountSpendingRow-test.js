@@ -1,4 +1,4 @@
-import BaseAccountSpendingRow from 'models/v2/agencyV2/BaseAccountSpendingRow';
+import BaseAccountSpendingRow from 'models/v2/agency/BaseAccountSpendingRow';
 
 export const mockAccountSpendingRow = {
     name: "Net Interest",

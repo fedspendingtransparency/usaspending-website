@@ -15,10 +15,6 @@ import * as AccountHelper from 'helpers/accountHelper';
 import { mockCategories, mockReduxAccount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = jest.requireActual('promise');
-
 const fetchDataSpy = sinon.spy(AccountRankVisualizationContainer.prototype, 'fetchData');
 
 // mock the child component by replacing it with a function that returns a null element

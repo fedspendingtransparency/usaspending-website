@@ -5,6 +5,7 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     data: PropTypes.array,
+    obligationExceedsBudget: PropTypes.bool,
     xScale: PropTypes.func,
     xDomain: PropTypes.array,
     yScale: PropTypes.func,
@@ -17,6 +18,7 @@ const propTypes = {
 
 const AgencyBudgetLine = ({
     data,
+    obligationExceedsBudget,
     xScale,
     xDomain,
     yScale,
@@ -112,7 +114,7 @@ const AgencyBudgetLine = ({
                 x2={lineData.x2}
                 y1={lineData.y1}
                 y2={lineData.y1} />
-            {rectangle}
+            {!obligationExceedsBudget && rectangle}
             <foreignObject style={{ overflow: 'visible' }} x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
                 <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: rectangleData.y / 2 }} tooltipComponent={tooltip} />
             </foreignObject>

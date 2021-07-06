@@ -63,7 +63,8 @@ const AreaPath = ({
             <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
             <path
                 className={`area-path ${classname}`}
-                d={d} />
+                d={d}
+                fill="url(#areaPathLinearGradient)" />
         </g>
     );
 };
