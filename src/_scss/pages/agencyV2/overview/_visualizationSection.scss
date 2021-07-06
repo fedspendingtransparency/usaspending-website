@@ -21,7 +21,6 @@
         height: rem(208);
         @include display(flex);
         @include justify-content(center);
-        .viz-placeholder,
         .usda-message_loading,
         .usda-message {
             padding: rem(40) 0;

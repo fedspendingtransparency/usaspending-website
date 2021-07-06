@@ -5,6 +5,7 @@
 
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
+import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
@@ -44,6 +45,69 @@ describe('agencyReducer', () => {
 
             expect(Object.getPrototypeOf(state.budgetaryResources[2020])).toEqual(BaseAgencyBudgetaryResources);
             expect(state.budgetaryResources[2020]._agencyBudget).toEqual(322370908923.19);
+        });
+    });
+
+    describe('SET_AWARD_OBLIGATIONS', () => {
+        it('should set the agency obligated amount to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_AWARD_OBLIGATIONS',
+                awardObligations: 123456789.01
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state._awardObligations).toEqual(123456789.01);
+        });
+    });
+
+    describe('RESET_AWARD_OBLIGATIONS', () => {
+        it('should reset award obligations to its initial state', () => {
+            let state = agencyReducer(undefined, {
+                _awardObligations: 123456789.01
+            });
+
+            const action = {
+                type: 'RESET_AWARD_OBLIGATIONS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state._awardObligations).toEqual(null);
+        });
+    });
+
+    describe('SET_AGENCY_RECIPIENTS', () => {
+        it('should set recipientDistribution to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_AGENCY_RECIPIENTS',
+                recipientDistribution: { test: 'hello' }
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.recipientDistribution.test).toEqual('hello');
+        });
+    });
+
+    describe('RESET_AGENCY_RECIPIENTS', () => {
+        it('should reset award obligations to its initial state', () => {
+            let state = agencyReducer(undefined, {
+                recipientDistribution: { test: 'hello' }
+            });
+
+            const action = {
+                type: 'RESET_AGENCY_RECIPIENTS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.recipientDistribution).toEqual(initialState.recipientDistribution);
+            expect(Object.getPrototypeOf(state.recipientDistribution)).toEqual(BaseAgencyRecipients);
         });
     });
 

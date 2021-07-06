@@ -209,6 +209,7 @@ export const formatTreemapValues = (value) => {
 };
 
 export const formatMoneyWithUnits = (value) => {
+    if (typeof value !== 'number') return '--';
     // Format the ceiling and current values to be friendly strings
     const units = calculateUnitForSingleValue(value);
 
