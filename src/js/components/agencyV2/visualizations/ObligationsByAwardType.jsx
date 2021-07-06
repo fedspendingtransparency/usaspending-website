@@ -106,41 +106,47 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
 
     const outerLabels = outer.map((d) => d.label);
 
-    svg.selectAll()
-        .data(outerPie)
-        .enter()
-        .append('text')
-        .attr('transform', (d, i) => `translate(${labelPos(i)})`)
-        .attr('class', 'obligations-by-award-type__label')
-        .text((d, i) => outerLabels[i][0]);
+    // Financial Assistance legend
+    if (outer[0].value > 0) {
+        // circle
+        svg.selectAll()
+            .data(outerPie)
+            .enter()
+            .append('circle')
+            .attr('cx', labelRadius - 60)
+            .attr('cy', (chartHeight / 2) - 25)
+            .attr('r', 4)
+            .style("fill", outer[0].color);
+        // text
+        svg.selectAll()
+            .data(outerPie)
+            .enter()
+            .append('text')
+            .attr('transform', (d, i) => `translate(${labelPos(i)})`)
+            .attr('class', 'obligations-by-award-type__label')
+            .text((d, i) => outerLabels[i][0]);
+    }
 
-    svg.selectAll()
-        .data(outerPie)
-        .enter()
-        .append('text')
-        .attr('transform', (d, i) => `translate(${labelPos(i, 12)})`)
-        .attr('class', 'obligations-by-award-type__label')
-        .text((d, i) => outerLabels[i][1]);
-
-    // Financial Assistance legend circle
-    svg.selectAll()
-        .data(outerPie)
-        .enter()
-        .append('circle')
-        .attr('cx', labelRadius - 60)
-        .attr('cy', (chartHeight / 2) - 25)
-        .attr('r', 4)
-        .style("fill", outer[0].color);
-
-    // Contracts legend circle
-    svg.selectAll()
-        .data(outerPie)
-        .enter()
-        .append('circle')
-        .attr('cx', -labelRadius + 10)
-        .attr('cy', -(chartHeight / 2) + 25)
-        .attr('r', 4)
-        .style("fill", outer[1].color);
+    // Contracts legend
+    if (outer[1].value > 0) {
+        // circle
+        svg.selectAll()
+            .data(outerPie)
+            .enter()
+            .append('circle')
+            .attr('cx', -labelRadius + 10)
+            .attr('cy', -(chartHeight / 2) + 25)
+            .attr('r', 4)
+            .style("fill", outer[1].color);
+        // text
+        svg.selectAll()
+            .data(outerPie)
+            .enter()
+            .append('text')
+            .attr('transform', (d, i) => `translate(${labelPos(i, 12)})`)
+            .attr('class', 'obligations-by-award-type__label')
+            .text((d, i) => outerLabels[i][1]);
+    }
 
     return <div id="obl_chart" className="obligations-by-award-type" ref={chartRef} />;
 }
