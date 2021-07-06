@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { formatMoney, formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
@@ -75,13 +75,11 @@ const AgencyBudgetLine = ({
                     width: show ? xScale(todaysDate) : width - padding.left - padding.right,
                     height: height - yScale(data[data.length - 1].obligated) - padding.bottom - padding.top,
                     balance: agencyBudget - data[data.length - 1].obligated,
-                    percentOfTotal: ((agencyBudget - data[data.length - 1].obligated) / agencyBudget) * 100
+                    percentOfTotal: calculatePercentage(agencyBudget - data[data.length - 1].obligated, agencyBudget)
                 }
             );
         }
     }, [xScale, yScale, show]);
-
-    const percent = `${formatNumberWithPrecision(rectangleData.percentOfTotal, 1)}%`;
 
     const tooltip = (
         <div className="budgetary-resources-tooltip">
@@ -92,7 +90,7 @@ const AgencyBudgetLine = ({
                 <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
                 <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
                 <div className="budgetary-resources-tooltip__amount">{formatMoney(rectangleData.balance)}</div>
-                <div className="budgetary-resources-tooltip__amount_percent">{percent}</div>
+                <div className="budgetary-resources-tooltip__amount_percent">{rectangleData.percentOfTotal}</div>
             </div>
         </div>
     );
@@ -106,7 +104,7 @@ const AgencyBudgetLine = ({
             height={rectangleData.height} />
     );
     return (
-        <g onMouseEnter={() => setHoveredRectangle(true)} onMouseLeave={() => setHoveredRectangle(false)} className="budgetary-resources__item">
+        <g onMouseEnter={() => setHoveredRectangle(true)} onMouseLeave={() => setHoveredRectangle(false)} className="bar-chart__item">
             <line
                 tabIndex="0"
                 className="total-budget-line"
@@ -115,7 +113,7 @@ const AgencyBudgetLine = ({
                 y1={lineData.y1}
                 y2={lineData.y1} />
             {!obligationExceedsBudget && rectangle}
-            <foreignObject style={{ overflow: 'visible' }} x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
+            <foreignObject className="tooltip-object-overflow" x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
                 <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: rectangleData.y / 2 }} tooltipComponent={tooltip} />
             </foreignObject>
         </g>

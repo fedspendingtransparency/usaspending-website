@@ -68,7 +68,7 @@ const TotalObligationsOverTimeContainer = ({
     }, []);
 
     return (
-        <div style={{ overflow: 'visible' }} ref={containerReference} className="total-obligations-over-time-visualization-container">
+        <div ref={containerReference} className="total-obligations-over-time-visualization-container">
             {isError && <ErrorMessage />}
             {loading && <LoadingMessage />}
             {!isError && !loading && !data.length && <NoResultsMessage />}
