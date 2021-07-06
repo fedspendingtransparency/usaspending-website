@@ -92,13 +92,13 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .attr('stroke-width', 3)
         .attr('fill', 'none');
 
-    // labels -- commented-out as starting point for DEV-7421
+    // labels
     const labelPos = (i, yOffset = 0) => {
         // labels at top left/bottom right or top right/bottom left, depending on relative values
         const labelAngle = outerData[0] < outerData[1] ? -0.8 : 0.8;
         const pos = i === 0 ? labelRadius : -labelRadius;
 
-        return [pos * Math.cos(labelAngle), (pos * Math.sin(labelAngle)) + yOffset];
+        return [(pos * Math.cos(labelAngle)) - 8, (pos * Math.sin(labelAngle)) + yOffset];
     };
 
     const outerLabels = outer.map((d) => d.label);
@@ -108,7 +108,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .enter()
         .append('text')
         .attr('transform', (d, i) => `translate(${labelPos(i)})`)
-        .attr('class', 'callout-labels')
+        .attr('class', 'obligations-by-award-type__label')
         .text((d, i) => outerLabels[i][0]);
 
     svg.selectAll()
@@ -116,10 +116,30 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
         .enter()
         .append('text')
         .attr('transform', (d, i) => `translate(${labelPos(i, 12)})`)
-        .attr('class', 'callout-labels')
+        .attr('class', 'obligations-by-award-type__label')
         .text((d, i) => outerLabels[i][1]);
 
-    return <div id="obl_chart" ref={chartRef} />;
+    // Financial Assistance legend circle
+    svg.selectAll()
+        .data(outerPie)
+        .enter()
+        .append('circle')
+        .attr('cx', (chartRect[1] / 2) - 50)
+        .attr('cy', (chartRect[0] / 2) - 25)
+        .attr('r', 4)
+        .style("fill", outer[0].color);
+
+    // Contracts legend circle
+    svg.selectAll()
+        .data(outerPie)
+        .enter()
+        .append('circle')
+        .attr('cx', -(chartRect[1] / 2) + 15)
+        .attr('cy', -(chartRect[0] / 2) + 25)
+        .attr('r', 4)
+        .style("fill", outer[1].color);
+
+    return <div id="obl_chart" className="obligations-by-award-type" ref={chartRef} />;
 }
 
 ObligationsByAwardType.propTypes = propTypes;
