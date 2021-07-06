@@ -16,25 +16,24 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Features from './features/Features';
 import Download from './download/Download';
 import Community from './community/Community';
+import CovidVaccineLink from './CovidVaccineLink';
 
 require('pages/homepage/homePage.scss');
 
-export default class Homepage extends React.Component {
-    render() {
-        return (
-            <div className="usa-da-home-page">
-                <MetaTags {...MetaTagHelper.homePageMetaTags} />
-                <Header />
-                <main id="main-content" className="homepage-content">
-                    <CovidHighlights />
-                    <Features />
-                    <Download />
-                    <Community />
-                </main>
-                <GlobalModalContainer />
-                <Footer />
-            </div>
-        );
-    }
-}
+const Homepage = () => (
+    <div className="usa-da-home-page">
+        <MetaTags {...MetaTagHelper.homePageMetaTags} />
+        <Header />
+        <main id="main-content" className="homepage-content">
+            <CovidVaccineLink />
+            <CovidHighlights />
+            <Features />
+            <Download />
+            <Community />
+        </main>
+        <GlobalModalContainer />
+        <Footer />
+    </div>
+);
 
+export default Homepage;
