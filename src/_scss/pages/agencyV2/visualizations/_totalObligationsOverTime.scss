@@ -11,6 +11,16 @@
                     fill: none;
                 }
             }
+            .zero-line {
+                stroke: $color-gray;
+                stroke-width: 1;
+                stroke-dasharray: 4;
+            }
+            .zero-tick {
+              color: $color-gray;
+              font-size: rem(12);
+              line-height: rem(12);
+            }
             .total-budget-line {
                 stroke: $color-secondary;
                 stroke-width: 1;
