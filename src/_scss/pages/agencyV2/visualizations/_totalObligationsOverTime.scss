@@ -3,6 +3,7 @@
     z-index: 10; //prevent tooltips from intersecting other visualizations
     overflow: visible;
     .total-obligations-over-time-svg {
+        overflow: visible;
         .total-obligations-over-time-svg-body {
             .paths {
                 .path {
