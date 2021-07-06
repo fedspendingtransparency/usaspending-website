@@ -114,7 +114,7 @@ const AgencyBudgetLine = ({
                 y2={lineData.y1} />
             {!obligationExceedsBudget && rectangle}
             <foreignObject className="tooltip-object-overflow" x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
-                <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: rectangleData.y / 2 }} tooltipComponent={tooltip} />
+                <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: -5 }} tooltipComponent={tooltip} />
             </foreignObject>
         </g>
     );
