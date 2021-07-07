@@ -8,48 +8,38 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     xScale: PropTypes.func,
-    xDomain: PropTypes.array,
     height: PropTypes.number,
     todaysDate: PropTypes.number,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    showTodayLineAndText: PropTypes.bool
 };
 
 const TodayLineAndtext = ({
     xScale,
-    xDomain,
     height,
     todaysDate,
-    padding
+    padding,
+    showTodayLineAndText
 }) => {
     const [lineXValue, setLineXValue] = useState(0);
-    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {
-            setShow(true);
-        }
-        else {
-            setShow(false);
-        }
-    }, [xScale, xDomain, todaysDate]);
-
-    useEffect(() => {
-        if (xScale && show) {
+        if (xScale && showTodayLineAndText) {
             setLineXValue(xScale(todaysDate) + padding.left);
         }
-    }, [xScale, show]);
+    }, [xScale, showTodayLineAndText]);
 
     return (
         <g>
-            {show && <desc>A line representing todays date</desc>}
-            {show && <line
+            <desc>A line representing todays date</desc>
+            <line
                 tabIndex="0"
                 className="today-line"
                 x1={lineXValue}
                 x2={lineXValue}
                 y1={0}
-                y2={height - padding.bottom} />}
-            {show && <text tabIndex="0" className="today-text" x={lineXValue - 35} y={10}>Today</text>}
+                y2={height - padding.bottom} />
+            <text tabIndex="0" className="today-text" x={lineXValue - 35} y={10}>Today</text>
         </g>
     );
 };

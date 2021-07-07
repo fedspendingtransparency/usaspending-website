@@ -461,6 +461,11 @@ export class MapContainer extends React.Component {
                     </>
                 )} />
                 <Note message={dodNote} />
+                <Note message={(
+                    <>
+                        For &apos;All Awards&apos; we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.
+                    </>
+                )} />
             </div>
         );
     }

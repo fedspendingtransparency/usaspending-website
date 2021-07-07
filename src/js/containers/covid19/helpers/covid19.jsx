@@ -14,7 +14,6 @@ import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA'
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
     AwardSpendingTT,
-    SpendingByRecipientTT,
     TotalSpendingTT
 } from 'components/covid19/Covid19Tooltips';
 
@@ -78,9 +77,7 @@ export const componentByCovid19Section = () => ({
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Award Spending by Recipient',
-        tooltip: <SpendingByRecipientTT />,
-        tooltipProps: { wide: true }
+        title: 'Award Spending by Recipient'
     },
     award_spending_by_agency: {
         icon: 'sitemap',

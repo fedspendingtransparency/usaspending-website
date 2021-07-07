@@ -12,6 +12,7 @@ import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardT
 import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'apis/disaster';
 import { useInFlightList } from 'helpers/covid19Helper';
 import { InformationBoxes } from "data-transparency-ui";
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 const propTypes = {
     activeFilter: PropTypes.string
@@ -24,12 +25,20 @@ const overviewData = [
     },
     {
         type: 'awardObligations',
-        title: 'Award Obligations',
+        title: (
+            <div>
+                <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
+            </div>
+        ),
         isMonetary: true
     },
     {
         type: 'awardOutlays',
-        title: 'Award Outlays',
+        title: (
+            <div>
+                <span className="glossary-term">Award Outlays</span> <GlossaryLink term="outlay" />
+            </div>
+        ),
         isMonetary: true
     },
     {

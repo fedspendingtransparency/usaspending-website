@@ -5,6 +5,7 @@
     @include align-self(center);
     margin: 0;
     width: 100%;
+    z-index: 15; //prevent tooltips from intersecting other visualizations
 
     .bar-chart__item {
         @include display(flex);
