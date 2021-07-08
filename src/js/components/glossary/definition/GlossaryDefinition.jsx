@@ -68,17 +68,25 @@ export default class GlossaryDefinition extends React.Component {
     checkDefinitions(props) {
         let hasPlain = false;
         let hasOfficial = false;
+        let tab = this.state.tab;
 
         if (props.glossary.term.plain && props.glossary.term.plain !== '') {
             hasPlain = true;
         }
         if (props.glossary.term.official && props.glossary.term.official !== '') {
             hasOfficial = true;
+            if (tab === 'plain' && !hasPlain) {
+                tab = 'official';
+            }
+        }
+        if (tab === 'official' && !hasOfficial) {
+            tab = 'plain';
         }
 
         this.setState({
             hasPlain,
-            hasOfficial
+            hasOfficial,
+            tab
         });
     }
 
