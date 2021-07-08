@@ -13,12 +13,11 @@
   font-size: rem(16);
   font-weight: $font-semibold;
   line-height: rem(22);
-  .covid-19-vaccine-link__button {
-    @include button-unstyled;
+  a {
     font-weight: $font-semibold;
-    cursor: pointer;
     font-size: rem(16);
     line-height: rem(22);
     text-decoration: underline;
+    color: white;
   }
 }
