@@ -23,6 +23,8 @@
     @include justify-content(center);
     img {
       padding: rem(5);
+      width: 100%;
+      height: 100%;
     }
   }
   a {
