@@ -98,7 +98,7 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
     const labelPos = (i, yOffset = 0) => {
         if (i === 0) {
             // Financial Assistance, bottom right
-            return [labelRadius - 52, ((chartHeight / 2) - 25) + yOffset];
+            return [labelRadius - 60, ((chartHeight / 2) - 25) + yOffset];
         }
         // Contracts, top left
         return [-(labelRadius) + 18, -(chartHeight / 2) + 29];
@@ -113,8 +113,8 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
             .data(outerPie)
             .enter()
             .append('circle')
-            .attr('cx', labelRadius - 60)
-            .attr('cy', (chartHeight / 2) - 25)
+            .attr('cx', labelRadius - 68)
+            .attr('cy', (chartHeight / 2) - 29)
             .attr('r', 4)
             .style("fill", outer[0].color);
         // text
