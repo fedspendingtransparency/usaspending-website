@@ -24,7 +24,8 @@ const propTypes = {
         right: PropTypes.number,
         bottom: PropTypes.number,
         top: PropTypes.number
-    })
+    }),
+    scenario: PropTypes.string
 };
 
 const Paths = ({
@@ -36,7 +37,8 @@ const Paths = ({
     yScaleForPath = () => {},
     height,
     width,
-    padding
+    padding,
+    scenario
 }) => (
     <g className="paths">
         <AreaPath
@@ -46,7 +48,8 @@ const Paths = ({
             yScale={yScale}
             height={height}
             width={width}
-            padding={padding} />
+            padding={padding}
+            scenario={scenario} />
         <Path
             data={data.sort((a, b) => a.endDate - b.endDate)}
             description={description}

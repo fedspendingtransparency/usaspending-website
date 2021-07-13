@@ -28,3 +28,7 @@ export const fetchAgencyOverview = (code, fy) => apiRequest({
 export const fetchObligationsByAwardType = (code, fy) => apiRequest({
     url: `v2/agency/${code}/obligations_by_award_category/${fy ? `?fiscal_year=${fy}` : ''}`
 });
+
+export const fetchRecipientDistribution = (code, fy) => apiRequest({
+    url: `v2/agency/${code}/recipients/${fy ? `?fiscal_year=${fy}` : ''}`
+});
