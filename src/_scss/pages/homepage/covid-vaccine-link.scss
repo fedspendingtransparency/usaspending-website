@@ -6,19 +6,25 @@
     padding-left: $outer-gutter;
   }
   @include display(flex);
-  @include flex-wrap(wrap);
   @include align-items(center);
   padding-top: rem(5.5);
   padding-bottom: rem(5.5);
   font-size: rem(16);
   font-weight: $font-semibold;
   line-height: rem(22);
-  .covid-19-vaccine-link__button {
-    @include button-unstyled;
+  img {
+    @include display(flex);
+    @include flex(0 0 auto);
+    border-radius: 50%;
+    height: rem(49);
+    width: rem(49);
+    margin-right: rem(10);
+  }
+  a {
     font-weight: $font-semibold;
-    cursor: pointer;
     font-size: rem(16);
     line-height: rem(22);
     text-decoration: underline;
+    color: white;
   }
 }
