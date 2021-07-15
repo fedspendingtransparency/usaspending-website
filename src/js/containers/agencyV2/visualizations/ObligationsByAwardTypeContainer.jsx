@@ -59,12 +59,12 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                 dispatch(setAwardObligations(res.data.total_aggregated_amount));
                 const categories = [
                     {
-                        label: ['Financial', 'Assistance'], // line break between words
+                        label: ['All Financial', 'Assistance'], // line break between words
                         value: 0,
                         color: '#C05600'
                     },
                     {
-                        label: ['Contracts', ''], // so each cat label array is same length
+                        label: ['All Contracts', ''], // so each cat label array is same length
                         value: 0,
                         color: '#545BA3'
                     }
