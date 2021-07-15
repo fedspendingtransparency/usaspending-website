@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
@@ -38,6 +39,8 @@ const MetaTags = ({
     og_image: image
 }) => {
     const { pathname } = useLocation();
+
+    const { history } = useSelector((state) => state.routerHistory);
 
     const [tags, setTags] = useState([]);
 
@@ -101,6 +104,7 @@ const MetaTags = ({
     useEffect(() => {
         generateTags();
         if (isCustomPageTitleDefined(title)) {
+            console.log(' Router History : ', history);
             Analytics.pageview(pathname, title);
         }
     }, [title]);

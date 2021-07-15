@@ -51,7 +51,7 @@ const Analytics = {
             );
         }
     },
-    pageview(pathname, pagename) {
+    pageview(pathname, pagename, isAppLoad) {
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -70,7 +70,8 @@ const Analytics = {
             this._execute(
                 'send',
                 'pageview',
-                pathname
+                pathname,
+                isAppLoad ? 'isAppLoad' : null
             );
         }
     }
