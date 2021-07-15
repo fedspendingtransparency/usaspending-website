@@ -9,8 +9,9 @@ import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doPara
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
+        console.log(' args ', args);
         if (this.isDAP && !kGlobalConstants.QAT) {
-            if (!doParamsContainInitialApplicationLoadForDAPGoogleAnalytics(...args)) window.gas(...args);
+            if (!doParamsContainInitialApplicationLoadForDAPGoogleAnalytics(args)) window.gas(...args);
         }
         if (this.isGA) {
             window.ga(...args);
