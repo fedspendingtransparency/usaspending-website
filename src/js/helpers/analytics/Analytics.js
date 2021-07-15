@@ -4,17 +4,21 @@
  */
 
 import kGlobalConstants from 'GlobalConstants';
+import isInitialApplicationLoad from './isInitialApplicationLoad';
 
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
         if (this.isDAP && !kGlobalConstants.QAT) {
-            window.gas(...args);
+            if (!this._isInitialApplicationLoad(...args)) window.gas(...args);
         }
         if (this.isGA) {
             window.ga(...args);
         }
         return null;
+    },
+    _isInitialApplicationLoad(args) {
+        return isInitialApplicationLoad(args);
     },
     get isDAP() {
         return Boolean(window.gas && typeof window.gas === 'function');
@@ -51,7 +55,8 @@ const Analytics = {
             );
         }
     },
-    pageview(pathname, pagename, isAppLoad) {
+    pageview(pathname, pagename, initialApplicationLoad) {
+        console.log(' Sample Response : ', this._isInitialApplicationLoad([pathname, pagename, initialApplicationLoad]));
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -71,7 +76,7 @@ const Analytics = {
                 'send',
                 'pageview',
                 pathname,
-                isAppLoad ? 'isAppLoad' : null
+                initialApplicationLoad
             );
         }
     }

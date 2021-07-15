@@ -27,7 +27,7 @@ import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 import agencyV2Reducer from './agencyV2/agencyV2Reducer';
 import covid19Reducer from './covid19/covid19Reducer';
 import aboutTheDataReducer from './aboutTheData';
-import routerHistoryReducer from './routerHistory/routerHistoryReducer';
+import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -56,7 +56,7 @@ const appReducer = combineReducers({
     agencyV2: agencyV2Reducer,
     covid19: covid19Reducer,
     aboutTheData: aboutTheDataReducer,
-    routerHistory: routerHistoryReducer
+    googleAnalytics: googleAnalyticsReducer
 });
 
 export default appReducer;

@@ -6,8 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse } from 'redux/actions/googleAnalytics/googleAnalytics';
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 import {
@@ -38,9 +39,11 @@ const MetaTags = ({
     og_site_name: siteName,
     og_image: image
 }) => {
+    const dispatch = useDispatch();
+
     const { pathname } = useLocation();
 
-    const { history } = useSelector((state) => state.routerHistory);
+    const { isInitialApplicationLoadForDAPGoogleAnalytics } = useSelector((state) => state.googleAnalytics);
 
     const [tags, setTags] = useState([]);
 
@@ -104,8 +107,9 @@ const MetaTags = ({
     useEffect(() => {
         generateTags();
         if (isCustomPageTitleDefined(title)) {
-            console.log(' Router History : ', history);
-            Analytics.pageview(pathname, title);
+            console.log(' Data: ', isInitialApplicationLoadForDAPGoogleAnalytics);
+            if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse());
+            Analytics.pageview(pathname, title, isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoad' : undefined);
         }
     }, [title]);
 

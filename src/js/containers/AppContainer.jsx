@@ -5,7 +5,7 @@
 
 import React, { useEffect, Suspense } from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
@@ -13,7 +13,6 @@ import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import storeSingleton from 'redux/storeSingleton';
 import withGlossaryListener from 'containers/glossary/GlossaryListener';
 import reducers from 'redux/reducers/index';
-import { addHistory } from 'redux/actions/routerHistory/routerHistoryActions';
 
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
 import MobileMessage from 'components/sharedComponents/MobileMessage';
@@ -58,22 +57,11 @@ const ScrollToTop = () => {
     return null;
 };
 
-const RouteHistory = () => {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    useEffect(() => {
-        console.log(' Location : ', location);
-        dispatch(addHistory(location));
-    }, [location]);
-    return null;
-};
-
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                <RouteHistory />
                 <Switch>
                     {routes.filter((route) => !route.hide).map(({ path, component }) => (
                         <Route
