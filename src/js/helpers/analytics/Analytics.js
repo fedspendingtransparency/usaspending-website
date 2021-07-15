@@ -4,21 +4,18 @@
  */
 
 import kGlobalConstants from 'GlobalConstants';
-import isInitialApplicationLoad from './isInitialApplicationLoad';
+import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doParamsContainInitialApplicationLoadForDAPGoogleAnalytics';
 
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
         if (this.isDAP && !kGlobalConstants.QAT) {
-            if (!this._isInitialApplicationLoad(...args)) window.gas(...args);
+            if (!doParamsContainInitialApplicationLoadForDAPGoogleAnalytics(...args)) window.gas(...args);
         }
         if (this.isGA) {
             window.ga(...args);
         }
         return null;
-    },
-    _isInitialApplicationLoad(args) {
-        return isInitialApplicationLoad(args);
     },
     get isDAP() {
         return Boolean(window.gas && typeof window.gas === 'function');
@@ -55,8 +52,8 @@ const Analytics = {
             );
         }
     },
-    pageview(pathname, pagename, initialApplicationLoad) {
-        console.log(' Sample Response : ', this._isInitialApplicationLoad([pathname, pagename, initialApplicationLoad]));
+    pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
+        console.log(' Sample Response : ', doParamsContainInitialApplicationLoadForDAPGoogleAnalytics([pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics]));
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -76,7 +73,7 @@ const Analytics = {
                 'send',
                 'pageview',
                 pathname,
-                initialApplicationLoad
+                isInitialApplicationLoadForDAPGoogleAnalytics
             );
         }
     }

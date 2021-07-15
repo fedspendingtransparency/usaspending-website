@@ -109,7 +109,7 @@ const MetaTags = ({
         if (isCustomPageTitleDefined(title)) {
             console.log(' Data: ', isInitialApplicationLoadForDAPGoogleAnalytics);
             if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse());
-            Analytics.pageview(pathname, title, isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoad' : undefined);
+            Analytics.pageview(pathname, title, isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined);
         }
     }, [title]);
 
