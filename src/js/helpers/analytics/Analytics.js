@@ -53,6 +53,7 @@ const Analytics = {
         }
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
+        console.log(' Webpack updated ');
         console.log(' Sample Response : ', doParamsContainInitialApplicationLoadForDAPGoogleAnalytics([pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics]));
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];

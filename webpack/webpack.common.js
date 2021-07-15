@@ -98,8 +98,7 @@ module.exports = {
             templateParameters: {
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
                 USE_GTM: (
-                    process.env.ENV === 'qat' ||
-                    process.env.ENV === 'sandbox'
+                    process.env.ENV === 'qat'
                 ),
                 GTM_ID: process.env.GTM_ID || ''
             }

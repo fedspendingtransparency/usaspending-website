@@ -15,7 +15,7 @@ const globalConstants = {
     LOCAL: false,
     PERF_LOG: false,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
-    QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
+    QAT: (process.env.ENV === 'qat'),
     STAGING: (process.env.ENV === 'staging'),
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV]
 };
