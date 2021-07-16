@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
 
 const propTypes = {
     outer: PropTypes.arrayOf(
@@ -17,7 +18,7 @@ const propTypes = {
     ).isRequired,
     inner: PropTypes.arrayOf(
         PropTypes.shape({
-            label: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+            label: PropTypes.string.isRequired,
             value: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired
         })
@@ -148,7 +149,14 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
             .text((d, i) => outerLabels[i][1]);
     }
 
-    return <div id="obl_chart" className="obligations-by-award-type" ref={chartRef} />;
+    return (
+        <>
+            <div id="obl_chart" className="obligations-by-award-type" ref={chartRef} />
+            <div style={{ width: '400px' }}>
+                <ObligationsByAwardTypeTooltip awardTypes={inner} />
+            </div>
+        </>
+    );
 }
 
 ObligationsByAwardType.propTypes = propTypes;

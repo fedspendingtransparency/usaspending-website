@@ -71,27 +71,27 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                 ];
                 const details = [
                     {
-                        label: ['Grants'],
+                        label: 'Grants',
                         color: '#E66F0E'
                     },
                     {
-                        label: ['Loans'],
+                        label: 'Loans',
                         color: '#FFBC78'
                     },
                     {
-                        label: ['Direct Payments'],
+                        label: 'Direct Payments',
                         color: '#FA9441'
                     },
                     {
-                        label: ['Other'],
+                        label: 'Other',
                         color: '#FCE2C5'
                     },
                     {
-                        label: ['Contracts'],
+                        label: 'Contracts',
                         color: '#7F84BA'
                     },
                     {
-                        label: ['IDVs'],
+                        label: 'IDVs',
                         color: '#A9ADD1'
                     }
                 ];

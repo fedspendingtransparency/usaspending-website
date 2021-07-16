@@ -5,3 +5,21 @@
         font-weight: $font-semibold;
     }
 }
+
+// Tooltip
+.obligations-by-award-type__table {
+    .table-header__content {
+        padding: rem(5) rem(6);
+    }
+    .usda-table__row {
+        .usda-table__cell {
+            padding: rem(4) rem(6);
+            &:first-child {
+                >div {
+                    @include display(flex);
+                    @include align-items(center);
+                }
+            }
+        }
+    }
+}
