@@ -4,12 +4,17 @@
  */
 
 import kGlobalConstants from 'GlobalConstants';
+import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doParamsContainInitialApplicationLoadForDAPGoogleAnalytics';
 
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
         if (this.isDAP && !kGlobalConstants.QAT) {
-            window.gas(...args);
+            /**
+             * This conditional prevents this code base from sending DAP GA pageview on application load.
+             * DAP's GA scripts will send their own pageview when the app loads.
+             */
+            if (!doParamsContainInitialApplicationLoadForDAPGoogleAnalytics(args)) window.gas(...args);
         }
         if (this.isGA) {
             window.ga(...args);
@@ -51,7 +56,7 @@ const Analytics = {
             );
         }
     },
-    pageview(pathname, pagename) {
+    pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -70,7 +75,8 @@ const Analytics = {
             this._execute(
                 'send',
                 'pageview',
-                pathname
+                pathname,
+                isInitialApplicationLoadForDAPGoogleAnalytics
             );
         }
     }
