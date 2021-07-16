@@ -107,9 +107,10 @@ const MetaTags = ({
     useEffect(() => {
         generateTags();
         if (isCustomPageTitleDefined(title)) {
-            console.log(' Data: ', isInitialApplicationLoadForDAPGoogleAnalytics);
             if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse());
-            Analytics.pageview(pathname, title, isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined);
+            // sendDAPPageviewEvent will be valid only once, and only the first time we hit this code
+            const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
+            Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
     }, [title]);
 

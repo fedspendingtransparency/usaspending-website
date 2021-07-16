@@ -4,6 +4,10 @@
 */
 
 export const initialState = {
+    /**
+     * This is set to true by default. When a user loads the application this will be true.
+     * This will be set to false right before the first pagview is fired.
+     */
     isInitialApplicationLoadForDAPGoogleAnalytics: true
 };
 

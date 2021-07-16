@@ -9,8 +9,11 @@ import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doPara
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
-        console.log(' args ', args);
         if (this.isDAP && !kGlobalConstants.QAT) {
+            /**
+             * This conditional prevents this code base from sending DAP GA pageview on application load.
+             * DAP's GA scripts will send their own pageview when the app loads.
+             */
             if (!doParamsContainInitialApplicationLoadForDAPGoogleAnalytics(args)) window.gas(...args);
         }
         if (this.isGA) {
@@ -54,8 +57,6 @@ const Analytics = {
         }
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
-        console.log(' Webpack updated ');
-        console.log(' Sample Response : ', doParamsContainInitialApplicationLoadForDAPGoogleAnalytics([pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics]));
         if (kGlobalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
