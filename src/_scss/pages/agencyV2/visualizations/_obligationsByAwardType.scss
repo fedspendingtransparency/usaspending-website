@@ -21,5 +21,12 @@
                 }
             }
         }
+        &:last-child {
+            border-top: solid 1px $color-gray-light;
+            .usda-table__cell {
+                font-weight: $font-semibold;
+                padding-top: rem(8);
+            }
+        }
     }
 }

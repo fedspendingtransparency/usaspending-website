@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Table } from 'data-transparency-ui';
+import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awardTypes: PropTypes.array
@@ -29,6 +31,7 @@ const columns = [
 ];
 
 export default function ObligationsByAwardTypeTooltip({ awardTypes }) {
+    const { _awardObligations } = useSelector((state) => state.agencyV2);
     const rows = awardTypes.map((type) => ([
         (
             <div>
@@ -38,10 +41,15 @@ export default function ObligationsByAwardTypeTooltip({ awardTypes }) {
                 {type.label}
             </div>
         ),
-        type.value, // TODO - format $ amount
-        '50%' // TODO - calculate percentage
+        formatMoney(type.value),
+        calculatePercentage(type.value, _awardObligations)
     ]));
-    // TODO - add "Totals" row
+    // Add the "Totals" row
+    rows.push([
+        'Total',
+        formatMoney(_awardObligations),
+        '100%'
+    ]);
     return (
         <Table
             classNames="obligations-by-award-type__table"
