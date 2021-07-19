@@ -12,9 +12,9 @@ const defaultProps = {
     og_image: 'https://usaspending.gov/img/FacebookOG.png'
 };
 
-const spy = jest.spyOn(actions, 'setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse');
+const spy = jest.spyOn(actions, 'setInitialAppLoadForDAP');
 
-test('should call setIsInitialApplicationLoadForDAPGoogleAnalyticsToFalse given there is a valid title', () => {
+test('should call setInitialAppLoadForDAP given there is a valid title', () => {
     render(<MetaTags {...defaultProps} />);
     expect(spy).toHaveBeenCalledTimes(1);
 });
