@@ -12,12 +12,13 @@
         @include media($tablet-screen) {
             @include flex(1 1 auto);
         }
+        @include media($large-screen) {
+            margin-left: rem(20);
+        }
         @include unstyled-list;
-
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
-        margin-left: rem(20);
     }
 
     .official-banner__site-item {
@@ -47,12 +48,10 @@
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
-        margin-left: rem(20);
 
         @include media($tablet-screen) {
             @include justify-content(flex-end);
             @include align-items(center);
-            margin-left: 0;
         }
     }
 
