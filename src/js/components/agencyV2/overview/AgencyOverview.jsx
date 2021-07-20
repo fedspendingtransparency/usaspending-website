@@ -77,7 +77,7 @@ const AgencyOverview = ({
     } = useSelector((state) => state.agencyV2.overview);
 
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;

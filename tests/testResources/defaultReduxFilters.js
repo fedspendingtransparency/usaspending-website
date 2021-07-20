@@ -6,7 +6,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 import { initialState as covid19DefaultState } from '../../src/js/redux/reducers/covid19/covid19Reducer';
-
+import { initialState as googleAnalyticsDefaultState } from '../../src/js/redux/reducers/googleAnalytics/googleAnalyticsReducer';
 import { CheckboxTreeSelections } from '../../src/js/redux/reducers/search/searchFiltersReducer';
 
 import * as FiscalYearHelper from '../../src/js/helpers/fiscalYearHelper';
@@ -42,7 +42,8 @@ export const defaultFilters = {
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    defCodes: new CheckboxTreeSelections()
+    defCodes: new CheckboxTreeSelections(),
+    googleAnalytics: googleAnalyticsDefaultState
 };
 
 export const defaultResultsMeta = {
