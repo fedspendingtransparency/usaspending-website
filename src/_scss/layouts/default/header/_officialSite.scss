@@ -61,7 +61,7 @@
     .official-banner__text {
         @include flex(0 0 auto);
         margin: 0;
-        font-size: rem(10);
+        font-size: rem(12);
         line-height: rem(13);
         color: $color-white;
     }
