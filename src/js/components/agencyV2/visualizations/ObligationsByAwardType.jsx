@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import { TooltipWrapper } from 'data-transparency-ui';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
 
 const propTypes = {
@@ -23,10 +24,16 @@ const propTypes = {
             color: PropTypes.string.isRequired
         })
     ).isRequired,
-    windowWidth: PropTypes.number.isRequired
+    windowWidth: PropTypes.number.isRequired,
+    fiscalYear: PropTypes.number
 };
 
-export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
+export default function ObligationsByAwardType({
+    outer,
+    inner,
+    windowWidth,
+    fiscalYear
+}) {
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
     const chartRef = useRef();
@@ -150,12 +157,12 @@ export default function ObligationsByAwardType({ outer, inner, windowWidth }) {
     }
 
     return (
-        <>
-            <div id="obl_chart" className="obligations-by-award-type" ref={chartRef} />
-            <div style={{ width: '400px' }}>
-                <ObligationsByAwardTypeTooltip awardTypes={inner} />
-            </div>
-        </>
+        <TooltipWrapper
+            className="obligations-by-award-type__tooltip-wrapper"
+            tooltipComponent={(
+                <ObligationsByAwardTypeTooltip awardTypes={inner} fiscalYear={fiscalYear} />)}>
+            <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
+        </TooltipWrapper>
     );
 }
 

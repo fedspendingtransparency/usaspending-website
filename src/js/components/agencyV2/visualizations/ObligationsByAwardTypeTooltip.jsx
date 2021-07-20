@@ -10,7 +10,8 @@ import { Table } from 'data-transparency-ui';
 import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    awardTypes: PropTypes.array
+    awardTypes: PropTypes.array,
+    fiscalYear: PropTypes.number
 };
 
 const columns = [
@@ -30,7 +31,7 @@ const columns = [
     }
 ];
 
-export default function ObligationsByAwardTypeTooltip({ awardTypes }) {
+const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear }) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
     const rows = awardTypes.map((type) => ([
         (
@@ -51,11 +52,19 @@ export default function ObligationsByAwardTypeTooltip({ awardTypes }) {
         '100%'
     ]);
     return (
-        <Table
-            classNames="obligations-by-award-type__table"
-            columns={columns}
-            rows={rows} />
+        <div className="award-type-tooltip">
+            <div className="tooltip__title">
+                FY {fiscalYear}
+            </div>
+            <div className="tooltip__text">
+                <Table
+                    classNames="award-type-tooltip__table"
+                    columns={columns}
+                    rows={rows} />
+            </div>
+        </div>
     );
-}
+};
 
 ObligationsByAwardTypeTooltip.propTypes = propTypes;
+export default ObligationsByAwardTypeTooltip;

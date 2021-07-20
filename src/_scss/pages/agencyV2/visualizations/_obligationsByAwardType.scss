@@ -1,4 +1,4 @@
-.obligations-by-award-type {
+.obligations-by-award-type__chart {
     text.obligations-by-award-type__label {
         font-size: 1.2rem;
         fill: $color-gray;
@@ -7,25 +7,52 @@
 }
 
 // Tooltip
-.obligations-by-award-type__table {
-    .table-header__content {
-        padding: rem(5) rem(6);
+.obligations-by-award-type__tooltip-wrapper {
+    width: 100%;
+    height: 100%;
+    >div {
+        width: 100%;
+        height: 100%;
+        .tooltip__hover-wrapper {
+            width: 100%;
+            height: 100%;
+        }
     }
-    .usda-table__row {
-        .usda-table__cell {
-            padding: rem(4) rem(6);
-            &:first-child {
-                >div {
-                    @include display(flex);
-                    @include align-items(center);
-                }
+}
+
+.award-type-tooltip {
+    position: relative;
+    z-index: 15;
+    .award-type-tooltip__table {
+        .table-header__content {
+            padding: rem(5) rem(6);
+        }
+        .usda-table__head {
+            .table-header {
+                border: 0;
             }
         }
-        &:last-child {
-            border-top: solid 1px $color-gray-light;
+        .usda-table__body {
+            border: 0;
+        }
+        .usda-table__row {
             .usda-table__cell {
-                font-weight: $font-semibold;
-                padding-top: rem(8);
+                border: 0;
+                padding: rem(4) rem(6);
+                &:first-child {
+                    >div {
+                        @include display(flex);
+                        @include align-items(center);
+                    }
+                }
+            }
+            &:last-child {
+                margin-top: rem(5);
+                border-top: solid 1px $color-gray-lighter;
+                .usda-table__cell {
+                    font-weight: $font-semibold;
+                    padding-top: rem(8);
+                }
             }
         }
     }
