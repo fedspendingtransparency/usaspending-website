@@ -29,6 +29,7 @@
         // require 4 spaces in JSX as well
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
+        "linebreak-style": ["error", "windows"],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
         // downgrading to warning when using props purely within componentWillReceiveProps

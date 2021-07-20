@@ -1,28 +1,30 @@
-// import React from 'react';
-// import GlossaryDefinition from 'components/glossary/definition/GlossaryDefinition';
-// import { render, screen } from '@test-utils';
-// import { defaultState } from '../../../testResources/defaultReduxFilters';
+import React from 'react';
+import GlossaryDefinition from 'components/glossary/definition/GlossaryDefinition';
+import { fromJS } from 'immutable';
+import { shallow } from 'enzyme';
 
-// describe('GlossaryDefinition', () => {
-//     // jest.setTimeout(20000);
-//     it(`should update state for active tab if new entry doesn't have an Official Def`, (done) => {
-//         // const completeIncrement = jest.fn();
-//         const test = shallow(<GlossaryDefinition
+describe('GlossaryDefinition', () => {
+    // jest.setTimeout(20000);
+    it(`should update state for active tab if new entry doesn't have an Official Def`, () => {
+        const entry1 = {
+            term: fromJS({
+                slug: 'slug 1',
+                official: 'official 1'
+            })
+        };
+        const entry2 = {
+            term: fromJS({
+                slug: 'slug 2',
+                plain: 'plain 2'
+            })
+        };
+        const test = shallow(<GlossaryDefinition glossary={entry1} />);
+        const testState = test.state;
 
-//             total={reallyBigNumber}
-//             isLoading={false}
-//             completeIncrement={completeIncrement} />,
+        console.log(JSON.stringify(testState));
 
-//             { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
-//             );
-
-//         expect(screen.queryByText('$0.00')).toBeTruthy();
-//         setTimeout(() => {
-//             expect(screen.queryByText('$0.00')).toBeFalsy();
-//         }, 1000); // 1 second
-//         setTimeout(() => {
-//             expect(screen.queryByText('$1.00 trillion')).toBeTruthy();
-//             done();
-//         }, 6500); // 1 second
-//     });
-// });
+        expect(testState.tab === 'official');
+        test.setState(entry2);
+        expect(testState.tab === 'plainf');
+    });
+});
