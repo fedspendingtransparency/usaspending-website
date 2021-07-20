@@ -11,7 +11,8 @@ import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awardTypes: PropTypes.array,
-    fiscalYear: PropTypes.number
+    fiscalYear: PropTypes.number,
+    activeType: PropTypes.string
 };
 
 const columns = [
@@ -31,20 +32,31 @@ const columns = [
     }
 ];
 
-const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear }) => {
+const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType }) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
-    const rows = awardTypes.map((type) => ([
-        (
-            <div>
-                <svg height="12" width="18">
-                    <circle cx="6" cy="6" r="6" fill={type.color} />
-                </svg>
-                {type.label}
-            </div>
-        ),
-        formatMoney(type.value),
-        calculatePercentage(type.value, _awardObligations)
-    ]));
+    const rows = awardTypes.map((type) => {
+        const activeClass = `award-type-tooltip__table-data${type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
+        return [
+            (
+                <div className={activeClass}>
+                    <svg height="12" width="18">
+                        <circle cx="6" cy="6" r="6" fill={type.color} />
+                    </svg>
+                    {type.label}
+                </div>
+            ),
+            (
+                <div className={activeClass}>
+                    {formatMoney(type.value)}
+                </div>
+            ),
+            (
+                <div className={activeClass}>
+                    {calculatePercentage(type.value, _awardObligations)}
+                </div>
+            )
+        ];
+    });
     // Add the "Totals" row
     rows.push([
         'Total',

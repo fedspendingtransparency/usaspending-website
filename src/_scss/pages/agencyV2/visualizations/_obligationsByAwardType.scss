@@ -45,6 +45,11 @@
                         @include align-items(center);
                     }
                 }
+                .award-type-tooltip__table-data {
+                    &.award-type-tooltip__table-data_active {
+                        font-weight: $font-semibold;
+                    }
+                }
             }
             &:last-child {
                 margin-top: rem(5);

@@ -36,6 +36,7 @@ export default function ObligationsByAwardType({
 }) {
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
+    const [activeType, setActiveType] = useState(null);
     const chartRef = useRef();
 
     useEffect(() => {
@@ -62,8 +63,9 @@ export default function ObligationsByAwardType({
 
     const outerData = outer.map((d) => d.value);
     const outerPie = d3.pie().sortValues(null)(outerData);
-    const innerData = inner.map((d) => d.value);
-    const innerPie = d3.pie().sortValues(null)(innerData);
+    const innerPie = d3.pie()
+        .value((d) => d.value)
+        .sortValues(null)(inner);
 
     // rotate chart so midpoints are 127deg off vertical
     const rotationAxis = 127;
@@ -89,7 +91,12 @@ export default function ObligationsByAwardType({
             .outerRadius(innerRadius)
             .innerRadius(innerRadius / 2)
         )
-        .attr('fill', (d, i) => inner[i].color);
+        .attr('fill', (d, i) => inner[i].color)
+        .on("mouseenter", (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        })
+        .on("mouseleave", () => setActiveType(null));
 
     // border between categories
     const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
@@ -160,7 +167,16 @@ export default function ObligationsByAwardType({
         <TooltipWrapper
             className="obligations-by-award-type__tooltip-wrapper"
             tooltipComponent={(
-                <ObligationsByAwardTypeTooltip awardTypes={inner} fiscalYear={fiscalYear} />)}>
+                <ObligationsByAwardTypeTooltip
+                    awardTypes={inner}
+                    fiscalYear={fiscalYear}
+                    activeType={activeType} />)}
+            controlledProps={{
+                isControlled: true,
+                isVisible: !!activeType,
+                showTooltip: () => {},
+                closeTooltip: () => {}
+            }}>
             <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
         </TooltipWrapper>
     );
