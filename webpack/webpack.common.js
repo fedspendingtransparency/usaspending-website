@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -12,9 +13,11 @@ console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
     entry: {
-        app: "./index.js"
+        app: ['react-hot-loader/patch', "./index.js"]
     },
     output: {
         // https://webpack.js.org/guides/caching/
@@ -34,28 +37,6 @@ module.exports = {
     },
     optimization: {
         moduleIds: 'deterministic'
-        // splitChunks: {
-        //     cacheGroups: {
-        //         default: false,
-        //         vendors: false,
-        //         // all imported code from node_modules is a single file
-        //         vendor: {
-        //             test: /[\\/]node_modules[\\/]/,
-        //             name: 'vendors',
-        //             chunks: 'all',
-        //             priority: 20
-        //         },
-        //         // code shared between at least 2 modules, is put into a common chunk file
-        //         common: {
-        //             name: 'common',
-        //             minChunks: 2,
-        //             chunks: 'all',
-        //             priority: 10,
-        //             reuseExistingChunk: true,
-        //             enforce: true
-        //         }
-        //     }
-        // }
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -63,7 +44,12 @@ module.exports = {
             {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules\.*/,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                options: {
+                    plugins: [
+                        isDevelopment && require.resolve('react-refresh/babel')
+                    ].filter(Boolean)
+                }
             },
             {
                 test: /\.(scss|css)$/,
@@ -140,6 +126,8 @@ module.exports = {
                     ? JSON.stringify(process.env.ENV)
                     : JSON.stringify('qat')
             }
-        })
-    ]
+        }),
+        isDevelopment && new webpack.HotModuleReplacementPlugin(),
+        isDevelopment && new ReactRefreshWebpackPlugin()
+    ].filter(Boolean)
 };

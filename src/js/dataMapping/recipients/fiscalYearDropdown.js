@@ -6,8 +6,8 @@
 import moment from 'moment';
 import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper";
 
-const earliestFY = moment(`10-01-${earliestFiscalYear}`);
-const currentFY = moment(`10-01-${currentFiscalYear()}`);
+const earliestFY = moment(`10-01-${earliestFiscalYear}`, "MM-DD-YYYY");
+const currentFY = moment(`10-01-${currentFiscalYear()}`, "MM-DD-YYYY");
 const dropdownLabels = ['Trailing 12 Months', 'All Fiscal Years'];
 
 // eslint-disable-next-line import/prefer-default-export

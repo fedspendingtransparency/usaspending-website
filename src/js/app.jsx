@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { hot } from "react-hot-loader";
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
 
@@ -20,4 +19,4 @@ const App = render(
     appDiv
 );
 
-export default hot(module)(App);
+export default App;

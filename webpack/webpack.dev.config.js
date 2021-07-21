@@ -7,11 +7,6 @@ const common = require('./webpack.common');
 module.exports = merge(common, {
     mode: "development",
     devtool: "eval",
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'all'
-    //     }
-    // },
     devServer: {
         contentBase: path.resolve(__dirname, "public"),
         host: "0.0.0.0", // this allows VMs to access the server
@@ -55,7 +50,7 @@ module.exports = merge(common, {
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
                     : JSON.stringify("")
             }
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        })
+        // new webpack.HotModuleReplacementPlugin()
     ]
 });

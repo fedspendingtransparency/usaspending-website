@@ -93,11 +93,15 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
                     setAwardObligations(res.data.obligation);
                     setAwardOutlays(res.data.outlay);
                     setNumberOfAwards(res.data.award_count);
+                }).catch((e) => {
+                    console.log(' Error in awardAmountRequest : ', e);
                 });
         }
         recipientCountRequest.current.promise
             .then((res) => {
                 setNumberOfRecipients(res.data.count);
+            }).catch((e) => {
+                console.log(' Error in recipientCountRequest : ', e);
             });
     }, [activeFilter, Object.keys(allAwardTypeTotals).length]);
 
