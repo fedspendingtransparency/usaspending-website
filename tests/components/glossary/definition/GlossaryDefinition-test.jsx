@@ -9,22 +9,18 @@ describe('GlossaryDefinition', () => {
         const entry1 = {
             term: fromJS({
                 slug: 'slug 1',
-                official: 'official 1'
+                plain: 'plain 1'
             })
         };
         const entry2 = {
             term: fromJS({
                 slug: 'slug 2',
-                plain: 'plain 2'
+                official: 'official 2'
             })
         };
         const test = shallow(<GlossaryDefinition glossary={entry1} />);
-        const testState = test.state;
-
-        console.log(JSON.stringify(testState));
-
-        expect(testState.tab === 'official');
+        expect(test.state().tab).toBe('plain');
         test.setState(entry2);
-        expect(testState.tab === 'plainf');
+        expect(test.state().tab).toBe('official');
     });
 });
