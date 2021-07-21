@@ -13,9 +13,10 @@
     @include display(flex);
     @include justify-content(center);
     text-align: center;
-    font-size: rem(16);
+    font-size: $base-font-size; // 16px
+    line-height: $base-line-height; // 24px
     margin: 0;
-    padding: 0;
+    padding: rem(14) 0;
     color: #717171;
     text-transform: uppercase;
 
@@ -25,7 +26,8 @@
       @include flex(1 0 0);
       height: 2px;
       position: relative;
-      top: rem(26);
+      top: calc(#{rem(24)} / 2); // calc the $base-line-height (24px) divided by 2
+      min-width: rem(32); // min-width to show lines on mobile in case title wraps
     }
 
     &::before {
