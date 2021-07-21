@@ -31,7 +31,6 @@ const RecipientDistribution = ({
         .domain([data['25th_percentile'], data.max])
         .range([0, height - 10]);
 
-    console.log(yScale(data?.["75th_percentile"]));
     useEffect(() => {
         if (data) {
             setLineData(
