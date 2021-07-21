@@ -3,15 +3,16 @@
  * Created by Lizzie Salita 7/1/21
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { LoadingMessage, ErrorMessage, ComingSoon } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchRecipientDistribution } from 'apis/agencyV2';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import { setAgencyRecipients, resetAgencyRecipients } from 'redux/actions/agencyV2/agencyV2Actions';
+import RecipientDistribution from 'components/agencyV2/visualizations/RecipientDistribution';
 
 const propTypes = {
     fiscalYear: PropTypes.string.isRequired
@@ -23,6 +24,7 @@ const RecipientDistributionContainer = ({ fiscalYear }) => {
     const request = React.useRef(null);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
     const dispatch = useDispatch();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         if (request.current) {
@@ -49,6 +51,7 @@ const RecipientDistributionContainer = ({ fiscalYear }) => {
             .then((res) => {
                 const recipientDistribution = Object.create(BaseAgencyRecipients);
                 recipientDistribution.populate(res.data);
+                setData(res.data);
                 dispatch(setAgencyRecipients(recipientDistribution));
                 setLoading(false);
                 request.current = null;
@@ -70,13 +73,13 @@ const RecipientDistributionContainer = ({ fiscalYear }) => {
     }, [fiscalYear, toptierCode]);
 
     return (
-        <>
+        <div className="recipient-distribution-visualization-container">
             {loading && <LoadingMessage />}
             {error && <ErrorMessage />}
             {!loading && !error && (
-                <ComingSoon />
+                <RecipientDistribution data={data} />
             )}
-        </>
+        </div>
     );
 };
 
