@@ -1,9 +1,8 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -18,41 +17,46 @@ module.exports = merge(common, {
     },
     optimization: {
         minimizer: [
-            new TerserPlugin({
-                cache: true,
-                parallel: true
-            }),
-            new OptimizeCssAssetsPlugin({})
-        ],
-        runtimeChunk: "single",
-        splitChunks: {
-            chunks: "all",
-            cacheGroups: {
-                styles: {
-                    // all css in one file -- https://github.com/webpack-contrib/mini-css-extract-plugin
-                    name: "styles",
-                    test: /\.css$/,
-                    chunks: "all",
-                    enforce: true
-                }
-            }
-        }
+            // new TerserPlugin({
+            //     cache: true,
+            //     parallel: true
+            // }),
+            new TerserPlugin(),
+            new CssMinimizerPlugin()
+        ]
+        // runtimeChunk: "single",
+        // splitChunks: {
+        //     chunks: "all",
+        //     cacheGroups: {
+        //         styles: {
+        //             // all css in one file -- https://github.com/webpack-contrib/mini-css-extract-plugin
+        //             name: "styles",
+        //             test: /\.css$/,
+        //             chunks: "all",
+        //             enforce: true
+        //         }
+        //     }
+        // }
     },
     module: {
         rules: [
+            // {
+            //     test: /\.scss$/,
+            //     use: [
+            //         { loader: MiniCssExtractPlugin.loader },
+            //         { loader: "css-loader", options: { url: false, sourceMap: false } },
+            //         {
+            //             loader: "sass-loader",
+            //             options: {
+            //                 sourceMap: false,
+            //                 includePaths: ["./src/_scss", "./node_modules"]
+            //             }
+            //         }
+            //     ]
+            // }
             {
-                test: /\.scss$/,
-                use: [
-                    { loader: MiniCssExtractPlugin.loader },
-                    { loader: "css-loader", options: { url: false, sourceMap: false } },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: false,
-                            includePaths: ["./src/_scss", "./node_modules"]
-                        }
-                    }
-                ]
+                test: /\.(scss|css)$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
             }
         ]
     },
