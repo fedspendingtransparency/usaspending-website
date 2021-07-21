@@ -61,8 +61,9 @@ export default function ObligationsByAwardType({
         .append('g')
         .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
 
-    const outerData = outer.map((d) => d.value);
-    const outerPie = d3.pie().sortValues(null)(outerData);
+    const outerPie = d3.pie()
+        .value((d) => d.value)
+        .sortValues(null)(outer);
     const innerPie = d3.pie()
         .value((d) => d.value)
         .sortValues(null)(inner);
@@ -70,7 +71,7 @@ export default function ObligationsByAwardType({
     // rotate chart so midpoints are 127deg off vertical
     const rotationAxis = 127;
     const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90); // rad => deg
-    const chart = svg.append('g').attr('transform', `rotate (${rotation})`);
+    const chart = svg.append('g').attr('transform', `rotate (${rotation})`).attr('class', 'obligations-by-award-type__donut');
 
     // outer ring.
     chart.selectAll()
@@ -80,7 +81,8 @@ export default function ObligationsByAwardType({
         .attr('d', d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
-        .attr('fill', (d, i) => outer[i].color);
+        .attr('fill', (d, i) => outer[i].color)
+        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`);
 
     // inner ring
     chart.selectAll()
@@ -92,11 +94,12 @@ export default function ObligationsByAwardType({
             .innerRadius(innerRadius / 2)
         )
         .attr('fill', (d, i) => inner[i].color)
-        .on("mouseenter", (d) => {
+        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+        .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
-        .on("mouseleave", () => setActiveType(null));
+        .on('mouseleave', () => setActiveType(null));
 
     // border between categories
     const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
@@ -165,7 +168,7 @@ export default function ObligationsByAwardType({
 
     return (
         <TooltipWrapper
-            className="obligations-by-award-type__tooltip-wrapper"
+            className="obligations-by-award-type"
             tooltipComponent={(
                 <ObligationsByAwardTypeTooltip
                     awardTypes={inner}
