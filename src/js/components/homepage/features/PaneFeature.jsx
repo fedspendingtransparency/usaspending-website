@@ -28,12 +28,10 @@ const PaneFeature = () => {
                 <h2 className="feature-pane__title">OTHER DATA ACT CONTENT</h2>
                 <div className="feature-pane__content-wrapper">
                     <div className="feature-pane__content feature-pane__content-fiscal-data">
-                        <div>
-                            <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
-                            <p className="feature-pane_content-text">
-                                Fiscal Data is a new site featuring federal financial data in machine-readable formats with comprehensive metadata. Explore and download the data today!
-                            </p>
-                        </div>
+                        <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
+                        <p className="feature-pane_content-text">
+                            Fiscal Data is a new site featuring federal financial data in machine-readable formats with comprehensive metadata. Explore and download the data today!
+                        </p>
                         <div className="feature-pane__button-wrapper">
                             <a
                                 href="https://FiscalData.Treasury.gov"
@@ -45,15 +43,14 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-                    <div className="feature-pane__content-divider" />
-                    <hr className="feature-pane__mobile-content-divider" />
+                    
+                    {/* <div className="feature-pane__content-divider" /> */}
+                    {/* <hr className="feature-pane__mobile-content-divider" /> */}
 
                     <div className="feature-pane__content feature-pane__content-covid">
-                        <div className="covid-announcement-text-box">
-                            <p className="feature-pane__content-title">
-                                The Federal Response to COVID-19
-                            </p>
-                        </div>
+                        <h3 className="feature-pane__content-title feature-pane__content-title-transparent-bg">
+                            The Federal Response to COVID-19
+                        </h3>
                         <div className="feature-pane__button-wrapper">
                             <a
                                 href="https://datalab.usaspending.gov/federal-covid-funding/"
@@ -67,34 +64,32 @@ const PaneFeature = () => {
                         </div>
                     </div>
 
-                    <div className="feature-pane__content feature-pane__content-middle__sub">
-                        <div>
-                            <div id="feature-pane__content-header__middle">
-                                Updated for FY 2019
-                            </div>
-                            <h3 className="feature-pane__content-title" id="feature-pane__content-title__middle">
-                                Your Guide to America’s Finances
-                            </h3>
-                            <p className="feature-pane_content-text">
-                                Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
-                                deficit, and debt, along with data for download.
-                                Click below to visit our partner site.
-                            </p>
-                        </div>
+                    <div className="feature-pane__content feature-pane__content-finances-guide">
+                        <p className="feature-pane__content-overline">
+                            Updated for FY 2019
+                        </p>
+                        <h3 className="feature-pane__content-title">
+                            Your Guide to America’s Finances
+                        </h3>
+                        <p className="feature-pane_content-text">
+                            Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
+                            deficit, and debt, along with data for download.
+                            Click below to visit our partner site.
+                        </p>
                         <div className="feature-pane__button-wrapper">
                             <a
                                 href="https://datalab.usaspending.gov/americas-finance-guide/"
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button">
+                                className="feature-pane__button white">
                                 Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
                     </div>
 
-                    <hr className="feature-pane__mobile-content-divider" />
-                    <div className="feature-pane__content-divider" />
+                    {/* <hr className="feature-pane__mobile-content-divider" /> */}
+                    {/* <div className="feature-pane__content-divider" /> */}
 
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
@@ -105,7 +100,7 @@ const PaneFeature = () => {
                             <button
                                 onClick={onRedirectModalClick}
                                 value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                                className="feature-pane__button feature-pane__button-redirect-modal">
+                                className="feature-pane__button white">
                                 Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </button>
                         </div>
