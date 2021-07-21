@@ -6,7 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setInitialAppLoadForDAP } from 'redux/actions/googleAnalytics/googleAnalytics';
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 import {
@@ -37,7 +39,11 @@ const MetaTags = ({
     og_site_name: siteName,
     og_image: image
 }) => {
+    const dispatch = useDispatch();
+
     const { pathname } = useLocation();
+
+    const { isInitialApplicationLoadForDAPGoogleAnalytics } = useSelector((state) => state.googleAnalytics);
 
     const [tags, setTags] = useState([]);
 
@@ -101,7 +107,10 @@ const MetaTags = ({
     useEffect(() => {
         generateTags();
         if (isCustomPageTitleDefined(title)) {
-            Analytics.pageview(pathname, title);
+            if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setInitialAppLoadForDAP());
+            // sendDAPPageviewEvent will be valid only once, and only the first time we hit this code
+            const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
+            Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
     }, [title]);
 
