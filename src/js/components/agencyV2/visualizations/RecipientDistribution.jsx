@@ -27,23 +27,25 @@ const RecipientDistribution = ({
         width: 0,
         height: 0
     });
-    const yScale = scaleLinear()
-        .domain([data['25th_percentile'], data.max])
-        .range([0, height - 10]);
 
     useEffect(() => {
+        const yScale = scaleLinear()
+            .domain([0, data.max])
+            .range([0, height]);
+
         if (data) {
             setLineData(
                 {
-                    y2: height
+                    y2: yScale(data.max)
                 }
             );
+            const boxScale = yScale(data['75th_percentile']) - yScale(data['25th_percentile']);
             setRectangleData(
                 {
                     x: 0,
-                    y: ((height - yScale(data['75th_percentile'])) / height) + 20,
+                    y: height - yScale(data['25th_percentile']) - (boxScale < 1 ? 1 : boxScale),
                     width: 72,
-                    height: (height - yScale(data['75th_percentile'] - data['25th_percentile'])) - 30
+                    height: boxScale < 1 ? 1 : boxScale
                 }
             );
         }
@@ -66,17 +68,17 @@ const RecipientDistribution = ({
                     tabIndex="0"
                     className="i-beam-line"
                     x1={0}
-                    x2={72}
-                    y1={lineData.y2 - 1}
-                    y2={lineData.y2 - 1} />
+                    x2={width}
+                    y1={lineData.y2}
+                    y2={lineData.y2} />
                 <line // upper tick representing max
                     tabIndex="0"
                     className="i-beam-line"
                     x1={0}
-                    x2={72}
-                    y1={1}
-                    y2={1} />
-                <rect
+                    x2={width}
+                    y1={0}
+                    y2={0} />
+                <rect // shaded box representing 25th percentile -> 75th percentile
                     className="shaded-box"
                     x={rectangleData.x}
                     y={rectangleData.y}
