@@ -10,7 +10,7 @@
         "test": "npx jest; exit 0;",
         "lint": "npx eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
         "errors": "npx eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
-        "dev": "npx webpack --progress --config ./webpack/webpack.prod.config.js",
+        "dev": "npx webpack --progress --config ./webpack/webpack.dev.config.js",
         "prod": "npx webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "npm audit --audit-level=moderate --production && npx eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && npx jest --runInBand;",
         "lhci:wizard": "lhci wizard",
