@@ -169,6 +169,10 @@ export default function ObligationsByAwardType({
     return (
         <TooltipWrapper
             className="obligations-by-award-type"
+            offsetAdjustments={{
+                top: 40,
+                left: -50
+            }}
             tooltipComponent={(
                 <ObligationsByAwardTypeTooltip
                     awardTypes={inner}

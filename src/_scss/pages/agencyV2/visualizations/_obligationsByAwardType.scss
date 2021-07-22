@@ -10,6 +10,9 @@
             height: 100%;
         }
     }
+    .tooltip-pointer {
+        left: rem(-16);
+    }
     .obligations-by-award-type__chart {
         text.obligations-by-award-type__label {
             font-size: 1.2rem;
