@@ -25,14 +25,16 @@ const propTypes = {
         })
     ).isRequired,
     windowWidth: PropTypes.number.isRequired,
-    fiscalYear: PropTypes.number
+    fiscalYear: PropTypes.number,
+    isMobile: PropTypes.bool
 };
 
 export default function ObligationsByAwardType({
     outer,
     inner,
     windowWidth,
-    fiscalYear
+    fiscalYear,
+    isMobile
 }) {
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
@@ -93,7 +95,7 @@ export default function ObligationsByAwardType({
             .outerRadius(innerRadius)
             .innerRadius(innerRadius / 2)
         )
-        .attr('fill', (d, i) => inner[i].color)
+        .attr('fill', (d, i) => ((activeType && activeType !== inner[i].label) ? inner[i].fadedColor : inner[i].color))
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
@@ -169,10 +171,7 @@ export default function ObligationsByAwardType({
     return (
         <TooltipWrapper
             className="obligations-by-award-type"
-            offsetAdjustments={{
-                top: 40,
-                left: -50
-            }}
+            tooltipPosition="bottom"
             tooltipComponent={(
                 <ObligationsByAwardTypeTooltip
                     awardTypes={inner}
@@ -180,7 +179,7 @@ export default function ObligationsByAwardType({
                     activeType={activeType} />)}
             controlledProps={{
                 isControlled: true,
-                isVisible: !!activeType,
+                isVisible: activeType && !isMobile,
                 showTooltip: () => {},
                 closeTooltip: () => {}
             }}>

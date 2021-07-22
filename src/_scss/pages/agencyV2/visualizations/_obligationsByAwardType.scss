@@ -11,7 +11,7 @@
         }
     }
     .tooltip-pointer {
-        left: rem(-16);
+        top: rem(-16);
     }
     .obligations-by-award-type__chart {
         text.obligations-by-award-type__label {
@@ -20,8 +20,10 @@
             font-weight: $font-semibold;
         }
         .obligations-by-award-type__donut {
-            &:hover {
-                cursor: pointer;
+            @include media($medium-screen) {
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
