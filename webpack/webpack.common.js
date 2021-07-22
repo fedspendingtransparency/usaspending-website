@@ -41,6 +41,7 @@ module.exports = {
     optimization: {
         moduleIds: 'deterministic'
     },
+    target: ['web', 'es5'],
     module: {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
@@ -54,13 +55,6 @@ module.exports = {
                     ].filter(Boolean)
                 }
             },
-            // {
-            //     test: /\.(scss|css)$/,
-            //     use: [
-            //         isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-            //         'css-loader'
-            //     ]
-            // },
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
