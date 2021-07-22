@@ -59,7 +59,6 @@ export const useLatestAccountData = () => {
 
         return () => {
             if (request.current) {
-                console.info('cancelling request, fetchAllSubmissionDates');
                 request.current.cancel();
             }
         };

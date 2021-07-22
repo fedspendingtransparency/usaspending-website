@@ -15,7 +15,7 @@
                 margin-bottom: 0;
             }
         }
-        @import "./components/_comingSoon";
+        @import "components/_comingSoon";
         @include comingSoon;
         .coming-soon {
             .coming-soon-container {

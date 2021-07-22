@@ -6,7 +6,7 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: "development",
-    devtool: "eval",
+    devtool: "inline-source-map",
     devServer: {
         contentBase: path.resolve(__dirname, "public"),
         host: "0.0.0.0", // this allows VMs to access the server
@@ -19,6 +19,23 @@ module.exports = merge(common, {
     },
     module: {
         rules: [
+            {
+                test: /\.(scss|css)$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { url: false, sourceMap: true } },
+                    'postcss-loader',
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                            sassOptions: {
+                                includePaths: ["./src/_scss", "./node_modules"]
+                            }
+                        }
+                    }
+                ]
+            }
             // {
             //     test: /\.scss$/,
             //     use: [
@@ -41,16 +58,16 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                USASPENDING_API: process.env.USASPENDING_API
-                    ? JSON.stringify(process.env.USASPENDING_API)
-                    : JSON.stringify("https://api.usaspending.gov/api/"),
-                MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
-                    ? JSON.stringify(process.env.MAPBOX_TOKEN)
-                    : JSON.stringify("")
-            }
-        })
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         USASPENDING_API: process.env.USASPENDING_API
+        //             ? JSON.stringify(process.env.USASPENDING_API)
+        //             : JSON.stringify("https://api.usaspending.gov/api/"),
+        //         MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+        //             ? JSON.stringify(process.env.MAPBOX_TOKEN)
+        //             : JSON.stringify("")
+        //     }
+        // })
         // new webpack.HotModuleReplacementPlugin()
     ]
 });

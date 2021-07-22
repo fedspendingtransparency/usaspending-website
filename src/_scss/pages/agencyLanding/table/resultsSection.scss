@@ -1,8 +1,7 @@
-@mixin resultsSection {
     .agency-landing-results {
         transition: opacity 0.25s ease;
 
-        // @import './table';
+        @import './table';
 
         .loading-table {
             opacity: 0.5;
@@ -30,4 +29,3 @@
             }
         }
     }
-}

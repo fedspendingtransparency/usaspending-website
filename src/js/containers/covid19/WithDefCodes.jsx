@@ -38,7 +38,6 @@ export const useDefCodes = () => {
         }
         return () => {
             if (request.current) {
-                console.info('cancelling request, fetchDEFCodes');
                 request.current.cancel();
             }
         };

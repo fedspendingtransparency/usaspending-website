@@ -5,7 +5,6 @@
     @import "pages/accountLanding/searchSection";
     @import './table/resultsSection';
 
-    @include resultsSection;
     .results-count {
         font-style: italic;
         padding: rem(20) 0;

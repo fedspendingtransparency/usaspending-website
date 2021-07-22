@@ -14,7 +14,9 @@ console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
 const isDevelopment = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
-
+console.log(' ProcessENV : ', process.env);
+console.log(' ProcessENV.NodeEnv : ', process.env.NODE_ENV);
+console.log(' ProcessENV.ENV : ', process.env.ENV);
 module.exports = {
     entry: {
         app: ['react-hot-loader/patch', "./index.js"]
@@ -51,23 +53,13 @@ module.exports = {
                     ].filter(Boolean)
                 }
             },
-            {
-                test: /\.(scss|css)$/,
-                use: [
-                    'style-loader',
-                    { loader: 'css-loader', options: { url: false, sourceMap: true } },
-                    'postcss-loader',
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: true,
-                            sassOptions: {
-                                includePaths: ["./src/_scss", "./node_modules"]
-                            }
-                        }
-                    }
-                ]
-            },
+            // {
+            //     test: /\.(scss|css)$/,
+            //     use: [
+            //         isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            //         'css-loader'
+            //     ]
+            // },
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
@@ -122,11 +114,24 @@ module.exports = {
         // ]),
         new webpack.DefinePlugin({
             'process.env': {
+                USASPENDING_API: process.env.USASPENDING_API
+                    ? JSON.stringify(process.env.USASPENDING_API)
+                    : JSON.stringify("https://api.usaspending.gov/api/"),
+                MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+                    ? JSON.stringify(process.env.MAPBOX_TOKEN)
+                    : JSON.stringify(""),
                 ENV: process.env.ENV
                     ? JSON.stringify(process.env.ENV)
                     : JSON.stringify('qat')
             }
         }),
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         ENV: process.env.ENV
+        //             ? JSON.stringify(process.env.ENV)
+        //             : JSON.stringify('qat')
+        //     }
+        // }),
         isDevelopment && new webpack.HotModuleReplacementPlugin(),
         isDevelopment && new ReactRefreshWebpackPlugin()
     ].filter(Boolean)

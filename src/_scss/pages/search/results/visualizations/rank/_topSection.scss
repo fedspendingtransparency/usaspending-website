@@ -27,7 +27,7 @@
             @include flex(0 0 auto);
         }
         .coming-soon {
-            @import "./components/_comingSoon";
+            @import "components/_comingSoon";
             @include comingSoon;
             .visualization-scope__button {
                 color: $color-gray-lighter;
