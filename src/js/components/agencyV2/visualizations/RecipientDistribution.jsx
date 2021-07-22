@@ -16,7 +16,7 @@ const propTypes = {
 const RecipientDistribution = ({
     height = 179,
     width = 72,
-    data = []
+    data
 }) => {
     const [lineData, setLineData] = useState({
         y2: 0
@@ -30,20 +30,19 @@ const RecipientDistribution = ({
 
     useEffect(() => {
         const yScale = scaleLinear()
-            .domain([0, data.max])
+            .domain([0, data.maxRecipients])
             .range([0, height]);
-
         if (data) {
             setLineData(
                 {
-                    y2: yScale(data.max)
+                    y2: yScale(data.maxRecipients)
                 }
             );
-            const boxScale = yScale(data['75th_percentile']) - yScale(data['25th_percentile']);
+            const boxScale = yScale(data.pct75) - yScale(data.pct25);
             setRectangleData(
                 {
                     x: 0,
-                    y: height - yScale(data['25th_percentile']) - (boxScale < 1 ? 1 : boxScale),
+                    y: height - yScale(data.pct25) - (boxScale < 1 ? 1 : boxScale),
                     width: 72,
                     height: boxScale < 1 ? 1 : boxScale
                 }

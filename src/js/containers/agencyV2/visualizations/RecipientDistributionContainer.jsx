@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/1/21
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,16 +15,16 @@ import { setAgencyRecipients, resetAgencyRecipients } from 'redux/actions/agency
 import RecipientDistribution from 'components/agencyV2/visualizations/RecipientDistribution';
 
 const propTypes = {
-    fiscalYear: PropTypes.string.isRequired
+    fiscalYear: PropTypes.string.isRequired,
+    data: PropTypes.object
 };
 
-const RecipientDistributionContainer = ({ fiscalYear }) => {
+const RecipientDistributionContainer = ({ fiscalYear, data }) => {
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
     const dispatch = useDispatch();
-    const [data, setData] = useState([]);
 
     useEffect(() => {
         if (request.current) {
@@ -51,7 +51,6 @@ const RecipientDistributionContainer = ({ fiscalYear }) => {
             .then((res) => {
                 const recipientDistribution = Object.create(BaseAgencyRecipients);
                 recipientDistribution.populate(res.data);
-                setData(res.data);
                 dispatch(setAgencyRecipients(recipientDistribution));
                 setLoading(false);
                 request.current = null;
