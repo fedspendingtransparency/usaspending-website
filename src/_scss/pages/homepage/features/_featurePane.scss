@@ -55,7 +55,7 @@
     margin: rem(24) 0;
     position: relative;
     width: 100%;
-    min-height: rem(240);
+    min-height: rem(216);
     @include media($medium-screen) {
       @include flex(1 1 1);
       width: 30%;
@@ -83,16 +83,6 @@
       @include media(1024px) {
         background-image: url('#{$image-path}/homepage-covid.png');
       }
-    }
-  }
-
-  .feature-pane__content-divider {
-    display: none;
-    @include media($medium-screen) {
-      display: block;
-      border-right: 1px solid $color-gray-lighter;
-      height: 202px;
-      align-self: center;
     }
   }
 
@@ -132,7 +122,7 @@
   .feature-pane__button-wrapper {
     margin-top: auto;
     background-color: transparent;
-    padding: rem(10) rem(20) rem(24) rem(20);
+    padding: rem(10) rem(20) rem(10) rem(20);
     display: flex;
     justify-content: center;
     .feature-pane__button-icon {
@@ -145,16 +135,6 @@
 
   .feature-pane__bottom-divider {
     border: 1px solid rgba(214,215,217,0.4);
-  }
-
-  .feature-pane__mobile-content-divider {
-    display: block;
-    width: 100%;
-    margin-top: rem(30);
-    border: 1px solid rgba(214,215,217,0.4);
-    @include media($medium-screen) {
-      display: none;
-    }
   }
 
   .feature-pane__button {

@@ -43,10 +43,6 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-                    
-                    {/* <div className="feature-pane__content-divider" /> */}
-                    {/* <hr className="feature-pane__mobile-content-divider" /> */}
-
                     <div className="feature-pane__content feature-pane__content-covid">
                         <h3 className="feature-pane__content-title feature-pane__content-title-transparent-bg">
                             The Federal Response to COVID-19
@@ -63,7 +59,6 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-
                     <div className="feature-pane__content feature-pane__content-finances-guide">
                         <p className="feature-pane__content-overline">
                             Updated for FY 2019
@@ -87,10 +82,6 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-
-                    {/* <hr className="feature-pane__mobile-content-divider" /> */}
-                    {/* <div className="feature-pane__content-divider" /> */}
-
                     <div className="feature-pane__content">
                         <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
                         <p className="feature-pane_content-text">
