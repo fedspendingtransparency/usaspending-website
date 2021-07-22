@@ -50,13 +50,18 @@
     @include display(flex);
     @include flex-direction(column);
     text-align: center;
-    font-size: rem(14);
-    line-height: rem(17);
+    font-size: $small-font-size; // 14
+    line-height: $base-line-height;
+    margin: rem(24) 0;
+    position: relative;
+    width: 100%;
+    min-height: rem(216);
+    background-color: $color-white;
     @include media($medium-screen) {
       @include flex(1 1 1);
       width: 30%;
     }
-    &.feature-pane__content-middle__sub {
+    &.feature-pane__content-finances-guide {
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -64,68 +69,55 @@
     }
     &.feature-pane__content-fiscal-data {
       background-size: cover;
-      margin: rem(10);
       background-position: center center;
       background-repeat: no-repeat;
       background-image: url('#{$image-path}/homepage-fiscal-data.png');
     }
     &.feature-pane__content-covid {
-      background-size: contain;
-      background-position: center center;
+      background-size: cover;
+      background-position: top center;
       background-repeat: no-repeat;
       background-image: url('#{$image-path}/homepage-covid.png');
       @include media($tablet-screen) {
-        width: 100%;
         background-image: url('#{$image-path}/homepage-covid-large.png');
       }
       @include media(1024px) {
-        width: 30%;
         background-image: url('#{$image-path}/homepage-covid.png');
       }
     }
   }
 
-  .covid-announcement-text-box {
-    margin: auto 0 rem(3) 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.75);
-    z-index: 1;
-  }
-
-  .feature-pane__content-divider {
-    display: none;
-    @include media($medium-screen) {
-      display: block;
-      border-right: 1px solid $color-gray-lighter;
-      height: 202px;
-      align-self: center;
-    }
-  }
-
-  #feature-pane__content-header__middle {
-    font-size: rem(16);
-    font-weight: bold;
+  .feature-pane__content-overline {
+    font-size: $small-font-size; // 14px
+    font-weight: $font-semibold;
     text-align: center;
-    color: $color-link;
-    line-height: 1;
-    margin-bottom: rem(20);
+    color: $color-gray;
+    line-height: $heading-line-height; // 1.2
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    text-transform: uppercase;
+    margin-top: rem(16);
   }
 
   .feature-pane__content-title {
-    font-size: rem(24);
-    font-weight: bold;
-    color: #5B616B;
-    line-height: 1;
-    margin-top: rem(35);
+    font-size: $h5-font-size; // 24px
+    font-weight: $font-bold;
+    color: $color-gray;
+    line-height: $heading-line-height; // 1.2
+    margin-top: rem(24);
+    padding: rem(16) rem(8);
+    margin-bottom: 0;
   }
 
-  #feature-pane__content-title__middle {
-    margin-top: 0;
+  .feature-pane__content-title-transparent-bg {
+    background-color: rgba(255, 255, 255, 0.75);
   }
 
   .feature-pane_content-text {
     min-height: rem(50);
     padding: 0 rem(10);
+    margin-top: 0;
   }
 
   .feature-pane__button-wrapper {
@@ -134,9 +126,6 @@
     padding: rem(10) rem(20) rem(10) rem(20);
     display: flex;
     justify-content: center;
-    .feature-pane__button-redirect-modal {
-      margin: 0;
-    }
     .feature-pane__button-icon {
       padding-left: rem(5);
     }
@@ -149,16 +138,6 @@
     border: 1px solid rgba(214,215,217,0.4);
   }
 
-  .feature-pane__mobile-content-divider {
-    display: block;
-    width: 100%;
-    margin-top: rem(30);
-    border: 1px solid rgba(214,215,217,0.4);
-    @include media($medium-screen) {
-      display: none;
-    }
-  }
-
   .feature-pane__button {
     color: #0071BC;
     background-color: transparent;
@@ -166,6 +145,9 @@
     text-decoration: none;
     font-weight: 600;
     padding: rem(10) rem(20) rem(10) rem(20);
+    margin: 0;
+    // keep line-height consistent if either <a/> or <button/> element
+    line-height: $base-line-height;
     &:hover {
       color: #ffffff;
       background-color: #0071bc;
