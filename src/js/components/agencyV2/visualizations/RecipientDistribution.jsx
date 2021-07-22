@@ -29,10 +29,10 @@ const RecipientDistribution = ({
     });
 
     useEffect(() => {
-        const yScale = scaleLinear()
-            .domain([0, data.maxRecipients])
-            .range([0, height]);
         if (data) {
+            const yScale = scaleLinear()
+                .domain([0, data.maxRecipients])
+                .range([0, height]);
             setLineData(
                 {
                     y2: yScale(data.maxRecipients)

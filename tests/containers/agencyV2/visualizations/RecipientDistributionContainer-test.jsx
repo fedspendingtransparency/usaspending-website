@@ -17,8 +17,8 @@ const mockProps = { fiscalYear: '1995' };
 export const mockAgencyRecipientDistribution = {
     count: 654321,
     total_federal_count: 1234567,
-    max: 117728237755.8,
-    min: 0.01,
+    maxRecipients: 117728237755.8,
+    minRecipients: 0.01,
     pct25: 19984,
     pct50: 75740,
     pct75: 208522
