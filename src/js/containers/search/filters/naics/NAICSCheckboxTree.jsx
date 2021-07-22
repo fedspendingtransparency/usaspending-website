@@ -385,10 +385,7 @@ export class NAICSCheckboxTree extends React.Component {
 
     showNoResults = () => {
         if (this.state.isLoading) return false;
-        return (
-            this.props.nodes.length === 0 ||
-            (this.state.isSearch && this.props.searchExpanded.length === 0)
-        );
+        return this.props.nodes.length === 0;
     }
 
     checkboxDiv(showNoResults) {
