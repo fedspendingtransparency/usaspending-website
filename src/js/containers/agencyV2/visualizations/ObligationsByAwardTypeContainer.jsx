@@ -62,45 +62,46 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                     {
                         label: ['All Financial', 'Assistance'], // line break between words
                         value: 0,
-                        color: '#C05600'
+                        color: 'rgb(192, 86, 0)',
+                        fadedColor: 'rgb(192, 86, 0, 25%)'
                     },
                     {
                         label: ['All Contracts', ''], // so each cat label array is same length
                         value: 0,
-                        color: '#545BA3'
+                        color: 'rgb(84, 91, 163)',
+                        fadedColor: 'rgb(84, 91, 163, 25%)'
                     }
                 ];
                 const details = [
-                    // TODO - updated faded colors with input from designers
                     {
                         label: 'Grants',
-                        color: '#E66F0E',
-                        fadedColor: '#FFBC78'
+                        color: 'rgb(230, 111, 14)',
+                        fadedColor: 'rgb(230, 111, 14, 25%)'
                     },
                     {
                         label: 'Loans',
-                        color: '#FFBC78',
-                        fadedColor: '#FFBC78'
+                        color: 'rgb(255, 188, 120)',
+                        fadedColor: 'rgb(255, 188, 120, 25%)'
                     },
                     {
                         label: 'Direct Payments',
-                        color: '#FA9441',
-                        fadedColor: '#FFBC78'
+                        color: 'rgb(250, 148, 65, 25%)',
+                        fadedColor: 'rgb(250, 148, 65, 25%)'
                     },
                     {
-                        label: 'Other',
-                        color: '#FCE2C5',
-                        fadedColor: '#FFBC78'
+                        label: 'Other Financial Assistance',
+                        color: 'rgb(252, 226, 197)',
+                        fadedColor: 'rgb(252, 226, 197, 25%)'
                     },
                     {
                         label: 'Contracts',
-                        color: '#7F84BA',
-                        fadedColor: '#A9ADD1'
+                        color: 'rgb(127, 132, 186)',
+                        fadedColor: 'rgb(127, 132, 186, 25%)'
                     },
                     {
                         label: 'IDVs',
-                        color: '#A9ADD1',
-                        fadedColor: '#A9ADD1'
+                        color: 'rgb(169, 173, 209)',
+                        fadedColor: 'rgb(169, 173, 209, 25%)'
                     }
                 ];
                 res.data.results.forEach((d) => {

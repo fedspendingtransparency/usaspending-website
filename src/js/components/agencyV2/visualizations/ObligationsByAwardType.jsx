@@ -100,7 +100,11 @@ export default function ObligationsByAwardType({
             .outerRadius(innerRadius)
             .innerRadius(innerRadius / 2)
         )
-        .attr('fill', (d, i) => ((activeType && activeType !== inner[i].label) ? inner[i].fadedColor : inner[i].color))
+        .attr('fill', (d, i) => (
+            // Use the faded color when another section is hovered over
+            ((activeType && activeType !== inner[i].label) && !isMobile)
+                ? inner[i].fadedColor : inner[i].color)
+        )
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over

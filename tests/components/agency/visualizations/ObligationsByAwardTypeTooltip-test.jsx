@@ -11,7 +11,7 @@ const mockAwardTypes = [
     {
         label: 'Grants',
         color: '#E66F0E',
-        value: 50
+        value: -50
     },
     {
         label: 'Loans',
@@ -24,7 +24,7 @@ const mockAwardTypes = [
         value: 30
     },
     {
-        label: 'Other',
+        label: 'Other Financial Assistance',
         color: '#FCE2C5',
         value: 20
     },
@@ -93,4 +93,15 @@ test('adds an active class to the hovered award type', () => {
     );
     const contractsAmount = screen.queryByText('$10');
     expect(contractsAmount.classList.contains('award-type-tooltip__table-data_active')).toBeTruthy();
+});
+
+test('displays -- as the percet for negative obligations', () => {
+    render(
+        <ObligationsByAwardTypeTooltip
+            awardTypes={mockAwardTypes}
+            fiscalYear={1999}
+            activeType="Contracts" />,
+        { initialState: mockStore }
+    );
+    expect(screen.queryByText('--')).toBeTruthy();
 });
