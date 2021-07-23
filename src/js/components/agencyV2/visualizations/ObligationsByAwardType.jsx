@@ -73,7 +73,11 @@ export default function ObligationsByAwardType({
     // rotate chart so midpoints are 127deg off vertical
     const rotationAxis = 127;
     const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90); // rad => deg
-    const chart = svg.append('g').attr('transform', `rotate (${rotation})`).attr('class', 'obligations-by-award-type__donut');
+    const chart = svg
+        .append('g')
+        .attr('transform', `rotate (${rotation})`)
+        .attr('class', 'obligations-by-award-type__donut')
+        .attr('role', 'list');
 
     // outer ring.
     chart.selectAll()
@@ -84,7 +88,8 @@ export default function ObligationsByAwardType({
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
         .attr('fill', (d, i) => outer[i].color)
-        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`);
+        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+        .attr('role', 'listitem');
 
     // inner ring
     chart.selectAll()
@@ -101,7 +106,8 @@ export default function ObligationsByAwardType({
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
-        .on('mouseleave', () => setActiveType(null));
+        .on('mouseleave', () => setActiveType(null))
+        .attr('role', 'listitem');
 
     // border between categories
     const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
