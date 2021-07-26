@@ -85,7 +85,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                     },
                     {
                         label: 'Direct Payments',
-                        color: 'rgb(250, 148, 65, 25%)',
+                        color: 'rgb(250, 148, 65)',
                         fadedColor: 'rgb(250, 148, 65, 25%)'
                     },
                     {

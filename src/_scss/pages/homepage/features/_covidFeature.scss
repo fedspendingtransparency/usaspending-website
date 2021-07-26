@@ -1,20 +1,19 @@
 .feature-covid {
-    
-    @include media ($medium-screen) {
-        margin-top: -5%;
-    }
+    margin-top: rem(40);
 
     //ROW 1: OFFICIAL SPENDING DATA
     .official-spending-data__content-wrapper {
+        margin-top: rem(16);
 
         @include media($medium-screen) {
             @include display(flex);
             @include justify-content(center);
+            margin-top: rem(60);
         }
 
         .official-spending-data__text {
             display: block;
-            margin: rem(-50) rem(10) rem(10) rem(10);
+            margin: rem(0) rem(10) rem(10) rem(10);
 
             @include media($medium-screen) {
                 width: 40%;
@@ -177,6 +176,7 @@
             }
         }
     }
+
     //ROW 3: AWARD SUMMARY 
     .award-summary__wrapper {
         margin-top: rem(60);

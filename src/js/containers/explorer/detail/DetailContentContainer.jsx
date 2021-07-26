@@ -236,9 +236,10 @@ export class DetailContentContainer extends React.Component {
             isTruncated = Math.abs(total - resultTotal) > 10;
         }
 
-        parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
-            .sort((a, b) => b.amount - a.amount);
-
+        if (isTruncated) {
+            parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
+                .sort((a, b) => b.amount - a.amount);
+        }
         // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {
             total
