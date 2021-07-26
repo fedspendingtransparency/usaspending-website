@@ -16,7 +16,12 @@ const mockProps = { fiscalYear: '1995' };
 // eslint-disable-next-line import/prefer-default-export
 export const mockAgencyRecipientDistribution = {
     count: 654321,
-    total_federal_count: 1234567
+    total_federal_count: 1234567,
+    maxRecipients: 117728237755.8,
+    minRecipients: 0.01,
+    pct25: 19984,
+    pct50: 75740,
+    pct75: 208522
 };
 
 afterEach(() => {

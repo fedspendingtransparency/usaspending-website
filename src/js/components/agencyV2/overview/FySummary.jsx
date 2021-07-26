@@ -129,7 +129,7 @@ const FySummary = ({
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <RecipientDistributionContainer fiscalYear={fy} />
+                <RecipientDistributionContainer fiscalYear={fy} data={recipientDistribution} />
             </VisualizationSection>
         )
     ];
