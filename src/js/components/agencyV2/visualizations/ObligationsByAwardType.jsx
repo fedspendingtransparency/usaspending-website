@@ -9,6 +9,11 @@ import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
 
+const categoryMapping = {
+    'All Contracts': ['Contracts', 'IDVs'],
+    'All Financial': ['Grants', 'Loans', 'Direct Payments', 'Other Financial Assistance']
+};
+
 const propTypes = {
     outer: PropTypes.arrayOf(
         PropTypes.shape({
@@ -87,7 +92,11 @@ export default function ObligationsByAwardType({
         .attr('d', d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
-        .attr('fill', (d, i) => outer[i].color)
+        .attr('fill', (d, i) => (
+            // Use the faded color when another section is hovered over
+            ((activeType && !categoryMapping[outer[i].label[0]].includes(activeType)) && !isMobile)
+                ? outer[i].fadedColor : outer[i].color)
+        )
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
 
