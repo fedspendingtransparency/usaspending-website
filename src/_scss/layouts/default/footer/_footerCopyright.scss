@@ -19,7 +19,7 @@
         width: 100%;
         padding: 0 rem(20);
         
-        @include media($large-screen) {
+        @include media($footer-horizontal) {
             @include display(flex);
             @include flex-direction(row);
             @include align-items(center);
