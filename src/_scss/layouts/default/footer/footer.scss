@@ -1,104 +1,133 @@
+// Footer Variables
+$footer-horizontal: 920px;
+
 .footer-outer-wrap {
-
-    @import "elements/_inlineList";
-
-    $footer-horizontal: 920px;
-
     background-color: #333;
     color: $color-white;
     font-size: $base-font-size;
-    padding-top: rem(65);
-
-    @include media($tablet-screen) {
-        padding-top: rem(40);
-    }
-
+    padding-top: rem(40);
     width: 100%;
+
     .footer-container {
         @include outer-container;
-        @include pad(0 0 rem(30));
+        @include pad(0 0 rem(15));
         max-width: $site-max-width;
+        @include flex-wrap(wrap);
+
         @include media($footer-horizontal) {
             @include pad(0 rem(30) rem(40));
             @include display(flex);
             @include align-items(flex-start);
             @include justify-content(flex-start);
         }
+    }
 
-        @import "./_footerLogo";
-        @import "./_footerLinks";
-        
-        @include flex-wrap(wrap);
+    .legal-and-social-links {
+        @include display(flex);
+        @include flex-direction(column);
+        width: 100%;
 
-        .legal-and-social-links {
-            list-style-type: none;
-            width: 100%;
-            padding: 0;
-            margin-top: rem(73);
-            @include display(flex);
+        @include media($footer-horizontal) {
+            @include justify-content(space-between);
+            @include flex-direction(row);
             @include align-items(center);
-            @include justify-content(center);
-            @include flex-direction(column);
+            margin-top: rem(75);
+        }
+    }
+
+    .legal-links {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 rem(20);
+        @include display(flex);
+        @include flex-direction(column);
+        @include align-items(center);
+        order: 2;
+
+        @include media($footer-horizontal) {
+            @include flex-direction(row);
+            @include align-items(flex-start);
+            order: 1;
+        }
+
+        .copyright__legal-item {
+            margin: 0 0 rem(5);
+            display: flex;
+            justify-content: center;
+            @include align-items(center);
+            @include flex(0 1 auto);
+            
             @include media($footer-horizontal) {
-                @include justify-content(flex-start);
-                @include flex-direction(row);
-            }
-        
-            .copyright__legal-item {
-                @include flex(0 1 auto);
                 margin-right: rem(10);
-                @include media($footer-horizontal) {
-                    &::before {
-                        content: '|';
-                        font-size: 80%;
-                        color: $color-gray-light;
-                        margin-right: rem(10);
-                    }
-                    &:first-child {
-                        &::before {
-                            content: '';
-                            font-size: 0;
-                            margin-right: 0;
-                        }
-                    }
+
+                &::before {
+                    content: '|';
+                    font-size: 80%;
+                    color: $color-gray-light;
+                    margin-right: rem(10);
                 }
-                .copyright__link {
-                    font-size: rem(16);
-                    color:  darken( #fff, 20% );
-                    text-decoration: none;
-                    &:hover, &:active {
-                        color: $color-white;
+
+                &:first-child {
+                    &::before {
+                        content: '';
+                        font-size: 0;
+                        margin-right: 0;
                     }
                 }
             }
 
-            .social-link {
-                &:nth-child(4) {
-                    @include media($footer-horizontal) {
-                        margin-left: auto;
-                    }
+            .copyright__link {
+                font-size: $small-font-size;
+                color: $color-gray-light;
+                text-decoration: none;
+                padding: rem(5) rem(10);
+
+                &:hover, &:active {
+                    color: $color-white;
                 }
-                &:last-child,
-                & {
-                    margin-bottom: rem(5);
-                    padding: 0 rem(15);
-                }
-                &:hover {
-                    button svg {
-                        color: white;
-                    }
-                }
-                button {
-                    @include button-unstyled;
-                    font-size: rem(32);
+
+                @include media($footer-horizontal) {
+                    padding: 0;
+                    font-size: rem(16);
                 }
             }
         }
     }
 
-    @import "./_footerCopyright";
+    .social-links {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 rem(20);
+        order: 1;
+        @include display(flex);
+        @include justify-content(center);
+
+        @include media($footer-horizontal) {
+            order: 2;
+        }
+
+        .social-link {
+            margin: 0;
+            padding: 0 rem(15);
+            
+            &:hover {
+                svg {
+                    color: white;
+                }
+            }
+
+            button {
+                @include button-unstyled;
+                font-size: rem(32);
+            }
+        }
+    }
 }
 
-@import "./_floatingGlossaryButton";
-@import "./_downloadBottomBar";
+// Footer Component Imports
+@import "./footerLogo";
+@import "./footerLinks";
+@import "./footerCopyright";
+@import "./floatingGlossaryButton";
+@import "./downloadBottomBar";
 @import "./subscribe";
