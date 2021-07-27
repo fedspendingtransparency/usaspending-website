@@ -1,17 +1,23 @@
 .footer-logo {
     @include flex(1 1 auto);
     text-align: center;
+    margin-bottom: rem(35);
+
     @include media($footer-horizontal) {
         text-align: left;
     }
 
+    a {
+        // display inline-block for selection area to wrap child element completely
+        display: inline-block;
+    }
+
     img {
         height: rem(30);
-        margin-bottom: rem(10);
+
         @include media($footer-horizontal) {
             height: auto;
             width: rem(300);
-            margin-bottom: 0;
         }
     }
 }
