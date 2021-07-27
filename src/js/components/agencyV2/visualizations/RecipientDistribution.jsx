@@ -145,12 +145,12 @@ const RecipientDistribution = ({
                     x2={17}
                     y1={lineData.y2}
                     y2={lineData.y2} />
-                <text tabIndex="0" x={-60} y={130}>
-                    <tspan className="top-count-text" x="-60">Middle {recipientCounts.midCount}</tspan>
-                    <tspan className="top-count-text" x="-60" dy="1.1em">Recipients</tspan>
-                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">Awarded between</tspan>
-                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">{formattedValues.val75pct} and</tspan>
-                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">{formattedValues.val25pct}</tspan>
+                <text tabIndex="0" textAnchor="end" x={10} y={130}>
+                    <tspan className="top-count-text" x="10">Middle {recipientCounts.midCount}</tspan>
+                    <tspan className="top-count-text" x="10" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="10" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="10" dy="1.2em">{formattedValues.val75pct} and</tspan>
+                    <tspan className="top-count-text-desc" x="10" dy="1.2em">{formattedValues.val25pct}</tspan>
                 </text>
             </g>
         </svg>
