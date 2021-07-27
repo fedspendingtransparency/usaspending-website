@@ -13,6 +13,20 @@ export const fetchBreakdown = (params) => apiRequest({
     data: params
 });
 
+export const pluralizeSubdivision = (activeSubdivision) => {
+    let pluralText = '';
+    if (activeSubdivision === 'program_activity') {
+        pluralText = 'Program Activities';
+    }
+    else if (activeSubdivision === 'object_class') {
+        pluralText = 'Object Classes';
+    }
+    else {
+        pluralText = `${startCase(activeSubdivision)}s`;
+    }
+    return pluralText;
+};
+
 /**
  * @param {Array} dataForTree an array of objects from api representing spending explorer tree cells
  * @param {Int} total integer representing total spending amount for selected criteria
@@ -23,12 +37,13 @@ export const fetchBreakdown = (params) => apiRequest({
  */
 export const appendCellForDataOutsideTree = (dataForTree, overallTotal, activeSubdivision) => {
     const totalNotShown = overallTotal - dataForTree.reduce((sum, item) => sum + item.amount, 0);
+    const subdivisionText = pluralizeSubdivision(activeSubdivision);
     return [{
         id: null,
         link: false,
         code: "N/A",
         type: '',
-        name: `Sum of all ${startCase(activeSubdivision)}s after Top 500`,
+        name: `Sum of all ${subdivisionText} after Top 500`,
         amount: totalNotShown
     }]
         .concat(dataForTree);
