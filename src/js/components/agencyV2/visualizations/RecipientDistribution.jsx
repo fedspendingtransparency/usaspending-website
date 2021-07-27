@@ -53,9 +53,9 @@ const RecipientDistribution = ({
             const boxScale = yScale(data.pct75) - yScale(data.pct25);
             setRectangleData(
                 {
-                    x: 20,
+                    x: 22,
                     y: height - yScale(data.pct25) - (boxScale < 1 ? 1 : boxScale),
-                    width: 32,
+                    width: 28,
                     height: boxScale < 1 ? 1 : boxScale
                 }
             );
@@ -93,15 +93,15 @@ const RecipientDistribution = ({
                 <line // bottom tick representing $0
                     tabIndex="0"
                     className="i-beam-line"
-                    x1={26}
-                    x2={46}
+                    x1={28}
+                    x2={44}
                     y1={lineData.y2}
                     y2={lineData.y2} />
                 <line // upper tick representing max
                     tabIndex="0"
                     className="i-beam-line"
-                    x1={26}
-                    x2={46}
+                    x1={28}
+                    x2={44}
                     y1={0}
                     y2={0} />
                 <rect // shaded box representing 25th percentile -> 75th percentile
@@ -114,43 +114,44 @@ const RecipientDistribution = ({
                     tabIndex="0"
                     className="i-beam-line"
                     x1={54}
-                    x2={59}
+                    x2={58}
                     y1={0}
                     y2={0} />
-                <text tabIndex="0" x={63} y={6.5}>
-                    <tspan className="top-count-text" x="63">Top {recipientCounts.topCount}</tspan>
-                    <tspan className="top-count-text" x="63" dy="1.1em">Recipients</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">Awarded between</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.valMax} and</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.val75pct}</tspan>
+                <text tabIndex="0" x={60} y={7}>
+                    <tspan className="top-count-text" x="60">Top {recipientCounts.topCount}</tspan>
+                    <tspan className="top-count-text" x="60" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.valMax} and</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.val75pct}</tspan>
                 </text>
                 <line // bottom count label
                     tabIndex="0"
                     className="i-beam-line"
                     x1={54}
-                    x2={59}
+                    x2={58}
                     y1={lineData.y2}
                     y2={lineData.y2} />
-                <text tabIndex="0" x={63} y={130}>
-                    <tspan className="top-count-text" x="63">Bottom {recipientCounts.bottomCount}</tspan>
-                    <tspan className="top-count-text" x="63" dy="1.1em">Recipients</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">Awarded between</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.val25pct} and</tspan>
-                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.valMin}</tspan>
+                <text tabIndex="0" x={60} y={lineData.y2 - 48}>
+                    <tspan className="top-count-text" x="60">Bottom {recipientCounts.bottomCount}</tspan>
+                    <tspan className="top-count-text" x="60" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.val25pct} and</tspan>
+                    <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.valMin}</tspan>
                 </text>
                 <line // middle count label
                     tabIndex="0"
                     className="i-beam-line"
-                    x1={12}
-                    x2={17}
+                    x1={14}
+                    x2={18}
                     y1={lineData.y2}
                     y2={lineData.y2} />
-                <text tabIndex="0" textAnchor="end" x={10} y={130}>
-                    <tspan className="top-count-text" x="10">Middle {recipientCounts.midCount}</tspan>
-                    <tspan className="top-count-text" x="10" dy="1.1em">Recipients</tspan>
-                    <tspan className="top-count-text-desc" x="10" dy="1.2em">Awarded between</tspan>
-                    <tspan className="top-count-text-desc" x="10" dy="1.2em">{formattedValues.val75pct} and</tspan>
-                    <tspan className="top-count-text-desc" x="10" dy="1.2em">{formattedValues.val25pct}</tspan>
+                <text tabIndex="0" textAnchor="end" x={12} y={lineData.y2 - 60}>
+                    <tspan className="top-count-text" x="12">Middle {recipientCounts.midCount}</tspan>
+                    <tspan className="top-count-text" x="12" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="12" dy="1.2em">Awarded</tspan>
+                    <tspan className="top-count-text-desc" x="12" dy="1.2em">between</tspan>
+                    <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val75pct} and</tspan>
+                    <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val25pct}</tspan>
                 </text>
             </g>
         </svg>
