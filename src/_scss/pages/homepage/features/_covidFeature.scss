@@ -103,7 +103,9 @@
             min-height: 1px;
             .feature-covid-item__image-mobile {
                 display: block;
-                width: 80vw;
+                // Keep width auto if manually setting height to preserve image aspect ratio 
+                // See https://web.dev/image-aspect-ratio/
+                width: auto;
                 height: 42vw;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
@@ -123,8 +125,9 @@
 
                 @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
-
-                    width: 40vw;
+                    // Keep width auto if manually setting height to preserve image aspect ratio 
+                    // See https://web.dev/image-aspect-ratio/
+                    width: auto;
                     height: 22vw;
                     border: rem(1) solid #D6D7D9;
                     padding: rem(10);
