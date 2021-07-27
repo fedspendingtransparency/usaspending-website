@@ -34,6 +34,9 @@
     .award-type-tooltip {
         position: relative;
         z-index: 15;
+        .tooltip__text {
+            display: block;
+        }
         .award-type-tooltip__table {
             .table-header__content {
                 padding: rem(5) rem(6);
