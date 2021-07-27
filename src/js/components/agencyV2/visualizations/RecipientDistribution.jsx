@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
+import { formatNumber, formatMoneyWithUnitsShortLabel, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 
 const propTypes = {
     height: PropTypes.number,
@@ -27,6 +28,17 @@ const RecipientDistribution = ({
         width: 0,
         height: 0
     });
+    const [recipientCounts, setRecipientCounts] = useState({
+        topCount: 0,
+        midCount: 0,
+        bottomCount: 0
+    });
+    const [formattedValues, setFormattedValues] = useState({
+        valMax: 0,
+        val75pct: 0,
+        val25pct: 0,
+        valMin: 0
+    });
 
     useEffect(() => {
         if (data) {
@@ -41,14 +53,29 @@ const RecipientDistribution = ({
             const boxScale = yScale(data.pct75) - yScale(data.pct25);
             setRectangleData(
                 {
-                    x: 0,
+                    x: 20,
                     y: height - yScale(data.pct25) - (boxScale < 1 ? 1 : boxScale),
-                    width: 72,
+                    width: 32,
                     height: boxScale < 1 ? 1 : boxScale
                 }
             );
+            setRecipientCounts(
+                {
+                    topCount: formatNumber(data._numberOfRecipients * 0.25),
+                    midCount: formatNumber(data._numberOfRecipients * 0.50),
+                    bottomCount: formatNumber(data._numberOfRecipients * 0.25)
+                }
+            );
+            setFormattedValues(
+                {
+                    valMax: formatMoneyWithUnitsShortLabel(data.maxRecipients),
+                    val75pct: formatMoneyWithUnitsShortLabel(data.pct75),
+                    val25pct: formatMoneyWithUnitsShortLabel(data.pct25),
+                    valMin: formatMoneyWithUnits(data.minRecipients)
+                }
+            );
         }
-    }, [data]);
+    }, []);
 
     return (
         <svg
@@ -66,15 +93,15 @@ const RecipientDistribution = ({
                 <line // bottom tick representing $0
                     tabIndex="0"
                     className="i-beam-line"
-                    x1={0}
-                    x2={width}
+                    x1={26}
+                    x2={46}
                     y1={lineData.y2}
                     y2={lineData.y2} />
                 <line // upper tick representing max
                     tabIndex="0"
                     className="i-beam-line"
-                    x1={0}
-                    x2={width}
+                    x1={26}
+                    x2={46}
                     y1={0}
                     y2={0} />
                 <rect // shaded box representing 25th percentile -> 75th percentile
@@ -83,6 +110,48 @@ const RecipientDistribution = ({
                     y={rectangleData.y}
                     width={rectangleData.width}
                     height={rectangleData.height} />
+                <line // top count label
+                    tabIndex="0"
+                    className="i-beam-line"
+                    x1={54}
+                    x2={59}
+                    y1={0}
+                    y2={0} />
+                <text tabIndex="0" x={63} y={6.5}>
+                    <tspan className="top-count-text" x="63">Top {recipientCounts.topCount}</tspan>
+                    <tspan className="top-count-text" x="63" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.valMax} and</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.val75pct}</tspan>
+                </text>
+                <line // bottom count label
+                    tabIndex="0"
+                    className="i-beam-line"
+                    x1={54}
+                    x2={59}
+                    y1={lineData.y2}
+                    y2={lineData.y2} />
+                <text tabIndex="0" x={63} y={130}>
+                    <tspan className="top-count-text" x="63">Bottom {recipientCounts.bottomCount}</tspan>
+                    <tspan className="top-count-text" x="63" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.val25pct} and</tspan>
+                    <tspan className="top-count-text-desc" x="63" dy="1.2em">{formattedValues.valMin}</tspan>
+                </text>
+                <line // middle count label
+                    tabIndex="0"
+                    className="i-beam-line"
+                    x1={12}
+                    x2={17}
+                    y1={lineData.y2}
+                    y2={lineData.y2} />
+                <text tabIndex="0" x={-60} y={130}>
+                    <tspan className="top-count-text" x="-60">Middle {recipientCounts.midCount}</tspan>
+                    <tspan className="top-count-text" x="-60" dy="1.1em">Recipients</tspan>
+                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">Awarded between</tspan>
+                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">{formattedValues.val75pct} and</tspan>
+                    <tspan className="top-count-text-desc" x="-60" dy="1.2em">{formattedValues.val25pct}</tspan>
+                </text>
             </g>
         </svg>
     );
