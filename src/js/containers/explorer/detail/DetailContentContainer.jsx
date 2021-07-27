@@ -149,7 +149,7 @@ export class DetailContentContainer extends React.Component {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
                     this.request = null;
                 }
             });
