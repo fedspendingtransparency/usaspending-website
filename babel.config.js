@@ -8,8 +8,8 @@ const presets = [
                 proposals: true
             },
             targets: {
-                ie: "10",
-                node: "10"
+                browsers: ['ie >= 11'],
+                node: "14"
             }
         }
     ],
