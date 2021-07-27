@@ -233,7 +233,7 @@ export class DetailContentContainer extends React.Component {
             const resultTotal = parsedResults.reduce((sum, item) => sum + item.amount, 0);
             // allow a $10 leeway to account for JS float bugs before triggering a truncation
             // message
-            isTruncated = Math.abs(total - resultTotal) > 10;
+            isTruncated = data.results.length > 500;
         }
 
         if (isTruncated) {
