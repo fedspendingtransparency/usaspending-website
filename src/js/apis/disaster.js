@@ -20,13 +20,6 @@ export const fetchRecipientSpendingByGeography = (params) => apiRequest({
     data: params
 });
 
-export const fetchSpendingOverTime = (params) => apiRequest({
-    isMocked: true,
-    url: 'v2/disaster/spending_over_time/',
-    method: 'post',
-    data: params
-});
-
 export const fetchAgencyCount = (params) => apiRequest({
     url: 'v2/disaster/agency/count/',
     method: 'post',

@@ -1,20 +1,19 @@
 .feature-covid {
-    
-    @include media ($medium-screen) {
-        margin-top: -5%;
-    }
+    margin-top: rem(40);
 
     //ROW 1: OFFICIAL SPENDING DATA
     .official-spending-data__content-wrapper {
+        margin-top: rem(16);
 
         @include media($medium-screen) {
             @include display(flex);
             @include justify-content(center);
+            margin-top: rem(60);
         }
 
         .official-spending-data__text {
             display: block;
-            margin: rem(-50) rem(10) rem(10) rem(10);
+            margin: rem(0) rem(10) rem(10) rem(10);
 
             @include media($medium-screen) {
                 width: 40%;
@@ -104,7 +103,9 @@
             min-height: 1px;
             .feature-covid-item__image-mobile {
                 display: block;
-                width: 80vw;
+                // Keep width auto if manually setting height to preserve image aspect ratio 
+                // See https://web.dev/image-aspect-ratio/
+                width: auto;
                 height: 42vw;
                 border: rem(1) solid #D6D7D9;
                 padding: rem(10);
@@ -124,8 +125,9 @@
 
                 @include media($medium-screen) { /* 992 - 1023px */
                     display: block;
-
-                    width: 40vw;
+                    // Keep width auto if manually setting height to preserve image aspect ratio 
+                    // See https://web.dev/image-aspect-ratio/
+                    width: auto;
                     height: 22vw;
                     border: rem(1) solid #D6D7D9;
                     padding: rem(10);
@@ -177,6 +179,7 @@
             }
         }
     }
+
     //ROW 3: AWARD SUMMARY 
     .award-summary__wrapper {
         margin-top: rem(60);

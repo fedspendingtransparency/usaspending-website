@@ -12,6 +12,13 @@ describe('explorerHelper', () => {
             expect(dataForTreeWithAppendedCell[0].name).toEqual('Sum of all Awards after Top 500');
         });
     });
+    describe('pluralizeSubdivision', () => {
+        it('returns pluralized subdivision string', () => {
+            const dataForTree = [{ amount: 1 }, { amount: 2 }];
+            const dataForTreeWithAppendedCell = appendCellForDataOutsideTree(dataForTree, 10, 'object_class');
+            expect(dataForTreeWithAppendedCell[0].name).toEqual('Sum of all Object Classes after Top 500');
+        });
+    });
     describe('truncateDataForTreemap', () => {
         it('returns an array of maximum 500 items, sorted on the amount property, with no negative values', () => {
             const dataForTree = new Array(1000).fill().map((item, i) => ({ amount: Math.random(i) }));

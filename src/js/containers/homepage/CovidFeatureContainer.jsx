@@ -54,13 +54,8 @@ const CovidFeatureContainer = ({
     };
 
     return (
-        <div className="feature-covid">
-            <div className="feature-pane">
-                <div className="feature-pane__wrapper">
-                    <h2 className="feature-pane__title">THE FEDERAL RESPONSE TO COVID-19</h2>
-                </div>
-            </div>
-
+        <div className="feature-pane feature-covid">
+            <h2 className="feature-pane__title">THE FEDERAL RESPONSE TO COVID-19</h2>
             <div className="official-spending-data__content-wrapper">
                 <div className="official-spending-data__text">
                     <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>

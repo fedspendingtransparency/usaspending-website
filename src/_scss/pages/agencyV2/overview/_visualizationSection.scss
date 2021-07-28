@@ -47,5 +47,7 @@
         }
     }
 
-    @import './barChart';
+    @import '../visualizations/barChart';
+    @import '../visualizations/totalObligationsOverTime';
+    @import '../visualizations/obligationsByAwardType';
 }

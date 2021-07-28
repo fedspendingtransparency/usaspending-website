@@ -8,16 +8,18 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { LoadingMessage, ErrorMessage, ComingSoon } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { fetchRecipientDistribution } from 'apis/agencyV2';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import { setAgencyRecipients, resetAgencyRecipients } from 'redux/actions/agencyV2/agencyV2Actions';
+import RecipientDistribution from 'components/agencyV2/visualizations/RecipientDistribution';
 
 const propTypes = {
-    fiscalYear: PropTypes.string.isRequired
+    fiscalYear: PropTypes.string.isRequired,
+    data: PropTypes.object
 };
 
-const RecipientDistributionContainer = ({ fiscalYear }) => {
+const RecipientDistributionContainer = ({ fiscalYear, data }) => {
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
@@ -70,13 +72,13 @@ const RecipientDistributionContainer = ({ fiscalYear }) => {
     }, [fiscalYear, toptierCode]);
 
     return (
-        <>
+        <div className="recipient-distribution-visualization-container">
             {loading && <LoadingMessage />}
             {error && <ErrorMessage />}
             {!loading && !error && (
-                <ComingSoon />
+                <RecipientDistribution data={data} />
             )}
-        </>
+        </div>
     );
 };
 

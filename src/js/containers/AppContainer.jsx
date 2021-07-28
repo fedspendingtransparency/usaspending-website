@@ -57,7 +57,6 @@ const ScrollToTop = () => {
     return null;
 };
 
-
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
