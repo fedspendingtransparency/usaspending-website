@@ -1,23 +1,28 @@
+@import "../../../mixins/fullSectionWrap";
+
 .official-banner {
-    padding: rem(5) rem(15);
+    padding: rem(5) 0;
     background-color: #002A43;
 
-    @include media($tablet-screen) {
-        @include display(flex);
-        @include justify-content(space-between);
-        @include align-items(center);
+    .official-banner__wrapper {
+        @include fullSectionWrap(0, 0);
+
+        @include media($tablet-screen) {
+            @include display(flex);
+            @include justify-content(space-between);
+            @include align-items(center);
+        }
     }
 
     .official-banner__site-list {
         @include media($tablet-screen) {
             @include flex(1 1 auto);
         }
-        @include unstyled-list;
 
+        @include unstyled-list;
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
-        margin-left: rem(20);
     }
 
     .official-banner__site-item {
@@ -43,24 +48,20 @@
         }
     }
 
-    .official-banner__wrapper {
+    .official-banner__message {
         @include display(flex);
-        @include justify-content(flex-start);
         @include align-items(center);
-        margin-left: rem(20);
+        margin-top: rem(4);
 
         @include media($tablet-screen) {
-            @include justify-content(flex-end);
-            @include align-items(center);
-            margin-left: 0;
+            margin-top: 0;
         }
     }
 
     .official-banner__text {
         @include flex(0 0 auto);
-        margin-right: rem(10);
-
-        font-size: rem(10);
+        margin: 0;
+        font-size: rem(12);
         line-height: rem(13);
         color: $color-white;
     }
@@ -69,5 +70,6 @@
         @include flex(0 0 auto);
         width: rem(16);
         height: rem(11);
+        margin-left: rem(10);
     }
 }

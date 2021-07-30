@@ -15,10 +15,11 @@ import { setAwardObligations, resetAwardObligations } from 'redux/actions/agency
 
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,
-    windowWidth: PropTypes.number.isRequired
+    windowWidth: PropTypes.number.isRequired,
+    isMobile: PropTypes.bool
 };
 
-export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth }) {
+export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth, isMobile }) {
     const [categoriesForGraph, setCategoriesForGraph] = React.useState([]);
     const [detailsForGraph, setDetailsForGraph] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
@@ -61,38 +62,46 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                     {
                         label: ['All Financial', 'Assistance'], // line break between words
                         value: 0,
-                        color: '#C05600'
+                        color: 'rgb(192, 86, 0)',
+                        fadedColor: 'rgb(192, 86, 0, 25%)'
                     },
                     {
                         label: ['All Contracts', ''], // so each cat label array is same length
                         value: 0,
-                        color: '#545BA3'
+                        color: 'rgb(84, 91, 163)',
+                        fadedColor: 'rgb(84, 91, 163, 25%)'
                     }
                 ];
                 const details = [
                     {
-                        label: ['Grants'],
-                        color: '#E66F0E'
+                        label: 'Grants',
+                        color: 'rgb(230, 111, 14)',
+                        fadedColor: 'rgb(230, 111, 14, 25%)'
                     },
                     {
-                        label: ['Loans'],
-                        color: '#FFBC78'
+                        label: 'Loans',
+                        color: 'rgb(255, 188, 120)',
+                        fadedColor: 'rgb(255, 188, 120, 25%)'
                     },
                     {
-                        label: ['Direct Payments'],
-                        color: '#FA9441'
+                        label: 'Direct Payments',
+                        color: 'rgb(250, 148, 65)',
+                        fadedColor: 'rgb(250, 148, 65, 25%)'
                     },
                     {
-                        label: ['Other'],
-                        color: '#FCE2C5'
+                        label: 'Other Financial Assistance',
+                        color: 'rgb(252, 226, 197)',
+                        fadedColor: 'rgb(252, 226, 197, 25%)'
                     },
                     {
-                        label: ['Contracts'],
-                        color: '#7F84BA'
+                        label: 'Contracts',
+                        color: 'rgb(127, 132, 186)',
+                        fadedColor: 'rgb(127, 132, 186, 25%)'
                     },
                     {
-                        label: ['IDVs'],
-                        color: '#A9ADD1'
+                        label: 'IDVs',
+                        color: 'rgb(169, 173, 209)',
+                        fadedColor: 'rgb(169, 173, 209, 25%)'
                     }
                 ];
                 res.data.results.forEach((d) => {
@@ -154,7 +163,12 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         {error && <ErrorMessage />}
         {noData && <NoResultsMessage />}
         {!loading && !error && !noData &&
-            <ObligationsByAwardType outer={categoriesForGraph} inner={detailsForGraph} windowWidth={windowWidth} />
+            <ObligationsByAwardType
+                outer={categoriesForGraph}
+                inner={detailsForGraph}
+                windowWidth={windowWidth}
+                fiscalYear={fiscalYear}
+                isMobile={isMobile} />
         }
     </>);
 }

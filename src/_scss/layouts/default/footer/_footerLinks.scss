@@ -1,52 +1,62 @@
 .footer-links {
     @include flex(0 1 auto);
+    position: relative;
 
     @include media($footer-horizontal) {
         @include display(flex);
         @include flex-direction(row);
         @include align-items(flex-start);
         @include justify-content(flex-start);
-        position: relative;
     }
 
     .link-group {
-        display: block;
-        margin-bottom: rem(35);
-        &:first-child {
-            margin-top: rem(15);
-        }
-
-        text-align: center;
+        @include display(flex);
+        @include flex-direction(column);
+        @include align-items(center);
+        margin-bottom: rem(30);
 
         @include media($footer-horizontal) {
             @include flex(1 1 auto);
             padding-left: rem(45);
             margin-bottom: 0;
-            &:first-child {
-                margin-top: 0;
-            }
-
-            text-align: left;
+            @include align-items(flex-start);
         }
 
         .group-title {
             text-transform: uppercase;
             font-weight: $font-semibold;
             font-size: $small-font-size;
-            margin-bottom: rem(5);
+            margin-bottom: rem(10);
         }
 
         ul.links {
             @include unstyled-list;
+            @include display(flex);
+            @include flex-direction(column);
+            
+            // Include appropriate padding and margin so tap targets are sized appropriately for mobile
+            // See https://web.dev/tap-targets/
             li {
-                padding: rem(2) 0;
+                @include display(flex);
+                @include justify-content(center);
+                margin: 0 0 rem(5);
+
+                @include media($footer-horizontal) {
+                    @include justify-content(flex-start);
+                }
+    
                 a {
                     font-size: $small-font-size;
                     color: $color-gray-light;
                     text-decoration: none;
+                    padding: rem(5) rem(10);
 
                     &:hover, &:active {
                         color: $color-white;
+                    }
+
+                    @include media($footer-horizontal) {
+                        padding: 0;
                     }
                 }
             }

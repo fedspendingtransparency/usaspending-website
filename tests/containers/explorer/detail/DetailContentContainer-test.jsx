@@ -12,6 +12,7 @@ import { DetailContentContainer } from 'containers/explorer/detail/DetailContent
 import {
     mockApiResponse,
     mockAwardResponse,
+    mockAwardResponseSmall,
     mockReducerRoot,
     mockActions,
     mockLevelData,
@@ -247,7 +248,7 @@ describe('DetailContentContainer', () => {
             container.instance().parseData(mockAwardResponse, request);
             expect(container.state().isTruncated).toBeFalsy();
         });
-        it('should set the isTruncated state to true if the API response total differs from the sum of the results by more than 10', () => {
+        it('should set the isTruncated state to true if the API response is more than 500 items', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockReducerRoot} />);
@@ -260,24 +261,6 @@ describe('DetailContentContainer', () => {
             container.instance().parseData(mockAwardResponse, request);
             expect(container.state().isTruncated).toBeTruthy();
         });
-        it('should not set the isTruncated state to true if the API response total differs from the sum of the results by 10 or less', () => {
-            const container = shallow(<DetailContentContainer
-                {...mockActions}
-                explorer={mockReducerRoot} />);
-
-            const request = {
-                within: 'recipient',
-                subdivision: 'award'
-            };
-
-            const mockAward = Object.assign({}, mockAwardResponse, {
-                total: 4
-            });
-
-            container.instance().parseData(mockAward, request);
-            expect(container.state().isTruncated).toBeFalsy();
-        });
-
         it('should encode generated_unique_award_ids w/ special characters', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}

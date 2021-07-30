@@ -120,7 +120,7 @@ const FySummary = ({
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} />
+                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
             </VisualizationSection>
         ),
         (
@@ -129,7 +129,7 @@ const FySummary = ({
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <RecipientDistributionContainer fiscalYear={fy} />
+                <RecipientDistributionContainer fiscalYear={fy} data={recipientDistribution} />
             </VisualizationSection>
         )
     ];

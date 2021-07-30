@@ -149,7 +149,7 @@ export class DetailContentContainer extends React.Component {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
                     this.request = null;
                 }
             });
@@ -230,15 +230,13 @@ export class DetailContentContainer extends React.Component {
         }
 
         if (request.subdivision === 'award' || request.subdivision === 'recipient') {
-            const resultTotal = parsedResults.reduce((sum, item) => sum + item.amount, 0);
-            // allow a $10 leeway to account for JS float bugs before triggering a truncation
-            // message
-            isTruncated = Math.abs(total - resultTotal) > 10;
+            isTruncated = data.results.length > 500;
         }
 
-        parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
-            .sort((a, b) => b.amount - a.amount);
-
+        if (isTruncated) {
+            parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
+                .sort((a, b) => b.amount - a.amount);
+        }
         // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {
             total

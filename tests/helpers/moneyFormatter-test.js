@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatTreemapValues, formatMoneyWithUnits } from 'helpers/moneyFormatter';
+import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatTreemapValues, formatMoneyWithUnits, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 test.each([
     [123.45, '$123'],
@@ -64,4 +64,17 @@ test.each([
     [null, '--']
 ])('formatMoneyWithUnits: when input is %s --> %s', (input, output) => {
     expect(formatMoneyWithUnits(input, true)).toEqual(output);
+});
+
+test.each([
+    [123.45, '$123'],
+    [1230.50, '$1,231'],
+    [12345678.23, '$12.3 M'],
+    [-12345678.23, '-$12.3 M'],
+    [1234567800.23, '$1.2 B'],
+    [-1234567800.23, '-$1.2 B'],
+    [0, '$0'],
+    [null, '--']
+])('formatMoneyWithUnitsShortLabel: when input is %s --> %s', (input, output) => {
+    expect(formatMoneyWithUnitsShortLabel(input, true)).toEqual(output);
 });
