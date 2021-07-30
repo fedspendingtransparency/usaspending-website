@@ -4,14 +4,6 @@
     "description": "USAspending Website",
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
-    "browserslist": {
-        "production": [
-            "ie 11"
-        ],
-        "development": [
-            "ie 11"
-        ]
-    },
     "scripts": {
         "start": "npx webpack serve --hot --progress --config ./webpack/webpack.dev.config.js",
         "start:styles": "npx webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
@@ -120,7 +112,6 @@
         "mousetrap": "^1.6.1",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
-        "react-app-polyfill": "^2.0.0",
         "react-aria-modal": "^2.7.0",
         "react-checkbox-tree": "1.5.1",
         "react-copy-to-clipboard": "^5.0.1",

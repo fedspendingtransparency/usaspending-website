@@ -13,8 +13,8 @@ console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
-// const isDevelopment = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
-const isDevelopment = process.env.ENV !== 'sandbox';
+const isDevelopment = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging';
+// const isDevelopment = process.env.ENV !== 'sandbox';
 console.log(' ProcessENV : ', process.env);
 console.log(' ProcessENV.NodeEnv : ', process.env.NODE_ENV);
 console.log(' ProcessENV.ENV : ', process.env.ENV);
@@ -41,7 +41,6 @@ module.exports = {
     optimization: {
         moduleIds: 'deterministic'
     },
-    target: ['web', 'es5'],
     module: {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
