@@ -1,25 +1,30 @@
 .copyright {
     width: 100%;
-    padding: rem(10) 0;
-    background:  darken( #333, 5% );
-    color:  darken( #fff, 20% );
+    // account fo the absolute positioned 'Glossary' button in padding-bottom
+    padding: rem(10) 0 rem(40);
+    background: darken(#333, 5%);
+    color: darken(#fff, 20%);
+    position: relative;
 
     @include media($footer-horizontal) {
         @include display(flex);
         @include flex-direction(row);
         @include align-items(center);
         @include justify-content(flex-start);
-        position: relative;
+        padding: rem(10) 0;
     }
 
-    .copyright__left {
-        @include flex(1 1 auto);
-        @include media($large-screen) {
+    .copyright__container {
+        position: relative;
+        width: 100%;
+        padding: 0 rem(20);
+        
+        @include media($footer-horizontal) {
             @include display(flex);
             @include flex-direction(row);
             @include align-items(center);
-            @include justify-content(flex-start);
-            position: relative;
+            @include justify-content(space-between);
+            padding-right: rem(140) + rem(20);
         }
     }
 
@@ -27,14 +32,15 @@
         display: block;
         width: 100%;
         text-align: center;
-        font-size: 80%;
-
-        padding-left: rem(20);
+        font-size: rem(12);
+        margin: 0 0 rem(15);
 
         @include media($footer-horizontal) {
             @include flex(0 1 auto);
             width: auto;
             text-align: left;
+            margin-bottom: 0;
+            font-size: $small-font-size;
         }
     }
 
@@ -42,19 +48,17 @@
         display: block;
         text-align: center;
         width: 100%;
-        margin-bottom: rem(50);
-        margin-right: rem(155);
-        margin-top: rem(15);
+        margin-top: 0;
+        margin-bottom: rem(10);
+        font-size: $small-font-size;
 
         @include media($footer-horizontal) {
             @include flex(1 1 auto);
             text-align: right;
             width: auto;
             margin-bottom: 0;
-            margin-top: 0;
         }
 
-        font-size: $small-font-size;
         a {
             color: #9BDAF1;
             text-decoration: underline;

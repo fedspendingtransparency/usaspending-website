@@ -35,18 +35,17 @@ export const mockApiResponse = {
 };
 
 export const mockAwardResponse = {
-    total: 200,
-    results: [
-        {
-            id: '1',
-            generated_unique_award_id: decodedAwardId,
+    total: 1000,
+    results: new Array(501).fill().map((e, i) => {
+        return {
+            id: String(i),
             type: 'award',
-            name: 'Award',
+            name: 'Award '.concat(String(i)),
             code: '123',
             amount: 1,
             total: 1
-        }
-    ]
+        };
+    })
 };
 
 export const mockReducerRoot = {

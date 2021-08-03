@@ -149,61 +149,65 @@ const Footer = ({
                             </ul>
                         </div>
                     </div>
-                    <ul className="legal-and-social-links">
-                        <li className="copyright__legal-item">
-                            <Link
-                                className="copyright__link"
-                                to="/about/accessibility"
-                                onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
-                                Accessibility
-                            </Link>
-                        </li>
-                        <li className="copyright__legal-item">
-                            <Link
-                                className="copyright__link"
-                                to="/about/privacy"
-                                onClick={clickedFooterLink.bind(null, '/about/privacy')}>
-                                Privacy Policy
-                            </Link>
-                        </li>
-                        <li className="copyright__legal-item">
-                            <Link
-                                className="copyright__link"
-                                to="/about/foia"
-                                onClick={clickedFooterLink.bind(null, '/about/foia')}>
-                                Freedom of Information Act
-                            </Link>
-                        </li>
-                        <li className="social-link">
-                            <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
-                            </button>
-                        </li>
-                        <li className="social-link">
-                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
-                                <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
-                            </button>
-                        </li>
-                        <li className="social-link">
-                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
-                                <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
-                            </button>
-                        </li>
-                        <li className="social-link">
-                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
-                                <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
-                            </button>
-                        </li>
-                    </ul>
+                    <div className="legal-and-social-links">
+                        <ul className="legal-links">
+                            <li className="copyright__legal-item">
+                                <Link
+                                    className="copyright__link"
+                                    to="/about/accessibility"
+                                    onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
+                                    Accessibility
+                                </Link>
+                            </li>
+                            <li className="copyright__legal-item">
+                                <Link
+                                    className="copyright__link"
+                                    to="/about/privacy"
+                                    onClick={clickedFooterLink.bind(null, '/about/privacy')}>
+                                    Privacy Policy
+                                </Link>
+                            </li>
+                            <li className="copyright__legal-item">
+                                <Link
+                                    className="copyright__link"
+                                    to="/about/foia"
+                                    onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                    Freedom of Information Act
+                                </Link>
+                            </li>
+                        </ul>
+                        <ul className="social-links">
+                            <li className="social-link">
+                                <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
+                                    <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
+                                </button>
+                            </li>
+                            <li className="social-link">
+                                <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
+                                    <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
+                                </button>
+                            </li>
+                            <li className="social-link">
+                                <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
+                                    <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
+                                </button>
+                            </li>
+                            <li className="social-link">
+                                <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
+                                    <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="copyright">
-                    <div className="copyright__left">
-                        <div className="copyright__notice">
+                    <div className="copyright__container">
+                        <p className="copyright__notice">
                             &copy; {year} USAspending.gov
-                        </div>
-                    </div>
-                    <div className="copyright__db">
-                        <strong>NOTE:</strong> You must <Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</Link> for very important D&amp;B information.
+                        </p>
+                        <p className="copyright__db">
+                            <strong>NOTE:</strong> You must <Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</Link> for very important D&amp;B information.
+                        </p>
                     </div>
                 </div>
             </footer>

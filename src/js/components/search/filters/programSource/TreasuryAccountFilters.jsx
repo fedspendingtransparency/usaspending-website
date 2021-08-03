@@ -75,7 +75,7 @@ export default class TreasuryAccountFilters extends React.Component {
 
         return (
             <div className="program-source-tab">
-                <form className="program-source-components">
+                <div className="program-source-components">
                     {activeTab === 2 && (
                         <div className="program-source-components__heading">
                             Treasury Account Components
@@ -102,7 +102,7 @@ export default class TreasuryAccountFilters extends React.Component {
                             <EntityWarning message={message} />
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         );
     }

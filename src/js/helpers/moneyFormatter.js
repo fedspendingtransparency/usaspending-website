@@ -228,6 +228,28 @@ export const formatMoneyWithUnits = (value) => {
     return `${formattedCurrency}${longLabel}`;
 };
 
+export const formatMoneyWithUnitsShortLabel = (value) => {
+    if (typeof value !== 'number') return '--';
+    // Format the ceiling and current values to be friendly strings
+    const units = calculateUnitForSingleValue(value);
+    let precision = 1;
+    // Only reformat at a million or higher
+    if (units.unit < unitValues.MILLION) {
+        units.unit = 1;
+        units.unitLabel = '';
+        units.longLabel = '';
+        precision = 0;
+    }
+    const formattedValue = value / units.unit;
+
+    const formattedCurrency = formatMoneyWithPrecision(formattedValue, precision);
+
+    // Don't add an extra space when there's no units string to display
+    const unitLabel = units.unit > 1 ? ` ${startCase(units.unitLabel)}` : '';
+
+    return `${formattedCurrency}${unitLabel}`;
+};
+
 const replaceDecimal = new RegExp(/\.|%/g);
 
 const isFormattedZero = (formatted) => {
