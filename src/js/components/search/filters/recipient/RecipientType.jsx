@@ -10,66 +10,69 @@ import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipien
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
-const defaultProps = {
-    recipientTypeMapping: [
-        {
-            id: 'recipient-business',
-            name: 'Business',
-            filters: recipientTypeGroups.category_business
-        },
-        {
-            id: 'recipient-minority-owned-business',
-            name: 'Minority Owned Business',
-            filters: recipientTypeGroups.minority_owned_business
-        },
-        {
-            id: 'recipient-women-owned-business',
-            name: 'Women Owned Business',
-            filters: recipientTypeGroups.woman_owned_business
-        },
-        {
-            id: 'recipient-veteran-owned-business',
-            name: 'Veteran Owned Business',
-            filters: recipientTypeGroups.veteran_owned_business
-        },
-        {
-            id: 'recipient-special-designations',
-            name: 'Special Designations',
-            filters: recipientTypeGroups.special_designations
-        },
-        {
-            id: 'recipient-nonprofit',
-            name: 'Nonprofit',
-            filters: recipientTypeGroups.nonprofit
-        },
-        {
-            id: 'recipient-higher-education',
-            name: 'Higher Education',
-            filters: recipientTypeGroups.higher_education
-        },
-        {
-            id: 'recipient-government',
-            name: 'Government',
-            filters: recipientTypeGroups.government
-        },
-        {
-            id: 'recipient-individuals',
-            name: 'Individuals',
-            filters: [],
-            value: recipientTypeGroups.individuals[0]
-        }
-    ]
-};
-
-const propTypes = {
-    recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
-    selectedTypes: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
-};
-
 export default class RecipientType extends React.Component {
+    static propTypes = {
+        recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
+        selectedTypes: PropTypes.object,
+        dirtyFilters: PropTypes.symbol
+    };
+
+    static defaultProps = {
+        recipientTypeMapping: [
+            {
+                id: 'recipient-business',
+                name: 'Business',
+                filters: recipientTypeGroups.category_business
+            },
+            {
+                id: 'recipient-minority-owned-business',
+                name: 'Minority Owned Business',
+                filters: recipientTypeGroups.minority_owned_business
+            },
+            {
+                id: 'recipient-women-owned-business',
+                name: 'Women Owned Business',
+                filters: recipientTypeGroups.woman_owned_business
+            },
+            {
+                id: 'recipient-veteran-owned-business',
+                name: 'Veteran Owned Business',
+                filters: recipientTypeGroups.veteran_owned_business
+            },
+            {
+                id: 'recipient-special-designations',
+                name: 'Special Designations',
+                filters: recipientTypeGroups.special_designations
+            },
+            {
+                id: 'recipient-nonprofit',
+                name: 'Nonprofit',
+                filters: recipientTypeGroups.nonprofit
+            },
+            {
+                id: 'recipient-higher-education',
+                name: 'Higher Education',
+                filters: recipientTypeGroups.higher_education
+            },
+            {
+                id: 'recipient-government',
+                name: 'Government',
+                filters: recipientTypeGroups.government
+            },
+            {
+                id: 'recipient-individuals',
+                name: 'Individuals',
+                filters: [],
+                value: recipientTypeGroups.individuals[0]
+            }
+        ]
+    };
+
     componentDidUpdate(prevProps) {
         if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+
+// debugger;
+
             if (this.hint) {
                 this.hint.showHint();
             }
@@ -104,6 +107,3 @@ export default class RecipientType extends React.Component {
         );
     }
 }
-
-RecipientType.defaultProps = defaultProps;
-RecipientType.propTypes = propTypes;
