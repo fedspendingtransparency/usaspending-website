@@ -99,7 +99,7 @@ export class NAICSCheckboxTree extends React.Component {
 
     componentDidMount() {
         const { checkedFromHash, uncheckedFromHash, countsFromHash } = this.props;
-        if (this.props.nodes.length !== 0) {
+        if (this.props.nodes.length !== 0 && !checkedFromHash.length) {
             this.props.showNaicsTree();
             return Promise.resolve();
         }

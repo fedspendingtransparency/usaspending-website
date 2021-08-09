@@ -96,7 +96,7 @@ export class TASCheckboxTree extends React.Component {
             uncheckedFromHash,
             countsFromHash
         } = this.props;
-        if (this.props.nodes.length !== 0) {
+        if (this.props.nodes.length !== 0 && !checkedFromHash.length) {
             this.props.showTasTree();
             return Promise.resolve();
         }

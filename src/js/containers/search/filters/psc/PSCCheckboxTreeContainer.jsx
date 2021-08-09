@@ -93,7 +93,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             checkedFromHash,
             countsFromHash
         } = this.props;
-        if (nodes.length !== 0) {
+        if (nodes.length !== 0 && !checkedFromHash.length) {
             showPscTree();
             return Promise.resolve();
         }
