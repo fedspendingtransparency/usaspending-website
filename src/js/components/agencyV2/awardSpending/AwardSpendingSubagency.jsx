@@ -32,12 +32,12 @@ export const tabs = [
         label: 'Grants'
     },
     {
-        internal: 'direct_payments',
-        label: 'Direct Payments'
-    },
-    {
         internal: 'loans',
         label: 'Loans'
+    },
+    {
+        internal: 'direct_payments',
+        label: 'Direct Payments'
     },
     {
         internal: 'other',
@@ -46,7 +46,7 @@ export const tabs = [
 ];
 
 const AwardSpendingSubagency = () => {
-    const [activeTab, setActiveTab] = useStateWithPrevious('all_awards');
+    const [activeTab, setActiveTab] = useStateWithPrevious('all');
     return (
         <div className="body__content agency-budget-category">
             <Tabs types={tabs} switchTab={setActiveTab} active={activeTab} />
