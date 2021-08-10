@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import RedirectModal from 'components/sharedComponents/RedirectModal';
+import Analytics from 'helpers/analytics/Analytics';
 
 const PaneFeature = () => {
     const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
@@ -21,6 +22,12 @@ const PaneFeature = () => {
         setRedirectModalURL('');
         setIsRedirectModalMounted(false);
     };
+
+    const trackLink = (label) => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label
+    });
 
     return (
         <div className="feature-pane">
@@ -38,7 +45,8 @@ const PaneFeature = () => {
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button white">
+                                className="feature-pane__button white"
+                                onClick={() => trackLink('feature 1')}>
                                 Explore Fiscal Data <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
@@ -54,7 +62,8 @@ const PaneFeature = () => {
                                 role="button"
                                 rel="noopener noreferrer"
                                 value="https://datalab.usaspending.gov/federal-covid-funding/"
-                                className="feature-pane__button white">
+                                className="feature-pane__button white"
+                                onClick={() => trackLink('feature 2')}>
                                 Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
@@ -77,7 +86,8 @@ const PaneFeature = () => {
                                 target="_blank"
                                 role="button"
                                 rel="noopener noreferrer"
-                                className="feature-pane__button white">
+                                className="feature-pane__button white"
+                                onClick={() => trackLink('feature 3')}>
                                 Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                             </a>
                         </div>
