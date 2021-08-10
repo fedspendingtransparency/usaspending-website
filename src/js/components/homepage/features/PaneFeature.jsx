@@ -9,19 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 
 const PaneFeature = () => {
-    const [isRedirectModalMounted, setIsRedirectModalMounted] = useState(false);
-    const [redirectModalURL, setRedirectModalURL] = useState('');
-
-    const onRedirectModalClick = (e) => {
-        setRedirectModalURL(e.currentTarget.value);
-        setIsRedirectModalMounted(true);
-    };
-
-    const closeRedirectModal = () => {
-        setRedirectModalURL('');
-        setIsRedirectModalMounted(false);
-    };
-
     return (
         <div className="feature-pane">
             <div className="feature-pane__wrapper">
@@ -43,6 +30,7 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
+                    <div className="feature-pane__content-divider" />
                     <div className="feature-pane__content feature-pane__content-covid">
                         <h3 className="feature-pane__content-title feature-pane__content-title-transparent-bg">
                             The Federal Response to COVID-19
@@ -59,6 +47,7 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
+                    <div className="feature-pane__content-divider" />
                     <div className="feature-pane__content feature-pane__content-finances-guide">
                         <p className="feature-pane__content-overline">
                             Updated for FY 2019
@@ -82,27 +71,9 @@ const PaneFeature = () => {
                             </a>
                         </div>
                     </div>
-                    <div className="feature-pane__content">
-                        <h3 className="feature-pane__content-title">COVID-19 Related Contract Visualization</h3>
-                        <p className="feature-pane_content-text">
-                            Explore the General Services Administration’s Contract Obligation Dashboard for contract awards in response to COVID.
-                        </p>
-                        <div className="feature-pane__button-wrapper">
-                            <button
-                                onClick={onRedirectModalClick}
-                                value="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
-                                className="feature-pane__button white">
-                                Contract Obligation Dashboard <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 <hr className="feature-pane__bottom-divider" />
             </div>
-            <RedirectModal
-                mounted={isRedirectModalMounted}
-                hideModal={closeRedirectModal}
-                url={redirectModalURL} />
         </div>
     );
 };
