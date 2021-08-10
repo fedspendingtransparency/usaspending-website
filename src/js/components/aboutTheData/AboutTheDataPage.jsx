@@ -70,6 +70,7 @@ const AboutTheDataPage = ({ history }) => {
 
     return (
         <PageWrapper
+            pageName="Agency Submission Statistics"
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[

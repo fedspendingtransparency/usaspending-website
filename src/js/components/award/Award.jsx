@@ -163,6 +163,7 @@ export default class Award extends React.Component {
             : `${startCase(overview?.category)} Summary`;
         return (
             <PageWrapper
+                pageName="Award Profile"
                 classNames="usa-da-award-v2-page"
                 overLine="Award Profile"
                 metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}

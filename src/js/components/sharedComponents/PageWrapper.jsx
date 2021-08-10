@@ -13,6 +13,7 @@ import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
 
 const PageWrapper = ({
+    pageName,
     classNames,
     metaTagProps = {},
     children,
@@ -33,11 +34,12 @@ const PageWrapper = ({
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
-        <Footer filters={filters} />
+        <Footer pageName={pageName} filters={filters} />
     </div>
 );
 
 PageWrapper.propTypes = {
+    pageName: PropTypes.string.isRequired,
     classNames: PropTypes.string,
     metaTagProps: PropTypes.object,
     toolBarComponents: PropTypes.arrayOf(PropTypes.element),

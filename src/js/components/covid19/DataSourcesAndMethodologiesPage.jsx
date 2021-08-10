@@ -152,6 +152,7 @@ export default () => {
 
     return (
         <PageWrapper
+            pageName="COVID DS&M"
             classNames="usa-da-dsm-page"
             ref={dataDisclaimerBannerRef}
             overLine="Data Sources &amp; Methodology"

@@ -15,6 +15,7 @@ require('pages/dataDictionary/dataDictionaryPage.scss');
 export default class DataDictionaryPage extends React.Component {
     render = () => (
         <PageWrapper
+            pageName="Data Dictionary"
             classNames="usa-da-data-dictionary-page"
             metaTagProps={dataDictionaryPageMetaTags}
             overLine="resources"

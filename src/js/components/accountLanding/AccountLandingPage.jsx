@@ -25,6 +25,7 @@ export default class AccountLandingPage extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="Federal Account Profiles"
                 classNames="usa-da-account-landing"
                 title="Federal Account Profiles"
                 metaTagProps={accountLandingPageMetaTags}

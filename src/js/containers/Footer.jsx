@@ -23,6 +23,7 @@ import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import Subscribe from 'components/sharedComponents/Subscribe';
 
 const propTypes = {
+    pageName: PropTypes.string.isRequired,
     filters: PropTypes.object,
     redirectUser: PropTypes.func
 };
@@ -35,6 +36,7 @@ const clickedFooterLink = (route) => {
 };
 
 const Footer = ({
+    pageName,
     filters,
     redirectUser
 }) => {
@@ -49,7 +51,7 @@ const Footer = ({
             <DownloadBottomBarContainer
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
-            <Subscribe />
+            <Subscribe pageName={pageName} />
             <footer
                 className="footer-outer-wrap"
                 role="contentinfo"
