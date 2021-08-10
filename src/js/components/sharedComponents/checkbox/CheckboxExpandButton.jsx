@@ -7,17 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../icons/Icons';
 
+const defaultProps = {
+    hidden: false
+};
+
+const propTypes = {
+    hidden: PropTypes.bool,
+    toggleExpand: PropTypes.func,
+    arrowState: PropTypes.string
+};
+
 export default class CheckboxExpandButton extends React.Component {
-    static defaultProps = {
-        hidden: false
-    };
-
-    static propTypes = {
-        hidden: PropTypes.bool,
-        toggleExpand: PropTypes.func,
-        arrowState: PropTypes.string
-    };
-
     constructor(props) {
         super(props);
         this.clickedButton = this.clickedButton.bind(this);
@@ -25,7 +25,7 @@ export default class CheckboxExpandButton extends React.Component {
 
     clickedButton() {
         if (this.props.hidden) {
-        // button is disabled
+            // button is disabled
             return;
         }
         this.props.toggleExpand();
@@ -54,3 +54,6 @@ export default class CheckboxExpandButton extends React.Component {
         );
     }
 }
+
+CheckboxExpandButton.defaultProps = defaultProps;
+CheckboxExpandButton.propTypes = propTypes;
