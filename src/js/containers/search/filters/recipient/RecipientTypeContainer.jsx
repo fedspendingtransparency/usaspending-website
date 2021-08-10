@@ -31,6 +31,7 @@ export class RecipientTypeContainer extends React.Component {
         this.state = {
             selectedTypes: new Set()
         };
+        this.justMounted = true;
     }
 
     componentDidMount() {
@@ -41,6 +42,7 @@ export class RecipientTypeContainer extends React.Component {
         if (prevProps.recipientType !== this.props.recipientType) {
             this.ungroupSelectedTypes(this.props.recipientType);
         }
+        this.justMounted = false; // only show filter msg after 1st render (including 1st componentDidUpdate)
     }
 
     ungroupSelectedTypes(types) {
@@ -115,7 +117,7 @@ export class RecipientTypeContainer extends React.Component {
     }
 
     dirtyFilters = () => {
-        if (is(this.props.recipientType, this.props.appliedType)) {
+        if (this.justMounted || is(this.props.recipientType, this.props.appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
