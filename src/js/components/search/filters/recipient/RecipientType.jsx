@@ -78,16 +78,16 @@ export default class RecipientType extends React.Component {
 
     render() {
         const checkboxTypes =
-             this.props.recipientTypeMapping.map((type, index) =>
-                 (<PrimaryCheckboxType
-                     {...type}
-                     {...this.props}
-                     key={index}
-                     types={recipientTypes}
-                     filterType="Recipient"
-                     selectedCheckboxes={this.props.selectedTypes} />
-                 )
-             );
+            this.props.recipientTypeMapping.map((type, index) =>
+                (<PrimaryCheckboxType
+                    {...type}
+                    {...this.props}
+                    key={index}
+                    types={recipientTypes}
+                    filterType="Recipient"
+                    selectedCheckboxes={this.props.selectedTypes} />
+                )
+            );
 
         return (
             <div className="filter-item-wrap">

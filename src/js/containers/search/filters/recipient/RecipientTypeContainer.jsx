@@ -121,7 +121,7 @@ export class RecipientTypeContainer extends React.Component {
             return null;
         }
         return Symbol('dirty recipient type');
-    };
+    }
 
     render() {
         return (
