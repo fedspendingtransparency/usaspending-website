@@ -3,10 +3,8 @@
  * Created by David Trinh 4/19/18
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import RedirectModal from 'components/sharedComponents/RedirectModal';
 
 const PaneFeature = () => {
     return (
