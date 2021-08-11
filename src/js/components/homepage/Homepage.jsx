@@ -32,7 +32,7 @@ const Homepage = () => (
             <Community />
         </main>
         <GlobalModalContainer />
-        <Footer />
+        <Footer pageName="Homepage" />
     </div>
 );
 

@@ -108,6 +108,7 @@ export const AgencyProfileV2 = ({
 
     return (
         <PageWrapper
+            pageName="Agency Profile"
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}

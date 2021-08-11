@@ -83,6 +83,7 @@ const AgencyDetailsPage = () => {
 
     return (
         <PageWrapper
+            pageName="Agency Profile"
             classNames="about-the-data about-the-data_agency-details-page"
             metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
             overLine="Agency Profile"

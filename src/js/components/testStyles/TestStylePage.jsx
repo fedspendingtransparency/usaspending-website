@@ -46,7 +46,7 @@ export default class TestStylePage extends React.Component {
                         </div>
                     </div>
                 </main>
-                <Footer />
+                <Footer pageName="Test Style Page" />
             </div>
         );
     }

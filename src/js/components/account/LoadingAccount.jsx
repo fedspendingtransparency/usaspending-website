@@ -29,7 +29,7 @@ export default class LoadingAccount extends React.Component {
                             message="" />
                     </div>
                 </main>
-                <Footer />
+                <Footer pageName="Loading Account" />
             </div>
         );
     }
