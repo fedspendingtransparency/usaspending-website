@@ -93,7 +93,19 @@ export class PSCCheckboxTreeContainer extends React.Component {
             checkedFromHash,
             countsFromHash
         } = this.props;
-        if (nodes.length !== 0) {
+        if (nodes.length !== 0 && checkedFromHash.length) {
+            this.setCheckedStateFromUrlHash(
+                checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
+            );
+            this.props.setPscCounts(countsFromHash);
+            this.props.stagePsc(
+                trimCheckedToCommonAncestors(getPscAncestryPathForChecked(this.props.checked, this.props.nodes)),
+                getPscAncestryPathForChecked(this.props.unchecked, this.props.nodes),
+                this.props.counts
+            );
+            return Promise.resolve();
+        }
+        else if (nodes.length !== 0) {
             showPscTree();
             return Promise.resolve();
         }

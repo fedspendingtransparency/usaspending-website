@@ -58,6 +58,7 @@ export default class AwardType extends React.Component {
             }
         }
     }
+
     render() {
         const awardTypes = awardTypesData
             .map((type, index) => (
