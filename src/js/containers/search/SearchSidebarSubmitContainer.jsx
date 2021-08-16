@@ -44,8 +44,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
         super(props);
 
         this.state = {
-            filtersChanged: false,
-            stagedFiltersAreEmpty: false
+            filtersChanged: false
         };
 
         this.resetFilters = this.resetFilters.bind(this);
