@@ -137,10 +137,10 @@ export default function ObligationsByAwardType({
     const labelPos = (i, yOffset = 0) => {
         if (i === 0) {
             // Financial Assistance, bottom right
-            return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
+            return [labelRadius - 62, (chartHeight / 2) - 25 + yOffset];
         }
         // Contracts, top left
-        return [-(labelRadius) + 18, -(chartHeight / 2) + 29];
+        return [-(labelRadius) + 18, -(chartHeight / 2) + 29 + yOffset];
     };
 
     const outerLabels = outer.map((d) => d.label);
@@ -158,12 +158,12 @@ export default function ObligationsByAwardType({
             .style("fill", outer[0].color);
         // text
         svg.selectAll()
-            .data(outerPie)
+            .data(outerLabels[0])
             .enter()
             .append('text')
-            .attr('transform', (d, i) => `translate(${labelPos(i)})`)
+            .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
             .attr('class', 'obligations-by-award-type__label')
-            .text((d, i) => outerLabels[i][0]);
+            .text((d) => d);
     }
 
     // Contracts legend
@@ -179,12 +179,12 @@ export default function ObligationsByAwardType({
             .style("fill", outer[1].color);
         // text
         svg.selectAll()
-            .data(outerPie)
+            .data(outerLabels[1])
             .enter()
             .append('text')
-            .attr('transform', (d, i) => `translate(${labelPos(i, 12)})`)
+            .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
             .attr('class', 'obligations-by-award-type__label')
-            .text((d, i) => outerLabels[i][1]);
+            .text((d) => d);
     }
 
     return (
