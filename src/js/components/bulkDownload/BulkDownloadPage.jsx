@@ -103,6 +103,7 @@ export default class BulkDownloadPage extends React.Component {
         }
         return (
             <PageWrapper
+                pageName="Download Center"
                 classNames="usa-da-bulk-download-page"
                 title="Download Center"
                 metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>

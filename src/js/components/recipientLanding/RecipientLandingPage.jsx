@@ -28,6 +28,7 @@ export default class RecipientLandingPage extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="Recipient Profiles"
                 classNames="usa-da-recipient-landing"
                 title="Recipient Profiles"
                 metaTagProps={recipientLandingPageMetaTags}

@@ -130,6 +130,7 @@ export default class SearchPage extends React.Component {
 
         return (
             <PageWrapper
+                pageName="Advanced Search"
                 classNames="usa-da-search-page"
                 title="Advanced Search"
                 metaTagProps={MetaTagHelper.searchPageMetaTags}

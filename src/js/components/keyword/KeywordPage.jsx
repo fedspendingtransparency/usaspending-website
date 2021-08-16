@@ -78,6 +78,7 @@ export default class KeywordPage extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="Keyword Search"
                 classNames="usa-da-keyword-page"
                 title="Keyword Search"
                 metaTagProps={MetaTagHelper.keywordPageMetaTags}
