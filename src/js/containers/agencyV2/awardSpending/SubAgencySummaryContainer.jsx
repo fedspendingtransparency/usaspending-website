@@ -32,14 +32,16 @@ const SubAgencySummaryContainer = ({
     if (activeTab === 'other') {
         subtitle = 'for all Other Financial Assistance';
     }
+    const officesCount = 'with 32 offices';
 
     return (
         <div className="overview-data-group">
             <InformationBoxes
-                boxes={summaryData.map((data) => ({
+                boxes={summaryData.map((data, index) => ({
                     ...data,
                     subtitle,
-                    amount: amounts[data.type]
+                    amount: amounts[data.type],
+                    subtitleBottom: `${index === 0 ? officesCount : ''}`
                 }))} />
         </div>
     );
