@@ -137,10 +137,10 @@ export default function ObligationsByAwardType({
     const labelPos = (i, yOffset = 0) => {
         if (i === 0) {
             // Financial Assistance, bottom right
-            return [labelRadius - 62, (chartHeight / 2) - (25 + yOffset)];
+            return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
         }
         // Contracts, top left
-        return [-(labelRadius) + 18, -(chartHeight / 2) + (29 + yOffset)];
+        return [-(labelRadius) + 18, -(chartHeight / 2) + 29 + yOffset];
     };
 
     const outerLabels = outer.map((d) => d.label);
