@@ -12,6 +12,7 @@ import ObligationsByAwardType from 'components/agencyV2/visualizations/Obligatio
 import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 import { setAwardObligations, resetAwardObligations } from 'redux/actions/agencyV2/agencyV2Actions';
+import { calculatePercentage } from 'helpers/moneyFormatter';
 
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,
@@ -42,13 +43,13 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         }
         if (error) {
             setError(false);
-        };
+        }
         if (noData) {
             setNoData(false);
-        };
+        }
         if (!loading) {
             setLoading(true);
-        };
+        }
         obligationsByAwardTypeRequest.current = fetchObligationsByAwardType(toptierCode, fiscalYear);
         obligationsByAwardTypeRequest.current.promise.then((res) => {
             if (Object.keys(res.data).length === 0) {
@@ -135,6 +136,11 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                             setError(true);
                     }
                 });
+
+                // add % of total to category labels
+                categories[0].label[2] = ` ${calculatePercentage(categories[0].value, categories[0].value + categories[1].value)}`;
+                categories[1].label[1] = ` ${calculatePercentage(categories[1].value, categories[0].value + categories[1].value)}`;
+
                 setCategoriesForGraph(categories);
                 setDetailsForGraph(details);
                 setLoading(false);
