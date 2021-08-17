@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
+import { fetchSubagencyAwardSummary, fetchSubagencyNewAwardsCount } from 'apis/agencyV2';
 import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
