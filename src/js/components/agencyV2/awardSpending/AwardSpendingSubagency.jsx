@@ -3,12 +3,11 @@
  * Created by Afna Saifudeen 8/4/21
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
-import { fetchSubagencyAwardSummary, fetchSubagencyNewAwardsCount } from 'apis/agencyV2';
-import { useStateWithPrevious } from 'helpers';
+import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -46,11 +45,50 @@ export const tabs = [
     }
 ];
 
-const AwardSpendingSubagency = () => {
-    const [activeTab, setActiveTab] = useStateWithPrevious('all');
+const initialActiveTabState = {
+    internal: tabs[0].internal,
+    subtitle: tabs[0].label
+};
+
+const AwardSpendingSubagency = ({ fy }) => {
+    const summaryData = [
+        {
+            type: 'subagenciesCount',
+            title: 'Number of Sub-Agencies'
+        },
+        {
+            type: 'awardObligations',
+            title: 'Award Obligations',
+            isMonetary: true
+        },
+        {
+            type: 'numberOfTransactions',
+            title: 'Number of Transactions'
+        },
+        {
+            type: 'numberOfAwards',
+            title: 'Number of New Awards'
+        }
+    ];
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
+
+    const changeActiveTab = (tab) => {
+        const tabSubtitle = tabs.find((item) => item.internal === tab).label;
+        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+
+        setActiveTab({
+            internal: tabInternal,
+            subtitle: tabSubtitle
+        });
+    };
+
     return (
         <div className="body__content agency-budget-category">
-            <Tabs types={tabs} switchTab={setActiveTab} active={activeTab} />
+            <Tabs active={activeTab.internal} types={tabs} switchTab={changeActiveTab} />
+            <SubAgencySummaryContainer
+                fy={fy}
+                summaryData={summaryData}
+                activeTab={activeTab.internal} />
         </div>
     );
 };

@@ -67,7 +67,7 @@ export const AgencyProfileV2 = ({
             name: 'sub-agency',
             display: 'Sub-Agency',
             overLine: 'Award Spending',
-            component: <AwardSpendingSubagency fy={selectedFy} agencyId={agencyId} />
+            component: <AwardSpendingSubagency fy={`${selectedFy}`} agencyId={agencyId} />
         }
     ];
 
