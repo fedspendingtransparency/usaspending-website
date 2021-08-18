@@ -16,6 +16,7 @@ export default class About extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="About"
                 classNames="usa-da-about-page"
                 metaTagProps={aboutPageMetaTags}
                 title="About">

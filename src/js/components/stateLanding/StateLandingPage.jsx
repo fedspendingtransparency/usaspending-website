@@ -28,6 +28,7 @@ export default class StateLandingPage extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="State Profiles"
                 classNames="usa-da-state-landing"
                 title="State Profiles"
                 metaTagProps={stateLandingPageMetaTags}

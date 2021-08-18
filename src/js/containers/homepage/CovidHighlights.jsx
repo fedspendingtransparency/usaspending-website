@@ -22,6 +22,7 @@ import withLatestFy from 'containers/account/WithLatestFy';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { fetchOverview, fetchDisasterSpending } from 'apis/disaster';
 import { scrollToY } from 'helpers/scrollToHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 // datamapping
 import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
@@ -30,7 +31,6 @@ import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
 import HeroButton from 'components/homepage/hero/HeroButton';
 import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
 import TotalAmount from 'components/homepage/hero/TotalAmount';
-
 
 const defaultParams = {
     pagination: {
@@ -266,6 +266,12 @@ export class CovidHighlights extends React.Component {
         this.setState({ isIncrementComplete: true });
     }
 
+    trackLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'covid hero'
+    });
+
     render() {
         const {
             isAmountLoading,
@@ -308,7 +314,8 @@ export class CovidHighlights extends React.Component {
                         <div className="covid-profile-link__button-wrap">
                             <Link
                                 className="covid-profile-link__button"
-                                to="/disaster/covid-19">
+                                to="/disaster/covid-19"
+                                onClick={this.trackLink}>
                                 View all COVID-19 spending
                             </Link>
                             <hr />

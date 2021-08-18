@@ -23,6 +23,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
+import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import PageWrapper from '../sharedComponents/PageWrapper';
 
 require('pages/agencyV2/index.scss');
@@ -65,7 +66,8 @@ export const AgencyProfileV2 = ({
         {
             name: 'sub-agency',
             display: 'Sub-Agency',
-            overLine: 'Award Spending'
+            overLine: 'Award Spending',
+            component: <AwardSpendingSubagency />
         }
     ];
 
@@ -106,6 +108,7 @@ export const AgencyProfileV2 = ({
 
     return (
         <PageWrapper
+            pageName="Agency Profile"
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
