@@ -40,7 +40,7 @@ const ErrorPage = () => (
                 </div>
             </div>
         </main>
-        <Footer />
+        <Footer pageName="Error Page" />
     </div>
 );
 

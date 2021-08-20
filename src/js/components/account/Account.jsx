@@ -33,6 +33,7 @@ export default class Account extends React.Component {
             const slug = `federal_account/${accountSymbol}`;
             return (
                 <PageWrapper
+                    pageName="Federal Account Profile"
                     classNames="usa-da-account-page"
                     overLine="Federal Account Profile"
                     title={`Federal Account Symbol: ${accountSymbol}`}

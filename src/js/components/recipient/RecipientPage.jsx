@@ -71,6 +71,7 @@ export const RecipientPage = ({
 
     return (
         <PageWrapper
+            pageName="Recipient Profile"
             classNames="usa-da-recipient-page"
             overLine="Recipient Profile"
             title={recipient.overview.name}
