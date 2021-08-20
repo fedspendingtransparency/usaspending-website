@@ -28,6 +28,7 @@ export default class AgencyLandingPage extends React.Component {
     render() {
         return (
             <PageWrapper
+                pageName="Agency Profiles"
                 classNames="usa-da-agency-landing"
                 title="Agency Profiles"
                 metaTagProps={agencyLandingPageMetaTags}

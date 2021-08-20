@@ -56,7 +56,7 @@ export const LoadingWrapper = ({
                                 <FontAwesomeIcon icon="spinner" spin size="lg" />
                                 <h4>{`${msg}${dots}`}</h4>
                             </div>
-                            {includeFooter && (<Footer />)}
+                            {includeFooter && (<Footer pageName="Loading" />)}
                         </PageHeader>
                     </>
                 )}
@@ -64,7 +64,7 @@ export const LoadingWrapper = ({
                     <FontAwesomeIcon icon="spinner" spin size="lg" />
                     <h4>{`${msg}${dots}`}</h4>
                 </div>
-                {includeFooter && (<Footer />)}
+                {includeFooter && (<Footer pageName="Loading" />)}
             </>
         );
     }

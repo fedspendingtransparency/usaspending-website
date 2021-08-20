@@ -17,24 +17,21 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import RecipientType from 'components/search/filters/recipient/RecipientType';
 
-const propTypes = {
-    toggleRecipientType: PropTypes.func,
-    bulkRecipientTypeChange: PropTypes.func,
-    recipientType: PropTypes.object,
-    appliedType: PropTypes.object
-};
-
 export class RecipientTypeContainer extends React.Component {
+    static propTypes = {
+        toggleRecipientType: PropTypes.func,
+        bulkRecipientTypeChange: PropTypes.func,
+        recipientType: PropTypes.object,
+        appliedType: PropTypes.object
+    };
+
     constructor(props) {
         super(props);
 
         this.state = {
             selectedTypes: new Set()
         };
-
-        // Bind functions
-        this.toggleRecipientType = this.toggleRecipientType.bind(this);
-        this.bulkRecipientTypeChange = this.bulkRecipientTypeChange.bind(this);
+        this.justMounted = true;
     }
 
     componentDidMount() {
@@ -45,6 +42,7 @@ export class RecipientTypeContainer extends React.Component {
         if (prevProps.recipientType !== this.props.recipientType) {
             this.ungroupSelectedTypes(this.props.recipientType);
         }
+        this.justMounted = false; // only show filter msg after 1st render (including 1st componentDidUpdate)
     }
 
     ungroupSelectedTypes(types) {
@@ -89,12 +87,9 @@ export class RecipientTypeContainer extends React.Component {
         return null;
     }
 
-    toggleRecipientType(selection) {
-        this.props.toggleRecipientType(selection);
-        // Analytics handled by checkbox component
-    }
+    toggleRecipientType = (selection) => this.props.toggleRecipientType(selection);
 
-    bulkRecipientTypeChange(selection) {
+    bulkRecipientTypeChange = (selection) => {
         const parentType = this.determineParentType(selection.types);
         if (!parentType) {
             // something bad happened, don't allow redux to change
@@ -119,11 +114,10 @@ export class RecipientTypeContainer extends React.Component {
             types: [parentType],
             direction: selection.direction
         });
-        // Analytics handled by checkbox component
     }
 
-    dirtyFilters() {
-        if (is(this.props.recipientType, this.props.appliedType)) {
+    dirtyFilters = () => {
+        if (this.justMounted || is(this.props.recipientType, this.props.appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
@@ -139,8 +133,6 @@ export class RecipientTypeContainer extends React.Component {
         );
     }
 }
-
-RecipientTypeContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({

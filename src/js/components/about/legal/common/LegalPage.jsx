@@ -34,6 +34,7 @@ export default class LegalPage extends React.Component {
         }
         return (
             <PageWrapper
+                pageName="Legal"
                 classNames="usa-da-legal-page"
                 title="Legal"
                 metaTagProps={metaTags}>

@@ -85,6 +85,7 @@ const DataSourcesAndMethodologiesPage = () => {
 
     return (
         <PageWrapper
+            pageName="Submissions Statistics DS&M"
             overLine="Data Sources and Methodology"
             title="Agency Submissions Statistics"
             classNames="usa-da-dsm-page"

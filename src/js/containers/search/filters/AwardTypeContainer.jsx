@@ -38,11 +38,10 @@ export class AwardTypeContainer extends React.Component {
     }
 
     dirtyFilters() {
-        const dirty = !is(this.props.awardType, this.props.appliedTypes);
-        if (dirty) {
-            return Symbol('dirty award type');
+        if (is(this.props.awardType, this.props.appliedTypes)) {
+            return null;
         }
-        return null;
+        return Symbol('dirty award type');
     }
 
     render() {

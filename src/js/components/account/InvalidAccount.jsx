@@ -30,7 +30,7 @@ export default class InvalidAccount extends React.Component {
                             Please check the ID and try again." />
                     </div>
                 </main>
-                <Footer />
+                <Footer pageName="Invalid Account" />
             </div>
         );
     }

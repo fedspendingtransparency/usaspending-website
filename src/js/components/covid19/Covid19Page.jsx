@@ -79,6 +79,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
 
     return (
         <PageWrapper
+            pageName="COVID-19 Spending"
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
