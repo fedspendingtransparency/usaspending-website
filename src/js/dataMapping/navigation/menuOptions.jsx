@@ -127,18 +127,6 @@ export const downloadOptions = [
         externalLink: false
     },
     {
-        label: 'Agency Submission Files',
-        type: 'snapshots',
-        url: `${FILES_SERVER_BASE_URL}/agency_submissions/`,
-        code: 'submission',
-        description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
-        callToAction: 'Download Raw Files',
-        shouldOpenNewTab: true,
-        enabled: true,
-        internalDomain: true,
-        externalLink: true
-    },
-    {
         label: 'Database Download',
         type: '',
         url: `${FILES_SERVER_BASE_URL}/database_download/`,
