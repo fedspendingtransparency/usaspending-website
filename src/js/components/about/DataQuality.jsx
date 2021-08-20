@@ -4,8 +4,6 @@
  */
 
 import React from 'react';
-import kGlobalConstants from 'GlobalConstants';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const DataQuality = () => (
