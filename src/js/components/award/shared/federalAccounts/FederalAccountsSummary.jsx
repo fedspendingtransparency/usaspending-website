@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import JumpToSectionButton from '../awardAmountsSection/JumpToSectionButton';
+import JumpToSectionButton from '../awardAmounts/JumpToSectionButton';
 
 const propTypes = {
     summary: PropTypes.object,

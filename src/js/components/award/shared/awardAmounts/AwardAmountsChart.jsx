@@ -13,11 +13,11 @@ import {
     lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
-import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 
-import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
-import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
-import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
+import { getTooltipPropsByAwardTypeAndSpendingCategory } from './Tooltips';
+import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../propTypes/index';
+import RectanglePercentViz from './RectanglePercentViz';
 
 const propTypes = {
     awardType: PropTypes.string,

@@ -5,7 +5,7 @@ import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper'
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
-import AwardAmountsChart from './charts/AwardAmountsChart';
+import AwardAmountsChart from './AwardAmountsChart';
 import AwardAmountsTable from './AwardAmountsTable';
 import JumpToSectionButton from './JumpToSectionButton';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
