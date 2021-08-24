@@ -45,7 +45,7 @@ export default class DBInfo extends React.Component {
                         </p>
                     </div>
                 </main>
-                <Footer />
+                <Footer pageName="DBInfo" />
             </div>
         );
     }

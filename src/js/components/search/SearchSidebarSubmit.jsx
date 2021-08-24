@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    stagedFiltersAreEmpty: PropTypes.bool,
     requestsComplete: PropTypes.bool,
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
@@ -16,7 +17,11 @@ const propTypes = {
 const SearchSidebarSubmit = (props) => {
     let disabled = false;
     let title = 'Click to submit your search.';
-    if (!props.requestsComplete || !props.filtersChanged) {
+    if (props.stagedFiltersAreEmpty) {
+        title = 'Add or update a filter to submit.';
+        disabled = true;
+    }
+    else if (!props.requestsComplete || !props.filtersChanged) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }

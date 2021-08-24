@@ -35,6 +35,7 @@ const ExplorerWrapperPage = (props) => {
 
     return (
         <PageWrapper
+            pageName="Spending Explorer"
             classNames="usa-da-explorer-page"
             title="Spending Explorer"
             metaTagProps={explorerPageMetaTags}

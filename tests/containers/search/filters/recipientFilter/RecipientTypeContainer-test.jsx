@@ -106,27 +106,20 @@ describe('RecipientTypeContainer', () => {
             });
         });
     });
+
     describe('dirtyFilters', () => {
         it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
-            const container = shallow(
-                <RecipientTypeContainer
-                    {...mockTypeRedux} />
-            );
-
+            const container = shallow(<RecipientTypeContainer {...mockTypeRedux} />);
             container.setProps({
                 recipientType: new Set(['a'])
             });
-
+            container.instance().componentDidUpdate({ ...mockTypeRedux });
             const changed = container.instance().dirtyFilters();
             expect(changed).toBeTruthy();
             expect(typeof changed).toEqual('symbol');
         });
         it('should return null when the staged filters match with the applied filters', () => {
-            const container = shallow(
-                <RecipientTypeContainer
-                    {...mockTypeRedux} />
-            );
-
+            const container = shallow(<RecipientTypeContainer {...mockTypeRedux} />);
             const changed = container.instance().dirtyFilters();
             expect(changed).toBeFalsy();
         });
