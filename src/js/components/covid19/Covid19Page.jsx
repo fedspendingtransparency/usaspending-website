@@ -61,12 +61,12 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         if (isRecipientMapLoaded && query.section) {
             handleJumpToSection(query.section);
             const newParams = getQueryParamString(omit(query, ['section']));
-            history.push({
+            history.replace({
                 pathname: '/disaster/covid-19',
                 search: newParams
             });
         }
-    }, [isRecipientMapLoaded]);
+    }, [history, isRecipientMapLoaded, query]);
 
 
     const handleExternalLinkClick = (url) => {
