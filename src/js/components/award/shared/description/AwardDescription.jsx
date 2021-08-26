@@ -40,7 +40,7 @@ const AwardDescription = ({
             <div className="award-description__content">
                 <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
                 {naics && psc && (
-                    <FlexGridRow hasGutter={true} className="award-description__naics-psc">
+                    <FlexGridRow hasGutter className="award-description__naics-psc">
                         <FlexGridCol tablet={6} className="naics-psc__section">
                             <div className="naics-psc__heading">
                                 North American Industry Classification System (NAICS)
