@@ -21,7 +21,7 @@ const DownloadMessageModal = ({
     <Modal
         mounted={mounted}
         onExit={closeModal}
-        titleText="This page is unavailable while we are making updates to USAspending."
+        titleText="This file is unavailable while we are making updates to USAspending."
         dialogClass="usa-dt-modal"
         verticallyCenter
         escapeExits>
