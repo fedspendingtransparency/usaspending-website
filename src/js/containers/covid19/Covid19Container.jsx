@@ -23,7 +23,8 @@ const Covid19Container = () => {
     const awardAmountRequest = useRef(null);
     const dispatch = useDispatch();
     const history = useHistory();
-    const publicLaw = useQueryParams().publicLaw.toLowerCase();
+    let { publicLaw } = useQueryParams();
+    publicLaw = publicLaw && publicLaw.toLowerCase();
 
     useEffect(() => {
         /** Default to all DEFC if:
