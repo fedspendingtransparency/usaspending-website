@@ -29,7 +29,7 @@ const DownloadMessageModal = ({
             <div className="usa-dt-modal__header">
                 <h1 className="usa-dt-modal__title">
                     <FontAwesomeIcon className="database-download-message__icon" icon="exclamation-triangle" />
-                    This page is unavailable while we are making updates to USAspending.
+                    This file is unavailable while we are making updates to USAspending.
                 </h1>
                 <button
                     className="usa-dt-modal__close-button"
