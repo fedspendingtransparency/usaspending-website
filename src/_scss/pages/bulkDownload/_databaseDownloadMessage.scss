@@ -1,0 +1,23 @@
+.database-download {
+    padding: 0 rem(30);
+    h2 {
+        font-weight: $font-normal;
+        padding-bottom: rem(30);
+        margin: 0;
+    }
+}
+.database-download-message {
+    background-color: $color-gold-lightest;
+    border: solid $color-gold rem(1);
+    padding: rem(30) rem(15);
+    .database-download-message__heading {
+        font-size: $lead-font-size;
+        font-weight: $font-semibold;
+        margin: 0;
+        line-height: normal;
+        .database-download-message__icon {
+            color: $color-gold;
+            margin-right: rem(8);
+        }
+    }
+}

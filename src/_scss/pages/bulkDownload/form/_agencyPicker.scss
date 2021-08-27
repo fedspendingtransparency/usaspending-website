@@ -20,7 +20,7 @@
             @include button-unstyled;
 
             border-bottom: 1px solid $color-gray-light;
-            padding: rem(4) 0 rem(4) 0;
+            padding: rem(4);
             .label {
                 @include display(flex);
                 @include flex(1 1 auto);
