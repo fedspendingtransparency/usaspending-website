@@ -11,7 +11,8 @@ import Analytics from 'helpers/analytics/Analytics';
 const propTypes = {
     columns: PropTypes.array.isRequired,
     file: PropTypes.object,
-    rowIndex: PropTypes.number.isRequired
+    rowIndex: PropTypes.number.isRequired,
+    openModal: PropTypes.func.isRequired
 };
 
 const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
@@ -58,18 +59,12 @@ export default class TableRow extends React.PureComponent {
         }
         const cells = this.props.columns.map((column) => {
             if (column.columnName === 'fileName') {
-                // link to the file
+                // temporarily open a modal
                 return (
                     <td
                         className={rowClass}
                         key={`${column.columnName}-${this.props.file.url}`}>
-                        <a
-                            href={this.props.file.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={this.logArchiveDownload}>
-                            {this.props.file.fileName}
-                        </a>
+                        <button onClick={this.props.openModal}>{this.props.file.fileName}</button>
                     </td>
                 );
             }
