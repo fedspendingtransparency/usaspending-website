@@ -16,8 +16,8 @@ import {
     formatMoneyWithPrecision,
     formatMoney
 } from 'helpers/moneyFormatter';
-import { RectanglePercentVizTooltip } from './RectanglePercentVizTooltip';
-import RectanglePercentViz from './RectanglePercentViz';
+import { RectanglePercentVizTooltip } from '../shared/awardAmounts/RectanglePercentVizTooltip';
+import RectanglePercentViz from '../shared/awardAmounts/RectanglePercentViz';
 import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
 import CFDATreeTooltip from './CFDATreeTooltip';

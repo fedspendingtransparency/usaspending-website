@@ -5,10 +5,14 @@
 
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
+import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';
 
 require('pages/covid19/index.scss');
@@ -18,6 +22,26 @@ const Covid19Container = () => {
     const overviewRequest = useRef(null);
     const awardAmountRequest = useRef(null);
     const dispatch = useDispatch();
+    const history = useHistory();
+    let { publicLaw } = useQueryParams();
+    publicLaw = publicLaw && publicLaw.toLowerCase();
+
+    useEffect(() => {
+        /** Default to all DEFC if:
+         * 1) no public law param is defined
+         * 2) the public law param is invalid
+         * 3) the public law param is for ARP, but the ARP filter is not yet released
+         */
+
+        if (!publicLaw ||
+            !(publicLaw === 'all' || (publicLaw in defcByPublicLaw)) ||
+            (publicLaw === 'american-rescue-plan' && !GlobalConstants.ARP_RELEASED)) {
+            history.replace({
+                pathname: '',
+                search: '?publicLaw=all'
+            });
+        }
+    }, [publicLaw]);
 
     useEffect(() => {
         const getOverviewData = async () => {

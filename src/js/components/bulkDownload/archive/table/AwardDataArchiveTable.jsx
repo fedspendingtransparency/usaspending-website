@@ -10,7 +10,8 @@ import TableRow from './TableRow';
 
 const propTypes = {
     results: PropTypes.array,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    openModal: PropTypes.func
 };
 
 export default class AwardDataArchiveTable extends React.Component {
@@ -32,7 +33,8 @@ export default class AwardDataArchiveTable extends React.Component {
                 key={file.url}
                 file={file}
                 rowIndex={index}
-                columns={this.props.columns} />
+                columns={this.props.columns}
+                openModal={this.props.openModal} />
         ));
 
         return (

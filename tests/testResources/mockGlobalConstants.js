@@ -4,7 +4,8 @@ export default {
     LOCAL: false,
     QAT: true,
     PERF_LOG: false,
-    MAPBOX_TOKEN: ""
+    MAPBOX_TOKEN: "",
+    ARP_RELEASED: true
 };
 
 Object.defineProperty(window, 'open', {
