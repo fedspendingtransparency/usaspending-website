@@ -4,11 +4,11 @@
  * */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import { IdvAmountsContainer } from '../../../../src/js/containers/award/idv/IdvAwardAmountsSectionContainer';
-import BaseAwardAmounts from '../../../../src/js/models/v2/award/BaseAwardAmounts';
-import CoreAward from '../../../../src/js/models/v2/award/CoreAward';
+import { IdvAmountsContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
+import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
+import CoreAward from 'models/v2/award/CoreAward';
 
 import { mockRedux, mockActions } from '../mockAward';
 import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
@@ -16,7 +16,7 @@ import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/award/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
+jest.mock('components/award/idv/amounts/AggregatedAwardAmountsSection.jsx', () => jest.fn(() => null));
 
 const awardOverview = Object.create(CoreAward);
 awardOverview.populateCore(mockRedux.award.overview);
