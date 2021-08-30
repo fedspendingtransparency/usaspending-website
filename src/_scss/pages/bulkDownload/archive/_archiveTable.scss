@@ -18,9 +18,6 @@
             tr {
                 td {
                     border-color: $color-gray-light;
-                    button {
-                        @include button-link;
-                    }
                 }
                 // gray out even rows
                 .row-even {

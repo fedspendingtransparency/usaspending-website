@@ -28,7 +28,6 @@
             @import "archive/archive";
             @import "defCheckbox";
             @import "metadataPage";
-            @import 'databaseDownloadMessage';
             @include span-columns(16);
             @include media($medium-screen) {
                 @include span-columns(12);

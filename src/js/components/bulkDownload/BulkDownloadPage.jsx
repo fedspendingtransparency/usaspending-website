@@ -20,7 +20,6 @@ import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataCo
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
-import DatabaseDownload from './DatabaseDownload';
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -101,9 +100,6 @@ export default class BulkDownloadPage extends React.Component {
             downloadDataContent = (
                 <MetadataDownload />
             );
-        }
-        if (this.props.dataType === 'database_download') {
-            downloadDataContent = (<DatabaseDownload />);
         }
         return (
             <PageWrapper
