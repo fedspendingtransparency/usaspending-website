@@ -3,10 +3,6 @@
  * Created by Kevin Li 1/18/18
  */
 
-import GlobalConstants from 'GlobalConstants';
-
-const { FILES_SERVER_BASE_URL } = GlobalConstants;
-
 export const searchOptions = [
     {
         label: 'Advanced Search',
@@ -128,15 +124,14 @@ export const downloadOptions = [
     },
     {
         label: 'Database Download',
-        type: '',
-        url: `${FILES_SERVER_BASE_URL}/database_download/`,
+        type: 'database_download',
+        url: '/download_center/database_download',
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
-        shouldOpenNewTab: true,
+        shouldOpenNewTab: false,
         enabled: true,
-        internalDomain: true,
-        externalLink: true
+        externalLink: false
     },
     {
         label: 'Dataset Metadata',
