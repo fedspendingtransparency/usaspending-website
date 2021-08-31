@@ -3,18 +3,19 @@
  * Created by Afna Saifudeen 8/4/21
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
-import { useStateWithPrevious } from 'helpers';
+import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
 
 const propTypes = {
     fy: PropTypes.string,
     agencyId: PropTypes.string
 };
 
-export const tabs = [
+export const awardTabs = [
     {
         internal: 'all',
         label: 'All Awards'
@@ -45,11 +46,56 @@ export const tabs = [
     }
 ];
 
-const AwardSpendingSubagency = () => {
-    const [activeTab, setActiveTab] = useStateWithPrevious('all');
+const summaryData = [
+    {
+        type: 'subagenciesCount',
+        title: 'Number of Sub-Agencies'
+    },
+    {
+        type: 'awardObligations',
+        title: 'Award Obligations',
+        isMonetary: true
+    },
+    {
+        type: 'numberOfTransactions',
+        title: 'Number of Transactions'
+    },
+    {
+        type: 'numberOfAwards',
+        title: 'Number of New Awards'
+    }
+];
+
+const initialActiveTabState = {
+    internal: awardTabs[0].internal,
+    subtitle: awardTabs[0].label
+};
+
+const AwardSpendingSubagency = ({ agencyId, fy }) => {
+    const { subagencyCount } = useSelector((state) => state.agencyV2);
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
+
+    const subagencyData = subagencyCount;
+
+    const changeActiveTab = (tab) => {
+        const tabSubtitle = awardTabs.find((item) => item.internal === tab).label;
+        const tabInternal = awardTabs.find((item) => item.internal === tab).internal;
+
+        setActiveTab({
+            internal: tabInternal,
+            subtitle: tabSubtitle
+        });
+    };
+
     return (
         <div className="body__content agency-budget-category">
-            <Tabs types={tabs} switchTab={setActiveTab} active={activeTab} />
+            <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+            <SubAgencySummaryContainer
+                agencyId={agencyId}
+                fy={fy}
+                summaryData={summaryData}
+                data={subagencyData}
+                activeTab={activeTab.internal} />
         </div>
     );
 };
