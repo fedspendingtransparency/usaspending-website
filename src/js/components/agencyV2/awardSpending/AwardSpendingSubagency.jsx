@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
@@ -14,7 +15,7 @@ const propTypes = {
     agencyId: PropTypes.string
 };
 
-export const tabs = [
+export const awardTabs = [
     {
         internal: 'all',
         label: 'All Awards'
@@ -45,36 +46,40 @@ export const tabs = [
     }
 ];
 
+const summaryData = [
+    {
+        type: 'subagenciesCount',
+        title: 'Number of Sub-Agencies'
+    },
+    {
+        type: 'awardObligations',
+        title: 'Award Obligations',
+        isMonetary: true
+    },
+    {
+        type: 'numberOfTransactions',
+        title: 'Number of Transactions'
+    },
+    {
+        type: 'numberOfAwards',
+        title: 'Number of New Awards'
+    }
+];
+
 const initialActiveTabState = {
-    internal: tabs[0].internal,
-    subtitle: tabs[0].label
+    internal: awardTabs[0].internal,
+    subtitle: awardTabs[0].label
 };
 
-const AwardSpendingSubagency = ({ fy }) => {
-    const summaryData = [
-        {
-            type: 'subagenciesCount',
-            title: 'Number of Sub-Agencies'
-        },
-        {
-            type: 'awardObligations',
-            title: 'Award Obligations',
-            isMonetary: true
-        },
-        {
-            type: 'numberOfTransactions',
-            title: 'Number of Transactions'
-        },
-        {
-            type: 'numberOfAwards',
-            title: 'Number of New Awards'
-        }
-    ];
+const AwardSpendingSubagency = ({ agencyId, fy }) => {
+    const { subagencyCount } = useSelector((state) => state.agencyV2);
     const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
+    const subagencyData = subagencyCount;
+
     const changeActiveTab = (tab) => {
-        const tabSubtitle = tabs.find((item) => item.internal === tab).label;
-        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+        const tabSubtitle = awardTabs.find((item) => item.internal === tab).label;
+        const tabInternal = awardTabs.find((item) => item.internal === tab).internal;
 
         setActiveTab({
             internal: tabInternal,
@@ -84,10 +89,12 @@ const AwardSpendingSubagency = ({ fy }) => {
 
     return (
         <div className="body__content agency-budget-category">
-            <Tabs active={activeTab.internal} types={tabs} switchTab={changeActiveTab} />
+            <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
             <SubAgencySummaryContainer
+                agencyId={agencyId}
                 fy={fy}
                 summaryData={summaryData}
+                data={subagencyData}
                 activeTab={activeTab.internal} />
         </div>
     );
