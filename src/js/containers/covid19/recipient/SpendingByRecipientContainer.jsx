@@ -200,7 +200,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             );
             const rowData = Object.create(BaseSpendingByRecipientRow);
 
-            // TODO - DEV-5625 Remove placeholder 0s
             rowData.populate({
                 obligation: unlinkedData.obligation,
                 outlay: unlinkedData.outlay,

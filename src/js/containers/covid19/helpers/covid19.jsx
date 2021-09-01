@@ -3,13 +3,12 @@
  * Created by Jonathan Hill 06/10/20
  */
 
-import OverviewContainer from 'containers/covid19/OverviewContainer';
-import RecipientContainer from 'containers/covid19/recipient/RecipientContainer';
-
 import React from 'react';
 import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
 import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
 import AwardQuestion from 'components/covid19/AwardQuestions';
+import OverviewContainer from 'containers/covid19/OverviewContainer';
+import RecipientSection from 'components/covid19/recipient/RecipientSection';
 import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
@@ -49,6 +48,7 @@ const awardSpendingText = (
     </div>
 );
 
+// eslint-disable-next-line import/prefer-default-export
 export const componentByCovid19Section = () => ({
     overview: {
         icon: 'hand-holding-medical',
@@ -73,7 +73,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_recipient: {
         icon: 'building',
-        component: <RecipientContainer />,
+        component: <RecipientSection />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
