@@ -181,7 +181,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const { recipientTotals, defCodes } = useSelector((state) => state.covid19);
+    const { recipientTotals, defcParams } = useSelector((state) => state.covid19);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -225,10 +225,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 },
                 pagination: {
                     limit: pageSize,
@@ -279,7 +279,7 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, defCodes, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
@@ -313,7 +313,10 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 </div>
                 {(!error && !loading && results.length > 0) &&
                 <div className="table-utility__right">
-                    <TableDownloadLink defCodes={defCodes && defCodes.length > 0 && defCodes.map((defc) => defc.code)} awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null} query={query} />
+                    <TableDownloadLink
+                        defCodes={defcParams && defcParams.length > 0 && defcParams}
+                        awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
+                        query={query} />
                 </div>}
             </div>
             {(results.length > 0 || error) && <Pagination

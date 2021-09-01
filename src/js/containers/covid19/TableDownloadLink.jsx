@@ -37,7 +37,6 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
             downloadRequest.cancel();
         }
 
-
         if (defCodes) {
             params.filters.def_codes = defCodes;
         }
