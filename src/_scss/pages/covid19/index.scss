@@ -140,7 +140,7 @@
                         font-size: $small-font-size;
                     }
                     .loading-animation {
-                        @import "../search/results/screens/loading";
+                        @import "../../loading";
                     }
                 }
                 .information-body {
