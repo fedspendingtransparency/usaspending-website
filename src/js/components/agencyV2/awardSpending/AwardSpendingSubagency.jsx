@@ -48,10 +48,6 @@ export const awardTabs = [
 
 const summaryData = [
     {
-        type: 'subagenciesCount',
-        title: 'Number of Sub-Agencies'
-    },
-    {
         type: 'awardObligations',
         title: 'Award Obligations',
         isMonetary: true
