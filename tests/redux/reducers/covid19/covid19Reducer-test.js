@@ -4,8 +4,14 @@
  */
 
 import covid19Reducer from 'redux/reducers/covid19/covid19Reducer';
-import { setDEFCodes, setOverview, setTotals, setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
-import { defCodes, overview } from './mockData';
+import {
+    setDEFCodes,
+    setOverview,
+    setTotals,
+    setIsMapLoaded,
+    setDefcParams
+} from 'redux/actions/covid19/covid19Actions';
+import { defCodes, overview, defcParams } from './mockData';
 
 describe('Covid 19 Reducer', () => {
     it('should SET_DEF_CODES', () => {
@@ -69,5 +75,10 @@ describe('Covid 19 Reducer', () => {
         let state = covid19Reducer(undefined, {});
         state = covid19Reducer(state, setIsMapLoaded(true));
         expect(state.isRecipientMapLoaded).toEqual(true);
+    });
+    it('should SET_DEFC_PARAMS', () => {
+        let state = covid19Reducer(undefined, {});
+        state = covid19Reducer(state, setDefcParams(defcParams));
+        expect(state.defcParams).toEqual(defcParams);
     });
 });

@@ -61,7 +61,7 @@ export const overview = {
         {
             def_code: 'M',
             amount: 11230000000
-        },
+        }
     ],
     total_budget_authority: 2300000000000,
     spending: {
@@ -71,3 +71,5 @@ export const overview = {
         total_outlays: 459000000000
     }
 };
+
+export const defcParams = ['A', 'B', 'C'];
