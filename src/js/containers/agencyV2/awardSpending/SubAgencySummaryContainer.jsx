@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
 import { InformationBoxes } from "data-transparency-ui";
-import { awardTypeGroupLabels, awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchSubagencyCount, fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
-import { setSubagencyCount, resetSubagencyCount } from 'redux/actions/agencyV2/agencyV2Actions';
-
 
 const propTypes = {
     fy: PropTypes.string,
@@ -34,7 +32,6 @@ const SubAgencySummaryContainer = ({
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
-    const dispatch = useDispatch();
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfTransactions, setNumberOfTransactions] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
@@ -49,7 +46,6 @@ const SubAgencySummaryContainer = ({
         if (summaryRequest.current) {
             summaryRequest.current.cancel();
         }
-        dispatch(resetSubagencyCount());
     }, []);
 
     const getNewAwardsCount = async () => {
@@ -83,42 +79,6 @@ const SubAgencySummaryContainer = ({
                     setError(true);
                     setLoading(false);
                     numberOfAwardsRequest.current = null;
-                }
-            });
-    };
-
-    const getSubagencyCount = async () => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        if (error) {
-            setError(false);
-        }
-        if (!loading) {
-            setLoading(true);
-        }
-
-        if (activeTab !== 'all') {
-            const params = awardTypeGroups[activeTab];
-            request.current = fetchSubagencyCount(toptierCode, fy, params);
-        }
-        else {
-            request.current = fetchSubagencyCount(toptierCode, fy);
-        }
-        request.current.promise
-            .then((res) => {
-                const subagencyCountData = Object.create(BaseAgencySubagencyCount);
-                subagencyCountData.populate(res.data);
-                dispatch(setSubagencyCount(subagencyCountData));
-                setLoading(false);
-                request.current = null;
-            })
-            .catch((e) => {
-                if (!isCancel(e)) {
-                    console.error(e);
-                    setError(true);
-                    setLoading(false);
-                    request.current = null;
                 }
             });
     };
@@ -161,18 +121,11 @@ const SubAgencySummaryContainer = ({
     useEffect(() => {
         if (toptierCode && data) {
             getNewAwardsCount();
-            getSubagencyCount();
             getSubagencySummary();
         }
     }, [fy, toptierCode, activeTab]);
 
-    let subtitle = `for all ${activeTab === 'all' ? 'Awards' : awardTypeGroupLabels[activeTab]} in FY${fy.substring(2)}`;
-    if (activeTab === 'other') {
-        subtitle = 'for all Other Financial Assistance';
-    }
-    const officesCount = `with ${data.officeCount} offices`;
     const amounts = {
-        subagenciesCount: data.subagencyCount,
         awardObligations,
         numberOfTransactions,
         numberOfAwards
@@ -181,11 +134,9 @@ const SubAgencySummaryContainer = ({
     return (
         <div className="overview-data-group">
             <InformationBoxes
-                boxes={summaryData.map((sdata, index) => ({
+                boxes={summaryData.map((sdata) => ({
                     ...sdata,
-                    subtitle,
-                    amount: amounts[sdata.type],
-                    subtitleBottom: `${index === 0 ? officesCount : ''}`
+                    amount: amounts[sdata.type]
                 }))} />
         </div>
     );
