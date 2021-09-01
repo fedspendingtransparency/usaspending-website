@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -7,8 +7,6 @@ import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
-import { resetSubagencyCount } from 'redux/actions/agencyV2/agencyV2Actions';
-
 
 const propTypes = {
     fy: PropTypes.string,
@@ -34,7 +32,6 @@ const SubAgencySummaryContainer = ({
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
     const { toptierCode } = useSelector((state) => state.agencyV2.overview);
-    const dispatch = useDispatch();
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfTransactions, setNumberOfTransactions] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
@@ -49,7 +46,6 @@ const SubAgencySummaryContainer = ({
         if (summaryRequest.current) {
             summaryRequest.current.cancel();
         }
-        dispatch(resetSubagencyCount());
     }, []);
 
     const getNewAwardsCount = async () => {
