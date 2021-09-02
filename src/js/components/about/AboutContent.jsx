@@ -81,8 +81,8 @@ const AboutContent = () => {
         if (!sectionDom) {
             return;
         }
-
-        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
         scrollToY(sectionTop, 700);
     };
 
@@ -101,7 +101,7 @@ const AboutContent = () => {
             // remove the query param from the url after scrolling to the given section
             history.replace(`/about`);
         }
-    }, [location.search]);
+    }, [history, location.search, query.section]);
 
     return (
         <div className="about-content-wrapper">
