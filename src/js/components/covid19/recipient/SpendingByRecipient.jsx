@@ -49,7 +49,7 @@ const overviewData = [
 const SpendingByRecipient = () => {
     const [inFlight, setInFlight] = useState(true);
     const [activeTab, setActiveTab] = useState(awardTypeTabs[0].internal);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { defcParams } = useSelector((state) => state.covid19);
     const awardFilterButtonsRef = useRef(null);
 
     const [tabCounts, setTabCounts] = useState({
@@ -74,7 +74,7 @@ const SpendingByRecipient = () => {
         const promises = awardTypeTabs.map((awardType) => {
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 }
             };
             if (awardType.internal !== 'all') {
@@ -96,7 +96,7 @@ const SpendingByRecipient = () => {
                     idvs: idvRes.data.count
                 });
             });
-    }, [defCodes]);
+    }, [defcParams]);
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
         scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, awardFilterButtonsRef);
