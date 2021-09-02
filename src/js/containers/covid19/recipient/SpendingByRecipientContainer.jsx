@@ -9,28 +9,24 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import replaceString from 'helpers/replaceString';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import Note from 'components/sharedComponents/Note';
 import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
+    prevActiveTab: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
-
-let tableHeight = 'auto';
 
 const columns = [
     {
@@ -164,18 +160,18 @@ export const parseRows = (rows, activeTab, query) => (
     })
 );
 
-const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
+const SpendingByRecipientContainer = ({ activeTab, prevActiveTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
-    const [pageSize, changePageSize] = useState(10);
+    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
     const [parsedRows, setParsedRows] = useState([]); // finalized rows (including Unlinked Data)
     const [resultTotal, setResultTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [sort, setSort] = useState('obligation');
-    const [order, setOrder] = useState('desc');
-    const [query, setQuery] = useState('');
+    const [prevSort, sort, setSort] = useStateWithPrevious('obligation');
+    const [prevOrder, order, setOrder] = useStateWithPrevious('desc');
+    const [prevQuery, query, setQuery] = useStateWithPrevious('');
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
@@ -273,11 +269,20 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
 
     useEffect(() => {
         // Reset to the first page
-        if (currentPage === 1) {
-            fetchSpendingByRecipientCallback();
+        if (currentPage !== 1) {
+            changeCurrentPage(1);
         }
         else {
-            changeCurrentPage(1);
+            const hasParamChanged = (
+                prevOrder !== order ||
+                prevSort !== sort ||
+                prevPageSize !== pageSize ||
+                prevQuery !== query ||
+                prevActiveTab !== activeTab
+            );
+            if (hasParamChanged) {
+                fetchSpendingByRecipientCallback();
+            }
         }
     }, [pageSize, defcParams, sort, order, activeTab, query]);
 
@@ -288,22 +293,6 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
     }, [loading, error]);
-
-    if (loading) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (error) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (results.length === 0) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
 
     return (
         <div ref={tableWrapperRef}>
@@ -327,27 +316,15 @@ const SpendingByRecipientContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            {(error || loading || (!error && !loading && results.length === 0)) &&
-            <TransitionGroup>
-                <CSSTransition
-                    classNames="table-message-fade"
-                    timeout={{ exit: 225, enter: 195 }}
-                    exit>
-                    <div className="results-table-message-container" style={{ height: tableHeight }}>
-                        {error && <ResultsTableErrorMessage />}
-                        {loading && <ResultsTableLoadingMessage />}
-                        {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                    </div>
-                </CSSTransition>
-            </TransitionGroup>}
-            {(!error && !loading && results.length > 0) &&
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parsedRows}
                     updateSort={updateSort}
-                    currentSort={{ field: sort, direction: order }} />
-            </div>}
+                    currentSort={{ field: sort, direction: order }}
+                    error={error}
+                    loading={loading} />
+            </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
