@@ -70,7 +70,7 @@ const TotalObligationsOverTimeContainer = ({
     return (
         <div ref={containerReference} className="total-obligations-over-time-visualization-container">
             {isError && <ErrorMessage />}
-            {loading && <LoadingMessage />}
+            {!isError && loading && <LoadingMessage />}
             {!isError && !loading && !data.length && <NoResultsMessage />}
             {
                 !isError && !loading && data.length > 0 &&
