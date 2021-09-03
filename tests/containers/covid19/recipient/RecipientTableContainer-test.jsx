@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import RecipientTableContainer, { parseRows } from 'containers/covid19/recipient/RecipientTableContainer';
 import * as api from 'apis/disaster';
 import * as redux from 'react-redux';
+import { defaultState } from '../../../testResources/defaultReduxFilters';
 
 const mockResults = [
     {
@@ -34,16 +35,6 @@ let spy;
 
 beforeEach(() => {
     jest.clearAllMocks();
-
-    // Mock the relevant redux state
-    const mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({
-        defcParams: ['A', 'B', 'C'],
-        recipientTotals: {
-            obligation: 2026286145590.02,
-            outlay: 1604723759880.31,
-            awardCount: 21639525
-        }
-    });
 });
 
 describe('RecipientTableContainer', () => {
@@ -142,79 +133,116 @@ describe('RecipientTableContainer', () => {
             expect([...parsed]).toMatchObject(expected);
         });
     });
-    it('should make an API call when the sort changes', () => {
-        // spy on the API request helper function
-        spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
+    describe('table interactions', () => {
+        beforeEach(() => {
+            // Mock the relevant redux state
+            const mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({
+                defcParams: ['A', 'B', 'C'],
+                recipientTotals: {
+                    obligation: 2026286145590.02,
+                    outlay: 1604723759880.31,
+                    awardCount: 21639525
                 }
-            }),
-            cancel: jest.fn()
+            });
         });
-        // Initial render
-        act(() => {
-            render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
+        it('should make an API call when the sort changes', () => {
+            // spy on the API request helper function
+            spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
+                promise: Promise.resolve({
+                    data: {
+                        results: mockResults,
+                        page_metadata: {
+                            total: 20
+                        }
+                    }
+                }),
+                cancel: jest.fn()
+            });
+            // Initial render
+            act(() => {
+                render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
+            });
+            expect(spy).toHaveBeenCalledTimes(1);
+            // Click a sort button
+            fireEvent.click(screen.getByTitle('Sort table by ascending Recipient'));
+            return waitFor(() => {
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
-        expect(spy).toHaveBeenCalledTimes(1);
-        // Click a sort button
-        fireEvent.click(screen.getByTitle('Sort table by ascending Recipient'));
-        return waitFor(() => {
-            expect(spy).toHaveBeenCalledTimes(2);
+        it('should make an API call when a search term is applied', () => {
+            // spy on the API request helper function
+            spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
+                promise: Promise.resolve({
+                    data: {
+                        results: mockResults,
+                        page_metadata: {
+                            total: 20
+                        }
+                    }
+                }),
+                cancel: jest.fn()
+            });
+            // Initial render
+            act(() => {
+                render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
+            });
+            expect(spy).toHaveBeenCalledTimes(1);
+            // Enter a search term
+            const input = screen.getByTitle('Search Input');
+            const button = screen.getByTitle('Submit Search Button');
+            fireEvent.change(input, { target: { value: 'hello' } });
+            fireEvent.click(button);
+            return waitFor(() => {
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
+        });
+        it('should make a different API call when the loans tab is active', () => {
+            // spy on the API request helper functions
+            spy = jest.spyOn(api, 'fetchDisasterSpending');
+            const loansSpy = jest.spyOn(api, 'fetchLoanSpending').mockReturnValue({
+                promise: Promise.resolve({
+                    data: {
+                        results: mockResults,
+                        page_metadata: {
+                            total: 20
+                        }
+                    }
+                }),
+                cancel: jest.fn()
+            });
+            // Initial render
+            act(() => {
+                render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+            });
+            expect(spy).not.toHaveBeenCalled();
+            expect(loansSpy).toHaveBeenCalledTimes(1);
+        });
+        it('should make an API call when the active tab changes', () => {
+            // spy on the API request helper functions
+            spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
+                promise: Promise.resolve({
+                    data: {
+                        results: mockResults,
+                        page_metadata: {
+                            total: 20
+                        }
+                    }
+                }),
+                cancel: jest.fn()
+            });
+
+            const { rerender } = render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+            waitFor(() => {
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+            rerender(<RecipientTableContainer activeTab="all" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+            waitFor(() => {
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
     });
-    it('should make an API call when a search term is applied', () => {
-        // spy on the API request helper function
-        spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
-            }),
-            cancel: jest.fn()
-        });
-        // Initial render
-        act(() => {
-            render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
-        });
-        expect(spy).toHaveBeenCalledTimes(1);
-        // Enter a search term
-        const input = screen.getByTitle('Search Input');
-        const button = screen.getByTitle('Submit Search Button');
-        fireEvent.change(input, { target: { value: 'hello' } });
-        fireEvent.click(button);
-        return waitFor(() => {
-            expect(spy).toHaveBeenCalledTimes(2);
-        });
-    });
-    it('should make a different API call when the loans tab is active', () => {
-        // spy on the API request helper functions
-        spy = jest.spyOn(api, 'fetchDisasterSpending');
-        const loansSpy = jest.spyOn(api, 'fetchLoanSpending').mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
-            }),
-            cancel: jest.fn()
-        });
-        // Initial render
-        act(() => {
-            render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
-        });
-        expect(spy).not.toHaveBeenCalled();
-        expect(loansSpy).toHaveBeenCalledTimes(1);
-    });
-    it('should make an API call when the active tab changes', () => {
+
+    it('should make an API call when the DEFC params change', () => {
         // spy on the API request helper functions
         spy = jest.spyOn(api, 'fetchDisasterSpending').mockReturnValue({
             promise: Promise.resolve({
@@ -228,11 +256,50 @@ describe('RecipientTableContainer', () => {
             cancel: jest.fn()
         });
 
-        const { rerender } = render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+        const { rerender } = render(
+            (
+                <RecipientTableContainer
+                    activeTab="all"
+                    prevActiveTab="all"
+                    scrollIntoView={jest.fn()} />
+            ), {
+                initialState: {
+                    ...defaultState,
+                    covid19: {
+                        defcParams: ['A', 'B', 'C'],
+                        recipientTotals: {
+                            obligation: 2026286145590.02,
+                            outlay: 1604723759880.31,
+                            awardCount: 21639525
+                        }
+                    }
+                }
+            }
+        );
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
-        rerender(<RecipientTableContainer activeTab="all" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+        // re-render with different defcParams
+        rerender(
+            (
+                <RecipientTableContainer
+                    activeTab="all"
+                    prevActiveTab="all"
+                    scrollIntoView={jest.fn()} />
+            ), {
+                initialState: {
+                    ...defaultState,
+                    covid19: {
+                        defcParams: ['Z'],
+                        recipientTotals: {
+                            obligation: 2026286145590.02,
+                            outlay: 1604723759880.31,
+                            awardCount: 21639525
+                        }
+                    }
+                }
+            }
+        );
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
