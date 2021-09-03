@@ -5,7 +5,7 @@
 
 import React from 'react';
 import MapContainer from 'containers/covid19/recipient/map/MapContainer';
-import SpendingByRecipient from 'components/covid19/recipient/SpendingByRecipient';
+import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
 
 const tabs = [
     {
@@ -16,7 +16,7 @@ const tabs = [
     {
         internal: 'recipients',
         label: 'Recipients',
-        component: <SpendingByRecipient />
+        component: <SpendingByRecipientContainer />
     }
 ];
 

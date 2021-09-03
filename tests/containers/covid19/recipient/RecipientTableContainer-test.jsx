@@ -1,13 +1,13 @@
 /**
- * SpendingByRecipientContainer-test.js
+ * RecipientTableContainer-test.js
  * Created by Lizzie Salita 7/17/20
  * */
 
 import React from 'react';
-import { render, waitFor, screen, fireEvent, act, cleanup } from 'test-utils';
+import { render, waitFor, screen, fireEvent, act } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { Link } from 'react-router-dom';
-import SpendingByRecipientContainer, { parseRows } from 'containers/covid19/recipient/SpendingByRecipientContainer';
+import RecipientTableContainer, { parseRows } from 'containers/covid19/recipient/RecipientTableContainer';
 import * as api from 'apis/disaster';
 import * as redux from 'react-redux';
 
@@ -46,7 +46,7 @@ beforeEach(() => {
     });
 });
 
-describe('SpendingByRecipientContainer', () => {
+describe('RecipientTableContainer', () => {
     describe('parseRows', () => {
         it('should parse returned recipient data', () => {
             const expected = [
@@ -157,7 +157,7 @@ describe('SpendingByRecipientContainer', () => {
         });
         // Initial render
         act(() => {
-            render(<SpendingByRecipientContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
+            render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
         });
         expect(spy).toHaveBeenCalledTimes(1);
         // Click a sort button
@@ -181,7 +181,7 @@ describe('SpendingByRecipientContainer', () => {
         });
         // Initial render
         act(() => {
-            render(<SpendingByRecipientContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
+            render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
         });
         expect(spy).toHaveBeenCalledTimes(1);
         // Enter a search term
@@ -209,7 +209,7 @@ describe('SpendingByRecipientContainer', () => {
         });
         // Initial render
         act(() => {
-            render(<SpendingByRecipientContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+            render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
         });
         expect(spy).not.toHaveBeenCalled();
         expect(loansSpy).toHaveBeenCalledTimes(1);
@@ -228,11 +228,11 @@ describe('SpendingByRecipientContainer', () => {
             cancel: jest.fn()
         });
 
-        const { rerender } = render(<SpendingByRecipientContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+        const { rerender } = render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(1);
         });
-        rerender(<SpendingByRecipientContainer activeTab="all" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+        rerender(<RecipientTableContainer activeTab="all" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
