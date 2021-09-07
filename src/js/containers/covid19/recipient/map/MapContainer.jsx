@@ -15,7 +15,6 @@ import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 
 import { setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
