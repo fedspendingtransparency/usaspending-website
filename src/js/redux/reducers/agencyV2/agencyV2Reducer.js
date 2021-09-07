@@ -5,6 +5,7 @@
 
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from '../../../models/v2/agency/BaseAgencySubagencyCount';
+import BaseSubagencySpendingRow from '../../../models/v2/agency/BaseSubagencySpendingRow';
 
 // Create an empty recipient object for the initial state
 const recipientDistribution = Object.create(BaseAgencyRecipients);
@@ -12,6 +13,9 @@ recipientDistribution.populate();
 
 const subagencyCount = Object.create(BaseAgencySubagencyCount);
 subagencyCount.populate();
+
+const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
+spendingBySubagencyTotals.populateCore();
 
 export const initialState = {
     overview: {
@@ -26,7 +30,8 @@ export const initialState = {
         objectClass: null,
         programActivity: null,
         federalAccount: null
-    }
+    },
+    spendingBySubagencyTotals
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -70,6 +75,16 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 subagencyCount: initialState.subagencyCount
+            };
+        case 'SET_SUBAGENCY_TOTALS':
+            return {
+                ...state,
+                spendingBySubagencyTotals: action.spendingBySubagencyTotals
+            };
+        case 'RESET_SUBAGENCY_TOTALS':
+            return {
+                ...state,
+                spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
             };
         case 'SET_BUDGET_CATEGORY_COUNT':
             return {

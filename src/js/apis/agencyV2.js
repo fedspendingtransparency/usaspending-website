@@ -37,8 +37,9 @@ export const fetchSubagencyCount = (code, fy, params) => apiRequest({
     url: `v2/agency/${code}/sub_agency/count/${fy ? `?fiscal_year=${fy}` : ''}${params ? `&award_type_codes=[${params}]` : ''}`
 });
 
-export const fetchSubagencySpendingList = (code, fy, params) => apiRequest({
-    url: `v2/agency/${code}/sub_agency/count/${fy ? `?fiscal_year=${fy}` : ''}${params ? `&award_type_codes=[${params}]` : ''}`
+export const fetchSubagencySpendingList = (code, fy, type, params) => apiRequest({
+    url: `v2/agency/${code}/sub_agency/${fy ? `?fiscal_year=${fy}` : ''}${type ? `&award_type_codes=[${type}]` : ''}`,
+    params
 });
 
 export const fetchSubagencyNewAwardsCount = (code, fy, params) => apiRequest({

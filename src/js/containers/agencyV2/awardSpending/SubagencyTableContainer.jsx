@@ -9,21 +9,23 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencySpendingList } from 'apis/agencyV2';
-import { parseRows } from 'helpers/agencyV2/BudgetCategoryHelper';
+import { parseRows } from 'helpers/agencyV2/AwardSpendingSubagencyHelper';
 import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
     agencyId: PropTypes.string,
     fy: PropTypes.string,
     type: PropTypes.string.isRequired,
-    prevType: PropTypes.string
+    prevType: PropTypes.string,
+    subHeading: PropTypes.string
 };
 
 const SubagencyTableContainer = ({
     fy,
     agencyId,
     type,
-    prevType
+    prevType,
+    subHeading
 }) => {
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
@@ -37,21 +39,34 @@ const SubagencyTableContainer = ({
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const request = useRef(null);
     const dataByYear = useSelector((state) => state.agencyV2.budgetaryResources);
     const agencyObligated = dataByYear[fy]?._agencyObligated;
-    const params = awardTypeGroups[type];
 
-    const fetchSpendingByCategoryCallback = useCallback(() => {
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+    }, []);
+
+    const fetchSpendingBySubagencyCallback = useCallback(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
         setLoading(true);
         setError(false);
-        let request = null;
-        if (type !== 'all') {
-            request = fetchSubagencySpendingList(agencyId, fy, params);
-        }
-        request = fetchSubagencySpendingList(agencyId, fy);
-        request.promise
+        const params = {
+            limit: pageSize,
+            page: currentPage,
+            sort: subagencyFields[sort],
+            order
+        };
+        const typeParam = awardTypeGroups[type];
+        request.current = fetchSubagencySpendingList(agencyId, fy, typeParam, params);
+        const awardSpendingSubagencyRequest = request.current;
+        awardSpendingSubagencyRequest.promise
             .then((res) => {
-                const parsedData = parseRows(res.data.results, agencyObligated);
+                const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -61,31 +76,6 @@ const SubagencyTableContainer = ({
                 console.error(err);
             });
     });
-
-    // const fetchSpendingByCategoryCallback = useCallback(() => {
-    //     setLoading(true);
-    //     setError(false);
-    //     // Make a request with the new page number
-    //     const params = {
-    //         fiscal_year: fy,
-    //         limit: pageSize,
-    //         page: currentPage,
-    //         sort: subagencyFields[sort],
-    //         order
-    //     };
-    //     const request = fetchSubagencySpendingList(agencyId, fy, params);
-    //     request.promise
-    //         .then((res) => {
-    //             const parsedData = parseRows(res.data.results, agencyObligated);
-    //             setResults(parsedData);
-    //             setTotalItems(res.data.page_metadata.total);
-    //             setLoading(false);
-    //         }).catch((err) => {
-    //             setError(true);
-    //             setLoading(false);
-    //             console.error(err);
-    //         });
-    // });
 
     useEffect(() => {
         // Reset to the first page
@@ -101,18 +91,16 @@ const SubagencyTableContainer = ({
                 (prevType !== type && prevType)
             );
             if (hasParamChanged) {
-                fetchSpendingByCategoryCallback();
+                fetchSpendingBySubagencyCallback();
             }
         }
     }, [type, fy, agencyId, pageSize, sort, order, agencyObligated]);
 
     useEffect(() => {
         if (fy) {
-            fetchSpendingByCategoryCallback();
+            fetchSpendingBySubagencyCallback();
         }
     }, [currentPage, fy]);
-
-    console.log(subagencyColumns);
 
     return (
         <div className="table-wrapper">
@@ -122,6 +110,7 @@ const SubagencyTableContainer = ({
                 columns={subagencyColumns}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort}
+                divider={subHeading}
                 loading={loading}
                 error={error} />
             <Pagination

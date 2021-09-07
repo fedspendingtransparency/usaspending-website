@@ -76,19 +76,19 @@ export const accountColumns = {
 export const subagencyColumns = [
     {
         title: 'name',
-        displayName: 'Sub-Component'
+        displayName: 'Agency Name'
     },
     {
         title: 'totalObligations',
-        displayName: 'Total Obligations'
+        displayName: 'Award Obligations'
     },
     {
         title: 'transactionCount',
-        displayName: 'Transaction Count'
+        displayName: 'Number of Transactions'
     },
     {
         title: 'newAwardCount',
-        displayName: 'New Award Count'
+        displayName: 'Number of New Awards'
     }
 ];
 

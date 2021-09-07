@@ -3,7 +3,7 @@
  * Created by Afna Saifudeen 8/4/21
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -102,7 +102,8 @@ const AwardSpendingSubagency = ({ agencyId, fy }) => {
                 agencyId={agencyId}
                 fy={fy}
                 type={activeTab.internal}
-                prevType={prevActiveTab.internal} />
+                prevType={prevActiveTab.internal}
+                subHeading="Offices" />
         </div>
     );
 };

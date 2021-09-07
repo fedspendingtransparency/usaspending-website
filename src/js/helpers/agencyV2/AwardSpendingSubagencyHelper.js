@@ -1,52 +1,48 @@
-import BaseAccountSpendingRow from 'models/v2/agency/BaseAccountSpendingRow';
+import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
 
 // eslint-disable-next-line import/prefer-default-export
-export const parseRows = (data, agencyObligated) => {
-    // add total obligation to each object and it's children objects
+export const parseRows = (data) => {
     const dataAndTotalObligation = data.map((d) => {
         let dataChildrenAndTotalObligation = [];
         if (d.children && d.children.length > 0) {
             dataChildrenAndTotalObligation = d.children.map((child) => ({
-                ...child,
-                total_obligated_amount: agencyObligated
+                ...child
             }));
         }
 
         if (dataChildrenAndTotalObligation.length > 0) {
             return {
                 ...d,
-                children: dataChildrenAndTotalObligation,
-                total_obligated_amount: agencyObligated
+                children: dataChildrenAndTotalObligation
             };
         }
 
         return {
-            ...d,
-            total_obligated_amount: agencyObligated
+            ...d
         };
     });
 
     // parse row and row's children
     const parsedData = dataAndTotalObligation.map((item) => {
-        const accountSpendingRow = Object.create(BaseAccountSpendingRow);
-        accountSpendingRow.populate(item);
+        const subagencyTotalsRow = Object.create(BaseSubagencySpendingRow);
+        subagencyTotalsRow.populateCore(item);
 
         let rowChildren = [];
         if (item.children && item.children.length > 0) {
             rowChildren = item.children.map((childItem) => {
-                const accountChildSpendingRow = Object.create(BaseAccountSpendingRow);
-                accountChildSpendingRow.populate(childItem);
-                return accountChildSpendingRow;
+                const subagencyTotalsRowChild = Object.create(BaseSubagencySpendingRow);
+                subagencyTotalsRowChild.populateCore(childItem);
+                return subagencyTotalsRowChild;
             });
         }
 
         if (rowChildren && rowChildren.length > 0) {
-            Object.defineProperty(accountSpendingRow, "children", {
+            Object.defineProperty(subagencyTotalsRow, "children", {
                 value: rowChildren
             });
         }
 
-        return accountSpendingRow;
+        return subagencyTotalsRow;
     });
     return parsedData;
 };
