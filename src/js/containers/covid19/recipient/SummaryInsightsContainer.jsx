@@ -57,7 +57,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfRecipients, setNumberOfRecipients] = useState(null);
     const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
-    const { defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { allAwardTypeTotals, defcParams } = useSelector((state) => state.covid19);
 
     useEffect(() => {
         // implement fetch/cancel pattern
@@ -69,7 +69,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         }
         const params = {
             filter: {
-                def_codes: defCodes.map((defc) => defc.code),
+                def_codes: defcParams,
                 ...activeFilter === 'all'
                     ? {}
                     : { award_type_codes: awardTypeGroups[activeFilter] }

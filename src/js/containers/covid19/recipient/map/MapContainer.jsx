@@ -34,7 +34,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {
-    defCodes: PropTypes.array,
+    defcParams: PropTypes.array,
     isMapLoaded: PropTypes.bool.isRequired,
     onMapLoaded: PropTypes.func.isRequired
 };
@@ -86,7 +86,7 @@ export class MapContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.defCodes, this.props.defCodes)) this.prepareFetch(true);
+        if (!isEqual(prevProps.defcParams, this.props.defcParams)) this.prepareFetch(true);
     }
 
     componentWillUnmount() {
@@ -261,13 +261,11 @@ export class MapContainer extends React.Component {
         // COVID-19 API Params
         const covidParams = {
             filter: {
-                def_codes: this.props.defCodes.map((code) => code.code)
+                def_codes: this.props.defcParams
             },
             geo_layer: activeFilters.territory,
             geo_layer_filters: visibleEntities,
             spending_type: activeFilters.spendingType
-            // TODO - uncomment this when filter is ready
-            // recipient_type: recipientTypeGroups[activeFilters.recipientType],
         };
         // add specific award types
         if (activeFilters.awardType !== 'all') {
@@ -282,10 +280,9 @@ export class MapContainer extends React.Component {
             loading: true,
             error: false
         });
-        if (!this.props.defCodes.length) return;
+        if (!this.props.defcParams.length) return;
         this.apiRequest = fetchRecipientSpendingByGeography(covidParams);
 
-        // this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
@@ -473,7 +470,7 @@ MapContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        defCodes: state.covid19.defCodes,
+        defcParams: state.covid19.defcParams,
         isMapLoaded: state.covid19.isRecipientMapLoaded
     }),
     (dispatch) => ({
