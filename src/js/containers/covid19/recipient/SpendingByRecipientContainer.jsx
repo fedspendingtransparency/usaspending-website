@@ -71,7 +71,7 @@ const SpendingByRecipientContainer = () => {
 
     useEffect(() => {
         if (defcParams && defcParams.length > 0) {
-        // Make an API request for the count of Recipients for each award type
+            // Make an API request for the count of Recipients for each award type
             // Post-MVP this should be updated to use a new endpoint that returns all the counts
             const promises = awardTypeTabs.map((awardType) => {
                 const params = {
