@@ -57,49 +57,51 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfRecipients, setNumberOfRecipients] = useState(null);
     const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
-    const { defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { allAwardTypeTotals, defcParams } = useSelector((state) => state.covid19);
 
     useEffect(() => {
-        // implement fetch/cancel pattern
-        if (recipientCountRequest.current) {
-            recipientCountRequest.current.cancel();
-        }
-        if (awardAmountRequest.current) {
-            awardAmountRequest.current.cancel();
-        }
-        const params = {
-            filter: {
-                def_codes: defCodes.map((defc) => defc.code),
-                ...activeFilter === 'all'
-                    ? {}
-                    : { award_type_codes: awardTypeGroups[activeFilter] }
+        if (defcParams && defcParams.length > 0) {
+            // implement fetch/cancel pattern
+            if (recipientCountRequest.current) {
+                recipientCountRequest.current.cancel();
             }
-        };
-        recipientCountRequest.current = fetchDisasterSpendingCount('recipient', params);
-        if (activeFilter === 'all') {
-            setAwardObligations(allAwardTypeTotals?.obligation);
-            setAwardOutlays(allAwardTypeTotals?.outlay);
-            setNumberOfAwards(allAwardTypeTotals?.awardCount);
-        }
-        else {
-            // Reset any existing counts
-            setAwardOutlays(null);
-            setAwardObligations(null);
-            setNumberOfAwards(null);
-            setNumberOfRecipients(null);
-            awardAmountRequest.current = fetchAwardAmounts(params);
-            awardAmountRequest.current.promise
+            if (awardAmountRequest.current) {
+                awardAmountRequest.current.cancel();
+            }
+            const params = {
+                filter: {
+                    def_codes: defcParams,
+                    ...activeFilter === 'all'
+                        ? {}
+                        : { award_type_codes: awardTypeGroups[activeFilter] }
+                }
+            };
+            recipientCountRequest.current = fetchDisasterSpendingCount('recipient', params);
+            if (activeFilter === 'all') {
+                setAwardObligations(allAwardTypeTotals?.obligation);
+                setAwardOutlays(allAwardTypeTotals?.outlay);
+                setNumberOfAwards(allAwardTypeTotals?.awardCount);
+            }
+            else {
+                // Reset any existing counts
+                setAwardOutlays(null);
+                setAwardObligations(null);
+                setNumberOfAwards(null);
+                setNumberOfRecipients(null);
+                awardAmountRequest.current = fetchAwardAmounts(params);
+                awardAmountRequest.current.promise
+                    .then((res) => {
+                        setAwardObligations(res.data.obligation);
+                        setAwardOutlays(res.data.outlay);
+                        setNumberOfAwards(res.data.award_count);
+                    });
+            }
+            recipientCountRequest.current.promise
                 .then((res) => {
-                    setAwardObligations(res.data.obligation);
-                    setAwardOutlays(res.data.outlay);
-                    setNumberOfAwards(res.data.award_count);
+                    setNumberOfRecipients(res.data.count);
                 });
         }
-        recipientCountRequest.current.promise
-            .then((res) => {
-                setNumberOfRecipients(res.data.count);
-            });
-    }, [activeFilter, Object.keys(allAwardTypeTotals).length]);
+    }, [activeFilter, Object.keys(allAwardTypeTotals).length, defcParams]);
 
     const amounts = {
         numberOfRecipients,

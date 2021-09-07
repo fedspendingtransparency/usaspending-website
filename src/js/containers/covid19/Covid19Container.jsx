@@ -11,7 +11,7 @@ import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
+import { setOverview, setTotals, setDefcParams } from 'redux/actions/covid19/covid19Actions';
 import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';
 
@@ -41,7 +41,18 @@ const Covid19Container = () => {
                 search: '?publicLaw=all'
             });
         }
-    }, [publicLaw]);
+        else if (!areDefCodesLoading) {
+            // set DEFC params based on the currently selected public law
+            if (publicLaw === 'all') {
+                // use all Covid 19 DEFC
+                dispatch(setDefcParams(defCodes.map((code) => code.code)));
+            }
+            else {
+                // use our hard-coded mapping
+                dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
+            }
+        }
+    }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {
         const getOverviewData = async () => {

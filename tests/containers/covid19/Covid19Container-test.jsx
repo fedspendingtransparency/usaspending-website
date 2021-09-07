@@ -7,6 +7,7 @@ import React from 'react';
 import { render } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import * as apis from 'apis/disaster';
+import * as actions from 'redux/actions/covid19/covid19Actions';
 import { useQueryParams } from 'helpers/queryParams';
 import Covid19Container from 'containers/covid19/Covid19Container';
 import { mockDefCodes } from '../../mockData/helpers/disasterHelper';
@@ -102,6 +103,27 @@ describe('COVID-19 Container', () => {
                 <Covid19Container />
             ));
             expect(mockHistoryReplace).not.toHaveBeenCalled();
+        });
+        it('sets the correct DEFC params in redux for all', () => {
+            const spy = jest.spyOn(actions, 'setDefcParams');
+            useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
+            const covidDEFC = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19');
+            render(
+                (
+                    <Covid19Container />
+                ), { initialState: { ...defaultState, covid19: { defCodes: covidDEFC } } }
+            );
+            expect(spy).toHaveBeenCalledWith(['L', 'M']);
+        });
+        it('sets the correct ARP DEFC params in redux', () => {
+            const spy = jest.spyOn(actions, 'setDefcParams');
+            useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
+            render(
+                (
+                    <Covid19Container />
+                ), { initialState: { ...defaultState, covid19: { defCodes: mockDefCodes.data.codes } } }
+            );
+            expect(spy).toHaveBeenCalledWith(['V']);
         });
     });
 });
