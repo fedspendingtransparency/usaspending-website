@@ -73,6 +73,32 @@ export const accountColumns = {
     ]
 };
 
+export const subagencyColumns = [
+    {
+        title: 'name',
+        displayName: 'Sub-Component'
+    },
+    {
+        title: 'totalObligations',
+        displayName: 'Total Obligations'
+    },
+    {
+        title: 'transactionCount',
+        displayName: 'Transaction Count'
+    },
+    {
+        title: 'newAwardCount',
+        displayName: 'New Award Count'
+    }
+];
+
+export const subagencyFields = {
+    name: 'name',
+    totalObligations: 'total_obligations',
+    transactionCount: 'transaction_count',
+    newAwardCount: 'new_award_count'
+};
+
 export const accountFields = {
     name: 'name',
     grossOutlayAmount: 'gross_outlay_amount',
