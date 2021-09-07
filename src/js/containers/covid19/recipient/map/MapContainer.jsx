@@ -9,8 +9,9 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy, isEqual } from 'lodash';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
+import { LoadingMessage, Tabs } from 'data-transparency-ui';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
-import { Tabs } from "data-transparency-ui";
+
 
 import { setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -381,14 +382,12 @@ export class MapContainer extends React.Component {
                     <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
-        } else if (this.state.loading) {
+        }
+        else if (this.state.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">
-                        <LoadingSpinner />
-                        <div className="loading-message">
-                            Gathering your data...
-                        </div>
+                        <LoadingMessage />
                     </div>
                 </MapMessage>
             );
