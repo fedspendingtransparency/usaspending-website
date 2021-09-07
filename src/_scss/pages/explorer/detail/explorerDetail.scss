@@ -89,7 +89,7 @@
                     height: rem(50);
                     margin-left: auto;
                     margin-right: auto;
-                    @import "../../search/results/screens/loading";
+                    @import "../../../loading";
                     // override the color of the rectangles
                     svg.loading-bars {
                         rect {
