@@ -25,13 +25,13 @@ export const parseRows = (data) => {
     // parse row and row's children
     const parsedData = dataAndTotalObligation.map((item) => {
         const subagencyTotalsRow = Object.create(BaseSubagencySpendingRow);
-        subagencyTotalsRow.populateCore(item);
+        subagencyTotalsRow.populate(item);
 
         let rowChildren = [];
         if (item.children && item.children.length > 0) {
             rowChildren = item.children.map((childItem) => {
                 const subagencyTotalsRowChild = Object.create(BaseSubagencySpendingRow);
-                subagencyTotalsRowChild.populateCore(childItem);
+                subagencyTotalsRowChild.populate(childItem);
                 return subagencyTotalsRowChild;
             });
         }
