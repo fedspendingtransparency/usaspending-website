@@ -70,33 +70,35 @@ const SpendingByRecipientContainer = () => {
     };
 
     useEffect(() => {
+        if (defcParams && defcParams.length > 0) {
         // Make an API request for the count of Recipients for each award type
-        // Post-MVP this should be updated to use a new endpoint that returns all the counts
-        const promises = awardTypeTabs.map((awardType) => {
-            const params = {
-                filter: {
-                    def_codes: defcParams
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            const promises = awardTypeTabs.map((awardType) => {
+                const params = {
+                    filter: {
+                        def_codes: defcParams
+                    }
+                };
+                if (awardType.internal !== 'all') {
+                    // Endpoint defaults to all award types if award_type_codes is not provided
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
                 }
-            };
-            if (awardType.internal !== 'all') {
-                // Endpoint defaults to all award types if award_type_codes is not provided
-                params.filter.award_type_codes = awardTypeGroups[awardType.internal];
-            }
-            return fetchDisasterSpendingCount('recipient', params).promise;
-        });
-        // Wait for all the requests to complete and then store the results in state
-        Promise.all(promises)
-            .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractRes, idvRes]) => {
-                setTabCounts({
-                    all: allRes.data.count,
-                    grants: grantsRes.data.count,
-                    direct_payments: directPaymentsRes.data.count,
-                    loans: loansRes.data.count,
-                    other: otherRes.data.count,
-                    contracts: contractRes.data.count,
-                    idvs: idvRes.data.count
-                });
+                return fetchDisasterSpendingCount('recipient', params).promise;
             });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractRes, idvRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count,
+                        contracts: contractRes.data.count,
+                        idvs: idvRes.data.count
+                    });
+                });
+        }
     }, [defcParams]);
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
