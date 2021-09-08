@@ -346,20 +346,3 @@
   }
   @import "../../layouts/default/header/warning";
 }
-
-.award_spending_by_recipient {
-  #results-section-geo {
-    .map-message {
-      background-color: rgb(241, 241, 241);
-      background-clip: padding-box;
-
-      .usda-message_loading {
-        padding: 0;
-
-        .usda-loading-animation__container {
-          margin: 0;
-        }
-      }
-    }
-  }
-}
