@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -216,7 +216,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         }
     };
 
-    const fetchSpendingByRecipientCallback = useCallback(() => {
+    const fetchSpendingByRecipientCallback = () => {
         if (request.current) {
             request.current.cancel();
         }
@@ -259,7 +259,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                     }
                 });
         }
-    });
+    };
 
     useEffect(() => {
         if (Object.keys(recipientTotals).length && results.length) {
