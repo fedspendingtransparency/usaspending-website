@@ -4,10 +4,14 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+import {
+    setSubagencyTotals,
+    resetSubagencyTotals
+} from 'redux/actions/agencyV2/agencyV2Actions';
 import { fetchSubagencySpendingList } from 'apis/agencyV2';
 import { parseRows } from 'helpers/agencyV2/AwardSpendingSubagencyHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -40,13 +44,13 @@ const SubagencyTableContainer = ({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const request = useRef(null);
-    const dataByYear = useSelector((state) => state.agencyV2.budgetaryResources);
-    const agencyObligated = dataByYear[fy]?._agencyObligated;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (request.current) {
             request.current.cancel();
         }
+        dispatch(resetSubagencyTotals());
     }, []);
 
     const fetchSpendingBySubagencyCallback = useCallback(() => {
@@ -68,6 +72,7 @@ const SubagencyTableContainer = ({
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
+                dispatch(setSubagencyTotals(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -94,7 +99,7 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, agencyId, pageSize, sort, order, agencyObligated]);
+    }, [type, fy, agencyId, pageSize, sort, order]);
 
     useEffect(() => {
         if (fy) {
