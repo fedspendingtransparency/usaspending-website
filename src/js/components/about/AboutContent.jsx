@@ -72,24 +72,17 @@ const AboutContent = () => {
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = find(aboutSections, {
-            section
-        });
-
-        if (!matchedSection) {
-            // no matching section
+        if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
+
         setActiveSection(section);
-        // scroll to the correct section
         const sectionDom = document.querySelector(`#about-${section}`);
         if (!sectionDom) {
             return;
         }
-
-        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
         scrollToY(sectionTop, 700);
     };
 
@@ -106,9 +99,9 @@ const AboutContent = () => {
         if (urlSection) {
             jumpToSection(urlSection);
             // remove the query param from the url after scrolling to the given section
-            history.push(`/about`);
+            history.replace(`/about`);
         }
-    }, [location.search]);
+    }, [history, location.search, query.section]);
 
     return (
         <div className="about-content-wrapper">

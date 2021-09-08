@@ -22,3 +22,8 @@ export const setIsMapLoaded = (bool) => ({
     type: 'SET_IS_RECIPIENT_MAP_LOADED',
     payload: bool
 });
+
+export const setDefcParams = (defcParams) => ({
+    type: 'SET_DEFC_PARAMS',
+    defcParams
+});

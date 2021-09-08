@@ -5,7 +5,7 @@ import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
-import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
+import { RectanglePercentVizTooltip } from 'components/award/shared/awardAmounts/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
 import PaginatedTooltipContainer from './PaginatedTooltipContainer';
 import Tooltip from './Tooltip';

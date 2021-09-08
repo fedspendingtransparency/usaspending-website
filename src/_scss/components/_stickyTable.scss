@@ -7,6 +7,7 @@
         border-collapse: separate;
         margin-top: 0;
         margin-bottom: 0;
+        border-bottom: rem(1) solid $color-gray-border;
         &.table-loading {
             height: 100%;
         }

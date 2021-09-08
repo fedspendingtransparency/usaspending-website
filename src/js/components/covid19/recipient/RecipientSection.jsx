@@ -1,5 +1,5 @@
 /**
- * RecipientContainer.jsx
+ * RecipientSection.jsx
  * Created by Jonathan Hill 06/08/20
  */
 
@@ -11,7 +11,7 @@ import ReadMore from 'components/sharedComponents/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
 
-const RecipientContainer = () => {
+const RecipientSection = () => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.find((item) => item.internal === tab).internal;
@@ -47,4 +47,4 @@ const RecipientContainer = () => {
     );
 };
 
-export default RecipientContainer;
+export default RecipientSection;

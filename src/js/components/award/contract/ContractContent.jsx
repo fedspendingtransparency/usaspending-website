@@ -17,7 +17,7 @@ import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSect
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
-import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
+import AwardAmountsSection from '../shared/awardAmounts/AwardAmountsSection';
 import AwardDescription from "../shared/description/AwardDescription";
 
 const propTypes = {

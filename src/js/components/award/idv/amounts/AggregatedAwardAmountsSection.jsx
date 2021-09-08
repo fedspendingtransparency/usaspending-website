@@ -11,9 +11,9 @@ import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper'
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
 import { AWARD_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
-import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
-import AwardAmountsChart from '../../shared/awardAmountsSection/charts/AwardAmountsChart';
-import JumpToSectionButton from '../../shared/awardAmountsSection/JumpToSectionButton';
+import AwardAmountsTable from '../../shared/awardAmounts/AwardAmountsTable';
+import AwardAmountsChart from '../../shared/awardAmounts/AwardAmountsChart';
+import JumpToSectionButton from '../../shared/awardAmounts/JumpToSectionButton';
 
 const propTypes = {
     awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
