@@ -349,11 +349,16 @@
 
 .award_spending_by_recipient {
   #results-section-geo {
-    .usda-message_loading {
-      padding: 0;
+    .map-message {
+      background-color: rgb(241, 241, 241);
+      background-clip: padding-box;
 
-      .usda-loading-animation__container {
-        margin: 0;
+      .usda-message_loading {
+        padding: 0;
+
+        .usda-loading-animation__container {
+          margin: 0;
+        }
       }
     }
   }
