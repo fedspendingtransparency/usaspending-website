@@ -7,7 +7,8 @@ module.exports = {
             staticDistDir: './public', // location of static files for lighthouse CI to serve
             isSinglePageApplication: true,
             url: [ // the urls to run lighthouse against
-                'http://localhost/'
+                'http://localhost/',
+                'http://localhost/disaster/covid-19'
             ]
         }
     }
