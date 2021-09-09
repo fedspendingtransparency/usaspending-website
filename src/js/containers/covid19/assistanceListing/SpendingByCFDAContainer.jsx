@@ -138,7 +138,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    // const defCodes = useSelector((state) => state.covid19.defcParams);
     const { defcParams } = useSelector((state) => state.covid19);
     const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
     const currentModalData = useSelector((state) => state.modal);
