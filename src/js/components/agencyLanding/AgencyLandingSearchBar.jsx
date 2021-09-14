@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
-const propTypes = {
-    setSearchString: PropTypes.func.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    button: PropTypes.string.isRequired
-};
-
 export default class AgencyLandingSearchBar extends React.Component {
+    static propTypes = {
+        setSearchString: PropTypes.func.isRequired,
+        placeholder: PropTypes.string.isRequired,
+        button: PropTypes.string.isRequired
+    };
+
     onChange(e) {
         const value = e.target.value;
         this.props.setSearchString(value);
@@ -23,7 +23,7 @@ export default class AgencyLandingSearchBar extends React.Component {
     render() {
         return (
             <div className="search-section">
-                <form className="search-section__form">
+                <form className="search-section__form" onSubmit="return false;">
                     <input
                         className="search-section__input"
                         aria-label="Search Input"
@@ -42,5 +42,3 @@ export default class AgencyLandingSearchBar extends React.Component {
         );
     }
 }
-
-AgencyLandingSearchBar.propTypes = propTypes;
