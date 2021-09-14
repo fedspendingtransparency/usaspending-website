@@ -16,8 +16,8 @@ import * as awardActions from 'redux/actions/award/awardActions';
 
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 
-import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmounts';
-import AwardAmountsTable from 'components/award/shared/awardAmountsSection/AwardAmountsTable';
+import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmountsSection';
+import AwardAmountsTable from 'components/award/shared/awardAmounts/AwardAmountsTable';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';

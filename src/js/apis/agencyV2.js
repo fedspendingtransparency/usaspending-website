@@ -32,3 +32,15 @@ export const fetchObligationsByAwardType = (code, fy) => apiRequest({
 export const fetchRecipientDistribution = (code, fy) => apiRequest({
     url: `v2/agency/${code}/recipients/${fy ? `?fiscal_year=${fy}` : ''}`
 });
+
+export const fetchSubagencyCount = (code, fy, params) => apiRequest({
+    url: `v2/agency/${code}/sub_agency/count/${fy ? `?fiscal_year=${fy}` : ''}${params ? `&award_type_codes=[${params}]` : ''}`
+});
+
+export const fetchSubagencyNewAwardsCount = (code, fy, params) => apiRequest({
+    url: `v2/agency/${code}/awards/new/count/${fy ? `?fiscal_year=${fy}` : ''}${params ? `&award_type_codes=[${params}]` : ''}`
+});
+
+export const fetchSubagencySummary = (code, fy, params) => apiRequest({
+    url: `v2/agency/${code}/awards/${fy ? `?fiscal_year=${fy}` : ''}${params ? `&award_type_codes=[${params}]` : ''}`
+});

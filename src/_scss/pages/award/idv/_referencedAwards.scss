@@ -18,7 +18,7 @@
             .results-table-message-container {
                 position: relative;
                 .loading-animation {
-                    @import "../../search/results/screens/loading";
+                    @import "../../../loading";
                 }
                 .results-table-no-results {
                     .description {

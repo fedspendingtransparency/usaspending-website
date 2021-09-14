@@ -1,7 +1,7 @@
 .transactions-over-time {
     @import "pages/search/results/visualizations/time/chart/barChart";
     @import 'pages/search/results/visualizations/messages';
-    @import "pages/search/results/screens/loading";
+    @import "loading";
     @import "./_period";
 
     .visualization-tooltip {

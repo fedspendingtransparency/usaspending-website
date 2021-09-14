@@ -15,7 +15,7 @@ import {
     contractActivityGrants,
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
-import JumpToSectionButton from 'components/award/shared/awardAmountsSection/JumpToSectionButton';
+import JumpToSectionButton from 'components/award/shared/awardAmounts/JumpToSectionButton';
 
 const propTypes = {
     awardId: PropTypes.string,

@@ -31,6 +31,15 @@ export const resetAgencyRecipients = () => ({
     type: 'RESET_AGENCY_RECIPIENTS'
 });
 
+export const setSubagencyCount = (subagencyCount) => ({
+    type: 'SET_SUBAGENCY_COUNT',
+    subagencyCount
+});
+
+export const resetSubagencyCount = () => ({
+    type: 'RESET_SUBAGENCY_COUNT'
+});
+
 export const setBudgetCategoryCount = (tab, count) => ({
     type: 'SET_BUDGET_CATEGORY_COUNT',
     tab,
