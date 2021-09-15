@@ -15,20 +15,19 @@ export default class AgencyLandingSearchBar extends React.Component {
         button: PropTypes.string.isRequired
     };
 
-    onChange(e) {
-        const value = e.target.value;
-        this.props.setSearchString(value);
+    onChange = (e) => {
+        this.props.setSearchString(e.target.value);
     }
 
     render() {
         return (
             <div className="search-section">
-                <form className="search-section__form" onSubmit="return false;">
+                <form className="search-section__form">
                     <input
                         className="search-section__input"
                         aria-label="Search Input"
                         type="text"
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
                         placeholder={this.props.placeholder} />
                     <button
                         aria-label="Search"
