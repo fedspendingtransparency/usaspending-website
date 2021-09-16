@@ -3,7 +3,8 @@
   @import "layouts/default/default";
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
-
+  @import "./header";
+  
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
