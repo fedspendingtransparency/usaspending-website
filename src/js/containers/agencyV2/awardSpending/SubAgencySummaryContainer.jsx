@@ -136,7 +136,8 @@ const SubAgencySummaryContainer = ({
             <InformationBoxes
                 boxes={summaryData.map((sdata) => ({
                     ...sdata,
-                    amount: amounts[sdata.type]
+                    amount: amounts[sdata.type],
+                    isLoading: loading
                 }))} />
         </div>
     );

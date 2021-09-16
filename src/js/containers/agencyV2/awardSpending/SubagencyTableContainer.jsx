@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
