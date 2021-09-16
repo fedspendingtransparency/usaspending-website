@@ -223,6 +223,20 @@
 
           @import "pages/search/results/visualizations/geo/_disclaimer";
           @import "pages/search/results/visualizations/geo/_message";
+          .map-message-container {
+            .map-message {
+              background-color: rgb(241, 241, 241);
+              background-clip: padding-box;
+        
+              .usda-message_loading {
+                padding: 0;
+        
+                .usda-loading-animation__container {
+                  margin: 0;
+                }
+              }
+            }
+          }
         }
       }
       .table-types {

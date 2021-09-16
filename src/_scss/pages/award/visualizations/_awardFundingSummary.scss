@@ -52,7 +52,7 @@
       }
     }
     .loading-animation {
-        @import "../../search/results/screens/loading";
+        @import "../../../loading";
     }
     .results-table-error {
       .icon {

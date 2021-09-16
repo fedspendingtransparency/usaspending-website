@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Carousel } from 'data-transparency-ui';
+import { Carousel, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
@@ -14,7 +14,6 @@ import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import { calculatePercentage, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
-import RecipientDistributionContainer from 'containers/agencyV2/visualizations/RecipientDistributionContainer';
 
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
@@ -37,8 +36,7 @@ const FySummary = ({
     const [isError, setIsError] = useState(true);
     const {
         budgetaryResources,
-        _awardObligations,
-        recipientDistribution
+        _awardObligations
     } = useSelector((state) => state.agencyV2);
     const budgetaryResourcesRequest = useRef(null);
 
@@ -83,7 +81,6 @@ const FySummary = ({
     const percentOfBudgetaryResources = budgetaryResources[fy]?.percentOfAgencyBudget || '--';
     const awardObligations = formatMoneyWithUnits(_awardObligations);
     const percentOfTotalObligations = calculatePercentage(_awardObligations, budgetaryResources[fy]?._agencyObligated);
-    const { percentOfFederalRecipients, numberOfRecipients } = recipientDistribution;
 
     const sections = [
         (
@@ -122,15 +119,6 @@ const FySummary = ({
                 label="Award Obligations by Type" >
                 <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
             </VisualizationSection>
-        ),
-        (
-            <VisualizationSection
-                subtitle={isMobile ? 'How many award recipients did this agency have?' : (<>How many award recipients<br />did this agency have?</>)}
-                data={numberOfRecipients}
-                secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
-                label="Recipient Award Amount Distribution" >
-                <RecipientDistributionContainer fiscalYear={fy} data={recipientDistribution} />
-            </VisualizationSection>
         )
     ];
 
@@ -140,13 +128,15 @@ const FySummary = ({
             <hr />
             {isMobile ? <Carousel items={sections} />
                 : (
-                    <div className="fy-summary__row">
+                    <FlexGridRow hasGutter className="fy-summary__row">
                         {sections.map((viz, i) => (
-                            <div key={`FY-Summary-${i}`} className="fy-summary__col">
-                                {viz}
-                            </div>
+                            <FlexGridCol tablet={6} className="fy-summary__col">
+                                <div key={`FY-Summary-${i}`}>
+                                    {viz}
+                                </div>
+                            </FlexGridCol>
                         ))}
-                    </div>
+                    </FlexGridRow>
                 )}
         </div>
     );

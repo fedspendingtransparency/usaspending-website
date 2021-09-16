@@ -35,7 +35,7 @@ Here is [a helpful contrast](https://testing-library.com/docs/react-testing-libr
 ### Examples from our Code Base
 
 - [Testing output of Component](tests/components/covid19/homepage/TotalAmount-test.jsx)
-- [Testing fn defined outside of Component](tests/containers/covid19/SpendingByRecipientContainer-test.jsx)
+- [Testing fn defined outside of Component](tests/containers/covid19/RecipientTableContainer-test.jsx)
 - [Mocking URL Params of React Router](tests/components/aboutTheData/AboutTheDataPage-test.jsx)
 - [Ensuring no duplicate API Requests](tests/containers/aboutTheData/AgenciesContainer-test.jsx)
   

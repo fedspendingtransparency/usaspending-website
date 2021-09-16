@@ -85,7 +85,7 @@ const BarChart = ({
             });
     };
     if (!isLoading && isError) {
-        return <ErrorMessage description="There was an error fetching this data." />;
+        return <ErrorMessage />;
     }
     if (isLoading && !isError) {
         return <LoadingMessage />;
