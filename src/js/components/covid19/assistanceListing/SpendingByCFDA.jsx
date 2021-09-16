@@ -48,7 +48,7 @@ const initialState = {
 };
 
 const SpendingByCFDA = () => {
-    const { defCodes } = useSelector((state) => state.covid19);
+    const { defcParams } = useSelector((state) => state.covid19);
     const moreOptionsTabsRef = useRef(null);
 
     const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
@@ -70,14 +70,14 @@ const SpendingByCFDA = () => {
     const prevTab = prevTabRef.current;
 
     useEffect(() => {
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             // Make an API request for the count of CFDA for each award type
             // Post-MVP this should be updated to use a new endpoint that returns all the counts
             setTabCounts(initialState);
             const promises = financialAssistanceTabs.map((awardType) => {
                 const params = {
                     filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
+                        def_codes: defcParams
                     }
                 };
                 if (awardType.internal !== 'all') {
@@ -98,7 +98,7 @@ const SpendingByCFDA = () => {
                     });
                 });
         }
-    }, [defCodes]);
+    }, [defcParams]);
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
         scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);

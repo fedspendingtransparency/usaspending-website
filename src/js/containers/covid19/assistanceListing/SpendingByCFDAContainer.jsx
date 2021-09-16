@@ -138,7 +138,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { defcParams } = useSelector((state) => state.covid19);
     const assistanceTotals = useSelector((state) => state.covid19.assistanceTotals);
     const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
@@ -174,10 +174,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             Object.assign(
                 {}, defaultAdvancedSearchFilters,
                 {
-                    defCodes: new CheckboxTreeSelections({
-                        require: defCodes.map((code) => code.code),
+                    defcParams: new CheckboxTreeSelections({
+                        require: defcParams,
                         exclude: [],
-                        counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                        counts: [{ value: "COVID-19", count: defcParams.length, label: "COVID-19 Response" }]
                     })
                 },
                 {
@@ -261,10 +261,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             request.current.cancel();
         }
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 },
                 spending_type: 'award',
                 pagination: {
@@ -322,7 +322,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, defCodes, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
