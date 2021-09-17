@@ -10,30 +10,31 @@ import { Search } from 'components/sharedComponents/icons/Icons';
 
 export default class LandingSearchBar extends React.Component {
     static propTypes = {
-        setSearchString: PropTypes.func.isRequired,
+        onSubmit: PropTypes.func.isRequired,
         placeholder: PropTypes.string.isRequired,
-        button: PropTypes.string.isRequired
+        buttonAltText: PropTypes.string.isRequired
     };
 
-    onChange = (e) => {
-        this.props.setSearchString(e.target.value);
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onSubmit(e.target[0].value);
     }
 
     render() {
         return (
             <div className="search-section">
-                <form className="search-section__form">
+                <form className="search-section__form" onSubmit={this.onSubmit}>
                     <input
                         className="search-section__input"
                         aria-label="Search Input"
                         type="text"
-                        onChange={this.onChange}
                         placeholder={this.props.placeholder} />
                     <button
+                        type="submit"
                         aria-label="Search"
                         className="search-section__button">
                         <div className="search-section__button-icon">
-                            <Search alt={this.props.button} />
+                            <Search alt={this.props.buttonAltText} />
                         </div>
                     </button>
                 </form>

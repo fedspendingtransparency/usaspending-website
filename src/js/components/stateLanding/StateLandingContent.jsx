@@ -19,9 +19,9 @@ export default class StateLandingContent extends React.Component {
         return (
             <div>
                 <LandingSearchBar
-                    setSearchString={this.props.setSearchString}
-                    placeholder="Start typing to find a state or territory..."
-                    button="Search States" />
+                    onSubmit={this.props.setSearchString}
+                    placeholder="Search by State / Territory Name or Abbreviation"
+                    buttonAltText="Search States" />
                 <div className="results-count">
                     {this.props.resultsText}
                 </div>
