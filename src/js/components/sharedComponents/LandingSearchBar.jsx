@@ -1,5 +1,5 @@
 /**
- * AgencyLandingSearchBar.jsx
+ * LandingSearchBar.jsx
  * Created by Lizzie Salita 7/10/17
  */
 
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
-export default class AgencyLandingSearchBar extends React.Component {
+export default class LandingSearchBar extends React.Component {
     static propTypes = {
         setSearchString: PropTypes.func.isRequired,
         placeholder: PropTypes.string.isRequired,

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AgencyLandingSearchBar from './AgencyLandingSearchBar';
+import LandingSearchBar from 'components/sharedComponents/LandingSearchBar';
 import AgencyLandingResultsSection from './AgencyLandingResultsSection';
 
 const propTypes = {
@@ -31,7 +31,7 @@ export default class AgencyLandingContent extends React.Component {
                         Featuring information on each agency&rsquo;s total obligations, along with obligation breakdowns by Object Class and Federal Accounts, our Agency Profiles help you understand how each agency spends its funding.
                     </div>
                 </div>
-                <AgencyLandingSearchBar
+                <LandingSearchBar
                     setSearchString={this.props.setAgencySearchString}
                     placeholder="Start typing to find an agency..."
                     button="Search Agencies" />
