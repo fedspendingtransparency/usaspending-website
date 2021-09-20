@@ -15,7 +15,7 @@ const propTypes = {
 
 const AgencySection = ({
     section,
-    icon = "chart-area",
+    icon,
     children
 }) => (
     <SectionTitle
@@ -24,9 +24,7 @@ const AgencySection = ({
         title={section.display}
         isCollapsible
         overLine={section?.overLine}
-        description={section?.overLine
-            ? <span className="usda-section-title__desc">This section covers <strong>{section.overLine}</strong></span>
-            : <span className="usda-section-title__desc">This section covers <strong>Total and Award Spending</strong></span>}>
+        description={<span className="usda-section-title__desc">Data Sources</span>}>
         {children}
     </SectionTitle>
 
