@@ -6,7 +6,7 @@ import GlossaryLink from '../sharedComponents/GlossaryLink';
 
 const options = [
     { title: 'All COVID-19 Funding Laws', value: 'all', term: 'disaster-emergency-fund-code-defc' },
-    { title: 'American Rescue Plan', description: 'Emergency Public Law 117-7', value: 'american-rescue-plan' },
+    { title: 'American Rescue Plan', description: 'Non-emergency Public Law 117-2', value: 'american-rescue-plan' },
     { title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm', className: 'dsm' }
 ];
 

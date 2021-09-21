@@ -75,7 +75,7 @@
                 box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
 
                 .usa-dt-picker__list-item .usa-dt-picker__item {
-                    padding: rem(16) rem(5) rem(16) rem(20);
+                    padding: rem(16) rem(20);
 
                     &:hover {
                         background-color: $color-gray-lightest;
@@ -91,7 +91,7 @@
                         padding-top: rem(5);
                     }
                     p {
-                        font-size: rem(14);
+                        font-size: rem(15);
                         margin: 0;
                         .usda-glossary-link svg {
                             margin-left: 5px;
@@ -112,9 +112,17 @@
                         }
                     }
 
-                    & .dsm p {
-                        font-size: rem(15);
+                    .dsm p {
+                        font-size: rem(14);
                     }
+                }
+            }
+
+            @media(max-width: $medium-screen) {
+                width: max-content;
+
+                .usa-dt-picker__list {
+                    width: auto;
                 }
             }
         }
