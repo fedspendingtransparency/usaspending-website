@@ -17,6 +17,7 @@
         border-radius: rem(4);
         position: relative;
         height: rem(29);
+
         @media(max-width: $medium-screen) {
             background: $color-gray-lightest;
             border: rem(2) solid #AEB0B5;
@@ -28,6 +29,7 @@
             width: rem(20);
             height: rem(16);
             margin: 0 rem(10);
+
             path {
                 fill: $color-gray-lighter;
                 @media(max-width: $medium-screen) {
@@ -37,6 +39,10 @@
         }
         .usa-dt-picker__dropdown-container {
             align-self: center;
+
+            span {
+                height: auto;
+            }
             .usa-dt-picker__button .usa-dt-picker__button-text {
                 font-size: rem(18);
                 color: #fff;
@@ -47,24 +53,30 @@
 
             // button label:
             .usa-dt-picker__button {
-                .usa-dt-picker__button-icon svg {
-                    color: $color-gray-lighter;
-                    margin-right: rem(15);
-                    @media(max-width: $medium-screen) {
-                        color: #555
-                    }
-                }
+                align-items: center;
+
                 span {
                     color: $color-gray-lighter;
                     font-weight: $font-semibold;
                 }
-            }
-            span {
-                height: auto;
+                .usa-dt-picker__button-icon svg {
+                    margin-right: rem(5);
+                    color: $color-gray-lighter;
+
+                    @media(max-width: $medium-screen) {
+                        color: #555
+                    }
+                }
             }
             .usa-dt-picker__list {
+                width: 140%;
+                margin-top: 6px;
+                overflow-y: hidden;
+                box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
+
                 .usa-dt-picker__list-item .usa-dt-picker__item {
                     padding: rem(16) rem(5) rem(16) rem(20);
+
                     &:hover {
                         background-color: $color-gray-lightest;
                         p {
@@ -79,7 +91,7 @@
                         padding-top: rem(5);
                     }
                     p {
-                        font-size: rem(15);
+                        font-size: rem(14);
                         margin: 0;
                         .usda-glossary-link svg {
                             margin-left: 5px;
@@ -88,7 +100,8 @@
                     }
                 }
                 li.usa-dt-picker__list-item {
-                    border: none;
+                    border-bottom: solid thin $color-gray-lightest;
+
                     &:nth-of-type(3) {
                         .usa-dt-picker__item {
                             background-color: rgba(182,153,198,0.2);
@@ -99,7 +112,8 @@
                         }
                     }
 
-                    & .arp{
+                    & .dsm p {
+                        font-size: rem(15);
                     }
                 }
             }

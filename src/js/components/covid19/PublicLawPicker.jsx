@@ -6,10 +6,8 @@ import GlossaryLink from '../sharedComponents/GlossaryLink';
 
 const options = [
     { title: 'All COVID-19 Funding Laws', value: 'all', term: 'disaster-emergency-fund-code-defc' },
-    {
-        title: 'American Rescue Plan', description: 'Emergency Public Law 117-7', value: 'american-rescue-plan', className: 'arp'
-    },
-    { title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm' }
+    { title: 'American Rescue Plan', description: 'Emergency Public Law 117-7', value: 'american-rescue-plan' },
+    { title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.', value: 'dsm', className: 'dsm' }
 ];
 
 const PublicLawPickerOption = ({
@@ -39,6 +37,10 @@ const PublicLawPicker = ({
     onClick
 }) => {
     const selected = options.find((obj) => obj.value === selectedOption);
+
+console.log(options.map((obj) => ({ name: <PublicLawPickerOption {...obj} />, value: obj.value, onClick })));
+
+
     return (
         <div className="public-law-picker__container">
             <Picker
@@ -46,7 +48,7 @@ const PublicLawPicker = ({
                 icon={<FontAwesomeIcon icon="scroll" size="sm" />}
                 selectedOption={selected?.title || options[0].title}
                 options={options.map((obj) => ({ name: <PublicLawPickerOption {...obj} />, value: obj.value, onClick }))} />
-            <span>Public Law Filter</span>
+            <span>Public Law</span>
         </div>);
 };
 
