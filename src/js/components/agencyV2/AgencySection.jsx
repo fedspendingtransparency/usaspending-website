@@ -13,6 +13,13 @@ const propTypes = {
     isLoading: PropTypes.bool
 };
 
+const TooltipComponent = () => (
+    <>
+        <h4 className="tooltip__title">Coming Soon</h4>
+        <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
+    </>
+);
+
 const AgencySection = ({
     section,
     icon,
@@ -24,7 +31,8 @@ const AgencySection = ({
         title={section.display}
         isCollapsible
         overLine={section?.overLine}
-        description={<span className="usda-section-title__desc">Data Sources</span>}>
+        description={<span className="usda-section-title__desc">Data Sources</span>}
+        descTooltip={{ component: <TooltipComponent /> }}>
         {children}
     </SectionTitle>
 
