@@ -21,7 +21,7 @@ const Heading = () => {
                     Visit our <button className="usa-button-link" onClick={jumpToDataSources}>Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
                 </p>
             </div>
-            <div className="heading__img-wrapper">
+            <div style={{ marginLeft: "auto" }} className="heading__img-wrapper">
                 <img
                     className="heading__img"
                     src="img/desktop@2x.png"
