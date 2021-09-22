@@ -21,14 +21,8 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
-import {
-    jumpToSection,
-    getVerticalOffsetForSidebarFooter
-} from 'helpers/covid19Helper';
-import {
-    slug,
-    getEmailSocialShareData
-} from 'dataMapping/covid19/covid19';
+import { jumpToSection, getVerticalOffsetForSidebarFooter } from 'helpers/covid19Helper';
+import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';

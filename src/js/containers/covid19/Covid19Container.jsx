@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
 import { useQueryParams } from 'helpers/queryParams';
@@ -19,6 +19,7 @@ require('pages/covid19/index.scss');
 
 const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
+    const { defcParams } = useSelector((state) => state.covid19);
     const overviewRequest = useRef(null);
     const awardAmountRequest = useRef(null);
     const dispatch = useDispatch();
@@ -48,15 +49,15 @@ const Covid19Container = () => {
                 dispatch(setDefcParams(defCodes.map((code) => code.code)));
             }
             else {
-                // use our hard-coded mapping
+                // use codes for selected publicLaw
                 dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
             }
         }
-    }, [publicLaw, areDefCodesLoading]);
+    }, [publicLaw, areDefCodesLoading, history, dispatch, defCodes]);
 
     useEffect(() => {
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code));
+            overviewRequest.current = fetchOverview(defcParams);
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -64,13 +65,13 @@ const Covid19Container = () => {
                 dispatch(setOverview(newOverview));
             }
             catch (e) {
-                console.log(' Error Overview : ', e.message);
+                console.error(' Error Overview : ', e.message);
             }
         };
         const getAllAwardTypesAmount = async () => {
             const params = {
                 filter: {
-                    def_codes: defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)
+                    def_codes: defcParams
                 }
             };
             awardAmountRequest.current = fetchAwardAmounts(params);
@@ -86,10 +87,10 @@ const Covid19Container = () => {
                 dispatch(setTotals('', totals));
             }
             catch (e) {
-                console.log(' Error Amounts : ', e.message);
+                console.error(' Error Amounts : ', e.message);
             }
         };
-        if (defCodes.length) {
+        if (defcParams.length) {
             getOverviewData();
             getAllAwardTypesAmount();
             overviewRequest.current = null;
@@ -103,7 +104,7 @@ const Covid19Container = () => {
                 awardAmountRequest.cancel();
             }
         };
-    }, [defCodes, dispatch]);
+    }, [defcParams, dispatch]);
 
     return (
         <Covid19Page areDefCodesLoading={areDefCodesLoading} />

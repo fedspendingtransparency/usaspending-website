@@ -42,7 +42,7 @@ describe('COVID-19 Container', () => {
         render(
             (
                 <Covid19Container />
-            ), { initialState: { ...defaultState, covid19: { defCodes: mockDefCodes.data.codes } } }
+            ), { initialState: { ...defaultState, covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefCodes.data.codes.map((i) => i.code) } } }
         );
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy2).toHaveBeenCalledTimes(1);
