@@ -37,10 +37,6 @@ const PublicLawPicker = ({
     onClick
 }) => {
     const selected = options.find((obj) => obj.value === selectedOption);
-
-console.log(options.map((obj) => ({ name: <PublicLawPickerOption {...obj} />, value: obj.value, onClick })));
-
-
     return (
         <div className="public-law-picker__container">
             <Picker
