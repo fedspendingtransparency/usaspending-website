@@ -22,7 +22,7 @@ const TooltipComponent = () => (
 
 const AgencySection = ({
     section,
-    icon,
+    icon = "chart-area",
     children
 }) => (
     <SectionTitle
