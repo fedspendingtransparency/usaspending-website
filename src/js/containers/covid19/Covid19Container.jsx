@@ -90,7 +90,7 @@ const Covid19Container = () => {
                 console.error(' Error Amounts : ', e.message);
             }
         };
-        if (defcParams.length) {
+        if (defcParams && defcParams.length) {
             getOverviewData();
             getAllAwardTypesAmount();
             overviewRequest.current = null;

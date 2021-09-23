@@ -15,6 +15,8 @@ export const mockDefCodes = {
     }
 };
 
+export const mockDefcParams = mockDefCodes.data.codes.map((i) => i.code);
+
 export const fetchDEFCodesMockReturnValue = ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
