@@ -24,15 +24,18 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ],
     object_class: [
@@ -42,15 +45,18 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ],
     federal_account: [
@@ -60,15 +66,18 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ]
 };
@@ -80,15 +89,18 @@ export const subagencyColumns = [
     },
     {
         title: 'totalObligations',
-        displayName: 'Award Obligations'
+        displayName: 'Award Obligations',
+        right: true
     },
     {
         title: 'transactionCount',
-        displayName: 'Number of Transactions'
+        displayName: 'Number of Transactions',
+        right: true
     },
     {
         title: 'newAwardCount',
-        displayName: 'Number of New Awards'
+        displayName: 'Number of New Awards',
+        right: true
     }
 ];
 
