@@ -17,11 +17,11 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AgencyLandingContent from 'components/agencyLanding/AgencyLandingContent';
 
-const propTypes = {
-    agenciesOrder: PropTypes.object
-};
-
 export class AgencyLandingContainer extends React.Component {
+    static propTypes = {
+        agenciesOrder: PropTypes.object
+    };
+
     constructor(props) {
         super(props);
 
@@ -35,7 +35,6 @@ export class AgencyLandingContainer extends React.Component {
         };
 
         this.agenciesRequest = null;
-        this.setAgencySearchString = this.setAgencySearchString.bind(this);
     }
 
     componentDidMount() {
@@ -55,7 +54,7 @@ export class AgencyLandingContainer extends React.Component {
         }
     }
 
-    setAgencySearchString(agencySearchString) {
+    setAgencySearchString = (agencySearchString) => {
         let searchValue = '';
         if (agencySearchString.length > 2) {
             searchValue = agencySearchString;
@@ -216,8 +215,6 @@ export class AgencyLandingContainer extends React.Component {
         );
     }
 }
-
-AgencyLandingContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({

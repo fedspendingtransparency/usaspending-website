@@ -1,5 +1,5 @@
 /**
- * AgencyLandingSearchBar.jsx
+ * LandingSearchBar.jsx
  * Created by Lizzie Salita 7/10/17
  */
 
@@ -8,33 +8,33 @@ import PropTypes from 'prop-types';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
-const propTypes = {
-    setSearchString: PropTypes.func.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    button: PropTypes.string.isRequired
-};
+export default class LandingSearchBar extends React.Component {
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        placeholder: PropTypes.string.isRequired,
+        buttonAltText: PropTypes.string.isRequired
+    };
 
-export default class AgencyLandingSearchBar extends React.Component {
-    onChange(e) {
-        const value = e.target.value;
-        this.props.setSearchString(value);
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onSubmit(e.target[0].value);
     }
 
     render() {
         return (
             <div className="search-section">
-                <form className="search-section__form">
+                <form className="search-section__form" onSubmit={this.onSubmit}>
                     <input
                         className="search-section__input"
                         aria-label="Search Input"
                         type="text"
-                        onChange={this.onChange.bind(this)}
                         placeholder={this.props.placeholder} />
                     <button
+                        type="submit"
                         aria-label="Search"
                         className="search-section__button">
                         <div className="search-section__button-icon">
-                            <Search alt={this.props.button} />
+                            <Search alt={this.props.buttonAltText} />
                         </div>
                     </button>
                 </form>
@@ -42,5 +42,3 @@ export default class AgencyLandingSearchBar extends React.Component {
         );
     }
 }
-
-AgencyLandingSearchBar.propTypes = propTypes;
