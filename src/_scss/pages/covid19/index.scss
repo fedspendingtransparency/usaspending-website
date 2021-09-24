@@ -166,7 +166,6 @@
           @include display(block);
           flex-wrap: wrap;
           text-align: left;
-          width: 100%;
           .heading__top {
             height: 1.66rem;
           }
@@ -205,10 +204,15 @@
           .aligned-heading {
             display: flex;
             align-items: flex-end;
+            @media(max-width: 560px) {
+              display: block;
+            }
           }
           .heading__img-wrapper {
             .heading__img-mobile {
               display: block;
+              margin-left: auto;
+              max-height: 10vh;
               @include media(560px) {
                 display: none;
               }
@@ -216,18 +220,6 @@
             .heading__img {
               display: none;
               @include media(560px) {
-                display: flex;
-                transform: scaleX(-1);
-              }
-              @include media($medium-screen) {
-                display: flex;
-                transform: scaleX(-1);
-              }
-              @include media($large-screen) {
-                display: flex;
-                transform: scaleX(-1);
-              }
-              @include media($x-large-screen) {
                 display: flex;
                 transform: scaleX(-1);
               }
