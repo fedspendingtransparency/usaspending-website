@@ -108,21 +108,14 @@
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
           h3.body__narrative {
-            text-align: center;
+            text-align: left;
             font-weight: $font-semibold;
             font-size: 3rem;
-            @include media($medium-screen) {
-              padding-left: 15%;
-              padding-right: 15%;
-            }
           }
 
           .body__narrative-description {
             font-size: $small-font-size;
-            text-align: center;
-            @include media($medium-screen) {
-              max-width: 70%;
-            }
+            text-align: left;
             margin: auto;
             padding-bottom: 5rem;
             .footnotes {
@@ -170,7 +163,7 @@
 
         .heading__container {
           border-radius: 0.5rem 0.5rem 0 0;
-          @include display(flex);
+          @include display(block);
           flex-wrap: wrap;
           text-align: left;
           width: 100%;
@@ -209,11 +202,11 @@
               font-weight: $font-semibold;
             }
           }
+          .aligned-heading {
+            display: flex;
+            align-items: flex-end;
+          }
           .heading__img-wrapper {
-            @include display(block);
-            object-fit: contain;
-            max-width: 100%;
-            height: auto;
             .heading__img-mobile {
               display: block;
               @include media(560px) {
@@ -223,19 +216,19 @@
             .heading__img {
               display: none;
               @include media(560px) {
-                display: block;
+                display: flex;
                 transform: scaleX(-1);
               }
               @include media($medium-screen) {
-                display: block;
+                display: flex;
                 transform: scaleX(-1);
               }
               @include media($large-screen) {
-                display: block;
+                display: flex;
                 transform: scaleX(-1);
               }
               @include media($x-large-screen) {
-                display: block;
+                display: flex;
                 transform: scaleX(-1);
               }
             }
@@ -261,7 +254,7 @@
           .award-question__container {
             @include display(flex);
             flex-wrap: wrap;
-            text-align: center;
+            text-align: left;
             width: 100%;
             .information-top {
               height: 0.5rem;
@@ -277,10 +270,10 @@
               font-weight: $font-semibold;
               letter-spacing: 0;
               line-height: 4.5rem;
-              text-align: center;
-              padding: 6.2rem 2.5% 3.1rem;
+              text-align: left;
+              padding: 3rem 5% 0;
               @media (min-width: $medium-screen) {
-                padding: 6.2rem 15% 3.1rem;
+                padding: 3rem 5% 0;
               }
               width: 100%;
             }
@@ -288,13 +281,13 @@
               font-size: 1.4rem;
               letter-spacing: 0;
               line-height: 2.2rem;
-              text-align: center;
-              padding: 0 2.5%;
+              text-align: left;
+              padding: 0 5% 2rem;
               @media (min-width: $medium-screen) {
-                padding: 0 15% 6.1rem;
+                padding: 0 5% 2rem;
               }
               .award-question__sub-section_paragraph:first-of-type {
-                margin-top: 0;
+                margin-top: 1.6rem;
               }
             }
           }
