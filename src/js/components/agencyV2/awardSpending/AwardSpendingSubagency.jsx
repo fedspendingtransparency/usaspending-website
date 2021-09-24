@@ -3,12 +3,14 @@
  * Created by Afna Saifudeen 8/4/21
  */
 
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
 import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
+import SubagencyTableContainer from 'containers/agencyV2/awardSpending/SubagencyTableContainer';
+import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -69,7 +71,9 @@ const initialActiveTabState = {
 
 const AwardSpendingSubagency = ({ agencyId, fy }) => {
     const { subagencyCount } = useSelector((state) => state.agencyV2);
-    const [activeTab, setActiveTab] = useState(initialActiveTabState);
+    const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
+
+    const moreOptionsTabsRef = useRef(null);
 
     const subagencyData = subagencyCount;
 
@@ -85,13 +89,21 @@ const AwardSpendingSubagency = ({ agencyId, fy }) => {
 
     return (
         <div className="body__content agency-budget-category">
-            <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+            <div ref={moreOptionsTabsRef}>
+                <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+            </div>
             <SubAgencySummaryContainer
                 agencyId={agencyId}
                 fy={fy}
                 summaryData={summaryData}
                 data={subagencyData}
                 activeTab={activeTab.internal} />
+            <SubagencyTableContainer
+                agencyId={agencyId}
+                fy={fy}
+                type={activeTab.internal}
+                prevType={prevActiveTab.internal}
+                subHeading="Offices" />
         </div>
     );
 };

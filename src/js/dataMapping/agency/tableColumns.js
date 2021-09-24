@@ -24,15 +24,18 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ],
     object_class: [
@@ -42,15 +45,18 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ],
     federal_account: [
@@ -60,17 +66,49 @@ export const accountColumns = {
         },
         {
             title: 'obligatedAmount',
-            displayName: 'Obligated Amount'
+            displayName: 'Obligated Amount',
+            right: true
         },
         {
             title: 'percentOfTotalObligations',
-            displayName: '% of Total Obligations'
+            displayName: '% of Total Obligations',
+            right: true
         },
         {
             title: 'grossOutlayAmount',
-            displayName: 'Gross Outlay Amount'
+            displayName: 'Gross Outlay Amount',
+            right: true
         }
     ]
+};
+
+export const subagencyColumns = [
+    {
+        title: 'name',
+        displayName: 'Agency Name'
+    },
+    {
+        title: 'totalObligations',
+        displayName: 'Award Obligations',
+        right: true
+    },
+    {
+        title: 'transactionCount',
+        displayName: 'Number of Transactions',
+        right: true
+    },
+    {
+        title: 'newAwardCount',
+        displayName: 'Number of New Awards',
+        right: true
+    }
+];
+
+export const subagencyFields = {
+    name: 'name',
+    totalObligations: 'total_obligations',
+    transactionCount: 'transaction_count',
+    newAwardCount: 'new_award_count'
 };
 
 export const accountFields = {
