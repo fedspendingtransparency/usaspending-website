@@ -40,6 +40,15 @@ export const resetSubagencyCount = () => ({
     type: 'RESET_SUBAGENCY_COUNT'
 });
 
+export const setSubagencyTotals = (spendingBySubagencyTotals) => ({
+    type: 'SET_SUBAGENCY_TOTALS',
+    spendingBySubagencyTotals
+});
+
+export const resetSubagencyTotals = () => ({
+    type: 'RESET_SUBAGENCY_TOTALS'
+});
+
 export const setBudgetCategoryCount = (tab, count) => ({
     type: 'SET_BUDGET_CATEGORY_COUNT',
     tab,
