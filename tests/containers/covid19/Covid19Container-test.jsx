@@ -89,25 +89,17 @@ describe('COVID-19 Container', () => {
             expect(mockHistoryReplace).not.toHaveBeenCalled();
         });
         it('sets the correct DEFC params in redux for all', () => {
-            // const spy = jest.spyOn(actions, 'setDefcParams');
-            // useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
-            // const covidDEFC = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19');
-            // render(
-            //     (
-            //         <Covid19Container />
-            //     ), { initialState: { ...defaultState, covid19: { defCodes: covidDEFC } } }
-            // );
-            // expect(spy).toHaveBeenCalledWith(['L', 'M']);
+            const spy = jest.spyOn(actions, 'setDefcParams');
+            useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
+            const covidDEFC = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19');
+            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
+            expect(spy).toHaveBeenCalledWith(['A', 'L', 'M']);
         });
         it('sets the correct ARP DEFC params in redux', () => {
-            // const spy = jest.spyOn(actions, 'setDefcParams');
-            // useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
-            // render(
-            //     (
-            //         <Covid19Container />
-            //     ), { initialState: { ...defaultState, covid19: { defCodes: mockDefCodes.data.codes } } }
-            // );
-            // expect(spy).toHaveBeenCalledWith(['V']);
+            const spy = jest.spyOn(actions, 'setDefcParams');
+            useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
+            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
+            expect(spy).toHaveBeenCalledWith(['V']);
         });
     });
 });
