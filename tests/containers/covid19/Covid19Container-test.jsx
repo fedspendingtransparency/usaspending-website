@@ -39,30 +39,22 @@ describe('COVID-19 Container', () => {
         useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
         const spy = jest.spyOn(apis, 'fetchOverview');
         const spy2 = jest.spyOn(apis, 'fetchAwardAmounts');
-        render(
-            (
-                <Covid19Container />
-            ), { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } }
-        );
-        expect(spy).toHaveBeenCalledTimes(1);
-        expect(spy2).toHaveBeenCalledTimes(1);
+        render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(spy2).toHaveBeenCalledTimes(2);
     });
 
     it('should not fetch overview and totals given we do not have defcode data', () => {
         useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
         const spy = jest.spyOn(apis, 'fetchOverview');
         const spy2 = jest.spyOn(apis, 'fetchAwardAmounts');
-        render((
-            <Covid19Container />
-        ));
+        render(<Covid19Container />);
         expect(spy).toHaveBeenCalledTimes(0);
         expect(spy2).toHaveBeenCalledTimes(0);
     });
     it('redirects to all DEFC when the public law query param is invalid', () => {
         useQueryParams.mockImplementation(() => ({ publicLaw: 'blah' }));
-        render((
-            <Covid19Container />
-        ));
+        render(<Covid19Container />);
         expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
         expect(mockHistoryReplace).toHaveBeenCalledWith({
             pathname: '',
@@ -72,9 +64,7 @@ describe('COVID-19 Container', () => {
 
     it('redirects if no public law query param is provided', () => {
         useQueryParams.mockImplementation(() => ({ publicLaw: '' }));
-        render((
-            <Covid19Container />
-        ));
+        render(<Covid19Container />);
         expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
         expect(mockHistoryReplace).toHaveBeenCalledWith({
             pathname: '',
@@ -85,23 +75,17 @@ describe('COVID-19 Container', () => {
     describe('when a valid public law query param is provided', () => {
         it('does not redirect all DEFC', () => {
             useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
-            render((
-                <Covid19Container />
-            ));
+            render(<Covid19Container />);
             expect(mockHistoryReplace).not.toHaveBeenCalled();
         });
         it('does not redirect American Rescue Plan', () => {
             useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
-            render((
-                <Covid19Container />
-            ));
+            render(<Covid19Container />);
             expect(mockHistoryReplace).not.toHaveBeenCalled();
         });
         it('is not case sensitive', () => {
             useQueryParams.mockImplementation(() => ({ publicLaw: 'AMERican-reSCue-pLAN' }));
-            render((
-                <Covid19Container />
-            ));
+            render(<Covid19Container />);
             expect(mockHistoryReplace).not.toHaveBeenCalled();
         });
         it('sets the correct DEFC params in redux for all', () => {

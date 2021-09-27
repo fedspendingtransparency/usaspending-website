@@ -53,7 +53,7 @@ const Covid19Container = () => {
                 dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
             }
         }
-    }, [publicLaw, areDefCodesLoading, history, dispatch, defCodes]);
+    }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {
         const getOverviewData = async () => {
