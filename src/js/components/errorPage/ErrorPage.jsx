@@ -18,7 +18,10 @@ const ErrorPage = () => (
         title="Page Not Found">
         <main id="main-content" className="main-content">
             <h2>Sorry, the page you are looking for does not exist.</h2>
-            <div>TODO Image here</div>
+            <picture>
+                <source srcSet="img/errorPage/ErrorPage404-mobile.webp 1x, img/errorPage/ErrorPage404-desktop.webp 2x" type="image/webp" />
+                <img src="img/errorPage/ErrorPage404-02.svg" alt="404" />
+            </picture>
             <p>
                 Please check that you typed the address correctly, go back to your
                 previous page or try these helpful links instead:

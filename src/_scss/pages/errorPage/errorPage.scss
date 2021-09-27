@@ -19,9 +19,14 @@
             font-size: 2.7rem;
             line-height: 3.4rem;
         }
+        img {
+            width: 249px;
+            height: 123px;
+        }
         p {
             font-weight: $font-semibold;
             font-size: 1.6rem;
+            margin-top: 5rem;
         }
         ul {
             @include unstyled-list;
@@ -34,12 +39,16 @@
             h2 {
                 font-size: $h2-font-size;
                 line-height: 6rem;
-                margin-bottom: 5.2rem;
+                margin-bottom: 5.9rem;
+            }
+            img {
+                width: 586px;
+                height: 288px;
             }
             p {
                 font-size: 1.8rem;
                 max-width: 45.2rem;
-                margin: 1.8rem auto;
+                margin: 5rem auto 1.8rem;
             }
         }
     }
