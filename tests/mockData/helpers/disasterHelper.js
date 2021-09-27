@@ -15,7 +15,7 @@ export const mockDefCodes = {
     }
 };
 
-export const mockDefcParams = mockDefCodes.data.codes.map((i) => i.code);
+export const mockDefcParams = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
 
 export const fetchDEFCodesMockReturnValue = ({
     promise: new Promise((resolve) => {

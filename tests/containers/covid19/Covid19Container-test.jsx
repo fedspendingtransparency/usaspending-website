@@ -93,7 +93,7 @@ describe('COVID-19 Container', () => {
             useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
             const covidDEFC = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19');
             render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
-            expect(spy).toHaveBeenCalledWith(['A', 'L', 'M']);
+            expect(spy).toHaveBeenCalledWith(['L', 'M']);
         });
         it('sets the correct ARP DEFC params in redux', () => {
             const spy = jest.spyOn(actions, 'setDefcParams');
