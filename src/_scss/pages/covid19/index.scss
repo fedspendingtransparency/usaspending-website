@@ -171,7 +171,6 @@
         .heading__container {
           border-radius: 0.5rem 0.5rem 0 0;
           @include display(block);
-          flex-wrap: wrap;
           text-align: left;
           .heading__top {
             height: 1.66rem;
