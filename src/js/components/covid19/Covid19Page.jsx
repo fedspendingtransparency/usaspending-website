@@ -31,6 +31,8 @@ import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import SidebarFooter from 'components/covid19/SidebarFooter';
+import GlobalConstants from 'GlobalConstants';
+import PublicLawPicker from './PublicLawPicker';
 
 require('pages/covid19/index.scss');
 
@@ -56,7 +58,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             handleJumpToSection(query.section);
             const newParams = getQueryParamString(omit(query, ['section']));
             history.replace({
-                pathname: '/disaster/covid-19',
+                pathname: window.location.pathname,
                 search: newParams
             });
         }
@@ -71,6 +73,20 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
 
+    const handlePublicLawFilterClick = (law) => {
+        if (law === 'dsm') {
+            history.push({
+                pathname: `${window.location.pathname}/data-sources`
+            });
+        }
+        else {
+            history.push({
+                pathname: window.location.pathname,
+                search: `publicLaw=${law}`
+            });
+        }
+    };
+
     return (
         <PageWrapper
             pageName="COVID-19 Spending"
@@ -78,71 +94,70 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
+                GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />,
                 <DownloadButtonContainer />
             ]}>
             <LoadingWrapper isLoading={areDefCodesLoading}>
-                <>
-                    <main id="main-content" className="main-content usda__flex-row">
-                        <div className="sidebar">
-                            <div className="sidebar__content">
-                                <Sidebar
-                                    pageName="covid19"
-                                    isGoingToBeSticky
-                                    active={activeSection}
-                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                                    jumpToSection={handleJumpToSection}
-                                    detectActiveSection
-                                    verticalSectionOffset={stickyHeaderHeight}
-                                    sections={Object.keys(componentByCovid19Section())
-                                        .filter((section) => componentByCovid19Section()[section].showInMenu)
-                                        .map((section) => ({
-                                            section: snakeCase(section),
-                                            label: componentByCovid19Section()[section].title
-                                        }))} >
-                                    <div className="sidebar-footer">
-                                        <SidebarFooter
-                                            pageName="covid19"
-                                            isGoingToBeSticky
-                                            verticalOffset={getVerticalOffsetForSidebarFooter()}
-                                            fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-                                    </div>
-                                </Sidebar>
-                            </div>
+                <main id="main-content" className="main-content usda__flex-row">
+                    <div className="sidebar">
+                        <div className="sidebar__content">
+                            <Sidebar
+                                pageName="covid19"
+                                isGoingToBeSticky
+                                active={activeSection}
+                                fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
+                                jumpToSection={handleJumpToSection}
+                                detectActiveSection
+                                verticalSectionOffset={stickyHeaderHeight}
+                                sections={Object.keys(componentByCovid19Section())
+                                    .filter((section) => componentByCovid19Section()[section].showInMenu)
+                                    .map((section) => ({
+                                        section: snakeCase(section),
+                                        label: componentByCovid19Section()[section].title
+                                    }))} >
+                                <div className="sidebar-footer">
+                                    <SidebarFooter
+                                        pageName="covid19"
+                                        isGoingToBeSticky
+                                        verticalOffset={getVerticalOffsetForSidebarFooter()}
+                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+                                </div>
+                            </Sidebar>
                         </div>
-                        <div className="body usda__flex-col">
-                            <section className="body__section">
-                                <Heading />
-                            </section>
-                            {Object.keys(componentByCovid19Section())
-                                .filter((section) => componentByCovid19Section()[section].showInMainSection)
-                                .map((section) => (
-                                    <Covid19Section
-                                        key={section}
-                                        section={section}
-                                        icon={componentByCovid19Section()[section].icon}
-                                        headerText={componentByCovid19Section()[section].headerText}
-                                        title={componentByCovid19Section()[section].title}
-                                        tooltipProps={componentByCovid19Section()[section].tooltipProps}
-                                        tooltip={componentByCovid19Section()[section].tooltip}>
-                                        {componentByCovid19Section()[section].component}
-                                    </Covid19Section>
-                                ))}
-                            <section className="body__section" id="covid19-data_sources_and_methodology">
-                                <DataSourcesAndMethodology
-                                    handleExternalLinkClick={handleExternalLinkClick} />
-                            </section>
-                            <section className="body__section" id="covid19-other_resources">
-                                <OtherResources
-                                    handleExternalLinkClick={handleExternalLinkClick} />
-                                <LinkToAdvancedSearchContainer />
-                            </section>
-                        </div>
-                        <GlobalModalContainer />
-                    </main>
-                </>
+                    </div>
+                    <div className="body usda__flex-col">
+                        <section className="body__section">
+                            <Heading />
+                        </section>
+                        {Object.keys(componentByCovid19Section())
+                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
+                            .map((section) => (
+                                <Covid19Section
+                                    key={section}
+                                    section={section}
+                                    icon={componentByCovid19Section()[section].icon}
+                                    headerText={componentByCovid19Section()[section].headerText}
+                                    title={componentByCovid19Section()[section].title}
+                                    tooltipProps={componentByCovid19Section()[section].tooltipProps}
+                                    tooltip={componentByCovid19Section()[section].tooltip}>
+                                    {componentByCovid19Section()[section].component}
+                                </Covid19Section>
+                            ))}
+                        <section className="body__section" id="covid19-data_sources_and_methodology">
+                            <DataSourcesAndMethodology
+                                handleExternalLinkClick={handleExternalLinkClick} />
+                        </section>
+                        <section className="body__section" id="covid19-other_resources">
+                            <OtherResources
+                                handleExternalLinkClick={handleExternalLinkClick} />
+                            <LinkToAdvancedSearchContainer />
+                        </section>
+                    </div>
+                    <GlobalModalContainer />
+                </main>
             </LoadingWrapper>
         </PageWrapper>
     );
