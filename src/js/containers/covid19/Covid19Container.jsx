@@ -57,7 +57,8 @@ const Covid19Container = () => {
 
     useEffect(() => {
         const getOverviewData = async () => {
-            overviewRequest.current = fetchOverview(defcParams);
+            const overviewDefc = defcParams || defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
+            overviewRequest.current = fetchOverview(overviewDefc);
             try {
                 const { data } = await overviewRequest.current.promise;
                 const newOverview = Object.create(BaseOverview);
@@ -104,7 +105,7 @@ const Covid19Container = () => {
                 awardAmountRequest.cancel();
             }
         };
-    }, [defcParams, dispatch]);
+    }, [defCodes, defcParams, dispatch]);
 
     return (
         <Covid19Page areDefCodesLoading={areDefCodesLoading} />
