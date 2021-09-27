@@ -10,11 +10,11 @@ const BaseOverview = {
         data.funding.forEach((code) => {
             this[`_defCode_${code.def_code}_funding`] = code.amount;
         });
-        this._totalBudgetAuthority = data.total_budget_authority || null;
+        this._totalBudgetAuthority = data.total_budget_authority + data.additional.total_budget_authority || null;
         this._awardObligations = data.spending.award_obligations || null;
         this._awardOutlays = data.spending.award_outlays || null;
-        this._totalObligations = data.spending.total_obligations || null;
-        this._totalOutlays = data.spending.total_outlays || null;
+        this._totalObligations = data.spending.total_obligations + data.additional.spending.total_obligations || null;
+        this._totalOutlays = data.spending.total_outlays + additional.spending.total_outlays || null;
         this._otherObligations = data.spending.total_obligations - data.spending.award_obligations;
         this._awardObligationsNotOutlayed = data.spending.award_obligations - data.spending.award_outlays;
         this._remainingBalance = data.total_budget_authority - data.spending.total_obligations;
