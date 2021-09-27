@@ -39,9 +39,9 @@ describe('COVID-19 Container', () => {
         useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
         const spy = jest.spyOn(apis, 'fetchOverview');
         const spy2 = jest.spyOn(apis, 'fetchAwardAmounts');
-        render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
-        expect(spy).toHaveBeenCalledTimes(2);
-        expect(spy2).toHaveBeenCalledTimes(2);
+        render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes } } });
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy2).toHaveBeenCalledTimes(1);
     });
 
     it('should not fetch overview and totals given we do not have defcode data', () => {
@@ -92,13 +92,13 @@ describe('COVID-19 Container', () => {
             const spy = jest.spyOn(actions, 'setDefcParams');
             useQueryParams.mockImplementation(() => ({ publicLaw: 'all' }));
             const covidDEFC = mockDefCodes.data.codes.filter((c) => c.disaster === 'covid_19');
-            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
+            render(<Covid19Container />, { initialState: { covid19: { defCodes: covidDEFC } } });
             expect(spy).toHaveBeenCalledWith(['L', 'M']);
         });
         it('sets the correct ARP DEFC params in redux', () => {
             const spy = jest.spyOn(actions, 'setDefcParams');
             useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
-            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes, defcParams: mockDefcParams } } });
+            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes } } });
             expect(spy).toHaveBeenCalledWith(['V']);
         });
     });
