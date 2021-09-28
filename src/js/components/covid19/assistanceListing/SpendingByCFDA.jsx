@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -46,8 +47,11 @@ const initialState = {
     loans: null,
     other: null
 };
+const propTypes = {
+    arpStyles: PropTypes.bool
+};
 
-const SpendingByCFDA = () => {
+const SpendingByCFDA = ({ arpStyles }) => {
     const { defcParams } = useSelector((state) => state.covid19);
     const moreOptionsTabsRef = useRef(null);
 
@@ -121,15 +125,17 @@ const SpendingByCFDA = () => {
     return (
         <div className="body__content assistance-listing">
             <DateNote />
-            <h3 className="body__narrative">
-                <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
-            </h3>
+            {arpStyles ?
+                <h3 className="body__narrative">
+                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
+                </h3> :
+                <h3 className="body__narrative">
+                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
+                </h3>
+            }
             <div className="body__narrative-description">
                 <p>
-                    <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like Supplemental Nutrition Assistance Program (SNAP) that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program, all of which must be explicitly authorized by law.
-                </p>
-                <p>
-                    In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
+                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. The <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like Supplemental Nutrition Assistance Program (SNAP) that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program and be explicitly authorized by law. In this section, you will see awards that CFDA Programs have funded in response to COVID-19.
                 </p>
             </div>
             <div ref={moreOptionsTabsRef}>
@@ -147,8 +153,16 @@ const SpendingByCFDA = () => {
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
             <Note message={dodNote} />
+            {arpStyles ?
+                <Note message={(
+                    <>
+                        This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
+                    </>
+                )} /> : <div />
+            }
         </div>
     );
 };
 
+SpendingByCFDA.propTypes = propTypes;
 export default SpendingByCFDA;

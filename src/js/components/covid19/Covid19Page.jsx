@@ -160,11 +160,13 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                             ))}
                         <section className="body__section" id="covid19-data_sources_and_methodology">
                             <DataSourcesAndMethodology
-                                handleExternalLinkClick={handleExternalLinkClick} />
+                                handleExternalLinkClick={handleExternalLinkClick}
+                                arpStyles={arpStyles} />
                         </section>
                         <section className="body__section" id="covid19-other_resources">
                             <OtherResources
-                                handleExternalLinkClick={handleExternalLinkClick} />
+                                handleExternalLinkClick={handleExternalLinkClick}
+                                arpStyles={arpStyles} />
                             <LinkToAdvancedSearchContainer />
                         </section>
                     </div>

@@ -154,7 +154,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalBudgetAuthority1"
-                                    dataId="_totalBudgetAuthority" />
+                                    dataId="_totalBudgetAuthority"
+                                    arpStyles={arpStyles} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -163,7 +164,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalObligations1"
-                                    dataId="_totalObligations" />
+                                    dataId="_totalObligations"
+                                    arpStyles={arpStyles} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -172,9 +174,16 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalOutlays1"
-                                    dataId="_totalOutlays" />
+                                    dataId="_totalOutlays"
+                                    arpStyles={arpStyles} />
                             </svg>
-                            <div className="amounts-viz__sub-title" />
+                            {arpStyles ?
+                                <div className="amounts-viz__sub-title">
+                                    NOTE: Amounts reported in this section were derived using: 1) data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) data manually reported as American Rescue Plan spending for the Department of Labor.
+                                </div>
+                                :
+                                <div className="amounts-viz__sub-title" />
+                            }
                         </div>,
                         <div>
                             <h3 className="body__narrative amounts-viz__title">
@@ -189,7 +198,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalBudgetAuthority2"
-                                    dataId="_totalBudgetAuthority" />
+                                    dataId="_totalBudgetAuthority"
+                                    arpStyles={arpStyles} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is the total amount of funding that agencies have to
@@ -209,7 +219,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     dataId="_totalBudgetAuthority"
-                                    className="opaque" />
+                                    className="opaque"
+                                    arpStyles={arpStyles} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -218,7 +229,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalObligations3"
-                                    dataId="_totalObligations" />
+                                    dataId="_totalObligations"
+                                    arpStyles={arpStyles} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is how much agencies have committed to spend.
@@ -237,7 +249,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     dataId="_totalBudgetAuthority"
-                                    className="opaque" />
+                                    className="opaque"
+                                    arpStyles={arpStyles} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -246,7 +259,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     dataId="_totalObligations"
-                                    className="opaque" />
+                                    className="opaque"
+                                    arpStyles={arpStyles} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -255,7 +269,8 @@ const AmountsVisualization = ({
                                     scale={scale}
                                     width={width}
                                     tooltipId="_totalOutlays4"
-                                    dataId="_totalOutlays" />
+                                    dataId="_totalOutlays"
+                                    arpStyles={arpStyles} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is how much agencies have paid out.

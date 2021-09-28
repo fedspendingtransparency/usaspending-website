@@ -60,20 +60,20 @@ export const componentByCovid19Section = (arpStyles) => ({
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <BudgetCategories />,
+        component: <BudgetCategories arpStyles={arpStyles} />,
         headerText: totalSpendingText,
         showInMenu: true,
         showInMainSection: true,
         title: 'Total Spending by Budget Category'
     },
     award_question: {
-        component: <AwardQuestion />,
+        component: <AwardQuestion arpStyles={arpStyles} />,
         showInMenu: false,
         showInMainSection: true
     },
     award_spending_by_recipient: {
         icon: 'building',
-        component: <RecipientSection />,
+        component: <RecipientSection arpStyles={arpStyles} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
@@ -81,7 +81,7 @@ export const componentByCovid19Section = (arpStyles) => ({
     },
     award_spending_by_agency: {
         icon: 'sitemap',
-        component: <AwardSpendingAgency />,
+        component: <AwardSpendingAgency arpStyles={arpStyles} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
@@ -89,7 +89,7 @@ export const componentByCovid19Section = (arpStyles) => ({
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <SpendingByCFDA />,
+        component: <SpendingByCFDA arpStyles={arpStyles} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,

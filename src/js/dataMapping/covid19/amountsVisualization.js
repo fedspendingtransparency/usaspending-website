@@ -115,3 +115,33 @@ export const rectangleMapping = {
         }
     }
 };
+
+export const rectangleColorMapping = {
+    _totalBudgetAuthority: {
+        fill: 'white',
+        color: '#D0BEDA'
+    },
+    _totalObligations: {
+        fill: '#9266AA',
+        color: '#9266AA'
+    },
+    _totalOutlays: {
+        fill: '#3B005B',
+        color: '#3B005B'
+    }
+};
+
+export const rectangleColorMappingArp = {
+    _totalBudgetAuthority: {
+        fill: 'white',
+        color: '#AAC6E2'
+    },
+    _totalObligations: {
+        fill: '#558EC6',
+        color: '#558EC6'
+    },
+    _totalOutlays: {
+        fill: '#0A2F5A',
+        color: '#0A2F5A'
+    }
+};
