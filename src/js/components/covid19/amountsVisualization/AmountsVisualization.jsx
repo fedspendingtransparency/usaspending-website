@@ -26,12 +26,14 @@ import {
 
 const propTypes = {
     overviewData: PropTypes.object,
-    width: PropTypes.number
+    width: PropTypes.number,
+    arpStyles: PropTypes.bool
 };
 
 const AmountsVisualization = ({
     overviewData,
-    width = null
+    width = null,
+    arpStyles
 }) => {
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
@@ -134,9 +136,15 @@ const AmountsVisualization = ({
                 <Carousel
                     items={[
                         <div>
-                            <h3 className="body__narrative amounts-viz__title">
-                                This is how much was spent so far in response to COVID-19
-                            </h3>
+                            {arpStyles ?
+                                <h3 className="body__narrative amounts-viz__title">
+                                    This is how much was spent so far through the American Rescue Plan
+                                </h3>
+                                :
+                                <h3 className="body__narrative amounts-viz__title">
+                                    This is how much was spent so far in response to COVID-19
+                                </h3>
+                            }
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
@@ -43,7 +43,9 @@ const propTypes = {
 const Covid19Page = ({ areDefCodesLoading }) => {
     const query = useQueryParams();
     const history = useHistory();
+    const location = useLocation();
     const [activeSection, setActiveSection] = useState('overview');
+    const [arpStyles, setArpStyles] = useState(false);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -63,6 +65,15 @@ const Covid19Page = ({ areDefCodesLoading }) => {
             });
         }
     }, [history, isRecipientMapLoaded, query]);
+
+    useEffect(() => {
+        if (location.search === '?publicLaw=american-rescue-plan') {
+            setArpStyles(true);
+        }
+        else {
+            setArpStyles(false);
+        }
+    }, [location]);
 
 
     const handleExternalLinkClick = (url) => {
@@ -130,7 +141,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                     </div>
                     <div className="body usda__flex-col">
                         <section className="body__section">
-                            <Heading />
+                            <Heading arpStyles={arpStyles} />
                         </section>
                         {Object.keys(componentByCovid19Section())
                             .filter((section) => componentByCovid19Section()[section].showInMainSection)
@@ -138,12 +149,13 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                                 <Covid19Section
                                     key={section}
                                     section={section}
+                                    arpStyles={arpStyles}
                                     icon={componentByCovid19Section()[section].icon}
                                     headerText={componentByCovid19Section()[section].headerText}
                                     title={componentByCovid19Section()[section].title}
                                     tooltipProps={componentByCovid19Section()[section].tooltipProps}
                                     tooltip={componentByCovid19Section()[section].tooltip}>
-                                    {componentByCovid19Section()[section].component}
+                                    {componentByCovid19Section(arpStyles)[section].component}
                                 </Covid19Section>
                             ))}
                         <section className="body__section" id="covid19-data_sources_and_methodology">

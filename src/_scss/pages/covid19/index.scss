@@ -152,6 +152,9 @@
             rgba(182, 153, 198, 0.1) 100%
           );
         }
+        .information-body-arp {
+          background-color: #EBEFF4;
+        }
         .information-top {
           width: 100%;
           opacity: 0.2;
@@ -163,6 +166,10 @@
         }
         .color-purple {
           color: $color-disaster-covid-19;
+          font-weight: $font-bold;
+        }
+        .color-blue-arp {
+          color: #0A2F5A;
           font-weight: $font-bold;
         }
         .read-more-button {
@@ -214,6 +221,10 @@
               display: flex;
               align-items: flex-end;
             }
+          }
+          .heading__img-arp {
+            display: flex;
+            align-items: flex-end;
           }
           .heading__img-wrapper {
             .heading__img-mobile {

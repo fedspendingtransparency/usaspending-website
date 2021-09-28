@@ -49,10 +49,10 @@ const awardSpendingText = (
 );
 
 // eslint-disable-next-line import/prefer-default-export
-export const componentByCovid19Section = () => ({
+export const componentByCovid19Section = (arpStyles) => ({
     overview: {
         icon: 'hand-holding-medical',
-        component: <OverviewContainer />,
+        component: <OverviewContainer arpStyles={arpStyles} />,
         headerText: totalSpendingText,
         showInMenu: true,
         showInMainSection: true,
