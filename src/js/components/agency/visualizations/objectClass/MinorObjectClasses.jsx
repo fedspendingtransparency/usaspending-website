@@ -50,13 +50,8 @@ export default class MinorObjectClasses extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps, this.props) && this.props.minorObjectClasses.children.length > 0) {
-            this.buildTree(this.props);
-        }
-        // Clear out the finalNodes if props change and there are no minorObjectClasses.
-        // This will occur when the treemap has previously rendered and we're loading
-        // a different set of minorObjectClasses from the API.
-        else if (this.state.finalNodes.length > 0) {
             this.clearFinalNodes();
+            this.buildTree(this.props);
         }
     }
 
@@ -238,6 +233,7 @@ export default class MinorObjectClasses extends React.Component {
 
         return tooltip;
     }
+
 
     render() {
         const value = parseFloat(this.props.majorObjectClass.obligated_amount);
