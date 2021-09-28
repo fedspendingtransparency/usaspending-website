@@ -50,7 +50,7 @@ const Heading = ({ arpStyles }) => {
                     </> :
                     <>
                         <picture className="heading__img-arp">
-                            <source srcSet="img/All-Public-Laws-Illustration.webp 1x, img/All-Public-Laws-Illustration.webp 2x" type="image/webp" />
+                            <source srcSet="img/All-Public-Laws-Illustration.webp 1x" type="image/webp" />
                             <img src="img/All-Public-Laws-Illustration.svg" alt="" />
                         </picture>
                     </>

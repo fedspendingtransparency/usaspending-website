@@ -233,6 +233,13 @@
           .heading__img-arp {
             display: flex;
             align-items: flex-end;
+            @media (max-width: 560px) {
+              img {
+                display: block;
+                margin-left: auto;
+                max-height: 16vh;
+              }
+            }
           }
         }
         .covid__date-note {
