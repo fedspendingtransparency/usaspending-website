@@ -1,6 +1,7 @@
 .usa-da-error-page {
     text-align: center;
     @import "all";
+    @import "layouts/default/stickyHeader/header";
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
