@@ -1,47 +1,50 @@
 /**
  * ErrorPage.jsx
- * Created by Kevin Li 8/10/17
+ * Created by Lizzie Salita 9/27/21
  */
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
-
-import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
-
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { errorPageMetaTags } from 'helpers/metaTagHelper';
 
 require('pages/errorPage/errorPage.scss');
 
 const ErrorPage = () => (
-    <div className="usa-da-error-page">
-        <MetaTags {...MetaTagHelper.errorPageMetaTags} />
-        <Header />
-        <main id="main-content">
-            <div className="error-content">
-                <div className="error-box">
-                    <div className="error-header">
-                        <div className="error-icon">
-                            <ExclamationCircle alt="Page not found" />
-                        </div>
-                        <div className="error-title">
-                            <h1>Page not found</h1>
-                        </div>
-                    </div>
-                    <div className="error-body">
-                        <p>Sorry, the page you are looking for doesn&apos;t exist.</p>
-                        <p>
-                            Check the URL for typos or <Link to="/">return to the home page.</Link>
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <PageWrapper
+        pageName="Error"
+        classNames="usa-da-error-page"
+        metaTagProps={errorPageMetaTags}
+        title="Page Not Found">
+        <main id="main-content" className="main-content">
+            <h2>Sorry, the page you are looking for does not exist.</h2>
+            <picture>
+                <source srcSet="img/errorPage/ErrorPage404-mobile.webp 1x, img/errorPage/ErrorPage404-desktop.webp 2x" type="image/webp" />
+                <img src="img/errorPage/ErrorPage404-02.svg" alt="404" />
+            </picture>
+            <p>
+                Please check that you typed the address correctly, go back to your
+                previous page or try these helpful links instead:
+            </p>
+            <ul>
+                <li>
+                    <Link to="/">Back to Home</Link>
+                </li>
+                <li>
+                    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Report%20an%20Error">Report Problem</a>
+                </li>
+                <li>
+                    <Link to="/search">Search Award Data</Link>
+                </li>
+                <li>
+                    <a href="https://api.usaspending.gov/">Learn about our APIs</a>
+                </li>
+                <li>
+                    <a href="https://usaspending-help.zendesk.com/hc/en-us/community/topics">Visit our Community Page</a>
+                </li>
+            </ul>
         </main>
-        <Footer pageName="Error Page" />
-    </div>
+    </PageWrapper>
 );
 
 export default ErrorPage;
