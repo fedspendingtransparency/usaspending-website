@@ -11,7 +11,6 @@ import * as actions from 'redux/actions/covid19/covid19Actions';
 import { useQueryParams } from 'helpers/queryParams';
 import Covid19Container from 'containers/covid19/Covid19Container';
 import { mockDefCodes, mockDefcParams } from '../../mockData/helpers/disasterHelper';
-// import { defaultState, covid19DefaultState } from '../../testResources/defaultReduxFilters';
 
 // Mock the child component so we can isolate functionality of the container
 jest.mock('components/covid19/Covid19Page', () =>

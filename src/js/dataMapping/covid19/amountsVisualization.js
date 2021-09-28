@@ -62,7 +62,7 @@ export const labelTextAdjustment = {
 };
 
 export const rectangleMapping = {
-    _totalBudgetAuthority: {
+    _totalBudgetAuthorityForBar: {
         fill: 'white',
         color: '#D0BEDA',
         offset: {
@@ -78,7 +78,7 @@ export const rectangleMapping = {
             label: 'Total Budgetary Resources'
         }
     },
-    _totalObligations: {
+    _totalObligationsForBar: {
         fill: '#9266AA',
         color: '#9266AA',
         offset: {
@@ -96,7 +96,7 @@ export const rectangleMapping = {
             label: 'Total Obligations'
         }
     },
-    _totalOutlays: {
+    _totalOutlaysForBar: {
         fill: '#3B005B',
         color: '#3B005B',
         offset: {
