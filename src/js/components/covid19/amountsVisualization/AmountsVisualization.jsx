@@ -43,7 +43,7 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, overviewData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthorityForBar])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
@@ -89,7 +89,7 @@ const AmountsVisualization = ({
                     {
                         paragraphs: [
                             `${formatMoney(overviewData[showTooltip.substring(0, showTooltip.length - 1)])}`,
-                            `${calculatePercentage(overviewData[showTooltip.substring(0, showTooltip.length - 1)], overviewData._totalBudgetAuthority, null, 2)} of Total Budgetary Resources`,
+                            `${calculatePercentage(overviewData[showTooltip.substring(0, showTooltip.length - 1)], overviewData._totalBudgetAuthorityForBar, null, 2)} of Total Budgetary Resources`,
                             tooltipMapping[showTooltip.substring(0, showTooltip.length - 1)].paragraph
                         ]
                     }
