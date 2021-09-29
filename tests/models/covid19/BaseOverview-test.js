@@ -17,10 +17,6 @@ const _nonAwardNotOutlayed = (overviewAPIResponse.spending.total_obligations - o
 
 const overviewWithAdditional = Object.create(BaseOverview);
 overviewWithAdditional.populate(overviewAPIResponseWithAdditional);
-
-console.log(overviewAPIResponseWithAdditional);
-
-
 const _totalBudgetAuthorityForBar = overviewAPIResponseWithAdditional.total_budget_authority + overviewAPIResponseWithAdditional.additional.total_budget_authority;
 const _totalObligationsForBar = overviewAPIResponseWithAdditional.spending.total_obligations + overviewAPIResponseWithAdditional.additional.spending.total_obligations;
 const _totalOutlaysForBar = overviewAPIResponseWithAdditional.spending.total_outlays + overviewAPIResponseWithAdditional.additional.spending.total_outlays;
