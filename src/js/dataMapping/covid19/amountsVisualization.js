@@ -17,17 +17,17 @@ export const defaultLineData = {
 };
 
 export const tooltipMapping = {
-    _totalBudgetAuthority: {
+    _totalBudgetAuthorityForBar: {
         data: 'totalRectangleData',
         title: 'Total Budgetary Resources',
         paragraph: 'This amount represents all congressional appropriations and other available budgetary resources.'
     },
-    _totalOutlays: {
+    _totalOutlaysForBar: {
         data: 'outlayRectangleData',
         title: 'Total Outlays',
         paragraph: 'This amount represents all outlays, or actual payments, made by agencies.'
     },
-    _totalObligations: {
+    _totalObligationsForBar: {
         data: 'obligationRectangleData',
         title: 'Total Obligations',
         paragraph: 'This amount represents all obligations, or promises of payment, made by agencies.'
