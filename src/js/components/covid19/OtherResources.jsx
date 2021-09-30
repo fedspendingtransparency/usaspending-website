@@ -30,9 +30,9 @@ const OtherResources = ({
                                     Pandemic Response Accountability Committee (PRAC) -
                                 </span>
                                 <a
-                                    href="https://pandemic.oversight.gov/track-the-money"
+                                    href="https://www.pandemicoversight.gov/"
                                     onClick={handleClick}>
-                                    https://pandemic.oversight.gov/track-the-money&nbsp;
+                                    https://www.pandemicoversight.gov/&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>

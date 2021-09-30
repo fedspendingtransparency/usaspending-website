@@ -66,10 +66,10 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 const createRobots = () => {
     fs.writeFile(
         path.resolve(__dirname, `./sitemapFiles/robots.txt`),
-        `User-agent: * \nDisallow: /*.php*\nDisallow: /*?glossary=*\n\nSitemap: ${siteUrl}/sitemap.xml`,
+        `User-agent: * \nDisallow: /*.php*\nDisallow: /*?*\n\nSitemap: ${siteUrl}/sitemap.xml`,
         (e) => {
             if (e) {
-                console.log(' Error : ', e);
+                console.error(' Error : ', e);
                 throw e.message;
             }
             console.log("robots.txt successfully created!");

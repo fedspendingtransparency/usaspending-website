@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearchBar';
+import LandingSearchBar from 'components/sharedComponents/LandingSearchBar';
 import StateLandingTable from './table/StateLandingTable';
 
 const propTypes = {
@@ -18,10 +18,10 @@ export default class StateLandingContent extends React.Component {
     render() {
         return (
             <div>
-                <AgencyLandingSearchBar
-                    setSearchString={this.props.setSearchString}
-                    placeholder="Start typing to find a state or territory..."
-                    button="Search States" />
+                <LandingSearchBar
+                    onSubmit={this.props.setSearchString}
+                    placeholder="Search by State / Territory Name or Abbreviation"
+                    buttonAltText="Search States" />
                 <div className="results-count">
                     {this.props.resultsText}
                 </div>

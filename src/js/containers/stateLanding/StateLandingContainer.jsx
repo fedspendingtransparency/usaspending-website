@@ -30,15 +30,13 @@ export default class StateLandingContainer extends React.Component {
         };
 
         this.request = null;
-        this.setSearchString = this.setSearchString.bind(this);
-        this.setSort = this.setSort.bind(this);
     }
 
     componentDidMount() {
         this.loadData();
     }
 
-    setSearchString(input) {
+    setSearchString = (input) => {
         this.setState({
             searchString: input
         }, () => {
@@ -46,7 +44,7 @@ export default class StateLandingContainer extends React.Component {
         });
     }
 
-    setSort(field, direction) {
+    setSort = (field, direction) => {
         this.setState({
             sortField: field,
             sortDirection: direction
@@ -77,7 +75,7 @@ export default class StateLandingContainer extends React.Component {
                         loading: false,
                         error: true
                     });
-                    console.log(err);
+                    console.error(err);
                 }
             });
     }
