@@ -35,7 +35,7 @@ export const tooltipMapping = {
     _remainingBalance: {
         data: 'remainingBalanceRectangleData',
         title: 'Total Remaining Balance',
-        paragraph: 'This amount represents how much is left to be obligated, or promised to be paid, by agencies. '
+        paragraph: 'This amount represents how much is left to be obligated, or promised to be paid, by agencies.'
     }
 };
 

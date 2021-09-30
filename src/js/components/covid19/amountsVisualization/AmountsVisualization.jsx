@@ -145,7 +145,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalBudgetAuthority1"
+                                    tooltipId="_totalBudgetAuthorityForBar1"
                                     dataId="_totalBudgetAuthorityForBar" />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -154,7 +154,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalObligations1"
+                                    tooltipId="_totalObligationsForBar1"
                                     dataId="_totalObligationsForBar" />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -163,7 +163,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalOutlays1"
+                                    tooltipId="_totalOutlaysForBar1"
                                     dataId="_totalOutlaysForBar" />
                             </svg>
                             <div className="amounts-viz__sub-title" />
@@ -180,7 +180,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalBudgetAuthority2"
+                                    tooltipId="_totalBudgetAuthorityForBar2"
                                     dataId="_totalBudgetAuthorityForBar" />
                             </svg>
                             <div className="amounts-viz__sub-title">
@@ -209,7 +209,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalObligations3"
+                                    tooltipId="_totalObligationsForBar3"
                                     dataId="_totalObligationsForBar" />
                             </svg>
                             <div className="amounts-viz__sub-title">
@@ -246,7 +246,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalOutlays4"
+                                    tooltipId="_totalOutlaysForBar4"
                                     dataId="_totalOutlaysForBar" />
                             </svg>
                             <div className="amounts-viz__sub-title">
