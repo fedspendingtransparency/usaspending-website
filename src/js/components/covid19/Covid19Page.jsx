@@ -143,7 +143,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                                     title={componentByCovid19Section()[section].title}
                                     tooltipProps={componentByCovid19Section()[section].tooltipProps}
                                     tooltip={componentByCovid19Section()[section].tooltip}>
-                                    {componentByCovid19Section(query.publicLaw)[section].component}
+                                    {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
                                 </Covid19Section>
                             ))}
                         <section className="body__section" id="covid19-data_sources_and_methodology">

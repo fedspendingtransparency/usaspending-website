@@ -49,7 +49,7 @@ const awardSpendingText = (
 );
 
 // eslint-disable-next-line import/prefer-default-export
-export const componentByCovid19Section = (publicLaw) => ({
+export const componentByCovid19Section = (publicLaw, handleExternalLinkClick) => ({
     overview: {
         icon: 'hand-holding-medical',
         component: <OverviewContainer publicLaw={publicLaw} />,
@@ -89,7 +89,7 @@ export const componentByCovid19Section = (publicLaw) => ({
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <SpendingByCFDA publicLaw={publicLaw} />,
+        component: <SpendingByCFDA publicLaw={publicLaw} handleExternalLinkClick={handleExternalLinkClick} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
