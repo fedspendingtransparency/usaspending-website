@@ -49,7 +49,7 @@ const Heading = ({ publicLaw }) => {
                         </picture>
                     </> :
                     <>
-                        <picture className="heading__img-arp">
+                        <picture className="heading__img-all">
                             <source srcSet="img/All-Public-Laws-Illustration.webp 1x" type="image/webp" />
                             <img src="img/All-Public-Laws-Illustration.svg" alt="" />
                         </picture>

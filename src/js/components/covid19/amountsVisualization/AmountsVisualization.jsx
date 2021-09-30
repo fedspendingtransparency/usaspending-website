@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import Note from 'components/sharedComponents/Note';
 import DefaultAmountViz from 'components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import { TooltipWrapper, Carousel } from 'data-transparency-ui';
@@ -138,11 +139,11 @@ const AmountsVisualization = ({
                         <div>
                             {publicLaw === 'american-rescue-plan' ?
                                 <h3 className="body__narrative amounts-viz__title">
-                                    This is how much was spent so far through the American Rescue Plan
+                                    This is how much was <strong>spent</strong> so far through the American Rescue Plan
                                 </h3>
                                 :
                                 <h3 className="body__narrative amounts-viz__title">
-                                    This is how much was spent so far in response to COVID-19
+                                    This is how much was <strong>spent</strong> so far in response to COVID-19
                                 </h3>
                             }
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
@@ -178,11 +179,11 @@ const AmountsVisualization = ({
                                     publicLaw={publicLaw} />
                             </svg>
                             {publicLaw === 'american-rescue-plan' ?
-                                <div className="amounts-viz__sub-title">
-                                    NOTE: Amounts reported in this section were derived using: 1) data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) data manually reported as American Rescue Plan spending for the Department of Labor.
-                                </div>
-                                :
-                                <div className="amounts-viz__sub-title" />
+                                <Note message={(
+                                    <>
+                                        Amounts reported in this section were derived using: 1) data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) data manually reported as American Rescue Plan spending for the Department of Labor.
+                                    </>
+                                )} /> : <div />
                             }
                         </div>,
                         <div>

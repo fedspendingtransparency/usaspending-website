@@ -116,7 +116,7 @@
           h3.body__narrative {
             text-align: left;
             font-weight: $font-semibold;
-            font-size: 3rem;
+            font-size: 2rem;
             padding-left: 4.5rem;
           }
 
@@ -233,11 +233,28 @@
           .heading__img-arp {
             display: flex;
             align-items: flex-end;
+            img {
+              max-height: 30rem;
+            }
             @media (max-width: 560px) {
               img {
                 display: block;
                 margin-left: auto;
-                max-height: 16vh;
+                max-height: 12rem;
+              }
+            }
+          }
+          .heading__img-all {
+            display: flex;
+            align-items: flex-end;
+            img {
+              max-height: 40rem;
+            }
+            @media (max-width: 560px) {
+              img {
+                display: block;
+                margin-left: auto;
+                max-height: 12rem;
               }
             }
           }

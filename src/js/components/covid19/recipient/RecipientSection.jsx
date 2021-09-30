@@ -37,7 +37,7 @@ const RecipientSection = ({ publicLaw }) => {
             }
             <div className="body__narrative-description">
                 <p>
-                    Once the federal government has determined that an individual, organization, business, or state, local, or tribal government will receive an award, the money is obligated (promised) and then outlayed (paid) according to the terms of the contract or financial assistance.<sup>3</sup>
+                    Once the federal government has determined that an individual, organization, business, or state, local, or tribal government will receive an award, the money is obligated (promised) and then outlayed (paid) according to the terms of the contract or financial assistance.<sup>1</sup>
                 </p>
                 <ReadMore>
                     <p>
@@ -47,7 +47,7 @@ const RecipientSection = ({ publicLaw }) => {
                         In the case of recipients who are individual persons and not organizations, data is aggregated by county or state to protect personally identifiable information (PII). Data about the location where the award money is used, known as the &apos;Primary Place of Performance&apos;, is available through the download button at the top of the table.
                     </p>
                     <p className="footnotes">
-                        <sup>3</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
+                        <sup>1</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
                     </p>
                 </ReadMore>
             </div>
