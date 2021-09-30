@@ -34,10 +34,10 @@ const tabs = [
 ];
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const BudgetCategories = ({ arpStyles }) => {
+const BudgetCategories = ({ publicLaw }) => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
     const [inFlight, setInFlight] = useState(true);
@@ -114,13 +114,13 @@ const BudgetCategories = ({ arpStyles }) => {
     return (
         <div className="body__content budget-categories">
             <DateNote />
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <h3 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h3>
                 :
                 <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
             }
             <div className="body__narrative-description">
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <p>
                         In this section, we provide the total amount of American Rescue Plan funding broken down into three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                     </p>
@@ -147,7 +147,7 @@ const BudgetCategories = ({ arpStyles }) => {
                     subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
                     scrollIntoView={scrollIntoViewTable} />
             </div>
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.

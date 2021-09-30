@@ -27,7 +27,7 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     description: PropTypes.string,
     className: PropTypes.string,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const DefaultLine = ({
@@ -39,7 +39,7 @@ const DefaultLine = ({
     hideTooltip,
     description = 'A line linking a Line to text',
     className,
-    arpStyles
+    publicLaw
 }) => {
     const [lineData, setLineData] = useState(defaultLineData);
 
@@ -50,7 +50,7 @@ const DefaultLine = ({
                 lineOffset,
                 isLineAboveChart
             } = rectangleMapping[dataId];
-            const { color } = arpStyles ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
+            const { color } = publicLaw === 'american-rescue-plan' ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
@@ -62,7 +62,7 @@ const DefaultLine = ({
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
-    }, [scale, overviewData, arpStyles]);
+    }, [scale, overviewData, publicLaw]);
     return (
         <g
             tabIndex="0"

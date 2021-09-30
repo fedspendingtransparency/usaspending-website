@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const AwardQuestion = ({ arpStyles }) => (
-    <div className={`award-question__container ${arpStyles ? 'information-body-arp' : 'information-body'}`}>
-        <div className={`${arpStyles ? 'information-top-arp' : 'information-top'}`} />
-        {arpStyles ?
+const AwardQuestion = ({ publicLaw }) => (
+    <div className={`award-question__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
+        <div className={`${publicLaw === 'american-rescue-plan' ? 'information-top-arp' : 'information-top'}`} />
+        {publicLaw === 'american-rescue-plan' ?
             <h2 className="award-question__title">
                 Federal Awards from the <span className="color-blue-arp">American Rescue Plan</span>
             </h2> :

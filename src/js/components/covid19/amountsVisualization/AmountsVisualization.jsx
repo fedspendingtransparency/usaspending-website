@@ -27,13 +27,13 @@ import {
 const propTypes = {
     overviewData: PropTypes.object,
     width: PropTypes.number,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const AmountsVisualization = ({
     overviewData,
     width = null,
-    arpStyles
+    publicLaw
 }) => {
     const [loading, setLoading] = useState(null);
     const [scale, setScale] = useState(null);
@@ -136,7 +136,7 @@ const AmountsVisualization = ({
                 <Carousel
                     items={[
                         <div>
-                            {arpStyles ?
+                            {publicLaw === 'american-rescue-plan' ?
                                 <h3 className="body__narrative amounts-viz__title">
                                     This is how much was spent so far through the American Rescue Plan
                                 </h3>
@@ -155,7 +155,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalBudgetAuthority1"
                                     dataId="_totalBudgetAuthority"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -165,7 +165,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalObligations1"
                                     dataId="_totalObligations"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -175,9 +175,9 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalOutlays1"
                                     dataId="_totalOutlays"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                             </svg>
-                            {arpStyles ?
+                            {publicLaw === 'american-rescue-plan' ?
                                 <div className="amounts-viz__sub-title">
                                     NOTE: Amounts reported in this section were derived using: 1) data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) data manually reported as American Rescue Plan spending for the Department of Labor.
                                 </div>
@@ -199,7 +199,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalBudgetAuthority2"
                                     dataId="_totalBudgetAuthority"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is the total amount of funding that agencies have to
@@ -220,7 +220,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     dataId="_totalBudgetAuthority"
                                     className="opaque"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -230,7 +230,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalObligations3"
                                     dataId="_totalObligations"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is how much agencies have committed to spend.
@@ -250,7 +250,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     dataId="_totalBudgetAuthority"
                                     className="opaque"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -260,7 +260,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     dataId="_totalObligations"
                                     className="opaque"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
                                     hideTooltip={hideTooltip}
@@ -270,7 +270,7 @@ const AmountsVisualization = ({
                                     width={width}
                                     tooltipId="_totalOutlays4"
                                     dataId="_totalOutlays"
-                                    arpStyles={arpStyles} />
+                                    publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
                                     This is how much agencies have paid out.

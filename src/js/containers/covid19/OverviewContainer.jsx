@@ -11,10 +11,10 @@ import AmountsVisualization from 'components/covid19/amountsVisualization/Amount
 import DateNote from 'components/covid19/DateNote';
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const OverviewContainer = ({ arpStyles }) => {
+const OverviewContainer = ({ publicLaw }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [visualizationsWidth, setVisualizationsWidth] = useState(0);
     // reference to the div - using to get the current div width
@@ -49,7 +49,7 @@ const OverviewContainer = ({ arpStyles }) => {
             <AmountsVisualization
                 overviewData={overviewData}
                 width={visualizationsWidth}
-                arpStyles={arpStyles} />
+                publicLaw={publicLaw} />
         </div>
     );
 };

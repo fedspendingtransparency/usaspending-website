@@ -9,19 +9,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     handleExternalLinkClick: PropTypes.func,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const OtherResources = ({
     handleExternalLinkClick,
-    arpStyles
+    publicLaw
 }) => {
     const handleClick = (e) => {
         e.preventDefault();
         handleExternalLinkClick(e.target.href);
     };
     return (
-        <div className={`heading__container ${arpStyles ? 'information-body-arp' : 'information-body'}`}>
+        <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
             <div className="resources__container">
                 <div className="bottomSection">
                     <h2 className="dsm__heading">Other Resources</h2>

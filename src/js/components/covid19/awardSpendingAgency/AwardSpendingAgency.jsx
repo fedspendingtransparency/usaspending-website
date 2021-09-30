@@ -57,10 +57,10 @@ const initialActiveTabState = {
 };
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const AwardSpendingAgency = ({ arpStyles }) => {
+const AwardSpendingAgency = ({ publicLaw }) => {
     const { defcParams } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
@@ -137,7 +137,7 @@ const AwardSpendingAgency = ({ arpStyles }) => {
     return (
         <div className="body__content spending-by-agency">
             <DateNote />
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <h3 className="body__narrative">
                     <strong>Which agencies</strong> issued awards using American Rescue Plan funds?
                 </h3> :
@@ -146,7 +146,7 @@ const AwardSpendingAgency = ({ arpStyles }) => {
                 </h3>
             }
             <div className="body__narrative-description">
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <p>
                         Federal agencies receive funding from Congress, and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds from the American Rescue Plan, as well as a breakdown of their obligated and outlayed funds.
                     </p> :
@@ -170,7 +170,7 @@ const AwardSpendingAgency = ({ arpStyles }) => {
             <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
                 <Note message={dodNote} />
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <Note message={(
                         <>
                             This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.

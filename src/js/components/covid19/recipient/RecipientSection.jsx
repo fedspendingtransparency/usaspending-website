@@ -14,10 +14,10 @@ import Analytics from 'helpers/analytics/Analytics';
 import Note from 'components/sharedComponents/Note';
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const RecipientSection = ({ arpStyles }) => {
+const RecipientSection = ({ publicLaw }) => {
     const [activeTab, setActiveTab] = useState('recipient_locations');
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.find((item) => item.internal === tab).internal;
@@ -27,7 +27,7 @@ const RecipientSection = ({ arpStyles }) => {
     return (
         <div className="body__content recipient__container">
             <DateNote />
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <h3 className="body__narrative">
                     <strong>Who</strong> received funding through American Rescue Plan awards?
                 </h3> :
@@ -56,7 +56,7 @@ const RecipientSection = ({ arpStyles }) => {
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <Note message={(
                         <>
                             This section uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.

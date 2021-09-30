@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
 import { jumpToSection } from 'helpers/covid19Helper';
 
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const Heading = ({ arpStyles }) => {
+const Heading = ({ publicLaw }) => {
     const jumpToDataSources = () => {
         jumpToSection('data_sources_and_methodology');
     };
     return (
-        <div className={`heading__container ${arpStyles ? 'information-body-arp' : 'information-body'}`}>
-            {arpStyles ?
+        <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
+            {publicLaw === 'american-rescue-plan' ?
                 <div className="heading__title">
                     The Federal Response to COVID-19: <span className="color-blue-arp">The American Rescue Plan</span>
                 </div> :
@@ -26,7 +26,7 @@ const Heading = ({ arpStyles }) => {
                 </div>
             }
             <div className="aligned-heading">
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <div className="heading__description">
                         <p>In March 2021, the U.S. Congress appropriated additional funds in response to the COVID-19 pandemic through the American Rescue Plan Act of 2021. See how much has been spent, how spending is categorized, who received funding, and more.</p>
                         <p>
@@ -41,7 +41,7 @@ const Heading = ({ arpStyles }) => {
                         </p>
                     </div>
                 }
-                {arpStyles ?
+                {publicLaw === 'american-rescue-plan' ?
                     <>
                         <picture className="heading__img-arp">
                             <source srcSet="img/ARPA-illustration.webp 1x, img/ARPA-illustration.webp 2x" type="image/webp" />

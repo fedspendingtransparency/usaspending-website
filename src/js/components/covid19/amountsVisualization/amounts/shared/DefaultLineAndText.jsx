@@ -30,7 +30,7 @@ const propTypes = {
     tooltipId: PropTypes.string,
     width: PropTypes.number,
     className: PropTypes.string,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const DefaultLineAndText = ({
@@ -42,7 +42,7 @@ const DefaultLineAndText = ({
     tooltipId,
     width,
     className,
-    arpStyles
+    publicLaw
 }) => {
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
     const [labelData, setLabelData] = useState(defaultTextState(dataId, 'label'));
@@ -90,7 +90,7 @@ const DefaultLineAndText = ({
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip}
                 width={width}
-                arpStyles={arpStyles} />
+                publicLaw={publicLaw} />
             <TextGroup data={[
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }

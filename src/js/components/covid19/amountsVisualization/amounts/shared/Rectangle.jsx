@@ -34,7 +34,7 @@ const propTypes = {
     dataId: PropTypes.string,
     tooltipId: PropTypes.string,
     className: PropTypes.string,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const Rectangle = ({
@@ -46,7 +46,7 @@ const Rectangle = ({
     dataId = '',
     tooltipId,
     className,
-    arpStyles
+    publicLaw
 }) => {
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
@@ -54,7 +54,7 @@ const Rectangle = ({
             const {
                 offset, text: textInfo
             } = rectangleMapping[dataId];
-            const { fill, color } = arpStyles ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
+            const { fill, color } = publicLaw === 'american-rescue-plan' ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
             const { left } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
             const rectWidth = rectangleWidth(overviewData, scale, dataId);
@@ -71,7 +71,7 @@ const Rectangle = ({
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
-    }, [scale, overviewData, arpStyles]);
+    }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
     return (
         <g
             tabIndex="0"

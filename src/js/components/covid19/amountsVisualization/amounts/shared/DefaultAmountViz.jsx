@@ -20,7 +20,7 @@ const propTypes = {
     scale: PropTypes.func,
     width: PropTypes.number,
     className: PropTypes.string,
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
 const DefaultAmountViz = ({
@@ -33,7 +33,7 @@ const DefaultAmountViz = ({
     scale,
     width,
     className,
-    arpStyles
+    publicLaw
 }) => (
     <g>
         <DefaultLineAndText
@@ -45,7 +45,7 @@ const DefaultAmountViz = ({
             tooltipId={tooltipId}
             dataId={dataId}
             width={width}
-            arpStyles={arpStyles} />
+            publicLaw={publicLaw} />
         <Rectangle
             overviewData={overviewData}
             className={className}
@@ -55,7 +55,7 @@ const DefaultAmountViz = ({
             showTooltip={showTooltip}
             tooltipId={tooltipId}
             dataId={dataId}
-            arpStyles={arpStyles} />
+            publicLaw={publicLaw} />
     </g>
 );
 

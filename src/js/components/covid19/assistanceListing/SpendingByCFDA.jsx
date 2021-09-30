@@ -48,10 +48,10 @@ const initialState = {
     other: null
 };
 const propTypes = {
-    arpStyles: PropTypes.bool
+    publicLaw: PropTypes.string
 };
 
-const SpendingByCFDA = ({ arpStyles }) => {
+const SpendingByCFDA = ({ publicLaw }) => {
     const { defcParams } = useSelector((state) => state.covid19);
     const moreOptionsTabsRef = useRef(null);
 
@@ -125,7 +125,7 @@ const SpendingByCFDA = ({ arpStyles }) => {
     return (
         <div className="body__content assistance-listing">
             <DateNote />
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <h3 className="body__narrative">
                     <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
                 </h3> :
@@ -153,7 +153,7 @@ const SpendingByCFDA = ({ arpStyles }) => {
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
             <Note message={dodNote} />
-            {arpStyles ?
+            {publicLaw === 'american-rescue-plan' ?
                 <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
