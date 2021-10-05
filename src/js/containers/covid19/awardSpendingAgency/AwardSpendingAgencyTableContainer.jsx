@@ -124,7 +124,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
-    const defCodes = useSelector((state) => state.covid19.defCodes);
+    const { defcParams } = useSelector((state) => state.covid19);
     const spendingByAgencyTotals = useSelector((state) => state.covid19.spendingByAgencyTotals);
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
@@ -225,12 +225,12 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
         if (error) setError(false);
         setLoading(true);
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             let params = {};
 
             params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code),
+                    def_codes: defcParams,
                     award_type_codes: [].concat(...Object.values(awardTypeGroups))
                 },
                 pagination: {
@@ -300,7 +300,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defCodes, query]);
+    }, [pageSize, sort, order, defcParams, query]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

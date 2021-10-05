@@ -56,7 +56,7 @@ const initialActiveTabState = {
 };
 
 const AwardSpendingAgency = () => {
-    const { defCodes } = useSelector((state) => state.covid19);
+    const { defcParams } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
     const [tabs, setTabs] = useState(awardTypeTabs);
@@ -65,7 +65,7 @@ const AwardSpendingAgency = () => {
     const moreOptionsTabsRef = useRef(null);
 
     useEffect(() => {
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             let params = {};
 
             // Make an API request for the count of Agency for each award type
@@ -73,7 +73,7 @@ const AwardSpendingAgency = () => {
             const promises = awardTypeTabs.map((awardType) => {
                 params = {
                     filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
+                        def_codes: defcParams
                     }
                 };
                 if (awardType.internal === 'all') {
@@ -97,7 +97,7 @@ const AwardSpendingAgency = () => {
                     });
                 });
         }
-    }, [defCodes]);
+    }, [defcParams]);
 
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);

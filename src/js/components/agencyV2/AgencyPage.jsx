@@ -55,18 +55,19 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
+            icon: 'chart-area',
             component: <AgencyOverview fy={selectedFy} isLoading={isLoading} agencyId={agencyId} />
         },
         {
             name: 'budget-category',
-            display: 'Budget Category',
-            overLine: 'Total Spending',
+            display: 'Status of Funds',
+            icon: 'money-check-alt',
             component: <AccountSpending fy={`${selectedFy}`} agencyId={agencyId} />
         },
         {
             name: 'sub-agency',
-            display: 'Sub-Agency',
-            overLine: 'Award Spending',
+            display: 'Award Spending',
+            icon: 'hand-holding-usd',
             component: <AwardSpendingSubagency fy={`${selectedFy}`} agencyId={agencyId} />
         }
     ];
@@ -137,7 +138,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading}>
+                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}
