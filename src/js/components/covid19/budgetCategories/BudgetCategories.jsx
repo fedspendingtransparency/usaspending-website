@@ -37,7 +37,7 @@ const BudgetCategories = () => {
     const [inFlight, setInFlight] = useState(true);
     const moreOptionsTabsRef = useRef(null);
 
-    const { defCodes, overview } = useSelector((state) => state.covid19);
+    const { defcParams, overview } = useSelector((state) => state.covid19);
     const overviewData = [
         {
             type: 'count',
@@ -68,13 +68,13 @@ const BudgetCategories = () => {
     };
 
     useEffect(() => {
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             // Reset any existing results
             setCount(null);
 
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 }
             };
             const countRequest = fetchDisasterSpendingCount(activeTab, params);
@@ -83,7 +83,7 @@ const BudgetCategories = () => {
                     setCount(res.data.count);
                 });
         }
-    }, [activeTab, defCodes]);
+    }, [activeTab, defcParams]);
 
     useEffect(() => {
         if (!count) {
