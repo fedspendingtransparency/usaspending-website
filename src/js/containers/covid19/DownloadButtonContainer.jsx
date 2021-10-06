@@ -33,6 +33,7 @@ const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
+    const { defcParams } = useSelector((state) => state.covid19);
 
     const downloadData = async () => {
         dispatch(setDownloadCollapsed(true));
@@ -41,7 +42,7 @@ const DownloadButtonContainer = () => {
             downloadRequest.cancel();
         }
 
-        downloadRequest.current = requestFullDownload({}, 'disaster');
+        downloadRequest.current = requestFullDownload({ filters: { def_codes: defcParams } }, 'disaster');
 
         try {
             const { data } = await downloadRequest.current.promise;
@@ -52,7 +53,7 @@ const DownloadButtonContainer = () => {
             downloadRequest.current = null;
         }
         catch (err) {
-            console.log(err);
+            console.error(err);
             downloadRequest.current = null;
         }
         Analytics.event({ category: 'COVID-19 - Profile', action: 'download' });
