@@ -42,10 +42,6 @@
 						height: rem(15);
 						width: rem(15);
 						padding-right: rem(5);
-						.usa-da-spreadsheet {
-							height: rem(15);
-							width: rem(15);
-						}
 					}
 					font-size: $small-font-size;
 				}
@@ -54,7 +50,6 @@
 			.data-dictionary__table-wrapper {
 				@import './_dictionaryTable';
 			}
-			@import './_searchBar';
 		}
 	}
 }
