@@ -10,41 +10,45 @@ const propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
     text: PropTypes.string,
     limit: PropTypes.number,
-    initiallyExpanded: PropTypes.bool
+    initiallyExpanded: PropTypes.bool,
+    inline: PropTypes.bool
 };
 
 const ReadMore = ({
     children, // pre-determined content to be hidden/ shown by the buttons
     text = '', // a string to be truncated based on the limit
     limit = 300,
-    initiallyExpanded
+    initiallyExpanded = false,
+    inline = false // indicates that the button should display as part of the text instead of below it
 }) => {
     const [expanded, setExpanded] = useState(!!initiallyExpanded);
+    const readLess = (<button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>);
+    const readMore = (<button className="read-more-button" onClick={() => setExpanded(true)}>read more</button>);
     if (expanded && children) {
         return (
             <>
                 {children}
-                <div>
-                    <button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>
-                </div>
+                <div>{readLess}</div>
             </>
         );
     }
     if (expanded && (text && text.length > limit)) {
-        return (
+        return inline ? (
+            <>{text} {readLess}</>
+        ) : (
             <>
                 <p>{text}</p>
-                <div>
-                    <button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>
-                </div>
+                <div>{readLess}</div>
             </>
         );
     }
     if (!expanded && text && text.length > limit) {
-        return (
+        return inline ? (
+            <>{`${text.substring(0, limit)}...`}{readMore}</>
+        ) : (
             <div>
                 <p>{`${text.substring(0, limit)}...`}</p>
-                <button className="read-more-button" onClick={() => setExpanded(true)}>read more</button>
+                {readMore}
             </div>
         );
     }
@@ -57,7 +61,7 @@ const ReadMore = ({
     }
     return (
         <div>
-            <button className="read-more-button" onClick={() => setExpanded(true)}>read more</button>
+            {readMore}
         </div>
     );
 };

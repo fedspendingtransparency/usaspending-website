@@ -163,7 +163,8 @@ export default class DataDictionaryTable extends React.Component {
                         <ReadMore
                             text={data}
                             limit={200}
-                            initiallyExpanded={!!this.props.searchTerm} />
+                            initiallyExpanded={!!this.props.searchTerm}
+                            inline />
                     </td>
                 );
             }));

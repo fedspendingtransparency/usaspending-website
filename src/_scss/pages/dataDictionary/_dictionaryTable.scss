@@ -117,6 +117,9 @@ $dictionary-yellow: #fff694;
                     &.dictionary-table__body-cell_message {
                         font-weight: $font-light;
                     }
+                    .read-more-button {
+                        @include button-link;
+                    }
                 }
             }
         }
