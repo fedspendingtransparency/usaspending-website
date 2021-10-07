@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import DefaultAmountViz from 'components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import { TooltipWrapper, Carousel } from 'data-transparency-ui';
+import { TooltipWrapper, Carousel, LoadingMessage } from 'data-transparency-ui';
 import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
 import Tooltip from 'components/award/shared/activity/Tooltip';
 
@@ -26,7 +25,7 @@ import {
 
 const propTypes = {
     overviewData: PropTypes.object,
-    width: PropTypes.number
+    width: PropTypes.number,
 };
 
 const AmountsVisualization = ({
@@ -38,7 +37,10 @@ const AmountsVisualization = ({
     const [showTooltip, setShowTooltip] = useState('');
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
 
-    useEffect(() => setLoading(!Object.keys(overviewData).length), [overviewData]);
+    useEffect(() => {
+        setLoading(!Object.keys(overviewData).length);
+    }, [overviewData]);
+
     // X Scale
     useEffect(() => {
         if (width) {
@@ -111,9 +113,7 @@ const AmountsVisualization = ({
         <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
             {
                 loading &&
-                <div className="results-table-message-container">
-                    <ResultsTableLoadingMessage />
-                </div>
+                <LoadingMessage />
             }
             {
                 showTooltip &&

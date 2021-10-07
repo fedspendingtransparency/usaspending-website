@@ -31,7 +31,9 @@ const Covid19Section = ({
 }) => {
     if (section === 'award_question') {
         return (
-            <section id={`covid19-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
+            <section
+                id={`covid19-${snakeCase(section)}`}
+                className={`body__section ${snakeCase(section)}`}>
                 {children}
             </section>
         );
