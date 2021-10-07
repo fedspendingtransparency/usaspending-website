@@ -65,8 +65,7 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: true,
-        tooltip: tableTabsTooltips('loans')
+        enabled: true
     },
     {
         label: 'Other',
