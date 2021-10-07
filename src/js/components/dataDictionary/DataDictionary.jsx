@@ -12,7 +12,7 @@ import DataDictionaryTable from './table/DataDictionaryTable';
 import DataDictionarySearchBar from './DataDictionarySearchBar';
 
 const propTypes = {
-    loading: PropTypes.bool,
+    inFlight: PropTypes.bool,
     error: PropTypes.bool,
     sections: PropTypes.array,
     columns: PropTypes.array,

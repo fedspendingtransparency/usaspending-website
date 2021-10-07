@@ -6,12 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
+import { ErrorMessage, LoadingMessage } from 'data-transparency-ui';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import DataDictionaryTableSorter from './DataDictionaryTableSorter';
 
 const propTypes = {
     searchTerm: PropTypes.string,
-    loading: PropTypes.bool,
+    inFlight: PropTypes.bool,
     error: PropTypes.bool,
     sections: PropTypes.array,
     columns: PropTypes.array,
@@ -176,19 +177,11 @@ export default class DataDictionaryTable extends React.Component {
         let table = null;
         let scrollVisible = false;
 
-        if (this.props.loading) {
-            message = (
-                <div className="dictionary-table__message">
-                    Loading...
-                </div>
-            );
+        if (this.props.inFlight) {
+            message = (<LoadingMessage />);
         }
         else if (this.props.error) {
-            message = (
-                <div className="dictionary-table__message">
-                    There was an error loading your results.
-                </div>
-            );
+            message = (<ErrorMessage />);
         }
 
         else {
