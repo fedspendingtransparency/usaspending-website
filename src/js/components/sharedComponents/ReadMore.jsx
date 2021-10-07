@@ -9,23 +9,38 @@ import PropTypes from 'prop-types';
 const propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
     text: PropTypes.string,
-    limit: PropTypes.number
+    limit: PropTypes.number,
+    initiallyExpanded: PropTypes.bool
 };
 
-const ReadMore = ({ children, text = '', limit = 300 }) => {
-    const [expanded, setExpanded] = useState(false);
-
-    if (expanded) {
+const ReadMore = ({
+    children, // pre-determined content to be hidden/ shown by the buttons
+    text = '', // a string to be truncated based on the limit
+    limit = 300,
+    initiallyExpanded
+}) => {
+    const [expanded, setExpanded] = useState(!!initiallyExpanded);
+    if (expanded && children) {
         return (
             <>
-                {children || (<p>{text}</p>)}
+                {children}
                 <div>
                     <button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>
                 </div>
             </>
         );
     }
-    if (text && text.length > limit) {
+    if (expanded && (text && text.length > limit)) {
+        return (
+            <>
+                <p>{text}</p>
+                <div>
+                    <button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>
+                </div>
+            </>
+        );
+    }
+    if (!expanded && text && text.length > limit) {
         return (
             <div>
                 <p>{`${text.substring(0, limit)}...`}</p>
