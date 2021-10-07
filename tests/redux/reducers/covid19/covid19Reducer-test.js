@@ -7,6 +7,7 @@ import covid19Reducer from 'redux/reducers/covid19/covid19Reducer';
 import {
     setDEFCodes,
     setOverview,
+    resetOverview,
     setTotals,
     setIsMapLoaded,
     setDefcParams
@@ -23,6 +24,11 @@ describe('Covid 19 Reducer', () => {
         let state = covid19Reducer(undefined, {});
         state = covid19Reducer(state, setOverview(overview));
         expect(state.overview).toEqual(overview);
+    });
+    it('should RESET_COVID_OVERVIEW', () => {
+        let state = covid19Reducer(overview, {});
+        state = covid19Reducer(state, resetOverview(overview));
+        expect(state.overview).toEqual({});
     });
     it('should SET_COVID_AWARD_AMOUNTS', () => {
         let state = covid19Reducer(undefined, {});
