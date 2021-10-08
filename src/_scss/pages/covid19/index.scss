@@ -198,9 +198,9 @@
             line-height: 2.2rem;
             text-align: left;
             padding-left: 7rem;
-            padding-bottom: 3rem;
+            padding-bottom: 5rem;
             padding-right: 5rem;
-            @media (max-width: $tablet-screen) {
+            @media (max-width: 560px) {
               padding-left: 6rem;
               padding-bottom: 1rem;
             }
