@@ -4,21 +4,27 @@
  */
 
 import React from 'react';
+import * as redux from 'react-redux';
+import { mount } from 'enzyme';
 import { render } from 'test-utils';
-import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
+import { DownloadButtonContainer } from 'containers/covid19/DownloadButtonContainer';
 import * as downloadHelper from 'helpers/downloadHelper';
 import { mockDefcParams } from '../../mockData/helpers/disasterHelper';
-import { useDispatch } from 'react-redux';
-import { setDefcParams } from 'redux/actions/covid19/covid19Actions';
-
-const dispatch = useDispatch();
 
 describe('COVID-19 DownloadButtonContainer', () => {
-    it('should get all download data', () => {
+    it('should request data download', async () => {
+        jest.spyOn(redux, 'useSelector').mockReturnValue({
+            defcParams: mockDefcParams,
+            bulkDownload: { download: { pendingDownload: false } }
+        });
         const spy = jest.spyOn(downloadHelper, 'requestFullDownload');
-        dispatch(setDefcParams(mockDefcParams));
+        //         const downloadButtonContainer = DownloadButtonContainer();
 
-        render(<DownloadButtonContainer />);
+        // console.log(JSON.stringify(downloadButtonContainer));
+
+        //         await downloadButtonContainer.downloadData();
+        // const container = mount(<DownloadButtonContainer />);
+        await DownloadButtonContainer().downloadData();
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy).toHaveBeenNthCalledWith(mockDefcParams, 'disaster');
     });
