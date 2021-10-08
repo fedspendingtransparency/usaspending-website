@@ -1,64 +1,56 @@
 .usa-da-error-page {
+    text-align: center;
     @import "all";
-    @import "mixins/fullSectionWrap";
-    @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
 
-    .error-content {
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-        position: relative;
+    .main-content {
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+        padding: 2.5rem 2rem;
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
 
-        padding: rem(25);
-
-        @include media($tablet-screen) {
-            height: calc(100vh - 300px);
+        font-size: 1.8rem;
+        h2 {
+            margin: 0 0 2.8rem;
+            font-size: 2.7rem;
+            line-height: 3.4rem;
         }
-
-        .error-box {
-            @include flex(1 1 auto);
-            box-shadow: $box-shadow;
-            background-color: $color-white;
-            padding: rem(25);
-            
-            height: 100%;
-
-            .error-header {
-                @include display(flex);
-                @include justify-content(center);
-                @include align-items(center);
-                position: relative;
-
-                .error-icon {
-                    @include flex(0 0 auto);
-                    width: rem(35);
-                    height: rem(35);
-
-                    svg {
-                        width: rem(35);
-                        height: rem(35);
-                        fill: $color-primary-darker;
-                    }
-                }
-
-                .error-title {
-                    @include flex(1 1 auto);
-                    margin-left: rem(15);
-                    h1 {
-                        margin: 0;
-                        padding: 0;
-                        font-size: $h3-font-size;
-                    }
-                }
+        img {
+            width: 249px;
+            height: 123px;
+        }
+        p {
+            font-weight: $font-semibold;
+            font-size: 1.6rem;
+            margin-top: 5rem;
+        }
+        ul {
+            @include unstyled-list;
+            li {
+                padding: 0.8rem 0; 
             }
-
-            .error-body {
-                a {
-                    color: $color-link;
-                }
+        }
+        @media (min-width: $tablet-screen) {
+            padding: 7.8rem;
+            h2 {
+                font-size: $h2-font-size;
+                line-height: 6rem;
+                margin-bottom: 5.9rem;
             }
-
-
+            img {
+                width: 586px;
+                height: 288px;
+            }
+            p {
+                font-size: 1.8rem;
+                max-width: 45.2rem;
+                margin: 5rem auto 1.8rem;
+            }
         }
     }
 }

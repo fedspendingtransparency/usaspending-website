@@ -3,6 +3,7 @@
  * Created by Jonathan Hill 06/18/20
  */
 
+
 export const overviewAPIResponse = {
     funding: [
         {
@@ -20,6 +21,17 @@ export const overviewAPIResponse = {
         award_outlays: 413100000000,
         total_obligations: 963000000000,
         total_outlays: 459000000000
+    }
+};
+
+export const overviewAPIResponseWithAdditional = {
+    ...overviewAPIResponse,
+    additional: {
+        spending: {
+            total_obligations: 125577301932.14,
+            total_outlays: 122452932988.65
+        },
+        total_budget_authority: 209686263108.51
     }
 };
 

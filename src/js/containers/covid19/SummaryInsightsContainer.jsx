@@ -45,7 +45,7 @@ const SummaryInsightsContainer = ({
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const initialInFlightState = overviewData.map((d) => d.type);
     const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
-    const { defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19, isEqual);
+    const { defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19, isEqual);
 
     useEffect(() => {
         if (assistanceOnly && (activeTab === 'all' && prevTab === 'all')) {
@@ -58,16 +58,18 @@ const SummaryInsightsContainer = ({
         setNumberOfAwards(null);
         if (spendingByAgencyOnly) {
             dispatch(setTotals('SPENDING_BY_AGENCY', {}));
-        } else if (assistanceOnly) {
+        }
+        else if (assistanceOnly) {
             dispatch(setTotals('ASSISTANCE', {}));
-        } else if (recipientOnly) {
+        }
+        else if (recipientOnly) {
             dispatch(setTotals('RECIPIENT', {}));
         }
 
         if (awardAmountRequest.current) {
             awardAmountRequest.current.cancel();
         }
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             if (activeTab === 'all' && !assistanceOnly) {
                 if (Object.keys(allAwardTypeTotals).length > 0) {
                     setAwardOutlays(allAwardTypeTotals.outlay);
@@ -76,7 +78,8 @@ const SummaryInsightsContainer = ({
 
                     if (spendingByAgencyOnly) {
                         dispatch(setTotals('SPENDING_BY_AGENCY', allAwardTypeTotals));
-                    } else if (recipientOnly) {
+                    }
+                    else if (recipientOnly) {
                         dispatch(setTotals('RECIPIENT', allAwardTypeTotals));
                     }
                 }
@@ -84,13 +87,14 @@ const SummaryInsightsContainer = ({
             else {
                 const params = {
                     filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
+                        def_codes: defcParams
                     }
                 };
-                if (activeTab !== 'all') {
-                    params.filter.award_type_codes = awardTypeGroups[activeTab];
-                } else {
+                if (activeTab === 'all') {
                     params.filter.award_type = 'assistance';
+                }
+                else {
+                    params.filter.award_type_codes = awardTypeGroups[activeTab];
                 }
                 awardAmountRequest.current = fetchAwardAmounts(params);
                 awardAmountRequest.current.promise
@@ -116,15 +120,17 @@ const SummaryInsightsContainer = ({
 
                         if (spendingByAgencyOnly) {
                             dispatch(setTotals('SPENDING_BY_AGENCY', totals));
-                        } else if (assistanceOnly) {
+                        }
+                        else if (assistanceOnly) {
                             dispatch(setTotals('ASSISTANCE', totals));
-                        } else if (recipientOnly) {
+                        }
+                        else if (recipientOnly) {
                             dispatch(setTotals('RECIPIENT', totals));
                         }
                     });
             }
         }
-    }, [defCodes, activeTab, allAwardTypeTotals]);
+    }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
 
     useEffect(() => {
         if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {

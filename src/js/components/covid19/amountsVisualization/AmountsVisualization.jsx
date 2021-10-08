@@ -46,7 +46,7 @@ const AmountsVisualization = ({
     useEffect(() => {
         if (width) {
             const s = scaleLinear()
-                .domain([0, overviewData._totalBudgetAuthority])
+                .domain([0, overviewData._totalBudgetAuthorityForBar])
                 .range([amountsPadding.left, width - amountsPadding.right]);
             setScale(() => s);
         }
@@ -92,7 +92,7 @@ const AmountsVisualization = ({
                     {
                         paragraphs: [
                             `${formatMoney(overviewData[showTooltip.substring(0, showTooltip.length - 1)])}`,
-                            `${calculatePercentage(overviewData[showTooltip.substring(0, showTooltip.length - 1)], overviewData._totalBudgetAuthority, null, 2)} of Total Budgetary Resources`,
+                            `${calculatePercentage(overviewData[showTooltip.substring(0, showTooltip.length - 1)], overviewData._totalBudgetAuthorityForBar, null, 2)} of Total Budgetary Resources`,
                             tooltipMapping[showTooltip.substring(0, showTooltip.length - 1)].paragraph
                         ]
                     }
@@ -154,8 +154,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalBudgetAuthority1"
-                                    dataId="_totalBudgetAuthority"
+                                    tooltipId="_totalBudgetAuthorityForBar1"
+                                    dataId="_totalBudgetAuthorityForBar"
                                     publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -164,8 +164,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalObligations1"
-                                    dataId="_totalObligations"
+                                    tooltipId="_totalObligationsForBar1"
+                                    dataId="_totalObligationsForBar"
                                     publicLaw={publicLaw} />
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -174,8 +174,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalOutlays1"
-                                    dataId="_totalOutlays"
+                                    tooltipId="_totalOutlaysForBar1"
+                                    dataId="_totalOutlaysForBar"
                                     publicLaw={publicLaw} />
                             </svg>
                             {publicLaw === 'american-rescue-plan' ?
@@ -198,8 +198,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalBudgetAuthority2"
-                                    dataId="_totalBudgetAuthority"
+                                    tooltipId="_totalBudgetAuthorityForBar2"
+                                    dataId="_totalBudgetAuthorityForBar"
                                     publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
@@ -219,7 +219,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    dataId="_totalBudgetAuthority"
+                                    dataId="_totalBudgetAuthorityForBar"
                                     className="opaque"
                                     publicLaw={publicLaw} />
                                 <DefaultAmountViz
@@ -229,8 +229,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalObligations3"
-                                    dataId="_totalObligations"
+                                    tooltipId="_totalObligationsForBar3"
+                                    dataId="_totalObligationsForBar"
                                     publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
@@ -249,7 +249,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    dataId="_totalBudgetAuthority"
+                                    dataId="_totalBudgetAuthorityForBar"
                                     className="opaque"
                                     publicLaw={publicLaw} />
                                 <DefaultAmountViz
@@ -259,7 +259,7 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    dataId="_totalObligations"
+                                    dataId="_totalObligationsForBar"
                                     className="opaque"
                                     publicLaw={publicLaw} />
                                 <DefaultAmountViz
@@ -269,8 +269,8 @@ const AmountsVisualization = ({
                                     overviewData={overviewData}
                                     scale={scale}
                                     width={width}
-                                    tooltipId="_totalOutlays4"
-                                    dataId="_totalOutlays"
+                                    tooltipId="_totalOutlaysForBar4"
+                                    dataId="_totalOutlaysForBar"
                                     publicLaw={publicLaw} />
                             </svg>
                             <div className="amounts-viz__sub-title">
