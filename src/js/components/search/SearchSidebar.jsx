@@ -29,7 +29,6 @@ import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFChec
 
 import {
     KeyWordTooltip,
-    withAdvancedSearchTooltip,
     DEFTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
@@ -43,10 +42,7 @@ const staticFilters = {
     options: [
         {
             title: 'Keyword',
-            tooltip: withAdvancedSearchTooltip({
-                icon: "info",
-                tooltipComponent: <KeyWordTooltip />
-            })
+            tooltip: <KeyWordTooltip />
         },
         {
             title: 'Time Period'
@@ -80,10 +76,7 @@ const staticFilters = {
         },
         {
             title: 'Disaster Emergency Fund Code (DEFC)',
-            tooltip: withAdvancedSearchTooltip({
-                icon: 'info',
-                tooltipComponent: <DEFTooltip />
-            }),
+            tooltip: <DEFTooltip />,
             className: 'def-sidebar'
         },
         {

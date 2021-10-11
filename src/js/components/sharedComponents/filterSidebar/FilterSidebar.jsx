@@ -41,11 +41,6 @@ export default class FilterSidebar extends React.Component {
                 const component = this.props.components[i];
                 const accessory = this.props.accessories[i];
                 const glossarySlug = this.props.glossaryEntries[i];
-                let glossaryUrl;
-                if (glossarySlug) {
-                    const hash = this.props.hash ? `/search/${this.props.hash}` : '/search';
-                    glossaryUrl = `${hash}?glossary=${glossarySlug}`;
-                }
                 return (<FilterOption
                     name={title}
                     tooltip={tooltip}
@@ -55,7 +50,7 @@ export default class FilterSidebar extends React.Component {
                     accessory={accessory}
                     defaultExpand={this.props.expanded[i]}
                     disabled={component === null}
-                    glossaryUrl={glossaryUrl} />);
+                    glossarySlug={glossarySlug} />);
             });
 
         return (
