@@ -12,9 +12,9 @@ import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
     name: PropTypes.string,
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.element,
     className: PropTypes.string,
-    component: PropTypes.object,
+    component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     disabled: PropTypes.bool,
     defaultExpand: PropTypes.bool,
     accessory: PropTypes.func,

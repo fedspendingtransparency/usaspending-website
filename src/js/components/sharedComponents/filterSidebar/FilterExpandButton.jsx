@@ -6,15 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { TooltipWrapper } from 'data-transparency-ui';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 const propTypes = {
     hideArrow: PropTypes.bool,
     toggleFilter: PropTypes.func,
     arrowState: PropTypes.string,
     name: PropTypes.string,
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.element,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
     glossarySlug: PropTypes.string,
@@ -28,13 +28,6 @@ const FilterExpandButton = (props) => {
 
     const icon = props.arrowState === 'expanded' ?
         <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
-
-    // TODO
-    const glossaryLink = props.glossarySlug ? (
-        <div className="filter-toggle__glossary">
-            <Link to="/search"><FontAwesomeIcon icon="book" /></Link>
-        </div>
-    ) : null;
 
     const filterClassName = props.className ? ` ${props.className}` : '';
 
@@ -56,7 +49,7 @@ const FilterExpandButton = (props) => {
                     {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
                 </div>
             </div>
-            {glossaryLink}
+            {props.glossarySlug && <GlossaryLink term={props.glossarySlug} />}
             <div className="filter-toggle__accessory">
                 {props.accessory && (
                     <div

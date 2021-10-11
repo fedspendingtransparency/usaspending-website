@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf, oneOfType } from 'prop-types';
 
 import FilterOption from './FilterOption';
 
@@ -17,16 +17,15 @@ const defaultProps = {
 };
 
 const propTypes = {
-    options: PropTypes.arrayOf(PropTypes.shape({
+    options: arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
-        tooltip: PropTypes.func,
+        tooltip: PropTypes.element,
         className: PropTypes.string
     })),
-    components: PropTypes.arrayOf(PropTypes.object),
-    expanded: PropTypes.arrayOf(PropTypes.bool),
-    accessories: PropTypes.arrayOf(PropTypes.func),
-    glossaryEntries: PropTypes.arrayOf(PropTypes.string),
-    hash: PropTypes.string
+    components: arrayOf(oneOfType([PropTypes.func, PropTypes.object])),
+    expanded: arrayOf(PropTypes.bool),
+    accessories: arrayOf(PropTypes.func),
+    glossaryEntries: arrayOf(PropTypes.string)
 };
 
 export default class FilterSidebar extends React.Component {
