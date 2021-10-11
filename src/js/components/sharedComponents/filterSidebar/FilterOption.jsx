@@ -13,7 +13,6 @@ import FilterExpandButton from './FilterExpandButton';
 const propTypes = {
     name: PropTypes.string,
     tooltip: PropTypes.element,
-    className: PropTypes.string,
     component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     disabled: PropTypes.bool,
     defaultExpand: PropTypes.bool,
@@ -124,7 +123,6 @@ export default class FilterOption extends React.Component {
                     arrowState={this.state.arrowState}
                     name={this.props.name}
                     tooltip={this.props.tooltip}
-                    className={this.props.className}
                     disabled={disabledStatus}
                     glossarySlug={this.props.glossarySlug} />
                 {searchOption}

@@ -17,8 +17,7 @@ const propTypes = {
     tooltip: PropTypes.element,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
-    glossarySlug: PropTypes.string,
-    className: PropTypes.string
+    glossarySlug: PropTypes.string
 };
 
 const ariaDescription = 'accessory-view';
@@ -29,37 +28,30 @@ const FilterExpandButton = (props) => {
     const icon = props.arrowState === 'expanded' ?
         <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
 
-    const filterClassName = props.className ? ` ${props.className}` : '';
-
     return (
         <div className="filter-toggle">
-            <div
-                role="button"
+            <button
                 className={`filter-toggle__button ${hiddenClass}`}
                 onClick={props.toggleFilter}
-                onKeyDown={props.toggleFilter}
                 disabled={props.disabled}
                 title={props.name}
                 aria-label={props.name}
                 aria-expanded={props.arrowState === 'expanded'}
                 aria-describedby={props.accessory ? ariaDescription : ''}>
                 {icon}
-                <div className={`filter-toggle__name${filterClassName}`}>
-                    <span>{props.name}</span>
-                    {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
+                {props.name}
+                {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
+            </button>
+            {props.glossarySlug && <div className="filter-toggle__glossary"><GlossaryLink term={props.glossarySlug} /></div>}
+            {props.accessory && (
+                <div
+                    className="filter-toggle__accessory"
+                    tabIndex="0"
+                    id="accessory-view"
+                    role="toolbar">
+                    <props.accessory />
                 </div>
-            </div>
-            {props.glossarySlug && <GlossaryLink term={props.glossarySlug} />}
-            <div className="filter-toggle__accessory">
-                {props.accessory && (
-                    <div
-                        tabIndex="0"
-                        id="accessory-view"
-                        role="toolbar">
-                        <props.accessory />
-                    </div>
-                )}
-            </div>
+            )}
         </div>
     );
 };

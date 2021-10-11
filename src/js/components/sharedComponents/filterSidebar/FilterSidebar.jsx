@@ -19,8 +19,7 @@ const defaultProps = {
 const propTypes = {
     options: arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
-        tooltip: PropTypes.element,
-        className: PropTypes.string
+        tooltip: PropTypes.element
     })),
     components: arrayOf(oneOfType([PropTypes.func, PropTypes.object])),
     expanded: arrayOf(PropTypes.bool),
@@ -33,17 +32,15 @@ export default class FilterSidebar extends React.Component {
         const optionsList = this.props.options
             .map((obj) => ({
                 title: obj.title,
-                tooltip: obj.tooltip || null,
-                className: obj.className || ''
+                tooltip: obj.tooltip || null
             }))
-            .map(({ title, tooltip, className }, i) => {
+            .map(({ title, tooltip }, i) => {
                 const component = this.props.components[i];
                 const accessory = this.props.accessories[i];
                 const glossarySlug = this.props.glossaryEntries[i];
                 return (<FilterOption
                     name={title}
                     tooltip={tooltip}
-                    className={className}
                     key={title}
                     component={component}
                     accessory={accessory}
