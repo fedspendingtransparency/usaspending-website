@@ -29,6 +29,11 @@
 			.data-dictionary__search-download {
 				@include display(flex);
 				@include justify-content(space-between);
+				.usa-dt-search-bar { // override component library styles
+					@include flex(1 1 auto);
+					max-width: 60%;
+					margin: 0;
+				}
 			}
 			.data-dictionary__download {
 				@include align-self(center);
