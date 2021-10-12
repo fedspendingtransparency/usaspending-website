@@ -10,7 +10,6 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 const propTypes = {
-    hideArrow: PropTypes.bool,
     toggleFilter: PropTypes.func,
     arrowState: PropTypes.string,
     name: PropTypes.string,
@@ -23,15 +22,13 @@ const propTypes = {
 const ariaDescription = 'accessory-view';
 
 const FilterExpandButton = (props) => {
-    const hiddenClass = props.hideArrow ? ' hide' : '';
-
     const icon = props.arrowState === 'expanded' ?
         <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
 
     return (
         <div className="filter-toggle">
             <button
-                className={`filter-toggle__button ${hiddenClass}`}
+                className="filter-toggle__button"
                 onClick={props.toggleFilter}
                 disabled={props.disabled}
                 title={props.name}
