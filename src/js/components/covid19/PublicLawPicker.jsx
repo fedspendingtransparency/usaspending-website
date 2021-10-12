@@ -34,7 +34,7 @@ const PublicLawPickerOption = ({
             <p>
                 {description}
                 {term && (
-                    <GlossaryLink term={term}/>
+                    <GlossaryLink term={term} />
                 )}
             </p>)}
     </li>
@@ -56,7 +56,7 @@ const PublicLawPicker = ({
         <div className="public-law-picker__container">
             <Picker
                 className="public-law-picker"
-                icon={<FontAwesomeIcon icon="scroll" size="sm"/>}
+                icon={<FontAwesomeIcon icon="scroll" size="sm" />}
                 selectedOption={selected?.title || options[0].title}
                 options={options.map((obj) => ({
                     name: <PublicLawPickerOption {...obj} />,
