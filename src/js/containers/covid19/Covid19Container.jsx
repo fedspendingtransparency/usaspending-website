@@ -11,7 +11,7 @@ import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { setOverview, setTotals, setDefcParams } from 'redux/actions/covid19/covid19Actions';
+import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/actions/covid19/covid19Actions';
 import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';
 
@@ -56,6 +56,7 @@ const Covid19Container = () => {
     }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {
+        dispatch(resetOverview());
         const getOverviewData = async () => {
             const overviewDefc = defcParams || defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code);
             overviewRequest.current = fetchOverview(overviewDefc);

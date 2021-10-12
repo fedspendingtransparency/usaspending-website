@@ -22,6 +22,9 @@ const covid19Reducer = (state = initialState, action) => {
         case 'SET_COVID_OVERVIEW': {
             return Object.assign({}, state, { overview: action.overview });
         }
+        case 'RESET_COVID_OVERVIEW': {
+            return Object.assign({}, state, { overview: initialState.overview });
+        }
         case 'SET_COVID_AWARD_AMOUNTS': {
             return Object.assign({}, state, { allAwardTypeTotals: action.totals });
         }

@@ -13,6 +13,10 @@ export const setOverview = (overview) => ({
     overview
 });
 
+export const resetOverview = () => ({
+    type: 'RESET_COVID_OVERVIEW'
+});
+
 export const setTotals = (awardType, totals) => ({
     type: `SET_COVID_AWARD_AMOUNTS${awardType && '_'}${awardType}`,
     totals

@@ -109,6 +109,7 @@
         .usda-section-title__container {
           .usda-section-title__title-icon {
             margin-left: 0;
+            width: 4rem;
           }
         }
         .body__content {
@@ -275,11 +276,7 @@
           font-style: italic;
           letter-spacing: 0;
           line-height: 1.5rem;
-          margin-left: rem(5);
-          padding-left: 3rem;
-          @media (min-width: $medium-screen) {
-            margin-left: rem(15);
-          }
+          padding-left: 5rem;
         }
         &.award_question {
           .body__header {
@@ -310,7 +307,13 @@
               letter-spacing: 0;
               line-height: 4.5rem;
               text-align: left;
-              padding: 5rem 5% 0;
+              padding-left: 7rem;
+              padding-right: 5rem;
+              padding-top: 5rem;
+              padding-bottom: 2rem;
+              @media (max-width: $tablet-screen) {
+                padding-left: 6rem;
+              }
               width: 100%;
             }
             .award-question__sub-section {
@@ -318,9 +321,14 @@
               letter-spacing: 0;
               line-height: 2.2rem;
               text-align: left;
-              padding: 0 5% 2rem;
               .award-question__sub-section_paragraph:first-of-type {
                 margin-top: 1.6rem;
+                padding-left: 7rem;
+                padding-bottom: 5rem;
+                padding-right: 5rem;
+                @media (max-width: $tablet-screen) {
+                  padding-left: 6rem;
+                }
               }
             }
           }
