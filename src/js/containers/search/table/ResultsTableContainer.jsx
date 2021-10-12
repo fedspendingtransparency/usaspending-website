@@ -11,7 +11,6 @@ import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
 import { withRouter } from 'react-router-dom';
 
-import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
