@@ -25,7 +25,7 @@ import {
 
 const propTypes = {
     overviewData: PropTypes.object,
-    width: PropTypes.number,
+    width: PropTypes.number
 };
 
 const AmountsVisualization = ({
