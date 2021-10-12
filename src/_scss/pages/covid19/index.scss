@@ -117,7 +117,7 @@
           h3.body__narrative {
             text-align: left;
             font-weight: $font-semibold;
-            font-size: 3rem;
+            font-size: 2rem;
             padding-left: 4.5rem;
           }
 
@@ -153,6 +153,9 @@
             rgba(182, 153, 198, 0.1) 100%
           );
         }
+        .information-body-arp {
+          background-color: #EBEFF4;
+        }
         .information-top {
           width: 100%;
           opacity: 0.2;
@@ -162,8 +165,20 @@
             border-radius: 0 0 rem(5) rem(5);
           }
         }
+        .information-top-arp {
+          width: 100%;
+          transform: scaleY(-1);
+          background-color: #B9C5D2;
+          @media (min-width: $medium-screen) {
+            border-radius: 0 0 rem(5) rem(5);
+          }
+        }
         .color-purple {
           color: $color-disaster-covid-19;
+          font-weight: $font-bold;
+        }
+        .color-blue-arp {
+          color: #0A2F5A;
           font-weight: $font-bold;
         }
         .read-more-button {
@@ -198,11 +213,14 @@
             line-height: 2.2rem;
             text-align: left;
             padding-left: 7rem;
-            padding-bottom: 5rem;
-            padding-right: 5rem;
-            @media (max-width: 560px) {
+            padding-bottom: 3rem;
+            padding-right: 0;
+            @media (max-width: $tablet-screen) {
               padding-left: 6rem;
               padding-bottom: 1rem;
+            }
+            @media (max-width: 560px) {
+              padding-right: 5rem;
             }
             .footnotes {
               font-size: $smallest-font-size;
@@ -221,20 +239,31 @@
               align-items: flex-end;
             }
           }
-          .heading__img-wrapper {
-            .heading__img-mobile {
-              display: block;
-              margin-left: auto;
-              max-height: 10vh;
-              @include media(560px) {
-                display: none;
+          .heading__img-arp {
+            display: flex;
+            align-items: flex-end;
+            img {
+              max-height: 30rem;
+            }
+            @media (max-width: 560px) {
+              img {
+                display: block;
+                margin-left: auto;
+                max-height: 12rem;
               }
             }
-            .heading__img {
-              display: none;
-              @include media(560px) {
-                display: flex;
-                transform: scaleX(-1);
+          }
+          .heading__img-all {
+            display: flex;
+            align-items: flex-end;
+            img {
+              max-height: 40rem;
+            }
+            @media (max-width: 560px) {
+              img {
+                display: block;
+                margin-left: auto;
+                max-height: 12rem;
               }
             }
           }
@@ -259,6 +288,11 @@
             text-align: left;
             width: 100%;
             .information-top {
+              height: 0.5rem;
+              width: 100%;
+              border-radius: 0;
+            }
+            .information-top-arp {
               height: 0.5rem;
               width: 100%;
               border-radius: 0;

@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -46,8 +47,12 @@ const initialState = {
     loans: null,
     other: null
 };
+const propTypes = {
+    publicLaw: PropTypes.string,
+    handleExternalLinkClick: PropTypes.func
+};
 
-const SpendingByCFDA = () => {
+const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
     const { defcParams } = useSelector((state) => state.covid19);
     const moreOptionsTabsRef = useRef(null);
 
@@ -55,6 +60,11 @@ const SpendingByCFDA = () => {
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialState);
     const [tabs, setTabs] = useState(financialAssistanceTabs);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        handleExternalLinkClick(e.target.href);
+    };
 
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
@@ -121,15 +131,23 @@ const SpendingByCFDA = () => {
     return (
         <div className="body__content assistance-listing">
             <DateNote />
-            <h3 className="body__narrative">
-                <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
-            </h3>
+            {publicLaw === 'american-rescue-plan' ?
+                <h3 className="body__narrative">
+                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
+                </h3> :
+                <h3 className="body__narrative">
+                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
+                </h3>
+            }
             <div className="body__narrative-description">
                 <p>
-                    <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like Supplemental Nutrition Assistance Program (SNAP) that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program, all of which must be explicitly authorized by law.
-                </p>
-                <p>
-                    In this section, you will see awards that CFDA Programs have funded in response to COVID-19. Financial assistance awards represent the vast majority of COVID-19 appropriated spending.
+                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. The <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like
+                    <a
+                        href="https://beta.sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
+                        onClick={handleClick}>
+                        &nbsp;Supplemental Nutrition Assistance Program (SNAP)&nbsp;
+                    </a>
+                    that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program and be explicitly authorized by law. In this section, you will see awards that CFDA Programs have funded in response to COVID-19.
                 </p>
             </div>
             <div ref={moreOptionsTabsRef}>
@@ -147,8 +165,16 @@ const SpendingByCFDA = () => {
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
             <Note message={dodNote} />
+            {publicLaw === 'american-rescue-plan' ?
+                <Note message={(
+                    <>
+                        This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
+                    </>
+                )} /> : <div />
+            }
         </div>
     );
 };
 
+SpendingByCFDA.propTypes = propTypes;
 export default SpendingByCFDA;

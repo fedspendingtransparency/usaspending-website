@@ -64,7 +64,6 @@ const Covid19Page = ({ areDefCodesLoading }) => {
         }
     }, [history, isRecipientMapLoaded, query]);
 
-
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
     };
@@ -130,7 +129,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                     </div>
                     <div className="body usda__flex-col">
                         <section className="body__section">
-                            <Heading />
+                            <Heading publicLaw={query.publicLaw} />
                         </section>
                         {Object.keys(componentByCovid19Section())
                             .filter((section) => componentByCovid19Section()[section].showInMainSection)
@@ -138,19 +137,24 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                                 <Covid19Section
                                     key={section}
                                     section={section}
+                                    publicLaw={query.publicLaw}
                                     icon={componentByCovid19Section()[section].icon}
                                     headerText={componentByCovid19Section()[section].headerText}
                                     title={componentByCovid19Section()[section].title}
                                     tooltipProps={componentByCovid19Section()[section].tooltipProps}
                                     tooltip={componentByCovid19Section()[section].tooltip}>
-                                    {componentByCovid19Section()[section].component}
+                                    {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
                                 </Covid19Section>
                             ))}
                         <section className="body__section" id="covid19-data_sources_and_methodology">
-                            <DataSourcesAndMethodology handleExternalLinkClick={handleExternalLinkClick} />
+                            <DataSourcesAndMethodology
+                                handleExternalLinkClick={handleExternalLinkClick}
+                                publicLaw={query.publicLaw} />
                         </section>
                         <section className="body__section" id="covid19-other_resources">
-                            <OtherResources handleExternalLinkClick={handleExternalLinkClick} />
+                            <OtherResources
+                                handleExternalLinkClick={handleExternalLinkClick}
+                                publicLaw={query.publicLaw} />
                             <LinkToAdvancedSearchContainer />
                         </section>
                     </div>
