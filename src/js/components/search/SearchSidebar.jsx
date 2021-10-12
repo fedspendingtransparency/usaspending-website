@@ -29,7 +29,6 @@ import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFChec
 
 import {
     KeyWordTooltip,
-    withAdvancedSearchTooltip,
     DEFTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
@@ -43,10 +42,7 @@ const staticFilters = {
     options: [
         {
             title: 'Keyword',
-            tooltip: withAdvancedSearchTooltip({
-                icon: "info",
-                tooltipComponent: <KeyWordTooltip />
-            })
+            tooltip: <KeyWordTooltip />
         },
         {
             title: 'Time Period'
@@ -80,11 +76,7 @@ const staticFilters = {
         },
         {
             title: 'Disaster Emergency Fund Code (DEFC)',
-            tooltip: withAdvancedSearchTooltip({
-                icon: 'info',
-                tooltipComponent: <DEFTooltip />
-            }),
-            className: 'def-sidebar'
+            tooltip: <DEFTooltip />
         },
         {
             title: 'North American Industry Classification System (NAICS)'
@@ -160,7 +152,6 @@ const staticFilters = {
 };
 
 const propTypes = {
-    hash: PropTypes.string,
     filters: PropTypes.object
 };
 
@@ -169,8 +160,7 @@ const defaultProps = {
 };
 
 const SearchSidebar = ({
-    filters,
-    hash
+    filters
 }) => {
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
@@ -210,8 +200,7 @@ const SearchSidebar = ({
             </div>
             <FilterSidebar
                 {...releasedFilters}
-                expanded={expanded}
-                hash={hash} />
+                expanded={expanded} />
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer />
             </div>
