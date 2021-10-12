@@ -198,13 +198,12 @@
             letter-spacing: 0;
             line-height: 4.5rem;
             text-align: left;
-            padding-left: 6.5rem;
+            padding-left: 7rem;
             padding-right: 5rem;
-            padding-top: 3rem;
+            padding-top: 5rem;
             @media (max-width: $tablet-screen) {
               padding-left: 6rem;
             }
-            margin-top: 2rem;
             width: 100%;
           }
           .heading__description {
@@ -213,11 +212,11 @@
             line-height: 2.2rem;
             text-align: left;
             padding-left: 7rem;
-            padding-bottom: 3rem;
+            padding-bottom: 5rem;
             padding-right: 0;
             @media (max-width: $tablet-screen) {
               padding-left: 6rem;
-              padding-bottom: 1rem;
+              padding-bottom: 3rem;
             }
             @media (max-width: 560px) {
               padding-right: 5rem;

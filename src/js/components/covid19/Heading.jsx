@@ -30,14 +30,14 @@ const Heading = ({ publicLaw }) => {
                     <div className="heading__description">
                         <p>In March 2021, the U.S. Congress appropriated additional funds in response to the COVID-19 pandemic through the American Rescue Plan Act of 2021. See how much has been spent, how spending is categorized, who received funding, and more.</p>
                         <p>
-                            Visit our <button className="usa-button-link" onClick={jumpToDataSources}>Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
+                            <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
                         </p>
                     </div>
                     :
                     <div className="heading__description">
                         <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation. In March of 2021, additional funds were appropriated through the American Rescue Plan Act.</p>
                         <p>
-                            Visit our <button className="usa-button-link" onClick={jumpToDataSources}>Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other&nbsp;agencies.
+                            <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other&nbsp;agencies.
                         </p>
                     </div>
                 }
