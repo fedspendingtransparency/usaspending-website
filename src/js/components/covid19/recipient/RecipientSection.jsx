@@ -11,7 +11,7 @@ import { Tabs } from "data-transparency-ui";
 import ReadMore from 'components/sharedComponents/ReadMore';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
-import Note from 'components/sharedComponents/Note';
+import Note, { dodNote } from 'components/sharedComponents/Note';
 
 const propTypes = {
     publicLaw: PropTypes.string
@@ -56,6 +56,25 @@ const RecipientSection = ({ publicLaw }) => {
                 <div className="recipient__content">
                     {tabs.find((t) => activeTab === t.internal).component}
                 </div>
+                <Note message={(
+                    <>
+                        Amounts reported for Utah reflect an award by HHS from the Provider Relief Fund (PRF)
+                        to a single entity in Utah which will make payments to recipients across the country.{' '}
+                        <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
+                            See more information about HHS&apos;s data submission.
+                        </a>
+                    </>
+                )} />
+                <Note message={(
+                    <>
+                        Amounts reported for Minnesota reflect an award by HHS from the Provider Relief Fund (PRF)
+                        to a single entity in Minnesota which will make payments to recipients across the country.{' '}
+                        <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
+                            See more information about HHS&apos;s data submission.
+                        </a>
+                    </>
+                )} />
+                <Note message={dodNote} />
                 {publicLaw === 'american-rescue-plan' ?
                     <Note message={(
                         <>
@@ -64,6 +83,11 @@ const RecipientSection = ({ publicLaw }) => {
                     )} /> :
                     <></>
                 }
+                <Note message={(
+                    <>
+                        For &apos;All Awards&apos; we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.
+                    </>
+                )} />
             </div>
         </div>
     );
