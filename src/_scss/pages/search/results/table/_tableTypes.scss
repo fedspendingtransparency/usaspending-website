@@ -4,6 +4,7 @@
     display: none;
     @include media($tablet-screen) {
         @include display(flex);
+        overflow: hidden;
     }
 
     .table-type-toggle__wrapper {
