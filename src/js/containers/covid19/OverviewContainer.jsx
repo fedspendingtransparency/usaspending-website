@@ -4,12 +4,17 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { throttle } from 'lodash';
 import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
 
-const OverviewContainer = () => {
+const propTypes = {
+    publicLaw: PropTypes.string
+};
+
+const OverviewContainer = ({ publicLaw }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [visualizationsWidth, setVisualizationsWidth] = useState(0);
     // reference to the div - using to get the current div width
@@ -43,9 +48,11 @@ const OverviewContainer = () => {
             <DateNote />
             <AmountsVisualization
                 overviewData={overviewData}
-                width={visualizationsWidth} />
+                width={visualizationsWidth}
+                publicLaw={publicLaw} />
         </div>
     );
 };
 
+OverviewContainer.propTypes = propTypes;
 export default OverviewContainer;

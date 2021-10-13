@@ -11,7 +11,9 @@ import {
     startOfChartY,
     rectangleHeight,
     lineStrokeWidth,
-    defaultLineData
+    defaultLineData,
+    rectangleColorMapping,
+    rectangleColorMappingArp
 } from 'dataMapping/covid19/amountsVisualization';
 
 import { lineXPosition } from 'helpers/covid19/amountsVisualization';
@@ -24,7 +26,8 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     description: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    publicLaw: PropTypes.string
 };
 
 const DefaultLine = ({
@@ -35,7 +38,8 @@ const DefaultLine = ({
     displayTooltip,
     hideTooltip,
     description = 'A line linking a Line to text',
-    className
+    className,
+    publicLaw
 }) => {
     const [lineData, setLineData] = useState(defaultLineData);
 
@@ -44,9 +48,9 @@ const DefaultLine = ({
             const {
                 lineLength,
                 lineOffset,
-                color,
                 isLineAboveChart
             } = rectangleMapping[dataId];
+            const { color } = publicLaw === 'american-rescue-plan' ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
             const amount = Math.abs(overviewData[dataId]);
             const position = lineXPosition(overviewData, scale, dataId);
             const properties = {
@@ -58,7 +62,7 @@ const DefaultLine = ({
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
-    }, [scale, overviewData]);
+    }, [scale, overviewData, publicLaw]);
     return (
         <g
             tabIndex="0"

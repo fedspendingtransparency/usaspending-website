@@ -8,37 +8,24 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    handleExternalLinkClick: PropTypes.func
+    handleExternalLinkClick: PropTypes.func,
+    publicLaw: PropTypes.string
 };
 
 const OtherResources = ({
-    handleExternalLinkClick
+    handleExternalLinkClick,
+    publicLaw
 }) => {
     const handleClick = (e) => {
         e.preventDefault();
         handleExternalLinkClick(e.target.href);
     };
     return (
-        <div className="heading__container information-body">
+        <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
             <div className="resources__container">
                 <div className="bottomSection">
                     <h2 className="dsm__heading">Other Resources</h2>
                     <ul className="otherResources__list">
-                        <li>
-                            <div className="other-resources__link__container">
-                                <span className="other-resources__link__text">
-                                    Pandemic Response Accountability Committee (PRAC) -
-                                </span>
-                                <a
-                                    href="https://www.pandemicoversight.gov/"
-                                    onClick={handleClick}>
-                                    https://www.pandemicoversight.gov/&nbsp;
-                                    <span className="other-resources__link__icon">
-                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                    </span>
-                                </a>
-                            </div>
-                        </li>
                         <li>
                             <div className="other-resources__link__container">
                                 <span className="other-resources__link__text">
@@ -48,6 +35,21 @@ const OtherResources = ({
                                     href="https://www.whitehouse.gov/american-rescue-plan/"
                                     onClick={handleClick}>
                                     https://www.whitehouse.gov/american-rescue-plan/&nbsp;
+                                    <span className="other-resources__link__icon">
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="other-resources__link__container">
+                                <span className="other-resources__link__text">
+                                    Pandemic Response Accountability Committee (PRAC) -
+                                </span>
+                                <a
+                                    href="https://www.pandemicoversight.gov/"
+                                    onClick={handleClick}>
+                                    https://www.pandemicoversight.gov/&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
