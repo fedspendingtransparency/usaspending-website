@@ -14,9 +14,7 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
-import { defaultColumns, defaultSort } from
-    'dataMapping/search/awardTableColumns';
-import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
+import { defaultColumns, defaultSort } from 'dataMapping/search/awardTableColumns';
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
@@ -44,8 +42,7 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: true,
-        tooltip: tableTabsTooltips('loans')
+        enabled: true
     },
     {
         label: 'Other',
