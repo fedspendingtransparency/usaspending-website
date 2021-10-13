@@ -18,8 +18,7 @@ const ReadMore = ({
     children, // pre-determined content to be hidden/ shown by the buttons
     text = '', // a string to be truncated based on the limit
     limit = 300,
-    initiallyExpanded = false,
-    inline = false // indicates that the button should display as part of the text instead of below it
+    initiallyExpanded = false
 }) => {
     const [expanded, setExpanded] = useState(!!initiallyExpanded);
     const readLess = (<button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>);
@@ -33,9 +32,7 @@ const ReadMore = ({
         );
     }
     if (expanded && (text && text.length > limit)) {
-        return inline ? (
-            <>{text} {readLess}</>
-        ) : (
+        return (
             <>
                 <p>{text}</p>
                 <div>{readLess}</div>
@@ -43,9 +40,7 @@ const ReadMore = ({
         );
     }
     if (!expanded && text && text.length > limit) {
-        return inline ? (
-            <>{`${text.substring(0, limit)}...`}{readMore}</>
-        ) : (
+        return (
             <div>
                 <p>{`${text.substring(0, limit)}...`}</p>
                 {readMore}
