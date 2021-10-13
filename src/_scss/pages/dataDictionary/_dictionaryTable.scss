@@ -120,6 +120,9 @@ $dictionary-yellow: #fff694;
                     .read-more-button {
                         @include button-link;
                     }
+                    p {
+                        margin: 0;
+                    }
                 }
             }
         }
