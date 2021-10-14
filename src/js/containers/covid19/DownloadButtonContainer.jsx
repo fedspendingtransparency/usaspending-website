@@ -32,14 +32,8 @@ const Tooltip = () => (
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
-
-    console.log(downloadInFlight);
-
     const downloadRequest = useRef(null);
     const { defcParams } = useSelector((state) => state.covid19);
-
-    console.log(defcParams);
-
 
     const downloadData = async () => {
         dispatch(setDownloadCollapsed(true));

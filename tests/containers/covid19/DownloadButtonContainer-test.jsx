@@ -5,39 +5,29 @@
 
 import React from 'react';
 import * as redux from 'react-redux';
-import { mount } from 'enzyme';
-import { render } from 'test-utils';
+import { createStore } from 'redux';
+import covid19Reducer from 'redux/reducers/covid19/covid19Reducer';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { BrowserRouter } from "react-router-dom";
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import * as downloadHelper from 'helpers/downloadHelper';
 import { mockDefcParams } from '../../mockData/helpers/disasterHelper';
 
 describe('COVID-19 DownloadButtonContainer', () => {
     it('should request data download', async () => {
-        jest.mock('react-redux', () => {
-            const ActualReactRedux = jest.requireActual('react-redux');
-            return {
-                ...ActualReactRedux,
-                useDispatch: jest.fn(() => () => {}),
-                useSelector: jest.fn().mockImplementation(() => ({
-                    defcParams: mockDefcParams,
-                    bulkDownload: { download: { pendingDownload: false } }
-                }))
-            };
-        });
-
-        // jest.spyOn(redux, 'useSelector').mockReturnValue({
-        //             defcParams: mockDefcParams,
-        //             bulkDownload: { download: { pendingDownload: false } }
-        //         });
+        jest.spyOn(redux, 'useSelector')
+            .mockReturnValueOnce(false)
+            .mockReturnValueOnce({
+                defcParams: mockDefcParams
+            });
+        const mockStore = createStore(covid19Reducer, { defCodes: mockDefcParams });
         const spy = jest.spyOn(downloadHelper, 'requestFullDownload');
-        // const downloadButtonContainer = DownloadButtonContainer();
 
-        // console.log(JSON.stringify(downloadButtonContainer));
+        render(<BrowserRouter><redux.Provider store={mockStore}><DownloadButtonContainer /></redux.Provider></BrowserRouter>);
+        expect(spy).toHaveBeenCalledTimes(0);
 
-        // await downloadButtonContainer.downloadData();
-        const container = mount(<DownloadButtonContainer />);
-        // await DownloadButtonContainer().downloadData();
+        fireEvent.click(screen.getByTitle('Download'));
         expect(spy).toHaveBeenCalledTimes(1);
-        expect(spy).toHaveBeenNthCalledWith(mockDefcParams, 'disaster');
+        expect(spy).toHaveBeenCalledWith({ filters: { def_codes: mockDefcParams } }, 'disaster');
     });
 });
