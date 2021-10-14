@@ -5,16 +5,21 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
-import { overviewAPIResponse } from './mockData';
+import { overviewAPIResponse, overviewAPIResponseWithAdditional } from './mockData';
 
 const overview = Object.create(BaseOverview);
 overview.populate(overviewAPIResponse);
-
 const _otherObligations = overviewAPIResponse.spending.total_obligations - overviewAPIResponse.spending.award_obligations;
 const _awardObligationsNotOutlayed = overviewAPIResponse.spending.award_obligations - overviewAPIResponse.spending.award_outlays;
 const _remainingBalance = overviewAPIResponse.total_budget_authority - overviewAPIResponse.spending.total_obligations;
 const nonAwardOutLays = overviewAPIResponse.spending.total_outlays - overviewAPIResponse.spending.award_outlays;
 const _nonAwardNotOutlayed = (overviewAPIResponse.spending.total_obligations - overviewAPIResponse.spending.award_obligations) - (overviewAPIResponse.spending.total_outlays - overviewAPIResponse.spending.award_outlays);
+
+const overviewWithAdditional = Object.create(BaseOverview);
+overviewWithAdditional.populate(overviewAPIResponseWithAdditional);
+const _totalBudgetAuthorityForBar = overviewAPIResponseWithAdditional.total_budget_authority + overviewAPIResponseWithAdditional.additional.total_budget_authority;
+const _totalObligationsForBar = overviewAPIResponseWithAdditional.spending.total_obligations + overviewAPIResponseWithAdditional.additional.spending.total_obligations;
+const _totalOutlaysForBar = overviewAPIResponseWithAdditional.spending.total_outlays + overviewAPIResponseWithAdditional.additional.spending.total_outlays;
 
 describe(' COVID-19 overview Model', () => {
     describe('Private Variables', () => {
@@ -34,9 +39,32 @@ describe(' COVID-19 overview Model', () => {
             expect(overview._nonAwardNotOutlayed).toEqual(_nonAwardNotOutlayed);
         });
     });
+    describe('Additional Private Variables', () => {
+        it('should calculate totalBudgetAuthorityForBar', () => {
+            expect(overview._totalBudgetAuthorityForBar).toEqual(overview._totalBudgetAuthority);
+        });
+        it('should calculate totalBudgetAuthorityForBar (with additional data)', () => {
+            expect(overviewWithAdditional._totalBudgetAuthorityForBar).toEqual(_totalBudgetAuthorityForBar);
+        });
+        it('should calculate totalObligationsForBar', () => {
+            expect(overview._totalObligationsForBar).toEqual(overview._totalObligations);
+        });
+        it('should calculate totalObligationsForBar (with additional data)', () => {
+            expect(overviewWithAdditional._totalObligationsForBar).toEqual(_totalObligationsForBar);
+        });
+        it('should calculate totalOutlaysForBar', () => {
+            expect(overview._totalOutlaysForBar).toEqual(overview._totalOutlays);
+        });
+        it('should calculate _totalOutlaysForBar (with additional data)', () => {
+            expect(overviewWithAdditional._totalOutlaysForBar).toEqual(_totalOutlaysForBar);
+        });
+    });
     describe('Public Variables', () => {
         it('should format totalBudgetAuthority', () => {
             expect(overview.totalBudgetAuthority).toEqual(formatMoney(overview._totalBudgetAuthority));
+        });
+        it('should format totalBudgetAuthorityForBar', () => {
+            expect(overview.totalBudgetAuthority).toEqual(formatMoney(overview._totalBudgetAuthorityForBar));
         });
         it('should format awardObligations', () => {
             expect(overview.awardObligations).toEqual(formatMoney(overview._awardObligations));
@@ -47,8 +75,14 @@ describe(' COVID-19 overview Model', () => {
         it('should format totalObligations', () => {
             expect(overview.totalObligations).toEqual(formatMoney(overview._totalObligations));
         });
+        it('should format totalObligationsForBar', () => {
+            expect(overview.totalObligations).toEqual(formatMoney(overview._totalObligationsForBar));
+        });
         it('should format totalOutlays', () => {
             expect(overview.totalOutlays).toEqual(formatMoney(overview._totalOutlays));
+        });
+        it('should format totalOutlaysForBar', () => {
+            expect(overview.totalOutlays).toEqual(formatMoney(overview._totalOutlaysForBar));
         });
         it('should format otherObligations', () => {
             expect(overview.otherObligations).toEqual(formatMoney(overview._otherObligations));

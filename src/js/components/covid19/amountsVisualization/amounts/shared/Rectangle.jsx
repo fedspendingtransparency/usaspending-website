@@ -14,6 +14,8 @@ import {
 import {
     amountsPadding,
     rectangleMapping,
+    rectangleColorMapping,
+    rectangleColorMappingArp,
     startOfChartY,
     rectangleHeight,
     defaultRectangleData,
@@ -31,7 +33,8 @@ const propTypes = {
     showTooltip: PropTypes.string,
     dataId: PropTypes.string,
     tooltipId: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    publicLaw: PropTypes.string
 };
 
 const Rectangle = ({
@@ -42,14 +45,16 @@ const Rectangle = ({
     showTooltip = '',
     dataId = '',
     tooltipId,
-    className
+    className,
+    publicLaw
 }) => {
     const [data, setData] = useState(defaultRectangleData);
     useEffect(() => {
         if (scale) {
             const {
-                offset, fill, text: textInfo, color
+                offset, text: textInfo
             } = rectangleMapping[dataId];
+            const { fill, color } = publicLaw === 'american-rescue-plan' ? rectangleColorMappingArp[dataId] : rectangleColorMapping[dataId];
             const { left } = amountsPadding;
             const amount = Math.abs(overviewData[dataId]);
             const rectWidth = rectangleWidth(overviewData, scale, dataId);
@@ -66,7 +71,7 @@ const Rectangle = ({
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
-    }, [scale, overviewData]);
+    }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
     return (
         <g
             tabIndex="0"

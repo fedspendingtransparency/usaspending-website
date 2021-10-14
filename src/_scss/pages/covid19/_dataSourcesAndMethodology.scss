@@ -62,6 +62,13 @@
             border-radius: 0;
         }
     }
+    .information-top-arp {
+        height: 0.5rem;
+        width: 100%;
+        &.dsm--border-radius {
+            border-radius: 0;
+        }
+    }
 }
 
 @include media($medium-screen) {
