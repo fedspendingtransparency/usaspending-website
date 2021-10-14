@@ -22,8 +22,12 @@ const DataSourcesAndMethodology = ({ publicLaw }) => (
                     :
                     <p>Government spending funded by COVID-19 supplemental appropriations is tracked through the use of Disaster Emergency Fund Codes (DEFC). This page brings together agency financial and award data submitted monthly, covering activity beginning April 1, 2020. The data in all tables and visualizations are aggregates of all records tagged with an appropriate COVID-19 DEFC.</p>
                 }
-                <p>Learn more about our <Link to="/disaster/covid-19/data-sources">data sources and calculation methods</Link>, including details about our COVID-19 download options.</p>
-                <p>USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See a <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">full description</a> of this issue.</p>
+                <p><Link to="/disaster/covid-19/data-sources">Learn more about our data sources and calculation methods</Link>, including details about our COVID-19 download options.</p>
+                {publicLaw === 'american-rescue-plan' ?
+                    <div />
+                    :
+                    <p>USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See a <a target="_blank" href="data/data-limitations.pdf" rel="noopener noreferrer">full description</a> of this issue.</p>
+                }
             </div>
         </div>
     </div>
