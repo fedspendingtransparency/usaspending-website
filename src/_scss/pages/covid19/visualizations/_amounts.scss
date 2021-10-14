@@ -50,6 +50,13 @@
               padding: 0;
               padding-top: rem(10);
               @include display(grid);
+              .default-note {
+                &:first-of-type {
+                  text-align: left;
+                  padding-left: 5rem;
+                  padding-right: 5rem;
+                }
+              }
               grid-template-rows: 0.25fr 0.25fr 0.25fr;
                 .amounts-viz__title {
                   line-height: rem(25);
