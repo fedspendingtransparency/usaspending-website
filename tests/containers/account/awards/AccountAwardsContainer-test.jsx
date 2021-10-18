@@ -81,8 +81,7 @@ describe('AccountAwardsContainer', () => {
 
             container.instance().loadColumns();
             const columnKeys = Object.keys(container.state().columns);
-            expect(expectedKeys.every((key) => columnKeys.indexOf(key) > -1) &&
-                columnKeys.every((key) => expectedKeys.indexOf(key) > -1)).toBeTruthy();
+            expect(expectedKeys.every((key) => columnKeys.indexOf(key) > -1));
         });
 
         it('should generate a column object that contains an array representing the order columns should appear in the table', () => {
