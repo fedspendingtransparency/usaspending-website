@@ -40,7 +40,7 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const tableTypes = [
+export const tableTypes = [
     {
         label: 'Contracts',
         internal: 'contracts'
@@ -67,7 +67,7 @@ const tableTypes = [
     }
 ];
 
-const subTypes = [
+export const subTypes = [
     {
         label: 'Sub-Contracts',
         internal: 'subcontracts'
@@ -480,7 +480,7 @@ export class ResultsTableContainer extends React.Component {
         const tabsWithCounts = availableTypes.map((type) => ({
             ...type,
             count: this.state.counts[type.internal],
-            disabled: this.state.inFlight
+            disabled: this.state.inFlight || this.state.counts[type.internal] === 0
         }));
 
         return (
