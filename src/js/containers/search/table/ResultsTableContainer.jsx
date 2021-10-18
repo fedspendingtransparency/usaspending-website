@@ -43,46 +43,38 @@ const propTypes = {
 const tableTypes = [
     {
         label: 'Contracts',
-        internal: 'contracts',
-        enabled: true
+        internal: 'contracts'
     },
     {
         label: 'Contract IDVs',
-        internal: 'idvs',
-        enabled: true
+        internal: 'idvs'
     },
     {
         label: 'Grants',
-        internal: 'grants',
-        enabled: true
+        internal: 'grants'
     },
     {
         label: 'Direct Payments',
-        internal: 'direct_payments',
-        enabled: true
+        internal: 'direct_payments'
     },
     {
         label: 'Loans',
-        internal: 'loans',
-        enabled: true
+        internal: 'loans'
     },
     {
         label: 'Other',
-        internal: 'other',
-        enabled: true
+        internal: 'other'
     }
 ];
 
 const subTypes = [
     {
         label: 'Sub-Contracts',
-        internal: 'subcontracts',
-        enabled: true
+        internal: 'subcontracts'
     },
     {
         label: 'Sub-Grants',
-        internal: 'subgrants',
-        enabled: true
+        internal: 'subgrants'
     }
 ];
 
@@ -485,6 +477,11 @@ export class ResultsTableContainer extends React.Component {
             return null;
         }
         const availableTypes = this.props.subaward ? subTypes : tableTypes;
+        const tabsWithCounts = availableTypes.map((type) => ({
+            ...type,
+            count: this.state.counts[type.internal],
+            disabled: this.state.inFlight
+        }));
 
         return (
             <ResultsTableSection
@@ -492,9 +489,8 @@ export class ResultsTableContainer extends React.Component {
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.state.columns[tableType]}
-                counts={this.state.counts}
                 sort={this.state.sort}
-                tableTypes={availableTypes}
+                tableTypes={tabsWithCounts}
                 currentType={tableType}
                 tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
