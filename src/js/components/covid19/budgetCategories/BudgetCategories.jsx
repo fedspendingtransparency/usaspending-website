@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'apis/disaster';
-import { Tabs, InformationBoxes } from "data-transparency-ui";
+import { Tabs, InformationBoxes } from 'data-transparency-ui';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
@@ -137,7 +137,7 @@ const BudgetCategories = ({ publicLaw }) => {
                 <InformationBoxes
                     boxes={overviewData.map((data) => ({
                         ...data,
-                        isLoading: data.type === 'count' && inFlight,
+                        isLoading: (data.type === 'count' && inFlight) || !amounts[data.type],
                         amount: amounts[data.type]
                     }))} />
             </div>
