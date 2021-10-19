@@ -40,7 +40,8 @@ export default class DataDictionary extends React.Component {
                 </p>
                 <div className="data-dictionary__search-download">
                     <SearchBar
-                        onSearch={this.props.setSearchString} />
+                        onSearch={this.props.setSearchString}
+                        placeholder="Search by Term" />
                     <div className="data-dictionary__download">
                         <a
                             className="data-dictionary__download-link"
