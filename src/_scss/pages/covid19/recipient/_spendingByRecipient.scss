@@ -52,6 +52,9 @@
     @import 'components/Note';
     .default-note {
       margin: 0;
+      strong {
+        font-weight: bold;
+      }
     }
 }
 @import 'pages/covid19/_unlinkedData';
