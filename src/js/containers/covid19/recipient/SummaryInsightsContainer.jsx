@@ -76,26 +76,21 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
                         : { award_type_codes: awardTypeGroups[activeFilter] }
                 }
             };
+
             recipientCountRequest.current = fetchDisasterSpendingCount('recipient', params);
-            if (activeFilter === 'all') {
-                setAwardObligations(allAwardTypeTotals?.obligation);
-                setAwardOutlays(allAwardTypeTotals?.outlay);
-                setNumberOfAwards(allAwardTypeTotals?.awardCount);
-            }
-            else {
-                // Reset any existing counts
-                setAwardOutlays(null);
-                setAwardObligations(null);
-                setNumberOfAwards(null);
-                setNumberOfRecipients(null);
-                awardAmountRequest.current = fetchAwardAmounts(params);
-                awardAmountRequest.current.promise
-                    .then((res) => {
-                        setAwardObligations(res.data.obligation);
-                        setAwardOutlays(res.data.outlay);
-                        setNumberOfAwards(res.data.award_count);
-                    });
-            }
+
+            // Reset any existing counts
+            setAwardOutlays(null);
+            setAwardObligations(null);
+            setNumberOfAwards(null);
+            setNumberOfRecipients(null);
+            awardAmountRequest.current = fetchAwardAmounts(params);
+            awardAmountRequest.current.promise
+                .then((res) => {
+                    setAwardObligations(res.data.obligation);
+                    setAwardOutlays(res.data.outlay);
+                    setNumberOfAwards(res.data.award_count);
+                });
             recipientCountRequest.current.promise
                 .then((res) => {
                     setNumberOfRecipients(res.data.count);
