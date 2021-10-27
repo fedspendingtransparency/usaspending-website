@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     handleExternalLinkClick: PropTypes.func
@@ -263,6 +264,16 @@ const OtherResources = ({
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
                                 </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="other-resources__link__container">
+                                <span className="other-resources__link__text">
+                                    The Opportunity Project -
+                                </span>
+                                <Link to="/disaster/covid-19/the-opportunity-project">
+                                    words go here
+                                </Link>
                             </div>
                         </li>
                     </ul>

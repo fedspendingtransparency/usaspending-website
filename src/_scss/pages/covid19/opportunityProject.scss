@@ -1,0 +1,29 @@
+@import "all";
+
+.main_heading {
+  font-size: rem(47);
+  line-height: rem(59);
+  color: $color-gray;
+  margin: rem(30) 0 rem(40);
+}
+
+.bold{
+    font-weight: $font-bold;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+p {
+  padding-top: rem(5);
+}
+
+ul {
+  padding: 0;
+  list-style-position: inside;
+
+  &::first-line {
+    font-weight: $font-bold;
+  }
+}
