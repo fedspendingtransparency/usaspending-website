@@ -29,7 +29,8 @@ const propTypes = {
     dataId: PropTypes.string,
     tooltipId: PropTypes.string,
     width: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    publicLaw: PropTypes.string
 };
 
 const DefaultLineAndText = ({
@@ -40,7 +41,8 @@ const DefaultLineAndText = ({
     dataId = '',
     tooltipId,
     width,
-    className
+    className,
+    publicLaw
 }) => {
     const [valueData, setValueData] = useState(defaultTextState(dataId, 'value'));
     const [labelData, setLabelData] = useState(defaultTextState(dataId, 'label'));
@@ -87,7 +89,8 @@ const DefaultLineAndText = ({
                 tooltipId={tooltipId}
                 displayTooltip={displayTooltip}
                 hideTooltip={hideTooltip}
-                width={width} />
+                width={width}
+                publicLaw={publicLaw} />
             <TextGroup data={[
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }

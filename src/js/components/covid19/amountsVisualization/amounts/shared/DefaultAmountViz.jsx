@@ -19,7 +19,8 @@ const propTypes = {
     overviewData: PropTypes.object,
     scale: PropTypes.func,
     width: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    publicLaw: PropTypes.string
 };
 
 const DefaultAmountViz = ({
@@ -31,7 +32,8 @@ const DefaultAmountViz = ({
     overviewData,
     scale,
     width,
-    className
+    className,
+    publicLaw
 }) => (
     <g>
         <DefaultLineAndText
@@ -42,7 +44,8 @@ const DefaultAmountViz = ({
             hideTooltip={hideTooltip}
             tooltipId={tooltipId}
             dataId={dataId}
-            width={width} />
+            width={width}
+            publicLaw={publicLaw} />
         <Rectangle
             overviewData={overviewData}
             className={className}
@@ -51,7 +54,8 @@ const DefaultAmountViz = ({
             hideTooltip={hideTooltip}
             showTooltip={showTooltip}
             tooltipId={tooltipId}
-            dataId={dataId} />
+            dataId={dataId}
+            publicLaw={publicLaw} />
     </g>
 );
 
