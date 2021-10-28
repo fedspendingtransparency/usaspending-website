@@ -108,7 +108,7 @@ const SubagencyTableContainer = ({
     }, [currentPage, fy]);
 
     return (
-        <>
+        <div className="table-wrapper">
             <Table
                 expandable
                 rows={results}
@@ -126,7 +126,7 @@ const SubagencyTableContainer = ({
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-        </>
+        </div>
     );
 };
 
