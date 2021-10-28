@@ -17,7 +17,9 @@ const OpportunityProjectPage = () => (
         metaTagProps={topPageMetaTags}>
         <FlexGridContainer className="top-page">
             <FlexGridRow>
-                <FlexGridCol desktop={{ span: 8, offset: 2 }} className="content">
+                <FlexGridCol
+                    desktop={{ span: 8, offset: 2 }}
+                    className="content">
                     <main className="main-content">
                         <heading className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</heading>
 

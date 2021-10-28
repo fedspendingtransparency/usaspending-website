@@ -9,15 +9,22 @@
 .content {
   background-color: $color-white;
   padding: rem(60) rem(40);
-  margin: rem(25) auto;
   border: solid thin $color-gray-lighter;
+
+  margin: 0;
+  @include media($medium-screen) {
+    margin: rem(25) auto;
+  }
 }
 
 .main-heading {
-  font-size: rem(47);
-  line-height: rem(59);
   color: $color-gray;
-  margin: 3rem 0 4rem;
+
+  font-size: rem(36);
+  @include media($medium-screen) {
+    font-size: rem(47);
+    line-height: rem(59);
+  }
 }
 
 .bold {
@@ -28,7 +35,7 @@
   text-decoration: underline;
 }
 
-.center{
+.center {
   text-align: center;
 }
 
@@ -43,10 +50,10 @@ ul {
   .list-heading {
     font-weight: $font-bold;
     margin: 2rem 0;
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
 
-  li{
+  li {
     line-height: 2rem;
   }
 }
