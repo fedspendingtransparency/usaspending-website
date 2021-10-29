@@ -23,7 +23,7 @@ const OpportunityProjectPage = () => (
                     <main className="main-content">
                         <heading className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</heading>
 
-                        <p>(TOP LOGO PROVIDED FROM CENSUS)</p>
+                        <p className="logo"><img src="img/opportunity-project-logo.png" role="presentation" alt="" /></p>
 
                         <p>The Opportunity Project (TOP) brings together technologists, government, and community leaders to rapidly prototype digital products—powered by federal open data—that solve real-world problems for people across the country.  The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges.  TOP’s 2021 sprint theme is the world post covid: society, economy, and environment.</p>
                         <p>The Bureau of the Fiscal Service at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a challenge partner to collaborate, innovate and solve the problem of analyzing equity in covid-19 federal funding.  This is our story.</p>
@@ -54,7 +54,7 @@ const OpportunityProjectPage = () => (
                         <ul><div className="list-heading">Federal Data Stewards:</div></ul>
                         <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the <a href="https://opportunity.census.gov/data/covid-spending/">TOP datasets page.</a></p>
 
-                        <p>(IMAGE OF MAP WITH PARTICIPANT LOCATIONS)</p>
+                        <p><img src="img/opportunity-project-map.png" /></p>
 
                         <p><span className="bold">THE CHALLENGE</span> – Develop innovative tools that combine datasets to help inform community leaders on equitable distribution of federal funding. Teams are encouraged to analyze how federal COVID-19 spending has been shared with communities most vulnerable to impacts of the pandemic.</p>
                         <p><span className="bold">THE PROBLEM</span> – Over the course of the COVID-19 pandemic, the federal government has made $4.5 trillion available for relief efforts. How has this money been spent? A greater understanding of how government spending reaches different communities is a step forward for data transparency and a call-to-action to improve equity.</p>

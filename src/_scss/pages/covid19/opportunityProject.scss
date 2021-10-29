@@ -39,6 +39,18 @@
   text-align: center;
 }
 
+.logo {
+  width: 75%;
+
+  @include media($small-screen) {
+    width: 25%;
+  }
+}
+
+img {
+  margin: 3rem 0;
+}
+
 p {
   margin-bottom: 1rem;
 }
