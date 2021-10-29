@@ -2,15 +2,18 @@
 
 .top-page {
   width: 100%;
-  max-width: rem(1600);
+  padding: 0;
   background-color: $color-gray-lightest;
 }
 
 .content {
   background-color: $color-white;
-  padding: rem(60) rem(40);
   border: solid thin $color-gray-lighter;
 
+  padding: rem(56) rem(16) rem(40);
+  @include media($medium-screen) {
+    padding: rem(60) rem(40);
+  }
   margin: 0;
   @include media($medium-screen) {
     margin: rem(25) auto;
@@ -20,10 +23,11 @@
 .main-heading {
   color: $color-gray;
 
-  font-size: rem(36);
+  font-size: rem(27);
+  line-height: rem(32);
   @include media($medium-screen) {
     font-size: rem(47);
-    line-height: rem(59);
+    line-height: rem(56);
   }
 }
 
@@ -42,17 +46,16 @@
 .logo {
   width: 75%;
 
-  @include media($small-screen) {
+  @include media($medium-screen) {
     width: 25%;
   }
 }
 
 img {
-  margin: 3rem 0;
-}
-
-p {
-  margin-bottom: 1rem;
+  margin: 12px 0;
+  @include media($medium-screen) {
+    margin: 20px 0;
+  }
 }
 
 ul {
@@ -61,11 +64,10 @@ ul {
 
   .list-heading {
     font-weight: $font-bold;
-    margin: 2rem 0;
-    padding-top: 0.5rem;
+    margin: 24px 0 16px;
   }
 
   li {
-    line-height: 2rem;
+    line-height: 24px;
   }
 }
