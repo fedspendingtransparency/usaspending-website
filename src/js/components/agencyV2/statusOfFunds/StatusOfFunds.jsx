@@ -12,7 +12,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-const levels = ['Subcomponent', 'Federal Account'];
+export const levels = ['Subcomponent', 'Federal Account'];
 
 const StatusOfFunds = ({ agencyId, fy }) => {
     const [level, setLevel] = useState(0);

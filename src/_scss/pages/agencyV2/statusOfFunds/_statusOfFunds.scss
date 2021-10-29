@@ -2,12 +2,6 @@
     .status-of-funds__intro {
         // TODO
     }
-    .status-of-funds__drilldown-sidebar {
-        background-color: $color-gray-lightest;
-        border-radius: rem(5);
-        @include align-items(stretch);
-    }
-    .status-of-funds__visualization {
-        // TODO - import horizontal bar chart styles
-    } 
+    @import './drilldownSidebar';
+    @import './visualizationSection';
 }
