@@ -49,7 +49,7 @@ const DataQuality = () => (
             <p>
                 To ensure that contract data is accurate, the Office of Management and
                 Budget issues the&nbsp;
-                <ExternalLink url="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf">
+                <ExternalLink url="https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0048871">
                     Federal Government Procurement Data Quality Summary
                 </ExternalLink>
                 &nbsp;about data submitted by the agencies to the Federal Procurement
