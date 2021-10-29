@@ -1,30 +1,32 @@
 .covid-19-vaccine-link__container {
-  background-color: #0051C4;
-  color: white;
-  padding-left: $outer-gutter/2;
-  @include media($large-screen) {
-    padding-left: $outer-gutter;
-  }
-  @include display(flex);
-  @include align-items(center);
-  padding-top: rem(5.5);
-  padding-bottom: rem(5.5);
-  font-size: rem(16);
-  font-weight: $font-semibold;
-  line-height: rem(22);
-  img {
-    @include display(flex);
-    @include flex(0 0 auto);
-    border-radius: 50%;
-    height: rem(49);
-    width: rem(49);
-    margin-right: rem(10);
-  }
-  a {
-    font-weight: $font-semibold;
-    font-size: rem(16);
-    line-height: rem(22);
-    text-decoration: underline;
+    background-color: #0051C4;
     color: white;
-  }
+    padding-left: $outer-gutter/2;
+    @include media($large-screen) {
+        padding-left: $outer-gutter;
+    }
+    @include display(flex);
+    @include align-items(center);
+    padding-top: rem(5.5);
+    padding-bottom: rem(5.5);
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    line-height: rem(22);
+
+    img {
+        @include display(flex);
+        @include flex(0 0 auto);
+        border-radius: 50%;
+        height: rem(49);
+        width: rem(49);
+        margin-right: rem(10);
+    }
+
+    a {
+        font-weight: $font-semibold;
+        font-size: rem(16);
+        line-height: rem(22);
+        text-decoration: underline;
+        color: white;
+    }
 }
