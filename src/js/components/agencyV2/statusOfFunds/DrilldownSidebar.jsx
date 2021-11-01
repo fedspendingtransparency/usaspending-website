@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import levels from './StatusOfFunds';
+import { levels } from './StatusOfFunds';
 
 const propTypes = {
     level: PropTypes.number,

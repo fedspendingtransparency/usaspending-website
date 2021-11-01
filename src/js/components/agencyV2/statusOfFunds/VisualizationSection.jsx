@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 10/29/21
  */
 
-// import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
 
