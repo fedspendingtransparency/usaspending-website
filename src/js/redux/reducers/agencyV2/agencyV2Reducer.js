@@ -86,19 +86,6 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
             };
-        case 'SET_BUDGET_CATEGORY_COUNT':
-            return {
-                ...state,
-                budgetCategoryCounts: {
-                    ...state.budgetCategoryCounts,
-                    [action.tab]: action.count
-                }
-            };
-        case 'RESET_BUDGET_CATEGORY_COUNTS':
-            return {
-                ...state,
-                budgetCategoryCounts: initialState.budgetCategoryCounts
-            };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
         default:

@@ -88,7 +88,7 @@ const AwardSpendingSubagency = ({ agencyId, fy }) => {
     };
 
     return (
-        <div className="body__content agency-budget-category">
+        <div className="body__content">
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
             </div>

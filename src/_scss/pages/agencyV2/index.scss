@@ -71,8 +71,6 @@
             }
             .body__content {
                 margin-top: rem(35);
-                @import 'pages/search/results/table/resultsTableMessageContainer';
-                @import './tables';
             }
             .usda-section__container {
                 @include display(flex);

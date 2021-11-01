@@ -20,7 +20,6 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import AccountSpending from 'components/agencyV2/accountSpending/AccountSpending';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -36,7 +35,6 @@ const propTypes = {
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
     isError: PropTypes.bool,
-    errorMessage: PropTypes.string,
     isLoading: PropTypes.bool
 };
 
@@ -62,7 +60,7 @@ export const AgencyProfileV2 = ({
             name: 'budget-category',
             display: 'Status of Funds',
             icon: 'money-check-alt',
-            component: <AccountSpending fy={`${selectedFy}`} agencyId={agencyId} />
+            component: <ComingSoon />
         },
         {
             name: 'sub-agency',
