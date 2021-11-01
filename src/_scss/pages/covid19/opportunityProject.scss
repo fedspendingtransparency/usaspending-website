@@ -10,14 +10,18 @@
   background-color: $color-white;
   border: solid thin $color-gray-lighter;
 
-  padding: rem(56) rem(16) rem(40);
+  padding: rem(32) rem(16) rem(40);
   @include media($medium-screen) {
-    padding: rem(60) rem(40);
+    padding: rem(60) rem(40) rem(40);
   }
   margin: 0;
   @include media($medium-screen) {
-    margin: rem(25) auto;
+    margin: rem(24) auto;
   }
+}
+
+footer {
+  margin-top: rem(48);
 }
 
 .main-heading {
@@ -43,18 +47,10 @@
   text-align: center;
 }
 
-.logo {
-  width: 75%;
-
-  @include media($medium-screen) {
-    width: 25%;
-  }
-}
-
 img {
-  margin: 12px 0;
+  margin: rem(12) 0;
   @include media($medium-screen) {
-    margin: 20px 0;
+    margin: rem(20) 0;
   }
 }
 
@@ -64,10 +60,12 @@ ul {
 
   .list-heading {
     font-weight: $font-bold;
-    margin: 24px 0 16px;
+    margin: rem(24) 0 rem(16);
   }
 
   li {
-    line-height: 24px;
+    line-height: rem(24);
+    padding-left: rem(16);
+    text-indent: rem(-16);
   }
 }

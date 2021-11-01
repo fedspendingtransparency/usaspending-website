@@ -31,14 +31,14 @@ const OpportunityProjectPage = () => {
                     <FlexGridCol
                         desktop={{ span: 8, offset: 2 }}
                         className="content">
-                        <main className="main-content">
+                        <main role="main" className="main-content">
                             <header className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</header>
 
-                            <p className="logo"><img src="img/opportunity-project-logo.png" role="presentation" alt="" /></p>
+                            <p><img src="img/opportunity-project-logo.png" role="presentation" alt="" /></p>
 
-                            <p>The Opportunity Project (TOP) brings together technologists, government, and community leaders to rapidly prototype digital products—powered by federal open data—that solve real-world problems for people across the country.  The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges.  TOP’s 2021 sprint theme is the world post covid: society, economy, and environment.</p>
-                            <p>The Bureau of the Fiscal Service at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a challenge partner to collaborate, innovate and solve the problem of analyzing equity in covid-19 federal funding.  This is our story.</p>
-                            <p>The team behind <a href="/about">USAspending.gov</a> brought together tech teams, product advisors, user advocates, local government officials and federal data stewards from all over America to collaborate on the mission of analyzing equity in COVID-19 federal funding for our TOP 2021 sprint.  We wanted to thank and acknowledge all of TOP participants for their volunteer time, contributions to federal open data innovation, expert resources, and collaborations across sectors in service of helping communities.</p>
+                            <p>The Bureau of the Fiscal Service (Fiscal) at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a Challenge Partner to collaborate, innovate and assist in solving the problem of analyzing equity in covid-19 federal funding.</p>
+                            <p>The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges. TOP brings together technologists, government, and community leaders to rapidly prototype digital products— powered by federal open data—that solve real-world problems for people across the country TOP’s 2021 sprint theme is “The World Post Covid: Society, Economy, and Environment.</p>
+                            <p>The team behind <a href="/about">USAspending.gov</a> at Fiscal brought together tech teams, product advisors, user advocates, local government officials and federal data stewards from all over America to collaborate on the mission of analyzing equity in COVID-19 federal funding for our TOP 2021 sprint.  We want to thank and acknowledge all  of the TOP participants for volunteering their time, contributing to federal open data innovation, serving as a resource, and collaborating across sectors in service of helping communities.</p>
 
                             <ul><div className="list-heading">Tech Teams:</div>
                                 <li>Bowie State University</li>
@@ -65,7 +65,7 @@ const OpportunityProjectPage = () => {
                             <ul><div className="list-heading">Federal Data Stewards:</div></ul>
                             <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the&nbsp;
                                 <a href="https://opportunity.census.gov/data/covid-spending/" onClick={handleClick}>
-                                    TOP datasets page.
+                                    TOP datasets page.&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
@@ -74,7 +74,7 @@ const OpportunityProjectPage = () => {
 
                             <img src="img/opportunity-project-map.png" />
 
-                            <p><span className="bold">THE CHALLENGE</span> – Develop innovative tools that combine datasets to help inform community leaders on equitable distribution of federal funding. Teams are encouraged to analyze how federal COVID-19 spending has been shared with communities most vulnerable to impacts of the pandemic.</p>
+                            <p><span className="bold">THE CHALLENGE</span> – Develop innovative tools that combine datasets to help inform community leaders on equitable distribution of federal funding. Teams were encouraged to analyze how federal COVID-19 spending has been shared with communities most vulnerable to impacts of the pandemic.</p>
                             <p><span className="bold">THE PROBLEM</span> – Over the course of the COVID-19 pandemic, the federal government has made $4.5 trillion available for relief efforts. How has this money been spent? A greater understanding of how government spending reaches different communities is a step forward for data transparency and a call-to-action to improve equity.</p>
                             <p><span className="bold">THE OPPORTUNITY</span> – The correlation between federal spending data and demographic data is critical to understanding how federal funds are distributed to various communities, but this correlation has not been fully explored or made accessible to local stakeholders. This creates blind spots for government leaders as they make decisions on funding allocation and addressing inequities in their communities. To help address this need, the opportunity project sought technologists to help innovate and build digital products with experts (known as user advocates) on the ground in communities across America.</p>
                             <p><span className="bold">THE TARGET END USERS</span> – Local government officials, federal funding decision makers, equity policy experts, community advocacy organizations and data journalists.</p>
@@ -85,7 +85,7 @@ const OpportunityProjectPage = () => {
                             <p>Product statement: Bowie State University Opportunity Project uses publicly accessible CDC’s Social Vulnerability Index, CDC’s County vaccination rates, the ARP county covid vaccine spending data, and Co-est 2020 to assess covid vaccination and equity problems for community leaders as end users.</p>
                             <p>Link:&nbsp;
                                 <a href="https://app.flow.gl/flow/3xfvr3" onClick={handleClick}>
-                                Bowie State University TOP Project on Flow Immersive
+                                Bowie State University TOP Project on Flow Immersive&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
@@ -96,7 +96,7 @@ const OpportunityProjectPage = () => {
                             <p>Product statement: The MSI (Minority Serving Institutions) COVID Relief Dashboard for Equity and Transparency uses several federal datasets surrounding school enrollment and COVID relief awards to highlight whether or not COVID funding was equitably distributed to MSIs around the country for federal, state, and local officials and organizations.</p>
                             <p>Link:&nbsp;
                                 <a href="https://a.flow.gl/flow/kuo62d54" onClick={handleClick}>
-                                MSI COVID Relief Dashboard for Equity and Transparency
+                                MSI COVID Relief Dashboard for Equity and Transparency&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
@@ -104,10 +104,10 @@ const OpportunityProjectPage = () => {
                             </p>
 
                             <p className="bold underline">The University of Kansas</p>
-                            <p>Product statement: The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between child care and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.</p>
+                            <p>Product statement: The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between childcare and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.</p>
                             <p>Link:&nbsp;
                                 <a href="https://top.kucppr.org/" onClick={handleClick}>
-                                Child Care in America | A broken business model (kucppr.org)
+                                Child Care in America | A broken business model (kucppr.org)&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
@@ -115,7 +115,7 @@ const OpportunityProjectPage = () => {
                             </p>
                             <p>Video:&nbsp;
                                 <a href="https://vimeo.com/638475809" onClick={handleClick}>
-                                Kansas & Flow Immersive TOP Project Video Overview
+                                Kansas & Flow Immersive TOP Project Video Overview&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
@@ -126,23 +126,24 @@ const OpportunityProjectPage = () => {
                             <p>Product statement: The PEI (Predictive Equity Index) model employs machine learning and predictive analytics to understand key drivers of equity in the distribution of PPP loans. This methodology allows for creation of a cohesive dataset, allowing for an in-depth assessment of county-level performance of equity, as well as an understanding of how future actions serve to impact anticipated levels of equity in future funding efforts. Taken together, this product allows for policy makers at the county, state, and national-level to take county-level action maximizing the impact of federal dollars on the communities the investments aim to serve.</p>
                             <p>Link:&nbsp;
                                 <a href="https://work.themomproject.com/predictiveequity" onClick={handleClick}>
-                                Predictive Equity Index Model, developed by Werklabs, the research division of The Mom Project
+                                Predictive Equity Index Model, developed by Werklabs, the research division of The Mom Project&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>
                                 </a>
                             </p>
 
-                            <br />
-                            <p className="center">Questions, ideas or feedback? E-mail us at <a href="mailto:usaspending@fiscal.treasury.gov">usaspending@fiscal.treasury.gov</a></p>
-                            <p className="center">We want to thank everyone involved in The Opportunity Project.  Learn more at&nbsp;
-                                <a href="http://www.opportunity.census.gov/" onClick={handleClick}>
-                                opportunity.census.gov
-                                    <span className="other-resources__link__icon">
-                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                    </span>
-                                </a>
-                            </p>
+                            <footer>
+                                <p className="center">Questions, ideas or feedback? E-mail us at <a href="mailto:usaspending@fiscal.treasury.gov">usaspending@fiscal.treasury.gov</a></p>
+                                <p className="center">We want to thank everyone involved in The Opportunity Project.  Learn more at&nbsp;
+                                    <a href="http://www.opportunity.census.gov/" onClick={handleClick}>
+                                opportunity.census.gov&nbsp;
+                                        <span className="other-resources__link__icon">
+                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                        </span>
+                                    </a>
+                                </p>
+                            </footer>
                         </main>
                     </FlexGridCol>
                 </FlexGridRow>
