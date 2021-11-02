@@ -21,7 +21,11 @@ const GlossaryLink = ({ term }) => {
         e.stopPropagation();
     };
     return (
-        <Link className="usda-glossary-link" to={newUrl} aria-label="Open the Glossary" onClick={stopBubble}>
+        <Link
+            className="usda-glossary-link"
+            to={newUrl}
+            aria-label="Open the Glossary"
+            onClick={stopBubble}>
             <FontAwesomeIcon icon="book" />
         </Link>
     );

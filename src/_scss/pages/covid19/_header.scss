@@ -74,6 +74,11 @@
                 overflow-y: hidden;
                 box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
 
+                .usa-dt-picker__item:first-of-type {
+                    height: 100%;
+                    padding: rem(24) rem(20);
+                }
+
                 .usa-dt-picker__list-item .usa-dt-picker__item {
                     padding: rem(16) rem(20);
 
@@ -93,18 +98,17 @@
                     p {
                         font-size: rem(15);
                         margin: 0;
-                        .usda-glossary-link svg {
-                            margin-left: 5px;
-                            color: $color-gray-light;
-                        }
                     }
                 }
+
                 li.usa-dt-picker__list-item {
                     border-bottom: solid thin $color-gray-lightest;
+                    height: 80px;
 
                     p {
                         font-size: rem(14);
                     }
+
                 }
             }
 
