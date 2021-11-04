@@ -17,7 +17,7 @@ import { parseRows } from 'helpers/agencyV2/AwardSpendingSubagencyHelper';
 import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
-    agencyId: PropTypes.string,
+    toptierCode: PropTypes.string,
     fy: PropTypes.string,
     type: PropTypes.string.isRequired,
     prevType: PropTypes.string,
@@ -26,7 +26,7 @@ const propTypes = {
 
 const SubagencyTableContainer = ({
     fy,
-    agencyId,
+    toptierCode,
     type,
     prevType,
     subHeading
@@ -66,7 +66,7 @@ const SubagencyTableContainer = ({
             order
         };
         const typeParam = awardTypeGroups[type];
-        request.current = fetchSubagencySpendingList(agencyId, fy, typeParam, params);
+        request.current = fetchSubagencySpendingList(toptierCode, fy, typeParam, params);
         const awardSpendingSubagencyRequest = request.current;
         awardSpendingSubagencyRequest.promise
             .then((res) => {
@@ -99,7 +99,7 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, agencyId, pageSize, sort, order]);
+    }, [type, fy, toptierCode, pageSize, sort, order]);
 
     useEffect(() => {
         if (fy) {

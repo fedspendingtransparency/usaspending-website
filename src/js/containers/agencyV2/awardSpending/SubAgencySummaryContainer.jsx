@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -10,7 +9,7 @@ import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount'
 
 const propTypes = {
     fy: PropTypes.string,
-    agencyId: PropTypes.string,
+    toptierCode: PropTypes.string,
     activeTab: PropTypes.string,
     prevTab: PropTypes.string,
     summaryData: PropTypes.arrayOf(PropTypes.shape({
@@ -23,6 +22,7 @@ const propTypes = {
 const SubAgencySummaryContainer = ({
     activeTab,
     fy,
+    toptierCode,
     summaryData,
     data
 }) => {
@@ -31,7 +31,6 @@ const SubAgencySummaryContainer = ({
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
-    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfTransactions, setNumberOfTransactions] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);

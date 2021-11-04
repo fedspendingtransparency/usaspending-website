@@ -30,19 +30,23 @@ require('pages/agencyV2/index.scss');
 const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
-    agencyId: PropTypes.string,
+    toptierCode: PropTypes.string,
+    agencySlug: PropTypes.string,
     selectedFy: PropTypes.string,
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
     isError: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    errorMessage: PropTypes.string
 };
 
 export const AgencyProfileV2 = ({
     selectedFy,
-    agencyId,
+    toptierCode,
+    agencySlug,
     setSelectedFy,
     isError,
+    errorMessage,
     isLoading,
     latestFy
 }) => {
@@ -54,7 +58,7 @@ export const AgencyProfileV2 = ({
             name: 'overview',
             display: 'Overview',
             icon: 'chart-area',
-            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} agencyId={agencyId} />
+            component: <AgencyOverview fy={selectedFy} toptierCode={toptierCode} />
         },
         {
             name: 'budget-category',
@@ -66,7 +70,7 @@ export const AgencyProfileV2 = ({
             name: 'sub-agency',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
-            component: <AwardSpendingSubagency fy={`${selectedFy}`} agencyId={agencyId} />
+            component: <AwardSpendingSubagency fy={`${selectedFy}`} toptierCode={toptierCode} />
         }
     ];
 
@@ -96,7 +100,7 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection.name);
     };
 
-    const slug = `agency_v2/${agencyId}`;
+    const slug = `agency_v2/${agencySlug}`;
 
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, slug, {
@@ -111,7 +115,7 @@ export const AgencyProfileV2 = ({
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
-            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencyId, name })}
+            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: toptierCode, name })}
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
@@ -134,7 +138,7 @@ export const AgencyProfileV2 = ({
                 </div>
                 <div className="body usda__flex-col">
                     {isError
-                        ? <ErrorMessage />
+                        ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
                             <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
                                 {section.component || <ComingSoon />}

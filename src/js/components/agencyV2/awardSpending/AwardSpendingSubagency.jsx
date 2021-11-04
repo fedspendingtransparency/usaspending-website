@@ -14,7 +14,7 @@ import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
     fy: PropTypes.string,
-    agencyId: PropTypes.string
+    toptierCode: PropTypes.string
 };
 
 export const awardTabs = [
@@ -69,7 +69,7 @@ const initialActiveTabState = {
     subtitle: awardTabs[0].label
 };
 
-const AwardSpendingSubagency = ({ agencyId, fy }) => {
+const AwardSpendingSubagency = ({ toptierCode, fy }) => {
     const { subagencyCount } = useSelector((state) => state.agencyV2);
     const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
 
@@ -93,13 +93,13 @@ const AwardSpendingSubagency = ({ agencyId, fy }) => {
                 <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
             </div>
             <SubAgencySummaryContainer
-                agencyId={agencyId}
+                toptierCode={toptierCode}
                 fy={fy}
                 summaryData={summaryData}
                 data={subagencyData}
                 activeTab={activeTab.internal} />
             <SubagencyTableContainer
-                agencyId={agencyId}
+                toptierCode={toptierCode}
                 fy={fy}
                 type={activeTab.internal}
                 prevType={prevActiveTab.internal}
