@@ -93,7 +93,7 @@ const OpportunityProjectPage = () => {
                             <p>Product statement: The MSI (Minority Serving Institutions) COVID-19 Relief Dashboard for Equity and Transparency uses several federal datasets surrounding school enrollment and COVID-19 relief awards to highlight whether or not COVID-19 funding was equitably distributed to MSIs around the country for federal, state, and local officials and organizations.</p>
                             <p>Link: {externalLink("https://a.flow.gl/flow/kuo62d54", "MSI COVID-19 Relief Dashboard for Equity and Transparency")}</p>
 
-                            <p className="bold underline">The University of Kansas</p>
+                            <p className="bold underline">University of Kansas Center for Public Partnerships and Research</p>
                             <p>Product statement: The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between childcare and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.</p>
                             <p>Link: {externalLink("https://top.kucppr.org/", "Child Care in America | A broken business model (kucppr.org)")}</p>
                             <p>Video: {externalLink("https://vimeo.com/638475809", "Kansas & Flow Immersive TOP Project Video Overview")}</p>
