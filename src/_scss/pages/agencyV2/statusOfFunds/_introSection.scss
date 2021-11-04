@@ -1,0 +1,28 @@
+.status-of-funds__intro-wrapper {
+    @include span-columns(16);
+    margin-bottom: 4rem;
+}
+
+.status-of-funds__intro-section-title {
+    font-size: 2rem;
+    color: #555555;
+    font-weight: 600;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+}
+
+.status-of-funds__intro-section-text {
+    font-size: 1.4rem;
+    color: #555555;
+    font-weight: 400;
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.status-of-funds__intro-section-italic-text {
+    font-size: 1.2rem;
+    color: #555555;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.2rem;
+}
