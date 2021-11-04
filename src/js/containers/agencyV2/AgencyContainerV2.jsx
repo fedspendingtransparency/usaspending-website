@@ -15,12 +15,17 @@ import { setAgencyOverview } from 'redux/actions/agencyV2/agencyV2Actions';
 
 import { useValidTimeBasedQueryParams, useLatestAccountData } from 'containers/account/WithLatestFy';
 import AgencyPage from 'components/agencyV2/AgencyPage';
+import { useAgencySlugs } from './WithAgencySlugs';
 
 export const AgencyProfileV2 = () => {
     const { agencyId } = useParams();
     const [, , { year: latestFy }] = useLatestAccountData();
     const { fy: currentUrlFy } = useQueryParams(['fy']);
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ['fy']);
+    const [agencySlugs, slugsLoading, slugsError] = useAgencySlugs();
+    if (!slugsLoading && !slugsError) {
+        console.log(agencySlugs);
+    }
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
