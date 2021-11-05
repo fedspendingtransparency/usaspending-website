@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
 import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -17,7 +17,6 @@ import { parseRows } from 'helpers/agencyV2/AwardSpendingSubagencyHelper';
 import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
-    toptierCode: PropTypes.string,
     fy: PropTypes.string,
     type: PropTypes.string.isRequired,
     prevType: PropTypes.string,
@@ -26,7 +25,6 @@ const propTypes = {
 
 const SubagencyTableContainer = ({
     fy,
-    toptierCode,
     type,
     prevType,
     subHeading
@@ -45,6 +43,7 @@ const SubagencyTableContainer = ({
     const [error, setError] = useState(false);
     const request = useRef(null);
     const dispatch = useDispatch();
+    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
     useEffect(() => {
         if (request.current) {
@@ -99,13 +98,13 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, toptierCode, pageSize, sort, order]);
+    }, [type, fy, pageSize, sort, order]);
 
     useEffect(() => {
-        if (fy) {
+        if (fy && toptierCode) {
             fetchSpendingBySubagencyCallback();
         }
-    }, [currentPage, fy]);
+    }, [currentPage, fy, toptierCode]);
 
     return (
         <>

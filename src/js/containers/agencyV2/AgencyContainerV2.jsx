@@ -82,7 +82,6 @@ export const AgencyProfileV2 = () => {
             latestFy={latestFy}
             selectedFy={selectedFy}
             toptierCode={toptierCode}
-            agencySlug={agencySlug}
             isLoading={isLoading}
             isError={isError}
             errorMessage={errorMessage} />

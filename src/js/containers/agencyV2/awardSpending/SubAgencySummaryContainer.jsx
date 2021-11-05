@@ -6,12 +6,11 @@ import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
+import { useSelector } from 'react-redux';
 
 const propTypes = {
     fy: PropTypes.string,
-    toptierCode: PropTypes.string,
     activeTab: PropTypes.string,
-    prevTab: PropTypes.string,
     summaryData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
         title: PropTypes.string
@@ -22,7 +21,6 @@ const propTypes = {
 const SubAgencySummaryContainer = ({
     activeTab,
     fy,
-    toptierCode,
     summaryData,
     data
 }) => {
@@ -34,6 +32,7 @@ const SubAgencySummaryContainer = ({
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfTransactions, setNumberOfTransactions] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
+    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
     useEffect(() => {
         if (request.current) {

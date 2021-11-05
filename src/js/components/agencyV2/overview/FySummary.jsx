@@ -21,23 +21,23 @@ import BarChart from './BarChart';
 const propTypes = {
     fy: PropTypes.string,
     windowWidth: PropTypes.number,
-    isMobile: PropTypes.bool,
-    toptierCode: PropTypes.string
+    isMobile: PropTypes.bool
 };
 
 const FySummary = ({
     fy,
     windowWidth,
-    isMobile,
-    toptierCode
+    isMobile
 }) => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(true);
     const {
         budgetaryResources,
-        _awardObligations
+        _awardObligations,
+        overview
     } = useSelector((state) => state.agencyV2);
+    const { toptierCode } = overview;
     const budgetaryResourcesRequest = useRef(null);
 
     useEffect(() => () => {

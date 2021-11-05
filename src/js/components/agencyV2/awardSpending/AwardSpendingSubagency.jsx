@@ -13,8 +13,7 @@ import SubagencyTableContainer from 'containers/agencyV2/awardSpending/Subagency
 import { useStateWithPrevious } from 'helpers';
 
 const propTypes = {
-    fy: PropTypes.string,
-    toptierCode: PropTypes.string
+    fy: PropTypes.string
 };
 
 export const awardTabs = [
@@ -69,7 +68,7 @@ const initialActiveTabState = {
     subtitle: awardTabs[0].label
 };
 
-const AwardSpendingSubagency = ({ toptierCode, fy }) => {
+const AwardSpendingSubagency = ({ fy }) => {
     const { subagencyCount } = useSelector((state) => state.agencyV2);
     const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
 
@@ -93,13 +92,11 @@ const AwardSpendingSubagency = ({ toptierCode, fy }) => {
                 <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
             </div>
             <SubAgencySummaryContainer
-                toptierCode={toptierCode}
                 fy={fy}
                 summaryData={summaryData}
                 data={subagencyData}
                 activeTab={activeTab.internal} />
             <SubagencyTableContainer
-                toptierCode={toptierCode}
                 fy={fy}
                 type={activeTab.internal}
                 prevType={prevActiveTab.internal}

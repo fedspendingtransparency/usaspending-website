@@ -55,13 +55,11 @@ CovidTooltip.propTypes = {
 };
 
 const propTypes = {
-    fy: PropTypes.string,
-    toptierCode: PropTypes.string
+    fy: PropTypes.string
 };
 
 const AgencyOverview = ({
-    fy,
-    toptierCode
+    fy
 }) => {
     const {
         name,
@@ -172,7 +170,7 @@ const AgencyOverview = ({
                 {image}
             </div>
             {content}
-            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} toptierCode={toptierCode} />
+            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };

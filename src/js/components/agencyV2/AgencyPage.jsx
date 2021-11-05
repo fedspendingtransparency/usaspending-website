@@ -9,10 +9,10 @@ import {
     ComingSoon,
     ErrorMessage,
     FiscalYearPicker,
-    ShareIcon,
-    DownloadIconButton
+    ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -31,7 +31,6 @@ const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
     toptierCode: PropTypes.string,
-    agencySlug: PropTypes.string,
     selectedFy: PropTypes.string,
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
@@ -43,7 +42,6 @@ const propTypes = {
 export const AgencyProfileV2 = ({
     selectedFy,
     toptierCode,
-    agencySlug,
     setSelectedFy,
     isError,
     errorMessage,
@@ -58,7 +56,7 @@ export const AgencyProfileV2 = ({
             name: 'overview',
             display: 'Overview',
             icon: 'chart-area',
-            component: <AgencyOverview fy={selectedFy} toptierCode={toptierCode} />
+            component: <AgencyOverview fy={selectedFy} />
         },
         {
             name: 'budget-category',
@@ -100,12 +98,13 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection.name);
     };
 
-    const slug = `agency_v2/${agencySlug}`;
+    const { pathname, search } = useLocation();
+    const path = `${pathname.substring(1)}${search}`;
 
     const handleShare = (optionName) => {
-        handleShareOptionClick(optionName, slug, {
+        handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
-            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
+            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         });
     };
 
@@ -118,8 +117,7 @@ export const AgencyProfileV2 = ({
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: toptierCode, name })}
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
-                <DownloadIconButton downloadInFlight={false} onClick={() => {}} />
+                <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">
