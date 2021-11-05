@@ -48,7 +48,7 @@ const DataQuality = () => (
             </ul>
             <p>
                 To ensure that contract data is accurate, the Office of Management and
-                Budget issues the&nbsp;
+                Budget issues the{' '}
                 <a
                     href="https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0048871"
                     target="_blank"
