@@ -272,7 +272,7 @@ const OtherResources = ({
                                     The Opportunity Project -
                                 </span>
                                 <Link to="/disaster/covid-19/the-opportunity-project">
-                                    words go here
+                                    https://www.usaspending.gov/disaster/covid-19/the-opportunity-project
                                 </Link>
                             </div>
                         </li>
