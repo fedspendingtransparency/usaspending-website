@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useSelector} from "react-redux";
+import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     fy: PropTypes.string
@@ -21,7 +22,7 @@ const IntroSection = ({ fy }) => {
             </div>
             <div className="status-of-funds__intro-section-text" >
                 <span >
-                    In... fiscal year var {fy}, the... agency name var {name}, then amount var
+                    In... fiscal year var {fy}, the... agency name var {name}, then amount var here. And this is a glossary link for <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" />.
                 </span>
             </div>
             <div className="status-of-funds__intro-section-italic-text">
