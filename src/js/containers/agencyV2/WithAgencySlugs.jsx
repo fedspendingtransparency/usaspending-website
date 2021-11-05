@@ -47,3 +47,16 @@ export const useAgencySlugs = () => {
 
     return [agencySlugs, loading, error];
 };
+
+const withAgencySlugs = (WrappedComponent) => (props) => {
+    const [agencySlugs, loading, error] = useAgencySlugs();
+    return (
+        <WrappedComponent
+            {...props}
+            agencySlugs={agencySlugs}
+            loading={loading}
+            error={error} />
+    );
+};
+
+export default withAgencySlugs;

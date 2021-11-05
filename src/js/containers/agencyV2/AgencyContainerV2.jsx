@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { useDispatch } from 'react-redux';
 
@@ -27,6 +27,7 @@ export const AgencyProfileV2 = () => {
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [redirect, setRedirect] = useState(false);
     const request = useRef(null);
     const dispatch = useDispatch();
     const [toptierCode, setToptierCode] = useState(agencySlugs[agencySlug]);
@@ -67,8 +68,7 @@ export const AgencyProfileV2 = () => {
                 setToptierCode(code);
             }
             else {
-                setErrorMessage('Invalid Agency');
-                setError(true);
+                setRedirect(true);
             }
         }
         else if (slugsError) {
@@ -76,6 +76,9 @@ export const AgencyProfileV2 = () => {
         }
     }, [agencySlugs, slugsLoading, slugsError]);
 
+    if (redirect) {
+        return <Redirect to="/404" />;
+    }
     return (
         <AgencyPage
             setSelectedFy={setSelectedFy}
