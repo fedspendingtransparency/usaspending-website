@@ -22,14 +22,14 @@ const propTypes = {
     fy: PropTypes.string,
     windowWidth: PropTypes.number,
     isMobile: PropTypes.bool,
-    agencyId: PropTypes.string
+    toptierCode: PropTypes.string
 };
 
 const FySummary = ({
     fy,
     windowWidth,
     isMobile,
-    agencyId
+    toptierCode
 }) => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
@@ -47,10 +47,10 @@ const FySummary = ({
     }, []);
 
     useEffect(() => {
-        if (agencyId) {
+        if (toptierCode) {
             setIsLoading(true);
             setIsError(false);
-            budgetaryResourcesRequest.current = fetchBudgetaryResources(agencyId);
+            budgetaryResourcesRequest.current = fetchBudgetaryResources(toptierCode);
             budgetaryResourcesRequest.current.promise
                 .then(({ data }) => {
                     budgetaryResourcesRequest.current = null;
@@ -73,7 +73,7 @@ const FySummary = ({
                     throw e;
                 });
         }
-    }, [agencyId]);
+    }, [toptierCode]);
 
     const totalBudgetaryResources = budgetaryResources[fy]?.agencyBudget || '--';
     const percentOfFederalBudget = budgetaryResources[fy]?.percentOfFederalBudget || '--';
