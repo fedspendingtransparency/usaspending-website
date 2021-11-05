@@ -30,23 +30,23 @@ require('pages/agencyV2/index.scss');
 const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
-    toptierCode: PropTypes.string,
     selectedFy: PropTypes.string,
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
     isError: PropTypes.bool,
     isLoading: PropTypes.bool,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    agencySlug: PropTypes.string
 };
 
 export const AgencyProfileV2 = ({
     selectedFy,
-    toptierCode,
     setSelectedFy,
     isError,
     errorMessage,
     isLoading,
-    latestFy
+    latestFy,
+    agencySlug
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
@@ -68,7 +68,7 @@ export const AgencyProfileV2 = ({
             name: 'sub-agency',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
-            component: <AwardSpendingSubagency fy={`${selectedFy}`} toptierCode={toptierCode} />
+            component: <AwardSpendingSubagency fy={`${selectedFy}`} />
         }
     ];
 
@@ -114,7 +114,7 @@ export const AgencyProfileV2 = ({
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
-            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: toptierCode, name })}
+            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />

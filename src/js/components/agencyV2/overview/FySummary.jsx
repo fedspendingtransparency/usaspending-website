@@ -130,10 +130,8 @@ const FySummary = ({
                 : (
                     <FlexGridRow hasGutter className="fy-summary__row">
                         {sections.map((viz, i) => (
-                            <FlexGridCol tablet={6} className="fy-summary__col">
-                                <div key={`FY-Summary-${i}`}>
-                                    {viz}
-                                </div>
+                            <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>
+                                {viz}
                             </FlexGridCol>
                         ))}
                     </FlexGridRow>

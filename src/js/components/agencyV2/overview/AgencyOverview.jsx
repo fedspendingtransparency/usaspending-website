@@ -27,7 +27,7 @@ const CovidTooltip = ({
         .map(({ code, public_law: pl, title }) => {
             const parsedPublicLaw = `${pl.includes('Non-emergency') ? 'Not designated as emergency' : 'Designated as emergency'}`;
             return (
-                <li>
+                <li key={pl}>
                     <strong>{`DEFC: ${code}`}</strong>
                     <p>{`${parsedPublicLaw}; ${pl.replace(replaceEmergencyPl, 'Public Law')}, ${title.toUpperCase()}`}</p>
                 </li>
