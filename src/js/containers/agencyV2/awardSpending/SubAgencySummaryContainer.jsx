@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -6,7 +7,6 @@ import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
-import { useSelector } from 'react-redux';
 
 const propTypes = {
     fy: PropTypes.string,
