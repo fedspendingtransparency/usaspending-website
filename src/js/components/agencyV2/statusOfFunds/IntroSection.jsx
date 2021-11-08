@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const propTypes = {
@@ -14,6 +14,7 @@ const propTypes = {
 
 const IntroSection = ({ fy }) => {
     const { name } = useSelector((state) => state.agencyV2.overview);
+    const agencyBudget = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]?.agencyBudget) || '--';
 
     return (
         <div className="status-of-funds__intro-wrapper">
@@ -22,7 +23,7 @@ const IntroSection = ({ fy }) => {
             </div>
             <div className="status-of-funds__intro-section-text" >
                 <span >
-                    In... fiscal year var {fy}, the... agency name var {name}, then amount var here. And this is a glossary link for <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" />.
+                    In FY {fy}, the {name} was provided over {agencyBudget} in available <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" />. The {name} spends its available budgetary resources by making financial promises called <span className="status-of-funds__glossary-term">obligations</span> <GlossaryLink term="obligation" />. These funds were distributed to its agency sub-components.
                 </span>
             </div>
             <div className="status-of-funds__intro-section-italic-text">
