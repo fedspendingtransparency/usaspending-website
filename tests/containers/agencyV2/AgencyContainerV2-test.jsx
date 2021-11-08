@@ -51,7 +51,6 @@ test('an API request is made for the agency code mapped to the slug in the URL',
             ));
         })
     };
-    // spy.mockClear();
     spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>

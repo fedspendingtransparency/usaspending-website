@@ -21,7 +21,7 @@ export const useAgencySlugs = () => {
     const request = useRef();
 
     useEffect(() => {
-        if (agencySlugs.size && loading) {
+        if (!isEmpty(agencySlugs) && loading) {
             setLoading(false);
         }
         if (isEmpty(agencySlugs)) {
@@ -43,6 +43,11 @@ export const useAgencySlugs = () => {
                     request.current = null;
                 });
         }
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
     }, [agencySlugs]);
 
     return [agencySlugs, loading, error];
