@@ -1,71 +1,71 @@
 @import "all";
 
 .top-page {
-  width: 100%;
-  padding: 0;
-  background-color: $color-gray-lightest;
-}
+    width: 100%;
+    padding: 0;
+    background-color: $color-gray-lightest;
 
-.content {
-  background-color: $color-white;
-  border: solid thin $color-gray-lighter;
+    .content {
+        background-color: $color-white;
+        border: solid thin $color-gray-lighter;
 
-  padding: rem(32) rem(16) rem(40);
-  @include media($medium-screen) {
-    padding: rem(60) rem(40) rem(40);
-  }
-  margin: 0;
-  @include media($medium-screen) {
-    margin: rem(24) auto;
-  }
-}
+        padding: rem(32) rem(16) rem(40);
+        @include media($medium-screen) {
+            padding: rem(60) rem(40) rem(40);
+        }
+        margin: 0;
+        @include media($medium-screen) {
+            margin: rem(24) auto;
+        }
+    }
 
-footer {
-  margin-top: rem(48);
-}
+    footer {
+        margin-top: rem(48);
+    }
 
-.main-heading {
-  color: $color-gray;
+    .main-heading {
+        color: $color-gray;
 
-  font-size: rem(27);
-  line-height: rem(32);
-  @include media($medium-screen) {
-    font-size: rem(47);
-    line-height: rem(56);
-  }
-}
+        font-size: rem(27);
+        line-height: rem(32);
+        @include media($medium-screen) {
+            font-size: rem(47);
+            line-height: rem(56);
+        }
+    }
 
-.bold {
-  font-weight: $font-bold;
-}
+    .bold {
+        font-weight: $font-bold;
+    }
 
-.underline {
-  text-decoration: underline;
-}
+    .underline {
+        text-decoration: underline;
+    }
 
-.center {
-  text-align: center;
-}
+    .center {
+        text-align: center;
+    }
 
-img {
-  margin: rem(12) 0;
-  @include media($medium-screen) {
-    margin: rem(20) 0;
-  }
-}
+    img {
+        margin: rem(12) 0;
+        @include media($medium-screen) {
+            margin: rem(20) 0;
+        }
+    }
 
-ul {
-  padding: 0;
-  list-style-position: inside;
+    ul {
+        padding: 0;
+        list-style-position: inside;
 
-  .list-heading {
-    font-weight: $font-bold;
-    margin: rem(24) 0 rem(16);
-  }
+        .list-heading {
+            font-weight: $font-bold;
+            margin: rem(24) 0 rem(16);
+        }
 
-  li {
-    line-height: rem(24);
-    padding-left: rem(16);
-    text-indent: rem(-16);
-  }
+        li {
+            line-height: rem(24);
+            padding-left: rem(16);
+            text-indent: rem(-16);
+        }
+    }
 }
