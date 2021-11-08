@@ -67,7 +67,7 @@ const OpportunityProjectPage = () => {
                                 <li>Office of the Chief Data Officer, City of Laredo, Texas</li>
                             </ul>
                             <ul><div className="list-heading">Federal Data Stewards:</div></ul>
-                            <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the&nbsp;
+                            <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the{' '}
                                 {externalLink("https://opportunity.census.gov/data/covid-spending/", "TOP datasets page.")}
                             </p>
 
@@ -104,7 +104,7 @@ const OpportunityProjectPage = () => {
 
                             <footer>
                                 <p className="center">Questions, ideas, or feedback? E-mail us at <a href="mailto:usaspending@fiscal.treasury.gov">usaspending@fiscal.treasury.gov</a></p>
-                                <p className="center">We want to thank everyone involved in The Opportunity Project.  Learn more at&nbsp;
+                                <p className="center">We want to thank everyone involved in The Opportunity Project.  Learn more at{' '}
                                     {externalLink("http://www.opportunity.census.gov/", "opportunity.census.gov")}
                                 </p>
                             </footer>
