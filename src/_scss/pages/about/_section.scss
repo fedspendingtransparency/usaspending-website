@@ -33,7 +33,7 @@
     .about-section-content {
         margin-bottom: rem(25);
         a {
-          word-break: break-all;
+            white-space: nowrap;
         }
         p {
             font-size: rem(18);

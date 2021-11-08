@@ -48,10 +48,15 @@ const DataQuality = () => (
             </ul>
             <p>
                 To ensure that contract data is accurate, the Office of Management and
-                Budget issues the&nbsp;
-                <ExternalLink url="https://sam.gov/SAM/transcript/govt-wide_procurement_data_quality_summary.pdf">
+                Budget issues the{' '}
+                <a
+                    href="https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0048871"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0048871"
+                    title="https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0048871">
                     Federal Government Procurement Data Quality Summary
-                </ExternalLink>
+                </a>
                 &nbsp;about data submitted by the agencies to the Federal Procurement
                 Data System (FPDS). If there are any discrepancies in procurement data, FPDS
                 is the authoritative source.

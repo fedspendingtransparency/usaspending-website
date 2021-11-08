@@ -16,6 +16,7 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Features from './features/Features';
 import Download from './download/Download';
 import Community from './community/Community';
+import CovidVaccineLink from "./CovidVaccineLink";
 
 require('pages/homepage/homePage.scss');
 
@@ -24,6 +25,7 @@ const Homepage = () => (
         <MetaTags {...MetaTagHelper.homePageMetaTags} />
         <Header />
         <main id="main-content" className="homepage-content">
+            <CovidVaccineLink />
             <CovidHighlights />
             <Features />
             <Download />
