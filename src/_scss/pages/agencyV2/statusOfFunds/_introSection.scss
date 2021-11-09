@@ -23,6 +23,7 @@
 }
 
 .status-of-funds__glossary-term {
+    @import "components/glossaryLink";
     font-weight: $font-semibold;
 }
 
