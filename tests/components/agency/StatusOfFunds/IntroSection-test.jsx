@@ -6,7 +6,7 @@
 import React from 'react';
 import { render, screen } from 'test-utils';
 import IntroSection
-    from "../../../../src/js/components/agencyV2/statusOfFunds/IntroSection";
+    from "components/agencyV2/statusOfFunds/IntroSection";
 
 describe('Agency V2 Status of Funds IntroSection', () => {
     const fy = '2021';
