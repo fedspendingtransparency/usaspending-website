@@ -63,7 +63,7 @@ export const AgencyProfileV2 = ({
             name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
-            component: <StatusOfFunds fy={selectedFy} agencyId={agencyId} />
+            component: <StatusOfFunds fy={selectedFy} />
         },
         {
             name: 'sub-agency',
