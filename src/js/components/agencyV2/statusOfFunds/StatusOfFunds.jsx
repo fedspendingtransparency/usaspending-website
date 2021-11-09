@@ -10,7 +10,6 @@ import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from "./IntroSection";
 
-
 const propTypes = {
     agencyId: PropTypes.string,
     fy: PropTypes.string
