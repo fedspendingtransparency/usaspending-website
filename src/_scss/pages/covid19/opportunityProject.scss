@@ -19,11 +19,7 @@
         }
     }
 
-    footer {
-        margin-top: rem(48);
-    }
-
-    .main-heading {
+    header {
         color: $color-gray;
 
         font-size: rem(27);
@@ -34,16 +30,12 @@
         }
     }
 
-    .bold {
+    h1 {
+        font-size: rem(16);
         font-weight: $font-bold;
-    }
-
-    .underline {
         text-decoration: underline;
-    }
-
-    .center {
-        text-align: center;
+        line-height: rem(16);
+        margin: 0;
     }
 
     img {
@@ -67,5 +59,13 @@
             padding-left: rem(16);
             text-indent: rem(-16);
         }
+    }
+
+    footer {
+        margin-top: rem(48);
+    }
+
+    .center {
+        text-align: center;
     }
 }
