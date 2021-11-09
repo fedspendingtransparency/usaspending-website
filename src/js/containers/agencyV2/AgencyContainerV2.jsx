@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { useDispatch } from 'react-redux';
 
@@ -15,20 +15,25 @@ import { setAgencyOverview } from 'redux/actions/agencyV2/agencyV2Actions';
 
 import { useValidTimeBasedQueryParams, useLatestAccountData } from 'containers/account/WithLatestFy';
 import AgencyPage from 'components/agencyV2/AgencyPage';
+import { useAgencySlugs } from './WithAgencySlugs';
 
 export const AgencyProfileV2 = () => {
-    const { agencyId } = useParams();
+    const { agencySlug } = useParams();
     const [, , { year: latestFy }] = useLatestAccountData();
     const { fy: currentUrlFy } = useQueryParams(['fy']);
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ['fy']);
+    // Use a custom hook to get the { agency slug: toptier code } mapping, or request it if not yet available
+    const [agencySlugs, slugsLoading, slugsError] = useAgencySlugs();
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [redirect, setRedirect] = useState(false);
     const request = useRef(null);
     const dispatch = useDispatch();
+    const [toptierCode, setToptierCode] = useState(agencySlugs[agencySlug]);
 
     useEffect(() => {
-        if (selectedFy) {
+        if (selectedFy && toptierCode) {
             if (request.current) {
                 request.current.cancel();
             }
@@ -36,7 +41,7 @@ export const AgencyProfileV2 = () => {
             setError(false);
             setErrorMessage('');
             // request overview data for this agency
-            request.current = fetchAgencyOverview(agencyId, selectedFy);
+            request.current = fetchAgencyOverview(toptierCode, selectedFy);
             request.current.promise
                 .then((res) => {
                     setLoading(false);
@@ -53,14 +58,33 @@ export const AgencyProfileV2 = () => {
                     }
                 });
         }
-    }, [agencyId, selectedFy]);
+    }, [toptierCode, selectedFy]);
 
+    useEffect(() => {
+        if (!slugsLoading && !slugsError) {
+            // Lookup the toptier code for this agency and validate it
+            const code = agencySlugs[agencySlug];
+            if (code) {
+                setToptierCode(code);
+            }
+            else {
+                setRedirect(true);
+            }
+        }
+        else if (slugsError) {
+            setError(true);
+        }
+    }, [agencySlugs, slugsLoading, slugsError]);
+
+    if (redirect) {
+        return <Redirect to="/404" />;
+    }
     return (
         <AgencyPage
             setSelectedFy={setSelectedFy}
             latestFy={latestFy}
             selectedFy={selectedFy}
-            agencyId={agencyId}
+            agencySlug={agencySlug}
             isLoading={isLoading}
             isError={isError}
             errorMessage={errorMessage} />
