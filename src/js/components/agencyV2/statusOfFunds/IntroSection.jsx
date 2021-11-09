@@ -19,7 +19,7 @@ const IntroSection = ({ fy }) => {
     return (
         <div className="status-of-funds__intro-wrapper">
             <div className="status-of-funds__intro-section-title">
-                <span >How were funds distributed in FY {fy} for the {name}?</span>
+                <span data-testid="introSentence">How were funds distributed in FY {fy} for the {name}?</span>
             </div>
             <div className="status-of-funds__intro-section-text" >
                 <span >
