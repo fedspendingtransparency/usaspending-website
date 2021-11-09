@@ -9,10 +9,10 @@ import {
     ComingSoon,
     ErrorMessage,
     FiscalYearPicker,
-    ShareIcon,
-    DownloadIconButton
+    ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -31,21 +31,23 @@ require('pages/agencyV2/index.scss');
 const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
-    agencyId: PropTypes.string,
     selectedFy: PropTypes.string,
     latestFy: PropTypes.number,
     setSelectedFy: PropTypes.func,
     isError: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    agencySlug: PropTypes.string
 };
 
 export const AgencyProfileV2 = ({
     selectedFy,
-    agencyId,
     setSelectedFy,
     isError,
+    errorMessage,
     isLoading,
-    latestFy
+    latestFy,
+    agencySlug
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
@@ -55,19 +57,19 @@ export const AgencyProfileV2 = ({
             name: 'overview',
             display: 'Overview',
             icon: 'chart-area',
-            component: <AgencyOverview fy={selectedFy} isLoading={isLoading} agencyId={agencyId} />
+            component: <AgencyOverview fy={selectedFy} />
         },
         {
             name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
-            component: <StatusOfFunds fy={selectedFy} agencyId={agencyId} />
+            component: <StatusOfFunds fy={selectedFy} />
         },
         {
             name: 'sub-agency',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
-            component: <AwardSpendingSubagency fy={`${selectedFy}`} agencyId={agencyId} />
+            component: <AwardSpendingSubagency fy={`${selectedFy}`} />
         }
     ];
 
@@ -97,12 +99,13 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection.name);
     };
 
-    const slug = `agency_v2/${agencyId}`;
+    const { pathname, search } = useLocation();
+    const path = `${pathname.substring(1)}${search}`;
 
     const handleShare = (optionName) => {
-        handleShareOptionClick(optionName, slug, {
+        handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
-            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(slug)}/?fy=${selectedFy}`
+            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         });
     };
 
@@ -112,11 +115,10 @@ export const AgencyProfileV2 = ({
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
-            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencyId, name })}
+            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             toolBarComponents={[
                 <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />,
-                <DownloadIconButton downloadInFlight={false} onClick={() => {}} />
+                <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">
@@ -134,7 +136,7 @@ export const AgencyProfileV2 = ({
                 </div>
                 <div className="body usda__flex-col">
                     {isError
-                        ? <ErrorMessage />
+                        ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
                             <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
                                 {section.component || <ComingSoon />}

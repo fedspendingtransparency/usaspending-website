@@ -5,20 +5,21 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-ui';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from "./IntroSection";
 
 const propTypes = {
-    agencyId: PropTypes.string,
     fy: PropTypes.string
 };
 
 export const levels = ['Subcomponent', 'Federal Account'];
 
-const StatusOfFunds = ({ agencyId, fy }) => {
+const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
+    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
     return (
         <div className="body__content status-of-funds">
             <FlexGridContainer>
@@ -32,7 +33,7 @@ const StatusOfFunds = ({ agencyId, fy }) => {
                         <DrilldownSidebar level={level} setLevel={setLevel} />
                     </FlexGridCol>
                     <FlexGridCol className="status-of-funds__visualization" tablet={9}>
-                        <VisualizationSection level={level} agencyId={agencyId} fy={fy} />
+                        <VisualizationSection level={level} agencyId={toptierCode} fy={fy} />
                     </FlexGridCol>
                 </FlexGridRow>
             </FlexGridContainer>

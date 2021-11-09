@@ -21,23 +21,23 @@ import BarChart from './BarChart';
 const propTypes = {
     fy: PropTypes.string,
     windowWidth: PropTypes.number,
-    isMobile: PropTypes.bool,
-    agencyId: PropTypes.string
+    isMobile: PropTypes.bool
 };
 
 const FySummary = ({
     fy,
     windowWidth,
-    isMobile,
-    agencyId
+    isMobile
 }) => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(true);
     const {
         budgetaryResources,
-        _awardObligations
+        _awardObligations,
+        overview
     } = useSelector((state) => state.agencyV2);
+    const { toptierCode } = overview;
     const budgetaryResourcesRequest = useRef(null);
 
     useEffect(() => () => {
@@ -47,10 +47,10 @@ const FySummary = ({
     }, []);
 
     useEffect(() => {
-        if (agencyId) {
+        if (toptierCode) {
             setIsLoading(true);
             setIsError(false);
-            budgetaryResourcesRequest.current = fetchBudgetaryResources(agencyId);
+            budgetaryResourcesRequest.current = fetchBudgetaryResources(toptierCode);
             budgetaryResourcesRequest.current.promise
                 .then(({ data }) => {
                     budgetaryResourcesRequest.current = null;
@@ -73,7 +73,7 @@ const FySummary = ({
                     throw e;
                 });
         }
-    }, [agencyId]);
+    }, [toptierCode]);
 
     const totalBudgetaryResources = budgetaryResources[fy]?.agencyBudget || '--';
     const percentOfFederalBudget = budgetaryResources[fy]?.percentOfFederalBudget || '--';
@@ -130,10 +130,8 @@ const FySummary = ({
                 : (
                     <FlexGridRow hasGutter className="fy-summary__row">
                         {sections.map((viz, i) => (
-                            <FlexGridCol tablet={6} className="fy-summary__col">
-                                <div key={`FY-Summary-${i}`}>
-                                    {viz}
-                                </div>
+                            <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>
+                                {viz}
                             </FlexGridCol>
                         ))}
                     </FlexGridRow>

@@ -37,7 +37,10 @@ beforeEach(() => {
             }
         },
         _agencyObligations: 123456789.10,
-        recipientDistribution
+        recipientDistribution,
+        overview: {
+            toptierCode: '010'
+        }
     });
 });
 
@@ -51,7 +54,7 @@ test('No duplicate API requests', () => {
         cancel: () => {}
     });
 
-    render(<FYSummary isMobile={false} fy="2020" agencyId="10" windowWidth={1200} />);
+    render(<FYSummary isMobile={false} fy="2020" windowWidth={1200} />);
     return waitFor(() => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -66,23 +69,9 @@ test('No API request on FY change', () => {
         })),
         cancel: () => {}
     });
-    const { rerender } = render(<FYSummary isMobile={false} fy="2020" agencyId="10" windowWidth={1200} />);
+    const { rerender } = render(<FYSummary isMobile={false} fy="2020" windowWidth={1200} />);
     spy.mockReset();
 
-    rerender(<FYSummary isMobile={false} fy="2021" agencyId="10" windowWidth={1200} />);
+    rerender(<FYSummary isMobile={false} fy="2021" windowWidth={1200} />);
     expect(spy).not.toHaveBeenCalled();
-});
-
-test('Extra API request on Agency ID change', () => {
-    const spy = jest.spyOn(helpers, 'fetchBudgetaryResources').mockReturnValue({
-        promise: new Promise((resolve) => resolve({
-            data: {
-                agency_data_by_year: mockTotalBudgetaryResources
-            }
-        })),
-        cancel: () => {}
-    });
-    const { rerender } = render(<FYSummary isMobile={false} fy="2020" agencyId="10" />);
-    rerender(<FYSummary isMobile={false} fy="2021" agencyId="11" windowWidth={1200} />);
-    expect(spy).toHaveBeenCalledTimes(2);
 });
