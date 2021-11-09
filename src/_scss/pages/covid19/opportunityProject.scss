@@ -28,6 +28,11 @@
             font-size: rem(47);
             line-height: rem(56);
         }
+
+        img {
+            display: block;
+            margin: 40px 0;
+        }
     }
 
     h1 {
@@ -63,6 +68,10 @@
 
     footer {
         margin-top: rem(48);
+    }
+
+    .bold {
+        font-weight: $font-bold;
     }
 
     .center {

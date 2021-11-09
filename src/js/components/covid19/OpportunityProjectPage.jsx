@@ -38,7 +38,7 @@ const OpportunityProjectPage = () => {
                     <FlexGridCol desktop={{ span: 8, offset: 2 }} className="content">
                         <main role="main" className="main-content">
                             <header className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project
-                                <p><img src="img/opportunity-project-logo.png" role="presentation" alt="" /></p>
+                                <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
                             </header>
 
                             <section>
