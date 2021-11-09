@@ -71,6 +71,9 @@
             }
             .body__content {
                 margin-top: rem(35);
+                .table-wrapper {
+                    overflow-x: auto;
+                }
             }
             .usda-section__container {
                 @include display(flex);
@@ -79,6 +82,7 @@
                     height: rem(2)
                 }
             }
+            @import './statusOfFunds/statusOfFunds';
         }
     }
 }

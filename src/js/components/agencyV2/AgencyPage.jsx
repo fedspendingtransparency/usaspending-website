@@ -23,6 +23,7 @@ import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
+import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 
 require('pages/agencyV2/index.scss');
@@ -59,10 +60,10 @@ export const AgencyProfileV2 = ({
             component: <AgencyOverview fy={selectedFy} />
         },
         {
-            name: 'budget-category',
+            name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
-            component: <ComingSoon />
+            component: <StatusOfFunds fy={selectedFy} agencyId={agencyId} />
         },
         {
             name: 'sub-agency',
@@ -130,8 +131,7 @@ export const AgencyProfileV2 = ({
                         detectActiveSection={setActiveSection}
                         sections={sections.map((section) => ({
                             section: section.name,
-                            label: section.display,
-                            overLine: section.overLine
+                            label: section.display
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
