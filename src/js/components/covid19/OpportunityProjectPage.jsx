@@ -41,7 +41,7 @@ const OpportunityProjectPage = () => {
                                 <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
                                 <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
                             </header>
-                            
+
                             <section>
                                 <p>The Bureau of the Fiscal Service (Fiscal) at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a Challenge Partner to collaborate, innovate and assist in solving the problem of analyzing equity in COVID-19 federal funding.</p>
                                 <p>The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges. TOP brings together technologists, government, and community leaders to rapidly prototype digital products— powered by federal open data—that solve real-world problems for people across the country TOP’s 2021 sprint theme is “The World Post COVID-19: Society, Economy, and Environment.</p>
