@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-ui';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
+import IntroSection from "./IntroSection";
 
 const propTypes = {
     fy: PropTypes.string
@@ -24,7 +25,7 @@ const StatusOfFunds = ({ fy }) => {
             <FlexGridContainer>
                 <FlexGridRow className="status-of-funds__intro" hasGutter>
                     <FlexGridCol>
-                        DEV-8046 Intro: agency {toptierCode}, FY {fy}
+                        <IntroSection fy={fy} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter>
