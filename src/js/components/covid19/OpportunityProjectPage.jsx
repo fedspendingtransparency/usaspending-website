@@ -37,10 +37,11 @@ const OpportunityProjectPage = () => {
                 <FlexGridRow>
                     <FlexGridCol desktop={{ span: 8, offset: 2 }} className="content">
                         <main role="main" className="main-content">
-                            <header className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project
+                            <header>
+                                <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
                                 <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
                             </header>
-
+                            
                             <section>
                                 <p>The Bureau of the Fiscal Service (Fiscal) at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a Challenge Partner to collaborate, innovate and assist in solving the problem of analyzing equity in COVID-19 federal funding.</p>
                                 <p>The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges. TOP brings together technologists, government, and community leaders to rapidly prototype digital products— powered by federal open data—that solve real-world problems for people across the country TOP’s 2021 sprint theme is “The World Post COVID-19: Society, Economy, and Environment.</p>
@@ -93,20 +94,20 @@ const OpportunityProjectPage = () => {
                             </section>
 
                             <section>
-                                <h1>Bowie State University</h1>
+                                <h2>Bowie State University</h2>
                                 <p>Product statement: Bowie State University Opportunity Project uses publicly accessible CDC’s Social Vulnerability Index, CDC’s County vaccination rates, the ARP county COVID-19 vaccine spending data, and Co-est 2020 to assess COVID-19 vaccination and equity problems for community leaders as end users.</p>
                                 <p>Link: {externalLink("https://app.flow.gl/flow/3xfvr3", "Bowie State University TOP Project on Flow Immersive")}</p>
 
-                                <h1>Morehouse College</h1>
+                                <h2>Morehouse College</h2>
                                 <p>Product statement: The MSI (Minority Serving Institutions) COVID-19 Relief Dashboard for Equity and Transparency uses several federal datasets surrounding school enrollment and COVID-19 relief awards to highlight whether or not COVID-19 funding was equitably distributed to MSIs around the country for federal, state, and local officials and organizations.</p>
                                 <p>Link: {externalLink("https://a.flow.gl/flow/kuo62d54", "MSI COVID-19 Relief Dashboard for Equity and Transparency")}</p>
 
-                                <h1>University of Kansas Center for Public Partnerships and Research</h1>
+                                <h2>University of Kansas Center for Public Partnerships and Research</h2>
                                 <p>Product statement: The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between childcare and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.</p>
                                 <p>Link: {externalLink("https://top.kucppr.org/", "Child Care in America | A broken business model (kucppr.org)")}</p>
                                 <p>Video: {externalLink("https://vimeo.com/638475809", "Kansas & Flow Immersive TOP Project Video Overview")}</p>
 
-                                <h1>The Mom Project</h1>
+                                <h2>The Mom Project</h2>
                                 <p>Product statement: The PEI (Predictive Equity Index) model employs machine learning and predictive analytics to understand key drivers of equity in the distribution of PPP loans. This methodology allows for creation of a cohesive dataset, allowing for an in-depth assessment of county-level performance of equity, as well as an understanding of how future actions serve to impact anticipated levels of equity in future funding efforts. Taken together, this product allows for policy makers at the county, state, and national-level to take county-level action maximizing the impact of federal dollars on the communities the investments aim to serve.</p>
                                 <p>Link: {externalLink("https://work.themomproject.com/predictiveequity", "Predictive Equity Index Model, developed by Werklabs, the research division of The Mom Project")}</p>
                             </section>
