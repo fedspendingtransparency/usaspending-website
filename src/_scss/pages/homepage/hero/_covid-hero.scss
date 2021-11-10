@@ -99,6 +99,14 @@ $dot-color: #7C5E94;
                   font-size: rem(30);
                   line-height: 5rem;
                   margin-bottom: 0;
+                  span:nth-of-type(2) {
+                    display: inline-block;
+                    min-width: rem(30);
+                    .dot-pulse {
+                      margin: auto;
+                      top: rem(30);
+                    }
+                  }
                   @media(max-width: $medium-screen) {
                     line-height: 4rem;
                     margin-top: 1rem;

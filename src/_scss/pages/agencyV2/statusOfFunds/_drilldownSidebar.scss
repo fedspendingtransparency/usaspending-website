@@ -1,0 +1,5 @@
+.status-of-funds__drilldown-sidebar {
+    background-color: $color-gray-lightest;
+    border-radius: rem(5);
+    @include align-items(stretch);
+}

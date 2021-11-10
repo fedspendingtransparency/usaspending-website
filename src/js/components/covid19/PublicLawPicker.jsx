@@ -14,11 +14,6 @@ const options = [
         title: 'American Rescue Plan',
         description: 'Non-emergency Public Law 117-2',
         value: 'american-rescue-plan'
-    },
-    {
-        title: 'Learn more about filtering USAspending data by Public Law in our Data Sources & Methodology page.',
-        value: 'dsm',
-        className: 'dsm'
     }
 ];
 
