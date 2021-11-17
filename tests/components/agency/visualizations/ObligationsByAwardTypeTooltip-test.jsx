@@ -95,7 +95,7 @@ test('adds an active class to the hovered award type', () => {
     expect(contractsAmount.classList.contains('award-type-tooltip__table-data_active')).toBeTruthy();
 });
 
-test('displays -- as the percet for negative obligations', () => {
+test('displays -- as the percent for negative obligations', () => {
     render(
         <ObligationsByAwardTypeTooltip
             awardTypes={mockAwardTypes}

@@ -15,20 +15,20 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
-const propTypes = {
-    page: PropTypes.number,
-    limit: PropTypes.number,
-    sort: PropTypes.string,
-    order: PropTypes.string,
-    total: PropTypes.number,
-    federalAccounts: PropTypes.array,
-    changePage: PropTypes.func,
-    updateSort: PropTypes.func,
-    inFlight: PropTypes.bool,
-    error: PropTypes.bool
-};
-
 export default class FederalAccountsTable extends React.Component {
+    static propTypes = {
+        page: PropTypes.number,
+        limit: PropTypes.number,
+        sort: PropTypes.string,
+        order: PropTypes.string,
+        total: PropTypes.number,
+        federalAccounts: PropTypes.array,
+        changePage: PropTypes.func,
+        updateSort: PropTypes.func,
+        inFlight: PropTypes.bool,
+        error: PropTypes.bool
+    };
+
     getHeaders() {
         const { sort, order, updateSort } = this.props;
         return map(tableMapping, (header) => (
@@ -64,11 +64,13 @@ export default class FederalAccountsTable extends React.Component {
                         );
                     }
                     else if (key === 'fundingAgencyName') {
-                        cellData = (
-                            <Link to={`/agency/${account._fundingAgencyId}`}>
-                                {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
-                            </Link>
-                        );
+                        cellData = account._fundingAgencyId ?
+                            (
+                                <Link to={`/agency/${account._fundingAgencyId}`}>
+                                    {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
+                                </Link>
+                            )
+                            : '--';
                     }
                     return (
                         <td
@@ -144,5 +146,3 @@ export default class FederalAccountsTable extends React.Component {
         );
     }
 }
-
-FederalAccountsTable.propTypes = propTypes;

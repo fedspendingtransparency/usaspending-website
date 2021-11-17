@@ -31,7 +31,8 @@ export const initialState = {
         programActivity: null,
         federalAccount: null
     },
-    spendingBySubagencyTotals
+    spendingBySubagencyTotals,
+    agencySlugs: {}
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -81,23 +82,15 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 spendingBySubagencyTotals: action.spendingBySubagencyTotals
             };
+        case 'SET_AGENCY_SLUGS':
+            return {
+                ...state,
+                agencySlugs: action.agencySlugs
+            };
         case 'RESET_SUBAGENCY_TOTALS':
             return {
                 ...state,
                 spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
-            };
-        case 'SET_BUDGET_CATEGORY_COUNT':
-            return {
-                ...state,
-                budgetCategoryCounts: {
-                    ...state.budgetCategoryCounts,
-                    [action.tab]: action.count
-                }
-            };
-        case 'RESET_BUDGET_CATEGORY_COUNTS':
-            return {
-                ...state,
-                budgetCategoryCounts: initialState.budgetCategoryCounts
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
