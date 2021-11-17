@@ -52,7 +52,7 @@ const OpportunityProjectPage = () => {
                                 <ul><div className="list-heading">Tech Teams:</div>
                                     <li>Bowie State University</li>
                                     <li>Morehouse College</li>
-                                    <li>The University of Kansas</li>
+                                    <li>University of Kansas Center for Public Partnerships and Research</li>
                                     <li>The Mom Project</li>
                                 </ul>
                                 <ul><div className="list-heading">Product Advisors:</div>
