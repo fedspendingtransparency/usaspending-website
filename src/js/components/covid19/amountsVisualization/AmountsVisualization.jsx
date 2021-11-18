@@ -179,11 +179,8 @@ const AmountsVisualization = ({
                                     publicLaw={publicLaw} />
                             </svg>
                             {publicLaw === 'american-rescue-plan' ?
-                                <Note message={(
-                                    <>
-                                        Amounts reported in this section were derived using: 1) data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) data manually reported as American Rescue Plan spending for the Department of Labor.
-                                    </>
-                                )} /> : <div />
+                                <Note message="Amounts reported in this section were derived using: 1) GTAS data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) Department of Labor (DOL) data manually reported as American Rescue Plan spending that is not represented in DOL GTAS or USAspending DAIMS submissions. This portion of DOL data will not appear on the tables and other visualizations displayed below or when downloading this page." />
+                                : ''
                             }
                         </div>,
                         <div>
