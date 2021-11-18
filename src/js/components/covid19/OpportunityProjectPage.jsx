@@ -63,13 +63,12 @@ const OpportunityProjectPage = () => {
                                     <li>The Honorable Elbra Wedgeworth, Denver, Colorado</li>
                                     <li>Dr. Bina Shrimali, Researcher, Public Health & Community Development</li>
                                     <li>Christian McDonald, Innovation Director, Dallas Morning News Journalism Innovation Endowment at The University of Texas at Austin</li>
-                                    <li>The Opa-locka Community Development Corporation</li>
                                     <li>Maria Howeth, Grants Specialist, Tribal Nations, Ecivis</li>
                                     <li>Poonam Soans, Chief Data Officer, The State of New Jersey</li>
-                                    <li>Department of Human Services, Allegheny County</li>
+                                    <li>Department of Human Services, Allegheny County, Pennsylvania</li>
                                     <li>Johnson County Public Health, Johnson County, Iowa</li>
-                                    <li>Office of the Chief Data Officer & Chief Financial Officer, City of Detroit, Michigan</li>
-                                    <li>City of Laredo Information Services Department</li>
+                                    <li>Office of the Chief Financial Officer, Data Strategy & Analytics, City of Detroit, MI</li>
+                                    <li>City of Laredo Information Services Department, Laredo, Texas</li>
                                 </ul>
                                 <ul><div className="list-heading">Federal Data Stewards:</div></ul>
                                 <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the{' '}
