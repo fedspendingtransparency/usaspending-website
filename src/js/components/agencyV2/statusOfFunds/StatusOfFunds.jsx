@@ -10,6 +10,7 @@ import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-u
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from "./IntroSection";
+import StatusOfFundsNotes from "./StatusOfFundsNotes";
 
 const propTypes = {
     fy: PropTypes.string
@@ -23,7 +24,7 @@ const StatusOfFunds = ({ fy }) => {
     return (
         <div className="body__content status-of-funds">
             <FlexGridContainer>
-                <FlexGridRow className="status-of-funds__intro" hasGutter>
+                <FlexGridRow hasGutter>
                     <FlexGridCol>
                         <IntroSection fy={fy} />
                     </FlexGridCol>
@@ -34,6 +35,11 @@ const StatusOfFunds = ({ fy }) => {
                     </FlexGridCol>
                     <FlexGridCol className="status-of-funds__visualization" tablet={9}>
                         <VisualizationSection level={level} agencyId={toptierCode} fy={fy} />
+                    </FlexGridCol>
+                </FlexGridRow>
+                <FlexGridRow hasGutter>
+                    <FlexGridCol>
+                        <StatusOfFundsNotes />
                     </FlexGridCol>
                 </FlexGridRow>
             </FlexGridContainer>
