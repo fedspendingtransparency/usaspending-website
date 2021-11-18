@@ -16,13 +16,15 @@ const TopFiveRow = (props) => {
 
     const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
 
+    const name = [];
+    name.push(props.data.name);
     return (
         <tr
             className="category-table__table-row">
             <td
                 className="category-table__table-cell"
                 title={props.data.name}>
-                {props.data.name}
+                {name}
             </td>
             <td
                 className="category-table__table-cell category-table__table-cell_centered"
