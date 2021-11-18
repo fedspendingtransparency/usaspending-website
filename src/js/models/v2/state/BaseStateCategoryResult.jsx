@@ -1,10 +1,11 @@
 /**
- * BaseStateCategoryResult.js
+ * BaseStateCategoryResult.jsx
  * Created by Kevin Li 5/16/18
  */
 
+import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-
+import GlobalConstants from 'GlobalConstants';
 
 export const defaultNameTemplate = (code, name) => {
     if (code) {
@@ -39,6 +40,9 @@ const BaseStateCategoryResult = {
     },
     get name() {
         return `${this.index}. ${this.combinedName}`;
+    },
+    get linkedName() {
+        return <a href={`/${GlobalConstants.AGENCY_LINK}/${this._slug}`}>{this.name}</a>;
     }
 };
 

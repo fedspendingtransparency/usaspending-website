@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     data: PropTypes.object,
@@ -16,15 +17,15 @@ const TopFiveRow = (props) => {
 
     const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
 
-    const name = [];
-    name.push(props.data.name);
     return (
         <tr
             className="category-table__table-row">
             <td
                 className="category-table__table-cell"
                 title={props.data.name}>
-                {name}
+                {GlobalConstants.ARP_RELEASED && props.data._slug ?
+                    props.data.linkedName
+                    : props.data.name}
             </td>
             <td
                 className="category-table__table-cell category-table__table-cell_centered"

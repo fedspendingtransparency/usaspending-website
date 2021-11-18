@@ -145,22 +145,12 @@ export class TopFiveContainer extends React.Component {
 
             // make agency names links to agency page
             else if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                if (GlobalConstants.ARP_RELEASED) {
-                    result.nameTemplate = (code, name, slug) => {
-                        if (code) {
-                            return <a href={slug}>${name} (${code})</a>;
-                        }
-                        return name;
-                    };
-                }
-                else {
-                    result.nameTemplate = (code, name) => {
-                        if (code) {
-                            return `${name} (${code})`;
-                        }
-                        return name;
-                    };
-                }
+                result.nameTemplate = (code, name) => {
+                    if (code) {
+                        return `${name} (${code})`;
+                    }
+                    return name;
+                };
             }
             else if (type === 'county' || type === 'district') {
                 result.nameTemplate = (code, name) => (name);
