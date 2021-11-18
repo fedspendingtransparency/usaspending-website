@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import GlobalConstants from 'GlobalConstants';
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
@@ -133,6 +132,7 @@ export class TopFiveContainer extends React.Component {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
+
             // use a special naming template for DUNS
             if (type === 'recipient_duns') {
                 result.nameTemplate = (code, name) => {
@@ -142,8 +142,6 @@ export class TopFiveContainer extends React.Component {
                     return name;
                 };
             }
-
-            // make agency names links to agency page
             else if (type === 'awarding_agency' || type === 'awarding_subagency') {
                 result.nameTemplate = (code, name) => {
                     if (code) {
