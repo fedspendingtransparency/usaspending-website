@@ -19,14 +19,14 @@ import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
 import TopFive from 'components/recipient/topFive/TopFive';
 
-const propTypes = {
-    total: PropTypes.number,
-    category: PropTypes.string,
-    fy: PropTypes.string,
-    recipientHash: PropTypes.string
-};
-
 export class TopFiveContainer extends React.Component {
+    static propTypes = {
+        total: PropTypes.number,
+        category: PropTypes.string,
+        fy: PropTypes.string,
+        recipientHash: PropTypes.string
+    };
+
     constructor(props) {
         super(props);
 
@@ -111,7 +111,7 @@ export class TopFiveContainer extends React.Component {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
                     this.setState({
                         loading: false,
                         error: true
@@ -119,6 +119,7 @@ export class TopFiveContainer extends React.Component {
                 }
             });
     }
+
     parseResults(data, type) {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
@@ -162,5 +163,3 @@ export default connect(
         recipientHash: state.recipient.id
     })
 )(TopFiveContainer);
-
-TopFiveContainer.propTypes = propTypes;
