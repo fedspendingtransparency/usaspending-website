@@ -6,6 +6,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Pagination } from 'data-transparency-ui';
 import { levels } from './StatusOfFunds';
 
 const propTypes = {
@@ -27,6 +28,14 @@ const VisualizationSection = ({
         <div>
             {children}
         </div>
+        <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
+            currentPage={1}
+            changePage={1}
+            changeLimit={1}
+            limitSelector
+            resultsText
+            pageSize={10}
+            totalItems={10} />
     </div>
 );
 
