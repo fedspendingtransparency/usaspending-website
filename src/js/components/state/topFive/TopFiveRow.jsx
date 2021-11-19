@@ -23,7 +23,7 @@ const TopFiveRow = (props) => {
             <td
                 className="category-table__table-cell"
                 title={props.data.name}>
-                {GlobalConstants.ARP_RELEASED && props.data._slug ?
+                {!GlobalConstants.PROD && props.data._slug ?
                     props.data.linkedName
                     : props.data.name}
             </td>
