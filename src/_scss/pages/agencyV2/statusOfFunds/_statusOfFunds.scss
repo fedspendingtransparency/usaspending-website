@@ -1,7 +1,5 @@
 .status-of-funds {
-    .status-of-funds__intro {
-        // TODO
-    }
+    @import './introSection';
     @import './drilldownSidebar';
     @import './visualizationSection';
 }
