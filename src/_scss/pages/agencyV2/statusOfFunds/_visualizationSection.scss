@@ -1,3 +1,16 @@
 .status-of-funds__visualization {
-    // TODO
+    p {
+        font-size: rem(20);
+    }
+    line {
+        stroke: $color-gray-lightest;
+    }
+    .tick:first-of-type {
+        line {
+            visibility: hidden !important;
+        }
+    }
+    .domain {
+        stroke: $color-gray-lightest;
+    }
 }

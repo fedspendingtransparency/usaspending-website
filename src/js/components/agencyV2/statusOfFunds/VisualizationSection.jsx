@@ -11,13 +11,23 @@ import { levels } from './StatusOfFunds';
 const propTypes = {
     level: PropTypes.number,
     agencyId: PropTypes.string,
-    fy: PropTypes.string
+    agencyName: PropTypes.string,
+    fy: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
 };
 
-const VisualizationSection = ({ level }) => (
-    <>
-        DEV-8049 horizontal bar chart viewing {levels[level]}s
-    </>
+const VisualizationSection = ({
+    level,
+    agencyName,
+    fy,
+    children
+}) => (
+    <div className="status-of-funds__visualization">
+        <p>{agencyName} by <strong>{levels[level]}</strong> for FY {fy}</p>
+        <div>
+            {children}
+        </div>
+    </div>
 );
 
 VisualizationSection.propTypes = propTypes;
