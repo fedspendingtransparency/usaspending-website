@@ -7,10 +7,10 @@
     }
     .tick:first-of-type {
         line {
-            visibility: hidden !important;
+            visibility: hidden;
         }
     }
     .domain {
-        stroke: $color-gray-lightest;
+        visibility: hidden;
     }
 }
