@@ -5,24 +5,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from "react-redux";
-import GlossaryLink from "../../sharedComponents/GlossaryLink";
+import { useSelector } from 'react-redux';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const propTypes = {
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    agencyName: PropTypes.string
 };
 
-const IntroSection = ({ fy }) => {
-    const { name } = useSelector((state) => state.agencyV2.overview);
+const IntroSection = ({ fy, agencyName }) => {
     const agencyBudget = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]?.agencyBudget) || '--';
 
     return (
         <div className="status-of-funds__intro-wrapper">
             <div className="status-of-funds__intro-section-title">
-                How were funds distributed in FY {fy} for the {name}?
+                How were funds distributed in FY {fy} for the {agencyName}?
             </div>
             <div className="status-of-funds__intro-section-text" data-testid="introCopy" >
-                In FY {fy}, the {name} had {agencyBudget} in available <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> distributed among its 12 agency sub-components. Agencies spend available budgetary resources by making financial promises called <span className="status-of-funds__glossary-term">obligations</span> <GlossaryLink term="obligation" />. In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated.
+                In FY {fy}, the {agencyName} had {agencyBudget} in available <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> distributed among its 12 agency sub-components. Agencies spend available budgetary resources by making financial promises called <span className="status-of-funds__glossary-term">obligations</span> <GlossaryLink term="obligation" />. In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated.
             </div>
             <div className="status-of-funds__intro-section-italic-text">
                 Select a segment in the chart below to dive deeper into the data.

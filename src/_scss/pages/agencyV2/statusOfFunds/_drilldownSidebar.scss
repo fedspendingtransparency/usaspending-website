@@ -2,4 +2,45 @@
     background-color: $color-gray-lightest;
     border-radius: rem(5);
     @include align-items(stretch);
+    padding: rem(24) rem(16);
+    font-size: rem(12);
+    line-height: rem(16);
+    .drilldown-level {
+        .drilldown-level__label {
+            text-transform: uppercase;
+            padding-bottom: rem(2);
+            padding-left: rem(30);
+        }
+        .drilldown-level__content {
+            @include display(flex);
+            
+        }
+        .drilldown-level__trail {
+            padding-right: rem(16);
+            .drilldown-level__indicator {
+                &.drilldown-level__indicator_active {
+                    background-color: $color-primary;
+                }
+                height: rem(14);
+                width: rem(14);
+                border-radius: 50%;
+                border: solid rem(2) $color-gray-lighter;
+            }
+            .drilldown-level__line {
+                border-left: solid rem(2) $color-gray-lighter;
+                height: 100%;
+                margin-left: rem(6);
+                margin-top: rem(6);
+            }
+        }
+        .drilldown-level__name {
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            line-height: rem(18);
+            padding-bottom: rem(8);
+        }
+        .drilldown-level__description {
+            padding-bottom: rem(24);
+        }
+    }
 }
