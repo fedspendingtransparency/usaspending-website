@@ -18,7 +18,9 @@ const globalConstants = {
     QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
-    ARP_RELEASED: process.env.ENV !== 'prod'
+    ARP_RELEASED: process.env.ENV !== 'prod',
+    AGENCYV2_RELEASED: process.env.ENV !== 'prod',
+    AGENCY_LINK: process.env.ENV === 'prod' ? 'agency' : 'agency_v2'
 };
 
 module.exports = globalConstants;
