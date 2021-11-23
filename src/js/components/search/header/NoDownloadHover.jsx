@@ -10,7 +10,7 @@ import { TooltipComponent } from 'data-transparency-ui';
 const NoDownloadHover = () => (
     <TooltipComponent title="Advanced Search Download">
         <div className="message">
-            Our Advanced Search limits downloads to 10,000 records.
+            Our Advanced Search limits downloads to 100,000 records.
             Narrow your search using additional filters, or grab larger files from
             our <Link to="/download_center/award_data_archive">Award Data Archive</Link>.
         </div>
