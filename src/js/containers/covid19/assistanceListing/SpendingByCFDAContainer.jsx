@@ -285,6 +285,13 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 cfdaRequest = fetchCfdaLoans(params);
             }
             else {
+                // when not loan tab, if sort is on faceValueOfLoan, make it obligation instead to avoid API error
+                if (sort === 'faceValueOfLoan') {
+                    setSort('obligation');
+                    params.pagination.sort = 'obligation';
+                    setOrder('desc');
+                    params.pagination.order = 'desc';
+                }
                 cfdaRequest = fetchSpendingByCfda(params);
             }
             request.current = cfdaRequest;

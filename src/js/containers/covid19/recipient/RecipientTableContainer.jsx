@@ -281,6 +281,11 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 prevActiveTab !== activeTab
             );
             if (hasParamChanged) {
+                // when award type changes, if sort was on faceValueOfLoan, make it obligation instead to avoid API error
+                if (prevSort === 'faceValueOfLoan' && activeTab !== 'loans') {
+                    setSort('obligation');
+                    setOrder('desc');
+                }
                 fetchSpendingByRecipientCallback();
             }
         }
