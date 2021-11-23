@@ -11,7 +11,7 @@ import DrilldownSidebarLevel from './DrilldownSidebarLevel';
 
 const propTypes = {
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func.isRequired,
+    setLevel: PropTypes.func,
     fy: PropTypes.string.isRequired,
     agencyName: PropTypes.string,
     selectedSubcomponent: PropTypes.shape({
@@ -34,19 +34,16 @@ const DrilldownSidebar = ({
                 label="Parent Agency"
                 obligated={agencyObligated}
                 budgetaryResources={agencyBudget} />
-            {levels.map((dataType, i) => {
-                if (i < level) {
-                    return (
-                        <DrilldownSidebarLevel
-                            key={dataType}
-                            active={level === i + 1}
-                            name={selectedSubcomponent?.name}
-                            label={dataType}
-                            obligated={selectedSubcomponent?.obligations}
-                            budgetaryResources={selectedSubcomponent?.budgetaryResources} />
-                    );
-                }
-            })}
+            {levels.map((dataType, i) => ((i < level) ? (
+                <DrilldownSidebarLevel
+                    key={dataType}
+                    active={level === i + 1}
+                    name={selectedSubcomponent?.name}
+                    label={dataType}
+                    obligated={selectedSubcomponent?.obligations}
+                    budgetaryResources={selectedSubcomponent?.budgetaryResources} />
+            ) : '')
+            )}
             <div>
                 {level < levels.length - 1 ? (
                     <button onClick={() => setLevel(level + 1)}>

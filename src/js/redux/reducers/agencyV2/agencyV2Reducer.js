@@ -4,8 +4,8 @@
  */
 
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
-import BaseAgencySubagencyCount from '../../../models/v2/agency/BaseAgencySubagencyCount';
-import BaseSubagencySpendingRow from '../../../models/v2/agency/BaseSubagencySpendingRow';
+import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
+import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
 
 // Create an empty recipient object for the initial state
 const recipientDistribution = Object.create(BaseAgencyRecipients);

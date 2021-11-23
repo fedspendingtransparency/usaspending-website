@@ -29,7 +29,7 @@ const StatusOfFunds = ({ fy }) => {
         name: "Bureau of the Census",
         id: "bureau_of_the_census",
         total_budgetary_resources: 5000000,
-        total_obligations: 30000000.72
+        total_obligations: 3000000.72
     };
     const onClick = (selectedLevel, data = mockData) => {
         // TODO DEV-8052 move this logic to the visualization

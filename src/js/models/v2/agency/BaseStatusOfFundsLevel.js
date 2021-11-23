@@ -13,10 +13,10 @@ const BaseStatusOfFundsLevel = {
         this._obligations = data.total_obligations;
     },
     get budgetaryResources() {
-        return formatMoneyWithUnitsShortLabel(this._budgetaryResources);
+        return formatMoneyWithUnitsShortLabel(this._budgetaryResources, 2);
     },
     get obligations() {
-        return formatMoneyWithUnitsShortLabel(this._obligations);
+        return formatMoneyWithUnitsShortLabel(this._obligations, 2);
     }
 };
 
