@@ -26,6 +26,7 @@ const DrilldownSidebar = ({
     level, setLevel, fy, agencyName, selectedSubcomponent
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]) || '--';
+    const goBack = () => setLevel(level - 1);
     return (
         <>
             <DrilldownSidebarLevel
@@ -41,7 +42,8 @@ const DrilldownSidebar = ({
                     name={selectedSubcomponent?.name}
                     label={dataType}
                     obligated={selectedSubcomponent?.obligations}
-                    budgetaryResources={selectedSubcomponent?.budgetaryResources} />
+                    budgetaryResources={selectedSubcomponent?.budgetaryResources}
+                    goBack={goBack} />
             ) : '')
             )}
             <div>
@@ -51,7 +53,7 @@ const DrilldownSidebar = ({
                     </button>
                 ) : ''}
                 {level > 0 ? (
-                    <button onClick={() => setLevel(level - 1)}>
+                    <button onClick={goBack}>
                         Up
                     </button>
                 ) : ''}
