@@ -76,7 +76,7 @@ describe('BaseStateCategoryResult', () => {
             result.nameTemplate = jest.fn(() => 'test');
             const output = result.combinedName;
             expect(result._nameTemplate).toHaveBeenCalledTimes(1);
-            expect(result._nameTemplate).toHaveBeenLastCalledWith('1234', 'Banana');
+            expect(result._nameTemplate).toHaveBeenLastCalledWith('1234', 'Banana', "banana");
             expect(output).toEqual('test');
         });
     });

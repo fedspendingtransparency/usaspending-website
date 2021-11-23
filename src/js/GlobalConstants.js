@@ -17,6 +17,7 @@ const globalConstants = {
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
     QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
+    PROD: process.env.ENV === 'prod',
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
     AGENCYV2_RELEASED: process.env.ENV !== 'prod',

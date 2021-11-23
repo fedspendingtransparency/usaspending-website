@@ -47,4 +47,3 @@ const BaseStateCategoryResult = {
 };
 
 export default BaseStateCategoryResult;
-
