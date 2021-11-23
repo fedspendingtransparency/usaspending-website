@@ -11,19 +11,18 @@ const propTypes = {
     name: PropTypes.string,
     obligated: PropTypes.string,
     budgetaryResources: PropTypes.string,
-    active: PropTypes.bool,
-    last: PropTypes.bool
+    active: PropTypes.bool
 };
 
 const DrilldownSidebar = ({
-    label, name, obligated, budgetaryResources, active, last
+    label, name, obligated, budgetaryResources, active
 }) => (
     <div className="drilldown-level">
         <div className="drilldown-level__label">{label}</div>
         <div className="drilldown-level__content">
             <div className="drilldown-level__trail">
                 <div className={`drilldown-level__indicator${active ? ' drilldown-level__indicator_active' : ''}`} />
-                {last ? null : <div className="drilldown-level__line" />}
+                {active ? null : <div className="drilldown-level__line" />}
             </div>
             <div>
                 <div className="drilldown-level__name">{name}</div>

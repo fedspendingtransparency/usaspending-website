@@ -10,25 +10,43 @@ import { levels } from './StatusOfFunds';
 import DrilldownSidebarLevel from './DrilldownSidebarLevel';
 
 const propTypes = {
-    level: PropTypes.number,
-    setLevel: PropTypes.func,
-    fy: PropTypes.string,
-    agencyName: PropTypes.string
+    level: PropTypes.number.isRequired,
+    setLevel: PropTypes.func.isRequired,
+    fy: PropTypes.string.isRequired,
+    agencyName: PropTypes.string,
+    selectedSubcomponent: PropTypes.shape({
+        name: PropTypes.string,
+        id: PropTypes.string,
+        budgetaryResources: PropTypes.string,
+        obligations: PropTypes.string
+    })
 };
 
 const DrilldownSidebar = ({
-    level, setLevel, fy, agencyName
+    level, setLevel, fy, agencyName, selectedSubcomponent
 }) => {
-    const agencyBudget = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]?.agencyBudget) || '--';
+    const { agencyBudget, agencyObligated } = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]) || '--';
     return (
         <>
             <DrilldownSidebarLevel
-                active
-                last={level === 0}
+                active={level === 0}
                 name={agencyName}
                 label="Parent Agency"
-                obligated="$14.95B"
+                obligated={agencyObligated}
                 budgetaryResources={agencyBudget} />
+            {levels.map((dataType, i) => {
+                if (i < level) {
+                    return (
+                        <DrilldownSidebarLevel
+                            key={dataType}
+                            active={level === i + 1}
+                            name={selectedSubcomponent?.name}
+                            label={dataType}
+                            obligated={selectedSubcomponent?.obligations}
+                            budgetaryResources={selectedSubcomponent?.budgetaryResources} />
+                    );
+                }
+            })}
             <div>
                 {level < levels.length - 1 ? (
                     <button onClick={() => setLevel(level + 1)}>
