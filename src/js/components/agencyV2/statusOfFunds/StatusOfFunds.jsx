@@ -43,7 +43,7 @@ const StatusOfFunds = ({ fy }) => {
             <FlexGridContainer>
                 <FlexGridRow hasGutter>
                     <FlexGridCol>
-                        <IntroSection agencyName={overview.name} fy={fy} />
+                        <IntroSection name={overview.name} fy={fy} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter>

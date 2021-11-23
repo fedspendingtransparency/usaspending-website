@@ -29,7 +29,7 @@ const DrilldownSidebar = ({
             <div className="drilldown-level__content">
                 <div className="drilldown-level__trail">
                     <div className="drilldown-level__indicator" />
-                    {active ? null : <div className="drilldown-level__line" />}
+                    {active ? null : <div className="drilldown-level__line" data-testid="trailLine" />}
                 </div>
                 <div>
                     <div className="drilldown-level__name">{name}</div>
