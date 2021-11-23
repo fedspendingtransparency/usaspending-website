@@ -24,6 +24,7 @@ const DrilldownSidebar = ({
         <>
             <DrilldownSidebarLevel
                 active
+                last={level === 0}
                 name={agencyName}
                 label="Parent Agency"
                 obligated="$14.95B"
