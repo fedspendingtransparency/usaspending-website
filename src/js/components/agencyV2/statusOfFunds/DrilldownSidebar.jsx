@@ -25,15 +25,15 @@ const propTypes = {
 const DrilldownSidebar = ({
     level, setLevel, fy, agencyName, selectedSubcomponent
 }) => {
-    const { agencyBudget, agencyObligated } = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]) || '--';
+    const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]) || '--';
     return (
         <>
             <DrilldownSidebarLevel
                 active={level === 0}
                 name={agencyName}
                 label="Parent Agency"
-                obligated={agencyObligated}
-                budgetaryResources={agencyBudget} />
+                obligated={agencyObligatedShort}
+                budgetaryResources={agencyBudgetShort} />
             {levels.map((dataType, i) => ((i < level) ? (
                 <DrilldownSidebarLevel
                     key={dataType}
