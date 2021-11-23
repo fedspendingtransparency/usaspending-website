@@ -100,9 +100,7 @@ const StatusOfFunds = ({ fy }) => {
                         <DrilldownSidebar level={level} setLevel={setLevel} />
                     </FlexGridCol>
                     <FlexGridCol className="status-of-funds__visualization" tablet={9}>
-                        <VisualizationSection level={level} agencyId={toptierCode} agencyName={name} fy={fy}>
-                            <StatusOfFundsChart data={mockChartData} />
-                        </VisualizationSection>
+                        <VisualizationSection level={level} agencyId={toptierCode} agencyName={name} fy={fy} data={mockChartData} />
                     </FlexGridCol>
                 </FlexGridRow>
             </FlexGridContainer>

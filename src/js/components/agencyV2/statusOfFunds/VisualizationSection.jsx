@@ -8,29 +8,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'data-transparency-ui';
 import { levels } from './StatusOfFunds';
+import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 
 const propTypes = {
     level: PropTypes.number,
     agencyId: PropTypes.string,
     agencyName: PropTypes.string,
     fy: PropTypes.string,
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
+    data: PropTypes.array
 };
 
 const VisualizationSection = ({
     level,
     agencyName,
     fy,
-    children
+    data
 }) => (
     <div className="status-of-funds__visualization">
-        <p>{agencyName} by <strong>{levels[level]}</strong> for FY {fy}</p>
+        <h6>{agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
         <div>
-            {children}
+            <StatusOfFundsChart data={data} />
         </div>
         <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
             currentPage={1}
-            changePage={1}
+            changePage={() => {}}
             changeLimit={1}
             limitSelector
             resultsText
