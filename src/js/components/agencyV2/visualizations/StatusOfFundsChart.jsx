@@ -7,10 +7,10 @@ import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
-    data: PropTypes.array
+    data: PropTypes.object
 };
 
-export default function StatusOfFundsChart({ data }) {
+const StatusOfFundsChart = ({ data }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < largeScreen);
@@ -107,25 +107,46 @@ export default function StatusOfFundsChart({ data }) {
     // scale to x and y data points
     x.domain([0, sortedNums[0]]);
     y.domain(resultNames);
-    const tickNum = isMobile ? 3 : 5;
     const tickMobileXAxis = isMobile ? 'translate(-130,0)' : 'translate(150, 0)';
     const tickMobileYAxis = isMobile ? 'translate(-140,0)' : 'translate(140, 0)';
 
     // append x axis (amounts)
     svg.append('g')
         .attr('transform', tickMobileXAxis)
+        .attr('class', 'tickLines-vertical')
         .style("stroke-width", 2)
-        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B')}`).tickSize(-chartHeight).ticks(tickNum))
+        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B')}`).tickSize(-chartHeight).ticks(3))
+        .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
+        .attr('id', 'tick-labels-axis')
         .attr('dy', '-0.16em')
         .attr('dx', '0.5em')
         .style("font-size", isMobile ? 24 : 18)
         .style("font-family", 'Source Sans Pro')
         .style('fill', '#555');
+
+    // d3 axis.ticks method does not precisely render tick count so we call a
+    // function on each tick to display 3 ticks for 20 results
+    const ticks = d3.selectAll(".tick text");
+    ticks.each(function mobileTicksCount(d, i) {
+        if (isMobile) {
+            if (i === 1 || i === 3) d3.select(this).remove();
+        }
+    });
+
+    // manually add horizontal x axis line since we are removing .domain to hide the y axis line
+    svg.append('line')
+        .attr('transform', tickMobileXAxis)
+        .style("stroke", "#d6d7d9")
+        .style("stroke-width", 3)
+        .attr("x1", -5)
+        .attr("y1", 0)
+        .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 2)
+        .attr("y2", 0);
     // append y axis (names)
     svg.append('g')
         .attr('transform', tickMobileYAxis)
-        .attr('stroke-width', 0)
+        .style('stroke-width', 0)
         .call(isMobile ? d3.axisRight(y) : d3.axisLeft(y).tickSize(0))
         .selectAll('.tick text')
         .style("font-size", isMobile ? 24 : 16)
@@ -136,6 +157,7 @@ export default function StatusOfFundsChart({ data }) {
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
     );
-}
+};
 
 StatusOfFundsChart.propTypes = propTypes;
+export default StatusOfFundsChart;

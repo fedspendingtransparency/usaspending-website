@@ -1,24 +1,14 @@
 /**
- * StatusOfFunds.jsx
- * Created by Lizzie Salita 10/27/21
+ * StatusOfFundsChart-test.jsx
+ * Created by Afna Saifudeen 11/23/21
  */
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-ui';
-import DrilldownSidebar from './DrilldownSidebar';
-import VisualizationSection from './VisualizationSection';
-import IntroSection from "./IntroSection";
+import React from 'react';
+import { render, screen } from 'test-utils';
+import StatusOfFundsChart from "../../../../src/js/components/agencyV2/visualizations/StatusOfFundsChart";
+import VisualizationSection from '../../../../src/js/components/agencyV2/statusOfFunds/VisualizationSection';
 
-const propTypes = {
-    fy: PropTypes.string
-};
-
-export const levels = ['Sub-Component', 'Federal Account'];
-
-// TODO: Replace mock data with API response once endpoints are available
-export const mockChartData = {
+const mockChartData = {
     page_metadata: {
         page: 1,
         total: 1,
@@ -31,7 +21,7 @@ export const mockChartData = {
     results: [
         {
             name: "National Oceanic and Atmospheric Administration",
-            total_budgetary_resources: 8000000000,
+            total_budgetary_resources: 9100000000,
             total_obligations: 6000000000
         },
         {
@@ -81,31 +71,22 @@ export const mockChartData = {
         }
     ]
 };
-
-const StatusOfFunds = ({ fy }) => {
-    const [level, setLevel] = useState(0);
-    const { toptierCode, name } = useSelector((state) => state.agencyV2.overview);
-
-    return (
-        <div className="body__content status-of-funds">
-            <FlexGridContainer>
-                <FlexGridRow className="status-of-funds__intro" hasGutter>
-                    <FlexGridCol>
-                        <IntroSection fy={fy} />
-                    </FlexGridCol>
-                </FlexGridRow>
-                <FlexGridRow hasGutter>
-                    <FlexGridCol className="status-of-funds__drilldown-sidebar" tablet={3}>
-                        <DrilldownSidebar level={level} setLevel={setLevel} />
-                    </FlexGridCol>
-                    <FlexGridCol className="status-of-funds__visualization" tablet={9}>
-                        <VisualizationSection level={level} agencyId={toptierCode} agencyName={name} fy={fy} data={mockChartData} />
-                    </FlexGridCol>
-                </FlexGridRow>
-            </FlexGridContainer>
-        </div>
-    );
-};
-
-StatusOfFunds.propTypes = propTypes;
-export default StatusOfFunds;
+const fy = '2021';
+const toptierCode = '012';
+const name = 'Department of Agriculture';
+describe('Status of Funds Chart Viz Agency v2', () => {
+    it('should display formatted amount used for max x axis value', () => {
+        render(<StatusOfFundsChart data={mockChartData} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('$9.1B').toBeInTheDocument());
+        }, 1000);
+    });
+    it('should display fy, agency name, and level in chart title', () => {
+        render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} data={mockChartData} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText(`${name} by Sub-Component for FY 2021`).toBeInTheDocument());
+        }, 1000);
+    });
+});

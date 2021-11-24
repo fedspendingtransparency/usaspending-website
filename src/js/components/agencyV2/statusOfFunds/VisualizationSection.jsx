@@ -15,7 +15,7 @@ const propTypes = {
     agencyId: PropTypes.string,
     agencyName: PropTypes.string,
     fy: PropTypes.string,
-    data: PropTypes.array
+    data: PropTypes.object
 };
 
 const VisualizationSection = ({
@@ -32,7 +32,7 @@ const VisualizationSection = ({
         <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
             currentPage={1}
             changePage={() => {}}
-            changeLimit={1}
+            changeLimit={() => {}}
             limitSelector
             resultsText
             pageSize={10}

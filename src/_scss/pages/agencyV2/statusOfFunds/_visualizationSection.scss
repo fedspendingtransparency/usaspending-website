@@ -2,15 +2,15 @@
     p {
         font-size: rem(20);
     }
-    line {
-        stroke: $color-gray-lightest;
-    }
-    .tick:first-of-type {
+    .tickLines-vertical {
         line {
-            visibility: hidden;
+            stroke: $color-gray-lightest;
         }
-    }
-    .domain {
-        visibility: hidden;
+        .tick:first-of-type {
+            line {
+                stroke: none;
+                fill: none;
+            }
+        }
     }
 }
