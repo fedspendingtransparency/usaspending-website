@@ -42,7 +42,7 @@ const StatusOfFunds = ({ fy }) => {
         <div className="body__content status-of-funds">
             <FlexGridContainer>
                 <FlexGridRow hasGutter>
-                    <FlexGridCol>
+                    <FlexGridCol desktop={{ span: 10, offset: 1 }}>
                         <IntroSection name={overview.name} fy={fy} />
                     </FlexGridCol>
                 </FlexGridRow>
