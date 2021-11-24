@@ -19,7 +19,7 @@ describe('Agency V2 Status of Funds DrilldownSidebarLevel', () => {
 
     it('does not render the back button if the goBack function is undefined', () => {
         render(<DrilldownSidebarLevel {...mockProps} />);
-        expect(screen.queryByTitle('Go back')).toBeFalsy();
+        expect(screen.queryByTitle('Go up a level')).toBeFalsy();
     });
 
     it('renders the back button if the goBack function is defined', () => {
@@ -28,7 +28,7 @@ describe('Agency V2 Status of Funds DrilldownSidebarLevel', () => {
             goBack: () => {}
         };
         render(<DrilldownSidebarLevel {...newProps} />);
-        expect(screen.queryByTitle('Go back')).toBeTruthy();
+        expect(screen.queryByTitle('Go up a level')).toBeTruthy();
     });
 
     it('does not render the trail line for the active / last level', () => {

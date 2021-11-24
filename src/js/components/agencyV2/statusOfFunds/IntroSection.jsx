@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const propTypes = {
-    fy: PropTypes.string,
-    name: PropTypes.string
+    fy: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
 };
 
 const IntroSection = ({ fy, name }) => {
