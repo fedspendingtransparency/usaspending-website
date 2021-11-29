@@ -23,6 +23,7 @@ const StatusOfFundsChart = ({ data }) => {
     const chartWidth = viewWidth - margins.left - margins.right;
     let resultNums = [];
     let resultNames = [];
+    let totalObligationsData = [];
     const formattedAmounts = [];
 
     useEffect(() => {
@@ -41,8 +42,10 @@ const StatusOfFundsChart = ({ data }) => {
     for (let i = 0; i < data.results.length; i++) {
         resultNums = resultNums.concat(data.results[i].total_budgetary_resources, data.results[i].total_obligations);
         resultNames = resultNames.concat(data.results[i].name);
+        totalObligationsData = totalObligationsData.concat(data.results[i].name, data.results[i].total_obligations, data.results[i].total_budgetary_resources);
     }
-    const sortedNums = resultNums.sort((a, b) => b - a);
+    const sortedNums = data.results.sort((a, b) => a.total_budgetary_resources > b.total_obligations ? b.total_budgetary_resources - a.total_budgetary_resources : b.total_obligations - a.total_obligations);
+    console.log(sortedNums);
     // format dollar amounts
     for (let i = 0; i < sortedNums.length; i++) {
         formattedAmounts.push(MoneyFormatter.formatMoneyWithUnitsShortLabel(sortedNums[i]));
@@ -105,7 +108,7 @@ const StatusOfFundsChart = ({ data }) => {
         .append('g')
         .attr('transform', `translate(${isMobile ? margins.left - 40 : margins.left}, ${margins.top})`);
     // scale to x and y data points
-    x.domain([0, sortedNums[0]]);
+    x.domain([0, Math.max(sortedNums[0].total_budgetary_resources, sortedNums[0].total_obligations)]);
     y.domain(resultNames);
     const tickMobileXAxis = isMobile ? 'translate(-130,0)' : 'translate(150, 0)';
     const tickMobileYAxis = isMobile ? 'translate(-140,0)' : 'translate(140, 0)';
@@ -153,6 +156,26 @@ const StatusOfFundsChart = ({ data }) => {
         .style('fill', '#555')
         .style("font-family", 'Source Sans Pro')
         .call(isMobile ? wrapTextMobile : wrapText);
+    svg.selectAll("totalBudgetaryResourcesRect")
+        .attr('transform', tickMobileXAxis)
+        .data(sortedNums)
+        .enter()
+        .append("rect")
+        .attr("x", -135)
+        .attr("y", (d) => y(d.name) + 75)
+        .attr("width", (d) => x(d.total_budgetary_resources) + 6)
+        .attr("height", y.bandwidth() - 35)
+        .attr("fill", "#BBDFC7");
+    svg.selectAll("totalObligationsRect")
+        .attr('transform', tickMobileXAxis)
+        .data(sortedNums)
+        .enter()
+        .append("rect")
+        .attr("x", -135)
+        .attr("y", (d) => y(d.name) + 75)
+        .attr("width", (d) => x(d.total_obligations) + 6)
+        .attr("height", y.bandwidth() - 35)
+        .attr("fill", "#2B71B8");
 
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
