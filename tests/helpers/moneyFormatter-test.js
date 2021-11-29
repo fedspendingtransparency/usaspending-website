@@ -76,5 +76,9 @@ test.each([
     [0, '$0'],
     [null, '--']
 ])('formatMoneyWithUnitsShortLabel: when input is %s --> %s', (input, output) => {
-    expect(formatMoneyWithUnitsShortLabel(input, true)).toEqual(output);
+    expect(formatMoneyWithUnitsShortLabel(input)).toEqual(output);
+});
+
+test('formatMoneyWithUnitsShort handles specified precision', () => {
+    expect(formatMoneyWithUnitsShortLabel(12345678.23, 2)).toEqual('$12.35 M');
 });
