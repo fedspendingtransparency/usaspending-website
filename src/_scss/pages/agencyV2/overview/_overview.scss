@@ -46,7 +46,10 @@
             
         }
         .agency-overview__image {
+            max-width: rem(90);
+            max-height: rem(90);
             height: 100%;
+            object-fit: contain;
         }
         @include media($medium-screen) {
             // switch the position of the logo and title in desktop
