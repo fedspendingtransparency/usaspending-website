@@ -1,6 +1,10 @@
 .status-of-funds__visualization {
-    p {
+    h6 {
         font-size: rem(20);
+        font-weight: 400;
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
     }
     .tickLines-vertical {
         line {

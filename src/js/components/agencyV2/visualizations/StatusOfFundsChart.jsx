@@ -15,7 +15,7 @@ const StatusOfFundsChart = ({ data }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < largeScreen);
     const viewHeight = 800;
-    const viewWidth = 800;
+    const viewWidth = 1000;
     const margins = {
         top: 40, right: 10, bottom: 10, left: 180
     };
@@ -48,41 +48,30 @@ const StatusOfFundsChart = ({ data }) => {
         formattedAmounts.push(MoneyFormatter.formatMoneyWithUnitsShortLabel(sortedNums[i]));
     }
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
-    function wrapText(selection) {
-        selection.each(function w() {
-            const node = d3.select(this);
-            const rectWidth = 500;
+    function wrapText(text, width) {
+        text.each(function w() {
+            const textNode = d3.select(this);
+            const words = textNode.text().split(/\s+/).reverse();
             let word;
-            const words = node.text().split(' ').reverse();
             let line = [];
-            const x = node.attr('x');
-            const y = node.attr('y');
-            let tspan = node.text('').append('tspan').attr('x', x).attr('y', y);
-            let lineNumber = 0;
-            function addTspan(text) {
-                lineNumber += 1;
-                return (
-                    node
-                        .append('tspan')
-                        .attr('x', x)
-                        .attr('y', y)
-                        .attr('dy', `${lineNumber * 16}px`)
-                        .text(text)
-                );
-            }
-            while (words.length > 1) {
+            const lineNumber = 0;
+            const lineHeight = 1.1; // ems
+            const y = textNode.attr("y");
+            const dy = 1;
+            let tspan = textNode.text(null).append("tspan").attr("x", 0).attr("y", y)
+                .attr("dy", `${dy}em`);
+            while (words.length) {
                 word = words.pop();
                 line.push(word);
-                tspan.text(line.join(' '));
-                const tspanLength = tspan.node().getComputedTextLength();
-                if (tspanLength > rectWidth && line.length !== 1) {
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
                     line.pop();
-                    tspan.text(line.join(' '));
+                    tspan.text(line.join(" "));
                     line = [word];
-                    tspan = addTspan(word);
+                    tspan = textNode.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${(lineNumber * lineHeight) + dy}em`)
+                        .text(word);
                 }
             }
-            addTspan(words.pop());
         });
     }
     // prevent eslint error for conditional function call to wrapText()
@@ -94,7 +83,7 @@ const StatusOfFundsChart = ({ data }) => {
         .range([0, isMobile ? chartHeight + 400 : chartHeight])
         .padding(0.1);
     const x = scaleLinear()
-        .range([0, isMobile ? chartWidth + 330 : chartWidth]);
+        .range([0, isMobile ? chartWidth + 330 : chartWidth + 80]);
 
     // append the svg object to the div
     d3.select('#sof_chart').selectAll('*').remove();
@@ -107,8 +96,8 @@ const StatusOfFundsChart = ({ data }) => {
     // scale to x and y data points
     x.domain([0, sortedNums[0]]);
     y.domain(resultNames);
-    const tickMobileXAxis = isMobile ? 'translate(-130,0)' : 'translate(150, 0)';
-    const tickMobileYAxis = isMobile ? 'translate(-140,0)' : 'translate(140, 0)';
+    const tickMobileXAxis = isMobile ? 'translate(-130,0)' : 'translate(90, 0)';
+    const tickMobileYAxis = isMobile ? 'translate(-140,0)' : 'translate(70, 0)';
 
     // append x axis (amounts)
     svg.append('g')
@@ -127,7 +116,7 @@ const StatusOfFundsChart = ({ data }) => {
 
     // d3 axis.ticks method does not precisely render tick count so we call a
     // function on each tick to display 3 ticks for 20 results
-    const ticks = d3.selectAll(".tick text");
+    const ticks = d3.selectAll(".tick");
     ticks.each(function mobileTicksCount(d, i) {
         if (isMobile) {
             if (i === 1 || i === 3) d3.select(this).remove();
@@ -141,7 +130,7 @@ const StatusOfFundsChart = ({ data }) => {
         .style("stroke-width", 3)
         .attr("x1", -5)
         .attr("y1", 0)
-        .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 2)
+        .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 81)
         .attr("y2", 0);
     // append y axis (names)
     svg.append('g')
@@ -152,7 +141,7 @@ const StatusOfFundsChart = ({ data }) => {
         .style("font-size", isMobile ? 24 : 16)
         .style('fill', '#555')
         .style("font-family", 'Source Sans Pro')
-        .call(isMobile ? wrapTextMobile : wrapText);
+        .call(isMobile ? wrapTextMobile : wrapText, 220);
 
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
