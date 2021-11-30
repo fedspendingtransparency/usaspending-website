@@ -104,12 +104,12 @@ const StatusOfFundsChart = ({ data }) => {
         .attr('transform', tickMobileXAxis)
         .attr('class', 'tickLines-vertical')
         .style("stroke-width", 2)
-        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B')}`).tickSize(-chartHeight).ticks(3))
+        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(-chartHeight).ticks(3))
         .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
         .attr('id', 'tick-labels-axis')
         .attr('dy', '-0.16em')
-        .attr('dx', '0.5em')
+        .attr('dx', '0em')
         .style("font-size", isMobile ? 24 : 18)
         .style("font-family", 'Source Sans Pro')
         .style('fill', '#555');
@@ -123,12 +123,21 @@ const StatusOfFundsChart = ({ data }) => {
         }
     });
 
+    // shift x axis labels to match mock
+    const tickTexts = d3.selectAll(".tick text");
+    tickTexts.each(function mobileTextCount(d, i) {
+        if (isMobile) {
+            if (i === 2) d3.select(this).attr('dx', '-1em');
+        }
+        if (i === 4) d3.select(this).attr('dx', '-1em');
+    });
+
     // manually add horizontal x axis line since we are removing .domain to hide the y axis line
     svg.append('line')
         .attr('transform', tickMobileXAxis)
         .style("stroke", "#d6d7d9")
         .style("stroke-width", 3)
-        .attr("x1", -5)
+        .attr("x1", -10)
         .attr("y1", 0)
         .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 81)
         .attr("y2", 0);
