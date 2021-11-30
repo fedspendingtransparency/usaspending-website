@@ -7,14 +7,15 @@ import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    fy: PropTypes.string
 };
 
-const StatusOfFundsChart = ({ data }) => {
+const StatusOfFundsChart = ({ data, fy }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < largeScreen);
-    const viewHeight = 800;
+    const viewHeight = 1000;
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 10, bottom: 10, left: 180
@@ -44,8 +45,7 @@ const StatusOfFundsChart = ({ data }) => {
         resultNames = resultNames.concat(data.results[i].name);
         totalObligationsData = totalObligationsData.concat(data.results[i].name, data.results[i].total_obligations, data.results[i].total_budgetary_resources);
     }
-    const sortedNums = data.results.sort((a, b) => a.total_budgetary_resources > b.total_obligations ? b.total_budgetary_resources - a.total_budgetary_resources : b.total_obligations - a.total_obligations);
-    console.log(sortedNums);
+    const sortedNums = data.results.sort((a, b) => (a.total_budgetary_resources > b.total_obligations ? b.total_budgetary_resources - a.total_budgetary_resources : b.total_obligations - a.total_obligations));
     // format dollar amounts
     for (let i = 0; i < sortedNums.length; i++) {
         formattedAmounts.push(MoneyFormatter.formatMoneyWithUnitsShortLabel(sortedNums[i]));
@@ -83,8 +83,8 @@ const StatusOfFundsChart = ({ data }) => {
     }
     // setup x and y scales
     const y = scaleBand()
-        .range([0, isMobile ? chartHeight + 400 : chartHeight])
-        .padding(0.1);
+        .range([0, chartHeight])
+        .padding(0.2);
     const x = scaleLinear()
         .range([0, isMobile ? chartWidth + 330 : chartWidth + 80]);
 
@@ -93,21 +93,21 @@ const StatusOfFundsChart = ({ data }) => {
     const svg = d3.select('#sof_chart')
         .append('svg')
         .attr('class', 'svg')
-        .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, viewHeight + margins.top + margins.bottom])
+        .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, viewHeight + margins.top + margins.bottom + 20])
         .append('g')
         .attr('transform', `translate(${isMobile ? margins.left - 40 : margins.left}, ${margins.top})`);
     // scale to x and y data points
     x.domain([0, Math.max(sortedNums[0].total_budgetary_resources, sortedNums[0].total_obligations)]);
     y.domain(resultNames);
     const tickMobileXAxis = isMobile ? 'translate(-130,0)' : 'translate(90, 0)';
-    const tickMobileYAxis = isMobile ? 'translate(-140,0)' : 'translate(70, 0)';
+    const tickMobileYAxis = isMobile ? 'translate(-150,0)' : 'translate(60, 0)';
 
     // append x axis (amounts)
     svg.append('g')
         .attr('transform', tickMobileXAxis)
         .attr('class', 'tickLines-vertical')
         .style("stroke-width", 2)
-        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(-chartHeight).ticks(3))
+        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isMobile ? -chartHeight - 12 : -chartHeight + 18).ticks(3))
         .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
         .attr('id', 'tick-labels-axis')
@@ -150,30 +150,76 @@ const StatusOfFundsChart = ({ data }) => {
         .style('stroke-width', 0)
         .call(isMobile ? d3.axisRight(y) : d3.axisLeft(y).tickSize(0))
         .selectAll('.tick text')
-        .style("font-size", isMobile ? 24 : 16)
+        .style("font-size", isMobile ? 24 : 18)
         .style('fill', '#555')
         .style("font-family", 'Source Sans Pro')
-        .call(isMobile ? wrapTextMobile : wrapText, 220);
+        .call(isMobile ? wrapTextMobile : wrapText, 240);
+    svg.selectAll("horizontalGridlines")
+        .attr('transform', tickMobileXAxis)
+        .data(sortedNums)
+        .enter()
+        .append("rect")
+        .attr("x", isMobile ? -140 : 80)
+        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("width", isMobile ? chartWidth + 340 : chartWidth + 90)
+        .attr("height", y.bandwidth() - 40)
+        .attr("fill", "none")
+        .attr("stroke", "#f1f1f1");
+    // append total budgetary resources bars
     svg.selectAll("totalBudgetaryResourcesRect")
         .attr('transform', tickMobileXAxis)
         .data(sortedNums)
         .enter()
         .append("rect")
-        .attr("x", -135)
-        .attr("y", (d) => y(d.name) + 75)
-        .attr("width", (d) => x(d.total_budgetary_resources) + 6)
-        .attr("height", y.bandwidth() - 35)
+        .attr("x", isMobile ? -140 : 80)
+        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("width", (d) => x(d.total_budgetary_resources) + 11)
+        .attr("height", y.bandwidth() - 40)
         .attr("fill", "#BBDFC7");
+    // append total obligations bars
     svg.selectAll("totalObligationsRect")
         .attr('transform', tickMobileXAxis)
         .data(sortedNums)
         .enter()
         .append("rect")
-        .attr("x", -135)
-        .attr("y", (d) => y(d.name) + 75)
-        .attr("width", (d) => x(d.total_obligations) + 6)
-        .attr("height", y.bandwidth() - 35)
+        .attr("x", isMobile ? -140 : 80)
+        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("width", (d) => x(d.total_obligations) + 11)
+        .attr("height", y.bandwidth() - 40)
         .attr("fill", "#2B71B8");
+    svg.append('line')
+        .attr('transform', tickMobileXAxis)
+        .style("stroke", "#d6d7d9")
+        .style("stroke-width", 1)
+        .attr("x1", -250)
+        .attr("y1", chartHeight + 30)
+        .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 100)
+        .attr("y2", chartHeight + 30);
+    // append labels for legend below chart
+    svg.append("circle")
+        .attr("cx", 200)
+        .attr("cy", chartHeight + 60)
+        .attr("r", 6)
+        .style("fill", "#2B71B8");
+    svg.append("circle")
+        .attr("cx", 400)
+        .attr("cy", chartHeight + 60)
+        .attr("r", 6)
+        .style("fill", "#BBDFC7");
+    svg.append("text")
+        .attr("x", 220)
+        .attr("y", chartHeight + 60)
+        .text(`FY${fy[2]}${fy[3]} Obligations`)
+        .style("font-size", "18px")
+        .style('fill', '#555')
+        .attr("alignment-baseline", "middle");
+    svg.append("text")
+        .attr("x", 420)
+        .attr("y", chartHeight + 60)
+        .text(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)
+        .style("font-size", "18px")
+        .style('fill', '#555')
+        .attr("alignment-baseline", "middle");
 
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />

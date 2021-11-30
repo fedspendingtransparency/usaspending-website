@@ -1,4 +1,12 @@
 .status-of-funds__visualization {
+    .status-of-funds__visualization-pagination {
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
+    }
+    .status-of-funds__visualization-chart {
+        margin-bottom: rem(16);
+    }
     h6 {
         font-size: rem(20);
         font-weight: 400;
