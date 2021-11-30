@@ -26,7 +26,8 @@ export const mockStateCategoryApi = {
             id: 1,
             name: "Banana",
             code: "1234",
-            amount: 1.01
+            amount: 1.01,
+            agency_slug: "banana"
         },
         {
             id: 2,
