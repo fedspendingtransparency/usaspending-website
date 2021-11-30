@@ -12,6 +12,10 @@ import * as api from 'apis/disaster';
 import * as redux from 'react-redux';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
+// Mock the child component so we can isolate functionality of the container
+jest.mock('containers/covid19/SummaryInsightsContainer', () =>
+    jest.fn(() => null));
+
 const mockResults = [
     {
         code: "987654321",
