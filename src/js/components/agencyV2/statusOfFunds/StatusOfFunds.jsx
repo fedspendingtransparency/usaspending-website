@@ -18,7 +18,72 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Subcomponent', 'Federal Account'];
+export const levels = ['Sub-Component', 'Federal Account'];
+
+// TODO: Replace mock data with API response once endpoints are available
+export const mockChartData = {
+    page_metadata: {
+        page: 1,
+        total: 1,
+        limit: 2,
+        next: 2,
+        previous: null,
+        hasNext: true,
+        hasPrevious: false
+    },
+    results: [
+        {
+            name: "National Oceanic and Atmospheric Administration",
+            total_budgetary_resources: 8000000000,
+            total_obligations: 6000000000
+        },
+        {
+            name: "Bureau of the Census",
+            total_budgetary_resources: 4400000000,
+            total_obligations: 2500000000
+        },
+        {
+            name: "U.S. Patent and Trademark Office",
+            total_budgetary_resources: 4200000000,
+            total_obligations: 2700000000
+        },
+        {
+            name: "Economic Development Administration",
+            total_budgetary_resources: 4150000000,
+            total_obligations: 1300000000
+        },
+        {
+            name: "National Telecommunications and Information Administration",
+            total_budgetary_resources: 2100000000,
+            total_obligations: 50000000
+        },
+        {
+            name: "National Institute of Standards and Technology",
+            total_budgetary_resources: 1900000000,
+            total_obligations: 1560000000
+        },
+        {
+            name: "International Trade Administration",
+            total_budgetary_resources: 1010000000,
+            total_obligations: 960000000
+        },
+        {
+            name: "Departmental Management",
+            total_budgetary_resources: 100500000,
+            total_obligations: 905000000
+        },
+        {
+            name: "Bureau of Industry and Security",
+            total_budgetary_resources: 10500000,
+            total_obligations: 9050000
+        },
+        {
+            name: "Bureau of Economic Analysis",
+            total_budgetary_resources: 5000000,
+            total_obligations: 4000000
+        }
+    ]
+};
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -56,7 +121,7 @@ const StatusOfFunds = ({ fy }) => {
                             selectedSubcomponent={selectedSubcomponent} />
                     </FlexGridCol>
                     <FlexGridCol className="status-of-funds__visualization" tablet={9}>
-                        <VisualizationSection level={level} agencyId={overview.toptierCode} fy={fy} />
+                        <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} data={mockChartData} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter>

@@ -1,3 +1,20 @@
 .status-of-funds__visualization {
-    // TODO
+    h6 {
+        font-size: rem(20);
+        font-weight: 400;
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
+    }
+    .tickLines-vertical {
+        line {
+            stroke: $color-gray-lightest;
+        }
+        .tick:first-of-type {
+            line {
+                stroke: none;
+                fill: none;
+            }
+        }
+    }
 }
