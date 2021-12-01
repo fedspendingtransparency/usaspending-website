@@ -15,7 +15,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < largeScreen);
-    const viewHeight = 1000;
+    const viewHeight = 760;
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 10, bottom: 10, left: 180
@@ -57,12 +57,9 @@ const StatusOfFundsChart = ({ data, fy }) => {
             const words = textNode.text().split(/\s+/).reverse();
             let word;
             let line = [];
-            const lineNumber = 0;
-            const lineHeight = 1.1; // ems
             const y = textNode.attr("y");
-            const dy = 1;
             let tspan = textNode.text(null).append("tspan").attr("x", 0).attr("y", y)
-                .attr("dy", `${dy}em`);
+                .attr("dy", '1.1em');
             while (words.length) {
                 word = words.pop();
                 line.push(word);
@@ -71,7 +68,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
                     line.pop();
                     tspan.text(line.join(" "));
                     line = [word];
-                    tspan = textNode.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${(lineNumber * lineHeight) + dy}em`)
+                    tspan = textNode.append("tspan").attr("x", 0).attr("y", y).attr("dy", '1.3em')
                         .text(word);
                 }
             }
@@ -83,8 +80,8 @@ const StatusOfFundsChart = ({ data, fy }) => {
     }
     // setup x and y scales
     const y = scaleBand()
-        .range([0, chartHeight])
-        .padding(0.2);
+        .range([0, isMobile ? chartHeight + 200 : chartHeight])
+        .padding(isMobile ? 0.1 : 0);
     const x = scaleLinear()
         .range([0, isMobile ? chartWidth + 330 : chartWidth + 80]);
 
@@ -93,7 +90,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
     const svg = d3.select('#sof_chart')
         .append('svg')
         .attr('class', 'svg')
-        .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, viewHeight + margins.top + margins.bottom + 20])
+        .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, isMobile ? 1000 + margins.top + margins.bottom + 20 : viewHeight + margins.top + margins.bottom + 20])
         .append('g')
         .attr('transform', `translate(${isMobile ? margins.left - 40 : margins.left}, ${margins.top})`);
     // scale to x and y data points
@@ -107,7 +104,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .attr('transform', tickMobileXAxis)
         .attr('class', 'tickLines-vertical')
         .style("stroke-width", 2)
-        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isMobile ? -chartHeight - 12 : -chartHeight + 18).ticks(3))
+        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isMobile ? -chartHeight - 215 : -chartHeight - 4).ticks(3))
         .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
         .attr('id', 'tick-labels-axis')
@@ -160,9 +157,9 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .enter()
         .append("rect")
         .attr("x", isMobile ? -140 : 80)
-        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("y", (d) => (isMobile ? y(d.name) + 60 : y(d.name) + 40))
         .attr("width", isMobile ? chartWidth + 340 : chartWidth + 90)
-        .attr("height", y.bandwidth() - 40)
+        .attr("height", y.bandwidth() - 36)
         .attr("fill", "none")
         .attr("stroke", "#f1f1f1");
     // append total budgetary resources bars
@@ -172,9 +169,9 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .enter()
         .append("rect")
         .attr("x", isMobile ? -140 : 80)
-        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("y", (d) => (isMobile ? y(d.name) + 60 : y(d.name) + 40))
         .attr("width", (d) => x(d.total_budgetary_resources) + 11)
-        .attr("height", y.bandwidth() - 40)
+        .attr("height", y.bandwidth() - 36)
         .attr("fill", "#BBDFC7");
     // append total obligations bars
     svg.selectAll("totalObligationsRect")
@@ -183,41 +180,41 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .enter()
         .append("rect")
         .attr("x", isMobile ? -140 : 80)
-        .attr("y", (d) => (isMobile ? y(d.name) + 70 : y(d.name) + 40))
+        .attr("y", (d) => (isMobile ? y(d.name) + 60 : y(d.name) + 40))
         .attr("width", (d) => x(d.total_obligations) + 11)
-        .attr("height", y.bandwidth() - 40)
+        .attr("height", y.bandwidth() - 36)
         .attr("fill", "#2B71B8");
     svg.append('line')
         .attr('transform', tickMobileXAxis)
         .style("stroke", "#d6d7d9")
         .style("stroke-width", 1)
         .attr("x1", -250)
-        .attr("y1", chartHeight + 30)
+        .attr("y1", isMobile ? chartHeight + 260 : chartHeight + 40)
         .attr("x2", isMobile ? chartWidth + 330 : chartWidth + 100)
-        .attr("y2", chartHeight + 30);
+        .attr("y2", isMobile ? chartHeight + 260 : chartHeight + 40);
     // append labels for legend below chart
     svg.append("circle")
-        .attr("cx", 200)
-        .attr("cy", chartHeight + 60)
+        .attr("cx", isMobile ? -130 : 180)
+        .attr("cy", isMobile ? chartHeight + 290 : chartHeight + 70)
         .attr("r", 6)
         .style("fill", "#2B71B8");
     svg.append("circle")
-        .attr("cx", 400)
-        .attr("cy", chartHeight + 60)
+        .attr("cx", isMobile ? 50 : 355)
+        .attr("cy", isMobile ? chartHeight + 290 : chartHeight + 70)
         .attr("r", 6)
         .style("fill", "#BBDFC7");
     svg.append("text")
-        .attr("x", 220)
-        .attr("y", chartHeight + 60)
+        .attr("x", isMobile ? -115 : 195)
+        .attr("y", isMobile ? chartHeight + 291 : chartHeight + 70)
         .text(`FY${fy[2]}${fy[3]} Obligations`)
-        .style("font-size", "18px")
+        .style("font-size", isMobile ? '20px' : '18px')
         .style('fill', '#555')
         .attr("alignment-baseline", "middle");
     svg.append("text")
-        .attr("x", 420)
-        .attr("y", chartHeight + 60)
+        .attr("x", isMobile ? 65 : 370)
+        .attr("y", isMobile ? chartHeight + 291 : chartHeight + 70)
         .text(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)
-        .style("font-size", "18px")
+        .style("font-size", isMobile ? '20px' : '18px')
         .style('fill', '#555')
         .attr("alignment-baseline", "middle");
 
