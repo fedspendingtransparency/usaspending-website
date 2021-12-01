@@ -11,6 +11,7 @@ import { Tabs } from 'data-transparency-ui';
 import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
 import SubagencyTableContainer from 'containers/agencyV2/awardSpending/SubagencyTableContainer';
 import { useStateWithPrevious } from 'helpers';
+import AwardSpendingNotes from './AwardSpendingNotes';
 
 const propTypes = {
     fy: PropTypes.string
@@ -101,6 +102,7 @@ const AwardSpendingSubagency = ({ fy }) => {
                 type={activeTab.internal}
                 prevType={prevActiveTab.internal}
                 subHeading="Offices" />
+            <AwardSpendingNotes />
         </div>
     );
 };

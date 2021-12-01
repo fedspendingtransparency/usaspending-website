@@ -22,6 +22,11 @@ export const resetAwardObligations = () => ({
     type: 'RESET_AWARD_OBLIGATIONS'
 });
 
+export const setSelectedSubcomponent = (subcomponent) => ({
+    type: 'SET_SUBCOMPONENT',
+    subcomponent
+});
+
 export const setAgencyRecipients = (recipientDistribution) => ({
     type: 'SET_AGENCY_RECIPIENTS',
     recipientDistribution

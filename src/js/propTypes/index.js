@@ -156,6 +156,6 @@ export const DEFC_OBJECT = PropTypes.shape({
     code: PropTypes.string.isRequired,
     public_law: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    urls: PropTypes.string.isRequired,
+    urls: PropTypes.string,
     disaster: PropTypes.string
 });
