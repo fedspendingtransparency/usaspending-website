@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { stateNameByFipsId } from '../src/js/dataMapping/state/stateNames';
 import { URLifyStateName } from '../src/js/helpers/stateHelper';
+import agencyIdsToSlugs from '../src/js/dataMapping/agencyV2/agencyIdsToSlugs';
 
 const legacyRedirects = {
     "^/Pages/Default.aspx/": "/",
@@ -11,19 +12,22 @@ const legacyRedirects = {
     "^/covid-19/": "/disaster/covid-19"
 };
 
-const buildPageRedirectByUrlRegex = () => {
-    const stateRedirects = Object.entries(stateNameByFipsId)
-        .reduce((acc, [fipsId, stateName]) => {
-            return {
-                ...acc,
-                [`^/state/${fipsId}`]: `/state/${URLifyStateName(stateName)}`
-            };
-        }, legacyRedirects);
+const stateRedirects = Object.entries(stateNameByFipsId)
+    .reduce((acc, [fipsId, stateName]) => ({
+        ...acc,
+        [`^/state/${fipsId}`]: `/state/${URLifyStateName(stateName)}`
+    }), legacyRedirects);
 
+const agencyRedirects = {};
+agencyIdsToSlugs.forEach((a) => {
+    agencyRedirects[`^/agency/${a.agency_id}`] = `/agency/${a.agency_slug}`;
+});
+
+const buildPageRedirectByUrlRegex = () => {
     const file = fs.createWriteStream(path.resolve(__dirname, "../redirect-config.json"));
-    file.write(JSON.stringify(stateRedirects));
+    file.write(JSON.stringify(Object.assign(stateRedirects, agencyRedirects)));
     file.on('error', (e) => {
-        console.log('Error writing redirect-config.json:', e);
+        console.error('Error writing redirect-config.json:', e);
         throw e;
     });
     file.on('finish', () => {
