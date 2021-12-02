@@ -30,13 +30,11 @@ const VisualizationSection = ({
             <StatusOfFundsChart data={data} />
         </div>
         <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
-            currentPage={1}
-            changePage={() => {}}
-            changeLimit={() => {}}
-            limitSelector
             resultsText
+            changePage={() => {}}
+            currentPage={1}
             pageSize={10}
-            totalItems={10} />
+            totalItems={12} />
     </div>
 );
 
