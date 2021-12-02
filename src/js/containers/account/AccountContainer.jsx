@@ -13,7 +13,7 @@ import { flowRight } from 'lodash';
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
-import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountHelper from 'apis/account';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 

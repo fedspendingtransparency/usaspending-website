@@ -17,7 +17,8 @@ import {
     renderDeadline
 } from 'helpers/aboutTheDataHelper';
 import { pageAndSort } from 'helpers/pageAndSortHelper';
-import { fetchAllSubmissionDates, getSubmissionDeadlines } from 'helpers/accountHelper';
+import { getSubmissionDeadlines } from 'helpers/accountHelper';
+import { fetchAllSubmissionDates } from 'apis/account';
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 
 const propTypes = {

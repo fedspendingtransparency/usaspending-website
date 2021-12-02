@@ -9,7 +9,7 @@ import AgencyOverview from 'components/agencyV2/overview/AgencyOverview';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
-import { mockAgency } from '../../models/v1/agency/BaseAgencyOverview-test';
+import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockTotalBudgetaryResources } from './overview/mockData';
 
 const overviewDod = Object.create(BaseAgencyOverview);

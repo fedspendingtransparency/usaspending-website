@@ -15,7 +15,7 @@ import { isEqual } from 'lodash';
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
 
-import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountHelper from 'apis/account';
 import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 

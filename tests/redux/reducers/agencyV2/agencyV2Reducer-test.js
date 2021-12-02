@@ -9,9 +9,9 @@ import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
-import { mockAgency } from '../../../models/v1/agency/BaseAgencyOverview-test';
-import { mockBudgetaryResources } from '../../../models/v1/agency/BaseAgencyBudgetaryResources-test';
-import { mockSubcomponent } from '../../../models/v1/agency/BaseStatusOfFundsLevel-test';
+import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
+import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
+import { mockSubcomponent } from '../../../models/agency/BaseStatusOfFundsLevel-test';
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);

@@ -24,7 +24,7 @@ const fetchDataSpy = sinon.spy(AccountTimeVisualizationSectionContainer.prototyp
 jest.mock('components/account/visualizations/time/AccountTimeVisualizationSection', () =>
     jest.fn(() => null));
 
-jest.mock('helpers/accountHelper', () => require('../accountHelper'));
+jest.mock('apis/account', () => require('../accountHelper'));
 
 
 describe('AccountTimeVisualizationSectionContainer', () => {

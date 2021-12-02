@@ -12,7 +12,7 @@ import * as queryParamHelpers from 'helpers/queryParams';
 import * as agencyHooks from 'containers/agencyV2/WithAgencySlugs';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
-import { mockAgency } from '../../models/v1/agency/BaseAgencyOverview-test';
+import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockApiCall } from '../../testResources/mockApiHelper';
 
 mockApiCall(agencyV2, 'fetchBudgetaryResources', {});

@@ -16,7 +16,7 @@ import AccountRankVisualizationSection from
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
-import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountHelper from 'apis/account';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AccountSearchOperation from 'models/v1/account/queries/AccountSearchOperation';
