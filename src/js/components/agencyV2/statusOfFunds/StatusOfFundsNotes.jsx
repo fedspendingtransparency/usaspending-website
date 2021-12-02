@@ -12,8 +12,8 @@ const StatusOfFundsNotes = () => (
             added to provide greater transparency into the organization of agencies’
             account data. These sub-components are based on the Bureau associated
             with a federal account in OMB’s Master Accounts Title file.
-            Sub-components are identified using Common Government-wide Accounting
-            Classification (CGAC) codes. Department of Defense (DoD) sub-components
+            Sub-components are identified using Agency Identifier (AID) codes.
+            Department of Defense (DoD) sub-components
             correspond to the branches of the Armed Forces and accounts for the
             agency are attributed to the appropriate branch/sub-component based on
             the Agency Codes found at the bottom of{ ' ' }
