@@ -21,7 +21,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,

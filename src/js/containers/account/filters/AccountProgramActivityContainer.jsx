@@ -13,7 +13,7 @@ import { isCancel } from 'axios';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 import * as AccountHelper from 'helpers/accountHelper';
 
-import { _resetExchange, _convertToFrontendFilter } from 'models/account/queries/queryBuilders/_programActivityTranslator';
+import { _resetExchange, _convertToFrontendFilter } from 'models/v1/account/queries/queryBuilders/_programActivityTranslator';
 
 import ProgramActivityFilter from
     'components/account/filters/programActivity/ProgramActivityFilter';

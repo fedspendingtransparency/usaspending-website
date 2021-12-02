@@ -6,7 +6,7 @@
 import { OrderedMap } from 'immutable';
 
 import { CheckboxTreeSelections } from "redux/reducers/search/searchFiltersReducer";
-import SearchAwardsOperation from "models/search/SearchAwardsOperation";
+import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
 import { initialState } from "redux/reducers/search/searchFiltersReducer";
 
 describe('SearchAwardsOperation', () => {

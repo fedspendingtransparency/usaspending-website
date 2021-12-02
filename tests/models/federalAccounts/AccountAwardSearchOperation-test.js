@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/12/19
  */
 
-import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
+import AccountAwardSearchOperation from 'models/v1/account/queries/AccountAwardSearchOperation';
 import { mockProps } from './MockData';
 
 const searchOperation = new AccountAwardSearchOperation();

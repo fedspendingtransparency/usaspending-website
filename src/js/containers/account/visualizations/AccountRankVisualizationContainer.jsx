@@ -19,7 +19,7 @@ import * as accountFilterActions from 'redux/actions/account/accountFilterAction
 import * as AccountHelper from 'helpers/accountHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import AccountSearchOperation from 'models/account/queries/AccountSearchOperation';
+import AccountSearchOperation from 'models/v1/account/queries/AccountSearchOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,

@@ -21,7 +21,7 @@ import SpendingByRecipientSection from 'components/search/visualizations/rank/se
 import SpendingByCFDASection from 'components/search/visualizations/rank/sections/SpendingByCFDASection';
 import SpendingByIndustryCodeSection from 'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';

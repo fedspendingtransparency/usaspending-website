@@ -19,8 +19,8 @@ import * as AccountHelper from 'helpers/accountHelper';
 import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
-import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
-import AccountSearchCategoryOperation from 'models/account/queries/AccountSearchCategoryOperation';
+import AccountSearchBalanceOperation from 'models/v1/account/queries/AccountSearchBalanceOperation';
+import AccountSearchCategoryOperation from 'models/v1/account/queries/AccountSearchCategoryOperation';
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
     'dataMapping/accounts/accountFields';
 

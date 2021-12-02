@@ -1,4 +1,4 @@
-import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
+import AgencyOverviewModel from 'models/v1/agency/AgencyOverviewModel';
 
 export const mockApi = {
     results: {
