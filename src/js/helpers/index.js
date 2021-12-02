@@ -15,3 +15,12 @@ export const useStateWithPrevious = (initialValue) => {
         updateState
     ];
 };
+
+// https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+export const usePrevious = (value) => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
+};
