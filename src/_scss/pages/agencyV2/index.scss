@@ -83,7 +83,13 @@
                 }
             }
             @import './statusOfFunds/statusOfFunds';
-            @import './awardSpendingNotes';
+            @import 'components/Note';
+            .default-note {
+                @media (min-width: $tablet-screen) {
+                    padding-left: 6.4rem;
+                    padding-right: 6.4rem;
+                }
+            }
         }
     }
 }

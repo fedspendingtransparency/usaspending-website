@@ -11,7 +11,7 @@ import { Tabs } from 'data-transparency-ui';
 import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
 import SubagencyTableContainer from 'containers/agencyV2/awardSpending/SubagencyTableContainer';
 import { useStateWithPrevious } from 'helpers';
-import AwardSpendingNotes from './AwardSpendingNotes';
+import Note from 'components/sharedComponents/Note';
 
 const propTypes = {
     fy: PropTypes.string
@@ -102,7 +102,22 @@ const AwardSpendingSubagency = ({ fy }) => {
                 type={activeTab.internal}
                 prevType={prevActiveTab.internal}
                 subHeading="Offices" />
-            <AwardSpendingNotes />
+            <Note message={(
+                <>
+                The sub-agencies presented in this section represent
+                awarding organizations and were sourced from the General Services
+                Administration (GSA) Federal Hierarchy (available at{ ' ' }
+                    <a
+                        href="https://sam.gov/content/hierarchy"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        https://sam.gov/content/hierarchy
+                    </a>
+                ). This award hierarchy establishes the relationship between a
+                department or independent agency’s sub-tiers and its offices and is used
+                by federal agencies as the authoritative source for managing federal
+                funding and awarding organizations.
+                    </>)} />
         </div>
     );
 };
