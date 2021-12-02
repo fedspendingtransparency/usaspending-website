@@ -1,6 +1,12 @@
 .status-of-funds {
     @import './introSection';
-    @import './statusOfFundsNotes';
     @import './drilldownSidebar';
     @import './visualizationSection';
+    @import 'components/Note';
+    .default-note {
+        @media (min-width: $tablet-screen) {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
 }

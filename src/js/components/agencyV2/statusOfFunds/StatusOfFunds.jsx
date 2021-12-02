@@ -9,10 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-ui';
 import { setSelectedSubcomponent } from 'redux/actions/agencyV2/agencyV2Actions';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
+import Note from 'components/sharedComponents/Note';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
-import StatusOfFundsNotes from './StatusOfFundsNotes';
 
 const propTypes = {
     fy: PropTypes.string
@@ -107,7 +107,7 @@ const StatusOfFunds = ({ fy }) => {
         <div className="body__content status-of-funds">
             <FlexGridContainer>
                 <FlexGridRow hasGutter>
-                    <FlexGridCol desktop={{ span: 10, offset: 1 }}>
+                    <FlexGridCol>
                         <IntroSection name={overview.name} fy={fy} />
                     </FlexGridCol>
                 </FlexGridRow>
@@ -126,7 +126,22 @@ const StatusOfFunds = ({ fy }) => {
                 </FlexGridRow>
                 <FlexGridRow hasGutter>
                     <FlexGridCol>
-                        <StatusOfFundsNotes />
+                        <Note message={
+                            (<>The agency sub-components displayed in this section were
+                            added to provide greater transparency into the organization of agencies’
+                            account data. These sub-components are based on the Bureau associated
+                            with a federal account in OMB’s Master Accounts Title file.
+                            Sub-components are identified using Common Government-wide Accounting
+                            Classification (CGAC) codes. Department of Defense (DoD) sub-components
+                            correspond to the branches of the Armed Forces and accounts for the
+                            agency are attributed to the appropriate branch/sub-component based on
+                            the Agency Codes found at the bottom of{ ' ' }
+                                <a
+                                    href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                OMB Circular A-11 Appendix C
+                                </a>.</>)} />
                     </FlexGridCol>
                 </FlexGridRow>
             </FlexGridContainer>

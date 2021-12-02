@@ -1,5 +1,9 @@
 .status-of-funds__intro-wrapper {
     padding-bottom: 4rem;
+    @media (min-width: $tablet-screen) {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
 }
 
 .status-of-funds__intro-section-title {
