@@ -5,15 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from "react-redux";
-import GlossaryLink from "../../sharedComponents/GlossaryLink";
+import { useSelector } from 'react-redux';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const propTypes = {
-    fy: PropTypes.string
+    fy: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
 };
 
-const IntroSection = ({ fy }) => {
-    const { name } = useSelector((state) => state.agencyV2.overview);
+const IntroSection = ({ fy, name }) => {
     const agencyBudget = useSelector((state) => state.agencyV2.budgetaryResources?.[fy]?.agencyBudget) || '--';
 
     return (

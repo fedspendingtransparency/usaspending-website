@@ -7,9 +7,11 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
+import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
+import { mockSubcomponent } from '../../../models/agency/BaseStatusOfFundsLevel-test';
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);
@@ -77,6 +79,25 @@ describe('agencyReducer', () => {
             state = agencyReducer(state, action);
 
             expect(state._awardObligations).toEqual(null);
+        });
+    });
+
+    describe('SET_SUBCOMPONENT', () => {
+        it('should set the selected subcomponent to the provided object', () => {
+            const subcomponent = Object.create(BaseStatusOfFundsLevel);
+            subcomponent.populate(mockSubcomponent);
+
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_SUBCOMPONENT',
+                subcomponent
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(Object.getPrototypeOf(state.selectedSubcomponent)).toEqual(BaseStatusOfFundsLevel);
+            expect(state.selectedSubcomponent.name).toEqual(mockSubcomponent.name);
         });
     });
 

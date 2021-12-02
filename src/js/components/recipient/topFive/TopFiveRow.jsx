@@ -5,14 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const propTypes = {
-    data: PropTypes.object,
-    category: PropTypes.string,
-    total: PropTypes.number
-};
+import GlobalConstants from 'GlobalConstants';
 
 export default class TopFiveRow extends React.Component {
+    static propTypes = {
+        data: PropTypes.object,
+        category: PropTypes.string,
+        total: PropTypes.number
+    };
+
     buildResultsByCategory() {
         if (this.props.category === 'country' || this.props.category === 'state_territory') {
             return (
@@ -27,7 +28,9 @@ export default class TopFiveRow extends React.Component {
             <td
                 className="category-table__table-cell"
                 title={this.props.data.name}>
-                {this.props.data.name}
+                {GlobalConstants.AGENCYV2_RELEASED && this.props.data._slug ?
+                    this.props.data.linkedName
+                    : this.props.data.name}
             </td>
         );
     }
@@ -52,5 +55,3 @@ export default class TopFiveRow extends React.Component {
         );
     }
 }
-
-TopFiveRow.propTypes = propTypes;

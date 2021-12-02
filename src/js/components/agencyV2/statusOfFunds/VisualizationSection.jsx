@@ -6,18 +6,38 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Pagination } from 'data-transparency-ui';
 import { levels } from './StatusOfFunds';
+import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 
 const propTypes = {
     level: PropTypes.number,
     agencyId: PropTypes.string,
-    fy: PropTypes.string
+    agencyName: PropTypes.string,
+    fy: PropTypes.string,
+    data: PropTypes.object
 };
 
-const VisualizationSection = ({ level }) => (
-    <>
-        DEV-8049 horizontal bar chart viewing {levels[level]}s
-    </>
+const VisualizationSection = ({
+    level,
+    agencyName,
+    fy,
+    data
+}) => (
+    <div className="status-of-funds__visualization">
+        <h6>{agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
+        <div>
+            <StatusOfFundsChart data={data} />
+        </div>
+        <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
+            currentPage={1}
+            changePage={() => {}}
+            changeLimit={() => {}}
+            limitSelector
+            resultsText
+            pageSize={10}
+            totalItems={10} />
+    </div>
 );
 
 VisualizationSection.propTypes = propTypes;

@@ -1,5 +1,97 @@
 .status-of-funds__drilldown-sidebar {
     background-color: $color-gray-lightest;
-    border-radius: rem(5);
+    border-radius: rem(4);
     @include align-items(stretch);
+    font-size: rem(12);
+    line-height: rem(16);
+    padding: 0;
+    .drilldown-level {
+        // in mobile, hide all levels except the active level
+        display: none;
+        .drilldown-level__back {
+            background-color: $color-gray-lighter;
+            color: $color-primary;
+            margin: 0;
+            padding-left: rem(8);
+            padding-right: rem(8);
+            border-top-left-radius: rem(4);
+            border-bottom-left-radius: rem(4);
+            font-size: rem(16);
+            min-width: rem(32);
+        }
+        .drilldown-level__wrapper {
+            padding: rem(8) rem(16);
+        }
+        .drilldown-level__label {
+            text-transform: uppercase;
+            padding-bottom: rem(2);
+        }
+        .drilldown-level__content {
+            @include display(flex);
+        }
+        .drilldown-level__trail {
+            display: none;
+        }
+        .drilldown-level__name {
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            line-height: rem(18);
+            padding-bottom: rem(8);
+            color: $color-black;
+        }
+        &.drilldown-level_active {
+            @include display(flex);
+            .drilldown-level__indicator {
+                background-color: $color-primary;
+            }
+        }
+    }
+    @media (min-width: $tablet-screen) {
+        // Desktop
+        padding: rem(24) rem(16);
+        .drilldown-level {
+            @include display(flex);
+            .drilldown-level__back {
+                display: none;
+            }
+            .drilldown-level__wrapper {
+                padding: 0;
+                .drilldown-level__label {
+                    padding-left: rem(30);
+                }
+                .drilldown-level__trail {
+                    display: block;
+                    padding-right: rem(16);
+                    .drilldown-level__indicator {
+                        height: rem(14);
+                        width: rem(14);
+                        border-radius: 50%;
+                        border: solid rem(2) $color-gray-lighter;
+                    }
+                    .drilldown-level__line {
+                        border-left: solid rem(2) $color-gray-lighter;
+                        margin-left: rem(6);
+                        margin-top: rem(6);
+                        animation: draw-line 2s;
+                        animation-fill-mode: forwards;
+                    }
+                    @keyframes draw-line {
+                        0% {
+                            height: 0;
+                        }
+                        50% {
+                            border-left: solid rem(2) $color-gray-lighter;
+                        }
+                        100% {
+                            height: calc(100% - 8px);
+                            border-left: solid rem(2) $color-gray-lighter;
+                        }
+                    }
+                }
+                .drilldown-level__description {
+                    padding-bottom: rem(24);
+                }
+            }
+        }
+    }
 }
