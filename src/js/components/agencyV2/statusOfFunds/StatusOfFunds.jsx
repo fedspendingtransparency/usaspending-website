@@ -6,13 +6,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { FlexGridRow, FlexGridCol, FlexGridContainer } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { setSelectedSubcomponent } from 'redux/actions/agencyV2/agencyV2Actions';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
+import Note from 'components/sharedComponents/Note';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
-import StatusOfFundsNotes from './StatusOfFundsNotes';
 
 const propTypes = {
     fy: PropTypes.string
@@ -105,31 +105,36 @@ const StatusOfFunds = ({ fy }) => {
     };
     return (
         <div className="body__content status-of-funds">
-            <FlexGridContainer>
-                <FlexGridRow hasGutter>
-                    <FlexGridCol desktop={{ span: 10, offset: 1 }}>
-                        <IntroSection name={overview.name} fy={fy} />
-                    </FlexGridCol>
-                </FlexGridRow>
-                <FlexGridRow hasGutter>
-                    <FlexGridCol className="status-of-funds__drilldown-sidebar" tablet={3}>
-                        <DrilldownSidebar
-                            level={level}
-                            setLevel={onClick}
-                            agencyName={overview.name}
-                            fy={fy}
-                            selectedSubcomponent={selectedSubcomponent} />
-                    </FlexGridCol>
-                    <FlexGridCol className="status-of-funds__visualization" tablet={9}>
-                        <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} data={mockChartData} />
-                    </FlexGridCol>
-                </FlexGridRow>
-                <FlexGridRow hasGutter>
-                    <FlexGridCol>
-                        <StatusOfFundsNotes />
-                    </FlexGridCol>
-                </FlexGridRow>
-            </FlexGridContainer>
+            <IntroSection name={overview.name} fy={fy} />
+            <FlexGridRow hasGutter>
+                <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
+                    <DrilldownSidebar
+                        level={level}
+                        setLevel={onClick}
+                        agencyName={overview.name}
+                        fy={fy}
+                        selectedSubcomponent={selectedSubcomponent} />
+                </FlexGridCol>
+                <FlexGridCol className="status-of-funds__visualization" desktop={9}>
+                    <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} data={mockChartData} />
+                </FlexGridCol>
+            </FlexGridRow>
+            <Note message={
+                (<>The agency sub-components displayed in this section were
+                    added to provide greater transparency into the organization of agencies’
+                    account data. These sub-components are based on the Bureau associated
+                    with a federal account in OMB’s Master Accounts Title file.
+                    Sub-components are identified using Agency Identifier (AID) codes.
+                    Department of Defense (DoD) sub-components
+                    correspond to the branches of the Armed Forces and accounts for the
+                    agency are attributed to the appropriate branch/sub-component based on
+                    the Agency Codes found at the bottom of{ ' ' }
+                    <a
+                        href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        OMB Circular A-11 Appendix C
+                    </a>.</>)} />
         </div>
     );
 };
