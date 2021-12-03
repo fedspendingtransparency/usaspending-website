@@ -96,7 +96,7 @@ describe('BaseAgencyBudgetaryResources', () => {
         expect(budgetaryResources.agencyBudget).toEqual('$34.14 Billion');
     });
     it('should store the agency budget with abbreviated label', () => {
-        expect(budgetaryResources.agencyBudgetShort).toEqual('$34.14 B');
+        expect(budgetaryResources.agencyBudgetShort).toEqual('$34.14B');
     });
     it('should store the raw agency budget', () => {
         expect(budgetaryResources._agencyBudget).toEqual(34137500000.97);
@@ -111,7 +111,7 @@ describe('BaseAgencyBudgetaryResources', () => {
         expect(budgetaryResources20.agencyObligated).toEqual('$239.79 Billion');
     });
     it('should store the agency obligations with abbreviated label', () => {
-        expect(budgetaryResources20.agencyObligatedShort).toEqual('$239.79 B');
+        expect(budgetaryResources20.agencyObligatedShort).toEqual('$239.79B');
     });
     it('should store the raw agency obligations', () => {
         expect(budgetaryResources20._agencyObligated).toEqual(239791172810.38);
