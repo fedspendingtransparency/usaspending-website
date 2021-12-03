@@ -10,21 +10,13 @@
         .agency-overview__title {
             // Wrapper including the Covid flag
             @include align-items(flex-start);
-            .agency-overview__name {
-                // Wrapper for the name and subagency count
-                @include display(flex);
-                @include flex-direction(column);
-                h3 {
-                    margin: 0;
-                    font-size: 2rem;
-                    font-weight: $font-semibold;
-                    letter-spacing: 0;
-                    line-height: 2.5rem;
-                    padding-bottom: 0.3rem;
-                }
-                .agency-overview__sub-agencies {
-                    font-size: 1.4rem;
-                }
+            h3.agency-overview__name {
+                margin: 0;
+                font-size: 2rem;
+                font-weight: $font-semibold;
+                letter-spacing: 0;
+                line-height: 2.5rem;
+                padding-bottom: 0.3rem;
             }
             .agency-overview__tooltip {
                 @include display(flex);
@@ -59,16 +51,11 @@
             .agency-overview__title {
                 @include display(flex);
                 @include align-items(flex-start);
-                .agency-overview__name {
-                    h3 {
-                        font-size: 3.6rem;
-                        line-height: 4.5rem;
-                        padding-bottom: 0.3rem;
-                        padding-right: 1.5rem;
-                    }
-                    .agency-overview__sub-agencies {
-                        font-size: 1.8rem;                        
-                    }
+                h3.agency-overview__name {
+                    font-size: 3.6rem;
+                    line-height: 4.5rem;
+                    padding-bottom: 0.3rem;
+                    padding-right: 1.5rem;
                 }
                 .agency-overview__tooltip {
                     @include flex (0 0 auto);

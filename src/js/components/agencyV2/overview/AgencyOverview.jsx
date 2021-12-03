@@ -68,7 +68,6 @@ const AgencyOverview = ({
         mission,
         congressionalJustification,
         showAboutData,
-        subtierCount,
         covidDefCodes
     } = useSelector((state) => state.agencyV2.overview);
 
@@ -155,10 +154,7 @@ const AgencyOverview = ({
         <div className="agency-overview">
             <div className="agency-overview__top">
                 <div className="agency-overview__title">
-                    <div className="agency-overview__name">
-                        <h3>{name}</h3>
-                        <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
-                    </div>
+                    <h3 className="agency-overview__name">{name}</h3>
                     {name && covidDefCodes.length > 0 &&
                         <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                             <span className="covid-spending-flag">
