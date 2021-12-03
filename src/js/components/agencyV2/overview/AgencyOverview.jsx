@@ -13,7 +13,6 @@ import { TooltipWrapper, TooltipComponent } from 'data-transparency-ui';
 import { DEFC_OBJECT } from 'propTypes';
 
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
@@ -115,14 +114,19 @@ const AgencyOverview = ({
     const websiteBlock = (
         <div className="agency-overview__data">
             <h4>Website</h4>
-            {website ? <ExternalLink url={website} /> : '--'}
+            {website ? <a href={website} target="_blank">{website}</a> : '--'}
         </div>
     );
 
     const cjBlock = (
         <div className="agency-overview__data">
             <h4>Congressional Justification of Budget (CJ)</h4>
-            {congressionalJustification ? <ExternalLink url={congressionalJustification} /> : '--'}
+            {congressionalJustification ?
+                (
+                    <a href={congressionalJustification} target="_blank">
+                        {congressionalJustification}
+                    </a>
+                ) : '--'}
         </div>
     );
 

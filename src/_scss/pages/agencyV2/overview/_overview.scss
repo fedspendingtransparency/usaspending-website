@@ -100,18 +100,17 @@
         }
     }
     .agency-overview__data {
-        @import 'components/externalLink';
         h4 {
             font-weight: $font-semibold;
             margin: 0;
             font-size: 1.6rem;
             line-height: normal;
         }
-        p, .usda-external-link {
+        p, a {
             font-size: $small-font-size;
             margin: .5rem 0 1.5rem;
         }
-        .usda-external-link {
+        a {
             white-space: nowrap;
         }
     }
