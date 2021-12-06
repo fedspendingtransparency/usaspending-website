@@ -8,11 +8,11 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AccountContainer } from 'containers/account/AccountContainer';
-import FederalAccount from 'models/account/FederalAccount';
+import FederalAccount from 'models/v1/account/FederalAccount';
 
 import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
 
-jest.mock('helpers/accountHelper', () => require('./accountHelper'));
+jest.mock('apis/account', () => require('./accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component

@@ -15,7 +15,7 @@ import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
 
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as DownloadHelper from 'helpers/downloadHelper';

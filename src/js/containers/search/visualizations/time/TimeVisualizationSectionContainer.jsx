@@ -20,7 +20,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion

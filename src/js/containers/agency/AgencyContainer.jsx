@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
-import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
+import AgencyOverviewModel from 'models/v1/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/agency/agencyActions';
