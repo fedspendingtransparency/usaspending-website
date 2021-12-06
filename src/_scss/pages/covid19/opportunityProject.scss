@@ -55,19 +55,18 @@
         }
     }
 
+    .list-heading {
+        font-weight: $font-bold;
+        margin: rem(24) 0 rem(16);
+    }
+
     ul {
         padding: 0;
         list-style-position: inside;
-
-        .list-heading {
-            font-weight: $font-bold;
-            margin: rem(24) 0 rem(16);
-        }
-
         li {
             line-height: rem(24);
             padding-left: rem(16);
-            text-indent: rem(-16);
+            text-indent: rem(-22);
         }
     }
 
