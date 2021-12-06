@@ -36,7 +36,7 @@ const OpportunityProjectPage = () => {
             <FlexGridContainer className="top-page">
                 <FlexGridRow>
                     <FlexGridCol desktop={{ span: 8, offset: 2 }} className="content">
-                        <main role="main" className="main-content">
+                        <main role="main" className="main-content" id="main-content">
                             <header>
                                 <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
                                 <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
