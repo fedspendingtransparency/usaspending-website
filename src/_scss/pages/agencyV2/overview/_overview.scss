@@ -88,6 +88,8 @@
     }
     .agency-overview__row {
         @include display(flex);
+        padding-left: 6.4rem;
+        padding-right: 6.4rem;
         .agency-overview__column {
             padding-right: rem(20);
             &:first-of-type {
@@ -100,15 +102,16 @@
         }
     }
     .agency-overview__data {
+        padding-bottom: 1.6rem;
+        font-size: $small-font-size;
         h4 {
             font-weight: $font-semibold;
-            margin: 0;
+            margin: 0 0 .8rem;
             font-size: 1.6rem;
             line-height: normal;
         }
-        p, a {
-            font-size: $small-font-size;
-            margin: .5rem 0 1.5rem;
+        p {
+            margin: 0;
         }
         a {
             white-space: nowrap;

@@ -148,8 +148,6 @@ const AgencyOverview = ({
                 </div>
                 <div className="agency-overview__column">
                     {websiteBlock}
-                </div>
-                <div className="agency-overview__column">
                     {cjBlock}
                 </div>
             </div>
