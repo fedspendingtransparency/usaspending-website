@@ -16,14 +16,14 @@ const MoreInfo = () => (
         </h2>
         <div className="about-section-content">
             <p>
-                For more information about the data, see the&nbsp;
+                For more information about the data, see the{' '}
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-">
                     FAQs
                 </a>
-                &nbsp;and the&nbsp;
+                &nbsp;and the{' '}
                 <Link to="/data-dictionary">
                     Data Dictionary
                 </Link>

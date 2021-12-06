@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SectionTitle } from 'data-transparency-ui';
+import { LoadingMessage, SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.shape({
@@ -23,7 +23,8 @@ const TooltipComponent = () => (
 const AgencySection = ({
     section,
     icon = "chart-area",
-    children
+    children,
+    isLoading
 }) => (
     <SectionTitle
         id={`agency-v2-${section.name}`}
@@ -33,7 +34,7 @@ const AgencySection = ({
         overLine={section?.overLine}
         description={<span className="usda-section-title__desc">Data Sources</span>}
         descTooltip={{ component: <TooltipComponent /> }}>
-        {children}
+        {isLoading ? <LoadingMessage /> : children}
     </SectionTitle>
 
 );

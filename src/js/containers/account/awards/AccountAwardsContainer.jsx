@@ -14,58 +14,15 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
-import { defaultColumns, defaultSort } from
-    'dataMapping/search/awardTableColumns';
-import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
+import { defaultColumns, defaultSort } from 'dataMapping/search/awardTableColumns';
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
+import { tableTypes, subTypes } from 'containers/search/table/ResultsTableContainer';
 
 const propTypes = {
     account: PropTypes.object,
     filters: PropTypes.object
 };
-
-const tableTypes = [
-    {
-        label: 'Contracts',
-        internal: 'contracts',
-        enabled: true
-    },
-    {
-        label: 'Grants',
-        internal: 'grants',
-        enabled: true
-    },
-    {
-        label: 'Direct Payments',
-        internal: 'direct_payments',
-        enabled: true
-    },
-    {
-        label: 'Loans',
-        internal: 'loans',
-        enabled: true,
-        tooltip: tableTabsTooltips('loans')
-    },
-    {
-        label: 'Other',
-        internal: 'other',
-        enabled: true
-    }
-];
-
-const subTypes = [
-    {
-        label: 'Sub-Contracts',
-        internal: 'subcontracts',
-        enabled: true
-    },
-    {
-        label: 'Sub-Grants',
-        internal: 'subgrants',
-        enabled: true
-    }
-];
 
 export class AccountAwardsContainer extends React.Component {
     constructor(props) {
@@ -359,15 +316,19 @@ export class AccountAwardsContainer extends React.Component {
         if (Object.keys(this.state.columns).length === 0) {
             return null;
         }
+        const tabsWithCounts = tableTypes.map((type) => ({
+            ...type,
+            count: this.state.counts[type.internal],
+            disabled: this.state.inFlight || this.state.counts[type.internal] === 0
+        }));
         return (
             <ResultsTableSection
                 error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.state.columns[this.state.tableType]}
-                counts={this.state.counts}
                 sort={this.state.sort}
-                tableTypes={tableTypes}
+                tableTypes={tabsWithCounts}
                 currentType={this.state.tableType}
                 tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}

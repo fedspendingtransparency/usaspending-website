@@ -20,7 +20,7 @@ import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useStateWithPrevious } from 'helpers';
+import { useStateWithPrevious, usePrevious } from 'helpers';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -178,6 +178,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
     const { recipientTotals, defcParams } = useSelector((state) => state.covid19);
+    const prevDefcParams = usePrevious(defcParams);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -278,7 +279,8 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 prevSort !== sort ||
                 prevPageSize !== pageSize ||
                 prevQuery !== query ||
-                prevActiveTab !== activeTab
+                prevActiveTab !== activeTab ||
+                prevDefcParams !== defcParams
             );
             if (hasParamChanged) {
                 fetchSpendingByRecipientCallback();
@@ -334,11 +336,6 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 pageSize={pageSize}
                 totalItems={totalItems} />}
             {!loading && !error && results.length > 0 && <Note message={noteText} />}
-            <Note message={(
-                    <>
-                        For &apos;All Awards&apos; we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.
-                    </>
-            )} />
         </div>
     );
 };

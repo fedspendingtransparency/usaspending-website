@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
-
 import {
     budgetColumns,
     budgetDropdownFieldValues,
@@ -34,13 +33,7 @@ import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 const propTypes = {
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
-    scrollIntoView: PropTypes.func.isRequired,
-    totals: PropTypes.shape({
-        count: PropTypes.number,
-        totalBudgetaryResources: PropTypes.number,
-        totalObligations: PropTypes.number,
-        totalOutlays: PropTypes.number
-    })
+    scrollIntoView: PropTypes.func.isRequired
 };
 
 let tableHeight = 'auto';
@@ -156,7 +149,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
 
-    const { overview, defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { overview, defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19);
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -285,11 +278,11 @@ const BudgetCategoriesTableContainer = (props) => {
         }
 
         setLoading(true);
-        if (defCodes && defCodes.length > 0 && spendingCategory && overview) {
+        if (defcParams && defcParams.length > 0 && spendingCategory && overview) {
             const apiSortField = sort === 'name' ? budgetCategoriesNameSort[props.type] : snakeCase(sort);
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 },
                 pagination: {
                     limit: pageSize,
@@ -342,7 +335,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defCodes, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, defcParams, overview, allAwardTypeTotals]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();

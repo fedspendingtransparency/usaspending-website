@@ -7,9 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Tabs } from 'data-transparency-ui';
 
 import ResultsTable from './ResultsTable';
-import ResultsTableTabs from './ResultsTableTabs';
+
 import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
 import ResultsTableNoResults from './ResultsTableNoResults';
 import ResultsTableErrorMessage from './ResultsTableErrorMessage';
@@ -22,7 +23,6 @@ const propTypes = {
     switchTab: PropTypes.func,
     results: PropTypes.array,
     columns: PropTypes.object,
-    counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
@@ -77,12 +77,10 @@ export default class ResultsTableSection extends React.Component {
                     </h2>
                 </div>
                 <hr className="results-divider" />
-                <ResultsTableTabs
+                <Tabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
-                    counts={this.props.counts}
-                    switchTab={this.props.switchTab}
-                    disabled={this.props.inFlight} />
+                    switchTab={this.props.switchTab} />
                 <div className="results-table-content">
                     <TransitionGroup>
                         {showTableMessage && (

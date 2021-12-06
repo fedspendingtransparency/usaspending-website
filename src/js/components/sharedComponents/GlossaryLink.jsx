@@ -16,7 +16,7 @@ const propTypes = {
 
 const GlossaryLink = ({ term }) => {
     const { pathname, search } = useLocation();
-    const newUrl = getNewUrlForGlossary(pathname, `/?glossary=${term}`, search);
+    const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, search);
     const stopBubble = (e) => {
         e.stopPropagation();
     };

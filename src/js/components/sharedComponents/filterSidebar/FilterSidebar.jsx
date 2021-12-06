@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf, oneOfType } from 'prop-types';
 
 import FilterOption from './FilterOption';
 
@@ -17,16 +17,14 @@ const defaultProps = {
 };
 
 const propTypes = {
-    options: PropTypes.arrayOf(PropTypes.shape({
+    options: arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
-        tooltip: PropTypes.func,
-        className: PropTypes.string
+        tooltip: PropTypes.element
     })),
-    components: PropTypes.arrayOf(PropTypes.object),
-    expanded: PropTypes.arrayOf(PropTypes.bool),
-    accessories: PropTypes.arrayOf(PropTypes.func),
-    glossaryEntries: PropTypes.arrayOf(PropTypes.string),
-    hash: PropTypes.string
+    components: arrayOf(oneOfType([PropTypes.func, PropTypes.object])),
+    expanded: arrayOf(PropTypes.bool),
+    accessories: arrayOf(PropTypes.func),
+    glossaryEntries: arrayOf(PropTypes.string)
 };
 
 export default class FilterSidebar extends React.Component {
@@ -34,28 +32,21 @@ export default class FilterSidebar extends React.Component {
         const optionsList = this.props.options
             .map((obj) => ({
                 title: obj.title,
-                tooltip: obj.tooltip || null,
-                className: obj.className || ''
+                tooltip: obj.tooltip || null
             }))
-            .map(({ title, tooltip, className }, i) => {
+            .map(({ title, tooltip }, i) => {
                 const component = this.props.components[i];
                 const accessory = this.props.accessories[i];
                 const glossarySlug = this.props.glossaryEntries[i];
-                let glossaryUrl;
-                if (glossarySlug) {
-                    const hash = this.props.hash ? `/search/${this.props.hash}` : '/search';
-                    glossaryUrl = `${hash}?glossary=${glossarySlug}`;
-                }
                 return (<FilterOption
                     name={title}
                     tooltip={tooltip}
-                    className={className}
                     key={title}
                     component={component}
                     accessory={accessory}
                     defaultExpand={this.props.expanded[i]}
                     disabled={component === null}
-                    glossaryUrl={glossaryUrl} />);
+                    glossarySlug={glossarySlug} />);
             });
 
         return (
