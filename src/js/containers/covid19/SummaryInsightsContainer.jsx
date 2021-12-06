@@ -45,86 +45,72 @@ const SummaryInsightsContainer = ({
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const initialInFlightState = overviewData.map((d) => d.type);
     const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
-    const { defCodes, allAwardTypeTotals } = useSelector((state) => state.covid19, isEqual);
+    const { defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19, isEqual);
 
     useEffect(() => {
-        if (assistanceOnly && (activeTab === 'all' && prevTab === 'all')) {
-            // Make sure CFDA does not fire off multiple requests for 'all' tab
-            return;
-        }
         // Clear out old values
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);
         if (spendingByAgencyOnly) {
             dispatch(setTotals('SPENDING_BY_AGENCY', {}));
-        } else if (assistanceOnly) {
+        }
+        else if (assistanceOnly) {
             dispatch(setTotals('ASSISTANCE', {}));
-        } else if (recipientOnly) {
+        }
+        else if (recipientOnly) {
             dispatch(setTotals('RECIPIENT', {}));
         }
 
         if (awardAmountRequest.current) {
             awardAmountRequest.current.cancel();
         }
-        if (defCodes && defCodes.length > 0) {
-            if (activeTab === 'all' && !assistanceOnly) {
-                if (Object.keys(allAwardTypeTotals).length > 0) {
-                    setAwardOutlays(allAwardTypeTotals.outlay);
-                    setAwardObligations(allAwardTypeTotals.obligation);
-                    setNumberOfAwards(allAwardTypeTotals.awardCount);
-
-                    if (spendingByAgencyOnly) {
-                        dispatch(setTotals('SPENDING_BY_AGENCY', allAwardTypeTotals));
-                    } else if (recipientOnly) {
-                        dispatch(setTotals('RECIPIENT', allAwardTypeTotals));
-                    }
+        if (defcParams && defcParams.length > 0) {
+            const params = {
+                filter: {
+                    def_codes: defcParams
                 }
+            };
+            if (activeTab === 'all' && assistanceOnly) {
+                params.filter.award_type = 'assistance';
             }
             else {
-                const params = {
-                    filter: {
-                        def_codes: defCodes.map((defc) => defc.code)
-                    }
-                };
-                if (activeTab !== 'all') {
-                    params.filter.award_type_codes = awardTypeGroups[activeTab];
-                } else {
-                    params.filter.award_type = 'assistance';
-                }
-                awardAmountRequest.current = fetchAwardAmounts(params);
-                awardAmountRequest.current.promise
-                    .then(({
-                        data: {
-                            obligation,
-                            outlay,
-                            award_count: awardCount,
-                            face_value_of_loan: faceValueOfLoan
-                        }
-                    }) => {
-                        setAwardObligations(obligation);
-                        setAwardOutlays(outlay);
-                        setNumberOfAwards(awardCount);
-
-                        // set totals in redux, we can use totals elsewhere to calculate unlinked data
-                        const totals = {
-                            obligation,
-                            outlay,
-                            awardCount,
-                            faceValueOfLoan
-                        };
-
-                        if (spendingByAgencyOnly) {
-                            dispatch(setTotals('SPENDING_BY_AGENCY', totals));
-                        } else if (assistanceOnly) {
-                            dispatch(setTotals('ASSISTANCE', totals));
-                        } else if (recipientOnly) {
-                            dispatch(setTotals('RECIPIENT', totals));
-                        }
-                    });
+                params.filter.award_type_codes = awardTypeGroups[activeTab];
             }
+            awardAmountRequest.current = fetchAwardAmounts(params);
+            awardAmountRequest.current.promise
+                .then(({
+                    data: {
+                        obligation,
+                        outlay,
+                        award_count: awardCount,
+                        face_value_of_loan: faceValueOfLoan
+                    }
+                }) => {
+                    setAwardObligations(obligation);
+                    setAwardOutlays(outlay);
+                    setNumberOfAwards(awardCount);
+
+                    // set totals in redux, we can use totals elsewhere to calculate unlinked data
+                    const totals = {
+                        obligation,
+                        outlay,
+                        awardCount,
+                        faceValueOfLoan
+                    };
+
+                    if (spendingByAgencyOnly) {
+                        dispatch(setTotals('SPENDING_BY_AGENCY', totals));
+                    }
+                    else if (assistanceOnly) {
+                        dispatch(setTotals('ASSISTANCE', totals));
+                    }
+                    else if (recipientOnly) {
+                        dispatch(setTotals('RECIPIENT', totals));
+                    }
+                });
         }
-    }, [defCodes, activeTab, allAwardTypeTotals]);
+    }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
 
     useEffect(() => {
         if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { LoadingMessage, TooltipWrapper, TooltipComponent } from 'data-transparency-ui';
+import { TooltipWrapper, TooltipComponent } from 'data-transparency-ui';
 
 import { DEFC_OBJECT } from 'propTypes';
 
@@ -27,7 +27,7 @@ const CovidTooltip = ({
         .map(({ code, public_law: pl, title }) => {
             const parsedPublicLaw = `${pl.includes('Non-emergency') ? 'Not designated as emergency' : 'Designated as emergency'}`;
             return (
-                <li>
+                <li key={pl}>
                     <strong>{`DEFC: ${code}`}</strong>
                     <p>{`${parsedPublicLaw}; ${pl.replace(replaceEmergencyPl, 'Public Law')}, ${title.toUpperCase()}`}</p>
                 </li>
@@ -55,15 +55,11 @@ CovidTooltip.propTypes = {
 };
 
 const propTypes = {
-    isLoading: PropTypes.bool,
-    fy: PropTypes.string,
-    agencyId: PropTypes.string
+    fy: PropTypes.string
 };
 
 const AgencyOverview = ({
-    isLoading,
-    fy,
-    agencyId
+    fy
 }) => {
     const {
         name,
@@ -155,31 +151,26 @@ const AgencyOverview = ({
                 </div>
             </div>
         </>;
-
-    const overview = isLoading ? <LoadingMessage /> : <>
-        <div className="agency-overview__top">
-            <div className="agency-overview__title">
-                <div className="agency-overview__name">
-                    <h3>{name}</h3>
-                    <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
-                </div>
-                {name && covidDefCodes.length > 0 &&
-                    <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
-                        <span className="covid-spending-flag">
-                            COVID-19 Spending
-                        </span>
-                    </TooltipWrapper>
-                }
-            </div>
-            {image}
-        </div>
-        {content}
-    </>;
-
     return (
         <div className="agency-overview">
-            {overview}
-            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} agencyId={agencyId} />
+            <div className="agency-overview__top">
+                <div className="agency-overview__title">
+                    <div className="agency-overview__name">
+                        <h3>{name}</h3>
+                        <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
+                    </div>
+                    {name && covidDefCodes.length > 0 &&
+                        <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+                            <span className="covid-spending-flag">
+                                COVID-19 Spending
+                            </span>
+                        </TooltipWrapper>
+                    }
+                </div>
+                {image}
+            </div>
+            {content}
+            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };

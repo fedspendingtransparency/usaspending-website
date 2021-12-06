@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TooltipWrapper } from 'data-transparency-ui';
 
 export const KeyWordTooltip = () => (
     <div className="advanced-search-tt">
@@ -44,11 +43,6 @@ export const DEFTooltip = () => (
             <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by DEFC will be displayed in the &quot;Spending by Prime Award&quot; table to the right. The &quot;COVID-19 Obligations&quot; and &quot;COVID-19 Outlays&quot; columns in this table show specific spending amounts for each award.</p>
         </div>
     </div>
-);
-
-
-export const withAdvancedSearchTooltip = (props) => () => (
-    <TooltipWrapper {...props} />
 );
 
 const CSSOnlyTooltipProps = {

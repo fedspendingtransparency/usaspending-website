@@ -208,7 +208,7 @@ const Footer = ({
                             &copy; {year} USAspending.gov
                         </p>
                         <p className="copyright__db">
-                            <strong>NOTE:</strong> You must <Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</Link> for very important D&amp;B information.
+                            <strong>NOTE:</strong>&nbsp;<Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
                         </p>
                     </div>
                 </div>

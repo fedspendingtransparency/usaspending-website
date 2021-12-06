@@ -19,7 +19,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import Note, { dodNote } from 'components/sharedComponents/Note';
 import {
     centerOfMap,
     filters,
@@ -446,21 +445,6 @@ export class MapContainer extends React.Component {
                     center={centerOfMap}>
                     {message}
                 </MapWrapper>
-                <Note message={(
-                    <>
-                        Amounts reported for Minnesota reflect an award by HHS from the Provider Relief Fund (PRF)
-                        to a single entity in Minnesota which will make payments to recipients across the country.{' '}
-                        <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
-                            See more information about HHS&apos;s data submission.
-                        </a>
-                    </>
-                )} />
-                <Note message={dodNote} />
-                <Note message={(
-                    <>
-                        For &apos;All Awards&apos; we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.
-                    </>
-                )} />
             </div>
         );
     }

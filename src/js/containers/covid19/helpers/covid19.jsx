@@ -49,10 +49,10 @@ const awardSpendingText = (
 );
 
 // eslint-disable-next-line import/prefer-default-export
-export const componentByCovid19Section = () => ({
+export const componentByCovid19Section = (publicLaw, handleExternalLinkClick) => ({
     overview: {
         icon: 'hand-holding-medical',
-        component: <OverviewContainer />,
+        component: <OverviewContainer publicLaw={publicLaw} />,
         headerText: totalSpendingText,
         showInMenu: true,
         showInMainSection: true,
@@ -60,20 +60,20 @@ export const componentByCovid19Section = () => ({
     },
     total_spending_by_budget_categories: {
         icon: 'cubes',
-        component: <BudgetCategories />,
+        component: <BudgetCategories publicLaw={publicLaw} />,
         headerText: totalSpendingText,
         showInMenu: true,
         showInMainSection: true,
         title: 'Total Spending by Budget Category'
     },
     award_question: {
-        component: <AwardQuestion />,
+        component: <AwardQuestion publicLaw={publicLaw} />,
         showInMenu: false,
         showInMainSection: true
     },
     award_spending_by_recipient: {
         icon: 'building',
-        component: <RecipientSection />,
+        component: <RecipientSection publicLaw={publicLaw} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
@@ -81,7 +81,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_agency: {
         icon: 'sitemap',
-        component: <AwardSpendingAgency />,
+        component: <AwardSpendingAgency publicLaw={publicLaw} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
@@ -89,7 +89,7 @@ export const componentByCovid19Section = () => ({
     },
     award_spending_by_assistance_listing: {
         icon: 'plus-circle',
-        component: <SpendingByCFDA />,
+        component: <SpendingByCFDA publicLaw={publicLaw} handleExternalLinkClick={handleExternalLinkClick} />,
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,

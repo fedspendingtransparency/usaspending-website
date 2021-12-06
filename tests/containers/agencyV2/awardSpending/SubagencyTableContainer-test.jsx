@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-
+import * as redux from 'react-redux';
 import * as apis from 'apis/agencyV2';
 import * as helpers from 'helpers/agencyV2/AwardSpendingSubagencyHelper';
 import SubagencyTableContainer from 'containers/agencyV2/awardSpending/SubagencyTableContainer';
@@ -44,11 +44,14 @@ export const mockResponse = {
 };
 
 const defaultProps = {
-    agencyId: '012',
     fy: '2020',
     type: 'all',
     subHeading: 'test'
 };
+
+jest.spyOn(redux, 'useSelector').mockReturnValue({
+    toptierCode: '073'
+});
 
 afterEach(() => {
     jest.clearAllMocks();

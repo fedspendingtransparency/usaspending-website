@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { fetchAgencyCount } from 'apis/disaster';
@@ -55,7 +56,11 @@ const initialActiveTabState = {
     subtitle: awardTypeTabs[0].label
 };
 
-const AwardSpendingAgency = () => {
+const propTypes = {
+    publicLaw: PropTypes.string
+};
+
+const AwardSpendingAgency = ({ publicLaw }) => {
     const { defcParams } = useSelector((state) => state.covid19);
     const [inFlight, setInFlight] = useState(true);
     const [tabCounts, setTabCounts] = useState(initialTabState);
@@ -132,13 +137,23 @@ const AwardSpendingAgency = () => {
     return (
         <div className="body__content spending-by-agency">
             <DateNote />
-            <h3 className="body__narrative">
-                <strong>Which agencies</strong> issued awards using COVID-19 funds?
-            </h3>
+            {publicLaw === 'american-rescue-plan' ?
+                <h3 className="body__narrative">
+                    <strong>Which agencies</strong> issued awards using American Rescue Plan funds?
+                </h3> :
+                <h3 className="body__narrative">
+                    <strong>Which agencies</strong> issued awards using COVID-19 funds?
+                </h3>
+            }
             <div className="body__narrative-description">
-                <p>
-                    Federal agencies receive funding from Congress and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds in response to the COVID-19 pandemic, as well as a breakdown of their obligated and outlayed funds.
-                </p>
+                {publicLaw === 'american-rescue-plan' ?
+                    <p>
+                        Federal agencies receive funding from Congress, and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds from the American Rescue Plan, as well as a breakdown of their obligated and outlayed funds.
+                    </p> :
+                    <p>
+                        Federal agencies receive funding from Congress and they issue awards to recipients using those funds. In this section we show which agencies and sub-agencies have awarded funds in response to the COVID-19 pandemic, as well as a breakdown of their obligated and outlayed funds.
+                    </p>
+                }
                 <p>
                     <em>Please note that agencies without COVID-19 appropriated funds are not represented here.</em>
                 </p>
@@ -155,9 +170,17 @@ const AwardSpendingAgency = () => {
             <div className="spending-by-agency__content">
                 <AwardSpendingAgencyTableContainer type={activeTab.internal} subHeading="Sub-Agencies" scrollIntoView={scrollIntoViewTable} />
                 <Note message={dodNote} />
+                {publicLaw === 'american-rescue-plan' ?
+                    <Note message={(
+                        <>
+                            This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
+                        </>
+                    )} /> : <div />
+                }
             </div>
         </div>
     );
 };
 
+AwardSpendingAgency.propTypes = propTypes;
 export default AwardSpendingAgency;

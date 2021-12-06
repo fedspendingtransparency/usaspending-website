@@ -36,7 +36,7 @@ const OpportunityProjectPage = () => {
             <FlexGridContainer className="top-page">
                 <FlexGridRow>
                     <FlexGridCol desktop={{ span: 8, offset: 2 }} className="content">
-                        <main role="main" className="main-content">
+                        <main role="main" className="main-content" id="main-content">
                             <header>
                                 <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
                                 <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
@@ -44,21 +44,30 @@ const OpportunityProjectPage = () => {
 
                             <section>
                                 <p>The Bureau of the Fiscal Service (Fiscal) at the U.S. Department of the Treasury is proud to have been selected by The Opportunity Project as a Challenge Partner to collaborate, innovate and assist in solving the problem of analyzing equity in COVID-19 federal funding.</p>
-                                <p>The Opportunity Project (TOP) is a public & private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges. TOP brings together technologists, government, and community leaders to rapidly prototype digital products— powered by federal open data—that solve real-world problems for people across the country TOP’s 2021 sprint theme is “The World Post COVID-19: Society, Economy, and Environment.</p>
+                                <p>The Opportunity Project (TOP) is a public &amp; private sector innovation program led by Census Open Innovation Labs at the U.S. Census Bureau with a focus on the nation’s toughest challenges. TOP brings together technologists, government, and community leaders to rapidly prototype digital products— powered by federal open data—that solve real-world problems for people across the country TOP’s 2021 sprint theme is &ldquo;The World Post COVID-19: Society, Economy, and Environment&rdquo;.</p>
                                 <p>The team behind <a href="/about">USAspending.gov</a> at Fiscal brought together tech teams, product advisors, user advocates, local government officials and federal data stewards from all over America to collaborate on the mission of analyzing equity in COVID-19 federal funding for our TOP 2021 sprint.  We want to thank and acknowledge all  of the TOP participants for volunteering their time, contributing to federal open data innovation, serving as a resource, and collaborating across sectors in service of helping communities.</p>
                             </section>
 
+                            <picture>
+                                <source srcSet="img/opportunity-project-map.webp 950w" type="image/webp" />
+                                <source srcSet="img/opportunity-project-map.png" type="image/png" />
+                                <img src="img/opportunity-project-map.png" alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
+                            </picture>
+
                             <section>
-                                <ul><div className="list-heading">Tech Teams:</div>
+                                <div className="list-heading">Tech Teams:</div>
+                                <ul>
                                     <li>Bowie State University</li>
                                     <li>Morehouse College</li>
                                     <li>University of Kansas Center for Public Partnerships and Research</li>
                                     <li>The Mom Project</li>
                                 </ul>
-                                <ul><div className="list-heading">Product Advisors:</div>
+                                <div className="list-heading">Product Advisors:</div>
+                                <ul>
                                     <li>Flow Immersive</li>
                                 </ul>
-                                <ul><div className="list-heading">User Advocates:</div>
+                                <div className="list-heading">User Advocates:</div>
+                                <ul>
                                     <li>The Girl Scout Research Institute at Girl Scouts of the USA</li>
                                     <li>The Honorable Elbra Wedgeworth, Denver, Colorado</li>
                                     <li>Dr. Bina Shrimali, Researcher, Public Health & Community Development</li>
@@ -70,17 +79,11 @@ const OpportunityProjectPage = () => {
                                     <li>Office of the Chief Financial Officer, Data Strategy & Analytics, City of Detroit, MI</li>
                                     <li>City of Laredo Information Services Department, Laredo, Texas</li>
                                 </ul>
-                                <ul><div className="list-heading">Federal Data Stewards:</div></ul>
+                                <div className="list-heading">Federal Data Stewards:</div>
                                 <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the{' '}
                                     {externalLink("https://opportunity.census.gov/data/covid-spending/", "TOP datasets page.")}
                                 </p>
                             </section>
-
-                            <picture>
-                                <source srcSet="img/opportunity-project-map.webp 950w" type="image/webp" />
-                                <source srcSet="img/opportunity-project-map.png" type="image/png" />
-                                <img src="img/opportunity-project-map.png" alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
-                            </picture>
 
                             <section>
                                 <p><span className="bold">THE CHALLENGE</span> – Develop innovative tools that combine datasets to help inform community leaders on equitable distribution of federal funding. Teams were encouraged to analyze how federal COVID-19 spending has been shared with communities most vulnerable to impacts of the pandemic.</p>

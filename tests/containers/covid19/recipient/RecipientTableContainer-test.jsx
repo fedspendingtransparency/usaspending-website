@@ -12,6 +12,10 @@ import * as api from 'apis/disaster';
 import * as redux from 'react-redux';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
+// Mock the child component so we can isolate functionality of the container
+jest.mock('containers/covid19/SummaryInsightsContainer', () =>
+    jest.fn(() => null));
+
 const mockResults = [
     {
         code: "987654321",
@@ -136,7 +140,7 @@ describe('RecipientTableContainer', () => {
     describe('table interactions', () => {
         beforeEach(() => {
             // Mock the relevant redux state
-            const mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({
+            jest.spyOn(redux, 'useSelector').mockReturnValue({
                 defcParams: ['A', 'B', 'C'],
                 recipientTotals: {
                     obligation: 2026286145590.02,
@@ -162,11 +166,11 @@ describe('RecipientTableContainer', () => {
             act(() => {
                 render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
             });
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(2);
             // Click a sort button
             fireEvent.click(screen.getByTitle('Sort table by ascending Recipient'));
             return waitFor(() => {
-                expect(spy).toHaveBeenCalledTimes(2);
+                expect(spy).toHaveBeenCalledTimes(3);
             });
         });
         it('should make an API call when a search term is applied', () => {
@@ -186,14 +190,14 @@ describe('RecipientTableContainer', () => {
             act(() => {
                 render(<RecipientTableContainer activeTab="all" prevActiveTab="all" scrollIntoView={jest.fn()} />);
             });
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(2);
             // Enter a search term
             const input = screen.getByTitle('Search Input');
             const button = screen.getByTitle('Submit Search Button');
             fireEvent.change(input, { target: { value: 'hello' } });
             fireEvent.click(button);
             return waitFor(() => {
-                expect(spy).toHaveBeenCalledTimes(2);
+                expect(spy).toHaveBeenCalledTimes(3);
             });
         });
         it('should make a different API call when the loans tab is active', () => {
@@ -215,7 +219,7 @@ describe('RecipientTableContainer', () => {
                 render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
             });
             expect(spy).not.toHaveBeenCalled();
-            expect(loansSpy).toHaveBeenCalledTimes(1);
+            expect(loansSpy).toHaveBeenCalledTimes(2);
         });
         it('should make an API call when the active tab changes', () => {
             // spy on the API request helper functions
@@ -233,11 +237,11 @@ describe('RecipientTableContainer', () => {
 
             const { rerender } = render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
             waitFor(() => {
-                expect(spy).toHaveBeenCalledTimes(1);
+                expect(spy).toHaveBeenCalledTimes(2);
             });
             rerender(<RecipientTableContainer activeTab="all" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
             waitFor(() => {
-                expect(spy).toHaveBeenCalledTimes(2);
+                expect(spy).toHaveBeenCalledTimes(3);
             });
         });
     });

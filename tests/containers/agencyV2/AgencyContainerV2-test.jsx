@@ -9,6 +9,7 @@ import { Route } from 'react-router-dom';
 import * as agencyV2 from 'apis/agencyV2';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
+import * as agencyHooks from 'containers/agencyV2/WithAgencySlugs';
 
 import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
@@ -34,9 +35,15 @@ beforeEach(() => {
     jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
         { fy: 2020 }
     ]);
+    jest.spyOn(agencyHooks, "useAgencySlugs").mockImplementation(() => [
+        {
+            'department-of-sandwiches': '123',
+            'ministry-of-magic': '456'
+        }
+    ]);
 });
 
-test('an API request is made for the agency code in the URL', () => {
+test('an API request is made for the agency code mapped to the slug in the URL', () => {
     const mockResponse = {
         promise: new Promise((resolve) => {
             process.nextTick(() => (
@@ -44,10 +51,9 @@ test('an API request is made for the agency code in the URL', () => {
             ));
         })
     };
-    // spy.mockClear();
     spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
-        <Route path="/agency_v2/:agencyId" location={{ pathname: '/agency_v2/123' }}>
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
             <AgencyContainerV2 />
         </Route >
     ));

@@ -5,13 +5,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import BudgetCategoriesTableContainer from 'containers/covid19/budgetCategories/BudgetCategoriesTableContainer';
 import DateNote from 'components/covid19/DateNote';
 import { fetchDisasterSpendingCount } from 'apis/disaster';
-import { Tabs, InformationBoxes } from "data-transparency-ui";
+import { Tabs, InformationBoxes } from 'data-transparency-ui';
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
 import Analytics from 'helpers/analytics/Analytics';
+import Note from 'components/sharedComponents/Note';
 
 const tabs = [
     {
@@ -31,13 +33,17 @@ const tabs = [
     }
 ];
 
-const BudgetCategories = () => {
+const propTypes = {
+    publicLaw: PropTypes.string
+};
+
+const BudgetCategories = ({ publicLaw }) => {
     const [activeTab, setActiveTab] = useState(tabs[0].internal);
     const [count, setCount] = useState(null);
     const [inFlight, setInFlight] = useState(true);
     const moreOptionsTabsRef = useRef(null);
 
-    const { defCodes, overview } = useSelector((state) => state.covid19);
+    const { defcParams, overview } = useSelector((state) => state.covid19);
     const overviewData = [
         {
             type: 'count',
@@ -68,13 +74,13 @@ const BudgetCategories = () => {
     };
 
     useEffect(() => {
-        if (defCodes && defCodes.length > 0) {
+        if (defcParams && defcParams.length > 0) {
             // Reset any existing results
             setCount(null);
 
             const params = {
                 filter: {
-                    def_codes: defCodes.map((defc) => defc.code)
+                    def_codes: defcParams
                 }
             };
             const countRequest = fetchDisasterSpendingCount(activeTab, params);
@@ -83,7 +89,7 @@ const BudgetCategories = () => {
                     setCount(res.data.count);
                 });
         }
-    }, [activeTab, defCodes]);
+    }, [activeTab, defcParams]);
 
     useEffect(() => {
         if (!count) {
@@ -108,11 +114,21 @@ const BudgetCategories = () => {
     return (
         <div className="body__content budget-categories">
             <DateNote />
-            <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
+            {publicLaw === 'american-rescue-plan' ?
+                <h3 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h3>
+                :
+                <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
+            }
             <div className="body__narrative-description">
-                <p>
-                    In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
-                </p>
+                {publicLaw === 'american-rescue-plan' ?
+                    <p>
+                        In this section, we provide the total amount of American Rescue Plan funding broken down into three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
+                    </p>
+                    :
+                    <p>
+                        In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
+                    </p>
+                }
             </div>
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
@@ -121,7 +137,7 @@ const BudgetCategories = () => {
                 <InformationBoxes
                     boxes={overviewData.map((data) => ({
                         ...data,
-                        isLoading: data.type === 'count' && inFlight,
+                        isLoading: (data.type === 'count' && inFlight) || !amounts[data.type],
                         amount: amounts[data.type]
                     }))} />
             </div>
@@ -131,8 +147,16 @@ const BudgetCategories = () => {
                     subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
                     scrollIntoView={scrollIntoViewTable} />
             </div>
+            {publicLaw === 'american-rescue-plan' ?
+                <Note message={(
+                    <>
+                        This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
+                    </>
+                )} /> : <div />
+            }
         </div>
     );
 };
 
+BudgetCategories.propTypes = propTypes;
 export default BudgetCategories;

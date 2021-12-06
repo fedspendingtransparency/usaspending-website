@@ -169,7 +169,7 @@ export const routes = [
         exact: true
     },
     {
-        path: '/agency_v2/:agencyId',
+        path: '/agency_v2/:agencySlug',
         component: AgencyProfileV2,
         exact: true
     },

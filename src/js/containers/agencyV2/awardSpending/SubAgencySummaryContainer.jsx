@@ -10,9 +10,7 @@ import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount'
 
 const propTypes = {
     fy: PropTypes.string,
-    agencyId: PropTypes.string,
     activeTab: PropTypes.string,
-    prevTab: PropTypes.string,
     summaryData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
         title: PropTypes.string
@@ -31,10 +29,10 @@ const SubAgencySummaryContainer = ({
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(false);
     const request = React.useRef(null);
-    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfTransactions, setNumberOfTransactions] = useState(null);
     const [awardObligations, setAwardObligations] = useState(null);
+    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
 
     useEffect(() => {
         if (request.current) {
