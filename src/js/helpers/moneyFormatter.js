@@ -228,11 +228,11 @@ export const formatMoneyWithUnits = (value) => {
     return `${formattedCurrency}${longLabel}`;
 };
 
-export const formatMoneyWithUnitsShortLabel = (value) => {
+export const formatMoneyWithUnitsShortLabel = (value, decimalPlaces = 1) => {
     if (typeof value !== 'number') return '--';
     // Format the ceiling and current values to be friendly strings
     const units = calculateUnitForSingleValue(value);
-    let precision = 1;
+    let precision = decimalPlaces;
     // Only reformat at a million or higher
     if (units.unit < unitValues.MILLION) {
         units.unit = 1;

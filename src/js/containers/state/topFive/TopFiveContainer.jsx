@@ -8,26 +8,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import {
-    getTrailingTwelveMonths,
-    convertFYToDateRange
-} from 'helpers/fiscalYearHelper';
+import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
-
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-
 import TopFive from 'components/state/topFive/TopFive';
 
-const propTypes = {
-    code: PropTypes.string,
-    total: PropTypes.number,
-    category: PropTypes.string,
-    fy: PropTypes.string,
-    type: PropTypes.string
-};
-
 export class TopFiveContainer extends React.Component {
+    static propTypes = {
+        code: PropTypes.string,
+        total: PropTypes.number,
+        category: PropTypes.string,
+        fy: PropTypes.string,
+        type: PropTypes.string
+    };
+
     constructor(props) {
         super(props);
 
@@ -186,5 +181,3 @@ export default connect(
         fy: state.stateProfile.fy
     })
 )(TopFiveContainer);
-
-TopFiveContainer.propTypes = propTypes;
