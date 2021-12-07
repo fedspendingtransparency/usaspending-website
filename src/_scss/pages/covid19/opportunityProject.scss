@@ -1,0 +1,84 @@
+@import "all";
+
+.top-page {
+    width: 100%;
+    padding: 0;
+    background-color: $color-gray-lightest;
+
+    .content {
+        background-color: $color-white;
+        border: solid thin $color-gray-lighter;
+
+        padding: rem(32) rem(16) rem(40);
+        @include media($medium-screen) {
+            padding: rem(60) rem(40) rem(40);
+        }
+        margin: 0;
+        @include media($medium-screen) {
+            margin: rem(24) auto;
+        }
+    }
+
+    header {
+        color: $color-gray;
+
+
+        img {
+            display: block;
+            margin: 40px 0;
+        }
+    }
+
+    h1 {
+        margin: 0;
+        font-size: rem(27);
+        font-weight: $font-normal;
+        line-height: rem(32);
+        @include media($medium-screen) {
+            font-size: rem(47);
+            line-height: rem(56);
+        }
+    }
+
+    h2 {
+        font-size: rem(16);
+        font-weight: $font-bold;
+        text-decoration: underline;
+        line-height: rem(16);
+        margin: 0;
+    }
+
+    img {
+        margin: rem(12) 0;
+        @include media($medium-screen) {
+            margin: rem(20) 0;
+        }
+    }
+
+    .list-heading {
+        font-weight: $font-bold;
+        margin: rem(24) 0 rem(16);
+    }
+
+    ul {
+        padding: 0;
+        list-style-position: inside;
+        li {
+            line-height: rem(24);
+            padding-left: rem(16);
+            text-indent: rem(-22);
+        }
+    }
+
+    footer {
+        margin-top: rem(48);
+    }
+
+    .bold {
+        font-weight: $font-bold;
+    }
+
+    .center {
+        text-align: center;
+    }
+}
