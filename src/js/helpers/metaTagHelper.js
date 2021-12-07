@@ -142,6 +142,15 @@ export const covidPageMetaTags = {
     og_image: `${productionURL}${imgDirectory}social-share-preview_covid.png`
 };
 
+export const topPageMetaTags = {
+    og_url: `${productionURL}disaster/covid-19/the-opportunity-project`,
+    og_title:
+        'The Opportunity Project: Analyzing Equity in Federal COVID-19 Spending | USAspending',
+    og_description: 'The Department of the Treasury and the U.S. Census Bureau brought together external tech teams, product advisors, community leaders, and federal data stewards from across the country to collaborate on analyzing equity in COVID-19 federal funding for The Opportunity Project 2021 innovation mission.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const stylePageMetaTags = {
     og_url: `${productionURL}style`,
     og_title: 'Style Guide | USAspending',
