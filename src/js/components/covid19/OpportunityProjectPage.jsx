@@ -81,7 +81,7 @@ const OpportunityProjectPage = () => {
                                 </ul>
                                 <div className="list-heading">Federal Data Stewards:</div>
                                 <p>To see a comprehensive list of federal open datasets that were curated in this sprint to help analyze equity in COVID-19 federal funding visit the{' '}
-                                    {externalLink("https://opportunity.census.gov/data/covid-spending/", "TOP datasets page.")}
+                                    <a href="https://opportunity.census.gov/data/covid-spending/" target="_blank" rel="noopener noreferrer">TOP datasets page</a>.
                                 </p>
                             </section>
 
@@ -117,7 +117,7 @@ const OpportunityProjectPage = () => {
                             <footer>
                                 <p className="center">Questions, ideas, or feedback? E-mail us at <a href="mailto:usaspending@fiscal.treasury.gov">usaspending@fiscal.treasury.gov</a></p>
                                 <p className="center">We want to thank everyone involved in The Opportunity Project.  Learn more at{' '}
-                                    {externalLink("http://www.opportunity.census.gov/", "opportunity.census.gov")}
+                                    <a href="https://opportunity.census.gov/" target="_blank" rel="noopener noreferrer">opportunity.census.gov</a>.
                                 </p>
                             </footer>
                         </main>
