@@ -27,8 +27,9 @@ const StateContainer = React.lazy(() => import('containers/state/StateContainer'
 const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
 const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
 const AgencyProfileV2 = React.lazy(() => import('containers/agencyV2/AgencyContainerV2').then((comp) => comp));
-const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const OpportunityProjectPage = React.lazy(() => import('components/covid19/OpportunityProjectPage').then((comp) => comp));
+const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
 const AboutTheDataPage = React.lazy(() => import('components/aboutTheData/AboutTheDataPage').then((comp) => comp));
 const AgencyDetailsPage = React.lazy(() => import('components/aboutTheData/AgencyDetailsPage').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
@@ -190,6 +191,11 @@ export const routes = [
     {
         path: '/disaster/covid-19/data-sources',
         component: DataSourcesAndMethodologiesPage,
+        exact: true
+    },
+    {
+        path: '/disaster/covid-19/the-opportunity-project',
+        component: OpportunityProjectPage,
         exact: true
     },
     {
