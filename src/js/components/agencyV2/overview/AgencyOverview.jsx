@@ -8,50 +8,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { TooltipWrapper, TooltipComponent } from 'data-transparency-ui';
-
-import { DEFC_OBJECT } from 'propTypes';
-
+import { TooltipWrapper } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
-
-const replaceEmergencyPl = new RegExp(/(Emergency P.L.|Non-emergency P.L.)/);
-
-const CovidTooltip = ({
-    codes,
-    fy
-}) => {
-    const getText = () => codes
-        .map(({ code, public_law: pl, title }) => {
-            const parsedPublicLaw = `${pl.includes('Non-emergency') ? 'Not designated as emergency' : 'Designated as emergency'}`;
-            return (
-                <li key={pl}>
-                    <strong>{`DEFC: ${code}`}</strong>
-                    <p>{`${parsedPublicLaw}; ${pl.replace(replaceEmergencyPl, 'Public Law')}, ${title.toUpperCase()}`}</p>
-                </li>
-            );
-        });
-    return (
-        <TooltipComponent title="Disaster and Emergency Funding Codes (DEFC)">
-            <p>{`In FY ${fy}, this agency received supplemental funding in response to the following:`}</p>
-            <ul>
-                {getText()}
-            </ul>
-            <Link to={{
-                pathname: "/disaster/covid-19/",
-                search: "?section=award_spending_by_agency"
-            }}>
-                {`View this agency's DEFC spending.`}
-            </Link>
-        </TooltipComponent>
-    );
-};
-
-CovidTooltip.propTypes = {
-    fy: PropTypes.string,
-    codes: PropTypes.arrayOf(DEFC_OBJECT)
-};
+import CovidTooltip from './CovidTooltip';
 
 const propTypes = {
     fy: PropTypes.string
@@ -158,7 +119,7 @@ const AgencyOverview = ({
                 <div className="agency-overview__title">
                     <h3 className="agency-overview__name">{name}</h3>
                     {name && covidDefCodes.length > 0 &&
-                        <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+                        <TooltipWrapper className="agency-overview__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                             <span className="covid-spending-flag">
                                 COVID-19 Spending
                             </span>
