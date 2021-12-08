@@ -64,6 +64,7 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
+            @import './overview/pageTitle';
             .usda-message {
                 &.usda-message_error {
                     background-color: $color-white;

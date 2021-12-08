@@ -8,11 +8,9 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { TooltipWrapper } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
-import CovidTooltip from './CovidTooltip';
 
 const propTypes = {
     fy: PropTypes.string
@@ -22,13 +20,10 @@ const AgencyOverview = ({
     fy
 }) => {
     const {
-        name,
-        logo,
         website,
         mission,
         congressionalJustification,
-        showAboutData,
-        covidDefCodes
+        showAboutData
     } = useSelector((state) => state.agencyV2.overview);
 
     const [windowWidth, setWindowWidth] = useState(0);
@@ -44,13 +39,6 @@ const AgencyOverview = ({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const image = logo ? (
-        <img
-            className="agency-overview__image"
-            src={`graphics/agency/${logo}`}
-            alt={`${name} logo`} />
-    ) : '';
 
     const missionBlock = (
         <div className="agency-overview__data">
@@ -114,20 +102,7 @@ const AgencyOverview = ({
             </div>
         </>;
     return (
-        <div className="agency-overview">
-            <div className="agency-overview__top">
-                <div className="agency-overview__title">
-                    <h3 className="agency-overview__name">{name}</h3>
-                    {name && covidDefCodes.length > 0 &&
-                        <TooltipWrapper className="agency-overview__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
-                            <span className="covid-spending-flag">
-                                COVID-19 Spending
-                            </span>
-                        </TooltipWrapper>
-                    }
-                </div>
-                {image}
-            </div>
+        <div className="body__content agency-overview">
             {content}
             <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
