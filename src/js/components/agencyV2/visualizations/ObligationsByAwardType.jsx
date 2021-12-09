@@ -97,6 +97,8 @@ export default function ObligationsByAwardType({
             // Use the faded color when another section is hovered over
             ((activeType && !categoryMapping[outer[i].label[0]].includes(activeType)) && !isMobile)
                 ? outer[i].fadedColor : outer[i].color)
+            // ((activeType && activeType !== inner[i].label) && !isMobile)
+            //     ? inner[i].fadedColor : inner[i].color)
         )
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
