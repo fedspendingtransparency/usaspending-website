@@ -17,7 +17,7 @@ import { mockAvailableOC, mockReduxActions } from './mockObjectClass';
 jest.mock('components/account/filters/objectClass/ObjectClassFilter', () =>
     jest.fn(() => null));
 
-jest.mock('helpers/accountHelper', () => require('../accountHelper'));
+jest.mock('apis/account', () => require('../accountHelper'));
 
 const defaultFilters = {
     accountId: 12

@@ -14,7 +14,7 @@ import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 import withLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
-import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
+import BaseFederalAccountLandingRow from 'models/v1/accountLanding/BaseFederalAccountLandingRow';
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from 'propTypes';
 
 require('pages/accountLanding/accountLandingPage.scss');

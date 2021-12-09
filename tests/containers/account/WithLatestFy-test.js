@@ -16,7 +16,7 @@ import * as redux from 'react-redux';
 
 import { waitFor } from 'test-utils';
 
-import * as helper from 'helpers/accountHelper';
+import * as helper from 'apis/account';
 import * as queryParamHelpers from 'helpers/queryParams';
 import * as actions from 'redux/actions/account/accountActions';
 import * as hooks from 'containers/account/WithLatestFy';

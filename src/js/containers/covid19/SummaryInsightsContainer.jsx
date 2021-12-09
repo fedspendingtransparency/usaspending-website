@@ -71,7 +71,7 @@ const SummaryInsightsContainer = ({
                     def_codes: defcParams
                 }
             };
-            if (activeTab === 'all') {
+            if (activeTab === 'all' && assistanceOnly) {
                 params.filter.award_type = 'assistance';
             }
             else {
