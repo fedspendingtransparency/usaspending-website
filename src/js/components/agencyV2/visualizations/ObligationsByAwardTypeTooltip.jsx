@@ -7,12 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table } from 'data-transparency-ui';
-import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awardTypes: PropTypes.array,
     fiscalYear: PropTypes.number,
-    activeType: PropTypes.string
+    activeType: PropTypes.string,
+    category: PropTypes.string
 };
 
 const columns = [
@@ -32,15 +33,24 @@ const columns = [
     }
 ];
 
-const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType }) => {
+
+const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, category }) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
-    const rows = awardTypes.map((type) => {
+    const awardTypesByCategory = awardTypes.filter(item => item.type === category);
+    const totalByCategory = awardTypesByCategory.reduce((acc, item) =>  acc + item.value, 0);
+
+    const titles = {
+        'contracts': 'Total Contract Obligations',
+        'financial': 'Total Financial Assistance Obligations'
+    }
+
+    const rows = awardTypesByCategory.map((type) => {
         const activeClass = `award-type-tooltip__table-data${type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
         return [
             (
                 <div className={activeClass}>
                     <svg height="12" width="18">
-                        <circle cx="6" cy="6" r="6" fill={type.color} />
+                        <circle cx="6" cy="6" r="6" fill={type.color}/>
                     </svg>
                     {type.label}
                 </div>
@@ -57,16 +67,18 @@ const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType }) =
             )
         ];
     });
+
     // Add the "Totals" row
     rows.push([
         'Total',
         formatMoney(_awardObligations),
         '100%'
     ]);
+
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">
-                FY {fiscalYear}
+                FY {fiscalYear} {titles[category]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
             </div>
             <div className="tooltip__text">
                 <Table

@@ -26,7 +26,8 @@ const propTypes = {
         PropTypes.shape({
             label: PropTypes.string.isRequired,
             value: PropTypes.number.isRequired,
-            color: PropTypes.string.isRequired
+            color: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired
         })
     ).isRequired,
     windowWidth: PropTypes.number.isRequired,
@@ -195,7 +196,9 @@ export default function ObligationsByAwardType({
                 <ObligationsByAwardTypeTooltip
                     awardTypes={inner}
                     fiscalYear={fiscalYear}
-                    activeType={activeType} />)}
+                    activeType={activeType}
+                    category={categoryMapping['All Contracts'].includes(activeType) ? 'contracts' : 'financial'}
+                />)}
             controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,
