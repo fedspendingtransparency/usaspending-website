@@ -26,15 +26,17 @@ const VisualizationSection = ({
 }) => (
     <div className="status-of-funds__visualization">
         <h6>{agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
-        <div>
-            <StatusOfFundsChart data={data} />
+        <div className="status-of-funds__visualization-chart">
+            <StatusOfFundsChart data={data} fy={fy} />
         </div>
-        <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
-            resultsText
-            changePage={() => {}}
-            currentPage={1}
-            pageSize={10}
-            totalItems={12} />
+        <div className="status-of-funds__visualization-pagination">
+            <Pagination // TODO: replace mock props data with pagination data from API when endpoints are available
+                resultsText
+                changePage={() => {}}
+                currentPage={1}
+                pageSize={10}
+                totalItems={12} />
+        </div>
     </div>
 );
 
