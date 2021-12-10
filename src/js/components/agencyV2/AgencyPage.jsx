@@ -57,7 +57,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            icon: 'chart-area',
+            icon: 'landmark',
             component: <AgencyOverview fy={selectedFy} />
         },
         {

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { throttle } from 'lodash';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
@@ -90,16 +91,16 @@ const AgencyOverview = ({
         </>
         :
         <>
-            <div className="agency-overview__row">
-                <div className="agency-overview__column">
+            <FlexGridRow className="agency-overview__row">
+                <FlexGridCol width={8}>
                     {showAboutData && aboutBlock}
                     {missionBlock}
-                </div>
-                <div className="agency-overview__column">
+                </FlexGridCol>
+                <FlexGridCol width={4}>
                     {websiteBlock}
                     {cjBlock}
-                </div>
-            </div>
+                </FlexGridCol>
+            </FlexGridRow>
         </>;
     return (
         <div className="body__content agency-overview">

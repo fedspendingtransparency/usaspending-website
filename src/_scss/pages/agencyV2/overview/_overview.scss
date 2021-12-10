@@ -1,19 +1,10 @@
 .agency-overview {
     @import './fySummary';
-    width: 100%; // fix for IE
     .agency-overview__row {
-        @include display(flex);
-        padding-left: 6.4rem;
-        padding-right: 6.4rem;
-        .agency-overview__column {
-            padding-right: rem(20);
-            &:first-of-type {
-                @include flex(1 1 50%);
-            }
-            &:last-of-type {
-                padding-right: 0;
-                @include flex(1 1 33%);
-            }
+        padding-left: 4rem;
+        padding-right: 4rem;
+        .usa-dt-flex-grid__col-4 {
+            padding-left: 3.2rem;
         }
     }
     .agency-overview__data {
@@ -27,9 +18,6 @@
         }
         p {
             margin: 0;
-        }
-        a {
-            white-space: nowrap;
         }
     }
     .read-more-button {
