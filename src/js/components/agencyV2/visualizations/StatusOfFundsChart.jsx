@@ -152,7 +152,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .attr('transform', tickMobileXAxis)
         .attr('class', 'tickLines-vertical')
         .style("stroke-width", 2)
-        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 215 : -chartHeight - 4).ticks(3))
+        .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(3))
         .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
         .attr('id', 'tick-labels-axis')
