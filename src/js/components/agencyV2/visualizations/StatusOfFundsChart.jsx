@@ -156,6 +156,8 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .call((g) => g.select(".domain").remove())
         .selectAll('.tick text')
         .attr('id', 'tick-labels-axis')
+        .attr('tabindex', 0)
+        .attr('aria-describedby', (d) => `x axis label-${d}`)
         .attr('dy', '-0.16em')
         .attr('dx', '0em')
         .style("font-size", isMobile ? 36 : fontSizeScreenWidth())
@@ -199,6 +201,8 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .call(isLargeScreen ? d3.axisRight(y) : d3.axisLeft(y).tickSize(0))
         .selectAll('.tick text')
         .attr('class', 'y-axis-labels')
+        .attr('tabindex', 0)
+        .attr('aria-describedby', (d) => `y axis label-${d}`)
         .style('fill', '#555')
         .style("font-family", 'Source Sans Pro')
         .call(isLargeScreen ? wrapTextMobile : wrapText, 270);
@@ -223,6 +227,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
         .attr("width", (d) => x(d.total_budgetary_resources) + 11)
         .attr("height", y.bandwidth() - 36)
+        .attr('tabindex', 0)
         .attr("fill", "#BBDFC7");
     // append total obligations bars
     svg.selectAll("totalObligationsRect")
@@ -234,6 +239,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
         .attr("width", (d) => x(d.total_obligations) + 11)
         .attr("height", y.bandwidth() - 36)
+        .attr('tabindex', 0)
         .attr("fill", "#2B71B8");
     // horizontal border above legend
     svg.append('line')
@@ -251,7 +257,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .attr("r", 6)
         .style("fill", "#2B71B8");
     svg.append("circle")
-        .attr("cx", isLargeScreen ? -130 : 355)
+        .attr("cx", isLargeScreen ? -130 : 375)
         .attr("cy", isMobile ? chartHeight + 1150 : legendResourcesYPos())
         .attr("r", 6)
         .style("fill", "#BBDFC7");
@@ -263,7 +269,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .style('fill', '#555')
         .attr("alignment-baseline", "middle");
     svg.append("text")
-        .attr("x", isLargeScreen ? -115 : 370)
+        .attr("x", isLargeScreen ? -115 : 390)
         .attr("y", isMobile ? chartHeight + 1151 : legendResourcesYPos() + 1)
         .text(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)
         .attr('class', 'y-axis-labels')
