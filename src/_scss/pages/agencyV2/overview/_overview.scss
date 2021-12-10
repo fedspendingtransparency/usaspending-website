@@ -1,5 +1,5 @@
 .agency-overview {
-    @import './fySummary';
+    @import "./fySummary";
     width: 100%; // fix for IE
     .agency-overview__top {
         // Wrapper including the logo
@@ -43,7 +43,9 @@
                     display: none;
                 }
             }
-            
+            .covid-19-flag {
+                z-index: 15; // in front of page's charts
+            }
         }
         .agency-overview__image {
             max-width: rem(90);
@@ -67,11 +69,11 @@
                         padding-right: 1.5rem;
                     }
                     .agency-overview__sub-agencies {
-                        font-size: 1.8rem;                        
+                        font-size: 1.8rem;
                     }
                 }
                 .agency-overview__tooltip {
-                    @include flex (0 0 auto);
+                    @include flex(0 0 auto);
                     > div:first-of-type {
                         width: 100%;
                     }
@@ -79,7 +81,7 @@
                         cursor: pointer;
                     }
                     .tooltip-spacer {
-                         @include media($tablet-screen) {
+                        @include media($tablet-screen) {
                             margin-left: rem(10);
                             @include display(flex);
                         }
@@ -113,16 +115,17 @@
         }
     }
     .agency-overview__data {
-        @import 'components/externalLink';
+        @import "components/externalLink";
         h4 {
             font-weight: $font-semibold;
             margin: 0;
             font-size: 1.6rem;
             line-height: normal;
         }
-        p, .usda-external-link {
+        p,
+        .usda-external-link {
             font-size: $small-font-size;
-            margin: .5rem 0 1.5rem;
+            margin: 0.5rem 0 1.5rem;
         }
         .usda-external-link {
             white-space: nowrap;
@@ -132,6 +135,6 @@
         @include button-link;
         margin-top: 0.5rem;
     }
-    @import '../visualizations/totalObligationsOverTime';
-    @import '../visualizations/recipientDistribution';
+    @import "../visualizations/totalObligationsOverTime";
+    @import "../visualizations/recipientDistribution";
 }
