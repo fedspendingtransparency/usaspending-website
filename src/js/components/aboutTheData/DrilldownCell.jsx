@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import GlobalConstants from 'GlobalConstants';
 
 import replaceString from 'helpers/replaceString';
 
@@ -16,15 +17,20 @@ const propTypes = {
     searchTerm: PropTypes.string
 };
 
+const agencyString = GlobalConstants.AGENCY_LINK;
+
 const DrilldownCell = ({
     data,
     id,
     searchTerm
 }) => (
     <div className="action-cell">
-        <span className="action-cell__text">
+        {/* <span className="action-cell__text">*/}
+        {/*    {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}*/}
+        {/* </span>*/}
+        <Link to={`/${agencyString}/${id}`} >
             {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
-        </span>
+        </Link>
         <Link
             to={`/submission-statistics/agency/${id}`}
             className="action-cell__button"
