@@ -4,7 +4,7 @@ import moment from 'moment';
 import { render, screen, waitFor } from '@test-utils';
 
 import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
-import * as accountHelpers from 'helpers/accountHelper';
+import * as accountHelpers from 'apis/account';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as queryParamHelpers from 'helpers/queryParams';

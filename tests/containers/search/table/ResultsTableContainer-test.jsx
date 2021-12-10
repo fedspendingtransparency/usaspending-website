@@ -10,7 +10,7 @@ import { Set } from 'immutable';
 import { ResultsTableContainer } from 'containers/search/table/ResultsTableContainer';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
 import { mockActions, mockRedux, mockTabCount } from './mockAwards';
 import { encodedAwardId } from "../../../mockData";

@@ -76,7 +76,7 @@ const toptierCode = '012';
 const name = 'Department of Agriculture';
 describe('Status of Funds Chart Viz Agency v2', () => {
     it('should display formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart data={mockChartData} />);
+        render(<StatusOfFundsChart data={mockChartData} fy={fy} />);
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText('$9.1B').toBeInTheDocument());

@@ -26,7 +26,7 @@
             text-align: center;
             height: rem(25);
             border-radius: rem(4);
-            padding: 0 .8rem;
+            padding: 0 0.8rem;
             margin-top: 1.1rem;
             width: fit-content;
             .tooltip-spacer {
@@ -55,7 +55,8 @@
                 padding-right: 1.5rem;
             }
             .page-title__tooltip {
-                @include flex (0 0 auto);
+                @include flex(0 0 auto);
+                z-index: 15; // in front of page's charts
                 > div:first-of-type {
                     width: 100%;
                 }

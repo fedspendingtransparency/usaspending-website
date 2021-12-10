@@ -11,7 +11,7 @@ import sinon from 'sinon';
 import { AccountRankVisualizationContainer } from
     'containers/account/visualizations/AccountRankVisualizationContainer';
 
-import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountHelper from 'apis/account';
 import { mockCategories, mockReduxAccount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
 
@@ -46,11 +46,6 @@ const mockAccountHelper = (functionName, event, expectedResponse) => {
             cancel: jest.fn()
         };
     });
-};
-
-const unmockAccountHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/accountHelper');
 };
 
 describe('AccountRankVisualizationContainer', () => {
