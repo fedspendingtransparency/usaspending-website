@@ -59,23 +59,21 @@
                 z-index: 15; // in front of page's charts
                 > div:first-of-type {
                     width: 100%;
+                    .tooltip-spacer {
+                        margin-left: rem(10);
+                        @include display(flex);
+                        .tooltip-pointer {
+                            &.left {
+                                left: rem(-16);
+                            }
+                            &.smart-bottom-left {
+                                top: rem(-16);
+                            }
+                        }
+                    }
                 }
                 &:hover {
                     cursor: pointer;
-                }
-                .tooltip-spacer {
-                     @include media($tablet-screen) {
-                        margin-left: rem(10);
-                        @include display(flex);
-                    }
-                }
-                .tooltip-pointer {
-                    &.left {
-                        left: rem(-16);
-                    }
-                    &.smart-bottom-left {
-                        top: rem(-16);
-                    }
                 }
             }
         }
