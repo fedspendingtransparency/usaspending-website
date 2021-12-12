@@ -68,13 +68,6 @@ const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, cat
         ];
     });
 
-    // Add the "Totals" row
-    // rows.push([
-    //     'Total',
-    //     formatMoney(_awardObligations),
-    //     '100%'
-    // ]);
-
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">

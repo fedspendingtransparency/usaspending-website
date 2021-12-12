@@ -69,16 +69,13 @@ export default function ObligationsByAwardType({
         .append('g')
         .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
 
-    const outerPie = d3.pie()
-        .value((d) => d.value)
-        .sortValues(null)(outer);
-    const innerPie = d3.pie()
+    const pie = d3.pie()
         .value((d) => d.value)
         .sortValues(null)(inner);
 
     // rotate chart so midpoints are 127deg off vertical
     const rotationAxis = 127;
-    const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90); // rad => deg
+    const rotation = rotationAxis - ((pie[0].endAngle / Math.PI) * 90); // rad => deg
     const chart = svg
         .append('g')
         .attr('transform', `rotate (${rotation})`)
@@ -87,25 +84,34 @@ export default function ObligationsByAwardType({
 
     // outer ring.
     chart.selectAll()
-        .data(outerPie)
+        .data(pie)
         .enter()
         .append('path')
         .attr('d', d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
-        .attr('fill', (d, i) => (
+        .attr('fill', function(d, i) {
+            // 0 is index for 'All Financial' and 1 is index for 'All Contracts'
+            const innerCategory = categoryMapping['All Contracts'].includes(inner[i].label) ? 1 : 0;
+
             // Use the faded color when another section is hovered over
-            ((activeType && !categoryMapping[outer[i].label[0]].includes(activeType)) && !isMobile)
-                ? outer[i].fadedColor : outer[i].color)
-            // ((activeType && activeType !== inner[i].label) && !isMobile)
-            //     ? inner[i].fadedColor : inner[i].color)
-        )
+            if(activeType && !isMobile && activeType !== inner[i].label) {
+                return outer[innerCategory].fadedColor
+            } else {
+                return outer[innerCategory].color
+            }
+        })
+        .on('mouseenter', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        })
+        .on('mouseleave', () => setActiveType(null))
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
 
     // inner ring
     chart.selectAll()
-        .data(innerPie)
+        .data(pie)
         .enter()
         .append('path')
         .attr('d', d3.arc()
@@ -123,18 +129,24 @@ export default function ObligationsByAwardType({
             setActiveType(d.data.label);
         })
         .on('mouseleave', () => setActiveType(null))
-        .attr('role', 'listitem');
+        .attr('role', 'listitem')
+        .attr('tabindex', 0);
 
-    // border between categories
-    const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
-    chart.selectAll()
-        .data([0]) // one polyline, data in borders
-        .enter()
-        .append('path')
-        .attr('d', d3.lineRadial()(borders))
-        .attr('stroke', 'white')
-        .attr('stroke-width', 3)
-        .attr('fill', 'none');
+    // // border between categories
+    // const borders = [[0, outerRadius], [0, 0], [pie[0].endAngle, outerRadius]];
+    // chart.selectAll()
+    //     .data([0]) // one polyline, data in borders
+    //     .enter()
+    //     .append('path')
+    //     .attr('d', d3.lineRadial()(borders))
+    //     .attr('stroke', 'white')
+    //     .attr('stroke-width', 3)
+    //     .attr('fill', 'none')
+    //     .on('mouseenter', (d) => {
+    //         // store the award type of the section the user is hovering over
+    //         setActiveType(d.data.label);
+    //     })
+    //     .on('mouseleave', () => setActiveType(null));
 
     // labels
     const labelPos = (i, yOffset = 0) => {
@@ -152,7 +164,7 @@ export default function ObligationsByAwardType({
     if (outer[0].value > 0) {
         // circle
         svg.selectAll()
-            .data(outerPie)
+            .data(pie)
             .enter()
             .append('circle')
             .attr('cx', labelRadius - 70)
@@ -173,7 +185,7 @@ export default function ObligationsByAwardType({
     if (outer[1].value > 0) {
         // circle
         svg.selectAll()
-            .data(outerPie)
+            .data(pie)
             .enter()
             .append('circle')
             .attr('cx', -labelRadius + 10)
