@@ -12,6 +12,7 @@ import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
+import { AGENCY_LINK, AGENCYV2_RELEASED } from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 import {
@@ -27,7 +28,7 @@ import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-
+import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
@@ -142,12 +143,13 @@ const BudgetCategoriesTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const [spendingCategory, setSpendingCategory] = useState('total_spending');
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const [, toptierCodes, slugsLoading, slugsError] = useAgencySlugs();
 
     const { overview, defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19);
 
@@ -246,15 +248,27 @@ const BudgetCategoriesTableContainer = (props) => {
                     </Link>
                 );
             }
-            else if (link && id && props.type === 'agency') {
-                link = (
-                    <Link
-                        className="agency-profile__link"
-                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        to={`/agency/${id}`}>
-                        {budgetCategoryRow.name}
-                    </Link>
-                );
+            else if (link && props.type === 'agency') {
+                if (AGENCYV2_RELEASED && !slugsLoading && !slugsError && code) {
+                    link = (
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
+                    );
+                }
+                else if (!AGENCYV2_RELEASED && id) {
+                    link = (
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${id}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
+                    );
+                }
             }
 
             return {
@@ -291,7 +305,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     order
                 }
             };
-
 
             if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
@@ -335,7 +348,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, defcParams, overview, allAwardTypeTotals, slugsLoading]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
