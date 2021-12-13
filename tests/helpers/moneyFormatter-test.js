@@ -69,10 +69,10 @@ test.each([
 test.each([
     [123.45, '$123'],
     [1230.50, '$1,231'],
-    [12345678.23, '$12.3 M'],
-    [-12345678.23, '-$12.3 M'],
-    [1234567800.23, '$1.2 B'],
-    [-1234567800.23, '-$1.2 B'],
+    [12345678.23, '$12.3M'],
+    [-12345678.23, '-$12.3M'],
+    [1234567800.23, '$1.2B'],
+    [-1234567800.23, '-$1.2B'],
     [0, '$0'],
     [null, '--']
 ])('formatMoneyWithUnitsShortLabel: when input is %s --> %s', (input, output) => {
@@ -80,5 +80,5 @@ test.each([
 });
 
 test('formatMoneyWithUnitsShort handles specified precision', () => {
-    expect(formatMoneyWithUnitsShortLabel(12345678.23, 2)).toEqual('$12.35 M');
+    expect(formatMoneyWithUnitsShortLabel(12345678.23, 2)).toEqual('$12.35M');
 });
