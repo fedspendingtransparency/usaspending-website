@@ -21,12 +21,13 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
+import GlobalConstants from '../../GlobalConstants';
 
 require('pages/aboutTheData/aboutTheData.scss');
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();
-    const [agencySlugs, topTierCodes, slugsLoading, slugsError] = useAgencySlugs();
+    const [, topTierCodes] = useAgencySlugs();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -35,7 +36,11 @@ const AgencyDetailsPage = () => {
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
 
-    console.log(topTierCodes);
+    let slug = '';
+    if (agencyOverview && agencyOverview.toptierCode) {
+        slug = topTierCodes[agencyOverview.toptierCode];
+    }
+    const agencyString = GlobalConstants.AGENCY_LINK;
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -127,7 +132,7 @@ const AgencyDetailsPage = () => {
                                             <h5>Agency Profile Page</h5>
                                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                                             <div className="agency-info__website">
-                                                <Link to={`/agency/${agencyOverview.id}`}>
+                                                <Link to={`/${agencyString}/${slug}`}>
                                                     {agencyOverview.name}
                                                 </Link>
                                             </div>
