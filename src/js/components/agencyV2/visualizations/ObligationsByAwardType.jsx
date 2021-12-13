@@ -92,9 +92,9 @@ export default function ObligationsByAwardType({
             .innerRadius(outerRadius - outerStrokeWidth))
         .attr('fill', function(d, i) {
             // 0 is index for 'All Financial' and 1 is index for 'All Contracts' in outer.label array
-            const categoryTypes = Object.keys(categoryMapping);
-            const currentCategory = categoryMapping[categoryTypes[0]].includes(inner[i].label) ? 1 : 0;
-            const activeCategory = categoryMapping[categoryTypes[0]].includes(activeType) ? 1 : 0;
+            const categories = Object.keys(categoryMapping);
+            const currentCategory = categoryMapping[categories[0]].includes(inner[i].label) ? 1 : 0;
+            const activeCategory = categoryMapping[categories[0]].includes(activeType) ? 1 : 0;
 
             // Use the faded color when another section is hovered over
             if(activeType && !isMobile && activeCategory !== currentCategory) {
