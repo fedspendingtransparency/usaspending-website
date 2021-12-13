@@ -109,6 +109,24 @@ export default function ObligationsByAwardType({
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
 
+    // white ring
+    chart.selectAll()
+        .data(pie)
+        .enter()
+        .append('path')
+        .attr('d', d3.arc()
+            .outerRadius(outerRadius - outerStrokeWidth)
+            .innerRadius(innerRadius)
+        )
+        .attr('fill', 'white')
+        .on('mouseenter', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        })
+        .on('mouseleave', () => setActiveType(null))
+        .attr('role', 'listitem');
+
+
     // inner ring
     chart.selectAll()
         .data(pie)
@@ -131,22 +149,6 @@ export default function ObligationsByAwardType({
         .on('mouseleave', () => setActiveType(null))
         .attr('role', 'listitem')
         .attr('tabindex', 0);
-
-    // // border between categories
-    // const borders = [[0, outerRadius], [0, 0], [pie[0].endAngle, outerRadius]];
-    // chart.selectAll()
-    //     .data([0]) // one polyline, data in borders
-    //     .enter()
-    //     .append('path')
-    //     .attr('d', d3.lineRadial()(borders))
-    //     .attr('stroke', 'white')
-    //     .attr('stroke-width', 3)
-    //     .attr('fill', 'none')
-    //     .on('mouseenter', (d) => {
-    //         // store the award type of the section the user is hovering over
-    //         setActiveType(d.data.label);
-    //     })
-    //     .on('mouseleave', () => setActiveType(null));
 
     // labels
     const labelPos = (i, yOffset = 0) => {
