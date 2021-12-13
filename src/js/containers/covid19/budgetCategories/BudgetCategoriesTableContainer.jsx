@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import { AGENCY_LINK, AGENCYV2_RELEASED } from 'GlobalConstants';
@@ -25,8 +24,6 @@ import {
 import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
 import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
@@ -36,8 +33,6 @@ const propTypes = {
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
-
-let tableHeight = 'auto';
 
 const budgetDropdownColumns = {
     total_spending: [
@@ -380,17 +375,6 @@ const BudgetCategoriesTableContainer = (props) => {
         Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
-    if (loading) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (error) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-
     const spendingViewPicker = () => (
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
@@ -413,41 +397,6 @@ const BudgetCategoriesTableContainer = (props) => {
         </div>
     );
 
-    if (loading || error) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                {spendingViewPicker()}
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
             {spendingViewPicker()}
@@ -466,7 +415,9 @@ const BudgetCategoriesTableContainer = (props) => {
                     columns={renderColumns()}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
-                    divider={props.subHeading} />
+                    divider={props.subHeading}
+                    loading={loading}
+                    error={error} />
             </div>
             <Pagination
                 currentPage={currentPage}
