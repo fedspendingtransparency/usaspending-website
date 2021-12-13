@@ -20,11 +20,13 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
+import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
 
 require('pages/aboutTheData/aboutTheData.scss');
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();
+    const [agencySlugs, topTierCodes, slugsLoading, slugsError] = useAgencySlugs();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -32,6 +34,8 @@ const AgencyDetailsPage = () => {
     const [showModal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
+
+    console.log(topTierCodes);
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);

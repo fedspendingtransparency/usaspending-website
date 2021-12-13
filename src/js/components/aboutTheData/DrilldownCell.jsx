@@ -25,12 +25,9 @@ const DrilldownCell = ({
     searchTerm
 }) => (
     <div className="action-cell">
-        {/* <span className="action-cell__text">*/}
-        {/*    {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}*/}
-        {/* </span>*/}
-        <Link to={`/${agencyString}/${id}`} >
+        <span className="action-cell__text">
             {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
-        </Link>
+        </span>
         <Link
             to={`/submission-statistics/agency/${id}`}
             className="action-cell__button"
