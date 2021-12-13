@@ -74,7 +74,7 @@ export default function ObligationsByAwardType({
         .sortValues(null)(inner);
 
     // rotate chart so midpoints are 127deg off vertical
-    const rotationAxis = 127;
+    const rotationAxis = 357;
     const rotation = rotationAxis - ((pie[0].endAngle / Math.PI) * 90); // rad => deg
     const chart = svg
         .append('g')
@@ -91,14 +91,16 @@ export default function ObligationsByAwardType({
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
         .attr('fill', function(d, i) {
-            // 0 is index for 'All Financial' and 1 is index for 'All Contracts'
-            const innerCategory = categoryMapping['All Contracts'].includes(inner[i].label) ? 1 : 0;
+            // 0 is index for 'All Financial' and 1 is index for 'All Contracts' in outer.label array
+            const categoryTypes = Object.keys(categoryMapping);
+            const currentCategory = categoryMapping[categoryTypes[0]].includes(inner[i].label) ? 1 : 0;
+            const activeCategory = categoryMapping[categoryTypes[0]].includes(activeType) ? 1 : 0;
 
             // Use the faded color when another section is hovered over
-            if(activeType && !isMobile && activeType !== inner[i].label) {
-                return outer[innerCategory].fadedColor
+            if(activeType && !isMobile && activeCategory !== currentCategory) {
+                return outer[currentCategory].fadedColor
             } else {
-                return outer[innerCategory].color
+                return outer[currentCategory].color
             }
         })
         .on('mouseenter', (d) => {
@@ -142,13 +144,15 @@ export default function ObligationsByAwardType({
                 ? inner[i].fadedColor : inner[i].color)
         )
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+        .attr('role', 'listitem')
+        .attr('tabindex', 0)
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
-        .on('mouseleave', () => setActiveType(null))
-        .attr('role', 'listitem')
-        .attr('tabindex', 0);
+        .on('mouseleave', () => setActiveType(null));
+
+
 
     // labels
     const labelPos = (i, yOffset = 0) => {
@@ -204,6 +208,16 @@ export default function ObligationsByAwardType({
             .text((d) => d);
     }
 
+    const getActiveCategory = () => {
+        if(activeType) {
+            // 0 is index for 'All Financial' and 1 is index for 'All Contracts' in outer.label array
+            const categories = Object.keys(categoryMapping);
+            const category = categoryMapping[categories[0]].includes(activeType) ? 'contracts' : 'financial';
+            return category.replace(/(^All\s)/, '').toLowerCase();
+        }
+        return '';
+    }
+
     return (
         <TooltipWrapper
             className="obligations-by-award-type"
@@ -213,7 +227,7 @@ export default function ObligationsByAwardType({
                     awardTypes={inner}
                     fiscalYear={fiscalYear}
                     activeType={activeType}
-                    category={categoryMapping['All Contracts'].includes(activeType) ? 'contracts' : 'financial'}
+                    category={getActiveCategory()}
                 />)}
             controlledProps={{
                 isControlled: true,
