@@ -64,13 +64,20 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
+            @import './overview/pageTitle';
             .usda-message {
                 &.usda-message_error {
                     background-color: $color-white;
                 }
             }
+            .usda-section-title__container {
+                .usda-section-title__title-icon {
+                  margin-left: 0;
+                  width: 3.2rem;
+                }
+            }
             .body__content {
-                margin-top: rem(35);
+                margin-top: rem(32);
                 .table-wrapper {
                     overflow-x: auto;
                 }
@@ -86,8 +93,8 @@
             @import 'components/Note';
             .default-note {
                 @media (min-width: $medium-screen) {
-                    padding-left: 6.4rem;
-                    padding-right: 6.4rem;
+                    padding-left: 4rem;
+                    padding-right: 4rem;
                 }
             }
         }
