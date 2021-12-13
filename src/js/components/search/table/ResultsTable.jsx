@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import GlobalConstants from 'GlobalConstants';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
@@ -15,19 +16,6 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 
-const propTypes = {
-    results: PropTypes.array,
-    columns: PropTypes.object,
-    visibleWidth: PropTypes.number,
-    loadNextPage: PropTypes.func,
-    subaward: PropTypes.bool,
-    tableInstance: PropTypes.string,
-    sort: PropTypes.object,
-    updateSort: PropTypes.func,
-    awardIdClick: PropTypes.func,
-    subAwardIdClick: PropTypes.func
-};
-
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
@@ -35,6 +23,19 @@ const tableHeight = 29.5 * rowHeight;
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
+    static propTypes = {
+        results: PropTypes.array,
+        columns: PropTypes.object,
+        visibleWidth: PropTypes.number,
+        loadNextPage: PropTypes.func,
+        subaward: PropTypes.bool,
+        tableInstance: PropTypes.string,
+        sort: PropTypes.object,
+        updateSort: PropTypes.func,
+        awardIdClick: PropTypes.func,
+        subAwardIdClick: PropTypes.func
+    };
+
     constructor(props) {
         super(props);
 
@@ -109,8 +110,8 @@ export default class ResultsTable extends React.Component {
         }
         else if (column.columnName === 'Awarding Agency' && this.props.results[rowIndex].awarding_agency_id) {
             cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].awarding_agency_id;
-            props.column = 'agency';
+            props.id = this.props.results[rowIndex].agency_slug || this.props.results[rowIndex].awarding_agency_id;
+            props.column = GlobalConstants.AGENCY_LINK;
         }
         else if (column.columnName === 'Prime Award ID') {
             const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;
@@ -205,5 +206,3 @@ export default class ResultsTable extends React.Component {
         );
     }
 }
-
-ResultsTable.propTypes = propTypes;
