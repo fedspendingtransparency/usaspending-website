@@ -8,27 +8,23 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isCancel } from 'axios';
 
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import PropTypes from 'prop-types';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import replaceString from 'helpers/replaceString';
 import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'apis/disaster';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { AGENCYV2_RELEASED, AGENCY_LINK } from 'GlobalConstants';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
-
-let tableHeight = 'auto';
 
 const awardSpendingAgencyTableColumns = (type) => {
     if (type === 'loans') {
@@ -131,6 +127,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const [, toptierCodes, slugsLoading, slugsError] = useAgencySlugs();
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -194,7 +191,18 @@ const AwardSpendingAgencyTableContainer = (props) => {
             let link = awardSpendingByAgencyRow.description;
             if (query) link = replaceString(link, query, 'query-matched');
             const id = awardSpendingByAgencyRow._id;
-            if (link && id) {
+            const code = awardSpendingByAgencyRow.code;
+            if (AGENCYV2_RELEASED && !slugsLoading && !slugsError && code && link) {
+                link = (
+                    <Link
+                        className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
+                        to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                        {link}
+                    </Link>
+                );
+            }
+            else if (!AGENCYV2_RELEASED && link && id) {
                 link = (
                     <Link
                         className="agency-profile__link"
@@ -300,7 +308,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defcParams, query]);
+    }, [pageSize, sort, order, defcParams, query, slugsLoading]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();
@@ -320,16 +328,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
         }
     }, []);
 
-    if (loading) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (error) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
     return (
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
@@ -341,20 +339,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            {(loading || error || results.length === 0) &&
-            <TransitionGroup>
-                <CSSTransition
-                    classNames="table-message-fade"
-                    timeout={{ exit: 225, enter: 195 }}
-                    exit>
-                    <div className="results-table-message-container" style={{ height: tableHeight }}>
-                        {error && <ResultsTableErrorMessage />}
-                        {loading && <ResultsTableLoadingMessage />}
-                        {!loading && !error && results.length === 0 && <ResultsTableNoResults />}
-                    </div>
-                </CSSTransition>
-            </TransitionGroup>}
-            {!loading && !error && results.length > 0 &&
             <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
                 <Table
                     expandable
@@ -362,8 +346,10 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     columns={awardSpendingAgencyTableColumns(props.type)}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
-                    divider={props.subHeading} />
-            </div>}
+                    divider={props.subHeading}
+                    error={error}
+                    loading={loading} />
+            </div>
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
