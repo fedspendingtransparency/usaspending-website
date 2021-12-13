@@ -103,6 +103,7 @@ export default function ObligationsByAwardType({
                 return outer[currentCategory].color
             }
         })
+        .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
@@ -121,6 +122,7 @@ export default function ObligationsByAwardType({
             .innerRadius(innerRadius)
         )
         .attr('fill', 'white')
+        .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
@@ -143,14 +145,15 @@ export default function ObligationsByAwardType({
             ((activeType && activeType !== inner[i].label) && !isMobile)
                 ? inner[i].fadedColor : inner[i].color)
         )
-        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
-        .attr('role', 'listitem')
-        .attr('tabindex', 0)
+        .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
-        .on('mouseleave', () => setActiveType(null));
+        .on('mouseleave', () => setActiveType(null))
+        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+        .attr('role', 'listitem')
+        .attr('tabindex', 0);
 
 
 
