@@ -56,7 +56,6 @@
             }
             .page-title__tooltip {
                 @include flex(0 0 auto);
-                z-index: 15; // in front of page's charts
                 > div:first-of-type {
                     width: 100%;
                     .tooltip-spacer {
