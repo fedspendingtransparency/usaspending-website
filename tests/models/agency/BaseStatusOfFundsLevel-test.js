@@ -18,9 +18,9 @@ subcomponent.populate(mockSubcomponent);
 
 describe('BaseStatusOfFundsLevel', () => {
     it('should format the budgetary resources', () => {
-        expect(subcomponent.budgetaryResources).toEqual('$5.00 M');
+        expect(subcomponent.budgetaryResources).toEqual('$5.00M');
     });
     it('should format the obligations', () => {
-        expect(subcomponent.obligations).toEqual('$3.00 M');
+        expect(subcomponent.obligations).toEqual('$3.00M');
     });
 });
