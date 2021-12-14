@@ -70,7 +70,8 @@ export default class CFDAListContainer extends React.Component {
             }
 
             const cfdaSearchParams = {
-                search_text: this.state.cfdaSearchString
+                search_text: this.state.cfdaSearchString,
+                limit: 1000
             };
 
             this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
@@ -86,16 +87,15 @@ export default class CFDAListContainer extends React.Component {
                     search.addIndex(['program_title']);
                     search.addDocuments(data);
                     const results = search.search(this.state.cfdaSearchString);
-                    const improvedResults = slice(results, 0, 10);
 
                     // Filter out any selected CFDA that may be in the result set
                     const selectedCFDA =
                     this.props.selectedCFDA.toArray().map((cfda) => omit(cfda, 'identifier'));
-                    if (improvedResults && improvedResults.length > 0) {
-                        autocompleteData = differenceWith(improvedResults, selectedCFDA, isEqual);
+                    if (results && results.length > 0) {
+                        autocompleteData = differenceWith(results, selectedCFDA, isEqual);
                     }
                     else {
-                        autocompleteData = improvedResults;
+                        autocompleteData = results;
                     }
 
                     this.setState({
