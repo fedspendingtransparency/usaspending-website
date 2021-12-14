@@ -54,38 +54,36 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [windowWidth]);
+    }, [chartHeight, chartWidth, windowWidth]);
 
     const labelRadius = Math.min(chartHeight, chartWidth) / 2;
     const outerRadius = labelRadius * 0.7;
     const outerStrokeWidth = 3;
     const innerRadius = outerRadius - (outerStrokeWidth * 2);
 
-    const mapToFullCategoryName = (categoryType) => {
-        return `All ${categoryType.charAt(0).toUpperCase()}  ${categoryType.slice(1)}`;
-    }
+    const mapToFullCategoryName = (categoryType) => `All ${categoryType.charAt(0).toUpperCase()}  ${categoryType.slice(1)}`;
 
     const getCategoryNameByAwardType = (awardType) => {
         const categoryNames = Object.keys(categoryMapping);
         return categoryMapping[categoryNames[0]].includes(awardType) ? categoryNames[0] : categoryNames[1];
-    }
+    };
 
     const getActiveCategoryType = () => {
-        if(activeType) {
+        if (activeType) {
             const categoryNames = Object.keys(categoryMapping);
             const category = categoryMapping[categoryNames[0]].includes(activeType) ? categoryNames[0] : categoryNames[1];
             return category.replace(/(^All\s)/, '').toLowerCase();
         }
         return '';
-    }
+    };
 
     const getOuterCategoryId = (categoryName) => {
-        for(let i = 0; i < outer.length; i++) {
-            if(outer[i].label.includes(categoryName)) return i;
+        for (let i = 0; i < outer.length; i++) {
+            if (outer[i].label.includes(categoryName)) return i;
         }
 
         return '';
-    }
+    };
 
     // clear & append the svg object to the div
     d3.select('#obl_chart').selectAll('*').remove();
@@ -123,12 +121,10 @@ export default function ObligationsByAwardType({
             const currentCategoryId = getOuterCategoryId(currentCategory);
 
             // Use the faded color when another section is hovered over
-            if(activeType && !isMobile && activeCategory !== currentCategory) {
+            if (activeType && !isMobile && activeCategory !== currentCategory) {
                 return outer[currentCategoryId].fadedColor;
-            } else {
-                return outer[currentCategoryId].color;
             }
-
+            return outer[currentCategoryId].color;
         })
         .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
@@ -159,7 +155,7 @@ export default function ObligationsByAwardType({
             setActiveType(d.data.label);
         })
         .on('mouseleave', () => {
-            setActiveType(null)
+            setActiveType(null);
         })
         .attr('role', 'listitem');
 
@@ -179,7 +175,7 @@ export default function ObligationsByAwardType({
             }
 
             // Use the faded color when another section is hovered over
-            return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color
+            return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color;
         })
         .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
@@ -190,7 +186,6 @@ export default function ObligationsByAwardType({
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem')
         .attr('tabindex', 0);
-
 
 
     // labels
@@ -257,8 +252,7 @@ export default function ObligationsByAwardType({
                     fiscalYear={fiscalYear}
                     activeType={activeType}
                     categoryType={getActiveCategoryType()}
-                    isCategoryHover={categoryHover?.length > 0}
-                />)}
+                    isCategoryHover={categoryHover?.length > 0} />)}
             controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,

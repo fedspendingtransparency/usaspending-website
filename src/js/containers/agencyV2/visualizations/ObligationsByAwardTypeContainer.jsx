@@ -35,7 +35,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             obligationsByAwardTypeRequest.current.cancel();
         }
         dispatch(resetAwardObligations());
-    }, []);
+    }, [dispatch]);
 
     const getObligationsByAwardType = () => {
         if (obligationsByAwardTypeRequest.current) {
@@ -110,8 +110,8 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         color: 'rgb(169, 173, 209)',
                         fadedColor: 'rgb(169, 173, 209, 25%)',
                         type: 'contracts'
-                    },
-                ]
+                    }
+                ];
 
                 res.data.results.forEach((d) => {
                     switch (d.category) {
@@ -169,7 +169,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         if (toptierCode) {
             getObligationsByAwardType();
         }
-    }, [fiscalYear, toptierCode]);
+    }, [dispatch, fiscalYear, getObligationsByAwardType, toptierCode]);
 
 
     return (<>

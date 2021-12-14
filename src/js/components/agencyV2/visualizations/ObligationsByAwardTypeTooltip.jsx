@@ -35,15 +35,17 @@ const columns = [
 ];
 
 
-const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, categoryType, isCategoryHover }) => {
+const ObligationsByAwardTypeTooltip = ({
+    awardTypes, fiscalYear, activeType, categoryType, isCategoryHover
+}) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
-    const awardTypesByCategory = awardTypes.filter(item => item.type === categoryType);
-    const totalByCategory = awardTypesByCategory.reduce((acc, item) =>  acc + item.value, 0);
+    const awardTypesByCategory = awardTypes.filter((item) => item.type === categoryType);
+    const totalByCategory = awardTypesByCategory.reduce((acc, item) => acc + item.value, 0);
 
     const titles = {
-        'contracts': 'Total Contract Obligations',
-        'financial': 'Total Financial Assistance Obligations'
-    }
+        contracts: 'Total Contract Obligations',
+        financial: 'Total Financial Assistance Obligations'
+    };
 
     const rows = awardTypesByCategory.map((type) => {
         const activeClass = `award-type-tooltip__table-data${!isCategoryHover && type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
@@ -51,7 +53,7 @@ const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, cat
             (
                 <div className={activeClass}>
                     <svg height="12" width="18">
-                        <circle cx="6" cy="6" r="6" fill={type.color}/>
+                        <circle cx="6" cy="6" r="6" fill={type.color} />
                     </svg>
                     {type.label}
                 </div>
