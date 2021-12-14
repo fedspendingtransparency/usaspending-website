@@ -174,7 +174,9 @@ export default function ObligationsByAwardType({
             .innerRadius(innerRadius / 2)
         )
         .attr('fill', (d, i) => {
-            if (categoryHover && categoryHover === mapToFullCategoryName(d.data.type) && !isMobile) return inner[i].color
+            if (categoryHover && categoryHover === mapToFullCategoryName(d.data.type) && !isMobile) {
+                return inner[i].color;
+            }
 
             // Use the faded color when another section is hovered over
             return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color
