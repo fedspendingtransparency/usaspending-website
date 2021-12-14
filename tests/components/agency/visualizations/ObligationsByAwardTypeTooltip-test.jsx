@@ -58,7 +58,7 @@ test('displays the currently selected fiscal year in the tooltip heading', () =>
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Contracts"
-            category="contracts"
+            categoryType="contracts"
         />,
         { initialState: mockStore }
     );
@@ -73,7 +73,7 @@ test('formats the award obligations', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Direct Payments"
-            category="financial"
+            categoryType="financial"
         />,
         { initialState: mockStore }
     );
@@ -87,7 +87,7 @@ test('formats the percent of total', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Loans"
-            category="financial"
+            categoryType="financial"
         />,
         { initialState: mockStore }
     );
@@ -101,7 +101,7 @@ test('adds an active class to the hovered award type', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Contracts"
-            category="contracts"
+            categoryType="contracts"
         />,
         { initialState: mockStore }
     );
@@ -115,7 +115,7 @@ test('displays -- as the percent for negative obligations', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Loans"
-            category="financial"
+            categoryType="financial"
         />,
         { initialState: mockStore }
     );
