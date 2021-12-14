@@ -65,6 +65,28 @@ export default function ObligationsByAwardType({
         return `All ${name.charAt(0).toUpperCase()}  ${name.slice(1)}`;
     }
 
+    const getCategoryNameByAwardType = (awardType) => {
+        const categoryNames = Object.keys(categoryMapping);
+        return categoryMapping[categoryNames[0]].includes(awardType) ? categoryNames[0] : categoryNames[1];
+    }
+
+    const getActiveCategoryType = () => {
+        if(activeType) {
+            const categoryNames = Object.keys(categoryMapping);
+            const category = categoryMapping[categoryNames[0]].includes(activeType) ? categoryNames[0] : categoryNames[1];
+            return category.replace(/(^All\s)/, '').toLowerCase();
+        }
+        return '';
+    }
+
+    const getOuterCategoryId = (categoryName) => {
+        for(let i = 0; i < outer.length; i++) {
+            if(outer[i].label.includes(categoryName)) return i;
+        }
+
+        return '';
+    }
+
     // clear & append the svg object to the div
     d3.select('#obl_chart').selectAll('*').remove();
     const svg = d3.select('#obl_chart')
@@ -96,16 +118,15 @@ export default function ObligationsByAwardType({
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
         .attr('fill', function(d, i) {
-            // 0 is index for 'All Financial' and 1 is index for 'All Contracts' in outer.label array
-            const categories = Object.keys(categoryMapping);
-            const currentCategory = categoryMapping[categories[0]].includes(inner[i].label) ? 1 : 0;
-            const activeCategory = categoryMapping[categories[0]].includes(activeType) ? 1 : 0;
+            const activeCategory = getCategoryNameByAwardType(activeType);
+            const currentCategory = getCategoryNameByAwardType(inner[i].label);
+            const currentCategoryId = getOuterCategoryId(currentCategory);
 
             // Use the faded color when another section is hovered over
             if(activeType && !isMobile && activeCategory !== currentCategory) {
-                return outer[currentCategory].fadedColor
+                return outer[currentCategoryId].fadedColor
             } else {
-                return outer[currentCategory].color
+                return outer[currentCategoryId].color
             }
 
         })
@@ -181,7 +202,7 @@ export default function ObligationsByAwardType({
     };
 
     const outerLabels = outer.map((d) => d.label);
-
+    
     // Financial Assistance legend
     if (outer[0].value > 0) {
         // circle
@@ -224,16 +245,6 @@ export default function ObligationsByAwardType({
             .text((d) => d);
     }
 
-    const getActiveCategory = () => {
-        if(activeType) {
-            // 0 is index for 'All Financial' and 1 is index for 'All Contracts' in outer.label array
-            const categories = Object.keys(categoryMapping);
-            const category = categoryMapping[categories[0]].includes(activeType) ? 'contracts' : 'financial';
-            return category.replace(/(^All\s)/, '').toLowerCase();
-        }
-        return '';
-    }
-
     return (
         <TooltipWrapper
             className="obligations-by-award-type"
@@ -243,7 +254,7 @@ export default function ObligationsByAwardType({
                     awardTypes={inner}
                     fiscalYear={fiscalYear}
                     activeType={activeType}
-                    category={getActiveCategory()}
+                    categoryType={getActiveCategoryType()}
                 />)}
             controlledProps={{
                 isControlled: true,

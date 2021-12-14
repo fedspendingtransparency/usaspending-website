@@ -13,7 +13,7 @@ const propTypes = {
     awardTypes: PropTypes.array,
     fiscalYear: PropTypes.number,
     activeType: PropTypes.string,
-    category: PropTypes.string
+    categoryType: PropTypes.string
 };
 
 const columns = [
@@ -34,9 +34,9 @@ const columns = [
 ];
 
 
-const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, category }) => {
+const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, categoryType }) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
-    const awardTypesByCategory = awardTypes.filter(item => item.type === category);
+    const awardTypesByCategory = awardTypes.filter(item => item.type === categoryType);
     const totalByCategory = awardTypesByCategory.reduce((acc, item) =>  acc + item.value, 0);
 
     const titles = {
@@ -71,7 +71,7 @@ const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType, cat
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">
-                FY {fiscalYear} {titles[category]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
+                FY {fiscalYear} {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
             </div>
             <div className="tooltip__text">
                 <Table
