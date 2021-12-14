@@ -45,6 +45,7 @@ export default function ObligationsByAwardType({
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
     const [activeType, setActiveType] = useState(null);
+    const [hoverOuter, setOuterHover] = useState(null);
     const chartRef = useRef();
 
     useEffect(() => {
@@ -59,6 +60,10 @@ export default function ObligationsByAwardType({
     const outerRadius = labelRadius * 0.7;
     const outerStrokeWidth = 3;
     const innerRadius = outerRadius - (outerStrokeWidth * 2);
+
+    const mapToFullCategoryName = (name) => {
+        return `All ${name.charAt(0).toUpperCase()}  ${name.slice(1)}`;
+    }
 
     // clear & append the svg object to the div
     d3.select('#obl_chart').selectAll('*').remove();
@@ -102,13 +107,18 @@ export default function ObligationsByAwardType({
             } else {
                 return outer[currentCategory].color
             }
+
         })
         .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
+            setOuterHover(mapToFullCategoryName(d.data.type));
         })
-        .on('mouseleave', () => setActiveType(null))
+        .on('mouseleave', () => {
+            setActiveType(null)
+            setOuterHover(null)
+        })
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
 
@@ -127,7 +137,9 @@ export default function ObligationsByAwardType({
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
-        .on('mouseleave', () => setActiveType(null))
+        .on('mouseleave', () => {
+            setActiveType(null)
+        })
         .attr('role', 'listitem');
 
 
@@ -140,11 +152,12 @@ export default function ObligationsByAwardType({
             .outerRadius(innerRadius)
             .innerRadius(innerRadius / 2)
         )
-        .attr('fill', (d, i) => (
+        .attr('fill', (d, i) => {
+            if (hoverOuter && hoverOuter === mapToFullCategoryName(d.data.type) && !isMobile) return inner[i].color
+
             // Use the faded color when another section is hovered over
-            ((activeType && activeType !== inner[i].label) && !isMobile)
-                ? inner[i].fadedColor : inner[i].color)
-        )
+            return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color
+        })
         .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
