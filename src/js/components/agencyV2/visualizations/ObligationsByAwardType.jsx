@@ -45,7 +45,7 @@ export default function ObligationsByAwardType({
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
     const [activeType, setActiveType] = useState(null);
-    const [hoverOuter, setOuterHover] = useState(null);
+    const [categoryHover, setCategoryHover] = useState(null);
     const chartRef = useRef();
 
     useEffect(() => {
@@ -117,16 +117,16 @@ export default function ObligationsByAwardType({
         .attr('d', d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
-        .attr('fill', function(d, i) {
+        .attr('fill', (d, i) => {
             const activeCategory = getCategoryNameByAwardType(activeType);
             const currentCategory = getCategoryNameByAwardType(inner[i].label);
             const currentCategoryId = getOuterCategoryId(currentCategory);
 
             // Use the faded color when another section is hovered over
             if(activeType && !isMobile && activeCategory !== currentCategory) {
-                return outer[currentCategoryId].fadedColor
+                return outer[currentCategoryId].fadedColor;
             } else {
-                return outer[currentCategoryId].color
+                return outer[currentCategoryId].color;
             }
 
         })
@@ -134,11 +134,11 @@ export default function ObligationsByAwardType({
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
-            setOuterHover(mapToFullCategoryName(d.data.type));
+            setCategoryHover(mapToFullCategoryName(d.data.type));
         })
         .on('mouseleave', () => {
-            setActiveType(null)
-            setOuterHover(null)
+            setActiveType(null);
+            setCategoryHover(null);
         })
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
@@ -174,7 +174,7 @@ export default function ObligationsByAwardType({
             .innerRadius(innerRadius / 2)
         )
         .attr('fill', (d, i) => {
-            if (hoverOuter && hoverOuter === mapToFullCategoryName(d.data.type) && !isMobile) return inner[i].color
+            if (categoryHover && categoryHover === mapToFullCategoryName(d.data.type) && !isMobile) return inner[i].color
 
             // Use the faded color when another section is hovered over
             return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color
@@ -255,6 +255,7 @@ export default function ObligationsByAwardType({
                     fiscalYear={fiscalYear}
                     activeType={activeType}
                     categoryType={getActiveCategoryType()}
+                    isCategoryHover={categoryHover?.length > 0}
                 />)}
             controlledProps={{
                 isControlled: true,
