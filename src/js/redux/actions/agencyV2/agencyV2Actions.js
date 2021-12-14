@@ -50,9 +50,10 @@ export const setSubagencyTotals = (spendingBySubagencyTotals) => ({
     spendingBySubagencyTotals
 });
 
-export const setAgencySlugs = (agencySlugs) => ({
+export const setAgencySlugs = (agencySlugs, topTierCodes) => ({
     type: 'SET_AGENCY_SLUGS',
-    agencySlugs
+    agencySlugs,
+    topTierCodes
 });
 
 export const resetSubagencyTotals = () => ({
