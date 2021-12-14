@@ -245,7 +245,7 @@ export const formatMoneyWithUnitsShortLabel = (value, decimalPlaces = 1) => {
     const formattedCurrency = formatMoneyWithPrecision(formattedValue, precision);
 
     // Don't add an extra space when there's no units string to display
-    const unitLabel = units.unit > 1 ? ` ${startCase(units.unitLabel)}` : '';
+    const unitLabel = units.unit > 1 ? `${startCase(units.unitLabel)}` : '';
 
     return `${formattedCurrency}${unitLabel}`;
 };

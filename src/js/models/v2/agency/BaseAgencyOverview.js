@@ -15,7 +15,6 @@ const BaseAgencyOverview = {
         this.mission = data.mission || '--';
         this.congressionalJustification = data.congressional_justification_url || '';
         this.showAboutData = data.about_agency_data || false;
-        this.subtierCount = data.subtier_agency_count || 0;
         this._defCodes = data.def_codes;
     },
 
