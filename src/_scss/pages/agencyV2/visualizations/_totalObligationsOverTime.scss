@@ -1,6 +1,5 @@
 .total-obligations-over-time-visualization-container {
     width: 100%;
-    z-index: 10; //prevent tooltips from intersecting other visualizations
     overflow: visible;
     .total-obligations-over-time-svg {
         overflow: visible;
