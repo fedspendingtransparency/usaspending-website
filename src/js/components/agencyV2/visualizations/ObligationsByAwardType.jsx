@@ -61,8 +61,8 @@ export default function ObligationsByAwardType({
     const outerStrokeWidth = 3;
     const innerRadius = outerRadius - (outerStrokeWidth * 2);
 
-    const mapToFullCategoryName = (name) => {
-        return `All ${name.charAt(0).toUpperCase()}  ${name.slice(1)}`;
+    const mapToFullCategoryName = (categoryType) => {
+        return `All ${categoryType.charAt(0).toUpperCase()}  ${categoryType.slice(1)}`;
     }
 
     const getCategoryNameByAwardType = (awardType) => {
@@ -202,7 +202,7 @@ export default function ObligationsByAwardType({
     };
 
     const outerLabels = outer.map((d) => d.label);
-    
+
     // Financial Assistance legend
     if (outer[0].value > 0) {
         // circle
