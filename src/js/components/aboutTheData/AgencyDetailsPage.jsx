@@ -36,8 +36,6 @@ const AgencyDetailsPage = () => {
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
 
-    console.log(topTierCodes);
-
     let slug = '';
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
