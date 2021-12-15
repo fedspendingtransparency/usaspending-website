@@ -22,7 +22,7 @@ const propTypes = {
 
 export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth, isMobile }) {
     const [categoriesForGraph, setCategoriesForGraph] = React.useState([]);
-    const [detailsForGraph, setDetailsForGraph] = React.useState({});
+    const [detailsForGraph, setDetailsForGraph] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(false);
     const [noData, setNoData] = React.useState(false);
