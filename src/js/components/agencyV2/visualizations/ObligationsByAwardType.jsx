@@ -54,7 +54,7 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [chartHeight, chartWidth, windowWidth]);
+    }, [windowWidth]);
 
     const labelRadius = Math.min(chartHeight, chartWidth) / 2;
     const outerRadius = labelRadius * 0.7;
